@@ -101,16 +101,76 @@ class HomeScreen extends StatelessWidget {
                                 ),
                             ],
                           ),
-                          const SizedBox(height: 26),
-                          // Stats row - BIG numbers, tiny labels
-                          Row(
-                            children: [
-                              _HeaderStat(label: 'Boy', value: profile.currentHeight.toStringAsFixed(1), unit: 'cm', color: AppColors.primary),
-                              const SizedBox(width: 10),
-                              _HeaderStat(label: 'Hedef', value: potential.toStringAsFixed(1), unit: 'cm', color: AppColors.cyan),
-                              const SizedBox(width: 10),
-                              _HeaderStat(label: 'Kalan', value: remaining.toStringAsFixed(1), unit: 'cm', color: AppColors.lime),
-                            ],
+                          const SizedBox(height: 28),
+                          // Big hero stat
+                          GlassCard(
+                            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 22),
+                            borderRadius: 24,
+                            fillColor: Colors.white.withValues(alpha: 0.08),
+                            child: Row(
+                              children: [
+                                // Current height - HERO
+                                Expanded(
+                                  flex: 3,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'BOY',
+                                        style: TextStyle(
+                                          color: AppColors.primary.withValues(alpha: 0.8),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w700,
+                                          letterSpacing: 1.5,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        alignment: Alignment.centerLeft,
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                                          textBaseline: TextBaseline.alphabetic,
+                                          children: [
+                                            Text(
+                                              profile.currentHeight.toStringAsFixed(1),
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 48,
+                                                fontWeight: FontWeight.w800,
+                                                letterSpacing: -2,
+                                                height: 1,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              'cm',
+                                              style: TextStyle(
+                                                color: Colors.white.withValues(alpha: 0.45),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                // Hedef & Kalan
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    children: [
+                                      _MiniStat(label: 'HEDEF', value: potential.toStringAsFixed(1), unit: 'cm', color: AppColors.cyan),
+                                      const SizedBox(height: 16),
+                                      _MiniStat(label: 'KALAN', value: remaining.toStringAsFixed(1), unit: 'cm', color: AppColors.lime),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -123,39 +183,6 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 110),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    // ── Motivational Quote ──────────────────
-                    GlassCard(
-                      padding: const EdgeInsets.all(18),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 42,
-                            height: 42,
-                            decoration: BoxDecoration(
-                              gradient: AppColors.gradientPrimary,
-                              borderRadius: BorderRadius.circular(13),
-                            ),
-                            child: const Icon(CupertinoIcons.quote_bubble_fill, color: Colors.white, size: 18),
-                          ),
-                          const SizedBox(width: 14),
-                          Expanded(
-                            child: Text(
-                              provider.todayQuote,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FontStyle.italic,
-                                color: Colors.white.withValues(alpha: 0.88),
-                                height: 1.5,
-                                letterSpacing: -0.2,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-
                     // ── Daily Routine Progress ──────────────
                     GlassCard(
                       child: Column(
@@ -470,65 +497,67 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// ── Header Stat Card - BIG number, tiny label ─────────────────────
+// ── Mini Stat (Hedef / Kalan) ─────────────────────────────────────
 
-class _HeaderStat extends StatelessWidget {
+class _MiniStat extends StatelessWidget {
   final String label;
   final String value;
   final String unit;
   final Color color;
 
-  const _HeaderStat({required this.label, required this.value, required this.unit, required this.color});
+  const _MiniStat({required this.label, required this.value, required this.unit, required this.color});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: GlassCard(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
-        borderRadius: 18,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label.toUpperCase(),
-              style: TextStyle(
-                color: color.withValues(alpha: 0.7),
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.8,
-              ),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: color.withValues(alpha: 0.15), width: 0.5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              color: color.withValues(alpha: 0.7),
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 1.2,
             ),
-            const SizedBox(height: 8),
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.centerLeft,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  Text(
-                    value,
-                    style: TextStyle(
-                      color: color,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -0.8,
-                      height: 1,
-                    ),
+          ),
+          const SizedBox(height: 4),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.8,
+                    height: 1,
                   ),
-                  Text(
-                    ' $unit',
-                    style: TextStyle(
-                      color: color.withValues(alpha: 0.5),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
+                ),
+                Text(
+                  ' $unit',
+                  style: TextStyle(
+                    color: color.withValues(alpha: 0.45),
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
