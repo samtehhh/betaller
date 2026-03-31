@@ -18,8 +18,7 @@ class AnalysisScreen extends StatelessWidget {
         final profile = provider.profile;
         if (profile == null) return const SizedBox();
 
-        final potential = Calculations.geneticPotentialHeight(profile);
-        final remaining = Calculations.remainingGrowthCm(profile);
+        final prediction = Calculations.predictFinalHeight(profile, provider.heightRecords);
         final bmi = Calculations.calculateBMI(profile.currentHeight, profile.weight);
         final bmiCat = Calculations.bmiCategory(bmi);
         final bmiCol = Calculations.bmiColor(bmi);
@@ -28,10 +27,16 @@ class AnalysisScreen extends StatelessWidget {
         final sleepNeed = Calculations.dailySleepNeed(profile.age);
         final calorieNeed = Calculations.dailyCalorieNeed(profile);
         final proteinNeed = Calculations.dailyProteinNeed(profile.weight);
+        final velocity = Calculations.growthVelocity(provider.heightRecords);
 
-        final progressToGoal = potential > 0
-            ? (profile.currentHeight / potential).clamp(0.0, 1.0)
-            : 0.0;
+        final glowScore = Calculations.calculateGlowUpScore(
+          profile: profile,
+          records: provider.heightRecords,
+          routineProgress: provider.routineProgress,
+          waterProgress: waterNeed > 0 ? provider.todayWater / waterNeed : 0,
+          sleepHours: provider.todaySleep,
+          streak: provider.streak,
+        );
 
         return Scaffold(
           backgroundColor: AppColors.scaffold,
@@ -50,7 +55,7 @@ class AnalysisScreen extends StatelessWidget {
                   child: SafeArea(
                     bottom: false,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(22, 14, 22, 20),
+                      padding: const EdgeInsets.fromLTRB(22, 8, 22, 20),
                       child: const Text(
                         'Analiz',
                         style: TextStyle(
@@ -69,107 +74,297 @@ class AnalysisScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 110),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    // ── Genetic Potential ──────────────
-                    GlassCard(
+
+                    // ── GlowUp Score Hero Card ────────────
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF2D1B69), Color(0xFF1A1145)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(28),
+                        border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
+                      ),
+                      padding: const EdgeInsets.all(24),
                       child: Column(
                         children: [
-                          SectionHeader(icon: CupertinoIcons.lab_flask, title: 'Genetik Potansiyel'),
+                          Row(
+                            children: [
+                              const Text(
+                                'GlowUp Skor',
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
+                              ),
+                              const Spacer(),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: _gradeColor(glowScore.grade).withValues(alpha: 0.18),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(color: _gradeColor(glowScore.grade).withValues(alpha: 0.4)),
+                                ),
+                                child: Text(
+                                  glowScore.grade,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w900,
+                                    color: _gradeColor(glowScore.grade),
+                                    letterSpacing: 1,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                           const SizedBox(height: 24),
+                          // Big score circle
                           SizedBox(
                             height: 160,
                             width: 160,
                             child: CustomPaint(
-                              painter: _CircularProgressPainter(
-                                progress: progressToGoal,
-                                color: AppColors.primary,
-                                backgroundColor: AppColors.primary.withValues(alpha: 0.12),
+                              painter: _ScoreRingPainter(
+                                progress: glowScore.total / 100,
+                                color: _gradeColor(glowScore.grade),
                               ),
                               child: Center(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
-                                      potential.toStringAsFixed(1),
+                                      '${glowScore.total}',
                                       style: const TextStyle(
-                                        fontSize: 38,
+                                        fontSize: 52,
                                         fontWeight: FontWeight.w800,
-                                        color: AppColors.primary,
-                                        letterSpacing: -1.5,
+                                        color: Colors.white,
+                                        letterSpacing: -2,
+                                        height: 1,
                                       ),
                                     ),
                                     Text(
-                                      'cm',
-                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textSecondary),
+                                      '/ 100',
+                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5)),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 22),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              _AnalysisMini(label: 'Şu an', value: '${profile.currentHeight.toStringAsFixed(1)} cm'),
-                              _AnalysisMini(label: 'Hedef', value: '${potential.toStringAsFixed(1)} cm'),
-                              _AnalysisMini(label: 'Kalan', value: '${remaining.toStringAsFixed(1)} cm'),
-                            ],
-                          ),
-                          const SizedBox(height: 14),
+                          const SizedBox(height: 20),
                           Text(
-                            'Anne: ${profile.motherHeight.toStringAsFixed(0)} cm  ·  Baba: ${profile.fatherHeight.toStringAsFixed(0)} cm',
-                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.textTertiary),
+                            glowScore.summary,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.78), height: 1.4, letterSpacing: -0.1),
+                          ),
+                          const SizedBox(height: 20),
+                          // Score breakdown
+                          Row(
+                            children: [
+                              _ScorePill(label: 'Genetik', value: glowScore.genetic, color: AppColors.primary),
+                              const SizedBox(width: 6),
+                              _ScorePill(label: 'Büyüme', value: glowScore.velocity, color: AppColors.cyan),
+                              const SizedBox(width: 6),
+                              _ScorePill(label: 'Beslenme', value: glowScore.nutrition, color: AppColors.orange),
+                              const SizedBox(width: 6),
+                              _ScorePill(label: 'Uyku', value: glowScore.sleep, color: AppColors.sleep),
+                              const SizedBox(width: 6),
+                              _ScorePill(label: 'Disiplin', value: glowScore.discipline, color: AppColors.lime),
+                            ],
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 14),
 
-                    // ── Growth Status ─────────────────
+                    // ── Boy Tahmini Hero Card ─────────────
                     GlassCard(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SectionHeader(icon: CupertinoIcons.arrow_up_right, title: 'Büyüme Durumu'),
-                          const SizedBox(height: 18),
                           Row(
                             children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '%${growthPct.toStringAsFixed(1)}',
-                                      style: const TextStyle(
-                                        fontSize: 44,
-                                        fontWeight: FontWeight.w800,
-                                        color: AppColors.primary,
-                                        letterSpacing: -1.5,
-                                      ),
-                                    ),
-                                    Text('Büyüme Tamamlanma', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.textSecondary, letterSpacing: -0.1)),
-                                  ],
-                                ),
+                              const Icon(CupertinoIcons.sparkles, color: AppColors.cyan, size: 20),
+                              const SizedBox(width: 8),
+                              const Text(
+                                'Boy Tahminin',
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
                               ),
+                              const Spacer(),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: (growthPct < 95 ? AppColors.success : AppColors.warning).withValues(alpha: 0.14),
-                                  borderRadius: BorderRadius.circular(12),
+                                  color: AppColors.cyan.withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Text(
-                                  growthPct < 95 ? 'Devam ediyor' : 'Yavaşlıyor',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w700,
-                                    color: growthPct < 95 ? AppColors.success : AppColors.warning,
-                                    letterSpacing: -0.2,
-                                  ),
+                                  '%${prediction.confidence} güven',
+                                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: AppColors.cyan, letterSpacing: -0.2),
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 20),
+                          // Final height prediction
+                          Center(
+                            child: Column(
+                              children: [
+                                Text(
+                                  '21 yaşında tahmini boyun',
+                                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.6)),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                                  textBaseline: TextBaseline.alphabetic,
+                                  children: [
+                                    Text(
+                                      prediction.finalHeight.toStringAsFixed(1),
+                                      style: const TextStyle(
+                                        fontSize: 52,
+                                        fontWeight: FontWeight.w800,
+                                        color: AppColors.cyan,
+                                        letterSpacing: -2,
+                                        height: 1,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      'cm',
+                                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: AppColors.cyan.withValues(alpha: 0.6)),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 6),
+                                Text(
+                                  '${prediction.minHeight} - ${prediction.maxHeight} cm aralığında',
+                                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5)),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          // Year-by-year predictions
+                          if (prediction.yearlyPredictions.isNotEmpty) ...[
+                            Text(
+                              'YILLIK TAHMİN',
+                              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.5), letterSpacing: 1.2),
+                            ),
+                            const SizedBox(height: 12),
+                            ...prediction.yearlyPredictions.entries.map((e) {
+                              final progress = profile.currentHeight > 0
+                                  ? ((e.value - profile.currentHeight) / (prediction.finalHeight - profile.currentHeight)).clamp(0.0, 1.0)
+                                  : 0.0;
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 55,
+                                      child: Text(
+                                        '${e.key} yaş',
+                                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.7)),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(3),
+                                        child: LinearProgressIndicator(
+                                          value: progress,
+                                          minHeight: 6,
+                                          backgroundColor: Colors.white.withValues(alpha: 0.06),
+                                          valueColor: AlwaysStoppedAnimation(AppColors.cyan.withValues(alpha: 0.6 + progress * 0.4)),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 65,
+                                      child: Text(
+                                        '${e.value} cm',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.cyan, letterSpacing: -0.3),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }),
+                          ],
+                          const SizedBox(height: 12),
+                          // Method info
+                          Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.04),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(CupertinoIcons.info_circle, color: Colors.white.withValues(alpha: 0.4), size: 16),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    'Genetik (anne-baba), büyüme hızı, BMI ve yaş verileri birleştirilerek hesaplanır.',
+                                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.5), height: 1.4),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    // ── Growth Status + Velocity ──────────
+                    GlassCard(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Büyüme Durumu', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
+                          const SizedBox(height: 18),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _StatBlock(
+                                  label: 'TAMAMLANMA',
+                                  value: '%${growthPct.toStringAsFixed(0)}',
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: _StatBlock(
+                                  label: 'BÜYÜME HIZI',
+                                  value: velocity != null ? '${velocity.toStringAsFixed(1)} cm/yıl' : 'Veri yok',
+                                  color: AppColors.cyan,
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (velocity != null) ...[
+                            const SizedBox(height: 14),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: _velocityColor(velocity, profile.age, profile.gender).withValues(alpha: 0.12),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(CupertinoIcons.arrow_up_right, size: 14, color: _velocityColor(velocity, profile.age, profile.gender)),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    'Büyüme hızın: ${Calculations.growthVelocityRating(velocity, profile.age, profile.gender)}',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700,
+                                      color: _velocityColor(velocity, profile.age, profile.gender),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 14),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(5),
                             child: LinearProgressIndicator(
@@ -179,106 +374,34 @@ class AnalysisScreen extends StatelessWidget {
                               valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Kalan büyüme potansiyeli: %${(100 - growthPct).toStringAsFixed(1)}',
-                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.textTertiary),
-                          ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 14),
 
-                    // ── BMI Card ──────────────────────
-                    GlassCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SectionHeader(icon: CupertinoIcons.heart_fill, title: 'Vücut Kitle İndeksi'),
-                          const SizedBox(height: 18),
-                          Row(
-                            children: [
-                              Container(
-                                width: 76,
-                                height: 76,
-                                decoration: BoxDecoration(
-                                  color: bmiCol.withValues(alpha: 0.14),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    bmi.toStringAsFixed(1),
-                                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: bmiCol, letterSpacing: -0.8),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 18),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                                      decoration: BoxDecoration(
-                                        color: bmiCol.withValues(alpha: 0.14),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Text(bmiCat, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: bmiCol, letterSpacing: -0.2)),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      'Boy: ${profile.currentHeight.toStringAsFixed(1)} cm\nKilo: ${profile.weight.toStringAsFixed(1)} kg',
-                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textSecondary, height: 1.5),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 14),
-                          Text(_bmiAdvice(bmiCat), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textSecondary, height: 1.5)),
-                        ],
-                      ),
+                    // ── Score Detail Cards ────────────────
+                    Row(
+                      children: [
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.heart_fill, title: 'BMI', value: bmi.toStringAsFixed(1), subtitle: bmiCat, color: bmiCol)),
+                        const SizedBox(width: 12),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.flame_fill, title: 'Kalori', value: '$calorieNeed', subtitle: 'kcal/gün', color: AppColors.orange)),
+                      ],
                     ),
-                    const SizedBox(height: 14),
-
-                    // ── Daily Needs ───────────────────
-                    GlassCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SectionHeader(icon: CupertinoIcons.scope, title: 'Günlük İhtiyaçların'),
-                          const SizedBox(height: 18),
-                          _NeedRow(icon: CupertinoIcons.drop_fill, title: 'Su', value: '${waterNeed.toStringAsFixed(1)} L', color: AppColors.water),
-                          const SizedBox(height: 14),
-                          _NeedRow(icon: CupertinoIcons.moon_fill, title: 'Uyku', value: '${sleepNeed.toStringAsFixed(1)} saat', color: AppColors.sleep),
-                          const SizedBox(height: 14),
-                          _NeedRow(icon: CupertinoIcons.flame_fill, title: 'Kalori', value: '$calorieNeed kcal', color: AppColors.error),
-                          const SizedBox(height: 14),
-                          _NeedRow(icon: CupertinoIcons.bolt_fill, title: 'Protein', value: '${proteinNeed.toStringAsFixed(0)} g', color: AppColors.orange),
-                        ],
-                      ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.drop_fill, title: 'Su', value: '${waterNeed.toStringAsFixed(1)}L', subtitle: 'günlük', color: AppColors.water)),
+                        const SizedBox(width: 12),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.bolt_fill, title: 'Protein', value: '${proteinNeed.toStringAsFixed(0)}g', subtitle: 'günlük', color: AppColors.lime)),
+                      ],
                     ),
-                    const SizedBox(height: 14),
-
-                    // ── Science Tips ──────────────────
-                    GlassCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SectionHeader(icon: CupertinoIcons.book_fill, title: 'Bilimsel Bilgiler'),
-                          const SizedBox(height: 18),
-                          _TipItem(icon: CupertinoIcons.bandage, title: 'Büyüme Plakları', description: 'Büyüme plakları (epifiz plakları) kemiklerin uçlarındaki kıkırdak dokudur. Ergenlik sonrası kapanır. Yaşın: ${profile.age}', color: AppColors.primary),
-                          const SizedBox(height: 16),
-                          _TipItem(icon: CupertinoIcons.lab_flask, title: 'Büyüme Hormonu (GH)', description: 'GH hipofiz bezinden salgılanır. Derin uyku sırasında en yüksek seviyededir. Egzersiz de GH salgısını artırır.', color: AppColors.sleep),
-                          const SizedBox(height: 16),
-                          _TipItem(icon: CupertinoIcons.drop, title: 'Kalsiyum & D Vitamini', description: 'Kalsiyum kemik yoğunluğu için, D vitamini ise kalsiyum emilimi için gereklidir. Günde 15 dk güneşlenme önerilir.', color: AppColors.orange),
-                          const SizedBox(height: 16),
-                          _TipItem(icon: CupertinoIcons.sportscourt, title: 'Spor & Egzersiz', description: 'Yüzme, basketbol, voleybol ve germe egzersizleri boy uzamayı destekler. Ağır halter genç yaşta önerilmez.', color: AppColors.cyan),
-                          const SizedBox(height: 16),
-                          _TipItem(icon: CupertinoIcons.lab_flask, title: 'Genetik Faktör', description: 'Boy uzunluğunun %60-80\'i genetik faktörlere bağlıdır. Ancak beslenme, uyku ve egzersiz ile potansiyelin maksimuma çıkarılabilir.', color: AppColors.pink),
-                        ],
-                      ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.moon_fill, title: 'Uyku', value: '${sleepNeed.toStringAsFixed(0)}sa', subtitle: 'minimum', color: AppColors.sleep)),
+                        const SizedBox(width: 12),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.person_fill, title: 'Yaş', value: '${profile.age}', subtitle: profile.gender == 'male' ? 'Erkek' : 'Kadın', color: AppColors.pink)),
+                      ],
                     ),
                   ]),
                 ),
@@ -290,127 +413,171 @@ class AnalysisScreen extends StatelessWidget {
     );
   }
 
-  String _bmiAdvice(String category) {
-    switch (category) {
-      case 'Zayıf':
-        return 'BMI değerin normalin altında. Sağlıklı kilo almak için protein ve karbonhidrat alımını artır.';
-      case 'Normal':
-        return 'BMI değerin normal aralıkta. Harika! Dengeli beslenmeye ve egzersize devam et.';
-      case 'Kilolu':
-        return 'BMI değerin normalin üzerinde. Dengeli beslenme ve düzenli egzersiz ile ideal kilona ulaşabilirsin.';
-      default:
-        return 'BMI değerin yüksek. Bir sağlık uzmanına danışmanı öneriyoruz.';
+  Color _gradeColor(String grade) {
+    switch (grade) {
+      case 'S': return const Color(0xFFFFD700);
+      case 'A': return AppColors.lime;
+      case 'B': return AppColors.cyan;
+      case 'C': return AppColors.orange;
+      case 'D': return AppColors.warning;
+      default: return AppColors.error;
+    }
+  }
+
+  Color _velocityColor(double velocity, int age, String gender) {
+    final rating = Calculations.growthVelocityRating(velocity, age, gender);
+    switch (rating) {
+      case 'Mükemmel': return AppColors.lime;
+      case 'Normal': return AppColors.cyan;
+      case 'Yavaş': return AppColors.warning;
+      default: return AppColors.error;
     }
   }
 }
 
-class _CircularProgressPainter extends CustomPainter {
+// ── Score Ring Painter ────────────────────────────────────────────
+
+class _ScoreRingPainter extends CustomPainter {
   final double progress;
   final Color color;
-  final Color backgroundColor;
 
-  _CircularProgressPainter({required this.progress, required this.color, required this.backgroundColor});
+  _ScoreRingPainter({required this.progress, required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2 - 8;
+    final radius = size.width / 2 - 10;
 
+    // Background ring
     final bgPaint = Paint()
-      ..color = backgroundColor
+      ..color = color.withValues(alpha: 0.1)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 10
       ..strokeCap = StrokeCap.round;
-
-    final fgPaint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 10
-      ..strokeCap = StrokeCap.round;
-
     canvas.drawCircle(center, radius, bgPaint);
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -math.pi / 2, 2 * math.pi * progress, false, fgPaint);
+
+    // Progress ring
+    final fgPaint = Paint()
+      ..shader = SweepGradient(
+        startAngle: -math.pi / 2,
+        endAngle: 3 * math.pi / 2,
+        colors: [color.withValues(alpha: 0.6), color],
+      ).createShader(Rect.fromCircle(center: center, radius: radius))
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 10
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      -math.pi / 2,
+      2 * math.pi * progress,
+      false,
+      fgPaint,
+    );
+
+    // Glow dot at end
+    final angle = -math.pi / 2 + 2 * math.pi * progress;
+    final dotX = center.dx + radius * math.cos(angle);
+    final dotY = center.dy + radius * math.sin(angle);
+    final glowPaint = Paint()
+      ..color = color
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
+    canvas.drawCircle(Offset(dotX, dotY), 5, glowPaint);
+    canvas.drawCircle(Offset(dotX, dotY), 4, Paint()..color = Colors.white);
   }
 
   @override
-  bool shouldRepaint(covariant _CircularProgressPainter oldDelegate) => oldDelegate.progress != progress;
+  bool shouldRepaint(covariant _ScoreRingPainter oldDelegate) =>
+      oldDelegate.progress != progress || oldDelegate.color != color;
 }
 
-class _AnalysisMini extends StatelessWidget {
+// ── Sub-widgets ───────────────────────────────────────────────────
+
+class _ScorePill extends StatelessWidget {
+  final String label;
+  final int value;
+  final Color color;
+
+  const _ScorePill({required this.label, required this.value, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          children: [
+            Text('$value', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.3)),
+            const SizedBox(height: 2),
+            Text(label, style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: color.withValues(alpha: 0.7), letterSpacing: 0.3)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StatBlock extends StatelessWidget {
   final String label;
   final String value;
+  final Color color;
 
-  const _AnalysisMini({required this.label, required this.value});
+  const _StatBlock({required this.label, required this.value, required this.color});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3)),
-        const SizedBox(height: 3),
-        Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.textTertiary, letterSpacing: 0.8)),
-      ],
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withValues(alpha: 0.15), width: 0.5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: color.withValues(alpha: 0.7), letterSpacing: 1.0)),
+          const SizedBox(height: 6),
+          Text(value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.5)),
+        ],
+      ),
     );
   }
 }
 
-class _NeedRow extends StatelessWidget {
+class _ScoreCard extends StatelessWidget {
   final IconData icon;
   final String title;
   final String value;
+  final String subtitle;
   final Color color;
 
-  const _NeedRow({required this.icon, required this.title, required this.value, required this.color});
+  const _ScoreCard({required this.icon, required this.title, required this.value, required this.subtitle, required this.color});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 44,
-          height: 44,
-          decoration: BoxDecoration(color: color.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(14)),
-          child: Icon(icon, color: color, size: 20),
-        ),
-        const SizedBox(width: 14),
-        Expanded(child: Text(title, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.95), letterSpacing: -0.2))),
-        Text(value, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.5)),
-      ],
-    );
-  }
-}
-
-class _TipItem extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String description;
-  final Color color;
-
-  const _TipItem({required this.icon, required this.title, required this.description, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(color: color.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(12)),
-          child: Icon(icon, color: color, size: 18),
-        ),
-        const SizedBox(width: 14),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return GlassCard(
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3)),
-              const SizedBox(height: 4),
-              Text(description, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.textSecondary, height: 1.5, letterSpacing: -0.1)),
+              Icon(icon, color: color, size: 16),
+              const SizedBox(width: 6),
+              Text(title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.7), letterSpacing: -0.1)),
             ],
           ),
-        ),
-      ],
+          const SizedBox(height: 12),
+          Text(value, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: color, letterSpacing: -1)),
+          const SizedBox(height: 2),
+          Text(subtitle, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5))),
+        ],
+      ),
     );
   }
 }
