@@ -499,32 +499,33 @@ class _HeaderStat extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                Flexible(
-                  child: Text(
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Text(
                     value,
                     style: TextStyle(
                       color: color,
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.w800,
-                      letterSpacing: -1,
+                      letterSpacing: -0.8,
                       height: 1,
                     ),
-                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                Text(
-                  ' $unit',
-                  style: TextStyle(
-                    color: color.withValues(alpha: 0.5),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
+                  Text(
+                    ' $unit',
+                    style: TextStyle(
+                      color: color.withValues(alpha: 0.5),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
