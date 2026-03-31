@@ -196,9 +196,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       motherHeight: double.tryParse(_motherHeightController.text) ?? 162,
     );
 
-    final provider = context.read<AppProvider>();
-    provider.setProfile(profile);
-
     // Save past heights
     final pastHeights = <int, double>{};
     for (final entry in _pastHeightControllers.entries) {
@@ -209,10 +206,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
         }
       }
     }
-    provider.savePastHeights(pastHeights);
 
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const MainScreen()));
+    // Navigate FIRST, then save (to prevent Consumer rebuild resetting page)
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const MainScreen()),
+      (route) => false,
+    );
+
+    final provider = context.read<AppProvider>();
+    provider.savePastHeights(pastHeights);
+    provider.setProfile(profile);
   }
 
   @override
