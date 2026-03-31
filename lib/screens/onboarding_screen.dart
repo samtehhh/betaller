@@ -102,7 +102,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   }
 
   void _prevPage() {
-    if (_currentPage > 0 && _currentPage < 6) {
+    if (_currentPage > 1 && _currentPage <= 5) {
       _pageController.previousPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
     }
   }
@@ -230,13 +230,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
         child: SafeArea(
           child: Column(
             children: [
-              // Progress bar
-              if (_currentPage < 6)
+              // Progress bar (only pages 1-5)
+              if (_currentPage >= 1 && _currentPage <= 5)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   child: Row(
                     children: [
-                      if (_currentPage > 0)
+                      if (_currentPage > 1)
                         GestureDetector(
                           onTap: _prevPage,
                           child: Padding(
@@ -246,12 +246,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                         ),
                       Expanded(
                         child: Row(
-                          children: List.generate(6, (i) => Expanded(
+                          children: List.generate(5, (i) => Expanded(
                             child: Container(
                               height: 4,
                               margin: const EdgeInsets.symmetric(horizontal: 2),
                               decoration: BoxDecoration(
-                                color: i <= _currentPage ? AppColors.primary : Colors.white.withValues(alpha: 0.12),
+                                color: i < _currentPage ? AppColors.primary : Colors.white.withValues(alpha: 0.12),
                                 borderRadius: BorderRadius.circular(2),
                               ),
                             ),
@@ -279,8 +279,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                   ],
                 ),
               ),
-              // Bottom button
-              if (_currentPage < 6)
+              // Bottom button (pages 0-5 only)
+              if (_currentPage <= 5)
                 Padding(
                   padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
                   child: SizedBox(
