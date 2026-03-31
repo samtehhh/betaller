@@ -274,7 +274,7 @@ const List<Map<String, dynamic>> defaultRoutines = [
 
 const List<String> motivationalQuotes = [
   "Her gün bir öncekinden daha iyi ol.",
-  "Glow up bir gece olmaz, ama her gece seni oraya yaklaştırır.",
+  "Büyüme bir gece olmaz, ama her gece seni oraya yaklaştırır.",
   "Büyüme sabır ister, devam et!",
   "Bugün attığın adım, yarının temelini kurar.",
   "Disiplin, motivasyonun bittiği yerde başlar.",
@@ -286,7 +286,7 @@ const List<String> motivationalQuotes = [
   "Değişim zor, ama pişmanlık daha zor.",
   "Bedenin bir tapınak, ona iyi bak.",
   "Rakibin dünkü kendin. Bugün onu geç!",
-  "Glow Up = Sabır + Disiplin + İnanç",
+  "BeTaller = Sabır + Disiplin + İnanç",
   "Kendine inan, süreç seni şekillendirecek.",
   "Bugün yapamam deme, yarın pişman olma.",
   "1% bile olsa her gün gelişim göster.",

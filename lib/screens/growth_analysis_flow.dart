@@ -534,7 +534,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
               children: [
                 Row(
                   children: [
-                    const Text('GlowUp Skorun', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
+                    const Text('BeTaller Skorun', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
                     const Spacer(),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),

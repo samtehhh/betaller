@@ -29,13 +29,13 @@ void main() async {
   runApp(
     ChangeNotifierProvider.value(
       value: appProvider,
-      child: const GlowUpApp(),
+      child: const BeTallerApp(),
     ),
   );
 }
 
-class GlowUpApp extends StatelessWidget {
-  const GlowUpApp({super.key});
+class BeTallerApp extends StatelessWidget {
+  const BeTallerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class GlowUpApp extends StatelessWidget {
     final fontFamily = Platform.isIOS ? '.SF Pro Display' : 'Inter';
 
     return MaterialApp(
-      title: 'GlowUp',
+      title: 'BeTaller',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,

@@ -358,7 +358,7 @@ class ProfileScreen extends StatelessWidget {
               child: const Icon(CupertinoIcons.arrow_up_circle_fill, color: Colors.white, size: 18),
             ),
             const SizedBox(width: 10),
-            const Text('GlowUp', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
+            const Text('BeTaller', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
           ],
         ),
         content: Column(
@@ -366,7 +366,7 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Boy Uzatma & Kişisel Gelişim',
+              'Büyüme Potansiyelini Keşfet',
               style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
             ),
             const SizedBox(height: 10),

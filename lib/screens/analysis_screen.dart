@@ -92,7 +92,7 @@ class AnalysisScreen extends StatelessWidget {
                           Row(
                             children: [
                               const Text(
-                                'GlowUp Skor',
+                                'BeTaller Skor',
                                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
                               ),
                               const Spacer(),

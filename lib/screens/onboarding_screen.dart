@@ -205,7 +205,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           const SizedBox(height: 36),
           const Text(
-            'GlowUp',
+            'BeTaller',
             style: TextStyle(
               fontSize: 52,
               fontWeight: FontWeight.w900,
@@ -215,7 +215,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Boy Uzatma & Kişisel Gelişim',
+            'Büyüme Potansiyelini Keşfet',
             style: TextStyle(
               fontSize: 16,
               color: Colors.white.withValues(alpha: 0.78),
