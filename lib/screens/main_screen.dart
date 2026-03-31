@@ -124,7 +124,7 @@ class _NavItem extends StatelessWidget {
               icon,
               color: selected
                   ? AppColors.primary
-                  : Colors.white.withValues(alpha: 0.42),
+                  : Colors.white.withValues(alpha: 0.50),
               size: 24,
             ),
             const SizedBox(height: 4),
@@ -133,7 +133,7 @@ class _NavItem extends StatelessWidget {
               style: TextStyle(
                 color: selected
                     ? AppColors.primary
-                    : Colors.white.withValues(alpha: 0.42),
+                    : Colors.white.withValues(alpha: 0.50),
                 fontSize: 11,
                 fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 letterSpacing: -0.2,

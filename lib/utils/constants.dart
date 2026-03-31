@@ -11,11 +11,11 @@ class AppColors {
   static const scaffold = Color(0xFF0A0A14);
   static const surfaceDark = Color(0xFF12121E);
 
-  // Glass card fills
-  static final cardFill = Colors.white.withValues(alpha: 0.09);
-  static final cardFillHover = Colors.white.withValues(alpha: 0.14);
-  static final cardBorder = Colors.white.withValues(alpha: 0.14);
-  static final cardBorderLight = Colors.white.withValues(alpha: 0.22);
+  // Glass card fills - more visible like U Max
+  static final cardFill = Colors.white.withValues(alpha: 0.11);
+  static final cardFillHover = Colors.white.withValues(alpha: 0.16);
+  static final cardBorder = Colors.white.withValues(alpha: 0.16);
+  static final cardBorderLight = Colors.white.withValues(alpha: 0.24);
 
   // Primary accent - MORE VIBRANT purple like U Max
   static const primary = Color(0xFFA78BFA);
@@ -34,10 +34,10 @@ class AppColors {
   static const error = Color(0xFFFF5C5C);
   static const warning = Color(0xFFFBBF24);
 
-  // Text hierarchy - bright & readable
+  // Text hierarchy - U Max level brightness
   static const textPrimary = Color(0xFFFFFFFF);
-  static final textSecondary = Colors.white.withValues(alpha: 0.72);
-  static final textTertiary = Colors.white.withValues(alpha: 0.50);
+  static final textSecondary = Colors.white.withValues(alpha: 0.82);
+  static final textTertiary = Colors.white.withValues(alpha: 0.62);
 
   // Category palette - more vibrant
   static const exerciseColor = Color(0xFFA78BFA);

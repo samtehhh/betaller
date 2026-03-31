@@ -74,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
                           const SizedBox(height: 4),
                           Text(
                             '${profile.currentHeight.toStringAsFixed(1)} cm · ${profile.weight.toStringAsFixed(1)} kg',
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.58), letterSpacing: -0.2),
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.70), letterSpacing: -0.2),
                           ),
                         ],
                       ),
@@ -447,7 +447,7 @@ class _ProfileRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textSecondary, letterSpacing: -0.1)),
-          Text(value, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.85), letterSpacing: -0.2)),
+          Text(value, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.2)),
         ],
       ),
     );
@@ -476,7 +476,7 @@ class _StatBox extends StatelessWidget {
           children: [
             Icon(icon, color: color, size: 20),
             const SizedBox(height: 8),
-            Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: Colors.white.withValues(alpha: 0.9), letterSpacing: -0.5)),
+            Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.5)),
             const SizedBox(height: 2),
             Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.textTertiary, letterSpacing: 0.5), textAlign: TextAlign.center),
           ],
@@ -532,7 +532,7 @@ class _EditField extends StatelessWidget {
       cursorColor: AppColors.primary,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.4)),
+        labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.55)),
         prefixIcon: Icon(icon, color: AppColors.primaryLight, size: 18),
         filled: true,
         fillColor: Colors.white.withValues(alpha: 0.06),

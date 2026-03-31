@@ -208,7 +208,7 @@ class ProgressScreen extends StatelessWidget {
                                       children: [
                                         Text(
                                           dateStr,
-                                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.85), letterSpacing: -0.3),
+                                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
                                         ),
                                         const SizedBox(height: 2),
                                         Text(

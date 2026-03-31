@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                                     Text(
                                       DateFormat('d MMMM yyyy, EEEE', 'tr').format(DateTime.now()),
                                       style: TextStyle(
-                                        color: Colors.white.withValues(alpha: 0.55),
+                                        color: Colors.white.withValues(alpha: 0.68),
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
                                         letterSpacing: -0.2,
@@ -145,7 +145,7 @@ class HomeScreen extends StatelessWidget {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FontStyle.italic,
-                                color: Colors.white.withValues(alpha: 0.78),
+                                color: Colors.white.withValues(alpha: 0.88),
                                 height: 1.5,
                                 letterSpacing: -0.2,
                               ),
@@ -169,7 +169,7 @@ class HomeScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.white.withValues(alpha: 0.95),
+                                  color: Colors.white,
                                   letterSpacing: -0.5,
                                 ),
                               ),
@@ -263,7 +263,7 @@ class HomeScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
-                                color: Colors.white.withValues(alpha: 0.95),
+                                color: Colors.white,
                                 letterSpacing: -0.5,
                               ),
                             ),
@@ -323,7 +323,7 @@ class HomeScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: Colors.white.withValues(alpha: 0.90),
+                              color: Colors.white,
                               height: 1.55,
                               letterSpacing: -0.1,
                             ),
@@ -573,7 +573,7 @@ class _TrackerCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white.withValues(alpha: 0.85),
+                    color: Colors.white.withValues(alpha: 0.95),
                     letterSpacing: -0.2,
                   ),
                 ),
@@ -598,7 +598,7 @@ class _TrackerCard extends StatelessWidget {
                   ' / ${target.toStringAsFixed(1)} $unit',
                   style: TextStyle(
                     fontSize: 13,
-                    color: Colors.white.withValues(alpha: 0.45),
+                    color: Colors.white.withValues(alpha: 0.58),
                     fontWeight: FontWeight.w500,
                     letterSpacing: -0.2,
                   ),

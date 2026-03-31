@@ -101,7 +101,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.white.withValues(alpha: 0.95),
+                                  color: Colors.white,
                                   letterSpacing: -0.5,
                                 ),
                               ),
@@ -229,7 +229,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                           fontSize: 17,
                                           fontWeight: FontWeight.w700,
                                           color: routine.completed
-                                              ? Colors.white.withValues(alpha: 0.45)
+                                              ? Colors.white.withValues(alpha: 0.55)
                                               : Colors.white,
                                           decoration: routine.completed ? TextDecoration.lineThrough : null,
                                           decorationColor: Colors.white.withValues(alpha: 0.3),
@@ -242,7 +242,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                         style: TextStyle(
                                           fontSize: 13,
                                           fontWeight: FontWeight.w400,
-                                          color: Colors.white.withValues(alpha: 0.55),
+                                          color: Colors.white.withValues(alpha: 0.70),
                                           height: 1.3,
                                           letterSpacing: -0.1,
                                         ),
@@ -333,7 +333,7 @@ class _CategoryChip extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 15, color: selected ? chipColor : Colors.white.withValues(alpha: 0.5)),
+            Icon(icon, size: 15, color: selected ? chipColor : Colors.white.withValues(alpha: 0.62)),
             const SizedBox(width: 7),
             Text(
               label,

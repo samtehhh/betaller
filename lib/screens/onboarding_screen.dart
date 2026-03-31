@@ -137,9 +137,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         onPressed: _prevPage,
                         child: Row(
                           children: [
-                            Icon(CupertinoIcons.chevron_back, color: Colors.white.withValues(alpha: 0.72), size: 16),
+                            Icon(CupertinoIcons.chevron_back, color: Colors.white.withValues(alpha: 0.85), size: 16),
                             const SizedBox(width: 4),
-                            Text('Geri', style: TextStyle(color: Colors.white.withValues(alpha: 0.72), fontSize: 15)),
+                            Text('Geri', style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 15)),
                           ],
                         ),
                       ),
@@ -218,7 +218,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             'Boy Uzatma & Kişisel Gelişim',
             style: TextStyle(
               fontSize: 16,
-              color: Colors.white.withValues(alpha: 0.65),
+              color: Colors.white.withValues(alpha: 0.78),
               fontWeight: FontWeight.w500,
               letterSpacing: 0.3,
             ),
@@ -255,12 +255,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         const SizedBox(height: 8),
         Text(
           'Sana özel bir program oluşturmamız için bilgilerine ihtiyacımız var.',
-          style: TextStyle(color: Colors.white.withValues(alpha: 0.65), fontSize: 15, fontWeight: FontWeight.w400, height: 1.4, letterSpacing: -0.1),
+          style: TextStyle(color: Colors.white.withValues(alpha: 0.78), fontSize: 15, fontWeight: FontWeight.w400, height: 1.4, letterSpacing: -0.1),
         ),
         const SizedBox(height: 36),
         _buildInputField(controller: _nameController, label: 'Adın', icon: CupertinoIcons.person, onChanged: (_) => setState(() {})),
         const SizedBox(height: 20),
-        Text('Cinsiyet', style: TextStyle(color: Colors.white.withValues(alpha: 0.72), fontSize: 13, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+        Text('Cinsiyet', style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 13, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
         const SizedBox(height: 10),
         Row(children: [
           Expanded(child: _GenderCard(label: 'Erkek', icon: CupertinoIcons.person_fill, selected: _gender == 'male', onTap: () => setState(() => _gender = 'male'))),
@@ -268,7 +268,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Expanded(child: _GenderCard(label: 'Kadın', icon: CupertinoIcons.person_fill, selected: _gender == 'female', onTap: () => setState(() => _gender = 'female'))),
         ]),
         const SizedBox(height: 20),
-        Text('Doğum Tarihi', style: TextStyle(color: Colors.white.withValues(alpha: 0.72), fontSize: 13, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+        Text('Doğum Tarihi', style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 13, fontWeight: FontWeight.w600, letterSpacing: 0.5)),
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () async {
@@ -325,7 +325,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         const SizedBox(height: 8),
         Text(
           'Mevcut boyunu ve kilonu gir.',
-          style: TextStyle(color: Colors.white.withValues(alpha: 0.65), fontSize: 15, fontWeight: FontWeight.w400, letterSpacing: -0.1),
+          style: TextStyle(color: Colors.white.withValues(alpha: 0.78), fontSize: 15, fontWeight: FontWeight.w400, letterSpacing: -0.1),
         ),
         const SizedBox(height: 36),
         _buildInputField(controller: _heightController, label: 'Boyun (cm)', icon: CupertinoIcons.resize_v, keyboardType: TextInputType.number, onChanged: (_) => setState(() {})),
@@ -338,7 +338,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             const SizedBox(width: 12),
             Expanded(child: Text(
               'Sabah kalktığında ölç - en doğru sonuç sabah saatlerinde alınır.',
-              style: TextStyle(color: Colors.white.withValues(alpha: 0.65), fontSize: 13, fontWeight: FontWeight.w500, height: 1.4, letterSpacing: -0.1),
+              style: TextStyle(color: Colors.white.withValues(alpha: 0.78), fontSize: 13, fontWeight: FontWeight.w500, height: 1.4, letterSpacing: -0.1),
             )),
           ]),
         ),
@@ -358,7 +358,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         const SizedBox(height: 8),
         Text(
           'Genetik boy potansiyelini hesaplamak için anne ve baba boyunu gir.',
-          style: TextStyle(color: Colors.white.withValues(alpha: 0.65), fontSize: 15, fontWeight: FontWeight.w400, height: 1.4, letterSpacing: -0.1),
+          style: TextStyle(color: Colors.white.withValues(alpha: 0.78), fontSize: 15, fontWeight: FontWeight.w400, height: 1.4, letterSpacing: -0.1),
         ),
         const SizedBox(height: 36),
         _buildInputField(controller: _fatherHeightController, label: 'Baba Boyu (cm)', icon: CupertinoIcons.person, keyboardType: TextInputType.number, onChanged: (_) => setState(() {})),
@@ -371,7 +371,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             const SizedBox(width: 12),
             Expanded(child: Text(
               'Khamis-Roche yöntemi ile genetik potansiyelin hesaplanacak. Bu bilgiler yalnızca cihazında saklanır.',
-              style: TextStyle(color: Colors.white.withValues(alpha: 0.65), fontSize: 13, fontWeight: FontWeight.w500, height: 1.4, letterSpacing: -0.1),
+              style: TextStyle(color: Colors.white.withValues(alpha: 0.78), fontSize: 13, fontWeight: FontWeight.w500, height: 1.4, letterSpacing: -0.1),
             )),
           ]),
         ),
@@ -424,7 +424,7 @@ class _FeatureItem extends StatelessWidget {
       const SizedBox(width: 14),
       Expanded(child: Text(
         text,
-        style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 15, fontWeight: FontWeight.w500, letterSpacing: -0.2),
+        style: TextStyle(color: Colors.white.withValues(alpha: 0.92), fontSize: 15, fontWeight: FontWeight.w500, letterSpacing: -0.2),
       )),
     ]);
   }
@@ -455,7 +455,7 @@ class _GenderCard extends StatelessWidget {
           Icon(icon, color: selected ? AppColors.primaryLight : Colors.white.withValues(alpha: 0.4), size: 28),
           const SizedBox(height: 8),
           Text(label, style: TextStyle(
-            color: selected ? Colors.white : Colors.white.withValues(alpha: 0.65),
+            color: selected ? Colors.white : Colors.white.withValues(alpha: 0.78),
             fontSize: 15,
             fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
           )),
