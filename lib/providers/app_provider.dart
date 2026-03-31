@@ -20,6 +20,8 @@ class AppProvider extends ChangeNotifier {
   double _todayWater = 0;
   double _todaySleep = 0;
   String _todayQuote = '';
+  Map<int, double> _pastHeights = {}; // yaş -> boy (geçmiş boylar)
+  bool _analysisCompleted = false;
 
   UserProfile? get profile => _profile;
   List<HeightRecord> get heightRecords => _heightRecords;
@@ -28,6 +30,8 @@ class AppProvider extends ChangeNotifier {
   int get bestStreak => _bestStreak;
   double get todayWater => _todayWater;
   double get todaySleep => _todaySleep;
+  Map<int, double> get pastHeights => _pastHeights;
+  bool get analysisCompleted => _analysisCompleted;
   String get todayQuote => _todayQuote;
 
   String get _today => DateTime.now().toIso8601String().substring(0, 10);
@@ -102,6 +106,11 @@ class AppProvider extends ChangeNotifier {
       );
       _todayWater = (json['todayWater'] ?? 0).toDouble();
       _todaySleep = (json['todaySleep'] ?? 0).toDouble();
+      _analysisCompleted = json['analysisCompleted'] ?? false;
+      if (json['pastHeights'] != null) {
+        _pastHeights = (json['pastHeights'] as Map<String, dynamic>)
+            .map((k, v) => MapEntry(int.parse(k), (v as num).toDouble()));
+      }
 
       final lastWaterDate = json['lastWaterDate'] ?? '';
       final lastSleepDate = json['lastSleepDate'] ?? '';
@@ -163,6 +172,8 @@ class AppProvider extends ChangeNotifier {
       'todaySleep': _todaySleep,
       'lastWaterDate': _today,
       'lastSleepDate': _today,
+      'analysisCompleted': _analysisCompleted,
+      'pastHeights': _pastHeights.map((k, v) => MapEntry(k.toString(), v)),
     };
     await prefs.setString('glowup_app_data', jsonEncode(data));
   }
@@ -249,6 +260,20 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void savePastHeights(Map<int, double> heights) {
+    _pastHeights = heights;
+    _analysisCompleted = true;
+    _saveData();
+    notifyListeners();
+  }
+
+  void resetAnalysis() {
+    _pastHeights = {};
+    _analysisCompleted = false;
+    _saveData();
+    notifyListeners();
+  }
+
   void resetAllData() async {
     _profile = null;
     _heightRecords = [];
@@ -259,6 +284,8 @@ class AppProvider extends ChangeNotifier {
     _bestStreak = 0;
     _todayWater = 0;
     _todaySleep = 0;
+    _pastHeights = {};
+    _analysisCompleted = false;
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('glowup_app_data');

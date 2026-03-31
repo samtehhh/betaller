@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
+import 'growth_analysis_flow.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -183,6 +184,55 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 110),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
+                    // ── Growth Analysis Entry ───────────────
+                    GestureDetector(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GrowthAnalysisFlow())),
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF2D1B69), Color(0xFF1A1145)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(22),
+                          border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                gradient: AppColors.gradientPrimary,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: const Icon(CupertinoIcons.sparkles, color: Colors.white, size: 24),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    provider.analysisCompleted ? 'Analizini Güncelle' : 'Büyüme Analizi Yap',
+                                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.5),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    'Geçmiş boyların + alışkanlıkların ile tahmin al',
+                                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.65)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Icon(CupertinoIcons.chevron_right, color: AppColors.primaryLight, size: 18),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
                     // ── Daily Routine Progress ──────────────
                     GlassCard(
                       child: Column(
