@@ -333,14 +333,22 @@ const Map<String, Map<String, dynamic>> categoryInfo = {
 };
 
 const List<Map<String, dynamic>> achievementDefinitions = [
+  // Seri
   {'id': 'first_day', 'title': 'İlk Adım', 'description': 'İlk gününü tamamla', 'icon': '🌟', 'type': 'streak', 'value': 1},
+  {'id': 'three_streak', 'title': '3 Gün Seri', 'description': '3 gün üst üste rutinleri tamamla', 'icon': '✊', 'type': 'streak', 'value': 3},
   {'id': 'week_streak', 'title': '7 Gün Seri', 'description': '7 gün üst üste rutinleri tamamla', 'icon': '🔥', 'type': 'streak', 'value': 7},
   {'id': 'two_week_streak', 'title': '14 Gün Seri', 'description': '14 gün üst üste devam et', 'icon': '⚡', 'type': 'streak', 'value': 14},
   {'id': 'month_streak', 'title': '30 Gün Seri', 'description': '30 gün üst üste tamamla', 'icon': '💎', 'type': 'streak', 'value': 30},
+  {'id': 'two_month_streak', 'title': '60 Gün Seri', 'description': '60 gün üst üste tamamla', 'icon': '👑', 'type': 'streak', 'value': 60},
+  {'id': 'hundred_streak', 'title': '100 Gün Seri', 'description': '100 gün üst üste tamamla', 'icon': '🏆', 'type': 'streak', 'value': 100},
+  // Ölçüm
   {'id': 'first_measure', 'title': 'İlk Ölçüm', 'description': 'İlk boy ölçümünü kaydet', 'icon': '📐', 'type': 'measures', 'value': 1},
+  {'id': 'three_measures', 'title': 'Takipçi', 'description': '3 boy ölçümü kaydet', 'icon': '📋', 'type': 'measures', 'value': 3},
   {'id': 'five_measures', 'title': 'Düzenli Takip', 'description': '5 boy ölçümü kaydet', 'icon': '📊', 'type': 'measures', 'value': 5},
   {'id': 'ten_measures', 'title': 'Veri Avcısı', 'description': '10 boy ölçümü kaydet', 'icon': '📈', 'type': 'measures', 'value': 10},
+  // Büyüme
   {'id': 'first_cm', 'title': 'İlk Santim', 'description': 'Toplam 1 cm uzama kaydet', 'icon': '📏', 'type': 'growth', 'value': 1},
   {'id': 'three_cm', 'title': '3 cm Büyüme', 'description': 'Toplam 3 cm uzama kaydet', 'icon': '🌱', 'type': 'growth', 'value': 3},
   {'id': 'five_cm', 'title': '5 cm Büyüme', 'description': 'Toplam 5 cm uzama kaydet', 'icon': '🚀', 'type': 'growth', 'value': 5},
+  {'id': 'ten_cm', 'title': '10 cm Büyüme', 'description': 'Toplam 10 cm uzama kaydet', 'icon': '🗼', 'type': 'growth', 'value': 10},
 ];

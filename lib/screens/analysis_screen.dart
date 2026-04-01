@@ -187,18 +187,6 @@ class AnalysisScreen extends StatelessWidget {
                                 'Boy Tahminin',
                                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
                               ),
-                              const Spacer(),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                decoration: BoxDecoration(
-                                  color: AppColors.cyan.withValues(alpha: 0.15),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Text(
-                                  '%${prediction.confidence} güven',
-                                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: AppColors.cyan, letterSpacing: -0.2),
-                                ),
-                              ),
                             ],
                           ),
                           const SizedBox(height: 20),
@@ -232,11 +220,6 @@ class AnalysisScreen extends StatelessWidget {
                                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: AppColors.cyan.withValues(alpha: 0.6)),
                                     ),
                                   ],
-                                ),
-                                const SizedBox(height: 6),
-                                Text(
-                                  '${prediction.minHeight} - ${prediction.maxHeight} cm aralığında',
-                                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5)),
                                 ),
                               ],
                             ),

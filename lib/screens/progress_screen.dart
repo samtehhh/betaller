@@ -55,29 +55,32 @@ class ProgressScreen extends StatelessWidget {
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                     // ── Stats Row ─────────────────────
-                    Row(
-                      children: [
-                        _StatCard(
-                          icon: CupertinoIcons.chart_bar_alt_fill,
-                          label: 'Toplam',
-                          value: '${provider.totalGrowth > 0 ? '+' : ''}${provider.totalGrowth} cm',
-                          color: provider.totalGrowth > 0 ? AppColors.success : AppColors.textSecondary,
-                        ),
-                        const SizedBox(width: 8),
-                        _StatCard(
-                          icon: CupertinoIcons.arrow_up_right,
-                          label: 'Son',
-                          value: '${provider.lastGrowth > 0 ? '+' : ''}${provider.lastGrowth} cm',
-                          color: provider.lastGrowth > 0 ? AppColors.success : AppColors.textSecondary,
-                        ),
-                        const SizedBox(width: 8),
-                        _StatCard(
-                          icon: CupertinoIcons.doc_text,
-                          label: 'Ölçüm',
-                          value: '${records.length}',
-                          color: AppColors.primaryLight,
-                        ),
-                      ],
+                    GlassCard(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+                      child: Row(
+                        children: [
+                          _StatItem(
+                            label: 'Toplam',
+                            value: '${provider.totalGrowth > 0 ? '+' : ''}${provider.totalGrowth}',
+                            unit: 'cm',
+                            color: provider.totalGrowth > 0 ? AppColors.success : AppColors.textSecondary,
+                          ),
+                          Container(width: 1, height: 36, color: Colors.white.withValues(alpha: 0.08)),
+                          _StatItem(
+                            label: 'Son Fark',
+                            value: '${provider.lastGrowth > 0 ? '+' : ''}${provider.lastGrowth}',
+                            unit: 'cm',
+                            color: provider.lastGrowth > 0 ? AppColors.success : AppColors.textSecondary,
+                          ),
+                          Container(width: 1, height: 36, color: Colors.white.withValues(alpha: 0.08)),
+                          _StatItem(
+                            label: 'Ölçüm',
+                            value: '${records.length}',
+                            unit: '',
+                            color: AppColors.primaryLight,
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 14),
 
@@ -256,17 +259,21 @@ class ProgressScreen extends StatelessWidget {
       return FlSpot(e.key.toDouble(), e.value.height);
     }).toList();
 
-    final minY = records.map((r) => r.height).reduce((a, b) => a < b ? a : b) - 1;
-    final maxY = records.map((r) => r.height).reduce((a, b) => a > b ? a : b) + 1;
+    final heights = records.map((r) => r.height).toList();
+    final minH = heights.reduce((a, b) => a < b ? a : b);
+    final maxH = heights.reduce((a, b) => a > b ? a : b);
+    final range = maxH - minH;
+    final minY = minH - (range < 2 ? 2 : range * 0.3);
+    final maxY = maxH + (range < 2 ? 2 : range * 0.3);
 
     return LineChart(
       LineChartData(
         gridData: FlGridData(
           show: true,
           drawVerticalLine: false,
-          horizontalInterval: 1,
+          horizontalInterval: range < 3 ? 0.5 : 1,
           getDrawingHorizontalLine: (value) => FlLine(
-            color: Colors.white.withValues(alpha: 0.05),
+            color: Colors.white.withValues(alpha: 0.04),
             strokeWidth: 1,
           ),
         ),
@@ -274,26 +281,35 @@ class ProgressScreen extends StatelessWidget {
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 45,
-              getTitlesWidget: (value, meta) => Text(
-                value.toStringAsFixed(0),
-                style: TextStyle(fontSize: 11, color: AppColors.textTertiary),
-              ),
+              reservedSize: 42,
+              interval: range < 3 ? 1 : null,
+              getTitlesWidget: (value, meta) {
+                if (value == meta.min || value == meta.max) return const SizedBox();
+                return Text(
+                  value.toStringAsFixed(1),
+                  style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.3), fontWeight: FontWeight.w500),
+                );
+              },
             ),
           ),
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
+              reservedSize: 32,
               getTitlesWidget: (value, meta) {
                 final index = value.toInt();
                 if (index < 0 || index >= records.length) return const SizedBox();
+                // Show first, last, and middle labels to avoid clutter
+                if (records.length > 5 && index != 0 && index != records.length - 1 && index != records.length ~/ 2) {
+                  return const SizedBox();
+                }
                 final date = DateTime.tryParse(records[index].date);
                 if (date == null) return const SizedBox();
                 return Padding(
-                  padding: const EdgeInsets.only(top: 8),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Text(
-                    DateFormat('d/M', 'tr').format(date),
-                    style: TextStyle(fontSize: 10, color: AppColors.textTertiary),
+                    DateFormat('d MMM', 'tr').format(date),
+                    style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.4), fontWeight: FontWeight.w500),
                   ),
                 );
               },
@@ -309,15 +325,16 @@ class ProgressScreen extends StatelessWidget {
           LineChartBarData(
             spots: spots,
             isCurved: true,
+            curveSmoothness: 0.3,
             color: AppColors.primary,
             barWidth: 2.5,
             isStrokeCapRound: true,
             dotData: FlDotData(
               show: true,
               getDotPainter: (spot, percent, barData, index) => FlDotCirclePainter(
-                radius: 3.5,
+                radius: 4,
                 color: AppColors.scaffold,
-                strokeWidth: 2,
+                strokeWidth: 2.5,
                 strokeColor: AppColors.primaryLight,
               ),
             ),
@@ -325,7 +342,7 @@ class ProgressScreen extends StatelessWidget {
               show: true,
               gradient: LinearGradient(
                 colors: [
-                  AppColors.primary.withValues(alpha: 0.2),
+                  AppColors.primary.withValues(alpha: 0.18),
                   AppColors.primary.withValues(alpha: 0.0),
                 ],
                 begin: Alignment.topCenter,
@@ -336,11 +353,22 @@ class ProgressScreen extends StatelessWidget {
         ],
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
-            getTooltipColor: (_) => AppColors.surfaceDark,
+            tooltipPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            tooltipMargin: 16,
+            tooltipRoundedRadius: 12,
+            getTooltipColor: (_) => const Color(0xFF2D1B69),
             getTooltipItems: (touchedSpots) => touchedSpots.map((spot) {
+              final index = spot.x.toInt();
+              String dateLabel = '';
+              if (index >= 0 && index < records.length) {
+                final date = DateTime.tryParse(records[index].date);
+                if (date != null) {
+                  dateLabel = '${DateFormat('d MMMM', 'tr').format(date)}\n';
+                }
+              }
               return LineTooltipItem(
-                '${spot.y.toStringAsFixed(1)} cm',
-                const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 13),
+                '$dateLabel${spot.y.toStringAsFixed(1)} cm',
+                const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15, height: 1.4),
               );
             }).toList(),
           ),
@@ -355,88 +383,127 @@ class ProgressScreen extends StatelessWidget {
     if (profile != null) {
       controller.text = profile.currentHeight.toStringAsFixed(1);
     }
+    DateTime selectedDate = DateTime.now();
 
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Container(
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: AppColors.surfaceDark,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-            border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 36, height: 4,
-                decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(2)),
-              ),
-              const SizedBox(height: 24),
-              const Icon(CupertinoIcons.resize_v, color: AppColors.primaryLight, size: 28),
-              const SizedBox(height: 12),
-              const Text(
-                'Yeni Boy Ölçümü',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                'Tarih: ${DateFormat('d MMMM yyyy', 'tr').format(DateTime.now())}',
-                style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
-              ),
-              const SizedBox(height: 24),
-              TextField(
-                controller: controller,
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1),
-                textAlign: TextAlign.center,
-                cursorColor: AppColors.primary,
-                decoration: InputDecoration(
-                  suffixText: 'cm',
-                  suffixStyle: TextStyle(fontSize: 16, color: AppColors.textSecondary),
-                  filled: true,
-                  fillColor: Colors.white.withValues(alpha: 0.06),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      builder: (context) => StatefulBuilder(
+        builder: (context, setSheetState) => Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: AppColors.surfaceDark,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+              border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 36, height: 4,
+                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(2)),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: CupertinoButton(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(14),
-                  onPressed: () {
-                    final height = double.tryParse(controller.text.replaceAll(',', '.'));
-                    if (height != null && height > 50 && height < 250) {
-                      final today = DateTime.now().toIso8601String().substring(0, 10);
-                      provider.addHeightRecord(HeightRecord(date: today, height: height));
-                      if (profile != null) {
-                        provider.updateProfile(profile.copyWith(currentHeight: height));
-                      }
-                      Navigator.pop(context);
+                const SizedBox(height: 24),
+                const Icon(CupertinoIcons.resize_v, color: AppColors.primaryLight, size: 28),
+                const SizedBox(height: 12),
+                const Text(
+                  'Yeni Boy Ölçümü',
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1),
+                ),
+                const SizedBox(height: 6),
+                GestureDetector(
+                  onTap: () async {
+                    final picked = await showDatePicker(
+                      context: context,
+                      initialDate: selectedDate,
+                      firstDate: DateTime(2020),
+                      lastDate: DateTime.now(),
+                      locale: const Locale('tr', 'TR'),
+                      builder: (context, child) => Theme(
+                        data: ThemeData.dark().copyWith(
+                          colorScheme: const ColorScheme.dark(primary: AppColors.primary, surface: AppColors.surfaceDark),
+                        ),
+                        child: child!,
+                      ),
+                    );
+                    if (picked != null) {
+                      setSheetState(() => selectedDate = picked);
                     }
                   },
-                  child: const Text('Kaydet', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white, letterSpacing: -0.3)),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(CupertinoIcons.calendar, color: AppColors.primary, size: 16),
+                        const SizedBox(width: 8),
+                        Text(
+                          DateFormat('d MMMM yyyy', 'tr').format(selectedDate),
+                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.primary),
+                        ),
+                        const SizedBox(width: 4),
+                        Icon(CupertinoIcons.chevron_down, color: AppColors.primary.withValues(alpha: 0.6), size: 14),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-            ],
+                const SizedBox(height: 24),
+                TextField(
+                  controller: controller,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1),
+                  textAlign: TextAlign.center,
+                  cursorColor: AppColors.primary,
+                  decoration: InputDecoration(
+                    suffixText: 'cm',
+                    suffixStyle: TextStyle(fontSize: 16, color: AppColors.textSecondary),
+                    filled: true,
+                    fillColor: Colors.white.withValues(alpha: 0.06),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: CupertinoButton(
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.circular(14),
+                    onPressed: () {
+                      final height = double.tryParse(controller.text.replaceAll(',', '.'));
+                      if (height != null && height > 50 && height < 250) {
+                        final dateStr = selectedDate.toIso8601String().substring(0, 10);
+                        provider.addHeightRecord(HeightRecord(date: dateStr, height: height));
+                        if (profile != null) {
+                          provider.updateProfile(profile.copyWith(currentHeight: height));
+                        }
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: const Text('Kaydet', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white, letterSpacing: -0.3)),
+                  ),
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
           ),
         ),
       ),
@@ -446,32 +513,38 @@ class ProgressScreen extends StatelessWidget {
 
 // ── Stat Card ─────────────────────────────────────────────────────
 
-class _StatCard extends StatelessWidget {
-  final IconData icon;
+class _StatItem extends StatelessWidget {
   final String label;
   final String value;
+  final String unit;
   final Color color;
 
-  const _StatCard({required this.icon, required this.label, required this.value, required this.color});
+  const _StatItem({required this.label, required this.value, required this.unit, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GlassCard(
-        padding: const EdgeInsets.all(20),
-        borderRadius: 16,
-        child: Column(
-          children: [
-            Icon(icon, color: color, size: 18),
-            const SizedBox(height: 8),
-            Text(
-              value,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.5),
-            ),
-            const SizedBox(height: 2),
-            Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.textTertiary, letterSpacing: 0.8)),
-          ],
-        ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              Text(
+                value,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.8),
+              ),
+              if (unit.isNotEmpty)
+                Text(
+                  ' $unit',
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: color.withValues(alpha: 0.6)),
+                ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.4), letterSpacing: -0.1)),
+        ],
       ),
     );
   }

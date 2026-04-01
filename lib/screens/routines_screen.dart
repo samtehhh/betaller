@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/app_provider.dart';
+import '../models/routine.dart';
 import '../utils/constants.dart';
+import '../utils/calculations.dart';
 
 class RoutinesScreen extends StatefulWidget {
   const RoutinesScreen({super.key});
@@ -188,13 +190,16 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                       final catColor = catInfo?['color'] as Color? ?? AppColors.primary;
                       final catTitle = catInfo?['title'] as String? ?? routine.category;
 
+                      // Personalized description based on analysis
+                      final desc = _personalizedDescription(routine, provider);
+
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: GestureDetector(
                           onTap: () => provider.toggleRoutine(routine.id),
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 300),
-                            padding: const EdgeInsets.all(18),
+                            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
                             decoration: BoxDecoration(
                               color: routine.completed
                                   ? AppColors.success.withValues(alpha: 0.08)
@@ -210,13 +215,15 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                             child: Row(
                               children: [
                                 Container(
-                                  width: 52,
-                                  height: 52,
+                                  width: 48,
+                                  height: 48,
                                   decoration: BoxDecoration(
-                                    color: catColor.withValues(alpha: 0.14),
-                                    borderRadius: BorderRadius.circular(16),
+                                    color: routine.completed
+                                        ? AppColors.success.withValues(alpha: 0.12)
+                                        : catColor.withValues(alpha: 0.14),
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
-                                  child: Center(child: Text(routine.icon, style: const TextStyle(fontSize: 26))),
+                                  child: Center(child: Text(routine.icon, style: const TextStyle(fontSize: 24))),
                                 ),
                                 const SizedBox(width: 14),
                                 Expanded(
@@ -226,63 +233,64 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                       Text(
                                         routine.title,
                                         style: TextStyle(
-                                          fontSize: 17,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w700,
                                           color: routine.completed
                                               ? Colors.white.withValues(alpha: 0.55)
                                               : Colors.white,
                                           decoration: routine.completed ? TextDecoration.lineThrough : null,
                                           decorationColor: Colors.white.withValues(alpha: 0.3),
-                                          letterSpacing: -0.4,
+                                          letterSpacing: -0.3,
                                         ),
                                       ),
-                                      const SizedBox(height: 4),
+                                      const SizedBox(height: 3),
                                       Text(
-                                        routine.description,
+                                        desc,
                                         style: TextStyle(
-                                          fontSize: 13,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w400,
-                                          color: Colors.white.withValues(alpha: 0.70),
-                                          height: 1.3,
+                                          color: Colors.white.withValues(alpha: 0.55),
+                                          height: 1.35,
                                           letterSpacing: -0.1,
                                         ),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 8),
                                       Row(
                                         children: [
                                           Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                                             decoration: BoxDecoration(
                                               color: catColor.withValues(alpha: 0.14),
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius: BorderRadius.circular(6),
                                             ),
-                                            child: Text(catTitle, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: catColor, letterSpacing: -0.1)),
+                                            child: Text(catTitle, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: catColor, letterSpacing: 0.2)),
                                           ),
-                                          const SizedBox(width: 10),
-                                          Icon(CupertinoIcons.clock, size: 12, color: AppColors.textTertiary),
+                                          const SizedBox(width: 8),
+                                          Icon(CupertinoIcons.clock, size: 11, color: Colors.white.withValues(alpha: 0.35)),
                                           const SizedBox(width: 3),
-                                          Text(routine.duration, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.textTertiary, letterSpacing: -0.1)),
+                                          Text(routine.duration, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.35), letterSpacing: -0.1)),
                                         ],
                                       ),
                                     ],
                                   ),
                                 ),
+                                const SizedBox(width: 12),
                                 AnimatedContainer(
                                   duration: const Duration(milliseconds: 300),
-                                  width: 30,
-                                  height: 30,
+                                  width: 28,
+                                  height: 28,
                                   decoration: BoxDecoration(
                                     color: routine.completed ? AppColors.success : Colors.transparent,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: routine.completed ? AppColors.success : Colors.white.withValues(alpha: 0.25),
+                                      color: routine.completed ? AppColors.success : Colors.white.withValues(alpha: 0.2),
                                       width: 2,
                                     ),
                                   ),
                                   child: routine.completed
-                                      ? const Icon(CupertinoIcons.checkmark, color: Colors.white, size: 16)
+                                      ? const Icon(CupertinoIcons.checkmark, color: Colors.white, size: 14)
                                       : null,
                                 ),
                               ],
@@ -302,6 +310,28 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
         );
       },
     );
+  }
+
+  String _personalizedDescription(Routine routine, AppProvider provider) {
+    final profile = provider.profile;
+    if (profile == null) return routine.description;
+
+    switch (routine.id) {
+      case 'protein':
+        final protein = Calculations.dailyProteinNeed(profile.weight).toStringAsFixed(0);
+        return 'Yumurta, tavuk, balık, süt ürünleri. Günde en az ${protein}g protein al.';
+      case 'water':
+        final water = Calculations.dailyWaterNeed(profile.weight).toStringAsFixed(1);
+        return 'Günde en az ${water}L su iç. Metabolizma ve büyüme için şart.';
+      case 'quality_sleep':
+        final sleep = Calculations.dailySleepNeed(profile.age).toStringAsFixed(0);
+        return 'Büyüme hormonu uyku sırasında salgılanır. En az $sleep saat uyu. 22:00-06:00 arası altın saatler.';
+      case 'calcium_vitamin_d':
+        final calorie = Calculations.dailyCalorieNeed(profile);
+        return 'Süt, peynir, yoğurt tüket. 15 dk güneşlen. Günlük kalori hedefin: $calorie kcal.';
+      default:
+        return routine.description;
+    }
   }
 }
 

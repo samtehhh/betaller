@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/user_profile.dart';
 import '../providers/app_provider.dart';
+import '../services/notification_service.dart';
 import '../utils/constants.dart';
-import '../utils/calculations.dart';
 import 'onboarding_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool _notificationsEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadNotifPref();
+  }
+
+  Future<void> _loadNotifPref() async {
+    final enabled = await NotificationService().isEnabled();
+    if (mounted) setState(() => _notificationsEnabled = enabled);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +38,6 @@ class ProfileScreen extends StatelessWidget {
         final profile = provider.profile;
         if (profile == null) return const SizedBox();
 
-        final bmi = Calculations.calculateBMI(profile.currentHeight, profile.weight);
-        final bmiCat = Calculations.bmiCategory(bmi);
         final achievements = provider.unlockedAchievements;
 
         return Scaffold(
@@ -87,26 +105,6 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    // ── Profile Info ──────────────────
-                    GlassCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SectionHeader(icon: CupertinoIcons.person_circle, title: 'Profil Bilgileri'),
-                          const SizedBox(height: 16),
-                          _ProfileRow(label: 'İsim', value: profile.name),
-                          _ProfileRow(label: 'Yaş', value: '${profile.age} yaşında'),
-                          _ProfileRow(label: 'Cinsiyet', value: profile.gender == 'male' ? 'Erkek' : 'Kadın'),
-                          _ProfileRow(label: 'Boy', value: '${profile.currentHeight.toStringAsFixed(1)} cm'),
-                          _ProfileRow(label: 'Kilo', value: '${profile.weight.toStringAsFixed(1)} kg'),
-                          _ProfileRow(label: 'BMI', value: '${bmi.toStringAsFixed(1)} ($bmiCat)'),
-                          _ProfileRow(label: 'Anne Boyu', value: '${profile.motherHeight.toStringAsFixed(0)} cm'),
-                          _ProfileRow(label: 'Baba Boyu', value: '${profile.fatherHeight.toStringAsFixed(0)} cm', isLast: true),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-
                     // ── Stats ─────────────────────────
                     GlassCard(
                       child: Column(
@@ -142,7 +140,7 @@ class ProfileScreen extends StatelessWidget {
                               crossAxisCount: 5,
                               crossAxisSpacing: 8,
                               mainAxisSpacing: 8,
-                              childAspectRatio: 0.8,
+                              childAspectRatio: 0.72,
                             ),
                             itemCount: achievements.length,
                             itemBuilder: (context, index) {
@@ -197,26 +195,118 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 14),
 
-                    // ── Actions ───────────────────────
-                    _ActionButton(
-                      icon: CupertinoIcons.pencil,
-                      label: 'Profili Düzenle',
-                      color: AppColors.primary,
-                      onTap: () => _showEditProfileSheet(context, provider, profile),
+                    // ── Ayarlar ──────────────────────
+                    GlassCard(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Column(
+                        children: [
+                          _MenuRow(
+                            icon: CupertinoIcons.pencil,
+                            label: 'Profili Düzenle',
+                            subtitle: 'Boy, kilo, yaş bilgilerini güncelle',
+                            color: AppColors.primary,
+                            onTap: () => _showEditProfileSheet(context, provider, profile),
+                          ),
+                          _menuDivider(),
+                          _MenuToggleRow(
+                            icon: CupertinoIcons.bell_fill,
+                            label: 'Bildirimler',
+                            subtitle: _notificationsEnabled ? 'Hatırlatmalar aktif' : 'Hatırlatmalar kapalı',
+                            color: AppColors.orange,
+                            value: _notificationsEnabled,
+                            onChanged: (val) async {
+                              await NotificationService().setEnabled(val);
+                              setState(() => _notificationsEnabled = val);
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 8),
-                    _ActionButton(
-                      icon: CupertinoIcons.info_circle,
-                      label: 'Hakkında',
-                      color: AppColors.primaryLight,
-                      onTap: () => _showAboutDialog(context),
+                    const SizedBox(height: 14),
+
+                    // ── Premium & Sosyal ─────────────
+                    GlassCard(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Column(
+                        children: [
+                          _MenuRow(
+                            icon: CupertinoIcons.gift_fill,
+                            label: "Premium'a Yükselt",
+                            subtitle: 'Tüm özelliklerin kilidini aç',
+                            color: const Color(0xFFFFD700),
+                            onTap: () {
+                              // TODO: Premium satın alma ekranı
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Premium yakında!'), duration: Duration(seconds: 2)),
+                              );
+                            },
+                          ),
+                          _menuDivider(),
+                          _MenuRow(
+                            icon: CupertinoIcons.star_fill,
+                            label: 'Bizi Değerlendir',
+                            subtitle: 'Uygulamayı sevdin mi? 5 yıldız ver!',
+                            color: AppColors.warning,
+                            onTap: () async {
+                              // TODO: Store URL'sini güncelle
+                              const url = 'https://play.google.com/store/apps/details?id=com.glowup.boyuzatma_app';
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+                              }
+                            },
+                          ),
+                          _menuDivider(),
+                          _MenuRow(
+                            icon: CupertinoIcons.share,
+                            label: 'Uygulamayı Paylaş',
+                            subtitle: 'Arkadaşlarına BeTaller\'ı anlat',
+                            color: AppColors.cyan,
+                            onTap: () {
+                              SharePlus.instance.share(
+                                ShareParams(text: 'BeTaller ile boy uzama potansiyelimi keşfettim! Sen de dene: https://play.google.com/store/apps/details?id=com.glowup.boyuzatma_app'),
+                              );
+                            },
+                          ),
+                          _menuDivider(),
+                          _MenuRow(
+                            icon: CupertinoIcons.mail_solid,
+                            label: 'Geri Bildirim Ver',
+                            subtitle: 'Bize ulaşın',
+                            color: AppColors.sleep,
+                            onTap: () async {
+                              final uri = Uri(scheme: 'mailto', path: 'support@betaller.app', queryParameters: {'subject': 'BeTaller Geri Bildirim'});
+                              if (await canLaunchUrl(uri)) {
+                                await launchUrl(uri);
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 8),
-                    _ActionButton(
-                      icon: CupertinoIcons.trash,
-                      label: 'Tüm Verileri Sıfırla',
-                      color: AppColors.error,
-                      onTap: () => _showResetDialog(context, provider),
+                    const SizedBox(height: 14),
+
+                    // ── Diğer ────────────────────────
+                    GlassCard(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Column(
+                        children: [
+                          _MenuRow(
+                            icon: CupertinoIcons.info_circle,
+                            label: 'Hakkında',
+                            subtitle: 'Versiyon 1.0.0',
+                            color: AppColors.primaryLight,
+                            onTap: () => _showAboutDialog(context),
+                          ),
+                          _menuDivider(),
+                          _MenuRow(
+                            icon: CupertinoIcons.trash,
+                            label: 'Tüm Verileri Sıfırla',
+                            subtitle: 'Tüm veriler silinir',
+                            color: AppColors.error,
+                            onTap: () => _showResetDialog(context, provider),
+                          ),
+                        ],
+                      ),
                     ),
                   ]),
                 ),
@@ -284,59 +374,122 @@ class ProfileScreen extends StatelessWidget {
     final weightCtrl = TextEditingController(text: profile.weight.toStringAsFixed(1));
     final fatherCtrl = TextEditingController(text: profile.fatherHeight.toStringAsFixed(0));
     final motherCtrl = TextEditingController(text: profile.motherHeight.toStringAsFixed(0));
+    String gender = profile.gender;
+    DateTime birthDate = DateTime.tryParse(profile.birthDate) ?? DateTime(2008, 1, 1);
 
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Container(
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: AppColors.surfaceDark,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-            border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(width: 36, height: 4, decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(2))),
-                const SizedBox(height: 24),
-                const Text('Profili Düzenle', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1)),
-                const SizedBox(height: 24),
-                _EditField(controller: nameCtrl, label: 'İsim', icon: CupertinoIcons.person),
-                const SizedBox(height: 12),
-                _EditField(controller: heightCtrl, label: 'Boy (cm)', icon: CupertinoIcons.resize_v, isNumber: true),
-                const SizedBox(height: 12),
-                _EditField(controller: weightCtrl, label: 'Kilo (kg)', icon: CupertinoIcons.gauge, isNumber: true),
-                const SizedBox(height: 12),
-                _EditField(controller: fatherCtrl, label: 'Baba Boyu (cm)', icon: CupertinoIcons.person, isNumber: true),
-                const SizedBox(height: 12),
-                _EditField(controller: motherCtrl, label: 'Anne Boyu (cm)', icon: CupertinoIcons.person, isNumber: true),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: CupertinoButton(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(14),
-                    onPressed: () {
-                      final name = nameCtrl.text.trim();
-                      final height = double.tryParse(heightCtrl.text.replaceAll(',', '.'));
-                      final weight = double.tryParse(weightCtrl.text.replaceAll(',', '.'));
-                      final father = double.tryParse(fatherCtrl.text.replaceAll(',', '.'));
-                      final mother = double.tryParse(motherCtrl.text.replaceAll(',', '.'));
-                      if (name.isNotEmpty && height != null && weight != null && father != null && mother != null) {
-                        provider.updateProfile(profile.copyWith(name: name, currentHeight: height, weight: weight, fatherHeight: father, motherHeight: mother));
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: const Text('Kaydet', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white, letterSpacing: -0.3)),
+      builder: (context) => StatefulBuilder(
+        builder: (context, setSheetState) => Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: AppColors.surfaceDark,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+              border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(width: 36, height: 4, decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(2))),
+                  const SizedBox(height: 24),
+                  const Text('Profili Düzenle', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1)),
+                  const SizedBox(height: 24),
+                  _EditField(controller: nameCtrl, label: 'İsim', icon: CupertinoIcons.person),
+                  const SizedBox(height: 12),
+                  // Gender selector
+                  Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setSheetState(() => gender = 'male'),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            decoration: BoxDecoration(
+                              color: gender == 'male' ? AppColors.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.05),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(color: gender == 'male' ? AppColors.primary : Colors.white.withValues(alpha: 0.1), width: gender == 'male' ? 1.5 : 0.5),
+                            ),
+                            child: Center(child: Text('Erkek', style: TextStyle(color: gender == 'male' ? Colors.white : Colors.white.withValues(alpha: 0.5), fontSize: 15, fontWeight: gender == 'male' ? FontWeight.w700 : FontWeight.w500))),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setSheetState(() => gender = 'female'),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            decoration: BoxDecoration(
+                              color: gender == 'female' ? AppColors.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.05),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(color: gender == 'female' ? AppColors.primary : Colors.white.withValues(alpha: 0.1), width: gender == 'female' ? 1.5 : 0.5),
+                            ),
+                            child: Center(child: Text('Kadın', style: TextStyle(color: gender == 'female' ? Colors.white : Colors.white.withValues(alpha: 0.5), fontSize: 15, fontWeight: gender == 'female' ? FontWeight.w700 : FontWeight.w500))),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 8),
-              ],
+                  const SizedBox(height: 12),
+                  // Birth date
+                  GestureDetector(
+                    onTap: () async {
+                      final picked = await showDatePicker(
+                        context: context, initialDate: birthDate, firstDate: DateTime(1990), lastDate: DateTime.now(),
+                        locale: const Locale('tr', 'TR'),
+                        builder: (context, child) => Theme(data: ThemeData.dark().copyWith(colorScheme: const ColorScheme.dark(primary: AppColors.primary, surface: AppColors.surfaceDark)), child: child!),
+                      );
+                      if (picked != null) setSheetState(() => birthDate = picked);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(14)),
+                      child: Row(children: [
+                        Icon(CupertinoIcons.calendar, color: Colors.white.withValues(alpha: 0.5), size: 18),
+                        const SizedBox(width: 12),
+                        Text('Doğum: ${birthDate.day.toString().padLeft(2, '0')}.${birthDate.month.toString().padLeft(2, '0')}.${birthDate.year}', style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
+                        const Spacer(),
+                        Icon(CupertinoIcons.chevron_down, color: Colors.white.withValues(alpha: 0.3), size: 14),
+                      ]),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  _EditField(controller: heightCtrl, label: 'Boy (cm)', icon: CupertinoIcons.resize_v, isNumber: true),
+                  const SizedBox(height: 12),
+                  _EditField(controller: weightCtrl, label: 'Kilo (kg)', icon: CupertinoIcons.gauge, isNumber: true),
+                  const SizedBox(height: 12),
+                  _EditField(controller: fatherCtrl, label: 'Baba Boyu (cm)', icon: CupertinoIcons.person, isNumber: true),
+                  const SizedBox(height: 12),
+                  _EditField(controller: motherCtrl, label: 'Anne Boyu (cm)', icon: CupertinoIcons.person, isNumber: true),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: CupertinoButton(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(14),
+                      onPressed: () {
+                        final name = nameCtrl.text.trim();
+                        final height = double.tryParse(heightCtrl.text.replaceAll(',', '.'));
+                        final weight = double.tryParse(weightCtrl.text.replaceAll(',', '.'));
+                        final father = double.tryParse(fatherCtrl.text.replaceAll(',', '.'));
+                        final mother = double.tryParse(motherCtrl.text.replaceAll(',', '.'));
+                        if (name.isNotEmpty && height != null && weight != null && father != null && mother != null) {
+                          final bd = birthDate.toIso8601String().substring(0, 10);
+                          provider.updateProfile(profile.copyWith(name: name, gender: gender, birthDate: bd, currentHeight: height, weight: weight, fatherHeight: father, motherHeight: mother));
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: const Text('Kaydet', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white, letterSpacing: -0.3)),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
             ),
           ),
         ),
@@ -429,25 +582,94 @@ class ProfileScreen extends StatelessWidget {
 
 // ── Sub-widgets ───────────────────────────────────────────────────
 
-class _ProfileRow extends StatelessWidget {
-  final String label;
-  final String value;
-  final bool isLast;
+Widget _menuDivider() => Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 18),
+  child: Divider(height: 1, color: Colors.white.withValues(alpha: 0.05)),
+);
 
-  const _ProfileRow({required this.label, required this.value, this.isLast = false});
+class _MenuRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String subtitle;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _MenuRow({required this.icon, required this.label, required this.subtitle, required this.color, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: isLast
-          ? null
-          : BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white.withValues(alpha: 0.05)))),
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+        child: Row(
+          children: [
+            Container(
+              width: 36, height: 36,
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(icon, color: color, size: 18),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(label, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white, letterSpacing: -0.2)),
+                  Text(subtitle, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.4))),
+                ],
+              ),
+            ),
+            Icon(CupertinoIcons.chevron_right, color: Colors.white.withValues(alpha: 0.2), size: 15),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MenuToggleRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String subtitle;
+  final Color color;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  const _MenuToggleRow({required this.icon, required this.label, required this.subtitle, required this.color, required this.value, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textSecondary, letterSpacing: -0.1)),
-          Text(value, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.2)),
+          Container(
+            width: 36, height: 36,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, color: color, size: 18),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white, letterSpacing: -0.2)),
+                Text(subtitle, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.4))),
+              ],
+            ),
+          ),
+          CupertinoSwitch(
+            value: value,
+            activeTrackColor: color,
+            onChanged: onChanged,
+          ),
         ],
       ),
     );
@@ -486,34 +708,6 @@ class _StatBox extends StatelessWidget {
   }
 }
 
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color color;
-  final VoidCallback onTap;
-
-  const _ActionButton({required this.icon, required this.label, required this.color, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: GlassCard(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-        child: Row(
-          children: [
-            Icon(icon, color: color, size: 18),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Text(label, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: color, letterSpacing: -0.3)),
-            ),
-            Icon(CupertinoIcons.chevron_right, color: color.withValues(alpha: 0.4), size: 16),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class _EditField extends StatelessWidget {
   final TextEditingController controller;

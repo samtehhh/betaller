@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'providers/app_provider.dart';
-import 'screens/main_screen.dart';
-import 'screens/onboarding_screen.dart';
+import 'screens/splash_screen.dart';
+import 'services/notification_service.dart';
 import 'utils/constants.dart';
 
 void main() async {
@@ -25,6 +25,13 @@ void main() async {
 
   final appProvider = AppProvider();
   await appProvider.loadData();
+
+  // Initialize notifications
+  final notifService = NotificationService();
+  await notifService.init();
+  if (await notifService.isEnabled()) {
+    await notifService.scheduleAllNotifications();
+  }
 
   runApp(
     ChangeNotifierProvider.value(
@@ -76,14 +83,7 @@ class BeTallerApp extends StatelessWidget {
         Locale('tr', 'TR'),
         Locale('en', 'US'),
       ],
-      home: Consumer<AppProvider>(
-        builder: (context, provider, _) {
-          if (provider.profile == null) {
-            return const OnboardingScreen();
-          }
-          return const MainScreen();
-        },
-      ),
+      home: const SplashScreen(),
     );
   }
 }

@@ -44,7 +44,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
 
   // Animation
   late AnimationController _progressAnim;
+  late AnimationController _resultAnim;
   double _analysisProgress = 0;
+  bool _resultReady = false;
   final _analysisSteps = [
     'Genetik veriler analiz ediliyor...',
     'Büyüme hızı hesaplanıyor...',
@@ -58,6 +60,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   void initState() {
     super.initState();
     _progressAnim = AnimationController(vsync: this, duration: const Duration(seconds: 4));
+    _resultAnim = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200));
     // Past height controllers for ages 10-current
     for (int age = 10; age <= 20; age++) {
       _pastHeightControllers[age] = TextEditingController();
@@ -73,6 +76,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
     _fatherHeightController.dispose();
     _motherHeightController.dispose();
     _progressAnim.dispose();
+    _resultAnim.dispose();
     for (final c in _pastHeightControllers.values) {
       c.dispose();
     }
@@ -87,22 +91,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   }
 
   void _nextPage() {
-    if (_currentPage == 5) {
-      // After habits → go to analyzing
-      _pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
-      _runAnalysis();
-    } else if (_currentPage == 6) {
-      // Analyzing → already auto-advances
-    } else if (_currentPage == 7) {
-      // Result → save & go to main
-      _saveAndStart();
-    } else if (_currentPage < _totalPages - 1) {
-      _pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+    final page = _currentPage;
+    debugPrint('>>> _nextPage: page=$page');
+    if (page >= 5) {
+      // Habits done → go to analyzing
+      debugPrint('>>> Going to page 6 (analyzing)');
+      setState(() => _currentPage = 6);
+      _pageController.jumpToPage(6);
+      Future.delayed(const Duration(milliseconds: 300), () {
+        if (mounted) _runAnalysis();
+      });
+    } else {
+      // Normal next — set _currentPage BEFORE animation to prevent layout shift mid-animation
+      debugPrint('>>> Going to page ${page + 1}');
+      setState(() => _currentPage = page + 1);
+      _pageController.animateToPage(page + 1, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
     }
   }
 
   void _prevPage() {
     if (_currentPage > 1 && _currentPage <= 5) {
+      setState(() => _currentPage = _currentPage - 1);
       _pageController.previousPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
     }
   }
@@ -126,17 +135,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       _currentAnalysisStep = 0;
     });
 
-    // Animate through steps
+    // Smooth animated progress
     for (int i = 0; i < _analysisSteps.length; i++) {
-      await Future.delayed(const Duration(milliseconds: 700));
       if (!mounted) return;
-      setState(() {
-        _currentAnalysisStep = i;
-        _analysisProgress = (i + 1) / _analysisSteps.length;
-      });
+      setState(() => _currentAnalysisStep = i);
+
+      // Animate progress smoothly between steps
+      final startProg = i / _analysisSteps.length;
+      final endProg = (i + 1) / _analysisSteps.length;
+      const steps = 20;
+      for (int s = 0; s <= steps; s++) {
+        await Future.delayed(const Duration(milliseconds: 35));
+        if (!mounted) return;
+        setState(() {
+          _analysisProgress = startProg + (endProg - startProg) * (s / steps);
+        });
+      }
+      await Future.delayed(const Duration(milliseconds: 100));
     }
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 400));
     if (!mounted) return;
 
     // Calculate
@@ -180,9 +198,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
 
     setState(() => _analysisComplete = true);
 
-    await Future.delayed(const Duration(milliseconds: 400));
+    await Future.delayed(const Duration(milliseconds: 600));
     if (!mounted) return;
+    setState(() {
+      _currentPage = 7;
+      _resultReady = true;
+    });
     _pageController.nextPage(duration: const Duration(milliseconds: 600), curve: Curves.easeInOut);
+    _resultAnim.forward(from: 0);
   }
 
   void _saveAndStart() {
@@ -233,10 +256,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
         child: SafeArea(
           child: Column(
             children: [
-              // Progress bar (only pages 1-5)
-              if (_currentPage >= 1 && _currentPage <= 5)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              // Progress bar — always reserve space to avoid layout shifts
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                child: Opacity(
+                  opacity: (_currentPage >= 1 && _currentPage <= 5) ? 1.0 : 0.0,
                   child: Row(
                     children: [
                       if (_currentPage > 1)
@@ -264,12 +288,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                     ],
                   ),
                 ),
+              ),
               // Pages
               Expanded(
                 child: PageView(
                   controller: _pageController,
                   physics: const NeverScrollableScrollPhysics(),
-                  onPageChanged: (p) => setState(() => _currentPage = p),
+                  onPageChanged: (p) { debugPrint('>>> onPageChanged: $p'); },
                   children: [
                     _buildWelcomePage(),
                     _buildInfoPage(),
@@ -282,7 +307,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                   ],
                 ),
               ),
-              // Bottom button (pages 0-5 only)
+              // Bottom button — always reserve space to avoid layout shifts
               if (_currentPage <= 5)
                 Padding(
                   padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
@@ -308,7 +333,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                       ),
                     ),
                   ),
-                ),
+                )
+              else
+                const SizedBox(height: 70),
             ],
           ),
         ),
@@ -319,10 +346,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   // ── Page 0: Welcome ──────────────────────────────────────────────
 
   Widget _buildWelcomePage() {
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(32),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: 100, height: 100,
@@ -447,11 +473,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   Widget _buildPastHeightsPage() {
     final age = _userAge;
     final relevantAges = <int>[];
-    for (int a = 10; a < age; a += 2) {
-      if (a >= 10) relevantAges.add(a);
+    for (int a = 13; a < age; a++) {
+      relevantAges.add(a);
     }
-    if (!relevantAges.contains(age - 1) && age - 1 >= 10) relevantAges.add(age - 1);
-    relevantAges.sort();
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 20),
@@ -551,54 +575,92 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   // ── Page 6: Analyzing ────────────────────────────────────────────
 
   Widget _buildAnalyzingPage() {
-    return Padding(
-      padding: const EdgeInsets.all(32),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Animated ring
-          SizedBox(
-            width: 140, height: 140,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox(
-                  width: 140, height: 140,
-                  child: CircularProgressIndicator(
-                    value: _analysisProgress,
-                    strokeWidth: 6,
-                    backgroundColor: AppColors.primary.withValues(alpha: 0.12),
-                    valueColor: const AlwaysStoppedAnimation(AppColors.primary),
-                    strokeCap: StrokeCap.round,
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Animated ring with glow
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeOut,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: (_analysisComplete ? AppColors.lime : AppColors.primary).withValues(alpha: _analysisProgress * 0.3),
+                    blurRadius: 50 + _analysisProgress * 30,
+                    spreadRadius: _analysisProgress * 5,
                   ),
+                ],
+              ),
+              child: SizedBox(
+                width: 150, height: 150,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      width: 150, height: 150,
+                      child: TweenAnimationBuilder<double>(
+                        tween: Tween(begin: 0, end: _analysisProgress),
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
+                        builder: (context, value, _) => CircularProgressIndicator(
+                          value: value,
+                          strokeWidth: 7,
+                          backgroundColor: Colors.white.withValues(alpha: 0.06),
+                          valueColor: AlwaysStoppedAnimation(
+                            _analysisComplete ? AppColors.lime : AppColors.primary,
+                          ),
+                          strokeCap: StrokeCap.round,
+                        ),
+                      ),
+                    ),
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 400),
+                      transitionBuilder: (child, anim) => ScaleTransition(scale: anim, child: child),
+                      child: _analysisComplete
+                          ? const Icon(CupertinoIcons.checkmark_circle_fill, key: ValueKey('done'), color: AppColors.lime, size: 52)
+                          : Text(
+                              '${(_analysisProgress * 100).toInt()}%',
+                              key: const ValueKey('pct'),
+                              style: const TextStyle(fontSize: 38, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1),
+                            ),
+                    ),
+                  ],
                 ),
-                Text(
-                  '${(_analysisProgress * 100).toInt()}%',
-                  style: const TextStyle(fontSize: 36, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1),
+              ),
+            ),
+            const SizedBox(height: 40),
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 400),
+              style: TextStyle(
+                fontSize: 28, fontWeight: FontWeight.w800,
+                color: _analysisComplete ? AppColors.lime : Colors.white,
+                letterSpacing: -0.8,
+              ),
+              child: Text(_analysisComplete ? 'Tamamlandı!' : 'Analiz Ediliyor'),
+            ),
+            const SizedBox(height: 16),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 400),
+              transitionBuilder: (child, anim) => FadeTransition(
+                opacity: anim,
+                child: SlideTransition(
+                  position: Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(anim),
+                  child: child,
                 ),
-              ],
+              ),
+              child: Text(
+                _currentAnalysisStep < _analysisSteps.length ? _analysisSteps[_currentAnalysisStep] : '',
+                key: ValueKey(_currentAnalysisStep),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.6)),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          const SizedBox(height: 40),
-          const Text(
-            'Analiz Ediliyor',
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8),
-          ),
-          const SizedBox(height: 16),
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: Text(
-              _currentAnalysisStep < _analysisSteps.length ? _analysisSteps[_currentAnalysisStep] : 'Tamamlandı!',
-              key: ValueKey(_currentAnalysisStep),
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.65)),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          if (_analysisComplete) ...[
-            const SizedBox(height: 32),
-            const Icon(CupertinoIcons.checkmark_circle_fill, color: AppColors.lime, size: 40),
           ],
-        ],
+        ),
       ),
     );
   }
@@ -611,107 +673,139 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
     final currentHeight = double.tryParse(_heightController.text) ?? 170;
     final growth = _prediction!.finalHeight - currentHeight;
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
-      child: Column(
-        children: [
-          // Hero prediction card
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: [Color(0xFF2D1B69), Color(0xFF1A1145)], begin: Alignment.topLeft, end: Alignment.bottomRight),
-              borderRadius: BorderRadius.circular(28),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
-            ),
-            padding: const EdgeInsets.all(28),
-            child: Column(
-              children: [
-                Text('21 yaşında tahmini boyun', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.6))),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    Text(
-                      _prediction!.finalHeight.toStringAsFixed(1),
-                      style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -3, height: 1),
+    return AnimatedBuilder(
+      animation: _resultAnim,
+      builder: (context, _) {
+        // Staggered intervals for each element
+        final predictionSlide = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.0, 0.45, curve: Curves.easeOutCubic));
+        final predictionFade = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.0, 0.35, curve: Curves.easeOut));
+        final scoreSlide = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.2, 0.6, curve: Curves.easeOutCubic));
+        final scoreFade = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.2, 0.5, curve: Curves.easeOut));
+        final ctaSlide = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.5, 0.85, curve: Curves.easeOutCubic));
+        final ctaFade = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.5, 0.75, curve: Curves.easeOut));
+        // Counter animation for the height number
+        final counterAnim = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.1, 0.55, curve: Curves.easeOutCubic));
+        final displayHeight = currentHeight + ((_prediction!.finalHeight - currentHeight) > 0 ? (_prediction!.finalHeight - currentHeight) * counterAnim.value : 0);
+        // Score bar fill animation
+        final barFill = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.35, 0.8, curve: Curves.easeOutCubic));
+
+        return SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+          child: Column(
+            children: [
+              // Hero prediction card
+              Transform.translate(
+                offset: Offset(0, 40 * (1 - predictionSlide.value)),
+                child: Opacity(
+                  opacity: predictionFade.value,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(colors: [Color(0xFF2D1B69), Color(0xFF1A1145)], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                      borderRadius: BorderRadius.circular(28),
+                      border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+                      boxShadow: [
+                        BoxShadow(color: AppColors.primary.withValues(alpha: 0.15 * predictionFade.value), blurRadius: 30, spreadRadius: 0),
+                      ],
                     ),
-                    const SizedBox(width: 4),
-                    Text('cm', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5))),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(color: AppColors.lime.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(12)),
-                  child: Text(
-                    '+${growth.toStringAsFixed(1)} cm büyüme potansiyeli',
-                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.lime, letterSpacing: -0.2),
+                    padding: const EdgeInsets.all(28),
+                    child: Column(
+                      children: [
+                        Text('21 yaşında tahmini boyun', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.6))),
+                        const SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              displayHeight.toStringAsFixed(1),
+                              style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -3, height: 1),
+                            ),
+                            const SizedBox(width: 4),
+                            Text('cm', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5))),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          decoration: BoxDecoration(color: AppColors.lime.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(12)),
+                          child: Text(
+                            '+${growth.toStringAsFixed(1)} cm büyüme potansiyeli',
+                            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.lime, letterSpacing: -0.2),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  '%${_prediction!.confidence} güven · ${_prediction!.minHeight}-${_prediction!.maxHeight} cm',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5)),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
+              ),
+              const SizedBox(height: 16),
 
-          // Score card
-          GlassCard(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    const Text('BeTaller Skorun', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: _gradeColor(_score!.grade).withValues(alpha: 0.18),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: _gradeColor(_score!.grade).withValues(alpha: 0.4)),
-                      ),
-                      child: Text(_score!.grade, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: _gradeColor(_score!.grade))),
+              // Score card
+              Transform.translate(
+                offset: Offset(0, 50 * (1 - scoreSlide.value)),
+                child: Opacity(
+                  opacity: scoreFade.value,
+                  child: GlassCard(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Text('BeTaller Skorun', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
+                            const Spacer(),
+                            Transform.scale(
+                              scale: 0.5 + scoreFade.value * 0.5,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: _gradeColor(_score!.grade).withValues(alpha: 0.18),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(color: _gradeColor(_score!.grade).withValues(alpha: 0.4)),
+                                ),
+                                child: Text(_score!.grade, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: _gradeColor(_score!.grade))),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        _AnimatedScoreRow(label: 'Genetik', value: _score!.genetic, color: AppColors.primary, fill: barFill.value),
+                        const SizedBox(height: 8),
+                        _AnimatedScoreRow(label: 'Büyüme', value: _score!.velocity, color: AppColors.cyan, fill: barFill.value),
+                        const SizedBox(height: 8),
+                        _AnimatedScoreRow(label: 'Beslenme', value: _score!.nutrition, color: AppColors.orange, fill: barFill.value),
+                        const SizedBox(height: 8),
+                        _AnimatedScoreRow(label: 'Uyku', value: _score!.sleep, color: AppColors.sleep, fill: barFill.value),
+                        const SizedBox(height: 8),
+                        _AnimatedScoreRow(label: 'Disiplin', value: _score!.discipline, color: AppColors.lime, fill: barFill.value),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-                const SizedBox(height: 16),
-                _ScoreRow(label: 'Genetik', value: _score!.genetic, color: AppColors.primary),
-                const SizedBox(height: 8),
-                _ScoreRow(label: 'Büyüme', value: _score!.velocity, color: AppColors.cyan),
-                const SizedBox(height: 8),
-                _ScoreRow(label: 'Beslenme', value: _score!.nutrition, color: AppColors.orange),
-                const SizedBox(height: 8),
-                _ScoreRow(label: 'Uyku', value: _score!.sleep, color: AppColors.sleep),
-                const SizedBox(height: 8),
-                _ScoreRow(label: 'Disiplin', value: _score!.discipline, color: AppColors.lime),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
+              ),
+              const SizedBox(height: 16),
 
-          // CTA
-          SizedBox(
-            width: double.infinity,
-            child: CupertinoButton(
-              color: AppColors.primary,
-              borderRadius: BorderRadius.circular(18),
-              padding: const EdgeInsets.symmetric(vertical: 18),
-              onPressed: _saveAndStart,
-              child: const Text('Hadi Başlayalım', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3)),
-            ),
+              // CTA
+              Transform.translate(
+                offset: Offset(0, 30 * (1 - ctaSlide.value)),
+                child: Opacity(
+                  opacity: ctaFade.value,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: CupertinoButton(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(18),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      onPressed: _saveAndStart,
+                      child: const Text('Hadi Başlayalım', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3)),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            'Burada premium reklam alanı olacak',
-            style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.3)),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -824,11 +918,12 @@ class _SliderInput extends StatelessWidget {
   }
 }
 
-class _ScoreRow extends StatelessWidget {
+class _AnimatedScoreRow extends StatelessWidget {
   final String label;
   final int value;
   final Color color;
-  const _ScoreRow({required this.label, required this.value, required this.color});
+  final double fill;
+  const _AnimatedScoreRow({required this.label, required this.value, required this.color, required this.fill});
   @override
   Widget build(BuildContext context) {
     return Row(children: [
@@ -836,10 +931,15 @@ class _ScoreRow extends StatelessWidget {
       Expanded(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(value: value / 100, minHeight: 10, backgroundColor: Colors.white.withValues(alpha: 0.06), valueColor: AlwaysStoppedAnimation(color)),
+          child: LinearProgressIndicator(
+            value: (value / 100) * fill,
+            minHeight: 10,
+            backgroundColor: Colors.white.withValues(alpha: 0.06),
+            valueColor: AlwaysStoppedAnimation(color),
+          ),
         ),
       ),
-      SizedBox(width: 36, child: Text('$value', textAlign: TextAlign.right, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: color))),
+      SizedBox(width: 36, child: Text('${(value * fill).round()}', textAlign: TextAlign.right, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: color))),
     ]);
   }
 }

@@ -18,8 +18,9 @@ class HomeScreen extends StatelessWidget {
         final profile = provider.profile;
         if (profile == null) return const SizedBox();
 
-        final potential = Calculations.geneticPotentialHeight(profile);
-        final remaining = Calculations.remainingGrowthCm(profile);
+        final prediction = Calculations.predictFinalHeight(profile, provider.heightRecords);
+        final potential = prediction.finalHeight;
+        final remaining = (potential - profile.currentHeight).clamp(0.0, 100.0);
         final waterNeed = Calculations.dailyWaterNeed(profile.weight);
         final sleepNeed = Calculations.dailySleepNeed(profile.age);
 
@@ -105,70 +106,141 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 28),
                           // Big hero stat
                           GlassCard(
-                            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 22),
+                            padding: const EdgeInsets.all(22),
                             borderRadius: 24,
                             fillColor: Colors.white.withValues(alpha: 0.08),
-                            child: Row(
+                            child: Column(
                               children: [
-                                // Current height - HERO
-                                Expanded(
-                                  flex: 3,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'BOY',
-                                        style: TextStyle(
-                                          color: AppColors.primary.withValues(alpha: 0.8),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w700,
-                                          letterSpacing: 1.5,
-                                        ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    // Current height
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Mevcut Boy',
+                                            style: TextStyle(
+                                              color: Colors.white.withValues(alpha: 0.5),
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: -0.2,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            alignment: Alignment.centerLeft,
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                                              textBaseline: TextBaseline.alphabetic,
+                                              children: [
+                                                Text(
+                                                  profile.currentHeight.toStringAsFixed(1),
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 44,
+                                                    fontWeight: FontWeight.w800,
+                                                    letterSpacing: -2,
+                                                    height: 1,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 3),
+                                                Text(
+                                                  'cm',
+                                                  style: TextStyle(
+                                                    color: Colors.white.withValues(alpha: 0.4),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(height: 6),
-                                      FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        alignment: Alignment.centerLeft,
-                                        child: Row(
+                                    ),
+                                    // Target
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          'Hedef',
+                                          style: TextStyle(
+                                            color: AppColors.cyan.withValues(alpha: 0.7),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Row(
                                           crossAxisAlignment: CrossAxisAlignment.baseline,
                                           textBaseline: TextBaseline.alphabetic,
                                           children: [
                                             Text(
-                                              profile.currentHeight.toStringAsFixed(1),
+                                              potential.toStringAsFixed(1),
                                               style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 48,
+                                                color: AppColors.cyan,
+                                                fontSize: 24,
                                                 fontWeight: FontWeight.w800,
-                                                letterSpacing: -2,
-                                                height: 1,
+                                                letterSpacing: -0.8,
                                               ),
                                             ),
-                                            const SizedBox(width: 4),
                                             Text(
-                                              'cm',
+                                              ' cm',
                                               style: TextStyle(
-                                                color: Colors.white.withValues(alpha: 0.45),
-                                                fontSize: 18,
+                                                color: AppColors.cyan.withValues(alpha: 0.5),
+                                                fontSize: 12,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 18),
+                                // Progress bar showing how close to target
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: LinearProgressIndicator(
+                                    value: potential > 0 ? (profile.currentHeight / potential).clamp(0.0, 1.0) : 0,
+                                    minHeight: 8,
+                                    backgroundColor: Colors.white.withValues(alpha: 0.08),
+                                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                                   ),
                                 ),
-                                const SizedBox(width: 16),
-                                // Hedef & Kalan
-                                Expanded(
-                                  flex: 2,
-                                  child: Column(
-                                    children: [
-                                      _MiniStat(label: 'HEDEF', value: potential.toStringAsFixed(1), unit: 'cm', color: AppColors.cyan),
-                                      const SizedBox(height: 16),
-                                      _MiniStat(label: 'KALAN', value: remaining.toStringAsFixed(1), unit: 'cm', color: AppColors.lime),
-                                    ],
-                                  ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '%${(potential > 0 ? (profile.currentHeight / potential * 100) : 0).toStringAsFixed(0)} tamamlandı',
+                                      style: TextStyle(
+                                        color: Colors.white.withValues(alpha: 0.4),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.lime.withValues(alpha: 0.12),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        '+${remaining.toStringAsFixed(1)} cm kaldı',
+                                        style: const TextStyle(
+                                          color: AppColors.lime,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w700,
+                                          letterSpacing: -0.2,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -311,6 +383,7 @@ class HomeScreen extends StatelessWidget {
                             unit: 'L',
                             color: AppColors.water,
                             onTap: () => _showWaterSheet(context, provider),
+                            onQuickAdd: () => provider.addWater(0.3),
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -323,6 +396,7 @@ class HomeScreen extends StatelessWidget {
                             unit: 'sa',
                             color: AppColors.sleep,
                             onTap: () => _showSleepSheet(context, provider, sleepNeed),
+                            onQuickAdd: () => _showSleepSheet(context, provider, sleepNeed),
                           ),
                         ),
                       ],
@@ -547,72 +621,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// ── Mini Stat (Hedef / Kalan) ─────────────────────────────────────
-
-class _MiniStat extends StatelessWidget {
-  final String label;
-  final String value;
-  final String unit;
-  final Color color;
-
-  const _MiniStat({required this.label, required this.value, required this.unit, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: color.withValues(alpha: 0.15), width: 0.5),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: color.withValues(alpha: 0.7),
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 1.2,
-            ),
-          ),
-          const SizedBox(height: 4),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                Text(
-                  value,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -0.8,
-                    height: 1,
-                  ),
-                ),
-                Text(
-                  ' $unit',
-                  style: TextStyle(
-                    color: color.withValues(alpha: 0.45),
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 // ── Tracker Card - BIG current value ──────────────────────────────
 
 class _TrackerCard extends StatelessWidget {
@@ -623,6 +631,7 @@ class _TrackerCard extends StatelessWidget {
   final String unit;
   final Color color;
   final VoidCallback onTap;
+  final VoidCallback? onQuickAdd;
 
   const _TrackerCard({
     required this.title,
@@ -632,11 +641,13 @@ class _TrackerCard extends StatelessWidget {
     required this.unit,
     required this.color,
     required this.onTap,
+    this.onQuickAdd,
   });
 
   @override
   Widget build(BuildContext context) {
     final progress = target > 0 ? (current / target).clamp(0.0, 1.0) : 0.0;
+    final completed = progress >= 1.0;
     return GestureDetector(
       onTap: onTap,
       child: GlassCard(
@@ -656,6 +667,35 @@ class _TrackerCard extends StatelessWidget {
                     letterSpacing: -0.2,
                   ),
                 ),
+                const Spacer(),
+                if (onQuickAdd != null)
+                  GestureDetector(
+                    onTap: completed ? null : onQuickAdd,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        gradient: completed
+                            ? null
+                            : LinearGradient(
+                                colors: [color, color.withValues(alpha: 0.7)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                        color: completed ? AppColors.success.withValues(alpha: 0.2) : null,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: completed
+                            ? null
+                            : [BoxShadow(color: color.withValues(alpha: 0.3), blurRadius: 8, offset: const Offset(0, 2))],
+                      ),
+                      child: Icon(
+                        completed ? CupertinoIcons.checkmark : CupertinoIcons.plus,
+                        color: completed ? AppColors.success : Colors.white,
+                        size: 16,
+                      ),
+                    ),
+                  ),
               ],
             ),
             const SizedBox(height: 16),
@@ -691,7 +731,9 @@ class _TrackerCard extends StatelessWidget {
                 value: progress,
                 minHeight: 6,
                 backgroundColor: color.withValues(alpha: 0.12),
-                valueColor: AlwaysStoppedAnimation<Color>(color),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  completed ? AppColors.success : color,
+                ),
               ),
             ),
           ],
@@ -716,30 +758,32 @@ class _GrowthStat extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w800,
-                  color: color,
-                  letterSpacing: -0.8,
-                ),
-              ),
-              if (unit.isNotEmpty)
+          SizedBox(
+            height: 32,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
                 Text(
-                  ' $unit',
+                  value,
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w800,
+                    color: color,
+                    letterSpacing: -0.8,
+                  ),
+                ),
+                Text(
+                  unit.isNotEmpty ? ' $unit' : '',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                     color: color.withValues(alpha: 0.6),
                   ),
                 ),
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 4),
           Text(
