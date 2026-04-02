@@ -39,37 +39,37 @@ class AppColors {
   static final textSecondary = Colors.white.withValues(alpha: 0.90);
   static final textTertiary = Colors.white.withValues(alpha: 0.75);
 
-  // Category palette - more vibrant
-  static const exerciseColor = Color(0xFFA78BFA);
-  static const nutritionColor = Color(0xFFFF8A4C);
-  static const sleepColor = Color(0xFF818CF8);
-  static const postureColor = Color(0xFFFF5CAD);
+  // Category palette — doygun, parlak
+  static const exerciseColor = Color(0xFFB388FF);
+  static const nutritionColor = Color(0xFFFF9100);
+  static const sleepColor = Color(0xFF8C9EFF);
+  static const postureColor = Color(0xFFFF4DB8);
 
-  // Water & Sleep
-  static const water = Color(0xFF60A5FA);
-  static const sleep = Color(0xFF818CF8);
+  // Water & Sleep — canlı
+  static const water = Color(0xFF40C4FF);
+  static const sleep = Color(0xFF8C9EFF);
 
-  // Gradients
+  // Gradients — canlı, doygun
   static const gradientPrimary = LinearGradient(
-    colors: [Color(0xFFA78BFA), Color(0xFF7C3AED)],
+    colors: [Color(0xFFB388FF), Color(0xFF7C3AED)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const gradientHeader = LinearGradient(
-    colors: [Color(0xFF1A1A3E), Color(0xFF0A0A14)],
+    colors: [Color(0xFF261A4A), Color(0xFF0A0A14)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
 
   static const gradientAccent = LinearGradient(
-    colors: [Color(0xFFFF8A4C), Color(0xFFFF5C5C)],
+    colors: [Color(0xFFFF9100), Color(0xFFFF5252)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const gradientCyan = LinearGradient(
-    colors: [Color(0xFF22D3EE), Color(0xFFA78BFA)],
+    colors: [Color(0xFF00E5FF), Color(0xFFB388FF)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );

@@ -270,7 +270,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                           onTap: _prevPage,
                           child: Padding(
                             padding: const EdgeInsets.only(right: 12),
-                            child: Icon(CupertinoIcons.chevron_back, color: Colors.white.withValues(alpha: 0.6), size: 20),
+                            child: Icon(CupertinoIcons.chevron_back, color: Colors.white.withValues(alpha: 0.75), size: 20),
                           ),
                         ),
                       Expanded(
@@ -329,7 +329,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
-                          color: _canProceed() ? Colors.white : Colors.white.withValues(alpha: 0.4),
+                          color: _canProceed() ? Colors.white : Colors.white.withValues(alpha: 0.72),
                           letterSpacing: -0.3,
                         ),
                       ),
@@ -368,7 +368,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
           const SizedBox(height: 8),
           Text(
             'Büyüme potansiyelini keşfet',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.65), letterSpacing: 0.3),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.80), letterSpacing: 0.3),
           ),
           const SizedBox(height: 40),
           // Analysis steps preview
@@ -399,11 +399,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Seni Tanıyalım', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
         const SizedBox(height: 6),
-        Text('Analiz için temel bilgilerin gerekli.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.65), letterSpacing: -0.1)),
+        Text('Analiz için temel bilgilerin gerekli.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80), letterSpacing: -0.1)),
         const SizedBox(height: 32),
         _buildInput(_nameController, 'Adın', CupertinoIcons.person),
         const SizedBox(height: 18),
-        Text('CİNSİYET', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.5), letterSpacing: 1.0)),
+        Text('CİNSİYET', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.0)),
         const SizedBox(height: 10),
         Row(children: [
           Expanded(child: _GenderCard(label: 'Erkek', selected: _gender == 'male', onTap: () => setState(() => _gender = 'male'))),
@@ -411,7 +411,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
           Expanded(child: _GenderCard(label: 'Kadın', selected: _gender == 'female', onTap: () => setState(() => _gender = 'female'))),
         ]),
         const SizedBox(height: 18),
-        Text('DOĞUM TARİHİ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.5), letterSpacing: 1.0)),
+        Text('DOĞUM TARİHİ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.0)),
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () async {
@@ -424,9 +424,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(14)),
+            decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(14)),
             child: Row(children: [
-              Icon(CupertinoIcons.calendar, color: Colors.white.withValues(alpha: 0.5), size: 18),
+              Icon(CupertinoIcons.calendar, color: Colors.white.withValues(alpha: 0.82), size: 18),
               const SizedBox(width: 12),
               Text('${_birthDate.day.toString().padLeft(2, '0')}.${_birthDate.month.toString().padLeft(2, '0')}.${_birthDate.year}', style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: -0.2)),
             ]),
@@ -444,7 +444,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Vücut Ölçülerin', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
         const SizedBox(height: 6),
-        Text('Mevcut boyun ve kilon analiz için gerekli.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.65))),
+        Text('Mevcut boyun ve kilon analiz için gerekli.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80))),
         const SizedBox(height: 32),
         _buildInput(_heightController, 'Boyun (cm)', CupertinoIcons.resize_v, isNumber: true),
         const SizedBox(height: 18),
@@ -461,7 +461,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Genetik Verilerin', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
         const SizedBox(height: 6),
-        Text('Anne ve baba boyu genetik potansiyelini belirler.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.65))),
+        Text('Anne ve baba boyu genetik potansiyelini belirler.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80))),
         const SizedBox(height: 32),
         _buildInput(_fatherHeightController, 'Baba Boyu (cm)', CupertinoIcons.person, isNumber: true),
         const SizedBox(height: 18),
@@ -484,7 +484,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Geçmiş Boyların', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
         const SizedBox(height: 6),
-        Text('Hatırladığın yaşlardaki boylarını gir. Boş bırakabilirsin.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.65), height: 1.4)),
+        Text('Hatırladığın yaşlardaki boylarını gir. Boş bırakabilirsin.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80), height: 1.4)),
         const SizedBox(height: 28),
         ...relevantAges.map((a) => Padding(
           padding: const EdgeInsets.only(bottom: 12),
@@ -506,9 +506,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                   style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700, letterSpacing: -0.3),
                   cursorColor: AppColors.primary,
                   decoration: InputDecoration(
-                    hintText: 'Boy gir...', hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.3), fontWeight: FontWeight.w400),
-                    suffixText: 'cm', suffixStyle: TextStyle(color: Colors.white.withValues(alpha: 0.5)),
-                    filled: true, fillColor: Colors.white.withValues(alpha: 0.06),
+                    hintText: 'Boy gir...', hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.45), fontWeight: FontWeight.w400),
+                    suffixText: 'cm', suffixStyle: TextStyle(color: Colors.white.withValues(alpha: 0.82)),
+                    filled: true, fillColor: Colors.white.withValues(alpha: 0.12),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   ),
@@ -529,7 +529,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Alışkanlıkların', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
         const SizedBox(height: 6),
-        Text('Yaşam tarzın tahminini doğrudan etkiler.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.65))),
+        Text('Yaşam tarzın tahminini doğrudan etkiler.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80))),
         const SizedBox(height: 28),
         _SliderInput(
           icon: CupertinoIcons.flame_fill, title: 'Haftalık Egzersiz',
@@ -543,7 +543,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
           color: AppColors.sleep, onChanged: (v) => setState(() => _sleepHours = v),
         ),
         const SizedBox(height: 24),
-        Text('BESLENME KALİTESİ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.5), letterSpacing: 1.0)),
+        Text('BESLENME KALİTESİ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.0)),
         const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -557,14 +557,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                 duration: const Duration(milliseconds: 200),
                 width: 56, padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
-                  color: selected ? AppColors.orange.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.06),
+                  color: selected ? AppColors.orange.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: selected ? AppColors.orange : Colors.white.withValues(alpha: 0.08), width: selected ? 1.5 : 0.5),
+                  border: Border.all(color: selected ? AppColors.orange : Colors.white.withValues(alpha: 0.14), width: selected ? 1.5 : 0.5),
                 ),
                 child: Column(children: [
-                  Text('$level', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: selected ? AppColors.orange : Colors.white.withValues(alpha: 0.5))),
+                  Text('$level', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: selected ? AppColors.orange : Colors.white.withValues(alpha: 0.82))),
                   const SizedBox(height: 2),
-                  Text(labels[i], style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: selected ? AppColors.orange.withValues(alpha: 0.8) : Colors.white.withValues(alpha: 0.4))),
+                  Text(labels[i], style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: selected ? AppColors.orange.withValues(alpha: 0.8) : Colors.white.withValues(alpha: 0.72))),
                 ]),
               ),
             );
@@ -611,7 +611,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                         builder: (context, value, _) => CircularProgressIndicator(
                           value: value,
                           strokeWidth: 7,
-                          backgroundColor: Colors.white.withValues(alpha: 0.06),
+                          backgroundColor: Colors.white.withValues(alpha: 0.12),
                           valueColor: AlwaysStoppedAnimation(
                             _analysisComplete ? AppColors.lime : AppColors.primary,
                           ),
@@ -657,7 +657,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
               child: Text(
                 _currentAnalysisStep < _analysisSteps.length ? _analysisSteps[_currentAnalysisStep] : '',
                 key: ValueKey(_currentAnalysisStep),
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.6)),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75)),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -713,7 +713,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                     padding: const EdgeInsets.all(28),
                     child: Column(
                       children: [
-                        Text('21 yaşında tahmini boyun', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.6))),
+                        Text('21 yaşında tahmini boyun', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75))),
                         const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -725,7 +725,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                               style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -3, height: 1),
                             ),
                             const SizedBox(width: 4),
-                            Text('cm', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5))),
+                            Text('cm', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82))),
                           ],
                         ),
                         const SizedBox(height: 12),
@@ -822,9 +822,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
       cursorColor: AppColors.primary,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontWeight: FontWeight.w500),
-        prefixIcon: Icon(icon, color: Colors.white.withValues(alpha: 0.5), size: 18),
-        filled: true, fillColor: Colors.white.withValues(alpha: 0.06),
+        labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.82), fontWeight: FontWeight.w500),
+        prefixIcon: Icon(icon, color: Colors.white.withValues(alpha: 0.82), size: 18),
+        filled: true, fillColor: Colors.white.withValues(alpha: 0.12),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
         focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: AppColors.primary, width: 1.5)),
       ),
@@ -858,7 +858,7 @@ class _StepPreview extends StatelessWidget {
         child: Center(child: Text(number, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: color))),
       ),
       const SizedBox(width: 14),
-      Expanded(child: Text(text, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.85), letterSpacing: -0.2))),
+      Expanded(child: Text(text, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.92), letterSpacing: -0.2))),
     ]);
   }
 }
@@ -876,13 +876,13 @@ class _GenderCard extends StatelessWidget {
         duration: const Duration(milliseconds: 250),
         padding: const EdgeInsets.symmetric(vertical: 18),
         decoration: BoxDecoration(
-          color: selected ? AppColors.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.05),
+          color: selected ? AppColors.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.10),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: selected ? AppColors.primary : Colors.white.withValues(alpha: 0.1), width: selected ? 1.5 : 0.5),
         ),
         child: Center(
           child: Text(label, style: TextStyle(
-            color: selected ? Colors.white : Colors.white.withValues(alpha: 0.6),
+            color: selected ? Colors.white : Colors.white.withValues(alpha: 0.75),
             fontSize: 16, fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
           )),
         ),
@@ -929,14 +929,14 @@ class _AnimatedScoreRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      SizedBox(width: 72, child: Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.7)))),
+      SizedBox(width: 72, child: Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82)))),
       Expanded(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(4),
           child: LinearProgressIndicator(
             value: (value / 100) * fill,
             minHeight: 10,
-            backgroundColor: Colors.white.withValues(alpha: 0.06),
+            backgroundColor: Colors.white.withValues(alpha: 0.12),
             valueColor: AlwaysStoppedAnimation(color),
           ),
         ),

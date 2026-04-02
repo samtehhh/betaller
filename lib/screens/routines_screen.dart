@@ -131,7 +131,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                             child: LinearProgressIndicator(
                               value: provider.routineProgress,
                               minHeight: 8,
-                              backgroundColor: Colors.white.withValues(alpha: 0.08),
+                              backgroundColor: Colors.white.withValues(alpha: 0.14),
                               valueColor: AlwaysStoppedAnimation<Color>(
                                 provider.allRoutinesCompleted ? AppColors.success : AppColors.primary,
                               ),
@@ -201,14 +201,18 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                             duration: const Duration(milliseconds: 300),
                             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
                             decoration: BoxDecoration(
-                              color: routine.completed
-                                  ? AppColors.success.withValues(alpha: 0.08)
-                                  : AppColors.cardFill,
+                              gradient: LinearGradient(
+                                colors: routine.completed
+                                    ? [AppColors.success.withValues(alpha: 0.12), AppColors.success.withValues(alpha: 0.04)]
+                                    : [catColor.withValues(alpha: 0.15), catColor.withValues(alpha: 0.03)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
                                 color: routine.completed
-                                    ? AppColors.success.withValues(alpha: 0.25)
-                                    : AppColors.cardBorder,
+                                    ? AppColors.success.withValues(alpha: 0.30)
+                                    : catColor.withValues(alpha: 0.18),
                                 width: routine.completed ? 1 : 0.5,
                               ),
                             ),
@@ -236,10 +240,10 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                           fontSize: 16,
                                           fontWeight: FontWeight.w700,
                                           color: routine.completed
-                                              ? Colors.white.withValues(alpha: 0.55)
+                                              ? Colors.white.withValues(alpha: 0.72)
                                               : Colors.white,
                                           decoration: routine.completed ? TextDecoration.lineThrough : null,
-                                          decorationColor: Colors.white.withValues(alpha: 0.3),
+                                          decorationColor: Colors.white.withValues(alpha: 0.45),
                                           letterSpacing: -0.3,
                                         ),
                                       ),
@@ -249,7 +253,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                         style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w400,
-                                          color: Colors.white.withValues(alpha: 0.55),
+                                          color: Colors.white.withValues(alpha: 0.72),
                                           height: 1.35,
                                           letterSpacing: -0.1,
                                         ),
@@ -268,9 +272,9 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                             child: Text(catTitle, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: catColor, letterSpacing: 0.2)),
                                           ),
                                           const SizedBox(width: 8),
-                                          Icon(CupertinoIcons.clock, size: 11, color: Colors.white.withValues(alpha: 0.35)),
+                                          Icon(CupertinoIcons.clock, size: 11, color: Colors.white.withValues(alpha: 0.50)),
                                           const SizedBox(width: 3),
-                                          Text(routine.duration, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.35), letterSpacing: -0.1)),
+                                          Text(routine.duration, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.50), letterSpacing: -0.1)),
                                         ],
                                       ),
                                     ],
@@ -285,7 +289,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                     color: routine.completed ? AppColors.success : Colors.transparent,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                      color: routine.completed ? AppColors.success : Colors.white.withValues(alpha: 0.2),
+                                      color: routine.completed ? AppColors.success : Colors.white.withValues(alpha: 0.50),
                                       width: 2,
                                     ),
                                   ),
@@ -353,24 +357,24 @@ class _CategoryChip extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-          color: selected ? chipColor.withValues(alpha: 0.22) : Colors.white.withValues(alpha: 0.06),
+          color: selected ? chipColor.withValues(alpha: 0.22) : Colors.white.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
-            color: selected ? chipColor.withValues(alpha: 0.5) : Colors.white.withValues(alpha: 0.08),
+            color: selected ? chipColor.withValues(alpha: 0.5) : Colors.white.withValues(alpha: 0.14),
             width: selected ? 1 : 0.5,
           ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 15, color: selected ? chipColor : Colors.white.withValues(alpha: 0.62)),
+            Icon(icon, size: 15, color: selected ? chipColor : Colors.white.withValues(alpha: 0.88)),
             const SizedBox(width: 7),
             Text(
               label,
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
-                color: selected ? chipColor : Colors.white.withValues(alpha: 0.5),
+                color: selected ? chipColor : Colors.white.withValues(alpha: 0.82),
                 letterSpacing: -0.2,
               ),
             ),

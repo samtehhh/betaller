@@ -65,14 +65,14 @@ class ProgressScreen extends StatelessWidget {
                             unit: 'cm',
                             color: provider.totalGrowth > 0 ? AppColors.success : AppColors.textSecondary,
                           ),
-                          Container(width: 1, height: 36, color: Colors.white.withValues(alpha: 0.08)),
+                          Container(width: 1, height: 36, color: Colors.white.withValues(alpha: 0.14)),
                           _StatItem(
                             label: 'Son Fark',
                             value: '${provider.lastGrowth > 0 ? '+' : ''}${provider.lastGrowth}',
                             unit: 'cm',
                             color: provider.lastGrowth > 0 ? AppColors.success : AppColors.textSecondary,
                           ),
-                          Container(width: 1, height: 36, color: Colors.white.withValues(alpha: 0.08)),
+                          Container(width: 1, height: 36, color: Colors.white.withValues(alpha: 0.14)),
                           _StatItem(
                             label: 'Ölçüm',
                             value: '${records.length}',
@@ -273,7 +273,7 @@ class ProgressScreen extends StatelessWidget {
           drawVerticalLine: false,
           horizontalInterval: range < 3 ? 0.5 : 1,
           getDrawingHorizontalLine: (value) => FlLine(
-            color: Colors.white.withValues(alpha: 0.04),
+            color: Colors.white.withValues(alpha: 0.14),
             strokeWidth: 1,
           ),
         ),
@@ -287,7 +287,7 @@ class ProgressScreen extends StatelessWidget {
                 if (value == meta.min || value == meta.max) return const SizedBox();
                 return Text(
                   value.toStringAsFixed(1),
-                  style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.3), fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.45), fontWeight: FontWeight.w500),
                 );
               },
             ),
@@ -309,7 +309,7 @@ class ProgressScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     DateFormat('d MMM', 'tr').format(date),
-                    style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.4), fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.72), fontWeight: FontWeight.w500),
                   ),
                 );
               },
@@ -397,14 +397,14 @@ class ProgressScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.surfaceDark,
               borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-              border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
+              border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.14))),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   width: 36, height: 4,
-                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(2)),
+                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.50), borderRadius: BorderRadius.circular(2)),
                 ),
                 const SizedBox(height: 24),
                 const Icon(CupertinoIcons.resize_v, color: AppColors.primaryLight, size: 28),
@@ -465,7 +465,7 @@ class ProgressScreen extends StatelessWidget {
                     suffixText: 'cm',
                     suffixStyle: TextStyle(fontSize: 16, color: AppColors.textSecondary),
                     filled: true,
-                    fillColor: Colors.white.withValues(alpha: 0.06),
+                    fillColor: Colors.white.withValues(alpha: 0.12),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
@@ -543,7 +543,7 @@ class _StatItem extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 4),
-          Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.4), letterSpacing: -0.1)),
+          Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.72), letterSpacing: -0.1)),
         ],
       ),
     );

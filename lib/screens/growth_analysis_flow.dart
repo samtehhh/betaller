@@ -138,7 +138,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                       child: Container(
                         width: 40, height: 40,
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.08),
+                          color: Colors.white.withValues(alpha: 0.14),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: const Icon(CupertinoIcons.xmark, color: Colors.white, size: 18),
@@ -238,7 +238,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
           const SizedBox(height: 8),
           Text(
             'Hatırladığın yaşlardaki boylarını gir. Ne kadar çok veri, o kadar doğru tahmin.',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.68), height: 1.4, letterSpacing: -0.1),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.82), height: 1.4, letterSpacing: -0.1),
           ),
           const SizedBox(height: 28),
           ...ages.map((age) {
@@ -251,7 +251,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                     width: 64,
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
-                      color: isCurrentAge ? AppColors.primary.withValues(alpha: 0.18) : Colors.white.withValues(alpha: 0.06),
+                      color: isCurrentAge ? AppColors.primary.withValues(alpha: 0.18) : Colors.white.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(12),
                       border: isCurrentAge ? Border.all(color: AppColors.primary.withValues(alpha: 0.4)) : null,
                     ),
@@ -271,7 +271,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
-                            color: isCurrentAge ? AppColors.primary.withValues(alpha: 0.7) : Colors.white.withValues(alpha: 0.5),
+                            color: isCurrentAge ? AppColors.primary.withValues(alpha: 0.7) : Colors.white.withValues(alpha: 0.82),
                             letterSpacing: 0.5,
                           ),
                         ),
@@ -288,11 +288,11 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                       readOnly: isCurrentAge,
                       decoration: InputDecoration(
                         hintText: isCurrentAge ? '${profile.currentHeight.toStringAsFixed(1)} (mevcut)' : 'Boy gir...',
-                        hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.3), fontWeight: FontWeight.w400),
+                        hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.45), fontWeight: FontWeight.w400),
                         suffixText: 'cm',
-                        suffixStyle: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontWeight: FontWeight.w500),
+                        suffixStyle: TextStyle(color: Colors.white.withValues(alpha: 0.82), fontWeight: FontWeight.w500),
                         filled: true,
-                        fillColor: Colors.white.withValues(alpha: 0.06),
+                        fillColor: Colors.white.withValues(alpha: 0.12),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       ),
@@ -316,7 +316,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                 Expanded(
                   child: Text(
                     'Hatırlamadığın yaşları boş bırakabilirsin. En az 1-2 geçmiş boy girmen yeterli.',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.6), height: 1.4),
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75), height: 1.4),
                   ),
                 ),
               ],
@@ -342,7 +342,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
           const SizedBox(height: 8),
           Text(
             'Bu alışkanlıkları düzenli yaparsan tahminini buna göre hesaplayacağız.',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.68), height: 1.4, letterSpacing: -0.1),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.82), height: 1.4, letterSpacing: -0.1),
           ),
           const SizedBox(height: 32),
 
@@ -377,7 +377,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
           // Beslenme
           Text('Beslenme Kalitesi', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3)),
           const SizedBox(height: 6),
-          Text('Protein, süt, sebze, meyve tüketimin', style: TextStyle(fontSize: 13, color: Colors.white.withValues(alpha: 0.6))),
+          Text('Protein, süt, sebze, meyve tüketimin', style: TextStyle(fontSize: 13, color: Colors.white.withValues(alpha: 0.75))),
           const SizedBox(height: 14),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -392,10 +392,10 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                   width: 58,
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   decoration: BoxDecoration(
-                    color: selected ? AppColors.orange.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.06),
+                    color: selected ? AppColors.orange.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(
-                      color: selected ? AppColors.orange : Colors.white.withValues(alpha: 0.08),
+                      color: selected ? AppColors.orange : Colors.white.withValues(alpha: 0.14),
                       width: selected ? 1.5 : 0.5,
                     ),
                   ),
@@ -406,7 +406,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w800,
-                          color: selected ? AppColors.orange : Colors.white.withValues(alpha: 0.5),
+                          color: selected ? AppColors.orange : Colors.white.withValues(alpha: 0.82),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -415,7 +415,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                         style: TextStyle(
                           fontSize: 9,
                           fontWeight: FontWeight.w600,
-                          color: selected ? AppColors.orange.withValues(alpha: 0.8) : Colors.white.withValues(alpha: 0.4),
+                          color: selected ? AppColors.orange.withValues(alpha: 0.8) : Colors.white.withValues(alpha: 0.72),
                           letterSpacing: 0.3,
                         ),
                       ),
@@ -460,12 +460,12 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
               children: [
                 Text(
                   'Tahmini Boyun',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.7)),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82)),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   '21 yaşında',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5)),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -486,14 +486,14 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                     const SizedBox(width: 6),
                     Text(
                       'cm',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5)),
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
                     ),
                   ],
                 ),
                 const SizedBox(height: 8),
                 Text(
                   '${_prediction!.minHeight} - ${_prediction!.maxHeight} cm aralığında',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.55)),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.72)),
                 ),
                 const SizedBox(height: 6),
                 Container(
@@ -596,7 +596,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                         children: [
                           SizedBox(
                             width: 50,
-                            child: Text('${e.key} yaş', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.7))),
+                            child: Text('${e.key} yaş', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82))),
                           ),
                           Expanded(
                             child: ClipRRect(
@@ -604,7 +604,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                               child: LinearProgressIndicator(
                                 value: (e.value / _prediction!.finalHeight).clamp(0.0, 1.0),
                                 minHeight: 8,
-                                backgroundColor: Colors.white.withValues(alpha: 0.06),
+                                backgroundColor: Colors.white.withValues(alpha: 0.12),
                                 valueColor: AlwaysStoppedAnimation(AppColors.cyan),
                               ),
                             ),
@@ -712,7 +712,7 @@ class _ScoreBar extends StatelessWidget {
       children: [
         SizedBox(
           width: 80,
-          child: Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.7))),
+          child: Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82))),
         ),
         Expanded(
           child: ClipRRect(
@@ -720,7 +720,7 @@ class _ScoreBar extends StatelessWidget {
             child: LinearProgressIndicator(
               value: value / 100,
               minHeight: 10,
-              backgroundColor: Colors.white.withValues(alpha: 0.06),
+              backgroundColor: Colors.white.withValues(alpha: 0.12),
               valueColor: AlwaysStoppedAnimation(color),
             ),
           ),

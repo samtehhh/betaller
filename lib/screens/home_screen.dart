@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                                     Text(
                                       DateFormat('d MMMM yyyy, EEEE', 'tr').format(DateTime.now()),
                                       style: TextStyle(
-                                        color: Colors.white.withValues(alpha: 0.68),
+                                        color: Colors.white.withValues(alpha: 0.82),
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
                                         letterSpacing: -0.2,
@@ -108,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                           GlassCard(
                             padding: const EdgeInsets.all(22),
                             borderRadius: 24,
-                            fillColor: Colors.white.withValues(alpha: 0.08),
+                            fillColor: Colors.white.withValues(alpha: 0.14),
                             child: Column(
                               children: [
                                 Row(
@@ -122,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                                           Text(
                                             'Mevcut Boy',
                                             style: TextStyle(
-                                              color: Colors.white.withValues(alpha: 0.5),
+                                              color: Colors.white.withValues(alpha: 0.82),
                                               fontSize: 13,
                                               fontWeight: FontWeight.w500,
                                               letterSpacing: -0.2,
@@ -150,7 +150,7 @@ class HomeScreen extends StatelessWidget {
                                                 Text(
                                                   'cm',
                                                   style: TextStyle(
-                                                    color: Colors.white.withValues(alpha: 0.4),
+                                                    color: Colors.white.withValues(alpha: 0.72),
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -208,7 +208,7 @@ class HomeScreen extends StatelessWidget {
                                   child: LinearProgressIndicator(
                                     value: potential > 0 ? (profile.currentHeight / potential).clamp(0.0, 1.0) : 0,
                                     minHeight: 8,
-                                    backgroundColor: Colors.white.withValues(alpha: 0.08),
+                                    backgroundColor: Colors.white.withValues(alpha: 0.14),
                                     valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                                   ),
                                 ),
@@ -219,7 +219,7 @@ class HomeScreen extends StatelessWidget {
                                     Text(
                                       '%${(potential > 0 ? (profile.currentHeight / potential * 100) : 0).toStringAsFixed(0)} tamamlandı',
                                       style: TextStyle(
-                                        color: Colors.white.withValues(alpha: 0.4),
+                                        color: Colors.white.withValues(alpha: 0.72),
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -293,7 +293,7 @@ class HomeScreen extends StatelessWidget {
                                   const SizedBox(height: 4),
                                   Text(
                                     'Geçmiş boyların + alışkanlıkların ile tahmin al',
-                                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.65)),
+                                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.80)),
                                   ),
                                 ],
                               ),
@@ -346,7 +346,7 @@ class HomeScreen extends StatelessWidget {
                             child: LinearProgressIndicator(
                               value: provider.routineProgress,
                               minHeight: 8,
-                              backgroundColor: Colors.white.withValues(alpha: 0.08),
+                              backgroundColor: Colors.white.withValues(alpha: 0.14),
                               valueColor: AlwaysStoppedAnimation<Color>(
                                 provider.allRoutinesCompleted ? AppColors.success : AppColors.primary,
                               ),
@@ -515,14 +515,14 @@ class HomeScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surfaceDark,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-          border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
+          border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.14))),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               width: 36, height: 5,
-              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.25), borderRadius: BorderRadius.circular(3)),
+              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.40), borderRadius: BorderRadius.circular(3)),
             ),
             const SizedBox(height: 28),
             const Text('Su Takibi', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8)),
@@ -559,14 +559,14 @@ class HomeScreen extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.surfaceDark,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-            border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
+            border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.14))),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
                 width: 36, height: 5,
-                decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.25), borderRadius: BorderRadius.circular(3)),
+                decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.40), borderRadius: BorderRadius.circular(3)),
               ),
               const SizedBox(height: 28),
               const Text('Uyku Takibi', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8)),
@@ -717,7 +717,7 @@ class _TrackerCard extends StatelessWidget {
                   ' / ${target.toStringAsFixed(1)} $unit',
                   style: TextStyle(
                     fontSize: 13,
-                    color: Colors.white.withValues(alpha: 0.58),
+                    color: Colors.white.withValues(alpha: 0.72),
                     fontWeight: FontWeight.w500,
                     letterSpacing: -0.2,
                   ),

@@ -141,7 +141,7 @@ class AnalysisScreen extends StatelessWidget {
                                     ),
                                     Text(
                                       '/ 100',
-                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5)),
+                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
                                     ),
                                   ],
                                 ),
@@ -152,7 +152,7 @@ class AnalysisScreen extends StatelessWidget {
                           Text(
                             glowScore.summary,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.78), height: 1.4, letterSpacing: -0.1),
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.88), height: 1.4, letterSpacing: -0.1),
                           ),
                           const SizedBox(height: 20),
                           // Score breakdown
@@ -196,7 +196,7 @@ class AnalysisScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   '21 yaşında tahmini boyun',
-                                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.6)),
+                                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75)),
                                 ),
                                 const SizedBox(height: 8),
                                 Row(
@@ -229,7 +229,7 @@ class AnalysisScreen extends StatelessWidget {
                           if (prediction.yearlyPredictions.isNotEmpty) ...[
                             Text(
                               'YILLIK TAHMİN',
-                              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.5), letterSpacing: 1.2),
+                              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.2),
                             ),
                             const SizedBox(height: 12),
                             ...prediction.yearlyPredictions.entries.map((e) {
@@ -244,7 +244,7 @@ class AnalysisScreen extends StatelessWidget {
                                       width: 55,
                                       child: Text(
                                         '${e.key} yaş',
-                                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.7)),
+                                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82)),
                                       ),
                                     ),
                                     Expanded(
@@ -253,7 +253,7 @@ class AnalysisScreen extends StatelessWidget {
                                         child: LinearProgressIndicator(
                                           value: progress,
                                           minHeight: 6,
-                                          backgroundColor: Colors.white.withValues(alpha: 0.06),
+                                          backgroundColor: Colors.white.withValues(alpha: 0.12),
                                           valueColor: AlwaysStoppedAnimation(AppColors.cyan.withValues(alpha: 0.6 + progress * 0.4)),
                                         ),
                                       ),
@@ -276,17 +276,17 @@ class AnalysisScreen extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.04),
+                              color: Colors.white.withValues(alpha: 0.14),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Row(
                               children: [
-                                Icon(CupertinoIcons.info_circle, color: Colors.white.withValues(alpha: 0.4), size: 16),
+                                Icon(CupertinoIcons.info_circle, color: Colors.white.withValues(alpha: 0.72), size: 16),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
                                     'Genetik (anne-baba), büyüme hızı, BMI ve yaş verileri birleştirilerek hesaplanır.',
-                                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.5), height: 1.4),
+                                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.82), height: 1.4),
                                   ),
                                 ),
                               ],
@@ -353,7 +353,7 @@ class AnalysisScreen extends StatelessWidget {
                             child: LinearProgressIndicator(
                               value: growthPct / 100,
                               minHeight: 8,
-                              backgroundColor: Colors.white.withValues(alpha: 0.08),
+                              backgroundColor: Colors.white.withValues(alpha: 0.14),
                               valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                             ),
                           ),
@@ -516,9 +516,13 @@ class _StatBlock extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
+        gradient: LinearGradient(
+          colors: [color.withValues(alpha: 0.16), color.withValues(alpha: 0.04)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withValues(alpha: 0.15), width: 0.5),
+        border: Border.all(color: color.withValues(alpha: 0.20), width: 0.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -543,8 +547,17 @@ class _ScoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassCard(
+    return Container(
       padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.04)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withValues(alpha: 0.20), width: 0.5),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -552,13 +565,13 @@ class _ScoreCard extends StatelessWidget {
             children: [
               Icon(icon, color: color, size: 16),
               const SizedBox(width: 6),
-              Text(title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.7), letterSpacing: -0.1)),
+              Text(title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.88), letterSpacing: -0.1)),
             ],
           ),
           const SizedBox(height: 12),
           Text(value, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: color, letterSpacing: -1)),
           const SizedBox(height: 2),
-          Text(subtitle, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.5))),
+          Text(subtitle, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82))),
         ],
       ),
     );

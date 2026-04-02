@@ -92,7 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(height: 4),
                           Text(
                             '${profile.currentHeight.toStringAsFixed(1)} cm · ${profile.weight.toStringAsFixed(1)} kg',
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.70), letterSpacing: -0.2),
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82), letterSpacing: -0.2),
                           ),
                         ],
                       ),
@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       decoration: BoxDecoration(
                                         color: earned
                                             ? AppColors.primary.withValues(alpha: 0.15)
-                                            : Colors.white.withValues(alpha: 0.04),
+                                            : Colors.white.withValues(alpha: 0.14),
                                         borderRadius: BorderRadius.circular(14),
                                         border: earned
                                             ? Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 1)
@@ -179,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       style: TextStyle(
                                         fontSize: 9,
                                         fontWeight: FontWeight.w600,
-                                        color: earned ? Colors.white.withValues(alpha: 0.7) : AppColors.textTertiary,
+                                        color: earned ? Colors.white.withValues(alpha: 0.82) : AppColors.textTertiary,
                                       ),
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
@@ -389,13 +389,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             decoration: BoxDecoration(
               color: AppColors.surfaceDark,
               borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-              border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
+              border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.14))),
             ),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(width: 36, height: 4, decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(2))),
+                  Container(width: 36, height: 4, decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.50), borderRadius: BorderRadius.circular(2))),
                   const SizedBox(height: 24),
                   const Text('Profili Düzenle', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1)),
                   const SizedBox(height: 24),
@@ -410,11 +410,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             decoration: BoxDecoration(
-                              color: gender == 'male' ? AppColors.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.05),
+                              color: gender == 'male' ? AppColors.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.10),
                               borderRadius: BorderRadius.circular(14),
                               border: Border.all(color: gender == 'male' ? AppColors.primary : Colors.white.withValues(alpha: 0.1), width: gender == 'male' ? 1.5 : 0.5),
                             ),
-                            child: Center(child: Text('Erkek', style: TextStyle(color: gender == 'male' ? Colors.white : Colors.white.withValues(alpha: 0.5), fontSize: 15, fontWeight: gender == 'male' ? FontWeight.w700 : FontWeight.w500))),
+                            child: Center(child: Text('Erkek', style: TextStyle(color: gender == 'male' ? Colors.white : Colors.white.withValues(alpha: 0.82), fontSize: 15, fontWeight: gender == 'male' ? FontWeight.w700 : FontWeight.w500))),
                           ),
                         ),
                       ),
@@ -425,11 +425,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             decoration: BoxDecoration(
-                              color: gender == 'female' ? AppColors.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.05),
+                              color: gender == 'female' ? AppColors.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.10),
                               borderRadius: BorderRadius.circular(14),
                               border: Border.all(color: gender == 'female' ? AppColors.primary : Colors.white.withValues(alpha: 0.1), width: gender == 'female' ? 1.5 : 0.5),
                             ),
-                            child: Center(child: Text('Kadın', style: TextStyle(color: gender == 'female' ? Colors.white : Colors.white.withValues(alpha: 0.5), fontSize: 15, fontWeight: gender == 'female' ? FontWeight.w700 : FontWeight.w500))),
+                            child: Center(child: Text('Kadın', style: TextStyle(color: gender == 'female' ? Colors.white : Colors.white.withValues(alpha: 0.82), fontSize: 15, fontWeight: gender == 'female' ? FontWeight.w700 : FontWeight.w500))),
                           ),
                         ),
                       ),
@@ -448,13 +448,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(14)),
+                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(14)),
                       child: Row(children: [
-                        Icon(CupertinoIcons.calendar, color: Colors.white.withValues(alpha: 0.5), size: 18),
+                        Icon(CupertinoIcons.calendar, color: Colors.white.withValues(alpha: 0.82), size: 18),
                         const SizedBox(width: 12),
                         Text('Doğum: ${birthDate.day.toString().padLeft(2, '0')}.${birthDate.month.toString().padLeft(2, '0')}.${birthDate.year}', style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
                         const Spacer(),
-                        Icon(CupertinoIcons.chevron_down, color: Colors.white.withValues(alpha: 0.3), size: 14),
+                        Icon(CupertinoIcons.chevron_down, color: Colors.white.withValues(alpha: 0.45), size: 14),
                       ]),
                     ),
                   ),
@@ -584,7 +584,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 Widget _menuDivider() => Padding(
   padding: const EdgeInsets.symmetric(horizontal: 18),
-  child: Divider(height: 1, color: Colors.white.withValues(alpha: 0.05)),
+  child: Divider(height: 1, color: Colors.white.withValues(alpha: 0.10)),
 );
 
 class _MenuRow extends StatelessWidget {
@@ -619,11 +619,11 @@ class _MenuRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(label, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white, letterSpacing: -0.2)),
-                  Text(subtitle, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.4))),
+                  Text(subtitle, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.72))),
                 ],
               ),
             ),
-            Icon(CupertinoIcons.chevron_right, color: Colors.white.withValues(alpha: 0.2), size: 15),
+            Icon(CupertinoIcons.chevron_right, color: Colors.white.withValues(alpha: 0.50), size: 15),
           ],
         ),
       ),
@@ -661,7 +661,7 @@ class _MenuToggleRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(label, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white, letterSpacing: -0.2)),
-                Text(subtitle, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.4))),
+                Text(subtitle, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.72))),
               ],
             ),
           ),
@@ -726,10 +726,10 @@ class _EditField extends StatelessWidget {
       cursorColor: AppColors.primary,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.55)),
+        labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.72)),
         prefixIcon: Icon(icon, color: AppColors.primaryLight, size: 18),
         filled: true,
-        fillColor: Colors.white.withValues(alpha: 0.06),
+        fillColor: Colors.white.withValues(alpha: 0.12),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
         enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
         focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: AppColors.primary, width: 1.5)),
