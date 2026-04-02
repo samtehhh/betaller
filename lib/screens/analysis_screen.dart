@@ -174,6 +174,99 @@ class AnalysisScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 14),
 
+                    // ── İyileştirme Önerileri ────────────
+                    if (_getImprovements(glowScore, provider).isNotEmpty) ...[
+                      GlassCard(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(CupertinoIcons.arrow_up_right_circle_fill, color: AppColors.lime, size: 20),
+                                const SizedBox(width: 8),
+                                const Text(
+                                  'Skorunu Yükselt',
+                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
+                                ),
+                                const Spacer(),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.lime.withValues(alpha: 0.15),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    '${glowScore.grade} → ${_nextGrade(glowScore.grade)}',
+                                    style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: AppColors.lime, letterSpacing: 0.5),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            ..._getImprovements(glowScore, provider).map((tip) => Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Container(
+                                padding: const EdgeInsets.all(14),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [(tip['color'] as Color).withValues(alpha: 0.14), (tip['color'] as Color).withValues(alpha: 0.03)],
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                  ),
+                                  borderRadius: BorderRadius.circular(14),
+                                  border: Border.all(color: (tip['color'] as Color).withValues(alpha: 0.18), width: 0.5),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 36,
+                                      height: 36,
+                                      decoration: BoxDecoration(
+                                        color: (tip['color'] as Color).withValues(alpha: 0.20),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Center(child: Text(tip['icon'] as String, style: const TextStyle(fontSize: 18))),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            tip['title'] as String,
+                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: tip['color'] as Color, letterSpacing: -0.2),
+                                          ),
+                                          const SizedBox(height: 2),
+                                          Text(
+                                            tip['desc'] as String,
+                                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.78), height: 1.35),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: (tip['color'] as Color).withValues(alpha: 0.15),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        '+${tip['points']}',
+                                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: tip['color'] as Color),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                    ],
+
                     // ── Boy Tahmini Hero Card ─────────────
                     GlassCard(
                       child: Column(
@@ -405,6 +498,52 @@ class AnalysisScreen extends StatelessWidget {
       case 'D': return AppColors.warning;
       default: return AppColors.error;
     }
+  }
+
+  String _nextGrade(String grade) {
+    switch (grade) {
+      case 'F': return 'D';
+      case 'D': return 'C';
+      case 'C': return 'B';
+      case 'B': return 'A';
+      case 'A': return 'S';
+      default: return 'S';
+    }
+  }
+
+  List<Map<String, dynamic>> _getImprovements(GlowUpScore score, AppProvider provider) {
+    final tips = <Map<String, dynamic>>[];
+
+    // En düşük skorlardan başla — en çok kazanç sağlayacak olanlar
+    final categories = [
+      {'key': 'nutrition', 'score': score.nutrition, 'color': AppColors.orange, 'icon': '🥗',
+        'title': 'Beslenmeyi İyileştir',
+        'desc': 'Günlük su hedefini tamamla ve protein alımını artır. BMI\'ını normal aralığa getir.',
+        'points': ((90 - score.nutrition) * 0.20).round()},
+      {'key': 'sleep', 'score': score.sleep, 'color': AppColors.sleep, 'icon': '😴',
+        'title': 'Uyku Düzenini Kur',
+        'desc': 'Her gece en az ${Calculations.dailySleepNeed(provider.profile!.age).toStringAsFixed(0)} saat uyu. Büyüme hormonu uykuda salgılanır.',
+        'points': ((90 - score.sleep) * 0.15).round()},
+      {'key': 'discipline', 'score': score.discipline, 'color': AppColors.lime, 'icon': '🔥',
+        'title': 'Rutinlere Devam Et',
+        'desc': 'Günlük egzersizleri tamamla ve streak\'ini koru. Düzen her şeyi değiştirir.',
+        'points': ((90 - score.discipline) * 0.15).round()},
+      {'key': 'velocity', 'score': score.velocity, 'color': AppColors.cyan, 'icon': '📏',
+        'title': 'Boy Ölçümü Ekle',
+        'desc': 'Düzenli boy ölçümleri gir. Daha fazla veri = daha doğru tahmin ve skor.',
+        'points': ((90 - score.velocity) * 0.25).round()},
+    ];
+
+    // Skoru 80'in altında olanları göster, en düşükten başla
+    categories.sort((a, b) => (a['score'] as int).compareTo(b['score'] as int));
+    for (final cat in categories) {
+      if ((cat['score'] as int) < 80 && (cat['points'] as int) > 0) {
+        tips.add(cat);
+      }
+      if (tips.length >= 3) break; // Max 3 öneri
+    }
+
+    return tips;
   }
 
   Color _velocityColor(double velocity, int age, String gender) {
