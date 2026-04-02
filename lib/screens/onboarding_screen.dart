@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/user_profile.dart';
 import '../models/height_record.dart';
 import '../providers/app_provider.dart';
@@ -47,14 +48,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   late AnimationController _resultAnim;
   double _analysisProgress = 0;
   bool _resultReady = false;
-  final _analysisSteps = [
-    'Genetik veriler analiz ediliyor...',
-    'Büyüme hızı hesaplanıyor...',
-    'Beslenme ve uyku verileri işleniyor...',
-    'Boy tahmini oluşturuluyor...',
-    'BeTaller skoru hesaplanıyor...',
-  ];
   int _currentAnalysisStep = 0;
+
+  List<String> _analysisSteps(AppLocalizations l) => [
+    l.analysisStep1,
+    l.analysisStep2,
+    l.analysisStep3,
+    l.analysisStep4,
+    l.analysisStep5,
+  ];
 
   @override
   void initState() {
@@ -131,6 +133,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   }
 
   void _runAnalysis() async {
+    final l = AppLocalizations.of(context)!;
+    final steps = _analysisSteps(l);
+
     setState(() {
       _analysisComplete = false;
       _analysisProgress = 0;
@@ -138,19 +143,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
     });
 
     // Smooth animated progress
-    for (int i = 0; i < _analysisSteps.length; i++) {
+    for (int i = 0; i < steps.length; i++) {
       if (!mounted) return;
       setState(() => _currentAnalysisStep = i);
 
       // Animate progress smoothly between steps
-      final startProg = i / _analysisSteps.length;
-      final endProg = (i + 1) / _analysisSteps.length;
-      const steps = 20;
-      for (int s = 0; s <= steps; s++) {
+      final startProg = i / steps.length;
+      final endProg = (i + 1) / steps.length;
+      const steps2 = 20;
+      for (int s = 0; s <= steps2; s++) {
         await Future.delayed(const Duration(milliseconds: 35));
         if (!mounted) return;
         setState(() {
-          _analysisProgress = startProg + (endProg - startProg) * (s / steps);
+          _analysisProgress = startProg + (endProg - startProg) * (s / steps2);
         });
       }
       await Future.delayed(const Duration(milliseconds: 100));
@@ -245,6 +250,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.scaffold,
       body: Container(
@@ -313,8 +319,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
               if (_currentPage <= 5)
                 Padding(
                   padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-                  child: SizedBox(
+                  child: Container(
                     width: double.infinity,
+                    decoration: _canProceed() ? BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.25), blurRadius: 14, offset: const Offset(0, 4))],
+                    ) : null,
                     child: CupertinoButton(
                       color: _canProceed() ? AppColors.primary : AppColors.primary.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(18),
@@ -322,10 +332,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                       onPressed: _canProceed() ? _nextPage : null,
                       child: Text(
                         _currentPage == 0
-                            ? 'Analizi Başlat'
+                            ? l.startAnalysis
                             : _currentPage == 5
-                                ? 'Analiz Et'
-                                : 'Devam',
+                                ? l.analyzeBtn
+                                : l.continueBtn,
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
@@ -348,6 +358,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   // ── Page 0: Welcome ──────────────────────────────────────────────
 
   Widget _buildWelcomePage() {
+    final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(32),
       child: Column(
@@ -367,7 +378,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
           const Text('BeTaller', style: TextStyle(fontSize: 52, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -2)),
           const SizedBox(height: 8),
           Text(
-            'Büyüme potansiyelini keşfet',
+            l.onboardingSubtitle,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.80), letterSpacing: 0.3),
           ),
           const SizedBox(height: 40),
@@ -376,13 +387,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
             padding: const EdgeInsets.all(22),
             child: Column(
               children: [
-                _StepPreview(number: '1', text: 'Kişisel bilgilerini gir', color: AppColors.primary),
+                _StepPreview(number: '1', text: l.onboardingStep1, color: AppColors.primary),
                 const SizedBox(height: 16),
-                _StepPreview(number: '2', text: 'Geçmiş boylarını paylaş', color: AppColors.cyan),
+                _StepPreview(number: '2', text: l.onboardingStep2, color: AppColors.cyan),
                 const SizedBox(height: 16),
-                _StepPreview(number: '3', text: 'Alışkanlıklarını değerlendir', color: AppColors.orange),
+                _StepPreview(number: '3', text: l.onboardingStep3, color: AppColors.orange),
                 const SizedBox(height: 16),
-                _StepPreview(number: '4', text: 'Tahminini ve skorunu gör', color: AppColors.lime),
+                _StepPreview(number: '4', text: l.onboardingStep4, color: AppColors.lime),
               ],
             ),
           ),
@@ -394,30 +405,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   // ── Page 1: Info ─────────────────────────────────────────────────
 
   Widget _buildInfoPage() {
+    final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text('Seni Tanıyalım', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
+        Text(l.onboardingMeetYou, style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
         const SizedBox(height: 6),
-        Text('Analiz için temel bilgilerin gerekli.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80), letterSpacing: -0.1)),
+        Text(l.onboardingInfoNeeded, style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80), letterSpacing: -0.1)),
         const SizedBox(height: 32),
-        _buildInput(_nameController, 'Adın', CupertinoIcons.person),
+        _buildInput(_nameController, l.name, CupertinoIcons.person),
         const SizedBox(height: 18),
-        Text('CİNSİYET', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.0)),
+        Text(l.gender, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.0)),
         const SizedBox(height: 10),
         Row(children: [
-          Expanded(child: _GenderCard(label: 'Erkek', selected: _gender == 'male', onTap: () => setState(() => _gender = 'male'))),
+          Expanded(child: _GenderCard(label: l.male, selected: _gender == 'male', onTap: () => setState(() => _gender = 'male'))),
           const SizedBox(width: 12),
-          Expanded(child: _GenderCard(label: 'Kadın', selected: _gender == 'female', onTap: () => setState(() => _gender = 'female'))),
+          Expanded(child: _GenderCard(label: l.female, selected: _gender == 'female', onTap: () => setState(() => _gender = 'female'))),
         ]),
         const SizedBox(height: 18),
-        Text('DOĞUM TARİHİ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.0)),
+        Text(l.birthDateLabel, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.0)),
         const SizedBox(height: 10),
         GestureDetector(
           onTap: () async {
             final picked = await showDatePicker(
               context: context, initialDate: _birthDate, firstDate: DateTime(1990), lastDate: DateTime.now(),
-              locale: const Locale('tr', 'TR'),
+              locale: Localizations.localeOf(context),
               builder: (context, child) => Theme(data: ThemeData.dark().copyWith(colorScheme: const ColorScheme.dark(primary: AppColors.primary, surface: AppColors.surfaceDark)), child: child!),
             );
             if (picked != null) setState(() => _birthDate = picked);
@@ -439,16 +451,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   // ── Page 2: Body ─────────────────────────────────────────────────
 
   Widget _buildBodyPage() {
+    final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text('Vücut Ölçülerin', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
+        Text(l.bodyMeasurements, style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
         const SizedBox(height: 6),
-        Text('Mevcut boyun ve kilon analiz için gerekli.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80))),
+        Text(l.bodyInfo, style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80))),
         const SizedBox(height: 32),
-        _buildInput(_heightController, 'Boyun (cm)', CupertinoIcons.resize_v, isNumber: true),
+        _buildInput(_heightController, l.heightCm, CupertinoIcons.resize_v, isNumber: true),
         const SizedBox(height: 18),
-        _buildInput(_weightController, 'Kilon (kg)', CupertinoIcons.gauge, isNumber: true),
+        _buildInput(_weightController, l.weightKg, CupertinoIcons.gauge, isNumber: true),
       ]),
     );
   }
@@ -456,16 +469,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   // ── Page 3: Parents ──────────────────────────────────────────────
 
   Widget _buildParentsPage() {
+    final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text('Genetik Verilerin', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
+        Text(l.geneticData, style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
         const SizedBox(height: 6),
-        Text('Anne ve baba boyu genetik potansiyelini belirler.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80))),
+        Text(l.geneticInfo, style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80))),
         const SizedBox(height: 32),
-        _buildInput(_fatherHeightController, 'Baba Boyu (cm)', CupertinoIcons.person, isNumber: true),
+        _buildInput(_fatherHeightController, l.fatherHeight, CupertinoIcons.person, isNumber: true),
         const SizedBox(height: 18),
-        _buildInput(_motherHeightController, 'Anne Boyu (cm)', CupertinoIcons.person, isNumber: true),
+        _buildInput(_motherHeightController, l.motherHeight, CupertinoIcons.person, isNumber: true),
       ]),
     );
   }
@@ -473,6 +487,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   // ── Page 4: Past Heights ─────────────────────────────────────────
 
   Widget _buildPastHeightsPage() {
+    final l = AppLocalizations.of(context)!;
     final age = _userAge;
     final relevantAges = <int>[];
     for (int a = 13; a < age; a++) {
@@ -482,9 +497,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text('Geçmiş Boyların', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
+        Text(l.pastHeights, style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
         const SizedBox(height: 6),
-        Text('Hatırladığın yaşlardaki boylarını gir. Boş bırakabilirsin.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80), height: 1.4)),
+        Text(l.pastHeightsInfo, style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80), height: 1.4)),
         const SizedBox(height: 28),
         ...relevantAges.map((a) => Padding(
           padding: const EdgeInsets.only(bottom: 12),
@@ -495,7 +510,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                 decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(12)),
                 child: Column(children: [
                   Text('$a', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: AppColors.primary, letterSpacing: -0.5)),
-                  Text('yaş', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primary.withValues(alpha: 0.7), letterSpacing: 0.5)),
+                  Text(l.ageLabel, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.primary.withValues(alpha: 0.7), letterSpacing: 0.5)),
                 ]),
               ),
               const SizedBox(width: 12),
@@ -506,7 +521,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                   style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700, letterSpacing: -0.3),
                   cursorColor: AppColors.primary,
                   decoration: InputDecoration(
-                    hintText: 'Boy gir...', hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.45), fontWeight: FontWeight.w400),
+                    hintText: l.heightHint, hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.45), fontWeight: FontWeight.w400),
                     suffixText: 'cm', suffixStyle: TextStyle(color: Colors.white.withValues(alpha: 0.82)),
                     filled: true, fillColor: Colors.white.withValues(alpha: 0.12),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
@@ -524,33 +539,34 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   // ── Page 5: Habits ───────────────────────────────────────────────
 
   Widget _buildHabitsPage() {
+    final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text('Alışkanlıkların', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
+        Text(l.habits, style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2)),
         const SizedBox(height: 6),
-        Text('Yaşam tarzın tahminini doğrudan etkiler.', style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80))),
+        Text(l.habitsInfo, style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.80))),
         const SizedBox(height: 28),
         _SliderInput(
-          icon: CupertinoIcons.flame_fill, title: 'Haftalık Egzersiz',
-          value: _exerciseHours, min: 0, max: 10, divisions: 20, unit: 'saat',
+          icon: CupertinoIcons.flame_fill, title: l.weeklyExercise,
+          value: _exerciseHours, min: 0, max: 10, divisions: 20, unit: l.hours,
           color: AppColors.primary, onChanged: (v) => setState(() => _exerciseHours = v),
         ),
         const SizedBox(height: 24),
         _SliderInput(
-          icon: CupertinoIcons.moon_fill, title: 'Günlük Uyku',
-          value: _sleepHours, min: 4, max: 12, divisions: 16, unit: 'saat',
+          icon: CupertinoIcons.moon_fill, title: l.dailySleep,
+          value: _sleepHours, min: 4, max: 12, divisions: 16, unit: l.hours,
           color: AppColors.sleep, onChanged: (v) => setState(() => _sleepHours = v),
         ),
         const SizedBox(height: 24),
-        Text('BESLENME KALİTESİ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.0)),
+        Text(l.nutritionQuality, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.0)),
         const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: List.generate(5, (i) {
             final level = i + 1;
             final selected = _nutritionScore == level;
-            final labels = ['Kötü', 'Zayıf', 'Orta', 'İyi', 'Harika'];
+            final labels = [l.nutritionBad, l.nutritionPoor, l.nutritionMedium, l.nutritionGood, l.nutritionGreat];
             return GestureDetector(
               onTap: () => setState(() => _nutritionScore = level),
               child: AnimatedContainer(
@@ -577,6 +593,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   // ── Page 6: Analyzing ────────────────────────────────────────────
 
   Widget _buildAnalyzingPage() {
+    final l = AppLocalizations.of(context)!;
+    final steps = _analysisSteps(l);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -642,7 +660,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                 color: _analysisComplete ? AppColors.lime : Colors.white,
                 letterSpacing: -0.8,
               ),
-              child: Text(_analysisComplete ? 'Tamamlandı!' : 'Analiz Ediliyor'),
+              child: Text(_analysisComplete ? l.analysisComplete : l.analyzing),
             ),
             const SizedBox(height: 16),
             AnimatedSwitcher(
@@ -655,7 +673,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                 ),
               ),
               child: Text(
-                _currentAnalysisStep < _analysisSteps.length ? _analysisSteps[_currentAnalysisStep] : '',
+                _currentAnalysisStep < steps.length ? steps[_currentAnalysisStep] : '',
                 key: ValueKey(_currentAnalysisStep),
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75)),
                 textAlign: TextAlign.center,
@@ -672,6 +690,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   Widget _buildResultPage() {
     if (_prediction == null || _score == null) return const SizedBox();
 
+    final l = AppLocalizations.of(context)!;
     final currentHeight = double.tryParse(_heightController.text) ?? 170;
     final growth = _prediction!.finalHeight - currentHeight;
 
@@ -713,7 +732,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                     padding: const EdgeInsets.all(28),
                     child: Column(
                       children: [
-                        Text('21 yaşında tahmini boyun', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75))),
+                        Text(l.predictedHeightAt21, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75))),
                         const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -733,7 +752,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(color: AppColors.lime.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(12)),
                           child: Text(
-                            '+${growth.toStringAsFixed(1)} cm büyüme potansiyeli',
+                            l.growthPotential(growth.toStringAsFixed(1)),
                             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.lime, letterSpacing: -0.2),
                           ),
                         ),
@@ -754,7 +773,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                       children: [
                         Row(
                           children: [
-                            const Text('BeTaller Skorun', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
+                            Text(l.yourScore, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
                             const Spacer(),
                             Transform.scale(
                               scale: 0.5 + scoreFade.value * 0.5,
@@ -771,15 +790,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                           ],
                         ),
                         const SizedBox(height: 16),
-                        _AnimatedScoreRow(label: 'Genetik', value: _score!.genetic, color: AppColors.primary, fill: barFill.value),
+                        _AnimatedScoreRow(label: l.genetic, value: _score!.genetic, color: AppColors.primary, fill: barFill.value),
                         const SizedBox(height: 8),
-                        _AnimatedScoreRow(label: 'Büyüme', value: _score!.velocity, color: AppColors.cyan, fill: barFill.value),
+                        _AnimatedScoreRow(label: l.growth, value: _score!.velocity, color: AppColors.cyan, fill: barFill.value),
                         const SizedBox(height: 8),
-                        _AnimatedScoreRow(label: 'Beslenme', value: _score!.nutrition, color: AppColors.orange, fill: barFill.value),
+                        _AnimatedScoreRow(label: l.nutrition, value: _score!.nutrition, color: AppColors.orange, fill: barFill.value),
                         const SizedBox(height: 8),
-                        _AnimatedScoreRow(label: 'Uyku', value: _score!.sleep, color: AppColors.sleep, fill: barFill.value),
+                        _AnimatedScoreRow(label: l.sleepLabel, value: _score!.sleep, color: AppColors.sleep, fill: barFill.value),
                         const SizedBox(height: 8),
-                        _AnimatedScoreRow(label: 'Disiplin', value: _score!.discipline, color: AppColors.lime, fill: barFill.value),
+                        _AnimatedScoreRow(label: l.discipline, value: _score!.discipline, color: AppColors.lime, fill: barFill.value),
                       ],
                     ),
                   ),
@@ -799,7 +818,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
                       borderRadius: BorderRadius.circular(18),
                       padding: const EdgeInsets.symmetric(vertical: 18),
                       onPressed: _saveAndStart,
-                      child: const Text('Hadi Başlayalım', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3)),
+                      child: Text(l.letsStart, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3)),
                     ),
                   ),
                 ),

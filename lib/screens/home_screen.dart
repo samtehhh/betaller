@@ -3,18 +3,48 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
+import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
+import '../utils/localized_data.dart';
 import 'growth_analysis_flow.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _anim;
+  late Animation<double> _curve;
+
+  @override
+  void initState() {
+    super.initState();
+    _anim = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500));
+    _curve = CurvedAnimation(parent: _anim, curve: Curves.easeOut);
+    _anim.addListener(() => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _anim.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _anim.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
+        final anim = _curve.value;
         final profile = provider.profile;
         if (profile == null) return const SizedBox();
 
@@ -27,7 +57,7 @@ class HomeScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: AppColors.scaffold,
           body: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             slivers: [
               // ── Header ──────────────────────────────────
               SliverToBoxAdapter(
@@ -54,18 +84,19 @@ class HomeScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Merhaba, ${profile.name}',
-                                      style: const TextStyle(
+                                      l.greeting(profile.name),
+                                      style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 34,
                                         fontWeight: FontWeight.w800,
                                         letterSpacing: -1.2,
                                         height: 1.1,
+                                        shadows: [Shadow(color: Colors.white.withValues(alpha: 0.2), blurRadius: 10)],
                                       ),
                                     ),
                                     const SizedBox(height: 8),
                                     Text(
-                                      DateFormat('d MMMM yyyy, EEEE', 'tr').format(DateTime.now()),
+                                      DateFormat('d MMMM yyyy, EEEE', Localizations.localeOf(context).languageCode).format(DateTime.now()),
                                       style: TextStyle(
                                         color: Colors.white.withValues(alpha: 0.82),
                                         fontSize: 14,
@@ -120,7 +151,7 @@ class HomeScreen extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Mevcut Boy',
+                                            l.currentHeight,
                                             style: TextStyle(
                                               color: Colors.white.withValues(alpha: 0.82),
                                               fontSize: 13,
@@ -138,12 +169,13 @@ class HomeScreen extends StatelessWidget {
                                               children: [
                                                 Text(
                                                   profile.currentHeight.toStringAsFixed(1),
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 44,
                                                     fontWeight: FontWeight.w800,
                                                     letterSpacing: -2,
                                                     height: 1,
+                                                    shadows: [Shadow(color: Colors.white.withValues(alpha: 0.2), blurRadius: 10)],
                                                   ),
                                                 ),
                                                 const SizedBox(width: 3),
@@ -166,7 +198,7 @@ class HomeScreen extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          'Hedef',
+                                          l.target,
                                           style: TextStyle(
                                             color: AppColors.cyan.withValues(alpha: 0.7),
                                             fontSize: 12,
@@ -180,11 +212,12 @@ class HomeScreen extends StatelessWidget {
                                           children: [
                                             Text(
                                               potential.toStringAsFixed(1),
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 color: AppColors.cyan,
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.w800,
                                                 letterSpacing: -0.8,
+                                                shadows: [Shadow(color: AppColors.cyan.withValues(alpha: 0.2), blurRadius: 10)],
                                               ),
                                             ),
                                             Text(
@@ -206,7 +239,7 @@ class HomeScreen extends StatelessWidget {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(5),
                                   child: LinearProgressIndicator(
-                                    value: potential > 0 ? (profile.currentHeight / potential).clamp(0.0, 1.0) : 0,
+                                    value: (potential > 0 ? (profile.currentHeight / potential).clamp(0.0, 1.0) : 0.0) * anim,
                                     minHeight: 8,
                                     backgroundColor: Colors.white.withValues(alpha: 0.14),
                                     valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
@@ -217,7 +250,7 @@ class HomeScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      '%${(potential > 0 ? (profile.currentHeight / potential * 100) : 0).toStringAsFixed(0)} tamamlandı',
+                                      l.completed(((potential > 0 ? (profile.currentHeight / potential * 100) : 0) * anim).toStringAsFixed(0)),
                                       style: TextStyle(
                                         color: Colors.white.withValues(alpha: 0.72),
                                         fontSize: 12,
@@ -231,7 +264,7 @@ class HomeScreen extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: Text(
-                                        '+${remaining.toStringAsFixed(1)} cm kaldı',
+                                        l.remaining(remaining.toStringAsFixed(1)),
                                         style: const TextStyle(
                                           color: AppColors.lime,
                                           fontSize: 12,
@@ -287,12 +320,12 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    provider.analysisCompleted ? 'Analizini Güncelle' : 'Büyüme Analizi Yap',
+                                    provider.analysisCompleted ? l.updateAnalysis : l.startAnalysis,
                                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.5),
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    'Geçmiş boyların + alışkanlıkların ile tahmin al',
+                                    l.analysisSubtitle,
                                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.80)),
                                   ),
                                 ],
@@ -314,7 +347,7 @@ class HomeScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Günlük Rutinler',
+                                l.dailyRoutines,
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
@@ -344,7 +377,7 @@ class HomeScreen extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(5),
                             child: LinearProgressIndicator(
-                              value: provider.routineProgress,
+                              value: provider.routineProgress * anim,
                               minHeight: 8,
                               backgroundColor: Colors.white.withValues(alpha: 0.14),
                               valueColor: AlwaysStoppedAnimation<Color>(
@@ -355,8 +388,8 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 10),
                           Text(
                             provider.allRoutinesCompleted
-                                ? 'Tüm rutinleri tamamladın!'
-                                : '%${(provider.routineProgress * 100).toInt()} tamamlandı',
+                                ? l.allRoutinesDone
+                                : l.completed((provider.routineProgress * 100 * anim).toInt().toString()),
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
@@ -376,12 +409,13 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: _TrackerCard(
-                            title: 'Su',
+                            title: l.water,
                             icon: CupertinoIcons.drop_fill,
                             current: provider.todayWater,
                             target: waterNeed,
                             unit: 'L',
                             color: AppColors.water,
+                            animValue: anim,
                             onTap: () => _showWaterSheet(context, provider),
                             onQuickAdd: () => provider.addWater(0.3),
                           ),
@@ -389,12 +423,13 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(width: 12),
                         Expanded(
                           child: _TrackerCard(
-                            title: 'Uyku',
+                            title: l.sleep,
                             icon: CupertinoIcons.moon_fill,
                             current: provider.todaySleep,
                             target: sleepNeed,
-                            unit: 'sa',
+                            unit: l.hoursShort,
                             color: AppColors.sleep,
+                            animValue: anim,
                             onTap: () => _showSleepSheet(context, provider, sleepNeed),
                             onQuickAdd: () => _showSleepSheet(context, provider, sleepNeed),
                           ),
@@ -410,7 +445,7 @@ class HomeScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Büyüme Özeti',
+                              l.growthSummary,
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
@@ -422,21 +457,21 @@ class HomeScreen extends StatelessWidget {
                             Row(
                               children: [
                                 _GrowthStat(
-                                  label: 'TOPLAM',
+                                  label: l.total,
                                   value: '${provider.totalGrowth > 0 ? '+' : ''}${provider.totalGrowth}',
                                   unit: 'cm',
                                   color: provider.totalGrowth > 0 ? AppColors.success : AppColors.error,
                                 ),
                                 const SizedBox(width: 16),
                                 _GrowthStat(
-                                  label: 'SON',
+                                  label: l.last,
                                   value: '${provider.lastGrowth > 0 ? '+' : ''}${provider.lastGrowth}',
                                   unit: 'cm',
                                   color: provider.lastGrowth > 0 ? AppColors.success : AppColors.textSecondary,
                                 ),
                                 const SizedBox(width: 16),
                                 _GrowthStat(
-                                  label: 'ÖLÇÜM',
+                                  label: l.measurement,
                                   value: '${provider.heightRecords.length}',
                                   unit: '',
                                   color: AppColors.primary,
@@ -460,7 +495,7 @@ class HomeScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Günün İpucu',
+                            l.dailyTip,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w800,
@@ -470,7 +505,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            _getDailyTip(),
+                            localizedTip(l, DateTime.now().difference(DateTime(DateTime.now().year, 1, 1)).inDays),
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -492,21 +527,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  String _getDailyTip() {
-    final tips = [
-      'Sabah kalktığında boy ölç - gün içinde disk basıncı nedeniyle boy kısalır. En doğru ölçüm sabah yapılır.',
-      'Protein alımını öğünlere eşit dağıt. Tek seferde değil, her öğünde protein al.',
-      'Uyku sırasında büyüme hormonu en yüksek seviyede salgılanır. 22:00-02:00 arası uyuyor ol!',
-      'Günlük 15 dakika güneşlenme D vitamini üretimini artırır. D vitamini kalsiyum emilimi için şart.',
-      'Barfiks barına asılma omurgayı dekomprese eder. Her gün 3x30 saniye dene.',
-      'Yüzme, tüm vücudu çalıştıran ve boy uzamayı destekleyen en iyi spordur.',
-      'Stres büyüme hormonunu baskılar. Meditasyon ve yoga ile stresi azalt.',
-    ];
-    final dayOfYear = DateTime.now().difference(DateTime(DateTime.now().year, 1, 1)).inDays;
-    return tips[dayOfYear % tips.length];
-  }
-
   void _showWaterSheet(BuildContext context, AppProvider provider) {
+    final l = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -525,10 +547,10 @@ class HomeScreen extends StatelessWidget {
               decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.40), borderRadius: BorderRadius.circular(3)),
             ),
             const SizedBox(height: 28),
-            const Text('Su Takibi', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8)),
+            Text(l.waterTracking, style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8)),
             const SizedBox(height: 8),
             Text(
-              'Bugün: ${provider.todayWater.toStringAsFixed(1)} L',
+              l.waterToday(provider.todayWater.toStringAsFixed(1)),
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: AppColors.textSecondary, letterSpacing: -0.2),
             ),
             const SizedBox(height: 28),
@@ -549,6 +571,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _showSleepSheet(BuildContext context, AppProvider provider, double sleepNeed) {
+    final l = AppLocalizations.of(context)!;
     double selectedHours = provider.todaySleep > 0 ? provider.todaySleep : sleepNeed;
     showModalBottomSheet(
       context: context,
@@ -569,18 +592,18 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.40), borderRadius: BorderRadius.circular(3)),
               ),
               const SizedBox(height: 28),
-              const Text('Uyku Takibi', style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8)),
+              Text(l.sleepTracking, style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8)),
               const SizedBox(height: 6),
               Text(
-                'Hedef: ${sleepNeed.toStringAsFixed(1)} saat',
+                l.sleepTarget(sleepNeed.toStringAsFixed(1)),
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textSecondary, letterSpacing: -0.2),
               ),
               const SizedBox(height: 24),
               Text(
-                '${selectedHours.toStringAsFixed(1)}',
-                style: const TextStyle(fontSize: 52, fontWeight: FontWeight.w800, color: AppColors.sleep, letterSpacing: -2),
+                selectedHours.toStringAsFixed(1),
+                style: TextStyle(fontSize: 52, fontWeight: FontWeight.w800, color: AppColors.sleep, letterSpacing: -2, shadows: [Shadow(color: AppColors.sleep.withValues(alpha: 0.2), blurRadius: 8)]),
               ),
-              Text('saat', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+              Text(l.hours, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
               const SizedBox(height: 8),
               SliderTheme(
                 data: SliderThemeData(
@@ -609,7 +632,7 @@ class HomeScreen extends StatelessWidget {
                     provider.updateSleep(selectedHours);
                     Navigator.pop(context);
                   },
-                  child: const Text('Kaydet', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white, letterSpacing: -0.3)),
+                  child: Text(l.save, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white, letterSpacing: -0.3)),
                 ),
               ),
               const SizedBox(height: 8),
@@ -632,6 +655,7 @@ class _TrackerCard extends StatelessWidget {
   final Color color;
   final VoidCallback onTap;
   final VoidCallback? onQuickAdd;
+  final double animValue;
 
   const _TrackerCard({
     required this.title,
@@ -642,11 +666,12 @@ class _TrackerCard extends StatelessWidget {
     required this.color,
     required this.onTap,
     this.onQuickAdd,
+    this.animValue = 1.0,
   });
 
   @override
   Widget build(BuildContext context) {
-    final progress = target > 0 ? (current / target).clamp(0.0, 1.0) : 0.0;
+    final progress = (target > 0 ? (current / target).clamp(0.0, 1.0) : 0.0) * animValue;
     final completed = progress >= 1.0;
     return GestureDetector(
       onTap: onTap,
@@ -687,7 +712,7 @@ class _TrackerCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: completed
                             ? null
-                            : [BoxShadow(color: color.withValues(alpha: 0.3), blurRadius: 8, offset: const Offset(0, 2))],
+                            : [BoxShadow(color: color.withValues(alpha: 0.2), blurRadius: 8, offset: const Offset(0, 2))],
                       ),
                       child: Icon(
                         completed ? CupertinoIcons.checkmark : CupertinoIcons.plus,

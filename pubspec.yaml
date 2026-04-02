@@ -37,7 +37,11 @@ flutter_launcher_icons:
   adaptive_icon_background: "#0A0A14"
 
 flutter:
+  generate: true
   uses-material-design: true
+
+  assets:
+    - assets/icon.png
 
   fonts:
     - family: Inter

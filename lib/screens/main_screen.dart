@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../utils/constants.dart';
+import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
 import 'analysis_screen.dart';
 import 'routines_screen.dart';
@@ -19,13 +20,22 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  final _screens = const [
-    HomeScreen(),
-    AnalysisScreen(),
-    RoutinesScreen(),
-    ProgressScreen(),
-    ProfileScreen(),
-  ];
+  final _progressKey = GlobalKey<ProgressScreenState>();
+  final _analysisKey = GlobalKey<AnalysisScreenState>();
+
+  late final List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      const HomeScreen(),
+      AnalysisScreen(key: _analysisKey),
+      const RoutinesScreen(),
+      ProgressScreen(key: _progressKey),
+      const ProfileScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,31 +68,37 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     _NavItem(
                       icon: CupertinoIcons.house_fill,
-                      label: 'Ana Sayfa',
+                      label: AppLocalizations.of(context)!.navHome,
                       selected: _currentIndex == 0,
                       onTap: () => setState(() => _currentIndex = 0),
                     ),
                     _NavItem(
                       icon: CupertinoIcons.chart_bar_fill,
-                      label: 'Analiz',
+                      label: AppLocalizations.of(context)!.navAnalysis,
                       selected: _currentIndex == 1,
-                      onTap: () => setState(() => _currentIndex = 1),
+                      onTap: () {
+                        setState(() => _currentIndex = 1);
+                        _analysisKey.currentState?.replayAnimation();
+                      },
                     ),
                     _NavItem(
                       icon: CupertinoIcons.bolt_fill,
-                      label: 'Rutinler',
+                      label: AppLocalizations.of(context)!.navRoutines,
                       selected: _currentIndex == 2,
                       onTap: () => setState(() => _currentIndex = 2),
                     ),
                     _NavItem(
                       icon: CupertinoIcons.graph_square_fill,
-                      label: 'İlerleme',
+                      label: AppLocalizations.of(context)!.navProgress,
                       selected: _currentIndex == 3,
-                      onTap: () => setState(() => _currentIndex = 3),
+                      onTap: () {
+                        setState(() => _currentIndex = 3);
+                        _progressKey.currentState?.replayAnimation();
+                      },
                     ),
                     _NavItem(
                       icon: CupertinoIcons.person_fill,
-                      label: 'Profil',
+                      label: AppLocalizations.of(context)!.navProfile,
                       selected: _currentIndex == 4,
                       onTap: () => setState(() => _currentIndex = 4),
                     ),
@@ -126,6 +142,7 @@ class _NavItem extends StatelessWidget {
                   ? AppColors.primary
                   : Colors.white.withValues(alpha: 0.82),
               size: 24,
+              shadows: selected ? [Shadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 10)] : null,
             ),
             const SizedBox(height: 4),
             Text(
@@ -134,6 +151,7 @@ class _NavItem extends StatelessWidget {
                 color: selected
                     ? AppColors.primary
                     : Colors.white.withValues(alpha: 0.82),
+                shadows: selected ? [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 8)] : null,
                 fontSize: 11,
                 fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 letterSpacing: -0.2,

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../models/routine.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
+import '../utils/localized_data.dart';
 
 class RoutinesScreen extends StatefulWidget {
   const RoutinesScreen({super.key});
@@ -19,6 +21,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final routines = _selectedCategory == 'all'
@@ -28,7 +31,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
         return Scaffold(
           backgroundColor: AppColors.scaffold,
           body: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             slivers: [
               // ── Header ──────────────────────────────
               SliverToBoxAdapter(
@@ -47,14 +50,15 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Text(
-                              'Rutinler',
+                              l.routines,
                               style: TextStyle(
                                 fontSize: 36,
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.primary,
                                 letterSpacing: -1.2,
+                                shadows: [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 8)],
                               ),
                             ),
                           ),
@@ -72,7 +76,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                   const Icon(CupertinoIcons.flame_fill, color: AppColors.orange, size: 16),
                                   const SizedBox(width: 5),
                                   Text(
-                                    '${provider.streak} Gün',
+                                    l.streakDays(provider.streak),
                                     style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.orange, letterSpacing: -0.3),
                                   ),
                                 ],
@@ -98,8 +102,8 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                             children: [
                               Text(
                                 provider.allRoutinesCompleted
-                                    ? 'Tamamlandı!'
-                                    : 'İlerleme Durumu',
+                                    ? l.completedLabel
+                                    : l.progressStatus,
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,
@@ -142,12 +146,12 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '%${(provider.routineProgress * 100).toInt()} tamamlandı',
+                                l.completed('${(provider.routineProgress * 100).toInt()}'),
                                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.textSecondary, letterSpacing: -0.1),
                               ),
                               if (provider.bestStreak > 0)
                                 Text(
-                                  'En iyi: ${provider.bestStreak} gün',
+                                  l.bestStreak(provider.bestStreak),
                                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.textSecondary, letterSpacing: -0.1),
                                 ),
                             ],
@@ -162,15 +166,15 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          _CategoryChip(label: 'Tümü', icon: CupertinoIcons.square_grid_2x2_fill, selected: _selectedCategory == 'all', onTap: () => setState(() => _selectedCategory = 'all')),
+                          _CategoryChip(label: l.all, icon: CupertinoIcons.square_grid_2x2_fill, selected: _selectedCategory == 'all', onTap: () => setState(() => _selectedCategory = 'all')),
                           const SizedBox(width: 8),
-                          _CategoryChip(label: 'Egzersiz', icon: CupertinoIcons.flame_fill, selected: _selectedCategory == 'exercise', color: AppColors.exerciseColor, onTap: () => setState(() => _selectedCategory = 'exercise')),
+                          _CategoryChip(label: l.exercise, icon: CupertinoIcons.flame_fill, selected: _selectedCategory == 'exercise', color: AppColors.exerciseColor, onTap: () => setState(() => _selectedCategory = 'exercise')),
                           const SizedBox(width: 8),
-                          _CategoryChip(label: 'Beslenme', icon: CupertinoIcons.leaf_arrow_circlepath, selected: _selectedCategory == 'nutrition', color: AppColors.nutritionColor, onTap: () => setState(() => _selectedCategory = 'nutrition')),
+                          _CategoryChip(label: l.nutrition, icon: CupertinoIcons.leaf_arrow_circlepath, selected: _selectedCategory == 'nutrition', color: AppColors.nutritionColor, onTap: () => setState(() => _selectedCategory = 'nutrition')),
                           const SizedBox(width: 8),
-                          _CategoryChip(label: 'Uyku', icon: CupertinoIcons.moon_fill, selected: _selectedCategory == 'sleep', color: AppColors.sleepColor, onTap: () => setState(() => _selectedCategory = 'sleep')),
+                          _CategoryChip(label: l.sleepLabel, icon: CupertinoIcons.moon_fill, selected: _selectedCategory == 'sleep', color: AppColors.sleepColor, onTap: () => setState(() => _selectedCategory = 'sleep')),
                           const SizedBox(width: 8),
-                          _CategoryChip(label: 'Duruş', icon: CupertinoIcons.person_fill, selected: _selectedCategory == 'posture', color: AppColors.postureColor, onTap: () => setState(() => _selectedCategory = 'posture')),
+                          _CategoryChip(label: l.posture, icon: CupertinoIcons.person_fill, selected: _selectedCategory == 'posture', color: AppColors.postureColor, onTap: () => setState(() => _selectedCategory = 'posture')),
                         ],
                       ),
                     ),
@@ -188,10 +192,12 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                       final routine = routines[index];
                       final catInfo = categoryInfo[routine.category];
                       final catColor = catInfo?['color'] as Color? ?? AppColors.primary;
-                      final catTitle = catInfo?['title'] as String? ?? routine.category;
+                      final catTitle = localizedCategory(l, routine.category);
+                      final localized = localizedRoutine(l, routine.id);
 
                       // Personalized description based on analysis
                       final desc = _personalizedDescription(routine, provider);
+                      final displayTitle = localized['title'] ?? routine.title;
 
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
@@ -235,7 +241,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        routine.title,
+                                        displayTitle,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w700,
@@ -274,7 +280,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                           const SizedBox(width: 8),
                                           Icon(CupertinoIcons.clock, size: 11, color: Colors.white.withValues(alpha: 0.50)),
                                           const SizedBox(width: 3),
-                                          Text(routine.duration, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.50), letterSpacing: -0.1)),
+                                          Text(localizedDuration(l, routine.duration), style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.50), letterSpacing: -0.1)),
                                         ],
                                       ),
                                     ],
@@ -317,24 +323,26 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
   }
 
   String _personalizedDescription(Routine routine, AppProvider provider) {
+    final l = AppLocalizations.of(context)!;
     final profile = provider.profile;
-    if (profile == null) return routine.description;
+    final locDesc = localizedRoutine(l, routine.id)['description'] ?? routine.description;
+    if (profile == null) return locDesc;
 
     switch (routine.id) {
       case 'protein':
         final protein = Calculations.dailyProteinNeed(profile.weight).toStringAsFixed(0);
-        return 'Yumurta, tavuk, balık, süt ürünleri. Günde en az ${protein}g protein al.';
+        return l.personalizedProtein(protein);
       case 'water':
         final water = Calculations.dailyWaterNeed(profile.weight).toStringAsFixed(1);
-        return 'Günde en az ${water}L su iç. Metabolizma ve büyüme için şart.';
+        return l.personalizedWater(water);
       case 'quality_sleep':
         final sleep = Calculations.dailySleepNeed(profile.age).toStringAsFixed(0);
-        return 'Büyüme hormonu uyku sırasında salgılanır. En az $sleep saat uyu. 22:00-06:00 arası altın saatler.';
+        return l.personalizedSleep(sleep);
       case 'calcium_vitamin_d':
         final calorie = Calculations.dailyCalorieNeed(profile);
-        return 'Süt, peynir, yoğurt tüket. 15 dk güneşlen. Günlük kalori hedefin: $calorie kcal.';
+        return l.personalizedCalcium('$calorie');
       default:
-        return routine.description;
+        return locDesc;
     }
   }
 }

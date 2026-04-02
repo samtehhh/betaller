@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../l10n/app_localizations.dart';
 import 'main_screen.dart';
 import 'onboarding_screen.dart';
 
@@ -95,11 +96,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                     child: Transform.scale(
                       scale: _logoScale.value,
                       child: Container(
-                        width: 100,
-                        height: 100,
+                        width: 110,
+                        height: 110,
                         decoration: BoxDecoration(
-                          gradient: AppColors.gradientPrimary,
-                          shape: BoxShape.circle,
+                          borderRadius: BorderRadius.circular(28),
                           boxShadow: [
                             BoxShadow(
                               color: AppColors.primary.withValues(alpha: 0.4),
@@ -108,8 +108,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                             ),
                           ],
                         ),
-                        child: const Center(
-                          child: Icon(CupertinoIcons.arrow_up_circle_fill, color: Colors.white, size: 48),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(28),
+                          child: Image.asset('assets/icon.png', fit: BoxFit.cover),
                         ),
                       ),
                     ),
@@ -118,13 +119,17 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                   // App name
                   Opacity(
                     opacity: _textOpacity.value,
-                    child: const Text(
+                    child: Text(
                       'BeTaller',
                       style: TextStyle(
                         fontSize: 42,
                         fontWeight: FontWeight.w900,
                         color: Colors.white,
                         letterSpacing: -1.5,
+                        shadows: [
+                          Shadow(color: AppColors.primary.withValues(alpha: 0.4), blurRadius: 10),
+                          Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 30),
+                        ],
                       ),
                     ),
                   ),
@@ -132,7 +137,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                   Opacity(
                     opacity: _textOpacity.value,
                     child: Text(
-                      'Büyüme potansiyelini keşfet',
+                      AppLocalizations.of(context)?.onboardingSubtitle ?? 'Discover your growth potential',
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,

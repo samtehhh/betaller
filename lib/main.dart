@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -12,7 +13,7 @@ import 'utils/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDateFormatting('tr', null);
+  await initializeDateFormatting();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -46,8 +47,8 @@ class BeTallerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // iOS: SF Pro (sistem fontu), Android: Inter (SF Pro klonu)
     final fontFamily = Platform.isIOS ? '.SF Pro Display' : 'Inter';
+    final provider = context.watch<AppProvider>();
 
     return MaterialApp(
       title: 'BeTaller',
@@ -74,15 +75,26 @@ class BeTallerApp extends StatelessWidget {
         highlightColor: Colors.white10,
       ),
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      locale: const Locale('tr', 'TR'),
+      locale: provider.locale,
       supportedLocales: const [
-        Locale('tr', 'TR'),
-        Locale('en', 'US'),
+        Locale('tr'),
+        Locale('en'),
+        Locale('de'),
+        Locale('fr'),
+        Locale('hi'),
+        Locale('pt'),
+        Locale('es'),
+        Locale('it'),
       ],
+      builder: (context, child) => ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(overscroll: false),
+        child: child!,
+      ),
       home: const SplashScreen(),
     );
   }

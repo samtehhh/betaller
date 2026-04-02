@@ -4,15 +4,46 @@ import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 
-class ProgressScreen extends StatelessWidget {
+class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
 
   @override
+  State<ProgressScreen> createState() => ProgressScreenState();
+}
+
+class ProgressScreenState extends State<ProgressScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _chartAnim;
+  late Animation<double> _chartCurve;
+
+  @override
+  void initState() {
+    super.initState();
+    _chartAnim = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _chartCurve = CurvedAnimation(parent: _chartAnim, curve: Curves.easeOutCubic);
+    // İlk açılışta animasyon
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (mounted) _chartAnim.forward(from: 0);
+    });
+  }
+
+  void replayAnimation() {
+    _chartAnim.forward(from: 0);
+  }
+
+  @override
+  void dispose() {
+    _chartAnim.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final records = provider.heightRecords;
@@ -20,7 +51,7 @@ class ProgressScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: AppColors.scaffold,
           body: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             slivers: [
               // ── Header ──────────────────────────────
               SliverToBoxAdapter(
@@ -36,13 +67,14 @@ class ProgressScreen extends StatelessWidget {
                     bottom: false,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-                      child: const Text(
-                        'İlerleme Takibi',
+                      child: Text(
+                        l.progressTitle,
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.w800,
                           color: AppColors.primary,
                           letterSpacing: -1.2,
+                          shadows: [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 8)],
                         ),
                       ),
                     ),
@@ -60,21 +92,21 @@ class ProgressScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           _StatItem(
-                            label: 'Toplam',
+                            label: l.totalGrowth,
                             value: '${provider.totalGrowth > 0 ? '+' : ''}${provider.totalGrowth}',
                             unit: 'cm',
                             color: provider.totalGrowth > 0 ? AppColors.success : AppColors.textSecondary,
                           ),
                           Container(width: 1, height: 36, color: Colors.white.withValues(alpha: 0.14)),
                           _StatItem(
-                            label: 'Son Fark',
+                            label: l.lastDiff,
                             value: '${provider.lastGrowth > 0 ? '+' : ''}${provider.lastGrowth}',
                             unit: 'cm',
                             color: provider.lastGrowth > 0 ? AppColors.success : AppColors.textSecondary,
                           ),
                           Container(width: 1, height: 36, color: Colors.white.withValues(alpha: 0.14)),
                           _StatItem(
-                            label: 'Ölçüm',
+                            label: l.measurementCount,
                             value: '${records.length}',
                             unit: '',
                             color: AppColors.primaryLight,
@@ -91,11 +123,14 @@ class ProgressScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SectionHeader(icon: CupertinoIcons.graph_square_fill, title: 'Boy Grafiği'),
+                            SectionHeader(icon: CupertinoIcons.graph_square_fill, title: l.heightChart),
                             const SizedBox(height: 18),
                             SizedBox(
                               height: 200,
-                              child: _buildChart(records),
+                              child: AnimatedBuilder(
+                                animation: _chartAnim,
+                                builder: (context, _) => _buildChart(context, records, _chartCurve.value),
+                              ),
                             ),
                           ],
                         ),
@@ -108,12 +143,12 @@ class ProgressScreen extends StatelessWidget {
                             Icon(CupertinoIcons.graph_square, color: AppColors.textTertiary, size: 36),
                             const SizedBox(height: 14),
                             Text(
-                              'Grafik için en az 2 ölçüm gerekli',
+                              l.chartMinData,
                               style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'Yeni ölçüm ekleyerek ilerleme grafiğini gör!',
+                              l.chartInstruction,
                               style: TextStyle(fontSize: 12, color: AppColors.textTertiary),
                             ),
                           ],
@@ -122,8 +157,12 @@ class ProgressScreen extends StatelessWidget {
                     const SizedBox(height: 14),
 
                     // ── Add Measurement Button ────────
-                    SizedBox(
+                    Container(
                       width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.25), blurRadius: 14, offset: const Offset(0, 4))],
+                      ),
                       child: CupertinoButton(
                         color: AppColors.primary,
                         borderRadius: BorderRadius.circular(16),
@@ -134,9 +173,9 @@ class ProgressScreen extends StatelessWidget {
                           children: [
                             const Icon(CupertinoIcons.add, size: 18, color: Colors.white),
                             const SizedBox(width: 8),
-                            const Text(
-                              'Yeni Ölçüm Ekle',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
+                            Text(
+                              l.addMeasurementButton,
+                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: 1.2),
                             ),
                           ],
                         ),
@@ -146,7 +185,7 @@ class ProgressScreen extends StatelessWidget {
 
                     // ── Measurement History ───────────
                     if (records.isNotEmpty) ...[
-                      SectionHeader(icon: CupertinoIcons.clock, title: 'Ölçüm Geçmişi'),
+                      SectionHeader(icon: CupertinoIcons.clock, title: l.measurementHistory),
                       const SizedBox(height: 14),
                       ...List.generate(records.length, (i) {
                         final index = records.length - 1 - i;
@@ -157,7 +196,7 @@ class ProgressScreen extends StatelessWidget {
                         DateTime? parsedDate;
                         try { parsedDate = DateTime.parse(record.date); } catch (_) {}
                         final dateStr = parsedDate != null
-                            ? DateFormat('d MMM yyyy', 'tr').format(parsedDate)
+                            ? DateFormat('d MMM yyyy', Localizations.localeOf(context).languageCode).format(parsedDate)
                             : record.date;
 
                         return Padding(
@@ -175,16 +214,21 @@ class ProgressScreen extends StatelessWidget {
                               child: const Icon(CupertinoIcons.delete, color: AppColors.error, size: 20),
                             ),
                             confirmDismiss: (direction) async {
-                              return await showDialog<bool>(
+                              return await showCupertinoDialog<bool>(
                                 context: context,
-                                builder: (context) => AlertDialog(
-                                  backgroundColor: AppColors.surfaceDark,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                  title: Text('Ölçümü Sil', style: TextStyle(color: Colors.white)),
-                                  content: Text('Bu ölçümü silmek istediğine emin misin?', style: TextStyle(color: AppColors.textSecondary)),
+                                builder: (context) => CupertinoAlertDialog(
+                                  title: Text(l.deleteTitle),
+                                  content: Text(l.deleteMessage),
                                   actions: [
-                                    TextButton(onPressed: () => Navigator.pop(context, false), child: Text('İptal', style: TextStyle(color: AppColors.textSecondary))),
-                                    TextButton(onPressed: () => Navigator.pop(context, true), child: const Text('Sil', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.w600))),
+                                    CupertinoDialogAction(
+                                      onPressed: () => Navigator.pop(context, false),
+                                      child: Text(l.dismiss),
+                                    ),
+                                    CupertinoDialogAction(
+                                      isDestructiveAction: true,
+                                      onPressed: () => Navigator.pop(context, true),
+                                      child: Text(l.delete),
+                                    ),
                                   ],
                                 ),
                               );
@@ -254,10 +298,8 @@ class ProgressScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildChart(List<HeightRecord> records) {
-    final spots = records.asMap().entries.map((e) {
-      return FlSpot(e.key.toDouble(), e.value.height);
-    }).toList();
+  Widget _buildChart(BuildContext context, List<HeightRecord> records, double animValue) {
+    final locale = Localizations.localeOf(context).languageCode;
 
     final heights = records.map((r) => r.height).toList();
     final minH = heights.reduce((a, b) => a < b ? a : b);
@@ -266,15 +308,30 @@ class ProgressScreen extends StatelessWidget {
     final minY = minH - (range < 2 ? 2 : range * 0.3);
     final maxY = maxH + (range < 2 ? 2 : range * 0.3);
 
+    // Noktalar grafiğin tam dibinden (minY) gerçek konumlarına yükseliyor
+    // Her nokta kademeli gecikmeyle çıkıyor (soldan sağa dalga efekti)
+    final spots = records.asMap().entries.map((e) {
+      final i = e.key;
+      final count = records.length;
+      // Her noktaya kademeli gecikme: ilk nokta hemen, son nokta en geç
+      final stagger = count > 1 ? i / (count - 1) * 0.3 : 0.0;
+      final localAnim = ((animValue - stagger) / (1.0 - stagger)).clamp(0.0, 1.0);
+      final targetY = e.value.height;
+      final animatedY = minY + (targetY - minY) * localAnim;
+      return FlSpot(i.toDouble(), animatedY);
+    }).toList();
+
     return LineChart(
+      duration: Duration.zero,
       LineChartData(
         gridData: FlGridData(
           show: true,
           drawVerticalLine: false,
           horizontalInterval: range < 3 ? 0.5 : 1,
           getDrawingHorizontalLine: (value) => FlLine(
-            color: Colors.white.withValues(alpha: 0.14),
-            strokeWidth: 1,
+            color: Colors.white.withValues(alpha: 0.06),
+            strokeWidth: 0.5,
+            dashArray: [6, 4],
           ),
         ),
         titlesData: FlTitlesData(
@@ -287,7 +344,7 @@ class ProgressScreen extends StatelessWidget {
                 if (value == meta.min || value == meta.max) return const SizedBox();
                 return Text(
                   value.toStringAsFixed(1),
-                  style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.45), fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.35), fontWeight: FontWeight.w500),
                 );
               },
             ),
@@ -299,7 +356,6 @@ class ProgressScreen extends StatelessWidget {
               getTitlesWidget: (value, meta) {
                 final index = value.toInt();
                 if (index < 0 || index >= records.length) return const SizedBox();
-                // Show first, last, and middle labels to avoid clutter
                 if (records.length > 5 && index != 0 && index != records.length - 1 && index != records.length ~/ 2) {
                   return const SizedBox();
                 }
@@ -308,8 +364,8 @@ class ProgressScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
-                    DateFormat('d MMM', 'tr').format(date),
-                    style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.72), fontWeight: FontWeight.w500),
+                    DateFormat('d MMM', locale).format(date),
+                    style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.5), fontWeight: FontWeight.w600),
                   ),
                 );
               },
@@ -325,26 +381,38 @@ class ProgressScreen extends StatelessWidget {
           LineChartBarData(
             spots: spots,
             isCurved: true,
-            curveSmoothness: 0.3,
-            color: AppColors.primary,
-            barWidth: 2.5,
+            curveSmoothness: 0.35,
+            gradient: const LinearGradient(
+              colors: [Color(0xFF9C6ADE), Color(0xFFB57BFF), Color(0xFFCE93D8)],
+            ),
+            barWidth: 3,
             isStrokeCapRound: true,
+            shadow: Shadow(
+              color: AppColors.primary.withValues(alpha: 0.4 * animValue),
+              blurRadius: 16 * animValue,
+              offset: const Offset(0, 6),
+            ),
             dotData: FlDotData(
               show: true,
-              getDotPainter: (spot, percent, barData, index) => FlDotCirclePainter(
-                radius: 4,
-                color: AppColors.scaffold,
-                strokeWidth: 2.5,
-                strokeColor: AppColors.primaryLight,
-              ),
+              getDotPainter: (spot, percent, barData, index) {
+                final isLast = index == spots.length - 1;
+                return FlDotCirclePainter(
+                  radius: isLast ? 5.5 : 3.5,
+                  color: isLast ? const Color(0xFFCE93D8) : AppColors.scaffold,
+                  strokeWidth: isLast ? 3 : 2,
+                  strokeColor: isLast ? Colors.white : const Color(0xFFB57BFF),
+                );
+              },
             ),
             belowBarData: BarAreaData(
               show: true,
               gradient: LinearGradient(
                 colors: [
-                  AppColors.primary.withValues(alpha: 0.18),
+                  const Color(0xFFB57BFF).withValues(alpha: 0.20 * animValue),
+                  AppColors.primary.withValues(alpha: 0.06 * animValue),
                   AppColors.primary.withValues(alpha: 0.0),
                 ],
+                stops: const [0.0, 0.6, 1.0],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -353,17 +421,18 @@ class ProgressScreen extends StatelessWidget {
         ],
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
-            tooltipPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            tooltipPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             tooltipMargin: 16,
-            tooltipRoundedRadius: 12,
-            getTooltipColor: (_) => const Color(0xFF2D1B69),
+            tooltipRoundedRadius: 14,
+            getTooltipColor: (_) => const Color(0xFF2D1B69).withValues(alpha: 0.95),
+            tooltipBorder: BorderSide(color: AppColors.primary.withValues(alpha: 0.3)),
             getTooltipItems: (touchedSpots) => touchedSpots.map((spot) {
               final index = spot.x.toInt();
               String dateLabel = '';
               if (index >= 0 && index < records.length) {
                 final date = DateTime.tryParse(records[index].date);
                 if (date != null) {
-                  dateLabel = '${DateFormat('d MMMM', 'tr').format(date)}\n';
+                  dateLabel = '${DateFormat('d MMMM', locale).format(date)}\n';
                 }
               }
               return LineTooltipItem(
@@ -372,12 +441,27 @@ class ProgressScreen extends StatelessWidget {
               );
             }).toList(),
           ),
+          getTouchedSpotIndicator: (barData, spotIndexes) => spotIndexes.map((i) {
+            return TouchedSpotIndicatorData(
+              FlLine(color: const Color(0xFFB57BFF).withValues(alpha: 0.3), strokeWidth: 1, dashArray: [4, 4]),
+              FlDotData(
+                show: true,
+                getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
+                  radius: 6,
+                  color: const Color(0xFFB57BFF),
+                  strokeWidth: 2.5,
+                  strokeColor: Colors.white,
+                ),
+              ),
+            );
+          }).toList(),
         ),
       ),
     );
   }
 
   void _showAddMeasurementSheet(BuildContext context, AppProvider provider) {
+    final l = AppLocalizations.of(context)!;
     final controller = TextEditingController();
     final profile = provider.profile;
     if (profile != null) {
@@ -409,8 +493,8 @@ class ProgressScreen extends StatelessWidget {
                 const SizedBox(height: 24),
                 const Icon(CupertinoIcons.resize_v, color: AppColors.primaryLight, size: 28),
                 const SizedBox(height: 12),
-                const Text(
-                  'Yeni Boy Ölçümü',
+                Text(
+                  l.newMeasurement,
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1),
                 ),
                 const SizedBox(height: 6),
@@ -421,7 +505,7 @@ class ProgressScreen extends StatelessWidget {
                       initialDate: selectedDate,
                       firstDate: DateTime(2020),
                       lastDate: DateTime.now(),
-                      locale: const Locale('tr', 'TR'),
+                      locale: Localizations.localeOf(context),
                       builder: (context, child) => Theme(
                         data: ThemeData.dark().copyWith(
                           colorScheme: const ColorScheme.dark(primary: AppColors.primary, surface: AppColors.surfaceDark),
@@ -445,7 +529,7 @@ class ProgressScreen extends StatelessWidget {
                         Icon(CupertinoIcons.calendar, color: AppColors.primary, size: 16),
                         const SizedBox(width: 8),
                         Text(
-                          DateFormat('d MMMM yyyy', 'tr').format(selectedDate),
+                          DateFormat('d MMMM yyyy', Localizations.localeOf(context).languageCode).format(selectedDate),
                           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.primary),
                         ),
                         const SizedBox(width: 4),
@@ -498,7 +582,7 @@ class ProgressScreen extends StatelessWidget {
                         Navigator.pop(context);
                       }
                     },
-                    child: const Text('Kaydet', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white, letterSpacing: -0.3)),
+                    child: Text(l.save, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white, letterSpacing: -0.3)),
                   ),
                 ),
                 const SizedBox(height: 8),

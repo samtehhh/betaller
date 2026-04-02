@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
+import '../utils/localized_data.dart';
 
 class GrowthAnalysisFlow extends StatefulWidget {
   const GrowthAnalysisFlow({super.key});
@@ -179,15 +181,19 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
               if (_currentPage < _totalPages - 1)
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-                  child: SizedBox(
+                  child: Container(
                     width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.25), blurRadius: 14, offset: const Offset(0, 4))],
+                    ),
                     child: CupertinoButton(
                       color: AppColors.primary,
                       borderRadius: BorderRadius.circular(18),
                       padding: const EdgeInsets.symmetric(vertical: 18),
                       onPressed: _nextPage,
                       child: Text(
-                        _currentPage == 0 ? 'Devam' : 'Analiz Et',
+                        _currentPage == 0 ? AppLocalizations.of(context)!.continueBtn : AppLocalizations.of(context)!.analyzeBtn,
                         style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
                       ),
                     ),
@@ -203,9 +209,9 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                       borderRadius: BorderRadius.circular(18),
                       padding: const EdgeInsets.symmetric(vertical: 18),
                       onPressed: _saveAndClose,
-                      child: const Text(
-                        'Tamam',
-                        style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Color(0xFF0A0A14), letterSpacing: -0.3),
+                      child: Text(
+                        AppLocalizations.of(context)!.ok,
+                        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Color(0xFF0A0A14), letterSpacing: -0.3),
                       ),
                     ),
                   ),
@@ -220,6 +226,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
   // ── Page 1: Geçmiş Boylar ────────────────────────────────────────
 
   Widget _buildPastHeightsPage() {
+    final l = AppLocalizations.of(context)!;
     final provider = context.watch<AppProvider>();
     final profile = provider.profile;
     if (profile == null) return const SizedBox();
@@ -231,13 +238,13 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Geçmiş Boyların',
-            style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2),
+          Text(
+            l.pastHeights,
+            style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2),
           ),
           const SizedBox(height: 8),
           Text(
-            'Hatırladığın yaşlardaki boylarını gir. Ne kadar çok veri, o kadar doğru tahmin.',
+            l.pastHeightsInfo,
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.82), height: 1.4, letterSpacing: -0.1),
           ),
           const SizedBox(height: 28),
@@ -267,7 +274,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                           ),
                         ),
                         Text(
-                          'yaş',
+                          l.ageLabel,
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
@@ -287,7 +294,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                       cursorColor: AppColors.primary,
                       readOnly: isCurrentAge,
                       decoration: InputDecoration(
-                        hintText: isCurrentAge ? '${profile.currentHeight.toStringAsFixed(1)} (mevcut)' : 'Boy gir...',
+                        hintText: isCurrentAge ? '${profile.currentHeight.toStringAsFixed(1)} ${l.currentSuffix}' : l.heightHint,
                         hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.45), fontWeight: FontWeight.w400),
                         suffixText: 'cm',
                         suffixStyle: TextStyle(color: Colors.white.withValues(alpha: 0.82), fontWeight: FontWeight.w500),
@@ -315,7 +322,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    'Hatırlamadığın yaşları boş bırakabilirsin. En az 1-2 geçmiş boy girmen yeterli.',
+                    l.pastHeightsTip,
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75), height: 1.4),
                   ),
                 ),
@@ -330,18 +337,19 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
   // ── Page 2: Alışkanlıklar ────────────────────────────────────────
 
   Widget _buildHabitsPage() {
+    final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(22, 16, 22, 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Alışkanlıkların',
-            style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2),
+          Text(
+            l.habits,
+            style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.2),
           ),
           const SizedBox(height: 8),
           Text(
-            'Bu alışkanlıkları düzenli yaparsan tahminini buna göre hesaplayacağız.',
+            l.habitsInfo,
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.82), height: 1.4, letterSpacing: -0.1),
           ),
           const SizedBox(height: 32),
@@ -349,12 +357,12 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
           // Egzersiz
           _HabitSlider(
             icon: CupertinoIcons.flame_fill,
-            title: 'Haftalık Egzersiz',
+            title: l.weeklyExercise,
             value: _exerciseHours,
             min: 0,
             max: 10,
             divisions: 20,
-            unit: 'saat',
+            unit: l.hours,
             color: AppColors.primary,
             onChanged: (v) => setState(() => _exerciseHours = v),
           ),
@@ -363,28 +371,28 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
           // Uyku
           _HabitSlider(
             icon: CupertinoIcons.moon_fill,
-            title: 'Günlük Uyku',
+            title: l.dailySleep,
             value: _sleepHours,
             min: 4,
             max: 12,
             divisions: 16,
-            unit: 'saat',
+            unit: l.hours,
             color: AppColors.sleep,
             onChanged: (v) => setState(() => _sleepHours = v),
           ),
           const SizedBox(height: 28),
 
           // Beslenme
-          Text('Beslenme Kalitesi', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3)),
+          Text(l.nutritionQuality, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3)),
           const SizedBox(height: 6),
-          Text('Protein, süt, sebze, meyve tüketimin', style: TextStyle(fontSize: 13, color: Colors.white.withValues(alpha: 0.75))),
+          Text(l.nutritionDesc, style: TextStyle(fontSize: 13, color: Colors.white.withValues(alpha: 0.75))),
           const SizedBox(height: 14),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(5, (i) {
               final level = i + 1;
               final selected = _nutritionScore == level;
-              final labels = ['Kötü', 'Zayıf', 'Orta', 'İyi', 'Harika'];
+              final labels = [l.nutritionBad, l.nutritionPoor, l.nutritionMedium, l.nutritionGood, l.nutritionGreat];
               return GestureDetector(
                 onTap: () => setState(() => _nutritionScore = level),
                 child: AnimatedContainer(
@@ -435,6 +443,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
   Widget _buildResultPage() {
     if (_prediction == null || _score == null) return const SizedBox();
 
+    final l = AppLocalizations.of(context)!;
     final provider = context.watch<AppProvider>();
     final profile = provider.profile;
     if (profile == null) return const SizedBox();
@@ -459,12 +468,12 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
             child: Column(
               children: [
                 Text(
-                  'Tahmini Boyun',
+                  l.predictedHeightAt21,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82)),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '21 yaşında',
+                  l.heightAt21,
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
                 ),
                 const SizedBox(height: 16),
@@ -492,7 +501,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '${_prediction!.minHeight} - ${_prediction!.maxHeight} cm aralığında',
+                  l.heightRange('${_prediction!.minHeight}', '${_prediction!.maxHeight}'),
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.72)),
                 ),
                 const SizedBox(height: 6),
@@ -503,7 +512,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    '%${_prediction!.confidence} güven oranı',
+                    l.confidenceLevel('${_prediction!.confidence}'),
                     style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.cyan),
                   ),
                 ),
@@ -512,16 +521,16 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _ResultMini(label: 'ŞU AN', value: '${profile.currentHeight.toStringAsFixed(1)} cm', color: Colors.white),
+                    _ResultMini(label: l.currentLabel, value: '${profile.currentHeight.toStringAsFixed(1)} cm', color: Colors.white),
                     const SizedBox(width: 16),
                     Icon(CupertinoIcons.arrow_right, color: AppColors.primary.withValues(alpha: 0.6), size: 18),
                     const SizedBox(width: 16),
-                    _ResultMini(label: 'TAHMİN', value: '${_prediction!.finalHeight.toStringAsFixed(1)} cm', color: AppColors.cyan),
+                    _ResultMini(label: l.predictedLabel, value: '${_prediction!.finalHeight.toStringAsFixed(1)} cm', color: AppColors.cyan),
                   ],
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '+${(_prediction!.finalHeight - profile.currentHeight).toStringAsFixed(1)} cm büyüme potansiyeli',
+                  l.growthPotential((_prediction!.finalHeight - profile.currentHeight).toStringAsFixed(1)),
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.lime, letterSpacing: -0.2),
                 ),
               ],
@@ -535,7 +544,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
               children: [
                 Row(
                   children: [
-                    const Text('BeTaller Skorun', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
+                    Text(l.yourScore, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
                     const Spacer(),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
@@ -553,15 +562,15 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                 ),
                 const SizedBox(height: 20),
                 // Score bars
-                _ScoreBar(label: 'Genetik', value: _score!.genetic, color: AppColors.primary),
+                _ScoreBar(label: l.genetic, value: _score!.genetic, color: AppColors.primary),
                 const SizedBox(height: 10),
-                _ScoreBar(label: 'Büyüme Hızı', value: _score!.velocity, color: AppColors.cyan),
+                _ScoreBar(label: l.growth, value: _score!.velocity, color: AppColors.cyan),
                 const SizedBox(height: 10),
-                _ScoreBar(label: 'Beslenme', value: _score!.nutrition, color: AppColors.orange),
+                _ScoreBar(label: l.nutrition, value: _score!.nutrition, color: AppColors.orange),
                 const SizedBox(height: 10),
-                _ScoreBar(label: 'Uyku', value: _score!.sleep, color: AppColors.sleep),
+                _ScoreBar(label: l.sleepLabel, value: _score!.sleep, color: AppColors.sleep),
                 const SizedBox(height: 10),
-                _ScoreBar(label: 'Disiplin', value: _score!.discipline, color: AppColors.lime),
+                _ScoreBar(label: l.discipline, value: _score!.discipline, color: AppColors.lime),
                 const SizedBox(height: 16),
                 Container(
                   width: double.infinity,
@@ -571,7 +580,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Text(
-                    _score!.summary,
+                    localizedScoreSummary(l, _score!.summary),
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _gradeColor(_score!.grade), height: 1.4),
                   ),
@@ -587,7 +596,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Yıllık Tahmin', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
+                  Text(l.yearlyPredictions, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
                   const SizedBox(height: 16),
                   ..._prediction!.yearlyPredictions.entries.map((e) {
                     return Padding(
@@ -596,7 +605,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                         children: [
                           SizedBox(
                             width: 50,
-                            child: Text('${e.key} yaş', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82))),
+                            child: Text(l.ageYear(e.key), style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82))),
                           ),
                           Expanded(
                             child: ClipRRect(

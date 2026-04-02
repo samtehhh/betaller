@@ -4,15 +4,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
+import '../utils/localized_data.dart';
 
-class AnalysisScreen extends StatelessWidget {
+class AnalysisScreen extends StatefulWidget {
   const AnalysisScreen({super.key});
 
   @override
+  State<AnalysisScreen> createState() => AnalysisScreenState();
+}
+
+class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _barAnim;
+  late Animation<double> _barCurve;
+
+  @override
+  void initState() {
+    super.initState();
+    _barAnim = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
+    _barCurve = CurvedAnimation(parent: _barAnim, curve: Curves.easeOutCubic);
+    Future.delayed(const Duration(milliseconds: 200), () {
+      if (mounted) _barAnim.forward(from: 0);
+    });
+  }
+
+  void replayAnimation() {
+    _barAnim.forward(from: 0);
+  }
+
+  @override
+  void dispose() {
+    _barAnim.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final profile = provider.profile;
@@ -20,7 +52,7 @@ class AnalysisScreen extends StatelessWidget {
 
         final prediction = Calculations.predictFinalHeight(profile, provider.heightRecords);
         final bmi = Calculations.calculateBMI(profile.currentHeight, profile.weight);
-        final bmiCat = Calculations.bmiCategory(bmi);
+        final bmiCat = localizedBmiCategory(l, Calculations.bmiCategory(bmi));
         final bmiCol = Calculations.bmiColor(bmi);
         final growthPct = Calculations.growthPercentage(profile.age, profile.gender);
         final waterNeed = Calculations.dailyWaterNeed(profile.weight);
@@ -41,7 +73,7 @@ class AnalysisScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: AppColors.scaffold,
           body: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(
                 child: Container(
@@ -56,13 +88,14 @@ class AnalysisScreen extends StatelessWidget {
                     bottom: false,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(22, 8, 22, 20),
-                      child: const Text(
-                        'Analiz',
+                      child: Text(
+                        l.analysis,
                         style: TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.w800,
                           color: AppColors.primary,
                           letterSpacing: -1.2,
+                          shadows: [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 8)],
                         ),
                       ),
                     ),
@@ -91,9 +124,9 @@ class AnalysisScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Text(
-                                'BeTaller Skor',
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
+                              Text(
+                                l.betallerScore,
+                                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
                               ),
                               const Spacer(),
                               Container(
@@ -110,64 +143,75 @@ class AnalysisScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w900,
                                     color: _gradeColor(glowScore.grade),
                                     letterSpacing: 1,
+                                    shadows: [Shadow(color: _gradeColor(glowScore.grade).withValues(alpha: 0.35), blurRadius: 8)],
                                   ),
                                 ),
                               ),
                             ],
                           ),
                           const SizedBox(height: 24),
-                          // Big score circle
-                          SizedBox(
-                            height: 160,
-                            width: 160,
-                            child: CustomPaint(
-                              painter: _ScoreRingPainter(
-                                progress: glowScore.total / 100,
-                                color: _gradeColor(glowScore.grade),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      '${glowScore.total}',
-                                      style: const TextStyle(
-                                        fontSize: 52,
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.white,
-                                        letterSpacing: -2,
-                                        height: 1,
-                                      ),
+                          // Big score circle - animated
+                          AnimatedBuilder(
+                            animation: _barAnim,
+                            builder: (context, _) {
+                              final a = _barCurve.value;
+                              return SizedBox(
+                                height: 160,
+                                width: 160,
+                                child: CustomPaint(
+                                  painter: _ScoreRingPainter(
+                                    progress: (glowScore.total / 100) * a,
+                                    color: _gradeColor(glowScore.grade),
+                                  ),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          '${(glowScore.total * a).round()}',
+                                          style: TextStyle(
+                                            fontSize: 52,
+                                            fontWeight: FontWeight.w800,
+                                            color: Colors.white,
+                                            letterSpacing: -2,
+                                            height: 1,
+                                            shadows: [Shadow(color: _gradeColor(glowScore.grade).withValues(alpha: 0.35), blurRadius: 8)],
+                                          ),
+                                        ),
+                                        Text(
+                                          '/ 100',
+                                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      '/ 100',
-                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
                           const SizedBox(height: 20),
                           Text(
-                            glowScore.summary,
+                            localizedScoreSummary(l, glowScore.summary),
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.88), height: 1.4, letterSpacing: -0.1),
                           ),
-                          const SizedBox(height: 20),
-                          // Score breakdown
-                          Row(
-                            children: [
-                              _ScorePill(label: 'Genetik', value: glowScore.genetic, color: AppColors.primary),
-                              const SizedBox(width: 6),
-                              _ScorePill(label: 'Büyüme', value: glowScore.velocity, color: AppColors.cyan),
-                              const SizedBox(width: 6),
-                              _ScorePill(label: 'Beslenme', value: glowScore.nutrition, color: AppColors.orange),
-                              const SizedBox(width: 6),
-                              _ScorePill(label: 'Uyku', value: glowScore.sleep, color: AppColors.sleep),
-                              const SizedBox(width: 6),
-                              _ScorePill(label: 'Disiplin', value: glowScore.discipline, color: AppColors.lime),
-                            ],
+                          const SizedBox(height: 24),
+                          // Score breakdown bars
+                          AnimatedBuilder(
+                            animation: _barAnim,
+                            builder: (context, _) => Column(
+                              children: [
+                                _ScoreBarAnimated(label: l.genetic, value: glowScore.genetic, color: AppColors.primary, anim: _barCurve.value, delay: 0.0),
+                                const SizedBox(height: 10),
+                                _ScoreBarAnimated(label: l.growth, value: glowScore.velocity, color: AppColors.cyan, anim: _barCurve.value, delay: 0.05),
+                                const SizedBox(height: 10),
+                                _ScoreBarAnimated(label: l.nutrition, value: glowScore.nutrition, color: AppColors.orange, anim: _barCurve.value, delay: 0.10),
+                                const SizedBox(height: 10),
+                                _ScoreBarAnimated(label: l.sleepLabel, value: glowScore.sleep, color: AppColors.sleep, anim: _barCurve.value, delay: 0.15),
+                                const SizedBox(height: 10),
+                                _ScoreBarAnimated(label: l.discipline, value: glowScore.discipline, color: AppColors.lime, anim: _barCurve.value, delay: 0.20),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -175,7 +219,7 @@ class AnalysisScreen extends StatelessWidget {
                     const SizedBox(height: 14),
 
                     // ── İyileştirme Önerileri ────────────
-                    if (_getImprovements(glowScore, provider).isNotEmpty) ...[
+                    if (_getImprovements(glowScore, provider, l).isNotEmpty) ...[
                       GlassCard(
                         padding: const EdgeInsets.all(20),
                         child: Column(
@@ -185,9 +229,9 @@ class AnalysisScreen extends StatelessWidget {
                               children: [
                                 const Icon(CupertinoIcons.arrow_up_right_circle_fill, color: AppColors.lime, size: 20),
                                 const SizedBox(width: 8),
-                                const Text(
-                                  'Skorunu Yükselt',
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
+                                Text(
+                                  l.improveScore,
+                                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
                                 ),
                                 const Spacer(),
                                 Container(
@@ -197,14 +241,14 @@ class AnalysisScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    '${glowScore.grade} → ${_nextGrade(glowScore.grade)}',
+                                    l.gradeProgress(glowScore.grade, _nextGrade(glowScore.grade)),
                                     style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: AppColors.lime, letterSpacing: 0.5),
                                   ),
                                 ),
                               ],
                             ),
                             const SizedBox(height: 16),
-                            ..._getImprovements(glowScore, provider).map((tip) => Padding(
+                            ..._getImprovements(glowScore, provider, l).map((tip) => Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Container(
                                 padding: const EdgeInsets.all(14),
@@ -276,9 +320,9 @@ class AnalysisScreen extends StatelessWidget {
                             children: [
                               const Icon(CupertinoIcons.sparkles, color: AppColors.cyan, size: 20),
                               const SizedBox(width: 8),
-                              const Text(
-                                'Boy Tahminin',
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
+                              Text(
+                                l.heightPrediction,
+                                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
                               ),
                             ],
                           ),
@@ -288,7 +332,7 @@ class AnalysisScreen extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  '21 yaşında tahmini boyun',
+                                  l.predictedHeightAt21,
                                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75)),
                                 ),
                                 const SizedBox(height: 8),
@@ -321,7 +365,7 @@ class AnalysisScreen extends StatelessWidget {
                           // Year-by-year predictions
                           if (prediction.yearlyPredictions.isNotEmpty) ...[
                             Text(
-                              'YILLIK TAHMİN',
+                              l.yearlyPrediction,
                               style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.82), letterSpacing: 1.2),
                             ),
                             const SizedBox(height: 12),
@@ -336,7 +380,7 @@ class AnalysisScreen extends StatelessWidget {
                                     SizedBox(
                                       width: 55,
                                       child: Text(
-                                        '${e.key} yaş',
+                                        l.ageYear(e.key),
                                         style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82)),
                                       ),
                                     ),
@@ -378,7 +422,7 @@ class AnalysisScreen extends StatelessWidget {
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
-                                    'Genetik (anne-baba), büyüme hızı, BMI ve yaş verileri birleştirilerek hesaplanır.',
+                                    l.predictionMethod,
                                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.white.withValues(alpha: 0.82), height: 1.4),
                                   ),
                                 ),
@@ -395,13 +439,13 @@ class AnalysisScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Büyüme Durumu', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
+                          Text(l.growthStatus, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
                           const SizedBox(height: 18),
                           Row(
                             children: [
                               Expanded(
                                 child: _StatBlock(
-                                  label: 'TAMAMLANMA',
+                                  label: l.completionLabel,
                                   value: '%${growthPct.toStringAsFixed(0)}',
                                   color: AppColors.primary,
                                 ),
@@ -409,36 +453,39 @@ class AnalysisScreen extends StatelessWidget {
                               const SizedBox(width: 12),
                               Expanded(
                                 child: _StatBlock(
-                                  label: 'BÜYÜME HIZI',
-                                  value: velocity != null ? '${velocity.toStringAsFixed(1)} cm/yıl' : 'Veri yok',
+                                  label: l.growthVelocity,
+                                  value: '${(velocity ?? 2.7).toStringAsFixed(1)} ${l.cmPerYear}',
                                   color: AppColors.cyan,
                                 ),
                               ),
                             ],
                           ),
-                          if (velocity != null) ...[
+                          ...[
                             const SizedBox(height: 14),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                              decoration: BoxDecoration(
-                                color: _velocityColor(velocity, profile.age, profile.gender).withValues(alpha: 0.12),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(CupertinoIcons.arrow_up_right, size: 14, color: _velocityColor(velocity, profile.age, profile.gender)),
-                                  const SizedBox(width: 6),
-                                  Text(
-                                    'Büyüme hızın: ${Calculations.growthVelocityRating(velocity, profile.age, profile.gender)}',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w700,
-                                      color: _velocityColor(velocity, profile.age, profile.gender),
+                            Builder(builder: (_) {
+                              final v = velocity ?? 2.7;
+                              return Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                                decoration: BoxDecoration(
+                                  color: _velocityColor(v, profile.age, profile.gender).withValues(alpha: 0.12),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(CupertinoIcons.arrow_up_right, size: 14, color: _velocityColor(v, profile.age, profile.gender)),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      l.growthRate(localizedVelocityRating(l, Calculations.growthVelocityRating(v, profile.age, profile.gender))),
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w700,
+                                        color: _velocityColor(v, profile.age, profile.gender),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                  ],
+                                ),
+                              );
+                            }),
                           ],
                           const SizedBox(height: 14),
                           ClipRRect(
@@ -458,25 +505,25 @@ class AnalysisScreen extends StatelessWidget {
                     // ── Score Detail Cards ────────────────
                     Row(
                       children: [
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.heart_fill, title: 'BMI', value: bmi.toStringAsFixed(1), subtitle: bmiCat, color: bmiCol)),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.heart_fill, title: l.bmi, value: bmi.toStringAsFixed(1), subtitle: bmiCat, color: bmiCol)),
                         const SizedBox(width: 12),
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.flame_fill, title: 'Kalori', value: '$calorieNeed', subtitle: 'kcal/gün', color: AppColors.orange)),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.flame_fill, title: l.calories, value: '$calorieNeed', subtitle: l.kcalDay, color: AppColors.orange)),
                       ],
                     ),
                     const SizedBox(height: 12),
                     Row(
                       children: [
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.drop_fill, title: 'Su', value: '${waterNeed.toStringAsFixed(1)}L', subtitle: 'günlük', color: AppColors.water)),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.drop_fill, title: l.water, value: '${waterNeed.toStringAsFixed(1)}L', subtitle: l.daily, color: AppColors.water)),
                         const SizedBox(width: 12),
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.bolt_fill, title: 'Protein', value: '${proteinNeed.toStringAsFixed(0)}g', subtitle: 'günlük', color: AppColors.lime)),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.bolt_fill, title: l.protein, value: '${proteinNeed.toStringAsFixed(0)}g', subtitle: l.daily, color: AppColors.lime)),
                       ],
                     ),
                     const SizedBox(height: 12),
                     Row(
                       children: [
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.moon_fill, title: 'Uyku', value: '${sleepNeed.toStringAsFixed(0)}sa', subtitle: 'minimum', color: AppColors.sleep)),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.moon_fill, title: l.sleepLabel, value: '${sleepNeed.toStringAsFixed(0)}${l.hoursShort}', subtitle: l.minimum, color: AppColors.sleep)),
                         const SizedBox(width: 12),
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.person_fill, title: 'Yaş', value: '${profile.age}', subtitle: profile.gender == 'male' ? 'Erkek' : 'Kadın', color: AppColors.pink)),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.person_fill, title: l.age, value: '${profile.age}', subtitle: profile.gender == 'male' ? l.male : l.female, color: AppColors.pink)),
                       ],
                     ),
                   ]),
@@ -511,36 +558,96 @@ class AnalysisScreen extends StatelessWidget {
     }
   }
 
-  List<Map<String, dynamic>> _getImprovements(GlowUpScore score, AppProvider provider) {
+  List<Map<String, dynamic>> _getImprovements(GlowUpScore score, AppProvider provider, AppLocalizations l) {
     final tips = <Map<String, dynamic>>[];
+    final profile = provider.profile!;
+    final waterNeed = Calculations.dailyWaterNeed(profile.weight);
+    final sleepNeed = Calculations.dailySleepNeed(profile.age);
+    final bmi = Calculations.calculateBMI(profile.currentHeight, profile.weight);
+    final completed = provider.completedRoutineCount;
+    final total = provider.routines.length;
+    final remaining = total - completed;
 
-    // En düşük skorlardan başla — en çok kazanç sağlayacak olanlar
+    // ── Beslenme — gerçek veriye göre ──
+    String nutritionDesc;
+    if (provider.todayWater < waterNeed * 0.5) {
+      final kalan = (waterNeed - provider.todayWater).toStringAsFixed(1);
+      nutritionDesc = l.waterHalfNotReached(kalan);
+    } else if (provider.todayWater < waterNeed) {
+      final kalan = (waterNeed - provider.todayWater).toStringAsFixed(1);
+      nutritionDesc = l.waterAlmostDone(kalan);
+    } else if (bmi < 18.5) {
+      nutritionDesc = l.bmiLow(bmi.toStringAsFixed(1));
+    } else if (bmi > 25) {
+      nutritionDesc = l.bmiHigh(bmi.toStringAsFixed(1));
+    } else {
+      nutritionDesc = l.nutritionDefault;
+    }
+
+    // ── Uyku — gerçek veriye göre ──
+    String sleepDesc;
+    if (provider.todaySleep == 0) {
+      sleepDesc = l.sleepNoRecord(sleepNeed.toStringAsFixed(0));
+    } else if (provider.todaySleep < sleepNeed - 1) {
+      final eksik = (sleepNeed - provider.todaySleep).toStringAsFixed(1);
+      sleepDesc = l.sleepInsufficient(provider.todaySleep.toStringAsFixed(1), eksik);
+    } else if (provider.todaySleep < sleepNeed) {
+      sleepDesc = l.sleepAlmost(sleepNeed.toStringAsFixed(0));
+    } else {
+      sleepDesc = l.sleepGood;
+    }
+
+    // ── Disiplin — gerçek veriye göre ──
+    String disciplineDesc;
+    if (completed == 0) {
+      disciplineDesc = l.noRoutinesDone(total);
+    } else if (remaining > 0) {
+      disciplineDesc = l.routinesPartial(completed, total, remaining);
+    } else if (provider.streak < 3) {
+      disciplineDesc = l.streakBuilding(3 - provider.streak);
+    } else {
+      disciplineDesc = l.streakContinue(provider.streak);
+    }
+
+    // ── Boy Ölçümü — gerçek veriye göre ──
+    String velocityDesc;
+    if (provider.heightRecords.isEmpty) {
+      velocityDesc = l.noMeasurements;
+    } else if (provider.heightRecords.length < 3) {
+      final kalan = 3 - provider.heightRecords.length;
+      velocityDesc = l.fewMeasurements(kalan);
+    } else if (provider.heightRecords.length < 5) {
+      velocityDesc = l.goodMeasurements(provider.heightRecords.length);
+    } else {
+      velocityDesc = l.keepMeasuring;
+    }
+
     final categories = [
       {'key': 'nutrition', 'score': score.nutrition, 'color': AppColors.orange, 'icon': '🥗',
-        'title': 'Beslenmeyi İyileştir',
-        'desc': 'Günlük su hedefini tamamla ve protein alımını artır. BMI\'ını normal aralığa getir.',
+        'title': score.nutrition < 50 ? l.nutritionCritical : l.nutritionStrengthen,
+        'desc': nutritionDesc,
         'points': ((90 - score.nutrition) * 0.20).round()},
       {'key': 'sleep', 'score': score.sleep, 'color': AppColors.sleep, 'icon': '😴',
-        'title': 'Uyku Düzenini Kur',
-        'desc': 'Her gece en az ${Calculations.dailySleepNeed(provider.profile!.age).toStringAsFixed(0)} saat uyu. Büyüme hormonu uykuda salgılanır.',
+        'title': provider.todaySleep == 0 ? l.sleepRecordAdd : score.sleep < 50 ? l.sleepPoor : l.sleepImprove,
+        'desc': sleepDesc,
         'points': ((90 - score.sleep) * 0.15).round()},
       {'key': 'discipline', 'score': score.discipline, 'color': AppColors.lime, 'icon': '🔥',
-        'title': 'Rutinlere Devam Et',
-        'desc': 'Günlük egzersizleri tamamla ve streak\'ini koru. Düzen her şeyi değiştirir.',
+        'title': completed == 0 ? l.startToday : remaining > 0 ? l.routinesRemaining(remaining) : l.keepStreak,
+        'desc': disciplineDesc,
         'points': ((90 - score.discipline) * 0.15).round()},
       {'key': 'velocity', 'score': score.velocity, 'color': AppColors.cyan, 'icon': '📏',
-        'title': 'Boy Ölçümü Ekle',
-        'desc': 'Düzenli boy ölçümleri gir. Daha fazla veri = daha doğru tahmin ve skor.',
+        'title': provider.heightRecords.isEmpty ? l.addFirstMeasurement : l.addMeasurement,
+        'desc': velocityDesc,
         'points': ((90 - score.velocity) * 0.25).round()},
     ];
 
-    // Skoru 80'in altında olanları göster, en düşükten başla
+    // En düşük skordan başla, max 3 öneri
     categories.sort((a, b) => (a['score'] as int).compareTo(b['score'] as int));
     for (final cat in categories) {
       if ((cat['score'] as int) < 80 && (cat['points'] as int) > 0) {
         tips.add(cat);
       }
-      if (tips.length >= 3) break; // Max 3 öneri
+      if (tips.length >= 3) break;
     }
 
     return tips;
@@ -549,9 +656,9 @@ class AnalysisScreen extends StatelessWidget {
   Color _velocityColor(double velocity, int age, String gender) {
     final rating = Calculations.growthVelocityRating(velocity, age, gender);
     switch (rating) {
-      case 'Mükemmel': return AppColors.lime;
-      case 'Normal': return AppColors.cyan;
-      case 'Yavaş': return AppColors.warning;
+      case 'excellent': return AppColors.lime;
+      case 'normal': return AppColors.cyan;
+      case 'slow': return AppColors.warning;
       default: return AppColors.error;
     }
   }
@@ -615,30 +722,59 @@ class _ScoreRingPainter extends CustomPainter {
 
 // ── Sub-widgets ───────────────────────────────────────────────────
 
-class _ScorePill extends StatelessWidget {
+class _ScoreBarAnimated extends StatelessWidget {
   final String label;
   final int value;
   final Color color;
+  final double anim;
+  final double delay;
 
-  const _ScorePill({required this.label, required this.value, required this.color});
+  const _ScoreBarAnimated({required this.label, required this.value, required this.color, required this.anim, required this.delay});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(10),
+    final localAnim = ((anim - delay) / (1.0 - delay)).clamp(0.0, 1.0);
+    final barValue = (value / 100) * localAnim;
+
+    return Row(
+      children: [
+        SizedBox(
+          width: 70,
+          child: Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.75), letterSpacing: -0.2)),
         ),
-        child: Column(
-          children: [
-            Text('$value', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.3)),
-            const SizedBox(height: 2),
-            Text(label, style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: color.withValues(alpha: 0.7), letterSpacing: 0.3)),
-          ],
+        Expanded(
+          child: Container(
+            height: 10,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: FractionallySizedBox(
+              alignment: Alignment.centerLeft,
+              widthFactor: barValue,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [color.withValues(alpha: 0.7), color],
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(color: color.withValues(alpha: 0.3 * localAnim), blurRadius: 8, offset: const Offset(0, 2)),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
-      ),
+        SizedBox(
+          width: 36,
+          child: Text(
+            '${(value * localAnim).round()}',
+            textAlign: TextAlign.right,
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.3),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -708,7 +844,7 @@ class _ScoreCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Text(value, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: color, letterSpacing: -1)),
+          Text(value, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: color, letterSpacing: -1, shadows: [Shadow(color: color.withValues(alpha: 0.25), blurRadius: 8)])),
           const SizedBox(height: 2),
           Text(subtitle, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82))),
         ],

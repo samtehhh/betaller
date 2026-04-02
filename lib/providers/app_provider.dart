@@ -22,6 +22,7 @@ class AppProvider extends ChangeNotifier {
   String _todayQuote = '';
   Map<int, double> _pastHeights = {}; // yaş -> boy (geçmiş boylar)
   bool _analysisCompleted = false;
+  Locale? _locale;
 
   UserProfile? get profile => _profile;
   List<HeightRecord> get heightRecords => _heightRecords;
@@ -33,6 +34,7 @@ class AppProvider extends ChangeNotifier {
   Map<int, double> get pastHeights => _pastHeights;
   bool get analysisCompleted => _analysisCompleted;
   String get todayQuote => _todayQuote;
+  Locale? get locale => _locale;
 
   String get _today => DateTime.now().toIso8601String().substring(0, 10);
 
@@ -116,6 +118,11 @@ class AppProvider extends ChangeNotifier {
       final lastSleepDate = json['lastSleepDate'] ?? '';
       if (lastWaterDate != _today) _todayWater = 0;
       if (lastSleepDate != _today) _todaySleep = 0;
+
+      final savedLocale = json['locale'] as String?;
+      if (savedLocale != null && savedLocale.isNotEmpty) {
+        _locale = Locale(savedLocale);
+      }
     }
 
     _initRoutines();
@@ -174,6 +181,7 @@ class AppProvider extends ChangeNotifier {
       'lastSleepDate': _today,
       'analysisCompleted': _analysisCompleted,
       'pastHeights': _pastHeights.map((k, v) => MapEntry(k.toString(), v)),
+      'locale': _locale?.languageCode ?? '',
     };
     await prefs.setString('glowup_app_data', jsonEncode(data));
   }
@@ -244,6 +252,12 @@ class AppProvider extends ChangeNotifier {
       if (_streak > _bestStreak) _bestStreak = _streak;
     }
 
+    _saveData();
+    notifyListeners();
+  }
+
+  void setLocale(Locale newLocale) {
+    _locale = newLocale;
     _saveData();
     notifyListeners();
   }

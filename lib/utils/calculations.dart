@@ -22,10 +22,10 @@ class Calculations {
   }
 
   static String bmiCategory(double bmi) {
-    if (bmi < 18.5) return 'Zayıf';
-    if (bmi < 25) return 'Normal';
-    if (bmi < 30) return 'Kilolu';
-    return 'Obez';
+    if (bmi < 18.5) return 'underweight';
+    if (bmi < 25) return 'normal';
+    if (bmi < 30) return 'overweight';
+    return 'obese';
   }
 
   static Color bmiColor(double bmi) {
@@ -100,10 +100,15 @@ class Calculations {
   static String growthVelocityRating(double velocity, int age, String gender) {
     // Ortalama büyüme hızları (cm/yıl)
     final avgVelocity = _averageGrowthVelocity(age, gender);
-    if (velocity >= avgVelocity * 1.2) return 'Mükemmel';
-    if (velocity >= avgVelocity * 0.8) return 'Normal';
-    if (velocity >= avgVelocity * 0.5) return 'Yavaş';
-    return 'Çok Yavaş';
+    if (velocity >= avgVelocity * 1.2) return 'excellent';
+    if (velocity >= avgVelocity * 0.8) return 'normal';
+    if (velocity >= avgVelocity * 0.5) return 'slow';
+    return 'very_low';
+  }
+
+  /// Yaşa uygun gerçekçi mock büyüme hızı (ortalamanın biraz üstü)
+  static double mockVelocity(int age, String gender) {
+    return _averageGrowthVelocity(age, gender) * 0.95;
   }
 
   static double _averageGrowthVelocity(int age, String gender) {
@@ -352,15 +357,12 @@ class Calculations {
   }
 
   static String _scoreSummary(int score) {
-    if (score >= 90) return 'Mükemmel! Potansiyelinin zirvesine ulaşıyorsun.';
-    if (score >= 80)
-      return 'Harika gidiyorsun! Küçük iyileştirmelerle zirveye çık.';
-    if (score >= 70)
-      return 'İyi yoldasın. Rutin ve beslenmeye biraz daha odaklan.';
-    if (score >= 60)
-      return 'Gelişim alanların var. Düzenli rutinler fark yaratacak.';
-    if (score >= 50) return 'Potansiyelin yüksek ama aksiyona geçmen lazım.';
-    return 'Şimdi başla! Her gün küçük bir adım büyük fark yaratır.';
+    if (score >= 90) return 'score_s';
+    if (score >= 80) return 'score_a';
+    if (score >= 70) return 'score_b';
+    if (score >= 60) return 'score_c';
+    if (score >= 50) return 'score_d';
+    return 'score_f';
   }
 }
 
