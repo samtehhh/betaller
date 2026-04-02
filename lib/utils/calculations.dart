@@ -61,12 +61,14 @@ class Calculations {
   static int dailyCalorieNeed(UserProfile profile) {
     double bmr;
     if (profile.gender == 'male') {
-      bmr = 88.362 +
+      bmr =
+          88.362 +
           (13.397 * profile.weight) +
           (4.799 * profile.currentHeight) -
           (5.677 * profile.age);
     } else {
-      bmr = 447.593 +
+      bmr =
+          447.593 +
           (9.247 * profile.weight) +
           (3.098 * profile.currentHeight) -
           (4.330 * profile.age);
@@ -123,7 +125,10 @@ class Calculations {
   }
 
   /// Çok faktörlü boy tahmini (21 yaşında)
-  static PredictionResult predictFinalHeight(UserProfile profile, List<HeightRecord> records) {
+  static PredictionResult predictFinalHeight(
+    UserProfile profile,
+    List<HeightRecord> records,
+  ) {
     final geneticPotential = geneticPotentialHeight(profile);
     final velocity = growthVelocity(records);
     final growthPct = growthPercentage(profile.age, profile.gender);
@@ -140,7 +145,9 @@ class Calculations {
         final yearlyGrowth = _averageGrowthVelocity(futureAge, profile.gender);
         // Mevcut büyüme hızını ortalama ile karşılaştır
         final avgVelocity = _averageGrowthVelocity(profile.age, profile.gender);
-        final velocityFactor = avgVelocity > 0 ? (velocity / avgVelocity).clamp(0.5, 1.8) : 1.0;
+        final velocityFactor = avgVelocity > 0
+            ? (velocity / avgVelocity).clamp(0.5, 1.8)
+            : 1.0;
         projected += yearlyGrowth * velocityFactor;
       }
       velocityEstimate = projected;
@@ -154,24 +161,52 @@ class Calculations {
 
     // 4. BMI düzeltmesi
     double bmiAdjustment = 0;
-    if (bmi < 16) bmiAdjustment = -1.5; // Aşırı zayıf: potansiyeli düşürür
-    else if (bmi < 18.5) bmiAdjustment = -0.5;
-    else if (bmi > 28) bmiAdjustment = -1.0; // Obezite erken kapanma riski
-    else if (bmi > 25) bmiAdjustment = -0.5;
+    if (bmi < 16) {
+      bmiAdjustment = -1.5; // Aşırı zayıf: potansiyeli düşürür
+    } else if (bmi < 18.5)
+      bmiAdjustment = -0.5;
+    else if (bmi > 28)
+      bmiAdjustment = -1.0; // Obezite erken kapanma riski
+    else if (bmi > 25)
+      bmiAdjustment = -0.5;
 
     // Ağırlıklı ortalama
     double finalEstimate;
-    if (velocity != null && records.length >= 3) {
-      // Yeterli veri varsa büyüme hızına daha çok ağırlık ver
-      finalEstimate = geneticEstimate * 0.30 +
+    final bool geneticBelowCurrent = geneticEstimate < profile.currentHeight;
+
+    // Genetik potansiyeli aşmış kişiler için aralık (postür + egzersiz)
+    double? bonusMin;
+    double? bonusMax;
+
+    if (geneticBelowCurrent) {
+      if (profile.age <= 14) {
+        bonusMin = 3.5; bonusMax = 4.5;
+      } else if (profile.age <= 16) {
+        bonusMin = 3.0; bonusMax = 4.0;
+      } else if (profile.age <= 18) {
+        bonusMin = 2.5; bonusMax = 3.5;
+      } else if (profile.age <= 20) {
+        bonusMin = 2.0; bonusMax = 3.0;
+      } else {
+        bonusMin = 2.0; bonusMax = 2.5;
+      }
+      // Aralığın ortasını ana tahmin olarak kullan
+      finalEstimate = profile.currentHeight + (bonusMin + bonusMax) / 2;
+    } else if (velocity != null && records.length >= 3) {
+      finalEstimate =
+          geneticEstimate * 0.30 +
           velocityEstimate * 0.40 +
           percentileEstimate * 0.30;
     } else {
-      finalEstimate = geneticEstimate * 0.50 +
-          percentileEstimate * 0.50;
+      finalEstimate = geneticEstimate * 0.50 + percentileEstimate * 0.50;
     }
 
     finalEstimate += bmiAdjustment;
+
+    // Son güvenlik: tahmin asla mevcut boydan düşük olamaz
+    if (finalEstimate < profile.currentHeight) {
+      finalEstimate = profile.currentHeight;
+    }
 
     // Güven aralığı
     final confidence = _calculateConfidence(records, profile.age);
@@ -189,20 +224,32 @@ class Calculations {
           yearsRemaining,
           (i) => _averageGrowthVelocity(profile.age + 1 + i, profile.gender),
         ).fold(0.0, (a, b) => a + b);
-        final proportion = totalAvgVelocity > 0 ? yearVelocity / totalAvgVelocity : 1.0 / yearsRemaining;
+        final proportion = totalAvgVelocity > 0
+            ? yearVelocity / totalAvgVelocity
+            : 1.0 / yearsRemaining;
         current += totalRemaining * proportion;
         yearlyPredictions[age] = double.parse(current.toStringAsFixed(1));
       }
     }
 
+    // Genetik aşılmışsa min/max bonus aralığından, değilse güven aralığından
+    final double resultMin = bonusMin != null
+        ? profile.currentHeight + bonusMin
+        : math.max(finalEstimate - margin, profile.currentHeight);
+    final double resultMax = bonusMax != null
+        ? profile.currentHeight + bonusMax
+        : finalEstimate + margin;
+
     return PredictionResult(
       finalHeight: double.parse(finalEstimate.toStringAsFixed(1)),
-      minHeight: double.parse((finalEstimate - margin).toStringAsFixed(1)),
-      maxHeight: double.parse((finalEstimate + margin).toStringAsFixed(1)),
+      minHeight: double.parse(resultMin.toStringAsFixed(1)),
+      maxHeight: double.parse(resultMax.toStringAsFixed(1)),
       confidence: confidence.round(),
       yearlyPredictions: yearlyPredictions,
       geneticEstimate: double.parse(geneticEstimate.toStringAsFixed(1)),
-      velocityEstimate: velocity != null ? double.parse(velocityEstimate.toStringAsFixed(1)) : null,
+      velocityEstimate: velocity != null
+          ? double.parse(velocityEstimate.toStringAsFixed(1))
+          : null,
     );
   }
 
@@ -248,29 +295,40 @@ class Calculations {
     // 3. Beslenme Skoru (0-100)
     final bmi = calculateBMI(profile.currentHeight, profile.weight);
     int nutritionScore = 50;
-    if (bmi >= 18.5 && bmi < 25) nutritionScore = 90;
-    else if (bmi >= 17 && bmi < 27) nutritionScore = 70;
-    else if (bmi >= 15 && bmi < 30) nutritionScore = 50;
-    else nutritionScore = 30;
+    if (bmi >= 18.5 && bmi < 25) {
+      nutritionScore = 90;
+    } else if (bmi >= 17 && bmi < 27)
+      nutritionScore = 70;
+    else if (bmi >= 15 && bmi < 30)
+      nutritionScore = 50;
+    else
+      nutritionScore = 30;
     // Su takibi bonusu
-    nutritionScore = ((nutritionScore * 0.7) + (waterProgress.clamp(0, 1) * 30)).round();
+    nutritionScore = ((nutritionScore * 0.7) + (waterProgress.clamp(0, 1) * 30))
+        .round();
 
     // 4. Uyku Skoru (0-100)
     final sleepNeed = dailySleepNeed(profile.age);
-    final sleepRatio = sleepHours > 0 ? (sleepHours / sleepNeed).clamp(0, 1.2) : 0.0;
+    final sleepRatio = sleepHours > 0
+        ? (sleepHours / sleepNeed).clamp(0, 1.2)
+        : 0.0;
     final sleepScore = (sleepRatio * 85 + 5).clamp(0, 100).round();
 
     // 5. Disiplin Skoru (0-100)
-    final disciplineScore = math.min(100, (routineProgress * 60 + streak * 2 + 10).round());
+    final disciplineScore = math.min(
+      100,
+      (routineProgress * 60 + streak * 2 + 10).round(),
+    );
 
     // Toplam GlowUp Skoru (ağırlıklı ortalama)
-    final totalScore = (
-      geneticScore * 0.25 +
-      velocityScore * 0.25 +
-      nutritionScore * 0.20 +
-      sleepScore * 0.15 +
-      disciplineScore * 0.15
-    ).round().clamp(0, 100);
+    final totalScore =
+        (geneticScore * 0.25 +
+                velocityScore * 0.25 +
+                nutritionScore * 0.20 +
+                sleepScore * 0.15 +
+                disciplineScore * 0.15)
+            .round()
+            .clamp(0, 100);
 
     return GlowUpScore(
       total: totalScore,
@@ -295,9 +353,12 @@ class Calculations {
 
   static String _scoreSummary(int score) {
     if (score >= 90) return 'Mükemmel! Potansiyelinin zirvesine ulaşıyorsun.';
-    if (score >= 80) return 'Harika gidiyorsun! Küçük iyileştirmelerle zirveye çık.';
-    if (score >= 70) return 'İyi yoldasın. Rutin ve beslenmeye biraz daha odaklan.';
-    if (score >= 60) return 'Gelişim alanların var. Düzenli rutinler fark yaratacak.';
+    if (score >= 80)
+      return 'Harika gidiyorsun! Küçük iyileştirmelerle zirveye çık.';
+    if (score >= 70)
+      return 'İyi yoldasın. Rutin ve beslenmeye biraz daha odaklan.';
+    if (score >= 60)
+      return 'Gelişim alanların var. Düzenli rutinler fark yaratacak.';
     if (score >= 50) return 'Potansiyelin yüksek ama aksiyona geçmen lazım.';
     return 'Şimdi başla! Her gün küçük bir adım büyük fark yaratır.';
   }

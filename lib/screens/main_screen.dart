@@ -41,10 +41,10 @@ class _MainScreenState extends State<MainScreen> {
           filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.scaffold.withValues(alpha: 0.88),
+              color: const Color(0xFF1A0F1E).withValues(alpha: 0.95),
               border: Border(
                 top: BorderSide(
-                  color: Colors.white.withValues(alpha: 0.06),
+                  color: const Color(0xFFCE93D8).withValues(alpha: 0.08),
                   width: 0.5,
                 ),
               ),
@@ -124,7 +124,7 @@ class _NavItem extends StatelessWidget {
               icon,
               color: selected
                   ? AppColors.primary
-                  : Colors.white.withValues(alpha: 0.50),
+                  : Colors.white.withValues(alpha: 0.70),
               size: 24,
             ),
             const SizedBox(height: 4),
@@ -133,7 +133,7 @@ class _NavItem extends StatelessWidget {
               style: TextStyle(
                 color: selected
                     ? AppColors.primary
-                    : Colors.white.withValues(alpha: 0.50),
+                    : Colors.white.withValues(alpha: 0.70),
                 fontSize: 11,
                 fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 letterSpacing: -0.2,

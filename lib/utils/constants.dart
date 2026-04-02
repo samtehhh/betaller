@@ -9,35 +9,35 @@ class AppColors {
 
   // Core backgrounds
   static const scaffold = Color(0xFF0A0A14);
-  static const surfaceDark = Color(0xFF12121E);
+  static const surfaceDark = Color(0xFF14112A);
 
-  // Glass card fills - more visible like U Max
-  static final cardFill = Colors.white.withValues(alpha: 0.11);
-  static final cardFillHover = Colors.white.withValues(alpha: 0.16);
-  static final cardBorder = Colors.white.withValues(alpha: 0.16);
-  static final cardBorderLight = Colors.white.withValues(alpha: 0.24);
+  // Kart dolguları — mor tonlu, Umax tarzı
+  static const cardFill = Color(0xFF1A1535);
+  static const cardFillLight = Color(0xFF201A40);
+  static final cardBorder = const Color(0xFF7C3AED).withValues(alpha: 0.18);
+  static final cardBorderLight = const Color(0xFF7C3AED).withValues(alpha: 0.28);
 
-  // Primary accent - MORE VIBRANT purple like U Max
-  static const primary = Color(0xFFA78BFA);
-  static const primaryLight = Color(0xFFC4B5FD);
+  // Primary accent — parlak mor
+  static const primary = Color(0xFFB388FF);
+  static const primaryLight = Color(0xFFD1B3FF);
   static const primaryDark = Color(0xFF7C3AED);
-  static const primaryBright = Color(0xFFB794F6);
+  static const primaryBright = Color(0xFFC49CFF);
 
-  // Secondary accents - more saturated
-  static const cyan = Color(0xFF22D3EE);
-  static const orange = Color(0xFFFF8A4C);
-  static const pink = Color(0xFFFF5CAD);
-  static const lime = Color(0xFF4ADE80);
+  // Secondary accents — DOYGUN, PARLAK
+  static const cyan = Color(0xFF00E5FF);
+  static const orange = Color(0xFFFF9100);
+  static const pink = Color(0xFFFF4DB8);
+  static const lime = Color(0xFF69F0AE);
 
   // Semantic
-  static const success = Color(0xFF4ADE80);
-  static const error = Color(0xFFFF5C5C);
-  static const warning = Color(0xFFFBBF24);
+  static const success = Color(0xFF69F0AE);
+  static const error = Color(0xFFFF5252);
+  static const warning = Color(0xFFFFD740);
 
-  // Text hierarchy - U Max level brightness
+  // Text hierarchy — parlak, net
   static const textPrimary = Color(0xFFFFFFFF);
-  static final textSecondary = Colors.white.withValues(alpha: 0.82);
-  static final textTertiary = Colors.white.withValues(alpha: 0.62);
+  static final textSecondary = Colors.white.withValues(alpha: 0.90);
+  static final textTertiary = Colors.white.withValues(alpha: 0.75);
 
   // Category palette - more vibrant
   static const exerciseColor = Color(0xFFA78BFA);

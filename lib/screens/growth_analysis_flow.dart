@@ -58,6 +58,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
   }
 
   void _nextPage() {
+    FocusScope.of(context).unfocus();
     if (_currentPage < _totalPages - 1) {
       if (_currentPage == 1) {
         _calculateResult();

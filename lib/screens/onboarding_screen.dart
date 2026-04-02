@@ -91,6 +91,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   }
 
   void _nextPage() {
+    FocusScope.of(context).unfocus();
     final page = _currentPage;
     debugPrint('>>> _nextPage: page=$page');
     if (page >= 5) {
@@ -110,6 +111,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   }
 
   void _prevPage() {
+    FocusScope.of(context).unfocus();
     if (_currentPage > 1 && _currentPage <= 5) {
       setState(() => _currentPage = _currentPage - 1);
       _pageController.previousPage(duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
