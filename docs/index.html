@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeTaller - Discover Your Growth Potential</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0A0A14;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background glow */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 24px 40px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        /* Logo */
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 28px;
+            margin: 0 auto 32px;
+            box-shadow: 0 0 60px rgba(139, 92, 246, 0.3), 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #B57BFF, #8B5CF6, #CE93D8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            font-weight: 500;
+            margin-bottom: 40px;
+            letter-spacing: -0.3px;
+        }
+
+        .description {
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 48px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 56px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            width: 280px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.85);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-2px);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 56px;
+            text-align: left;
+        }
+
+        .feature {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .feature h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .feature p {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.5;
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: rgba(255,255,255,0.08);
+            margin: 0 0 32px;
+        }
+
+        /* Links */
+        .legal-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .legal-links a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .legal-links a:hover {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .copyright {
+            font-size: 12px;
+            color: rgba(255,255,255,0.25);
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 40px 20px 32px; }
+            h1 { font-size: 36px; }
+            .tagline { font-size: 16px; }
+            .features { grid-template-columns: 1fr; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="icon.png" alt="BeTaller" class="logo">
+
+        <h1>BeTaller</h1>
+        <p class="tagline">Discover Your Growth Potential</p>
+
+        <p class="description">
+            Track your height growth, get AI-powered predictions based on genetics and habits,
+            follow personalized daily routines, and unlock your full growth potential.
+        </p>
+
+        <div class="buttons">
+            <a href="https://play.google.com/store/apps/details?id=com.glowup.boyuzatma_app" class="btn btn-primary">
+                <svg viewBox="0 0 24 24"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                Google Play
+            </a>
+            <a href="mailto:support@betaller.app" class="btn btn-secondary">
+                <svg viewBox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/></svg>
+                Contact Us
+            </a>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h3>Growth Analysis</h3>
+                <p>AI-powered height predictions based on genetics, age and habits</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔥</div>
+                <h3>Daily Routines</h3>
+                <p>14 personalized exercise, nutrition and sleep routines</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📈</div>
+                <h3>Progress Tracking</h3>
+                <p>Chart your growth with measurements and streak tracking</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <h3>8 Languages</h3>
+                <p>Available in Turkish, English, German, French, Spanish and more</p>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="legal-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="eula.html">EULA</a>
+        </div>
+
+        <p class="copyright">&copy; 2026 BeTaller. All rights reserved.</p>
+    </div>
+</body>
+</html>
