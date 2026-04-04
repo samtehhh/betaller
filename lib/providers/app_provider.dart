@@ -23,6 +23,7 @@ class AppProvider extends ChangeNotifier {
   Map<int, double> _pastHeights = {}; // yaş -> boy (geçmiş boylar)
   bool _analysisCompleted = false;
   Locale? _locale;
+  bool _isPremium = false;
 
   UserProfile? get profile => _profile;
   List<HeightRecord> get heightRecords => _heightRecords;
@@ -35,6 +36,7 @@ class AppProvider extends ChangeNotifier {
   bool get analysisCompleted => _analysisCompleted;
   String get todayQuote => _todayQuote;
   Locale? get locale => _locale;
+  bool get isPremium => _isPremium;
 
   String get _today => DateTime.now().toIso8601String().substring(0, 10);
 
@@ -109,6 +111,7 @@ class AppProvider extends ChangeNotifier {
       _todayWater = (json['todayWater'] ?? 0).toDouble();
       _todaySleep = (json['todaySleep'] ?? 0).toDouble();
       _analysisCompleted = json['analysisCompleted'] ?? false;
+      _isPremium = json['isPremium'] ?? false;
       if (json['pastHeights'] != null) {
         _pastHeights = (json['pastHeights'] as Map<String, dynamic>)
             .map((k, v) => MapEntry(int.parse(k), (v as num).toDouble()));
@@ -181,6 +184,7 @@ class AppProvider extends ChangeNotifier {
       'lastSleepDate': _today,
       'analysisCompleted': _analysisCompleted,
       'pastHeights': _pastHeights.map((k, v) => MapEntry(k.toString(), v)),
+      'isPremium': _isPremium,
       'locale': _locale?.languageCode ?? '',
     };
     await prefs.setString('glowup_app_data', jsonEncode(data));
@@ -252,6 +256,12 @@ class AppProvider extends ChangeNotifier {
       if (_streak > _bestStreak) _bestStreak = _streak;
     }
 
+    _saveData();
+    notifyListeners();
+  }
+
+  void setPremium(bool value) {
+    _isPremium = value;
     _saveData();
     notifyListeners();
   }

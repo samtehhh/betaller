@@ -10,6 +10,7 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
 import 'main_screen.dart';
+import '../widgets/premium_paywall.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -21,7 +22,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> with TickerProviderStateMixin {
   final _pageController = PageController();
   int _currentPage = 0;
-  final int _totalPages = 8; // Welcome, Info, Body, Parents, PastHeights, Habits, Analyzing, Result
+  // 8 pages: Welcome, Info, Body, Parents, PastHeights, Habits, Analyzing, Result
 
   // Data
   final _nameController = TextEditingController();
@@ -47,7 +48,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
   late AnimationController _progressAnim;
   late AnimationController _resultAnim;
   double _analysisProgress = 0;
-  bool _resultReady = false;
   int _currentAnalysisStep = 0;
 
   List<String> _analysisSteps(AppLocalizations l) => [
@@ -209,7 +209,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
     if (!mounted) return;
     setState(() {
       _currentPage = 7;
-      _resultReady = true;
     });
     _pageController.nextPage(duration: const Duration(milliseconds: 600), curve: Curves.easeInOut);
     _resultAnim.forward(from: 0);
@@ -714,92 +713,99 @@ class _OnboardingScreenState extends State<OnboardingScreen> with TickerProvider
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
           child: Column(
             children: [
-              // Hero prediction card
+              // Hero prediction card - blurred for free users
               Transform.translate(
                 offset: Offset(0, 40 * (1 - predictionSlide.value)),
                 child: Opacity(
                   opacity: predictionFade.value,
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(colors: [Color(0xFF2D1B69), Color(0xFF1A1145)], begin: Alignment.topLeft, end: Alignment.bottomRight),
-                      borderRadius: BorderRadius.circular(28),
-                      border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
-                      boxShadow: [
-                        BoxShadow(color: AppColors.primary.withValues(alpha: 0.15 * predictionFade.value), blurRadius: 30, spreadRadius: 0),
-                      ],
-                    ),
-                    padding: const EdgeInsets.all(28),
-                    child: Column(
-                      children: [
-                        Text(l.predictedHeightAt21, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75))),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                          textBaseline: TextBaseline.alphabetic,
-                          children: [
-                            Text(
-                              displayHeight.toStringAsFixed(1),
-                              style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -3, height: 1),
-                            ),
-                            const SizedBox(width: 4),
-                            Text('cm', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82))),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          decoration: BoxDecoration(color: AppColors.lime.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(12)),
-                          child: Text(
-                            l.growthPotential(growth.toStringAsFixed(1)),
-                            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.lime, letterSpacing: -0.2),
+                  child: PremiumLockedOverlay(
+                    onTap: () => showPremiumPaywall(context),
+                    borderRadius: 28,
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(colors: [Color(0xFF2D1B69), Color(0xFF1A1145)], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                        borderRadius: BorderRadius.circular(28),
+                        border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+                        boxShadow: [
+                          BoxShadow(color: AppColors.primary.withValues(alpha: 0.15 * predictionFade.value), blurRadius: 30, spreadRadius: 0),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(28),
+                      child: Column(
+                        children: [
+                          Text(l.predictedHeightAt21, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75))),
+                          const SizedBox(height: 12),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: [
+                              Text(
+                                displayHeight.toStringAsFixed(1),
+                                style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -3, height: 1),
+                              ),
+                              const SizedBox(width: 4),
+                              Text('cm', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82))),
+                            ],
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 12),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            decoration: BoxDecoration(color: AppColors.lime.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(12)),
+                            child: Text(
+                              l.growthPotential(growth.toStringAsFixed(1)),
+                              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.lime, letterSpacing: -0.2),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 16),
 
-              // Score card
+              // Score card - blurred for free users
               Transform.translate(
                 offset: Offset(0, 50 * (1 - scoreSlide.value)),
                 child: Opacity(
                   opacity: scoreFade.value,
-                  child: GlassCard(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(l.yourScore, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
-                            const Spacer(),
-                            Transform.scale(
-                              scale: 0.5 + scoreFade.value * 0.5,
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                                decoration: BoxDecoration(
-                                  color: _gradeColor(_score!.grade).withValues(alpha: 0.18),
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: _gradeColor(_score!.grade).withValues(alpha: 0.4)),
+                  child: PremiumLockedOverlay(
+                    onTap: () => showPremiumPaywall(context),
+                    child: GlassCard(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(l.yourScore, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
+                              const Spacer(),
+                              Transform.scale(
+                                scale: 0.5 + scoreFade.value * 0.5,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    color: _gradeColor(_score!.grade).withValues(alpha: 0.18),
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(color: _gradeColor(_score!.grade).withValues(alpha: 0.4)),
+                                  ),
+                                  child: Text(_score!.grade, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: _gradeColor(_score!.grade))),
                                 ),
-                                child: Text(_score!.grade, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: _gradeColor(_score!.grade))),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        _AnimatedScoreRow(label: l.genetic, value: _score!.genetic, color: AppColors.primary, fill: barFill.value),
-                        const SizedBox(height: 8),
-                        _AnimatedScoreRow(label: l.growth, value: _score!.velocity, color: AppColors.cyan, fill: barFill.value),
-                        const SizedBox(height: 8),
-                        _AnimatedScoreRow(label: l.nutrition, value: _score!.nutrition, color: AppColors.orange, fill: barFill.value),
-                        const SizedBox(height: 8),
-                        _AnimatedScoreRow(label: l.sleepLabel, value: _score!.sleep, color: AppColors.sleep, fill: barFill.value),
-                        const SizedBox(height: 8),
-                        _AnimatedScoreRow(label: l.discipline, value: _score!.discipline, color: AppColors.lime, fill: barFill.value),
-                      ],
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          _AnimatedScoreRow(label: l.genetic, value: _score!.genetic, color: AppColors.primary, fill: barFill.value),
+                          const SizedBox(height: 8),
+                          _AnimatedScoreRow(label: l.growth, value: _score!.velocity, color: AppColors.cyan, fill: barFill.value),
+                          const SizedBox(height: 8),
+                          _AnimatedScoreRow(label: l.nutrition, value: _score!.nutrition, color: AppColors.orange, fill: barFill.value),
+                          const SizedBox(height: 8),
+                          _AnimatedScoreRow(label: l.sleepLabel, value: _score!.sleep, color: AppColors.sleep, fill: barFill.value),
+                          const SizedBox(height: 8),
+                          _AnimatedScoreRow(label: l.discipline, value: _score!.discipline, color: AppColors.lime, fill: barFill.value),
+                        ],
+                      ),
                     ),
                   ),
                 ),

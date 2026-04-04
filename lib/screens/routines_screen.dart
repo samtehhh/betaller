@@ -8,6 +8,7 @@ import '../models/routine.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
 import '../utils/localized_data.dart';
+import '../widgets/premium_paywall.dart';
 
 class RoutinesScreen extends StatefulWidget {
   const RoutinesScreen({super.key});
@@ -15,6 +16,8 @@ class RoutinesScreen extends StatefulWidget {
   @override
   State<RoutinesScreen> createState() => _RoutinesScreenState();
 }
+
+const _freeRoutineIds = {'morning_stretch', 'protein', 'quality_sleep', 'posture_check'};
 
 class _RoutinesScreenState extends State<RoutinesScreen> {
   String _selectedCategory = 'all';
@@ -198,95 +201,109 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                       // Personalized description based on analysis
                       final desc = _personalizedDescription(routine, provider);
                       final displayTitle = localized['title'] ?? routine.title;
+                      final isFree = _freeRoutineIds.contains(routine.id);
+                      final isLocked = !provider.isPremium && !isFree;
 
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: GestureDetector(
-                          onTap: () => provider.toggleRoutine(routine.id),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: routine.completed
-                                    ? [AppColors.success.withValues(alpha: 0.12), AppColors.success.withValues(alpha: 0.04)]
-                                    : [catColor.withValues(alpha: 0.15), catColor.withValues(alpha: 0.03)],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: routine.completed
-                                    ? AppColors.success.withValues(alpha: 0.30)
-                                    : catColor.withValues(alpha: 0.18),
-                                width: routine.completed ? 1 : 0.5,
-                              ),
+                      Widget routineCard = GestureDetector(
+                        onTap: provider.isPremium
+                            ? () => provider.toggleRoutine(routine.id)
+                            : () => showPremiumPaywall(context),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: routine.completed
+                                  ? [AppColors.success.withValues(alpha: 0.12), AppColors.success.withValues(alpha: 0.04)]
+                                  : [catColor.withValues(alpha: 0.15), catColor.withValues(alpha: 0.03)],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
                             ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 48,
-                                  height: 48,
-                                  decoration: BoxDecoration(
-                                    color: routine.completed
-                                        ? AppColors.success.withValues(alpha: 0.12)
-                                        : catColor.withValues(alpha: 0.14),
-                                    borderRadius: BorderRadius.circular(14),
-                                  ),
-                                  child: Center(child: Text(routine.icon, style: const TextStyle(fontSize: 24))),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: routine.completed
+                                  ? AppColors.success.withValues(alpha: 0.30)
+                                  : catColor.withValues(alpha: 0.18),
+                              width: routine.completed ? 1 : 0.5,
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 48,
+                                height: 48,
+                                decoration: BoxDecoration(
+                                  color: routine.completed
+                                      ? AppColors.success.withValues(alpha: 0.12)
+                                      : catColor.withValues(alpha: 0.14),
+                                  borderRadius: BorderRadius.circular(14),
                                 ),
-                                const SizedBox(width: 14),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        displayTitle,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                          color: routine.completed
-                                              ? Colors.white.withValues(alpha: 0.72)
-                                              : Colors.white,
-                                          decoration: routine.completed ? TextDecoration.lineThrough : null,
-                                          decorationColor: Colors.white.withValues(alpha: 0.45),
-                                          letterSpacing: -0.3,
-                                        ),
+                                child: Center(child: Text(routine.icon, style: const TextStyle(fontSize: 24))),
+                              ),
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      displayTitle,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: routine.completed
+                                            ? Colors.white.withValues(alpha: 0.72)
+                                            : Colors.white,
+                                        decoration: routine.completed ? TextDecoration.lineThrough : null,
+                                        decorationColor: Colors.white.withValues(alpha: 0.45),
+                                        letterSpacing: -0.3,
                                       ),
-                                      const SizedBox(height: 3),
-                                      Text(
-                                        desc,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.white.withValues(alpha: 0.72),
-                                          height: 1.35,
-                                          letterSpacing: -0.1,
-                                        ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Text(
+                                      desc,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white.withValues(alpha: 0.72),
+                                        height: 1.35,
+                                        letterSpacing: -0.1,
                                       ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                            decoration: BoxDecoration(
-                                              color: catColor.withValues(alpha: 0.14),
-                                              borderRadius: BorderRadius.circular(6),
-                                            ),
-                                            child: Text(catTitle, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: catColor, letterSpacing: 0.2)),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                          decoration: BoxDecoration(
+                                            color: catColor.withValues(alpha: 0.14),
+                                            borderRadius: BorderRadius.circular(6),
                                           ),
-                                          const SizedBox(width: 8),
-                                          Icon(CupertinoIcons.clock, size: 11, color: Colors.white.withValues(alpha: 0.50)),
-                                          const SizedBox(width: 3),
-                                          Text(localizedDuration(l, routine.duration), style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.50), letterSpacing: -0.1)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                          child: Text(catTitle, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: catColor, letterSpacing: 0.2)),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Icon(CupertinoIcons.clock, size: 11, color: Colors.white.withValues(alpha: 0.50)),
+                                        const SizedBox(width: 3),
+                                        Text(localizedDuration(l, routine.duration), style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.50), letterSpacing: -0.1)),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(width: 12),
+                              ),
+                              const SizedBox(width: 12),
+                              if (isLocked)
+                                Container(
+                                  width: 28,
+                                  height: 28,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFFFD700).withValues(alpha: 0.12),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: const Color(0xFFFFD700).withValues(alpha: 0.4), width: 1.5),
+                                  ),
+                                  child: const Icon(CupertinoIcons.lock_fill, color: Color(0xFFFFD700), size: 12),
+                                )
+                              else
                                 AnimatedContainer(
                                   duration: const Duration(milliseconds: 300),
                                   width: 28,
@@ -303,10 +320,24 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                       ? const Icon(CupertinoIcons.checkmark, color: Colors.white, size: 14)
                                       : null,
                                 ),
-                              ],
-                            ),
+                            ],
                           ),
                         ),
+                      );
+
+                      // Blur locked routine cards
+                      if (isLocked) {
+                        routineCard = PremiumLockedOverlay(
+                          onTap: () => showPremiumPaywall(context),
+                          borderRadius: 20,
+                          blurAmount: 5,
+                          child: routineCard,
+                        );
+                      }
+
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: routineCard,
                       );
                     },
                     childCount: routines.length,

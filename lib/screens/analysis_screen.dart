@@ -9,6 +9,7 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
 import '../utils/localized_data.dart';
+import '../widgets/premium_paywall.dart';
 
 class AnalysisScreen extends StatefulWidget {
   const AnalysisScreen({super.key});
@@ -109,117 +110,122 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                   delegate: SliverChildListDelegate([
 
                     // ── GlowUp Score Hero Card ────────────
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF2D1B69), Color(0xFF1A1145)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(28),
-                        border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
-                      ),
-                      padding: const EdgeInsets.all(24),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                l.betallerScore,
-                                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
-                              ),
-                              const Spacer(),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                                decoration: BoxDecoration(
-                                  color: _gradeColor(glowScore.grade).withValues(alpha: 0.18),
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: _gradeColor(glowScore.grade).withValues(alpha: 0.4)),
-                                ),
-                                child: Text(
-                                  glowScore.grade,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w900,
-                                    color: _gradeColor(glowScore.grade),
-                                    letterSpacing: 1,
-                                    shadows: [Shadow(color: _gradeColor(glowScore.grade).withValues(alpha: 0.35), blurRadius: 8)],
-                                  ),
-                                ),
-                              ),
-                            ],
+                    _buildPremiumGate(
+                      isPremium: provider.isPremium,
+                      context: context,
+                      borderRadius: 28,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF2D1B69), Color(0xFF1A1145)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
                           ),
-                          const SizedBox(height: 24),
-                          // Big score circle - animated
-                          AnimatedBuilder(
-                            animation: _barAnim,
-                            builder: (context, _) {
-                              final a = _barCurve.value;
-                              return SizedBox(
-                                height: 160,
-                                width: 160,
-                                child: CustomPaint(
-                                  painter: _ScoreRingPainter(
-                                    progress: (glowScore.total / 100) * a,
-                                    color: _gradeColor(glowScore.grade),
+                          borderRadius: BorderRadius.circular(28),
+                          border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
+                        ),
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  l.betallerScore,
+                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
+                                ),
+                                const Spacer(),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    color: _gradeColor(glowScore.grade).withValues(alpha: 0.18),
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(color: _gradeColor(glowScore.grade).withValues(alpha: 0.4)),
                                   ),
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          '${(glowScore.total * a).round()}',
-                                          style: TextStyle(
-                                            fontSize: 52,
-                                            fontWeight: FontWeight.w800,
-                                            color: Colors.white,
-                                            letterSpacing: -2,
-                                            height: 1,
-                                            shadows: [Shadow(color: _gradeColor(glowScore.grade).withValues(alpha: 0.35), blurRadius: 8)],
-                                          ),
-                                        ),
-                                        Text(
-                                          '/ 100',
-                                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
-                                        ),
-                                      ],
+                                  child: Text(
+                                    glowScore.grade,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w900,
+                                      color: _gradeColor(glowScore.grade),
+                                      letterSpacing: 1,
+                                      shadows: [Shadow(color: _gradeColor(glowScore.grade).withValues(alpha: 0.35), blurRadius: 8)],
                                     ),
                                   ),
                                 ),
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            localizedScoreSummary(l, glowScore.summary),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.88), height: 1.4, letterSpacing: -0.1),
-                          ),
-                          const SizedBox(height: 24),
-                          // Score breakdown bars
-                          AnimatedBuilder(
-                            animation: _barAnim,
-                            builder: (context, _) => Column(
-                              children: [
-                                _ScoreBarAnimated(label: l.genetic, value: glowScore.genetic, color: AppColors.primary, anim: _barCurve.value, delay: 0.0),
-                                const SizedBox(height: 10),
-                                _ScoreBarAnimated(label: l.growth, value: glowScore.velocity, color: AppColors.cyan, anim: _barCurve.value, delay: 0.05),
-                                const SizedBox(height: 10),
-                                _ScoreBarAnimated(label: l.nutrition, value: glowScore.nutrition, color: AppColors.orange, anim: _barCurve.value, delay: 0.10),
-                                const SizedBox(height: 10),
-                                _ScoreBarAnimated(label: l.sleepLabel, value: glowScore.sleep, color: AppColors.sleep, anim: _barCurve.value, delay: 0.15),
-                                const SizedBox(height: 10),
-                                _ScoreBarAnimated(label: l.discipline, value: glowScore.discipline, color: AppColors.lime, anim: _barCurve.value, delay: 0.20),
                               ],
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 24),
+                            // Big score circle - animated
+                            AnimatedBuilder(
+                              animation: _barAnim,
+                              builder: (context, _) {
+                                final a = _barCurve.value;
+                                return SizedBox(
+                                  height: 160,
+                                  width: 160,
+                                  child: CustomPaint(
+                                    painter: _ScoreRingPainter(
+                                      progress: (glowScore.total / 100) * a,
+                                      color: _gradeColor(glowScore.grade),
+                                    ),
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            '${(glowScore.total * a).round()}',
+                                            style: TextStyle(
+                                              fontSize: 52,
+                                              fontWeight: FontWeight.w800,
+                                              color: Colors.white,
+                                              letterSpacing: -2,
+                                              height: 1,
+                                              shadows: [Shadow(color: _gradeColor(glowScore.grade).withValues(alpha: 0.35), blurRadius: 8)],
+                                            ),
+                                          ),
+                                          Text(
+                                            '/ 100',
+                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              localizedScoreSummary(l, glowScore.summary),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.88), height: 1.4, letterSpacing: -0.1),
+                            ),
+                            const SizedBox(height: 24),
+                            // Score breakdown bars
+                            AnimatedBuilder(
+                              animation: _barAnim,
+                              builder: (context, _) => Column(
+                                children: [
+                                  _ScoreBarAnimated(label: l.genetic, value: glowScore.genetic, color: AppColors.primary, anim: _barCurve.value, delay: 0.0),
+                                  const SizedBox(height: 10),
+                                  _ScoreBarAnimated(label: l.growth, value: glowScore.velocity, color: AppColors.cyan, anim: _barCurve.value, delay: 0.05),
+                                  const SizedBox(height: 10),
+                                  _ScoreBarAnimated(label: l.nutrition, value: glowScore.nutrition, color: AppColors.orange, anim: _barCurve.value, delay: 0.10),
+                                  const SizedBox(height: 10),
+                                  _ScoreBarAnimated(label: l.sleepLabel, value: glowScore.sleep, color: AppColors.sleep, anim: _barCurve.value, delay: 0.15),
+                                  const SizedBox(height: 10),
+                                  _ScoreBarAnimated(label: l.discipline, value: glowScore.discipline, color: AppColors.lime, anim: _barCurve.value, delay: 0.20),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 14),
 
                     // ── İyileştirme Önerileri ────────────
-                    if (_getImprovements(glowScore, provider, l).isNotEmpty) ...[
+                    if (_getImprovements(glowScore, provider, l).isNotEmpty && provider.isPremium) ...[
                       GlassCard(
                         padding: const EdgeInsets.all(20),
                         child: Column(
@@ -312,7 +318,10 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     ],
 
                     // ── Boy Tahmini Hero Card ─────────────
-                    GlassCard(
+                    _buildPremiumGate(
+                      isPremium: provider.isPremium,
+                      context: context,
+                      child: GlassCard(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -431,11 +440,14 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                           ),
                         ],
                       ),
-                    ),
+                    )),
                     const SizedBox(height: 14),
 
                     // ── Growth Status + Velocity ──────────
-                    GlassCard(
+                    _buildPremiumGate(
+                      isPremium: provider.isPremium,
+                      context: context,
+                      child: GlassCard(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -496,24 +508,34 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                           ),
                         ],
                       ),
-                    ),
+                    )),
                     const SizedBox(height: 14),
 
                     // ── Score Detail Cards ────────────────
-                    Row(
-                      children: [
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.bolt_fill, title: l.protein, value: '${proteinNeed.toStringAsFixed(0)}g', subtitle: l.daily, color: AppColors.lime)),
-                        const SizedBox(width: 12),
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.flame_fill, title: l.calories, value: '$calorieNeed', subtitle: l.kcalDay, color: AppColors.orange)),
-                      ],
+                    _buildPremiumGate(
+                      isPremium: provider.isPremium,
+                      context: context,
+                      borderRadius: 20,
+                      child: Row(
+                        children: [
+                          Expanded(child: _ScoreCard(icon: CupertinoIcons.bolt_fill, title: l.protein, value: '${proteinNeed.toStringAsFixed(0)}g', subtitle: l.daily, color: AppColors.lime)),
+                          const SizedBox(width: 12),
+                          Expanded(child: _ScoreCard(icon: CupertinoIcons.flame_fill, title: l.calories, value: '$calorieNeed', subtitle: l.kcalDay, color: AppColors.orange)),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.moon_fill, title: l.sleepLabel, value: '${sleepNeed.toStringAsFixed(0)}${l.hoursShort}', subtitle: l.minimum, color: AppColors.sleep)),
-                        const SizedBox(width: 12),
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.drop_fill, title: l.water, value: '${waterNeed.toStringAsFixed(1)}L', subtitle: l.daily, color: AppColors.water)),
-                      ],
+                    _buildPremiumGate(
+                      isPremium: provider.isPremium,
+                      context: context,
+                      borderRadius: 20,
+                      child: Row(
+                        children: [
+                          Expanded(child: _ScoreCard(icon: CupertinoIcons.moon_fill, title: l.sleepLabel, value: '${sleepNeed.toStringAsFixed(0)}${l.hoursShort}', subtitle: l.minimum, color: AppColors.sleep)),
+                          const SizedBox(width: 12),
+                          Expanded(child: _ScoreCard(icon: CupertinoIcons.drop_fill, title: l.water, value: '${waterNeed.toStringAsFixed(1)}L', subtitle: l.daily, color: AppColors.water)),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 12),
                     Row(
@@ -530,6 +552,20 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
           ),
         );
       },
+    );
+  }
+
+  Widget _buildPremiumGate({
+    required bool isPremium,
+    required BuildContext context,
+    required Widget child,
+    double borderRadius = 22,
+  }) {
+    if (isPremium) return child;
+    return PremiumLockedOverlay(
+      onTap: () => showPremiumPaywall(context),
+      borderRadius: borderRadius,
+      child: child,
     );
   }
 

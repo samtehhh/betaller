@@ -9,6 +9,7 @@ import '../utils/constants.dart';
 import '../utils/calculations.dart';
 import '../utils/localized_data.dart';
 import 'growth_analysis_flow.dart';
+import '../widgets/premium_paywall.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -194,87 +195,131 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                       ),
                                     ),
                                     // Target
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          l.target,
-                                          style: TextStyle(
-                                            color: AppColors.cyan.withValues(alpha: 0.7),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
+                                    if (provider.isPremium)
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            l.target,
+                                            style: TextStyle(
+                                              color: AppColors.cyan.withValues(alpha: 0.7),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(height: 2),
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment.baseline,
-                                          textBaseline: TextBaseline.alphabetic,
+                                          const SizedBox(height: 2),
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                                            textBaseline: TextBaseline.alphabetic,
+                                            children: [
+                                              Text(
+                                                potential.toStringAsFixed(1),
+                                                style: TextStyle(
+                                                  color: AppColors.cyan,
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.w800,
+                                                  letterSpacing: -0.8,
+                                                  shadows: [Shadow(color: AppColors.cyan.withValues(alpha: 0.2), blurRadius: 10)],
+                                                ),
+                                              ),
+                                              Text(
+                                                ' cm',
+                                                style: TextStyle(
+                                                  color: AppColors.cyan.withValues(alpha: 0.5),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    else
+                                      GestureDetector(
+                                        onTap: () => showPremiumPaywall(context),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
                                           children: [
                                             Text(
-                                              potential.toStringAsFixed(1),
+                                              l.target,
                                               style: TextStyle(
-                                                color: AppColors.cyan,
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.w800,
-                                                letterSpacing: -0.8,
-                                                shadows: [Shadow(color: AppColors.cyan.withValues(alpha: 0.2), blurRadius: 10)],
+                                                color: AppColors.cyan.withValues(alpha: 0.7),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
-                                            Text(
-                                              ' cm',
-                                              style: TextStyle(
-                                                color: AppColors.cyan.withValues(alpha: 0.5),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                            const SizedBox(height: 2),
+                                            Row(
+                                              children: [
+                                                Icon(CupertinoIcons.lock_fill, color: AppColors.cyan.withValues(alpha: 0.5), size: 16),
+                                                const SizedBox(width: 4),
+                                                Text(
+                                                  '???',
+                                                  style: TextStyle(
+                                                    color: AppColors.cyan.withValues(alpha: 0.4),
+                                                    fontSize: 24,
+                                                    fontWeight: FontWeight.w800,
+                                                    letterSpacing: -0.8,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  ' cm',
+                                                  style: TextStyle(
+                                                    color: AppColors.cyan.withValues(alpha: 0.3),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
                                   ],
                                 ),
-                                const SizedBox(height: 18),
-                                // Progress bar showing how close to target
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: LinearProgressIndicator(
-                                    value: (potential > 0 ? (profile.currentHeight / potential).clamp(0.0, 1.0) : 0.0) * anim,
-                                    minHeight: 8,
-                                    backgroundColor: Colors.white.withValues(alpha: 0.14),
-                                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      l.completed(((potential > 0 ? (profile.currentHeight / potential * 100) : 0) * anim).toStringAsFixed(0)),
-                                      style: TextStyle(
-                                        color: Colors.white.withValues(alpha: 0.72),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                if (provider.isPremium) ...[
+                                  const SizedBox(height: 18),
+                                  // Progress bar showing how close to target
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: LinearProgressIndicator(
+                                      value: (potential > 0 ? (profile.currentHeight / potential).clamp(0.0, 1.0) : 0.0) * anim,
+                                      minHeight: 8,
+                                      backgroundColor: Colors.white.withValues(alpha: 0.14),
+                                      valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                                     ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.lime.withValues(alpha: 0.12),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Text(
-                                        l.remaining(remaining.toStringAsFixed(1)),
-                                        style: const TextStyle(
-                                          color: AppColors.lime,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        l.completed(((potential > 0 ? (profile.currentHeight / potential * 100) : 0) * anim).toStringAsFixed(0)),
+                                        style: TextStyle(
+                                          color: Colors.white.withValues(alpha: 0.72),
                                           fontSize: 12,
-                                          fontWeight: FontWeight.w700,
-                                          letterSpacing: -0.2,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.lime.withValues(alpha: 0.12),
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Text(
+                                          l.remaining(remaining.toStringAsFixed(1)),
+                                          style: const TextStyle(
+                                            color: AppColors.lime,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w700,
+                                            letterSpacing: -0.2,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ],
                             ),
                           ),
@@ -291,7 +336,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   delegate: SliverChildListDelegate([
                     // ── Growth Analysis Entry ───────────────
                     GestureDetector(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GrowthAnalysisFlow())),
+                      onTap: provider.isPremium
+                          ? () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GrowthAnalysisFlow()))
+                          : () => showPremiumPaywall(context),
                       child: Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
@@ -331,7 +378,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                 ],
                               ),
                             ),
-                            const Icon(CupertinoIcons.chevron_right, color: AppColors.primaryLight, size: 18),
+                            Icon(
+                              provider.isPremium ? CupertinoIcons.chevron_right : CupertinoIcons.lock_fill,
+                              color: provider.isPremium ? AppColors.primaryLight : const Color(0xFFFFD700),
+                              size: 18,
+                            ),
                           ],
                         ),
                       ),
@@ -416,8 +467,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             unit: 'L',
                             color: AppColors.water,
                             animValue: anim,
-                            onTap: () => _showWaterSheet(context, provider),
-                            onQuickAdd: () => provider.addWater(0.3),
+                            onTap: provider.isPremium
+                                ? () => _showWaterSheet(context, provider)
+                                : () => showPremiumPaywall(context),
+                            onQuickAdd: provider.isPremium
+                                ? () => provider.addWater(0.3)
+                                : () => showPremiumPaywall(context),
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -430,8 +485,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             unit: l.hoursShort,
                             color: AppColors.sleep,
                             animValue: anim,
-                            onTap: () => _showSleepSheet(context, provider, sleepNeed),
-                            onQuickAdd: () => _showSleepSheet(context, provider, sleepNeed),
+                            onTap: provider.isPremium
+                                ? () => _showSleepSheet(context, provider, sleepNeed)
+                                : () => showPremiumPaywall(context),
+                            onQuickAdd: provider.isPremium
+                                ? () => _showSleepSheet(context, provider, sleepNeed)
+                                : () => showPremiumPaywall(context),
                           ),
                         ),
                       ],

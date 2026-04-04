@@ -16,7 +16,8 @@ class NotificationService {
   Future<void> init() async {
     tz_data.initializeTimeZones();
     try {
-      final String timeZoneName = await FlutterTimezone.getLocalTimezone();
+      final timeZoneInfo = await FlutterTimezone.getLocalTimezone();
+      final String timeZoneName = timeZoneInfo.identifier;
       tz.setLocalLocation(tz.getLocation(timeZoneName));
     } catch (_) {
       tz.setLocalLocation(tz.getLocation('Europe/Istanbul'));

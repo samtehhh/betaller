@@ -8,6 +8,7 @@ import '../l10n/app_localizations.dart';
 import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../widgets/premium_paywall.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -167,11 +168,17 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                         color: AppColors.primary,
                         borderRadius: BorderRadius.circular(16),
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        onPressed: () => _showAddMeasurementSheet(context, provider),
+                        onPressed: provider.isPremium
+                            ? () => _showAddMeasurementSheet(context, provider)
+                            : () => showPremiumPaywall(context),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(CupertinoIcons.add, size: 18, color: Colors.white),
+                            Icon(
+                              provider.isPremium ? CupertinoIcons.add : CupertinoIcons.lock_fill,
+                              size: 18,
+                              color: Colors.white,
+                            ),
                             const SizedBox(width: 8),
                             Text(
                               l.addMeasurementButton,
