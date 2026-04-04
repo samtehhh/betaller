@@ -31,6 +31,36 @@ Map<String, String> localizedRoutine(AppLocalizations l, String id) {
       return {'title': l.routinePosture, 'description': l.routinePostureDesc};
     case 'wall_stand':
       return {'title': l.routineWallStand, 'description': l.routineWallStandDesc};
+    case 'sprint_intervals':
+      return {'title': l.routineSprintIntervals, 'description': l.routineSprintIntervalsDesc};
+    case 'hiit_workout':
+      return {'title': l.routineHiitWorkout, 'description': l.routineHiitWorkoutDesc};
+    case 'squats':
+      return {'title': l.routineSquats, 'description': l.routineSquatsDesc};
+    case 'deadlift_stretch':
+      return {'title': l.routineDeadliftStretch, 'description': l.routineDeadliftStretchDesc};
+    case 'overhead_press':
+      return {'title': l.routineOverheadPress, 'description': l.routineOverheadPressDesc};
+    case 'skipping_rope':
+      return {'title': l.routineSkippingRope, 'description': l.routineSkippingRopeDesc};
+    case 'pilates_core':
+      return {'title': l.routinePilatesCore, 'description': l.routinePilatesCoreDesc};
+    case 'inversion_hang':
+      return {'title': l.routineInversionHang, 'description': l.routineInversionHangDesc};
+    case 'zinc_intake':
+      return {'title': l.routineZincIntake, 'description': l.routineZincIntakeDesc};
+    case 'vitamin_d_sunlight':
+      return {'title': l.routineVitaminDSunlight, 'description': l.routineVitaminDSunlightDesc};
+    case 'arginine_foods':
+      return {'title': l.routineArginineFoods, 'description': l.routineArginineFoodsDesc};
+    case 'sleep_environment':
+      return {'title': l.routineSleepEnvironment, 'description': l.routineSleepEnvironmentDesc};
+    case 'pre_sleep_routine':
+      return {'title': l.routinePreSleepRoutine, 'description': l.routinePreSleepRoutineDesc};
+    case 'neck_stretches':
+      return {'title': l.routineNeckStretches, 'description': l.routineNeckStretchesDesc};
+    case 'shoulder_rolls':
+      return {'title': l.routineShoulderRolls, 'description': l.routineShoulderRollsDesc};
     default:
       return {'title': id, 'description': ''};
   }
@@ -93,6 +123,7 @@ String localizedCategory(AppLocalizations l, String category) {
 String localizedDuration(AppLocalizations l, String duration) {
   // Parse "X dk" or "X saat" or "Gün boyu" patterns
   if (duration == 'Gün boyu') return l.durationAllDay;
+  if (duration == 'Gece') return l.durationNight;
   final minMatch = RegExp(r'(\d+)\s*dk').firstMatch(duration);
   if (minMatch != null) return l.durationMinutes(minMatch.group(1)!);
   final hourMatch = RegExp(r'([\d-]+)\s*saat').firstMatch(duration);

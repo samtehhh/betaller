@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import '../models/user_profile.dart';
 import '../models/height_record.dart';
 import 'constants.dart';
+import 'growth_data.dart';
 
 class Calculations {
   // ── Temel Hesaplamalar ──────────────────────────────────────────
@@ -267,6 +268,204 @@ class Calculations {
     if (age >= 16) confidence += 10; // Daha az büyüme = daha kesin
     if (age >= 18) confidence += 10;
     return confidence.clamp(30, 95);
+  }
+
+  // ── WHO Percentile & Growth Plate Analysis ─────────────────────
+
+  /// Returns which WHO percentile the user falls into based on height, age, gender.
+  /// Returns the closest percentile from: 3, 5, 10, 25, 50, 75, 90, 95, 97.
+  static int calculatePercentile(double height, int age, String gender) {
+    final genderData = whoHeightPercentiles[gender];
+    if (genderData == null) return 50;
+    final clampedAge = age.clamp(2, 20);
+    final ageData = genderData[clampedAge];
+    if (ageData == null) return 50;
+
+    const percentiles = [3, 5, 10, 25, 50, 75, 90, 95, 97];
+
+    // If below the lowest percentile
+    if (height <= ageData[3]!) return 3;
+    // If above the highest percentile
+    if (height >= ageData[97]!) return 97;
+
+    // Find the closest percentile
+    int closest = 50;
+    double minDiff = double.infinity;
+    for (final p in percentiles) {
+      final pHeight = ageData[p]!;
+      final diff = (height - pHeight).abs();
+      if (diff < minDiff) {
+        minDiff = diff;
+        closest = p;
+      }
+    }
+    return closest;
+  }
+
+  /// Returns growth plate status info for the given age and gender.
+  static Map<String, dynamic> growthPlateStatus(int age, String gender) {
+    final info = growthPlateInfo[gender] ?? growthPlateInfo['male']!;
+    final typicalClosure = info['typicalClosureAge']!;
+    final completeClosure = info['completeClosureAge']!;
+
+    String status;
+    int remainingYears;
+    String description;
+    double percentage;
+
+    if (age < typicalClosure) {
+      status = 'open';
+      remainingYears = completeClosure - age;
+      description = 'Growth plates are open. You have significant growth potential remaining.';
+      // percentage: how much of the growth window (from age 2 to completeClosure) is used
+      final totalWindow = completeClosure - 2;
+      final used = (age - 2).clamp(0, totalWindow);
+      percentage = (used / totalWindow * 100).clamp(0, 100);
+    } else if (age < completeClosure) {
+      status = 'closing';
+      remainingYears = completeClosure - age;
+      description = 'Growth plates are beginning to close. Some growth is still possible.';
+      final totalWindow = completeClosure - 2;
+      final used = (age - 2).clamp(0, totalWindow);
+      percentage = (used / totalWindow * 100).clamp(0, 100);
+    } else {
+      status = 'closed';
+      remainingYears = 0;
+      description = 'Growth plates are fully closed. Natural height growth has completed.';
+      percentage = 100.0;
+    }
+
+    return {
+      'status': status,
+      'remainingYears': remainingYears,
+      'description': description,
+      'percentage': double.parse(percentage.toStringAsFixed(1)),
+    };
+  }
+
+  /// Returns weekly growth trend (cm/week) for the last 4 weeks.
+  /// Keys are week labels like 'week1', 'week2', etc. (most recent = highest number).
+  static Map<String, double> weeklyTrend(List<HeightRecord> records) {
+    final result = <String, double>{};
+    if (records.length < 2) return result;
+
+    // Sort records by date ascending
+    final sorted = List<HeightRecord>.from(records)
+      ..sort((a, b) {
+        final da = DateTime.tryParse(a.date);
+        final db = DateTime.tryParse(b.date);
+        if (da == null || db == null) return 0;
+        return da.compareTo(db);
+      });
+
+    final now = DateTime.now();
+    for (int week = 4; week >= 1; week--) {
+      final weekEnd = now.subtract(Duration(days: (week - 1) * 7));
+      final weekStart = weekEnd.subtract(const Duration(days: 7));
+
+      // Find records in this week range
+      final weekRecords = sorted.where((r) {
+        final d = DateTime.tryParse(r.date);
+        if (d == null) return false;
+        return d.isAfter(weekStart) && !d.isAfter(weekEnd);
+      }).toList();
+
+      // Also find the latest record before this week for comparison
+      HeightRecord? before;
+      for (final r in sorted) {
+        final d = DateTime.tryParse(r.date);
+        if (d == null) continue;
+        if (!d.isAfter(weekStart)) before = r;
+      }
+
+      if (weekRecords.isNotEmpty && before != null) {
+        final growth = weekRecords.last.height - before.height;
+        result['week${5 - week}'] = double.parse(growth.toStringAsFixed(3));
+      }
+    }
+    return result;
+  }
+
+  /// Returns monthly growth trend (cm/month) for the last 6 months.
+  /// Keys are 'month1' (oldest) through 'month6' (most recent).
+  static Map<String, double> monthlyTrend(List<HeightRecord> records) {
+    final result = <String, double>{};
+    if (records.length < 2) return result;
+
+    // Sort records by date ascending
+    final sorted = List<HeightRecord>.from(records)
+      ..sort((a, b) {
+        final da = DateTime.tryParse(a.date);
+        final db = DateTime.tryParse(b.date);
+        if (da == null || db == null) return 0;
+        return da.compareTo(db);
+      });
+
+    final now = DateTime.now();
+    for (int month = 6; month >= 1; month--) {
+      final monthEnd = DateTime(now.year, now.month - (month - 1), now.day);
+      final monthStart = DateTime(now.year, now.month - month, now.day);
+
+      HeightRecord? endRecord;
+      HeightRecord? startRecord;
+
+      // Find the closest record to monthEnd and monthStart
+      for (final r in sorted) {
+        final d = DateTime.tryParse(r.date);
+        if (d == null) continue;
+        if (!d.isAfter(monthEnd)) endRecord = r;
+        if (!d.isAfter(monthStart)) startRecord = r;
+      }
+
+      if (endRecord != null && startRecord != null && endRecord != startRecord) {
+        final growth = endRecord.height - startRecord.height;
+        result['month${7 - month}'] = double.parse(growth.toStringAsFixed(2));
+      }
+    }
+    return result;
+  }
+
+  /// Scenario analysis: predicts final height based on different compliance rates.
+  /// Returns {'optimistic': height at 100%, 'current': height at given rate, 'pessimistic': height at 0%}.
+  static Map<String, double> scenarioAnalysis(
+    UserProfile profile,
+    List<HeightRecord> records,
+    double complianceRate,
+  ) {
+    final geneticPotential = geneticPotentialHeight(profile);
+    final velocity = growthVelocity(records);
+
+    // Base remaining growth from genetic potential
+    final baseRemaining = math.max(0.0, geneticPotential - profile.currentHeight);
+
+    // Velocity adjustment: if we have real data, adjust the base prediction
+    final velocityFactor = velocity != null
+        ? (velocity / math.max(0.1, _averageGrowthVelocity(profile.age, profile.gender))).clamp(0.5, 1.5)
+        : 1.0;
+    final adjustedRemaining = baseRemaining * velocityFactor;
+
+    // Growth velocity bonus factor: good habits can add up to ~3 cm over years
+    const maxBonus = 3.0;
+
+    // At 100% compliance: adjusted remaining growth + max bonus
+    final optimistic = profile.currentHeight + adjustedRemaining + maxBonus;
+
+    // At 0% compliance: reduced growth (lose up to 3 cm from poor habits)
+    const penalty = 3.0;
+    final pessimistic = math.max(
+      profile.currentHeight,
+      profile.currentHeight + adjustedRemaining - penalty,
+    );
+
+    // At given compliance: interpolate between pessimistic and optimistic
+    final clampedRate = complianceRate.clamp(0.0, 1.0);
+    final current = pessimistic + (optimistic - pessimistic) * clampedRate;
+
+    return {
+      'optimistic': double.parse(optimistic.toStringAsFixed(1)),
+      'current': double.parse(current.toStringAsFixed(1)),
+      'pessimistic': double.parse(pessimistic.toStringAsFixed(1)),
+    };
   }
 
   // ── GlowUp Skor Sistemi ────────────────────────────────────────

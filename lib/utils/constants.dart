@@ -158,6 +158,7 @@ class SectionHeader extends StatelessWidget {
 // ── Default Routines ──────────────────────────────────────────────
 
 const List<Map<String, dynamic>> defaultRoutines = [
+  // ── Existing Exercise Routines ──
   {
     'id': 'morning_stretch',
     'title': 'Sabah Germe Egzersizi',
@@ -165,6 +166,12 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '🌅',
+    'musclesTargeted': ['spine', 'legs', 'back'],
+    'scientificBasis': 'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention',
+    'formDescription': 'Start with neck rolls, then move to full body stretches. Hold each stretch for 20-30 seconds without bouncing.',
+    'setsReps': '5-6 stretches x 30s hold',
+    'timerSeconds': 600,
+    'difficulty': 'beginner',
   },
   {
     'id': 'bar_hanging',
@@ -173,6 +180,12 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'exercise',
     'duration': '5 dk',
     'icon': '💪',
+    'musclesTargeted': ['spine', 'shoulders', 'arms'],
+    'scientificBasis': 'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height',
+    'formDescription': 'Grip the bar shoulder-width apart, relax your body completely, let gravity stretch your spine. Avoid swinging.',
+    'setsReps': '3x30 seconds',
+    'timerSeconds': 300,
+    'difficulty': 'beginner',
   },
   {
     'id': 'cobra_stretch',
@@ -181,6 +194,12 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'exercise',
     'duration': '5 dk',
     'icon': '🐍',
+    'musclesTargeted': ['spine', 'core', 'chest'],
+    'scientificBasis': 'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting',
+    'formDescription': 'Lie face down, place hands under shoulders, slowly push upper body up while keeping hips on the floor. Look upward.',
+    'setsReps': '3x15 seconds',
+    'timerSeconds': 300,
+    'difficulty': 'beginner',
   },
   {
     'id': 'jumping',
@@ -189,6 +208,12 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '🦘',
+    'musclesTargeted': ['legs', 'calves', 'core'],
+    'scientificBasis': 'High-impact jumping stimulates growth plates in the legs and triggers growth hormone release',
+    'formDescription': 'Perform squat jumps or jump rope. Land softly on the balls of your feet. Rest 30 seconds between sets.',
+    'setsReps': '3x20 reps',
+    'timerSeconds': 600,
+    'difficulty': 'intermediate',
   },
   {
     'id': 'swimming_basketball',
@@ -197,6 +222,12 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'exercise',
     'duration': '30 dk',
     'icon': '🏀',
+    'musclesTargeted': ['full_body', 'legs', 'spine'],
+    'scientificBasis': 'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity',
+    'formDescription': 'Choose swimming (freestyle/backstroke) or basketball. Focus on jumping, reaching, and full range of motion.',
+    'setsReps': '30 min continuous',
+    'timerSeconds': 1800,
+    'difficulty': 'intermediate',
   },
   {
     'id': 'evening_yoga',
@@ -205,7 +236,127 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'exercise',
     'duration': '15 dk',
     'icon': '🧘',
+    'musclesTargeted': ['spine', 'legs', 'hips', 'back'],
+    'scientificBasis': 'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery',
+    'formDescription': 'Perform gentle poses: cat-cow, child pose, downward dog, forward fold. Breathe deeply and hold each pose 30-60 seconds.',
+    'setsReps': '6-8 poses x 60s hold',
+    'timerSeconds': 900,
+    'difficulty': 'beginner',
   },
+  // ── New Exercise Routines ──
+  {
+    'id': 'sprint_intervals',
+    'title': 'Sprint Interval Training',
+    'description': 'Sprint interval training triggers significant growth hormone release through high-intensity bursts.',
+    'category': 'exercise',
+    'duration': '20 dk',
+    'icon': '🏃',
+    'musclesTargeted': ['legs', 'core'],
+    'scientificBasis': 'Sprinting triggers significant growth hormone release',
+    'formDescription': 'Warm up for 5 minutes, then sprint at maximum effort for 30 seconds. Walk or jog for 90 seconds to recover. Repeat.',
+    'setsReps': '3x30 second sprints',
+    'timerSeconds': 1200,
+    'difficulty': 'advanced',
+  },
+  {
+    'id': 'hiit_workout',
+    'title': 'HIIT Workout',
+    'description': 'High intensity interval training to maximize growth hormone release.',
+    'category': 'exercise',
+    'duration': '15 dk',
+    'icon': '💥',
+    'musclesTargeted': ['full_body'],
+    'scientificBasis': 'High intensity exercise increases HGH by up to 450%',
+    'formDescription': 'Perform exercises like burpees, mountain climbers, and jump squats at maximum intensity for 45 seconds, rest 15 seconds.',
+    'setsReps': '4 rounds of 45s work/15s rest',
+    'timerSeconds': 900,
+    'difficulty': 'advanced',
+  },
+  {
+    'id': 'squats',
+    'title': 'Bodyweight Squats',
+    'description': 'Bodyweight squats stimulate growth plates in legs and spine.',
+    'category': 'exercise',
+    'duration': '10 dk',
+    'icon': '🦵',
+    'musclesTargeted': ['legs', 'spine'],
+    'scientificBasis': 'Squats stimulate growth plates in legs and spine',
+    'formDescription': 'Stand with feet shoulder-width apart. Lower your body until thighs are parallel to ground. Keep back straight and knees behind toes.',
+    'setsReps': '3x20 reps',
+    'timerSeconds': 600,
+    'difficulty': 'beginner',
+  },
+  {
+    'id': 'deadlift_stretch',
+    'title': 'Deadlift Stretch',
+    'description': 'Deadlift stretch for spinal decompression and vertebral disc health.',
+    'category': 'exercise',
+    'duration': '10 dk',
+    'icon': '🏋️',
+    'musclesTargeted': ['back', 'legs', 'spine'],
+    'scientificBasis': 'Spinal decompression promotes vertebral disc health',
+    'formDescription': 'Stand with feet hip-width apart, hinge at hips keeping back flat. Reach toward toes, feel the stretch in hamstrings and back.',
+    'setsReps': '3x12 reps',
+    'timerSeconds': 600,
+    'difficulty': 'intermediate',
+  },
+  {
+    'id': 'overhead_press',
+    'title': 'Overhead Press',
+    'description': 'Overhead pressing stretches the spine and strengthens posture muscles.',
+    'category': 'exercise',
+    'duration': '10 dk',
+    'icon': '💪',
+    'musclesTargeted': ['shoulders', 'spine'],
+    'scientificBasis': 'Overhead pressing stretches the spine and strengthens posture muscles',
+    'formDescription': 'Stand tall, press arms overhead fully extending. Use light weights or bodyweight. Keep core tight and avoid arching back.',
+    'setsReps': '3x10 reps',
+    'timerSeconds': 600,
+    'difficulty': 'intermediate',
+  },
+  {
+    'id': 'skipping_rope',
+    'title': 'Skipping Rope',
+    'description': 'Repetitive jumping with a skipping rope stimulates growth plates in lower extremities.',
+    'category': 'exercise',
+    'duration': '15 dk',
+    'icon': '⏭️',
+    'musclesTargeted': ['legs', 'calves'],
+    'scientificBasis': 'Repetitive jumping stimulates growth plates in lower extremities',
+    'formDescription': 'Jump with both feet, landing softly on the balls of your feet. Keep jumps low and consistent. Rest between sets.',
+    'setsReps': '5 min x 3 sets',
+    'timerSeconds': 900,
+    'difficulty': 'intermediate',
+  },
+  {
+    'id': 'pilates_core',
+    'title': 'Pilates Core',
+    'description': 'Pilates core exercises support spinal alignment and posture.',
+    'category': 'exercise',
+    'duration': '15 dk',
+    'icon': '🧘',
+    'musclesTargeted': ['core', 'spine'],
+    'scientificBasis': 'Core strength supports spinal alignment and posture',
+    'formDescription': 'Perform plank, dead bug, bird dog, bridge, and leg raises. Focus on controlled movement and breathing.',
+    'setsReps': '5 exercises x 1 min each',
+    'timerSeconds': 900,
+    'difficulty': 'intermediate',
+  },
+  {
+    'id': 'inversion_hang',
+    'title': 'Inversion Hanging',
+    'description': 'Inversion decompresses spinal discs, can temporarily add 1-2cm.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🔄',
+    'musclesTargeted': ['spine', 'back'],
+    'scientificBasis': 'Inversion decompresses spinal discs, can temporarily add 1-2cm',
+    'formDescription': 'Use an inversion table or gravity boots. Start with a slight incline and gradually increase. Keep sessions short.',
+    'setsReps': '3x1 minute',
+    'timerSeconds': 300,
+    'difficulty': 'intermediate',
+  },
+  // ── Existing Nutrition Routines ──
   {
     'id': 'protein',
     'title': 'Protein Alımı',
@@ -213,6 +364,11 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'nutrition',
     'duration': 'Gün boyu',
     'icon': '🥚',
+    'musclesTargeted': ['bones', 'muscles'],
+    'scientificBasis': 'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts',
+    'formDescription': 'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.',
+    'setsReps': '',
+    'difficulty': 'beginner',
   },
   {
     'id': 'calcium_vitamin_d',
@@ -221,6 +377,11 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'nutrition',
     'duration': 'Gün boyu',
     'icon': '🥛',
+    'musclesTargeted': ['bones'],
+    'scientificBasis': 'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth',
+    'formDescription': 'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.',
+    'setsReps': '',
+    'difficulty': 'beginner',
   },
   {
     'id': 'water',
@@ -229,6 +390,11 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'nutrition',
     'duration': 'Gün boyu',
     'icon': '💧',
+    'musclesTargeted': [],
+    'scientificBasis': 'Hydration is essential for nutrient transport to growth plates and joint cartilage health',
+    'formDescription': 'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.',
+    'setsReps': '',
+    'difficulty': 'beginner',
   },
   {
     'id': 'avoid_junk',
@@ -237,7 +403,54 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'nutrition',
     'duration': 'Gün boyu',
     'icon': '🚫',
+    'musclesTargeted': [],
+    'scientificBasis': 'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion',
+    'formDescription': 'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.',
+    'setsReps': '',
+    'difficulty': 'beginner',
   },
+  // ── New Nutrition Routines ──
+  {
+    'id': 'zinc_intake',
+    'title': 'Zinc Rich Foods',
+    'description': 'Consume zinc-rich foods throughout the day for growth hormone production.',
+    'category': 'nutrition',
+    'duration': 'Gün boyu',
+    'icon': '🥩',
+    'musclesTargeted': [],
+    'scientificBasis': 'Zinc is essential for growth hormone production',
+    'formDescription': 'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.',
+    'setsReps': '',
+    'difficulty': 'beginner',
+  },
+  {
+    'id': 'vitamin_d_sunlight',
+    'title': 'Vitamin D & Sunlight',
+    'description': 'Get at least 15 minutes of direct sunlight for Vitamin D synthesis and bone growth.',
+    'category': 'nutrition',
+    'duration': '15 dk',
+    'icon': '☀️',
+    'musclesTargeted': ['bones'],
+    'scientificBasis': 'Vitamin D is crucial for calcium absorption and bone growth',
+    'formDescription': 'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.',
+    'setsReps': '',
+    'timerSeconds': 900,
+    'difficulty': 'beginner',
+  },
+  {
+    'id': 'arginine_foods',
+    'title': 'Arginine Rich Foods',
+    'description': 'Eat arginine-rich foods to stimulate growth hormone secretion.',
+    'category': 'nutrition',
+    'duration': 'Gün boyu',
+    'icon': '🥜',
+    'musclesTargeted': [],
+    'scientificBasis': 'L-Arginine stimulates growth hormone secretion',
+    'formDescription': 'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.',
+    'setsReps': '',
+    'difficulty': 'beginner',
+  },
+  // ── Existing Sleep Routines ──
   {
     'id': 'quality_sleep',
     'title': 'Kaliteli Uyku (8-10 saat)',
@@ -245,6 +458,11 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'sleep',
     'duration': '8-10 saat',
     'icon': '😴',
+    'musclesTargeted': [],
+    'scientificBasis': '70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM',
+    'formDescription': 'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.',
+    'setsReps': '',
+    'difficulty': 'beginner',
   },
   {
     'id': 'no_screen',
@@ -253,7 +471,41 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'sleep',
     'duration': '1 saat',
     'icon': '📵',
+    'musclesTargeted': [],
+    'scientificBasis': 'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality',
+    'formDescription': 'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.',
+    'setsReps': '',
+    'difficulty': 'beginner',
   },
+  // ── New Sleep Routines ──
+  {
+    'id': 'sleep_environment',
+    'title': 'Optimize Sleep Environment',
+    'description': 'Create a dark, cool sleeping environment to maximize melatonin and growth hormone release.',
+    'category': 'sleep',
+    'duration': 'Gece',
+    'icon': '🌙',
+    'musclesTargeted': [],
+    'scientificBasis': 'Dark, cool environment maximizes melatonin and growth hormone',
+    'formDescription': 'Use blackout curtains, keep room at 18-20C, remove all light sources. Use a comfortable mattress and pillow.',
+    'setsReps': '',
+    'difficulty': 'beginner',
+  },
+  {
+    'id': 'pre_sleep_routine',
+    'title': 'Pre-Sleep Wind Down',
+    'description': 'A consistent pre-sleep routine improves deep sleep quality by 23%.',
+    'category': 'sleep',
+    'duration': '30 dk',
+    'icon': '📖',
+    'musclesTargeted': [],
+    'scientificBasis': 'Consistent pre-sleep routine improves deep sleep quality by 23%',
+    'formDescription': 'Start 30 minutes before bed: dim lights, read a book, do breathing exercises, avoid stimulating activities.',
+    'setsReps': '',
+    'timerSeconds': 1800,
+    'difficulty': 'beginner',
+  },
+  // ── Existing Posture Routines ──
   {
     'id': 'posture_check',
     'title': 'Duruş Kontrolü',
@@ -261,6 +513,11 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'posture',
     'duration': 'Gün boyu',
     'icon': '🧍',
+    'musclesTargeted': ['spine', 'core', 'shoulders'],
+    'scientificBasis': 'Correct posture alignment can immediately add 2-3 cm to apparent height and prevents spinal compression',
+    'formDescription': 'Stand tall with shoulders back and down. Engage core slightly. Imagine a string pulling you up from the crown of your head.',
+    'setsReps': 'Check every hour',
+    'difficulty': 'beginner',
   },
   {
     'id': 'wall_stand',
@@ -269,6 +526,41 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'category': 'posture',
     'duration': '5 dk',
     'icon': '🏛️',
+    'musclesTargeted': ['spine', 'back', 'shoulders'],
+    'scientificBasis': 'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day',
+    'formDescription': 'Stand with heels, buttocks, shoulder blades, and head touching the wall. Hold for 5 minutes. Breathe normally.',
+    'setsReps': '5 min hold',
+    'timerSeconds': 300,
+    'difficulty': 'beginner',
+  },
+  // ── New Posture Routines ──
+  {
+    'id': 'neck_stretches',
+    'title': 'Neck Stretches',
+    'description': 'Neck stretches relieve compression and improve cervical alignment.',
+    'category': 'posture',
+    'duration': '5 dk',
+    'icon': '🦒',
+    'musclesTargeted': ['neck', 'upper_spine'],
+    'scientificBasis': 'Neck stretches relieve compression and improve cervical alignment',
+    'formDescription': 'Tilt head slowly to each side, forward, and backward. Hold each direction for 30 seconds. Do not force the stretch.',
+    'setsReps': '3 directions x 30s hold',
+    'timerSeconds': 300,
+    'difficulty': 'beginner',
+  },
+  {
+    'id': 'shoulder_rolls',
+    'title': 'Shoulder Rolls & Opens',
+    'description': 'Opening shoulders corrects forward posture, can add 1-2cm in appearance.',
+    'category': 'posture',
+    'duration': '5 dk',
+    'icon': '🔄',
+    'musclesTargeted': ['shoulders', 'upper_back'],
+    'scientificBasis': 'Opening shoulders corrects forward posture, can add 1-2cm appearance',
+    'formDescription': 'Roll shoulders forward 15 times, then backward 15 times. Follow with chest-opening stretches holding for 20 seconds.',
+    'setsReps': '3x15 each direction',
+    'timerSeconds': 300,
+    'difficulty': 'beginner',
   },
 ];
 
@@ -351,4 +643,80 @@ const List<Map<String, dynamic>> achievementDefinitions = [
   {'id': 'three_cm', 'title': '3 cm Büyüme', 'description': 'Toplam 3 cm uzama kaydet', 'icon': '🌱', 'type': 'growth', 'value': 3},
   {'id': 'five_cm', 'title': '5 cm Büyüme', 'description': 'Toplam 5 cm uzama kaydet', 'icon': '🚀', 'type': 'growth', 'value': 5},
   {'id': 'ten_cm', 'title': '10 cm Büyüme', 'description': 'Toplam 10 cm uzama kaydet', 'icon': '🗼', 'type': 'growth', 'value': 10},
+];
+
+/// XP rewards for actions
+const xpRewards = {
+  'routine_complete': 5,
+  'all_routines_done': 25,
+  'height_logged': 15,
+  'streak_day': 10,  // multiplied by streak count
+  'challenge_complete': 50,
+  'water_goal': 10,
+  'sleep_goal': 10,
+  'first_login_today': 5,
+};
+
+/// Level thresholds
+const levelThresholds = [
+  0,     // Level 1
+  100,   // Level 2
+  250,   // Level 3
+  500,   // Level 4
+  850,   // Level 5
+  1300,  // Level 6
+  1900,  // Level 7
+  2700,  // Level 8
+  3700,  // Level 9
+  5000,  // Level 10
+  6500,  // Level 11
+  8500,  // Level 12
+  11000, // Level 13
+  14000, // Level 14
+  18000, // Level 15
+  23000, // Level 16
+  29000, // Level 17
+  36000, // Level 18
+  44000, // Level 19
+  55000, // Level 20
+];
+
+/// Level titles
+const levelTitles = [
+  'Beginner',       // 1
+  'Starter',        // 2
+  'Committed',      // 3
+  'Dedicated',      // 4
+  'Consistent',     // 5
+  'Focused',        // 6
+  'Determined',     // 7
+  'Disciplined',    // 8
+  'Strong',         // 9
+  'Advanced',       // 10
+  'Expert',         // 11
+  'Master',         // 12
+  'Elite',          // 13
+  'Champion',       // 14
+  'Legend',         // 15
+  'Titan',          // 16
+  'Mythic',         // 17
+  'Immortal',       // 18
+  'Transcendent',   // 19
+  'Ultimate',       // 20
+];
+
+/// Challenge templates
+const challengeTemplates = [
+  // Daily challenges
+  {'id': 'daily_all_routines', 'type': 'daily', 'title': 'Complete All Routines', 'description': 'Finish every routine today', 'target': 1, 'xpReward': 30, 'icon': '🔥'},
+  {'id': 'daily_water', 'type': 'daily', 'title': 'Hydration Hero', 'description': 'Reach your daily water goal', 'target': 1, 'xpReward': 20, 'icon': '💧'},
+  {'id': 'daily_sleep_early', 'type': 'daily', 'title': 'Early Sleeper', 'description': 'Log 8+ hours of sleep', 'target': 8, 'xpReward': 20, 'icon': '😴'},
+  {'id': 'daily_exercise_3', 'type': 'daily', 'title': 'Exercise Trio', 'description': 'Complete 3 exercise routines', 'target': 3, 'xpReward': 25, 'icon': '💪'},
+  {'id': 'daily_stretch', 'type': 'daily', 'title': 'Morning Stretch', 'description': 'Do morning stretching before 9 AM', 'target': 1, 'xpReward': 15, 'icon': '🌅'},
+  // Weekly challenges
+  {'id': 'weekly_streak_7', 'type': 'weekly', 'title': '7-Day Warrior', 'description': 'Complete all routines for 7 consecutive days', 'target': 7, 'xpReward': 100, 'icon': '⚡'},
+  {'id': 'weekly_measure', 'type': 'weekly', 'title': 'Growth Tracker', 'description': 'Log a height measurement this week', 'target': 1, 'xpReward': 30, 'icon': '📏'},
+  {'id': 'weekly_water_5', 'type': 'weekly', 'title': 'Hydration Week', 'description': 'Hit water goal 5 days this week', 'target': 5, 'xpReward': 60, 'icon': '🌊'},
+  {'id': 'weekly_exercise_15', 'type': 'weekly', 'title': 'Fitness Champion', 'description': 'Complete 15 exercise routines this week', 'target': 15, 'xpReward': 80, 'icon': '🏆'},
+  {'id': 'weekly_sleep_5', 'type': 'weekly', 'title': 'Sleep Master', 'description': 'Log 8+ hours of sleep for 5 days', 'target': 5, 'xpReward': 60, 'icon': '🌙'},
 ];

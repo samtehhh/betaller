@@ -9,7 +9,10 @@ import '../utils/constants.dart';
 import '../utils/calculations.dart';
 import '../utils/localized_data.dart';
 import 'growth_analysis_flow.dart';
+import 'education_screen.dart';
+import 'nutrition_screen.dart';
 import '../widgets/premium_paywall.dart';
+import '../widgets/xp_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -334,6 +337,84 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 110),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
+                    // ── XP Bar ─────────────────────────────
+                    const XpBar(),
+                    const SizedBox(height: 14),
+
+                    // ── Active Challenges ───────────────────
+                    if (provider.activeChallenges.where((c) => c['completed'] != true).isNotEmpty) ...[
+                      Text(
+                        'Active Challenges',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      ...provider.activeChallenges
+                          .where((c) => c['completed'] != true)
+                          .take(2)
+                          .map((challenge) {
+                        final progress = (challenge['progress'] as int? ?? 0);
+                        final target = (challenge['target'] as int? ?? 1);
+                        final ratio = (progress / target).clamp(0.0, 1.0);
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: GlassCard(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                            child: Row(
+                              children: [
+                                Text(
+                                  challenge['icon'] as String? ?? '🎯',
+                                  style: const TextStyle(fontSize: 24),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        challenge['title'] as String? ?? '',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white,
+                                          letterSpacing: -0.2,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(4),
+                                        child: LinearProgressIndicator(
+                                          value: ratio,
+                                          minHeight: 6,
+                                          backgroundColor: Colors.white.withValues(alpha: 0.14),
+                                          valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  '$progress/$target',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.primaryLight,
+                                    letterSpacing: -0.2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                      const SizedBox(height: 6),
+                    ],
+
                     // ── Growth Analysis Entry ───────────────
                     GestureDetector(
                       onTap: provider.isPremium
@@ -574,6 +655,84 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    // ── Learn & Nutrition Cards ─────────────
+                    GestureDetector(
+                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const EducationScreen())),
+                      child: GlassCard(
+                        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 42,
+                              height: 42,
+                              decoration: BoxDecoration(
+                                color: AppColors.cyan.withValues(alpha: 0.14),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Icon(CupertinoIcons.book_fill, color: AppColors.cyan, size: 20),
+                            ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Growth Education',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    'Learn the science behind growth',
+                                    style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.72)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(CupertinoIcons.chevron_right, color: Colors.white.withValues(alpha: 0.50), size: 15),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const NutritionScreen())),
+                      child: GlassCard(
+                        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 42,
+                              height: 42,
+                              decoration: BoxDecoration(
+                                color: AppColors.lime.withValues(alpha: 0.14),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Icon(CupertinoIcons.leaf_arrow_circlepath, color: AppColors.lime, size: 20),
+                            ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Nutrition Guide',
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    "Today's meal plan & nutrients",
+                                    style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.72)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(CupertinoIcons.chevron_right, color: Colors.white.withValues(alpha: 0.50), size: 15),
+                          ],
+                        ),
                       ),
                     ),
                   ]),

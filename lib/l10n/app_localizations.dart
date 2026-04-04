@@ -1442,6 +1442,186 @@ abstract class AppLocalizations {
   /// **'Lean back against wall: heels, hips, shoulders, head touching wall. Hold 5 min.'**
   String get routineWallStandDesc;
 
+  /// No description provided for @routineSprintIntervals.
+  ///
+  /// In en, this message translates to:
+  /// **'Sprint Interval Training'**
+  String get routineSprintIntervals;
+
+  /// No description provided for @routineSprintIntervalsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sprint interval training triggers significant growth hormone release through high-intensity bursts.'**
+  String get routineSprintIntervalsDesc;
+
+  /// No description provided for @routineHiitWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'HIIT Workout'**
+  String get routineHiitWorkout;
+
+  /// No description provided for @routineHiitWorkoutDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'High intensity interval training to maximize growth hormone release.'**
+  String get routineHiitWorkoutDesc;
+
+  /// No description provided for @routineSquats.
+  ///
+  /// In en, this message translates to:
+  /// **'Bodyweight Squats'**
+  String get routineSquats;
+
+  /// No description provided for @routineSquatsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Bodyweight squats stimulate growth plates in legs and spine.'**
+  String get routineSquatsDesc;
+
+  /// No description provided for @routineDeadliftStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Deadlift Stretch'**
+  String get routineDeadliftStretch;
+
+  /// No description provided for @routineDeadliftStretchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Deadlift stretch for spinal decompression and vertebral disc health.'**
+  String get routineDeadliftStretchDesc;
+
+  /// No description provided for @routineOverheadPress.
+  ///
+  /// In en, this message translates to:
+  /// **'Overhead Press'**
+  String get routineOverheadPress;
+
+  /// No description provided for @routineOverheadPressDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Overhead pressing stretches the spine and strengthens posture muscles.'**
+  String get routineOverheadPressDesc;
+
+  /// No description provided for @routineSkippingRope.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipping Rope'**
+  String get routineSkippingRope;
+
+  /// No description provided for @routineSkippingRopeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Repetitive jumping with a skipping rope stimulates growth plates in lower extremities.'**
+  String get routineSkippingRopeDesc;
+
+  /// No description provided for @routinePilatesCore.
+  ///
+  /// In en, this message translates to:
+  /// **'Pilates Core'**
+  String get routinePilatesCore;
+
+  /// No description provided for @routinePilatesCoreDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Pilates core exercises support spinal alignment and posture.'**
+  String get routinePilatesCoreDesc;
+
+  /// No description provided for @routineInversionHang.
+  ///
+  /// In en, this message translates to:
+  /// **'Inversion Hanging'**
+  String get routineInversionHang;
+
+  /// No description provided for @routineInversionHangDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Inversion decompresses spinal discs, can temporarily add 1-2cm.'**
+  String get routineInversionHangDesc;
+
+  /// No description provided for @routineZincIntake.
+  ///
+  /// In en, this message translates to:
+  /// **'Zinc Rich Foods'**
+  String get routineZincIntake;
+
+  /// No description provided for @routineZincIntakeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Consume zinc-rich foods throughout the day for growth hormone production.'**
+  String get routineZincIntakeDesc;
+
+  /// No description provided for @routineVitaminDSunlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Vitamin D & Sunlight'**
+  String get routineVitaminDSunlight;
+
+  /// No description provided for @routineVitaminDSunlightDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Get at least 15 minutes of direct sunlight for Vitamin D synthesis and bone growth.'**
+  String get routineVitaminDSunlightDesc;
+
+  /// No description provided for @routineArginineFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Arginine Rich Foods'**
+  String get routineArginineFoods;
+
+  /// No description provided for @routineArginineFoodsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Eat arginine-rich foods to stimulate growth hormone secretion.'**
+  String get routineArginineFoodsDesc;
+
+  /// No description provided for @routineSleepEnvironment.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimize Sleep Environment'**
+  String get routineSleepEnvironment;
+
+  /// No description provided for @routineSleepEnvironmentDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a dark, cool sleeping environment to maximize melatonin and growth hormone release.'**
+  String get routineSleepEnvironmentDesc;
+
+  /// No description provided for @routinePreSleepRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Pre-Sleep Wind Down'**
+  String get routinePreSleepRoutine;
+
+  /// No description provided for @routinePreSleepRoutineDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A consistent pre-sleep routine improves deep sleep quality by 23%.'**
+  String get routinePreSleepRoutineDesc;
+
+  /// No description provided for @routineNeckStretches.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck Stretches'**
+  String get routineNeckStretches;
+
+  /// No description provided for @routineNeckStretchesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck stretches relieve compression and improve cervical alignment.'**
+  String get routineNeckStretchesDesc;
+
+  /// No description provided for @routineShoulderRolls.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulder Rolls & Opens'**
+  String get routineShoulderRolls;
+
+  /// No description provided for @routineShoulderRollsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening shoulders corrects forward posture, can add 1-2cm in appearance.'**
+  String get routineShoulderRollsDesc;
+
   /// No description provided for @achieveFirstDay.
   ///
   /// In en, this message translates to:
@@ -1789,6 +1969,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All day'**
   String get durationAllDay;
+
+  /// No description provided for @durationNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Night'**
+  String get durationNight;
 
   /// No description provided for @durationHours.
   ///

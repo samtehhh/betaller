@@ -9,6 +9,7 @@ import '../utils/constants.dart';
 import '../utils/calculations.dart';
 import '../utils/localized_data.dart';
 import '../widgets/premium_paywall.dart';
+import 'exercise_detail_screen.dart';
 
 class RoutinesScreen extends StatefulWidget {
   const RoutinesScreen({super.key});
@@ -205,9 +206,12 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                       final isLocked = !provider.isPremium && !isFree;
 
                       Widget routineCard = GestureDetector(
-                        onTap: provider.isPremium
-                            ? () => provider.toggleRoutine(routine.id)
-                            : () => showPremiumPaywall(context),
+                        onTap: isLocked
+                            ? () => showPremiumPaywall(context)
+                            : () => Navigator.push(
+                                context,
+                                CupertinoPageRoute(builder: (_) => ExerciseDetailScreen(routine: routine)),
+                              ),
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 300),
                           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
@@ -304,21 +308,28 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                   child: const Icon(CupertinoIcons.lock_fill, color: Color(0xFFFFD700), size: 12),
                                 )
                               else
-                                AnimatedContainer(
-                                  duration: const Duration(milliseconds: 300),
-                                  width: 28,
-                                  height: 28,
-                                  decoration: BoxDecoration(
-                                    color: routine.completed ? AppColors.success : Colors.transparent,
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color: routine.completed ? AppColors.success : Colors.white.withValues(alpha: 0.50),
-                                      width: 2,
+                                GestureDetector(
+                                  onTap: provider.isPremium
+                                      ? () => provider.toggleRoutine(routine.id)
+                                      : isFree
+                                          ? () => provider.toggleRoutine(routine.id)
+                                          : () => showPremiumPaywall(context),
+                                  child: AnimatedContainer(
+                                    duration: const Duration(milliseconds: 300),
+                                    width: 28,
+                                    height: 28,
+                                    decoration: BoxDecoration(
+                                      color: routine.completed ? AppColors.success : Colors.transparent,
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: routine.completed ? AppColors.success : Colors.white.withValues(alpha: 0.50),
+                                        width: 2,
+                                      ),
                                     ),
+                                    child: routine.completed
+                                        ? const Icon(CupertinoIcons.checkmark, color: Colors.white, size: 14)
+                                        : null,
                                   ),
-                                  child: routine.completed
-                                      ? const Icon(CupertinoIcons.checkmark, color: Colors.white, size: 14)
-                                      : null,
                                 ),
                             ],
                           ),

@@ -768,6 +768,111 @@ class AppLocalizationsIt extends AppLocalizations {
       'Appoggiati alla parete: talloni, fianchi, spalle e testa a contatto con il muro. Mantieni 5 min.';
 
   @override
+  String get routineSprintIntervals => 'Sprint Interval Training';
+
+  @override
+  String get routineSprintIntervalsDesc =>
+      'Sprint interval training triggers significant growth hormone release through high-intensity bursts.';
+
+  @override
+  String get routineHiitWorkout => 'HIIT Workout';
+
+  @override
+  String get routineHiitWorkoutDesc =>
+      'High intensity interval training to maximize growth hormone release.';
+
+  @override
+  String get routineSquats => 'Bodyweight Squats';
+
+  @override
+  String get routineSquatsDesc =>
+      'Bodyweight squats stimulate growth plates in legs and spine.';
+
+  @override
+  String get routineDeadliftStretch => 'Deadlift Stretch';
+
+  @override
+  String get routineDeadliftStretchDesc =>
+      'Deadlift stretch for spinal decompression and vertebral disc health.';
+
+  @override
+  String get routineOverheadPress => 'Overhead Press';
+
+  @override
+  String get routineOverheadPressDesc =>
+      'Overhead pressing stretches the spine and strengthens posture muscles.';
+
+  @override
+  String get routineSkippingRope => 'Skipping Rope';
+
+  @override
+  String get routineSkippingRopeDesc =>
+      'Repetitive jumping with a skipping rope stimulates growth plates in lower extremities.';
+
+  @override
+  String get routinePilatesCore => 'Pilates Core';
+
+  @override
+  String get routinePilatesCoreDesc =>
+      'Pilates core exercises support spinal alignment and posture.';
+
+  @override
+  String get routineInversionHang => 'Inversion Hanging';
+
+  @override
+  String get routineInversionHangDesc =>
+      'Inversion decompresses spinal discs, can temporarily add 1-2cm.';
+
+  @override
+  String get routineZincIntake => 'Zinc Rich Foods';
+
+  @override
+  String get routineZincIntakeDesc =>
+      'Consume zinc-rich foods throughout the day for growth hormone production.';
+
+  @override
+  String get routineVitaminDSunlight => 'Vitamin D & Sunlight';
+
+  @override
+  String get routineVitaminDSunlightDesc =>
+      'Get at least 15 minutes of direct sunlight for Vitamin D synthesis and bone growth.';
+
+  @override
+  String get routineArginineFoods => 'Arginine Rich Foods';
+
+  @override
+  String get routineArginineFoodsDesc =>
+      'Eat arginine-rich foods to stimulate growth hormone secretion.';
+
+  @override
+  String get routineSleepEnvironment => 'Optimize Sleep Environment';
+
+  @override
+  String get routineSleepEnvironmentDesc =>
+      'Create a dark, cool sleeping environment to maximize melatonin and growth hormone release.';
+
+  @override
+  String get routinePreSleepRoutine => 'Pre-Sleep Wind Down';
+
+  @override
+  String get routinePreSleepRoutineDesc =>
+      'A consistent pre-sleep routine improves deep sleep quality by 23%.';
+
+  @override
+  String get routineNeckStretches => 'Neck Stretches';
+
+  @override
+  String get routineNeckStretchesDesc =>
+      'Neck stretches relieve compression and improve cervical alignment.';
+
+  @override
+  String get routineShoulderRolls => 'Shoulder Rolls & Opens';
+
+  @override
+  String get routineShoulderRollsDesc =>
+      'Opening shoulders corrects forward posture, can add 1-2cm in appearance.';
+
+  @override
   String get achieveFirstDay => 'Primo Passo';
 
   @override
@@ -947,6 +1052,9 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get durationAllDay => 'Tutto il giorno';
+
+  @override
+  String get durationNight => 'Night';
 
   @override
   String durationHours(String hours) {
