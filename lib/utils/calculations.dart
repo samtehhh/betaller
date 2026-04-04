@@ -91,18 +91,19 @@ class Calculations {
     final lastDate = DateTime.tryParse(last.date);
     if (firstDate == null || lastDate == null) return null;
     final days = lastDate.difference(firstDate).inDays;
-    if (days < 7) return null; // En az 1 hafta veri lazım
+    if (days < 30) return null; // En az 1 ay veri lazım (kısa aralık abartılı sonuç veriyor)
     final heightDiff = last.height - first.height;
-    return (heightDiff / days) * 365; // cm/yıl
+    final velocity = (heightDiff / days) * 365; // cm/yıl
+    // Negatif veya mantıksız yüksek değerleri sınırla
+    return velocity.clamp(0.0, 15.0);
   }
 
   /// Büyüme hızı değerlendirmesi
   static String growthVelocityRating(double velocity, int age, String gender) {
-    // Ortalama büyüme hızları (cm/yıl)
     final avgVelocity = _averageGrowthVelocity(age, gender);
-    if (velocity >= avgVelocity * 1.2) return 'excellent';
-    if (velocity >= avgVelocity * 0.8) return 'normal';
-    if (velocity >= avgVelocity * 0.5) return 'slow';
+    if (velocity >= avgVelocity * 0.9) return 'excellent';
+    if (velocity >= avgVelocity * 0.6) return 'normal';
+    if (velocity >= avgVelocity * 0.3) return 'slow';
     return 'very_low';
   }
 

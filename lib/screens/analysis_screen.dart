@@ -454,38 +454,35 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                               Expanded(
                                 child: _StatBlock(
                                   label: l.growthVelocity,
-                                  value: '${(velocity ?? 2.7).toStringAsFixed(1)} ${l.cmPerYear}',
+                                  value: velocity != null ? '${velocity.toStringAsFixed(1)} ${l.cmPerYear}' : l.noData,
                                   color: AppColors.cyan,
                                 ),
                               ),
                             ],
                           ),
-                          ...[
+                          if (velocity != null) ...[
                             const SizedBox(height: 14),
-                            Builder(builder: (_) {
-                              final v = velocity ?? 2.7;
-                              return Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                                decoration: BoxDecoration(
-                                  color: _velocityColor(v, profile.age, profile.gender).withValues(alpha: 0.12),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(CupertinoIcons.arrow_up_right, size: 14, color: _velocityColor(v, profile.age, profile.gender)),
-                                    const SizedBox(width: 6),
-                                    Text(
-                                      l.growthRate(localizedVelocityRating(l, Calculations.growthVelocityRating(v, profile.age, profile.gender))),
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w700,
-                                        color: _velocityColor(v, profile.age, profile.gender),
-                                      ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: _velocityColor(velocity, profile.age, profile.gender).withValues(alpha: 0.12),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(CupertinoIcons.arrow_up_right, size: 14, color: _velocityColor(velocity, profile.age, profile.gender)),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    l.growthRate(localizedVelocityRating(l, Calculations.growthVelocityRating(velocity, profile.age, profile.gender))),
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700,
+                                      color: _velocityColor(velocity, profile.age, profile.gender),
                                     ),
-                                  ],
-                                ),
-                              );
-                            }),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                           const SizedBox(height: 14),
                           ClipRRect(
@@ -505,7 +502,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     // ── Score Detail Cards ────────────────
                     Row(
                       children: [
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.heart_fill, title: l.bmi, value: bmi.toStringAsFixed(1), subtitle: bmiCat, color: bmiCol)),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.bolt_fill, title: l.protein, value: '${proteinNeed.toStringAsFixed(0)}g', subtitle: l.daily, color: AppColors.lime)),
                         const SizedBox(width: 12),
                         Expanded(child: _ScoreCard(icon: CupertinoIcons.flame_fill, title: l.calories, value: '$calorieNeed', subtitle: l.kcalDay, color: AppColors.orange)),
                       ],
@@ -513,15 +510,15 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     const SizedBox(height: 12),
                     Row(
                       children: [
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.drop_fill, title: l.water, value: '${waterNeed.toStringAsFixed(1)}L', subtitle: l.daily, color: AppColors.water)),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.moon_fill, title: l.sleepLabel, value: '${sleepNeed.toStringAsFixed(0)}${l.hoursShort}', subtitle: l.minimum, color: AppColors.sleep)),
                         const SizedBox(width: 12),
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.bolt_fill, title: l.protein, value: '${proteinNeed.toStringAsFixed(0)}g', subtitle: l.daily, color: AppColors.lime)),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.drop_fill, title: l.water, value: '${waterNeed.toStringAsFixed(1)}L', subtitle: l.daily, color: AppColors.water)),
                       ],
                     ),
                     const SizedBox(height: 12),
                     Row(
                       children: [
-                        Expanded(child: _ScoreCard(icon: CupertinoIcons.moon_fill, title: l.sleepLabel, value: '${sleepNeed.toStringAsFixed(0)}${l.hoursShort}', subtitle: l.minimum, color: AppColors.sleep)),
+                        Expanded(child: _ScoreCard(icon: CupertinoIcons.heart_fill, title: l.bmi, value: bmi.toStringAsFixed(1), subtitle: bmiCat, color: bmiCol)),
                         const SizedBox(width: 12),
                         Expanded(child: _ScoreCard(icon: CupertinoIcons.person_fill, title: l.age, value: '${profile.age}', subtitle: profile.gender == 'male' ? l.male : l.female, color: AppColors.pink)),
                       ],
