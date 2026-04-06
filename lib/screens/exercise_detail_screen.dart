@@ -2,9 +2,27 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../models/routine.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/localized_data.dart';
+
+/// Parsed set/rep info from setsReps string.
+class _SetInfo {
+  final int totalSets;
+  final int? perSetSeconds; // non-null → timed
+  final int? perSetReps; // non-null → rep-based
+
+  const _SetInfo({
+    required this.totalSets,
+    this.perSetSeconds,
+    this.perSetReps,
+  });
+
+  bool get isTimed => perSetSeconds != null && perSetSeconds! > 0;
+  bool get isRepBased => perSetReps != null && perSetReps! > 0;
+}
 
 class ExerciseDetailScreen extends StatefulWidget {
   final Routine routine;
@@ -16,15 +34,149 @@ class ExerciseDetailScreen extends StatefulWidget {
 }
 
 class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
+  // Set tracking state
+  int _currentSet = 0; // 0-indexed
+  late int _totalSets;
+  int? _perSetSeconds;
+  int? _perSetReps;
+  bool _isResting = false;
+  bool _allSetsComplete = false;
+  bool _useFallbackTimer = false;
+
   // Timer state
   late int _remainingSeconds;
   Timer? _timer;
   bool _isRunning = false;
 
+  static const int _restDuration = 10;
+
   @override
   void initState() {
     super.initState();
-    _remainingSeconds = widget.routine.timerSeconds ?? 0;
+    _parseSetsReps();
+    if (_useFallbackTimer) {
+      _remainingSeconds = widget.routine.timerSeconds ?? 0;
+    } else if (_perSetSeconds != null) {
+      _remainingSeconds = _perSetSeconds!;
+    } else {
+      _remainingSeconds = 0;
+    }
+  }
+
+  /// Parse the setsReps string into structured data.
+  void _parseSetsReps() {
+    final raw = widget.routine.setsReps;
+    if (raw.isEmpty) {
+      _useFallbackTimer = true;
+      _totalSets = 1;
+      return;
+    }
+
+    final info = _parseSetsRepsString(raw);
+    if (info != null) {
+      _totalSets = info.totalSets;
+      _perSetSeconds = info.perSetSeconds;
+      _perSetReps = info.perSetReps;
+      _useFallbackTimer = false;
+    } else {
+      // Parsing failed → fall back to single timer
+      _useFallbackTimer = true;
+      _totalSets = 1;
+    }
+  }
+
+  /// Try various patterns to extract set count and per-set time/reps.
+  static _SetInfo? _parseSetsRepsString(String raw) {
+    final s = raw.trim().toLowerCase();
+
+    // "NxM seconds" / "NxM second sprints" / "N×M seconds"
+    final rxTimedBasic =
+        RegExp(r'(\d+)\s*[x×]\s*(\d+)\s*(?:second|sec|s)\b');
+    var m = rxTimedBasic.firstMatch(s);
+    if (m != null) {
+      return _SetInfo(
+        totalSets: int.parse(m.group(1)!),
+        perSetSeconds: int.parse(m.group(2)!),
+      );
+    }
+
+    // "NxM minute(s)"
+    final rxMinute = RegExp(r'(\d+)\s*[x×]\s*(\d+)\s*min');
+    m = rxMinute.firstMatch(s);
+    if (m != null) {
+      return _SetInfo(
+        totalSets: int.parse(m.group(1)!),
+        perSetSeconds: int.parse(m.group(2)!) * 60,
+      );
+    }
+
+    // "NxM reps" / "NxM each direction"
+    final rxReps =
+        RegExp(r'(\d+)\s*[x×]\s*(\d+)\s*(?:reps?|each\b|tekrar)');
+    m = rxReps.firstMatch(s);
+    if (m != null) {
+      return _SetInfo(
+        totalSets: int.parse(m.group(1)!),
+        perSetReps: int.parse(m.group(2)!),
+      );
+    }
+
+    // "N min x M sets"
+    final rxMinSets =
+        RegExp(r'(\d+)\s*min\s*[x×]\s*(\d+)\s*set');
+    m = rxMinSets.firstMatch(s);
+    if (m != null) {
+      return _SetInfo(
+        totalSets: int.parse(m.group(2)!),
+        perSetSeconds: int.parse(m.group(1)!) * 60,
+      );
+    }
+
+    // "N directions x Ms hold" / "N-M stretches x Ns hold"
+    final rxDirHold =
+        RegExp(r'(\d+)[\s\w-]*[x×]\s*(\d+)\s*s\s*hold');
+    m = rxDirHold.firstMatch(s);
+    if (m != null) {
+      return _SetInfo(
+        totalSets: int.parse(m.group(1)!),
+        perSetSeconds: int.parse(m.group(2)!),
+      );
+    }
+
+    // "N exercises/stretches x M min each" / "N poses x Ms hold"
+    final rxExMin =
+        RegExp(r'(\d+)[\s\w-]*[x×]\s*(\d+)\s*min\s*(?:each|hold)?');
+    m = rxExMin.firstMatch(s);
+    if (m != null) {
+      return _SetInfo(
+        totalSets: int.parse(m.group(1)!),
+        perSetSeconds: int.parse(m.group(2)!) * 60,
+      );
+    }
+
+    // "N poses/stretches x Ns hold" with explicit 'hold' at end
+    final rxPosesHold =
+        RegExp(r'(\d+)[\s\w-]*[x×]\s*(\d+)\s*(?:sec|s)?\s*hold');
+    m = rxPosesHold.firstMatch(s);
+    if (m != null) {
+      return _SetInfo(
+        totalSets: int.parse(m.group(1)!),
+        perSetSeconds: int.parse(m.group(2)!),
+      );
+    }
+
+    // "N rounds of Ms work/Ns rest"
+    final rxRounds =
+        RegExp(r'(\d+)\s*rounds?\s*(?:of\s+)?(\d+)\s*s\s*work');
+    m = rxRounds.firstMatch(s);
+    if (m != null) {
+      return _SetInfo(
+        totalSets: int.parse(m.group(1)!),
+        perSetSeconds: int.parse(m.group(2)!),
+      );
+    }
+
+    return null; // could not parse
   }
 
   @override
@@ -32,6 +184,8 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
     _timer?.cancel();
     super.dispose();
   }
+
+  // ── Timer helpers ──────────────────────────────────────────────
 
   void _startTimer() {
     if (_remainingSeconds <= 0) return;
@@ -43,6 +197,9 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
           _remainingSeconds = 0;
           _isRunning = false;
         });
+        if (!_useFallbackTimer) {
+          _onSetTimerComplete();
+        }
       } else {
         setState(() => _remainingSeconds--);
       }
@@ -56,9 +213,74 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
 
   void _resetTimer() {
     _timer?.cancel();
+    if (_useFallbackTimer) {
+      setState(() {
+        _remainingSeconds = widget.routine.timerSeconds ?? 0;
+        _isRunning = false;
+      });
+    } else {
+      setState(() {
+        _remainingSeconds = _isResting ? _restDuration : (_perSetSeconds ?? 0);
+        _isRunning = false;
+      });
+    }
+  }
+
+  /// Called when a timed set's countdown reaches zero.
+  void _onSetTimerComplete() {
+    if (_isResting) {
+      // Rest done → advance to next set
+      setState(() {
+        _isResting = false;
+        _remainingSeconds = _perSetSeconds ?? 0;
+      });
+      return;
+    }
+
+    // Set complete
+    final nextSet = _currentSet + 1;
+    if (nextSet >= _totalSets) {
+      setState(() {
+        _currentSet = nextSet;
+        _allSetsComplete = true;
+      });
+    } else {
+      // Start rest period
+      setState(() {
+        _currentSet = nextSet;
+        _isResting = true;
+        _remainingSeconds = _restDuration;
+      });
+      _startTimer(); // auto-start rest countdown
+    }
+  }
+
+  /// Mark a rep-based set as done.
+  void _markRepSetDone() {
+    final nextSet = _currentSet + 1;
+    if (nextSet >= _totalSets) {
+      setState(() {
+        _currentSet = nextSet;
+        _allSetsComplete = true;
+      });
+    } else {
+      setState(() {
+        _currentSet = nextSet;
+        _isResting = true;
+        _remainingSeconds = _restDuration;
+      });
+      _startTimer(); // auto-start rest countdown
+    }
+  }
+
+  void _resetAllSets() {
+    _timer?.cancel();
     setState(() {
-      _remainingSeconds = widget.routine.timerSeconds ?? 0;
+      _currentSet = 0;
+      _isResting = false;
+      _allSetsComplete = false;
       _isRunning = false;
+      _remainingSeconds = _perSetSeconds ?? _perSetReps ?? 0;
     });
   }
 
@@ -81,14 +303,14 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
     }
   }
 
-  String _difficultyLabel(String difficulty) {
+  String _difficultyLabel(String difficulty, AppLocalizations l) {
     switch (difficulty) {
       case 'beginner':
-        return 'Beginner';
+        return l.difficultyBeginner;
       case 'intermediate':
-        return 'Intermediate';
+        return l.difficultyIntermediate;
       case 'advanced':
-        return 'Advanced';
+        return l.difficultyAdvanced;
       default:
         return difficulty;
     }
@@ -100,15 +322,19 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   }
 
   String _categoryLabel(String category) {
-    final catInfo = categoryInfo[category];
-    return catInfo?['title'] as String? ?? category;
+    final l = AppLocalizations.of(context)!;
+    return localizedCategory(l, category);
   }
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final routine = widget.routine;
     final diffColor = _difficultyColor(routine.difficulty);
     final catColor = _categoryColor(routine.category);
+    final localized = localizedRoutine(l, routine.id);
+    final displayTitle = localized['title'] ?? routine.title;
+    final displayDesc = localized['description'] ?? routine.description;
 
     return Scaffold(
       backgroundColor: AppColors.scaffold,
@@ -120,7 +346,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          routine.title,
+          displayTitle,
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
@@ -140,7 +366,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
               border: Border.all(color: diffColor.withValues(alpha: 0.4)),
             ),
             child: Text(
-              _difficultyLabel(routine.difficulty),
+              _difficultyLabel(routine.difficulty, l),
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
@@ -209,7 +435,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                                 color: Colors.white.withValues(alpha: 0.6)),
                             const SizedBox(width: 4),
                             Text(
-                              routine.duration,
+                              localizedDuration(l, routine.duration),
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -221,7 +447,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                         const SizedBox(height: 12),
                         // Description
                         Text(
-                          routine.description,
+                          displayDesc,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -240,7 +466,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                       routine.setsReps.isNotEmpty)
                     _buildSection(
                       icon: CupertinoIcons.text_badge_checkmark,
-                      title: 'How to Do It',
+                      title: l.howToDoIt,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -299,7 +525,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   if (routine.musclesTargeted.isNotEmpty)
                     _buildSection(
                       icon: CupertinoIcons.sportscourt,
-                      title: 'Muscles & Bones Targeted',
+                      title: l.musclesTargeted,
                       iconColor: AppColors.cyan,
                       child: Wrap(
                         spacing: 8,
@@ -334,7 +560,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   if (routine.scientificBasis.isNotEmpty)
                     _buildSection(
                       icon: CupertinoIcons.lab_flask,
-                      title: 'Scientific Basis',
+                      title: l.scientificBasis,
                       iconColor: AppColors.lime,
                       child: Text(
                         routine.scientificBasis,
@@ -349,17 +575,19 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                   if (routine.scientificBasis.isNotEmpty)
                     const SizedBox(height: 14),
 
-                  // ── Built-in Timer ───────────────────────
-                  if (widget.routine.timerSeconds != null &&
+                  // ── Set Tracker / Timer ───────────────────
+                  if (!_useFallbackTimer)
+                    _buildSetTrackerSection(l)
+                  else if (widget.routine.timerSeconds != null &&
                       widget.routine.timerSeconds! > 0)
-                    _buildTimerSection(),
+                    _buildFallbackTimerSection(l),
                 ],
               ),
             ),
           ),
 
           // ── Mark Complete Button ──────────────────
-          _buildCompleteButton(),
+          _buildCompleteButton(l),
         ],
       ),
     );
@@ -383,94 +611,393 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
     );
   }
 
-  Widget _buildTimerSection() {
+  // ── Set Tracker Section ──────────────────────────────────────
+
+  Widget _buildSetTrackerSection(AppLocalizations l) {
+    final isTimed = _perSetSeconds != null && _perSetSeconds! > 0;
+
+    return GlassCard(
+      child: Column(
+        children: [
+          SectionHeader(
+            icon: CupertinoIcons.timer,
+            title: _allSetsComplete
+                ? l.allSetsComplete
+                : isTimed
+                    ? l.setTimer
+                    : l.setTracker,
+          ),
+          const SizedBox(height: 16),
+
+          // ── Set progress row ──
+          _buildSetProgressRow(),
+          const SizedBox(height: 8),
+
+          // "Set X of Y" label
+          if (!_allSetsComplete)
+            Text(
+              _isResting
+                  ? l.restBeforeSet('${_currentSet + 1}')
+                  : l.setXofY('${_currentSet + 1}', '$_totalSets'),
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: _isResting ? AppColors.orange : AppColors.primary,
+                letterSpacing: -0.2,
+              ),
+            ),
+          const SizedBox(height: 16),
+
+          // ── Center content ──
+          if (_allSetsComplete)
+            _buildAllSetsCompleteView(l)
+          else if (_isResting)
+            _buildRestTimerView(l)
+          else if (isTimed)
+            _buildTimedSetView(l)
+          else
+            _buildRepSetView(l),
+
+          const SizedBox(height: 20),
+
+          // ── Control buttons ──
+          if (!_allSetsComplete) _buildSetControls(isTimed, l),
+          if (_allSetsComplete)
+            _timerButton(
+              icon: CupertinoIcons.arrow_counterclockwise,
+              label: l.restart,
+              color: Colors.white.withValues(alpha: 0.6),
+              onTap: _resetAllSets,
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSetProgressRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(_totalSets, (i) {
+        final isCompleted = i < _currentSet;
+        final isCurrent = i == _currentSet && !_allSetsComplete;
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          child: isCompleted
+              ? const Icon(CupertinoIcons.checkmark_circle_fill,
+                  color: AppColors.success, size: 24)
+              : Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isCurrent
+                        ? (_isResting
+                            ? AppColors.orange.withValues(alpha: 0.25)
+                            : AppColors.primary.withValues(alpha: 0.25))
+                        : Colors.white.withValues(alpha: 0.08),
+                    border: Border.all(
+                      color: isCurrent
+                          ? (_isResting
+                              ? AppColors.orange.withValues(alpha: 0.6)
+                              : AppColors.primary.withValues(alpha: 0.6))
+                          : Colors.white.withValues(alpha: 0.15),
+                      width: isCurrent ? 2 : 1,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${i + 1}',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: isCurrent
+                            ? (_isResting
+                                ? AppColors.orange
+                                : AppColors.primary)
+                            : Colors.white.withValues(alpha: 0.35),
+                      ),
+                    ),
+                  ),
+                ),
+        );
+      }),
+    );
+  }
+
+  Widget _buildTimedSetView(AppLocalizations l) {
+    final total = _perSetSeconds!;
+    final progress = total > 0 ? _remainingSeconds / total : 0.0;
+
+    return _buildCircularTimer(
+      progress: progress,
+      color: AppColors.primary,
+      centerChild: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            _formatTime(_remainingSeconds),
+            style: const TextStyle(
+              fontSize: 36,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              letterSpacing: -1,
+            ),
+          ),
+          Text(
+            l.perSet,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: Colors.white.withValues(alpha: 0.5),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRestTimerView(AppLocalizations l) {
+    final progress =
+        _restDuration > 0 ? _remainingSeconds / _restDuration : 0.0;
+
+    return _buildCircularTimer(
+      progress: progress,
+      color: AppColors.orange,
+      centerChild: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            _formatTime(_remainingSeconds),
+            style: const TextStyle(
+              fontSize: 36,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              letterSpacing: -1,
+            ),
+          ),
+          Text(
+            l.rest,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: AppColors.orange,
+              letterSpacing: 1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRepSetView(AppLocalizations l) {
+    return _buildCircularTimer(
+      progress: 1.0,
+      color: AppColors.primary,
+      centerChild: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${_perSetReps ?? 0}',
+            style: const TextStyle(
+              fontSize: 42,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              letterSpacing: -1,
+            ),
+          ),
+          Text(
+            l.reps,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Colors.white.withValues(alpha: 0.6),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAllSetsCompleteView(AppLocalizations l) {
+    return Column(
+      children: [
+        Container(
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppColors.success.withValues(alpha: 0.15),
+            border:
+                Border.all(color: AppColors.success.withValues(alpha: 0.4)),
+          ),
+          child: const Icon(
+            CupertinoIcons.checkmark_circle_fill,
+            color: AppColors.success,
+            size: 56,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          l.allSetsComplete,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+            color: AppColors.success,
+            letterSpacing: -0.3,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCircularTimer({
+    required double progress,
+    required Color color,
+    required Widget centerChild,
+  }) {
+    return SizedBox(
+      width: 160,
+      height: 160,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Background circle
+          SizedBox(
+            width: 160,
+            height: 160,
+            child: CircularProgressIndicator(
+              value: 1.0,
+              strokeWidth: 8,
+              color: color.withValues(alpha: 0.12),
+              strokeCap: StrokeCap.round,
+            ),
+          ),
+          // Progress circle
+          SizedBox(
+            width: 160,
+            height: 160,
+            child: CircularProgressIndicator(
+              value: progress,
+              strokeWidth: 8,
+              color: color,
+              backgroundColor: Colors.transparent,
+              strokeCap: StrokeCap.round,
+            ),
+          ),
+          centerChild,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSetControls(bool isTimed, AppLocalizations l) {
+    if (_isResting) {
+      // During rest, show skip-rest button
+      return _timerButton(
+        icon: CupertinoIcons.forward_fill,
+        label: l.skipRest,
+        color: AppColors.orange,
+        filled: true,
+        onTap: () {
+          _timer?.cancel();
+          setState(() {
+            _isResting = false;
+            _isRunning = false;
+            _remainingSeconds = _perSetSeconds ?? 0;
+          });
+        },
+      );
+    }
+
+    if (isTimed) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _timerButton(
+            icon: CupertinoIcons.arrow_counterclockwise,
+            label: l.resetTimer,
+            color: Colors.white.withValues(alpha: 0.6),
+            onTap: _resetTimer,
+          ),
+          const SizedBox(width: 20),
+          _timerButton(
+            icon: _isRunning
+                ? CupertinoIcons.pause_fill
+                : CupertinoIcons.play_fill,
+            label: _isRunning ? l.pause : l.start,
+            color: AppColors.primary,
+            filled: true,
+            onTap: _isRunning ? _pauseTimer : _startTimer,
+          ),
+        ],
+      );
+    }
+
+    // Rep-based: show Done button
+    return _timerButton(
+      icon: CupertinoIcons.checkmark,
+      label: l.done,
+      color: AppColors.success,
+      filled: true,
+      onTap: _markRepSetDone,
+    );
+  }
+
+  // ── Fallback Timer (single countdown) ─────────────────────
+
+  Widget _buildFallbackTimerSection(AppLocalizations l) {
     final totalSeconds = widget.routine.timerSeconds!;
     final progress = totalSeconds > 0 ? _remainingSeconds / totalSeconds : 0.0;
 
     return GlassCard(
       child: Column(
         children: [
-          const SectionHeader(
-              icon: CupertinoIcons.timer, title: 'Built-in Timer'),
+          SectionHeader(
+              icon: CupertinoIcons.timer, title: l.builtInTimer),
           const SizedBox(height: 20),
-          // Circular timer
-          SizedBox(
-            width: 160,
-            height: 160,
-            child: Stack(
-              alignment: Alignment.center,
+          _buildCircularTimer(
+            progress: progress,
+            color: _remainingSeconds == 0 ? AppColors.success : AppColors.primary,
+            centerChild: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                // Background circle
-                SizedBox(
-                  width: 160,
-                  height: 160,
-                  child: CircularProgressIndicator(
-                    value: 1.0,
-                    strokeWidth: 8,
-                    color: AppColors.primary.withValues(alpha: 0.12),
-                    strokeCap: StrokeCap.round,
+                Text(
+                  _formatTime(_remainingSeconds),
+                  style: const TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                    letterSpacing: -1,
                   ),
                 ),
-                // Progress circle
-                SizedBox(
-                  width: 160,
-                  height: 160,
-                  child: CircularProgressIndicator(
-                    value: progress,
-                    strokeWidth: 8,
-                    color: _remainingSeconds == 0
-                        ? AppColors.success
-                        : AppColors.primary,
-                    backgroundColor: Colors.transparent,
-                    strokeCap: StrokeCap.round,
-                  ),
-                ),
-                // Time text
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      _formatTime(_remainingSeconds),
-                      style: const TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        letterSpacing: -1,
-                      ),
+                if (_remainingSeconds == 0)
+                  Text(
+                    l.doneExclamation,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.success,
                     ),
-                    if (_remainingSeconds == 0)
-                      Text(
-                        'Done!',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.success,
-                        ),
-                      ),
-                  ],
-                ),
+                  ),
               ],
             ),
           ),
           const SizedBox(height: 24),
-          // Control buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Reset
               _timerButton(
                 icon: CupertinoIcons.arrow_counterclockwise,
-                label: 'Reset',
+                label: l.resetTimer,
                 color: Colors.white.withValues(alpha: 0.6),
                 onTap: _resetTimer,
               ),
               const SizedBox(width: 20),
-              // Start / Pause
               _timerButton(
                 icon: _isRunning
                     ? CupertinoIcons.pause_fill
                     : CupertinoIcons.play_fill,
-                label: _isRunning ? 'Pause' : 'Start',
+                label: _isRunning ? l.pause : l.start,
                 color: AppColors.primary,
                 filled: true,
                 onTap: _isRunning ? _pauseTimer : _startTimer,
@@ -523,10 +1050,14 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
     );
   }
 
-  Widget _buildCompleteButton() {
+  Widget _buildCompleteButton(AppLocalizations l) {
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final isCompleted = widget.routine.completed;
+        // Button is fully active if already completed, all sets done, or fallback mode
+        final isFullyActive =
+            isCompleted || _allSetsComplete || _useFallbackTimer;
+
         return Container(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
           decoration: BoxDecoration(
@@ -543,43 +1074,46 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
                 provider.toggleRoutine(widget.routine.id);
                 Navigator.of(context).pop();
               },
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(
-                  gradient: isCompleted
-                      ? null
-                      : AppColors.gradientPrimary,
-                  color: isCompleted
-                      ? AppColors.success.withValues(alpha: 0.18)
-                      : null,
-                  borderRadius: BorderRadius.circular(16),
-                  border: isCompleted
-                      ? Border.all(
-                          color: AppColors.success.withValues(alpha: 0.4))
-                      : null,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      isCompleted
-                          ? CupertinoIcons.arrow_uturn_left
-                          : CupertinoIcons.checkmark_circle_fill,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      isCompleted ? 'Mark Incomplete' : 'Mark Complete',
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
+              child: Opacity(
+                opacity: isFullyActive ? 1.0 : 0.5,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: BoxDecoration(
+                    gradient: isCompleted
+                        ? null
+                        : AppColors.gradientPrimary,
+                    color: isCompleted
+                        ? AppColors.success.withValues(alpha: 0.18)
+                        : null,
+                    borderRadius: BorderRadius.circular(16),
+                    border: isCompleted
+                        ? Border.all(
+                            color: AppColors.success.withValues(alpha: 0.4))
+                        : null,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        isCompleted
+                            ? CupertinoIcons.arrow_uturn_left
+                            : CupertinoIcons.checkmark_circle_fill,
                         color: Colors.white,
-                        letterSpacing: -0.3,
+                        size: 20,
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 10),
+                      Text(
+                        isCompleted ? l.markIncomplete : l.markComplete,
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          letterSpacing: -0.3,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

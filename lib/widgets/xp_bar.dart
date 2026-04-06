@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/localized_data.dart';
 
 class XpBar extends StatelessWidget {
   const XpBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final level = provider.level;
-        final title = provider.levelTitle;
+        final title = localizedLevelTitle(l, provider.levelTitle);
         final progress = provider.levelProgress;
         final totalXP = provider.totalXP;
         final nextLevelXP = provider.xpForNextLevel;
@@ -37,7 +40,7 @@ class XpBar extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          'LVL $level',
+                          l.lvl('$level'),
                           style: const TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w800,

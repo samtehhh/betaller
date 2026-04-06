@@ -761,109 +761,109 @@ class AppLocalizationsTr extends AppLocalizations {
       'Sırtınızı duvara yaslayın: topuklar, kalça, omuzlar, baş duvara değsin. 5 dk tutun.';
 
   @override
-  String get routineSprintIntervals => 'Sprint Interval Training';
+  String get routineSprintIntervals => 'Sprint Aralıkları';
 
   @override
   String get routineSprintIntervalsDesc =>
-      'Sprint interval training triggers significant growth hormone release through high-intensity bursts.';
+      'Sprint aralık antrenmanı, yüksek yoğunluklu patlamalarla önemli ölçüde büyüme hormonu salgılatır.';
 
   @override
-  String get routineHiitWorkout => 'HIIT Workout';
+  String get routineHiitWorkout => 'HIIT Antrenmanı';
 
   @override
   String get routineHiitWorkoutDesc =>
-      'High intensity interval training to maximize growth hormone release.';
+      'Büyüme hormonu salgısını en üst düzeye çıkarmak için yüksek yoğunluklu aralıklı antrenman.';
 
   @override
-  String get routineSquats => 'Bodyweight Squats';
+  String get routineSquats => 'Vücut Ağırlığı Squatları';
 
   @override
   String get routineSquatsDesc =>
-      'Bodyweight squats stimulate growth plates in legs and spine.';
+      'Vücut ağırlığı squatları bacaklardaki ve omurgadaki büyüme plaklarını uyarır.';
 
   @override
-  String get routineDeadliftStretch => 'Deadlift Stretch';
+  String get routineDeadliftStretch => 'Deadlift Esneme';
 
   @override
   String get routineDeadliftStretchDesc =>
-      'Deadlift stretch for spinal decompression and vertebral disc health.';
+      'Omurga dekompresyonu ve vertebral disk sağlığı için deadlift esneme hareketi.';
 
   @override
-  String get routineOverheadPress => 'Overhead Press';
+  String get routineOverheadPress => 'Baş Üstü Press';
 
   @override
   String get routineOverheadPressDesc =>
-      'Overhead pressing stretches the spine and strengthens posture muscles.';
+      'Baş üstü press omurgayı esnetir ve duruş kaslarını güçlendirir.';
 
   @override
-  String get routineSkippingRope => 'Skipping Rope';
+  String get routineSkippingRope => 'İp Atlama';
 
   @override
   String get routineSkippingRopeDesc =>
-      'Repetitive jumping with a skipping rope stimulates growth plates in lower extremities.';
+      'İp ile tekrarlayan zıplama, alt ekstremitelerdeki büyüme plaklarını uyarır.';
 
   @override
   String get routinePilatesCore => 'Pilates Core';
 
   @override
   String get routinePilatesCoreDesc =>
-      'Pilates core exercises support spinal alignment and posture.';
+      'Pilates core egzersizleri omurga hizalamasını ve duruşu destekler.';
 
   @override
-  String get routineInversionHang => 'Inversion Hanging';
+  String get routineInversionHang => 'Ters Asılma';
 
   @override
   String get routineInversionHangDesc =>
-      'Inversion decompresses spinal discs, can temporarily add 1-2cm.';
+      'Ters asılma omurga disklerini dekomprese eder, geçici olarak 1-2 cm ekleyebilir.';
 
   @override
-  String get routineZincIntake => 'Zinc Rich Foods';
+  String get routineZincIntake => 'Çinko Açısından Zengin Gıdalar';
 
   @override
   String get routineZincIntakeDesc =>
-      'Consume zinc-rich foods throughout the day for growth hormone production.';
+      'Büyüme hormonu üretimi için gün boyunca çinko açısından zengin gıdalar tüketin.';
 
   @override
-  String get routineVitaminDSunlight => 'Vitamin D & Sunlight';
+  String get routineVitaminDSunlight => 'D Vitamini ve Güneş Işığı';
 
   @override
   String get routineVitaminDSunlightDesc =>
-      'Get at least 15 minutes of direct sunlight for Vitamin D synthesis and bone growth.';
+      'D vitamini sentezi ve kemik büyümesi için en az 15 dakika doğrudan güneş ışığı alın.';
 
   @override
-  String get routineArginineFoods => 'Arginine Rich Foods';
+  String get routineArginineFoods => 'Arjinin Açısından Zengin Gıdalar';
 
   @override
   String get routineArginineFoodsDesc =>
-      'Eat arginine-rich foods to stimulate growth hormone secretion.';
+      'Büyüme hormonu salgısını uyarmak için arjinin açısından zengin gıdalar yiyin.';
 
   @override
-  String get routineSleepEnvironment => 'Optimize Sleep Environment';
+  String get routineSleepEnvironment => 'Uyku Ortamını Optimize Et';
 
   @override
   String get routineSleepEnvironmentDesc =>
-      'Create a dark, cool sleeping environment to maximize melatonin and growth hormone release.';
+      'Melatonin ve büyüme hormonu salgısını en üst düzeye çıkarmak için karanlık, serin bir uyku ortamı oluşturun.';
 
   @override
-  String get routinePreSleepRoutine => 'Pre-Sleep Wind Down';
+  String get routinePreSleepRoutine => 'Uyku Öncesi Gevşeme';
 
   @override
   String get routinePreSleepRoutineDesc =>
-      'A consistent pre-sleep routine improves deep sleep quality by 23%.';
+      'Düzenli bir uyku öncesi rutin, derin uyku kalitesini %23 artırır.';
 
   @override
-  String get routineNeckStretches => 'Neck Stretches';
+  String get routineNeckStretches => 'Boyun Esnemeleri';
 
   @override
   String get routineNeckStretchesDesc =>
-      'Neck stretches relieve compression and improve cervical alignment.';
+      'Boyun esnemeleri baskıyı azaltır ve servikal hizalamayı iyileştirir.';
 
   @override
-  String get routineShoulderRolls => 'Shoulder Rolls & Opens';
+  String get routineShoulderRolls => 'Omuz Açma Hareketleri';
 
   @override
   String get routineShoulderRollsDesc =>
-      'Opening shoulders corrects forward posture, can add 1-2cm in appearance.';
+      'Omuzları açmak öne eğik duruşu düzeltir, görünümde 1-2 cm fark yaratabilir.';
 
   @override
   String get achieveFirstDay => 'İlk Adım';
@@ -1043,7 +1043,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get durationAllDay => 'Tüm gün';
 
   @override
-  String get durationNight => 'Night';
+  String get durationNight => 'Gece';
 
   @override
   String durationHours(String hours) {
@@ -1123,4 +1123,404 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get cmPerYear => 'cm/yıl';
+
+  @override
+  String get howToDoIt => 'Nasıl Yapılır';
+
+  @override
+  String get musclesTargeted => 'Hedeflenen Kaslar ve Kemikler';
+
+  @override
+  String get scientificBasis => 'Bilimsel Temel';
+
+  @override
+  String setXofY(String current, String total) {
+    return 'Set $current / $total';
+  }
+
+  @override
+  String restBeforeSet(String set) {
+    return 'Set $set öncesi dinlenme';
+  }
+
+  @override
+  String get allSetsComplete => 'Tüm Setler Tamamlandı!';
+
+  @override
+  String get setTimer => 'Set Zamanlayıcı';
+
+  @override
+  String get setTracker => 'Set Takibi';
+
+  @override
+  String get builtInTimer => 'Yerleşik Zamanlayıcı';
+
+  @override
+  String get markComplete => 'Tamamlandı İşaretle';
+
+  @override
+  String get markIncomplete => 'Tamamlanmadı İşaretle';
+
+  @override
+  String get done => 'Bitti';
+
+  @override
+  String get doneExclamation => 'Bitti!';
+
+  @override
+  String get start => 'Başla';
+
+  @override
+  String get pause => 'Duraklat';
+
+  @override
+  String get resetTimer => 'Sıfırla';
+
+  @override
+  String get skipRest => 'Dinlenmeyi Atla';
+
+  @override
+  String get restart => 'Yeniden Başla';
+
+  @override
+  String get perSet => 'set başına';
+
+  @override
+  String get rest => 'DİNLENME';
+
+  @override
+  String get reps => 'tekrar';
+
+  @override
+  String get difficultyBeginner => 'Başlangıç';
+
+  @override
+  String get difficultyIntermediate => 'Orta';
+
+  @override
+  String get difficultyAdvanced => 'İleri';
+
+  @override
+  String get learnTitle => 'Öğren';
+
+  @override
+  String get learnSubtitle => 'Büyüme için bilimsel bilgi';
+
+  @override
+  String get categoryAll => 'Tümü';
+
+  @override
+  String get categoryScience => 'Bilim';
+
+  @override
+  String get categoryNutrition => 'Beslenme';
+
+  @override
+  String get categoryExercise => 'Egzersiz';
+
+  @override
+  String get categorySleep => 'Uyku';
+
+  @override
+  String get categoryMyths => 'Mitler';
+
+  @override
+  String get scientificReferences => 'Bilimsel Kaynaklar';
+
+  @override
+  String get relatedRoutines => 'İlgili Rutinler';
+
+  @override
+  String get nutritionTitle => 'Beslenme';
+
+  @override
+  String get sectionMealPlan => 'Öğün Planı';
+
+  @override
+  String get sectionNutrients => 'Besinler';
+
+  @override
+  String get sectionFoods => 'Yiyecekler';
+
+  @override
+  String todaysPlan(String day) {
+    return 'Bugünün Planı — $day';
+  }
+
+  @override
+  String get breakfast => 'Kahvaltı';
+
+  @override
+  String get lunch => 'Öğle Yemeği';
+
+  @override
+  String get dinner => 'Akşam Yemeği';
+
+  @override
+  String get snacks => 'Atıştırmalıklar';
+
+  @override
+  String get searchFoods => 'Yiyecek ara...';
+
+  @override
+  String nFoods(String count) {
+    return '$count yiyecek';
+  }
+
+  @override
+  String dailyLabel(String amount) {
+    return 'Günlük: $amount';
+  }
+
+  @override
+  String get dailyNeedByAge => 'YAŞA GÖRE GÜNLÜK İHTİYAÇ';
+
+  @override
+  String agePrefix(String range) {
+    return 'Yaş $range';
+  }
+
+  @override
+  String get topFoodSources => 'EN İYİ GIDA KAYNAKLARI';
+
+  @override
+  String get categoryDairy => 'Süt Ürünleri';
+
+  @override
+  String get categoryMeatFish => 'Et ve Balık';
+
+  @override
+  String get categoryVegetables => 'Sebzeler';
+
+  @override
+  String get categoryFruits => 'Meyveler';
+
+  @override
+  String get categoryGrains => 'Tahıllar ve Baklagiller';
+
+  @override
+  String get categoryNutsSeeds => 'Kuruyemişler ve Tohumlar';
+
+  @override
+  String get weeklyReportTitle => 'Haftalık Rapor';
+
+  @override
+  String get overview => 'Genel Bakış';
+
+  @override
+  String get routinesLabel => 'Rutinler';
+
+  @override
+  String get streakLabel => 'Seri';
+
+  @override
+  String get heightLabel => 'Boy';
+
+  @override
+  String get dailyScores => 'Günlük Puanlar';
+
+  @override
+  String get waterToday2 => 'Bugün Su';
+
+  @override
+  String get sleepToday => 'Bugün Uyku';
+
+  @override
+  String get routineCompletion => 'Rutin Tamamlama';
+
+  @override
+  String get xpAndLevel => 'XP ve Seviye';
+
+  @override
+  String xpToNextLevel(String xp) {
+    return 'Sonraki seviyeye $xp XP';
+  }
+
+  @override
+  String get activeChallenges => 'Aktif Görevler';
+
+  @override
+  String nOfMCompleted(String n, String m) {
+    return '$n/$m tamamlandı';
+  }
+
+  @override
+  String get shareYourProgress => 'İlerlemenizi Paylaşın';
+
+  @override
+  String get shareComingSoon => 'Paylaşım özelliği yakında geliyor!';
+
+  @override
+  String get premiumTest => 'Premium (Test)';
+
+  @override
+  String get premiumActive => 'Aktif';
+
+  @override
+  String get premiumFree => 'Ücretsiz';
+
+  @override
+  String get weeklyReportMenu => 'Haftalık Rapor';
+
+  @override
+  String get weeklyReportMenuSubtitle => 'İlerleme özetin';
+
+  @override
+  String get unlockGrowthPotential => 'Tam büyüme potansiyelini aç';
+
+  @override
+  String get featureGrowthAnalysis => 'Büyüme analizi ve puan';
+
+  @override
+  String get featureHeightPrediction => 'Boy tahmini ve öngörü';
+
+  @override
+  String get featureAllRoutines => 'Tüm 14 günlük rutin';
+
+  @override
+  String get featureWaterSleep => 'Su ve uyku takibi';
+
+  @override
+  String get featureProgress => 'İlerleme ve ölçümler';
+
+  @override
+  String get featureAchievements => 'Başarımlar ve seriler';
+
+  @override
+  String get planMonthly => 'Aylık';
+
+  @override
+  String get planYearly => 'Yıllık';
+
+  @override
+  String get bestValue => 'EN İYİ FİYAT';
+
+  @override
+  String get premiumLabel => 'Premium';
+
+  @override
+  String lvl(String level) {
+    return 'SEVİYE $level';
+  }
+
+  @override
+  String get levelBeginner => 'Başlangıç';
+
+  @override
+  String get levelStarter => 'Yeni Başlayan';
+
+  @override
+  String get levelCommitted => 'Kararlı';
+
+  @override
+  String get levelDedicated => 'Adanmış';
+
+  @override
+  String get levelConsistent => 'Tutarlı';
+
+  @override
+  String get levelFocused => 'Odaklı';
+
+  @override
+  String get levelDetermined => 'Azimli';
+
+  @override
+  String get levelDisciplined => 'Disiplinli';
+
+  @override
+  String get levelStrong => 'Güçlü';
+
+  @override
+  String get levelAdvanced => 'İleri';
+
+  @override
+  String get levelExpert => 'Uzman';
+
+  @override
+  String get levelMaster => 'Usta';
+
+  @override
+  String get levelElite => 'Elit';
+
+  @override
+  String get levelChampion => 'Şampiyon';
+
+  @override
+  String get levelLegend => 'Efsane';
+
+  @override
+  String get levelTitan => 'Titan';
+
+  @override
+  String get levelMythic => 'Mitik';
+
+  @override
+  String get levelImmortal => 'Ölümsüz';
+
+  @override
+  String get levelTranscendent => 'Aşkın';
+
+  @override
+  String get levelUltimate => 'Nihai';
+
+  @override
+  String get challengeCompleteAllRoutines => 'Tüm Rutinleri Tamamla';
+
+  @override
+  String get challengeCompleteAllRoutinesDesc => 'Bugün tüm rutinleri bitir';
+
+  @override
+  String get challengeHydrationHero => 'Hidrasyon Kahramanı';
+
+  @override
+  String get challengeHydrationHeroDesc => 'Günlük su hedefine ulaş';
+
+  @override
+  String get challengeEarlySleeper => 'Erken Uyuyan';
+
+  @override
+  String get challengeEarlySleeperDesc => '8+ saat uyku kaydet';
+
+  @override
+  String get challengeExerciseTrio => 'Egzersiz Üçlüsü';
+
+  @override
+  String get challengeExerciseTrioDesc => '3 egzersiz rutini tamamla';
+
+  @override
+  String get challengeMorningStretch => 'Sabah Esneme';
+
+  @override
+  String get challengeMorningStretchDesc => 'Sabah 9\'dan önce esneme yap';
+
+  @override
+  String get challenge7DayWarrior => '7 Günlük Savaşçı';
+
+  @override
+  String get challenge7DayWarriorDesc => '7 gün üst üste tüm rutinleri tamamla';
+
+  @override
+  String get challengeGrowthTracker => 'Büyüme Takipçisi';
+
+  @override
+  String get challengeGrowthTrackerDesc => 'Bu hafta bir boy ölçümü kaydet';
+
+  @override
+  String get challengeHydrationWeek => 'Hidrasyon Haftası';
+
+  @override
+  String get challengeHydrationWeekDesc => 'Bu hafta 5 gün su hedefine ulaş';
+
+  @override
+  String get challengeFitnessChampion => 'Fitness Şampiyonu';
+
+  @override
+  String get challengeFitnessChampionDesc =>
+      'Bu hafta 15 egzersiz rutini tamamla';
+
+  @override
+  String get challengeSleepMaster => 'Uyku Ustası';
+
+  @override
+  String get challengeSleepMasterDesc => '5 gün boyunca 8+ saat uyku kaydet';
 }

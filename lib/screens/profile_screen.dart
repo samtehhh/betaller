@@ -11,10 +11,9 @@ import '../services/notification_service.dart';
 import '../utils/constants.dart';
 import '../utils/localized_data.dart';
 import 'onboarding_screen.dart';
-import 'education_screen.dart';
-import 'nutrition_screen.dart';
 import 'weekly_report_screen.dart';
 import '../widgets/premium_paywall.dart';
+import '../widgets/xp_bar.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -76,6 +75,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
+                    // ── XP Bar ───────────────────────
+                    const XpBar(),
+                    const SizedBox(height: 14),
+
                     // ── Stats ─────────────────────────
                     GlassCard(
                       child: Column(
@@ -252,42 +255,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           _menuDivider(),
                           _MenuToggleRow(
                             icon: CupertinoIcons.gift_fill,
-                            label: 'Premium (Test)',
-                            subtitle: provider.isPremium ? 'Active' : 'Free',
+                            label: l.premiumTest,
+                            subtitle: provider.isPremium ? l.premiumActive : l.premiumFree,
                             color: const Color(0xFFFFD700),
                             value: provider.isPremium,
                             onChanged: (val) => provider.setPremium(val),
                           ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-
-                    // ── Education, Nutrition, Weekly Report ──
-                    GlassCard(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Column(
-                        children: [
-                          _MenuRow(
-                            icon: CupertinoIcons.book_fill,
-                            label: 'Education',
-                            subtitle: 'Learn about growth',
-                            color: AppColors.cyan,
-                            onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const EducationScreen())),
-                          ),
-                          _menuDivider(),
-                          _MenuRow(
-                            icon: CupertinoIcons.leaf_arrow_circlepath,
-                            label: 'Nutrition Guide',
-                            subtitle: 'Meal plans & nutrients',
-                            color: AppColors.lime,
-                            onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const NutritionScreen())),
-                          ),
                           _menuDivider(),
                           _MenuRow(
                             icon: CupertinoIcons.doc_chart_fill,
-                            label: 'Weekly Report',
-                            subtitle: 'Your progress summary',
+                            label: l.weeklyReportMenu,
+                            subtitle: l.weeklyReportMenuSubtitle,
                             color: AppColors.orange,
                             onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const WeeklyReportScreen())),
                           ),
@@ -304,7 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           _MenuRow(
                             icon: CupertinoIcons.gift_fill,
                             label: l.premium,
-                            subtitle: provider.isPremium ? 'Active' : l.premiumSubtitle,
+                            subtitle: provider.isPremium ? l.premiumActive : l.premiumSubtitle,
                             color: const Color(0xFFFFD700),
                             onTap: () => showPremiumPaywall(context),
                           ),

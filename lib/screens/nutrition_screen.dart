@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../l10n/app_localizations.dart';
 import '../utils/constants.dart';
 import '../utils/nutrition_data.dart';
 
@@ -17,21 +18,22 @@ class _NutritionScreenState extends State<NutritionScreen> {
   String _selectedCategory = 'all';
   final Set<int> _expandedNutrients = {};
 
-  static const _sectionLabels = ['Meal Plan', 'Nutrients', 'Foods'];
   static const _sectionIcons = [
     CupertinoIcons.calendar,
     CupertinoIcons.bolt_fill,
     CupertinoIcons.search,
   ];
 
-  static const _categories = {
-    'all': 'All',
-    'dairy': 'Dairy',
-    'meat': 'Meat & Fish',
-    'vegetable': 'Vegetables',
-    'fruit': 'Fruits',
-    'grain': 'Grains & Legumes',
-    'nuts': 'Nuts & Seeds',
+  List<String> _sectionLabels(AppLocalizations l) => [l.sectionMealPlan, l.sectionNutrients, l.sectionFoods];
+
+  Map<String, String> _foodCategories(AppLocalizations l) => {
+    'all': l.categoryAll,
+    'dairy': l.categoryDairy,
+    'meat': l.categoryMeatFish,
+    'vegetable': l.categoryVegetables,
+    'fruit': l.categoryFruits,
+    'grain': l.categoryGrains,
+    'nuts': l.categoryNutsSeeds,
   };
 
   static const _nutrientChipColors = <String, Color>{
@@ -54,6 +56,10 @@ class _NutritionScreenState extends State<NutritionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final lang = Localizations.localeOf(context).languageCode;
+    final sectionLabels = _sectionLabels(l);
+    final foodCats = _foodCategories(l);
     return Scaffold(
       backgroundColor: AppColors.scaffold,
       body: CustomScrollView(
@@ -74,7 +80,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(22, 8, 22, 16),
                   child: Text(
-                    'Nutrition',
+                    l.nutritionTitle,
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.w800,
@@ -133,7 +139,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                               ),
                               const SizedBox(width: 6),
                               Text(
-                                _sectionLabels[i],
+                                sectionLabels[i],
                                 style: TextStyle(
                                   fontSize: 13,
                                   fontWeight:
@@ -157,21 +163,21 @@ class _NutritionScreenState extends State<NutritionScreen> {
           // ── Section Content ──
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 110),
-            sliver: _buildSectionContent(),
+            sliver: _buildSectionContent(l, foodCats, lang),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSectionContent() {
+  Widget _buildSectionContent(AppLocalizations l, Map<String, String> foodCats, String lang) {
     switch (_selectedSection) {
       case 0:
-        return _buildMealPlanSection();
+        return _buildMealPlanSection(l, lang);
       case 1:
-        return _buildNutrientsSection();
+        return _buildNutrientsSection(l, lang);
       case 2:
-        return _buildFoodDatabaseSection();
+        return _buildFoodDatabaseSection(l, foodCats);
       default:
         return const SliverToBoxAdapter(child: SizedBox());
     }
@@ -181,9 +187,10 @@ class _NutritionScreenState extends State<NutritionScreen> {
   // SECTION 1: Daily Meal Plan
   // ════════════════════════════════════════════════════════════════
 
-  SliverList _buildMealPlanSection() {
+  SliverList _buildMealPlanSection(AppLocalizations l, String lang) {
     final dayIndex = DateTime.now().weekday - 1; // 0=Mon ... 6=Sun
-    final today = mealPlanSuggestions[dayIndex % mealPlanSuggestions.length];
+    final plans = getMealPlanSuggestions(lang);
+    final today = plans[dayIndex % plans.length];
     final dayName = today['day'] as String;
     final breakfast = today['breakfast'] as Map<String, dynamic>;
     final lunch = today['lunch'] as Map<String, dynamic>;
@@ -202,7 +209,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
               const Icon(CupertinoIcons.calendar_today, color: AppColors.primary, size: 20),
               const SizedBox(width: 10),
               Text(
-                "Today's Plan — $dayName",
+                l.todaysPlan(dayName),
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -213,16 +220,16 @@ class _NutritionScreenState extends State<NutritionScreen> {
           ),
         ),
 
-        _buildMealCard('Breakfast', '🌅', breakfast),
-        _buildMealCard('Lunch', '☀️', lunch),
-        _buildMealCard('Dinner', '🌙', dinner),
+        _buildMealCard(l.breakfast, '🌅', breakfast),
+        _buildMealCard(l.lunch, '☀️', lunch),
+        _buildMealCard(l.dinner, '🌙', dinner),
 
         // Snacks header
         Padding(
           padding: const EdgeInsets.only(top: 8, bottom: 8),
           child: SectionHeader(
             icon: CupertinoIcons.heart_fill,
-            title: 'Snacks',
+            title: l.snacks,
             iconColor: AppColors.orange,
           ),
         ),
@@ -324,17 +331,18 @@ class _NutritionScreenState extends State<NutritionScreen> {
   // SECTION 2: Growth Nutrients
   // ════════════════════════════════════════════════════════════════
 
-  SliverList _buildNutrientsSection() {
+  SliverList _buildNutrientsSection(AppLocalizations l, String lang) {
+    final nutrients = getGrowthNutrients(lang);
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (context, index) => _buildNutrientCard(index),
-        childCount: growthNutrients.length,
+        (context, index) => _buildNutrientCard(index, l, nutrients),
+        childCount: nutrients.length,
       ),
     );
   }
 
-  Widget _buildNutrientCard(int index) {
-    final nutrient = growthNutrients[index];
+  Widget _buildNutrientCard(int index, AppLocalizations l, List<Map<String, dynamic>> nutrients) {
+    final nutrient = nutrients[index];
     final name = nutrient['name'] as String;
     final icon = nutrient['icon'] as String;
     final role = nutrient['role'] as String;
@@ -394,7 +402,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'Daily: $dailyNeed',
+                          l.dailyLabel(dailyNeed),
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -436,7 +444,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
           // Daily need by age + top foods - expanded
           AnimatedCrossFade(
             firstChild: const SizedBox(width: double.infinity),
-            secondChild: _buildExpandedNutrientContent(dailyNeedByAge, topFoods),
+            secondChild: _buildExpandedNutrientContent(dailyNeedByAge, topFoods, l),
             crossFadeState:
                 isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 250),
@@ -449,6 +457,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
   Widget _buildExpandedNutrientContent(
     Map<String, dynamic> dailyNeedByAge,
     List<dynamic> topFoods,
+    AppLocalizations l,
   ) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
@@ -467,7 +476,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'DAILY NEED BY AGE',
+                  l.dailyNeedByAge,
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w700,
@@ -483,7 +492,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Age ${e.key}',
+                          l.agePrefix(e.key),
                           style: TextStyle(
                             fontSize: 13,
                             color: AppColors.textTertiary,
@@ -509,7 +518,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
 
           // Top food sources
           Text(
-            'TOP FOOD SOURCES',
+            l.topFoodSources,
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -563,7 +572,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
   // SECTION 3: Food Database
   // ════════════════════════════════════════════════════════════════
 
-  SliverList _buildFoodDatabaseSection() {
+  SliverList _buildFoodDatabaseSection(AppLocalizations l, Map<String, String> foodCats) {
     // Filter foods
     final filtered = foodDatabase.where((food) {
       final name = (food['name'] as String).toLowerCase();
@@ -594,7 +603,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                     fontSize: 14,
                   ),
                   decoration: InputDecoration(
-                    hintText: 'Search foods...',
+                    hintText: l.searchFoods,
                     hintStyle: TextStyle(color: AppColors.textTertiary, fontSize: 14),
                     border: InputBorder.none,
                     isDense: true,
@@ -623,7 +632,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
           height: 38,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: _categories.entries.map((entry) {
+            children: foodCats.entries.map((entry) {
               final selected = _selectedCategory == entry.key;
               return Padding(
                 padding: const EdgeInsets.only(right: 8),
@@ -666,7 +675,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: Text(
-            '${filtered.length} foods',
+            l.nFoods('${filtered.length}'),
             style: TextStyle(
               fontSize: 12,
               color: AppColors.textTertiary,

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 
@@ -22,6 +23,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final top = MediaQuery.of(context).padding.top;
     final bottom = MediaQuery.of(context).padding.bottom;
 
@@ -67,24 +69,24 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Text('Unlock your full growth potential', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.7))),
+                    Text(l.unlockGrowthPotential, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.7))),
                     const SizedBox(height: 32),
                     // ── Features list ──
-                    _featureRow(CupertinoIcons.chart_bar_fill, 'Growth analysis & score', AppColors.primary),
-                    _featureRow(CupertinoIcons.sparkles, 'Height prediction & forecast', AppColors.cyan),
-                    _featureRow(CupertinoIcons.bolt_fill, 'All 14 daily routines', AppColors.lime),
-                    _featureRow(CupertinoIcons.drop_fill, 'Water & sleep tracking', AppColors.water),
-                    _featureRow(CupertinoIcons.graph_square_fill, 'Progress & measurements', AppColors.orange),
-                    _featureRow(CupertinoIcons.star_fill, 'Achievements & streaks', AppColors.pink),
+                    _featureRow(CupertinoIcons.chart_bar_fill, l.featureGrowthAnalysis, AppColors.primary),
+                    _featureRow(CupertinoIcons.sparkles, l.featureHeightPrediction, AppColors.cyan),
+                    _featureRow(CupertinoIcons.bolt_fill, l.featureAllRoutines, AppColors.lime),
+                    _featureRow(CupertinoIcons.drop_fill, l.featureWaterSleep, AppColors.water),
+                    _featureRow(CupertinoIcons.graph_square_fill, l.featureProgress, AppColors.orange),
+                    _featureRow(CupertinoIcons.star_fill, l.featureAchievements, AppColors.pink),
                     const SizedBox(height: 28),
                     // ── Plans (tap to purchase directly) ──
-                    _planRow(label: 'Monthly', price: '\$11.99', per: '/mo', onTap: () {
+                    _planRow(label: l.planMonthly, price: '\$11.99', per: '/mo', onTap: () {
                       // TODO: replace with actual in-app purchase
                       context.read<AppProvider>().setPremium(true);
                       Navigator.pop(context, true);
                     }),
                     const SizedBox(height: 10),
-                    _planRow(label: 'Yearly', price: '\$39.99', per: '/yr', badge: 'BEST VALUE', onTap: () {
+                    _planRow(label: l.planYearly, price: '\$39.99', per: '/yr', badge: l.bestValue, onTap: () {
                       // TODO: replace with actual in-app purchase
                       context.read<AppProvider>().setPremium(true);
                       Navigator.pop(context, true);
@@ -206,12 +208,12 @@ class PremiumLockedOverlay extends StatelessWidget {
                       borderRadius: BorderRadius.circular(14),
                       border: Border.all(color: AppColors.primary.withValues(alpha: 0.35)),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(CupertinoIcons.lock_fill, color: AppColors.primaryLight, size: 15),
-                        SizedBox(width: 8),
-                        Text('Premium', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.primaryLight)),
+                        const Icon(CupertinoIcons.lock_fill, color: AppColors.primaryLight, size: 15),
+                        const SizedBox(width: 8),
+                        Text(AppLocalizations.of(context)?.premiumLabel ?? 'Premium', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.primaryLight)),
                       ],
                     ),
                   ),

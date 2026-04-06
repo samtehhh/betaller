@@ -1,265 +1,184 @@
-// Nutrition data for the BeTaller app.
-// Contains growth-critical nutrients, a food database, and weekly meal plans.
+// Nutrition data for the BeTaller app — 8-language support.
+// en, tr, de, fr, es, pt, it, hi
 
 // ══════════════════════════════════════════════════════════════════════
 // A) Growth-Critical Nutrients
 // ══════════════════════════════════════════════════════════════════════
 
-const List<Map<String, dynamic>> growthNutrients = [
-  {
-    'id': 'nutrient_calcium',
-    'name': 'Calcium',
-    'icon': '🦴',
-    'dailyNeedByAge': {
-      '6-8': '1,000 mg',
-      '9-13': '1,300 mg',
-      '14-18': '1,300 mg',
-      '19-25': '1,000 mg',
-    },
-    'role':
-        'Calcium is the primary structural mineral in bones and teeth. About '
-        '99% of your body\'s calcium is stored in your skeleton. During growth '
-        'spurts, your bones need large amounts of calcium to build new bone '
-        'tissue. Insufficient calcium forces the body to pull from existing '
-        'bone, weakening your skeleton.',
-    'topFoods': [
-      {'name': 'Milk (1 cup / 240 ml)', 'amount': '300 mg'},
-      {'name': 'Yogurt (1 cup / 245 g)', 'amount': '275 mg'},
-      {'name': 'Cheddar cheese (30 g)', 'amount': '200 mg'},
-      {'name': 'Sardines with bones (85 g)', 'amount': '325 mg'},
-      {'name': 'Fortified orange juice (1 cup)', 'amount': '350 mg'},
-    ],
-  },
-  {
-    'id': 'nutrient_protein',
-    'name': 'Protein',
-    'icon': '🥩',
-    'dailyNeedByAge': {
-      '6-8': '20 g',
-      '9-13': '35-45 g',
-      '14-18': '50-65 g',
-      '19-25': '55-70 g',
-    },
-    'role':
-        'Protein supplies the amino acids that build and repair every tissue '
-        'in your body — bones, muscles, cartilage, and skin. During '
-        'adolescence, protein needs increase significantly to support rapid '
-        'growth. Amino acids like arginine and lysine also directly stimulate '
-        'growth hormone release.',
-    'topFoods': [
-      {'name': 'Chicken breast (100 g)', 'amount': '31 g'},
-      {'name': 'Eggs (2 large)', 'amount': '12 g'},
-      {'name': 'Greek yogurt (170 g)', 'amount': '17 g'},
-      {'name': 'Lentils, cooked (1 cup)', 'amount': '18 g'},
-      {'name': 'Salmon fillet (100 g)', 'amount': '25 g'},
-    ],
-  },
-  {
-    'id': 'nutrient_zinc',
-    'name': 'Zinc',
-    'icon': '⚡',
-    'dailyNeedByAge': {
-      '6-8': '5 mg',
-      '9-13': '8 mg',
-      '14-18': '11 mg',
-      '19-25': '11 mg',
-    },
-    'role':
-        'Zinc is essential for cell division, DNA synthesis, and immune '
-        'function — all critical during growth. Zinc deficiency is one of the '
-        'most common causes of growth retardation worldwide. It also plays a '
-        'role in growth hormone signaling and bone mineralization.',
-    'topFoods': [
-      {'name': 'Oysters (6 medium)', 'amount': '32 mg'},
-      {'name': 'Beef steak (100 g)', 'amount': '5.5 mg'},
-      {'name': 'Pumpkin seeds (30 g)', 'amount': '2.5 mg'},
-      {'name': 'Chickpeas, cooked (1 cup)', 'amount': '2.5 mg'},
-      {'name': 'Cashews (30 g)', 'amount': '1.6 mg'},
-    ],
-  },
-  {
-    'id': 'nutrient_vitamin_d',
-    'name': 'Vitamin D',
-    'icon': '☀️',
-    'dailyNeedByAge': {
-      '6-8': '600 IU',
-      '9-13': '600 IU',
-      '14-18': '600 IU',
-      '19-25': '600-1,000 IU',
-    },
-    'role':
-        'Vitamin D is critical for calcium absorption — without it, your body '
-        'absorbs only 10-15% of dietary calcium (vs. 30-40% with adequate '
-        'vitamin D). It also directly influences growth plate chondrocyte '
-        'activity and bone mineralization. Many teens are deficient, '
-        'especially those who spend most of their time indoors.',
-    'topFoods': [
-      {'name': 'Salmon (100 g)', 'amount': '570 IU'},
-      {'name': 'Fortified milk (1 cup)', 'amount': '120 IU'},
-      {'name': 'Egg yolk (1 large)', 'amount': '44 IU'},
-      {'name': 'Fortified cereal (1 serving)', 'amount': '80 IU'},
-      {'name': 'Sunlight (15 min, midday)', 'amount': '~1,000 IU'},
-    ],
-  },
-  {
-    'id': 'nutrient_vitamin_a',
-    'name': 'Vitamin A',
-    'icon': '🥕',
-    'dailyNeedByAge': {
-      '6-8': '400 mcg RAE',
-      '9-13': '600 mcg RAE',
-      '14-18': '700-900 mcg RAE',
-      '19-25': '700-900 mcg RAE',
-    },
-    'role':
-        'Vitamin A plays a key role in bone remodeling — the process where '
-        'old bone is broken down and replaced with new, stronger tissue. It '
-        'is also essential for growth plate function and cell differentiation. '
-        'Both deficiency and excess can impair growth, so balance is important.',
-    'topFoods': [
-      {'name': 'Sweet potato (1 medium)', 'amount': '1,100 mcg RAE'},
-      {'name': 'Carrots (1 medium)', 'amount': '509 mcg RAE'},
-      {'name': 'Spinach, cooked (1/2 cup)', 'amount': '472 mcg RAE'},
-      {'name': 'Beef liver (85 g)', 'amount': '6,582 mcg RAE'},
-      {'name': 'Red bell pepper (1 medium)', 'amount': '187 mcg RAE'},
-    ],
-  },
-  {
-    'id': 'nutrient_iron',
-    'name': 'Iron',
-    'icon': '🩸',
-    'dailyNeedByAge': {
-      '6-8': '10 mg',
-      '9-13': '8 mg',
-      '14-18': '11-15 mg',
-      '19-25': '8-18 mg',
-    },
-    'role':
-        'Iron carries oxygen in your blood to every cell in your body, '
-        'including growing bone and muscle tissue. During puberty, iron '
-        'needs increase sharply — especially for girls after the onset of '
-        'menstruation. Iron deficiency anemia is linked to stunted growth '
-        'and delayed development.',
-    'topFoods': [
-      {'name': 'Beef steak (100 g)', 'amount': '2.6 mg'},
-      {'name': 'Spinach, cooked (1/2 cup)', 'amount': '3.2 mg'},
-      {'name': 'Lentils, cooked (1 cup)', 'amount': '6.6 mg'},
-      {'name': 'Fortified cereal (1 serving)', 'amount': '8.0 mg'},
-      {'name': 'Dark chocolate (30 g)', 'amount': '3.4 mg'},
-    ],
-  },
-  {
-    'id': 'nutrient_phosphorus',
-    'name': 'Phosphorus',
-    'icon': '🔬',
-    'dailyNeedByAge': {
-      '6-8': '500 mg',
-      '9-13': '1,250 mg',
-      '14-18': '1,250 mg',
-      '19-25': '700 mg',
-    },
-    'role':
-        'Phosphorus is the second most abundant mineral in your body after '
-        'calcium, and about 85% of it is in your bones and teeth. It works '
-        'together with calcium to form hydroxyapatite, the mineral crystal '
-        'that gives bones their hardness and strength. It is also essential '
-        'for energy production (ATP) in growing cells.',
-    'topFoods': [
-      {'name': 'Chicken breast (100 g)', 'amount': '228 mg'},
-      {'name': 'Salmon (100 g)', 'amount': '252 mg'},
-      {'name': 'Lentils, cooked (1 cup)', 'amount': '356 mg'},
-      {'name': 'Milk (1 cup)', 'amount': '247 mg'},
-      {'name': 'Sunflower seeds (30 g)', 'amount': '206 mg'},
-    ],
-  },
-  {
-    'id': 'nutrient_magnesium',
-    'name': 'Magnesium',
-    'icon': '🌿',
-    'dailyNeedByAge': {
-      '6-8': '130 mg',
-      '9-13': '240 mg',
-      '14-18': '360-410 mg',
-      '19-25': '310-400 mg',
-    },
-    'role':
-        'Magnesium is involved in over 300 enzymatic reactions, including '
-        'bone formation and calcium metabolism. It helps convert vitamin D '
-        'into its active form, which is needed for calcium absorption. '
-        'Magnesium deficiency can impair bone growth and reduce bone density. '
-        'It also supports muscle relaxation and sleep quality.',
-    'topFoods': [
-      {'name': 'Pumpkin seeds (30 g)', 'amount': '156 mg'},
-      {'name': 'Almonds (30 g)', 'amount': '80 mg'},
-      {'name': 'Spinach, cooked (1/2 cup)', 'amount': '78 mg'},
-      {'name': 'Dark chocolate (30 g)', 'amount': '65 mg'},
-      {'name': 'Banana (1 medium)', 'amount': '32 mg'},
-    ],
-  },
-  {
-    'id': 'nutrient_l_arginine',
-    'name': 'L-Arginine',
-    'icon': '💪',
-    'dailyNeedByAge': {
-      '6-8': '2-3 g',
-      '9-13': '3-4 g',
-      '14-18': '4-5 g',
-      '19-25': '4-6 g',
-    },
-    'role':
-        'L-Arginine is an amino acid that directly stimulates the release of '
-        'growth hormone from the pituitary gland. It is also a precursor to '
-        'nitric oxide, which improves blood flow to growing tissues. Studies '
-        'show that arginine supplementation can increase HGH secretion, '
-        'especially when combined with exercise.',
-    'topFoods': [
-      {'name': 'Turkey breast (100 g)', 'amount': '1.6 g'},
-      {'name': 'Pumpkin seeds (30 g)', 'amount': '1.4 g'},
-      {'name': 'Soybeans, cooked (1 cup)', 'amount': '2.5 g'},
-      {'name': 'Chicken breast (100 g)', 'amount': '1.4 g'},
-      {'name': 'Peanuts (30 g)', 'amount': '1.0 g'},
-    ],
-  },
+List<Map<String, dynamic>> getGrowthNutrients(String languageCode) {
+  final names = _nutrientNames[languageCode] ?? _nutrientNames['en']!;
+  final roles = _nutrientRoles[languageCode] ?? _nutrientRoles['en']!;
+  return List.generate(_nutrientIds.length, (i) => {
+    'id': _nutrientIds[i],
+    'name': names[i],
+    'icon': _nutrientIcons[i],
+    'role': roles[i],
+    'dailyNeedByAge': _nutrientDailyNeeds[i],
+    'topFoods': _nutrientTopFoods[i],
+  });
+}
+
+const _nutrientIds = [
+  'nutrient_calcium', 'nutrient_protein', 'nutrient_zinc',
+  'nutrient_vitamin_d', 'nutrient_vitamin_a', 'nutrient_iron',
+  'nutrient_phosphorus', 'nutrient_magnesium', 'nutrient_l_arginine',
 ];
 
+const _nutrientIcons = ['🦴', '🥩', '⚡', '☀️', '🥕', '🩸', '🔬', '🌿', '💪'];
+
+const _nutrientDailyNeeds = [
+  {'6-8': '1,000 mg', '9-13': '1,300 mg', '14-18': '1,300 mg', '19-25': '1,000 mg'},
+  {'6-8': '20 g',     '9-13': '35-45 g',  '14-18': '50-65 g',  '19-25': '55-70 g'},
+  {'6-8': '5 mg',     '9-13': '8 mg',     '14-18': '11 mg',    '19-25': '11 mg'},
+  {'6-8': '600 IU',   '9-13': '600 IU',   '14-18': '600 IU',   '19-25': '600-1,000 IU'},
+  {'6-8': '400 mcg RAE', '9-13': '600 mcg RAE', '14-18': '700-900 mcg RAE', '19-25': '700-900 mcg RAE'},
+  {'6-8': '10 mg',    '9-13': '8 mg',     '14-18': '11-15 mg', '19-25': '8-18 mg'},
+  {'6-8': '500 mg',   '9-13': '1,250 mg', '14-18': '1,250 mg', '19-25': '700 mg'},
+  {'6-8': '130 mg',   '9-13': '240 mg',   '14-18': '360-410 mg','19-25': '310-400 mg'},
+  {'6-8': '2-3 g',    '9-13': '3-4 g',    '14-18': '4-5 g',    '19-25': '4-6 g'},
+];
+
+const _nutrientTopFoods = [
+  [{'name': 'Milk (1 cup / 240 ml)', 'amount': '300 mg'}, {'name': 'Yogurt (1 cup / 245 g)', 'amount': '275 mg'}, {'name': 'Cheddar cheese (30 g)', 'amount': '200 mg'}, {'name': 'Sardines with bones (85 g)', 'amount': '325 mg'}, {'name': 'Fortified orange juice (1 cup)', 'amount': '350 mg'}],
+  [{'name': 'Chicken breast (100 g)', 'amount': '31 g'}, {'name': 'Eggs (2 large)', 'amount': '12 g'}, {'name': 'Greek yogurt (170 g)', 'amount': '17 g'}, {'name': 'Lentils, cooked (1 cup)', 'amount': '18 g'}, {'name': 'Salmon fillet (100 g)', 'amount': '25 g'}],
+  [{'name': 'Oysters (6 medium)', 'amount': '32 mg'}, {'name': 'Beef steak (100 g)', 'amount': '5.5 mg'}, {'name': 'Pumpkin seeds (30 g)', 'amount': '2.5 mg'}, {'name': 'Chickpeas, cooked (1 cup)', 'amount': '2.5 mg'}, {'name': 'Cashews (30 g)', 'amount': '1.6 mg'}],
+  [{'name': 'Salmon (100 g)', 'amount': '570 IU'}, {'name': 'Fortified milk (1 cup)', 'amount': '120 IU'}, {'name': 'Egg yolk (1 large)', 'amount': '44 IU'}, {'name': 'Fortified cereal (1 serving)', 'amount': '80 IU'}, {'name': 'Sunlight (15 min, midday)', 'amount': '~1,000 IU'}],
+  [{'name': 'Sweet potato (1 medium)', 'amount': '1,100 mcg RAE'}, {'name': 'Carrots (1 medium)', 'amount': '509 mcg RAE'}, {'name': 'Spinach, cooked (1/2 cup)', 'amount': '472 mcg RAE'}, {'name': 'Beef liver (85 g)', 'amount': '6,582 mcg RAE'}, {'name': 'Red bell pepper (1 medium)', 'amount': '187 mcg RAE'}],
+  [{'name': 'Beef steak (100 g)', 'amount': '2.6 mg'}, {'name': 'Spinach, cooked (1/2 cup)', 'amount': '3.2 mg'}, {'name': 'Lentils, cooked (1 cup)', 'amount': '6.6 mg'}, {'name': 'Fortified cereal (1 serving)', 'amount': '8.0 mg'}, {'name': 'Dark chocolate (30 g)', 'amount': '3.4 mg'}],
+  [{'name': 'Chicken breast (100 g)', 'amount': '228 mg'}, {'name': 'Salmon (100 g)', 'amount': '252 mg'}, {'name': 'Lentils, cooked (1 cup)', 'amount': '356 mg'}, {'name': 'Milk (1 cup)', 'amount': '247 mg'}, {'name': 'Sunflower seeds (30 g)', 'amount': '206 mg'}],
+  [{'name': 'Pumpkin seeds (30 g)', 'amount': '156 mg'}, {'name': 'Almonds (30 g)', 'amount': '80 mg'}, {'name': 'Spinach, cooked (1/2 cup)', 'amount': '78 mg'}, {'name': 'Dark chocolate (30 g)', 'amount': '65 mg'}, {'name': 'Banana (1 medium)', 'amount': '32 mg'}],
+  [{'name': 'Turkey breast (100 g)', 'amount': '1.6 g'}, {'name': 'Pumpkin seeds (30 g)', 'amount': '1.4 g'}, {'name': 'Soybeans, cooked (1 cup)', 'amount': '2.5 g'}, {'name': 'Chicken breast (100 g)', 'amount': '1.4 g'}, {'name': 'Peanuts (30 g)', 'amount': '1.0 g'}],
+];
+
+const _nutrientNames = {
+  'en': ['Calcium', 'Protein', 'Zinc', 'Vitamin D', 'Vitamin A', 'Iron', 'Phosphorus', 'Magnesium', 'L-Arginine'],
+  'tr': ['Kalsiyum', 'Protein', 'Çinko', 'D Vitamini', 'A Vitamini', 'Demir', 'Fosfor', 'Magnezyum', 'L-Arjinin'],
+  'de': ['Kalzium', 'Protein', 'Zink', 'Vitamin D', 'Vitamin A', 'Eisen', 'Phosphor', 'Magnesium', 'L-Arginin'],
+  'fr': ['Calcium', 'Protéines', 'Zinc', 'Vitamine D', 'Vitamine A', 'Fer', 'Phosphore', 'Magnésium', 'L-Arginine'],
+  'es': ['Calcio', 'Proteínas', 'Zinc', 'Vitamina D', 'Vitamina A', 'Hierro', 'Fósforo', 'Magnesio', 'L-Arginina'],
+  'pt': ['Cálcio', 'Proteína', 'Zinco', 'Vitamina D', 'Vitamina A', 'Ferro', 'Fósforo', 'Magnésio', 'L-Arginina'],
+  'it': ['Calcio', 'Proteina', 'Zinco', 'Vitamina D', 'Vitamina A', 'Ferro', 'Fosforo', 'Magnesio', 'L-Arginina'],
+  'hi': ['कैल्शियम', 'प्रोटीन', 'जिंक', 'विटामिन D', 'विटामिन A', 'आयरन', 'फास्फोरस', 'मैग्नीशियम', 'L-आर्जिनिन'],
+};
+
+const _nutrientRoles = {
+  'en': [
+    'Calcium is the primary structural mineral in bones and teeth. About 99% of your body\'s calcium is stored in your skeleton. During growth spurts, your bones need large amounts of calcium to build new bone tissue. Insufficient calcium forces the body to pull from existing bone, weakening your skeleton.',
+    'Protein supplies the amino acids that build and repair every tissue in your body — bones, muscles, cartilage, and skin. During adolescence, protein needs increase significantly to support rapid growth. Amino acids like arginine and lysine also directly stimulate growth hormone release.',
+    'Zinc is essential for cell division, DNA synthesis, and immune function — all critical during growth. Zinc deficiency is one of the most common causes of growth retardation worldwide. It also plays a role in growth hormone signaling and bone mineralization.',
+    'Vitamin D is critical for calcium absorption — without it, your body absorbs only 10-15% of dietary calcium (vs. 30-40% with adequate vitamin D). It also directly influences growth plate chondrocyte activity and bone mineralization. Many teens are deficient, especially those who spend most of their time indoors.',
+    'Vitamin A plays a key role in bone remodeling — the process where old bone is broken down and replaced with new, stronger tissue. It is also essential for growth plate function and cell differentiation. Both deficiency and excess can impair growth, so balance is important.',
+    'Iron carries oxygen in your blood to every cell in your body, including growing bone and muscle tissue. During puberty, iron needs increase sharply — especially for girls after the onset of menstruation. Iron deficiency anemia is linked to stunted growth and delayed development.',
+    'Phosphorus is the second most abundant mineral in your body after calcium, and about 85% of it is in your bones and teeth. It works together with calcium to form hydroxyapatite, the mineral crystal that gives bones their hardness and strength. It is also essential for energy production (ATP) in growing cells.',
+    'Magnesium is involved in over 300 enzymatic reactions, including bone formation and calcium metabolism. It helps convert vitamin D into its active form, which is needed for calcium absorption. Magnesium deficiency can impair bone growth and reduce bone density. It also supports muscle relaxation and sleep quality.',
+    'L-Arginine is an amino acid that directly stimulates the release of growth hormone from the pituitary gland. It is also a precursor to nitric oxide, which improves blood flow to growing tissues. Studies show that arginine supplementation can increase HGH secretion, especially when combined with exercise.',
+  ],
+  'tr': [
+    'Kalsiyum, kemik ve dişlerin birincil yapısal mineralidir. Vücudunuzdaki kalsiyumun yaklaşık %99\'u iskelet sisteminizde depolanır. Büyüme dönemlerinde kemikleriniz yeni kemik dokusu oluşturmak için büyük miktarda kalsiyuma ihtiyaç duyar. Yetersiz kalsiyum, vücudu mevcut kemiklerden kalsiyum çekmeye zorlayarak iskelet sisteminizi zayıflatır.',
+    'Protein, vücudunuzdaki kemik, kas, kıkırdak ve deri dahil her dokuyu oluşturan ve onaran amino asitleri sağlar. Ergenlik döneminde protein ihtiyacı hızlı büyümeyi desteklemek için önemli ölçüde artar. Arjinin ve lizin gibi amino asitler büyüme hormonu salgılanmasını da doğrudan uyarır.',
+    'Çinko, büyüme sırasında kritik öneme sahip hücre bölünmesi, DNA sentezi ve bağışıklık fonksiyonu için gereklidir. Çinko eksikliği, dünya genelinde büyüme geriliğinin en yaygın nedenlerinden biridir. Aynı zamanda büyüme hormonu sinyalleşmesi ve kemik mineralizasyonunda da rol oynar.',
+    'D Vitamini, kalsiyum emilimi için kritik öneme sahiptir — yetersiz D Vitamini ile vücudunuz besinsel kalsiyumun yalnızca %10-15\'ini emer (yeterli D Vitamini ile %30-40). Ayrıca büyüme plakası kıkırdak hücresi aktivitesini ve kemik mineralizasyonunu doğrudan etkiler. Zamanlarının çoğunu kapalı mekânlarda geçiren pek çok genç yetersiz D Vitaminine sahiptir.',
+    'A Vitamini, eski kemiğin parçalanarak yeni, daha güçlü dokuyla değiştirildiği kemik yeniden yapılanmasında önemli rol oynar. Aynı zamanda büyüme plakası fonksiyonu ve hücre farklılaşması için de gereklidir. Hem eksiklik hem de fazlalık büyümeyi olumsuz etkileyebilir; bu nedenle denge önemlidir.',
+    'Demir, kandaki oksijeni büyüyen kemik ve kas dokusu dahil vücudunuzdaki her hücreye taşır. Ergenlik döneminde, özellikle kızlarda adet başlangıcından sonra demir ihtiyacı önemli ölçüde artar. Demir eksikliği anemisi, büyüme geriliği ve gelişimsel gecikme ile bağlantılıdır.',
+    'Fosfor, vücudunuzdaki kalsiyumdan sonra ikinci en bol mineraldir ve yaklaşık %85\'i kemik ve dişlerde bulunur. Kemiklere sertlik ve dayanıklılık kazandıran mineral kristali olan hidroksiapatit oluşumunda kalsiyumla birlikte çalışır. Aynı zamanda büyüyen hücrelerde enerji üretimi (ATP) için de gereklidir.',
+    'Magnezyum, kemik oluşumu ve kalsiyum metabolizması dahil 300\'den fazla enzimatik reaksiyona dahildir. D Vitaminini kalsiyum emilimi için gereken aktif formuna dönüştürmeye yardımcı olur. Magnezyum eksikliği kemik büyümesini engelleyebilir ve kemik yoğunluğunu azaltabilir. Aynı zamanda kas gevşemesi ve uyku kalitesini de destekler.',
+    'L-Arjinin, hipofiz bezinden büyüme hormonu salgılanmasını doğrudan uyaran bir amino asittir. Aynı zamanda büyüyen dokulara kan akışını iyileştiren nitrik oksitin öncüsüdür. Araştırmalar, arjinin takviyesinin özellikle egzersizle birleştirildiğinde büyüme hormonu salgısını artırabileceğini göstermektedir.',
+  ],
+  'de': [
+    'Kalzium ist das primäre Strukturmineral in Knochen und Zähnen. Etwa 99% des Kalziums im Körper ist im Skelett gespeichert. Während Wachstumsschüben benötigen die Knochen große Mengen Kalzium, um neues Knochengewebe aufzubauen. Unzureichendes Kalzium zwingt den Körper, aus bestehenden Knochen zu schöpfen, was das Skelett schwächt.',
+    'Protein liefert die Aminosäuren, die jedes Gewebe im Körper aufbauen und reparieren — Knochen, Muskeln, Knorpel und Haut. In der Pubertät steigt der Proteinbedarf erheblich, um das schnelle Wachstum zu unterstützen. Aminosäuren wie Arginin und Lysin stimulieren auch direkt die Ausschüttung von Wachstumshormonen.',
+    'Zink ist für Zellteilung, DNA-Synthese und Immunfunktion unerlässlich — alles entscheidend während des Wachstums. Zinkmangel ist eine der häufigsten Ursachen für Wachstumsverzögerung weltweit. Es spielt auch eine Rolle bei der Wachstumshormon-Signalübertragung und Knochenmineralisierung.',
+    'Vitamin D ist entscheidend für die Kalziumaufnahme — ohne es nimmt der Körper nur 10-15% des Nahrungskalziums auf (gegenüber 30-40% mit ausreichendem Vitamin D). Es beeinflusst auch direkt die Chondrozytenaktivität der Wachstumsplatte und die Knochenmineralisierung. Viele Jugendliche haben einen Mangel, besonders solche, die die meiste Zeit drinnen verbringen.',
+    'Vitamin A spielt eine Schlüsselrolle beim Knochenumbau — dem Prozess, bei dem alter Knochen abgebaut und durch neues, stärkeres Gewebe ersetzt wird. Es ist auch für die Wachstumsplattenfunktion und Zelldifferenzierung unerlässlich. Sowohl Mangel als auch Überschuss können das Wachstum beeinträchtigen, daher ist Balance wichtig.',
+    'Eisen transportiert Sauerstoff im Blut zu jeder Zelle im Körper, einschließlich wachsenden Knochen- und Muskelgeweben. In der Pubertät steigt der Eisenbedarf stark — besonders bei Mädchen nach Beginn der Menstruation. Eisenmangelanämie ist mit vermindertem Wachstum und verzögerter Entwicklung verbunden.',
+    'Phosphor ist das zweithäufigste Mineral im Körper nach Kalzium, und etwa 85% davon befinden sich in Knochen und Zähnen. Es arbeitet zusammen mit Kalzium, um Hydroxylapatit zu bilden, den Mineralkristall, der Knochen ihre Härte und Stärke verleiht. Es ist auch für die Energieproduktion (ATP) in wachsenden Zellen unerlässlich.',
+    'Magnesium ist an über 300 Enzymreaktionen beteiligt, einschließlich Knochenbildung und Kalziumstoffwechsel. Es hilft, Vitamin D in seine aktive Form umzuwandeln, die für die Kalziumaufnahme benötigt wird. Magnesiummangel kann das Knochenwachstum beeinträchtigen und die Knochendichte reduzieren. Es unterstützt auch Muskelentspannung und Schlafqualität.',
+    'L-Arginin ist eine Aminosäure, die direkt die Freisetzung von Wachstumshormonen aus der Hypophyse stimuliert. Es ist auch ein Vorläufer von Stickstoffmonoxid, das den Blutfluss zu wachsenden Geweben verbessert. Studien zeigen, dass Arginin-Supplementierung die HGH-Sekretion erhöhen kann, besonders in Kombination mit Sport.',
+  ],
+  'fr': [
+    'Le calcium est le principal minéral structurel des os et des dents. Environ 99% du calcium corporel est stocké dans le squelette. Pendant les poussées de croissance, les os ont besoin de grandes quantités de calcium pour construire de nouveaux tissus osseux. Un apport insuffisant en calcium oblige le corps à puiser dans les os existants, fragilisant le squelette.',
+    'Les protéines fournissent les acides aminés qui construisent et réparent chaque tissu du corps — os, muscles, cartilages et peau. À l\'adolescence, les besoins en protéines augmentent considérablement pour soutenir la croissance rapide. Des acides aminés comme l\'arginine et la lysine stimulent également directement la libération de l\'hormone de croissance.',
+    'Le zinc est essentiel à la division cellulaire, à la synthèse de l\'ADN et à la fonction immunitaire — tous critiques pendant la croissance. La carence en zinc est l\'une des causes les plus courantes de retard de croissance dans le monde. Il joue également un rôle dans la signalisation de l\'hormone de croissance et la minéralisation osseuse.',
+    'La vitamine D est essentielle à l\'absorption du calcium — sans elle, l\'organisme n\'absorbe que 10 à 15% du calcium alimentaire (contre 30 à 40% avec une vitamine D adéquate). Elle influence également directement l\'activité des chondrocytes de la plaque de croissance et la minéralisation osseuse. De nombreux adolescents en sont déficients, surtout ceux qui passent la plupart du temps à l\'intérieur.',
+    'La vitamine A joue un rôle clé dans le remodelage osseux — le processus par lequel le vieil os est décomposé et remplacé par un tissu nouveau et plus solide. Elle est également essentielle au fonctionnement de la plaque de croissance et à la différenciation cellulaire. Un déficit comme un excès peut nuire à la croissance, l\'équilibre est donc important.',
+    'Le fer transporte l\'oxygène dans le sang vers chaque cellule du corps, y compris les tissus osseux et musculaires en croissance. À la puberté, les besoins en fer augmentent considérablement — surtout pour les filles après le début des menstruations. L\'anémie ferriprive est liée au retard de croissance et au développement retardé.',
+    'Le phosphore est le deuxième minéral le plus abondant du corps après le calcium, et environ 85% se trouvent dans les os et les dents. Il travaille avec le calcium pour former l\'hydroxyapatite, le cristal minéral qui donne aux os leur dureté et leur résistance. Il est également essentiel à la production d\'énergie (ATP) dans les cellules en croissance.',
+    'Le magnésium est impliqué dans plus de 300 réactions enzymatiques, dont la formation osseuse et le métabolisme du calcium. Il aide à convertir la vitamine D en sa forme active, nécessaire à l\'absorption du calcium. La carence en magnésium peut altérer la croissance osseuse et réduire la densité osseuse. Il soutient également la relaxation musculaire et la qualité du sommeil.',
+    'La L-Arginine est un acide aminé qui stimule directement la libération d\'hormone de croissance par l\'hypophyse. C\'est également un précurseur du monoxyde d\'azote, qui améliore la circulation sanguine vers les tissus en croissance. Des études montrent que la supplémentation en arginine peut augmenter la sécrétion d\'HGH, surtout combinée à l\'exercice.',
+  ],
+  'es': [
+    'El calcio es el mineral estructural primario en huesos y dientes. Aproximadamente el 99% del calcio corporal se almacena en el esqueleto. Durante los brotes de crecimiento, los huesos necesitan grandes cantidades de calcio para construir nuevo tejido óseo. La insuficiencia de calcio obliga al cuerpo a extraer de los huesos existentes, debilitando el esqueleto.',
+    'Las proteínas suministran los aminoácidos que construyen y reparan cada tejido del cuerpo — huesos, músculos, cartílagos y piel. Durante la adolescencia, las necesidades de proteínas aumentan significativamente para apoyar el crecimiento rápido. Aminoácidos como la arginina y la lisina también estimulan directamente la liberación de hormona de crecimiento.',
+    'El zinc es esencial para la división celular, la síntesis de ADN y la función inmunológica — todo crítico durante el crecimiento. La deficiencia de zinc es una de las causas más comunes de retraso en el crecimiento en todo el mundo. También juega un papel en la señalización de la hormona de crecimiento y la mineralización ósea.',
+    'La vitamina D es crítica para la absorción de calcio — sin ella, el cuerpo absorbe solo el 10-15% del calcio dietético (frente al 30-40% con vitamina D adecuada). También influye directamente en la actividad de los condrocitos de la placa de crecimiento y la mineralización ósea. Muchos adolescentes tienen deficiencia, especialmente los que pasan la mayor parte del tiempo en interiores.',
+    'La vitamina A juega un papel clave en la remodelación ósea — el proceso donde el hueso viejo se descompone y se reemplaza con tejido nuevo y más fuerte. También es esencial para la función de la placa de crecimiento y la diferenciación celular. Tanto la deficiencia como el exceso pueden deteriorar el crecimiento, por lo que el equilibrio es importante.',
+    'El hierro transporta oxígeno en la sangre a cada célula del cuerpo, incluidos los tejidos óseos y musculares en crecimiento. Durante la pubertad, las necesidades de hierro aumentan drásticamente — especialmente para las niñas después del inicio de la menstruación. La anemia por deficiencia de hierro está vinculada al retraso del crecimiento y el desarrollo tardío.',
+    'El fósforo es el segundo mineral más abundante del cuerpo después del calcio, y aproximadamente el 85% se encuentra en los huesos y dientes. Trabaja junto con el calcio para formar la hidroxiapatita, el cristal mineral que da a los huesos su dureza y resistencia. También es esencial para la producción de energía (ATP) en las células en crecimiento.',
+    'El magnesio está involucrado en más de 300 reacciones enzimáticas, incluyendo la formación ósea y el metabolismo del calcio. Ayuda a convertir la vitamina D en su forma activa, necesaria para la absorción de calcio. La deficiencia de magnesio puede deteriorar el crecimiento óseo y reducir la densidad ósea. También apoya la relajación muscular y la calidad del sueño.',
+    'La L-Arginina es un aminoácido que estimula directamente la liberación de hormona de crecimiento de la hipófisis. También es un precursor del óxido nítrico, que mejora el flujo sanguíneo hacia los tejidos en crecimiento. Los estudios muestran que la suplementación con arginina puede aumentar la secreción de HGH, especialmente cuando se combina con ejercicio.',
+  ],
+  'pt': [
+    'O cálcio é o principal mineral estrutural em ossos e dentes. Aproximadamente 99% do cálcio corporal é armazenado no esqueleto. Durante os surtos de crescimento, os ossos precisam de grandes quantidades de cálcio para construir novo tecido ósseo. O cálcio insuficiente força o corpo a extrair dos ossos existentes, enfraquecendo o esqueleto.',
+    'A proteína fornece os aminoácidos que constroem e reparam todos os tecidos do corpo — ossos, músculos, cartilagem e pele. Durante a adolescência, as necessidades de proteína aumentam significativamente para suportar o crescimento rápido. Aminoácidos como arginina e lisina também estimulam diretamente a liberação do hormônio do crescimento.',
+    'O zinco é essencial para a divisão celular, síntese de DNA e função imunológica — todos críticos durante o crescimento. A deficiência de zinco é uma das causas mais comuns de retardo de crescimento em todo o mundo. Também desempenha um papel na sinalização do hormônio de crescimento e mineralização óssea.',
+    'A vitamina D é crítica para a absorção de cálcio — sem ela, o corpo absorve apenas 10-15% do cálcio dietético (contra 30-40% com vitamina D adequada). Ela também influencia diretamente a atividade dos condrócitos da placa de crescimento e a mineralização óssea. Muitos adolescentes têm deficiência, especialmente aqueles que passam a maior parte do tempo em ambientes fechados.',
+    'A vitamina A desempenha um papel fundamental na remodelação óssea — o processo onde o osso antigo é decomposto e substituído por tecido novo e mais forte. Também é essencial para a função da placa de crescimento e diferenciação celular. Tanto a deficiência quanto o excesso podem prejudicar o crescimento, portanto o equilíbrio é importante.',
+    'O ferro transporta oxigênio no sangue para cada célula do corpo, incluindo tecidos ósseos e musculares em crescimento. Durante a puberdade, as necessidades de ferro aumentam acentuadamente — especialmente para as meninas após o início da menstruação. A anemia por deficiência de ferro está ligada ao retardo de crescimento e desenvolvimento tardio.',
+    'O fósforo é o segundo mineral mais abundante do corpo após o cálcio, e aproximadamente 85% encontra-se nos ossos e dentes. Trabalha junto com o cálcio para formar a hidroxiapatita, o cristal mineral que confere aos ossos sua dureza e resistência. Também é essencial para a produção de energia (ATP) em células em crescimento.',
+    'O magnésio está envolvido em mais de 300 reações enzimáticas, incluindo formação óssea e metabolismo de cálcio. Ajuda a converter a vitamina D em sua forma ativa, necessária para a absorção de cálcio. A deficiência de magnésio pode prejudicar o crescimento ósseo e reduzir a densidade óssea. Também apoia o relaxamento muscular e a qualidade do sono.',
+    'A L-Arginina é um aminoácido que estimula diretamente a liberação do hormônio de crescimento da hipófise. Também é precursor do óxido nítrico, que melhora o fluxo sanguíneo para tecidos em crescimento. Estudos mostram que a suplementação com arginina pode aumentar a secreção de HGH, especialmente quando combinada com exercício.',
+  ],
+  'it': [
+    'Il calcio è il principale minerale strutturale delle ossa e dei denti. Circa il 99% del calcio corporeo è immagazzinato nel scheletro. Durante gli scatti di crescita, le ossa hanno bisogno di grandi quantità di calcio per costruire nuovo tessuto osseo. L\'insufficienza di calcio costringe il corpo ad attingere dalle ossa esistenti, indebolendo lo scheletro.',
+    'La proteina fornisce gli aminoacidi che costruiscono e riparano ogni tessuto del corpo — ossa, muscoli, cartilagine e pelle. Durante l\'adolescenza, il fabbisogno proteico aumenta significativamente per sostenere la rapida crescita. Aminoacidi come arginina e lisina stimolano anche direttamente il rilascio dell\'ormone della crescita.',
+    'Lo zinco è essenziale per la divisione cellulare, la sintesi del DNA e la funzione immunitaria — tutti critici durante la crescita. La carenza di zinco è una delle cause più comuni di ritardo della crescita nel mondo. Svolge anche un ruolo nella segnalazione dell\'ormone della crescita e nella mineralizzazione ossea.',
+    'La vitamina D è fondamentale per l\'assorbimento del calcio — senza di essa, il corpo assorbe solo il 10-15% del calcio alimentare (contro il 30-40% con una vitamina D adeguata). Influenza anche direttamente l\'attività dei condrociti della placca di crescita e la mineralizzazione ossea. Molti adolescenti ne sono carenti, specialmente coloro che trascorrono la maggior parte del tempo al chiuso.',
+    'La vitamina A svolge un ruolo chiave nel rimodellamento osseo — il processo in cui l\'osso vecchio viene demolito e sostituito con tessuto nuovo e più forte. È anche essenziale per la funzione della placca di crescita e la differenziazione cellulare. Sia la carenza che l\'eccesso possono compromettere la crescita, quindi l\'equilibrio è importante.',
+    'Il ferro trasporta l\'ossigeno nel sangue a ogni cellula del corpo, compresi i tessuti ossei e muscolari in crescita. Durante la pubertà, il fabbisogno di ferro aumenta bruscamente — specialmente per le ragazze dopo l\'inizio delle mestruazioni. L\'anemia da carenza di ferro è associata al ritardo della crescita e allo sviluppo ritardato.',
+    'Il fosforo è il secondo minerale più abbondante nel corpo dopo il calcio, e circa l\'85% si trova nelle ossa e nei denti. Lavora insieme al calcio per formare l\'idrossiapatite, il cristallo minerale che conferisce alle ossa durezza e resistenza. È anche essenziale per la produzione di energia (ATP) nelle cellule in crescita.',
+    'Il magnesio è coinvolto in oltre 300 reazioni enzimatiche, tra cui la formazione ossea e il metabolismo del calcio. Aiuta a convertire la vitamina D nella sua forma attiva, necessaria per l\'assorbimento del calcio. La carenza di magnesio può compromettere la crescita ossea e ridurre la densità ossea. Supporta anche il rilassamento muscolare e la qualità del sonno.',
+    'La L-Arginina è un aminoacido che stimola direttamente il rilascio dell\'ormone della crescita dall\'ipofisi. È anche un precursore dell\'ossido nitrico, che migliora il flusso sanguigno verso i tessuti in crescita. Gli studi dimostrano che l\'integrazione di arginina può aumentare la secrezione di HGH, specialmente quando combinata con l\'esercizio fisico.',
+  ],
+  'hi': [
+    'कैल्शियम हड्डियों और दांतों में प्राथमिक संरचनात्मक खनिज है। आपके शरीर का लगभग 99% कैल्शियम आपके कंकाल में संग्रहित होता है। विकास के दौर में, नए हड्डी ऊतक बनाने के लिए हड्डियों को बड़ी मात्रा में कैल्शियम की आवश्यकता होती है। अपर्याप्त कैल्शियम शरीर को मौजूदा हड्डियों से खींचने के लिए मजबूर करता है, जिससे आपका कंकाल कमजोर होता है।',
+    'प्रोटीन वे अमीनो एसिड प्रदान करता है जो आपके शरीर में हर ऊतक — हड्डियों, मांसपेशियों, उपास्थि और त्वचा — का निर्माण और मरम्मत करते हैं। किशोरावस्था के दौरान, तेज विकास को सहारा देने के लिए प्रोटीन की जरूरत काफी बढ़ जाती है। आर्जिनिन और लाइसिन जैसे अमीनो एसिड सीधे वृद्धि हार्मोन के स्राव को भी उत्तेजित करते हैं।',
+    'जिंक कोशिका विभाजन, DNA संश्लेषण और प्रतिरक्षा कार्य के लिए आवश्यक है — ये सभी विकास के दौरान महत्वपूर्ण हैं। जिंक की कमी दुनिया भर में विकास मंदता के सबसे सामान्य कारणों में से एक है। यह वृद्धि हार्मोन सिग्नलिंग और हड्डी खनिजीकरण में भी भूमिका निभाता है।',
+    'विटामिन D कैल्शियम अवशोषण के लिए महत्वपूर्ण है — इसके बिना, आपका शरीर केवल 10-15% आहार कैल्शियम अवशोषित करता है (पर्याप्त विटामिन D के साथ 30-40% के मुकाबले)। यह सीधे विकास प्लेट कोंड्रोसाइट गतिविधि और हड्डी खनिजीकरण को भी प्रभावित करता है। बहुत से किशोर इसकी कमी से पीड़ित हैं, विशेष रूप से वे जो अधिकांश समय घर के अंदर बिताते हैं।',
+    'विटामिन A हड्डी पुनर्निर्माण में महत्वपूर्ण भूमिका निभाता है — वह प्रक्रिया जहाँ पुरानी हड्डी टूट जाती है और नए, मजबूत ऊतक से बदल दी जाती है। यह विकास प्लेट कार्य और कोशिका भेदभाव के लिए भी आवश्यक है। कमी और अधिकता दोनों ही विकास को बाधित कर सकते हैं, इसलिए संतुलन महत्वपूर्ण है।',
+    'आयरन आपके रक्त में ऑक्सीजन को आपके शरीर की प्रत्येक कोशिका तक ले जाता है, जिसमें बढ़ती हड्डी और मांसपेशियों के ऊतक भी शामिल हैं। यौवन के दौरान, आयरन की जरूरत तेजी से बढ़ती है — विशेष रूप से लड़कियों के लिए मासिक धर्म शुरू होने के बाद। आयरन की कमी से होने वाला एनीमिया अवरुद्ध विकास और विलंबित विकास से जुड़ा हुआ है।',
+    'फास्फोरस कैल्शियम के बाद आपके शरीर में दूसरा सबसे प्रचुर खनिज है, और इसका लगभग 85% हड्डियों और दांतों में होता है। यह हाइड्रोक्सीअपेटाइट बनाने के लिए कैल्शियम के साथ मिलकर काम करता है, जो खनिज क्रिस्टल है जो हड्डियों को उनकी कठोरता और मजबूती देता है। यह बढ़ती कोशिकाओं में ऊर्जा उत्पादन (ATP) के लिए भी आवश्यक है।',
+    'मैग्नीशियम 300 से अधिक एंजाइमेटिक प्रतिक्रियाओं में शामिल है, जिसमें हड्डी निर्माण और कैल्शियम चयापचय शामिल हैं। यह विटामिन D को उसके सक्रिय रूप में बदलने में मदद करता है, जो कैल्शियम अवशोषण के लिए आवश्यक है। मैग्नीशियम की कमी हड्डी के विकास को बाधित कर सकती है और हड्डी घनत्व को कम कर सकती है। यह मांसपेशी विश्राम और नींद की गुणवत्ता को भी सहारा देता है।',
+    'L-आर्जिनिन एक अमीनो एसिड है जो सीधे पिट्यूटरी ग्रंथि से वृद्धि हार्मोन के स्राव को उत्तेजित करता है। यह नाइट्रिक ऑक्साइड का अग्रदूत भी है, जो बढ़ते ऊतकों में रक्त प्रवाह में सुधार करता है। अध्ययनों से पता चलता है कि आर्जिनिन पूरकता HGH स्राव बढ़ा सकती है, खासकर जब व्यायाम के साथ संयुक्त हो।',
+  ],
+};
+
 // ══════════════════════════════════════════════════════════════════════
-// B) Food Database (40+ growth-friendly foods)
+// B) Food Database (40+ growth-friendly foods — language-independent)
 // ══════════════════════════════════════════════════════════════════════
 
 const List<Map<String, dynamic>> foodDatabase = [
-  // ── Dairy ──────────────────────────────────────────────────────
   {'name': 'Whole Milk', 'icon': '🥛', 'category': 'dairy', 'caloriesPer100g': 61, 'protein': 3.2, 'calcium': 125, 'zinc': 0.4, 'vitaminD': 50},
   {'name': 'Greek Yogurt', 'icon': '🥛', 'category': 'dairy', 'caloriesPer100g': 97, 'protein': 9.0, 'calcium': 110, 'zinc': 0.5, 'vitaminD': 0},
   {'name': 'Cheddar Cheese', 'icon': '🧀', 'category': 'dairy', 'caloriesPer100g': 403, 'protein': 24.9, 'calcium': 721, 'zinc': 3.1, 'vitaminD': 24},
   {'name': 'Cottage Cheese', 'icon': '🧀', 'category': 'dairy', 'caloriesPer100g': 98, 'protein': 11.1, 'calcium': 83, 'zinc': 0.4, 'vitaminD': 3},
   {'name': 'Mozzarella', 'icon': '🧀', 'category': 'dairy', 'caloriesPer100g': 280, 'protein': 28.0, 'calcium': 505, 'zinc': 2.9, 'vitaminD': 16},
-
-  // ── Meat & Poultry ─────────────────────────────────────────────
   {'name': 'Chicken Breast', 'icon': '🍗', 'category': 'meat', 'caloriesPer100g': 165, 'protein': 31.0, 'calcium': 15, 'zinc': 1.0, 'vitaminD': 5},
   {'name': 'Turkey Breast', 'icon': '🦃', 'category': 'meat', 'caloriesPer100g': 135, 'protein': 30.0, 'calcium': 11, 'zinc': 1.7, 'vitaminD': 6},
   {'name': 'Beef Steak (Sirloin)', 'icon': '🥩', 'category': 'meat', 'caloriesPer100g': 271, 'protein': 26.0, 'calcium': 18, 'zinc': 5.5, 'vitaminD': 7},
   {'name': 'Lean Ground Beef', 'icon': '🥩', 'category': 'meat', 'caloriesPer100g': 250, 'protein': 26.1, 'calcium': 18, 'zinc': 5.3, 'vitaminD': 6},
   {'name': 'Lamb Chop', 'icon': '🍖', 'category': 'meat', 'caloriesPer100g': 282, 'protein': 25.5, 'calcium': 17, 'zinc': 4.5, 'vitaminD': 2},
   {'name': 'Beef Liver', 'icon': '🥩', 'category': 'meat', 'caloriesPer100g': 135, 'protein': 20.4, 'calcium': 5, 'zinc': 4.0, 'vitaminD': 49},
-
-  // ── Fish & Seafood ─────────────────────────────────────────────
   {'name': 'Salmon', 'icon': '🐟', 'category': 'meat', 'caloriesPer100g': 208, 'protein': 25.4, 'calcium': 12, 'zinc': 0.6, 'vitaminD': 570},
   {'name': 'Sardines (canned)', 'icon': '🐟', 'category': 'meat', 'caloriesPer100g': 208, 'protein': 24.6, 'calcium': 382, 'zinc': 1.3, 'vitaminD': 193},
   {'name': 'Tuna (canned in water)', 'icon': '🐟', 'category': 'meat', 'caloriesPer100g': 116, 'protein': 25.5, 'calcium': 11, 'zinc': 0.8, 'vitaminD': 68},
   {'name': 'Shrimp', 'icon': '🦐', 'category': 'meat', 'caloriesPer100g': 99, 'protein': 24.0, 'calcium': 52, 'zinc': 1.6, 'vitaminD': 3},
   {'name': 'Mackerel', 'icon': '🐟', 'category': 'meat', 'caloriesPer100g': 205, 'protein': 18.6, 'calcium': 12, 'zinc': 0.6, 'vitaminD': 360},
-
-  // ── Eggs ───────────────────────────────────────────────────────
   {'name': 'Whole Egg', 'icon': '🥚', 'category': 'meat', 'caloriesPer100g': 155, 'protein': 12.6, 'calcium': 56, 'zinc': 1.3, 'vitaminD': 87},
-
-  // ── Legumes ────────────────────────────────────────────────────
   {'name': 'Lentils (cooked)', 'icon': '🫘', 'category': 'grain', 'caloriesPer100g': 116, 'protein': 9.0, 'calcium': 19, 'zinc': 1.3, 'vitaminD': 0},
   {'name': 'Chickpeas (cooked)', 'icon': '🫘', 'category': 'grain', 'caloriesPer100g': 164, 'protein': 8.9, 'calcium': 49, 'zinc': 1.5, 'vitaminD': 0},
   {'name': 'Black Beans (cooked)', 'icon': '🫘', 'category': 'grain', 'caloriesPer100g': 132, 'protein': 8.9, 'calcium': 27, 'zinc': 1.1, 'vitaminD': 0},
   {'name': 'Soybeans (cooked)', 'icon': '🫘', 'category': 'grain', 'caloriesPer100g': 173, 'protein': 16.6, 'calcium': 102, 'zinc': 1.2, 'vitaminD': 0},
   {'name': 'Tofu (firm)', 'icon': '🧊', 'category': 'grain', 'caloriesPer100g': 144, 'protein': 15.5, 'calcium': 350, 'zinc': 1.0, 'vitaminD': 0},
-
-  // ── Vegetables ─────────────────────────────────────────────────
   {'name': 'Spinach (cooked)', 'icon': '🥬', 'category': 'vegetable', 'caloriesPer100g': 23, 'protein': 2.9, 'calcium': 136, 'zinc': 0.8, 'vitaminD': 0},
   {'name': 'Broccoli', 'icon': '🥦', 'category': 'vegetable', 'caloriesPer100g': 34, 'protein': 2.8, 'calcium': 47, 'zinc': 0.4, 'vitaminD': 0},
   {'name': 'Kale (cooked)', 'icon': '🥬', 'category': 'vegetable', 'caloriesPer100g': 28, 'protein': 1.9, 'calcium': 150, 'zinc': 0.3, 'vitaminD': 0},
@@ -267,22 +186,16 @@ const List<Map<String, dynamic>> foodDatabase = [
   {'name': 'Carrots', 'icon': '🥕', 'category': 'vegetable', 'caloriesPer100g': 41, 'protein': 0.9, 'calcium': 33, 'zinc': 0.2, 'vitaminD': 0},
   {'name': 'Red Bell Pepper', 'icon': '🫑', 'category': 'vegetable', 'caloriesPer100g': 31, 'protein': 1.0, 'calcium': 7, 'zinc': 0.3, 'vitaminD': 0},
   {'name': 'Edamame', 'icon': '🫛', 'category': 'vegetable', 'caloriesPer100g': 121, 'protein': 11.9, 'calcium': 63, 'zinc': 1.4, 'vitaminD': 0},
-
-  // ── Fruits ─────────────────────────────────────────────────────
   {'name': 'Banana', 'icon': '🍌', 'category': 'fruit', 'caloriesPer100g': 89, 'protein': 1.1, 'calcium': 5, 'zinc': 0.2, 'vitaminD': 0},
   {'name': 'Orange', 'icon': '🍊', 'category': 'fruit', 'caloriesPer100g': 47, 'protein': 0.9, 'calcium': 40, 'zinc': 0.1, 'vitaminD': 0},
   {'name': 'Avocado', 'icon': '🥑', 'category': 'fruit', 'caloriesPer100g': 160, 'protein': 2.0, 'calcium': 12, 'zinc': 0.6, 'vitaminD': 0},
   {'name': 'Blueberries', 'icon': '🫐', 'category': 'fruit', 'caloriesPer100g': 57, 'protein': 0.7, 'calcium': 6, 'zinc': 0.2, 'vitaminD': 0},
   {'name': 'Strawberries', 'icon': '🍓', 'category': 'fruit', 'caloriesPer100g': 32, 'protein': 0.7, 'calcium': 16, 'zinc': 0.1, 'vitaminD': 0},
   {'name': 'Kiwi', 'icon': '🥝', 'category': 'fruit', 'caloriesPer100g': 61, 'protein': 1.1, 'calcium': 34, 'zinc': 0.1, 'vitaminD': 0},
-
-  // ── Grains ─────────────────────────────────────────────────────
   {'name': 'Oats (dry)', 'icon': '🌾', 'category': 'grain', 'caloriesPer100g': 389, 'protein': 16.9, 'calcium': 54, 'zinc': 3.6, 'vitaminD': 0},
   {'name': 'Quinoa (cooked)', 'icon': '🌾', 'category': 'grain', 'caloriesPer100g': 120, 'protein': 4.4, 'calcium': 17, 'zinc': 1.1, 'vitaminD': 0},
   {'name': 'Brown Rice (cooked)', 'icon': '🍚', 'category': 'grain', 'caloriesPer100g': 123, 'protein': 2.7, 'calcium': 10, 'zinc': 0.6, 'vitaminD': 0},
   {'name': 'Whole Wheat Bread', 'icon': '🍞', 'category': 'grain', 'caloriesPer100g': 247, 'protein': 12.9, 'calcium': 107, 'zinc': 1.8, 'vitaminD': 0},
-
-  // ── Nuts & Seeds ───────────────────────────────────────────────
   {'name': 'Almonds', 'icon': '🌰', 'category': 'nuts', 'caloriesPer100g': 579, 'protein': 21.2, 'calcium': 269, 'zinc': 3.1, 'vitaminD': 0},
   {'name': 'Pumpkin Seeds', 'icon': '🎃', 'category': 'nuts', 'caloriesPer100g': 559, 'protein': 30.2, 'calcium': 46, 'zinc': 7.8, 'vitaminD': 0},
   {'name': 'Peanuts', 'icon': '🥜', 'category': 'nuts', 'caloriesPer100g': 567, 'protein': 25.8, 'calcium': 92, 'zinc': 3.3, 'vitaminD': 0},
@@ -293,273 +206,128 @@ const List<Map<String, dynamic>> foodDatabase = [
 ];
 
 // ══════════════════════════════════════════════════════════════════════
-// C) Weekly Meal Plan Suggestions
+// C) Weekly Meal Plans
 // ══════════════════════════════════════════════════════════════════════
 
-const List<Map<String, dynamic>> mealPlanSuggestions = [
-  // ── Day 1: Monday ──────────────────────────────────────────────
-  {
-    'day': 'Monday',
-    'breakfast': {
-      'name': 'Power Oatmeal Bowl',
-      'description':
-          'Oats cooked with milk, topped with banana slices, almonds, '
-          'chia seeds, and a drizzle of honey.',
-      'keyNutrients': ['Calcium', 'Protein', 'Magnesium'],
-    },
-    'lunch': {
-      'name': 'Grilled Chicken & Quinoa Salad',
-      'description':
-          'Grilled chicken breast over quinoa with spinach, cherry '
-          'tomatoes, red bell pepper, and lemon-olive oil dressing.',
-      'keyNutrients': ['Protein', 'Zinc', 'Iron'],
-    },
-    'dinner': {
-      'name': 'Salmon with Sweet Potato & Broccoli',
-      'description':
-          'Baked salmon fillet served with roasted sweet potato wedges '
-          'and steamed broccoli.',
-      'keyNutrients': ['Vitamin D', 'Protein', 'Calcium'],
-    },
-    'snacks': [
-      {
-        'name': 'Greek Yogurt & Berries',
-        'description': 'Plain Greek yogurt with blueberries and a handful of walnuts.',
-        'keyNutrients': ['Calcium', 'Protein'],
-      },
-      {
-        'name': 'Pumpkin Seed Mix',
-        'description': 'A small handful of pumpkin seeds and dark chocolate chips.',
-        'keyNutrients': ['Zinc', 'Magnesium'],
-      },
-    ],
-  },
+/// Returns 7-day meal plan localized for [languageCode].
+/// keyNutrients are always English strings (used for chip color lookup).
+List<Map<String, dynamic>> getMealPlanSuggestions(String languageCode) {
+  final texts = switch (languageCode) {
+    'tr' => _mealTr,
+    'de' => _mealDe,
+    'fr' => _mealFr,
+    'es' => _mealEs,
+    'pt' => _mealPt,
+    'it' => _mealIt,
+    'hi' => _mealHi,
+    _   => _mealEn,
+  };
+  return List.generate(7, (i) {
+    final t = texts[i];
+    final k = _mealKeys[i];
+    final sn = k['sn'] as List;
+    return {
+      'day': t[0],
+      'breakfast': {'name': t[1], 'description': t[2], 'keyNutrients': k['bk']},
+      'lunch':     {'name': t[3], 'description': t[4], 'keyNutrients': k['lu']},
+      'dinner':    {'name': t[5], 'description': t[6], 'keyNutrients': k['di']},
+      'snacks': [
+        {'name': t[7],  'description': t[8],  'keyNutrients': sn[0]},
+        {'name': t[9],  'description': t[10], 'keyNutrients': sn[1]},
+      ],
+    };
+  });
+}
 
-  // ── Day 2: Tuesday ─────────────────────────────────────────────
-  {
-    'day': 'Tuesday',
-    'breakfast': {
-      'name': 'Scrambled Eggs on Whole Wheat Toast',
-      'description':
-          'Three scrambled eggs on two slices of whole wheat toast, '
-          'served with a glass of fortified orange juice.',
-      'keyNutrients': ['Protein', 'Vitamin D', 'Calcium'],
-    },
-    'lunch': {
-      'name': 'Turkey & Black Bean Wrap',
-      'description':
-          'Whole wheat wrap filled with sliced turkey breast, black '
-          'beans, avocado, lettuce, and salsa.',
-      'keyNutrients': ['Protein', 'L-Arginine', 'Iron'],
-    },
-    'dinner': {
-      'name': 'Beef Stir-Fry with Brown Rice',
-      'description':
-          'Lean beef strips stir-fried with broccoli, bell peppers, '
-          'and carrots, served over brown rice.',
-      'keyNutrients': ['Zinc', 'Protein', 'Vitamin A'],
-    },
-    'snacks': [
-      {
-        'name': 'Banana & Peanut Butter',
-        'description': 'One banana with two tablespoons of natural peanut butter.',
-        'keyNutrients': ['Magnesium', 'Protein'],
-      },
-      {
-        'name': 'Cheese & Crackers',
-        'description': 'Cheddar cheese slices with whole grain crackers.',
-        'keyNutrients': ['Calcium', 'Phosphorus'],
-      },
-    ],
-  },
+// ── Key nutrients per day (always English for _nutrientChipColors lookup) ──
+const _mealKeys = [
+  {'bk': ['Calcium','Protein','Magnesium'],  'lu': ['Protein','Zinc','Iron'],         'di': ['Vitamin D','Protein','Calcium'],    'sn': [['Calcium','Protein'],      ['Zinc','Magnesium']]},
+  {'bk': ['Protein','Vitamin D','Calcium'],  'lu': ['Protein','L-Arginine','Iron'],   'di': ['Zinc','Protein','Vitamin A'],       'sn': [['Magnesium','Protein'],    ['Calcium','Phosphorus']]},
+  {'bk': ['Calcium','Iron','Protein'],       'lu': ['Iron','Protein','Phosphorus'],   'di': ['Protein','Calcium','Zinc'],         'sn': [['Protein','Vitamin D'],    ['Zinc','Magnesium']]},
+  {'bk': ['Protein','Calcium','Phosphorus'], 'lu': ['Protein','Vitamin D','Vitamin A'],'di': ['Zinc','Iron','Calcium'],           'sn': [['Protein','L-Arginine'],   ['Calcium','Magnesium']]},
+  {'bk': ['Protein','Vitamin D','Magnesium'],'lu': ['Iron','Zinc','Vitamin A'],        'di': ['Vitamin D','Protein','Calcium'],   'sn': [['Calcium','Protein'],      ['Magnesium','Vitamin A']]},
+  {'bk': ['Protein','Calcium','Vitamin D'],  'lu': ['Protein','Zinc','Calcium'],      'di': ['Iron','Protein','Phosphorus'],      'sn': [['Calcium','Vitamin D'],    ['Zinc','Magnesium']]},
+  {'bk': ['Protein','Calcium','Vitamin A'],  'lu': ['Zinc','Protein','Vitamin A'],    'di': ['Vitamin D','Protein','L-Arginine'], 'sn': [['Protein','Calcium'],      ['Magnesium','L-Arginine']]},
+];
 
-  // ── Day 3: Wednesday ───────────────────────────────────────────
-  {
-    'day': 'Wednesday',
-    'breakfast': {
-      'name': 'Smoothie Bowl',
-      'description':
-          'Blended spinach, banana, Greek yogurt, and milk, topped with '
-          'granola, strawberries, and sunflower seeds.',
-      'keyNutrients': ['Calcium', 'Iron', 'Protein'],
-    },
-    'lunch': {
-      'name': 'Lentil Soup with Whole Wheat Bread',
-      'description':
-          'Hearty red lentil soup with carrots, celery, and cumin, '
-          'served with a slice of whole wheat bread.',
-      'keyNutrients': ['Iron', 'Protein', 'Phosphorus'],
-    },
-    'dinner': {
-      'name': 'Grilled Chicken with Kale & Potatoes',
-      'description':
-          'Herb-grilled chicken thighs with sauteed kale and roasted '
-          'baby potatoes.',
-      'keyNutrients': ['Protein', 'Calcium', 'Zinc'],
-    },
-    'snacks': [
-      {
-        'name': 'Hard-Boiled Eggs',
-        'description': 'Two hard-boiled eggs with a pinch of salt and pepper.',
-        'keyNutrients': ['Protein', 'Vitamin D'],
-      },
-      {
-        'name': 'Trail Mix',
-        'description': 'Almonds, cashews, pumpkin seeds, and dried cranberries.',
-        'keyNutrients': ['Zinc', 'Magnesium'],
-      },
-    ],
-  },
+// ── Meal text: [day, bk_name, bk_desc, lu_name, lu_desc, di_name, di_desc, sn0_name, sn0_desc, sn1_name, sn1_desc] ──
 
-  // ── Day 4: Thursday ────────────────────────────────────────────
-  {
-    'day': 'Thursday',
-    'breakfast': {
-      'name': 'Cottage Cheese Pancakes',
-      'description':
-          'Pancakes made with cottage cheese, oats, and eggs, topped '
-          'with fresh berries and a drizzle of maple syrup.',
-      'keyNutrients': ['Protein', 'Calcium', 'Phosphorus'],
-    },
-    'lunch': {
-      'name': 'Tuna Salad Sandwich',
-      'description':
-          'Canned tuna mixed with Greek yogurt, celery, and mustard '
-          'on whole wheat bread, with a side of carrot sticks.',
-      'keyNutrients': ['Protein', 'Vitamin D', 'Vitamin A'],
-    },
-    'dinner': {
-      'name': 'Lamb Chops with Quinoa & Spinach',
-      'description':
-          'Pan-seared lamb chops served with quinoa pilaf and garlic '
-          'sauteed spinach.',
-      'keyNutrients': ['Zinc', 'Iron', 'Calcium'],
-    },
-    'snacks': [
-      {
-        'name': 'Edamame',
-        'description': 'Steamed edamame pods lightly salted.',
-        'keyNutrients': ['Protein', 'L-Arginine'],
-      },
-      {
-        'name': 'Milk & Dark Chocolate',
-        'description': 'A glass of warm milk with a small square of dark chocolate.',
-        'keyNutrients': ['Calcium', 'Magnesium'],
-      },
-    ],
-  },
+const _mealEn = [
+  ['Monday','Power Oatmeal Bowl','Oats cooked with milk, topped with banana slices, almonds, chia seeds, and a drizzle of honey.','Grilled Chicken & Quinoa Salad','Grilled chicken breast over quinoa with spinach, cherry tomatoes, red bell pepper, and lemon-olive oil dressing.','Salmon with Sweet Potato & Broccoli','Baked salmon fillet served with roasted sweet potato wedges and steamed broccoli.','Greek Yogurt & Berries','Plain Greek yogurt with blueberries and a handful of walnuts.','Pumpkin Seed Mix','A small handful of pumpkin seeds and dark chocolate chips.'],
+  ['Tuesday','Scrambled Eggs on Whole Wheat Toast','Three scrambled eggs on two slices of whole wheat toast, served with a glass of fortified orange juice.','Turkey & Black Bean Wrap','Whole wheat wrap filled with sliced turkey breast, black beans, avocado, lettuce, and salsa.','Beef Stir-Fry with Brown Rice','Lean beef strips stir-fried with broccoli, bell peppers, and carrots, served over brown rice.','Banana & Peanut Butter','One banana with two tablespoons of natural peanut butter.','Cheese & Crackers','Cheddar cheese slices with whole grain crackers.'],
+  ['Wednesday','Smoothie Bowl','Blended spinach, banana, Greek yogurt, and milk, topped with granola, strawberries, and sunflower seeds.','Lentil Soup with Whole Wheat Bread','Hearty red lentil soup with carrots, celery, and cumin, served with a slice of whole wheat bread.','Grilled Chicken with Kale & Potatoes','Herb-grilled chicken thighs with sauteed kale and roasted baby potatoes.','Hard-Boiled Eggs','Two hard-boiled eggs with a pinch of salt and pepper.','Trail Mix','Almonds, cashews, pumpkin seeds, and dried cranberries.'],
+  ['Thursday','Cottage Cheese Pancakes','Pancakes made with cottage cheese, oats, and eggs, topped with fresh berries and a drizzle of maple syrup.','Tuna Salad Sandwich','Canned tuna mixed with Greek yogurt, celery, and mustard on whole wheat bread, with a side of carrot sticks.','Lamb Chops with Quinoa & Spinach','Pan-seared lamb chops served with quinoa pilaf and garlic sauteed spinach.','Edamame','Steamed edamame pods lightly salted.','Milk & Dark Chocolate','A glass of warm milk with a small square of dark chocolate.'],
+  ['Friday','Avocado Toast with Eggs','Two slices of whole wheat toast with mashed avocado, a poached egg on each, and a sprinkle of chia seeds.','Chickpea & Vegetable Curry','Chickpeas cooked in a tomato-coconut curry sauce with sweet potato and spinach, served with brown rice.','Baked Mackerel with Roasted Vegetables','Whole baked mackerel seasoned with lemon and herbs, served with roasted broccoli, carrots, and red onion.','Yogurt Parfait','Layered Greek yogurt, granola, and kiwi slices.','Almond Butter on Apple Slices','Sliced apple with a tablespoon of almond butter.'],
+  ['Saturday','Protein Omelet','Three-egg omelet filled with mozzarella, spinach, and mushrooms, served with a glass of milk.','Grilled Shrimp Tacos','Corn tortillas with grilled shrimp, avocado, cabbage slaw, and lime-cilantro sauce.','Chicken & Lentil Stew','Slow-cooked chicken thighs with lentils, carrots, celery, and tomatoes, served with whole wheat bread.','Sardines on Toast','Canned sardines on a slice of whole wheat toast with lemon.','Mixed Nuts','A handful of almonds, cashews, and walnuts.'],
+  ['Sunday','French Toast with Berries','Whole wheat French toast dipped in egg and milk, topped with strawberries, blueberries, and a dollop of Greek yogurt.','Beef Burger with Sweet Potato Fries','Homemade lean beef patty on a whole wheat bun with lettuce, tomato, and cheese, with baked sweet potato fries on the side.','Baked Salmon with Quinoa & Edamame','Teriyaki-glazed baked salmon over quinoa, with steamed edamame and a side of sauteed spinach.','Cottage Cheese & Pineapple','Cottage cheese with pineapple chunks and a drizzle of honey.','Peanut Butter Banana Bites','Banana slices with peanut butter, topped with chia seeds.'],
+];
 
-  // ── Day 5: Friday ──────────────────────────────────────────────
-  {
-    'day': 'Friday',
-    'breakfast': {
-      'name': 'Avocado Toast with Eggs',
-      'description':
-          'Two slices of whole wheat toast with mashed avocado, a '
-          'poached egg on each, and a sprinkle of chia seeds.',
-      'keyNutrients': ['Protein', 'Vitamin D', 'Magnesium'],
-    },
-    'lunch': {
-      'name': 'Chickpea & Vegetable Curry',
-      'description':
-          'Chickpeas cooked in a tomato-coconut curry sauce with sweet '
-          'potato and spinach, served with brown rice.',
-      'keyNutrients': ['Iron', 'Zinc', 'Vitamin A'],
-    },
-    'dinner': {
-      'name': 'Baked Mackerel with Roasted Vegetables',
-      'description':
-          'Whole baked mackerel seasoned with lemon and herbs, served '
-          'with roasted broccoli, carrots, and red onion.',
-      'keyNutrients': ['Vitamin D', 'Protein', 'Calcium'],
-    },
-    'snacks': [
-      {
-        'name': 'Yogurt Parfait',
-        'description': 'Layered Greek yogurt, granola, and kiwi slices.',
-        'keyNutrients': ['Calcium', 'Protein'],
-      },
-      {
-        'name': 'Almond Butter on Apple Slices',
-        'description': 'Sliced apple with a tablespoon of almond butter.',
-        'keyNutrients': ['Magnesium', 'Vitamin A'],
-      },
-    ],
-  },
+const _mealTr = [
+  ['Pazartesi','Güçlü Yulaf Kasesi','Sütle pişirilmiş yulaf, üzerine muz dilimleri, badem, chia tohumu ve bir damla bal eklenmiş.','Izgaralı Tavuk & Kinoa Salatası','Ispanak, kiraz domates, kırmızı biber ve limon-zeytinyağı sosuyla kinoa üzerinde ızgara tavuk göğsü.','Somon ile Tatlı Patates & Brokoli','Fırınlanmış somon fileto, kızarmış tatlı patates dilimleri ve buharda pişirilmiş brokoli ile servis edilir.','Yunan Yoğurdu & Meyve','Yaban mersini ve bir avuç cevizle sade Yunan yoğurdu.','Kabak Çekirdeği Karışımı','Küçük bir avuç kabak çekirdeği ve bitter çikolata parçaları.'],
+  ['Salı','Tam Buğday Tost Üzerine Çırpılmış Yumurta','İki dilim tam buğday tostu üzerine üç çırpılmış yumurta, bir bardak zenginleştirilmiş portakal suyuyla servis edilir.','Hindi & Siyah Fasulye Dürümü','Dilimlenmiş hindi göğsü, siyah fasulye, avokado, marul ve salsa ile dolu tam buğday dürümü.','Esmer Pirinçli Sığır Kavurması','Brokoli, biber ve havuçla birlikte kavrulan sığır eti şeritleri, esmer pirinç üzerinde servis edilir.','Muz & Fıstık Ezmesi','Bir muz ve iki yemek kaşığı doğal fıstık ezmesi.','Peynir & Kraker','Tam tahıllı krakerlerle çedar peyniri dilimleri.'],
+  ['Çarşamba','Smoothie Kasesi','Ispanak, muz, Yunan yoğurdu ve süt karışımı, granola, çilek ve ay çiçeği tohumu ile süslenmiş.','Tam Buğday Ekmeğiyle Mercimek Çorbası','Havuç, kereviz ve kimyon ile pişirilmiş kırmızı mercimek çorbası, bir dilim tam buğday ekmeğiyle servis edilir.','Izgaralı Tavuk, Karalahana & Patates','Sote karalahana ve kızarmış bebek patatesle servis edilen otlu ızgara tavuk budu.','Haşlanmış Yumurta','Bir tutam tuz ve karabiberle iki haşlanmış yumurta.','Yol Karışımı','Badem, kaju, kabak çekirdeği ve kurutulmuş kızılcık.'],
+  ['Perşembe','Süzme Peynirli Pankek','Süzme peynir, yulaf ve yumurtadan yapılan pankekler, taze meyve ve bir damla akçaağaç şurubuyla servis edilir.','Ton Balıklı Sandviç','Yunan yoğurdu, kereviz ve hardalla hazırlanmış konserve ton balığı, tam buğday ekmeğinde, yanında havuç çubukları.','Kuzu Pirzola, Kinoa & Ispanak','Kinoa pilavı ve sarımsaklı sote ıspanakla servis edilen tavada kızartılmış kuzu pirzola.','Edamame','Hafifçe tuzlanmış buharda pişirilmiş edamame.','Süt & Bitter Çikolata','Bir bardak ılık süt ve küçük bir parça bitter çikolata.'],
+  ['Cuma','Yumurtalı Avokado Toast','İki dilim tam buğday tostu üzerine ezilmiş avokado, her birinin üzerinde bir poşe yumurta ve chia tohumu serpilmiş.','Nohut & Sebze Köri','Tatlı patates ve ıspanaklı domates-hindistancevizi köri sosunda pişirilmiş nohut, esmer pirinçle servis edilir.','Fırınlanmış Uskumru ile Kızarmış Sebzeler','Limon ve otlarla baharatlanmış bütün fırınlanmış uskumru, kızarmış brokoli, havuç ve kırmızı soğanla servis edilir.','Yoğurt Parfesi','Katmanlanmış Yunan yoğurdu, granola ve kivi dilimleri.','Elma Dilimli Badem Ezmesi','Dilimlenmiş elma ve bir yemek kaşığı badem ezmesi.'],
+  ['Cumartesi','Protein Omlet','Mozarella, ıspanak ve mantarla dolu üç yumurtalı omlet, bir bardak sütle servis edilir.','Izgaralı Karides Taco','Izgara karides, avokado, lahana salatası ve lime-kişniş sosu ile mısır tortillas.','Tavuk & Mercimek Güveci','Mercimek, havuç, kereviz ve domateste yavaş pişirilmiş tavuk budu, tam buğday ekmeğiyle servis edilir.','Tost Üstü Sardalya','Limonla tam buğday tostu üzerinde konserve sardalya.','Karışık Kuruyemiş','Bir avuç badem, kaju ve ceviz.'],
+  ['Pazar','Meyveli Fransız Tostu','Yumurta ve süte batırılmış tam buğday Fransız tostu, çilek, yaban mersimi ve bir kaşık Yunan yoğurduyla servis edilir.','Tatlı Patates Kızartmalı Hamburger','Tam buğday ekmeğinde marul, domates ve peynirli ev yapımı sığır köftesi, yanında fırınlanmış tatlı patates kızartması.','Fırınlanmış Somon, Kinoa & Edamame','Kinoasının üzerinde teriyaki soslu fırınlanmış somon, buharda pişirilmiş edamame ve sote ıspanak.','Süzme Peynir & Ananas','Ananas parçaları ve bir damla balla süzme peynir.','Fıstık Ezmalı Muz Atıştırmalıkları','Fıstık ezmeli muz dilimleri, üzerine chia tohumu serpilmiş.'],
+];
 
-  // ── Day 6: Saturday ────────────────────────────────────────────
-  {
-    'day': 'Saturday',
-    'breakfast': {
-      'name': 'Protein Omelet',
-      'description':
-          'Three-egg omelet filled with mozzarella, spinach, and '
-          'mushrooms, served with a glass of milk.',
-      'keyNutrients': ['Protein', 'Calcium', 'Vitamin D'],
-    },
-    'lunch': {
-      'name': 'Grilled Shrimp Tacos',
-      'description':
-          'Corn tortillas with grilled shrimp, avocado, cabbage slaw, '
-          'and lime-cilantro sauce.',
-      'keyNutrients': ['Protein', 'Zinc', 'Calcium'],
-    },
-    'dinner': {
-      'name': 'Chicken & Lentil Stew',
-      'description':
-          'Slow-cooked chicken thighs with lentils, carrots, celery, '
-          'and tomatoes, served with whole wheat bread.',
-      'keyNutrients': ['Iron', 'Protein', 'Phosphorus'],
-    },
-    'snacks': [
-      {
-        'name': 'Sardines on Toast',
-        'description': 'Canned sardines on a slice of whole wheat toast with lemon.',
-        'keyNutrients': ['Calcium', 'Vitamin D'],
-      },
-      {
-        'name': 'Mixed Nuts',
-        'description': 'A handful of almonds, cashews, and walnuts.',
-        'keyNutrients': ['Zinc', 'Magnesium'],
-      },
-    ],
-  },
+const _mealDe = [
+  ['Montag','Kraftvoller Haferbrei','Hafer mit Milch gekocht, belegt mit Bananenscheiben, Mandeln, Chiasamen und einem Spritzer Honig.','Gegrilltes Hähnchen & Quinoa-Salat','Gegrillte Hähnchenbrust auf Quinoa mit Spinat, Kirschtomaten, rotem Paprika und Zitronen-Olivenöl-Dressing.','Lachs mit Süßkartoffel & Brokkoli','Gebackenes Lachsfilet serviert mit gerösteten Süßkartoffelspalten und gedämpftem Brokkoli.','Griechischer Joghurt & Beeren','Naturjoghurt mit Blaubeeren und einer Handvoll Walnüsse.','Kürbiskern-Mix','Eine kleine Handvoll Kürbiskerne und dunkle Schokoladenstückchen.'],
+  ['Dienstag','Rührei auf Vollkorntoast','Drei Rühreier auf zwei Scheiben Vollkorntoast, serviert mit einem Glas angereichertem Orangensaft.','Puten- & Schwarzbohnen-Wrap','Vollkorn-Wrap gefüllt mit geschnittener Putenbrust, schwarzen Bohnen, Avocado, Salat und Salsa.','Rinderstir-Fry mit Braunem Reis','Magere Rindfleischstreifen mit Brokkoli, Paprika und Karotten angebraten, auf braunem Reis serviert.','Banane & Erdnussbutter','Eine Banane mit zwei Esslöffeln natürlicher Erdnussbutter.','Käse & Cracker','Cheddar-Käsescheiben mit Vollkorncrackern.'],
+  ['Mittwoch','Smoothie-Bowl','Gemischter Spinat, Banane, griechischer Joghurt und Milch, belegt mit Granola, Erdbeeren und Sonnenblumenkernen.','Linsensuppe mit Vollkornbrot','Herzhafte rote Linsensuppe mit Karotten, Sellerie und Kreuzkümmel, mit einer Scheibe Vollkornbrot.','Gegrilltes Hähnchen mit Grünkohl & Kartoffeln','Kräuter-gegrillte Hähnchenschenkel mit sautiertem Grünkohl und gerösteten Babykartoffeln.','Hartgekochte Eier','Zwei hartgekochte Eier mit einer Prise Salz und Pfeffer.','Trail-Mix','Mandeln, Cashews, Kürbiskerne und getrocknete Cranberries.'],
+  ['Donnerstag','Hüttenkäse-Pfannkuchen','Pfannkuchen aus Hüttenkäse, Haferflocken und Eiern, belegt mit frischen Beeren und Ahornsirup.','Thunfisch-Sandwich','Dosenthunfisch mit griechischem Joghurt, Sellerie und Senf auf Vollkornbrot, mit Karottenstäbchen.','Lammkoteletts mit Quinoa & Spinat','In der Pfanne gebratene Lammkoteletts mit Quinoa-Pilaf und Knoblauch-Spinat.','Edamame','Gedämpfte Edamame-Schoten leicht gesalzen.','Milch & Dunkle Schokolade','Ein Glas warme Milch mit einem kleinen Stück dunkler Schokolade.'],
+  ['Freitag','Avocado-Toast mit Eiern','Zwei Scheiben Vollkorntoast mit pürierter Avocado, je einem pochierten Ei obenauf und Chiasamen.','Kichererbsen- & Gemüse-Curry','Kichererbsen in Tomaten-Kokosnuss-Currysauce mit Süßkartoffel und Spinat, auf braunem Reis.','Gebackene Makrele mit Röstgemüse','Ganze gebackene Makrele mit Zitrone und Kräutern, mit geröstetem Brokkoli, Karotten und roter Zwiebel.','Joghurt-Parfait','Geschichteter griechischer Joghurt, Granola und Kiwi-Scheiben.','Mandelbutter auf Apfelscheiben','Apfelscheiben mit einem Esslöffel Mandelbutter.'],
+  ['Samstag','Protein-Omelett','Drei-Ei-Omelett gefüllt mit Mozzarella, Spinat und Champignons, mit einem Glas Milch.','Gegrillte Garnelen-Tacos','Maistortillas mit gegrillten Garnelen, Avocado, Krautsalat und Limetten-Koriander-Sauce.','Hähnchen- & Linsen-Eintopf','Langsam geschmorte Hähnchenschenkel mit Linsen, Karotten, Sellerie und Tomaten, mit Vollkornbrot.','Sardinen auf Toast','Dosensardinen auf einer Scheibe Vollkorntoast mit Zitrone.','Gemischte Nüsse','Eine Handvoll Mandeln, Cashews und Walnüsse.'],
+  ['Sonntag','French Toast mit Beeren','Vollkorn-French-Toast in Ei und Milch getaucht, mit Erdbeeren, Blaubeeren und einem Klecks griechischen Joghurts.','Rinderburger mit Süßkartoffel-Pommes','Selbstgemachtes mageres Rinderpastetchen auf einem Vollkornbrötchen mit Salat, Tomate und Käse, mit Süßkartoffel-Pommes.','Gebackener Lachs mit Quinoa & Edamame','Teriyaki-glasierter Lachs auf Quinoa, mit gedämpftem Edamame und sautiertem Spinat.','Hüttenkäse & Ananas','Hüttenkäse mit Ananassstücken und einem Spritzer Honig.','Erdnussbutter-Bananen-Häppchen','Bananenscheiben mit Erdnussbutter, belegt mit Chiasamen.'],
+];
 
-  // ── Day 7: Sunday ──────────────────────────────────────────────
-  {
-    'day': 'Sunday',
-    'breakfast': {
-      'name': 'French Toast with Berries',
-      'description':
-          'Whole wheat French toast dipped in egg and milk, topped with '
-          'strawberries, blueberries, and a dollop of Greek yogurt.',
-      'keyNutrients': ['Protein', 'Calcium', 'Vitamin A'],
-    },
-    'lunch': {
-      'name': 'Beef Burger with Sweet Potato Fries',
-      'description':
-          'Homemade lean beef patty on a whole wheat bun with lettuce, '
-          'tomato, and cheese, with baked sweet potato fries on the side.',
-      'keyNutrients': ['Zinc', 'Protein', 'Vitamin A'],
-    },
-    'dinner': {
-      'name': 'Baked Salmon with Quinoa & Edamame',
-      'description':
-          'Teriyaki-glazed baked salmon over quinoa, with steamed '
-          'edamame and a side of sauteed spinach.',
-      'keyNutrients': ['Vitamin D', 'Protein', 'L-Arginine'],
-    },
-    'snacks': [
-      {
-        'name': 'Cottage Cheese & Pineapple',
-        'description': 'Cottage cheese with pineapple chunks and a drizzle of honey.',
-        'keyNutrients': ['Protein', 'Calcium'],
-      },
-      {
-        'name': 'Peanut Butter Banana Bites',
-        'description': 'Banana slices with peanut butter, topped with chia seeds.',
-        'keyNutrients': ['Magnesium', 'L-Arginine'],
-      },
-    ],
-  },
+const _mealFr = [
+  ['Lundi','Bol de Flocons d\'Avoine Énergisant','Flocons d\'avoine cuits avec du lait, garnis de rondelles de banane, d\'amandes, de graines de chia et d\'un filet de miel.','Salade Poulet Grillé & Quinoa','Blanc de poulet grillé sur quinoa avec épinards, tomates cerises, poivron rouge et vinaigrette citron-huile d\'olive.','Saumon avec Patate Douce & Brocoli','Filet de saumon au four avec des quartiers de patate douce rôtis et du brocoli à la vapeur.','Yaourt Grec & Baies','Yaourt grec nature avec des myrtilles et une poignée de noix.','Mélange de Graines de Courge','Une petite poignée de graines de courge et des pépites de chocolat noir.'],
+  ['Mardi','Œufs Brouillés sur Pain Complet','Trois œufs brouillés sur deux tranches de pain complet grillé, servis avec un verre de jus d\'orange enrichi.','Wrap Dinde & Haricots Noirs','Wrap de blé complet garni de tranches de dinde, haricots noirs, avocat, salade et salsa.','Bœuf Sauté au Riz Complet','Lanières de bœuf maigre sautées avec brocoli, poivrons et carottes, servies sur du riz complet.','Banane & Beurre de Cacahuète','Une banane avec deux cuillères à soupe de beurre de cacahuète naturel.','Fromage & Crackers','Tranches de cheddar avec des crackers aux céréales complètes.'],
+  ['Mercredi','Bol Smoothie','Mélange d\'épinards, banane, yaourt grec et lait, garni de granola, fraises et graines de tournesol.','Soupe de Lentilles avec Pain Complet','Soupe de lentilles rouges avec carottes, céleri et cumin, servie avec une tranche de pain complet.','Poulet Grillé avec Chou Frisé & Pommes de Terre','Cuisses de poulet grillées aux herbes avec chou frisé sauté et pommes de terre nouvelles rôties.','Œufs Durs','Deux œufs durs avec une pincée de sel et de poivre.','Mix de Randonnée','Amandes, noix de cajou, graines de courge et canneberges séchées.'],
+  ['Jeudi','Pancakes au Fromage Blanc','Pancakes préparés avec du fromage blanc, de l\'avoine et des œufs, garnis de baies fraîches et d\'un filet de sirop d\'érable.','Sandwich Salade de Thon','Thon en boîte mélangé avec yaourt grec, céleri et moutarde sur pain complet, avec des bâtonnets de carottes.','Côtelettes d\'Agneau avec Quinoa & Épinards','Côtelettes d\'agneau poêlées servies avec du quinoa pilaf et des épinards sautés à l\'ail.','Edamame','Gousses d\'edamame à la vapeur légèrement salées.','Lait & Chocolat Noir','Un verre de lait chaud avec un petit carré de chocolat noir.'],
+  ['Vendredi','Toast Avocat aux Œufs','Deux tranches de pain complet grillé avec de l\'avocat écrasé, un œuf poché sur chacune et des graines de chia.','Curry Pois Chiches & Légumes','Pois chiches dans une sauce curry tomate-coco avec patate douce et épinards, servis avec du riz complet.','Maquereau au Four avec Légumes Rôtis','Maquereau entier au four assaisonné citron-herbes, servi avec brocoli, carottes et oignon rouge rôtis.','Parfait au Yaourt','Yaourt grec, granola et tranches de kiwi en couches.','Beurre d\'Amande sur Tranches de Pomme','Pomme tranchée avec une cuillère à soupe de beurre d\'amande.'],
+  ['Samedi','Omelette Protéinée','Omelette de trois œufs garnie de mozzarella, épinards et champignons, servie avec un verre de lait.','Tacos aux Crevettes Grillées','Tortillas de maïs avec crevettes grillées, avocat, salade de chou et sauce citron vert-coriandre.','Ragoût de Poulet & Lentilles','Cuisses de poulet mijotées avec lentilles, carottes, céleri et tomates, servies avec pain complet.','Sardines sur Toast','Sardines en boîte sur une tranche de pain complet avec du citron.','Mélange de Noix','Une poignée d\'amandes, noix de cajou et noix.'],
+  ['Dimanche','Pain Perdu aux Baies','Pain complet perdu trempé dans l\'œuf et le lait, garni de fraises, myrtilles et une cuillerée de yaourt grec.','Burger de Bœuf avec Frites de Patate Douce','Steak haché maigre maison sur un pain complet avec salade, tomate et fromage, avec des frites de patate douce au four.','Saumon Glacé au Four avec Quinoa & Edamame','Saumon au four glacé au teriyaki sur quinoa, avec edamame vapeur et épinards sautés.','Fromage Blanc & Ananas','Fromage blanc avec morceaux d\'ananas et un filet de miel.','Bouchées Banane-Beurre de Cacahuète','Rondelles de banane avec beurre de cacahuète, parsemées de graines de chia.'],
+];
+
+const _mealEs = [
+  ['Lunes','Tazón de Avena Energético','Avena cocida con leche, cubierta con rodajas de plátano, almendras, semillas de chía y un chorrito de miel.','Ensalada de Pollo a la Parrilla & Quinoa','Pechuga de pollo a la parrilla sobre quinoa con espinacas, tomates cherry, pimiento rojo y aliño de limón-aceite de oliva.','Salmón con Batata & Brócoli','Filete de salmón al horno con gajos de batata asada y brócoli al vapor.','Yogur Griego & Frutos Rojos','Yogur griego natural con arándanos y un puñado de nueces.','Mezcla de Semillas de Calabaza','Un pequeño puñado de semillas de calabaza y pepitas de chocolate negro.'],
+  ['Martes','Huevos Revueltos en Tostada Integral','Tres huevos revueltos sobre dos tostadas integrales, servidos con un vaso de zumo de naranja enriquecido.','Wrap de Pavo & Frijoles Negros','Wrap integral relleno de pechuga de pavo en lonchas, frijoles negros, aguacate, lechuga y salsa.','Salteado de Ternera con Arroz Integral','Tiras de ternera magra salteada con brócoli, pimientos y zanahorias, servidas sobre arroz integral.','Plátano & Mantequilla de Cacahuete','Un plátano con dos cucharadas de mantequilla de cacahuete natural.','Queso & Galletas','Lonchas de queso cheddar con galletas de cereales integrales.'],
+  ['Miércoles','Bol de Smoothie','Mezcla de espinacas, plátano, yogur griego y leche, cubierta con granola, fresas y semillas de girasol.','Sopa de Lentejas con Pan Integral','Contundente sopa de lentejas rojas con zanahorias, apio y comino, servida con una rebanada de pan integral.','Pollo a la Parrilla con Kale & Patatas','Muslos de pollo a la parrilla con hierbas, kale salteado y patatas nuevas asadas.','Huevos Duros','Dos huevos duros con una pizca de sal y pimienta.','Mix de Frutos Secos','Almendras, anacardos, semillas de calabaza y arándanos secos.'],
+  ['Jueves','Tortitas de Requesón','Tortitas hechas con requesón, avena y huevos, cubiertas con frutos rojos frescos y sirope de arce.','Sándwich de Ensalada de Atún','Atún en lata mezclado con yogur griego, apio y mostaza en pan integral, con palitos de zanahoria.','Chuletas de Cordero con Quinoa & Espinacas','Chuletas de cordero a la sartén con pilaf de quinoa y espinacas salteadas con ajo.','Edamame','Vainas de edamame al vapor ligeramente saladas.','Leche & Chocolate Negro','Un vaso de leche caliente con un pequeño trozo de chocolate negro.'],
+  ['Viernes','Tostada de Aguacate con Huevos','Dos tostadas integrales con aguacate aplastado, un huevo escalfado en cada una y semillas de chía.','Curry de Garbanzos & Verduras','Garbanzos en salsa de curry de tomate y coco con batata y espinacas, servidos con arroz integral.','Caballa al Horno con Verduras Asadas','Caballa entera al horno sazonada con limón y hierbas, con brócoli, zanahorias y cebolla roja asados.','Parfait de Yogur','Capas de yogur griego, granola y rodajas de kiwi.','Mantequilla de Almendras sobre Rodajas de Manzana','Rodajas de manzana con una cucharada de mantequilla de almendras.'],
+  ['Sábado','Tortilla Proteica','Tortilla de tres huevos rellena de mozzarella, espinacas y champiñones, servida con un vaso de leche.','Tacos de Gambas a la Parrilla','Tortillas de maíz con gambas a la parrilla, aguacate, ensalada de col y salsa de lima-cilantro.','Estofado de Pollo & Lentejas','Muslos de pollo cocinados a fuego lento con lentejas, zanahorias, apio y tomates, con pan integral.','Sardinas en Tostada','Sardinas en lata sobre una tostada integral con limón.','Frutos Secos Variados','Un puñado de almendras, anacardos y nueces.'],
+  ['Domingo','Tostada Francesa con Frutos Rojos','Tostada francesa integral bañada en huevo y leche, cubierta con fresas, arándanos y una cucharada de yogur griego.','Hamburguesa de Ternera con Patatas de Batata','Hamburguesa casera de ternera magra en pan integral con lechuga, tomate y queso, con patatas de batata al horno.','Salmón al Horno con Quinoa & Edamame','Salmón al horno glaseado con teriyaki sobre quinoa, con edamame al vapor y espinacas salteadas.','Requesón & Piña','Requesón con trozos de piña y un chorrito de miel.','Bocados de Plátano con Mantequilla de Cacahuete','Rodajas de plátano con mantequilla de cacahuete, cubiertas con semillas de chía.'],
+];
+
+const _mealPt = [
+  ['Segunda-feira','Tigela de Aveia Energizante','Aveia cozida com leite, coberta com rodelas de banana, amêndoas, sementes de chia e um fio de mel.','Salada de Frango Grelhado & Quinoa','Peito de frango grelhado sobre quinoa com espinafre, tomates cereja, pimentão vermelho e molho de limão-azeite.','Salmão com Batata Doce & Brócolis','Filé de salmão assado com palitos de batata doce assados e brócolis no vapor.','Iogurte Grego & Frutas Vermelhas','Iogurte grego natural com mirtilos e um punhado de nozes.','Mix de Sementes de Abóbora','Um pequeno punhado de sementes de abóbora e pedaços de chocolate amargo.'],
+  ['Terça-feira','Ovos Mexidos em Torrada Integral','Três ovos mexidos em duas fatias de torrada integral, servidos com um copo de suco de laranja enriquecido.','Wrap de Peru & Feijão Preto','Wrap integral recheado com peito de peru fatiado, feijão preto, abacate, alface e molho.','Salteado de Carne com Arroz Integral','Tiras de carne magra salteadas com brócolis, pimentões e cenouras, servidas sobre arroz integral.','Banana & Manteiga de Amendoim','Uma banana com duas colheres de sopa de manteiga de amendoim natural.','Queijo & Biscoitos','Fatias de queijo cheddar com biscoitos de grãos integrais.'],
+  ['Quarta-feira','Tigela de Smoothie','Mistura de espinafre, banana, iogurte grego e leite, coberta com granola, morangos e sementes de girassol.','Sopa de Lentilhas com Pão Integral','Sopa de lentilha vermelha com cenouras, aipo e cominho, servida com uma fatia de pão integral.','Frango Grelhado com Couve & Batatas','Coxas de frango grelhadas com ervas, couve refogada e batatas novas assadas.','Ovos Cozidos','Dois ovos cozidos com uma pitada de sal e pimenta.','Mix de Frutas e Sementes','Amêndoas, castanhas de caju, sementes de abóbora e cranberries secos.'],
+  ['Quinta-feira','Panquecas de Ricota','Panquecas feitas com ricota, aveia e ovos, cobertas com frutas frescas e um fio de xarope de bordo.','Sanduíche de Salada de Atum','Atum enlatado misturado com iogurte grego, aipo e mostarda no pão integral, com palitos de cenoura.','Costeletas de Cordeiro com Quinoa & Espinafre','Costeletas de cordeiro grelhadas na frigideira com pilaf de quinoa e espinafre refogado com alho.','Edamame','Vagens de edamame cozidas no vapor levemente salgadas.','Leite & Chocolate Amargo','Um copo de leite morno com um pequeno quadrado de chocolate amargo.'],
+  ['Sexta-feira','Torrada de Abacate com Ovos','Duas torradas integrais com abacate amassado, um ovo pochê em cada uma e sementes de chia.','Curry de Grão-de-Bico & Legumes','Grão-de-bico em molho de curry de tomate e coco com batata doce e espinafre, servido com arroz integral.','Cavalinha Assada com Legumes Assados','Cavalinha inteira assada temperada com limão e ervas, com brócolis, cenouras e cebola roxa assados.','Parfait de Iogurte','Camadas de iogurte grego, granola e fatias de kiwi.','Manteiga de Amêndoa em Fatias de Maçã','Fatias de maçã com uma colher de sopa de manteiga de amêndoa.'],
+  ['Sábado','Omelete Proteica','Omelete de três ovos recheada com mussarela, espinafre e cogumelos, servida com um copo de leite.','Tacos de Camarão Grelhado','Tortilhas de milho com camarão grelhado, abacate, coleslaw e molho de limão-coentro.','Ensopado de Frango & Lentilhas','Coxas de frango cozidas lentamente com lentilhas, cenouras, aipo e tomates, com pão integral.','Sardinhas na Torrada','Sardinhas enlatadas em uma fatia de torrada integral com limão.','Mix de Castanhas','Um punhado de amêndoas, castanhas de caju e nozes.'],
+  ['Domingo','Rabanada com Frutas Vermelhas','Rabanada integral mergulhada em ovo e leite, coberta com morangos, mirtilos e uma colherada de iogurte grego.','Hambúrguer de Carne com Batatas Fritas de Batata Doce','Hambúrguer caseiro de carne magra em pão integral com alface, tomate e queijo, com batatas fritas de batata doce assadas.','Salmão Assado com Quinoa & Edamame','Salmão assado com glaze de teriyaki sobre quinoa, com edamame no vapor e espinafre refogado.','Ricota & Abacaxi','Ricota com pedaços de abacaxi e um fio de mel.','Bolinhos de Banana com Manteiga de Amendoim','Fatias de banana com manteiga de amendoim, cobertas com sementes de chia.'],
+];
+
+const _mealIt = [
+  ['Lunedì','Ciotola di Avena Energetica','Avena cotta con latte, guarnita con rondelle di banana, mandorle, semi di chia e un filo di miele.','Insalata di Pollo Grigliato & Quinoa','Petto di pollo grigliato su quinoa con spinaci, pomodori ciliegini, peperone rosso e condimento limone-olio d\'oliva.','Salmone con Patata Dolce & Broccoli','Filetto di salmone al forno con spicchi di patata dolce arrosto e broccoli al vapore.','Yogurt Greco & Frutti di Bosco','Yogurt greco naturale con mirtilli e una manciata di noci.','Mix di Semi di Zucca','Una piccola manciata di semi di zucca e gocce di cioccolato fondente.'],
+  ['Martedì','Uova Strapazzate su Pane Integrale Tostato','Tre uova strapazzate su due fette di pane integrale tostato, servite con un bicchiere di succo d\'arancia arricchito.','Wrap di Tacchino & Fagioli Neri','Wrap integrale ripieno di fettine di tacchino, fagioli neri, avocado, lattuga e salsa.','Manzo Saltato con Riso Integrale','Strisce di manzo magro saltate con broccoli, peperoni e carote, servite su riso integrale.','Banana & Burro di Arachidi','Una banana con due cucchiai di burro di arachidi naturale.','Formaggio & Crackers','Fettine di cheddar con crackers ai cereali integrali.'],
+  ['Mercoledì','Ciotola Smoothie','Frullato di spinaci, banana, yogurt greco e latte, guarnito con granola, fragole e semi di girasole.','Zuppa di Lenticchie con Pane Integrale','Ricca zuppa di lenticchie rosse con carote, sedano e cumino, servita con una fetta di pane integrale.','Pollo Grigliato con Cavolo Riccio & Patate','Cosce di pollo grigliate alle erbe con cavolo riccio saltato e patate novelle arrosto.','Uova Sode','Due uova sode con un pizzico di sale e pepe.','Trail Mix','Mandorle, anacardi, semi di zucca e mirtilli rossi essiccati.'],
+  ['Giovedì','Pancake alla Ricotta','Pancake preparati con ricotta, avena e uova, guarniti con frutti di bosco freschi e un filo di sciroppo d\'acero.','Sandwich di Insalata di Tonno','Tonno in scatola mescolato con yogurt greco, sedano e senape su pane integrale, con bastoncini di carota.','Costolette d\'Agnello con Quinoa & Spinaci','Costolette d\'agnello in padella servite con pilaf di quinoa e spinaci saltati all\'aglio.','Edamame','Baccelli di edamame al vapore leggermente salati.','Latte & Cioccolato Fondente','Un bicchiere di latte caldo con un piccolo quadratino di cioccolato fondente.'],
+  ['Venerdì','Toast all\'Avocado con Uova','Due fette di pane integrale tostato con avocado schiacciato, un uovo in camicia su ciascuna e semi di chia.','Curry di Ceci & Verdure','Ceci in salsa curry pomodoro-cocco con patata dolce e spinaci, serviti con riso integrale.','Sgombro al Forno con Verdure Arrosto','Sgombro intero al forno condito con limone ed erbe, con broccoli, carote e cipolla rossa arrosto.','Parfait allo Yogurt','Yogurt greco, granola e fettine di kiwi a strati.','Burro di Mandorle su Fettine di Mela','Fettine di mela con un cucchiaio di burro di mandorle.'],
+  ['Sabato','Frittata Proteica','Frittata di tre uova ripiena di mozzarella, spinaci e funghi, servita con un bicchiere di latte.','Tacos di Gamberi Grigliati','Tortillas di mais con gamberi grigliati, avocado, insalata di cavolo e salsa lime-coriandolo.','Stufato di Pollo & Lenticchie','Cosce di pollo cotte lentamente con lenticchie, carote, sedano e pomodori, con pane integrale.','Sardine su Toast','Sardine in scatola su una fetta di pane integrale tostato con limone.','Frutta Secca Mista','Una manciata di mandorle, anacardi e noci.'],
+  ['Domenica','French Toast ai Frutti di Bosco','French toast integrale immerso in uovo e latte, guarnito con fragole, mirtilli e un cucchiaio di yogurt greco.','Burger di Manzo con Patatine di Patata Dolce','Hamburger casalingo di manzo magro su panino integrale con lattuga, pomodoro e formaggio, con patatine di patata dolce al forno.','Salmone al Forno con Quinoa & Edamame','Salmone al forno glassato al teriyaki su quinoa, con edamame al vapore e spinaci saltati.','Ricotta & Ananas','Ricotta con pezzi di ananas e un filo di miele.','Bocconcini Banana & Burro di Arachidi','Fettine di banana con burro di arachidi, cosparse di semi di chia.'],
+];
+
+const _mealHi = [
+  ['सोमवार','पावर ओटमील बाउल','दूध में पकाए ओट्स, केले के टुकड़े, बादाम, चिया बीज और शहद की बूंद से सजाए गए।','ग्रिल्ड चिकन & क्विनोआ सलाद','पालक, चेरी टोमेटो, लाल शिमला मिर्च और नींबू-जैतून तेल ड्रेसिंग के साथ क्विनोआ पर ग्रिल्ड चिकन ब्रेस्ट।','सामन के साथ शकरकंद & ब्रोकली','बेक्ड सामन फिलेट, भुनी शकरकंद और भाप में पकी ब्रोकली के साथ परोसा गया।','ग्रीक योगर्ट & बेरीज','ब्लूबेरी और मुट्ठी भर अखरोट के साथ सादा ग्रीक योगर्ट।','कद्दू बीज मिक्स','एक छोटी मुट्ठी कद्दू के बीज और डार्क चॉकलेट चिप्स।'],
+  ['मंगलवार','होल व्हीट टोस्ट पर स्क्रैम्बल्ड एग्स','दो होल व्हीट टोस्ट पर तीन स्क्रैम्बल्ड अंडे, एक गिलास फोर्टिफाइड ऑरेंज जूस के साथ।','टर्की & ब्लैक बीन रैप','होल व्हीट रैप में टर्की ब्रेस्ट स्लाइस, काले राजमा, एवोकाडो, लेट्यूस और साल्सा भरा हुआ।','बीफ स्टर-फ्राय विद ब्राउन राइस','ब्रोकली, शिमला मिर्च और गाजर के साथ भुनी बीफ स्ट्रिप्स, ब्राउन राइस के साथ परोसी गई।','केला & पीनट बटर','एक केला और दो चम्मच प्राकृतिक पीनट बटर।','चीज़ & क्रैकर्स','होल ग्रेन क्रैकर्स के साथ चेडर चीज़ स्लाइस।'],
+  ['बुधवार','स्मूदी बाउल','पालक, केला, ग्रीक योगर्ट और दूध का मिश्रण, ग्रेनोला, स्ट्रॉबेरी और सूरजमुखी के बीज से सजाया गया।','होल व्हीट ब्रेड के साथ मसूर दाल सूप','गाजर, अजवायन और जीरे के साथ हार्दिक लाल मसूर दाल सूप, होल व्हीट ब्रेड के साथ।','केल & आलू के साथ ग्रिल्ड चिकन','हर्ब ग्रिल्ड चिकन थाइज़, सौटे केल और भुने बेबी आलू के साथ।','उबले अंडे','एक चुटकी नमक और काली मिर्च के साथ दो उबले अंडे।','ट्रेल मिक्स','बादाम, काजू, कद्दू के बीज और सूखे क्रैनबेरी।'],
+  ['गुरुवार','कॉटेज चीज़ पैनकेक','कॉटेज चीज़, ओट्स और अंडों से बने पैनकेक, ताजे जामुन और मेपल सिरप की बूंद से सजाए गए।','टूना सलाद सैंडविच','होल व्हीट ब्रेड पर ग्रीक योगर्ट, अजवायन और सरसों के साथ मिली डिब्बाबंद टूना, गाजर स्टिक के साथ।','क्विनोआ & पालक के साथ लैम्ब चॉप्स','क्विनोआ पिलाफ और लहसुनी सौटे पालक के साथ परोसे गए पैन-सियर्ड लैम्ब चॉप्स।','एडामेम','हल्के नमक के साथ भाप में पके एडामेम पॉड्स।','दूध & डार्क चॉकलेट','एक गिलास गर्म दूध एक छोटे डार्क चॉकलेट के टुकड़े के साथ।'],
+  ['शुक्रवार','अंडों के साथ एवोकाडो टोस्ट','दो होल व्हीट टोस्ट पर मसला हुआ एवोकाडो, हर एक पर एक पोच्ड अंडा और चिया बीज।','छोले & सब्जी करी','शकरकंद और पालक के साथ टमाटर-नारियल करी सॉस में पके छोले, ब्राउन राइस के साथ।','भुनी सब्जियों के साथ बेक्ड मैकेरल','नींबू और जड़ी-बूटियों से सीज़न किया पूरा बेक्ड मैकेरल, भुनी ब्रोकली, गाजर और लाल प्याज़ के साथ।','योगर्ट पारफेट','परतदार ग्रीक योगर्ट, ग्रेनोला और कीवी स्लाइस।','सेब के टुकड़ों पर आलमंड बटर','एक चम्मच आलमंड बटर के साथ सेब के स्लाइस।'],
+  ['शनिवार','प्रोटीन ऑमलेट','मोज़रेला, पालक और मशरूम से भरा तीन अंडों का ऑमलेट, एक गिलास दूध के साथ।','ग्रिल्ड श्रिम्प टैकोस','ग्रिल्ड झींगा, एवोकाडो, कोलस्लॉ और नींबू-धनिया सॉस के साथ मकई टोर्टिलास।','चिकन & दाल स्टू','दाल, गाजर, अजवायन और टमाटर के साथ धीमी आंच पर पके चिकन थाइज़, होल व्हीट ब्रेड के साथ।','टोस्ट पर सार्डिन','नींबू के साथ होल व्हीट टोस्ट पर डिब्बाबंद सार्डिन।','मिक्स्ड नट्स','एक मुट्ठी बादाम, काजू और अखरोट।'],
+  ['रविवार','बेरीज़ के साथ फ्रेंच टोस्ट','अंडे और दूध में डुबोया होल व्हीट फ्रेंच टोस्ट, स्ट्रॉबेरी, ब्लूबेरी और ग्रीक योगर्ट से सजाया गया।','शकरकंद फ्राइज़ के साथ बीफ बर्गर','होल व्हीट बन पर घर का बना लीन बीफ पैटी, लेट्यूस, टमाटर और चीज़ के साथ, बेक्ड शकरकंद फ्राइज़ के साथ।','क्विनोआ & एडामेम के साथ बेक्ड सामन','क्विनोआ पर टेरियाकी-ग्लेज़्ड बेक्ड सामन, भाप में पके एडामेम और सौटे पालक के साथ।','कॉटेज चीज़ & अनानास','अनानास के टुकड़े और शहद की बूंद के साथ कॉटेज चीज़।','पीनट बटर केला बाइट्स','पीनट बटर के साथ केले के स्लाइस, ऊपर से चिया बीज।'],
 ];

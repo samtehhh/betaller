@@ -165,3 +165,77 @@ String localizedScoreSummary(AppLocalizations l, String key) {
     default: return key;
   }
 }
+
+/// Returns localized level title from English level title string
+String localizedLevelTitle(AppLocalizations l, String englishTitle) {
+  switch (englishTitle) {
+    case 'Beginner': return l.levelBeginner;
+    case 'Starter': return l.levelStarter;
+    case 'Committed': return l.levelCommitted;
+    case 'Dedicated': return l.levelDedicated;
+    case 'Consistent': return l.levelConsistent;
+    case 'Focused': return l.levelFocused;
+    case 'Determined': return l.levelDetermined;
+    case 'Disciplined': return l.levelDisciplined;
+    case 'Strong': return l.levelStrong;
+    case 'Advanced': return l.levelAdvanced;
+    case 'Expert': return l.levelExpert;
+    case 'Master': return l.levelMaster;
+    case 'Elite': return l.levelElite;
+    case 'Champion': return l.levelChampion;
+    case 'Legend': return l.levelLegend;
+    case 'Titan': return l.levelTitan;
+    case 'Mythic': return l.levelMythic;
+    case 'Immortal': return l.levelImmortal;
+    case 'Transcendent': return l.levelTranscendent;
+    case 'Ultimate': return l.levelUltimate;
+    default: return englishTitle;
+  }
+}
+
+/// Returns localized challenge title by challenge ID
+String localizedChallengeTitle(AppLocalizations l, String challengeId) {
+  switch (challengeId) {
+    case 'daily_all_routines': return l.challengeCompleteAllRoutines;
+    case 'daily_water': return l.challengeHydrationHero;
+    case 'daily_sleep_early': return l.challengeEarlySleeper;
+    case 'daily_exercise_3': return l.challengeExerciseTrio;
+    case 'daily_stretch': return l.challengeMorningStretch;
+    case 'weekly_streak_7': return l.challenge7DayWarrior;
+    case 'weekly_measure': return l.challengeGrowthTracker;
+    case 'weekly_water_5': return l.challengeHydrationWeek;
+    case 'weekly_exercise_15': return l.challengeFitnessChampion;
+    case 'weekly_sleep_5': return l.challengeSleepMaster;
+    default: return challengeId;
+  }
+}
+
+/// Returns localized challenge description by challenge ID
+String localizedChallengeDesc(AppLocalizations l, String challengeId) {
+  switch (challengeId) {
+    case 'daily_all_routines': return l.challengeCompleteAllRoutinesDesc;
+    case 'daily_water': return l.challengeHydrationHeroDesc;
+    case 'daily_sleep_early': return l.challengeEarlySleeperDesc;
+    case 'daily_exercise_3': return l.challengeExerciseTrioDesc;
+    case 'daily_stretch': return l.challengeMorningStretchDesc;
+    case 'weekly_streak_7': return l.challenge7DayWarriorDesc;
+    case 'weekly_measure': return l.challengeGrowthTrackerDesc;
+    case 'weekly_water_5': return l.challengeHydrationWeekDesc;
+    case 'weekly_exercise_15': return l.challengeFitnessChampionDesc;
+    case 'weekly_sleep_5': return l.challengeSleepMasterDesc;
+    default: return challengeId;
+  }
+}
+
+/// Returns localized education category label
+String localizedEducationCategory(AppLocalizations l, String category) {
+  switch (category) {
+    case 'all': return l.categoryAll;
+    case 'science': return l.categoryScience;
+    case 'nutrition': return l.categoryNutrition;
+    case 'exercise': return l.categoryExercise;
+    case 'sleep': return l.categorySleep;
+    case 'myths': return l.categoryMyths;
+    default: return category[0].toUpperCase() + category.substring(1);
+  }
+}

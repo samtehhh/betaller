@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../l10n/app_localizations.dart';
 import '../utils/constants.dart';
 import '../utils/education_data.dart';
+import '../utils/localized_data.dart';
 
 // ── Category filter definitions ──────────────────────────────────
 
-const _categories = <String, String>{
-  'all': 'All',
-  'science': 'Science',
-  'nutrition': 'Nutrition',
-  'exercise': 'Exercise',
-  'sleep': 'Sleep',
-  'myths': 'Myths',
+Map<String, String> _categories(AppLocalizations l) => {
+  'all': l.categoryAll,
+  'science': l.categoryScience,
+  'nutrition': l.categoryNutrition,
+  'exercise': l.categoryExercise,
+  'sleep': l.categorySleep,
+  'myths': l.categoryMyths,
 };
 
 // ══════════════════════════════════════════════════════════════════
@@ -28,15 +30,17 @@ class EducationScreen extends StatefulWidget {
 class _EducationScreenState extends State<EducationScreen> {
   String _selectedCategory = 'all';
 
-  List<Map<String, dynamic>> get _filteredArticles {
-    if (_selectedCategory == 'all') return educationArticles;
-    return educationArticles
-        .where((a) => a['category'] == _selectedCategory)
-        .toList();
+  List<Map<String, dynamic>> _filteredArticles(BuildContext context) {
+    final lang = Localizations.localeOf(context).languageCode;
+    final articles = getEducationArticles(lang);
+    if (_selectedCategory == 'all') return articles;
+    return articles.where((a) => a['category'] == _selectedCategory).toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final cats = _categories(l);
     return Scaffold(
       backgroundColor: AppColors.scaffold,
       body: CustomScrollView(
@@ -60,7 +64,7 @@ class _EducationScreenState extends State<EducationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Learn',
+                        l.learnTitle,
                         style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w800,
@@ -70,7 +74,7 @@ class _EducationScreenState extends State<EducationScreen> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Science-backed knowledge for growth',
+                        l.learnSubtitle,
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.textTertiary,
@@ -90,11 +94,11 @@ class _EducationScreenState extends State<EducationScreen> {
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: _categories.length,
+                itemCount: cats.length,
                 separatorBuilder: (_, _) => const SizedBox(width: 8),
                 itemBuilder: (context, index) {
-                  final key = _categories.keys.elementAt(index);
-                  final label = _categories.values.elementAt(index);
+                  final key = cats.keys.elementAt(index);
+                  final label = cats.values.elementAt(index);
                   final selected = _selectedCategory == key;
                   return ChoiceChip(
                     label: Text(label),
@@ -131,25 +135,30 @@ class _EducationScreenState extends State<EducationScreen> {
           const SliverToBoxAdapter(child: SizedBox(height: 16)),
 
           // ── Article list ───────────────────────────
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final article = _filteredArticles[index];
-                  return _ArticleCard(
-                    article: article,
-                    onTap: () => Navigator.of(context).push(
-                      CupertinoPageRoute(
-                        builder: (_) =>
-                            ArticleDetailScreen(article: article),
-                      ),
-                    ),
-                  );
-                },
-                childCount: _filteredArticles.length,
-              ),
-            ),
+          Builder(
+            builder: (context) {
+              final articles = _filteredArticles(context);
+              return SliverPadding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      final article = articles[index];
+                      return _ArticleCard(
+                        article: article,
+                        onTap: () => Navigator.of(context).push(
+                          CupertinoPageRoute(
+                            builder: (_) =>
+                                ArticleDetailScreen(article: article),
+                          ),
+                        ),
+                      );
+                    },
+                    childCount: articles.length,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -167,9 +176,9 @@ class _ArticleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final category = (article['category'] as String?) ?? '';
-    final categoryLabel =
-        category[0].toUpperCase() + category.substring(1);
+    final categoryLabel = localizedEducationCategory(l, category);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -256,6 +265,7 @@ class ArticleDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final sections =
         (article['sections'] as List<dynamic>?)?.cast<Map<String, dynamic>>() ??
             [];
@@ -330,7 +340,7 @@ class ArticleDetailScreen extends StatelessWidget {
               const SizedBox(height: 20),
               SectionHeader(
                 icon: CupertinoIcons.book_fill,
-                title: 'Scientific References',
+                title: l.scientificReferences,
               ),
               const SizedBox(height: 12),
               GlassCard(
@@ -373,7 +383,7 @@ class ArticleDetailScreen extends StatelessWidget {
               const SizedBox(height: 24),
               SectionHeader(
                 icon: CupertinoIcons.bolt_fill,
-                title: 'Related Routines',
+                title: l.relatedRoutines,
               ),
               const SizedBox(height: 12),
               Wrap(

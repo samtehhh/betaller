@@ -767,109 +767,109 @@ class AppLocalizationsPt extends AppLocalizations {
       'Encoste-se na parede: calcanhares, quadris, ombros e cabeça encostados. Mantenha por 5 min.';
 
   @override
-  String get routineSprintIntervals => 'Sprint Interval Training';
+  String get routineSprintIntervals => 'Intervalos de Sprint';
 
   @override
   String get routineSprintIntervalsDesc =>
-      'Sprint interval training triggers significant growth hormone release through high-intensity bursts.';
+      'O treino de intervalos de sprint desencadeia uma liberação significativa de hormônio do crescimento por meio de explosões de alta intensidade.';
 
   @override
-  String get routineHiitWorkout => 'HIIT Workout';
+  String get routineHiitWorkout => 'Treino HIIT';
 
   @override
   String get routineHiitWorkoutDesc =>
-      'High intensity interval training to maximize growth hormone release.';
+      'Treino intervalado de alta intensidade para maximizar a liberação de hormônio do crescimento.';
 
   @override
-  String get routineSquats => 'Bodyweight Squats';
+  String get routineSquats => 'Agachamentos com Peso Corporal';
 
   @override
   String get routineSquatsDesc =>
-      'Bodyweight squats stimulate growth plates in legs and spine.';
+      'Agachamentos com peso corporal estimulam as placas de crescimento nas pernas e coluna.';
 
   @override
-  String get routineDeadliftStretch => 'Deadlift Stretch';
+  String get routineDeadliftStretch => 'Alongamento Deadlift';
 
   @override
   String get routineDeadliftStretchDesc =>
-      'Deadlift stretch for spinal decompression and vertebral disc health.';
+      'Alongamento deadlift para descompressão da coluna e saúde dos discos vertebrais.';
 
   @override
-  String get routineOverheadPress => 'Overhead Press';
+  String get routineOverheadPress => 'Press Acima da Cabeça';
 
   @override
   String get routineOverheadPressDesc =>
-      'Overhead pressing stretches the spine and strengthens posture muscles.';
+      'O press acima da cabeça alonga a coluna e fortalece os músculos posturais.';
 
   @override
-  String get routineSkippingRope => 'Skipping Rope';
+  String get routineSkippingRope => 'Pular Corda';
 
   @override
   String get routineSkippingRopeDesc =>
-      'Repetitive jumping with a skipping rope stimulates growth plates in lower extremities.';
+      'Saltos repetitivos com corda estimulam as placas de crescimento nas extremidades inferiores.';
 
   @override
   String get routinePilatesCore => 'Pilates Core';
 
   @override
   String get routinePilatesCoreDesc =>
-      'Pilates core exercises support spinal alignment and posture.';
+      'Exercícios de Pilates Core apoiam o alinhamento da coluna e a postura.';
 
   @override
-  String get routineInversionHang => 'Inversion Hanging';
+  String get routineInversionHang => 'Suspensão Invertida';
 
   @override
   String get routineInversionHangDesc =>
-      'Inversion decompresses spinal discs, can temporarily add 1-2cm.';
+      'A inversão descomprime os discos da coluna e pode adicionar temporariamente 1-2 cm.';
 
   @override
-  String get routineZincIntake => 'Zinc Rich Foods';
+  String get routineZincIntake => 'Alimentos Ricos em Zinco';
 
   @override
   String get routineZincIntakeDesc =>
-      'Consume zinc-rich foods throughout the day for growth hormone production.';
+      'Consuma alimentos ricos em zinco ao longo do dia para a produção de hormônio do crescimento.';
 
   @override
-  String get routineVitaminDSunlight => 'Vitamin D & Sunlight';
+  String get routineVitaminDSunlight => 'Vitamina D e Luz Solar';
 
   @override
   String get routineVitaminDSunlightDesc =>
-      'Get at least 15 minutes of direct sunlight for Vitamin D synthesis and bone growth.';
+      'Receba pelo menos 15 minutos de luz solar direta para a síntese de vitamina D e crescimento ósseo.';
 
   @override
-  String get routineArginineFoods => 'Arginine Rich Foods';
+  String get routineArginineFoods => 'Alimentos Ricos em Arginina';
 
   @override
   String get routineArginineFoodsDesc =>
-      'Eat arginine-rich foods to stimulate growth hormone secretion.';
+      'Coma alimentos ricos em arginina para estimular a secreção de hormônio do crescimento.';
 
   @override
-  String get routineSleepEnvironment => 'Optimize Sleep Environment';
+  String get routineSleepEnvironment => 'Otimizar o Ambiente de Sono';
 
   @override
   String get routineSleepEnvironmentDesc =>
-      'Create a dark, cool sleeping environment to maximize melatonin and growth hormone release.';
+      'Crie um ambiente de sono escuro e fresco para maximizar a liberação de melatonina e hormônio do crescimento.';
 
   @override
-  String get routinePreSleepRoutine => 'Pre-Sleep Wind Down';
+  String get routinePreSleepRoutine => 'Rotina Pré-Sono';
 
   @override
   String get routinePreSleepRoutineDesc =>
-      'A consistent pre-sleep routine improves deep sleep quality by 23%.';
+      'Uma rotina pré-sono consistente melhora a qualidade do sono profundo em 23%.';
 
   @override
-  String get routineNeckStretches => 'Neck Stretches';
+  String get routineNeckStretches => 'Alongamentos de Pescoço';
 
   @override
   String get routineNeckStretchesDesc =>
-      'Neck stretches relieve compression and improve cervical alignment.';
+      'Alongamentos de pescoço aliviam a compressão e melhoram o alinhamento cervical.';
 
   @override
-  String get routineShoulderRolls => 'Shoulder Rolls & Opens';
+  String get routineShoulderRolls => 'Rotações e Aberturas de Ombros';
 
   @override
   String get routineShoulderRollsDesc =>
-      'Opening shoulders corrects forward posture, can add 1-2cm in appearance.';
+      'Abrir os ombros corrige a postura para frente e pode adicionar 1-2 cm na aparência.';
 
   @override
   String get achieveFirstDay => 'Primeiro Passo';
@@ -1052,7 +1052,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get durationAllDay => 'O dia todo';
 
   @override
-  String get durationNight => 'Night';
+  String get durationNight => 'Noite';
 
   @override
   String durationHours(String hours) {
@@ -1135,4 +1135,409 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get cmPerYear => 'cm/ano';
+
+  @override
+  String get howToDoIt => 'Como fazer';
+
+  @override
+  String get musclesTargeted => 'Músculos e ossos trabalhados';
+
+  @override
+  String get scientificBasis => 'Base científica';
+
+  @override
+  String setXofY(String current, String total) {
+    return 'Série $current de $total';
+  }
+
+  @override
+  String restBeforeSet(String set) {
+    return 'Descanso antes da série $set';
+  }
+
+  @override
+  String get allSetsComplete => 'Todas as séries concluídas!';
+
+  @override
+  String get setTimer => 'Temporizador de série';
+
+  @override
+  String get setTracker => 'Rastreador de séries';
+
+  @override
+  String get builtInTimer => 'Temporizador integrado';
+
+  @override
+  String get markComplete => 'Marcar como concluído';
+
+  @override
+  String get markIncomplete => 'Marcar como não concluído';
+
+  @override
+  String get done => 'Pronto';
+
+  @override
+  String get doneExclamation => 'Pronto!';
+
+  @override
+  String get start => 'Iniciar';
+
+  @override
+  String get pause => 'Pausar';
+
+  @override
+  String get resetTimer => 'Reiniciar';
+
+  @override
+  String get skipRest => 'Pular descanso';
+
+  @override
+  String get restart => 'Recomeçar';
+
+  @override
+  String get perSet => 'por série';
+
+  @override
+  String get rest => 'DESCANSO';
+
+  @override
+  String get reps => 'reps';
+
+  @override
+  String get difficultyBeginner => 'Iniciante';
+
+  @override
+  String get difficultyIntermediate => 'Intermediário';
+
+  @override
+  String get difficultyAdvanced => 'Avançado';
+
+  @override
+  String get learnTitle => 'Aprender';
+
+  @override
+  String get learnSubtitle => 'Conhecimento científico para o crescimento';
+
+  @override
+  String get categoryAll => 'Todos';
+
+  @override
+  String get categoryScience => 'Ciência';
+
+  @override
+  String get categoryNutrition => 'Nutrição';
+
+  @override
+  String get categoryExercise => 'Exercício';
+
+  @override
+  String get categorySleep => 'Sono';
+
+  @override
+  String get categoryMyths => 'Mitos';
+
+  @override
+  String get scientificReferences => 'Referências científicas';
+
+  @override
+  String get relatedRoutines => 'Rotinas relacionadas';
+
+  @override
+  String get nutritionTitle => 'Nutrição';
+
+  @override
+  String get sectionMealPlan => 'Plano alimentar';
+
+  @override
+  String get sectionNutrients => 'Nutrientes';
+
+  @override
+  String get sectionFoods => 'Alimentos';
+
+  @override
+  String todaysPlan(String day) {
+    return 'Plano de hoje — $day';
+  }
+
+  @override
+  String get breakfast => 'Café da manhã';
+
+  @override
+  String get lunch => 'Almoço';
+
+  @override
+  String get dinner => 'Jantar';
+
+  @override
+  String get snacks => 'Lanches';
+
+  @override
+  String get searchFoods => 'Buscar alimentos...';
+
+  @override
+  String nFoods(String count) {
+    return '$count alimentos';
+  }
+
+  @override
+  String dailyLabel(String amount) {
+    return 'Diário: $amount';
+  }
+
+  @override
+  String get dailyNeedByAge => 'NECESSIDADE DIÁRIA POR IDADE';
+
+  @override
+  String agePrefix(String range) {
+    return 'Idade $range';
+  }
+
+  @override
+  String get topFoodSources => 'PRINCIPAIS FONTES ALIMENTARES';
+
+  @override
+  String get categoryDairy => 'Laticínios';
+
+  @override
+  String get categoryMeatFish => 'Carne e peixe';
+
+  @override
+  String get categoryVegetables => 'Vegetais';
+
+  @override
+  String get categoryFruits => 'Frutas';
+
+  @override
+  String get categoryGrains => 'Grãos e leguminosas';
+
+  @override
+  String get categoryNutsSeeds => 'Nozes e sementes';
+
+  @override
+  String get weeklyReportTitle => 'Relatório semanal';
+
+  @override
+  String get overview => 'Visão geral';
+
+  @override
+  String get routinesLabel => 'Rotinas';
+
+  @override
+  String get streakLabel => 'Sequência';
+
+  @override
+  String get heightLabel => 'Altura';
+
+  @override
+  String get dailyScores => 'Pontuações diárias';
+
+  @override
+  String get waterToday2 => 'Água hoje';
+
+  @override
+  String get sleepToday => 'Sono hoje';
+
+  @override
+  String get routineCompletion => 'Conclusão de rotinas';
+
+  @override
+  String get xpAndLevel => 'XP e nível';
+
+  @override
+  String xpToNextLevel(String xp) {
+    return '$xp XP para o próximo nível';
+  }
+
+  @override
+  String get activeChallenges => 'Desafios ativos';
+
+  @override
+  String nOfMCompleted(String n, String m) {
+    return '$n/$m concluídos';
+  }
+
+  @override
+  String get shareYourProgress => 'Compartilhe seu progresso';
+
+  @override
+  String get shareComingSoon => 'Recurso de compartilhamento em breve!';
+
+  @override
+  String get premiumTest => 'Premium (Teste)';
+
+  @override
+  String get premiumActive => 'Ativo';
+
+  @override
+  String get premiumFree => 'Grátis';
+
+  @override
+  String get weeklyReportMenu => 'Relatório semanal';
+
+  @override
+  String get weeklyReportMenuSubtitle => 'Seu resumo de progresso';
+
+  @override
+  String get unlockGrowthPotential =>
+      'Desbloqueie todo o seu potencial de crescimento';
+
+  @override
+  String get featureGrowthAnalysis => 'Análise de crescimento e pontuação';
+
+  @override
+  String get featureHeightPrediction => 'Previsão e prognóstico de altura';
+
+  @override
+  String get featureAllRoutines => 'Todas as 14 rotinas diárias';
+
+  @override
+  String get featureWaterSleep => 'Rastreamento de água e sono';
+
+  @override
+  String get featureProgress => 'Progresso e medições';
+
+  @override
+  String get featureAchievements => 'Conquistas e sequências';
+
+  @override
+  String get planMonthly => 'Mensal';
+
+  @override
+  String get planYearly => 'Anual';
+
+  @override
+  String get bestValue => 'MELHOR OFERTA';
+
+  @override
+  String get premiumLabel => 'Premium';
+
+  @override
+  String lvl(String level) {
+    return 'NÍV $level';
+  }
+
+  @override
+  String get levelBeginner => 'Iniciante';
+
+  @override
+  String get levelStarter => 'Novato';
+
+  @override
+  String get levelCommitted => 'Comprometido';
+
+  @override
+  String get levelDedicated => 'Dedicado';
+
+  @override
+  String get levelConsistent => 'Consistente';
+
+  @override
+  String get levelFocused => 'Focado';
+
+  @override
+  String get levelDetermined => 'Determinado';
+
+  @override
+  String get levelDisciplined => 'Disciplinado';
+
+  @override
+  String get levelStrong => 'Forte';
+
+  @override
+  String get levelAdvanced => 'Avançado';
+
+  @override
+  String get levelExpert => 'Especialista';
+
+  @override
+  String get levelMaster => 'Mestre';
+
+  @override
+  String get levelElite => 'Elite';
+
+  @override
+  String get levelChampion => 'Campeão';
+
+  @override
+  String get levelLegend => 'Lenda';
+
+  @override
+  String get levelTitan => 'Titã';
+
+  @override
+  String get levelMythic => 'Mítico';
+
+  @override
+  String get levelImmortal => 'Imortal';
+
+  @override
+  String get levelTranscendent => 'Transcendente';
+
+  @override
+  String get levelUltimate => 'Supremo';
+
+  @override
+  String get challengeCompleteAllRoutines => 'Completar todas as rotinas';
+
+  @override
+  String get challengeCompleteAllRoutinesDesc => 'Terminar cada rotina hoje';
+
+  @override
+  String get challengeHydrationHero => 'Herói da hidratação';
+
+  @override
+  String get challengeHydrationHeroDesc => 'Atingir a meta diária de água';
+
+  @override
+  String get challengeEarlySleeper => 'Dorminhoco cedo';
+
+  @override
+  String get challengeEarlySleeperDesc => 'Registrar 8+ horas de sono';
+
+  @override
+  String get challengeExerciseTrio => 'Trio de exercícios';
+
+  @override
+  String get challengeExerciseTrioDesc => 'Completar 3 rotinas de exercício';
+
+  @override
+  String get challengeMorningStretch => 'Alongamento matinal';
+
+  @override
+  String get challengeMorningStretchDesc => 'Alongar antes das 9h';
+
+  @override
+  String get challenge7DayWarrior => 'Guerreiro de 7 dias';
+
+  @override
+  String get challenge7DayWarriorDesc =>
+      'Completar todas as rotinas por 7 dias consecutivos';
+
+  @override
+  String get challengeGrowthTracker => 'Rastreador de crescimento';
+
+  @override
+  String get challengeGrowthTrackerDesc =>
+      'Registrar uma medição de altura esta semana';
+
+  @override
+  String get challengeHydrationWeek => 'Semana de hidratação';
+
+  @override
+  String get challengeHydrationWeekDesc =>
+      'Atingir a meta de água 5 dias esta semana';
+
+  @override
+  String get challengeFitnessChampion => 'Campeão fitness';
+
+  @override
+  String get challengeFitnessChampionDesc =>
+      'Completar 15 rotinas de exercício esta semana';
+
+  @override
+  String get challengeSleepMaster => 'Mestre do sono';
+
+  @override
+  String get challengeSleepMasterDesc =>
+      'Registrar 8+ horas de sono por 5 dias';
 }

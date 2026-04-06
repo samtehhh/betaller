@@ -2107,6 +2107,768 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'cm/year'**
   String get cmPerYear;
+
+  /// No description provided for @howToDoIt.
+  ///
+  /// In en, this message translates to:
+  /// **'How to Do It'**
+  String get howToDoIt;
+
+  /// No description provided for @musclesTargeted.
+  ///
+  /// In en, this message translates to:
+  /// **'Muscles & Bones Targeted'**
+  String get musclesTargeted;
+
+  /// No description provided for @scientificBasis.
+  ///
+  /// In en, this message translates to:
+  /// **'Scientific Basis'**
+  String get scientificBasis;
+
+  /// No description provided for @setXofY.
+  ///
+  /// In en, this message translates to:
+  /// **'Set {current} of {total}'**
+  String setXofY(String current, String total);
+
+  /// No description provided for @restBeforeSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest before Set {set}'**
+  String restBeforeSet(String set);
+
+  /// No description provided for @allSetsComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'All Sets Complete!'**
+  String get allSetsComplete;
+
+  /// No description provided for @setTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Timer'**
+  String get setTimer;
+
+  /// No description provided for @setTracker.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Tracker'**
+  String get setTracker;
+
+  /// No description provided for @builtInTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Built-in Timer'**
+  String get builtInTimer;
+
+  /// No description provided for @markComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark Complete'**
+  String get markComplete;
+
+  /// No description provided for @markIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark Incomplete'**
+  String get markIncomplete;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @doneExclamation.
+  ///
+  /// In en, this message translates to:
+  /// **'Done!'**
+  String get doneExclamation;
+
+  /// No description provided for @start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get start;
+
+  /// No description provided for @pause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get pause;
+
+  /// No description provided for @resetTimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetTimer;
+
+  /// No description provided for @skipRest.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Rest'**
+  String get skipRest;
+
+  /// No description provided for @restart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get restart;
+
+  /// No description provided for @perSet.
+  ///
+  /// In en, this message translates to:
+  /// **'per set'**
+  String get perSet;
+
+  /// No description provided for @rest.
+  ///
+  /// In en, this message translates to:
+  /// **'REST'**
+  String get rest;
+
+  /// No description provided for @reps.
+  ///
+  /// In en, this message translates to:
+  /// **'reps'**
+  String get reps;
+
+  /// No description provided for @difficultyBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get difficultyBeginner;
+
+  /// No description provided for @difficultyIntermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate'**
+  String get difficultyIntermediate;
+
+  /// No description provided for @difficultyAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get difficultyAdvanced;
+
+  /// No description provided for @learnTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn'**
+  String get learnTitle;
+
+  /// No description provided for @learnSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Science-backed knowledge for growth'**
+  String get learnSubtitle;
+
+  /// No description provided for @categoryAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get categoryAll;
+
+  /// No description provided for @categoryScience.
+  ///
+  /// In en, this message translates to:
+  /// **'Science'**
+  String get categoryScience;
+
+  /// No description provided for @categoryNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition'**
+  String get categoryNutrition;
+
+  /// No description provided for @categoryExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise'**
+  String get categoryExercise;
+
+  /// No description provided for @categorySleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep'**
+  String get categorySleep;
+
+  /// No description provided for @categoryMyths.
+  ///
+  /// In en, this message translates to:
+  /// **'Myths'**
+  String get categoryMyths;
+
+  /// No description provided for @scientificReferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Scientific References'**
+  String get scientificReferences;
+
+  /// No description provided for @relatedRoutines.
+  ///
+  /// In en, this message translates to:
+  /// **'Related Routines'**
+  String get relatedRoutines;
+
+  /// No description provided for @nutritionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition'**
+  String get nutritionTitle;
+
+  /// No description provided for @sectionMealPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal Plan'**
+  String get sectionMealPlan;
+
+  /// No description provided for @sectionNutrients.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrients'**
+  String get sectionNutrients;
+
+  /// No description provided for @sectionFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Foods'**
+  String get sectionFoods;
+
+  /// No description provided for @todaysPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Plan — {day}'**
+  String todaysPlan(String day);
+
+  /// No description provided for @breakfast.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakfast'**
+  String get breakfast;
+
+  /// No description provided for @lunch.
+  ///
+  /// In en, this message translates to:
+  /// **'Lunch'**
+  String get lunch;
+
+  /// No description provided for @dinner.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner'**
+  String get dinner;
+
+  /// No description provided for @snacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Snacks'**
+  String get snacks;
+
+  /// No description provided for @searchFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Search foods...'**
+  String get searchFoods;
+
+  /// No description provided for @nFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} foods'**
+  String nFoods(String count);
+
+  /// No description provided for @dailyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily: {amount}'**
+  String dailyLabel(String amount);
+
+  /// No description provided for @dailyNeedByAge.
+  ///
+  /// In en, this message translates to:
+  /// **'DAILY NEED BY AGE'**
+  String get dailyNeedByAge;
+
+  /// No description provided for @agePrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Age {range}'**
+  String agePrefix(String range);
+
+  /// No description provided for @topFoodSources.
+  ///
+  /// In en, this message translates to:
+  /// **'TOP FOOD SOURCES'**
+  String get topFoodSources;
+
+  /// No description provided for @categoryDairy.
+  ///
+  /// In en, this message translates to:
+  /// **'Dairy'**
+  String get categoryDairy;
+
+  /// No description provided for @categoryMeatFish.
+  ///
+  /// In en, this message translates to:
+  /// **'Meat & Fish'**
+  String get categoryMeatFish;
+
+  /// No description provided for @categoryVegetables.
+  ///
+  /// In en, this message translates to:
+  /// **'Vegetables'**
+  String get categoryVegetables;
+
+  /// No description provided for @categoryFruits.
+  ///
+  /// In en, this message translates to:
+  /// **'Fruits'**
+  String get categoryFruits;
+
+  /// No description provided for @categoryGrains.
+  ///
+  /// In en, this message translates to:
+  /// **'Grains & Legumes'**
+  String get categoryGrains;
+
+  /// No description provided for @categoryNutsSeeds.
+  ///
+  /// In en, this message translates to:
+  /// **'Nuts & Seeds'**
+  String get categoryNutsSeeds;
+
+  /// No description provided for @weeklyReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Report'**
+  String get weeklyReportTitle;
+
+  /// No description provided for @overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get overview;
+
+  /// No description provided for @routinesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Routines'**
+  String get routinesLabel;
+
+  /// No description provided for @streakLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get streakLabel;
+
+  /// No description provided for @heightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get heightLabel;
+
+  /// No description provided for @dailyScores.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Scores'**
+  String get dailyScores;
+
+  /// No description provided for @waterToday2.
+  ///
+  /// In en, this message translates to:
+  /// **'Water Today'**
+  String get waterToday2;
+
+  /// No description provided for @sleepToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep Today'**
+  String get sleepToday;
+
+  /// No description provided for @routineCompletion.
+  ///
+  /// In en, this message translates to:
+  /// **'Routine Completion'**
+  String get routineCompletion;
+
+  /// No description provided for @xpAndLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'XP & Level'**
+  String get xpAndLevel;
+
+  /// No description provided for @xpToNextLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'{xp} XP to next level'**
+  String xpToNextLevel(String xp);
+
+  /// No description provided for @activeChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Challenges'**
+  String get activeChallenges;
+
+  /// No description provided for @nOfMCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'{n}/{m} completed'**
+  String nOfMCompleted(String n, String m);
+
+  /// No description provided for @shareYourProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Your Progress'**
+  String get shareYourProgress;
+
+  /// No description provided for @shareComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Share feature coming soon!'**
+  String get shareComingSoon;
+
+  /// No description provided for @premiumTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium (Test)'**
+  String get premiumTest;
+
+  /// No description provided for @premiumActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get premiumActive;
+
+  /// No description provided for @premiumFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get premiumFree;
+
+  /// No description provided for @weeklyReportMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Report'**
+  String get weeklyReportMenu;
+
+  /// No description provided for @weeklyReportMenuSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress summary'**
+  String get weeklyReportMenuSubtitle;
+
+  /// No description provided for @unlockGrowthPotential.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock your full growth potential'**
+  String get unlockGrowthPotential;
+
+  /// No description provided for @featureGrowthAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth analysis & score'**
+  String get featureGrowthAnalysis;
+
+  /// No description provided for @featureHeightPrediction.
+  ///
+  /// In en, this message translates to:
+  /// **'Height prediction & forecast'**
+  String get featureHeightPrediction;
+
+  /// No description provided for @featureAllRoutines.
+  ///
+  /// In en, this message translates to:
+  /// **'All 14 daily routines'**
+  String get featureAllRoutines;
+
+  /// No description provided for @featureWaterSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Water & sleep tracking'**
+  String get featureWaterSleep;
+
+  /// No description provided for @featureProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress & measurements'**
+  String get featureProgress;
+
+  /// No description provided for @featureAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements & streaks'**
+  String get featureAchievements;
+
+  /// No description provided for @planMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get planMonthly;
+
+  /// No description provided for @planYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly'**
+  String get planYearly;
+
+  /// No description provided for @bestValue.
+  ///
+  /// In en, this message translates to:
+  /// **'BEST VALUE'**
+  String get bestValue;
+
+  /// No description provided for @premiumLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get premiumLabel;
+
+  /// No description provided for @lvl.
+  ///
+  /// In en, this message translates to:
+  /// **'LVL {level}'**
+  String lvl(String level);
+
+  /// No description provided for @levelBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get levelBeginner;
+
+  /// No description provided for @levelStarter.
+  ///
+  /// In en, this message translates to:
+  /// **'Starter'**
+  String get levelStarter;
+
+  /// No description provided for @levelCommitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Committed'**
+  String get levelCommitted;
+
+  /// No description provided for @levelDedicated.
+  ///
+  /// In en, this message translates to:
+  /// **'Dedicated'**
+  String get levelDedicated;
+
+  /// No description provided for @levelConsistent.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistent'**
+  String get levelConsistent;
+
+  /// No description provided for @levelFocused.
+  ///
+  /// In en, this message translates to:
+  /// **'Focused'**
+  String get levelFocused;
+
+  /// No description provided for @levelDetermined.
+  ///
+  /// In en, this message translates to:
+  /// **'Determined'**
+  String get levelDetermined;
+
+  /// No description provided for @levelDisciplined.
+  ///
+  /// In en, this message translates to:
+  /// **'Disciplined'**
+  String get levelDisciplined;
+
+  /// No description provided for @levelStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get levelStrong;
+
+  /// No description provided for @levelAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get levelAdvanced;
+
+  /// No description provided for @levelExpert.
+  ///
+  /// In en, this message translates to:
+  /// **'Expert'**
+  String get levelExpert;
+
+  /// No description provided for @levelMaster.
+  ///
+  /// In en, this message translates to:
+  /// **'Master'**
+  String get levelMaster;
+
+  /// No description provided for @levelElite.
+  ///
+  /// In en, this message translates to:
+  /// **'Elite'**
+  String get levelElite;
+
+  /// No description provided for @levelChampion.
+  ///
+  /// In en, this message translates to:
+  /// **'Champion'**
+  String get levelChampion;
+
+  /// No description provided for @levelLegend.
+  ///
+  /// In en, this message translates to:
+  /// **'Legend'**
+  String get levelLegend;
+
+  /// No description provided for @levelTitan.
+  ///
+  /// In en, this message translates to:
+  /// **'Titan'**
+  String get levelTitan;
+
+  /// No description provided for @levelMythic.
+  ///
+  /// In en, this message translates to:
+  /// **'Mythic'**
+  String get levelMythic;
+
+  /// No description provided for @levelImmortal.
+  ///
+  /// In en, this message translates to:
+  /// **'Immortal'**
+  String get levelImmortal;
+
+  /// No description provided for @levelTranscendent.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcendent'**
+  String get levelTranscendent;
+
+  /// No description provided for @levelUltimate.
+  ///
+  /// In en, this message translates to:
+  /// **'Ultimate'**
+  String get levelUltimate;
+
+  /// No description provided for @challengeCompleteAllRoutines.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete All Routines'**
+  String get challengeCompleteAllRoutines;
+
+  /// No description provided for @challengeCompleteAllRoutinesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish every routine today'**
+  String get challengeCompleteAllRoutinesDesc;
+
+  /// No description provided for @challengeHydrationHero.
+  ///
+  /// In en, this message translates to:
+  /// **'Hydration Hero'**
+  String get challengeHydrationHero;
+
+  /// No description provided for @challengeHydrationHeroDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach your daily water goal'**
+  String get challengeHydrationHeroDesc;
+
+  /// No description provided for @challengeEarlySleeper.
+  ///
+  /// In en, this message translates to:
+  /// **'Early Sleeper'**
+  String get challengeEarlySleeper;
+
+  /// No description provided for @challengeEarlySleeperDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Log 8+ hours of sleep'**
+  String get challengeEarlySleeperDesc;
+
+  /// No description provided for @challengeExerciseTrio.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise Trio'**
+  String get challengeExerciseTrio;
+
+  /// No description provided for @challengeExerciseTrioDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete 3 exercise routines'**
+  String get challengeExerciseTrioDesc;
+
+  /// No description provided for @challengeMorningStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning Stretch'**
+  String get challengeMorningStretch;
+
+  /// No description provided for @challengeMorningStretchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Do morning stretching before 9 AM'**
+  String get challengeMorningStretchDesc;
+
+  /// No description provided for @challenge7DayWarrior.
+  ///
+  /// In en, this message translates to:
+  /// **'7-Day Warrior'**
+  String get challenge7DayWarrior;
+
+  /// No description provided for @challenge7DayWarriorDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete all routines for 7 consecutive days'**
+  String get challenge7DayWarriorDesc;
+
+  /// No description provided for @challengeGrowthTracker.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth Tracker'**
+  String get challengeGrowthTracker;
+
+  /// No description provided for @challengeGrowthTrackerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Log a height measurement this week'**
+  String get challengeGrowthTrackerDesc;
+
+  /// No description provided for @challengeHydrationWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Hydration Week'**
+  String get challengeHydrationWeek;
+
+  /// No description provided for @challengeHydrationWeekDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Hit water goal 5 days this week'**
+  String get challengeHydrationWeekDesc;
+
+  /// No description provided for @challengeFitnessChampion.
+  ///
+  /// In en, this message translates to:
+  /// **'Fitness Champion'**
+  String get challengeFitnessChampion;
+
+  /// No description provided for @challengeFitnessChampionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete 15 exercise routines this week'**
+  String get challengeFitnessChampionDesc;
+
+  /// No description provided for @challengeSleepMaster.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep Master'**
+  String get challengeSleepMaster;
+
+  /// No description provided for @challengeSleepMasterDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Log 8+ hours of sleep for 5 days'**
+  String get challengeSleepMasterDesc;
 }
 
 class _AppLocalizationsDelegate

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/localized_data.dart';
 
 class WeeklyReportScreen extends StatelessWidget {
   const WeeklyReportScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final now = DateTime.now();
@@ -52,8 +55,8 @@ class WeeklyReportScreen extends StatelessWidget {
                   onPressed: () => Navigator.pop(context),
                 ),
                 flexibleSpace: FlexibleSpaceBar(
-                  title: const Text(
-                    'Weekly Report',
+                  title: Text(
+                    l.weeklyReportTitle,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -88,7 +91,7 @@ class WeeklyReportScreen extends StatelessWidget {
                     // ── 1. Overview Stats ──
                     SectionHeader(
                       icon: CupertinoIcons.chart_bar_alt_fill,
-                      title: 'Overview',
+                      title: l.overview,
                     ),
                     const SizedBox(height: 10),
                     GlassCard(
@@ -96,19 +99,19 @@ class WeeklyReportScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           _StatColumn(
-                            label: 'Routines',
+                            label: l.routinesLabel,
                             value: '${provider.completedRoutineCount}/${provider.routines.length}',
                             icon: CupertinoIcons.checkmark_circle_fill,
                             color: AppColors.lime,
                           ),
                           _StatColumn(
-                            label: 'Streak',
+                            label: l.streakLabel,
                             value: '${provider.streak}',
                             icon: CupertinoIcons.flame_fill,
                             color: AppColors.orange,
                           ),
                           _StatColumn(
-                            label: 'Height',
+                            label: l.heightLabel,
                             value: heightChange != null
                                 ? '${heightChange > 0 ? '+' : ''}$heightChange cm'
                                 : '—',
@@ -123,7 +126,7 @@ class WeeklyReportScreen extends StatelessWidget {
                     // ── 2. Score Breakdown ──
                     SectionHeader(
                       icon: CupertinoIcons.star_fill,
-                      title: 'Daily Scores',
+                      title: l.dailyScores,
                       iconColor: AppColors.warning,
                     ),
                     const SizedBox(height: 10),
@@ -132,7 +135,7 @@ class WeeklyReportScreen extends StatelessWidget {
                         children: [
                           _ScoreRow(
                             icon: CupertinoIcons.drop_fill,
-                            label: 'Water Today',
+                            label: l.waterToday2,
                             value: '${provider.todayWater} L',
                             progress: (provider.todayWater / 2.5).clamp(0.0, 1.0),
                             color: AppColors.water,
@@ -140,15 +143,15 @@ class WeeklyReportScreen extends StatelessWidget {
                           const SizedBox(height: 14),
                           _ScoreRow(
                             icon: CupertinoIcons.moon_fill,
-                            label: 'Sleep Today',
-                            value: '${provider.todaySleep} hrs',
+                            label: l.sleepToday,
+                            value: '${provider.todaySleep} ${l.hoursShort}',
                             progress: (provider.todaySleep / 9.0).clamp(0.0, 1.0),
                             color: AppColors.sleep,
                           ),
                           const SizedBox(height: 14),
                           _ScoreRow(
                             icon: CupertinoIcons.checkmark_seal_fill,
-                            label: 'Routine Completion',
+                            label: l.routineCompletion,
                             value: '${(provider.routineProgress * 100).toInt()}%',
                             progress: provider.routineProgress,
                             color: AppColors.lime,
@@ -161,7 +164,7 @@ class WeeklyReportScreen extends StatelessWidget {
                     // ── 3. XP & Level ──
                     SectionHeader(
                       icon: CupertinoIcons.bolt_fill,
-                      title: 'XP & Level',
+                      title: l.xpAndLevel,
                       iconColor: AppColors.cyan,
                     ),
                     const SizedBox(height: 10),
@@ -183,7 +186,7 @@ class WeeklyReportScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Text(
-                                      'LVL ${provider.level}',
+                                      l.lvl('${provider.level}'),
                                       style: const TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w800,
@@ -193,7 +196,7 @@ class WeeklyReportScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 10),
                                   Text(
-                                    provider.levelTitle,
+                                    localizedLevelTitle(l, provider.levelTitle),
                                     style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
@@ -253,7 +256,7 @@ class WeeklyReportScreen extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              '${provider.xpForNextLevel - provider.totalXP} XP to next level',
+                              l.xpToNextLevel('${provider.xpForNextLevel - provider.totalXP}'),
                               style: TextStyle(
                                 fontSize: 12,
                                 color: AppColors.textTertiary,
@@ -269,7 +272,7 @@ class WeeklyReportScreen extends StatelessWidget {
                     if (challenges.isNotEmpty) ...[
                       SectionHeader(
                         icon: CupertinoIcons.flag_fill,
-                        title: 'Active Challenges',
+                        title: l.activeChallenges,
                         iconColor: AppColors.pink,
                       ),
                       const SizedBox(height: 10),
@@ -278,7 +281,7 @@ class WeeklyReportScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '$completedChallenges/${challenges.length} completed',
+                              l.nOfMCompleted('$completedChallenges', '${challenges.length}'),
                               style: TextStyle(
                                 fontSize: 12,
                                 color: AppColors.textTertiary,
@@ -304,8 +307,7 @@ class WeeklyReportScreen extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            (c['title'] as String?) ??
-                                                (c['id'] as String? ?? ''),
+                                            localizedChallengeTitle(l, c['id'] as String? ?? ''),
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w600,
@@ -371,16 +373,16 @@ class WeeklyReportScreen extends StatelessWidget {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Share feature coming soon!'),
+                              SnackBar(
+                                content: Text(l.shareComingSoon),
                                 behavior: SnackBarBehavior.floating,
                               ),
                             );
                           },
                           icon: const Icon(CupertinoIcons.share,
                               color: Colors.white),
-                          label: const Text(
-                            'Share Your Progress',
+                          label: Text(
+                            l.shareYourProgress,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,

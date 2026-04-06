@@ -12,7 +12,7 @@ import 'growth_analysis_flow.dart';
 import 'education_screen.dart';
 import 'nutrition_screen.dart';
 import '../widgets/premium_paywall.dart';
-import '../widgets/xp_bar.dart';
+// XpBar moved to profile screen
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -337,22 +337,179 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 110),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    // ── XP Bar ─────────────────────────────
-                    const XpBar(),
-                    const SizedBox(height: 14),
-
-                    // ── Active Challenges ───────────────────
-                    if (provider.activeChallenges.where((c) => c['completed'] != true).isNotEmpty) ...[
-                      Text(
-                        'Active Challenges',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                          letterSpacing: -0.5,
-                        ),
+                    // ── 1. Daily Progress (compact) ─────────
+                    GlassCard(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Title row with routine count badge
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                l.dailyRoutines,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                  letterSpacing: -0.5,
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: (provider.allRoutinesCompleted ? AppColors.success : AppColors.primary).withValues(alpha: 0.18),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  '${provider.completedRoutineCount}/${provider.routines.length}',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w800,
+                                    color: provider.allRoutinesCompleted ? AppColors.success : AppColors.primary,
+                                    letterSpacing: -0.3,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          // Routine progress bar
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: LinearProgressIndicator(
+                              value: provider.routineProgress * anim,
+                              minHeight: 7,
+                              backgroundColor: Colors.white.withValues(alpha: 0.14),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                provider.allRoutinesCompleted ? AppColors.success : AppColors.primary,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            provider.allRoutinesCompleted
+                                ? l.allRoutinesDone
+                                : l.completed((provider.routineProgress * 100 * anim).toInt().toString()),
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: provider.allRoutinesCompleted
+                                  ? AppColors.success
+                                  : AppColors.textSecondary,
+                              letterSpacing: -0.1,
+                            ),
+                          ),
+                          const SizedBox(height: 14),
+                          // Water & Sleep inline stats
+                          Row(
+                            children: [
+                              // Water stat
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: provider.isPremium
+                                      ? () => _showWaterSheet(context, provider)
+                                      : () => showPremiumPaywall(context),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.water.withValues(alpha: 0.10),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Icon(CupertinoIcons.drop_fill, color: AppColors.water, size: 16),
+                                        const SizedBox(width: 6),
+                                        Expanded(
+                                          child: Text(
+                                            '${provider.todayWater.toStringAsFixed(1)}/${waterNeed.toStringAsFixed(1)}L',
+                                            style: const TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                              letterSpacing: -0.3,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        GestureDetector(
+                                          onTap: provider.isPremium
+                                              ? () => provider.addWater(0.3)
+                                              : () => showPremiumPaywall(context),
+                                          child: Container(
+                                            width: 26,
+                                            height: 26,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.water.withValues(alpha: 0.25),
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
+                                            child: const Icon(CupertinoIcons.plus, color: AppColors.water, size: 14),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              // Sleep stat
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: provider.isPremium
+                                      ? () => _showSleepSheet(context, provider, sleepNeed)
+                                      : () => showPremiumPaywall(context),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.sleep.withValues(alpha: 0.10),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Icon(CupertinoIcons.moon_fill, color: AppColors.sleep, size: 16),
+                                        const SizedBox(width: 6),
+                                        Expanded(
+                                          child: Text(
+                                            '${provider.todaySleep.toStringAsFixed(1)}/${sleepNeed.toStringAsFixed(1)}${l.hoursShort}',
+                                            style: const TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white,
+                                              letterSpacing: -0.3,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        GestureDetector(
+                                          onTap: provider.isPremium
+                                              ? () => _showSleepSheet(context, provider, sleepNeed)
+                                              : () => showPremiumPaywall(context),
+                                          child: Container(
+                                            width: 26,
+                                            height: 26,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.sleep.withValues(alpha: 0.25),
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
+                                            child: const Icon(CupertinoIcons.plus, color: AppColors.sleep, size: 14),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 10),
+                    ),
+                    const SizedBox(height: 12),
+
+                    // ── 2. Active Challenges (max 2) ────────
+                    if (provider.activeChallenges.where((c) => c['completed'] != true).isNotEmpty) ...[
                       ...provider.activeChallenges
                           .where((c) => c['completed'] != true)
                           .take(2)
@@ -363,33 +520,33 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8),
                           child: GlassCard(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                             child: Row(
                               children: [
                                 Text(
                                   challenge['icon'] as String? ?? '🎯',
-                                  style: const TextStyle(fontSize: 24),
+                                  style: const TextStyle(fontSize: 22),
                                 ),
-                                const SizedBox(width: 12),
+                                const SizedBox(width: 10),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        challenge['title'] as String? ?? '',
+                                        localizedChallengeTitle(l, challenge['id'] as String? ?? ''),
                                         style: const TextStyle(
-                                          fontSize: 14,
+                                          fontSize: 13,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.white,
                                           letterSpacing: -0.2,
                                         ),
                                       ),
-                                      const SizedBox(height: 6),
+                                      const SizedBox(height: 5),
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(4),
                                         child: LinearProgressIndicator(
                                           value: ratio,
-                                          minHeight: 6,
+                                          minHeight: 5,
                                           backgroundColor: Colors.white.withValues(alpha: 0.14),
                                           valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
                                         ),
@@ -397,11 +554,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     ],
                                   ),
                                 ),
-                                const SizedBox(width: 12),
+                                const SizedBox(width: 10),
                                 Text(
                                   '$progress/$target',
                                   style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w700,
                                     color: AppColors.primaryLight,
                                     letterSpacing: -0.2,
@@ -412,10 +569,80 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           ),
                         );
                       }),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 4),
                     ],
 
-                    // ── Growth Analysis Entry ───────────────
+                    // ── 3. Nutrition & Education (side by side) ──
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const NutritionScreen())),
+                            child: GlassCard(
+                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 14),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 44,
+                                    height: 44,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.lime.withValues(alpha: 0.15),
+                                      borderRadius: BorderRadius.circular(14),
+                                    ),
+                                    child: const Icon(CupertinoIcons.leaf_arrow_circlepath, color: AppColors.lime, size: 22),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    l.nutrition,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      letterSpacing: -0.2,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const EducationScreen())),
+                            child: GlassCard(
+                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 14),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 44,
+                                    height: 44,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.cyan.withValues(alpha: 0.15),
+                                      borderRadius: BorderRadius.circular(14),
+                                    ),
+                                    child: const Icon(CupertinoIcons.book_fill, color: AppColors.cyan, size: 22),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    l.learnTitle,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      letterSpacing: -0.2,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+
+                    // ── 4. Growth Analysis Entry ────────────
                     GestureDetector(
                       onTap: provider.isPremium
                           ? () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GrowthAnalysisFlow()))
@@ -468,117 +695,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         ),
                       ),
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 12),
 
-                    // ── Daily Routine Progress ──────────────
-                    GlassCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                l.dailyRoutines,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                  letterSpacing: -0.5,
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                                decoration: BoxDecoration(
-                                  color: (provider.allRoutinesCompleted ? AppColors.success : AppColors.primary).withValues(alpha: 0.18),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Text(
-                                  '${provider.completedRoutineCount}/${provider.routines.length}',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w800,
-                                    color: provider.allRoutinesCompleted ? AppColors.success : AppColors.primary,
-                                    letterSpacing: -0.3,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: LinearProgressIndicator(
-                              value: provider.routineProgress * anim,
-                              minHeight: 8,
-                              backgroundColor: Colors.white.withValues(alpha: 0.14),
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                provider.allRoutinesCompleted ? AppColors.success : AppColors.primary,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            provider.allRoutinesCompleted
-                                ? l.allRoutinesDone
-                                : l.completed((provider.routineProgress * 100 * anim).toInt().toString()),
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: provider.allRoutinesCompleted
-                                  ? AppColors.success
-                                  : AppColors.textSecondary,
-                              letterSpacing: -0.1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-
-                    // ── Water & Sleep Trackers ───────────────
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _TrackerCard(
-                            title: l.water,
-                            icon: CupertinoIcons.drop_fill,
-                            current: provider.todayWater,
-                            target: waterNeed,
-                            unit: 'L',
-                            color: AppColors.water,
-                            animValue: anim,
-                            onTap: provider.isPremium
-                                ? () => _showWaterSheet(context, provider)
-                                : () => showPremiumPaywall(context),
-                            onQuickAdd: provider.isPremium
-                                ? () => provider.addWater(0.3)
-                                : () => showPremiumPaywall(context),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _TrackerCard(
-                            title: l.sleep,
-                            icon: CupertinoIcons.moon_fill,
-                            current: provider.todaySleep,
-                            target: sleepNeed,
-                            unit: l.hoursShort,
-                            color: AppColors.sleep,
-                            animValue: anim,
-                            onTap: provider.isPremium
-                                ? () => _showSleepSheet(context, provider, sleepNeed)
-                                : () => showPremiumPaywall(context),
-                            onQuickAdd: provider.isPremium
-                                ? () => _showSleepSheet(context, provider, sleepNeed)
-                                : () => showPremiumPaywall(context),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 14),
-
-                    // ── Growth Summary ───────────────────────
+                    // ── 5. Growth Summary ───────────────────
                     if (provider.heightRecords.length >= 2) ...[
                       GlassCard(
                         child: Column(
@@ -586,7 +705,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           children: [
                             Text(
                               l.growthSummary,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
@@ -621,10 +740,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           ],
                         ),
                       ),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: 12),
                     ],
 
-                    // ── Daily Tip ────────────────────────────
+                    // ── 6. Daily Tip ────────────────────────
                     Container(
                       decoration: BoxDecoration(
                         gradient: AppColors.gradientAccent,
@@ -646,7 +765,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           const SizedBox(height: 10),
                           Text(
                             localizedTip(l, DateTime.now().difference(DateTime(DateTime.now().year, 1, 1)).inDays),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
@@ -655,84 +774,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-
-                    // ── Learn & Nutrition Cards ─────────────
-                    GestureDetector(
-                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const EducationScreen())),
-                      child: GlassCard(
-                        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 42,
-                              height: 42,
-                              decoration: BoxDecoration(
-                                color: AppColors.cyan.withValues(alpha: 0.14),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Icon(CupertinoIcons.book_fill, color: AppColors.cyan, size: 20),
-                            ),
-                            const SizedBox(width: 14),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Growth Education',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    'Learn the science behind growth',
-                                    style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.72)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Icon(CupertinoIcons.chevron_right, color: Colors.white.withValues(alpha: 0.50), size: 15),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    GestureDetector(
-                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const NutritionScreen())),
-                      child: GlassCard(
-                        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 42,
-                              height: 42,
-                              decoration: BoxDecoration(
-                                color: AppColors.lime.withValues(alpha: 0.14),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const Icon(CupertinoIcons.leaf_arrow_circlepath, color: AppColors.lime, size: 20),
-                            ),
-                            const SizedBox(width: 14),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Nutrition Guide',
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    "Today's meal plan & nutrients",
-                                    style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.72)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Icon(CupertinoIcons.chevron_right, color: Colors.white.withValues(alpha: 0.50), size: 15),
-                          ],
-                        ),
                       ),
                     ),
                   ]),
@@ -1000,6 +1041,7 @@ class _GrowthStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             height: 32,
@@ -1017,14 +1059,15 @@ class _GrowthStat extends StatelessWidget {
                     letterSpacing: -0.8,
                   ),
                 ),
-                Text(
-                  unit.isNotEmpty ? ' $unit' : '',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: color.withValues(alpha: 0.6),
+                if (unit.isNotEmpty)
+                  Text(
+                    ' $unit',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: color.withValues(alpha: 0.6),
+                    ),
                   ),
-                ),
               ],
             ),
           ),

@@ -1126,4 +1126,405 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cmPerYear => 'cm/year';
+
+  @override
+  String get howToDoIt => 'How to Do It';
+
+  @override
+  String get musclesTargeted => 'Muscles & Bones Targeted';
+
+  @override
+  String get scientificBasis => 'Scientific Basis';
+
+  @override
+  String setXofY(String current, String total) {
+    return 'Set $current of $total';
+  }
+
+  @override
+  String restBeforeSet(String set) {
+    return 'Rest before Set $set';
+  }
+
+  @override
+  String get allSetsComplete => 'All Sets Complete!';
+
+  @override
+  String get setTimer => 'Set Timer';
+
+  @override
+  String get setTracker => 'Set Tracker';
+
+  @override
+  String get builtInTimer => 'Built-in Timer';
+
+  @override
+  String get markComplete => 'Mark Complete';
+
+  @override
+  String get markIncomplete => 'Mark Incomplete';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get doneExclamation => 'Done!';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get pause => 'Pause';
+
+  @override
+  String get resetTimer => 'Reset';
+
+  @override
+  String get skipRest => 'Skip Rest';
+
+  @override
+  String get restart => 'Restart';
+
+  @override
+  String get perSet => 'per set';
+
+  @override
+  String get rest => 'REST';
+
+  @override
+  String get reps => 'reps';
+
+  @override
+  String get difficultyBeginner => 'Beginner';
+
+  @override
+  String get difficultyIntermediate => 'Intermediate';
+
+  @override
+  String get difficultyAdvanced => 'Advanced';
+
+  @override
+  String get learnTitle => 'Learn';
+
+  @override
+  String get learnSubtitle => 'Science-backed knowledge for growth';
+
+  @override
+  String get categoryAll => 'All';
+
+  @override
+  String get categoryScience => 'Science';
+
+  @override
+  String get categoryNutrition => 'Nutrition';
+
+  @override
+  String get categoryExercise => 'Exercise';
+
+  @override
+  String get categorySleep => 'Sleep';
+
+  @override
+  String get categoryMyths => 'Myths';
+
+  @override
+  String get scientificReferences => 'Scientific References';
+
+  @override
+  String get relatedRoutines => 'Related Routines';
+
+  @override
+  String get nutritionTitle => 'Nutrition';
+
+  @override
+  String get sectionMealPlan => 'Meal Plan';
+
+  @override
+  String get sectionNutrients => 'Nutrients';
+
+  @override
+  String get sectionFoods => 'Foods';
+
+  @override
+  String todaysPlan(String day) {
+    return 'Today\'s Plan — $day';
+  }
+
+  @override
+  String get breakfast => 'Breakfast';
+
+  @override
+  String get lunch => 'Lunch';
+
+  @override
+  String get dinner => 'Dinner';
+
+  @override
+  String get snacks => 'Snacks';
+
+  @override
+  String get searchFoods => 'Search foods...';
+
+  @override
+  String nFoods(String count) {
+    return '$count foods';
+  }
+
+  @override
+  String dailyLabel(String amount) {
+    return 'Daily: $amount';
+  }
+
+  @override
+  String get dailyNeedByAge => 'DAILY NEED BY AGE';
+
+  @override
+  String agePrefix(String range) {
+    return 'Age $range';
+  }
+
+  @override
+  String get topFoodSources => 'TOP FOOD SOURCES';
+
+  @override
+  String get categoryDairy => 'Dairy';
+
+  @override
+  String get categoryMeatFish => 'Meat & Fish';
+
+  @override
+  String get categoryVegetables => 'Vegetables';
+
+  @override
+  String get categoryFruits => 'Fruits';
+
+  @override
+  String get categoryGrains => 'Grains & Legumes';
+
+  @override
+  String get categoryNutsSeeds => 'Nuts & Seeds';
+
+  @override
+  String get weeklyReportTitle => 'Weekly Report';
+
+  @override
+  String get overview => 'Overview';
+
+  @override
+  String get routinesLabel => 'Routines';
+
+  @override
+  String get streakLabel => 'Streak';
+
+  @override
+  String get heightLabel => 'Height';
+
+  @override
+  String get dailyScores => 'Daily Scores';
+
+  @override
+  String get waterToday2 => 'Water Today';
+
+  @override
+  String get sleepToday => 'Sleep Today';
+
+  @override
+  String get routineCompletion => 'Routine Completion';
+
+  @override
+  String get xpAndLevel => 'XP & Level';
+
+  @override
+  String xpToNextLevel(String xp) {
+    return '$xp XP to next level';
+  }
+
+  @override
+  String get activeChallenges => 'Active Challenges';
+
+  @override
+  String nOfMCompleted(String n, String m) {
+    return '$n/$m completed';
+  }
+
+  @override
+  String get shareYourProgress => 'Share Your Progress';
+
+  @override
+  String get shareComingSoon => 'Share feature coming soon!';
+
+  @override
+  String get premiumTest => 'Premium (Test)';
+
+  @override
+  String get premiumActive => 'Active';
+
+  @override
+  String get premiumFree => 'Free';
+
+  @override
+  String get weeklyReportMenu => 'Weekly Report';
+
+  @override
+  String get weeklyReportMenuSubtitle => 'Your progress summary';
+
+  @override
+  String get unlockGrowthPotential => 'Unlock your full growth potential';
+
+  @override
+  String get featureGrowthAnalysis => 'Growth analysis & score';
+
+  @override
+  String get featureHeightPrediction => 'Height prediction & forecast';
+
+  @override
+  String get featureAllRoutines => 'All 14 daily routines';
+
+  @override
+  String get featureWaterSleep => 'Water & sleep tracking';
+
+  @override
+  String get featureProgress => 'Progress & measurements';
+
+  @override
+  String get featureAchievements => 'Achievements & streaks';
+
+  @override
+  String get planMonthly => 'Monthly';
+
+  @override
+  String get planYearly => 'Yearly';
+
+  @override
+  String get bestValue => 'BEST VALUE';
+
+  @override
+  String get premiumLabel => 'Premium';
+
+  @override
+  String lvl(String level) {
+    return 'LVL $level';
+  }
+
+  @override
+  String get levelBeginner => 'Beginner';
+
+  @override
+  String get levelStarter => 'Starter';
+
+  @override
+  String get levelCommitted => 'Committed';
+
+  @override
+  String get levelDedicated => 'Dedicated';
+
+  @override
+  String get levelConsistent => 'Consistent';
+
+  @override
+  String get levelFocused => 'Focused';
+
+  @override
+  String get levelDetermined => 'Determined';
+
+  @override
+  String get levelDisciplined => 'Disciplined';
+
+  @override
+  String get levelStrong => 'Strong';
+
+  @override
+  String get levelAdvanced => 'Advanced';
+
+  @override
+  String get levelExpert => 'Expert';
+
+  @override
+  String get levelMaster => 'Master';
+
+  @override
+  String get levelElite => 'Elite';
+
+  @override
+  String get levelChampion => 'Champion';
+
+  @override
+  String get levelLegend => 'Legend';
+
+  @override
+  String get levelTitan => 'Titan';
+
+  @override
+  String get levelMythic => 'Mythic';
+
+  @override
+  String get levelImmortal => 'Immortal';
+
+  @override
+  String get levelTranscendent => 'Transcendent';
+
+  @override
+  String get levelUltimate => 'Ultimate';
+
+  @override
+  String get challengeCompleteAllRoutines => 'Complete All Routines';
+
+  @override
+  String get challengeCompleteAllRoutinesDesc => 'Finish every routine today';
+
+  @override
+  String get challengeHydrationHero => 'Hydration Hero';
+
+  @override
+  String get challengeHydrationHeroDesc => 'Reach your daily water goal';
+
+  @override
+  String get challengeEarlySleeper => 'Early Sleeper';
+
+  @override
+  String get challengeEarlySleeperDesc => 'Log 8+ hours of sleep';
+
+  @override
+  String get challengeExerciseTrio => 'Exercise Trio';
+
+  @override
+  String get challengeExerciseTrioDesc => 'Complete 3 exercise routines';
+
+  @override
+  String get challengeMorningStretch => 'Morning Stretch';
+
+  @override
+  String get challengeMorningStretchDesc => 'Do morning stretching before 9 AM';
+
+  @override
+  String get challenge7DayWarrior => '7-Day Warrior';
+
+  @override
+  String get challenge7DayWarriorDesc =>
+      'Complete all routines for 7 consecutive days';
+
+  @override
+  String get challengeGrowthTracker => 'Growth Tracker';
+
+  @override
+  String get challengeGrowthTrackerDesc => 'Log a height measurement this week';
+
+  @override
+  String get challengeHydrationWeek => 'Hydration Week';
+
+  @override
+  String get challengeHydrationWeekDesc => 'Hit water goal 5 days this week';
+
+  @override
+  String get challengeFitnessChampion => 'Fitness Champion';
+
+  @override
+  String get challengeFitnessChampionDesc =>
+      'Complete 15 exercise routines this week';
+
+  @override
+  String get challengeSleepMaster => 'Sleep Master';
+
+  @override
+  String get challengeSleepMasterDesc => 'Log 8+ hours of sleep for 5 days';
 }
