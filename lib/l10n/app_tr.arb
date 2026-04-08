@@ -470,5 +470,23 @@
   "challengeFitnessChampion": "Fitness Şampiyonu",
   "challengeFitnessChampionDesc": "Bu hafta 15 egzersiz rutini tamamla",
   "challengeSleepMaster": "Uyku Ustası",
-  "challengeSleepMasterDesc": "5 gün boyunca 8+ saat uyku kaydet"
+  "challengeSleepMasterDesc": "5 gün boyunca 8+ saat uyku kaydet",
+
+  "performanceDashboard": "PERFORMANS PANELİ",
+  "tierA": "SEVİYE A",
+  "tierB": "SEVİYE B",
+  "tierC": "SEVİYE C",
+  "tierD": "SEVİYE D",
+  "tierE": "SEVİYE E",
+  "maxTierReached": "MAKSİMUM SEVİYE",
+  "nextTierHint": "Sonraki: {tier} · +{pts} puan gerekli",
+  "@nextTierHint": {"placeholders": {"tier": {"type": "String"}, "pts": {"type": "String"}}},
+  "premiumBadge": "Premium",
+
+  "manageRoutines": "Rutinleri Yönet",
+  "manageRoutinesSubtitle": "Günlük listenden rutin göster veya gizle",
+  "nVisibleOfTotal": "{visible} / {total} aktif",
+  "@nVisibleOfTotal": {"placeholders": {"visible": {"type": "String"}, "total": {"type": "String"}}},
+  "showAll": "Hepsini göster",
+  "hideAll": "Hepsini gizle"
 }

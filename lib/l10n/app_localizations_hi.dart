@@ -1527,4 +1527,50 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get challengeSleepMasterDesc => '5 दिन 8+ घंटे की नींद रिकॉर्ड करें';
+
+  @override
+  String get performanceDashboard => 'प्रदर्शन डैशबोर्ड';
+
+  @override
+  String get tierA => 'स्तर A';
+
+  @override
+  String get tierB => 'स्तर B';
+
+  @override
+  String get tierC => 'स्तर C';
+
+  @override
+  String get tierD => 'स्तर D';
+
+  @override
+  String get tierE => 'स्तर E';
+
+  @override
+  String get maxTierReached => 'अधिकतम स्तर प्राप्त';
+
+  @override
+  String nextTierHint(String tier, String pts) {
+    return 'अगला: $tier · +$pts अंक आवश्यक';
+  }
+
+  @override
+  String get premiumBadge => 'प्रीमियम';
+
+  @override
+  String get manageRoutines => 'रूटीन प्रबंधित करें';
+
+  @override
+  String get manageRoutinesSubtitle => 'दैनिक सूची से रूटीन दिखाएं या छुपाएं';
+
+  @override
+  String nVisibleOfTotal(String visible, String total) {
+    return '$total में से $visible सक्रिय';
+  }
+
+  @override
+  String get showAll => 'सभी दिखाएं';
+
+  @override
+  String get hideAll => 'सभी छुपाएं';
 }

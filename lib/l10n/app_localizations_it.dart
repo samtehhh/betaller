@@ -1543,4 +1543,51 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get challengeSleepMasterDesc =>
       'Registra 8+ ore di sonno per 5 giorni';
+
+  @override
+  String get performanceDashboard => 'PANNELLO PRESTAZIONI';
+
+  @override
+  String get tierA => 'LIVELLO A';
+
+  @override
+  String get tierB => 'LIVELLO B';
+
+  @override
+  String get tierC => 'LIVELLO C';
+
+  @override
+  String get tierD => 'LIVELLO D';
+
+  @override
+  String get tierE => 'LIVELLO E';
+
+  @override
+  String get maxTierReached => 'LIVELLO MASSIMO RAGGIUNTO';
+
+  @override
+  String nextTierHint(String tier, String pts) {
+    return 'Prossimo: $tier · +$pts punti necessari';
+  }
+
+  @override
+  String get premiumBadge => 'Premium';
+
+  @override
+  String get manageRoutines => 'Gestisci routine';
+
+  @override
+  String get manageRoutinesSubtitle =>
+      'Mostra o nascondi routine dalla tua lista quotidiana';
+
+  @override
+  String nVisibleOfTotal(String visible, String total) {
+    return '$visible su $total attive';
+  }
+
+  @override
+  String get showAll => 'Mostra tutto';
+
+  @override
+  String get hideAll => 'Nascondi tutto';
 }

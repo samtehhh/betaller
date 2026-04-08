@@ -1523,4 +1523,51 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get challengeSleepMasterDesc => '5 gün boyunca 8+ saat uyku kaydet';
+
+  @override
+  String get performanceDashboard => 'PERFORMANS PANELİ';
+
+  @override
+  String get tierA => 'SEVİYE A';
+
+  @override
+  String get tierB => 'SEVİYE B';
+
+  @override
+  String get tierC => 'SEVİYE C';
+
+  @override
+  String get tierD => 'SEVİYE D';
+
+  @override
+  String get tierE => 'SEVİYE E';
+
+  @override
+  String get maxTierReached => 'MAKSİMUM SEVİYE';
+
+  @override
+  String nextTierHint(String tier, String pts) {
+    return 'Sonraki: $tier · +$pts puan gerekli';
+  }
+
+  @override
+  String get premiumBadge => 'Premium';
+
+  @override
+  String get manageRoutines => 'Rutinleri Yönet';
+
+  @override
+  String get manageRoutinesSubtitle =>
+      'Günlük listenden rutin göster veya gizle';
+
+  @override
+  String nVisibleOfTotal(String visible, String total) {
+    return '$visible / $total aktif';
+  }
+
+  @override
+  String get showAll => 'Hepsini göster';
+
+  @override
+  String get hideAll => 'Hepsini gizle';
 }

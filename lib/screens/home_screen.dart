@@ -60,15 +60,37 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
         return Scaffold(
           backgroundColor: AppColors.scaffold,
-          body: CustomScrollView(
-            physics: const ClampingScrollPhysics(),
-            slivers: [
-              // ── Header ──────────────────────────────────
+          body: Stack(
+            children: [
+              // Radial glow background
+              Positioned(
+                top: -100,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 400,
+                  decoration: BoxDecoration(
+                    gradient: RadialGradient(
+                      center: Alignment.center,
+                      radius: 0.8,
+                      colors: [
+                        Color(0xFF8B5CF6).withValues(alpha: 0.12),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              // Main content
+              CustomScrollView(
+                physics: const ClampingScrollPhysics(),
+                slivers: [
+              // ── Header (v4 Bold Hero) ────────────────────
               SliverToBoxAdapter(
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF1E1B4B), Color(0xFF0A0A14)],
+                      colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -76,40 +98,47 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   child: SafeArea(
                     bottom: false,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(22, 8, 22, 28),
+                      padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          // Top row: app label + greeting + streak badge
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      l.greeting(profile.name),
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 34,
-                                        fontWeight: FontWeight.w800,
-                                        letterSpacing: -1.2,
-                                        height: 1.1,
-                                        shadows: [Shadow(color: Colors.white.withValues(alpha: 0.2), blurRadius: 10)],
-                                      ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'BETALLER',
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.primary,
+                                      letterSpacing: 2.0,
                                     ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      DateFormat('d MMMM yyyy, EEEE', Localizations.localeOf(context).languageCode).format(DateTime.now()),
-                                      style: TextStyle(
-                                        color: Colors.white.withValues(alpha: 0.82),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        letterSpacing: -0.2,
-                                      ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    l.greeting(profile.name),
+                                    style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white,
+                                      letterSpacing: -0.5,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    DateFormat('d MMMM yyyy, EEEE', Localizations.localeOf(context).languageCode).format(DateTime.now()),
+                                    style: TextStyle(
+                                      color: Colors.white.withValues(alpha: 0.55),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
                               ),
                               if (provider.streak > 0)
                                 Container(
@@ -139,190 +168,106 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             ],
                           ),
                           const SizedBox(height: 28),
-                          // Big hero stat
-                          GlassCard(
-                            padding: const EdgeInsets.all(22),
-                            borderRadius: 24,
-                            fillColor: Colors.white.withValues(alpha: 0.14),
+                          // HEIGHT HERO — centred big number
+                          Center(
                             child: Column(
                               children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    // Current height
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            l.currentHeight,
-                                            style: TextStyle(
-                                              color: Colors.white.withValues(alpha: 0.82),
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                              letterSpacing: -0.2,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          FittedBox(
-                                            fit: BoxFit.scaleDown,
-                                            alignment: Alignment.centerLeft,
-                                            child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.baseline,
-                                              textBaseline: TextBaseline.alphabetic,
-                                              children: [
-                                                Text(
-                                                  profile.currentHeight.toStringAsFixed(1),
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 44,
-                                                    fontWeight: FontWeight.w800,
-                                                    letterSpacing: -2,
-                                                    height: 1,
-                                                    shadows: [Shadow(color: Colors.white.withValues(alpha: 0.2), blurRadius: 10)],
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 3),
-                                                Text(
-                                                  'cm',
-                                                  style: TextStyle(
-                                                    color: Colors.white.withValues(alpha: 0.72),
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    // Target
-                                    if (provider.isPremium)
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            l.target,
-                                            style: TextStyle(
-                                              color: AppColors.cyan.withValues(alpha: 0.7),
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 2),
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                                            textBaseline: TextBaseline.alphabetic,
-                                            children: [
-                                              Text(
-                                                potential.toStringAsFixed(1),
-                                                style: TextStyle(
-                                                  color: AppColors.cyan,
-                                                  fontSize: 24,
-                                                  fontWeight: FontWeight.w800,
-                                                  letterSpacing: -0.8,
-                                                  shadows: [Shadow(color: AppColors.cyan.withValues(alpha: 0.2), blurRadius: 10)],
-                                                ),
-                                              ),
-                                              Text(
-                                                ' cm',
-                                                style: TextStyle(
-                                                  color: AppColors.cyan.withValues(alpha: 0.5),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                    else
-                                      GestureDetector(
-                                        onTap: () => showPremiumPaywall(context),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                              l.target,
-                                              style: TextStyle(
-                                                color: AppColors.cyan.withValues(alpha: 0.7),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 2),
-                                            Row(
-                                              children: [
-                                                Icon(CupertinoIcons.lock_fill, color: AppColors.cyan.withValues(alpha: 0.5), size: 16),
-                                                const SizedBox(width: 4),
-                                                Text(
-                                                  '???',
-                                                  style: TextStyle(
-                                                    color: AppColors.cyan.withValues(alpha: 0.4),
-                                                    fontSize: 24,
-                                                    fontWeight: FontWeight.w800,
-                                                    letterSpacing: -0.8,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  ' cm',
-                                                  style: TextStyle(
-                                                    color: AppColors.cyan.withValues(alpha: 0.3),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                                if (provider.isPremium) ...[
-                                  const SizedBox(height: 18),
-                                  // Progress bar showing how close to target
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(5),
-                                    child: LinearProgressIndicator(
-                                      value: (potential > 0 ? (profile.currentHeight / potential).clamp(0.0, 1.0) : 0.0) * anim,
-                                      minHeight: 8,
-                                      backgroundColor: Colors.white.withValues(alpha: 0.14),
-                                      valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
-                                    ),
+                                Text(
+                                  l.heightLabel.toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.textTertiary,
+                                    letterSpacing: 3.0,
                                   ),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        l.completed(((potential > 0 ? (profile.currentHeight / potential * 100) : 0) * anim).toStringAsFixed(0)),
-                                        style: TextStyle(
-                                          color: Colors.white.withValues(alpha: 0.72),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  '${profile.currentHeight.toStringAsFixed(1)} CM',
+                                  style: TextStyle(
+                                    fontSize: 72,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white,
+                                    letterSpacing: -2,
+                                    height: 1.0,
+                                    shadows: [
+                                      Shadow(
+                                        color: AppColors.primary.withValues(alpha: 0.4),
+                                        blurRadius: 20,
                                       ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                // Target & delta row
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '${l.target}: ${potential.toStringAsFixed(1)} cm',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: AppColors.textTertiary,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    if (provider.isPremium)
                                       Container(
                                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                         decoration: BoxDecoration(
-                                          color: AppColors.lime.withValues(alpha: 0.12),
-                                          borderRadius: BorderRadius.circular(8),
+                                          color: AppColors.primary.withValues(alpha: 0.12),
+                                          borderRadius: BorderRadius.circular(20),
+                                          border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
                                         ),
                                         child: Text(
                                           l.remaining(remaining.toStringAsFixed(1)),
                                           style: const TextStyle(
-                                            color: AppColors.lime,
                                             fontSize: 12,
                                             fontWeight: FontWeight.w700,
-                                            letterSpacing: -0.2,
+                                            color: AppColors.primary,
+                                          ),
+                                        ),
+                                      )
+                                    else
+                                      GestureDetector(
+                                        onTap: () => showPremiumPaywall(context),
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.primary.withValues(alpha: 0.08),
+                                            borderRadius: BorderRadius.circular(20),
+                                            border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(CupertinoIcons.lock_fill, color: AppColors.primary.withValues(alpha: 0.5), size: 11),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                l.premiumBadge,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: AppColors.primary.withValues(alpha: 0.6),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ],
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                // Glow progress bar
+                                GlowProgressBar(
+                                  value: (potential > profile.currentHeight + 0.1)
+                                      ? ((profile.currentHeight - 140) / (potential - 140)).clamp(0.0, 1.0) * anim
+                                      : anim,
+                                  gradient: AppColors.gradientGrowth,
+                                  glowColor: AppColors.primary,
+                                  height: 8,
+                                ),
                               ],
                             ),
                           ),
@@ -586,10 +531,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     width: 44,
                                     height: 44,
                                     decoration: BoxDecoration(
-                                      color: AppColors.lime.withValues(alpha: 0.15),
+                                      color: AppColors.primary.withValues(alpha: 0.15),
                                       borderRadius: BorderRadius.circular(14),
                                     ),
-                                    child: const Icon(CupertinoIcons.leaf_arrow_circlepath, color: AppColors.lime, size: 22),
+                                    child: const Icon(CupertinoIcons.leaf_arrow_circlepath, color: AppColors.primary, size: 22),
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
@@ -700,6 +645,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     // ── 5. Growth Summary ───────────────────
                     if (provider.heightRecords.length >= 2) ...[
                       GlassCard(
+                        glowColor: AppColors.primary.withValues(alpha: 0.08),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -779,6 +725,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ]),
                 ),
               ),
+            ],
+          ),
             ],
           ),
         );
@@ -1053,10 +1001,16 @@ class _GrowthStat extends StatelessWidget {
                 Text(
                   value,
                   style: TextStyle(
-                    fontSize: 26,
+                    fontSize: 28,
                     fontWeight: FontWeight.w800,
                     color: color,
                     letterSpacing: -0.8,
+                    shadows: [
+                      Shadow(
+                        color: color.withValues(alpha: 0.5),
+                        blurRadius: 10,
+                      ),
+                    ],
                   ),
                 ),
                 if (unit.isNotEmpty)

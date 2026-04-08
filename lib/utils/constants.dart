@@ -8,68 +8,81 @@ class AppColors {
   AppColors._();
 
   // Core backgrounds
-  static const scaffold = Color(0xFF0A0A14);
-  static const surfaceDark = Color(0xFF14112A);
+  static const scaffold = Color(0xFF070B1A);       // Dark Navy
+  static const surfaceDark = Color(0xFF0F0B24);    // Secondary bg
 
-  // Kart dolguları — mor tonlu, Umax tarzı
-  static const cardFill = Color(0xFF1A1535);
-  static const cardFillLight = Color(0xFF201A40);
-  static final cardBorder = const Color(0xFF7C3AED).withValues(alpha: 0.18);
-  static final cardBorderLight = const Color(0xFF7C3AED).withValues(alpha: 0.28);
+  // Card fills — deep layered cyber look
+  static const cardFill = Color(0xFF141432);
+  static const cardFillLight = Color(0xFF1A1845);
+  static final cardBorder = const Color(0xFFFFFFFF).withValues(alpha: 0.06);
+  static final cardBorderLight = const Color(0xFF8B5CF6).withValues(alpha: 0.20);
 
-  // Primary accent — parlak mor
-  static const primary = Color(0xFFB388FF);
-  static const primaryLight = Color(0xFFD1B3FF);
-  static const primaryDark = Color(0xFF7C3AED);
-  static const primaryBright = Color(0xFFC49CFF);
+  // Primary accent — #8B5CF6 Purple
+  static const primary = Color(0xFF8B5CF6);
+  static const primaryLight = Color(0xFFBB9FFD);
+  static const primaryDark = Color(0xFF4C1D95);
+  static const primaryBright = Color(0xFFA78BFA);
 
-  // Secondary accents — DOYGUN, PARLAK
+  // Secondary accents
   static const cyan = Color(0xFF00E5FF);
-  static const orange = Color(0xFFFF9100);
+  static const orange = Color(0xFFFF8A00);    // Energy Orange
   static const pink = Color(0xFFFF4DB8);
-  static const lime = Color(0xFF69F0AE);
+  static const lime = Color(0xFF22FF88);      // Neon Growth Green — KEY COLOR
 
   // Semantic
-  static const success = Color(0xFF69F0AE);
+  static const success = Color(0xFF22FF88);   // Neon green for success/growth
   static const error = Color(0xFFFF5252);
-  static const warning = Color(0xFFFFD740);
+  static const warning = Color(0xFFF5C542);   // Premium Gold
 
-  // Text hierarchy — parlak, net
+  // Text hierarchy
   static const textPrimary = Color(0xFFFFFFFF);
-  static final textSecondary = Colors.white.withValues(alpha: 0.90);
-  static final textTertiary = Colors.white.withValues(alpha: 0.75);
+  static final textSecondary = Colors.white.withValues(alpha: 0.85);
+  static final textTertiary = Colors.white.withValues(alpha: 0.50);
 
-  // Category palette — doygun, parlak
-  static const exerciseColor = Color(0xFFB388FF);
-  static const nutritionColor = Color(0xFFFF9100);
-  static const sleepColor = Color(0xFF8C9EFF);
+  // Category palette
+  static const exerciseColor = Color(0xFF8B5CF6);
+  static const nutritionColor = Color(0xFFFF8A00);
+  static const sleepColor = Color(0xFF6366F1);
   static const postureColor = Color(0xFFFF4DB8);
 
-  // Water & Sleep — canlı
-  static const water = Color(0xFF40C4FF);
-  static const sleep = Color(0xFF8C9EFF);
+  // Water & Sleep
+  static const water = Color(0xFF00E5FF);
+  static const sleep = Color(0xFF6366F1);
 
-  // Gradients — canlı, doygun
+  // Gradients
   static const gradientPrimary = LinearGradient(
-    colors: [Color(0xFFB388FF), Color(0xFF7C3AED)],
+    colors: [Color(0xFF8B5CF6), Color(0xFF4C1D95)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const gradientHeader = LinearGradient(
-    colors: [Color(0xFF261A4A), Color(0xFF0A0A14)],
+    colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
 
   static const gradientAccent = LinearGradient(
-    colors: [Color(0xFFFF9100), Color(0xFFFF5252)],
+    colors: [Color(0xFFFF8A00), Color(0xFFF5C542)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const gradientCyan = LinearGradient(
-    colors: [Color(0xFF00E5FF), Color(0xFFB388FF)],
+    colors: [Color(0xFF00E5FF), Color(0xFF8B5CF6)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  // NEW gradients for v4
+  static const gradientGrowth = LinearGradient(
+    colors: [Color(0xFF8B5CF6), Color(0xFF00E5FF)],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+
+  static const gradientEnergy = LinearGradient(
+    colors: [Color(0xFFFF8A00), Color(0xFFF5C542)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
@@ -84,28 +97,49 @@ class GlassCard extends StatelessWidget {
   final double borderRadius;
   final Color? fillColor;
   final Color? borderColor;
+  final Color? glowColor;  // NEW
 
   const GlassCard({
     super.key,
     required this.child,
     this.padding,
     this.margin,
-    this.borderRadius = 20,
+    this.borderRadius = 18,  // Changed from 20 to 18
     this.fillColor,
     this.borderColor,
+    this.glowColor,  // NEW
   });
 
   @override
   Widget build(BuildContext context) {
+    final glow = glowColor ?? AppColors.primary.withValues(alpha: 0.12);
     return Container(
       margin: margin,
       decoration: BoxDecoration(
-        color: fillColor ?? AppColors.cardFill,
+        gradient: fillColor == null ? const LinearGradient(
+          colors: [Color(0xFF141432), Color(0xFF0B0B22)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          transform: GradientRotation(2.53),  // ~145deg
+        ) : null,
+        color: fillColor,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-          color: borderColor ?? AppColors.cardBorder,
-          width: 0.5,
+          color: borderColor ?? const Color(0xFFFFFFFF).withValues(alpha: 0.06),
+          width: 1.0,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.60),
+            blurRadius: 30,
+            offset: const Offset(0, 8),
+          ),
+          BoxShadow(
+            color: glow,
+            blurRadius: 24,
+            offset: const Offset(0, 0),
+          ),
+        ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
@@ -116,6 +150,141 @@ class GlassCard extends StatelessWidget {
             child: child,
           ),
         ),
+      ),
+    );
+  }
+}
+
+// ── Glow Progress Bar Widget ──────────────────────────────────────
+
+/// Animated gradient progress bar with edge glow — v4 design system
+class GlowProgressBar extends StatelessWidget {
+  final double value; // 0.0 to 1.0
+  final Gradient gradient;
+  final Color glowColor;
+  final double height;
+  final double borderRadius;
+
+  const GlowProgressBar({
+    super.key,
+    required this.value,
+    this.gradient = AppColors.gradientGrowth,
+    this.glowColor = AppColors.primary,
+    this.height = 8,
+    this.borderRadius = 999,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final clampedValue = value.clamp(0.0, 1.0);
+    return LayoutBuilder(builder: (context, constraints) {
+      return Stack(
+        children: [
+          // Background track
+          Container(
+            height: height,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.06),
+              borderRadius: BorderRadius.circular(borderRadius),
+            ),
+          ),
+          // Filled portion
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeOutCubic,
+            width: constraints.maxWidth * clampedValue,
+            height: height,
+            decoration: BoxDecoration(
+              gradient: gradient,
+              borderRadius: BorderRadius.circular(borderRadius),
+              boxShadow: [
+                BoxShadow(
+                  color: glowColor.withValues(alpha: 0.50),
+                  blurRadius: 8,
+                  offset: Offset.zero,
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    });
+  }
+}
+
+// ── Cyber Metric Card Widget ──────────────────────────────────────
+
+/// Premium metric display card — v4 design
+class CyberMetricCard extends StatelessWidget {
+  final String label;
+  final String value;
+  final String? unit;
+  final Color valueColor;
+  final Color? glowColor;
+  final Widget? leading;
+
+  const CyberMetricCard({
+    super.key,
+    required this.label,
+    required this.value,
+    this.unit,
+    this.valueColor = AppColors.primary,
+    this.glowColor,
+    this.leading,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GlassCard(
+      glowColor: glowColor ?? valueColor.withValues(alpha: 0.12),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (leading != null) ...[leading!, const SizedBox(height: 8)],
+          Text(
+            label.toUpperCase(),
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textTertiary,
+              letterSpacing: 1.2,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              Text(
+                value,
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w800,
+                  color: valueColor,
+                  letterSpacing: 0.5,
+                  shadows: [
+                    Shadow(
+                      color: (glowColor ?? valueColor).withValues(alpha: 0.5),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+              ),
+              if (unit != null) ...[
+                const SizedBox(width: 4),
+                Text(
+                  unit!,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: valueColor.withValues(alpha: 0.7),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ],
       ),
     );
   }

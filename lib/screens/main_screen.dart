@@ -136,13 +136,32 @@ class _NavItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              color: selected
-                  ? AppColors.primary
-                  : Colors.white.withValues(alpha: 0.82),
-              size: 24,
-              shadows: selected ? [Shadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 10)] : null,
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: selected ? const EdgeInsets.all(8) : EdgeInsets.zero,
+              decoration: selected
+                  ? BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.primary.withValues(alpha: 0.3),
+                          blurRadius: 12,
+                        ),
+                      ],
+                    )
+                  : null,
+              child: Transform.scale(
+                scale: selected ? 1.1 : 1.0,
+                child: Icon(
+                  icon,
+                  color: selected
+                      ? AppColors.primary
+                      : Colors.white.withValues(alpha: 0.82),
+                  size: 24,
+                  shadows: selected ? [Shadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 10)] : null,
+                ),
+              ),
             ),
             const SizedBox(height: 4),
             Text(

@@ -527,5 +527,23 @@
   "challengeFitnessChampion": "Fitness Champion",
   "challengeFitnessChampionDesc": "Complete 15 exercise routines this week",
   "challengeSleepMaster": "Sleep Master",
-  "challengeSleepMasterDesc": "Log 8+ hours of sleep for 5 days"
+  "challengeSleepMasterDesc": "Log 8+ hours of sleep for 5 days",
+
+  "performanceDashboard": "PERFORMANCE DASHBOARD",
+  "tierA": "TIER A",
+  "tierB": "TIER B",
+  "tierC": "TIER C",
+  "tierD": "TIER D",
+  "tierE": "TIER E",
+  "maxTierReached": "MAX TIER REACHED",
+  "nextTierHint": "Next Tier: {tier} · +{pts} pts needed",
+  "@nextTierHint": {"placeholders": {"tier": {"type": "String"}, "pts": {"type": "String"}}},
+  "premiumBadge": "Premium",
+
+  "manageRoutines": "Manage Routines",
+  "manageRoutinesSubtitle": "Show or hide routines from your daily list",
+  "nVisibleOfTotal": "{visible} of {total} active",
+  "@nVisibleOfTotal": {"placeholders": {"visible": {"type": "String"}, "total": {"type": "String"}}},
+  "showAll": "Show all",
+  "hideAll": "Hide all"
 }

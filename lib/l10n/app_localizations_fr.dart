@@ -1549,4 +1549,51 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get challengeSleepMasterDesc =>
       'Enregistrer 8+ heures de sommeil pendant 5 jours';
+
+  @override
+  String get performanceDashboard => 'TABLEAU DE PERFORMANCE';
+
+  @override
+  String get tierA => 'NIVEAU A';
+
+  @override
+  String get tierB => 'NIVEAU B';
+
+  @override
+  String get tierC => 'NIVEAU C';
+
+  @override
+  String get tierD => 'NIVEAU D';
+
+  @override
+  String get tierE => 'NIVEAU E';
+
+  @override
+  String get maxTierReached => 'NIVEAU MAXIMUM ATTEINT';
+
+  @override
+  String nextTierHint(String tier, String pts) {
+    return 'Prochain : $tier · +$pts pts requis';
+  }
+
+  @override
+  String get premiumBadge => 'Premium';
+
+  @override
+  String get manageRoutines => 'Gérer les routines';
+
+  @override
+  String get manageRoutinesSubtitle =>
+      'Afficher ou masquer les routines de votre liste quotidienne';
+
+  @override
+  String nVisibleOfTotal(String visible, String total) {
+    return '$visible sur $total actives';
+  }
+
+  @override
+  String get showAll => 'Tout afficher';
+
+  @override
+  String get hideAll => 'Tout masquer';
 }

@@ -56,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF1E1B4B), Color(0xFF0A0A1A)],
+                      colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),

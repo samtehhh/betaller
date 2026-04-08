@@ -469,5 +469,22 @@
   "challengeFitnessChampion": "फ़िटनेस चैंपियन",
   "challengeFitnessChampionDesc": "इस हफ़्ते 15 व्यायाम दिनचर्या पूरी करें",
   "challengeSleepMaster": "नींद मास्टर",
-  "challengeSleepMasterDesc": "5 दिन 8+ घंटे की नींद रिकॉर्ड करें"
+  "challengeSleepMasterDesc": "5 दिन 8+ घंटे की नींद रिकॉर्ड करें",
+  "performanceDashboard": "प्रदर्शन डैशबोर्ड",
+  "tierA": "स्तर A",
+  "tierB": "स्तर B",
+  "tierC": "स्तर C",
+  "tierD": "स्तर D",
+  "tierE": "स्तर E",
+  "maxTierReached": "अधिकतम स्तर प्राप्त",
+  "nextTierHint": "अगला: {tier} · +{pts} अंक आवश्यक",
+  "@nextTierHint": {"placeholders": {"tier": {"type": "String"}, "pts": {"type": "String"}}},
+  "premiumBadge": "प्रीमियम",
+
+  "manageRoutines": "रूटीन प्रबंधित करें",
+  "manageRoutinesSubtitle": "दैनिक सूची से रूटीन दिखाएं या छुपाएं",
+  "nVisibleOfTotal": "{total} में से {visible} सक्रिय",
+  "@nVisibleOfTotal": {"placeholders": {"visible": {"type": "String"}, "total": {"type": "String"}}},
+  "showAll": "सभी दिखाएं",
+  "hideAll": "सभी छुपाएं"
 }

@@ -51,7 +51,7 @@ class _EducationScreenState extends State<EducationScreen> {
             child: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF1E1B4B), Color(0xFF0A0A1A)],
+                  colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -69,7 +69,13 @@ class _EducationScreenState extends State<EducationScreen> {
                           fontSize: 32,
                           fontWeight: FontWeight.w800,
                           color: AppColors.primary,
-                          letterSpacing: -0.5,
+                          letterSpacing: 2.0,
+                          shadows: [
+                            Shadow(
+                              color: AppColors.primary.withValues(alpha: 0.3),
+                              blurRadius: 12,
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -105,13 +111,13 @@ class _EducationScreenState extends State<EducationScreen> {
                     selected: selected,
                     onSelected: (_) =>
                         setState(() => _selectedCategory = key),
-                    selectedColor: AppColors.primaryDark,
+                    selectedColor: const Color(0xFF4C1D95),
                     backgroundColor: AppColors.cardFill,
                     side: BorderSide(
                       color: selected
                           ? AppColors.primary
                           : AppColors.cardBorder,
-                      width: 0.5,
+                      width: 1.0,
                     ),
                     labelStyle: TextStyle(
                       color: selected

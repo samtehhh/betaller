@@ -469,5 +469,22 @@
   "challengeFitnessChampion": "Champion fitness",
   "challengeFitnessChampionDesc": "Terminer 15 routines d'exercice cette semaine",
   "challengeSleepMaster": "Maître du sommeil",
-  "challengeSleepMasterDesc": "Enregistrer 8+ heures de sommeil pendant 5 jours"
+  "challengeSleepMasterDesc": "Enregistrer 8+ heures de sommeil pendant 5 jours",
+  "performanceDashboard": "TABLEAU DE PERFORMANCE",
+  "tierA": "NIVEAU A",
+  "tierB": "NIVEAU B",
+  "tierC": "NIVEAU C",
+  "tierD": "NIVEAU D",
+  "tierE": "NIVEAU E",
+  "maxTierReached": "NIVEAU MAXIMUM ATTEINT",
+  "nextTierHint": "Prochain : {tier} · +{pts} pts requis",
+  "@nextTierHint": {"placeholders": {"tier": {"type": "String"}, "pts": {"type": "String"}}},
+  "premiumBadge": "Premium",
+
+  "manageRoutines": "Gérer les routines",
+  "manageRoutinesSubtitle": "Afficher ou masquer les routines de votre liste quotidienne",
+  "nVisibleOfTotal": "{visible} sur {total} actives",
+  "@nVisibleOfTotal": {"placeholders": {"visible": {"type": "String"}, "total": {"type": "String"}}},
+  "showAll": "Tout afficher",
+  "hideAll": "Tout masquer"
 }

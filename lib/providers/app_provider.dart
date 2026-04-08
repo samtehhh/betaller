@@ -14,6 +14,7 @@ class AppProvider extends ChangeNotifier {
   List<HeightRecord> _heightRecords = [];
   List<Routine> _routines = [];
   List<String> _completedRoutineIds = [];
+  Set<String> _hiddenRoutineIds = {};
   String _lastRoutineDate = '';
   String _lastAllCompletedDate = '';
   int _streak = 0;
@@ -34,7 +35,23 @@ class AppProvider extends ChangeNotifier {
 
   UserProfile? get profile => _profile;
   List<HeightRecord> get heightRecords => _heightRecords;
-  List<Routine> get routines => _routines;
+  List<Routine> get routines => _routines.where((r) => !_hiddenRoutineIds.contains(r.id)).toList();
+  List<Routine> get allRoutines => _routines;
+  Set<String> get hiddenRoutineIds => _hiddenRoutineIds;
+
+  void toggleRoutineVisibility(String id) {
+    if (_hiddenRoutineIds.contains(id)) {
+      _hiddenRoutineIds.remove(id);
+    } else {
+      _hiddenRoutineIds.add(id);
+      // If hiding a completed routine, also remove its completed flag from persistence
+      _completedRoutineIds.remove(id);
+      final r = _routines.firstWhere((x) => x.id == id, orElse: () => Routine.fromJson(const {'id': '', 'title': '', 'description': '', 'category': '', 'duration': '', 'icon': ''}));
+      if (r.id.isNotEmpty) r.completed = false;
+    }
+    _saveData();
+    notifyListeners();
+  }
   int get streak => _streak;
   int get bestStreak => _bestStreak;
   double get todayWater => _todayWater;
@@ -131,6 +148,7 @@ class AppProvider extends ChangeNotifier {
       _completedRoutineIds = List<String>.from(
         json['completedRoutineIds'] ?? [],
       );
+      _hiddenRoutineIds = Set<String>.from(json['hiddenRoutineIds'] ?? []);
       _todayWater = (json['todayWater'] ?? 0).toDouble();
       _todaySleep = (json['todaySleep'] ?? 0).toDouble();
       _analysisCompleted = json['analysisCompleted'] ?? false;
@@ -211,6 +229,7 @@ class AppProvider extends ChangeNotifier {
       'lastRoutineDate': _lastRoutineDate,
       'lastAllCompletedDate': _lastAllCompletedDate,
       'completedRoutineIds': _completedRoutineIds,
+      'hiddenRoutineIds': _hiddenRoutineIds.toList(),
       'todayWater': _todayWater,
       'todaySleep': _todaySleep,
       'lastWaterDate': _today,

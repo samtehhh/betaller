@@ -42,7 +42,7 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF1E1B4B), Color(0xFF0A0A14)],
+                      colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -61,12 +61,17 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                 fontSize: 36,
                                 fontWeight: FontWeight.w800,
                                 color: AppColors.primary,
-                                letterSpacing: -1.2,
-                                shadows: [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 8)],
+                                letterSpacing: 2.0,
+                                shadows: [
+                                  Shadow(
+                                    color: AppColors.primary.withValues(alpha: 0.3),
+                                    blurRadius: 12,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          if (provider.streak > 0)
+                          if (provider.streak > 0) ...[
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                               decoration: BoxDecoration(
@@ -86,6 +91,33 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                                 ],
                               ),
                             ),
+                            const SizedBox(width: 8),
+                          ],
+                          // Manage routines button
+                          GestureDetector(
+                            onTap: () => _showManageSheet(context, provider, l),
+                            child: Container(
+                              width: 42,
+                              height: 42,
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withValues(alpha: 0.14),
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(color: AppColors.primary.withValues(alpha: 0.30), width: 1),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.primary.withValues(alpha: 0.18),
+                                    blurRadius: 12,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: const Icon(
+                                CupertinoIcons.slider_horizontal_3,
+                                color: AppColors.primary,
+                                size: 20,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -134,16 +166,12 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: LinearProgressIndicator(
-                              value: provider.routineProgress,
-                              minHeight: 8,
-                              backgroundColor: Colors.white.withValues(alpha: 0.14),
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                provider.allRoutinesCompleted ? AppColors.success : AppColors.primary,
-                              ),
-                            ),
+                          GlowProgressBar(
+                            value: provider.routineProgress,
+                            gradient: provider.allRoutinesCompleted
+                                ? const LinearGradient(colors: [AppColors.success, AppColors.success])
+                                : AppColors.gradientGrowth,
+                            glowColor: provider.allRoutinesCompleted ? AppColors.success : AppColors.primary,
                           ),
                           const SizedBox(height: 10),
                           Row(
@@ -359,6 +387,230 @@ class _RoutinesScreenState extends State<RoutinesScreen> {
               const SliverPadding(padding: EdgeInsets.only(bottom: 110)),
             ],
           ),
+        );
+      },
+    );
+  }
+
+  void _showManageSheet(BuildContext context, AppProvider provider, AppLocalizations l) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (sheetContext) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.85,
+          minChildSize: 0.5,
+          maxChildSize: 0.95,
+          expand: false,
+          builder: (_, scrollController) {
+            return Consumer<AppProvider>(
+              builder: (context, p, __) {
+                final all = p.allRoutines;
+                final hidden = p.hiddenRoutineIds;
+                final visibleCount = all.length - hidden.length;
+                return Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF1A1535), Color(0xFF0F0B24)],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+                    border: Border(
+                      top: BorderSide(color: Color(0xFF8B5CF6), width: 0.6),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      // ── Drag handle ──
+                      Container(
+                        margin: const EdgeInsets.only(top: 12),
+                        width: 40,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.25),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                      // ── Header ──
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(22, 18, 22, 8),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 44,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withValues(alpha: 0.16),
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
+                              ),
+                              child: const Icon(CupertinoIcons.slider_horizontal_3, color: AppColors.primary, size: 22),
+                            ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    l.manageRoutines,
+                                    style: const TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white,
+                                      letterSpacing: -0.4,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    l.nVisibleOfTotal('$visibleCount', '${all.length}'),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.primary,
+                                      letterSpacing: -0.1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () => Navigator.of(sheetContext).pop(),
+                              child: Container(
+                                width: 32,
+                                height: 32,
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.08),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Icon(CupertinoIcons.xmark, color: Colors.white.withValues(alpha: 0.7), size: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(22, 0, 22, 12),
+                        child: Text(
+                          l.manageRoutinesSubtitle,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.white.withValues(alpha: 0.55),
+                            letterSpacing: -0.1,
+                          ),
+                        ),
+                      ),
+                      // ── Routine list ──
+                      Expanded(
+                        child: ListView.builder(
+                          controller: scrollController,
+                          padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
+                          itemCount: all.length,
+                          itemBuilder: (_, i) {
+                            final r = all[i];
+                            final catInfo = categoryInfo[r.category];
+                            final catColor = catInfo?['color'] as Color? ?? AppColors.primary;
+                            final localized = localizedRoutine(l, r.id);
+                            final title = localized['title'] ?? r.title;
+                            final isVisible = !hidden.contains(r.id);
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: GestureDetector(
+                                onTap: () => p.toggleRoutineVisibility(r.id),
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 200),
+                                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                                  decoration: BoxDecoration(
+                                    color: isVisible
+                                        ? catColor.withValues(alpha: 0.10)
+                                        : Colors.white.withValues(alpha: 0.03),
+                                    borderRadius: BorderRadius.circular(16),
+                                    border: Border.all(
+                                      color: isVisible
+                                          ? catColor.withValues(alpha: 0.30)
+                                          : Colors.white.withValues(alpha: 0.06),
+                                      width: 0.8,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 38,
+                                        height: 38,
+                                        decoration: BoxDecoration(
+                                          color: isVisible
+                                              ? catColor.withValues(alpha: 0.16)
+                                              : Colors.white.withValues(alpha: 0.05),
+                                          borderRadius: BorderRadius.circular(11),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            r.icon,
+                                            style: TextStyle(
+                                              fontSize: 19,
+                                              color: isVisible ? null : Colors.white.withValues(alpha: 0.35),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: Text(
+                                          title,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: isVisible
+                                                ? Colors.white
+                                                : Colors.white.withValues(alpha: 0.40),
+                                            letterSpacing: -0.2,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      // Toggle switch
+                                      AnimatedContainer(
+                                        duration: const Duration(milliseconds: 200),
+                                        width: 44,
+                                        height: 26,
+                                        padding: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                          color: isVisible
+                                              ? AppColors.primary.withValues(alpha: 0.85)
+                                              : Colors.white.withValues(alpha: 0.10),
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                        child: AnimatedAlign(
+                                          duration: const Duration(milliseconds: 200),
+                                          curve: Curves.easeOutCubic,
+                                          alignment: isVisible ? Alignment.centerRight : Alignment.centerLeft,
+                                          child: Container(
+                                            width: 22,
+                                            height: 22,
+                                            decoration: const BoxDecoration(
+                                              color: Colors.white,
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
         );
       },
     );

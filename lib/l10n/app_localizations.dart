@@ -2869,6 +2869,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Log 8+ hours of sleep for 5 days'**
   String get challengeSleepMasterDesc;
+
+  /// No description provided for @performanceDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'PERFORMANCE DASHBOARD'**
+  String get performanceDashboard;
+
+  /// No description provided for @tierA.
+  ///
+  /// In en, this message translates to:
+  /// **'TIER A'**
+  String get tierA;
+
+  /// No description provided for @tierB.
+  ///
+  /// In en, this message translates to:
+  /// **'TIER B'**
+  String get tierB;
+
+  /// No description provided for @tierC.
+  ///
+  /// In en, this message translates to:
+  /// **'TIER C'**
+  String get tierC;
+
+  /// No description provided for @tierD.
+  ///
+  /// In en, this message translates to:
+  /// **'TIER D'**
+  String get tierD;
+
+  /// No description provided for @tierE.
+  ///
+  /// In en, this message translates to:
+  /// **'TIER E'**
+  String get tierE;
+
+  /// No description provided for @maxTierReached.
+  ///
+  /// In en, this message translates to:
+  /// **'MAX TIER REACHED'**
+  String get maxTierReached;
+
+  /// No description provided for @nextTierHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Tier: {tier} · +{pts} pts needed'**
+  String nextTierHint(String tier, String pts);
+
+  /// No description provided for @premiumBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get premiumBadge;
+
+  /// No description provided for @manageRoutines.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Routines'**
+  String get manageRoutines;
+
+  /// No description provided for @manageRoutinesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Show or hide routines from your daily list'**
+  String get manageRoutinesSubtitle;
+
+  /// No description provided for @nVisibleOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{visible} of {total} active'**
+  String nVisibleOfTotal(String visible, String total);
+
+  /// No description provided for @showAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all'**
+  String get showAll;
+
+  /// No description provided for @hideAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide all'**
+  String get hideAll;
 }
 
 class _AppLocalizationsDelegate

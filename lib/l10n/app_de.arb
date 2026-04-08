@@ -469,5 +469,22 @@
   "challengeFitnessChampion": "Fitness-Champion",
   "challengeFitnessChampionDesc": "Diese Woche 15 Übungsroutinen abschließen",
   "challengeSleepMaster": "Schlafmeister",
-  "challengeSleepMasterDesc": "5 Tage lang 8+ Stunden Schlaf eintragen"
+  "challengeSleepMasterDesc": "5 Tage lang 8+ Stunden Schlaf eintragen",
+  "performanceDashboard": "LEISTUNGS-DASHBOARD",
+  "tierA": "STUFE A",
+  "tierB": "STUFE B",
+  "tierC": "STUFE C",
+  "tierD": "STUFE D",
+  "tierE": "STUFE E",
+  "maxTierReached": "MAXIMALE STUFE ERREICHT",
+  "nextTierHint": "Nächste Stufe: {tier} · +{pts} Pkt. benötigt",
+  "@nextTierHint": {"placeholders": {"tier": {"type": "String"}, "pts": {"type": "String"}}},
+  "premiumBadge": "Premium",
+
+  "manageRoutines": "Routinen verwalten",
+  "manageRoutinesSubtitle": "Routinen aus deiner täglichen Liste ein- oder ausblenden",
+  "nVisibleOfTotal": "{visible} von {total} aktiv",
+  "@nVisibleOfTotal": {"placeholders": {"visible": {"type": "String"}, "total": {"type": "String"}}},
+  "showAll": "Alle anzeigen",
+  "hideAll": "Alle ausblenden"
 }

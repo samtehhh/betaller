@@ -70,7 +70,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
             child: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF1E1B4B), Color(0xFF0A0A14)],
+                  colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -85,11 +85,11 @@ class _NutritionScreenState extends State<NutritionScreen> {
                       fontSize: 36,
                       fontWeight: FontWeight.w800,
                       color: AppColors.primary,
-                      letterSpacing: -1.2,
+                      letterSpacing: 2.0,
                       shadows: [
                         Shadow(
-                          color: AppColors.primary.withValues(alpha: 0.2),
-                          blurRadius: 8,
+                          color: AppColors.primary.withValues(alpha: 0.3),
+                          blurRadius: 12,
                         ),
                       ],
                     ),
@@ -118,12 +118,12 @@ class _NutritionScreenState extends State<NutritionScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           decoration: BoxDecoration(
                             color: selected
-                                ? AppColors.primaryDark.withValues(alpha: 0.5)
+                                ? const Color(0xFF4C1D95).withValues(alpha: 0.5)
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(13),
                             border: selected
                                 ? Border.all(
-                                    color: AppColors.primary.withValues(alpha: 0.3),
+                                    color: AppColors.primary.withValues(alpha: 0.5),
                                   )
                                 : null,
                           ),
@@ -648,7 +648,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                         color: selected
-                            ? AppColors.primary.withValues(alpha: 0.4)
+                            ? AppColors.primary.withValues(alpha: 0.5)
                             : AppColors.cardBorder,
                       ),
                     ),

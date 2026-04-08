@@ -80,7 +80,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF1E1B4B), Color(0xFF0A0A14)],
+                      colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -88,16 +88,31 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                   child: SafeArea(
                     bottom: false,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(22, 8, 22, 20),
-                      child: Text(
-                        l.analysis,
-                        style: TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.primary,
-                          letterSpacing: -1.2,
-                          shadows: [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 8)],
-                        ),
+                      padding: const EdgeInsets.fromLTRB(22, 12, 22, 22),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l.analysis.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 34,
+                              fontWeight: FontWeight.w900,
+                              color: AppColors.primary,
+                              letterSpacing: 2.0,
+                              shadows: [Shadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 14)],
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            l.performanceDashboard,
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white.withValues(alpha: 0.45),
+                              letterSpacing: 2.4,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -114,59 +129,71 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                       isPremium: provider.isPremium,
                       context: context,
                       borderRadius: 28,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFF2D1B69), Color(0xFF1A1145)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(28),
-                          border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
-                        ),
+                      child: GlassCard(
+                        borderRadius: 28,
+                        glowColor: _tierColor(glowScore.total).withValues(alpha: 0.18),
+                        borderColor: _tierColor(glowScore.total).withValues(alpha: 0.30),
                         padding: const EdgeInsets.all(24),
                         child: Column(
                           children: [
+                            // ── Header row ──
                             Row(
                               children: [
-                                Text(
-                                  l.betallerScore,
-                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      l.betallerScore.toUpperCase(),
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white.withValues(alpha: 0.45),
+                                        letterSpacing: 2.2,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      l.betallerScore,
+                                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.5),
+                                    ),
+                                  ],
                                 ),
                                 const Spacer(),
+                                // Tier badge
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                                   decoration: BoxDecoration(
-                                    color: _gradeColor(glowScore.grade).withValues(alpha: 0.18),
+                                    color: _tierColor(glowScore.total).withValues(alpha: 0.18),
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: _gradeColor(glowScore.grade).withValues(alpha: 0.4)),
+                                    border: Border.all(color: _tierColor(glowScore.total).withValues(alpha: 0.45)),
+                                    boxShadow: [BoxShadow(color: _tierColor(glowScore.total).withValues(alpha: 0.25), blurRadius: 12)],
                                   ),
                                   child: Text(
-                                    glowScore.grade,
+                                    _tierLabel(glowScore.total, l),
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.w900,
-                                      color: _gradeColor(glowScore.grade),
-                                      letterSpacing: 1,
-                                      shadows: [Shadow(color: _gradeColor(glowScore.grade).withValues(alpha: 0.35), blurRadius: 8)],
+                                      color: _tierColor(glowScore.total),
+                                      letterSpacing: 1.5,
+                                      shadows: [Shadow(color: _tierColor(glowScore.total).withValues(alpha: 0.5), blurRadius: 10)],
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 24),
-                            // Big score circle - animated
+                            const SizedBox(height: 28),
+                            // ── Big score + ring ──
                             AnimatedBuilder(
                               animation: _barAnim,
                               builder: (context, _) {
                                 final a = _barCurve.value;
                                 return SizedBox(
-                                  height: 160,
-                                  width: 160,
+                                  height: 180,
+                                  width: 180,
                                   child: CustomPaint(
                                     painter: _ScoreRingPainter(
                                       progress: (glowScore.total / 100) * a,
-                                      color: _gradeColor(glowScore.grade),
+                                      color: _tierColor(glowScore.total),
                                     ),
                                     child: Center(
                                       child: Column(
@@ -175,17 +202,17 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                           Text(
                                             '${(glowScore.total * a).round()}',
                                             style: TextStyle(
-                                              fontSize: 52,
+                                              fontSize: 72,
                                               fontWeight: FontWeight.w800,
                                               color: Colors.white,
-                                              letterSpacing: -2,
+                                              letterSpacing: -3,
                                               height: 1,
-                                              shadows: [Shadow(color: _gradeColor(glowScore.grade).withValues(alpha: 0.35), blurRadius: 8)],
+                                              shadows: [Shadow(color: _tierColor(glowScore.total).withValues(alpha: 0.45), blurRadius: 14)],
                                             ),
                                           ),
                                           Text(
                                             '/ 100',
-                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
+                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.50), letterSpacing: 0.5),
                                           ),
                                         ],
                                       ),
@@ -194,29 +221,66 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                 );
                               },
                             ),
+                            const SizedBox(height: 12),
+                            // ── Next tier hint ──
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.06),
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+                              ),
+                              child: Text(
+                                _nextTierHint(glowScore.total, l),
+                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.65), letterSpacing: 0.3),
+                              ),
+                            ),
                             const SizedBox(height: 20),
                             Text(
                               localizedScoreSummary(l, glowScore.summary),
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.88), height: 1.4, letterSpacing: -0.1),
                             ),
-                            const SizedBox(height: 24),
-                            // Score breakdown bars
-                            AnimatedBuilder(
-                              animation: _barAnim,
-                              builder: (context, _) => Column(
-                                children: [
-                                  _ScoreBarAnimated(label: l.genetic, value: glowScore.genetic, color: AppColors.primary, anim: _barCurve.value, delay: 0.0),
-                                  const SizedBox(height: 10),
-                                  _ScoreBarAnimated(label: l.growth, value: glowScore.velocity, color: AppColors.cyan, anim: _barCurve.value, delay: 0.05),
-                                  const SizedBox(height: 10),
-                                  _ScoreBarAnimated(label: l.nutrition, value: glowScore.nutrition, color: AppColors.orange, anim: _barCurve.value, delay: 0.10),
-                                  const SizedBox(height: 10),
-                                  _ScoreBarAnimated(label: l.sleepLabel, value: glowScore.sleep, color: AppColors.sleep, anim: _barCurve.value, delay: 0.15),
-                                  const SizedBox(height: 10),
-                                  _ScoreBarAnimated(label: l.discipline, value: glowScore.discipline, color: AppColors.lime, anim: _barCurve.value, delay: 0.20),
-                                ],
-                              ),
+                            const SizedBox(height: 28),
+                            // ── Score breakdown with GlowProgressBar ──
+                            _buildMetricRow(
+                              label: l.genetic,
+                              value: glowScore.genetic,
+                              color: AppColors.primary,
+                              gradient: AppColors.gradientPrimary,
+                              anim: _barCurve,
+                            ),
+                            const SizedBox(height: 14),
+                            _buildMetricRow(
+                              label: l.growth,
+                              value: glowScore.velocity,
+                              color: AppColors.lime,
+                              gradient: const LinearGradient(colors: [Color(0xFF22FF88), Color(0xFF00C853)]),
+                              anim: _barCurve,
+                            ),
+                            const SizedBox(height: 14),
+                            _buildMetricRow(
+                              label: l.nutrition,
+                              value: glowScore.nutrition,
+                              color: AppColors.orange,
+                              gradient: AppColors.gradientEnergy,
+                              anim: _barCurve,
+                            ),
+                            const SizedBox(height: 14),
+                            _buildMetricRow(
+                              label: l.sleepLabel,
+                              value: glowScore.sleep,
+                              color: AppColors.sleep,
+                              gradient: const LinearGradient(colors: [Color(0xFF6366F1), Color(0xFF4338CA)]),
+                              anim: _barCurve,
+                            ),
+                            const SizedBox(height: 14),
+                            _buildMetricRow(
+                              label: l.discipline,
+                              value: glowScore.discipline,
+                              color: AppColors.warning,
+                              gradient: const LinearGradient(colors: [Color(0xFFF5C542), Color(0xFFE5A813)]),
+                              anim: _barCurve,
                             ),
                           ],
                         ),
@@ -569,15 +633,86 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
     );
   }
 
-  Color _gradeColor(String grade) {
-    switch (grade) {
-      case 'S': return const Color(0xFFFFD700);
-      case 'A': return AppColors.lime;
-      case 'B': return AppColors.cyan;
-      case 'C': return AppColors.orange;
-      case 'D': return AppColors.warning;
-      default: return AppColors.error;
-    }
+  // ── Tier helpers (score-based: 0-20 E, 21-40 D, 41-60 C, 61-80 B, 81-100 A) ──
+
+  String _tierLabel(int score, AppLocalizations l) {
+    if (score >= 81) return l.tierA;
+    if (score >= 61) return l.tierB;
+    if (score >= 41) return l.tierC;
+    if (score >= 21) return l.tierD;
+    return l.tierE;
+  }
+
+  Color _tierColor(int score) {
+    if (score >= 81) return const Color(0xFF22FF88);   // neon green
+    if (score >= 61) return const Color(0xFF8B5CF6);   // purple
+    if (score >= 41) return const Color(0xFFFF8A00);   // orange
+    if (score >= 21) return const Color(0xFF6366F1);   // blue-purple
+    return const Color(0xFF94A3B8);                    // gray
+  }
+
+  String _nextTierHint(int score, AppLocalizations l) {
+    if (score >= 81) return '${l.tierA} · ${l.maxTierReached}';
+    if (score >= 61) { final pts = 81 - score; return l.nextTierHint(l.tierA, '$pts'); }
+    if (score >= 41) { final pts = 61 - score; return l.nextTierHint(l.tierB, '$pts'); }
+    if (score >= 21) { final pts = 41 - score; return l.nextTierHint(l.tierC, '$pts'); }
+    final pts = 21 - score;
+    return l.nextTierHint(l.tierD, '$pts');
+  }
+
+  // ── Metric row with GlowProgressBar ──
+
+  Widget _buildMetricRow({
+    required String label,
+    required int value,
+    required Color color,
+    required Gradient gradient,
+    required Animation<double> anim,
+  }) {
+    return AnimatedBuilder(
+      animation: anim,
+      builder: (context, _) {
+        final animatedValue = (value / 100) * anim.value;
+        return Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: 78,
+                  child: Text(
+                    label.toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white.withValues(alpha: 0.65),
+                      letterSpacing: 0.8,
+                    ),
+                  ),
+                ),
+                Expanded(child: const SizedBox()),
+                Text(
+                  '${(value * anim.value).round()}/100',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                    color: color,
+                    letterSpacing: -0.3,
+                    shadows: [Shadow(color: color.withValues(alpha: 0.35), blurRadius: 6)],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 7),
+            GlowProgressBar(
+              value: animatedValue,
+              gradient: gradient,
+              glowColor: color,
+              height: 9,
+            ),
+          ],
+        );
+      },
+    );
   }
 
   String _nextGrade(String grade) {
@@ -754,63 +889,6 @@ class _ScoreRingPainter extends CustomPainter {
 }
 
 // ── Sub-widgets ───────────────────────────────────────────────────
-
-class _ScoreBarAnimated extends StatelessWidget {
-  final String label;
-  final int value;
-  final Color color;
-  final double anim;
-  final double delay;
-
-  const _ScoreBarAnimated({required this.label, required this.value, required this.color, required this.anim, required this.delay});
-
-  @override
-  Widget build(BuildContext context) {
-    final localAnim = ((anim - delay) / (1.0 - delay)).clamp(0.0, 1.0);
-    final barValue = (value / 100) * localAnim;
-
-    return Row(
-      children: [
-        SizedBox(
-          width: 70,
-          child: Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.75), letterSpacing: -0.2)),
-        ),
-        Expanded(
-          child: Container(
-            height: 10,
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: FractionallySizedBox(
-              alignment: Alignment.centerLeft,
-              widthFactor: barValue,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [color.withValues(alpha: 0.7), color],
-                  ),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: [
-                    BoxShadow(color: color.withValues(alpha: 0.3 * localAnim), blurRadius: 8, offset: const Offset(0, 2)),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 36,
-          child: Text(
-            '${(value * localAnim).round()}',
-            textAlign: TextAlign.right,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.3),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class _StatBlock extends StatelessWidget {
   final String label;
