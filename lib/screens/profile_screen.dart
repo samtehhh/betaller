@@ -12,6 +12,7 @@ import '../utils/constants.dart';
 import '../utils/localized_data.dart';
 import 'onboarding_screen.dart';
 import 'weekly_report_screen.dart';
+import 'custom_routine_builder_screen.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/xp_bar.dart';
 
@@ -268,6 +269,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             subtitle: l.weeklyReportMenuSubtitle,
                             color: AppColors.orange,
                             onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const WeeklyReportScreen())),
+                          ),
+                          _menuDivider(),
+                          _MenuRow(
+                            icon: CupertinoIcons.add_circled_solid,
+                            label: 'Create Custom Routine',
+                            subtitle: 'Build your own daily routine',
+                            color: AppColors.lime,
+                            onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const CustomRoutineBuilderScreen())),
                           ),
                         ],
                       ),

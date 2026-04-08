@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +12,11 @@ import '../utils/localized_data.dart';
 import 'growth_analysis_flow.dart';
 import 'education_screen.dart';
 import 'nutrition_screen.dart';
+import 'progress_photos_screen.dart';
+import 'posture_analysis_screen.dart';
+import 'wellness_tracker_screen.dart';
+import 'recipe_generator_screen.dart';
+import 'leaderboard_screen.dart';
 import '../widgets/premium_paywall.dart';
 // XpBar moved to profile screen
 
@@ -517,73 +523,102 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       const SizedBox(height: 4),
                     ],
 
-                    // ── 3. Nutrition & Education (side by side) ──
-                    Row(
+                    // ── 3. Quick Access Grid (3x2) ──
+                    GridView.count(
+                      crossAxisCount: 3,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 1.0,
                       children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const NutritionScreen())),
-                            child: GlassCard(
-                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 14),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: 44,
-                                    height: 44,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.primary.withValues(alpha: 0.15),
-                                      borderRadius: BorderRadius.circular(14),
-                                    ),
-                                    child: const Icon(CupertinoIcons.leaf_arrow_circlepath, color: AppColors.primary, size: 22),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    l.nutrition,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      letterSpacing: -0.2,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                        _QuickTile(
+                          icon: CupertinoIcons.leaf_arrow_circlepath,
+                          label: l.nutrition,
+                          color: AppColors.primary,
+                          onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const NutritionScreen())),
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const EducationScreen())),
-                            child: GlassCard(
-                              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 14),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: 44,
-                                    height: 44,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.cyan.withValues(alpha: 0.15),
-                                      borderRadius: BorderRadius.circular(14),
-                                    ),
-                                    child: const Icon(CupertinoIcons.book_fill, color: AppColors.cyan, size: 22),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    l.learnTitle,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      letterSpacing: -0.2,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                        _QuickTile(
+                          icon: CupertinoIcons.book_fill,
+                          label: l.learnTitle,
+                          color: AppColors.cyan,
+                          onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const EducationScreen())),
+                        ),
+                        _QuickTile(
+                          icon: CupertinoIcons.camera_fill,
+                          label: 'Photos',
+                          color: AppColors.lime,
+                          onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const ProgressPhotosScreen())),
+                        ),
+                        _QuickTile(
+                          icon: CupertinoIcons.person_crop_square_fill,
+                          label: 'Posture',
+                          color: AppColors.warning,
+                          onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const PostureAnalysisScreen())),
+                        ),
+                        _QuickTile(
+                          icon: CupertinoIcons.heart_circle_fill,
+                          label: 'Wellness',
+                          color: AppColors.pink,
+                          onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const WellnessTrackerScreen())),
+                        ),
+                        _QuickTile(
+                          icon: CupertinoIcons.flame_fill,
+                          label: 'Recipes',
+                          color: AppColors.orange,
+                          onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const RecipeGeneratorScreen())),
                         ),
                       ],
+                    ),
+                    const SizedBox(height: 10),
+                    // Leaderboard wide tile
+                    GestureDetector(
+                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const LeaderboardScreen())),
+                      child: GlassCard(
+                        glowColor: AppColors.warning.withValues(alpha: 0.10),
+                        padding: const EdgeInsets.all(16),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 44,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: AppColors.warning.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(color: AppColors.warning.withValues(alpha: 0.30)),
+                              ),
+                              child: const Icon(CupertinoIcons.rosette, color: AppColors.warning, size: 22),
+                            ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Leaderboard',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white,
+                                      letterSpacing: -0.2,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    'TOP ${100 - provider.peerPercentile}% in your age group',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.warning.withValues(alpha: 0.85),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(CupertinoIcons.chevron_right, color: AppColors.textTertiary, size: 16),
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 12),
 
@@ -845,6 +880,72 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               const SizedBox(height: 8),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Quick Access Tile (3-column grid) ────────────────────────────
+
+class _QuickTile extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _QuickTile({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.lightImpact();
+        onTap();
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.cardFill,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: color.withValues(alpha: 0.20), width: 0.8),
+          boxShadow: [
+            BoxShadow(
+              color: color.withValues(alpha: 0.10),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, color: color, size: 20),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+                letterSpacing: -0.1,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
         ),
       ),
     );

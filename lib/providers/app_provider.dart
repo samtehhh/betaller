@@ -33,6 +33,20 @@ class AppProvider extends ChangeNotifier {
   String _lastChallengeDate = '';
   Map<String, int> _dailyChallengeProgress = {};
 
+  // ── v5 innovation features ──
+  // Progress photos: list of {id, date, path, height}
+  List<Map<String, dynamic>> _progressPhotos = [];
+  // Posture analyses: list of {id, date, path, kyphosisScore, lordosisScore, headPosScore, totalScore}
+  List<Map<String, dynamic>> _postureAnalyses = [];
+  // Custom user-created routines (stored as raw maps)
+  List<Map<String, dynamic>> _customRoutines = [];
+  // Daily caffeine intake (mg) — keyed by date
+  Map<String, int> _caffeineByDate = {};
+  // Daily stress level 1-5 — keyed by date
+  Map<String, int> _stressByDate = {};
+  // Daily mood 1-5 + optional 1-line note — keyed by date
+  Map<String, Map<String, dynamic>> _journalByDate = {};
+
   UserProfile? get profile => _profile;
   List<HeightRecord> get heightRecords => _heightRecords;
   List<Routine> get routines => _routines.where((r) => !_hiddenRoutineIds.contains(r.id)).toList();
@@ -77,6 +91,140 @@ class AppProvider extends ChangeNotifier {
     return ((_totalXP - currentLevelXP) / (nextLevelXP - currentLevelXP)).clamp(0.0, 1.0);
   }
   List<Map<String, dynamic>> get activeChallenges => _activeChallenges;
+
+  // ── v5 getters ──
+  List<Map<String, dynamic>> get progressPhotos => _progressPhotos;
+  List<Map<String, dynamic>> get postureAnalyses => _postureAnalyses;
+  List<Map<String, dynamic>> get customRoutines => _customRoutines;
+  int get todayCaffeine => _caffeineByDate[_today] ?? 0;
+  int get todayStress => _stressByDate[_today] ?? 0;
+  Map<String, dynamic>? get todayJournal => _journalByDate[_today];
+
+  Map<String, int> get caffeineByDate => _caffeineByDate;
+  Map<String, int> get stressByDate => _stressByDate;
+  Map<String, Map<String, dynamic>> get journalByDate => _journalByDate;
+
+  /// Daily caffeine limit (mg) based on age — teens <100mg, adults <400mg
+  int get caffeineLimit {
+    final age = _profile?.age ?? 18;
+    if (age < 12) return 45;
+    if (age < 18) return 100;
+    return 400;
+  }
+
+  // ── Progress Photos ──
+  void addProgressPhoto(String path, double height) {
+    final photo = {
+      'id': DateTime.now().millisecondsSinceEpoch.toString(),
+      'date': _today,
+      'path': path,
+      'height': height,
+    };
+    _progressPhotos = [..._progressPhotos, photo];
+    _progressPhotos.sort((a, b) => (a['date'] as String).compareTo(b['date'] as String));
+    addXP(15);
+    _saveData();
+    notifyListeners();
+  }
+
+  void deleteProgressPhoto(String id) {
+    _progressPhotos = _progressPhotos.where((p) => p['id'] != id).toList();
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Posture Analyses ──
+  void addPostureAnalysis({
+    required String path,
+    required int kyphosisScore,
+    required int lordosisScore,
+    required int headPosScore,
+  }) {
+    final total = ((kyphosisScore + lordosisScore + headPosScore) / 3).round();
+    final analysis = {
+      'id': DateTime.now().millisecondsSinceEpoch.toString(),
+      'date': _today,
+      'path': path,
+      'kyphosisScore': kyphosisScore,
+      'lordosisScore': lordosisScore,
+      'headPosScore': headPosScore,
+      'totalScore': total,
+    };
+    _postureAnalyses = [..._postureAnalyses, analysis];
+    _postureAnalyses.sort((a, b) => (a['date'] as String).compareTo(b['date'] as String));
+    addXP(20);
+    _saveData();
+    notifyListeners();
+  }
+
+  void deletePostureAnalysis(String id) {
+    _postureAnalyses = _postureAnalyses.where((p) => p['id'] != id).toList();
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Custom Routines ──
+  void addCustomRoutine(Map<String, dynamic> routineData) {
+    final id = 'custom_${DateTime.now().millisecondsSinceEpoch}';
+    final r = {...routineData, 'id': id};
+    _customRoutines = [..._customRoutines, r];
+    // Add to live routines list as well
+    _routines = [..._routines, Routine.fromJson(r)];
+    _saveData();
+    notifyListeners();
+  }
+
+  void deleteCustomRoutine(String id) {
+    _customRoutines = _customRoutines.where((r) => r['id'] != id).toList();
+    _routines = _routines.where((r) => r.id != id).toList();
+    _hiddenRoutineIds.remove(id);
+    _completedRoutineIds.remove(id);
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Caffeine Tracker ──
+  void addCaffeine(int mg) {
+    _caffeineByDate[_today] = (_caffeineByDate[_today] ?? 0) + mg;
+    _saveData();
+    notifyListeners();
+  }
+
+  void resetTodayCaffeine() {
+    _caffeineByDate[_today] = 0;
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Stress Tracker ──
+  void setTodayStress(int level) {
+    _stressByDate[_today] = level.clamp(1, 5);
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Growth Journal ──
+  void setTodayJournal({required int mood, String? note}) {
+    _journalByDate[_today] = {
+      'mood': mood.clamp(1, 5),
+      'note': note ?? '',
+      'date': _today,
+    };
+    addXP(5);
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Anonymous leaderboard rank (computed locally based on streak/level) ──
+  /// Returns approximate percentile rank (0-100) for current user vs synthetic peer group
+  int get peerPercentile {
+    // Synthetic curve: streak ≥30 = top 10%, ≥14 = top 25%, ≥7 = top 50%, ≥3 = top 75%
+    if (_streak >= 30) return 90;
+    if (_streak >= 14) return 75;
+    if (_streak >= 7) return 50;
+    if (_streak >= 3) return 25;
+    return 10;
+  }
 
   String get _today => DateTime.now().toIso8601String().substring(0, 10);
 
@@ -176,6 +324,23 @@ class AppProvider extends ChangeNotifier {
       _lastChallengeDate = json['lastChallengeDate'] ?? '';
       _dailyChallengeProgress = (json['dailyChallengeProgress'] as Map<String, dynamic>? ?? {})
           .map((k, v) => MapEntry(k, (v as num).toInt()));
+
+      // v5 features
+      _progressPhotos = ((json['progressPhotos'] as List?) ?? [])
+          .map((e) => Map<String, dynamic>.from(e as Map))
+          .toList();
+      _postureAnalyses = ((json['postureAnalyses'] as List?) ?? [])
+          .map((e) => Map<String, dynamic>.from(e as Map))
+          .toList();
+      _customRoutines = ((json['customRoutines'] as List?) ?? [])
+          .map((e) => Map<String, dynamic>.from(e as Map))
+          .toList();
+      _caffeineByDate = ((json['caffeineByDate'] as Map?) ?? {})
+          .map((k, v) => MapEntry(k.toString(), (v as num).toInt()));
+      _stressByDate = ((json['stressByDate'] as Map?) ?? {})
+          .map((k, v) => MapEntry(k.toString(), (v as num).toInt()));
+      _journalByDate = ((json['journalByDate'] as Map?) ?? {})
+          .map((k, v) => MapEntry(k.toString(), Map<String, dynamic>.from(v as Map)));
     }
 
     _initRoutines();
@@ -186,7 +351,8 @@ class AppProvider extends ChangeNotifier {
   }
 
   void _initRoutines() {
-    _routines = defaultRoutines.map((r) {
+    final allRoutineMaps = [...defaultRoutines, ..._customRoutines];
+    _routines = allRoutineMaps.map((r) {
       final routine = Routine.fromJson(r);
       if (_lastRoutineDate == _today &&
           _completedRoutineIds.contains(routine.id)) {
@@ -242,6 +408,13 @@ class AppProvider extends ChangeNotifier {
       'activeChallenges': _activeChallenges,
       'lastChallengeDate': _lastChallengeDate,
       'dailyChallengeProgress': _dailyChallengeProgress,
+      // v5
+      'progressPhotos': _progressPhotos,
+      'postureAnalyses': _postureAnalyses,
+      'customRoutines': _customRoutines,
+      'caffeineByDate': _caffeineByDate,
+      'stressByDate': _stressByDate,
+      'journalByDate': _journalByDate,
     };
     await prefs.setString('glowup_app_data', jsonEncode(data));
   }
