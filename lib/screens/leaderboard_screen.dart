@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -6,362 +5,178 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/height_reference.dart';
 
 // ─────────────────────────────────────────────────────────────────
-//  Synthetic peer data model
+//  Leaderboard Screen — Real WHO/NCD-RisC Height Analysis
+//  No synthetic peer data. Shows user's height vs. real global
+//  population averages by age and sex using WHO 2007 + NCD-RisC.
 // ─────────────────────────────────────────────────────────────────
 
-class _PeerEntry {
-  final String username;
-  final int level;
-  final int xp;
-  final int streak;
-  final bool isYou;
-
-  const _PeerEntry({
-    required this.username,
-    required this.level,
-    required this.xp,
-    required this.streak,
-    this.isYou = false,
-  });
-}
-
-List<_PeerEntry> _generatePeers(
-  int userAge,
-  String gender,
-  int userXP,
-  int userLevel,
-  int userStreak,
-) {
-  // Deterministic seed based on age + gender so rankings are stable across restarts
-  final seed = userAge * 1000 + (gender == 'male' ? 1 : 2);
-  final rng = math.Random(seed);
-
-  const adjectives = [
-    'Silent',
-    'Iron',
-    'Tall',
-    'Bold',
-    'Quick',
-    'Brave',
-    'Wild',
-    'Sharp',
-    'Calm',
-    'Steel',
-    'Dark',
-    'Bright',
-    'Storm',
-    'Pure',
-    'Free',
-    'Strong',
-    'Apex',
-    'Elite',
-    'Prime',
-    'Rapid',
-  ];
-  const nouns = [
-    'Wolf',
-    'Eagle',
-    'Tiger',
-    'Falcon',
-    'Phoenix',
-    'Lion',
-    'Bear',
-    'Hawk',
-    'Cobra',
-    'Dragon',
-    'Panther',
-    'Shark',
-    'Viper',
-    'Raven',
-    'Stallion',
-    'Jaguar',
-    'Stag',
-    'Kraken',
-    'Titan',
-    'Hydra',
-  ];
-
-  final peers = <_PeerEntry>[];
-  for (int i = 0; i < 50; i++) {
-    final adj = adjectives[rng.nextInt(adjectives.length)];
-    final noun = nouns[rng.nextInt(nouns.length)];
-    final num = rng.nextInt(99) + 1;
-    final username = '$adj$noun$num';
-    final lvl = 1 + rng.nextInt(20);
-    final xp = lvl * 250 + rng.nextInt(300);
-    final streak = rng.nextInt(60);
-    peers.add(_PeerEntry(
-      username: username,
-      level: lvl,
-      xp: xp,
-      streak: streak,
-    ));
-  }
-
-  // Add user
-  peers.add(_PeerEntry(
-    username: 'YOU',
-    level: userLevel,
-    xp: userXP,
-    streak: userStreak,
-    isYou: true,
-  ));
-
-  // Sort by XP desc
-  peers.sort((a, b) => b.xp.compareTo(a.xp));
-
-  return peers;
-}
-
-// ─────────────────────────────────────────────────────────────────
-//  Leaderboard Screen
-// ─────────────────────────────────────────────────────────────────
-
-class LeaderboardScreen extends StatefulWidget {
+class LeaderboardScreen extends StatelessWidget {
   const LeaderboardScreen({super.key});
 
   @override
-  State<LeaderboardScreen> createState() => _LeaderboardScreenState();
-}
-
-class _LeaderboardScreenState extends State<LeaderboardScreen> {
-  final ScrollController _scrollController = ScrollController();
-  List<_PeerEntry> _peers = const [];
-  int _userIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _buildAndScroll());
-  }
-
-  void _buildAndScroll() {
-    final provider = context.read<AppProvider>();
-    final age = provider.profile?.age ?? 18;
-    final gender = provider.profile?.gender ?? 'male';
-    final peers = _generatePeers(
-      age,
-      gender,
-      provider.totalXP,
-      provider.level,
-      provider.streak,
-    );
-    final idx = peers.indexWhere((p) => p.isYou);
-    setState(() {
-      _peers = peers;
-      _userIndex = idx < 0 ? 0 : idx;
-    });
-
-    // Auto-scroll to user position (rough estimate of row height ~72)
-    if (_scrollController.hasClients && _userIndex > 3) {
-      final target = (_userIndex * 72.0).clamp(
-        0.0,
-        _scrollController.position.maxScrollExtent,
-      );
-      _scrollController.animateTo(
-        target,
-        duration: const Duration(milliseconds: 700),
-        curve: Curves.easeOutCubic,
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // Intentionally unused localization reference (consistent with other screens).
-    AppLocalizations.of(context);
+    final provider = context.watch<AppProvider>();
+    final l = AppLocalizations.of(context)!;
+
+    final age = provider.profile?.age ?? 18;
+    final isMale = (provider.profile?.gender ?? 'male') == 'male';
+    final height = provider.profile?.currentHeight ?? 170.0;
+
+    final mean = HeightReference.getMean(age, isMale);
+    final pct = HeightReference.percentile(
+      heightCm: height,
+      age: age,
+      isMale: isMale,
+    );
+    final refs = HeightReference.referenceHeights(age, isMale);
 
     return Scaffold(
       backgroundColor: AppColors.scaffold,
-      body: _peers.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(color: AppColors.primary),
-            )
-          : _buildContent(),
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          _buildAppBar(context, l),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(16, 20, 16, 40),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                // ── Hero percentile card ──
+                _HeroPercentileCard(
+                  heightCm: height,
+                  pct: pct,
+                  mean: mean,
+                  age: age,
+                  isMale: isMale,
+                ),
+                const SizedBox(height: 24),
+
+                // ── Position on population curve ──
+                SectionHeader(
+                  icon: CupertinoIcons.chart_bar_fill,
+                  title: l.heightVsPopulation,
+                  iconColor: AppColors.primary,
+                ),
+                const SizedBox(height: 12),
+                _PopulationBarChart(
+                  heightCm: height,
+                  refs: refs,
+                  color: AppColors.primary,
+                ),
+                const SizedBox(height: 24),
+
+                // ── Reference table ──
+                SectionHeader(
+                  icon: CupertinoIcons.table,
+                  title: l.globalAveragesTable,
+                  iconColor: AppColors.cyan,
+                ),
+                const SizedBox(height: 12),
+                _ReferenceTable(
+                  age: age,
+                  isMale: isMale,
+                  userHeight: height,
+                ),
+                const SizedBox(height: 24),
+
+                // ── Scientific source note ──
+                _SourceNote(),
+              ]),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildContent() {
-    final provider = context.watch<AppProvider>();
-    final userRank = _userIndex + 1;
-    final percentile = provider.peerPercentile;
-    final topPct = (100 - percentile).clamp(1, 100);
-
-    final top3 = _peers.take(3).toList();
-    final rest = _peers; // full list including top 3
-
-    return CustomScrollView(
-      controller: _scrollController,
-      physics: const BouncingScrollPhysics(),
-      slivers: [
-        // ── App Bar / Header ──
-        SliverAppBar(
-          expandedHeight: 140,
-          pinned: true,
-          backgroundColor: AppColors.surfaceDark,
-          leading: IconButton(
-            icon: const Icon(CupertinoIcons.back, color: Colors.white),
-            onPressed: () {
-              HapticFeedback.lightImpact();
-              Navigator.pop(context);
-            },
-          ),
-          title: const Text(
-            'Leaderboard',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
-          ),
-          flexibleSpace: FlexibleSpaceBar(
-            background: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 50,
-                    left: 16,
-                    right: 16,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'LEADERBOARD',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w900,
-                          color: AppColors.primary,
-                          letterSpacing: 2.0,
-                          shadows: [
-                            Shadow(
-                              color: AppColors.primary.withValues(alpha: 0.6),
-                              blurRadius: 16,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Your age group · Anonymous',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: AppColors.textTertiary,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.4,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+  Widget _buildAppBar(BuildContext context, AppLocalizations l) {
+    return SliverAppBar(
+      pinned: true,
+      backgroundColor: AppColors.surfaceDark,
+      leading: IconButton(
+        icon: const Icon(CupertinoIcons.back, color: Colors.white),
+        onPressed: () {
+          HapticFeedback.lightImpact();
+          Navigator.pop(context);
+        },
+      ),
+      title: Text(
+        l.heightAnalysis,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
+        ),
+      ),
+      flexibleSpace: FlexibleSpaceBar(
+        background: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
           ),
         ),
-
-        // ── Body padding ──
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
-          sliver: SliverList(
-            delegate: SliverChildListDelegate([
-              // 1. USER RANK HERO CARD
-              _UserRankHeroCard(
-                rank: userRank,
-                topPct: topPct,
-                level: provider.level,
-                xp: provider.totalXP,
-                streak: provider.streak,
-              ),
-              const SizedBox(height: 24),
-
-              // 2. TOP 3 PODIUM
-              SectionHeader(
-                icon: CupertinoIcons.rosette,
-                title: 'Top 3 Champions',
-                iconColor: AppColors.warning,
-              ),
-              const SizedBox(height: 12),
-              _PodiumCard(top3: top3),
-              const SizedBox(height: 24),
-
-              // 3. FULL LEADERBOARD LIST HEADER
-              SectionHeader(
-                icon: CupertinoIcons.list_number,
-                title: 'Full Ranking',
-                iconColor: AppColors.lime,
-              ),
-              const SizedBox(height: 12),
-            ]),
-          ),
-        ),
-
-        // Full leaderboard sliver list
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 40),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final peer = rest[index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: _LeaderboardRow(
-                    rank: index + 1,
-                    peer: peer,
-                  ),
-                );
-              },
-              childCount: rest.length,
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
 
 // ─────────────────────────────────────────────────────────────────
-//  User Rank Hero Card
+//  Hero Percentile Card
 // ─────────────────────────────────────────────────────────────────
 
-class _UserRankHeroCard extends StatelessWidget {
-  final int rank;
-  final int topPct;
-  final int level;
-  final int xp;
-  final int streak;
+class _HeroPercentileCard extends StatelessWidget {
+  final double heightCm;
+  final double pct;
+  final double mean;
+  final int age;
+  final bool isMale;
 
-  const _UserRankHeroCard({
-    required this.rank,
-    required this.topPct,
-    required this.level,
-    required this.xp,
-    required this.streak,
+  const _HeroPercentileCard({
+    required this.heightCm,
+    required this.pct,
+    required this.mean,
+    required this.age,
+    required this.isMale,
   });
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final diff = heightCm - mean;
+    final isAbove = diff >= 0;
+    final diffAbs = diff.abs();
+    final diffStr = '${isAbove ? '+' : '-'}${diffAbs.toStringAsFixed(1)} cm';
+
+    // Pick accent color by percentile
+    Color accent;
+    String standing;
+    if (pct >= 75) {
+      accent = AppColors.lime;
+      standing = l.standingTall;
+    } else if (pct >= 50) {
+      accent = AppColors.cyan;
+      standing = l.standingAboveAverage;
+    } else if (pct >= 25) {
+      accent = AppColors.warning;
+      standing = l.standingBelowAverage;
+    } else {
+      accent = AppColors.orange;
+      standing = l.standingShort;
+    }
+
     return GlassCard(
-      glowColor: AppColors.warning.withValues(alpha: 0.30),
-      padding: const EdgeInsets.all(24),
+      glowColor: accent.withValues(alpha: 0.28),
+      padding: const EdgeInsets.fromLTRB(24, 24, 24, 20),
       child: Column(
         children: [
+          // Label
           Text(
-            'YOUR RANK',
+            l.yourHeightStanding.toUpperCase(),
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -369,118 +184,127 @@ class _UserRankHeroCard extends StatelessWidget {
               letterSpacing: 1.8,
             ),
           ),
-          const SizedBox(height: 8),
-          // Big rank number
+          const SizedBox(height: 14),
+
+          // Big percentile number
           ShaderMask(
             blendMode: BlendMode.srcIn,
-            shaderCallback: (bounds) => const LinearGradient(
-              colors: [Color(0xFFF5C542), Color(0xFFFF8A00)],
+            shaderCallback: (bounds) => LinearGradient(
+              colors: [accent, accent.withValues(alpha: 0.7)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ).createShader(bounds),
             child: Text(
-              '#$rank',
+              'TOP ${(100 - pct).clamp(1, 99).toStringAsFixed(0)}%',
               style: TextStyle(
-                fontSize: 64,
+                fontSize: 56,
                 fontWeight: FontWeight.w900,
-                letterSpacing: 1.5,
+                letterSpacing: 1.0,
                 color: Colors.white,
                 shadows: [
                   Shadow(
-                    color: AppColors.warning.withValues(alpha: 0.6),
+                    color: accent.withValues(alpha: 0.55),
                     blurRadius: 24,
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 6),
+
+          // Standing badge
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  AppColors.warning.withValues(alpha: 0.25),
-                  AppColors.orange.withValues(alpha: 0.18),
+                  accent.withValues(alpha: 0.22),
+                  accent.withValues(alpha: 0.12),
                 ],
               ),
               borderRadius: BorderRadius.circular(999),
               border: Border.all(
-                color: AppColors.warning.withValues(alpha: 0.45),
+                color: accent.withValues(alpha: 0.45),
                 width: 1,
               ),
             ),
             child: Text(
-              'TOP $topPct%',
+              standing,
               style: TextStyle(
                 fontSize: 12,
-                fontWeight: FontWeight.w800,
-                color: AppColors.warning,
-                letterSpacing: 1.4,
+                fontWeight: FontWeight.w700,
+                color: accent,
+                letterSpacing: 0.4,
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 22),
+
           // Divider
-          Container(
-            height: 1,
-            color: Colors.white.withValues(alpha: 0.06),
-          ),
-          const SizedBox(height: 16),
+          Container(height: 1, color: Colors.white.withValues(alpha: 0.06)),
+          const SizedBox(height: 18),
+
           // Stats row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _HeroStat(
-                label: 'LEVEL',
-                value: '$level',
-                color: AppColors.primary,
-                icon: CupertinoIcons.star_fill,
+              _StatCol(
+                label: l.yourHeight,
+                value: '${heightCm.toStringAsFixed(1)} cm',
+                color: Colors.white,
+                icon: CupertinoIcons.person_fill,
               ),
               Container(
                 width: 1,
-                height: 36,
+                height: 40,
                 color: Colors.white.withValues(alpha: 0.08),
               ),
-              _HeroStat(
-                label: 'XP',
-                value: _formatXp(xp),
-                color: AppColors.cyan,
-                icon: CupertinoIcons.bolt_fill,
+              _StatCol(
+                label: l.peerAvg(age),
+                value: '${mean.toStringAsFixed(1)} cm',
+                color: AppColors.textTertiary,
+                icon: CupertinoIcons.group_solid,
               ),
               Container(
                 width: 1,
-                height: 36,
+                height: 40,
                 color: Colors.white.withValues(alpha: 0.08),
               ),
-              _HeroStat(
-                label: 'STREAK',
-                value: '$streak',
-                color: AppColors.orange,
-                icon: CupertinoIcons.flame_fill,
+              _StatCol(
+                label: isAbove ? l.aboveAvg : l.belowAvg,
+                value: diffStr,
+                color: isAbove ? AppColors.lime : AppColors.orange,
+                icon: isAbove
+                    ? CupertinoIcons.arrow_up_circle_fill
+                    : CupertinoIcons.arrow_down_circle_fill,
               ),
             ],
+          ),
+
+          const SizedBox(height: 18),
+          // Source line
+          Text(
+            l.whoDataSource,
+            style: TextStyle(
+              fontSize: 10,
+              color: AppColors.textTertiary.withValues(alpha: 0.6),
+              letterSpacing: 0.2,
+            ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
     );
   }
-
-  String _formatXp(int xp) {
-    if (xp >= 1000) {
-      return '${(xp / 1000).toStringAsFixed(1)}k';
-    }
-    return '$xp';
-  }
 }
 
-class _HeroStat extends StatelessWidget {
+class _StatCol extends StatelessWidget {
   final String label;
   final String value;
   final Color color;
   final IconData icon;
 
-  const _HeroStat({
+  const _StatCol({
     required this.label,
     required this.value,
     required this.color,
@@ -491,30 +315,25 @@ class _HeroStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon, color: color, size: 16),
+        Icon(icon, color: color, size: 14),
         const SizedBox(height: 4),
         Text(
           value,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.w800,
-            color: Colors.white,
-            shadows: [
-              Shadow(
-                color: color.withValues(alpha: 0.6),
-                blurRadius: 10,
-              ),
-            ],
+            color: color,
           ),
         ),
-        const SizedBox(height: 2),
+        const SizedBox(height: 3),
         Text(
           label,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 10,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
             color: AppColors.textTertiary,
-            letterSpacing: 1.2,
+            letterSpacing: 0.3,
           ),
         ),
       ],
@@ -523,62 +342,216 @@ class _HeroStat extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────
-//  Podium Card (Top 3)
+//  Population Bar Chart
 // ─────────────────────────────────────────────────────────────────
 
-class _PodiumCard extends StatelessWidget {
-  final List<_PeerEntry> top3;
+class _PopulationBarChart extends StatelessWidget {
+  final double heightCm;
+  final Map<String, double> refs;
+  final Color color;
 
-  const _PodiumCard({required this.top3});
+  const _PopulationBarChart({
+    required this.heightCm,
+    required this.refs,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Ensure we always have 3 entries
-    final first = top3.isNotEmpty ? top3[0] : null;
-    final second = top3.length > 1 ? top3[1] : null;
-    final third = top3.length > 2 ? top3[2] : null;
+    final l = AppLocalizations.of(context)!;
+
+    // Build 5 bands between consecutive percentile values
+    final bands = [
+      (label: 'P5', pct: 5, cm: refs['p5']!),
+      (label: 'P25', pct: 25, cm: refs['p25']!),
+      (label: 'P50', pct: 50, cm: refs['p50']!),
+      (label: 'P75', pct: 75, cm: refs['p75']!),
+      (label: 'P95', pct: 95, cm: refs['p95']!),
+    ];
+
+    final minH = bands.first.cm - 4;
+    final maxH = bands.last.cm + 4;
+    final span = maxH - minH;
+
+    // User marker fraction along the bar
+    final userFrac = ((heightCm - minH) / span).clamp(0.0, 1.0);
 
     return GlassCard(
-      glowColor: AppColors.warning.withValues(alpha: 0.20),
-      padding: const EdgeInsets.fromLTRB(16, 20, 16, 20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+      glowColor: color.withValues(alpha: 0.15),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 2nd
-          Expanded(
-            child: second != null
-                ? _PodiumColumn(
-                    peer: second,
-                    position: 2,
-                    height: 90,
-                    color: const Color(0xFFC0C0C0), // Silver
-                  )
-                : const SizedBox.shrink(),
+          // Gradient bar
+          LayoutBuilder(
+            builder: (ctx, constraints) {
+              final totalWidth = constraints.maxWidth;
+              final markerX = userFrac * totalWidth;
+
+              return SizedBox(
+                height: 78,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    // Gradient bar (full width)
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      top: 22,
+                      child: Container(
+                        height: 20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                            colors: [
+                              AppColors.orange.withValues(alpha: 0.80),
+                              AppColors.warning.withValues(alpha: 0.80),
+                              AppColors.lime.withValues(alpha: 0.80),
+                              AppColors.cyan.withValues(alpha: 0.80),
+                              color.withValues(alpha: 0.80),
+                            ],
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: color.withValues(alpha: 0.20),
+                              blurRadius: 10,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // Percentile tick marks + labels
+                    ...bands.map((b) {
+                      final x =
+                          ((b.cm - minH) / span).clamp(0.0, 1.0) * totalWidth;
+                      return Positioned(
+                        left: x - 1,
+                        top: 18,
+                        child: Container(
+                          width: 2,
+                          height: 28,
+                          color: Colors.black.withValues(alpha: 0.30),
+                        ),
+                      );
+                    }),
+
+                    // User arrow + dot marker
+                    Positioned(
+                      left: (markerX - 12).clamp(0, totalWidth - 24),
+                      top: 0,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(6),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: color.withValues(alpha: 0.50),
+                                  blurRadius: 8,
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              heightCm.toStringAsFixed(0),
+                              style: TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.w900,
+                                color: AppColors.scaffold,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 2,
+                            height: 6,
+                            color: Colors.white,
+                          ),
+                          Container(
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: color.withValues(alpha: 0.60),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Bottom labels for percentile anchors
+                    ...bands.map((b) {
+                      final x =
+                          ((b.cm - minH) / span).clamp(0.0, 1.0) * totalWidth;
+                      return Positioned(
+                        left: (x - 14).clamp(0, totalWidth - 28),
+                        bottom: 0,
+                        child: Text(
+                          b.label,
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.textTertiary,
+                          ),
+                        ),
+                      );
+                    }),
+                  ],
+                ),
+              );
+            },
           ),
-          const SizedBox(width: 8),
-          // 1st
-          Expanded(
-            child: first != null
-                ? _PodiumColumn(
-                    peer: first,
-                    position: 1,
-                    height: 120,
-                    color: AppColors.warning, // Gold
-                    isChampion: true,
-                  )
-                : const SizedBox.shrink(),
-          ),
-          const SizedBox(width: 8),
-          // 3rd
-          Expanded(
-            child: third != null
-                ? _PodiumColumn(
-                    peer: third,
-                    position: 3,
-                    height: 70,
-                    color: const Color(0xFFCD7F32), // Bronze
-                  )
-                : const SizedBox.shrink(),
+          const SizedBox(height: 14),
+          // Legend row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _LegendDot(
+                color: AppColors.orange,
+                label: l.percentileShort5,
+              ),
+              _LegendDot(
+                color: AppColors.lime,
+                label: l.percentileShort50,
+              ),
+              _LegendDot(
+                color: color,
+                label: l.percentileShort95,
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 10,
+                    height: 10,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    l.youLabel,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textTertiary,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
@@ -586,152 +559,28 @@ class _PodiumCard extends StatelessWidget {
   }
 }
 
-class _PodiumColumn extends StatelessWidget {
-  final _PeerEntry peer;
-  final int position;
-  final double height;
+class _LegendDot extends StatelessWidget {
   final Color color;
-  final bool isChampion;
+  final String label;
 
-  const _PodiumColumn({
-    required this.peer,
-    required this.position,
-    required this.height,
-    required this.color,
-    this.isChampion = false,
-  });
+  const _LegendDot({required this.color, required this.label});
 
   @override
   Widget build(BuildContext context) {
-    final avatarSize = isChampion ? 58.0 : 46.0;
-    final initials = peer.username.length >= 2
-        ? peer.username.substring(0, 2).toUpperCase()
-        : peer.username.toUpperCase();
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return Row(
       children: [
-        if (isChampion)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Icon(
-              CupertinoIcons.rosette,
-              color: color,
-              size: 22,
-              shadows: [
-                Shadow(
-                  color: color.withValues(alpha: 0.8),
-                  blurRadius: 12,
-                ),
-              ],
-            ),
-          ),
-        // Avatar
         Container(
-          width: avatarSize,
-          height: avatarSize,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-              colors: peer.isYou
-                  ? [AppColors.primary, AppColors.primaryDark]
-                  : [color, color.withValues(alpha: 0.6)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            border: Border.all(
-              color: peer.isYou
-                  ? AppColors.primaryBright
-                  : color.withValues(alpha: 0.9),
-              width: 2,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: (peer.isYou ? AppColors.primary : color)
-                    .withValues(alpha: 0.55),
-                blurRadius: 16,
-              ),
-            ],
-          ),
-          child: Center(
-            child: Text(
-              initials,
-              style: TextStyle(
-                fontSize: isChampion ? 20 : 16,
-                fontWeight: FontWeight.w800,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          width: 10,
+          height: 10,
+          decoration: BoxDecoration(shape: BoxShape.circle, color: color),
         ),
-        const SizedBox(height: 6),
-        // Username (truncated)
+        const SizedBox(width: 4),
         Text(
-          peer.isYou ? 'YOU' : peer.username,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w800,
-            color: peer.isYou ? AppColors.primaryBright : Colors.white,
-            letterSpacing: 0.2,
-          ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          '${peer.xp} XP',
+          label,
           style: TextStyle(
             fontSize: 10,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
             color: AppColors.textTertiary,
-          ),
-        ),
-        const SizedBox(height: 8),
-        // Podium pillar
-        Container(
-          height: height,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                color.withValues(alpha: 0.35),
-                color.withValues(alpha: 0.08),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(10),
-            ),
-            border: Border(
-              top: BorderSide(color: color.withValues(alpha: 0.7), width: 2),
-              left: BorderSide(color: color.withValues(alpha: 0.25)),
-              right: BorderSide(color: color.withValues(alpha: 0.25)),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: color.withValues(alpha: 0.30),
-                blurRadius: 18,
-                offset: const Offset(0, -4),
-              ),
-            ],
-          ),
-          child: Center(
-            child: Text(
-              '$position',
-              style: TextStyle(
-                fontSize: isChampion ? 28 : 22,
-                fontWeight: FontWeight.w900,
-                color: color,
-                shadows: [
-                  Shadow(
-                    color: color.withValues(alpha: 0.8),
-                    blurRadius: 12,
-                  ),
-                ],
-              ),
-            ),
           ),
         ),
       ],
@@ -740,225 +589,229 @@ class _PodiumColumn extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────
-//  Leaderboard Row
+//  Reference Table — age groups around user's age
 // ─────────────────────────────────────────────────────────────────
 
-class _LeaderboardRow extends StatelessWidget {
-  final int rank;
-  final _PeerEntry peer;
+class _ReferenceTable extends StatelessWidget {
+  final int age;
+  final bool isMale;
+  final double userHeight;
 
-  const _LeaderboardRow({
-    required this.rank,
-    required this.peer,
+  const _ReferenceTable({
+    required this.age,
+    required this.isMale,
+    required this.userHeight,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isYou = peer.isYou;
-    final initials = peer.username.length >= 2
-        ? peer.username.substring(0, 2).toUpperCase()
-        : peer.username.toUpperCase();
+    final l = AppLocalizations.of(context)!;
 
-    // Rank color accent for top 3
-    Color rankColor = AppColors.textTertiary;
-    if (rank == 1) rankColor = AppColors.warning;
-    if (rank == 2) rankColor = const Color(0xFFC0C0C0);
-    if (rank == 3) rankColor = const Color(0xFFCD7F32);
+    // Show ages ±4 around user, clamped to 10–25
+    final ages = List.generate(
+      8,
+      (i) => (age - 3 + i).clamp(10, 25),
+    ).toSet().toList()..sort();
 
-    return GestureDetector(
-      onTap: () => HapticFeedback.selectionClick(),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: isYou
-              ? LinearGradient(
-                  colors: [
-                    AppColors.primary.withValues(alpha: 0.28),
-                    AppColors.primaryDark.withValues(alpha: 0.20),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : const LinearGradient(
-                  colors: [Color(0xFF141432), Color(0xFF0B0B22)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(
-            color: isYou
-                ? AppColors.primary.withValues(alpha: 0.7)
-                : Colors.white.withValues(alpha: 0.06),
-            width: isYou ? 1.5 : 1,
+    return GlassCard(
+      glowColor: AppColors.cyan.withValues(alpha: 0.12),
+      padding: const EdgeInsets.all(0),
+      child: Column(
+        children: [
+          // Header row
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 6),
+            child: Row(
+              children: [
+                _TableHeader(l.ageLabel, flex: 2),
+                _TableHeader(l.avgHeightLabel, flex: 3),
+                _TableHeader(l.percentileLabel, flex: 3),
+                _TableHeader(l.diffLabel, flex: 2),
+              ],
+            ),
           ),
-          boxShadow: isYou
-              ? [
-                  BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.45),
-                    blurRadius: 20,
-                    offset: const Offset(0, 0),
+          Container(
+            height: 1,
+            color: Colors.white.withValues(alpha: 0.06),
+          ),
+          // Rows
+          ...ages.map((a) {
+            final isUserAge = a == age;
+            final m = HeightReference.getMean(a, isMale);
+            final p = HeightReference.percentile(
+              heightCm: userHeight,
+              age: a,
+              isMale: isMale,
+            );
+            final diff = userHeight - m;
+            final isAbove = diff >= 0;
+
+            return Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: isUserAge
+                        ? AppColors.primary.withValues(alpha: 0.12)
+                        : Colors.transparent,
                   ),
-                ]
-              : [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.30),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        child: Row(
-          children: [
-            // Rank number
-            SizedBox(
-              width: 34,
-              child: Text(
-                '#$rank',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w800,
-                  color: rankColor,
-                  shadows: rank <= 3
-                      ? [
-                          Shadow(
-                            color: rankColor.withValues(alpha: 0.6),
-                            blurRadius: 8,
-                          ),
-                        ]
-                      : null,
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            // Avatar
-            Container(
-              width: 38,
-              height: 38,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  colors: isYou
-                      ? [AppColors.primary, AppColors.primaryDark]
-                      : [
-                          AppColors.cardFillLight,
-                          AppColors.cardFill,
-                        ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                border: Border.all(
-                  color: isYou
-                      ? AppColors.primaryBright
-                      : Colors.white.withValues(alpha: 0.12),
-                  width: 1.2,
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  initials,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            // Username
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    isYou ? 'YOU' : peer.username,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: isYou
-                          ? AppColors.primaryBright
-                          : Colors.white,
-                      letterSpacing: 0.2,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Row(
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+                  child: Row(
                     children: [
-                      Icon(
-                        CupertinoIcons.flame_fill,
-                        size: 10,
-                        color: AppColors.orange.withValues(alpha: 0.85),
+                      // Age
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          children: [
+                            if (isUserAge)
+                              Container(
+                                width: 5,
+                                height: 5,
+                                margin: const EdgeInsets.only(right: 4),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.primary,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.primary
+                                          .withValues(alpha: 0.6),
+                                      blurRadius: 6,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            Text(
+                              '$a',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: isUserAge
+                                    ? FontWeight.w800
+                                    : FontWeight.w500,
+                                color: isUserAge
+                                    ? AppColors.primaryBright
+                                    : Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(width: 3),
-                      Text(
-                        '${peer.streak}',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textTertiary,
+                      // Average
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          '${m.toStringAsFixed(1)} cm',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: isUserAge
+                                ? Colors.white
+                                : AppColors.textSecondary,
+                          ),
+                        ),
+                      ),
+                      // Percentile
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          '%${p.toStringAsFixed(0)}',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: _pctColor(p),
+                          ),
+                        ),
+                      ),
+                      // Diff
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          '${isAbove ? '+' : ''}${diff.toStringAsFixed(1)}',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: isAbove
+                                ? AppColors.lime
+                                : AppColors.orange,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            // Level badge
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 3,
-              ),
-              decoration: BoxDecoration(
-                gradient: isYou
-                    ? AppColors.gradientGrowth
-                    : LinearGradient(
-                        colors: [
-                          AppColors.primary.withValues(alpha: 0.25),
-                          AppColors.primaryDark.withValues(alpha: 0.18),
-                        ],
-                      ),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: AppColors.primary.withValues(alpha: 0.45),
-                  width: 0.8,
                 ),
-              ),
-              child: Text(
-                'LV ${peer.level}',
-                style: const TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                  letterSpacing: 0.8,
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            // XP
-            SizedBox(
-              width: 62,
-              child: Text(
-                '${peer.xp} XP',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w800,
-                  color: isYou ? AppColors.lime : AppColors.cyan,
-                  shadows: [
-                    Shadow(
-                      color: (isYou ? AppColors.lime : AppColors.cyan)
-                          .withValues(alpha: 0.5),
-                      blurRadius: 8,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+                if (a != ages.last)
+                  Container(
+                    height: 1,
+                    color: Colors.white.withValues(alpha: 0.04),
+                  ),
+              ],
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  Color _pctColor(double p) {
+    if (p >= 75) return AppColors.lime;
+    if (p >= 50) return AppColors.cyan;
+    if (p >= 25) return AppColors.warning;
+    return AppColors.orange;
+  }
+}
+
+class _TableHeader extends StatelessWidget {
+  final String text;
+  final int flex;
+
+  const _TableHeader(this.text, {required this.flex});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: flex,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w800,
+          color: AppColors.textTertiary,
+          letterSpacing: 0.5,
         ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────
+//  Source note
+// ─────────────────────────────────────────────────────────────────
+
+class _SourceNote extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    return GlassCard(
+      glowColor: Colors.transparent,
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          Icon(
+            CupertinoIcons.info_circle,
+            size: 18,
+            color: AppColors.textTertiary,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              l.whoSourceNote,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textTertiary,
+                height: 1.5,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

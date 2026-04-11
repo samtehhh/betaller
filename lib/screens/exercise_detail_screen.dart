@@ -9,6 +9,7 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/localized_data.dart';
 
+
 /// Parsed set/rep info from setsReps string.
 class _SetInfo {
   final int totalSets;
@@ -177,10 +178,13 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
   // ── Timer helpers ──────────────────────────────────────────────
 
   void _startTimer() {
+    if (_isRunning) return; // already running — ignore duplicate taps
     if (_remainingSeconds <= 0) return;
+    _timer?.cancel(); // always cancel any lingering timer first
     HapticFeedback.mediumImpact();
     setState(() => _isRunning = true);
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) { timer.cancel(); return; }
       if (_remainingSeconds <= 1) {
         timer.cancel();
         HapticFeedback.heavyImpact();
@@ -323,6 +327,8 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
     final localized = localizedRoutine(l, routine.id);
     final displayTitle = localized['title'] ?? routine.title;
     final displayDesc = localized['description'] ?? routine.description;
+    final displayForm = localized['form']?.isNotEmpty == true ? localized['form']! : routine.formDescription;
+    final displayScience = localized['science']?.isNotEmpty == true ? localized['science']! : routine.scientificBasis;
 
     return Scaffold(
       backgroundColor: AppColors.scaffold,
@@ -330,99 +336,108 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
         bottom: false,
         child: Column(
           children: [
-            // ── Top compact bar ──
+            // ── Top compact bar (stays fixed) ──
             _buildTopBar(displayTitle, diffColor, l),
 
-            // ── HERO TIMER (always visible at top) ──
-            if (!_useFallbackTimer)
-              _buildHeroTracker(catColor, l)
-            else if (widget.routine.timerSeconds != null && widget.routine.timerSeconds! > 0)
-              _buildHeroFallbackTimer(catColor, l)
-            else
-              _buildSimpleHero(routine, catColor, displayDesc),
-
-            // ── Scrollable details below ──
+            // ── Everything scrolls as one unit ──
             Expanded(
               child: SingleChildScrollView(
-                physics: const ClampingScrollPhysics(),
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (!_useFallbackTimer || (widget.routine.timerSeconds != null && widget.routine.timerSeconds! > 0))
-                      _buildShortDescription(displayDesc),
 
-                    // Form description
-                    if (routine.formDescription.isNotEmpty)
-                      _buildSection(
-                        icon: CupertinoIcons.text_badge_checkmark,
-                        title: l.howToDoIt,
-                        iconColor: AppColors.primary,
-                        child: Text(
-                          routine.formDescription,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white.withValues(alpha: 0.85),
-                            height: 1.6,
-                          ),
-                        ),
-                      ),
-                    if (routine.formDescription.isNotEmpty) const SizedBox(height: 12),
+                    // ── HERO TIMER ──
+                    if (!_useFallbackTimer)
+                      _buildHeroTracker(catColor, l)
+                    else if (widget.routine.timerSeconds != null && widget.routine.timerSeconds! > 0)
+                      _buildHeroFallbackTimer(catColor, l)
+                    else
+                      _buildSimpleHero(routine, catColor, displayDesc),
 
-                    // Muscles
-                    if (routine.musclesTargeted.isNotEmpty)
-                      _buildSection(
-                        icon: CupertinoIcons.sportscourt,
-                        title: l.musclesTargeted,
-                        iconColor: AppColors.cyan,
-                        child: Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
-                          children: routine.musclesTargeted.map((muscle) {
-                            return Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: AppColors.cyan.withValues(alpha: 0.12),
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: AppColors.cyan.withValues(alpha: 0.30)),
-                              ),
+                    // ── Details ──
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (!_useFallbackTimer || (widget.routine.timerSeconds != null && widget.routine.timerSeconds! > 0))
+                            _buildShortDescription(displayDesc),
+
+                          // Form description
+                          if (displayForm.isNotEmpty)
+                            _buildSection(
+                              icon: CupertinoIcons.text_badge_checkmark,
+                              title: l.howToDoIt,
+                              iconColor: AppColors.primary,
                               child: Text(
-                                _formatMuscle(muscle),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.cyan,
+                                displayForm,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white.withValues(alpha: 0.85),
+                                  height: 1.6,
                                 ),
                               ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    if (routine.musclesTargeted.isNotEmpty) const SizedBox(height: 12),
+                            ),
+                          if (displayForm.isNotEmpty) const SizedBox(height: 12),
 
-                    // Scientific basis
-                    if (routine.scientificBasis.isNotEmpty)
-                      _buildSection(
-                        icon: CupertinoIcons.lab_flask,
-                        title: l.scientificBasis,
-                        iconColor: AppColors.lime,
-                        child: Text(
-                          routine.scientificBasis,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white.withValues(alpha: 0.78),
-                            height: 1.55,
-                          ),
-                        ),
+                          // Muscles
+                          if (routine.musclesTargeted.isNotEmpty)
+                            _buildSection(
+                              icon: CupertinoIcons.sportscourt,
+                              title: l.musclesTargeted,
+                              iconColor: AppColors.cyan,
+                              child: Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: routine.musclesTargeted.map((muscle) {
+                                  return Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.cyan.withValues(alpha: 0.12),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: AppColors.cyan.withValues(alpha: 0.30)),
+                                    ),
+                                    child: Text(
+                                      localizedMuscle(l, muscle),
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.cyan,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          if (routine.musclesTargeted.isNotEmpty) const SizedBox(height: 12),
+
+                          // Scientific basis
+                          if (displayScience.isNotEmpty)
+                            _buildSection(
+                              icon: CupertinoIcons.lab_flask,
+                              title: l.scientificBasis,
+                              iconColor: AppColors.lime,
+                              child: Text(
+                                displayScience,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white.withValues(alpha: 0.78),
+                                  height: 1.55,
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
+                    ),
                   ],
                 ),
               ),
             ),
 
-            // ── Mark Complete Button ──
+            // ── Mark Complete Button (stays fixed at bottom) ──
             _buildCompleteButton(l),
           ],
         ),
@@ -642,44 +657,42 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
     required String label,
     required Color color,
   }) {
-    return AnimatedBuilder(
-      animation: _pulseController,
-      builder: (context, _) {
-        final pulse = _isRunning ? 1.0 + (_pulseController.value * 0.04) : 1.0;
-        return Transform.scale(
-          scale: pulse,
-          child: Column(
-            children: [
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: 84,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  letterSpacing: -3,
-                  height: 1,
-                  shadows: [
-                    Shadow(
-                      color: color.withValues(alpha: 0.5),
-                      blurRadius: 24,
-                    ),
-                  ],
+    return Column(
+      children: [
+        AnimatedBuilder(
+          animation: _pulseController,
+          builder: (context, child) {
+            final pulse = _isRunning ? 1.0 + (_pulseController.value * 0.03) : 1.0;
+            return Transform.scale(scale: pulse, child: child);
+          },
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 84,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: -3,
+              height: 1,
+              shadows: [
+                Shadow(
+                  color: color.withValues(alpha: 0.5),
+                  blurRadius: 24,
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white.withValues(alpha: 0.65),
-                  letterSpacing: 1.5,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        );
-      },
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: Colors.white.withValues(alpha: 0.65),
+            letterSpacing: 1.5,
+          ),
+        ),
+      ],
     );
   }
 
@@ -1108,10 +1121,4 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
     );
   }
 
-  String _formatMuscle(String muscle) {
-    return muscle
-        .split('_')
-        .map((w) => w.isNotEmpty ? '${w[0].toUpperCase()}${w.substring(1)}' : w)
-        .join(' ');
-  }
 }

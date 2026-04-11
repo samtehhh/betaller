@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '../l10n/app_localizations.dart'; // ignore: unused_import
+import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 
@@ -70,20 +70,20 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
     return _CaffeineBand.over;
   }
 
-  String _stressLabel(int level) {
+  String _stressLabel(int level, AppLocalizations l) {
     switch (level) {
       case 1:
-        return 'Very calm — optimal for growth';
+        return l.stressVeryCalmLabel;
       case 2:
-        return 'Calm';
+        return l.stressCalmLabel;
       case 3:
-        return 'Neutral';
+        return l.stressNeutralLabel;
       case 4:
-        return 'Stressed';
+        return l.stressStressedLabel;
       case 5:
-        return 'Very stressed — cortisol blocks HGH';
+        return l.stressVeryStressedLabel;
       default:
-        return 'Tap to log how you feel today';
+        return l.stressTapToLog;
     }
   }
 
@@ -104,7 +104,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
   }
 
   /// Compute the weekly insight sentence from the last 7 days of data.
-  String _weeklyInsight(AppProvider provider) {
+  String _weeklyInsight(AppProvider provider, AppLocalizations l) {
     final now = DateTime.now();
     final dates = List<String>.generate(7, (i) {
       final d = now.subtract(Duration(days: i));
@@ -130,7 +130,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
 
     final totalLogs = caffValues.length + stressValues.length + moodValues.length;
     if (totalLogs < 3) {
-      return 'Log for a few more days to see insights.';
+      return l.insightNeedMoreData;
     }
 
     final limit = provider.caffeineLimit;
@@ -146,32 +146,28 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
 
     // Priority 1: caffeine over limit
     if (avgCaff > limit * 0.9) {
-      return 'Your caffeine is high this week. Try cutting down for better sleep and HGH.';
+      return l.insightCaffeineHigh;
     }
     // Priority 2: high stress
     if (avgStress >= 4) {
-      return 'Stress is elevated this week. Consider breathing exercises — cortisol blocks growth.';
+      return l.insightStressHigh;
     }
     // Priority 3: low mood
     if (avgMood > 0 && avgMood <= 2.5) {
-      return 'Mood has been low lately. Sunlight, sleep, and gentle exercise all help.';
+      return l.insightMoodLow;
     }
     // Priority 4: all good
     if (avgCaff < limit * 0.5 && (avgStress == 0 || avgStress <= 2) && (avgMood == 0 || avgMood >= 4)) {
-      return 'Great balance this week. Your wellness supports optimal growth.';
+      return l.insightGreat;
     }
     // Default: neutral
-    return 'Your wellness is on track. Keep logging for deeper insights.';
+    return l.insightDefault;
   }
 
   // ── Build ──────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
-    // Touch the localizations getter so the import is treated as used even
-    // while we keep UI strings hardcoded in English for this feature.
-    AppLocalizations.of(context);
-
     return Scaffold(
       backgroundColor: AppColors.scaffold,
       body: Consumer<AppProvider>(
@@ -204,6 +200,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
   // ── Header ─────────────────────────────────────────────────
 
   Widget _buildHeader(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return SliverToBoxAdapter(
       child: Container(
         decoration: const BoxDecoration(
@@ -233,11 +230,11 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                         Navigator.pop(context);
                       },
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        'Wellness Tracker',
+                        l.wellnessTitle,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
@@ -261,7 +258,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 14),
                   child: Text(
-                    'WELLNESS',
+                    l.wellnessHeader,
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.w800,
@@ -280,7 +277,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 14),
                   child: Text(
-                    'Track factors that affect your growth',
+                    l.wellnessSubtitle,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -297,6 +294,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
   }
 
   void _showInfoSheet(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: AppColors.surfaceDark,
@@ -316,9 +314,9 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                     Icon(CupertinoIcons.info_circle_fill,
                         color: AppColors.primary, size: 22),
                     const SizedBox(width: 8),
-                    const Text(
-                      'Why wellness matters',
-                      style: TextStyle(
+                    Text(
+                      l.wellnessInfoTitle,
+                      style: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
@@ -328,7 +326,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Caffeine interferes with deep sleep, which is when most growth hormone (HGH) is released. Chronic stress raises cortisol, which directly suppresses HGH. Journaling helps you stay consistent with habits that support growth.',
+                  l.wellnessInfoBody,
                   style: TextStyle(
                     fontSize: 14,
                     height: 1.5,
@@ -341,7 +339,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                   child: TextButton(
                     onPressed: () => Navigator.pop(ctx),
                     child: Text(
-                      'Got it',
+                      l.wellnessInfoGotIt,
                       style: TextStyle(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w700,
@@ -360,6 +358,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
   // ── SECTION 1: Caffeine Tracker ────────────────────────────
 
   Widget _buildCaffeineSection(BuildContext context, AppProvider provider) {
+    final l = AppLocalizations.of(context)!;
     final current = provider.todayCaffeine;
     final limit = provider.caffeineLimit;
     final ratio = limit <= 0 ? 0.0 : (current / limit).clamp(0.0, 1.0);
@@ -370,15 +369,15 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
     switch (band) {
       case _CaffeineBand.healthy:
         statusColor = AppColors.success;
-        statusText = 'Within healthy limits';
+        statusText = l.withinLimits;
         break;
       case _CaffeineBand.approaching:
         statusColor = AppColors.warning;
-        statusText = 'Approaching limit';
+        statusText = l.approachingLimit;
         break;
       case _CaffeineBand.over:
         statusColor = AppColors.error;
-        statusText = 'Over limit — affects HGH';
+        statusText = l.overLimit;
         break;
     }
 
@@ -389,7 +388,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
         children: [
           SectionHeader(
             icon: CupertinoIcons.bolt_circle,
-            title: 'Caffeine Today',
+            title: l.caffeineToday,
             iconColor: AppColors.orange,
           ),
           const SizedBox(height: 14),
@@ -500,7 +499,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                     : AppColors.textSecondary,
               ),
               label: Text(
-                'Reset today',
+                l.resetToday,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -519,6 +518,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
   // ── SECTION 2: Stress Level ────────────────────────────────
 
   Widget _buildStressSection(BuildContext context, AppProvider provider) {
+    final l = AppLocalizations.of(context)!;
     final currentStress = provider.todayStress; // 0 if not set
     final isLogged = currentStress > 0;
 
@@ -529,7 +529,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
         children: [
           SectionHeader(
             icon: CupertinoIcons.heart_circle,
-            title: 'Stress Today',
+            title: l.stressToday,
             iconColor: AppColors.pink,
           ),
           const SizedBox(height: 18),
@@ -554,8 +554,8 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
             duration: const Duration(milliseconds: 250),
             child: Text(
               isLogged
-                  ? _stressLabel(currentStress)
-                  : 'Tap to log how you feel today',
+                  ? _stressLabel(currentStress, l)
+                  : l.stressTapToLog,
               key: ValueKey('stress-$currentStress'),
               style: TextStyle(
                 fontSize: 13,
@@ -572,6 +572,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
   // ── SECTION 3: Growth Journal ──────────────────────────────
 
   Widget _buildJournalSection(BuildContext context, AppProvider provider) {
+    final l = AppLocalizations.of(context)!;
     final todayJournal = provider.todayJournal;
     final alreadySaved = todayJournal != null && !_editingJournal;
 
@@ -582,7 +583,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
         children: [
           SectionHeader(
             icon: CupertinoIcons.book_circle,
-            title: "Today's Journal",
+            title: l.todaysJournal,
             iconColor: AppColors.lime,
           ),
           const SizedBox(height: 18),
@@ -597,6 +598,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
 
   Widget _buildSavedJournal(
       BuildContext context, Map<String, dynamic> journal) {
+    final l = AppLocalizations.of(context)!;
     final mood = (journal['mood'] as int?) ?? 0;
     final note = (journal['note'] as String?) ?? '';
     final moodEmoji =
@@ -614,7 +616,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
             const SizedBox(width: 14),
             Expanded(
               child: Text(
-                note.isEmpty ? '(no note)' : note,
+                note.isEmpty ? l.journalNoNote : note,
                 style: TextStyle(
                   fontSize: 14,
                   color: AppColors.textSecondary,
@@ -643,7 +645,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
               color: AppColors.lime,
             ),
             label: Text(
-              'Edit',
+              l.journalEdit,
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
@@ -657,6 +659,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
   }
 
   Widget _buildJournalEditor(BuildContext context, AppProvider provider) {
+    final l = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -696,7 +699,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
             ),
             cursorColor: AppColors.lime,
             decoration: InputDecoration(
-              hintText: 'How was today?',
+              hintText: l.journalHowWasToday,
               hintStyle: TextStyle(
                 color: AppColors.textTertiary,
                 fontSize: 14,
@@ -727,9 +730,9 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                         backgroundColor: AppColors.lime.withValues(alpha: 0.9),
                         behavior: SnackBarBehavior.floating,
                         duration: const Duration(seconds: 2),
-                        content: const Text(
-                          'Journal saved · +5 XP',
-                          style: TextStyle(
+                        content: Text(
+                          l.journalSaved,
+                          style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w700,
                           ),
@@ -749,9 +752,9 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
               ),
               elevation: 0,
             ),
-            child: const Text(
-              'Save entry',
-              style: TextStyle(
+            child: Text(
+              l.journalSaveEntry,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w800,
                 letterSpacing: 0.8,
@@ -766,7 +769,8 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
   // ── SECTION 4: Weekly Insight ──────────────────────────────
 
   Widget _buildInsightSection(BuildContext context, AppProvider provider) {
-    final sentence = _weeklyInsight(provider);
+    final l = AppLocalizations.of(context)!;
+    final sentence = _weeklyInsight(provider, l);
 
     // Compute display averages for subtitle.
     final now = DateTime.now();
@@ -807,7 +811,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
         children: [
           SectionHeader(
             icon: CupertinoIcons.sparkles,
-            title: 'Weekly Insight',
+            title: l.weeklyInsight,
             iconColor: AppColors.lime,
           ),
           const SizedBox(height: 14),
@@ -825,7 +829,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
             children: [
               Expanded(
                 child: _InsightStat(
-                  label: 'CAFFEINE',
+                  label: l.weeklyInsightCaffeine,
                   value: avgCaff == null ? '—' : '$avgCaff',
                   unit: avgCaff == null ? '' : 'mg',
                   color: AppColors.orange,
@@ -834,7 +838,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
               const SizedBox(width: 8),
               Expanded(
                 child: _InsightStat(
-                  label: 'STRESS',
+                  label: l.weeklyInsightStress,
                   value: avgStress == null
                       ? '—'
                       : avgStress.toStringAsFixed(1),
@@ -845,7 +849,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
               const SizedBox(width: 8),
               Expanded(
                 child: _InsightStat(
-                  label: 'MOOD',
+                  label: l.weeklyInsightMood,
                   value: avgMood == null
                       ? '—'
                       : avgMood.toStringAsFixed(1),

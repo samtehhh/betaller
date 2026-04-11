@@ -110,15 +110,13 @@ class _CustomRoutineBuilderScreenState
 
   @override
   Widget build(BuildContext context) {
-    // l10n is available but all visible copy here is English placeholders.
-    // ignore: unused_local_variable
     final l = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppColors.scaffold,
       body: Column(
         children: [
-          _buildTopBar(),
+          _buildTopBar(l),
           Expanded(
             child: SingleChildScrollView(
               physics: const ClampingScrollPhysics(),
@@ -153,7 +151,7 @@ class _CustomRoutineBuilderScreenState
   }
 
   // ── Top bar ────────────────────────────────────────────────
-  Widget _buildTopBar() {
+  Widget _buildTopBar(AppLocalizations l) {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -175,10 +173,10 @@ class _CustomRoutineBuilderScreenState
                   Navigator.of(context).pop();
                 },
               ),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Create Routine',
-                  style: TextStyle(
+                  l.createRoutineTitle,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                     color: Colors.white,
@@ -218,9 +216,9 @@ class _CustomRoutineBuilderScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(
+          SectionHeader(
             icon: CupertinoIcons.smiley,
-            title: 'Icon',
+            title: AppLocalizations.of(context)!.routineIcon,
           ),
           const SizedBox(height: 14),
           GridView.count(
@@ -281,9 +279,9 @@ class _CustomRoutineBuilderScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(
+          SectionHeader(
             icon: CupertinoIcons.textformat,
-            title: 'Title',
+            title: AppLocalizations.of(context)!.routineTitleField,
           ),
           const SizedBox(height: 12),
           TextField(
@@ -309,9 +307,9 @@ class _CustomRoutineBuilderScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(
+          SectionHeader(
             icon: CupertinoIcons.doc_text,
-            title: 'Description',
+            title: AppLocalizations.of(context)!.routineDescField,
           ),
           const SizedBox(height: 12),
           TextField(
@@ -325,7 +323,7 @@ class _CustomRoutineBuilderScreenState
               fontWeight: FontWeight.w500,
             ),
             cursorColor: AppColors.primary,
-            decoration: _inputDecoration('Short summary of the routine'),
+            decoration: _inputDecoration(AppLocalizations.of(context)!.routineDescHint),
           ),
         ],
       ),
@@ -334,28 +332,29 @@ class _CustomRoutineBuilderScreenState
 
   // ── Category ──────────────────────────────────────────────
   Widget _buildCategorySection() {
+    final l = AppLocalizations.of(context)!;
     final options = <Map<String, dynamic>>[
       {
         'key': 'exercise',
-        'label': 'Exercise',
+        'label': l.catExercise,
         'color': AppColors.exerciseColor,
         'icon': CupertinoIcons.bolt_fill,
       },
       {
         'key': 'nutrition',
-        'label': 'Nutrition',
+        'label': l.catNutrition,
         'color': AppColors.nutritionColor,
         'icon': CupertinoIcons.leaf_arrow_circlepath,
       },
       {
         'key': 'sleep',
-        'label': 'Sleep',
+        'label': l.catSleep,
         'color': AppColors.sleepColor,
         'icon': CupertinoIcons.moon_stars_fill,
       },
       {
         'key': 'posture',
-        'label': 'Posture',
+        'label': l.catPosture,
         'color': AppColors.postureColor,
         'icon': CupertinoIcons.person_fill,
       },
@@ -365,9 +364,9 @@ class _CustomRoutineBuilderScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(
+          SectionHeader(
             icon: CupertinoIcons.square_grid_2x2_fill,
-            title: 'Category',
+            title: l.routineCategoryField,
           ),
           const SizedBox(height: 14),
           Wrap(
@@ -435,20 +434,21 @@ class _CustomRoutineBuilderScreenState
 
   // ── Difficulty ────────────────────────────────────────────
   Widget _buildDifficultySection() {
+    final l = AppLocalizations.of(context)!;
     final items = <Map<String, dynamic>>[
       {
         'key': 'beginner',
-        'label': 'Beginner',
+        'label': l.diffBeginner,
         'color': AppColors.success,
       },
       {
         'key': 'intermediate',
-        'label': 'Intermediate',
+        'label': l.diffIntermediate,
         'color': AppColors.orange,
       },
       {
         'key': 'advanced',
-        'label': 'Advanced',
+        'label': l.diffAdvanced,
         'color': AppColors.error,
       },
     ];
@@ -457,9 +457,9 @@ class _CustomRoutineBuilderScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(
+          SectionHeader(
             icon: CupertinoIcons.flame_fill,
-            title: 'Difficulty',
+            title: l.routineDifficultyField,
           ),
           const SizedBox(height: 14),
           Row(
@@ -527,9 +527,9 @@ class _CustomRoutineBuilderScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(
+          SectionHeader(
             icon: CupertinoIcons.clock_fill,
-            title: 'Duration',
+            title: AppLocalizations.of(context)!.routineDurationField,
           ),
           const SizedBox(height: 14),
           Wrap(
@@ -590,9 +590,9 @@ class _CustomRoutineBuilderScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(
+          SectionHeader(
             icon: CupertinoIcons.number,
-            title: 'Sets x Reps',
+            title: AppLocalizations.of(context)!.routineSetsRepsField,
           ),
           const SizedBox(height: 12),
           TextField(
@@ -617,9 +617,9 @@ class _CustomRoutineBuilderScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(
+          SectionHeader(
             icon: CupertinoIcons.book_fill,
-            title: 'Form & Instructions',
+            title: AppLocalizations.of(context)!.routineFormField,
           ),
           const SizedBox(height: 12),
           TextField(
@@ -635,7 +635,7 @@ class _CustomRoutineBuilderScreenState
             ),
             cursorColor: AppColors.primary,
             decoration:
-                _inputDecoration('Optional — how to perform this routine'),
+                _inputDecoration(AppLocalizations.of(context)!.routineFormHint),
           ),
         ],
       ),
@@ -680,7 +680,7 @@ class _CustomRoutineBuilderScreenState
                     const SizedBox(width: 10),
                   ],
                   Text(
-                    'Create Routine',
+                    AppLocalizations.of(context)!.createRoutine,
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w800,

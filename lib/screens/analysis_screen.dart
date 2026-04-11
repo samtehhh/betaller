@@ -609,6 +609,29 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                         Expanded(child: _ScoreCard(icon: CupertinoIcons.person_fill, title: l.age, value: '${profile.age}', subtitle: profile.gender == 'male' ? l.male : l.female, color: AppColors.pink)),
                       ],
                     ),
+                    const SizedBox(height: 20),
+                    // ── Health Disclaimer ────────────
+                    Container(
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.03),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(CupertinoIcons.info_circle, color: AppColors.textTertiary, size: 14),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              l.healthDisclaimerBody,
+                              style: TextStyle(fontSize: 10, color: AppColors.textTertiary, height: 1.4),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ]),
                 ),
               ),

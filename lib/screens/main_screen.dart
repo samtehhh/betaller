@@ -1,7 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:in_app_review/in_app_review.dart';
 
+import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
@@ -39,6 +42,18 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Check if provider wants to show review prompt
+    final provider = context.watch<AppProvider>();
+    if (provider.shouldRequestReview) {
+      provider.clearReviewFlag();
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        final review = InAppReview.instance;
+        if (await review.isAvailable()) {
+          await review.requestReview();
+        }
+      });
+    }
+
     return Scaffold(
       backgroundColor: AppColors.scaffold,
       body: IndexedStack(

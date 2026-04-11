@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import '../l10n/app_localizations.dart'; // ignore: unused_import
+import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 
@@ -19,11 +19,11 @@ class PostureAnalysisScreen extends StatefulWidget {
 
 class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
   // ── Helpers ──────────────────────────────────────────────────
-  String _interpretation(int score) {
-    if (score >= 80) return 'Excellent';
-    if (score >= 60) return 'Good';
-    if (score >= 40) return 'Needs work';
-    return 'Poor';
+  String _interpretation(int score, AppLocalizations l) {
+    if (score >= 80) return l.postureExcellent;
+    if (score >= 60) return l.postureGood;
+    if (score >= 40) return l.postureNeedsWork;
+    return l.posturePoor;
   }
 
   Color _scoreColor(int score) {
@@ -71,10 +71,10 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'HOW TO TAKE THE PHOTO',
-                      style: TextStyle(
+                      AppLocalizations.of(ctx)!.howToTakePhoto,
+                      style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w800,
                         color: Colors.white,
@@ -85,11 +85,11 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
                 ],
               ),
               const SizedBox(height: 16),
-              _tipLine('1.', 'Stand sideways (side profile) to the camera.'),
-              _tipLine('2.', 'Keep ~2 meters distance from the lens.'),
-              _tipLine('3.', 'Arms relaxed, look straight ahead.'),
-              _tipLine('4.', 'Wear fitted clothes for accurate scoring.'),
-              _tipLine('5.', 'Use good lighting and a plain background.'),
+              _tipLine('1.', AppLocalizations.of(ctx)!.postureTip1),
+              _tipLine('2.', AppLocalizations.of(ctx)!.postureTip2),
+              _tipLine('3.', AppLocalizations.of(ctx)!.postureTip3),
+              _tipLine('4.', AppLocalizations.of(ctx)!.postureTip4),
+              _tipLine('5.', AppLocalizations.of(ctx)!.postureTip5),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
@@ -105,9 +105,9 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
                     ),
                   ),
                   onPressed: () => Navigator.of(ctx).pop(),
-                  child: const Text(
-                    'GOT IT',
-                    style: TextStyle(
+                  child: Text(
+                    AppLocalizations.of(ctx)!.wellnessInfoGotIt,
+                    style: const TextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w800,
                       letterSpacing: 1.2,
@@ -154,12 +154,54 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
     );
   }
 
-  // ── Image picker + analysis flow ─────────────────────────────
+  // ── Image source picker (camera or gallery) ──────────────────
   Future<void> _startAnalysis(BuildContext context) async {
     HapticFeedback.mediumImpact();
+    final l = AppLocalizations.of(context)!;
+    final source = await showCupertinoModalPopup<ImageSource>(
+      context: context,
+      builder: (ctx) => CupertinoActionSheet(
+        title: Text(
+          l.choosePhotoSource,
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+        ),
+        message: Text(l.sideProfileHint),
+        actions: [
+          CupertinoActionSheetAction(
+            onPressed: () => Navigator.of(ctx).pop(ImageSource.camera),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(CupertinoIcons.camera_fill, size: 20),
+                const SizedBox(width: 10),
+                Text(l.takePhoto),
+              ],
+            ),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () => Navigator.of(ctx).pop(ImageSource.gallery),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(CupertinoIcons.photo_fill, size: 20),
+                const SizedBox(width: 10),
+                Text(l.chooseFromLibrary),
+              ],
+            ),
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          isDestructiveAction: true,
+          onPressed: () => Navigator.of(ctx).pop(),
+          child: Text(l.cancel),
+        ),
+      ),
+    );
+    if (source == null) return;
+
     final picker = ImagePicker();
     final picked = await picker.pickImage(
-      source: ImageSource.camera,
+      source: source,
       maxWidth: 1080,
       imageQuality: 85,
     );
@@ -240,23 +282,23 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // ── 2. Header section ────────────────
-                        _buildHeader(latest, latestScore, trend),
+                        _buildHeader(context, latest, latestScore, trend),
                         const SizedBox(height: 20),
 
                         // ── A. Latest analysis card ──────────
                         if (latest != null) ...[
-                          _buildLatestAnalysisCard(latest),
+                          _buildLatestAnalysisCard(context, latest),
                           const SizedBox(height: 16),
                         ],
 
                         // ── B. History card ──────────────────
                         if (analyses.length >= 2) ...[
-                          _buildHistoryCard(analyses),
+                          _buildHistoryCard(context, analyses),
                           const SizedBox(height: 16),
                         ],
 
                         // ── C. Tips card ─────────────────────
-                        _buildTipsCard(),
+                        _buildTipsCard(context),
                         const SizedBox(height: 20),
 
                         // ── D. Take photo CTA ────────────────
@@ -286,10 +328,10 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
               Navigator.of(context).pop();
             },
           ),
-          const Expanded(
+          Expanded(
             child: Text(
-              'Posture Analysis',
-              style: TextStyle(
+              AppLocalizations.of(context)!.postureAnalysisTitle,
+              style: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
@@ -311,10 +353,12 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
 
   // ── 2. Header section ────────────────────────────────────────
   Widget _buildHeader(
+    BuildContext context,
     Map<String, dynamic>? latest,
     int latestScore,
     int trend,
   ) {
+    final l = AppLocalizations.of(context)!;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(22, 22, 22, 24),
@@ -341,7 +385,7 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'POSTURE COACH',
+            l.postureCoachHeader,
             style: TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w800,
@@ -357,7 +401,7 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
           ),
           const SizedBox(height: 6),
           Text(
-            'AI-powered posture scoring',
+            l.postureCoachSubtitle,
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -374,7 +418,7 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'LATEST SCORE',
+                    l.latestScore,
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
@@ -435,7 +479,7 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
                     ),
                   ),
                   child: Text(
-                    'NO DATA',
+                    l.noData,
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
@@ -509,7 +553,8 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
   }
 
   // ── A. Latest analysis card ──────────────────────────────────
-  Widget _buildLatestAnalysisCard(Map<String, dynamic> latest) {
+  Widget _buildLatestAnalysisCard(BuildContext context, Map<String, dynamic> latest) {
+    final l = AppLocalizations.of(context)!;
     final total = latest['totalScore'] as int? ?? 0;
     final kyphosis = latest['kyphosisScore'] as int? ?? 0;
     final lordosis = latest['lordosisScore'] as int? ?? 0;
@@ -524,7 +569,7 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
         children: [
           SectionHeader(
             icon: CupertinoIcons.chart_bar_alt_fill,
-            title: 'LATEST ANALYSIS',
+            title: l.latestAnalysis,
             iconColor: color,
           ),
           const SizedBox(height: 20),
@@ -565,7 +610,7 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
                         ),
                       ),
                       Text(
-                        _interpretation(total).toUpperCase(),
+                        _interpretation(total, l).toUpperCase(),
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
@@ -581,11 +626,11 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
           ),
           const SizedBox(height: 20),
           // Sub-metrics
-          _buildMetricRow('Kyphosis (upper back)', kyphosis),
+          _buildMetricRow(AppLocalizations.of(context)!.kyphosisLabel, kyphosis),
           const SizedBox(height: 14),
-          _buildMetricRow('Lordosis (lower back)', lordosis),
+          _buildMetricRow(AppLocalizations.of(context)!.lordosisLabel, lordosis),
           const SizedBox(height: 14),
-          _buildMetricRow('Head Position', headPos),
+          _buildMetricRow(l.headPosition, headPos),
         ],
       ),
     );
@@ -630,7 +675,7 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
   }
 
   // ── B. History card ──────────────────────────────────────────
-  Widget _buildHistoryCard(List<Map<String, dynamic>> analyses) {
+  Widget _buildHistoryCard(BuildContext context, List<Map<String, dynamic>> analyses) {
     final recent = analyses.length > 6
         ? analyses.sublist(analyses.length - 6)
         : List<Map<String, dynamic>>.from(analyses);
@@ -648,9 +693,9 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
         children: [
           Row(
             children: [
-              const SectionHeader(
+              SectionHeader(
                 icon: CupertinoIcons.graph_square_fill,
-                title: 'PROGRESS',
+                title: AppLocalizations.of(context)!.progressLabel,
               ),
               const Spacer(),
               Container(
@@ -712,27 +757,28 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
   }
 
   // ── C. Tips card ─────────────────────────────────────────────
-  Widget _buildTipsCard() {
+  Widget _buildTipsCard(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final tips = [
       {
         'emoji': '🧍',
-        'title': 'Wall Stand',
-        'desc': 'Stand with back against wall for 2 minutes daily.',
+        'title': l.postureWallStand,
+        'desc': l.postureWallStandDesc,
       },
       {
         'emoji': '🦋',
-        'title': 'Chest Opener',
-        'desc': 'Opens tight pecs that pull shoulders forward.',
+        'title': l.postureChestOpener,
+        'desc': l.postureChestOpenerDesc,
       },
       {
         'emoji': '👤',
-        'title': 'Chin Tucks',
-        'desc': 'Reverse forward head posture — 3×10 reps.',
+        'title': l.postureChinTucks,
+        'desc': l.postureChinTucksDesc,
       },
       {
         'emoji': '🐞',
-        'title': 'Deadbug',
-        'desc': 'Strengthens deep core for lordosis control.',
+        'title': l.postureDeadbug,
+        'desc': l.postureDeadbugDesc,
       },
     ];
 
@@ -741,9 +787,9 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SectionHeader(
+          SectionHeader(
             icon: CupertinoIcons.sparkles,
-            title: 'RECOMMENDED EXERCISES',
+            title: l.recommendedExercises,
           ),
           const SizedBox(height: 16),
           for (int i = 0; i < tips.length; i++) ...[
@@ -830,16 +876,16 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(
+          children: [
+            const Icon(
               CupertinoIcons.camera_fill,
               color: Colors.white,
               size: 22,
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Text(
-              'Take Posture Photo',
-              style: TextStyle(
+              AppLocalizations.of(context)!.takePosturePhoto,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w800,
@@ -1164,7 +1210,7 @@ class _AnalyzingOverlayState extends State<_AnalyzingOverlay>
                     ((_dotsController.value * 4).floor() % 4).clamp(0, 3);
                 final dots = '.' * dotCount;
                 return Text(
-                  'ANALYZING POSTURE$dots',
+                  '${AppLocalizations.of(context)!.analyzingPosture}$dots',
                   style: TextStyle(
                     color: AppColors.primary,
                     fontSize: 16,

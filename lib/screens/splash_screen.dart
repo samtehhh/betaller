@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/app_provider.dart';
@@ -15,7 +14,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late AnimationController _logoController;
   late AnimationController _fadeController;
   late Animation<double> _logoScale;
@@ -27,17 +27,32 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   void initState() {
     super.initState();
 
-    _logoController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1200));
-    _fadeController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _logoController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
 
     _logoScale = Tween<double>(begin: 0.6, end: 1.0).animate(
-      CurvedAnimation(parent: _logoController, curve: const Interval(0.0, 0.7, curve: Curves.elasticOut)),
+      CurvedAnimation(
+        parent: _logoController,
+        curve: const Interval(0.0, 0.7, curve: Curves.elasticOut),
+      ),
     );
     _logoOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _logoController, curve: const Interval(0.0, 0.4, curve: Curves.easeOut)),
+      CurvedAnimation(
+        parent: _logoController,
+        curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+      ),
     );
     _textOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _logoController, curve: const Interval(0.4, 0.8, curve: Curves.easeOut)),
+      CurvedAnimation(
+        parent: _logoController,
+        curve: const Interval(0.4, 0.8, curve: Curves.easeOut),
+      ),
     );
     _screenFade = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
@@ -81,7 +96,11 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
           body: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF1E1B4B), Color(0xFF0F0A2E), Color(0xFF0A0A14)],
+                colors: [
+                  Color(0xFF1E1B4B),
+                  Color(0xFF0F0A2E),
+                  Color(0xFF0A0A14),
+                ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -110,7 +129,10 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(28),
-                          child: Image.asset('assets/icon.png', fit: BoxFit.cover),
+                          child: Image.asset(
+                            'assets/icon.png',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -127,8 +149,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                         color: Colors.white,
                         letterSpacing: -1.5,
                         shadows: [
-                          Shadow(color: AppColors.primary.withValues(alpha: 0.4), blurRadius: 10),
-                          Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 30),
+                          Shadow(
+                            color: AppColors.primary.withValues(alpha: 0.4),
+                            blurRadius: 10,
+                          ),
+                          Shadow(
+                            color: AppColors.primary.withValues(alpha: 0.2),
+                            blurRadius: 30,
+                          ),
                         ],
                       ),
                     ),
@@ -137,7 +165,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                   Opacity(
                     opacity: _textOpacity.value,
                     child: Text(
-                      AppLocalizations.of(context)?.onboardingSubtitle ?? 'Discover your growth potential',
+                      AppLocalizations.of(context)?.onboardingSubtitle ??
+                          'Discover your growth potential',
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,

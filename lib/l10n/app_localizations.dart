@@ -533,7 +533,7 @@ abstract class AppLocalizations {
   /// No description provided for @noData.
   ///
   /// In en, this message translates to:
-  /// **'No data'**
+  /// **'NO DATA'**
   String get noData;
 
   /// No description provided for @growthRate.
@@ -2953,6 +2953,1590 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hide all'**
   String get hideAll;
+
+  /// No description provided for @heightAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Height Analysis'**
+  String get heightAnalysis;
+
+  /// No description provided for @heightVsPopulation.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Position in Global Population'**
+  String get heightVsPopulation;
+
+  /// No description provided for @globalAveragesTable.
+  ///
+  /// In en, this message translates to:
+  /// **'Global Averages by Age'**
+  String get globalAveragesTable;
+
+  /// No description provided for @standingTall.
+  ///
+  /// In en, this message translates to:
+  /// **'Standing Tall'**
+  String get standingTall;
+
+  /// No description provided for @standingAboveAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Above Average'**
+  String get standingAboveAverage;
+
+  /// No description provided for @standingBelowAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Below Average'**
+  String get standingBelowAverage;
+
+  /// No description provided for @standingShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Below Peers'**
+  String get standingShort;
+
+  /// No description provided for @yourHeightStanding.
+  ///
+  /// In en, this message translates to:
+  /// **'YOUR HEIGHT STANDING'**
+  String get yourHeightStanding;
+
+  /// No description provided for @yourHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get yourHeight;
+
+  /// No description provided for @peerAvg.
+  ///
+  /// In en, this message translates to:
+  /// **'Age {age} avg'**
+  String peerAvg(int age);
+
+  /// No description provided for @aboveAvg.
+  ///
+  /// In en, this message translates to:
+  /// **'Above avg'**
+  String get aboveAvg;
+
+  /// No description provided for @belowAvg.
+  ///
+  /// In en, this message translates to:
+  /// **'Below avg'**
+  String get belowAvg;
+
+  /// No description provided for @whoDataSource.
+  ///
+  /// In en, this message translates to:
+  /// **'WHO 2007 Global Reference'**
+  String get whoDataSource;
+
+  /// No description provided for @percentileShort5.
+  ///
+  /// In en, this message translates to:
+  /// **'5th'**
+  String get percentileShort5;
+
+  /// No description provided for @percentileShort50.
+  ///
+  /// In en, this message translates to:
+  /// **'50th'**
+  String get percentileShort50;
+
+  /// No description provided for @percentileShort95.
+  ///
+  /// In en, this message translates to:
+  /// **'95th'**
+  String get percentileShort95;
+
+  /// No description provided for @youLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get youLabel;
+
+  /// No description provided for @avgHeightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'AVG'**
+  String get avgHeightLabel;
+
+  /// No description provided for @percentileLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PCT'**
+  String get percentileLabel;
+
+  /// No description provided for @diffLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DIFF'**
+  String get diffLabel;
+
+  /// No description provided for @whoSourceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Data source: WHO 2007 Growth Reference & NCD-RisC global pooled estimates. Percentiles are global averages and may vary by country.'**
+  String get whoSourceNote;
+
+  /// No description provided for @quickPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get quickPhotos;
+
+  /// No description provided for @quickPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture'**
+  String get quickPosture;
+
+  /// No description provided for @quickWellness.
+  ///
+  /// In en, this message translates to:
+  /// **'Wellness'**
+  String get quickWellness;
+
+  /// No description provided for @quickRecipes.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipes'**
+  String get quickRecipes;
+
+  /// No description provided for @wellnessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wellness Tracker'**
+  String get wellnessTitle;
+
+  /// No description provided for @wellnessHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'WELLNESS'**
+  String get wellnessHeader;
+
+  /// No description provided for @wellnessSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Track factors that affect your growth'**
+  String get wellnessSubtitle;
+
+  /// No description provided for @caffeineToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Caffeine Today'**
+  String get caffeineToday;
+
+  /// No description provided for @withinLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'Within healthy limits'**
+  String get withinLimits;
+
+  /// No description provided for @approachingLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Approaching limit'**
+  String get approachingLimit;
+
+  /// No description provided for @overLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Over limit — affects HGH'**
+  String get overLimit;
+
+  /// No description provided for @resetToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset today'**
+  String get resetToday;
+
+  /// No description provided for @stressToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Stress Today'**
+  String get stressToday;
+
+  /// No description provided for @stressVeryCalmLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Very calm — optimal for growth'**
+  String get stressVeryCalmLabel;
+
+  /// No description provided for @stressCalmLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Calm'**
+  String get stressCalmLabel;
+
+  /// No description provided for @stressNeutralLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Neutral'**
+  String get stressNeutralLabel;
+
+  /// No description provided for @stressStressedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Stressed'**
+  String get stressStressedLabel;
+
+  /// No description provided for @stressVeryStressedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Very stressed — cortisol blocks HGH'**
+  String get stressVeryStressedLabel;
+
+  /// No description provided for @stressTapToLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to log how you feel today'**
+  String get stressTapToLog;
+
+  /// No description provided for @todaysJournal.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Journal'**
+  String get todaysJournal;
+
+  /// No description provided for @journalNoNote.
+  ///
+  /// In en, this message translates to:
+  /// **'(no note)'**
+  String get journalNoNote;
+
+  /// No description provided for @journalEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get journalEdit;
+
+  /// No description provided for @journalHowWasToday.
+  ///
+  /// In en, this message translates to:
+  /// **'How was today?'**
+  String get journalHowWasToday;
+
+  /// No description provided for @journalSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal saved · +5 XP'**
+  String get journalSaved;
+
+  /// No description provided for @journalSaveEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Save entry'**
+  String get journalSaveEntry;
+
+  /// No description provided for @weeklyInsight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Insight'**
+  String get weeklyInsight;
+
+  /// No description provided for @weeklyInsightCaffeine.
+  ///
+  /// In en, this message translates to:
+  /// **'CAFFEINE'**
+  String get weeklyInsightCaffeine;
+
+  /// No description provided for @weeklyInsightStress.
+  ///
+  /// In en, this message translates to:
+  /// **'STRESS'**
+  String get weeklyInsightStress;
+
+  /// No description provided for @weeklyInsightMood.
+  ///
+  /// In en, this message translates to:
+  /// **'MOOD'**
+  String get weeklyInsightMood;
+
+  /// No description provided for @wellnessInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Why wellness matters'**
+  String get wellnessInfoTitle;
+
+  /// No description provided for @wellnessInfoBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Caffeine interferes with deep sleep, which is when most growth hormone (HGH) is released. Chronic stress raises cortisol, which directly suppresses HGH. Journaling helps you stay consistent with habits that support growth.'**
+  String get wellnessInfoBody;
+
+  /// No description provided for @wellnessInfoGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get wellnessInfoGotIt;
+
+  /// No description provided for @insightCaffeineHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Your caffeine is high this week. Try cutting down for better sleep and HGH.'**
+  String get insightCaffeineHigh;
+
+  /// No description provided for @insightStressHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Stress is elevated this week. Consider breathing exercises — cortisol blocks growth.'**
+  String get insightStressHigh;
+
+  /// No description provided for @insightMoodLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood has been low lately. Sunlight, sleep, and gentle exercise all help.'**
+  String get insightMoodLow;
+
+  /// No description provided for @insightGreat.
+  ///
+  /// In en, this message translates to:
+  /// **'Great balance this week. Your wellness supports optimal growth.'**
+  String get insightGreat;
+
+  /// No description provided for @insightDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Your wellness is on track. Keep logging for deeper insights.'**
+  String get insightDefault;
+
+  /// No description provided for @insightNeedMoreData.
+  ///
+  /// In en, this message translates to:
+  /// **'Log for a few more days to see insights.'**
+  String get insightNeedMoreData;
+
+  /// No description provided for @progressPhotosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress Photos'**
+  String get progressPhotosTitle;
+
+  /// No description provided for @progressPhotosHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'PROGRESS PHOTOS'**
+  String get progressPhotosHeader;
+
+  /// No description provided for @progressPhotosSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your visual journey'**
+  String get progressPhotosSubtitle;
+
+  /// No description provided for @addProgressPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Progress Photo'**
+  String get addProgressPhoto;
+
+  /// No description provided for @captureJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture your visual journey'**
+  String get captureJourney;
+
+  /// No description provided for @takePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Photo'**
+  String get takePhoto;
+
+  /// No description provided for @chooseFromLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from Library'**
+  String get chooseFromLibrary;
+
+  /// No description provided for @deletePhotoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Photo?'**
+  String get deletePhotoTitle;
+
+  /// No description provided for @deletePhotoBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This photo will be removed from your progress timeline.'**
+  String get deletePhotoBody;
+
+  /// No description provided for @timelineTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Timeline'**
+  String get timelineTab;
+
+  /// No description provided for @photoLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{photo} other{photos}}'**
+  String photoLabel(int count);
+
+  /// No description provided for @dayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{day} other{days}}'**
+  String dayLabel(int count);
+
+  /// No description provided for @cmGained.
+  ///
+  /// In en, this message translates to:
+  /// **'cm gained'**
+  String get cmGained;
+
+  /// No description provided for @firstPhotoMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Take your first photo to start tracking your visual progress.'**
+  String get firstPhotoMessage;
+
+  /// No description provided for @takeFirstPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take First Photo'**
+  String get takeFirstPhoto;
+
+  /// No description provided for @beforeAfter.
+  ///
+  /// In en, this message translates to:
+  /// **'BEFORE / AFTER'**
+  String get beforeAfter;
+
+  /// No description provided for @beforeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'BEFORE'**
+  String get beforeLabel;
+
+  /// No description provided for @afterLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'AFTER'**
+  String get afterLabel;
+
+  /// No description provided for @yourHeightDialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Height'**
+  String get yourHeightDialog;
+
+  /// No description provided for @heightDialogMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your current height in cm for this photo'**
+  String get heightDialogMessage;
+
+  /// No description provided for @postureAnalysisTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture Analysis'**
+  String get postureAnalysisTitle;
+
+  /// No description provided for @postureCoachHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'POSTURE COACH'**
+  String get postureCoachHeader;
+
+  /// No description provided for @postureCoachSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI-powered posture scoring'**
+  String get postureCoachSubtitle;
+
+  /// No description provided for @latestScore.
+  ///
+  /// In en, this message translates to:
+  /// **'LATEST SCORE'**
+  String get latestScore;
+
+  /// No description provided for @latestAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'LATEST ANALYSIS'**
+  String get latestAnalysis;
+
+  /// No description provided for @headPosition.
+  ///
+  /// In en, this message translates to:
+  /// **'Head Position'**
+  String get headPosition;
+
+  /// No description provided for @progressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'PROGRESS'**
+  String get progressLabel;
+
+  /// No description provided for @choosePhotoSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Photo Source'**
+  String get choosePhotoSource;
+
+  /// No description provided for @sideProfileHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Side-profile, full body in frame'**
+  String get sideProfileHint;
+
+  /// No description provided for @howToTakePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'HOW TO TAKE THE PHOTO'**
+  String get howToTakePhoto;
+
+  /// No description provided for @takePosturePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Posture Photo'**
+  String get takePosturePhoto;
+
+  /// No description provided for @postureExcellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent'**
+  String get postureExcellent;
+
+  /// No description provided for @postureGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get postureGood;
+
+  /// No description provided for @postureNeedsWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs work'**
+  String get postureNeedsWork;
+
+  /// No description provided for @posturePoor.
+  ///
+  /// In en, this message translates to:
+  /// **'Poor'**
+  String get posturePoor;
+
+  /// No description provided for @recommendedExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'RECOMMENDED EXERCISES'**
+  String get recommendedExercises;
+
+  /// No description provided for @postureWallStand.
+  ///
+  /// In en, this message translates to:
+  /// **'Wall Stand'**
+  String get postureWallStand;
+
+  /// No description provided for @postureWallStandDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with back against wall for 2 minutes daily.'**
+  String get postureWallStandDesc;
+
+  /// No description provided for @postureChestOpener.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest Opener'**
+  String get postureChestOpener;
+
+  /// No description provided for @postureChestOpenerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens tight pecs that pull shoulders forward.'**
+  String get postureChestOpenerDesc;
+
+  /// No description provided for @postureChinTucks.
+  ///
+  /// In en, this message translates to:
+  /// **'Chin Tucks'**
+  String get postureChinTucks;
+
+  /// No description provided for @postureChinTucksDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Reverse forward head posture — 3×10 reps.'**
+  String get postureChinTucksDesc;
+
+  /// No description provided for @postureDeadbug.
+  ///
+  /// In en, this message translates to:
+  /// **'Deadbug'**
+  String get postureDeadbug;
+
+  /// No description provided for @postureDeadbugDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Strengthens deep core for lordosis control.'**
+  String get postureDeadbugDesc;
+
+  /// No description provided for @recipesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipes'**
+  String get recipesTitle;
+
+  /// No description provided for @recipesHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'RECIPES'**
+  String get recipesHeader;
+
+  /// No description provided for @recipesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fuel your growth'**
+  String get recipesSubtitle;
+
+  /// No description provided for @recipesCategoryAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get recipesCategoryAll;
+
+  /// No description provided for @recipesCategoryBreakfast.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakfast'**
+  String get recipesCategoryBreakfast;
+
+  /// No description provided for @recipesCategoryLunch.
+  ///
+  /// In en, this message translates to:
+  /// **'Lunch'**
+  String get recipesCategoryLunch;
+
+  /// No description provided for @recipesCategoryDinner.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner'**
+  String get recipesCategoryDinner;
+
+  /// No description provided for @recipesCategorySnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Snack'**
+  String get recipesCategorySnack;
+
+  /// No description provided for @recipesGoalAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get recipesGoalAll;
+
+  /// No description provided for @recipesGoalProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'High Protein'**
+  String get recipesGoalProtein;
+
+  /// No description provided for @recipesGoalCalcium.
+  ///
+  /// In en, this message translates to:
+  /// **'Calcium'**
+  String get recipesGoalCalcium;
+
+  /// No description provided for @recipesGoalOmega3.
+  ///
+  /// In en, this message translates to:
+  /// **'Omega-3'**
+  String get recipesGoalOmega3;
+
+  /// No description provided for @recipesGoalIron.
+  ///
+  /// In en, this message translates to:
+  /// **'Iron'**
+  String get recipesGoalIron;
+
+  /// No description provided for @recipesNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No recipes match these filters'**
+  String get recipesNoMatch;
+
+  /// No description provided for @recipesIngredients.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get recipesIngredients;
+
+  /// No description provided for @recipesInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions'**
+  String get recipesInstructions;
+
+  /// No description provided for @recipesClose.
+  ///
+  /// In en, this message translates to:
+  /// **'CLOSE'**
+  String get recipesClose;
+
+  /// No description provided for @recipesAboutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'About Recipes'**
+  String get recipesAboutTitle;
+
+  /// No description provided for @recipesAboutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Curated recipes designed to fuel your growth. Filter by meal type or nutritional goal to find the perfect fit for your plan.'**
+  String get recipesAboutBody;
+
+  /// No description provided for @animHintSpinalDecomp.
+  ///
+  /// In en, this message translates to:
+  /// **'Spinal decompression'**
+  String get animHintSpinalDecomp;
+
+  /// No description provided for @animHintGravityReversal.
+  ///
+  /// In en, this message translates to:
+  /// **'Gravity reversal'**
+  String get animHintGravityReversal;
+
+  /// No description provided for @animHintImpactBones.
+  ///
+  /// In en, this message translates to:
+  /// **'Impact loading for bones'**
+  String get animHintImpactBones;
+
+  /// No description provided for @animHintHighImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'High-impact bone loading'**
+  String get animHintHighImpact;
+
+  /// No description provided for @animHintMetabolicBurst.
+  ///
+  /// In en, this message translates to:
+  /// **'Metabolic burst training'**
+  String get animHintMetabolicBurst;
+
+  /// No description provided for @animHintFullBodyStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Full-body awakening stretch'**
+  String get animHintFullBodyStretch;
+
+  /// No description provided for @animHintSpinalExtension.
+  ///
+  /// In en, this message translates to:
+  /// **'Spinal extension'**
+  String get animHintSpinalExtension;
+
+  /// No description provided for @animHintCervicalDecomp.
+  ///
+  /// In en, this message translates to:
+  /// **'Cervical decompression'**
+  String get animHintCervicalDecomp;
+
+  /// No description provided for @animHintShoulderMobility.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulder mobility'**
+  String get animHintShoulderMobility;
+
+  /// No description provided for @animHintFullBodyMotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Full-body motion'**
+  String get animHintFullBodyMotion;
+
+  /// No description provided for @animHintPosteriorChain.
+  ///
+  /// In en, this message translates to:
+  /// **'Posterior chain stretch'**
+  String get animHintPosteriorChain;
+
+  /// No description provided for @animHintMuscleGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'Muscle growth fuel'**
+  String get animHintMuscleGrowth;
+
+  /// No description provided for @animHintBoneDensity.
+  ///
+  /// In en, this message translates to:
+  /// **'Bone density support'**
+  String get animHintBoneDensity;
+
+  /// No description provided for @animHintSpinalDisc.
+  ///
+  /// In en, this message translates to:
+  /// **'Spinal disc hydration'**
+  String get animHintSpinalDisc;
+
+  /// No description provided for @animHintCleanNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean nutrition'**
+  String get animHintCleanNutrition;
+
+  /// No description provided for @animHintIgf1.
+  ///
+  /// In en, this message translates to:
+  /// **'IGF-1 optimization'**
+  String get animHintIgf1;
+
+  /// No description provided for @animHintHghAmino.
+  ///
+  /// In en, this message translates to:
+  /// **'HGH amino precursor'**
+  String get animHintHghAmino;
+
+  /// No description provided for @animHintCalciumAbsorption.
+  ///
+  /// In en, this message translates to:
+  /// **'Calcium absorption'**
+  String get animHintCalciumAbsorption;
+
+  /// No description provided for @animHintSpinalAlignment.
+  ///
+  /// In en, this message translates to:
+  /// **'Spinal alignment'**
+  String get animHintSpinalAlignment;
+
+  /// No description provided for @animHintPostureCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture correction'**
+  String get animHintPostureCorrection;
+
+  /// No description provided for @animHintMindBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Mind-body balance'**
+  String get animHintMindBody;
+
+  /// No description provided for @animHintCoreStability.
+  ///
+  /// In en, this message translates to:
+  /// **'Core stability'**
+  String get animHintCoreStability;
+
+  /// No description provided for @animHintLegPower.
+  ///
+  /// In en, this message translates to:
+  /// **'Leg power & HGH surge'**
+  String get animHintLegPower;
+
+  /// No description provided for @animHintVerticalPower.
+  ///
+  /// In en, this message translates to:
+  /// **'Vertical power'**
+  String get animHintVerticalPower;
+
+  /// No description provided for @animHintHghSurge.
+  ///
+  /// In en, this message translates to:
+  /// **'HGH surge training'**
+  String get animHintHghSurge;
+
+  /// No description provided for @animHintPeakHgh.
+  ///
+  /// In en, this message translates to:
+  /// **'Peak HGH release window'**
+  String get animHintPeakHgh;
+
+  /// No description provided for @animHintMelatonin.
+  ///
+  /// In en, this message translates to:
+  /// **'Melatonin optimization'**
+  String get animHintMelatonin;
+
+  /// No description provided for @animHintDeepSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep sleep setup'**
+  String get animHintDeepSleep;
+
+  /// No description provided for @animHintSleepOpt.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep optimization'**
+  String get animHintSleepOpt;
+
+  /// No description provided for @animHintExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise'**
+  String get animHintExercise;
+
+  /// No description provided for @formMorningStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Start with neck rolls, then move to full body stretches. Hold each stretch for 20-30 seconds without bouncing.'**
+  String get formMorningStretch;
+
+  /// No description provided for @formBarHanging.
+  ///
+  /// In en, this message translates to:
+  /// **'Grip the bar shoulder-width apart, relax your body completely, let gravity stretch your spine. Avoid swinging.'**
+  String get formBarHanging;
+
+  /// No description provided for @formCobraStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie face down, place hands under shoulders, slowly push upper body up while keeping hips on the floor. Look upward.'**
+  String get formCobraStretch;
+
+  /// No description provided for @formJumping.
+  ///
+  /// In en, this message translates to:
+  /// **'Perform squat jumps or jump rope. Land softly on the balls of your feet. Rest 30 seconds between sets.'**
+  String get formJumping;
+
+  /// No description provided for @formSwimmingBasketball.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose swimming (freestyle/backstroke) or basketball. Focus on jumping, reaching, and full range of motion.'**
+  String get formSwimmingBasketball;
+
+  /// No description provided for @formEveningYoga.
+  ///
+  /// In en, this message translates to:
+  /// **'Perform gentle poses: cat-cow, child pose, downward dog, forward fold. Breathe deeply and hold each pose 30-60 seconds.'**
+  String get formEveningYoga;
+
+  /// No description provided for @formSprintIntervals.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm up for 5 minutes, then sprint at maximum effort for 30 seconds. Walk or jog for 90 seconds to recover. Repeat.'**
+  String get formSprintIntervals;
+
+  /// No description provided for @formHiitWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Perform exercises like burpees, mountain climbers, and jump squats at maximum intensity for 45 seconds, rest 15 seconds.'**
+  String get formHiitWorkout;
+
+  /// No description provided for @formSquats.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with feet shoulder-width apart. Lower your body until thighs are parallel to ground. Keep back straight and knees behind toes.'**
+  String get formSquats;
+
+  /// No description provided for @formDeadliftStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with feet hip-width apart, hinge at hips keeping back flat. Reach toward toes, feel the stretch in hamstrings and back.'**
+  String get formDeadliftStretch;
+
+  /// No description provided for @formOverheadPress.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall, press arms overhead fully extending. Use light weights or bodyweight. Keep core tight and avoid arching back.'**
+  String get formOverheadPress;
+
+  /// No description provided for @formSkippingRope.
+  ///
+  /// In en, this message translates to:
+  /// **'Jump with both feet, landing softly on the balls of your feet. Keep jumps low and consistent. Rest between sets.'**
+  String get formSkippingRope;
+
+  /// No description provided for @formPilatesCore.
+  ///
+  /// In en, this message translates to:
+  /// **'Perform plank, dead bug, bird dog, bridge, and leg raises. Focus on controlled movement and breathing.'**
+  String get formPilatesCore;
+
+  /// No description provided for @formInversionHang.
+  ///
+  /// In en, this message translates to:
+  /// **'Use an inversion table or gravity boots. Start with a slight incline and gradually increase. Keep sessions short.'**
+  String get formInversionHang;
+
+  /// No description provided for @formProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.'**
+  String get formProtein;
+
+  /// No description provided for @formCalciumVitaminD.
+  ///
+  /// In en, this message translates to:
+  /// **'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.'**
+  String get formCalciumVitaminD;
+
+  /// No description provided for @formWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.'**
+  String get formWater;
+
+  /// No description provided for @formAvoidJunk.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.'**
+  String get formAvoidJunk;
+
+  /// No description provided for @formZincIntake.
+  ///
+  /// In en, this message translates to:
+  /// **'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.'**
+  String get formZincIntake;
+
+  /// No description provided for @formVitaminDSunlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.'**
+  String get formVitaminDSunlight;
+
+  /// No description provided for @formArginineFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.'**
+  String get formArginineFoods;
+
+  /// No description provided for @formQualitySleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.'**
+  String get formQualitySleep;
+
+  /// No description provided for @formNoScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.'**
+  String get formNoScreen;
+
+  /// No description provided for @formSleepEnvironment.
+  ///
+  /// In en, this message translates to:
+  /// **'Use blackout curtains, keep room at 18-20°C, remove all light sources. Use a comfortable mattress and pillow.'**
+  String get formSleepEnvironment;
+
+  /// No description provided for @formPreSleepRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Start 30 minutes before bed: dim lights, read a book, do breathing exercises, avoid stimulating activities.'**
+  String get formPreSleepRoutine;
+
+  /// No description provided for @formPostureCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall with shoulders back and down. Engage core slightly. Imagine a string pulling you up from the crown of your head.'**
+  String get formPostureCheck;
+
+  /// No description provided for @formWallStand.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with heels, buttocks, shoulder blades, and head touching the wall. Hold for 5 minutes. Breathe normally.'**
+  String get formWallStand;
+
+  /// No description provided for @formNeckStretches.
+  ///
+  /// In en, this message translates to:
+  /// **'Tilt head slowly to each side, forward, and backward. Hold each direction for 30 seconds. Do not force the stretch.'**
+  String get formNeckStretches;
+
+  /// No description provided for @formShoulderRolls.
+  ///
+  /// In en, this message translates to:
+  /// **'Roll shoulders forward 15 times, then backward 15 times. Follow with chest-opening stretches holding for 20 seconds.'**
+  String get formShoulderRolls;
+
+  /// No description provided for @sciMorningStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention'**
+  String get sciMorningStretch;
+
+  /// No description provided for @sciBarHanging.
+  ///
+  /// In en, this message translates to:
+  /// **'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height'**
+  String get sciBarHanging;
+
+  /// No description provided for @sciCobraStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting'**
+  String get sciCobraStretch;
+
+  /// No description provided for @sciJumping.
+  ///
+  /// In en, this message translates to:
+  /// **'High-impact jumping stimulates growth plates in the legs and triggers growth hormone release'**
+  String get sciJumping;
+
+  /// No description provided for @sciSwimmingBasketball.
+  ///
+  /// In en, this message translates to:
+  /// **'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity'**
+  String get sciSwimmingBasketball;
+
+  /// No description provided for @sciEveningYoga.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery'**
+  String get sciEveningYoga;
+
+  /// No description provided for @sciSprintIntervals.
+  ///
+  /// In en, this message translates to:
+  /// **'Sprinting triggers significant growth hormone release'**
+  String get sciSprintIntervals;
+
+  /// No description provided for @sciHiitWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'High intensity exercise increases HGH by up to 450%'**
+  String get sciHiitWorkout;
+
+  /// No description provided for @sciSquats.
+  ///
+  /// In en, this message translates to:
+  /// **'Squats stimulate growth plates in legs and spine'**
+  String get sciSquats;
+
+  /// No description provided for @sciDeadliftStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Spinal decompression promotes vertebral disc health'**
+  String get sciDeadliftStretch;
+
+  /// No description provided for @sciOverheadPress.
+  ///
+  /// In en, this message translates to:
+  /// **'Overhead pressing stretches the spine and strengthens posture muscles'**
+  String get sciOverheadPress;
+
+  /// No description provided for @sciSkippingRope.
+  ///
+  /// In en, this message translates to:
+  /// **'Repetitive jumping stimulates growth plates in lower extremities'**
+  String get sciSkippingRope;
+
+  /// No description provided for @sciPilatesCore.
+  ///
+  /// In en, this message translates to:
+  /// **'Core strength supports spinal alignment and posture'**
+  String get sciPilatesCore;
+
+  /// No description provided for @sciInversionHang.
+  ///
+  /// In en, this message translates to:
+  /// **'Inversion decompresses spinal discs, can temporarily add 1-2cm'**
+  String get sciInversionHang;
+
+  /// No description provided for @sciProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts'**
+  String get sciProtein;
+
+  /// No description provided for @sciCalciumVitaminD.
+  ///
+  /// In en, this message translates to:
+  /// **'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth'**
+  String get sciCalciumVitaminD;
+
+  /// No description provided for @sciWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Hydration is essential for nutrient transport to growth plates and joint cartilage health'**
+  String get sciWater;
+
+  /// No description provided for @sciAvoidJunk.
+  ///
+  /// In en, this message translates to:
+  /// **'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion'**
+  String get sciAvoidJunk;
+
+  /// No description provided for @sciZincIntake.
+  ///
+  /// In en, this message translates to:
+  /// **'Zinc is essential for growth hormone production'**
+  String get sciZincIntake;
+
+  /// No description provided for @sciVitaminDSunlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Vitamin D is crucial for calcium absorption and bone growth'**
+  String get sciVitaminDSunlight;
+
+  /// No description provided for @sciArginineFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'L-Arginine stimulates growth hormone secretion'**
+  String get sciArginineFoods;
+
+  /// No description provided for @sciQualitySleep.
+  ///
+  /// In en, this message translates to:
+  /// **'70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM'**
+  String get sciQualitySleep;
+
+  /// No description provided for @sciNoScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality'**
+  String get sciNoScreen;
+
+  /// No description provided for @sciSleepEnvironment.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark, cool environment maximizes melatonin and growth hormone'**
+  String get sciSleepEnvironment;
+
+  /// No description provided for @sciPreSleepRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistent pre-sleep routine improves deep sleep quality by 23%'**
+  String get sciPreSleepRoutine;
+
+  /// No description provided for @sciPostureCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct posture alignment can immediately add 2-3 cm to apparent height and prevents spinal compression'**
+  String get sciPostureCheck;
+
+  /// No description provided for @sciWallStand.
+  ///
+  /// In en, this message translates to:
+  /// **'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day'**
+  String get sciWallStand;
+
+  /// No description provided for @sciNeckStretches.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck stretches relieve compression and improve cervical alignment'**
+  String get sciNeckStretches;
+
+  /// No description provided for @sciShoulderRolls.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening shoulders corrects forward posture, can add 1-2cm appearance'**
+  String get sciShoulderRolls;
+
+  /// No description provided for @muscleSpine.
+  ///
+  /// In en, this message translates to:
+  /// **'Spine'**
+  String get muscleSpine;
+
+  /// No description provided for @muscleLegs.
+  ///
+  /// In en, this message translates to:
+  /// **'Legs'**
+  String get muscleLegs;
+
+  /// No description provided for @muscleBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get muscleBack;
+
+  /// No description provided for @muscleShoulders.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders'**
+  String get muscleShoulders;
+
+  /// No description provided for @muscleArms.
+  ///
+  /// In en, this message translates to:
+  /// **'Arms'**
+  String get muscleArms;
+
+  /// No description provided for @muscleCore.
+  ///
+  /// In en, this message translates to:
+  /// **'Core'**
+  String get muscleCore;
+
+  /// No description provided for @muscleChest.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest'**
+  String get muscleChest;
+
+  /// No description provided for @muscleCalves.
+  ///
+  /// In en, this message translates to:
+  /// **'Calves'**
+  String get muscleCalves;
+
+  /// No description provided for @muscleFullBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Body'**
+  String get muscleFullBody;
+
+  /// No description provided for @muscleHips.
+  ///
+  /// In en, this message translates to:
+  /// **'Hips'**
+  String get muscleHips;
+
+  /// No description provided for @muscleBones.
+  ///
+  /// In en, this message translates to:
+  /// **'Bones'**
+  String get muscleBones;
+
+  /// No description provided for @muscleMuscles.
+  ///
+  /// In en, this message translates to:
+  /// **'Muscles'**
+  String get muscleMuscles;
+
+  /// No description provided for @muscleNeck.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck'**
+  String get muscleNeck;
+
+  /// No description provided for @muscleUpperSpine.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper Spine'**
+  String get muscleUpperSpine;
+
+  /// No description provided for @muscleUpperBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper Back'**
+  String get muscleUpperBack;
+
+  /// No description provided for @createRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Routine'**
+  String get createRoutine;
+
+  /// No description provided for @createRoutineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Custom Routine'**
+  String get createRoutineTitle;
+
+  /// No description provided for @createRoutineSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Build your own daily routine'**
+  String get createRoutineSubtitle;
+
+  /// No description provided for @routineIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get routineIcon;
+
+  /// No description provided for @routineTitleField.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get routineTitleField;
+
+  /// No description provided for @routineDescField.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get routineDescField;
+
+  /// No description provided for @routineDescHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Short summary of the routine'**
+  String get routineDescHint;
+
+  /// No description provided for @routineCategoryField.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get routineCategoryField;
+
+  /// No description provided for @routineDifficultyField.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty'**
+  String get routineDifficultyField;
+
+  /// No description provided for @routineDurationField.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get routineDurationField;
+
+  /// No description provided for @routineSetsRepsField.
+  ///
+  /// In en, this message translates to:
+  /// **'Sets x Reps'**
+  String get routineSetsRepsField;
+
+  /// No description provided for @routineFormField.
+  ///
+  /// In en, this message translates to:
+  /// **'Form & Instructions'**
+  String get routineFormField;
+
+  /// No description provided for @routineFormHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — how to perform this routine'**
+  String get routineFormHint;
+
+  /// No description provided for @diffBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get diffBeginner;
+
+  /// No description provided for @diffIntermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate'**
+  String get diffIntermediate;
+
+  /// No description provided for @diffAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get diffAdvanced;
+
+  /// No description provided for @catExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise'**
+  String get catExercise;
+
+  /// No description provided for @catNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition'**
+  String get catNutrition;
+
+  /// No description provided for @catSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep'**
+  String get catSleep;
+
+  /// No description provided for @catPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture'**
+  String get catPosture;
+
+  /// No description provided for @postureTip1.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand sideways (side profile) to the camera.'**
+  String get postureTip1;
+
+  /// No description provided for @postureTip2.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep ~2 meters distance from the lens.'**
+  String get postureTip2;
+
+  /// No description provided for @postureTip3.
+  ///
+  /// In en, this message translates to:
+  /// **'Arms relaxed, look straight ahead.'**
+  String get postureTip3;
+
+  /// No description provided for @postureTip4.
+  ///
+  /// In en, this message translates to:
+  /// **'Wear fitted clothes for accurate scoring.'**
+  String get postureTip4;
+
+  /// No description provided for @postureTip5.
+  ///
+  /// In en, this message translates to:
+  /// **'Use good lighting and a plain background.'**
+  String get postureTip5;
+
+  /// No description provided for @kyphosisLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Kyphosis (upper back)'**
+  String get kyphosisLabel;
+
+  /// No description provided for @lordosisLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Lordosis (lower back)'**
+  String get lordosisLabel;
+
+  /// No description provided for @analyzingPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'ANALYZING POSTURE'**
+  String get analyzingPosture;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @termsOfService.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get termsOfService;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {ver}'**
+  String version(String ver);
+
+  /// No description provided for @rateApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate BeTaller'**
+  String get rateApp;
+
+  /// No description provided for @rateAppSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your review helps us grow!'**
+  String get rateAppSubtitle;
+
+  /// No description provided for @unitSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit System'**
+  String get unitSystem;
+
+  /// No description provided for @unitMetric.
+  ///
+  /// In en, this message translates to:
+  /// **'Metric (cm, kg)'**
+  String get unitMetric;
+
+  /// No description provided for @unitImperial.
+  ///
+  /// In en, this message translates to:
+  /// **'Imperial (ft-in, lbs)'**
+  String get unitImperial;
+
+  /// No description provided for @healthDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Disclaimer'**
+  String get healthDisclaimer;
+
+  /// No description provided for @healthDisclaimerBody.
+  ///
+  /// In en, this message translates to:
+  /// **'BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.'**
+  String get healthDisclaimerBody;
+
+  /// No description provided for @sciSourcePrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Source: '**
+  String get sciSourcePrefix;
 }
 
 class _AppLocalizationsDelegate

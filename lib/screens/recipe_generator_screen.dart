@@ -178,21 +178,21 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
   String _categoryFilter = 'all';
   String _goalFilter = 'all';
 
-  static const _categories = <Map<String, String>>[
-    {'key': 'all', 'label': 'All'},
-    {'key': 'breakfast', 'label': 'Breakfast'},
-    {'key': 'lunch', 'label': 'Lunch'},
-    {'key': 'dinner', 'label': 'Dinner'},
-    {'key': 'snack', 'label': 'Snack'},
-  ];
+  static List<Map<String, String>> _categories(AppLocalizations l) => [
+        {'key': 'all', 'label': l.recipesCategoryAll},
+        {'key': 'breakfast', 'label': l.recipesCategoryBreakfast},
+        {'key': 'lunch', 'label': l.recipesCategoryLunch},
+        {'key': 'dinner', 'label': l.recipesCategoryDinner},
+        {'key': 'snack', 'label': l.recipesCategorySnack},
+      ];
 
-  static const _goals = <Map<String, String>>[
-    {'key': 'all', 'label': 'All'},
-    {'key': 'high_protein', 'label': 'High Protein'},
-    {'key': 'calcium', 'label': 'Calcium'},
-    {'key': 'omega3', 'label': 'Omega-3'},
-    {'key': 'iron', 'label': 'Iron'},
-  ];
+  static List<Map<String, String>> _goals(AppLocalizations l) => [
+        {'key': 'all', 'label': l.recipesGoalAll},
+        {'key': 'high_protein', 'label': l.recipesGoalProtein},
+        {'key': 'calcium', 'label': l.recipesGoalCalcium},
+        {'key': 'omega3', 'label': l.recipesGoalOmega3},
+        {'key': 'iron', 'label': l.recipesGoalIron},
+      ];
 
   List<Map<String, dynamic>> get _filteredRecipes {
     return _recipes.where((r) {
@@ -232,6 +232,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
   }
 
   void _showInfoDialog() {
+    final l = AppLocalizations.of(context)!;
     HapticFeedback.lightImpact();
     showDialog<void>(
       context: context,
@@ -244,15 +245,14 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SectionHeader(
+              SectionHeader(
                 icon: CupertinoIcons.info_circle_fill,
-                title: 'About Recipes',
+                title: l.recipesAboutTitle,
               ),
               const SizedBox(height: 14),
-              const Text(
-                'Curated recipes designed to fuel your growth. '
-                'Filter by meal type or nutritional goal to find the perfect fit for your plan.',
-                style: TextStyle(
+              Text(
+                l.recipesAboutBody,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,
                   height: 1.5,
@@ -263,9 +263,9 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text(
-                    'CLOSE',
-                    style: TextStyle(
+                  child: Text(
+                    l.recipesClose,
+                    style: const TextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w800,
                       letterSpacing: 1.0,
@@ -282,8 +282,6 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // l10n available but we use hardcoded English copy per spec.
-    // ignore: unused_local_variable
     final l = AppLocalizations.of(context)!;
     // Ensure provider wiring exists (for future personalization hooks).
     // ignore: unused_local_variable
@@ -323,10 +321,10 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
                               Navigator.of(context).pop();
                             },
                           ),
-                          const Expanded(
+                          Expanded(
                             child: Text(
-                              'Recipes',
-                              style: TextStyle(
+                              l.recipesTitle,
+                              style: const TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
@@ -355,7 +353,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'RECIPES',
+                                  l.recipesHeader,
                                   style: TextStyle(
                                     fontSize: 36,
                                     fontWeight: FontWeight.w800,
@@ -372,7 +370,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  'Fuel your growth',
+                                  l.recipesSubtitle,
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
@@ -417,7 +415,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 6),
               child: _buildChipRow(
-                items: _categories,
+                items: _categories(l),
                 selected: _categoryFilter,
                 onSelect: (k) => setState(() => _categoryFilter = k),
               ),
@@ -427,7 +425,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 4, 0, 12),
               child: _buildChipRow(
-                items: _goals,
+                items: _goals(l),
                 selected: _goalFilter,
                 onSelect: (k) => setState(() => _goalFilter = k),
                 accent: AppColors.cyan,
@@ -448,7 +446,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
                       const Text('🍽️', style: TextStyle(fontSize: 56)),
                       const SizedBox(height: 14),
                       Text(
-                        'No recipes match these filters',
+                        l.recipesNoMatch,
                         style: TextStyle(
                           color: AppColors.textSecondary,
                           fontSize: 15,
@@ -704,6 +702,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
 
   // ── Detail dialog ────────────────────────────────────────
   void _showRecipeDetail(Map<String, dynamic> recipe) {
+    final l = AppLocalizations.of(context)!;
     final category = recipe['category'] as String;
     final catColor = _categoryColor(category);
     final diff = recipe['difficulty'] as String;
@@ -822,9 +821,9 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SectionHeader(
+                        SectionHeader(
                           icon: CupertinoIcons.square_list_fill,
-                          title: 'Ingredients',
+                          title: l.recipesIngredients,
                         ),
                         const SizedBox(height: 10),
                         ...ingredients.map(
@@ -869,9 +868,9 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
                           ),
                         ),
                         const SizedBox(height: 18),
-                        const SectionHeader(
+                        SectionHeader(
                           icon: CupertinoIcons.book_fill,
-                          title: 'Instructions',
+                          title: l.recipesInstructions,
                         ),
                         const SizedBox(height: 10),
                         Text(
@@ -907,10 +906,10 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
                         ),
                       ],
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Text(
-                        'CLOSE',
-                        style: TextStyle(
+                        l.recipesClose,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w800,

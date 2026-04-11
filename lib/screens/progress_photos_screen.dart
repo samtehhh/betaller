@@ -65,42 +65,156 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
     await File(picked.path).copy(newPath);
 
     if (!context.mounted) return;
+    // Ask user to confirm/enter the height for this photo
+    final height = await _askHeight(context);
+    if (height == null) {
+      // User cancelled — clean up the file
+      try {
+        await File(newPath).delete();
+      } catch (_) {}
+      return;
+    }
+
+    if (!context.mounted) return;
     final provider = context.read<AppProvider>();
-    final height = provider.profile?.currentHeight ?? 0;
     provider.addProgressPhoto(newPath, height);
     HapticFeedback.heavyImpact();
   }
 
+  /// Prompt the user for the height (cm) of this specific photo.
+  /// Pre-fills with the current profile height as a suggestion.
+  Future<double?> _askHeight(BuildContext context) async {
+    final provider = context.read<AppProvider>();
+    final defaultHeight = provider.profile?.currentHeight ?? 170.0;
+    final controller = TextEditingController(text: defaultHeight.toStringAsFixed(1));
+    final l = AppLocalizations.of(context)!;
+
+    return showDialog<double>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.cardFill,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(color: AppColors.cardBorderLight, width: 1),
+        ),
+        title: Text(
+          l.yourHeightDialog,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.3,
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l.heightDialogMessage,
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.70),
+                fontSize: 13,
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: controller,
+              autofocus: true,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w800,
+              ),
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                suffixText: 'cm',
+                suffixStyle: TextStyle(
+                  color: AppColors.primary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+                filled: true,
+                fillColor: Colors.white.withValues(alpha: 0.04),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide(color: AppColors.cardBorderLight),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide(color: AppColors.cardBorderLight),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(null),
+            child: Text(
+              l.cancel,
+              style: TextStyle(color: Colors.white.withValues(alpha: 0.7)),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              final value = double.tryParse(controller.text.replaceAll(',', '.'));
+              if (value == null || value < 80 || value > 250) {
+                HapticFeedback.heavyImpact();
+                return;
+              }
+              HapticFeedback.mediumImpact();
+              Navigator.of(ctx).pop(value);
+            },
+            child: Text(
+              l.save,
+              style: const TextStyle(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _openPickerSheet(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     HapticFeedback.mediumImpact();
     showCupertinoModalPopup<void>(
       context: context,
       builder: (sheetContext) => CupertinoActionSheet(
-        title: const Text(
-          'Add Progress Photo',
-          style: TextStyle(fontWeight: FontWeight.w700),
+        title: Text(
+          l.addProgressPhoto,
+          style: const TextStyle(fontWeight: FontWeight.w700),
         ),
-        message: const Text('Capture your visual journey'),
+        message: Text(l.captureJourney),
         actions: [
           CupertinoActionSheetAction(
             onPressed: () {
               Navigator.of(sheetContext).pop();
               _pickPhoto(context, ImageSource.camera);
             },
-            child: const Text('Take Photo'),
+            child: Text(l.takePhoto),
           ),
           CupertinoActionSheetAction(
             onPressed: () {
               Navigator.of(sheetContext).pop();
               _pickPhoto(context, ImageSource.gallery);
             },
-            child: const Text('Choose from Library'),
+            child: Text(l.chooseFromLibrary),
           ),
         ],
         cancelButton: CupertinoActionSheetAction(
           isDefaultAction: true,
           onPressed: () => Navigator.of(sheetContext).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(l.cancel),
         ),
       ),
     );
@@ -118,16 +232,16 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
           borderRadius: BorderRadius.circular(20),
           side: BorderSide(color: AppColors.cardBorderLight, width: 1),
         ),
-        title: const Text(
-          'Delete Photo?',
-          style: TextStyle(
+        title: Text(
+          l.deletePhotoTitle,
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w800,
             letterSpacing: -0.3,
           ),
         ),
         content: Text(
-          'This photo will be removed from your progress timeline.',
+          l.deletePhotoBody,
           style: TextStyle(color: Colors.white.withValues(alpha: 0.75)),
         ),
         actions: [
@@ -207,18 +321,18 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildHeaderCard(count, daysTracked, cmGained),
+                        _buildHeaderCard(context, count, daysTracked, cmGained),
                         const SizedBox(height: 20),
                         if (!hasPhotos)
                           _buildEmptyState(context)
                         else ...[
                           if (photos.length >= 2) ...[
-                            _buildBeforeAfterCard(photos),
+                            _buildBeforeAfterCard(context, photos),
                             const SizedBox(height: 20),
                           ],
-                          const SectionHeader(
+                          SectionHeader(
                             icon: CupertinoIcons.photo_on_rectangle,
-                            title: 'Timeline',
+                            title: AppLocalizations.of(context)!.timelineTab,
                           ),
                           const SizedBox(height: 12),
                           _buildGrid(context, photos),
@@ -253,10 +367,10 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               Navigator.of(context).pop();
             },
           ),
-          const Expanded(
+          Expanded(
             child: Text(
-              'Progress Photos',
-              style: TextStyle(
+              AppLocalizations.of(context)!.progressPhotosTitle,
+              style: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w800,
                 color: Colors.white,
@@ -297,7 +411,8 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   }
 
   // ── Gradient header card ────────────────────────────────────────
-  Widget _buildHeaderCard(int count, int daysTracked, double cmGained) {
+  Widget _buildHeaderCard(BuildContext context, int count, int daysTracked, double cmGained) {
+    final l = AppLocalizations.of(context)!;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
@@ -324,7 +439,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'PROGRESS PHOTOS',
+            l.progressPhotosHeader,
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w800,
@@ -340,7 +455,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Track your visual journey',
+            l.progressPhotosSubtitle,
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
@@ -353,13 +468,13 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
             children: [
               _buildHeaderStat(
                 value: count.toString(),
-                label: count == 1 ? 'photo' : 'photos',
+                label: l.photoLabel(count),
                 color: AppColors.primary,
               ),
               _buildStatDivider(),
               _buildHeaderStat(
                 value: daysTracked.toString(),
-                label: daysTracked == 1 ? 'day' : 'days',
+                label: l.dayLabel(daysTracked),
                 color: AppColors.primaryBright,
               ),
               _buildStatDivider(),
@@ -367,7 +482,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                 value: cmGained > 0
                     ? '+${cmGained.toStringAsFixed(1)}'
                     : cmGained.toStringAsFixed(1),
-                label: 'cm gained',
+                label: l.cmGained,
                 color: cmGained > 0 ? AppColors.lime : Colors.white,
               ),
             ],
@@ -465,7 +580,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Text(
-                'Take your first photo to start tracking your visual progress.',
+                AppLocalizations.of(context)!.firstPhotoMessage,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 15,
@@ -490,15 +605,15 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                     ),
                   ],
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(CupertinoIcons.camera_fill,
+                    const Icon(CupertinoIcons.camera_fill,
                         color: Colors.white, size: 18),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
-                      'Take First Photo',
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.takeFirstPhoto,
+                      style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
                         color: Colors.white,
@@ -516,7 +631,8 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   }
 
   // ── Before/After comparison card ────────────────────────────────
-  Widget _buildBeforeAfterCard(List<Map<String, dynamic>> photos) {
+  Widget _buildBeforeAfterCard(BuildContext context, List<Map<String, dynamic>> photos) {
+    final l = AppLocalizations.of(context)!;
     final first = photos.first;
     final last = photos.last;
     final firstH = (first['height'] as num?)?.toDouble() ?? 0;
@@ -535,7 +651,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               Icon(CupertinoIcons.sparkles, color: AppColors.lime, size: 18),
               const SizedBox(width: 8),
               Text(
-                'BEFORE / AFTER',
+                l.beforeAfter,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w800,
@@ -558,7 +674,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               Expanded(
                 child: _buildComparisonAvatar(
                   photo: first,
-                  label: 'BEFORE',
+                  label: l.beforeLabel,
                   color: AppColors.primaryBright,
                 ),
               ),
@@ -587,7 +703,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               Expanded(
                 child: _buildComparisonAvatar(
                   photo: last,
-                  label: 'AFTER',
+                  label: l.afterLabel,
                   color: AppColors.lime,
                 ),
               ),
@@ -623,7 +739,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                   ),
                   const SizedBox(width: 6),
                   Text(
-                    '${diff >= 0 ? '+' : ''}${diff.toStringAsFixed(1)} cm in $days day${days == 1 ? '' : 's'}',
+                    '${diff >= 0 ? '+' : ''}${diff.toStringAsFixed(1)} cm in ${l.dayLabel(days)}',
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w800,

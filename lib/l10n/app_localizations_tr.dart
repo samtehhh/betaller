@@ -263,7 +263,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get growthVelocity => 'BÜYÜME HIZI';
 
   @override
-  String get noData => 'Veri yok';
+  String get noData => 'VERİ YOK';
 
   @override
   String growthRate(String rating) {
@@ -1570,4 +1570,889 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get hideAll => 'Hepsini gizle';
+
+  @override
+  String get heightAnalysis => 'Boy Analizi';
+
+  @override
+  String get heightVsPopulation => 'Küresel Nüfustaki Konumun';
+
+  @override
+  String get globalAveragesTable => 'Yaşa Göre Küresel Ortalamalar';
+
+  @override
+  String get standingTall => 'Boyun Yüksek';
+
+  @override
+  String get standingAboveAverage => 'Ortalamanın Üstünde';
+
+  @override
+  String get standingBelowAverage => 'Ortalamanın Altında';
+
+  @override
+  String get standingShort => 'Yaşıtlarının Gerisinde';
+
+  @override
+  String get yourHeightStanding => 'BOY DURUMUN';
+
+  @override
+  String get yourHeight => 'Sen';
+
+  @override
+  String peerAvg(int age) {
+    return '$age yaş ort.';
+  }
+
+  @override
+  String get aboveAvg => 'Ort. üstü';
+
+  @override
+  String get belowAvg => 'Ort. altı';
+
+  @override
+  String get whoDataSource => 'WHO 2007 Küresel Referans';
+
+  @override
+  String get percentileShort5 => '5.';
+
+  @override
+  String get percentileShort50 => '50.';
+
+  @override
+  String get percentileShort95 => '95.';
+
+  @override
+  String get youLabel => 'Sen';
+
+  @override
+  String get avgHeightLabel => 'ORT';
+
+  @override
+  String get percentileLabel => '%';
+
+  @override
+  String get diffLabel => 'FARK';
+
+  @override
+  String get whoSourceNote =>
+      'Veri kaynağı: WHO 2007 Büyüme Referansı & NCD-RisC küresel havuz tahminleri. Yüzdelikler küresel ortalamadır, ülkeye göre farklılık gösterebilir.';
+
+  @override
+  String get quickPhotos => 'Fotoğraflar';
+
+  @override
+  String get quickPosture => 'Postür';
+
+  @override
+  String get quickWellness => 'Sağlık';
+
+  @override
+  String get quickRecipes => 'Tarifler';
+
+  @override
+  String get wellnessTitle => 'Sağlık Takibi';
+
+  @override
+  String get wellnessHeader => 'SAĞLIK';
+
+  @override
+  String get wellnessSubtitle => 'Büyümenizi etkileyen faktörleri takip edin';
+
+  @override
+  String get caffeineToday => 'Bugünkü Kafein';
+
+  @override
+  String get withinLimits => 'Sağlıklı sınırlar içinde';
+
+  @override
+  String get approachingLimit => 'Limite yaklaşıyor';
+
+  @override
+  String get overLimit => 'Limit aşıldı — HGH\'yi etkiler';
+
+  @override
+  String get resetToday => 'Bugünü sıfırla';
+
+  @override
+  String get stressToday => 'Bugünkü Stres';
+
+  @override
+  String get stressVeryCalmLabel => 'Çok sakin — büyüme için ideal';
+
+  @override
+  String get stressCalmLabel => 'Sakin';
+
+  @override
+  String get stressNeutralLabel => 'Nötr';
+
+  @override
+  String get stressStressedLabel => 'Stresli';
+
+  @override
+  String get stressVeryStressedLabel =>
+      'Çok stresli — kortizol HGH\'yi engeller';
+
+  @override
+  String get stressTapToLog => 'Bugün nasıl hissettiğini kaydet';
+
+  @override
+  String get todaysJournal => 'Günlük';
+
+  @override
+  String get journalNoNote => '(not yok)';
+
+  @override
+  String get journalEdit => 'Düzenle';
+
+  @override
+  String get journalHowWasToday => 'Bugün nasıldı?';
+
+  @override
+  String get journalSaved => 'Günlük kaydedildi · +5 XP';
+
+  @override
+  String get journalSaveEntry => 'Kaydet';
+
+  @override
+  String get weeklyInsight => 'Haftalık Analiz';
+
+  @override
+  String get weeklyInsightCaffeine => 'KAFEİN';
+
+  @override
+  String get weeklyInsightStress => 'STRES';
+
+  @override
+  String get weeklyInsightMood => 'RUH HALİ';
+
+  @override
+  String get wellnessInfoTitle => 'Sağlık neden önemli';
+
+  @override
+  String get wellnessInfoBody =>
+      'Kafein derin uykuyu bozar; büyüme hormonu (HGH) en çok bu dönemde salgılanır. Kronik stres kortizolü yükseltir ve HGH\'yi doğrudan baskılar. Günlük tutmak büyümeyi destekleyen alışkanlıklarınızı sürdürmenize yardımcı olur.';
+
+  @override
+  String get wellnessInfoGotIt => 'Anladım';
+
+  @override
+  String get insightCaffeineHigh =>
+      'Bu hafta kafein tüketiminiz yüksek. Daha iyi uyku ve HGH için azaltmayı deneyin.';
+
+  @override
+  String get insightStressHigh =>
+      'Bu hafta stres seviyeniz yüksek. Nefes egzersizlerini düşünün — kortizol büyümeyi engeller.';
+
+  @override
+  String get insightMoodLow =>
+      'Son günlerde ruh haliniz düşük. Güneş ışığı, uyku ve hafif egzersiz faydalı olur.';
+
+  @override
+  String get insightGreat =>
+      'Bu hafta harika bir denge! Sağlığınız büyümenizi destekliyor.';
+
+  @override
+  String get insightDefault =>
+      'Sağlığınız iyi yolda. Daha derin analizler için kayıt tutmaya devam edin.';
+
+  @override
+  String get insightNeedMoreData => 'Analiz için birkaç gün daha kayıt yapın.';
+
+  @override
+  String get progressPhotosTitle => 'İlerleme Fotoğrafları';
+
+  @override
+  String get progressPhotosHeader => 'İLERLEME FOTOĞRAFLARI';
+
+  @override
+  String get progressPhotosSubtitle => 'Görsel yolculuğunuzu takip edin';
+
+  @override
+  String get addProgressPhoto => 'Fotoğraf Ekle';
+
+  @override
+  String get captureJourney => 'Görsel yolculuğunuzu kaydedin';
+
+  @override
+  String get takePhoto => 'Fotoğraf Çek';
+
+  @override
+  String get chooseFromLibrary => 'Galeriden Seç';
+
+  @override
+  String get deletePhotoTitle => 'Fotoğrafı Sil?';
+
+  @override
+  String get deletePhotoBody =>
+      'Bu fotoğraf ilerleme zaman çizelgenizden kaldırılacak.';
+
+  @override
+  String get timelineTab => 'Zaman Çizelgesi';
+
+  @override
+  String photoLabel(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'fotoğraf',
+      one: 'fotoğraf',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dayLabel(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'gün',
+      one: 'gün',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get cmGained => 'cm kazanç';
+
+  @override
+  String get firstPhotoMessage =>
+      'Görsel ilerlemenizi takip etmek için ilk fotoğrafınızı çekin.';
+
+  @override
+  String get takeFirstPhoto => 'İlk Fotoğrafı Çek';
+
+  @override
+  String get beforeAfter => 'ÖNCE / SONRA';
+
+  @override
+  String get beforeLabel => 'ÖNCE';
+
+  @override
+  String get afterLabel => 'SONRA';
+
+  @override
+  String get yourHeightDialog => 'Boyunuz';
+
+  @override
+  String get heightDialogMessage =>
+      'Bu fotoğraf için güncel boyunuzu cm olarak girin';
+
+  @override
+  String get postureAnalysisTitle => 'Postür Analizi';
+
+  @override
+  String get postureCoachHeader => 'POSTÜR KOÇU';
+
+  @override
+  String get postureCoachSubtitle => 'Yapay zeka destekli postür puanlaması';
+
+  @override
+  String get latestScore => 'SON PUAN';
+
+  @override
+  String get latestAnalysis => 'SON ANALİZ';
+
+  @override
+  String get headPosition => 'Baş Pozisyonu';
+
+  @override
+  String get progressLabel => 'İLERLEME';
+
+  @override
+  String get choosePhotoSource => 'Fotoğraf Kaynağı Seç';
+
+  @override
+  String get sideProfileHint => 'Yan profil, tüm vücut karede';
+
+  @override
+  String get howToTakePhoto => 'FOTOĞRAF NASIL ÇEKİLİR';
+
+  @override
+  String get takePosturePhoto => 'Postür Fotoğrafı Çek';
+
+  @override
+  String get postureExcellent => 'Mükemmel';
+
+  @override
+  String get postureGood => 'İyi';
+
+  @override
+  String get postureNeedsWork => 'Geliştirilmeli';
+
+  @override
+  String get posturePoor => 'Zayıf';
+
+  @override
+  String get recommendedExercises => 'ÖNERİLEN EGZERSİZLER';
+
+  @override
+  String get postureWallStand => 'Duvar Duruşu';
+
+  @override
+  String get postureWallStandDesc =>
+      'Sırtınızı duvara dayayarak günde 2 dakika durun.';
+
+  @override
+  String get postureChestOpener => 'Göğüs Açıcı';
+
+  @override
+  String get postureChestOpenerDesc =>
+      'Omuzları öne çeken sıkı göğüs kaslarını açar.';
+
+  @override
+  String get postureChinTucks => 'Çene Çekme';
+
+  @override
+  String get postureChinTucksDesc =>
+      'İleri baş postürünü düzeltir — 3×10 tekrar.';
+
+  @override
+  String get postureDeadbug => 'Deadbug';
+
+  @override
+  String get postureDeadbugDesc =>
+      'Lordoz kontrolü için derin karnı güçlendirir.';
+
+  @override
+  String get recipesTitle => 'Tarifler';
+
+  @override
+  String get recipesHeader => 'TARİFLER';
+
+  @override
+  String get recipesSubtitle => 'Büyümenizi besleyin';
+
+  @override
+  String get recipesCategoryAll => 'Tümü';
+
+  @override
+  String get recipesCategoryBreakfast => 'Kahvaltı';
+
+  @override
+  String get recipesCategoryLunch => 'Öğle';
+
+  @override
+  String get recipesCategoryDinner => 'Akşam';
+
+  @override
+  String get recipesCategorySnack => 'Atıştırmalık';
+
+  @override
+  String get recipesGoalAll => 'Tümü';
+
+  @override
+  String get recipesGoalProtein => 'Yüksek Protein';
+
+  @override
+  String get recipesGoalCalcium => 'Kalsiyum';
+
+  @override
+  String get recipesGoalOmega3 => 'Omega-3';
+
+  @override
+  String get recipesGoalIron => 'Demir';
+
+  @override
+  String get recipesNoMatch => 'Bu filtrelere uygun tarif bulunamadı';
+
+  @override
+  String get recipesIngredients => 'Malzemeler';
+
+  @override
+  String get recipesInstructions => 'Hazırlanışı';
+
+  @override
+  String get recipesClose => 'KAPAT';
+
+  @override
+  String get recipesAboutTitle => 'Tarifler Hakkında';
+
+  @override
+  String get recipesAboutBody =>
+      'Büyümenizi desteklemek için özenle seçilmiş tarifler. Öğün türü veya besin hedefine göre filtreleyerek planınıza en uygun tarifi bulun.';
+
+  @override
+  String get animHintSpinalDecomp => 'Omurga dekompresyonu';
+
+  @override
+  String get animHintGravityReversal => 'Yerçekimi tersine çevirme';
+
+  @override
+  String get animHintImpactBones => 'Kemiklere darbe yüklemesi';
+
+  @override
+  String get animHintHighImpact => 'Yüksek etkili kemik yüklemesi';
+
+  @override
+  String get animHintMetabolicBurst => 'Metabolik patlama antrenmanı';
+
+  @override
+  String get animHintFullBodyStretch => 'Tüm vücut uyanış esneme';
+
+  @override
+  String get animHintSpinalExtension => 'Omurga uzantısı';
+
+  @override
+  String get animHintCervicalDecomp => 'Servikal dekompresyon';
+
+  @override
+  String get animHintShoulderMobility => 'Omuz hareketliliği';
+
+  @override
+  String get animHintFullBodyMotion => 'Tüm vücut hareketi';
+
+  @override
+  String get animHintPosteriorChain => 'Arka zincir esneme';
+
+  @override
+  String get animHintMuscleGrowth => 'Kas büyüme yakıtı';
+
+  @override
+  String get animHintBoneDensity => 'Kemik yoğunluğu desteği';
+
+  @override
+  String get animHintSpinalDisc => 'Omurga diski hidrasyonu';
+
+  @override
+  String get animHintCleanNutrition => 'Temiz beslenme';
+
+  @override
+  String get animHintIgf1 => 'IGF-1 optimizasyonu';
+
+  @override
+  String get animHintHghAmino => 'HGH amino öncüsü';
+
+  @override
+  String get animHintCalciumAbsorption => 'Kalsiyum emilimi';
+
+  @override
+  String get animHintSpinalAlignment => 'Omurga hizalaması';
+
+  @override
+  String get animHintPostureCorrection => 'Postür düzeltme';
+
+  @override
+  String get animHintMindBody => 'Zihin-beden dengesi';
+
+  @override
+  String get animHintCoreStability => 'Kor stabilite';
+
+  @override
+  String get animHintLegPower => 'Bacak gücü ve HGH patlaması';
+
+  @override
+  String get animHintVerticalPower => 'Dikey güç';
+
+  @override
+  String get animHintHghSurge => 'HGH patlama antrenmanı';
+
+  @override
+  String get animHintPeakHgh => 'Tepe HGH salınım penceresi';
+
+  @override
+  String get animHintMelatonin => 'Melatonin optimizasyonu';
+
+  @override
+  String get animHintDeepSleep => 'Derin uyku düzeni';
+
+  @override
+  String get animHintSleepOpt => 'Uyku optimizasyonu';
+
+  @override
+  String get animHintExercise => 'Egzersiz';
+
+  @override
+  String get formMorningStretch =>
+      'Boyun rotasyonlarıyla başla, sonra tüm vücut esneme hareketlerine geç. Her esnemeyi 20-30 saniye sekme yapmadan tut.';
+
+  @override
+  String get formBarHanging =>
+      'Bara omuz genişliğinde tut, vücudunu tamamen gevşet, yerçekiminin omurganı esnetmesine izin ver. Sallanmaktan kaçın.';
+
+  @override
+  String get formCobraStretch =>
+      'Yüzüstü yat, elleri omuzların altına koy, kalçayı yerde tutarak üst vücudu yavaşça yukarı it. Yukarı bak.';
+
+  @override
+  String get formJumping =>
+      'Squat jump veya ip atlama yap. Ayağının parmak uçlarına yumuşak bir şekilde in. Setler arasında 30 saniye dinlen.';
+
+  @override
+  String get formSwimmingBasketball =>
+      'Yüzme (serbest/sırt üstü) veya basketbol seç. Zıplama, uzanma ve tam hareket aralığına odaklan.';
+
+  @override
+  String get formEveningYoga =>
+      'Kedi-inek, çocuk pozu, aşağı bakan köpek, öne eğilme gibi nazik pozlar yap. Derin nefes al ve her pozu 30-60 saniye tut.';
+
+  @override
+  String get formSprintIntervals =>
+      '5 dakika ısın, sonra 30 saniye maksimum eforla sprint yap. 90 saniye yürü veya hafif koş. Tekrarla.';
+
+  @override
+  String get formHiitWorkout =>
+      'Burpees, dağ tırmanıcısı, squat jump gibi egzersizleri 45 saniye maksimum yoğunlukta yap, 15 saniye dinlen.';
+
+  @override
+  String get formSquats =>
+      'Ayaklarını omuz genişliğinde aç. Uyluklar yere paralel olana kadar in. Sırtını düz tut, dizlerin ayak parmaklarını geçmesin.';
+
+  @override
+  String get formDeadliftStretch =>
+      'Ayaklarını kalça genişliğinde aç, sırtını düz tutarak kalçadan eğil. Ayak parmaklarına uzanarak hamstring ve sırt esnekliğini hisset.';
+
+  @override
+  String get formOverheadPress =>
+      'Dik dur, kollarını tamamen uzatarak yukarı it. Hafif ağırlık veya vücut ağırlığı kullan. Karın kaslarını sık, sırtı bükmekten kaçın.';
+
+  @override
+  String get formSkippingRope =>
+      'İki ayakla zıpla, ayak parmak uçlarına yumuşak in. Zıplamaları alçak ve tutarlı tut. Setler arasında dinlen.';
+
+  @override
+  String get formPilatesCore =>
+      'Plank, dead bug, bird dog, köprü ve bacak kaldırma yap. Kontrollü hareket ve nefes almaya odaklan.';
+
+  @override
+  String get formInversionHang =>
+      'İnversiyon masası veya yerçekimi botları kullan. Hafif bir eğimle başla ve yavaşça artır. Seansları kısa tut.';
+
+  @override
+  String get formProtein =>
+      'Protein alımını 3-4 öğüne yay. Yumurta, tavuk, balık, süt ürünleri ve baklagilleri dahil et.';
+
+  @override
+  String get formCalciumVitaminD =>
+      'Günde 3 porsiyon süt ürünü tüket ve doğal D vitamini sentezi için 15 dakika güneşlen.';
+
+  @override
+  String get formWater =>
+      'Gün boyunca düzenli su iç. Yanında su şişesi taşı ve saatlik hatırlatıcılar kur.';
+
+  @override
+  String get formAvoidJunk =>
+      'Fast food yerine doğal gıdalar tercih et. Şekerli içecekleri suyla değiştir. Etiketleri oku ve işlenmiş gıdalardan kaçın.';
+
+  @override
+  String get formZincIntake =>
+      'Kırmızı et, kabak çekirdeği, nohut, kaju ve istiridye diyetine dahil et. Günde 8-11 mg hedefle.';
+
+  @override
+  String get formVitaminDSunlight =>
+      'Kollarını ve yüzünü 15 dakika doğrudan güneş ışığına maruz bırak, tercihen öğleden önce. Bu süre için güneş kremi gerekmez.';
+
+  @override
+  String get formArginineFoods =>
+      'Fındık, tohumlar, hindi, tavuk, soya fasulyesi ve süt ürünlerini öğünlerine dahil et. Uyku öncesi tüketilmesi en iyisidir.';
+
+  @override
+  String get formQualitySleep =>
+      'Saat 22:00\'ye kadar yat. Odayı karanlık ve serin tut. Öğleden sonra 14:00\'ten sonra kafein tüketmekten kaçın.';
+
+  @override
+  String get formNoScreen =>
+      'Yatmadan 1 saat önce alarm kur. Tüm ekranları kaldır. Bunun yerine kitap oku veya hafif esneme yap.';
+
+  @override
+  String get formSleepEnvironment =>
+      'Karartma perdeleri kullan, odayı 18-20°C\'de tut, tüm ışık kaynaklarını kaldır. Rahat bir yatak ve yastık kullan.';
+
+  @override
+  String get formPreSleepRoutine =>
+      'Yatmadan 30 dakika önce başla: ışıkları kıs, kitap oku, nefes egzersizleri yap, uyarıcı aktivitelerden kaçın.';
+
+  @override
+  String get formPostureCheck =>
+      'Omuzlarını geri ve aşağı çekerek dik dur. Karın kaslarını hafifçe sık. Başının tepesinden seni yukarı çeken bir ip hayal et.';
+
+  @override
+  String get formWallStand =>
+      'Topuklar, kalça, kürek kemikleri ve başın duvara değecek şekilde dur. 5 dakika tut. Normal nefes al.';
+
+  @override
+  String get formNeckStretches =>
+      'Başını yavaşça her iki tarafa, öne ve arkaya eğ. Her yönü 30 saniye tut. Esnemeyi zorlama.';
+
+  @override
+  String get formShoulderRolls =>
+      'Omuzları 15 kez öne, sonra 15 kez arkaya döndür. Ardından 20 saniye tutarak göğüs açma esnemeleri yap.';
+
+  @override
+  String get sciMorningStretch =>
+      'Sabah esnemesi, gece boyunca yeniden hidrate olan omurga disklerini açar ve boy korumayı maksimize eder';
+
+  @override
+  String get sciBarHanging =>
+      'Asılma, yerçekimini kullanarak omurga disklerini açar ve geçici olarak boy uzaması sağlayabilir';
+
+  @override
+  String get sciCobraStretch =>
+      'Kobra esneme, omurgayı uzatır ve göğsü açarak oturmadan kaynaklanan omurga sıkışmasını azaltır';
+
+  @override
+  String get sciJumping =>
+      'Yüksek etkili zıplama, bacaklardaki büyüme plaklarını uyarır ve büyüme hormonu salınımını tetikler';
+
+  @override
+  String get sciSwimmingBasketball =>
+      'Yüzme ve basketbol, büyüme plağı aktivitesini uyaran tüm vücut esneme, zıplama ve uzanma içerir';
+
+  @override
+  String get sciEveningYoga =>
+      'Akşam yogası, büyüme hormonunu baskılayan kortizolü azaltır ve gece toparlanması için kasları esnetir';
+
+  @override
+  String get sciSprintIntervals =>
+      'Sprint, önemli miktarda büyüme hormonu salınımını tetikler';
+
+  @override
+  String get sciHiitWorkout =>
+      'Yüksek yoğunluklu egzersiz, HGH\'yi %450\'ye kadar artırır';
+
+  @override
+  String get sciSquats => 'Squat, bacak ve omurgadaki büyüme plaklarını uyarır';
+
+  @override
+  String get sciDeadliftStretch =>
+      'Omurga dekompresyonu, vertebral disk sağlığını destekler';
+
+  @override
+  String get sciOverheadPress =>
+      'Baş üstü press, omurgayı esnetir ve duruş kaslarını güçlendirir';
+
+  @override
+  String get sciSkippingRope =>
+      'Tekrarlayan zıplama, alt ekstremitelerdeki büyüme plaklarını uyarır';
+
+  @override
+  String get sciPilatesCore =>
+      'Karın gücü, omurga hizalamasını ve duruşu destekler';
+
+  @override
+  String get sciInversionHang =>
+      'İnversiyon, omurga disklerini açar, geçici olarak 1-2 cm ekleyebilir';
+
+  @override
+  String get sciProtein =>
+      'Protein, kemik ve kas büyümesi için gerekli amino asitleri sağlar, özellikle büyüme atılımları sırasında';
+
+  @override
+  String get sciCalciumVitaminD =>
+      'Kalsiyum ve D Vitamini, kemik yoğunluğu ve doğrusal kemik büyümesinin temel yapı taşlarıdır';
+
+  @override
+  String get sciWater =>
+      'Hidrasyon, büyüme plaklarına besin taşınması ve eklem kıkırdak sağlığı için gereklidir';
+
+  @override
+  String get sciAvoidJunk =>
+      'İşlenmiş gıdalar ve şeker, büyüme hormonu salgılanmasını baskılayan iltihap ve insülin artışlarına neden olur';
+
+  @override
+  String get sciZincIntake => 'Çinko, büyüme hormonu üretimi için gereklidir';
+
+  @override
+  String get sciVitaminDSunlight =>
+      'D Vitamini, kalsiyum emilimi ve kemik büyümesi için çok önemlidir';
+
+  @override
+  String get sciArginineFoods =>
+      'L-Arjinin, büyüme hormonu salgılanmasını uyarır';
+
+  @override
+  String get sciQualitySleep =>
+      'Günlük büyüme hormonunun %70-80\'i derin uyku evrelerinde, özellikle 22:00-02:00 arasında salınır';
+
+  @override
+  String get sciNoScreen =>
+      'Ekranlardan gelen mavi ışık, melatonin üretimini baskılar, uykuya dalmayı geciktirir ve derin uyku kalitesini düşürür';
+
+  @override
+  String get sciSleepEnvironment =>
+      'Karanlık, serin ortam melatonin ve büyüme hormonunu maksimize eder';
+
+  @override
+  String get sciPreSleepRoutine =>
+      'Tutarlı uyku öncesi rutin, derin uyku kalitesini %23 artırır';
+
+  @override
+  String get sciPostureCheck =>
+      'Doğru duruş hizalaması, görünen boya anında 2-3 cm ekleyebilir ve omurga sıkışmasını önler';
+
+  @override
+  String get sciWallStand =>
+      'Duvar duruşu, postüral kas hafızasını eğitir ve gün boyunca doğru omurga hizalamasını korumaya yardımcı olur';
+
+  @override
+  String get sciNeckStretches =>
+      'Boyun esnemeleri, sıkışmayı giderir ve servikal hizalamayı iyileştirir';
+
+  @override
+  String get sciShoulderRolls =>
+      'Omuzları açmak, öne doğru duruşu düzeltir, görünüşte 1-2 cm ekleyebilir';
+
+  @override
+  String get muscleSpine => 'Omurga';
+
+  @override
+  String get muscleLegs => 'Bacaklar';
+
+  @override
+  String get muscleBack => 'Sırt';
+
+  @override
+  String get muscleShoulders => 'Omuzlar';
+
+  @override
+  String get muscleArms => 'Kollar';
+
+  @override
+  String get muscleCore => 'Karın';
+
+  @override
+  String get muscleChest => 'Göğüs';
+
+  @override
+  String get muscleCalves => 'Baldırlar';
+
+  @override
+  String get muscleFullBody => 'Tüm Vücut';
+
+  @override
+  String get muscleHips => 'Kalça';
+
+  @override
+  String get muscleBones => 'Kemikler';
+
+  @override
+  String get muscleMuscles => 'Kaslar';
+
+  @override
+  String get muscleNeck => 'Boyun';
+
+  @override
+  String get muscleUpperSpine => 'Üst Omurga';
+
+  @override
+  String get muscleUpperBack => 'Üst Sırt';
+
+  @override
+  String get createRoutine => 'Rutin Oluştur';
+
+  @override
+  String get createRoutineTitle => 'Özel Rutin Oluştur';
+
+  @override
+  String get createRoutineSubtitle => 'Kendi günlük rutinini oluştur';
+
+  @override
+  String get routineIcon => 'İkon';
+
+  @override
+  String get routineTitleField => 'Başlık';
+
+  @override
+  String get routineDescField => 'Açıklama';
+
+  @override
+  String get routineDescHint => 'Rutinin kısa özeti';
+
+  @override
+  String get routineCategoryField => 'Kategori';
+
+  @override
+  String get routineDifficultyField => 'Zorluk';
+
+  @override
+  String get routineDurationField => 'Süre';
+
+  @override
+  String get routineSetsRepsField => 'Set x Tekrar';
+
+  @override
+  String get routineFormField => 'Yapılışı ve Talimatlar';
+
+  @override
+  String get routineFormHint => 'İsteğe bağlı — rutinin nasıl yapılacağı';
+
+  @override
+  String get diffBeginner => 'Başlangıç';
+
+  @override
+  String get diffIntermediate => 'Orta';
+
+  @override
+  String get diffAdvanced => 'İleri';
+
+  @override
+  String get catExercise => 'Egzersiz';
+
+  @override
+  String get catNutrition => 'Beslenme';
+
+  @override
+  String get catSleep => 'Uyku';
+
+  @override
+  String get catPosture => 'Postür';
+
+  @override
+  String get postureTip1 => 'Kameraya yan durun (yan profil).';
+
+  @override
+  String get postureTip2 => 'Objektiften ~2 metre uzakta durun.';
+
+  @override
+  String get postureTip3 => 'Kollarınız rahat olsun, dümdüz bakın.';
+
+  @override
+  String get postureTip4 => 'Doğru puanlama için dar kıyafet giyin.';
+
+  @override
+  String get postureTip5 => 'İyi aydınlatma ve düz arka plan kullanın.';
+
+  @override
+  String get kyphosisLabel => 'Kifoz (üst sırt)';
+
+  @override
+  String get lordosisLabel => 'Lordoz (alt sırt)';
+
+  @override
+  String get analyzingPosture => 'POSTÜR ANALİZ EDİLİYOR';
+
+  @override
+  String get privacyPolicy => 'Gizlilik Politikası';
+
+  @override
+  String get termsOfService => 'Kullanım Şartları';
+
+  @override
+  String version(String ver) {
+    return 'Versiyon $ver';
+  }
+
+  @override
+  String get rateApp => 'BeTaller\'ı Değerlendir';
+
+  @override
+  String get rateAppSubtitle => 'Değerlendirmeniz bize güç veriyor!';
+
+  @override
+  String get unitSystem => 'Ölçü Birimi';
+
+  @override
+  String get unitMetric => 'Metrik (cm, kg)';
+
+  @override
+  String get unitImperial => 'İngiliz (ft-in, lbs)';
+
+  @override
+  String get healthDisclaimer => 'Sağlık Uyarısı';
+
+  @override
+  String get healthDisclaimerBody =>
+      'BeTaller genel sağlık ve fitness rehberliği sunar. Sonuçlar yaşa, genetiğe ve bireysel faktörlere göre değişir. Bu uygulama tıbbi tavsiye vermez. Egzersizler postür optimizasyonu, omurga sağlığı ve doğal alışkanlıklarla büyüme hormonu desteğine odaklanır. Yeni bir egzersiz veya beslenme programına başlamadan önce bir sağlık uzmanına danışın. Büyüme plakları kapandıktan sonra (genellikle 18-25 yaş) boy değişiklikleri ağırlıklı olarak postür iyileştirmesinden kaynaklanır.';
+
+  @override
+  String get sciSourcePrefix => 'Kaynak: ';
 }

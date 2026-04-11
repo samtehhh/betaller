@@ -8,6 +8,9 @@ import '../models/user_profile.dart';
 import '../models/height_record.dart';
 import '../models/routine.dart';
 import '../utils/constants.dart';
+import '../utils/height_reference.dart';
+import '../services/purchase_service.dart';
+import '../services/notification_service.dart';
 
 class AppProvider extends ChangeNotifier {
   UserProfile? _profile;
@@ -26,6 +29,7 @@ class AppProvider extends ChangeNotifier {
   bool _analysisCompleted = false;
   Locale? _locale;
   bool _isPremium = false;
+  bool _useImperial = false; // false = metric (cm/kg), true = imperial (ft-in/lbs)
 
   // Gamification state
   int _totalXP = 0;
@@ -46,6 +50,8 @@ class AppProvider extends ChangeNotifier {
   Map<String, int> _stressByDate = {};
   // Daily mood 1-5 + optional 1-line note — keyed by date
   Map<String, Map<String, dynamic>> _journalByDate = {};
+  // Program progression: set of completed day indices (0-based)
+  Set<int> _completedProgramDays = {};
 
   UserProfile? get profile => _profile;
   List<HeightRecord> get heightRecords => _heightRecords;
@@ -75,6 +81,7 @@ class AppProvider extends ChangeNotifier {
   String get todayQuote => _todayQuote;
   Locale? get locale => _locale;
   bool get isPremium => _isPremium;
+  bool get useImperial => _useImperial;
 
   // Gamification getters
   int get totalXP => _totalXP;
@@ -103,6 +110,7 @@ class AppProvider extends ChangeNotifier {
   Map<String, int> get caffeineByDate => _caffeineByDate;
   Map<String, int> get stressByDate => _stressByDate;
   Map<String, Map<String, dynamic>> get journalByDate => _journalByDate;
+  Set<int> get completedProgramDays => _completedProgramDays;
 
   /// Daily caffeine limit (mg) based on age — teens <100mg, adults <400mg
   int get caffeineLimit {
@@ -183,6 +191,15 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ── Program Day Progression ──
+  void markProgramDayComplete(int day) {
+    if (_completedProgramDays.contains(day)) return;
+    _completedProgramDays = {..._completedProgramDays, day};
+    addXP(30);
+    _saveData();
+    notifyListeners();
+  }
+
   // ── Caffeine Tracker ──
   void addCaffeine(int mg) {
     _caffeineByDate[_today] = (_caffeineByDate[_today] ?? 0) + mg;
@@ -215,15 +232,19 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // ── Anonymous leaderboard rank (computed locally based on streak/level) ──
-  /// Returns approximate percentile rank (0-100) for current user vs synthetic peer group
+  // ── Real WHO-based height percentile ──
+  /// Returns the user's height percentile (0–100) vs global population
+  /// using WHO 2007 growth reference data embedded in HeightReference.
   int get peerPercentile {
-    // Synthetic curve: streak ≥30 = top 10%, ≥14 = top 25%, ≥7 = top 50%, ≥3 = top 75%
-    if (_streak >= 30) return 90;
-    if (_streak >= 14) return 75;
-    if (_streak >= 7) return 50;
-    if (_streak >= 3) return 25;
-    return 10;
+    final h = _profile?.currentHeight;
+    final age = _profile?.age;
+    final isMale = (_profile?.gender ?? 'male') == 'male';
+    if (h == null || age == null) return 50;
+    return HeightReference.percentile(
+      heightCm: h,
+      age: age,
+      isMale: isMale,
+    ).round();
   }
 
   String get _today => DateTime.now().toIso8601String().substring(0, 10);
@@ -301,6 +322,7 @@ class AppProvider extends ChangeNotifier {
       _todaySleep = (json['todaySleep'] ?? 0).toDouble();
       _analysisCompleted = json['analysisCompleted'] ?? false;
       _isPremium = json['isPremium'] ?? false;
+      _useImperial = json['useImperial'] ?? false;
       if (json['pastHeights'] != null) {
         _pastHeights = (json['pastHeights'] as Map<String, dynamic>)
             .map((k, v) => MapEntry(int.parse(k), (v as num).toDouble()));
@@ -341,6 +363,9 @@ class AppProvider extends ChangeNotifier {
           .map((k, v) => MapEntry(k.toString(), (v as num).toInt()));
       _journalByDate = ((json['journalByDate'] as Map?) ?? {})
           .map((k, v) => MapEntry(k.toString(), Map<String, dynamic>.from(v as Map)));
+      _completedProgramDays = Set<int>.from(
+        (json['completedProgramDays'] as List? ?? []).map((e) => (e as num).toInt()),
+      );
     }
 
     _initRoutines();
@@ -348,6 +373,18 @@ class AppProvider extends ChangeNotifier {
     _setDailyQuote();
     _checkAndGenerateChallenges();
     notifyListeners();
+
+    // Sync premium status with RevenueCat entitlement
+    _syncPremiumStatus();
+  }
+
+  Future<void> _syncPremiumStatus() async {
+    final hasEntitlement = await PurchaseService().checkEntitlement();
+    if (hasEntitlement != _isPremium) {
+      _isPremium = hasEntitlement;
+      _saveData();
+      notifyListeners();
+    }
   }
 
   void _initRoutines() {
@@ -403,6 +440,7 @@ class AppProvider extends ChangeNotifier {
       'analysisCompleted': _analysisCompleted,
       'pastHeights': _pastHeights.map((k, v) => MapEntry(k.toString(), v)),
       'isPremium': _isPremium,
+      'useImperial': _useImperial,
       'locale': _locale?.languageCode ?? '',
       'totalXP': _totalXP,
       'activeChallenges': _activeChallenges,
@@ -415,6 +453,7 @@ class AppProvider extends ChangeNotifier {
       'caffeineByDate': _caffeineByDate,
       'stressByDate': _stressByDate,
       'journalByDate': _journalByDate,
+      'completedProgramDays': _completedProgramDays.toList(),
     };
     await prefs.setString('glowup_app_data', jsonEncode(data));
   }
@@ -505,11 +544,30 @@ class AppProvider extends ChangeNotifier {
       addXP(xpRewards['streak_day']! * _streak);
       updateChallengeProgress('daily_all_routines', 1);
       updateChallengeProgress('weekly_streak_7', _streak);
+
+      // Send milestone notification + cancel streak risk
+      NotificationService().sendStreakNotification(_streak);
+      NotificationService().cancelStreakRiskNotification();
+    }
+
+    // Trigger review at key milestones
+    if (_streak == 3 || _streak == 7 || _streak == 14 || _streak == 30) {
+      _shouldRequestReview = true;
+    }
+
+    // Schedule streak-at-risk if routines not all done yet
+    if (!allRoutinesCompleted && _streak >= 2) {
+      NotificationService().scheduleStreakRiskNotification(_streak);
     }
 
     _saveData();
     notifyListeners();
   }
+
+  // ── App Review ──
+  bool _shouldRequestReview = false;
+  bool get shouldRequestReview => _shouldRequestReview;
+  void clearReviewFlag() => _shouldRequestReview = false;
 
   void setPremium(bool value) {
     _isPremium = value;
@@ -521,6 +579,27 @@ class AppProvider extends ChangeNotifier {
     _locale = newLocale;
     _saveData();
     notifyListeners();
+  }
+
+  void setUseImperial(bool value) {
+    _useImperial = value;
+    _saveData();
+    notifyListeners();
+  }
+
+  /// Convert cm to display string based on unit preference
+  String formatHeight(double cm) {
+    if (!_useImperial) return '${cm.toStringAsFixed(1)} cm';
+    final totalInches = cm / 2.54;
+    final feet = totalInches ~/ 12;
+    final inches = (totalInches % 12).round();
+    return '$feet\'$inches"';
+  }
+
+  /// Convert kg to display string based on unit preference
+  String formatWeight(double kg) {
+    if (!_useImperial) return '${kg.toStringAsFixed(1)} kg';
+    return '${(kg * 2.20462).toStringAsFixed(1)} lbs';
   }
 
   void addWater(double amount) {

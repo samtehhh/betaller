@@ -259,4 +259,68 @@ class NotificationService {
       await cancelAll();
     }
   }
+
+  // ── Streak-based smart notifications ──────────────────────────
+
+  /// Call this when streak updates. Sends contextual notification.
+  Future<void> sendStreakNotification(int streak) async {
+    if (!await isEnabled()) return;
+
+    // Milestone celebrations
+    String? title;
+    String? body;
+
+    if (streak == 3) {
+      title = '🔥 3 Gün Serisi!';
+      body = 'Harika başlangıç! 3 gün üst üste tamamladın. Devam et, 7 güne ulaş!';
+    } else if (streak == 7) {
+      title = '🏆 1 Hafta Serisi!';
+      body = 'İnanılmaz! 7 gün üst üste tüm rutinleri tamamladın. Büyüme hormonun teşekkür ediyor!';
+    } else if (streak == 14) {
+      title = '⭐ 2 Hafta Serisi!';
+      body = '14 gün disiplin! Vücudun değişmeye başlıyor. Duruşun düzeliyor, kasların güçleniyor.';
+    } else if (streak == 30) {
+      title = '👑 1 Ay Serisi!';
+      body = '30 gün! Sen bir şampiyon! Bu disiplinle boyunu optimize etmeye devam edeceksin.';
+    } else if (streak == 60) {
+      title = '🌟 60 Gün Serisi!';
+      body = '60 gün! İnanılmaz bir başarı. Dünyada çok az kişi bu seviyeye ulaşır.';
+    } else if (streak == 100) {
+      title = '💎 100 GÜN! EFSANEVİ!';
+      body = '100 gün üst üste! Sen bir efsane oldun. Bu disiplin hayatını değiştirecek.';
+    }
+
+    if (title != null && body != null) {
+      await _plugin.show(
+        id: 900 + streak,
+        title: title,
+        body: body,
+        notificationDetails: _notifDetails('milestone', 'Milestone', body),
+      );
+    }
+  }
+
+  /// Send streak-at-risk notification (call in the evening if routines not done)
+  Future<void> scheduleStreakRiskNotification(int currentStreak) async {
+    if (!await isEnabled() || currentStreak < 2) return;
+
+    // Schedule for 21:00 today
+    final now = tz.TZDateTime.now(tz.local);
+    var scheduled = tz.TZDateTime(tz.local, now.year, now.month, now.day, 21, 0);
+    if (scheduled.isBefore(now)) return; // already past 21:00
+
+    _plugin.zonedSchedule(
+      id: 950,
+      title: '⚠️ Serini Kaybetme!',
+      body: '$currentStreak günlük serin tehlikede! Bugünkü rutinlerini tamamla, serinı koru.',
+      scheduledDate: scheduled,
+      notificationDetails: _notifDetails('streak_risk', 'Seri Uyarısı', 'Serini kaybetme!'),
+      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+    );
+  }
+
+  /// Cancel streak risk notification (call when all routines completed)
+  Future<void> cancelStreakRiskNotification() async {
+    await _plugin.cancel(id: 950);
+  }
 }

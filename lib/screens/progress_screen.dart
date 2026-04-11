@@ -9,6 +9,7 @@ import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../widgets/premium_paywall.dart';
+import 'weekly_report_screen.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -294,6 +295,61 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                           ),
                         );
                       }),
+
+                    // ── Weekly Report ──────────────────
+                    const SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const WeeklyReportScreen())),
+                      child: GlassCard(
+                        glowColor: AppColors.orange.withValues(alpha: 0.15),
+                        padding: const EdgeInsets.all(18),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 48,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [AppColors.orange.withValues(alpha: 0.25), AppColors.warning.withValues(alpha: 0.12)],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(color: AppColors.orange.withValues(alpha: 0.35)),
+                              ),
+                              child: const Icon(CupertinoIcons.doc_chart_fill, color: AppColors.orange, size: 22),
+                            ),
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    l.weeklyReportMenu,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white,
+                                      letterSpacing: -0.3,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    l.weeklyReportMenuSubtitle,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.textTertiary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(CupertinoIcons.chevron_right, color: AppColors.orange.withValues(alpha: 0.7), size: 18),
+                          ],
+                        ),
+                      ),
+                    ),
                     ],
                   ]),
                 ),

@@ -9,6 +9,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'providers/app_provider.dart';
 import 'screens/splash_screen.dart';
 import 'services/notification_service.dart';
+import 'services/purchase_service.dart';
 import 'utils/constants.dart';
 
 void main() async {
@@ -33,6 +34,9 @@ void main() async {
   if (await notifService.isEnabled()) {
     await notifService.scheduleAllNotifications();
   }
+
+  // Initialize RevenueCat
+  await PurchaseService().init();
 
   runApp(
     ChangeNotifierProvider.value(
@@ -82,8 +86,8 @@ class BeTallerApp extends StatelessWidget {
       ],
       locale: provider.locale,
       supportedLocales: const [
-        Locale('tr'),
         Locale('en'),
+        Locale('tr'),
         Locale('de'),
         Locale('fr'),
         Locale('hi'),
@@ -91,6 +95,18 @@ class BeTallerApp extends StatelessWidget {
         Locale('es'),
         Locale('it'),
       ],
+      localeResolutionCallback: (deviceLocale, supported) {
+        // If user has explicitly set a locale, use it
+        if (provider.locale != null) return provider.locale;
+        // Match device locale to supported locales
+        if (deviceLocale != null) {
+          for (final s in supported) {
+            if (s.languageCode == deviceLocale.languageCode) return s;
+          }
+        }
+        // Fallback to English
+        return const Locale('en');
+      },
       builder: (context, child) => ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(overscroll: false),
         child: child!,

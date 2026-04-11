@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 import '../l10n/app_localizations.dart';
 import '../models/user_profile.dart';
@@ -11,8 +12,6 @@ import '../services/notification_service.dart';
 import '../utils/constants.dart';
 import '../utils/localized_data.dart';
 import 'onboarding_screen.dart';
-import 'weekly_report_screen.dart';
-import 'custom_routine_builder_screen.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/xp_bar.dart';
 
@@ -262,22 +261,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             value: provider.isPremium,
                             onChanged: (val) => provider.setPremium(val),
                           ),
-                          _menuDivider(),
-                          _MenuRow(
-                            icon: CupertinoIcons.doc_chart_fill,
-                            label: l.weeklyReportMenu,
-                            subtitle: l.weeklyReportMenuSubtitle,
-                            color: AppColors.orange,
-                            onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const WeeklyReportScreen())),
-                          ),
-                          _menuDivider(),
-                          _MenuRow(
-                            icon: CupertinoIcons.add_circled_solid,
-                            label: 'Create Custom Routine',
-                            subtitle: 'Build your own daily routine',
-                            color: AppColors.lime,
-                            onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const CustomRoutineBuilderScreen())),
-                          ),
                         ],
                       ),
                     ),
@@ -352,11 +335,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           _menuDivider(),
                           _MenuRow(
+                            icon: Icons.straighten_rounded,
+                            label: l.unitSystem,
+                            subtitle: provider.useImperial ? l.unitImperial : l.unitMetric,
+                            color: AppColors.cyan,
+                            onTap: () => provider.setUseImperial(!provider.useImperial),
+                          ),
+                          _menuDivider(),
+                          _MenuRow(
                             icon: CupertinoIcons.trash,
                             label: l.resetData,
                             subtitle: l.resetSubtitle,
                             color: AppColors.error,
                             onTap: () => _showResetDialog(context, provider),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    // ── Health Disclaimer ────────────────
+                    GlassCard(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(CupertinoIcons.exclamationmark_shield_fill, color: AppColors.warning, size: 18),
+                              const SizedBox(width: 8),
+                              Text(l.healthDisclaimer, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.warning)),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            l.healthDisclaimerBody,
+                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: AppColors.textTertiary, height: 1.5),
                           ),
                         ],
                       ),
@@ -392,6 +405,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               letterSpacing: 0.5,
                             ),
                           ),
+                          const SizedBox(height: 16),
+                          // Privacy + Terms + Rate + Version
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () => launchUrl(Uri.parse('https://samtehhh.github.io/betaller/privacy.html'), mode: LaunchMode.externalApplication),
+                                child: Text(l.privacyPolicy, style: TextStyle(fontSize: 11, color: AppColors.textTertiary, decoration: TextDecoration.underline, decorationColor: AppColors.textTertiary)),
+                              ),
+                              Text('  ·  ', style: TextStyle(fontSize: 11, color: AppColors.textTertiary)),
+                              GestureDetector(
+                                onTap: () => launchUrl(Uri.parse('https://samtehhh.github.io/betaller/terms.html'), mode: LaunchMode.externalApplication),
+                                child: Text(l.termsOfService, style: TextStyle(fontSize: 11, color: AppColors.textTertiary, decoration: TextDecoration.underline, decorationColor: AppColors.textTertiary)),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          GestureDetector(
+                            onTap: () async {
+                              final review = InAppReview.instance;
+                              if (await review.isAvailable()) {
+                                await review.requestReview();
+                              }
+                            },
+                            child: Text(l.rateApp, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.primary)),
+                          ),
                         ],
                       ),
                     ),
@@ -409,50 +448,125 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _showAchievementDialog(BuildContext context, Map<String, dynamic> achievement) {
     final l = AppLocalizations.of(context)!;
     final earned = achievement['earned'] == true;
+    final type = achievement['type'] as String? ?? '';
+    final Color accent = type == 'streak'
+        ? AppColors.orange
+        : type == 'measures'
+            ? AppColors.cyan
+            : type == 'growth'
+                ? AppColors.lime
+                : AppColors.primary;
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(earned ? achievement['icon'] : '🔒', style: const TextStyle(fontSize: 48)),
-            const SizedBox(height: 14),
-            Text(
-              achievement['title'],
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.5),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              achievement['description'],
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
-            ),
-            const SizedBox(height: 14),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-              decoration: BoxDecoration(
-                color: (earned ? AppColors.success : Colors.grey).withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(10),
+      barrierColor: Colors.black.withValues(alpha: 0.75),
+      builder: (ctx) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.symmetric(horizontal: 28),
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFF12101E),
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(color: (earned ? accent : Colors.white).withValues(alpha: 0.12)),
+            boxShadow: earned
+                ? [BoxShadow(color: accent.withValues(alpha: 0.18), blurRadius: 40, spreadRadius: 2)]
+                : null,
+          ),
+          padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Icon badge
+              Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  Container(
+                    width: 72, height: 72,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: (earned ? accent : Colors.white).withValues(alpha: 0.08),
+                      border: Border.all(color: (earned ? accent : Colors.white).withValues(alpha: 0.18)),
+                      boxShadow: earned ? [BoxShadow(color: accent.withValues(alpha: 0.25), blurRadius: 24)] : null,
+                    ),
+                    child: Center(
+                      child: Text(
+                        earned ? (achievement['icon'] as String? ?? '🏆') : '🔒',
+                        style: const TextStyle(fontSize: 34),
+                      ),
+                    ),
+                  ),
+                  if (earned)
+                    Container(
+                      width: 22, height: 22,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: accent,
+                        border: Border.all(color: const Color(0xFF12101E), width: 2),
+                      ),
+                      child: const Icon(CupertinoIcons.checkmark, color: Colors.white, size: 11),
+                    ),
+                ],
               ),
-              child: Text(
-                earned ? l.earned : l.notEarned,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: earned ? AppColors.success : AppColors.textSecondary,
+              const SizedBox(height: 18),
+              // Title
+              Text(
+                achievement['title'] as String? ?? '',
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.3),
+              ),
+              const SizedBox(height: 8),
+              // Description
+              Text(
+                achievement['description'] as String? ?? '',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13.5, color: Colors.white.withValues(alpha: 0.48), height: 1.5),
+              ),
+              const SizedBox(height: 18),
+              // Status pill
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+                decoration: BoxDecoration(
+                  color: (earned ? accent : Colors.white).withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: (earned ? accent : Colors.white).withValues(alpha: 0.18)),
+                ),
+                child: Text(
+                  earned ? l.earned : l.notEarned,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: earned ? accent : Colors.white.withValues(alpha: 0.35),
+                    letterSpacing: 0.2,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l.ok, style: const TextStyle(color: AppColors.primaryLight)),
+              const SizedBox(height: 22),
+              // OK button
+              GestureDetector(
+                onTap: () => Navigator.pop(ctx),
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: earned ? accent.withValues(alpha: 0.12) : Colors.white.withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(14),
+                    border: earned ? Border.all(color: accent.withValues(alpha: 0.35)) : null,
+                  ),
+                  child: Center(
+                    child: Text(
+                      l.ok,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: earned ? accent : Colors.white.withValues(alpha: 0.55),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -687,37 +801,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final l = AppLocalizations.of(context)!;
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        title: Row(
-          children: [
-            const Icon(CupertinoIcons.exclamationmark_triangle, color: AppColors.warning, size: 22),
-            const SizedBox(width: 10),
-            Text(l.resetTitle, style: const TextStyle(color: Colors.white)),
-          ],
-        ),
-        content: Text(
-          l.resetMessage,
-          style: TextStyle(fontSize: 14, color: AppColors.textSecondary, height: 1.5),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l.cancel, style: TextStyle(color: AppColors.textSecondary)),
+      barrierColor: Colors.black.withValues(alpha: 0.75),
+      builder: (ctx) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.symmetric(horizontal: 28),
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFF12101E),
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(color: AppColors.error.withValues(alpha: 0.20)),
+            boxShadow: [BoxShadow(color: AppColors.error.withValues(alpha: 0.12), blurRadius: 40, spreadRadius: 2)],
           ),
-          TextButton(
-            onPressed: () {
-              provider.resetAllData();
-              Navigator.pop(context);
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (_) => const OnboardingScreen()),
-                (route) => false,
-              );
-            },
-            child: Text(l.reset, style: const TextStyle(color: AppColors.error, fontWeight: FontWeight.w600)),
+          padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 60, height: 60,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.error.withValues(alpha: 0.12),
+                  border: Border.all(color: AppColors.error.withValues(alpha: 0.25)),
+                ),
+                child: const Icon(CupertinoIcons.trash_fill, color: AppColors.error, size: 26),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                l.resetTitle,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.3),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                l.resetMessage,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 13.5, color: Colors.white.withValues(alpha: 0.50), height: 1.55),
+              ),
+              const SizedBox(height: 26),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(ctx),
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.07),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Center(
+                          child: Text(l.cancel, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.65))),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        provider.resetAllData();
+                        Navigator.pop(ctx);
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (_) => const OnboardingScreen()),
+                          (route) => false,
+                        );
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: AppColors.error.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: AppColors.error.withValues(alpha: 0.40)),
+                          boxShadow: [BoxShadow(color: AppColors.error.withValues(alpha: 0.20), blurRadius: 12)],
+                        ),
+                        child: Center(
+                          child: Text(l.reset, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.error)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
