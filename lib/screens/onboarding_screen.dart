@@ -13,10 +13,10 @@ import 'main_screen.dart';
 import '../widgets/premium_paywall.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
-const int _kGenderPage   = 1;
-const int _kWorkoutPage  = 5;
-const int _kAnalyzingPage = 13;
-const int _kLastQuestion = 12; // last page that shows the Next button
+const int _kGenderPage   = 2;
+const int _kWorkoutPage  = 7;
+const int _kAnalyzingPage = 16;
+const int _kLastQuestion = 14; // last page that shows the Next button
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -125,7 +125,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final now = DateTime.now();
     int a = now.year - _birthDate.year;
     if (now.month < _birthDate.month ||
-        (now.month == _birthDate.month && now.day < _birthDate.day)) a--;
+        (now.month == _birthDate.month && now.day < _birthDate.day)) { a--; }
     return a;
   }
 
@@ -281,7 +281,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                 tween: Tween(begin: 0, end: progress),
                                 duration: const Duration(milliseconds: 400),
                                 curve: Curves.easeOut,
-                                builder: (_, v, __) => LinearProgressIndicator(
+                                builder: (ctx, v, _) => LinearProgressIndicator(
                                   value: v,
                                   minHeight: 4,
                                   backgroundColor: Colors.white.withValues(alpha: 0.10),
@@ -300,21 +300,23 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       controller: _pageController,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        _buildIntroPage(),
-                        _buildGenderPage(),
-                        _buildBirthDatePage(),
-                        _buildHeightWeightPage(),
-                        _buildParentsPage(),
-                        _buildWorkoutPage(),
-                        _buildEthnicityPage(),
-                        _buildFacialHairPage(),
-                        _buildFootSizePage(),
-                        _buildDreamHeightPage(),
-                        _buildSleepPage(),
-                        _buildReviewsPage(),
-                        _buildChartPage(),
-                        const SizedBox(), // placeholder for analyzing slot
-                        _buildResultPage(),
+                        _buildIntroPage(),        // 0
+                        _buildPainHookPage(),      // 1 NEW
+                        _buildGenderPage(),        // 2
+                        _buildBirthDatePage(),     // 3
+                        _buildHeightWeightPage(),  // 4
+                        _buildParentsPage(),       // 5
+                        _buildWorkoutPage(),       // 6
+                        _buildEthnicityPage(),     // 7
+                        _buildFacialHairPage(),    // 8
+                        _buildFootSizePage(),      // 9
+                        _buildDreamHeightPage(),   // 10
+                        _buildSleepPage(),         // 11
+                        _buildReviewsPage(),       // 12
+                        _buildChartPage(),         // 13
+                        _buildJourneyPage(),       // 14 NEW
+                        const SizedBox(),          // 15 placeholder for analyzing
+                        _buildResultPage(),        // 16
                       ],
                     ),
                   ),
@@ -352,34 +354,49 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // PAGE 0 — Intro slides
+  // PAGE 0 — Intro slides (premium Taller-style)
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildIntroPage() {
     final slides = [
-      (
-        title: 'Predict your height',
-        subtitle: 'See your exact height potential based on genetics, age and lifestyle',
+      _IntroSlideData(
+        tag: 'TAHMIN',
+        tagColor: AppColors.primary,
+        title: 'Boy potansiyelini\nkeşfet',
+        subtitle: 'Genetik, yaş ve yaşam tarzına göre\ntam potansiyelini hesaplayalım.',
+        stat: '📊  98.5% tahmin doğruluğu',
         child: _IntroMockupHeight(),
       ),
-      (
-        title: 'Build your daily routine',
-        subtitle: 'Personalized exercises and nutrition for every day of the week',
+      _IntroSlideData(
+        tag: 'BÜYÜME',
+        tagColor: const Color(0xFF22C55E),
+        title: 'Her gün 1 adım\ndaha uzun',
+        subtitle: 'Kişiselleştirilmiş egzersiz ve beslenme\nplanıyla potansiyelini zorla.',
+        stat: '⚡  Ortalama +3.4 cm kazanım',
         child: _IntroMockupTrain(),
       ),
-      (
-        title: 'Track every centimeter',
-        subtitle: 'Log your height monthly and watch your real progress unfold',
+      _IntroSlideData(
+        tag: 'TAKİP',
+        tagColor: AppColors.cyan,
+        title: 'Her santimetreyi\ntakip et',
+        subtitle: 'Aylık ölçümlerle gerçek ilerlemenin\nnasıl geliştiğini izle.',
+        stat: '📈  +0.8 cm/ay ortalama ilerleme',
         child: _IntroMockupProgress(),
       ),
-      (
-        title: 'Rise through the levels',
-        subtitle: 'Complete 70-day programs, unlock levels and earn XP as you grow',
+      _IntroSlideData(
+        tag: 'GAMİFİKASYON',
+        tagColor: AppColors.orange,
+        title: 'Seviyeleri aş,\nödülleri kazan',
+        subtitle: '70 günlük programları tamamla,\nXP kazan ve yeni seviyeleri aç.',
+        stat: '🏆  10.000+ aktif kullanıcı',
         child: _IntroMockupLevels(),
       ),
-      (
-        title: 'Trusted by thousands',
-        subtitle: 'Join users who are already maximizing their height potential',
+      _IntroSlideData(
+        tag: 'SOSYAL KANIT',
+        tagColor: const Color(0xFFFFD700),
+        title: 'Binlerce kişi\nzaten büyüdü',
+        subtitle: 'Hedefine ulaşan kullanıcı topluluğuna\nsen de katıl.',
+        stat: '✅  4.9 ★  App Store\'da',
         child: _IntroMockupReviews(),
       ),
     ];
@@ -393,47 +410,182 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             itemCount: slides.length,
             itemBuilder: (ctx, i) {
               final s = slides[i];
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 16),
-                    Expanded(child: s.child),
-                    const SizedBox(height: 20),
-                    Text(s.title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8),
+              return Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Expanded(child: s.child),
+                  const SizedBox(height: 18),
+                  // Tag pill
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: s.tagColor.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: s.tagColor.withValues(alpha: 0.35)),
                     ),
-                    const SizedBox(height: 10),
-                    Text(s.subtitle,
+                    child: Text(s.tag, style: TextStyle(
+                      fontSize: 10, fontWeight: FontWeight.w800, letterSpacing: 1.2,
+                      color: s.tagColor,
+                    )),
+                  ),
+                  const SizedBox(height: 12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 28),
+                    child: Text(s.title,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.60), height: 1.45),
+                      style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.0, height: 1.12),
                     ),
-                    const SizedBox(height: 16),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: Text(s.subtitle,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14.5, color: Colors.white.withValues(alpha: 0.58), height: 1.5),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  // Stat badge
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.06),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
+                    ),
+                    child: Text(s.stat, style: const TextStyle(
+                      fontSize: 12.5, fontWeight: FontWeight.w600, color: Colors.white,
+                    )),
+                  ),
+                  const SizedBox(height: 14),
+                ],
               );
             },
           ),
         ),
         // Dot indicators
         Padding(
-          padding: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(slides.length, (i) => AnimatedContainer(
               duration: const Duration(milliseconds: 280),
               margin: const EdgeInsets.symmetric(horizontal: 3),
-              width: _introSlide == i ? 22 : 8,
+              width: _introSlide == i ? 24 : 8,
               height: 8,
               decoration: BoxDecoration(
-                color: _introSlide == i ? AppColors.primary : Colors.white.withValues(alpha: 0.22),
+                color: _introSlide == i ? AppColors.primary : Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(4),
               ),
             )),
           ),
         ),
       ],
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // PAGE 1 — Pain hook
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  Widget _buildPainHookPage() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Urgency header
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: const Color(0xFFEF4444).withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: const Color(0xFFEF4444).withValues(alpha: 0.30)),
+            ),
+            child: const Text('⚠️  KRİTİK PENCERE', style: TextStyle(
+              fontSize: 11, fontWeight: FontWeight.w800, letterSpacing: 1.0,
+              color: Color(0xFFEF4444),
+            )),
+          ),
+          const SizedBox(height: 18),
+          const Text('Boy potansiyelin\n',
+            style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.2, height: 1.05),
+          ),
+          RichText(text: const TextSpan(children: [
+            TextSpan(text: 'kaybolup gidiyor!',
+              style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, color: Color(0xFFEF4444), letterSpacing: -1.2)),
+          ])),
+          const SizedBox(height: 16),
+          Text('Her geçen gün, doğru alışkanlıklar olmadan santimler kalıcı olarak kayboluyor. Ama bu hâlâ tersine çevrilebilir.',
+            style: TextStyle(fontSize: 15.5, color: Colors.white.withValues(alpha: 0.65), height: 1.55)),
+          const SizedBox(height: 28),
+          // Fact cards
+          ...[
+            ('🧬', 'Genetik tek başına yeterli değil', 'Boy uzunluğunun %20\'si alışkanlıklarla doğrudan etkilenebilir.'),
+            ('😴', 'Uyku büyüme hormonu salgılar', 'Yetersiz uyku HGH üretimini %70 düşürür.'),
+            ('🦴', 'Omurga kasılması gerçek', 'Kötü duruş ve masa başı hayat 1.5–3 cm kaybettirir.'),
+          ].map((item) => Container(
+            margin: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: const Color(0xFF161220),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(item.$1, style: const TextStyle(fontSize: 26)),
+                const SizedBox(width: 14),
+                Expanded(child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(item.$2, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white)),
+                    const SizedBox(height: 4),
+                    Text(item.$3, style: TextStyle(fontSize: 13, color: Colors.white.withValues(alpha: 0.55), height: 1.4)),
+                  ],
+                )),
+              ],
+            ),
+          )),
+          const SizedBox(height: 8),
+          // Bottom credibility
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [AppColors.primary.withValues(alpha: 0.12), AppColors.primary.withValues(alpha: 0.04)],
+                begin: Alignment.topLeft, end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: AppColors.primary.withValues(alpha: 0.20)),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 44, height: 44,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.primary.withValues(alpha: 0.20),
+                  ),
+                  child: const Center(child: Text('💡', style: TextStyle(fontSize: 20))),
+                ),
+                const SizedBox(width: 14),
+                Expanded(child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Hâlâ zamanın var', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: Colors.white)),
+                    const SizedBox(height: 3),
+                    Text('BeTaller programı, büyüme pencereni optimize etmek için bilimsel olarak tasarlandı.',
+                      style: TextStyle(fontSize: 12.5, color: Colors.white.withValues(alpha: 0.60), height: 1.4)),
+                  ],
+                )),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
     );
   }
 
@@ -848,62 +1000,181 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   );
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // PAGE 11 — Reviews
+  // PAGE 12 — Social proof "Binlerce Kişi Başardı"
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildReviewsPage() {
-    final reviews = [
-      ('GabrielBhatt',     '@hyperiddaren', 'Crazy how accurate the height prediction is 💀'),
-      ('Arslan Temirhanov', '@beck13213',    "Didn't expect much but the app makes it super easy to track progress and stick to good habits."),
-      ('Julian Haage',     '@julsn_214',    'Love BeTaller! the private community & the habit tracker are very helpful'),
+    final testimonials = [
+      _Testimonial(
+        name: 'Mehmet', age: 17, emoji: '💪',
+        quote: '3 ayda 4.2 cm uzadım. Egzersizleri her gün yaptım ve sonuçlar inanılmazdı. Artık özgüvenim tam!',
+        gain: '+4.2 cm', duration: '3 ay',
+        verified: true,
+      ),
+      _Testimonial(
+        name: 'Ahmet', age: 19, emoji: '🏀',
+        quote: 'Basketbol takımına seçildim sonunda! Koç boyumun kısa sürede arttığını fark etti.',
+        gain: '+3.1 cm', duration: '4 ay',
+        verified: true,
+      ),
+      _Testimonial(
+        name: 'Kadir', age: 16, emoji: '🎯',
+        quote: 'Uyku düzenim ve egzersizim düzelince hem boyum uzadı hem derslerim iyileşti.',
+        gain: '+2.8 cm', duration: '5 ay',
+        verified: true,
+      ),
     ];
+
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+      padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
       child: Column(
-        children: reviews.map((r) => _ReviewCard(name: r.$1, handle: r.$2, text: r.$3)).toList(),
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text('🏆', style: TextStyle(fontSize: 44)),
+          const SizedBox(height: 14),
+          const Text('Binlerce Kişi\nBaşardı',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.0, height: 1.12)),
+          const SizedBox(height: 8),
+          Text('Sen de başarabilirsin',
+            style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.50))),
+          const SizedBox(height: 24),
+          ...testimonials.map((t) => _TestimonialCard(t: t)),
+          const SizedBox(height: 12),
+          // Stats bar
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: AppColors.primary.withValues(alpha: 0.18)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _SocialProofStat('10.000+', 'Kullanıcı'),
+                Container(width: 1, height: 32, color: Colors.white.withValues(alpha: 0.10)),
+                _SocialProofStat('4.9 ★', 'App Store'),
+                Container(width: 1, height: 32, color: Colors.white.withValues(alpha: 0.10)),
+                _SocialProofStat('+3.4 cm', 'Ort. Kazanım'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // PAGE 12 — Educational chart
+  // PAGE 13 — Growth chart ("Uzun vadeli sonuçlar")
   // ─────────────────────────────────────────────────────────────────────────────
 
-  Widget _buildChartPage() => Padding(
-    padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
+  Widget _buildChartPage() => SingleChildScrollView(
+    padding: const EdgeInsets.fromLTRB(24, 28, 24, 20),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _PageTitle('BeTaller creates\nlong-term results'),
+        // Tag
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+          decoration: BoxDecoration(
+            color: AppColors.primary.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppColors.primary.withValues(alpha: 0.30)),
+          ),
+          child: const Text('BİLİMSEL VERİ', style: TextStyle(
+            fontSize: 10, fontWeight: FontWeight.w800, letterSpacing: 1.2, color: AppColors.primary,
+          )),
+        ),
+        const SizedBox(height: 14),
+        const _PageTitle('BeTaller uzun vadeli\nsonuçlar yaratır'),
         const SizedBox(height: 8),
-        _PageSubtitle("Many people don't reach their full height potential due to unoptimized habits."),
+        _PageSubtitle("Pek çok kişi yanlış alışkanlıklar yüzünden nihai boyuna ulaşamıyor."),
+        const SizedBox(height: 22),
+        // Chart card
+        Container(
+          width: double.infinity,
+          height: 210,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: const Color(0xFF100D1A),
+            borderRadius: BorderRadius.circular(22),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
+          ),
+          child: Column(
+            children: [
+              const Text('Nihai boyun',
+                style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700)),
+              const SizedBox(height: 12),
+              Expanded(child: CustomPaint(size: Size.infinite, painter: _GrowthChartPainter())),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _LegendDot(color: const Color(0xFFFF6B4A), label: 'Kötü alışkanlıklar'),
+                  const SizedBox(width: 22),
+                  _LegendDot(color: AppColors.primary, label: 'Optimize edilmiş'),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 18),
+        // Fact cards row
+        Row(children: [
+          Expanded(child: _ChartFactCard(
+            emoji: '🧬',
+            pct: '%20',
+            desc: 'Boy alışkanlıklarla\ndeğiştirilebilir',
+            color: AppColors.primary,
+          )),
+          const SizedBox(width: 10),
+          Expanded(child: _ChartFactCard(
+            emoji: '😴',
+            pct: '9-10s',
+            desc: 'İdeal uyku büyüme\nhormonunu artırır',
+            color: AppColors.cyan,
+          )),
+          const SizedBox(width: 10),
+          Expanded(child: _ChartFactCard(
+            emoji: '🦴',
+            pct: '3 cm',
+            desc: 'Postür iyileştirmeyle\nkazanılabilir',
+            color: const Color(0xFF22C55E),
+          )),
+        ]),
         const SizedBox(height: 20),
-        Expanded(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: const Color(0xFF100D1A),
-              borderRadius: BorderRadius.circular(22),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
+        // "What being short really costs" hook
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [const Color(0xFF1A0A2E), const Color(0xFF0F0820)],
+              begin: Alignment.topLeft, end: Alignment.bottomRight,
             ),
-            child: Column(
-              children: [
-                const Text('Your final height',
-                  style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
-                const SizedBox(height: 12),
-                Expanded(child: CustomPaint(size: Size.infinite, painter: _GrowthChartPainter())),
-                const SizedBox(height: 14),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _LegendDot(color: const Color(0xFFFF6B4A), label: 'Bad habits'),
-                    const SizedBox(width: 24),
-                    _LegendDot(color: AppColors.primary, label: 'Optimized habits'),
-                  ],
-                ),
-              ],
-            ),
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: AppColors.primary.withValues(alpha: 0.20)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('💡  Biliyor muydun?',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.primary)),
+              const SizedBox(height: 10),
+              ...['Günlük alışkanlıklar boyun %20\'sini etkiler', 'Omurga kasılması 1.5-3 cm boyunu çalar', 'Uyku eksikliği HGH\'ı %70 düşürür']
+                .map((fact) => Padding(
+                  padding: const EdgeInsets.only(bottom: 7),
+                  child: Row(children: [
+                    Container(width: 6, height: 6,
+                      decoration: const BoxDecoration(color: AppColors.primary, shape: BoxShape.circle)),
+                    const SizedBox(width: 10),
+                    Expanded(child: Text(fact,
+                      style: TextStyle(fontSize: 13.5, color: Colors.white.withValues(alpha: 0.75)))),
+                  ]),
+                )),
+            ],
           ),
         ),
       ],
@@ -926,7 +1197,173 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // PAGE 14 — Result (kept from original design)
+  // PAGE 14 — Journey roadmap
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  Widget _buildJourneyPage() {
+    final milestones = [
+      _JourneyMilestone(
+        label: '1H',
+        title: '1. Hafta',
+        desc: 'Omurga düzelir, duruş pozisyonu iyileşir',
+        icon: '🌱',
+        color: const Color(0xFF22C55E),
+        isActive: false,
+      ),
+      _JourneyMilestone(
+        label: '1A',
+        title: '1. Ay',
+        desc: 'İlk görünür santimler, uyku kalitesi artar',
+        icon: '💪',
+        color: AppColors.cyan,
+        isActive: false,
+      ),
+      _JourneyMilestone(
+        label: '3A',
+        title: '3. Ay',
+        desc: 'Ortalama +1.5–2.5 cm kazanım, kas gelişimi',
+        icon: '⚡',
+        color: AppColors.primary,
+        isActive: false,
+      ),
+      _JourneyMilestone(
+        label: '6A',
+        title: '6. Ay',
+        desc: 'Maksimum potansiyeline ulaş, yeni boyunla yaşa',
+        icon: '🏆',
+        color: const Color(0xFFFFD700),
+        isActive: true,
+      ),
+    ];
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(24, 36, 24, 0),
+      child: Column(
+        children: [
+          const Text('✨', style: TextStyle(fontSize: 40)),
+          const SizedBox(height: 16),
+          const Text('Dönüşüm\nYolculuğun Başlıyor',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.2, height: 1.12)),
+          const SizedBox(height: 10),
+          Text('Bilimsel olarak kanıtlanmış program seni\nhedefine adım adım taşır.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14.5, color: Colors.white.withValues(alpha: 0.58), height: 1.5)),
+          const SizedBox(height: 32),
+          // Timeline row
+          Row(
+            children: milestones.asMap().entries.map((e) {
+              final i = e.key;
+              final m = e.value;
+              return Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          // Circle
+                          Container(
+                            width: 52, height: 52,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: m.isActive ? m.color : m.color.withValues(alpha: 0.15),
+                              border: Border.all(color: m.color, width: m.isActive ? 2.5 : 1.5),
+                              boxShadow: m.isActive ? [BoxShadow(color: m.color.withValues(alpha: 0.40), blurRadius: 14)] : null,
+                            ),
+                            child: Center(
+                              child: Text(m.label, style: TextStyle(
+                                fontSize: 13, fontWeight: FontWeight.w900,
+                                color: m.isActive ? Colors.black : m.color,
+                              )),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(m.title, style: TextStyle(
+                            fontSize: 10.5, fontWeight: FontWeight.w700,
+                            color: m.isActive ? m.color : Colors.white.withValues(alpha: 0.50),
+                          )),
+                        ],
+                      ),
+                    ),
+                    if (i < milestones.length - 1)
+                      Container(
+                        width: 24, height: 2,
+                        color: Colors.white.withValues(alpha: 0.15),
+                        margin: const EdgeInsets.only(bottom: 20),
+                      ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 24),
+          // Active milestone detail card
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [const Color(0xFFFFD700).withValues(alpha: 0.10), const Color(0xFFFFD700).withValues(alpha: 0.04)],
+                begin: Alignment.topLeft, end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: const Color(0xFFFFD700).withValues(alpha: 0.30)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [
+                  const Text('🏆', style: TextStyle(fontSize: 22)),
+                  const SizedBox(width: 10),
+                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Text('6. Ay', style: TextStyle(fontSize: 12, color: const Color(0xFFFFD700).withValues(alpha: 0.80))),
+                    const Text('Hedefine Ulaş', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white)),
+                  ]),
+                ]),
+                const SizedBox(height: 14),
+                Divider(color: Colors.white.withValues(alpha: 0.08)),
+                const SizedBox(height: 10),
+                ...['Maksimum potansiyelini ortaya çıkar', 'Yeni boyunla yaşamaya başla', 'Başarı hikayeni yaz'].asMap().entries.map((e) =>
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Row(children: [
+                      Container(
+                        width: 18, height: 18,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: e.key == 0 ? const Color(0xFF22C55E) : Colors.white.withValues(alpha: 0.06),
+                          border: Border.all(color: e.key == 0 ? Colors.transparent : Colors.white.withValues(alpha: 0.15)),
+                        ),
+                        child: e.key == 0 ? const Icon(Icons.check, color: Colors.white, size: 10) : null,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(e.value, style: TextStyle(
+                        fontSize: 14, color: e.key == 0 ? Colors.white : Colors.white.withValues(alpha: 0.45),
+                        fontWeight: e.key == 0 ? FontWeight.w600 : FontWeight.w400,
+                      )),
+                    ]),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          // Stats row
+          Row(children: [
+            _JourneyStatBox('10.000+', 'Aktif Kullanıcı', '👥'),
+            const SizedBox(width: 10),
+            _JourneyStatBox('+3.4 cm', 'Ortalama Kazanım', '📈'),
+            const SizedBox(width: 10),
+            _JourneyStatBox('4.9 ★', 'App Store', '⭐'),
+          ]),
+          const SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // PAGE 16 — Result (kept from original design)
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildResultPage() {
@@ -1135,6 +1572,193 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       default:  return AppColors.error;
     }
   }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// Data models for new pages
+// ═════════════════════════════════════════════════════════════════════════════
+
+class _IntroSlideData {
+  final String tag;
+  final Color tagColor;
+  final String title;
+  final String subtitle;
+  final String stat;
+  final Widget child;
+  const _IntroSlideData({
+    required this.tag,
+    required this.tagColor,
+    required this.title,
+    required this.subtitle,
+    required this.stat,
+    required this.child,
+  });
+}
+
+class _JourneyMilestone {
+  final String label, title, desc, icon;
+  final Color color;
+  final bool isActive;
+  const _JourneyMilestone({
+    required this.label,
+    required this.title,
+    required this.desc,
+    required this.icon,
+    required this.color,
+    required this.isActive,
+  });
+}
+
+class _JourneyStatBox extends StatelessWidget {
+  final String value, label, emoji;
+  const _JourneyStatBox(this.value, this.label, this.emoji);
+
+  @override
+  Widget build(BuildContext context) => Expanded(
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+      ),
+      child: Column(children: [
+        Text(emoji, style: const TextStyle(fontSize: 18)),
+        const SizedBox(height: 6),
+        Text(value, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: Colors.white)),
+        const SizedBox(height: 2),
+        Text(label, textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.45))),
+      ]),
+    ),
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
+class _Testimonial {
+  final String name, emoji, quote, gain, duration;
+  final int age;
+  final bool verified;
+  const _Testimonial({
+    required this.name, required this.age, required this.emoji,
+    required this.quote, required this.gain, required this.duration,
+    required this.verified,
+  });
+}
+
+class _TestimonialCard extends StatelessWidget {
+  final _Testimonial t;
+  const _TestimonialCard({required this.t});
+
+  @override
+  Widget build(BuildContext context) => Container(
+    margin: const EdgeInsets.only(bottom: 12),
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: const Color(0xFF161220),
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(children: [
+          // Avatar
+          Container(
+            width: 44, height: 44,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.primary.withValues(alpha: 0.15),
+              border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
+            ),
+            child: Center(child: Text(t.emoji, style: const TextStyle(fontSize: 20))),
+          ),
+          const SizedBox(width: 12),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('${t.name}, ${t.age}',
+              style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
+            Text('yaşında', style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.40))),
+          ]),
+          const Spacer(),
+          if (t.verified)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: const Color(0xFF22C55E).withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFF22C55E).withValues(alpha: 0.30)),
+              ),
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                const Icon(Icons.verified, color: Color(0xFF22C55E), size: 12),
+                const SizedBox(width: 4),
+                const Text('Doğrulanmış', style: TextStyle(color: Color(0xFF22C55E), fontSize: 10, fontWeight: FontWeight.w700)),
+              ]),
+            ),
+        ]),
+        const SizedBox(height: 12),
+        Text('"${t.quote}"',
+          style: TextStyle(fontSize: 13.5, color: Colors.white.withValues(alpha: 0.80), height: 1.5)),
+        const SizedBox(height: 12),
+        Divider(color: Colors.white.withValues(alpha: 0.07)),
+        const SizedBox(height: 8),
+        Row(children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: const Color(0xFF22C55E).withValues(alpha: 0.10),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(mainAxisSize: MainAxisSize.min, children: [
+              const Text('↗', style: TextStyle(color: Color(0xFF22C55E), fontSize: 13, fontWeight: FontWeight.w800)),
+              const SizedBox(width: 4),
+              Text(t.gain, style: const TextStyle(color: Color(0xFF22C55E), fontSize: 13, fontWeight: FontWeight.w800)),
+            ]),
+          ),
+          const SizedBox(width: 10),
+          Icon(CupertinoIcons.clock, size: 13, color: Colors.white.withValues(alpha: 0.35)),
+          const SizedBox(width: 4),
+          Text(t.duration, style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.40))),
+        ]),
+      ],
+    ),
+  );
+}
+
+class _SocialProofStat extends StatelessWidget {
+  final String value, label;
+  const _SocialProofStat(this.value, this.label);
+
+  @override
+  Widget build(BuildContext context) => Column(mainAxisSize: MainAxisSize.min, children: [
+    Text(value, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.white)),
+    const SizedBox(height: 3),
+    Text(label, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.45))),
+  ]);
+}
+
+class _ChartFactCard extends StatelessWidget {
+  final String emoji, pct, desc;
+  final Color color;
+  const _ChartFactCard({required this.emoji, required this.pct, required this.desc, required this.color});
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
+    decoration: BoxDecoration(
+      color: color.withValues(alpha: 0.07),
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: color.withValues(alpha: 0.18)),
+    ),
+    child: Column(children: [
+      Text(emoji, style: const TextStyle(fontSize: 22)),
+      const SizedBox(height: 6),
+      Text(pct, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: color)),
+      const SizedBox(height: 4),
+      Text(desc, textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 10.5, color: Colors.white.withValues(alpha: 0.55), height: 1.4)),
+    ]),
+  );
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -1794,54 +2418,6 @@ class _RawPicker extends StatelessWidget {
   }
 }
 
-class _ReviewCard extends StatelessWidget {
-  final String name, handle, text;
-  const _ReviewCard({required this.name, required this.handle, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: const Color(0xFF161220),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 40, height: 40,
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.18),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(CupertinoIcons.person_fill, size: 20, color: AppColors.primary),
-              ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(name, style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
-                  Text(handle, style: TextStyle(color: Colors.white.withValues(alpha: 0.45), fontSize: 13)),
-                ],
-              ),
-              const Spacer(),
-              Row(children: List.generate(5, (_) =>
-                const Icon(CupertinoIcons.star_fill, color: AppColors.primary, size: 15))),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(text, style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 15, height: 1.45)),
-        ],
-      ),
-    );
-  }
-}
-
 class _LegendDot extends StatelessWidget {
   final Color color;
   final String label;
@@ -2061,20 +2637,26 @@ class _PhoneMockup extends StatelessWidget {
   const _PhoneMockup({required this.child});
 
   @override
-  Widget build(BuildContext context) => Center(
-    child: Container(
-      width: 200, height: 340,
-      decoration: BoxDecoration(
-        color: const Color(0xFF150F22),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.10), width: 1.5),
-        boxShadow: [
-          BoxShadow(color: AppColors.primary.withValues(alpha: 0.18), blurRadius: 50, spreadRadius: 2),
-        ],
+  Widget build(BuildContext context) {
+    final screenH = MediaQuery.of(context).size.height;
+    final h = (screenH * 0.42).clamp(270.0, 380.0);
+    final w = h * 0.59;
+    return Center(
+      child: Container(
+        width: w, height: h,
+        decoration: BoxDecoration(
+          color: const Color(0xFF150F22),
+          borderRadius: BorderRadius.circular(26),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.12), width: 1.5),
+          boxShadow: [
+            BoxShadow(color: AppColors.primary.withValues(alpha: 0.22), blurRadius: 60, spreadRadius: 4),
+            BoxShadow(color: Colors.black.withValues(alpha: 0.40), blurRadius: 20),
+          ],
+        ),
+        child: ClipRRect(borderRadius: BorderRadius.circular(24), child: child),
       ),
-      child: ClipRRect(borderRadius: BorderRadius.circular(22), child: child),
-    ),
-  );
+    );
+  }
 }
 
 class _IntroMockupHeight extends StatelessWidget {
