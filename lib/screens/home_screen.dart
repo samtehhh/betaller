@@ -392,6 +392,30 @@ class _HomeScreenState extends State<HomeScreen>
                     const _ExploreRow(),
                     const SizedBox(height: 14),
 
+                    // ── AI ANALYSIS UPDATE (after first completion) ──────
+                    if (provider.analysisCompleted) ...[
+                      _BannerCard(
+                        label: 'AI ANALİZ',
+                        title: l.updateAnalysis,
+                        subtitle: l.analysisSubtitle,
+                        accentColor: AppColors.primary,
+                        gradientColors: const [
+                          Color(0xFF3B1F8C),
+                          Color(0xFF1A0D45),
+                        ],
+                        icon: CupertinoIcons.sparkles,
+                        locked: !provider.isPremium,
+                        onTap: provider.isPremium
+                            ? () => Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (_) => const GrowthAnalysisFlow(),
+                                ))
+                            : () => showPremiumPaywall(context),
+                      ),
+                      const SizedBox(height: 14),
+                    ],
+
                     // ── 9. EDUCATION BANNER ───────────────────────────────
                     _BannerCard(
                       label: 'EĞİTİM',
