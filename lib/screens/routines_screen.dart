@@ -132,10 +132,10 @@ class _RoutinesScreenState extends State<RoutinesScreen>
                     Text(
                       'Planım',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 32,
                         fontWeight: FontWeight.w800,
                         color: AppColors.primary,
-                        letterSpacing: 1.5,
+                        letterSpacing: -1.0,
                         shadows: [
                           Shadow(
                             color: AppColors.primary.withValues(alpha: 0.35),
@@ -202,7 +202,7 @@ class _RoutinesScreenState extends State<RoutinesScreen>
           return Container(
             height: 40,
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.06),
+              color: AppColors.cardFill,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -366,8 +366,8 @@ class _DaySelector extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(18, 16, 18, 16),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFF13102A),
-        borderRadius: BorderRadius.circular(18),
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(24),
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.12)),
       ),
       child: Row(
@@ -446,7 +446,7 @@ class _OptimalBanner extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(24),
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
       ),
       child: Column(
@@ -573,8 +573,8 @@ class _ExerciseCard extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(18, 0, 18, 12),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: const Color(0xFF13102A),
-          borderRadius: BorderRadius.circular(16),
+          color: AppColors.cardFill,
+          borderRadius: BorderRadius.circular(22),
           border: Border.all(
             color: routine.completed
                 ? AppColors.lime.withValues(alpha: 0.4)
@@ -856,8 +856,8 @@ class _LevelCardState extends State<_LevelCard> {
     return Container(
       margin: const EdgeInsets.fromLTRB(18, 0, 18, 14),
       decoration: BoxDecoration(
-        color: const Color(0xFF13102A),
-        borderRadius: BorderRadius.circular(20),
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(26),
         border: Border.all(
           color: widget.isCurrent
               ? color.withValues(alpha: 0.5)
@@ -1351,7 +1351,7 @@ class _NutritionHeader extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(26),
         border: Border.all(color: AppColors.nutritionColor.withValues(alpha: 0.3)),
       ),
       child: Column(
@@ -1429,8 +1429,8 @@ class _NutritionCard extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(18, 0, 18, 12),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: const Color(0xFF13102A),
-          borderRadius: BorderRadius.circular(16),
+          color: AppColors.cardFill,
+          borderRadius: BorderRadius.circular(22),
           border: Border.all(
             color: routine.completed
                 ? AppColors.lime.withValues(alpha: 0.4)

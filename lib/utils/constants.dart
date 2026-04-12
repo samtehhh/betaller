@@ -7,15 +7,15 @@ import 'package:flutter/cupertino.dart';
 class AppColors {
   AppColors._();
 
-  // Core backgrounds
-  static const scaffold = Color(0xFF070B1A);       // Dark Navy
-  static const surfaceDark = Color(0xFF0F0B24);    // Secondary bg
+  // Core backgrounds — cinematic deep black with purple undertone
+  static const scaffold = Color(0xFF040309);
+  static const surfaceDark = Color(0xFF0A0814);
 
-  // Card fills — deep layered cyber look
-  static const cardFill = Color(0xFF141432);
-  static const cardFillLight = Color(0xFF1A1845);
-  static final cardBorder = const Color(0xFFFFFFFF).withValues(alpha: 0.06);
-  static final cardBorderLight = const Color(0xFF8B5CF6).withValues(alpha: 0.20);
+  // Card fills — premium dark surfaces
+  static const cardFill = Color(0xFF0C0A16);
+  static const cardFillLight = Color(0xFF110E1E);
+  static final cardBorder = const Color(0xFFFFFFFF).withValues(alpha: 0.05);
+  static final cardBorderLight = const Color(0xFF8B5CF6).withValues(alpha: 0.12);
 
   // Primary accent — #8B5CF6 Purple
   static const primary = Color(0xFF8B5CF6);
@@ -57,7 +57,7 @@ class AppColors {
   );
 
   static const gradientHeader = LinearGradient(
-    colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
+    colors: [Color(0xFF0A0814), Color(0xFF040309)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
@@ -104,49 +104,49 @@ class GlassCard extends StatelessWidget {
     required this.child,
     this.padding,
     this.margin,
-    this.borderRadius = 18,  // Changed from 20 to 18
+    this.borderRadius = 26,
     this.fillColor,
     this.borderColor,
-    this.glowColor,  // NEW
+    this.glowColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final glow = glowColor ?? AppColors.primary.withValues(alpha: 0.12);
+    final glow = glowColor ?? AppColors.primary.withValues(alpha: 0.10);
     return Container(
       margin: margin,
       decoration: BoxDecoration(
         gradient: fillColor == null ? const LinearGradient(
-          colors: [Color(0xFF141432), Color(0xFF0B0B22)],
+          colors: [Color(0xFF0C0A16), Color(0xFF080614)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          transform: GradientRotation(2.53),  // ~145deg
+          transform: GradientRotation(2.53),
         ) : null,
         color: fillColor,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-          color: borderColor ?? const Color(0xFFFFFFFF).withValues(alpha: 0.06),
-          width: 1.0,
+          color: borderColor ?? const Color(0xFFFFFFFF).withValues(alpha: 0.05),
+          width: 0.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.60),
-            blurRadius: 30,
-            offset: const Offset(0, 8),
+            color: Colors.black.withValues(alpha: 0.50),
+            blurRadius: 32,
+            offset: const Offset(0, 10),
+            spreadRadius: -6,
           ),
           BoxShadow(
             color: glow,
-            blurRadius: 24,
-            offset: const Offset(0, 0),
+            blurRadius: 28,
           ),
         ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
           child: Padding(
-            padding: padding ?? const EdgeInsets.all(20),
+            padding: padding ?? const EdgeInsets.all(22),
             child: child,
           ),
         ),

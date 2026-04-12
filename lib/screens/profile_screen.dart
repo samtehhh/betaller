@@ -56,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
+                      colors: [Color(0xFF0E0920), Color(0xFF040309)],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 color: earned
                                                     ? AppColors.primary.withValues(alpha: 0.15)
                                                     : Colors.white.withValues(alpha: 0.14),
-                                                borderRadius: BorderRadius.circular(14),
+                                                borderRadius: BorderRadius.circular(20),
                                                 border: earned
                                                     ? Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 1)
                                                     : null,
@@ -201,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               height: 46,
                                               decoration: BoxDecoration(
                                                 color: Colors.white.withValues(alpha: 0.14),
-                                                borderRadius: BorderRadius.circular(14),
+                                                borderRadius: BorderRadius.circular(20),
                                               ),
                                               child: const Center(
                                                 child: Text('🔒', style: TextStyle(fontSize: 20)),
@@ -548,8 +548,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: double.infinity,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: earned ? accent.withValues(alpha: 0.12) : Colors.white.withValues(alpha: 0.06),
-                    borderRadius: BorderRadius.circular(14),
+                    color: earned ? accent.withValues(alpha: 0.12) : AppColors.cardFill,
+                    borderRadius: BorderRadius.circular(18),
                     border: earned ? Border.all(color: accent.withValues(alpha: 0.35)) : null,
                   ),
                   child: Center(
@@ -592,7 +592,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               color: AppColors.surfaceDark,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
               border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.14))),
             ),
             child: SingleChildScrollView(
@@ -615,7 +615,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             decoration: BoxDecoration(
                               color: gender == 'male' ? AppColors.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.10),
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(18),
                               border: Border.all(color: gender == 'male' ? AppColors.primary : Colors.white.withValues(alpha: 0.1), width: gender == 'male' ? 1.5 : 0.5),
                             ),
                             child: Center(child: Text(l.male, style: TextStyle(color: gender == 'male' ? Colors.white : Colors.white.withValues(alpha: 0.82), fontSize: 15, fontWeight: gender == 'male' ? FontWeight.w700 : FontWeight.w500))),
@@ -630,7 +630,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             decoration: BoxDecoration(
                               color: gender == 'female' ? AppColors.primary.withValues(alpha: 0.2) : Colors.white.withValues(alpha: 0.10),
-                              borderRadius: BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(18),
                               border: Border.all(color: gender == 'female' ? AppColors.primary : Colors.white.withValues(alpha: 0.1), width: gender == 'female' ? 1.5 : 0.5),
                             ),
                             child: Center(child: Text(l.female, style: TextStyle(color: gender == 'female' ? Colors.white : Colors.white.withValues(alpha: 0.82), fontSize: 15, fontWeight: gender == 'female' ? FontWeight.w700 : FontWeight.w500))),
@@ -652,7 +652,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(14)),
+                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(18)),
                       child: Row(children: [
                         Icon(CupertinoIcons.calendar, color: Colors.white.withValues(alpha: 0.82), size: 18),
                         const SizedBox(width: 12),
@@ -675,7 +675,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: double.infinity,
                     child: CupertinoButton(
                       color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(18),
                       onPressed: () {
                         final name = nameCtrl.text.trim();
                         final height = double.tryParse(heightCtrl.text.replaceAll(',', '.'));
@@ -735,7 +735,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: AppColors.surfaceDark,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(32))),
       builder: (context) => DraggableScrollableSheet(
         initialChildSize: 0.65,
         minChildSize: 0.4,
@@ -771,7 +771,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                           decoration: BoxDecoration(
                             color: isSelected ? AppColors.primary.withValues(alpha: 0.15) : Colors.transparent,
-                            borderRadius: BorderRadius.circular(14),
+                            borderRadius: BorderRadius.circular(18),
                             border: isSelected ? Border.all(color: AppColors.primary.withValues(alpha: 0.4)) : null,
                           ),
                           child: Row(
@@ -846,8 +846,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Container(
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.07),
-                          borderRadius: BorderRadius.circular(14),
+                          color: AppColors.cardFill,
+                          borderRadius: BorderRadius.circular(18),
                         ),
                         child: Center(
                           child: Text(l.cancel, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.65))),
@@ -870,7 +870,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         height: 50,
                         decoration: BoxDecoration(
                           color: AppColors.error.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(18),
                           border: Border.all(color: AppColors.error.withValues(alpha: 0.40)),
                           boxShadow: [BoxShadow(color: AppColors.error.withValues(alpha: 0.20), blurRadius: 12)],
                         ),
@@ -1001,7 +1001,7 @@ class _StatBox extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(18),
           border: Border.all(color: color.withValues(alpha: 0.12), width: 0.5),
         ),
         child: Column(
@@ -1040,9 +1040,9 @@ class _EditField extends StatelessWidget {
         prefixIcon: Icon(icon, color: AppColors.primaryLight, size: 18),
         filled: true,
         fillColor: Colors.white.withValues(alpha: 0.12),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: AppColors.primary, width: 1.5)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
+        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
+        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: const BorderSide(color: AppColors.primary, width: 1.5)),
       ),
     );
   }

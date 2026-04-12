@@ -87,7 +87,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF0F0B24), Color(0xFF070B1A)],
+                      colors: [Color(0xFF0E0920), Color(0xFF040309)],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -102,8 +102,8 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                           Text(
                             l.analysis.toUpperCase(),
                             style: TextStyle(
-                              fontSize: 34,
-                              fontWeight: FontWeight.w900,
+                              fontSize: 36,
+                              fontWeight: FontWeight.w800,
                               color: AppColors.primary,
                               letterSpacing: 2.0,
                               shadows: [Shadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 14)],
@@ -135,9 +135,9 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     _buildPremiumGate(
                       isPremium: provider.isPremium,
                       context: context,
-                      borderRadius: 28,
+                      borderRadius: 32,
                       child: GlassCard(
-                        borderRadius: 28,
+                        borderRadius: 32,
                         glowColor: _tierColor(glowScore.total).withValues(alpha: 0.18),
                         borderColor: _tierColor(glowScore.total).withValues(alpha: 0.30),
                         padding: const EdgeInsets.all(24),
@@ -171,7 +171,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                                   decoration: BoxDecoration(
                                     color: _tierColor(glowScore.total).withValues(alpha: 0.18),
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(18),
                                     border: Border.all(color: _tierColor(glowScore.total).withValues(alpha: 0.45)),
                                     boxShadow: [BoxShadow(color: _tierColor(glowScore.total).withValues(alpha: 0.25), blurRadius: 12)],
                                   ),
@@ -335,7 +335,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                     begin: Alignment.centerLeft,
                                     end: Alignment.centerRight,
                                   ),
-                                  borderRadius: BorderRadius.circular(14),
+                                  borderRadius: BorderRadius.circular(26),
                                   border: Border.all(color: (tip['color'] as Color).withValues(alpha: 0.18), width: 0.5),
                                 ),
                                 child: Row(
@@ -494,7 +494,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
                               color: Colors.white.withValues(alpha: 0.14),
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(18),
                             ),
                             child: Row(
                               children: [
@@ -576,7 +576,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                       colors: [AppColors.primary.withValues(alpha: 0.13), AppColors.cyan.withValues(alpha: 0.06)],
                                       begin: Alignment.topLeft, end: Alignment.bottomRight,
                                     ),
-                                    borderRadius: BorderRadius.circular(14),
+                                    borderRadius: BorderRadius.circular(26),
                                     border: Border.all(color: AppColors.primary.withValues(alpha: 0.22)),
                                   ),
                                   child: Row(children: [
@@ -651,7 +651,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     _buildPremiumGate(
                       isPremium: provider.isPremium,
                       context: context,
-                      borderRadius: 20,
+                      borderRadius: 26,
                       child: Row(
                         children: [
                           Expanded(child: _ScoreCard(icon: CupertinoIcons.bolt_fill, title: l.protein, value: '${proteinNeed.toStringAsFixed(0)}g', subtitle: l.daily, color: AppColors.lime)),
@@ -664,7 +664,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     _buildPremiumGate(
                       isPremium: provider.isPremium,
                       context: context,
-                      borderRadius: 20,
+                      borderRadius: 26,
                       child: Row(
                         children: [
                           Expanded(child: _ScoreCard(icon: CupertinoIcons.moon_fill, title: l.sleepLabel, value: '${sleepNeed.toStringAsFixed(0)}${l.hoursShort}', subtitle: l.minimum, color: AppColors.sleep)),
@@ -687,7 +687,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                       padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.03),
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(26),
                         border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
                       ),
                       child: Row(
@@ -997,7 +997,7 @@ class _PotentialStatBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(26),
         border: Border.all(color: color.withValues(alpha: 0.20)),
       ),
       child: Column(
@@ -1033,7 +1033,7 @@ class _ScoreCard extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(26),
         border: Border.all(color: color.withValues(alpha: 0.20), width: 0.5),
       ),
       child: Column(

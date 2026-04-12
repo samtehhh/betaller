@@ -21,6 +21,13 @@ import 'leaderboard_screen.dart';
 import 'progress_screen.dart';
 import '../widgets/premium_paywall.dart';
 
+// ── Design Tokens (reference AppColors for consistency) ───────────
+const double _radiusXL = 30.0;
+const double _radiusL = 26.0;
+const double _radiusM = 20.0;
+const double _radiusS = 14.0;
+const double _sectionGap = 20.0;
+
 // ── Greeting model ────────────────────────────────────────────────
 
 class _GreetingData {
@@ -79,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen>
   }) {
     if (allDone && hasRoutines) {
       return _GreetingData(
-        title: 'Harika iş, $name! 🎯',
+        title: 'Harika iş, $name.',
         subtitle: 'Bugünkü görevlerini tamamladın.',
         subtitleColor: AppColors.success,
       );
@@ -123,13 +130,9 @@ class _HomeScreenState extends State<HomeScreen>
         );
       }
     }
-    // streak 1–2
     return _GreetingData(
       title: 'Merhaba, $name',
-      subtitle: DateFormat(
-        'EEEE, d MMMM',
-        'tr',
-      ).format(DateTime.now()),
+      subtitle: DateFormat('EEEE, d MMMM', 'tr').format(DateTime.now()),
     );
   }
 
@@ -174,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen>
             provider.todayWater >= waterNeed;
 
         return Scaffold(
-          backgroundColor: const Color(0xFF08060F),
+          backgroundColor: AppColors.scaffold,
           body: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
@@ -183,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen>
                 child: SafeArea(
                   bottom: false,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(22, 24, 22, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -197,33 +200,35 @@ class _HomeScreenState extends State<HomeScreen>
                                   Text(
                                     greeting.title,
                                     style: const TextStyle(
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.w800,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w900,
                                       color: Colors.white,
-                                      letterSpacing: -0.7,
-                                      height: 1.1,
+                                      letterSpacing: -1.0,
+                                      height: 1.08,
                                     ),
                                   ),
                                   if (greeting.subtitle != null) ...[
-                                    const SizedBox(height: 4),
+                                    const SizedBox(height: 6),
                                     Text(
                                       greeting.subtitle!,
                                       style: TextStyle(
-                                        fontSize: 13,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w500,
                                         color: greeting.subtitleColor ??
-                                            Colors.white.withValues(alpha: 0.45),
+                                            Colors.white.withValues(
+                                                alpha: 0.40),
+                                        letterSpacing: -0.1,
                                       ),
                                     ),
                                   ],
                                 ],
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 14),
                             _StreakBadge(streak: provider.streak),
                           ],
                         ),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: 16),
                         _InlineXpBar(
                           level: provider.level,
                           levelTitle: localizedLevelTitle(
@@ -238,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen>
                                   .clamp(0, 999999),
                           isMaxLevel: provider.level >= 20,
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 10),
                       ],
                     ),
                   ),
@@ -246,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
 
               SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 110),
+                padding: const EdgeInsets.fromLTRB(18, 10, 18, 120),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
 
@@ -261,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen>
                       allDone: allTodayDone,
                       animValue: _curve.value,
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: _sectionGap),
 
                     // ── 2. HERO HEIGHT CARD ───────────────────────────────
                     _HeroHeightCard(
@@ -280,9 +285,9 @@ class _HomeScreenState extends State<HomeScreen>
                       l: l,
                       onPremiumTap: () => showPremiumPaywall(context),
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: _sectionGap),
 
-                    // ── 3. PEER RANK CARD ─────────────────────────────────
+                    // ── 3. PEER RANK ──────────────────────────────────────
                     _LeaderboardCard(
                       percentile: provider.peerPercentile.toDouble(),
                       onTap: () => Navigator.push(
@@ -292,7 +297,7 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                       ),
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: _sectionGap),
 
                     // ── 4. ACTIVE CHALLENGES ──────────────────────────────
                     _ChallengesSection(
@@ -300,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen>
                       isEvening: isEvening,
                       l: l,
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: _sectionGap),
 
                     // ── 5. WATER + SLEEP ──────────────────────────────────
                     Row(
@@ -325,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen>
                                 : () => showPremiumPaywall(context),
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        const SizedBox(width: 12),
                         Expanded(
                           child: _TrackCard(
                             icon: CupertinoIcons.moon_fill,
@@ -350,9 +355,9 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                       ],
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: _sectionGap),
 
-                    // ── 6. GROWTH STATS (only with 2+ records) ────────────
+                    // ── 6. GROWTH STATS ───────────────────────────────────
                     if (provider.heightRecords.length >= 2) ...[
                       _GrowthStatsCard(
                         totalGrowth: provider.totalGrowth,
@@ -361,10 +366,10 @@ class _HomeScreenState extends State<HomeScreen>
                         hasData: true,
                         l: l,
                       ),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: _sectionGap),
                     ],
 
-                    // ── 7. AI ANALYSIS (only before first completion) ─────
+                    // ── 7. AI ANALYSIS (first time) ───────────────────────
                     if (!provider.analysisCompleted) ...[
                       _BannerCard(
                         label: 'AI ANALİZ',
@@ -372,8 +377,8 @@ class _HomeScreenState extends State<HomeScreen>
                         subtitle: l.analysisSubtitle,
                         accentColor: AppColors.primary,
                         gradientColors: const [
-                          Color(0xFF3B1F8C),
-                          Color(0xFF1A0D45),
+                          Color(0xFF2A1668),
+                          Color(0xFF120A30),
                         ],
                         icon: CupertinoIcons.sparkles,
                         locked: !provider.isPremium,
@@ -385,14 +390,14 @@ class _HomeScreenState extends State<HomeScreen>
                                 ))
                             : () => showPremiumPaywall(context),
                       ),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: _sectionGap),
                     ],
 
-                    // ── 8. KEŞFET COMPACT ROW ─────────────────────────────
+                    // ── 8. KEŞFET CAROUSEL ────────────────────────────────
                     const _ExploreRow(),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: _sectionGap),
 
-                    // ── AI ANALYSIS UPDATE (after first completion) ──────
+                    // ── AI ANALYSIS UPDATE (after completion) ─────────────
                     if (provider.analysisCompleted) ...[
                       _BannerCard(
                         label: 'AI ANALİZ',
@@ -400,8 +405,8 @@ class _HomeScreenState extends State<HomeScreen>
                         subtitle: l.analysisSubtitle,
                         accentColor: AppColors.primary,
                         gradientColors: const [
-                          Color(0xFF3B1F8C),
-                          Color(0xFF1A0D45),
+                          Color(0xFF2A1668),
+                          Color(0xFF120A30),
                         ],
                         icon: CupertinoIcons.sparkles,
                         locked: !provider.isPremium,
@@ -413,14 +418,15 @@ class _HomeScreenState extends State<HomeScreen>
                                 ))
                             : () => showPremiumPaywall(context),
                       ),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: _sectionGap),
                     ],
 
                     // ── 9. EDUCATION BANNER ───────────────────────────────
                     _BannerCard(
                       label: 'EĞİTİM',
                       title: 'Boy uzatma\nbilimi',
-                      subtitle: 'Uzman içerikler, araştırmalar ve rehberler',
+                      subtitle:
+                          'Uzman içerikler, araştırmalar ve rehberler',
                       accentColor: AppColors.cyan,
                       gradientColors: const [
                         Color(0xFF062533),
@@ -435,7 +441,7 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                       ),
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: _sectionGap),
 
                     // ── 10. DAILY TIP ─────────────────────────────────────
                     _DailyTipCard(
@@ -463,22 +469,25 @@ class _HomeScreenState extends State<HomeScreen>
       context: context,
       backgroundColor: Colors.transparent,
       builder: (context) => Container(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(28),
         decoration: BoxDecoration(
-          color: AppColors.surfaceDark,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+          color: AppColors.cardFill,
+          borderRadius:
+              const BorderRadius.vertical(top: Radius.circular(32)),
           border: Border(
-            top: BorderSide(color: Colors.white.withValues(alpha: 0.14)),
+            top: BorderSide(
+              color: AppColors.primary.withValues(alpha: 0.12),
+            ),
           ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 36,
+              width: 40,
               height: 5,
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.40),
+                color: Colors.white.withValues(alpha: 0.20),
                 borderRadius: BorderRadius.circular(3),
               ),
             ),
@@ -486,10 +495,10 @@ class _HomeScreenState extends State<HomeScreen>
             Text(
               l.waterTracking,
               style: const TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.w800,
+                fontSize: 28,
+                fontWeight: FontWeight.w900,
                 color: Colors.white,
-                letterSpacing: -0.8,
+                letterSpacing: -1.0,
               ),
             ),
             const SizedBox(height: 8),
@@ -498,11 +507,11 @@ class _HomeScreenState extends State<HomeScreen>
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                color: AppColors.textSecondary,
+                color: Colors.white.withValues(alpha: 0.50),
                 letterSpacing: -0.2,
               ),
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: 32),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -556,23 +565,25 @@ class _HomeScreenState extends State<HomeScreen>
       backgroundColor: Colors.transparent,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => Container(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(28),
           decoration: BoxDecoration(
-            color: AppColors.surfaceDark,
+            color: AppColors.cardFill,
             borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(28)),
+                const BorderRadius.vertical(top: Radius.circular(32)),
             border: Border(
-              top: BorderSide(color: Colors.white.withValues(alpha: 0.14)),
+              top: BorderSide(
+                color: AppColors.primary.withValues(alpha: 0.12),
+              ),
             ),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 36,
+                width: 40,
                 height: 5,
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.40),
+                  color: Colors.white.withValues(alpha: 0.20),
                   borderRadius: BorderRadius.circular(3),
                 ),
               ),
@@ -580,10 +591,10 @@ class _HomeScreenState extends State<HomeScreen>
               Text(
                 l.sleepTracking,
                 style: const TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w800,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w900,
                   color: Colors.white,
-                  letterSpacing: -0.8,
+                  letterSpacing: -1.0,
                 ),
               ),
               const SizedBox(height: 6),
@@ -591,36 +602,40 @@ class _HomeScreenState extends State<HomeScreen>
                 l.sleepTarget(sleepNeed.toStringAsFixed(1)),
                 style: TextStyle(
                   fontSize: 14,
-                  color: AppColors.textSecondary,
+                  color: Colors.white.withValues(alpha: 0.45),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 28),
               Text(
                 selectedHours.toStringAsFixed(1),
                 style: TextStyle(
-                  fontSize: 52,
-                  fontWeight: FontWeight.w800,
+                  fontSize: 56,
+                  fontWeight: FontWeight.w900,
                   color: AppColors.sleep,
                   letterSpacing: -2,
                   shadows: [
                     Shadow(
-                      color: AppColors.sleep.withValues(alpha: 0.2),
-                      blurRadius: 8,
+                      color: AppColors.sleep.withValues(alpha: 0.3),
+                      blurRadius: 20,
                     ),
                   ],
                 ),
               ),
               Text(
                 l.hours,
-                style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.white.withValues(alpha: 0.40),
+                ),
               ),
               const SizedBox(height: 8),
               SliderTheme(
                 data: SliderThemeData(
                   activeTrackColor: AppColors.sleep,
-                  inactiveTrackColor: AppColors.sleep.withValues(alpha: 0.15),
+                  inactiveTrackColor:
+                      AppColors.sleep.withValues(alpha: 0.12),
                   thumbColor: Colors.white,
-                  overlayColor: AppColors.sleep.withValues(alpha: 0.1),
+                  overlayColor: AppColors.sleep.withValues(alpha: 0.08),
                   trackHeight: 5,
                 ),
                 child: Slider(
@@ -631,13 +646,13 @@ class _HomeScreenState extends State<HomeScreen>
                   onChanged: (v) => setState(() => selectedHours = v),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
                 child: CupertinoButton(
                   color: AppColors.sleep,
-                  borderRadius: BorderRadius.circular(16),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  borderRadius: BorderRadius.circular(_radiusM),
+                  padding: const EdgeInsets.symmetric(vertical: 17),
                   onPressed: () {
                     provider.updateSleep(selectedHours);
                     Navigator.pop(context);
@@ -663,7 +678,7 @@ class _HomeScreenState extends State<HomeScreen>
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  STREAK BADGE — always visible
+//  STREAK BADGE — always visible, soft glow
 // ═══════════════════════════════════════════════════════════════════
 
 class _StreakBadge extends StatelessWidget {
@@ -674,17 +689,26 @@ class _StreakBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final active = streak > 0;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
         color: active
-            ? AppColors.orange.withValues(alpha: 0.14)
-            : Colors.white.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(20),
+            ? AppColors.orange.withValues(alpha: 0.10)
+            : Colors.white.withValues(alpha: 0.04),
+        borderRadius: BorderRadius.circular(22),
         border: Border.all(
           color: active
-              ? AppColors.orange.withValues(alpha: 0.28)
-              : Colors.white.withValues(alpha: 0.09),
+              ? AppColors.orange.withValues(alpha: 0.20)
+              : Colors.white.withValues(alpha: 0.06),
         ),
+        boxShadow: active
+            ? [
+                BoxShadow(
+                  color: AppColors.orange.withValues(alpha: 0.15),
+                  blurRadius: 20,
+                  spreadRadius: -4,
+                ),
+              ]
+            : null,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -693,19 +717,19 @@ class _StreakBadge extends StatelessWidget {
             '🔥',
             style: TextStyle(
               fontSize: 15,
-              color: active ? null : const Color(0x55FFFFFF),
+              color: active ? null : const Color(0x44FFFFFF),
             ),
           ),
-          const SizedBox(width: 5),
+          const SizedBox(width: 6),
           Text(
             '$streak',
             style: TextStyle(
               color: active
                   ? AppColors.orange
-                  : Colors.white.withValues(alpha: 0.30),
+                  : Colors.white.withValues(alpha: 0.25),
               fontWeight: FontWeight.w800,
-              fontSize: 16,
-              letterSpacing: -0.3,
+              fontSize: 17,
+              letterSpacing: -0.5,
             ),
           ),
         ],
@@ -715,7 +739,7 @@ class _StreakBadge extends StatelessWidget {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  INLINE XP BAR — compact header level/xp display
+//  INLINE XP BAR — glass morphism header element
 // ═══════════════════════════════════════════════════════════════════
 
 class _InlineXpBar extends StatelessWidget {
@@ -741,115 +765,133 @@ class _InlineXpBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final isNearLevelUp = !isMaxLevel && xpToNext <= 50;
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.04),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 3,
-                ),
-                decoration: BoxDecoration(
-                  gradient: AppColors.gradientCyan,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  'LVL $level',
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                    letterSpacing: 0.6,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Text(
-                levelTitle,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white.withValues(alpha: 0.70),
-                ),
-              ),
-              const Spacer(),
-              if (isMaxLevel)
-                Text(
-                  'MAX ✦',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.warning,
-                  ),
-                )
-              else if (isNearLevelUp)
-                Text(
-                  '⚡ $xpToNext XP kaldı',
-                  style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.warning,
-                  ),
-                )
-              else
-                Text(
-                  '$totalXP / $xpForNextLevel XP',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white.withValues(alpha: 0.38),
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: SizedBox(
-              height: 5,
-              child: TweenAnimationBuilder<double>(
-                tween: Tween(begin: 0.0, end: isMaxLevel ? 1.0 : progress),
-                duration: const Duration(milliseconds: 1000),
-                curve: Curves.easeOutCubic,
-                builder: (context, value, _) {
-                  return Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.08),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      FractionallySizedBox(
-                        widthFactor: value.clamp(0.0, 1.0),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            gradient: AppColors.gradientCyan,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(_radiusM),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+          decoration: BoxDecoration(
+            color: AppColors.primary.withValues(alpha: 0.06),
+            borderRadius: BorderRadius.circular(_radiusM),
+            border: Border.all(
+              color: AppColors.primary.withValues(alpha: 0.10),
             ),
           ),
-        ],
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 9,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: AppColors.gradientCyan,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      'LVL $level',
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black,
+                        letterSpacing: 0.6,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    levelTitle,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white.withValues(alpha: 0.65),
+                      letterSpacing: -0.2,
+                    ),
+                  ),
+                  const Spacer(),
+                  if (isMaxLevel)
+                    const Text(
+                      'MAX ✦',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.warning,
+                      ),
+                    )
+                  else if (isNearLevelUp)
+                    Text(
+                      '⚡ $xpToNext XP kaldı',
+                      style: const TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.warning,
+                      ),
+                    )
+                  else
+                    Text(
+                      '$totalXP / $xpForNextLevel XP',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white.withValues(alpha: 0.32),
+                      ),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: SizedBox(
+                  height: 4,
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween(
+                        begin: 0.0, end: isMaxLevel ? 1.0 : progress),
+                    duration: const Duration(milliseconds: 1000),
+                    curve: Curves.easeOutCubic,
+                    builder: (context, value, _) {
+                      return Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.06),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          FractionallySizedBox(
+                            widthFactor: value.clamp(0.0, 1.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: AppColors.gradientCyan,
+                                borderRadius: BorderRadius.circular(4),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.cyan
+                                        .withValues(alpha: 0.40),
+                                    blurRadius: 6,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  TODAY'S MISSION CARD — consolidated daily overview
+//  TODAY'S MISSION CARD — premium glass card
 // ═══════════════════════════════════════════════════════════════════
 
 class _TodayMissionCard extends StatelessWidget {
@@ -886,69 +928,58 @@ class _TodayMissionCard extends StatelessWidget {
         .clamp(0.0, 1.0);
     final overallPct = (overall * 100).toInt();
 
-    final ringColor = allDone ? AppColors.success : AppColors.primary;
+    final accentColor = allDone ? AppColors.success : AppColors.primary;
 
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        gradient: allDone
-            ? LinearGradient(
-                colors: [
-                  AppColors.success.withValues(alpha: 0.10),
-                  AppColors.success.withValues(alpha: 0.03),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              )
-            : null,
-        color: allDone ? null : Colors.white.withValues(alpha: 0.04),
-        borderRadius: BorderRadius.circular(22),
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(_radiusXL),
         border: Border.all(
-          color: allDone
-              ? AppColors.success.withValues(alpha: 0.22)
-              : Colors.white.withValues(alpha: 0.07),
+          color: accentColor.withValues(alpha: allDone ? 0.18 : 0.08),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: accentColor.withValues(alpha: 0.12),
+            blurRadius: 32,
+            offset: const Offset(0, 8),
+            spreadRadius: -4,
+          ),
+        ],
       ),
       child: Row(
         children: [
-          // Progress ring
           SizedBox(
-            width: 72,
-            height: 72,
+            width: 78,
+            height: 78,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 SizedBox.expand(
                   child: Padding(
-                    padding: const EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(3),
                     child: CircularProgressIndicator(
                       value: overall,
-                      strokeWidth: 5.5,
-                      backgroundColor: Colors.white.withValues(alpha: 0.08),
-                      valueColor: AlwaysStoppedAnimation<Color>(ringColor),
+                      strokeWidth: 5,
+                      backgroundColor: Colors.white.withValues(alpha: 0.06),
+                      valueColor: AlwaysStoppedAnimation<Color>(accentColor),
                       strokeCap: StrokeCap.round,
                     ),
                   ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '$overallPct%',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                        color: allDone ? AppColors.success : Colors.white,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                  ],
+                Text(
+                  '$overallPct%',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
+                    color: allDone ? AppColors.success : Colors.white,
+                    letterSpacing: -0.8,
+                  ),
                 ),
               ],
             ),
           ),
-          const SizedBox(width: 18),
-          // Status rows
+          const SizedBox(width: 22),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -956,24 +987,25 @@ class _TodayMissionCard extends StatelessWidget {
                 Text(
                   allDone ? 'Bugün tamamlandı ✓' : 'Bugünkü hedefler',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    letterSpacing: 0.3,
+                    letterSpacing: -0.1,
                     color: allDone
                         ? AppColors.success
-                        : Colors.white.withValues(alpha: 0.50),
+                        : Colors.white.withValues(alpha: 0.45),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 14),
                 _MissionRow(
                   icon: CupertinoIcons.checkmark_circle_fill,
                   iconColor: AppColors.primary,
                   label: 'Rutinler',
-                  value: '$routineCompleted/${routineTotal > 0 ? routineTotal : "—"}',
-                  done:
-                      routineCompleted >= routineTotal && routineTotal > 0,
+                  value:
+                      '$routineCompleted/${routineTotal > 0 ? routineTotal : "—"}',
+                  done: routineCompleted >= routineTotal &&
+                      routineTotal > 0,
                 ),
-                const SizedBox(height: 7),
+                const SizedBox(height: 9),
                 _MissionRow(
                   icon: CupertinoIcons.bolt_fill,
                   iconColor: AppColors.warning,
@@ -983,7 +1015,7 @@ class _TodayMissionCard extends StatelessWidget {
                   done: challengeCompleted >= challengeTotal &&
                       challengeTotal > 0,
                 ),
-                const SizedBox(height: 7),
+                const SizedBox(height: 9),
                 _MissionRow(
                   icon: CupertinoIcons.drop_fill,
                   iconColor: AppColors.water,
@@ -1022,27 +1054,29 @@ class _MissionRow extends StatelessWidget {
       children: [
         Icon(
           icon,
-          size: 13,
-          color: done ? AppColors.success : iconColor.withValues(alpha: 0.65),
+          size: 14,
+          color: done ? AppColors.success : iconColor.withValues(alpha: 0.55),
         ),
-        const SizedBox(width: 7),
+        const SizedBox(width: 8),
         Text(
           label,
           style: TextStyle(
-            fontSize: 12,
-            color: Colors.white.withValues(alpha: 0.48),
+            fontSize: 13,
+            color: Colors.white.withValues(alpha: 0.42),
             fontWeight: FontWeight.w500,
+            letterSpacing: -0.1,
           ),
         ),
         const Spacer(),
         Text(
           value,
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 13,
             fontWeight: FontWeight.w700,
+            letterSpacing: -0.3,
             color: done
                 ? AppColors.success
-                : Colors.white.withValues(alpha: 0.80),
+                : Colors.white.withValues(alpha: 0.78),
           ),
         ),
       ],
@@ -1051,7 +1085,7 @@ class _MissionRow extends StatelessWidget {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  HERO HEIGHT CARD
+//  HERO HEIGHT CARD — cinematic with purple glow
 // ═══════════════════════════════════════════════════════════════════
 
 class _HeroHeightCard extends StatelessWidget {
@@ -1093,20 +1127,23 @@ class _HeroHeightCard extends StatelessWidget {
     final hasDelta = delta != null && delta > 0.05;
 
     return Container(
-      padding: const EdgeInsets.all(22),
+      padding: const EdgeInsets.all(26),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF1C0F3A), Color(0xFF0D0820)],
+          colors: [Color(0xFF18103A), Color(0xFF0A0720)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.22)),
+        borderRadius: BorderRadius.circular(_radiusXL),
+        border: Border.all(
+          color: AppColors.primary.withValues(alpha: 0.15),
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.12),
-            blurRadius: 30,
-            offset: const Offset(0, 8),
+            color: AppColors.primary.withValues(alpha: 0.18),
+            blurRadius: 40,
+            offset: const Offset(0, 12),
+            spreadRadius: -8,
           ),
         ],
       ),
@@ -1121,21 +1158,21 @@ class _HeroHeightCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
-                  color: AppColors.primary.withValues(alpha: 0.80),
-                  letterSpacing: 2.5,
+                  color: AppColors.primary.withValues(alpha: 0.70),
+                  letterSpacing: 3.0,
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 12, vertical: 5),
                 decoration: BoxDecoration(
                   color: (allDone ? AppColors.success : AppColors.primary)
-                      .withValues(alpha: 0.14),
-                  borderRadius: BorderRadius.circular(20),
+                      .withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(16),
                   border: Border.all(
                     color:
                         (allDone ? AppColors.success : AppColors.primary)
-                            .withValues(alpha: 0.30),
+                            .withValues(alpha: 0.22),
                   ),
                 ),
                 child: Row(
@@ -1167,7 +1204,7 @@ class _HeroHeightCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
 
           Row(
             crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -1175,52 +1212,64 @@ class _HeroHeightCard extends StatelessWidget {
             children: [
               Text(
                 currentHeight.toStringAsFixed(1),
-                style: const TextStyle(
-                  fontSize: 72,
+                style: TextStyle(
+                  fontSize: 78,
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
-                  letterSpacing: -3,
+                  letterSpacing: -4,
                   height: 1.0,
+                  shadows: [
+                    Shadow(
+                      color: AppColors.primary.withValues(alpha: 0.20),
+                      blurRadius: 30,
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(width: 6),
-              Text(
-                'CM',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white.withValues(alpha: 0.40),
-                  letterSpacing: 1,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Text(
+                  'CM',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white.withValues(alpha: 0.30),
+                    letterSpacing: 2,
+                  ),
                 ),
               ),
               if (hasDelta) ...[
-                const SizedBox(width: 10),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 9,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.success.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: AppColors.success.withValues(alpha: 0.25),
+                const SizedBox(width: 12),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
                     ),
-                  ),
-                  child: Text(
-                    '+${delta.toStringAsFixed(1)} cm',
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.success,
-                      letterSpacing: -0.3,
+                    decoration: BoxDecoration(
+                      color: AppColors.success.withValues(alpha: 0.10),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: AppColors.success.withValues(alpha: 0.20),
+                      ),
+                    ),
+                    child: Text(
+                      '+${delta.toStringAsFixed(1)}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.success,
+                        letterSpacing: -0.3,
+                      ),
                     ),
                   ),
                 ),
               ],
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
 
           Row(
             children: [
@@ -1228,8 +1277,9 @@ class _HeroHeightCard extends StatelessWidget {
                 '${l.target}: ${potential.toStringAsFixed(1)} cm',
                 style: TextStyle(
                   fontSize: 13,
-                  color: Colors.white.withValues(alpha: 0.45),
+                  color: Colors.white.withValues(alpha: 0.38),
                   fontWeight: FontWeight.w500,
+                  letterSpacing: -0.2,
                 ),
               ),
               const SizedBox(width: 8),
@@ -1240,10 +1290,11 @@ class _HeroHeightCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.14),
-                        borderRadius: BorderRadius.circular(20),
+                        color: AppColors.primary.withValues(alpha: 0.10),
+                        borderRadius: BorderRadius.circular(14),
                         border: Border.all(
-                          color: AppColors.primary.withValues(alpha: 0.30),
+                          color:
+                              AppColors.primary.withValues(alpha: 0.22),
                         ),
                       ),
                       child: Text(
@@ -1263,28 +1314,30 @@ class _HeroHeightCard extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFFFD700).withValues(alpha: 0.12),
-                          borderRadius: BorderRadius.circular(20),
+                          color: const Color(0xFFFFD700)
+                              .withValues(alpha: 0.08),
+                          borderRadius: BorderRadius.circular(14),
                           border: Border.all(
-                            color:
-                                const Color(0xFFFFD700).withValues(alpha: 0.28),
+                            color: const Color(0xFFFFD700)
+                                .withValues(alpha: 0.20),
                           ),
                         ),
-                        child: Row(
+                        child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               CupertinoIcons.lock_fill,
                               size: 11,
                               color: Color(0xFFFFD700),
                             ),
-                            const SizedBox(width: 4),
+                            SizedBox(width: 4),
                             Text(
-                              l.premiumBadge,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
+                              'PRO',
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w800,
                                 color: Color(0xFFFFD700),
+                                letterSpacing: 0.5,
                               ),
                             ),
                           ],
@@ -1293,18 +1346,19 @@ class _HeroHeightCard extends StatelessWidget {
                     ),
             ],
           ),
-          const SizedBox(height: 18),
+          const SizedBox(height: 22),
 
           GlowProgressBar(
             value: (potential > currentHeight + 0.1)
-                ? ((currentHeight - 140) / (potential - 140)).clamp(0.0, 1.0) *
+                ? ((currentHeight - 140) / (potential - 140))
+                        .clamp(0.0, 1.0) *
                     animValue
                 : animValue,
             gradient: AppColors.gradientGrowth,
             glowColor: AppColors.primary,
-            height: 7,
+            height: 6,
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 16),
 
           Row(
             children: [
@@ -1313,7 +1367,8 @@ class _HeroHeightCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white.withValues(alpha: 0.50),
+                  color: Colors.white.withValues(alpha: 0.40),
+                  letterSpacing: -0.1,
                 ),
               ),
               const Spacer(),
@@ -1324,12 +1379,13 @@ class _HeroHeightCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
-                  color: allDone ? AppColors.success : AppColors.primaryLight,
+                  color:
+                      allDone ? AppColors.success : AppColors.primaryLight,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           GlowProgressBar(
             value: routineProgress * animValue,
             gradient: allDone
@@ -1338,7 +1394,7 @@ class _HeroHeightCard extends StatelessWidget {
                   )
                 : AppColors.gradientPrimary,
             glowColor: allDone ? AppColors.success : AppColors.primary,
-            height: 5,
+            height: 4,
           ),
         ],
       ),
@@ -1347,7 +1403,7 @@ class _HeroHeightCard extends StatelessWidget {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  BANNER CARD — large feature card
+//  BANNER CARD — cinematic feature card
 // ═══════════════════════════════════════════════════════════════════
 
 class _BannerCard extends StatefulWidget {
@@ -1384,6 +1440,7 @@ class _BannerCardState extends State<_BannerCard> {
       onTapDown: (_) => setState(() => _pressed = true),
       onTapUp: (_) {
         setState(() => _pressed = false);
+        HapticFeedback.lightImpact();
         widget.onTap();
       },
       onTapCancel: () => setState(() => _pressed = false),
@@ -1392,22 +1449,23 @@ class _BannerCardState extends State<_BannerCard> {
         duration: const Duration(milliseconds: 120),
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: widget.gradientColors,
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: BorderRadius.circular(22),
+            borderRadius: BorderRadius.circular(_radiusL),
             border: Border.all(
-              color: widget.accentColor.withValues(alpha: 0.25),
+              color: widget.accentColor.withValues(alpha: 0.18),
             ),
             boxShadow: [
               BoxShadow(
-                color: widget.accentColor.withValues(alpha: 0.10),
-                blurRadius: 20,
-                offset: const Offset(0, 6),
+                color: widget.accentColor.withValues(alpha: 0.12),
+                blurRadius: 28,
+                offset: const Offset(0, 8),
+                spreadRadius: -4,
               ),
             ],
           ),
@@ -1419,12 +1477,12 @@ class _BannerCardState extends State<_BannerCard> {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 9,
-                        vertical: 3,
+                        horizontal: 10,
+                        vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: widget.accentColor.withValues(alpha: 0.18),
-                        borderRadius: BorderRadius.circular(6),
+                        color: widget.accentColor.withValues(alpha: 0.14),
+                        borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -1444,21 +1502,21 @@ class _BannerCardState extends State<_BannerCard> {
                               fontSize: 10,
                               fontWeight: FontWeight.w800,
                               color: widget.accentColor,
-                              letterSpacing: 1.2,
+                              letterSpacing: 1.5,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 14),
                     Text(
                       widget.title,
                       style: const TextStyle(
                         fontSize: 24,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w900,
                         color: Colors.white,
-                        letterSpacing: -0.5,
-                        height: 1.15,
+                        letterSpacing: -0.6,
+                        height: 1.12,
                       ),
                     ),
                     const SizedBox(height: 6),
@@ -1467,8 +1525,9 @@ class _BannerCardState extends State<_BannerCard> {
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
-                        color: Colors.white.withValues(alpha: 0.60),
+                        color: Colors.white.withValues(alpha: 0.50),
                         height: 1.4,
+                        letterSpacing: -0.1,
                       ),
                     ),
                   ],
@@ -1476,24 +1535,28 @@ class _BannerCardState extends State<_BannerCard> {
               ),
               const SizedBox(width: 16),
               Container(
-                width: 72,
-                height: 72,
+                width: 68,
+                height: 68,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: widget.accentColor.withValues(alpha: 0.12),
+                  color: widget.accentColor.withValues(alpha: 0.10),
                   border: Border.all(
-                    color: widget.accentColor.withValues(alpha: 0.25),
+                    color: widget.accentColor.withValues(alpha: 0.18),
                     width: 1.5,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: widget.accentColor.withValues(alpha: 0.25),
-                      blurRadius: 18,
-                      spreadRadius: 1,
+                      color: widget.accentColor.withValues(alpha: 0.20),
+                      blurRadius: 24,
+                      spreadRadius: -2,
                     ),
                   ],
                 ),
-                child: Icon(widget.icon, color: widget.accentColor, size: 32),
+                child: Icon(
+                  widget.icon,
+                  color: widget.accentColor,
+                  size: 30,
+                ),
               ),
             ],
           ),
@@ -1504,7 +1567,7 @@ class _BannerCardState extends State<_BannerCard> {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  TRACK CARD — Water / Sleep with urgency state
+//  TRACK CARD — Water / Sleep with urgency
 // ═══════════════════════════════════════════════════════════════════
 
 class _TrackCard extends StatelessWidget {
@@ -1539,13 +1602,20 @@ class _TrackCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.fromLTRB(16, 16, 12, 16),
+        padding: const EdgeInsets.fromLTRB(18, 18, 14, 18),
         decoration: BoxDecoration(
-          color: displayColor.withValues(alpha: isUrgent ? 0.10 : 0.07),
-          borderRadius: BorderRadius.circular(20),
+          color: AppColors.cardFill,
+          borderRadius: BorderRadius.circular(_radiusL),
           border: Border.all(
-            color: displayColor.withValues(alpha: isUrgent ? 0.30 : 0.18),
+            color: displayColor.withValues(alpha: isUrgent ? 0.22 : 0.10),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: displayColor.withValues(alpha: 0.08),
+              blurRadius: 20,
+              spreadRadius: -4,
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1553,25 +1623,25 @@ class _TrackCard extends StatelessWidget {
             Row(
               children: [
                 Icon(icon, color: displayColor, size: 18),
-                const SizedBox(width: 6),
+                const SizedBox(width: 7),
                 Text(
                   label,
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
                     color: displayColor,
-                    letterSpacing: 0.2,
+                    letterSpacing: -0.1,
                   ),
                 ),
                 const Spacer(),
                 GestureDetector(
                   onTap: onAdd,
                   child: Container(
-                    width: 28,
-                    height: 28,
+                    width: 30,
+                    height: 30,
                     decoration: BoxDecoration(
-                      color: displayColor.withValues(alpha: 0.18),
-                      borderRadius: BorderRadius.circular(9),
+                      color: displayColor.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Icon(
                       CupertinoIcons.plus,
@@ -1583,17 +1653,17 @@ class _TrackCard extends StatelessWidget {
               ],
             ),
             if (isUrgent) ...[
-              const SizedBox(height: 4),
+              const SizedBox(height: 5),
               Text(
                 'Geride kalıyorsun',
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.error.withValues(alpha: 0.80),
+                  color: AppColors.error.withValues(alpha: 0.75),
                 ),
               ),
             ],
-            SizedBox(height: isUrgent ? 6 : 10),
+            SizedBox(height: isUrgent ? 6 : 12),
             Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
@@ -1601,30 +1671,30 @@ class _TrackCard extends StatelessWidget {
                 Text(
                   value,
                   style: const TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w800,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
                     color: Colors.white,
-                    letterSpacing: -1,
+                    letterSpacing: -1.2,
                   ),
                 ),
-                const SizedBox(width: 3),
+                const SizedBox(width: 4),
                 Text(
                   '/ $target$unit',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.white.withValues(alpha: 0.40),
+                    color: Colors.white.withValues(alpha: 0.32),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 12),
             ClipRRect(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(3),
               child: LinearProgressIndicator(
                 value: progress,
-                minHeight: 4,
-                backgroundColor: displayColor.withValues(alpha: 0.12),
+                minHeight: 3,
+                backgroundColor: displayColor.withValues(alpha: 0.08),
                 valueColor: AlwaysStoppedAnimation<Color>(displayColor),
               ),
             ),
@@ -1636,7 +1706,7 @@ class _TrackCard extends StatelessWidget {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  LEADERBOARD CARD
+//  LEADERBOARD CARD — refined with haptic
 // ═══════════════════════════════════════════════════════════════════
 
 class _LeaderboardCard extends StatefulWidget {
@@ -1666,20 +1736,20 @@ class _LeaderboardCardState extends State<_LeaderboardCard> {
         scale: _pressed ? 0.97 : 1.0,
         duration: const Duration(milliseconds: 110),
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColors.warning.withValues(alpha: 0.14),
-                AppColors.warning.withValues(alpha: 0.04),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(20),
+            color: AppColors.cardFill,
+            borderRadius: BorderRadius.circular(_radiusL),
             border: Border.all(
-              color: AppColors.warning.withValues(alpha: 0.25),
+              color: AppColors.warning.withValues(alpha: 0.12),
             ),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.warning.withValues(alpha: 0.08),
+                blurRadius: 24,
+                spreadRadius: -6,
+              ),
+            ],
           ),
           child: Row(
             children: [
@@ -1687,10 +1757,10 @@ class _LeaderboardCardState extends State<_LeaderboardCard> {
                 width: 52,
                 height: 52,
                 decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(alpha: 0.14),
-                  borderRadius: BorderRadius.circular(16),
+                  color: AppColors.warning.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(17),
                   border: Border.all(
-                    color: AppColors.warning.withValues(alpha: 0.28),
+                    color: AppColors.warning.withValues(alpha: 0.18),
                   ),
                 ),
                 child: const Icon(
@@ -1704,23 +1774,23 @@ class _LeaderboardCardState extends State<_LeaderboardCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'AKRANLARLA KARŞILAŞTIR',
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w700,
-                        color: AppColors.warning,
-                        letterSpacing: 1.2,
+                        color: AppColors.warning.withValues(alpha: 0.80),
+                        letterSpacing: 1.5,
                       ),
                     ),
-                    const SizedBox(height: 3),
+                    const SizedBox(height: 4),
                     Text(
                       'Akranlarının Top $topPct%\'ündesin',
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
                         color: Colors.white,
-                        letterSpacing: -0.3,
+                        letterSpacing: -0.4,
                       ),
                     ),
                   ],
@@ -1728,13 +1798,13 @@ class _LeaderboardCardState extends State<_LeaderboardCard> {
               ),
               const SizedBox(width: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(alpha: 0.18),
-                  borderRadius: BorderRadius.circular(14),
+                  color: AppColors.warning.withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: AppColors.warning.withValues(alpha: 0.30),
+                    color: AppColors.warning.withValues(alpha: 0.20),
                   ),
                 ),
                 child: Text(
@@ -1776,20 +1846,20 @@ class _ChallengesSection extends StatelessWidget {
   Widget build(BuildContext context) {
     if (challenges.isEmpty) {
       return Container(
-        padding: const EdgeInsets.all(18),
+        padding: const EdgeInsets.all(22),
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.04),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
+          color: AppColors.cardFill,
+          borderRadius: BorderRadius.circular(_radiusL),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
         ),
         child: Row(
           children: [
             Container(
-              width: 40,
-              height: 40,
+              width: 42,
+              height: 42,
               decoration: BoxDecoration(
-                color: AppColors.warning.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(13),
+                color: AppColors.warning.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(_radiusS),
               ),
               child: const Icon(
                 CupertinoIcons.bolt_fill,
@@ -1805,17 +1875,18 @@ class _ChallengesSection extends StatelessWidget {
                   const Text(
                     'Günlük görevler',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
+                      letterSpacing: -0.2,
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 3),
                   Text(
                     'Yeni görevler yakında yükleniyor.',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.white.withValues(alpha: 0.40),
+                      color: Colors.white.withValues(alpha: 0.35),
                     ),
                   ),
                 ],
@@ -1835,58 +1906,61 @@ class _ChallengesSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(
-              'GÜNLÜK GÖREVLER',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                color: Colors.white.withValues(alpha: 0.35),
-                letterSpacing: 2.0,
-              ),
-            ),
-            const Spacer(),
-            if (isEvening && incomplete.isNotEmpty)
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                decoration: BoxDecoration(
-                  color: AppColors.error.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: AppColors.error.withValues(alpha: 0.22),
-                  ),
-                ),
-                child: const Text(
-                  'Bu gece bitiyor',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.error,
-                  ),
-                ),
-              )
-            else if (incomplete.isEmpty)
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                decoration: BoxDecoration(
-                  color: AppColors.success.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Text(
-                  'Hepsi tamamlandı ✓',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.success,
-                  ),
+        Padding(
+          padding: const EdgeInsets.only(left: 4),
+          child: Row(
+            children: [
+              Text(
+                'GÜNLÜK GÖREVLER',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white.withValues(alpha: 0.30),
+                  letterSpacing: 2.5,
                 ),
               ),
-          ],
+              const Spacer(),
+              if (isEvening && incomplete.isNotEmpty)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 9, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withValues(alpha: 0.10),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: AppColors.error.withValues(alpha: 0.18),
+                    ),
+                  ),
+                  child: const Text(
+                    'Bu gece bitiyor',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.error,
+                    ),
+                  ),
+                )
+              else if (incomplete.isEmpty)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 9, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColors.success.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Text(
+                    'Hepsi tamamlandı ✓',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.success,
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         ...toShow.map((challenge) {
           final progress = (challenge['progress'] as int? ?? 0);
           final target = (challenge['target'] as int? ?? 1);
@@ -1894,7 +1968,7 @@ class _ChallengesSection extends StatelessWidget {
           final isCompleted = challenge['completed'] == true;
           final xp = challenge['xpReward'] as int? ?? 20;
           return Padding(
-            padding: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.only(bottom: 10),
             child: _ChallengeCard(
               icon: challenge['icon'] as String? ?? '🎯',
               title: localizedChallengeTitle(
@@ -1914,7 +1988,7 @@ class _ChallengesSection extends StatelessWidget {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  CHALLENGE CARD — with XP reward + completed state
+//  CHALLENGE CARD — with XP + completed state
 // ═══════════════════════════════════════════════════════════════════
 
 class _ChallengeCard extends StatelessWidget {
@@ -1937,22 +2011,22 @@ class _ChallengeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       decoration: BoxDecoration(
         color: isCompleted
-            ? AppColors.success.withValues(alpha: 0.06)
+            ? AppColors.success.withValues(alpha: 0.04)
             : AppColors.cardFill,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(22),
         border: Border.all(
           color: isCompleted
-              ? AppColors.success.withValues(alpha: 0.18)
-              : Colors.white.withValues(alpha: 0.08),
+              ? AppColors.success.withValues(alpha: 0.14)
+              : Colors.white.withValues(alpha: 0.05),
         ),
       ),
       child: Row(
         children: [
-          Text(icon, style: const TextStyle(fontSize: 22)),
-          const SizedBox(width: 12),
+          Text(icon, style: const TextStyle(fontSize: 24)),
+          const SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1960,19 +2034,19 @@ class _ChallengeCard extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: isCompleted
-                        ? Colors.white.withValues(alpha: 0.45)
+                        ? Colors.white.withValues(alpha: 0.40)
                         : Colors.white,
                     letterSpacing: -0.2,
                     decoration:
                         isCompleted ? TextDecoration.lineThrough : null,
-                    decorationColor: Colors.white.withValues(alpha: 0.30),
+                    decorationColor: Colors.white.withValues(alpha: 0.25),
                   ),
                 ),
                 if (!isCompleted) ...[
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 8),
                   GlowProgressBar(
                     value: progress,
                     gradient: AppColors.gradientPrimary,
@@ -1983,7 +2057,7 @@ class _ChallengeCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -1991,25 +2065,25 @@ class _ChallengeCard extends StatelessWidget {
                 const Icon(
                   CupertinoIcons.checkmark_circle_fill,
                   color: AppColors.success,
-                  size: 20,
+                  size: 22,
                 )
               else
                 Text(
                   progressLabel,
                   style: const TextStyle(
-                    fontSize: 12,
+                    fontSize: 13,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primaryLight,
-                    letterSpacing: -0.2,
+                    letterSpacing: -0.3,
                   ),
                 ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 5),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 7, vertical: 3),
                 decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(alpha: 0.14),
-                  borderRadius: BorderRadius.circular(6),
+                  color: AppColors.warning.withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   '+$xpReward XP',
@@ -2029,7 +2103,7 @@ class _ChallengeCard extends StatelessWidget {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  EXPLORE ROW — compact horizontal scroll of feature tiles
+//  EXPLORE CAROUSEL — cinematic glassmorphism hero cards
 // ═══════════════════════════════════════════════════════════════════
 
 class _ExploreRow extends StatefulWidget {
@@ -2089,7 +2163,8 @@ class _ExploreRowState extends State<_ExploreRow> {
         gradientColors: const [Color(0xFF0C2D48), Color(0xFF0A2440)],
         onTap: () => Navigator.push(
           context,
-          CupertinoPageRoute(builder: (_) => const ProgressPhotosScreen()),
+          CupertinoPageRoute(
+              builder: (_) => const ProgressPhotosScreen()),
         ),
       ),
       _ExploreItemData(
@@ -2113,7 +2188,8 @@ class _ExploreRowState extends State<_ExploreRow> {
         gradientColors: const [Color(0xFF431407), Color(0xFF3B1106)],
         onTap: () => Navigator.push(
           context,
-          CupertinoPageRoute(builder: (_) => const RecipeGeneratorScreen()),
+          CupertinoPageRoute(
+              builder: (_) => const RecipeGeneratorScreen()),
         ),
       ),
     ];
@@ -2128,14 +2204,14 @@ class _ExploreRowState extends State<_ExploreRow> {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,
-              color: Colors.white.withValues(alpha: 0.35),
-              letterSpacing: 2.0,
+              color: Colors.white.withValues(alpha: 0.30),
+              letterSpacing: 2.5,
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 14),
         SizedBox(
-          height: 180,
+          height: 190,
           child: PageView.builder(
             controller: _pageController,
             physics: const BouncingScrollPhysics(),
@@ -2150,12 +2226,9 @@ class _ExploreRowState extends State<_ExploreRow> {
                   if (_pageController.position.haveDimensions) {
                     final page = _pageController.page ?? 0.0;
                     final diff = (page - index).abs();
-                    scale = (1 - diff * 0.08).clamp(0.9, 1.0);
+                    scale = (1 - diff * 0.06).clamp(0.92, 1.0);
                   }
-                  return Transform.scale(
-                    scale: scale,
-                    child: child,
-                  );
+                  return Transform.scale(scale: scale, child: child);
                 },
                 child: _ExploreHeroCard(item: items[index]),
               );
@@ -2214,18 +2287,18 @@ class _ExploreHeroCardState extends State<_ExploreHeroCard> {
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(_radiusL),
               boxShadow: [
                 BoxShadow(
-                  color: item.color.withValues(alpha: 0.22),
-                  blurRadius: 28,
-                  offset: const Offset(0, 10),
-                  spreadRadius: -2,
+                  color: item.color.withValues(alpha: 0.18),
+                  blurRadius: 32,
+                  offset: const Offset(0, 12),
+                  spreadRadius: -6,
                 ),
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(_radiusL),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
                 child: Container(
@@ -2234,32 +2307,32 @@ class _ExploreHeroCardState extends State<_ExploreHeroCard> {
                       colors: [
                         item.gradientColors[0],
                         item.gradientColors[1],
-                        item.gradientColors[1].withValues(alpha: 0.6),
+                        item.gradientColors[1].withValues(alpha: 0.5),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: BorderRadius.circular(_radiusL),
                     border: Border.all(
-                      color: item.color.withValues(alpha: 0.18),
+                      color: item.color.withValues(alpha: 0.14),
                     ),
                   ),
                   child: Stack(
                     children: [
-                      // Large background icon — cinematic depth
+                      // Large faded icon
                       Positioned(
-                        right: -12,
-                        bottom: -16,
+                        right: -14,
+                        bottom: -18,
                         child: Icon(
                           item.icon,
-                          size: 110,
-                          color: item.color.withValues(alpha: 0.06),
+                          size: 120,
+                          color: item.color.withValues(alpha: 0.05),
                         ),
                       ),
-                      // Soft glow orb — top right
+                      // Soft glow
                       Positioned(
-                        right: 20,
-                        top: -20,
+                        right: 16,
+                        top: -24,
                         child: Container(
                           width: 80,
                           height: 80,
@@ -2267,7 +2340,7 @@ class _ExploreHeroCardState extends State<_ExploreHeroCard> {
                             shape: BoxShape.circle,
                             gradient: RadialGradient(
                               colors: [
-                                item.color.withValues(alpha: 0.12),
+                                item.color.withValues(alpha: 0.10),
                                 item.color.withValues(alpha: 0.0),
                               ],
                             ),
@@ -2276,55 +2349,58 @@ class _ExploreHeroCardState extends State<_ExploreHeroCard> {
                       ),
                       // Content
                       Padding(
-                        padding: const EdgeInsets.all(22),
+                        padding: const EdgeInsets.all(24),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Icon badge
                             Container(
-                              width: 44,
-                              height: 44,
+                              width: 46,
+                              height: 46,
                               decoration: BoxDecoration(
-                                color: item.color.withValues(alpha: 0.14),
-                                borderRadius: BorderRadius.circular(14),
+                                color:
+                                    item.color.withValues(alpha: 0.12),
+                                borderRadius:
+                                    BorderRadius.circular(_radiusS),
                                 border: Border.all(
-                                  color: item.color.withValues(alpha: 0.28),
+                                  color: item.color
+                                      .withValues(alpha: 0.22),
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: item.color.withValues(alpha: 0.18),
-                                    blurRadius: 12,
-                                    spreadRadius: -2,
+                                    color: item.color
+                                        .withValues(alpha: 0.15),
+                                    blurRadius: 14,
+                                    spreadRadius: -3,
                                   ),
                                 ],
                               ),
                               child: Icon(
                                 item.icon,
                                 color: item.color,
-                                size: 21,
+                                size: 22,
                               ),
                             ),
                             const Spacer(),
-                            // Title
                             Text(
                               item.label,
                               style: const TextStyle(
-                                fontSize: 19,
-                                fontWeight: FontWeight.w800,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w900,
                                 color: Colors.white,
-                                letterSpacing: -0.3,
-                                height: 1.15,
+                                letterSpacing: -0.4,
+                                height: 1.12,
                               ),
                             ),
                             const SizedBox(height: 5),
-                            // Subtitle
                             Text(
                               item.subtitle,
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.white.withValues(alpha: 0.50),
+                                color: Colors.white
+                                    .withValues(alpha: 0.45),
                                 height: 1.3,
+                                letterSpacing: -0.1,
                               ),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -2332,18 +2408,19 @@ class _ExploreHeroCardState extends State<_ExploreHeroCard> {
                           ],
                         ),
                       ),
-                      // Arrow indicator — bottom right
+                      // Arrow
                       Positioned(
                         right: 18,
                         bottom: 18,
                         child: Container(
-                          width: 32,
-                          height: 32,
+                          width: 34,
+                          height: 34,
                           decoration: BoxDecoration(
-                            color: item.color.withValues(alpha: 0.12),
-                            borderRadius: BorderRadius.circular(10),
+                            color: item.color.withValues(alpha: 0.10),
+                            borderRadius: BorderRadius.circular(11),
                             border: Border.all(
-                              color: item.color.withValues(alpha: 0.22),
+                              color:
+                                  item.color.withValues(alpha: 0.18),
                             ),
                           ),
                           child: Icon(
@@ -2366,7 +2443,7 @@ class _ExploreHeroCardState extends State<_ExploreHeroCard> {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  GROWTH STATS CARD — always visible, with empty state
+//  GROWTH STATS CARD
 // ═══════════════════════════════════════════════════════════════════
 
 class _GrowthStatsCard extends StatelessWidget {
@@ -2396,11 +2473,12 @@ class _GrowthStatsCard extends StatelessWidget {
           );
         },
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             color: AppColors.cardFill,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+            borderRadius: BorderRadius.circular(_radiusL),
+            border: Border.all(
+                color: Colors.white.withValues(alpha: 0.05)),
           ),
           child: Row(
             children: [
@@ -2408,10 +2486,10 @@ class _GrowthStatsCard extends StatelessWidget {
                 width: 46,
                 height: 46,
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.10),
-                  borderRadius: BorderRadius.circular(14),
+                  color: AppColors.primary.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(_radiusS),
                   border: Border.all(
-                    color: AppColors.primary.withValues(alpha: 0.20),
+                    color: AppColors.primary.withValues(alpha: 0.15),
                   ),
                 ),
                 child: const Icon(
@@ -2428,9 +2506,10 @@ class _GrowthStatsCard extends StatelessWidget {
                     const Text(
                       'Büyüme takibi',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 15,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
+                        letterSpacing: -0.2,
                       ),
                     ),
                     const SizedBox(height: 3),
@@ -2440,7 +2519,7 @@ class _GrowthStatsCard extends StatelessWidget {
                           : 'İkinci ölçümünü kaydet, grafiğini gör.',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.white.withValues(alpha: 0.40),
+                        color: Colors.white.withValues(alpha: 0.35),
                         height: 1.4,
                       ),
                     ),
@@ -2450,7 +2529,7 @@ class _GrowthStatsCard extends StatelessWidget {
               Icon(
                 CupertinoIcons.chevron_right,
                 size: 14,
-                color: Colors.white.withValues(alpha: 0.20),
+                color: Colors.white.withValues(alpha: 0.18),
               ),
             ],
           ),
@@ -2459,11 +2538,11 @@ class _GrowthStatsCard extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         color: AppColors.cardFill,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+        borderRadius: BorderRadius.circular(_radiusL),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2473,23 +2552,25 @@ class _GrowthStatsCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,
-              color: Colors.white.withValues(alpha: 0.35),
-              letterSpacing: 2.0,
+              color: Colors.white.withValues(alpha: 0.30),
+              letterSpacing: 2.5,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
           Row(
             children: [
               _GrowthStat(
                 label: l.total,
                 value: '${totalGrowth > 0 ? '+' : ''}$totalGrowth',
                 unit: 'cm',
-                color: totalGrowth > 0 ? AppColors.success : AppColors.error,
+                color: totalGrowth > 0
+                    ? AppColors.success
+                    : AppColors.error,
               ),
               Container(
                 width: 1,
                 height: 40,
-                color: Colors.white.withValues(alpha: 0.10),
+                color: Colors.white.withValues(alpha: 0.06),
               ),
               _GrowthStat(
                 label: l.last,
@@ -2502,7 +2583,7 @@ class _GrowthStatsCard extends StatelessWidget {
               Container(
                 width: 1,
                 height: 40,
-                color: Colors.white.withValues(alpha: 0.10),
+                color: Colors.white.withValues(alpha: 0.06),
               ),
               _GrowthStat(
                 label: l.measurement,
@@ -2530,10 +2611,24 @@ class _DailyTipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(22),
-      decoration: const BoxDecoration(
-        gradient: AppColors.gradientAccent,
-        borderRadius: BorderRadius.all(Radius.circular(22)),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF2A1800), Color(0xFF1A0F00)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(_radiusL),
+        border: Border.all(
+          color: AppColors.orange.withValues(alpha: 0.14),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.orange.withValues(alpha: 0.08),
+            blurRadius: 24,
+            spreadRadius: -6,
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2547,20 +2642,20 @@ class _DailyTipCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white.withValues(alpha: 0.70),
-                  letterSpacing: 1.5,
+                  color: AppColors.orange.withValues(alpha: 0.70),
+                  letterSpacing: 2.0,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 14),
           Text(
             tip,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w500,
-              color: Colors.white,
-              height: 1.55,
+              color: Colors.white.withValues(alpha: 0.85),
+              height: 1.6,
               letterSpacing: -0.1,
             ),
           ),
@@ -2607,8 +2702,8 @@ class _GrowthStat extends StatelessWidget {
                   letterSpacing: -0.8,
                   shadows: [
                     Shadow(
-                      color: color.withValues(alpha: 0.4),
-                      blurRadius: 8,
+                      color: color.withValues(alpha: 0.35),
+                      blurRadius: 10,
                     ),
                   ],
                 ),
@@ -2618,18 +2713,18 @@ class _GrowthStat extends StatelessWidget {
                   ' $unit',
                   style: TextStyle(
                     fontSize: 13,
-                    color: color.withValues(alpha: 0.6),
+                    color: color.withValues(alpha: 0.5),
                   ),
                 ),
             ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 5),
           Text(
             label,
             style: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w600,
-              color: AppColors.textTertiary,
+              color: Colors.white.withValues(alpha: 0.30),
               letterSpacing: 1.0,
             ),
           ),
@@ -2651,12 +2746,18 @@ class _WaterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        HapticFeedback.lightImpact();
+        onTap();
+      },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 15),
         decoration: BoxDecoration(
-          color: AppColors.water.withValues(alpha: 0.14),
-          borderRadius: BorderRadius.circular(14),
+          color: AppColors.water.withValues(alpha: 0.10),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: AppColors.water.withValues(alpha: 0.15),
+          ),
         ),
         child: Text(
           label,

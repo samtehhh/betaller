@@ -63,13 +63,13 @@ class _MainScreenState extends State<MainScreen> {
       extendBody: true,
       bottomNavigationBar: ClipRRect(
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+          filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
           child: Container(
             decoration: BoxDecoration(
-              color: const Color(0xFF1A0F1E).withValues(alpha: 0.95),
+              color: const Color(0xFF080610).withValues(alpha: 0.97),
               border: Border(
                 top: BorderSide(
-                  color: const Color(0xFFCE93D8).withValues(alpha: 0.08),
+                  color: AppColors.primary.withValues(alpha: 0.06),
                   width: 0.5,
                 ),
               ),
@@ -157,11 +157,11 @@ class _NavItem extends StatelessWidget {
               decoration: selected
                   ? BoxDecoration(
                       color: AppColors.primary.withValues(alpha: 0.12),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(14),
                       boxShadow: [
                         BoxShadow(
                           color: AppColors.primary.withValues(alpha: 0.3),
-                          blurRadius: 12,
+                          blurRadius: 16,
                         ),
                       ],
                     )
@@ -182,7 +182,7 @@ class _NavItem extends StatelessWidget {
                 color: selected
                     ? AppColors.primary
                     : Colors.white.withValues(alpha: 0.82),
-                shadows: selected ? [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 8)] : null,
+                shadows: selected ? [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 12)] : null,
                 fontSize: 11,
                 fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 letterSpacing: -0.2,

@@ -60,7 +60,7 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF1E1B4B), Color(0xFF0A0A1A)],
+                      colors: [Color(0xFF0E0920), Color(0xFF040309)],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -72,7 +72,7 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                       child: Text(
                         l.progressTitle,
                         style: TextStyle(
-                          fontSize: 36,
+                          fontSize: 34,
                           fontWeight: FontWeight.w800,
                           color: AppColors.primary,
                           letterSpacing: -1.2,
@@ -162,12 +162,12 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(20),
                         boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.25), blurRadius: 14, offset: const Offset(0, 4))],
                       ),
                       child: CupertinoButton(
                         color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(20),
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         onPressed: provider.isPremium
                             ? () => _showAddMeasurementSheet(context, provider)
@@ -217,7 +217,7 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                               padding: const EdgeInsets.only(right: 20),
                               decoration: BoxDecoration(
                                 color: AppColors.error.withValues(alpha: 0.2),
-                                borderRadius: BorderRadius.circular(16),
+                                borderRadius: BorderRadius.circular(22),
                               ),
                               child: const Icon(CupertinoIcons.delete, color: AppColors.error, size: 20),
                             ),
@@ -244,7 +244,7 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                             onDismissed: (_) => provider.deleteHeightRecord(record.date),
                             child: GlassCard(
                               padding: const EdgeInsets.all(20),
-                              borderRadius: 16,
+                              borderRadius: 22,
                               child: Row(
                                 children: [
                                   Container(
@@ -543,7 +543,7 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               color: AppColors.surfaceDark,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
               border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.14))),
             ),
             child: Column(
