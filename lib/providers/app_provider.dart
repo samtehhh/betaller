@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_profile.dart';
 import '../models/height_record.dart';
 import '../models/routine.dart';
+import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import '../utils/height_reference.dart';
 import '../services/purchase_service.dart';
@@ -625,9 +626,10 @@ class AppProvider extends ChangeNotifier {
   }
 
   void addWater(double amount) {
-    final wasUnderGoal = _todayWater < 2.5;
+    final waterGoal = _profile != null ? Calculations.dailyWaterNeed(_profile!.weight) : 2.5;
+    final wasUnderGoal = _todayWater < waterGoal;
     _todayWater = double.parse((_todayWater + amount).toStringAsFixed(1));
-    if (wasUnderGoal && _todayWater >= 2.5) {
+    if (wasUnderGoal && _todayWater >= waterGoal) {
       addXP(xpRewards['water_goal']!);
       updateChallengeProgress('daily_water', 1);
       // Track weekly water days via dailyChallengeProgress
@@ -684,7 +686,7 @@ class AppProvider extends ChangeNotifier {
   }
 
   void _checkAndGenerateChallenges() {
-    if (_lastChallengeDate == _today) return;
+    if (_lastChallengeDate == _today && _activeChallenges.isNotEmpty) return;
 
     // Generate new daily challenges (pick 3 random from daily templates)
     final dailyTemplates = challengeTemplates
