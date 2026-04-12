@@ -272,27 +272,30 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   void _showLanguageSheet(BuildContext context, AppProvider provider) {
     final currentCode = Localizations.localeOf(context).languageCode;
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      backgroundColor: const Color(0xFF0C0A16),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 36, height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.20),
-                  borderRadius: BorderRadius.circular(2),
+      barrierColor: Colors.black.withValues(alpha: 0.70),
+      builder: (ctx) => Center(
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: 260,
+            padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
+            decoration: BoxDecoration(
+              color: const Color(0xFF0C0A16),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.primary.withValues(alpha: 0.12),
+                  blurRadius: 32,
+                  spreadRadius: -4,
                 ),
-              ),
-              const SizedBox(height: 20),
-              ..._langs.map((lang) {
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: _langs.map((lang) {
                 final selected = lang.locale.languageCode == currentCode;
                 return GestureDetector(
                   onTap: () {
@@ -300,38 +303,38 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     Navigator.pop(ctx);
                   },
                   child: Container(
-                    margin: const EdgeInsets.only(bottom: 6),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
                     decoration: BoxDecoration(
                       color: selected
                           ? AppColors.primary.withValues(alpha: 0.12)
                           : Colors.transparent,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(14),
                       border: selected
-                          ? Border.all(color: AppColors.primary.withValues(alpha: 0.35))
+                          ? Border.all(color: AppColors.primary.withValues(alpha: 0.30))
                           : null,
                     ),
                     child: Row(
                       children: [
-                        Text(lang.flag, style: const TextStyle(fontSize: 22)),
-                        const SizedBox(width: 14),
+                        Text(lang.flag, style: const TextStyle(fontSize: 20)),
+                        const SizedBox(width: 12),
                         Text(
                           lang.name,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 15,
                             fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                             color: Colors.white,
                           ),
                         ),
                         const Spacer(),
                         if (selected)
-                          const Icon(CupertinoIcons.checkmark_circle_fill, color: AppColors.primary, size: 22),
+                          const Icon(CupertinoIcons.checkmark_circle_fill, color: AppColors.primary, size: 20),
                       ],
                     ),
                   ),
                 );
-              }),
-            ],
+              }).toList(),
+            ),
           ),
         ),
       ),
@@ -1073,18 +1076,19 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildDreamHeightPage() {
+    final l = AppLocalizations.of(context)!;
     final unitKey = _dreamImperial ? 'imp' : 'met';
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _PageTitle("What's your dream height?"),
+          _PageTitle(l.whatsYourDreamHeight),
           const SizedBox(height: 8),
-          _PageSubtitle("Based on your input, we'll calculate the likelihood of achieving this height."),
+          _PageSubtitle(l.dreamHeightCalcSubtitle),
           const SizedBox(height: 20),
-          const Text('Dream height',
-            style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700)),
+          Text(l.dreamHeightLabel,
+            style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700)),
           const SizedBox(height: 12),
           Expanded(
             child: _dreamImperial
@@ -1127,14 +1131,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // PAGE 10 — Sleep (circular dial)
   // ─────────────────────────────────────────────────────────────────────────────
 
-  Widget _buildSleepPage() => Padding(
+  Widget _buildSleepPage() {
+    final l = AppLocalizations.of(context)!;
+    return Padding(
     padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _PageTitle('How many hours do\nyou sleep each night?'),
+        _PageTitle(l.sleepQuestion),
         const SizedBox(height: 8),
-        _PageSubtitle('This will be used to predict your height potential & create your custom plan.'),
+        _PageSubtitle(l.onboardingPredictSubtitle),
         Expanded(
           child: Center(
             child: _CircularSleepDial(
@@ -1146,12 +1152,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ],
     ),
   );
+  }
 
   // ─────────────────────────────────────────────────────────────────────────────
   // PAGE 12 — Social proof "Binlerce Kişi Başardı"
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildReviewsPage() {
+    final l = AppLocalizations.of(context)!;
     final testimonials = [
       _Testimonial(
         name: 'Ertuğ E.', age: 23, emoji: '💪',
@@ -1197,11 +1205,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         children: [
           const Text('🏆', style: TextStyle(fontSize: 44)),
           const SizedBox(height: 14),
-          const Text('Binlerce Kişi\nBaşardı',
+          Text(l.thousandsSucceeded,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.0, height: 1.12)),
+            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.0, height: 1.12)),
           const SizedBox(height: 8),
-          Text('Sen de başarabilirsin',
+          Text(l.youCanToo,
             style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.50))),
           const SizedBox(height: 24),
           ...testimonials.map((t) => _TestimonialCard(t: t)),
@@ -1215,7 +1223,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // PAGE 13 — Growth chart ("Uzun vadeli sonuçlar")
   // ─────────────────────────────────────────────────────────────────────────────
 
-  Widget _buildChartPage() => SingleChildScrollView(
+  Widget _buildChartPage() {
+    final l = AppLocalizations.of(context)!;
+    return SingleChildScrollView(
     padding: const EdgeInsets.fromLTRB(24, 28, 24, 20),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1228,14 +1238,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: AppColors.primary.withValues(alpha: 0.30)),
           ),
-          child: const Text('BİLİMSEL VERİ', style: TextStyle(
+          child: Text(l.scientificData, style: const TextStyle(
             fontSize: 10, fontWeight: FontWeight.w800, letterSpacing: 1.2, color: AppColors.primary,
           )),
         ),
         const SizedBox(height: 14),
-        const _PageTitle('BeTaller uzun vadeli\nsonuçlar yaratır'),
+        _PageTitle(l.longTermResults),
         const SizedBox(height: 8),
-        _PageSubtitle("Pek çok kişi yanlış alışkanlıklar yüzünden nihai boyuna ulaşamıyor."),
+        _PageSubtitle(l.longTermResultsSubtitle),
         const SizedBox(height: 22),
         // Chart card
         Container(
@@ -1249,17 +1259,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           ),
           child: Column(
             children: [
-              const Text('Nihai boyun',
-                style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700)),
+              Text(l.yourFinalHeight,
+                style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700)),
               const SizedBox(height: 12),
               Expanded(child: CustomPaint(size: Size.infinite, painter: _GrowthChartPainter())),
               const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _LegendDot(color: const Color(0xFFFF6B4A), label: 'Kötü alışkanlıklar'),
+                  _LegendDot(color: const Color(0xFFFF6B4A), label: l.badHabitsLegend),
                   const SizedBox(width: 22),
-                  _LegendDot(color: AppColors.primary, label: 'Optimize edilmiş'),
+                  _LegendDot(color: AppColors.primary, label: l.optimizedLegend),
                 ],
               ),
             ],
@@ -1270,22 +1280,22 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         Row(children: [
           Expanded(child: _ChartFactCard(
             emoji: '🧬',
-            pct: '%30',
-            desc: 'Boy alışkanlıklarla\ndeğiştirilebilir',
+            pct: l.chartFact1Pct,
+            desc: l.chartFact1Desc,
             color: AppColors.primary,
           )),
           const SizedBox(width: 10),
           Expanded(child: _ChartFactCard(
             emoji: '😴',
-            pct: '9-10s',
-            desc: 'İdeal uyku büyüme\nhormonunu artırır',
+            pct: l.chartFact2Pct,
+            desc: l.chartFact2Desc,
             color: AppColors.cyan,
           )),
           const SizedBox(width: 10),
           Expanded(child: _ChartFactCard(
             emoji: '🦴',
-            pct: '3 cm',
-            desc: 'Postür iyileştirmeyle\nkazanılabilir',
+            pct: l.chartFact3Pct,
+            desc: l.chartFact3Desc,
             color: const Color(0xFF22C55E),
           )),
         ]),
@@ -1305,10 +1315,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('💡  Biliyor muydun?',
+              Text('\ud83d\udca1  ${l.didYouKnow}',
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.primary)),
               const SizedBox(height: 10),
-              ...['Günlük alışkanlıklar boyun %30\'unu etkiler', 'Omurga kasılması 1.5-3 cm boyunu çalar', 'Uyku eksikliği HGH\'ı %70 düşürür']
+              ...[l.didYouKnowFact1, l.didYouKnowFact2, l.didYouKnowFact3]
                 .map((fact) => Padding(
                   padding: const EdgeInsets.only(bottom: 7),
                   child: Row(children: [
@@ -1325,6 +1335,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ],
     ),
   );
+  }
 
 
   // Called by _AnalyzingPage when animation finishes — show result page
@@ -1368,35 +1379,36 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildJourneyPage() {
+    final l = AppLocalizations.of(context)!;
     final milestones = [
       _JourneyMilestone(
-        label: '1H',
-        title: '1. Hafta',
-        desc: 'Omurga düzelir, duruş pozisyonu iyileşir',
+        label: l.week1Label,
+        title: l.week1Title,
+        desc: l.week1Desc,
         icon: '🌱',
         color: const Color(0xFF22C55E),
         isActive: false,
       ),
       _JourneyMilestone(
-        label: '1A',
-        title: '1. Ay',
-        desc: 'İlk görünür santimler, uyku kalitesi artar',
+        label: l.month1Label,
+        title: l.month1Title,
+        desc: l.month1Desc,
         icon: '💪',
         color: AppColors.cyan,
         isActive: false,
       ),
       _JourneyMilestone(
-        label: '3A',
-        title: '3. Ay',
-        desc: 'Ortalama +1.5–2.5 cm kazanım, kas gelişimi',
+        label: l.month3Label,
+        title: l.month3Title,
+        desc: l.month3Desc,
         icon: '⚡',
         color: AppColors.primary,
         isActive: false,
       ),
       _JourneyMilestone(
-        label: '6A',
-        title: '6. Ay',
-        desc: 'Maksimum potansiyeline ulaş, yeni boyunla yaşa',
+        label: l.month6Label,
+        title: l.month6Title,
+        desc: l.month6Desc,
         icon: '🏆',
         color: const Color(0xFFFFD700),
         isActive: true,
@@ -1409,11 +1421,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         children: [
           const Text('✨', style: TextStyle(fontSize: 40)),
           const SizedBox(height: 16),
-          const Text('Dönüşüm\nYolculuğun Başlıyor',
+          Text(l.transformJourneyBegins,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.2, height: 1.12)),
+            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.2, height: 1.12)),
           const SizedBox(height: 10),
-          Text('Bilimsel olarak kanıtlanmış program seni\nhedefine adım adım taşır.',
+          Text(l.transformJourneySubtitle,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 14.5, color: Colors.white.withValues(alpha: 0.58), height: 1.5)),
           const SizedBox(height: 32),
@@ -1483,14 +1495,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   const Text('🏆', style: TextStyle(fontSize: 22)),
                   const SizedBox(width: 10),
                   Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text('6. Ay', style: TextStyle(fontSize: 12, color: const Color(0xFFFFD700).withValues(alpha: 0.80))),
-                    const Text('Hedefine Ulaş', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white)),
+                    Text(l.month6Title, style: TextStyle(fontSize: 12, color: const Color(0xFFFFD700).withValues(alpha: 0.80))),
+                    Text(l.reachYourGoal, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white)),
                   ]),
                 ]),
                 const SizedBox(height: 14),
                 Divider(color: Colors.white.withValues(alpha: 0.08)),
                 const SizedBox(height: 10),
-                ...['Maksimum potansiyelini ortaya çıkar', 'Yeni boyunla yaşamaya başla', 'Başarı hikayeni yaz'].asMap().entries.map((e) =>
+                ...[l.journeyBullet1, l.journeyBullet2, l.journeyBullet3].asMap().entries.map((e) =>
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: Row(children: [
@@ -1777,13 +1789,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   child: InkWell(
                     borderRadius: BorderRadius.circular(18),
                     onTap: _onResultContinue,
-                    child: const Center(
+                    child: Center(
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(CupertinoIcons.lock_open_fill, color: Color(0xFF0A0A14), size: 20),
-                          SizedBox(width: 10),
-                          Text('Kilitleri Aç', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF0A0A14))),
+                          const Icon(CupertinoIcons.lock_open_fill, color: Color(0xFF0A0A14), size: 20),
+                          const SizedBox(width: 10),
+                          Text(l.unlockButton, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF0A0A14))),
                         ],
                       ),
                     ),
@@ -1883,7 +1895,9 @@ class _TestimonialCard extends StatelessWidget {
   const _TestimonialCard({required this.t});
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    return Container(
     margin: const EdgeInsets.only(bottom: 12),
     padding: const EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -1914,7 +1928,7 @@ class _TestimonialCard extends StatelessWidget {
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('${t.name}, ${t.age}',
               style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
-            Text('yaşında', style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.40))),
+            Text(l.yearsOld, style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.40))),
           ]),
           const Spacer(),
           if (t.verified)
@@ -1928,7 +1942,7 @@ class _TestimonialCard extends StatelessWidget {
               child: Row(mainAxisSize: MainAxisSize.min, children: [
                 const Icon(Icons.verified, color: Color(0xFF22C55E), size: 12),
                 const SizedBox(width: 4),
-                const Text('Doğrulanmış', style: TextStyle(color: Color(0xFF22C55E), fontSize: 10, fontWeight: FontWeight.w700)),
+                Text(l.verifiedLabel, style: const TextStyle(color: Color(0xFF22C55E), fontSize: 10, fontWeight: FontWeight.w700)),
               ]),
             ),
         ]),
@@ -1959,6 +1973,7 @@ class _TestimonialCard extends StatelessWidget {
       ],
     ),
   );
+  }
 }
 
 class _ChartFactCard extends StatelessWidget {
@@ -2936,7 +2951,9 @@ class _PhoneMockup extends StatelessWidget {
 
 class _IntroMockupHeight extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => _PhoneMockup(
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    return _PhoneMockup(
     child: Padding(
       padding: const EdgeInsets.all(14),
       child: Column(
@@ -2972,20 +2989,21 @@ class _IntroMockupHeight extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(8)),
-            child: Text('Taller than 76.7% of your age 🌍', style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 8)),
+            child: Text('${l.tallerThanPct} \ud83c\udf0d', style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 8)),
           ),
           const SizedBox(height: 6),
           Row(
             children: [
-              Expanded(child: _MiniInfoTile('68%', 'Dream height\nodds')),
+              Expanded(child: _MiniInfoTile('68%', l.dreamHeightOdds)),
               const SizedBox(width: 6),
-              Expanded(child: _MiniInfoTile('89.8%', 'Growth\ncomplete')),
+              Expanded(child: _MiniInfoTile('89.8%', l.growthCompleteLabel)),
             ],
           ),
         ],
       ),
     ),
   );
+  }
 }
 
 // ── Slide 2: Daily Train mockup ───────────────────────────────────

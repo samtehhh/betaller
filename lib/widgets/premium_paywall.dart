@@ -178,6 +178,20 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
                   child: Row(
                     children: [
+                      GestureDetector(
+                        onTap: () {
+                          context.read<AppProvider>().setPremium(true);
+                          if (widget.dismissible && context.mounted) Navigator.pop(context, true);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.04),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text('TESTER', style: TextStyle(fontSize: 9, color: Colors.white.withValues(alpha: 0.15), fontWeight: FontWeight.w600, letterSpacing: 0.5)),
+                        ),
+                      ),
                       const Spacer(),
                       GestureDetector(
                         onTap: _restore,
@@ -235,6 +249,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                           note: l.paywallBestValue,
                           glowColor: f.glowColor,
                           showBadge: true,
+                          badgeText: l.paywallBestValue,
                           onTap: () => setState(() => _selectedPlan = 1),
                         )),
                         const SizedBox(width: 10),
@@ -557,7 +572,8 @@ class _PlanPill extends StatelessWidget {
   final Color glowColor;
   final VoidCallback onTap;
   final bool showBadge;
-  const _PlanPill({required this.selected, required this.label, required this.price, required this.note, required this.glowColor, required this.onTap, this.showBadge = false});
+  final String? badgeText;
+  const _PlanPill({required this.selected, required this.label, required this.price, required this.note, required this.glowColor, required this.onTap, this.showBadge = false, this.badgeText});
 
   @override
   Widget build(BuildContext context) {
@@ -586,7 +602,7 @@ class _PlanPill extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(color: glowColor.withValues(alpha: 0.20), borderRadius: BorderRadius.circular(5)),
-                    child: Text('İYİ', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: glowColor, letterSpacing: 0.5)),
+                    child: Text(badgeText ?? '', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: glowColor, letterSpacing: 0.5)),
                   ),
                 ],
               ],
