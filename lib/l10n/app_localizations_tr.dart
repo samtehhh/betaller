@@ -2849,4 +2849,320 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get paywallTester => 'Tester';
+
+  @override
+  String get introTag1 => 'TAHMİN';
+
+  @override
+  String get introTag2 => 'BÜYÜME';
+
+  @override
+  String get introTag3 => 'TAKİP';
+
+  @override
+  String get introTag4 => 'GAMİFİKASYON';
+
+  @override
+  String get introTag5 => 'TOPLULUK';
+
+  @override
+  String get introTitle1 => 'Boy potansiyelini\nkeşfet';
+
+  @override
+  String get introSubtitle1 =>
+      'Genetik, yaş ve yaşam tarzına göre\ntam potansiyelini hesaplayalım.';
+
+  @override
+  String get introTitle2 => 'Her gün 1 adım\ndaha uzun';
+
+  @override
+  String get introSubtitle2 =>
+      'Kişiselleştirilmiş egzersiz ve beslenme\nplanıyla potansiyelini zorla.';
+
+  @override
+  String get introTitle3 => 'Her santimetreyi\ntakip et';
+
+  @override
+  String get introSubtitle3 =>
+      'Aylık ölçümlerle gerçek ilerlemenin\nnasıl geliştiğini izle.';
+
+  @override
+  String get introTitle4 => 'Seviyeleri aş,\nödülleri kazan';
+
+  @override
+  String get introSubtitle4 =>
+      '70 günlük programları tamamla,\nXP kazan ve yeni seviyeleri aç.';
+
+  @override
+  String get introTitle5 => 'Binlerce kişi\nzaten büyüdü';
+
+  @override
+  String get introSubtitle5 =>
+      'Hedefine ulaşan kullanıcı topluluğuna\nsen de katıl.';
+
+  @override
+  String get criticalWindow => 'KRİTİK PENCERE';
+
+  @override
+  String get heightPotentialFading => 'Boy potansiyelin';
+
+  @override
+  String get fadingAway => 'kaybolup gidiyor!';
+
+  @override
+  String get painHookDesc =>
+      'Her geçen gün, doğru alışkanlıklar olmadan santimler kalıcı olarak kayboluyor. Ama bu hâlâ tersine çevrilebilir.';
+
+  @override
+  String get painGeneticTitle => 'Genetiğin her şeyi değil';
+
+  @override
+  String get painGeneticDesc =>
+      'Genetiğin %60\'ını belirliyor — ama yaptıkların geri kalan %40\'ı belirliyor. BeTaller tam da bu %40 için burada.';
+
+  @override
+  String get painGeneticTag => 'Analiz';
+
+  @override
+  String get painSleepTitle => 'Uyku rutinini optimize et';
+
+  @override
+  String get painSleepDesc =>
+      'Her gece doğru uyku büyüme hormonu üretimini %70 artırabilir. BeTaller uyku takibini otomatik yapar, sen sadece uyu.';
+
+  @override
+  String get painSleepTag => 'Takip';
+
+  @override
+  String get painPostureTitle => 'Postürünle şu an santim kazan';
+
+  @override
+  String get painPostureDesc =>
+      'Doğru duruş sana anında 1.5–3 cm katabilir. BeTaller\'ın günlük postür rutini bunu birkaç haftada yerleştirir.';
+
+  @override
+  String get painPostureTag => 'Postür';
+
+  @override
+  String get painExerciseTitle => 'Sana özel egzersiz planın hazır';
+
+  @override
+  String get painExerciseDesc =>
+      'Sabah germe, asılma, omurga rutinleri — BeTaller bunları senin için hazırladı ve planladı. Her gün 8–12 dakika yeter.';
+
+  @override
+  String get painExerciseTag => 'Rutinler';
+
+  @override
+  String get painNutritionTitle => 'Beslenmen büyümeni doğrudan etkiler';
+
+  @override
+  String get painNutritionDesc =>
+      'Protein, kalsiyum, D vitamini — BeTaller hangi besinleri ne zaman almanı gerektiğini her gün hatırlatır.';
+
+  @override
+  String get painNutritionTag => 'Beslenme';
+
+  @override
+  String get painTrackingTitle => 'Büyümeni gözlerinle takip et';
+
+  @override
+  String get painTrackingDesc =>
+      'Aylık ölçüm, ilerleme fotoğrafları, büyüme grafiği — kazandığın her santimi gör.';
+
+  @override
+  String get painTrackingTag => 'İlerleme';
+
+  @override
+  String get selectYourGender => 'Cinsiyetini seç';
+
+  @override
+  String get onboardingPredictSubtitle =>
+      'Boy potansiyelini tahmin etmek ve sana özel plan oluşturmak için kullanılacak.';
+
+  @override
+  String get other => 'Diğer';
+
+  @override
+  String get whenWereYouBorn => 'Ne zaman doğdun?';
+
+  @override
+  String get heightAndWeight => 'Boy ve kilo';
+
+  @override
+  String get parentsHeight => 'Anne-baba boyu';
+
+  @override
+  String get weeklyWorkout => 'Haftalık antrenman';
+
+  @override
+  String get workoutsPerWeek => 'Haftada antrenman';
+
+  @override
+  String get whatsYourEthnicity => 'Etnik kökenin nedir?';
+
+  @override
+  String get whiteCaucasian => 'Beyaz / Kafkas';
+
+  @override
+  String get blackAfricanAmerican => 'Siyahi / Afrikalı Amerikalı';
+
+  @override
+  String get hispanicLatino => 'Hispanik / Latin';
+
+  @override
+  String get asian => 'Asyalı';
+
+  @override
+  String get middleEasternIndigenous => 'Orta Doğulu / Yerli';
+
+  @override
+  String get dontWantToAnswer => 'Cevap vermek istemiyorum';
+
+  @override
+  String get footSizeLabel => 'Ayak numarası';
+
+  @override
+  String get selectYourSize => 'Numaranı seç';
+
+  @override
+  String get whatsYourDreamHeight => 'Hedef boyun ne?';
+
+  @override
+  String get dreamHeightCalcSubtitle =>
+      'Girdiğin bilgilere göre bu boya ulaşma olasılığını hesaplayacağız.';
+
+  @override
+  String get dreamHeightLabel => 'Hedef boy';
+
+  @override
+  String get sleepQuestion => 'Her gece kaç saat\nuyuyorsun?';
+
+  @override
+  String get thousandsSucceeded => 'Binlerce Kişi\nBaşardı';
+
+  @override
+  String get youCanToo => 'Sen de başarabilirsin';
+
+  @override
+  String get yearsOld => 'yaşında';
+
+  @override
+  String get verifiedLabel => 'Doğrulanmış';
+
+  @override
+  String get scientificData => 'BİLİMSEL VERİ';
+
+  @override
+  String get longTermResults => 'BeTaller uzun vadeli\nsonuçlar yaratır';
+
+  @override
+  String get longTermResultsSubtitle =>
+      'Pek çok kişi yanlış alışkanlıklar yüzünden nihai boyuna ulaşamıyor.';
+
+  @override
+  String get yourFinalHeight => 'Nihai boyun';
+
+  @override
+  String get badHabitsLegend => 'Kötü alışkanlıklar';
+
+  @override
+  String get optimizedLegend => 'Optimize edilmiş';
+
+  @override
+  String get chartFact1Pct => '%30';
+
+  @override
+  String get chartFact1Desc => 'Boy alışkanlıklarla\ndeğiştirilebilir';
+
+  @override
+  String get chartFact2Pct => '9-10s';
+
+  @override
+  String get chartFact2Desc => 'İdeal uyku büyüme\nhormonunu artırır';
+
+  @override
+  String get chartFact3Pct => '3 cm';
+
+  @override
+  String get chartFact3Desc => 'Postür iyileştirmeyle\nkazanılabilir';
+
+  @override
+  String get didYouKnow => 'Biliyor muydun?';
+
+  @override
+  String get didYouKnowFact1 => 'Günlük alışkanlıklar boyun %30\'unu etkiler';
+
+  @override
+  String get didYouKnowFact2 => 'Omurga kasılması 1.5-3 cm boyunu çalar';
+
+  @override
+  String get didYouKnowFact3 => 'Uyku eksikliği HGH\'ı %70 düşürür';
+
+  @override
+  String get transformJourneyBegins => 'Dönüşüm\nYolculuğun Başlıyor';
+
+  @override
+  String get transformJourneySubtitle =>
+      'Bilimsel olarak kanıtlanmış program seni\nhedefine adım adım taşır.';
+
+  @override
+  String get week1Label => '1H';
+
+  @override
+  String get week1Title => '1. Hafta';
+
+  @override
+  String get week1Desc => 'Omurga düzelir, duruş pozisyonu iyileşir';
+
+  @override
+  String get month1Label => '1A';
+
+  @override
+  String get month1Title => '1. Ay';
+
+  @override
+  String get month1Desc => 'İlk görünür santimler, uyku kalitesi artar';
+
+  @override
+  String get month3Label => '3A';
+
+  @override
+  String get month3Title => '3. Ay';
+
+  @override
+  String get month3Desc => 'Ortalama +1.5–2.5 cm kazanım, kas gelişimi';
+
+  @override
+  String get month6Label => '6A';
+
+  @override
+  String get month6Title => '6. Ay';
+
+  @override
+  String get month6Desc => 'Maksimum potansiyeline ulaş, yeni boyunla yaşa';
+
+  @override
+  String get reachYourGoal => 'Hedefine Ulaş';
+
+  @override
+  String get journeyBullet1 => 'Maksimum potansiyelini ortaya çıkar';
+
+  @override
+  String get journeyBullet2 => 'Yeni boyunla yaşamaya başla';
+
+  @override
+  String get journeyBullet3 => 'Başarı hikayeni yaz';
+
+  @override
+  String get unlockButton => 'Kilitleri Aç';
+
+  @override
+  String get dreamHeightOdds => 'Hedef boy\nolasılığı';
+
+  @override
+  String get growthCompleteLabel => 'Büyüme\ntamamlanma';
+
+  @override
+  String get tallerThanPct => 'Yaşıtlarının %76.7\'sinden uzun';
 }

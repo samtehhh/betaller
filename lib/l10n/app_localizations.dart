@@ -5257,6 +5257,606 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tester'**
   String get paywallTester;
+
+  /// No description provided for @introTag1.
+  ///
+  /// In en, this message translates to:
+  /// **'PREDICTION'**
+  String get introTag1;
+
+  /// No description provided for @introTag2.
+  ///
+  /// In en, this message translates to:
+  /// **'GROWTH'**
+  String get introTag2;
+
+  /// No description provided for @introTag3.
+  ///
+  /// In en, this message translates to:
+  /// **'TRACKING'**
+  String get introTag3;
+
+  /// No description provided for @introTag4.
+  ///
+  /// In en, this message translates to:
+  /// **'GAMIFICATION'**
+  String get introTag4;
+
+  /// No description provided for @introTag5.
+  ///
+  /// In en, this message translates to:
+  /// **'COMMUNITY'**
+  String get introTag5;
+
+  /// No description provided for @introTitle1.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover your\nheight potential'**
+  String get introTitle1;
+
+  /// No description provided for @introSubtitle1.
+  ///
+  /// In en, this message translates to:
+  /// **'Let us calculate your full potential\nbased on genetics, age, and lifestyle.'**
+  String get introSubtitle1;
+
+  /// No description provided for @introTitle2.
+  ///
+  /// In en, this message translates to:
+  /// **'One step taller\nevery day'**
+  String get introTitle2;
+
+  /// No description provided for @introSubtitle2.
+  ///
+  /// In en, this message translates to:
+  /// **'Push your potential with personalized\nexercise and nutrition plans.'**
+  String get introSubtitle2;
+
+  /// No description provided for @introTitle3.
+  ///
+  /// In en, this message translates to:
+  /// **'Track every\ncentimeter'**
+  String get introTitle3;
+
+  /// No description provided for @introSubtitle3.
+  ///
+  /// In en, this message translates to:
+  /// **'See how your real progress\ndevelops with monthly measurements.'**
+  String get introSubtitle3;
+
+  /// No description provided for @introTitle4.
+  ///
+  /// In en, this message translates to:
+  /// **'Level up,\nearn rewards'**
+  String get introTitle4;
+
+  /// No description provided for @introSubtitle4.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete 70-day programs,\nearn XP, and unlock new levels.'**
+  String get introSubtitle4;
+
+  /// No description provided for @introTitle5.
+  ///
+  /// In en, this message translates to:
+  /// **'Thousands already\ngrew taller'**
+  String get introTitle5;
+
+  /// No description provided for @introSubtitle5.
+  ///
+  /// In en, this message translates to:
+  /// **'Join the community of users\nwho reached their goals.'**
+  String get introSubtitle5;
+
+  /// No description provided for @criticalWindow.
+  ///
+  /// In en, this message translates to:
+  /// **'CRITICAL WINDOW'**
+  String get criticalWindow;
+
+  /// No description provided for @heightPotentialFading.
+  ///
+  /// In en, this message translates to:
+  /// **'Your height potential'**
+  String get heightPotentialFading;
+
+  /// No description provided for @fadingAway.
+  ///
+  /// In en, this message translates to:
+  /// **'is fading away!'**
+  String get fadingAway;
+
+  /// No description provided for @painHookDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Every passing day, centimeters are permanently lost without the right habits. But this can still be reversed.'**
+  String get painHookDesc;
+
+  /// No description provided for @painGeneticTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Genetics isn\'t everything'**
+  String get painGeneticTitle;
+
+  /// No description provided for @painGeneticDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Genetics determines 60% — but what you do determines the other 40%. BeTaller is here for exactly that 40%.'**
+  String get painGeneticDesc;
+
+  /// No description provided for @painGeneticTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Analysis'**
+  String get painGeneticTag;
+
+  /// No description provided for @painSleepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimize your sleep routine'**
+  String get painSleepTitle;
+
+  /// No description provided for @painSleepDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Proper sleep every night can boost growth hormone production by 70%. BeTaller automates sleep tracking, you just sleep.'**
+  String get painSleepDesc;
+
+  /// No description provided for @painSleepTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracking'**
+  String get painSleepTag;
+
+  /// No description provided for @painPostureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Gain centimeters now with posture'**
+  String get painPostureTitle;
+
+  /// No description provided for @painPostureDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct posture can instantly add 1.5–3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.'**
+  String get painPostureDesc;
+
+  /// No description provided for @painPostureTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture'**
+  String get painPostureTag;
+
+  /// No description provided for @painExerciseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your custom exercise plan is ready'**
+  String get painExerciseTitle;
+
+  /// No description provided for @painExerciseDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning stretches, hanging, spine routines — BeTaller prepared and scheduled these for you. Just 8–12 minutes a day.'**
+  String get painExerciseDesc;
+
+  /// No description provided for @painExerciseTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Routines'**
+  String get painExerciseTag;
+
+  /// No description provided for @painNutritionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your nutrition directly affects growth'**
+  String get painNutritionTitle;
+
+  /// No description provided for @painNutritionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein, calcium, vitamin D — BeTaller reminds you every day which nutrients to take and when.'**
+  String get painNutritionDesc;
+
+  /// No description provided for @painNutritionTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition'**
+  String get painNutritionTag;
+
+  /// No description provided for @painTrackingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your growth with your own eyes'**
+  String get painTrackingTitle;
+
+  /// No description provided for @painTrackingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly measurements, progress photos, growth chart — see every centimeter you gain.'**
+  String get painTrackingDesc;
+
+  /// No description provided for @painTrackingTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get painTrackingTag;
+
+  /// No description provided for @selectYourGender.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your gender'**
+  String get selectYourGender;
+
+  /// No description provided for @onboardingPredictSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This will be used to predict your height potential & create your custom plan.'**
+  String get onboardingPredictSubtitle;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @whenWereYouBorn.
+  ///
+  /// In en, this message translates to:
+  /// **'When were you born?'**
+  String get whenWereYouBorn;
+
+  /// No description provided for @heightAndWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Height & weight'**
+  String get heightAndWeight;
+
+  /// No description provided for @parentsHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Parents height'**
+  String get parentsHeight;
+
+  /// No description provided for @weeklyWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly workout'**
+  String get weeklyWorkout;
+
+  /// No description provided for @workoutsPerWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Workouts per week'**
+  String get workoutsPerWeek;
+
+  /// No description provided for @whatsYourEthnicity.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your ethnicity?'**
+  String get whatsYourEthnicity;
+
+  /// No description provided for @whiteCaucasian.
+  ///
+  /// In en, this message translates to:
+  /// **'White / Caucasian'**
+  String get whiteCaucasian;
+
+  /// No description provided for @blackAfricanAmerican.
+  ///
+  /// In en, this message translates to:
+  /// **'Black / African American'**
+  String get blackAfricanAmerican;
+
+  /// No description provided for @hispanicLatino.
+  ///
+  /// In en, this message translates to:
+  /// **'Hispanic / Latino'**
+  String get hispanicLatino;
+
+  /// No description provided for @asian.
+  ///
+  /// In en, this message translates to:
+  /// **'Asian'**
+  String get asian;
+
+  /// No description provided for @middleEasternIndigenous.
+  ///
+  /// In en, this message translates to:
+  /// **'Middle Eastern / Indigenous'**
+  String get middleEasternIndigenous;
+
+  /// No description provided for @dontWantToAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'I don\'t want to answer'**
+  String get dontWantToAnswer;
+
+  /// No description provided for @footSizeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Foot size'**
+  String get footSizeLabel;
+
+  /// No description provided for @selectYourSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your size'**
+  String get selectYourSize;
+
+  /// No description provided for @whatsYourDreamHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your dream height?'**
+  String get whatsYourDreamHeight;
+
+  /// No description provided for @dreamHeightCalcSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your input, we\'ll calculate the likelihood of achieving this height.'**
+  String get dreamHeightCalcSubtitle;
+
+  /// No description provided for @dreamHeightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Dream height'**
+  String get dreamHeightLabel;
+
+  /// No description provided for @sleepQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'How many hours do\nyou sleep each night?'**
+  String get sleepQuestion;
+
+  /// No description provided for @thousandsSucceeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Thousands\nSucceeded'**
+  String get thousandsSucceeded;
+
+  /// No description provided for @youCanToo.
+  ///
+  /// In en, this message translates to:
+  /// **'You can do it too'**
+  String get youCanToo;
+
+  /// No description provided for @yearsOld.
+  ///
+  /// In en, this message translates to:
+  /// **'years old'**
+  String get yearsOld;
+
+  /// No description provided for @verifiedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get verifiedLabel;
+
+  /// No description provided for @scientificData.
+  ///
+  /// In en, this message translates to:
+  /// **'SCIENTIFIC DATA'**
+  String get scientificData;
+
+  /// No description provided for @longTermResults.
+  ///
+  /// In en, this message translates to:
+  /// **'BeTaller creates\nlong-term results'**
+  String get longTermResults;
+
+  /// No description provided for @longTermResultsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Many people don\'t reach their ultimate height due to bad habits.'**
+  String get longTermResultsSubtitle;
+
+  /// No description provided for @yourFinalHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Your final height'**
+  String get yourFinalHeight;
+
+  /// No description provided for @badHabitsLegend.
+  ///
+  /// In en, this message translates to:
+  /// **'Bad habits'**
+  String get badHabitsLegend;
+
+  /// No description provided for @optimizedLegend.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimized'**
+  String get optimizedLegend;
+
+  /// No description provided for @chartFact1Pct.
+  ///
+  /// In en, this message translates to:
+  /// **'30%'**
+  String get chartFact1Pct;
+
+  /// No description provided for @chartFact1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Height can be changed\nwith habits'**
+  String get chartFact1Desc;
+
+  /// No description provided for @chartFact2Pct.
+  ///
+  /// In en, this message translates to:
+  /// **'9-10h'**
+  String get chartFact2Pct;
+
+  /// No description provided for @chartFact2Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Ideal sleep boosts\ngrowth hormone'**
+  String get chartFact2Desc;
+
+  /// No description provided for @chartFact3Pct.
+  ///
+  /// In en, this message translates to:
+  /// **'3 cm'**
+  String get chartFact3Pct;
+
+  /// No description provided for @chartFact3Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Can be gained with\nposture improvement'**
+  String get chartFact3Desc;
+
+  /// No description provided for @didYouKnow.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you know?'**
+  String get didYouKnow;
+
+  /// No description provided for @didYouKnowFact1.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily habits affect 30% of your height'**
+  String get didYouKnowFact1;
+
+  /// No description provided for @didYouKnowFact2.
+  ///
+  /// In en, this message translates to:
+  /// **'Spinal compression steals 1.5-3 cm of height'**
+  String get didYouKnowFact2;
+
+  /// No description provided for @didYouKnowFact3.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep deprivation reduces HGH by 70%'**
+  String get didYouKnowFact3;
+
+  /// No description provided for @transformJourneyBegins.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Transformation\nJourney Begins'**
+  String get transformJourneyBegins;
+
+  /// No description provided for @transformJourneySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A scientifically proven program will\ntake you to your goal step by step.'**
+  String get transformJourneySubtitle;
+
+  /// No description provided for @week1Label.
+  ///
+  /// In en, this message translates to:
+  /// **'1W'**
+  String get week1Label;
+
+  /// No description provided for @week1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Week 1'**
+  String get week1Title;
+
+  /// No description provided for @week1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Spine alignment improves, posture gets better'**
+  String get week1Desc;
+
+  /// No description provided for @month1Label.
+  ///
+  /// In en, this message translates to:
+  /// **'1M'**
+  String get month1Label;
+
+  /// No description provided for @month1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Month 1'**
+  String get month1Title;
+
+  /// No description provided for @month1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'First visible centimeters, sleep quality improves'**
+  String get month1Desc;
+
+  /// No description provided for @month3Label.
+  ///
+  /// In en, this message translates to:
+  /// **'3M'**
+  String get month3Label;
+
+  /// No description provided for @month3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Month 3'**
+  String get month3Title;
+
+  /// No description provided for @month3Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Average +1.5–2.5 cm gain, muscle development'**
+  String get month3Desc;
+
+  /// No description provided for @month6Label.
+  ///
+  /// In en, this message translates to:
+  /// **'6M'**
+  String get month6Label;
+
+  /// No description provided for @month6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Month 6'**
+  String get month6Title;
+
+  /// No description provided for @month6Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach maximum potential, live with your new height'**
+  String get month6Desc;
+
+  /// No description provided for @reachYourGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach Your Goal'**
+  String get reachYourGoal;
+
+  /// No description provided for @journeyBullet1.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock your maximum potential'**
+  String get journeyBullet1;
+
+  /// No description provided for @journeyBullet2.
+  ///
+  /// In en, this message translates to:
+  /// **'Start living with your new height'**
+  String get journeyBullet2;
+
+  /// No description provided for @journeyBullet3.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your success story'**
+  String get journeyBullet3;
+
+  /// No description provided for @unlockButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock All'**
+  String get unlockButton;
+
+  /// No description provided for @dreamHeightOdds.
+  ///
+  /// In en, this message translates to:
+  /// **'Dream height\nodds'**
+  String get dreamHeightOdds;
+
+  /// No description provided for @growthCompleteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth\ncomplete'**
+  String get growthCompleteLabel;
+
+  /// No description provided for @tallerThanPct.
+  ///
+  /// In en, this message translates to:
+  /// **'Taller than 76.7% of your age'**
+  String get tallerThanPct;
 }
 
 class _AppLocalizationsDelegate

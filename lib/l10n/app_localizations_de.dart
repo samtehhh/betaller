@@ -2867,4 +2867,320 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get paywallTester => 'Tester';
+
+  @override
+  String get introTag1 => 'PREDICTION';
+
+  @override
+  String get introTag2 => 'GROWTH';
+
+  @override
+  String get introTag3 => 'TRACKING';
+
+  @override
+  String get introTag4 => 'GAMIFICATION';
+
+  @override
+  String get introTag5 => 'COMMUNITY';
+
+  @override
+  String get introTitle1 => 'Discover your\nheight potential';
+
+  @override
+  String get introSubtitle1 =>
+      'Let us calculate your full potential\nbased on genetics, age, and lifestyle.';
+
+  @override
+  String get introTitle2 => 'One step taller\nevery day';
+
+  @override
+  String get introSubtitle2 =>
+      'Push your potential with personalized\nexercise and nutrition plans.';
+
+  @override
+  String get introTitle3 => 'Track every\ncentimeter';
+
+  @override
+  String get introSubtitle3 =>
+      'See how your real progress\ndevelops with monthly measurements.';
+
+  @override
+  String get introTitle4 => 'Level up,\nearn rewards';
+
+  @override
+  String get introSubtitle4 =>
+      'Complete 70-day programs,\nearn XP, and unlock new levels.';
+
+  @override
+  String get introTitle5 => 'Thousands already\ngrew taller';
+
+  @override
+  String get introSubtitle5 =>
+      'Join the community of users\nwho reached their goals.';
+
+  @override
+  String get criticalWindow => 'CRITICAL WINDOW';
+
+  @override
+  String get heightPotentialFading => 'Your height potential';
+
+  @override
+  String get fadingAway => 'is fading away!';
+
+  @override
+  String get painHookDesc =>
+      'Every passing day, centimeters are permanently lost without the right habits. But this can still be reversed.';
+
+  @override
+  String get painGeneticTitle => 'Genetics isn\'t everything';
+
+  @override
+  String get painGeneticDesc =>
+      'Genetics determines 60% — but what you do determines the other 40%. BeTaller is here for exactly that 40%.';
+
+  @override
+  String get painGeneticTag => 'Analysis';
+
+  @override
+  String get painSleepTitle => 'Optimize your sleep routine';
+
+  @override
+  String get painSleepDesc =>
+      'Proper sleep every night can boost growth hormone production by 70%. BeTaller automates sleep tracking, you just sleep.';
+
+  @override
+  String get painSleepTag => 'Tracking';
+
+  @override
+  String get painPostureTitle => 'Gain centimeters now with posture';
+
+  @override
+  String get painPostureDesc =>
+      'Correct posture can instantly add 1.5–3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.';
+
+  @override
+  String get painPostureTag => 'Posture';
+
+  @override
+  String get painExerciseTitle => 'Your custom exercise plan is ready';
+
+  @override
+  String get painExerciseDesc =>
+      'Morning stretches, hanging, spine routines — BeTaller prepared and scheduled these for you. Just 8–12 minutes a day.';
+
+  @override
+  String get painExerciseTag => 'Routines';
+
+  @override
+  String get painNutritionTitle => 'Your nutrition directly affects growth';
+
+  @override
+  String get painNutritionDesc =>
+      'Protein, calcium, vitamin D — BeTaller reminds you every day which nutrients to take and when.';
+
+  @override
+  String get painNutritionTag => 'Nutrition';
+
+  @override
+  String get painTrackingTitle => 'Track your growth with your own eyes';
+
+  @override
+  String get painTrackingDesc =>
+      'Monthly measurements, progress photos, growth chart — see every centimeter you gain.';
+
+  @override
+  String get painTrackingTag => 'Progress';
+
+  @override
+  String get selectYourGender => 'Select your gender';
+
+  @override
+  String get onboardingPredictSubtitle =>
+      'This will be used to predict your height potential & create your custom plan.';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get whenWereYouBorn => 'When were you born?';
+
+  @override
+  String get heightAndWeight => 'Height & weight';
+
+  @override
+  String get parentsHeight => 'Parents height';
+
+  @override
+  String get weeklyWorkout => 'Weekly workout';
+
+  @override
+  String get workoutsPerWeek => 'Workouts per week';
+
+  @override
+  String get whatsYourEthnicity => 'What\'s your ethnicity?';
+
+  @override
+  String get whiteCaucasian => 'White / Caucasian';
+
+  @override
+  String get blackAfricanAmerican => 'Black / African American';
+
+  @override
+  String get hispanicLatino => 'Hispanic / Latino';
+
+  @override
+  String get asian => 'Asian';
+
+  @override
+  String get middleEasternIndigenous => 'Middle Eastern / Indigenous';
+
+  @override
+  String get dontWantToAnswer => 'I don\'t want to answer';
+
+  @override
+  String get footSizeLabel => 'Foot size';
+
+  @override
+  String get selectYourSize => 'Select your size';
+
+  @override
+  String get whatsYourDreamHeight => 'What\'s your dream height?';
+
+  @override
+  String get dreamHeightCalcSubtitle =>
+      'Based on your input, we\'ll calculate the likelihood of achieving this height.';
+
+  @override
+  String get dreamHeightLabel => 'Dream height';
+
+  @override
+  String get sleepQuestion => 'How many hours do\nyou sleep each night?';
+
+  @override
+  String get thousandsSucceeded => 'Thousands\nSucceeded';
+
+  @override
+  String get youCanToo => 'You can do it too';
+
+  @override
+  String get yearsOld => 'years old';
+
+  @override
+  String get verifiedLabel => 'Verified';
+
+  @override
+  String get scientificData => 'SCIENTIFIC DATA';
+
+  @override
+  String get longTermResults => 'BeTaller creates\nlong-term results';
+
+  @override
+  String get longTermResultsSubtitle =>
+      'Many people don\'t reach their ultimate height due to bad habits.';
+
+  @override
+  String get yourFinalHeight => 'Your final height';
+
+  @override
+  String get badHabitsLegend => 'Bad habits';
+
+  @override
+  String get optimizedLegend => 'Optimized';
+
+  @override
+  String get chartFact1Pct => '30%';
+
+  @override
+  String get chartFact1Desc => 'Height can be changed\nwith habits';
+
+  @override
+  String get chartFact2Pct => '9-10h';
+
+  @override
+  String get chartFact2Desc => 'Ideal sleep boosts\ngrowth hormone';
+
+  @override
+  String get chartFact3Pct => '3 cm';
+
+  @override
+  String get chartFact3Desc => 'Can be gained with\nposture improvement';
+
+  @override
+  String get didYouKnow => 'Did you know?';
+
+  @override
+  String get didYouKnowFact1 => 'Daily habits affect 30% of your height';
+
+  @override
+  String get didYouKnowFact2 => 'Spinal compression steals 1.5-3 cm of height';
+
+  @override
+  String get didYouKnowFact3 => 'Sleep deprivation reduces HGH by 70%';
+
+  @override
+  String get transformJourneyBegins => 'Your Transformation\nJourney Begins';
+
+  @override
+  String get transformJourneySubtitle =>
+      'A scientifically proven program will\ntake you to your goal step by step.';
+
+  @override
+  String get week1Label => '1W';
+
+  @override
+  String get week1Title => 'Week 1';
+
+  @override
+  String get week1Desc => 'Spine alignment improves, posture gets better';
+
+  @override
+  String get month1Label => '1M';
+
+  @override
+  String get month1Title => 'Month 1';
+
+  @override
+  String get month1Desc => 'First visible centimeters, sleep quality improves';
+
+  @override
+  String get month3Label => '3M';
+
+  @override
+  String get month3Title => 'Month 3';
+
+  @override
+  String get month3Desc => 'Average +1.5–2.5 cm gain, muscle development';
+
+  @override
+  String get month6Label => '6M';
+
+  @override
+  String get month6Title => 'Month 6';
+
+  @override
+  String get month6Desc => 'Reach maximum potential, live with your new height';
+
+  @override
+  String get reachYourGoal => 'Reach Your Goal';
+
+  @override
+  String get journeyBullet1 => 'Unlock your maximum potential';
+
+  @override
+  String get journeyBullet2 => 'Start living with your new height';
+
+  @override
+  String get journeyBullet3 => 'Write your success story';
+
+  @override
+  String get unlockButton => 'Unlock All';
+
+  @override
+  String get dreamHeightOdds => 'Dream height\nodds';
+
+  @override
+  String get growthCompleteLabel => 'Growth\ncomplete';
+
+  @override
+  String get tallerThanPct => 'Taller than 76.7% of your age';
 }

@@ -227,6 +227,118 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
+  // LANGUAGE PICKER
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  static const _langs = [
+    (locale: Locale('tr'), flag: '🇹🇷', name: 'TR'),
+    (locale: Locale('en'), flag: '🇬🇧', name: 'EN'),
+    (locale: Locale('de'), flag: '🇩🇪', name: 'DE'),
+    (locale: Locale('fr'), flag: '🇫🇷', name: 'FR'),
+    (locale: Locale('es'), flag: '🇪🇸', name: 'ES'),
+    (locale: Locale('it'), flag: '🇮🇹', name: 'IT'),
+    (locale: Locale('pt'), flag: '🇧🇷', name: 'PT'),
+    (locale: Locale('hi'), flag: '🇮🇳', name: 'HI'),
+  ];
+
+  Widget _buildLanguageButton(BuildContext context) {
+    final provider = context.read<AppProvider>();
+    final currentCode = Localizations.localeOf(context).languageCode.toUpperCase();
+    final currentFlag = _langs.firstWhere(
+      (l) => l.name == currentCode,
+      orElse: () => _langs[0],
+    ).flag;
+
+    return GestureDetector(
+      onTap: () => _showLanguageSheet(context, provider),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(currentFlag, style: const TextStyle(fontSize: 16)),
+            const SizedBox(width: 4),
+            Icon(CupertinoIcons.chevron_down, size: 10, color: Colors.white.withValues(alpha: 0.50)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showLanguageSheet(BuildContext context, AppProvider provider) {
+    final currentCode = Localizations.localeOf(context).languageCode;
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: const Color(0xFF0C0A16),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 36, height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.20),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ..._langs.map((lang) {
+                final selected = lang.locale.languageCode == currentCode;
+                return GestureDetector(
+                  onTap: () {
+                    provider.setLocale(lang.locale);
+                    Navigator.pop(ctx);
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 6),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? AppColors.primary.withValues(alpha: 0.12)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(16),
+                      border: selected
+                          ? Border.all(color: AppColors.primary.withValues(alpha: 0.35))
+                          : null,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(lang.flag, style: const TextStyle(fontSize: 22)),
+                        const SizedBox(width: 14),
+                        Text(
+                          lang.name,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const Spacer(),
+                        if (selected)
+                          const Icon(CupertinoIcons.checkmark_circle_fill, color: AppColors.primary, size: 22),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
   // BUILD
   // ─────────────────────────────────────────────────────────────────────────────
 
@@ -292,6 +404,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                               ),
                             ),
                           ),
+                          const SizedBox(width: 12),
+                          _buildLanguageButton(context),
                         ],
                       ),
                     ),
@@ -328,7 +442,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       padding: const EdgeInsets.fromLTRB(24, 8, 24, 20),
                       child: _TallerButton(
                         label: _currentPage == 0
-                            ? "Let's start"
+                            ? l.letsStart
                             : _currentPage == _kLastQuestion
                                 ? l.analyzeBtn
                                 : l.continueBtn,
@@ -359,40 +473,54 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildIntroPage() {
+    return Stack(
+      children: [
+        _buildIntroContent(),
+        Positioned(
+          top: 8,
+          right: 16,
+          child: _buildLanguageButton(context),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildIntroContent() {
+    final l = AppLocalizations.of(context)!;
     final slides = [
       _IntroSlideData(
-        tag: 'TAHMIN',
+        tag: l.introTag1,
         tagColor: AppColors.primary,
-        title: 'Boy potansiyelini\nkeşfet',
-        subtitle: 'Genetik, yaş ve yaşam tarzına göre\ntam potansiyelini hesaplayalım.',
+        title: l.introTitle1,
+        subtitle: l.introSubtitle1,
         child: _IntroMockupHeight(),
       ),
       _IntroSlideData(
-        tag: 'BÜYÜME',
+        tag: l.introTag2,
         tagColor: const Color(0xFF22C55E),
-        title: 'Her gün 1 adım\ndaha uzun',
-        subtitle: 'Kişiselleştirilmiş egzersiz ve beslenme\nplanıyla potansiyelini zorla.',
+        title: l.introTitle2,
+        subtitle: l.introSubtitle2,
         child: _IntroMockupTrain(),
       ),
       _IntroSlideData(
-        tag: 'TAKİP',
+        tag: l.introTag3,
         tagColor: AppColors.cyan,
-        title: 'Her santimetreyi\ntakip et',
-        subtitle: 'Aylık ölçümlerle gerçek ilerlemenin\nnasıl geliştiğini izle.',
+        title: l.introTitle3,
+        subtitle: l.introSubtitle3,
         child: _IntroMockupProgress(),
       ),
       _IntroSlideData(
-        tag: 'GAMİFİKASYON',
+        tag: l.introTag4,
         tagColor: AppColors.orange,
-        title: 'Seviyeleri aş,\nödülleri kazan',
-        subtitle: '70 günlük programları tamamla,\nXP kazan ve yeni seviyeleri aç.',
+        title: l.introTitle4,
+        subtitle: l.introSubtitle4,
         child: _IntroMockupLevels(),
       ),
       _IntroSlideData(
-        tag: 'TOPLULUK',
+        tag: l.introTag5,
         tagColor: const Color(0xFFFFD700),
-        title: 'Binlerce kişi\nzaten büyüdü',
-        subtitle: 'Hedefine ulaşan kullanıcı topluluğuna\nsen de katıl.',
+        title: l.introTitle5,
+        subtitle: l.introSubtitle5,
         child: _IntroMockupReviews(),
       ),
     ];
@@ -472,6 +600,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildPainHookPage() {
+    final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
       child: Column(
@@ -485,60 +614,60 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: const Color(0xFFEF4444).withValues(alpha: 0.30)),
             ),
-            child: const Text('⚠️  KRİTİK PENCERE', style: TextStyle(
+            child: Text('\u26a0\ufe0f  ${l.criticalWindow}', style: const TextStyle(
               fontSize: 11, fontWeight: FontWeight.w800, letterSpacing: 1.0,
               color: Color(0xFFEF4444),
             )),
           ),
           const SizedBox(height: 18),
-          const Text('Boy potansiyelin',
-            style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.2, height: 1.05),
+          Text(l.heightPotentialFading,
+            style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.2, height: 1.05),
           ),
-          RichText(text: const TextSpan(children: [
-            TextSpan(text: 'kaybolup gidiyor!',
-              style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, color: Color(0xFFEF4444), letterSpacing: -1.2)),
+          RichText(text: TextSpan(children: [
+            TextSpan(text: l.fadingAway,
+              style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w900, color: Color(0xFFEF4444), letterSpacing: -1.2)),
           ])),
           const SizedBox(height: 16),
-          Text('Her geçen gün, doğru alışkanlıklar olmadan santimler kalıcı olarak kayboluyor. Ama bu hâlâ tersine çevrilebilir.',
+          Text(l.painHookDesc,
             style: TextStyle(fontSize: 15.5, color: Colors.white.withValues(alpha: 0.65), height: 1.55)),
           const SizedBox(height: 28),
           // Fact cards
           ...[
             (
               '🧬', const Color(0xFF8B5CF6),
-              'Genetiğin her şeyi değil',
-              'Genetiğin %60\'ını belirliyor — ama yaptıkların geri kalan %40\'ı belirliyor. BeTaller tam da bu %40 için burada.',
-              'Analiz',
+              l.painGeneticTitle,
+              l.painGeneticDesc,
+              l.painGeneticTag,
             ),
             (
               '😴', const Color(0xFF6366F1),
-              'Uyku rutinini optimize et',
-              'Her gece doğru uyku büyüme hormonu üretimini %70 artırabilir. BeTaller uyku takibini otomatik yapar, sen sadece uyu.',
-              'Takip',
+              l.painSleepTitle,
+              l.painSleepDesc,
+              l.painSleepTag,
             ),
             (
               '🦴', const Color(0xFF00C6FF),
-              'Postürünle şu an santim kazan',
-              'Doğru duruş sana anında 1.5–3 cm katabilir. BeTaller\'ın günlük postür rutini bunu birkaç haftada yerleştirir.',
-              'Postür',
+              l.painPostureTitle,
+              l.painPostureDesc,
+              l.painPostureTag,
             ),
             (
               '💪', const Color(0xFF22FF88),
-              'Sana özel egzersiz planın hazır',
-              'Sabah germe, asılma, omurga rutinleri — BeTaller bunları senin için hazırladı ve planladı. Her gün 8–12 dakika yeter.',
-              'Rutinler',
+              l.painExerciseTitle,
+              l.painExerciseDesc,
+              l.painExerciseTag,
             ),
             (
               '🥗', const Color(0xFFFF8A00),
-              'Beslenmen büyümeni doğrudan etkiler',
-              'Protein, kalsiyum, D vitamini — BeTaller hangi besinleri ne zaman almanı gerektiğini her gün hatırlatır.',
-              'Beslenme',
+              l.painNutritionTitle,
+              l.painNutritionDesc,
+              l.painNutritionTag,
             ),
             (
               '📈', const Color(0xFFFFD700),
-              'Büyümeni gözlerinle takip et',
-              'Aylık ölçümlerle santim santim ilerlediğini görmek, seni devam ettiren şeydir. BeTaller her değişimi grafikle gösterir.',
-              'İlerleme',
+              l.painTrackingTitle,
+              l.painTrackingDesc,
+              l.painTrackingTag,
             ),
           ].map((item) => Container(
             margin: const EdgeInsets.only(bottom: 10),
@@ -619,22 +748,26 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // PAGE 1 — Gender
   // ─────────────────────────────────────────────────────────────────────────────
 
-  Widget _buildGenderPage() => _RadioListPage(
-    title: 'Select your gender',
-    subtitle: 'This will be used to predict your height potential & create your custom plan.',
-    options: const [('male', 'Male'), ('female', 'Female'), ('other', 'Other')],
-    selected: _gender,
-    onSelect: (v) => setState(() => _gender = v),
-  );
+  Widget _buildGenderPage() {
+    final l = AppLocalizations.of(context)!;
+    return _RadioListPage(
+      title: l.selectYourGender,
+      subtitle: l.onboardingPredictSubtitle,
+      options: [('male', l.male), ('female', l.female), ('other', l.other)],
+      selected: _gender,
+      onSelect: (v) => setState(() => _gender = v),
+    );
+  }
 
   // ─────────────────────────────────────────────────────────────────────────────
   // PAGE 2 — Birth date
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildBirthDatePage() {
+    final l = AppLocalizations.of(context)!;
     return _ScrollPickerPage(
-      title: 'When were you born?',
-      subtitle: 'This will be used to predict your height potential & create your custom plan.',
+      title: l.whenWereYouBorn,
+      subtitle: l.onboardingPredictSubtitle,
       child: _BirthDatePickers(
         initialDate: _birthDate,
         onChanged: (date) => setState(() => _birthDate = date),
@@ -647,10 +780,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildHeightWeightPage() {
+    final l = AppLocalizations.of(context)!;
     final unitKey = _heightImperial ? 'imp' : 'met';
     return _ScrollPickerPage(
-      title: 'Height & weight',
-      subtitle: 'This will be used to predict your height potential & create your custom plan.',
+      title: l.heightAndWeight,
+      subtitle: l.onboardingPredictSubtitle,
       unitToggle: _UnitToggle(
         left: 'Imperial', right: 'Metric',
         isRight: !_heightImperial,
@@ -729,10 +863,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildParentsPage() {
+    final l = AppLocalizations.of(context)!;
     final unitKey = _heightImperial ? 'imp' : 'met';
     return _ScrollPickerPage(
-      title: 'Parents height',
-      subtitle: 'This will be used to predict your height potential & create your custom plan.',
+      title: l.parentsHeight,
+      subtitle: l.onboardingPredictSubtitle,
       unitToggle: _UnitToggle(
         left: 'Imperial', right: 'Metric',
         isRight: !_heightImperial,
@@ -803,19 +938,20 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildWorkoutPage() {
+    final l = AppLocalizations.of(context)!;
     final options = [
-      ('0-2', '0-2', 'Workouts per week'),
-      ('3-5', '3-5', 'Workouts per week'),
-      ('6+',  '6+',  'Workouts per week'),
+      ('0-2', '0-2', l.workoutsPerWeek),
+      ('3-5', '3-5', l.workoutsPerWeek),
+      ('6+',  '6+',  l.workoutsPerWeek),
     ];
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _PageTitle('Weekly workout'),
+          _PageTitle(l.weeklyWorkout),
           const SizedBox(height: 8),
-          _PageSubtitle('This will be used to predict your height potential & create your custom plan.'),
+          _PageSubtitle(l.onboardingPredictSubtitle),
           const SizedBox(height: 24),
           ...options.map((opt) {
             final selected = _weeklyWorkout == opt.$1;
@@ -868,26 +1004,30 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // PAGE 6 — Ethnicity
   // ─────────────────────────────────────────────────────────────────────────────
 
-  Widget _buildEthnicityPage() => _RadioListPage(
-    title: "What's your ethnicity?",
-    subtitle: 'This will be used to predict your height potential & create your custom plan.',
-    options: const [
-      ('white',          'White / Caucasian'),
-      ('black',          'Black / African American'),
-      ('hispanic',       'Hispanic / Latino'),
-      ('asian',          'Asian'),
-      ('middle_eastern', 'Middle Eastern / Indigenous'),
-      ('no_answer',      "I don't want to answer"),
-    ],
-    selected: _ethnicity,
-    onSelect: (v) => setState(() => _ethnicity = v),
-  );
+  Widget _buildEthnicityPage() {
+    final l = AppLocalizations.of(context)!;
+    return _RadioListPage(
+      title: l.whatsYourEthnicity,
+      subtitle: l.onboardingPredictSubtitle,
+      options: [
+        ('white',          l.whiteCaucasian),
+        ('black',          l.blackAfricanAmerican),
+        ('hispanic',       l.hispanicLatino),
+        ('asian',          l.asian),
+        ('middle_eastern', l.middleEasternIndigenous),
+        ('no_answer',      l.dontWantToAnswer),
+      ],
+      selected: _ethnicity,
+      onSelect: (v) => setState(() => _ethnicity = v),
+    );
+  }
 
   // ─────────────────────────────────────────────────────────────────────────────
   // PAGE 8 — Foot size
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildFootSizePage() {
+    final l = AppLocalizations.of(context)!;
     final unitKey = _footSizeEU ? 'eu' : 'us';
     final items = _footSizeEU
         ? List.generate(21, (i) => (36.0 + i).toStringAsFixed(0))
@@ -902,12 +1042,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _PageTitle('Foot size'),
+          _PageTitle(l.footSizeLabel),
           const SizedBox(height: 8),
-          _PageSubtitle('This will be used to predict your height potential & create your custom plan.'),
+          _PageSubtitle(l.onboardingPredictSubtitle),
           const SizedBox(height: 20),
-          const Text('Select your size',
-            style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700)),
+          Text(l.selectYourSize,
+            style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700)),
           const SizedBox(height: 12),
           Expanded(
             child: _PickerBox(
