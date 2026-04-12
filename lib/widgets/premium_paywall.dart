@@ -36,7 +36,8 @@ Future<bool?> showPremiumPaywall(BuildContext context) async {
 // ═════════════════════════════════════════════════════════════════════════════
 
 class PremiumPaywallScreen extends StatefulWidget {
-  const PremiumPaywallScreen({super.key});
+  final bool dismissible;
+  const PremiumPaywallScreen({super.key, this.dismissible = true});
   @override
   State<PremiumPaywallScreen> createState() => _PremiumPaywallScreenState();
 }
@@ -118,7 +119,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
       setState(() => _purchasing = false);
       if (ok) {
         context.read<AppProvider>().setPremium(true);
-        Navigator.pop(context, true);
+        if (widget.dismissible && context.mounted) Navigator.pop(context, true);
       }
     }
   }
@@ -130,7 +131,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
       setState(() => _purchasing = false);
       if (ok) {
         context.read<AppProvider>().setPremium(true);
-        Navigator.pop(context, true);
+        if (widget.dismissible && context.mounted) Navigator.pop(context, true);
       } else {
         final l = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -177,21 +178,6 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
                   child: Row(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          context.read<AppProvider>().setPremium(true);
-                          Navigator.pop(context, true);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.06),
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
-                          ),
-                          child: Text(l.paywallTester, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.30), fontWeight: FontWeight.w600)),
-                        ),
-                      ),
                       const Spacer(),
                       GestureDetector(
                         onTap: _restore,

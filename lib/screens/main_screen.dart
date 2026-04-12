@@ -8,6 +8,7 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
+import '../widgets/premium_paywall.dart';
 import 'analysis_screen.dart';
 import 'routines_screen.dart';
 import 'progress_screen.dart';
@@ -52,6 +53,11 @@ class _MainScreenState extends State<MainScreen> {
           await review.requestReview();
         }
       });
+    }
+
+    // ── HARD PAYWALL: block entire app if not premium ──
+    if (!provider.isPremium) {
+      return const PremiumPaywallScreen(dismissible: false);
     }
 
     return Scaffold(
