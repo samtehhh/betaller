@@ -4538,7 +4538,7 @@ abstract class AppLocalizations {
   /// **'Source: '**
   String get sciSourcePrefix;
 
-  // ── v6 Home Screen Localization ─────────────────────────────────
+  // ── v6 Home Screen ──
   String get greetingAllDone;
   String get greetingAllDoneSub;
   String greetingStreak30(int streak);
@@ -4578,8 +4578,7 @@ abstract class AppLocalizations {
   String get aiAnalysisLabel;
   String get peerCompareLabel;
   String peerCompareText(int topPct);
-
-  // ── v6 Notification Localization ────────────────────────────────
+  // ── v6 Notifications ──
   String get notifWaterTitle;
   String get notifWaterBody;
   String get notifMorningTitle;
@@ -4628,8 +4627,7 @@ abstract class AppLocalizations {
   String get notifStreak100Body;
   String get notifStreakRiskTitle;
   String notifStreakRiskBody(int streak);
-
-  // ── v6 Premium Paywall Localization ─────────────────────────────
+  // ── v6 Premium Paywall ──
   String get paywallStat1;
   String get paywallTitle1;
   String get paywallBullet1a;
