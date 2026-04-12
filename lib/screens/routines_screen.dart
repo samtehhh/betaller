@@ -490,6 +490,7 @@ class _OptimalBanner extends StatelessWidget {
           Wrap(
             spacing: 8,
             runSpacing: 6,
+            alignment: WrapAlignment.center,
             children: _optimalRoutineIds.map((id) {
               final done = provider.allRoutines.any((r) => r.id == id && r.completed);
               final routine = _findRoutine(provider, id);
