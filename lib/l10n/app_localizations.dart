@@ -4556,6 +4556,78 @@ abstract class AppLocalizations {
   /// **'DAILY NUTRITION PLAN'**
   String get dailyNutritionPlan;
 
+  /// No description provided for @testimonial1.
+  ///
+  /// In en, this message translates to:
+  /// **'I had no hope because of my age, but I grew with BeTaller. My confidence has never been this high.'**
+  String get testimonial1;
+
+  /// No description provided for @testimonialDuration1.
+  ///
+  /// In en, this message translates to:
+  /// **'4 months'**
+  String get testimonialDuration1;
+
+  /// No description provided for @testimonial2.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone said \"you can\'t grow anymore.\" I used BeTaller and surprised everyone.'**
+  String get testimonial2;
+
+  /// No description provided for @testimonialDuration2.
+  ///
+  /// In en, this message translates to:
+  /// **'3 months'**
+  String get testimonialDuration2;
+
+  /// No description provided for @testimonial3.
+  ///
+  /// In en, this message translates to:
+  /// **'After starting the routines, I grew taller and my posture improved. Everyone noticed the difference.'**
+  String get testimonial3;
+
+  /// No description provided for @testimonialDuration3.
+  ///
+  /// In en, this message translates to:
+  /// **'6 months'**
+  String get testimonialDuration3;
+
+  /// No description provided for @testimonial4.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m still in my growth phase and BeTaller\'s effect is incredible. I feel taller and stronger.'**
+  String get testimonial4;
+
+  /// No description provided for @testimonialDuration4.
+  ///
+  /// In en, this message translates to:
+  /// **'3 months'**
+  String get testimonialDuration4;
+
+  /// No description provided for @testimonial5.
+  ///
+  /// In en, this message translates to:
+  /// **'If I said I didn\'t try BeTaller, I\'d be lying. I noticed a real difference quickly, highly recommend.'**
+  String get testimonial5;
+
+  /// No description provided for @testimonialDuration5.
+  ///
+  /// In en, this message translates to:
+  /// **'4 months'**
+  String get testimonialDuration5;
+
+  /// No description provided for @designedForYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Designed for you'**
+  String get designedForYou;
+
+  /// No description provided for @designedForYouDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'BeTaller was built specifically for you to reach your genetic limit — and even surpass it. Every feature, for you.'**
+  String get designedForYouDesc;
+
   /// No description provided for @greetingAllDone.
   ///
   /// In en, this message translates to:

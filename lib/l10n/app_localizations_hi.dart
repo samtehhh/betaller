@@ -2471,6 +2471,48 @@ class AppLocalizationsHi extends AppLocalizations {
   String get dailyNutritionPlan => 'दैनिक पोषण योजना';
 
   @override
+  String get testimonial1 =>
+      'उम्र की वजह से उम्मीद नहीं थी, लेकिन BeTaller से बढ़ा। आत्मविश्वास कभी इतना नहीं था।';
+
+  @override
+  String get testimonialDuration1 => '4 महीने';
+
+  @override
+  String get testimonial2 =>
+      'सबने कहा अब नहीं बढ़ सकते। BeTaller से सबको चौंका दिया।';
+
+  @override
+  String get testimonialDuration2 => '3 महीने';
+
+  @override
+  String get testimonial3 =>
+      'रूटीन शुरू करने के बाद लंबाई और पोस्चर दोनों सुधरे।';
+
+  @override
+  String get testimonialDuration3 => '6 महीने';
+
+  @override
+  String get testimonial4 =>
+      'अभी ग्रोथ फेज में हूं और BeTaller का असर अविश्वसनीय है।';
+
+  @override
+  String get testimonialDuration4 => '3 महीने';
+
+  @override
+  String get testimonial5 =>
+      'जल्दी ही असली फर्क महसूस किया। बिल्कुल सिफारिश करता हूं।';
+
+  @override
+  String get testimonialDuration5 => '4 महीने';
+
+  @override
+  String get designedForYou => 'आपके लिए बनाया गया';
+
+  @override
+  String get designedForYouDesc =>
+      'BeTaller आपकी जेनेटिक सीमा तक पहुंचने के लिए बनाया गया है।';
+
+  @override
   String get greetingAllDone => 'बहुत बढ़िया! 🎯';
 
   @override

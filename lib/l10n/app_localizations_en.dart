@@ -2469,6 +2469,48 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyNutritionPlan => 'DAILY NUTRITION PLAN';
 
   @override
+  String get testimonial1 =>
+      'I had no hope because of my age, but I grew with BeTaller. My confidence has never been this high.';
+
+  @override
+  String get testimonialDuration1 => '4 months';
+
+  @override
+  String get testimonial2 =>
+      'Everyone said \"you can\'t grow anymore.\" I used BeTaller and surprised everyone.';
+
+  @override
+  String get testimonialDuration2 => '3 months';
+
+  @override
+  String get testimonial3 =>
+      'After starting the routines, I grew taller and my posture improved. Everyone noticed the difference.';
+
+  @override
+  String get testimonialDuration3 => '6 months';
+
+  @override
+  String get testimonial4 =>
+      'I\'m still in my growth phase and BeTaller\'s effect is incredible. I feel taller and stronger.';
+
+  @override
+  String get testimonialDuration4 => '3 months';
+
+  @override
+  String get testimonial5 =>
+      'If I said I didn\'t try BeTaller, I\'d be lying. I noticed a real difference quickly, highly recommend.';
+
+  @override
+  String get testimonialDuration5 => '4 months';
+
+  @override
+  String get designedForYou => 'Designed for you';
+
+  @override
+  String get designedForYouDesc =>
+      'BeTaller was built specifically for you to reach your genetic limit — and even surpass it. Every feature, for you.';
+
+  @override
   String get greetingAllDone => 'Great job! 🎯';
 
   @override
