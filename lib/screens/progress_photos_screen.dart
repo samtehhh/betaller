@@ -378,33 +378,6 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () => _openPickerSheet(context),
-            child: Container(
-              width: 42,
-              height: 42,
-              decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.14),
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                  color: AppColors.primary.withValues(alpha: 0.30),
-                  width: 1,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.25),
-                    blurRadius: 14,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: const Icon(
-                CupertinoIcons.camera_fill,
-                color: AppColors.primary,
-                size: 20,
-              ),
-            ),
-          ),
         ],
       ),
     );

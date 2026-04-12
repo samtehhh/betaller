@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:provider/provider.dart';
-import '../l10n/app_localizations.dart';
+
 import '../providers/app_provider.dart';
 import '../services/purchase_service.dart';
 import '../utils/constants.dart';
@@ -55,37 +55,53 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
       gradient: [Color(0xFF6D28D9), Color(0xFF1E0A3C)],
       glowColor: Color(0xFF8B5CF6),
       heroIcon: CupertinoIcons.chart_bar_fill,
-      stat: '+2.8 cm',
-      statLabel: 'average predicted growth',
-      title: 'Know Your\nPotential',
-      bullets: ['AI height prediction', 'Genetic & lifestyle score', 'Personalized roadmap'],
+      stat: '??',
+      statLabel: 'cm — senin potansiyelin kilitli',
+      title: 'Kaç cm Daha\nUzayabilirsin?',
+      bullets: [
+        'Genetik tavanın hesaplandı, görmek ister misin?',
+        'Yaşam tarzın büyümeni nasıl etkiliyor?',
+        'Sana özel yol haritası seni bekliyor',
+      ],
     ),
     _Feature(
       gradient: [Color(0xFF065F46), Color(0xFF071A10)],
       glowColor: Color(0xFF22FF88),
       heroIcon: CupertinoIcons.flame_fill,
       stat: '29+',
-      statLabel: 'expert-designed routines',
-      title: 'Train Like\nYou Mean It',
-      bullets: ['Daily stretch & exercise plans', 'Nutrition & sleep protocols', 'Streak-based motivation'],
+      statLabel: 'sana özel rutin hazır',
+      title: 'Planın\nHazır',
+      bullets: [
+        'Her sabah 8 dakika — omurgan için tasarlandı',
+        'Uyku, beslenme, su — hepsi takip altında',
+        'Her gün bir adım daha, seri kırılmasın',
+      ],
     ),
     _Feature(
       gradient: [Color(0xFF0C4A6E), Color(0xFF050E1A)],
       glowColor: Color(0xFF00C6FF),
       heroIcon: CupertinoIcons.graph_square_fill,
-      stat: '100%',
-      statLabel: 'progress visibility',
-      title: 'See Every\nCentimeter',
-      bullets: ['Monthly height tracking', 'Progress photos & posture', 'Visual growth charts'],
+      stat: '📊',
+      statLabel: 'gerçek zamanlı ilerleme grafiklerin',
+      title: 'Büyümeni\nTakip Et',
+      bullets: [
+        'Aylık ölçüm — büyümeni kendi gözlerinle gör',
+        'Postür analizi ile şu an bile 2 cm kazan',
+        'İlerleme fotoğrafları — farkı net göreceksin',
+      ],
     ),
     _Feature(
       gradient: [Color(0xFF7C2D12), Color(0xFF180A04)],
       glowColor: Color(0xFFFF8A00),
       heroIcon: CupertinoIcons.bolt_fill,
       stat: '70',
-      statLabel: 'days to the next level',
-      title: 'Level Up,\nEvery Day',
-      bullets: ['10-level unlock system', 'XP & milestone rewards', 'Long-term habit building'],
+      statLabel: 'günlük program — seviye atlıyor',
+      title: 'Her Gün\nDaha Güçlü',
+      bullets: [
+        'XP kazan, seviyeleri aç — alışkanlık oyuna döner',
+        'Hedefine ulaşanlar buradan geçti',
+        'Sen de başla — ilk hafta ücretsiz',
+      ],
     ),
   ];
 
@@ -132,7 +148,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
         Navigator.pop(context, true);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: const Text('No previous purchases found'), backgroundColor: AppColors.surfaceDark),
+          SnackBar(content: const Text('Daha önce yapılmış bir satın alma bulunamadı'), backgroundColor: AppColors.surfaceDark),
         );
       }
     }
@@ -146,7 +162,9 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     final monthly = current?.monthly;
     final annual = current?.annual;
 
-    return Scaffold(
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
       backgroundColor: const Color(0xFF07050F),
       body: Stack(
         children: [
@@ -172,17 +190,24 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+                          context.read<AppProvider>().setPremium(true);
+                          Navigator.pop(context, true);
+                        },
                         child: Container(
-                          width: 34, height: 34,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withValues(alpha: 0.07)),
-                          child: Icon(CupertinoIcons.xmark, color: Colors.white.withValues(alpha: 0.4), size: 13),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.06),
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
+                          ),
+                          child: Text('Tester', style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.30), fontWeight: FontWeight.w600)),
                         ),
                       ),
                       const Spacer(),
                       GestureDetector(
                         onTap: _restore,
-                        child: Text('Restore', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.30))),
+                        child: Text('Satın Alımları Geri Yükle', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.30))),
                       ),
                     ],
                   ),
@@ -231,18 +256,18 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                       children: [
                         Expanded(child: _PlanPill(
                           selected: _selectedPlan == 1,
-                          label: 'Yearly',
+                          label: 'Yıllık',
                           price: annual?.storeProduct.priceString ?? '\$39.99',
-                          note: 'Best value',
+                          note: 'En iyi değer',
                           glowColor: f.glowColor,
                           onTap: () => setState(() => _selectedPlan = 1),
                         )),
                         const SizedBox(width: 10),
                         Expanded(child: _PlanPill(
                           selected: _selectedPlan == 0,
-                          label: 'Monthly',
+                          label: 'Aylık',
                           price: monthly?.storeProduct.priceString ?? '\$11.99',
-                          note: '3-day free trial',
+                          note: '3 gün ücretsiz',
                           glowColor: f.glowColor,
                           onTap: () => setState(() => _selectedPlan = 0),
                         )),
@@ -260,7 +285,13 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                   child: GestureDetector(
                     onTap: _purchasing ? null : () {
                       final pkg = _selectedPlan == 0 ? monthly : annual;
-                      if (pkg != null) _purchase(pkg);
+                      if (pkg != null) {
+                        _purchase(pkg);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: const Text('Şu an satın alma yüklenemedi, tekrar dene'), backgroundColor: const Color(0xFF1A1145)),
+                        );
+                      }
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
@@ -278,7 +309,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                         child: _purchasing
                             ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5))
                             : Text(
-                                _selectedPlan == 0 ? 'Start Free Trial' : 'Continue',
+                                _selectedPlan == 0 ? 'Ücretsiz Dene' : 'Devam Et',
                                 style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: 0.1),
                               ),
                       ),
@@ -289,7 +320,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                 SizedBox(height: math.max(bottom + 6, 16)),
 
                 Text(
-                  _selectedPlan == 0 ? 'Free for 3 days · then auto-renews · cancel anytime' : 'Auto-renews yearly · cancel anytime',
+                  _selectedPlan == 0 ? '3 gün ücretsiz · sonra otomatik yenilenir · istediğin zaman iptal et' : 'Yıllık otomatik yenilenir · istediğin zaman iptal et',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25)),
                 ),
@@ -299,6 +330,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
           ),
         ],
       ),
+    ),
     );
   }
 }
@@ -573,12 +605,12 @@ class _PlanPill extends StatelessWidget {
             Row(
               children: [
                 Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: selected ? Colors.white : Colors.white.withValues(alpha: 0.45))),
-                if (label == 'Yearly') ...[
+                if (label == 'Yıllık') ...[
                   const Spacer(),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(color: glowColor.withValues(alpha: 0.20), borderRadius: BorderRadius.circular(5)),
-                    child: Text('BEST', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: glowColor, letterSpacing: 0.5)),
+                    child: Text('İYİ', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: glowColor, letterSpacing: 0.5)),
                   ),
                 ],
               ],
@@ -625,24 +657,11 @@ class PremiumLockedOverlay extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(color: AppColors.scaffold.withValues(alpha: 0.3)),
                 child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withValues(alpha: 0.18),
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: AppColors.primary.withValues(alpha: 0.35)),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(CupertinoIcons.lock_fill, color: AppColors.primaryLight, size: 15),
-                        const SizedBox(width: 8),
-                        Text(
-                          AppLocalizations.of(context)?.premiumLabel ?? 'Premium',
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.primaryLight),
-                        ),
-                      ],
-                    ),
+                  child: Icon(
+                    CupertinoIcons.lock_fill,
+                    color: Colors.white.withValues(alpha: 0.85),
+                    size: 36,
+                    shadows: const [Shadow(color: Colors.black54, blurRadius: 12)],
                   ),
                 ),
               ),

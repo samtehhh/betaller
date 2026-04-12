@@ -51,11 +51,10 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
         final profile = provider.profile;
         if (profile == null) return const SizedBox();
 
-        final prediction = Calculations.predictFinalHeight(profile, provider.heightRecords);
         final bmi = Calculations.calculateBMI(profile.currentHeight, profile.weight);
         final bmiCat = localizedBmiCategory(l, Calculations.bmiCategory(bmi));
         final bmiCol = Calculations.bmiColor(bmi);
-        final growthPct = Calculations.growthPercentage(profile.age, profile.gender);
+
         final waterNeed = Calculations.dailyWaterNeed(profile.weight);
         final sleepNeed = Calculations.dailySleepNeed(profile.age);
         final calorieNeed = Calculations.dailyCalorieNeed(profile);
@@ -69,6 +68,14 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
           waterProgress: waterNeed > 0 ? provider.todayWater / waterNeed : 0,
           sleepHours: provider.todaySleep,
           streak: provider.streak,
+        );
+
+        // Lifestyle compliance: average of discipline + sleep + nutrition (all 0-100 → 0.0-1.0)
+        final lifestyleCompliance = (glowScore.discipline + glowScore.sleep + glowScore.nutrition) / 300.0;
+        final prediction = Calculations.predictFinalHeight(
+          profile,
+          provider.heightRecords,
+          lifestyleScore: lifestyleCompliance,
         );
 
         return Scaffold(
@@ -517,59 +524,124 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                         children: [
                           Text(l.growthStatus, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
                           const SizedBox(height: 18),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: _StatBlock(
-                                  label: l.completionLabel,
-                                  value: '%${growthPct.toStringAsFixed(0)}',
-                                  color: AppColors.primary,
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: _StatBlock(
-                                  label: l.growthVelocity,
-                                  value: velocity != null ? '${velocity.toStringAsFixed(1)} ${l.cmPerYear}' : l.noData,
-                                  color: AppColors.cyan,
-                                ),
-                              ),
-                            ],
-                          ),
-                          if (velocity != null) ...[
-                            const SizedBox(height: 14),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                              decoration: BoxDecoration(
-                                color: _velocityColor(velocity, profile.age, profile.gender).withValues(alpha: 0.12),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(CupertinoIcons.arrow_up_right, size: 14, color: _velocityColor(velocity, profile.age, profile.gender)),
-                                  const SizedBox(width: 6),
-                                  Text(
-                                    l.growthRate(localizedVelocityRating(l, Calculations.growthVelocityRating(velocity, profile.age, profile.gender))),
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w700,
-                                      color: _velocityColor(velocity, profile.age, profile.gender),
+                          // ── Büyüme Potansiyeli paneli — prediction ile tutarlı ──
+                          Builder(builder: (_) {
+                            // All values come from the SAME prediction object as Boy Tahmini card
+                            final totalGain = prediction.finalHeight - profile.currentHeight;
+                            final geneticGain   = prediction.geneticGain;
+                            final lifestyleGain = prediction.lifestyleGain;
+                            final postureGain   = prediction.postureGain;
+                            // Use genetic ceiling as reference for the progress bar
+                            final geneticCeiling = prediction.geneticEstimate;
+                            final towardCeiling = geneticCeiling > profile.currentHeight
+                                ? (profile.currentHeight / geneticCeiling).clamp(0.0, 1.0)
+                                : 1.0;
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Top 3-metric row — all from prediction
+                                Row(children: [
+                                  Expanded(child: _PotentialStatBox(
+                                    emoji: '🧬',
+                                    label: 'Genetik Kazanım',
+                                    value: geneticGain > 0
+                                        ? '+${geneticGain.toStringAsFixed(1)} cm'
+                                        : 'Tavan',
+                                    color: AppColors.primary,
+                                  )),
+                                  const SizedBox(width: 10),
+                                  Expanded(child: _PotentialStatBox(
+                                    emoji: '🏃',
+                                    label: 'Yaşam Tarzı',
+                                    value: lifestyleGain > 0
+                                        ? '+${lifestyleGain.toStringAsFixed(1)} cm'
+                                        : '+0 cm',
+                                    color: AppColors.cyan,
+                                  )),
+                                  const SizedBox(width: 10),
+                                  Expanded(child: _PotentialStatBox(
+                                    emoji: '🦴',
+                                    label: 'Postür',
+                                    value: '+${postureGain.toStringAsFixed(1)} cm',
+                                    color: AppColors.orange,
+                                  )),
+                                ]),
+                                const SizedBox(height: 16),
+                                // Banner: total reachable — same as finalHeight card above
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [AppColors.primary.withValues(alpha: 0.13), AppColors.cyan.withValues(alpha: 0.06)],
+                                      begin: Alignment.topLeft, end: Alignment.bottomRight,
                                     ),
+                                    borderRadius: BorderRadius.circular(14),
+                                    border: Border.all(color: AppColors.primary.withValues(alpha: 0.22)),
+                                  ),
+                                  child: Row(children: [
+                                    const Text('🎯', style: TextStyle(fontSize: 22)),
+                                    const SizedBox(width: 12),
+                                    Expanded(child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Ulaşabileceğin hedef boy',
+                                          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.55)),
+                                        ),
+                                        const SizedBox(height: 3),
+                                        Text(
+                                          totalGain > 0
+                                              ? '${prediction.finalHeight.toStringAsFixed(1)} cm  (+${totalGain.toStringAsFixed(1)} cm)'
+                                              : '${prediction.finalHeight.toStringAsFixed(1)} cm',
+                                          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.white),
+                                        ),
+                                      ],
+                                    )),
+                                  ]),
+                                ),
+                                const SizedBox(height: 14),
+                                // Progress bar — toward genetic ceiling
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Genetik tavana ilerleme',
+                                      style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.45))),
+                                    Text('%${(towardCeiling * 100).floor()}',
+                                      style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Colors.white)),
+                                  ],
+                                ),
+                                const SizedBox(height: 6),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: LinearProgressIndicator(
+                                    value: towardCeiling,
+                                    minHeight: 8,
+                                    backgroundColor: Colors.white.withValues(alpha: 0.10),
+                                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                                  ),
+                                ),
+                                if (velocity != null) ...[
+                                  const SizedBox(height: 12),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                                    decoration: BoxDecoration(
+                                      color: _velocityColor(velocity, profile.age, profile.gender).withValues(alpha: 0.10),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Row(children: [
+                                      Icon(CupertinoIcons.arrow_up_right, size: 13, color: _velocityColor(velocity, profile.age, profile.gender)),
+                                      const SizedBox(width: 6),
+                                      Text(
+                                        '${velocity.toStringAsFixed(1)} ${l.cmPerYear}  •  ${l.growthRate(localizedVelocityRating(l, Calculations.growthVelocityRating(velocity, profile.age, profile.gender)))}',
+                                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _velocityColor(velocity, profile.age, profile.gender)),
+                                      ),
+                                    ]),
                                   ),
                                 ],
-                              ),
-                            ),
-                          ],
-                          const SizedBox(height: 14),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: LinearProgressIndicator(
-                              value: growthPct / 100,
-                              minHeight: 8,
-                              backgroundColor: Colors.white.withValues(alpha: 0.14),
-                              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
-                            ),
-                          ),
+                              ],
+                            );
+                          }),
                         ],
                       ),
                     )),
@@ -913,32 +985,29 @@ class _ScoreRingPainter extends CustomPainter {
 
 // ── Sub-widgets ───────────────────────────────────────────────────
 
-class _StatBlock extends StatelessWidget {
-  final String label;
-  final String value;
+class _PotentialStatBox extends StatelessWidget {
+  final String emoji, label, value;
   final Color color;
 
-  const _StatBlock({required this.label, required this.value, required this.color});
+  const _PotentialStatBox({required this.emoji, required this.label, required this.value, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.16), color.withValues(alpha: 0.04)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withValues(alpha: 0.20), width: 0.5),
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: color.withValues(alpha: 0.20)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: color.withValues(alpha: 0.7), letterSpacing: 1.0)),
+          Text(emoji, style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 6),
-          Text(value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.5)),
+          Text(value, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.3)),
+          const SizedBox(height: 2),
+          Text(label, style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.45), height: 1.3)),
         ],
       ),
     );

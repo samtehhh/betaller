@@ -43,12 +43,39 @@ class HeightReference {
     25: 6.5,
   };
 
+  // ── Ethnicity-based adult mean offsets (NCD-RisC 2016, age 18+ cm delta vs global) ──
+  // Male offsets from global mean (175.5 cm)
+  static const Map<String, double> _maleEthnicityOffset = {
+    'white':          2.5,
+    'black':          0.5,
+    'hispanic':       -2.5,
+    'asian':          -4.5,
+    'middle_eastern': 0.0,
+    'no_answer':      0.0,
+  };
+  static const Map<String, double> _femaleEthnicityOffset = {
+    'white':          2.0,
+    'black':          0.5,
+    'hispanic':       -2.0,
+    'asian':          -3.5,
+    'middle_eastern': -0.5,
+    'no_answer':      0.0,
+  };
+
   // ── Public API ───────────────────────────────────────────────────
 
   /// Global median height (cm) for given age and sex.
-  static double getMean(int age, bool isMale) {
+  static double getMean(int age, bool isMale, {String ethnicity = ''}) {
     final a = age.clamp(5, 25);
-    return (isMale ? _maleMean : _femaleMean)[a] ?? (isMale ? 175.5 : 162.0);
+    final base = (isMale ? _maleMean : _femaleMean)[a] ?? (isMale ? 175.5 : 162.0);
+    // Apply ethnicity offset only for age 16+ (where adult patterns dominate)
+    if (age >= 16 && ethnicity.isNotEmpty) {
+      final offset = (isMale ? _maleEthnicityOffset : _femaleEthnicityOffset)[ethnicity] ?? 0.0;
+      // Scale offset: full at 21+, partial at 16-20
+      final scale = age >= 21 ? 1.0 : (age - 15) / 6.0;
+      return base + offset * scale;
+    }
+    return base;
   }
 
   /// Population standard deviation (cm) for given age and sex.
@@ -63,15 +90,17 @@ class HeightReference {
     required double heightCm,
     required int age,
     required bool isMale,
+    String ethnicity = '',
   }) {
-    final z = (heightCm - getMean(age, isMale)) / getSd(age, isMale);
+    final mean = getMean(age, isMale, ethnicity: ethnicity);
+    final z = (heightCm - mean) / getSd(age, isMale);
     return (_normCdf(z) * 100).clamp(0.1, 99.9);
   }
 
   /// Returns standard global reference heights at key percentiles.
   /// Keys: 'p5', 'p25', 'p50', 'p75', 'p95'
-  static Map<String, double> referenceHeights(int age, bool isMale) {
-    final mean = getMean(age, isMale);
+  static Map<String, double> referenceHeights(int age, bool isMale, {String ethnicity = ''}) {
+    final mean = getMean(age, isMale, ethnicity: ethnicity);
     final sd = getSd(age, isMale);
     // z-scores for standard percentiles (exact values)
     return {

@@ -2,7 +2,7 @@
   "@@locale": "tr",
   "navHome": "Ana Sayfa",
   "navAnalysis": "Analiz",
-  "navRoutines": "Rutinler",
+  "navRoutines": "Planım",
   "navProgress": "İlerleme",
   "navProfile": "Profil",
   "greeting": "Merhaba, {name}",

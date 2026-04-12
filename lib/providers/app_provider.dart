@@ -161,6 +161,7 @@ class AppProvider extends ChangeNotifier {
     _postureAnalyses = [..._postureAnalyses, analysis];
     _postureAnalyses.sort((a, b) => (a['date'] as String).compareTo(b['date'] as String));
     addXP(20);
+    _maybeRequestReview();
     _saveData();
     notifyListeners();
   }
@@ -366,6 +367,7 @@ class AppProvider extends ChangeNotifier {
       _completedProgramDays = Set<int>.from(
         (json['completedProgramDays'] as List? ?? []).map((e) => (e as num).toInt()),
       );
+      _reviewShownOnce = json['reviewShownOnce'] ?? false;
     }
 
     _initRoutines();
@@ -454,6 +456,7 @@ class AppProvider extends ChangeNotifier {
       'stressByDate': _stressByDate,
       'journalByDate': _journalByDate,
       'completedProgramDays': _completedProgramDays.toList(),
+      'reviewShownOnce': _reviewShownOnce,
     };
     await prefs.setString('glowup_app_data', jsonEncode(data));
   }
@@ -482,6 +485,7 @@ class AppProvider extends ChangeNotifier {
     _heightRecords.sort((a, b) => a.date.compareTo(b.date));
     addXP(xpRewards['height_logged']!);
     updateChallengeProgress('weekly_measure', 1);
+    _maybeRequestReview();
     _saveData();
     notifyListeners();
   }
@@ -552,7 +556,7 @@ class AppProvider extends ChangeNotifier {
 
     // Trigger review at key milestones
     if (_streak == 3 || _streak == 7 || _streak == 14 || _streak == 30) {
-      _shouldRequestReview = true;
+      _maybeRequestReview();
     }
 
     // Schedule streak-at-risk if routines not all done yet
@@ -566,8 +570,26 @@ class AppProvider extends ChangeNotifier {
 
   // ── App Review ──
   bool _shouldRequestReview = false;
+  bool _reviewShownOnce = false; // persisted — never show again after first time
+
   bool get shouldRequestReview => _shouldRequestReview;
-  void clearReviewFlag() => _shouldRequestReview = false;
+
+  /// Triggers the review dialog — no-op if already shown once this install
+  /// or if another trigger already queued it this session.
+  void _maybeRequestReview() {
+    if (_reviewShownOnce) return;
+    if (_shouldRequestReview) return;
+    _shouldRequestReview = true;
+    notifyListeners();
+  }
+
+  /// Called by MainScreen after showing the dialog.
+  /// Marks as shown-once so it never fires again.
+  void clearReviewFlag() {
+    _shouldRequestReview = false;
+    _reviewShownOnce = true;
+    _saveData();
+  }
 
   void setPremium(bool value) {
     _isPremium = value;
@@ -753,6 +775,7 @@ class AppProvider extends ChangeNotifier {
     _activeChallenges = [];
     _lastChallengeDate = '';
     _dailyChallengeProgress = {};
+    _reviewShownOnce = false;
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('glowup_app_data');

@@ -16,8 +16,8 @@ class PurchaseService {
   static const _androidApiKey = 'test_txhoySotQjiTYXoKcszSgaMiAEm';
 
   // ── Entitlement & offering IDs (set these in RevenueCat dashboard) ──
-  static const entitlementId = 'premium';
-  static const monthlyProductId = 'betaller_monthly';
+  static const entitlementId = 'Premium';
+  static const monthlyProductId = 'betaller.monthly';
   static const yearlyProductId = 'betaller_yearly';
 
   bool _initialized = false;

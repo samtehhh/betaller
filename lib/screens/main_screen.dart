@@ -33,9 +33,9 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     _screens = [
       const HomeScreen(),
-      AnalysisScreen(key: _analysisKey),
       const RoutinesScreen(),
       ProgressScreen(key: _progressKey),
+      AnalysisScreen(key: _analysisKey),
       const ProfileScreen(),
     ];
   }
@@ -88,27 +88,27 @@ class _MainScreenState extends State<MainScreen> {
                       onTap: () => setState(() => _currentIndex = 0),
                     ),
                     _NavItem(
-                      icon: CupertinoIcons.chart_bar_fill,
-                      label: AppLocalizations.of(context)!.navAnalysis,
-                      selected: _currentIndex == 1,
-                      onTap: () {
-                        setState(() => _currentIndex = 1);
-                        _analysisKey.currentState?.replayAnimation();
-                      },
-                    ),
-                    _NavItem(
                       icon: CupertinoIcons.bolt_fill,
                       label: AppLocalizations.of(context)!.navRoutines,
-                      selected: _currentIndex == 2,
-                      onTap: () => setState(() => _currentIndex = 2),
+                      selected: _currentIndex == 1,
+                      onTap: () => setState(() => _currentIndex = 1),
                     ),
                     _NavItem(
                       icon: CupertinoIcons.graph_square_fill,
                       label: AppLocalizations.of(context)!.navProgress,
+                      selected: _currentIndex == 2,
+                      onTap: () {
+                        setState(() => _currentIndex = 2);
+                        _progressKey.currentState?.replayAnimation();
+                      },
+                    ),
+                    _NavItem(
+                      icon: CupertinoIcons.chart_bar_fill,
+                      label: AppLocalizations.of(context)!.navAnalysis,
                       selected: _currentIndex == 3,
                       onTap: () {
                         setState(() => _currentIndex = 3);
-                        _progressKey.currentState?.replayAnimation();
+                        _analysisKey.currentState?.replayAnimation();
                       },
                     ),
                     _NavItem(
@@ -153,7 +153,7 @@ class _NavItem extends StatelessWidget {
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              padding: selected ? const EdgeInsets.all(8) : EdgeInsets.zero,
+              padding: const EdgeInsets.all(8),
               decoration: selected
                   ? BoxDecoration(
                       color: AppColors.primary.withValues(alpha: 0.12),
@@ -165,17 +165,14 @@ class _NavItem extends StatelessWidget {
                         ),
                       ],
                     )
-                  : null,
-              child: Transform.scale(
-                scale: selected ? 1.1 : 1.0,
-                child: Icon(
-                  icon,
-                  color: selected
-                      ? AppColors.primary
-                      : Colors.white.withValues(alpha: 0.82),
-                  size: 24,
-                  shadows: selected ? [Shadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 10)] : null,
-                ),
+                  : const BoxDecoration(),
+              child: Icon(
+                icon,
+                color: selected
+                    ? AppColors.primary
+                    : Colors.white.withValues(alpha: 0.82),
+                size: 24,
+                shadows: selected ? [Shadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 10)] : null,
               ),
             ),
             const SizedBox(height: 4),

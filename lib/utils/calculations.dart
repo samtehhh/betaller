@@ -131,121 +131,132 @@ class Calculations {
     }
   }
 
-  /// Çok faktörlü boy tahmini (21 yaşında)
+  /// Unified boy tahmini — tek formül, tutarlı sonuç
+  ///
+  /// Genetik pay: yaşa bağlı %60-70 (genç → daha az ağırlık, olgun → daha fazla)
+  /// Çevre/yaşam tarzı payı: %30-40
+  ///
+  /// Gerçekçi projeksiyon:
+  ///  - 18 yaş altı: 21'e kadar 7-10 cm mümkün
+  ///  - 18-20 yaş:    21'e kadar 4-8 cm mümkün (büyüme yavaşlamış)
+  ///  - 20+ yaş:      postür & disc kazanımı 2-5 cm
   static PredictionResult predictFinalHeight(
     UserProfile profile,
-    List<HeightRecord> records,
-  ) {
-    final geneticPotential = geneticPotentialHeight(profile);
-    final velocity = growthVelocity(records);
-    final growthPct = growthPercentage(profile.age, profile.gender);
+    List<HeightRecord> records, {
+    double? lifestyleScore, // 0.0–1.0, GlowUp skoru tabanlı (verilmezse 0.70 varsayılır)
+  }) {
+    final geneticCeiling = geneticPotentialHeight(profile);
     final bmi = calculateBMI(profile.currentHeight, profile.weight);
+    final age = profile.age;
+    final isMale = profile.gender == 'male';
 
-    // 1. Genetik tahmin (Khamis-Roche)
-    double geneticEstimate = geneticPotential;
-
-    // 2. Büyüme hızı bazlı tahmin
-    double velocityEstimate = geneticPotential;
-    if (velocity != null && profile.age < 20) {
-      double projected = profile.currentHeight;
-      for (int futureAge = profile.age + 1; futureAge <= 21; futureAge++) {
-        final yearlyGrowth = _averageGrowthVelocity(futureAge, profile.gender);
-        // Mevcut büyüme hızını ortalama ile karşılaştır
-        final avgVelocity = _averageGrowthVelocity(profile.age, profile.gender);
-        final velocityFactor = avgVelocity > 0
-            ? (velocity / avgVelocity).clamp(0.5, 1.8)
-            : 1.0;
-        projected += yearlyGrowth * velocityFactor;
-      }
-      velocityEstimate = projected;
-    }
-
-    // 3. Yüzdelik bazlı tahmin
-    double percentileEstimate = geneticPotential;
-    if (growthPct > 0 && growthPct < 100) {
-      percentileEstimate = profile.currentHeight / (growthPct / 100);
-    }
-
-    // 4. BMI düzeltmesi
-    double bmiAdjustment = 0;
-    if (bmi < 16) {
-      bmiAdjustment = -1.5; // Aşırı zayıf: potansiyeli düşürür
-    } else if (bmi < 18.5)
-      bmiAdjustment = -0.5;
-    else if (bmi > 28)
-      bmiAdjustment = -1.0; // Obezite erken kapanma riski
-    else if (bmi > 25)
-      bmiAdjustment = -0.5;
-
-    // Ağırlıklı ortalama
-    double finalEstimate;
-    final bool geneticBelowCurrent = geneticEstimate < profile.currentHeight;
-
-    // Genetik potansiyeli aşmış kişiler için aralık (postür + egzersiz)
-    double? bonusMin;
-    double? bonusMax;
-
-    if (geneticBelowCurrent) {
-      if (profile.age <= 14) {
-        bonusMin = 3.5; bonusMax = 4.5;
-      } else if (profile.age <= 16) {
-        bonusMin = 3.0; bonusMax = 4.0;
-      } else if (profile.age <= 18) {
-        bonusMin = 2.5; bonusMax = 3.5;
-      } else if (profile.age <= 20) {
-        bonusMin = 2.0; bonusMax = 3.0;
-      } else {
-        bonusMin = 2.0; bonusMax = 2.5;
-      }
-      // Aralığın ortasını ana tahmin olarak kullan
-      finalEstimate = profile.currentHeight + (bonusMin + bonusMax) / 2;
-    } else if (velocity != null && records.length >= 3) {
-      finalEstimate =
-          geneticEstimate * 0.30 +
-          velocityEstimate * 0.40 +
-          percentileEstimate * 0.30;
+    // ── 1. Yaşa göre genetik & çevre ağırlıkları ──────────────────
+    // Younger users have more growth windows → environment matters more.
+    // Older users are closer to final height → genetics lock in heavier.
+    double geneticWeight;
+    double envWeight;
+    if (age <= 13) {
+      geneticWeight = 0.60; envWeight = 0.40;
+    } else if (age <= 16) {
+      geneticWeight = 0.63; envWeight = 0.37;
+    } else if (age <= 18) {
+      geneticWeight = 0.65; envWeight = 0.35;
+    } else if (age <= 20) {
+      geneticWeight = 0.68; envWeight = 0.32;
     } else {
-      finalEstimate = geneticEstimate * 0.50 + percentileEstimate * 0.50;
+      geneticWeight = 0.70; envWeight = 0.30;
     }
 
-    finalEstimate += bmiAdjustment;
+    // ── 2. Genetik tahmin (temel: mid-parental ± küçük kalan büyüme payı) ──
+    // How much growth remains from current height to genetic ceiling
+    final rawGeneticRemaining = math.max(0.0, geneticCeiling - profile.currentHeight);
 
-    // Son güvenlik: tahmin asla mevcut boydan düşük olamaz
+    // For post-20 (plates mostly closed), genetic gains are near zero
+    final geneticRemainingClamp = age > 20 ? 0.0 : rawGeneticRemaining;
+    final geneticEstimate = profile.currentHeight + geneticRemainingClamp;
+
+    // ── 3. Çevre & yaşam tarzı tahmin (posture, sleep, nutrition, exercise) ──
+    // Age-based lifestyle bonus range — realistic, hopeful but not absurd:
+    //  ≤13: up to 6 cm (lots of time)
+    //  14-16: up to 5 cm (peak puberty window)
+    //  17-18: up to 4 cm (slowing)
+    //  19-20: up to 3 cm (posture + disc + mild)
+    //  21+:   up to 2 cm (purely posture/disc compression)
+    double lifestyleMax;
+    if (age <= 13) {
+      lifestyleMax = isMale ? 6.0 : 5.0;
+    } else if (age <= 16) {
+      lifestyleMax = isMale ? 5.0 : 4.0;
+    } else if (age <= 18) {
+      lifestyleMax = isMale ? 4.5 : 3.5;
+    } else if (age <= 20) {
+      lifestyleMax = 3.5;
+    } else {
+      lifestyleMax = 2.5;
+    }
+
+    // BMI modifies lifestyle effectiveness
+    double bmiModifier = 1.0;
+    if (bmi < 16) {
+      bmiModifier = 0.65; // severe underweight → compromised growth
+    } else if (bmi < 18.5) {
+      bmiModifier = 0.85;
+    } else if (bmi > 30) {
+      bmiModifier = 0.75;
+    } else if (bmi > 26) {
+      bmiModifier = 0.90;
+    }
+
+    // Lifestyle compliance: use provided score or default to 0.65 (slightly optimistic baseline)
+    // Range 0.35–0.95 to avoid extreme values
+    final compliance = (lifestyleScore ?? 0.65).clamp(0.35, 0.95);
+    final lifestyleEstimate = profile.currentHeight + (lifestyleMax * compliance * bmiModifier);
+
+    // ── 4. Ağırlıklı birleştirme ──────────────────────────────────
+    double finalEstimate = (geneticEstimate * geneticWeight) +
+        (lifestyleEstimate * envWeight);
+
+    // Safety: never below current height
     if (finalEstimate < profile.currentHeight) {
       finalEstimate = profile.currentHeight;
     }
 
-    // Güven aralığı
-    final confidence = _calculateConfidence(records, profile.age);
-    final margin = (100 - confidence) * 0.08; // Düşük güven = geniş aralık
+    // ── 5. Potansiyel bileşenler (Büyüme Durumu kartı için) ──────
+    // Total gain above current height
+    final totalGain = math.max(0.0, finalEstimate - profile.currentHeight);
+    // Split by weighted contribution: geneticWeight% of gain comes from genetics
+    final geneticGain = double.parse((totalGain * geneticWeight).toStringAsFixed(1));
+    // envWeight% of gain comes from lifestyle
+    final lifestyleGain = double.parse((totalGain * envWeight).toStringAsFixed(1));
+    // postureGain: subset of lifestyle (posture/disc compression relief, ~40% of lifestyle)
+    final postureGain = double.parse((lifestyleGain * 0.55).toStringAsFixed(1));
 
-    // Yıllık tahmin
+    // ── 6. Güven & aralık ────────────────────────────────────────
+    final confidence = _calculateConfidence(records, age);
+    final margin = (100 - confidence) * 0.06;
+
+    final resultMin = math.max(finalEstimate - margin, profile.currentHeight);
+    final resultMax = finalEstimate + margin;
+
+    // ── 7. Yıllık projeksiyon ─────────────────────────────────────
     final yearlyPredictions = <int, double>{};
-    if (profile.age < 21) {
+    if (age < 21) {
       double current = profile.currentHeight;
       final totalRemaining = finalEstimate - current;
-      final yearsRemaining = 21 - profile.age;
-      for (int age = profile.age + 1; age <= 21; age++) {
-        final yearVelocity = _averageGrowthVelocity(age, profile.gender);
+      final yearsRemaining = 21 - age;
+      for (int yr = age + 1; yr <= 21; yr++) {
+        final yearVelocity = _averageGrowthVelocity(yr, profile.gender);
         final totalAvgVelocity = List.generate(
           yearsRemaining,
-          (i) => _averageGrowthVelocity(profile.age + 1 + i, profile.gender),
+          (i) => _averageGrowthVelocity(age + 1 + i, profile.gender),
         ).fold(0.0, (a, b) => a + b);
         final proportion = totalAvgVelocity > 0
             ? yearVelocity / totalAvgVelocity
             : 1.0 / yearsRemaining;
         current += totalRemaining * proportion;
-        yearlyPredictions[age] = double.parse(current.toStringAsFixed(1));
+        yearlyPredictions[yr] = double.parse(current.toStringAsFixed(1));
       }
     }
-
-    // Genetik aşılmışsa min/max bonus aralığından, değilse güven aralığından
-    final double resultMin = bonusMin != null
-        ? profile.currentHeight + bonusMin
-        : math.max(finalEstimate - margin, profile.currentHeight);
-    final double resultMax = bonusMax != null
-        ? profile.currentHeight + bonusMax
-        : finalEstimate + margin;
 
     return PredictionResult(
       finalHeight: double.parse(finalEstimate.toStringAsFixed(1)),
@@ -254,20 +265,21 @@ class Calculations {
       confidence: confidence.round(),
       yearlyPredictions: yearlyPredictions,
       geneticEstimate: double.parse(geneticEstimate.toStringAsFixed(1)),
-      velocityEstimate: velocity != null
-          ? double.parse(velocityEstimate.toStringAsFixed(1))
-          : null,
+      velocityEstimate: null,
+      geneticGain: double.parse(geneticGain.toStringAsFixed(1)),
+      lifestyleGain: double.parse(lifestyleGain.toStringAsFixed(1)),
+      postureGain: double.parse(postureGain.toStringAsFixed(1)),
     );
   }
 
   static double _calculateConfidence(List<HeightRecord> records, int age) {
-    double confidence = 50; // Temel güven
-    if (records.length >= 2) confidence += 10;
-    if (records.length >= 5) confidence += 10;
-    if (records.length >= 10) confidence += 10;
-    if (age >= 16) confidence += 10; // Daha az büyüme = daha kesin
-    if (age >= 18) confidence += 10;
-    return confidence.clamp(30, 95);
+    double confidence = 78; // Güçlü temel güven (genetik + yaşam tarzı modeli)
+    if (records.length >= 2) confidence += 5;
+    if (records.length >= 5) confidence += 5;
+    if (records.length >= 10) confidence += 5;
+    if (age >= 16) confidence += 4; // Daha az büyüme = daha kesin
+    if (age >= 18) confidence += 4;
+    return confidence.clamp(78, 97);
   }
 
   // ── WHO Percentile & Growth Plate Analysis ─────────────────────
@@ -576,6 +588,10 @@ class PredictionResult {
   final Map<int, double> yearlyPredictions;
   final double geneticEstimate;
   final double? velocityEstimate;
+  // Breakdown for Büyüme Durumu card
+  final double geneticGain;
+  final double lifestyleGain;
+  final double postureGain;
 
   PredictionResult({
     required this.finalHeight,
@@ -585,6 +601,9 @@ class PredictionResult {
     required this.yearlyPredictions,
     required this.geneticEstimate,
     this.velocityEstimate,
+    this.geneticGain = 0.0,
+    this.lifestyleGain = 0.0,
+    this.postureGain = 0.0,
   });
 }
 

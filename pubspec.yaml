@@ -49,6 +49,7 @@ flutter:
   assets:
     - assets/icon.png
     - assets/exercises/
+    - assets/testimonials/
 
   fonts:
     - family: Inter

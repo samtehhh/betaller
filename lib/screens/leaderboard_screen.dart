@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
+import '../models/height_record.dart';
 import '../providers/app_provider.dart';
+import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import '../utils/height_reference.dart';
 
@@ -24,14 +26,19 @@ class LeaderboardScreen extends StatelessWidget {
     final age = provider.profile?.age ?? 18;
     final isMale = (provider.profile?.gender ?? 'male') == 'male';
     final height = provider.profile?.currentHeight ?? 170.0;
+    final ethnicity = provider.profile?.ethnicity ?? '';
 
-    final mean = HeightReference.getMean(age, isMale);
+    final mean = HeightReference.getMean(age, isMale, ethnicity: ethnicity);
     final pct = HeightReference.percentile(
       heightCm: height,
       age: age,
       isMale: isMale,
+      ethnicity: ethnicity,
     );
-    final refs = HeightReference.referenceHeights(age, isMale);
+    final refs = HeightReference.referenceHeights(age, isMale, ethnicity: ethnicity);
+    final prediction = provider.profile != null
+        ? Calculations.predictFinalHeight(provider.profile!, provider.heightRecords)
+        : null;
 
     return Scaffold(
       backgroundColor: AppColors.scaffold,
@@ -78,6 +85,9 @@ class LeaderboardScreen extends StatelessWidget {
                   age: age,
                   isMale: isMale,
                   userHeight: height,
+                  records: provider.heightRecords,
+                  yearlyPredictions: prediction?.yearlyPredictions ?? {},
+                  ethnicity: ethnicity,
                 ),
                 const SizedBox(height: 24),
 
@@ -358,15 +368,13 @@ class _PopulationBarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
-
     // Build 5 bands between consecutive percentile values
     final bands = [
-      (label: 'P5', pct: 5, cm: refs['p5']!),
-      (label: 'P25', pct: 25, cm: refs['p25']!),
-      (label: 'P50', pct: 50, cm: refs['p50']!),
-      (label: 'P75', pct: 75, cm: refs['p75']!),
-      (label: 'P95', pct: 95, cm: refs['p95']!),
+      (label: 'Alt 5%', pct: 5, cm: refs['p5']!),
+      (label: 'Alt 25%', pct: 25, cm: refs['p25']!),
+      (label: 'Ortalama', pct: 50, cm: refs['p50']!),
+      (label: 'Üst 25%', pct: 75, cm: refs['p75']!),
+      (label: 'Üst 5%', pct: 95, cm: refs['p95']!),
     ];
 
     final minH = bands.first.cm - 4;
@@ -496,15 +504,20 @@ class _PopulationBarChart extends StatelessWidget {
                       final x =
                           ((b.cm - minH) / span).clamp(0.0, 1.0) * totalWidth;
                       return Positioned(
-                        left: (x - 14).clamp(0, totalWidth - 28),
+                        left: (x - 16).clamp(0, totalWidth - 32),
                         bottom: 0,
-                        child: Text(
-                          b.label,
-                          style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.textTertiary,
-                          ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              b.cm.toStringAsFixed(0),
+                              style: const TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     }),
@@ -513,44 +526,16 @@ class _PopulationBarChart extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 16),
           // Legend row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _LegendDot(
-                color: AppColors.orange,
-                label: l.percentileShort5,
-              ),
-              _LegendDot(
-                color: AppColors.lime,
-                label: l.percentileShort50,
-              ),
-              _LegendDot(
-                color: color,
-                label: l.percentileShort95,
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: 10,
-                    height: 10,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    l.youLabel,
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.textTertiary,
-                    ),
-                  ),
-                ],
-              ),
+              _LegendDot(color: AppColors.orange,  label: 'Kısa'),
+              _LegendDot(color: AppColors.warning, label: 'Orta altı'),
+              _LegendDot(color: AppColors.lime,    label: 'Ortalama'),
+              _LegendDot(color: AppColors.cyan,    label: 'Uzun'),
+              _LegendDot(color: color,             label: 'Çok uzun'),
             ],
           ),
         ],
@@ -596,11 +581,17 @@ class _ReferenceTable extends StatelessWidget {
   final int age;
   final bool isMale;
   final double userHeight;
+  final List<HeightRecord> records;
+  final Map<int, double> yearlyPredictions;
+  final String ethnicity;
 
   const _ReferenceTable({
     required this.age,
     required this.isMale,
     required this.userHeight,
+    required this.records,
+    required this.yearlyPredictions,
+    this.ethnicity = '',
   });
 
   @override
@@ -625,8 +616,8 @@ class _ReferenceTable extends StatelessWidget {
               children: [
                 _TableHeader(l.ageLabel, flex: 2),
                 _TableHeader(l.avgHeightLabel, flex: 3),
-                _TableHeader(l.percentileLabel, flex: 3),
-                _TableHeader(l.diffLabel, flex: 2),
+                _TableHeader('Sen', flex: 3),
+                _TableHeader('%', flex: 3, align: TextAlign.right),
               ],
             ),
           ),
@@ -637,14 +628,39 @@ class _ReferenceTable extends StatelessWidget {
           // Rows
           ...ages.map((a) {
             final isUserAge = a == age;
-            final m = HeightReference.getMean(a, isMale);
-            final p = HeightReference.percentile(
-              heightCm: userHeight,
-              age: a,
-              isMale: isMale,
-            );
-            final diff = userHeight - m;
-            final isAbove = diff >= 0;
+            final m = HeightReference.getMean(a, isMale, ethnicity: ethnicity);
+
+            // Geçmiş yaş: height records içinde o yıla ait kayıt var mı?
+            double? rowHeight;
+            bool isFuture = false;
+
+            if (a == age) {
+              rowHeight = userHeight;
+            } else if (a < age) {
+              // Geçmiş — kayıtlardan bul
+              final targetYear = DateTime.now().year - (age - a);
+              HeightRecord? best;
+              int bestDiff = 9999;
+              for (final r in records) {
+                final d = DateTime.tryParse(r.date);
+                if (d == null) continue;
+                final diff = (d.year - targetYear).abs();
+                if (diff < bestDiff) { bestDiff = diff; best = r; }
+              }
+              if (best != null && bestDiff <= 1) {
+                rowHeight = best.height;
+              }
+            } else {
+              // Gelecek — yearlyPredictions'dan
+              if (yearlyPredictions.containsKey(a)) {
+                rowHeight = yearlyPredictions[a];
+                isFuture = true;
+              }
+            }
+
+            final p = rowHeight != null
+                ? HeightReference.percentile(heightCm: rowHeight, age: a, isMale: isMale, ethnicity: ethnicity)
+                : null;
 
             return Column(
               children: [
@@ -702,37 +718,53 @@ class _ReferenceTable extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
-                            color: isUserAge
-                                ? Colors.white
-                                : AppColors.textSecondary,
+                            color: isUserAge ? Colors.white : AppColors.textSecondary,
                           ),
                         ),
                       ),
-                      // Percentile
+                      // Sen
                       Expanded(
                         flex: 3,
-                        child: Text(
-                          '%${p.toStringAsFixed(0)}',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: _pctColor(p),
-                          ),
-                        ),
+                        child: rowHeight != null
+                            ? Text(
+                                '${rowHeight.toStringAsFixed(1)} cm',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  color: isUserAge
+                                      ? AppColors.primaryBright
+                                      : isFuture
+                                          ? AppColors.cyan.withValues(alpha: 0.6)
+                                          : AppColors.textSecondary,
+                                  fontStyle: isFuture ? FontStyle.italic : FontStyle.normal,
+                                ),
+                              )
+                            : Text(
+                                '—',
+                                style: TextStyle(fontSize: 13, color: Colors.white.withValues(alpha: 0.2)),
+                              ),
                       ),
-                      // Diff
+                      // Yüzde
                       Expanded(
-                        flex: 2,
-                        child: Text(
-                          '${isAbove ? '+' : ''}${diff.toStringAsFixed(1)}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            color: isAbove
-                                ? AppColors.lime
-                                : AppColors.orange,
-                          ),
-                        ),
+                        flex: 3,
+                        child: p != null
+                            ? Text(
+                                '%${(100 - p).clamp(1, 99).toStringAsFixed(0)}',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: isFuture
+                                      ? _pctColor(p).withValues(alpha: 0.55)
+                                      : _pctColor(p),
+                                  fontStyle: isFuture ? FontStyle.italic : FontStyle.normal,
+                                ),
+                              )
+                            : Text(
+                                '—',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.2)),
+                              ),
                       ),
                     ],
                   ),
@@ -750,19 +782,24 @@ class _ReferenceTable extends StatelessWidget {
     );
   }
 
+  // p = raw percentile (nüfusun kaçı senden kısa)
+  // düşük topPct (100-p) = daha uzun = daha iyi renk
   Color _pctColor(double p) {
-    if (p >= 75) return AppColors.lime;
-    if (p >= 50) return AppColors.cyan;
-    if (p >= 25) return AppColors.warning;
-    return AppColors.orange;
+    final top = 100 - p; // gösterilen değer
+    if (top <= 25) return AppColors.lime;    // üst %25 = yeşil
+    if (top <= 50) return AppColors.cyan;    // üst %50 = mavi
+    if (top <= 75) return AppColors.warning; // orta = sarı
+    return AppColors.orange;                 // alt çeyrek = turuncu
   }
+
 }
 
 class _TableHeader extends StatelessWidget {
   final String text;
   final int flex;
+  final TextAlign align;
 
-  const _TableHeader(this.text, {required this.flex});
+  const _TableHeader(this.text, {required this.flex, this.align = TextAlign.left});
 
   @override
   Widget build(BuildContext context) {
@@ -770,6 +807,7 @@ class _TableHeader extends StatelessWidget {
       flex: flex,
       child: Text(
         text,
+        textAlign: align,
         style: TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.w800,

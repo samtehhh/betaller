@@ -15,7 +15,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navAnalysis => 'Analiz';
 
   @override
-  String get navRoutines => 'Rutinler';
+  String get navRoutines => 'Planım';
 
   @override
   String get navProgress => 'İlerleme';

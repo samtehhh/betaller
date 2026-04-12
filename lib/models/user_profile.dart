@@ -7,6 +7,7 @@ class UserProfile {
   final double fatherHeight;
   final double motherHeight;
   final DateTime createdAt;
+  final String ethnicity;
 
   UserProfile({
     required this.name,
@@ -17,6 +18,7 @@ class UserProfile {
     required this.fatherHeight,
     required this.motherHeight,
     DateTime? createdAt,
+    this.ethnicity = '',
   }) : createdAt = createdAt ?? DateTime.now();
 
   int get age {
@@ -39,17 +41,19 @@ class UserProfile {
         'fatherHeight': fatherHeight,
         'motherHeight': motherHeight,
         'createdAt': createdAt.toIso8601String(),
+        'ethnicity': ethnicity,
       };
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
-        name: json['name'],
-        gender: json['gender'],
-        birthDate: json['birthDate'],
-        currentHeight: (json['currentHeight'] as num).toDouble(),
-        weight: (json['weight'] as num).toDouble(),
-        fatherHeight: (json['fatherHeight'] as num).toDouble(),
-        motherHeight: (json['motherHeight'] as num).toDouble(),
-        createdAt: DateTime.parse(json['createdAt']),
+        name: (json['name'] as String?) ?? 'User',
+        gender: (json['gender'] as String?) ?? 'male',
+        birthDate: (json['birthDate'] as String?) ?? '2000-01-01',
+        currentHeight: (json['currentHeight'] as num?)?.toDouble() ?? 170.0,
+        weight: (json['weight'] as num?)?.toDouble() ?? 65.0,
+        fatherHeight: (json['fatherHeight'] as num?)?.toDouble() ?? 175.0,
+        motherHeight: (json['motherHeight'] as num?)?.toDouble() ?? 162.0,
+        createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt'] as String) : DateTime.now(),
+        ethnicity: (json['ethnicity'] as String?) ?? '',
       );
 
   UserProfile copyWith({
@@ -60,6 +64,7 @@ class UserProfile {
     double? weight,
     double? fatherHeight,
     double? motherHeight,
+    String? ethnicity,
   }) =>
       UserProfile(
         name: name ?? this.name,
@@ -70,5 +75,6 @@ class UserProfile {
         fatherHeight: fatherHeight ?? this.fatherHeight,
         motherHeight: motherHeight ?? this.motherHeight,
         createdAt: createdAt,
+        ethnicity: ethnicity ?? this.ethnicity,
       );
 }

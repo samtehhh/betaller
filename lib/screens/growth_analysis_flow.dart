@@ -92,9 +92,6 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
     }).toList()
       ..sort((a, b) => a.date.compareTo(b.date));
 
-    // Alışkanlık faktörleriyle tahmin
-    _prediction = Calculations.predictFinalHeight(profile, records.isEmpty ? provider.heightRecords : records);
-
     // Alışkanlık bazlı skor
     final exerciseProgress = (_exerciseHours / 5).clamp(0.0, 1.0);
 
@@ -105,6 +102,14 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
       waterProgress: (_nutritionScore / 5).clamp(0.0, 1.0),
       sleepHours: _sleepHours,
       streak: provider.streak,
+    );
+
+    // Lifestyle compliance: disiplin + uyku + beslenme ortalaması (yaşam tarzı gain'ini etkiler)
+    final lifestyleCompliance = (_score!.discipline + _score!.sleep + _score!.nutrition) / 300.0;
+    _prediction = Calculations.predictFinalHeight(
+      profile,
+      records.isEmpty ? provider.heightRecords : records,
+      lifestyleScore: lifestyleCompliance,
     );
 
     // Geçmiş boyları kaydet
@@ -516,7 +521,50 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                     style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.cyan),
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 10),
+                // Güven artış bilgilendirmesi
+                if (_prediction!.confidence < 97)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.05),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: AppColors.cyan.withValues(alpha: 0.15)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 28,
+                          height: 28,
+                          decoration: BoxDecoration(
+                            color: AppColors.cyan.withValues(alpha: 0.12),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Center(
+                            child: Text('📏', style: TextStyle(fontSize: 14)),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Flexible(
+                          child: RichText(
+                            text: TextSpan(
+                              style: TextStyle(fontSize: 11.5, color: Colors.white.withValues(alpha: 0.55), height: 1.4),
+                              children: [
+                                const TextSpan(text: 'Boy ölçümü ekledikçe tahmin '),
+                                TextSpan(
+                                  text: '%${((_prediction!.confidence + 5).clamp(0, 97))}\'e',
+                                  style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.cyan.withValues(alpha: 0.85)),
+                                ),
+                                const TextSpan(text: ' ulaşır'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                const SizedBox(height: 20),
                 // Growth from current
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

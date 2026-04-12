@@ -257,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen>
                       children: [
                         Expanded(
                           child: _MediumCard(
-                            label: 'POSTÜr',
+                            label: 'POSTÜR',
                             title: 'Duruş\nAnalizi',
                             icon: Icons.accessibility_new_rounded,
                             color: AppColors.warning,
@@ -295,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen>
                       children: [
                         Expanded(
                           child: _MediumCard(
-                            label: 'WELLNESS',
+                            label: 'SAĞLIK',
                             title: 'Sağlık\nTakibi',
                             icon: CupertinoIcons.heart_circle_fill,
                             color: AppColors.pink,
@@ -637,90 +637,88 @@ class _HeroHeightCard extends StatelessWidget {
 
           // BIG height number
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
             children: [
               Text(
                 currentHeight.toStringAsFixed(1),
                 style: const TextStyle(
-                  fontSize: 80,
+                  fontSize: 72,
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
                   letterSpacing: -3,
-                  height: 0.95,
+                  height: 1.0,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10, left: 6),
-                child: Text(
-                  'CM',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white.withValues(alpha: 0.45),
-                    letterSpacing: 1,
-                  ),
+              const SizedBox(width: 6),
+              Text(
+                'CM',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white.withValues(alpha: 0.40),
+                  letterSpacing: 1,
                 ),
               ),
-              const Spacer(),
-              // Target & remaining
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    '${l.target}: ${potential.toStringAsFixed(1)} cm',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.white.withValues(alpha: 0.45),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  isPremium
-                      ? Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: AppColors.primary.withValues(alpha: 0.14),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: AppColors.primary.withValues(alpha: 0.30)),
-                          ),
-                          child: Text(
-                            l.remaining(remaining.toStringAsFixed(1)),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.primaryLight,
-                            ),
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: onPremiumTap,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFFD700).withValues(alpha: 0.12),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: const Color(0xFFFFD700).withValues(alpha: 0.28)),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(CupertinoIcons.lock_fill, size: 11, color: Color(0xFFFFD700)),
-                                const SizedBox(width: 4),
-                                Text(
-                                  l.premiumBadge,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xFFFFD700),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+            ],
+          ),
+          const SizedBox(height: 10),
+
+          // Target + pill row (below the number, never overflows)
+          Row(
+            children: [
+              Text(
+                '${l.target}: ${potential.toStringAsFixed(1)} cm',
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.white.withValues(alpha: 0.45),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(width: 8),
+              isPremium
+                  ? Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.14),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: AppColors.primary.withValues(alpha: 0.30)),
+                      ),
+                      child: Text(
+                        l.remaining(remaining.toStringAsFixed(1)),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.primaryLight,
                         ),
-                ],
-              ),
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: onPremiumTap,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFFD700).withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: const Color(0xFFFFD700).withValues(alpha: 0.28)),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(CupertinoIcons.lock_fill, size: 11, color: Color(0xFFFFD700)),
+                            const SizedBox(width: 4),
+                            Text(
+                              l.premiumBadge,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFFFFD700),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
             ],
           ),
           const SizedBox(height: 18),

@@ -130,7 +130,7 @@ class _RoutinesScreenState extends State<RoutinesScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Your Plan',
+                      'Planım',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w800,
