@@ -78,7 +78,6 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   _GreetingData _buildGreeting({
-    required String name,
     required int streak,
     required bool allDone,
     required bool hasRoutines,
@@ -86,28 +85,28 @@ class _HomeScreenState extends State<HomeScreen>
   }) {
     if (allDone && hasRoutines) {
       return _GreetingData(
-        title: 'Harika iş, $name.',
+        title: 'Harika iş! 🎯',
         subtitle: 'Bugünkü görevlerini tamamladın.',
         subtitleColor: AppColors.success,
       );
     }
     if (streak >= 30) {
       return _GreetingData(
-        title: 'Merhaba, $name',
+        title: 'BeTaller',
         subtitle: '$streak günlük seri — efsane seviyedesin.',
         subtitleColor: AppColors.warning,
       );
     }
     if (streak >= 7) {
       return _GreetingData(
-        title: 'Merhaba, $name',
+        title: 'BeTaller',
         subtitle: '$streak günlük seri — yoluna devam et.',
         subtitleColor: AppColors.orange,
       );
     }
     if (streak >= 3) {
       return _GreetingData(
-        title: 'Merhaba, $name',
+        title: 'BeTaller',
         subtitle: '$streak gün art arda. Çoğu kişi bıraktı. Sen bırakmadın.',
         subtitleColor: AppColors.primaryLight,
       );
@@ -115,23 +114,23 @@ class _HomeScreenState extends State<HomeScreen>
     if (streak == 0) {
       if (hour < 12) {
         return _GreetingData(
-          title: 'Günaydın, $name',
-          subtitle: 'Yeni bir gün, yeni bir fırsat.',
+          title: 'BeTaller',
+          subtitle: 'Günaydın. Yeni bir gün, yeni bir fırsat.',
         );
       } else if (hour < 18) {
         return _GreetingData(
-          title: 'Merhaba, $name',
+          title: 'BeTaller',
           subtitle: 'Serine başlamak için bugün harika bir gün.',
         );
       } else {
         return _GreetingData(
-          title: 'İyi akşamlar, $name',
+          title: 'BeTaller',
           subtitle: 'Görevleri tamamla, serine başla.',
         );
       }
     }
     return _GreetingData(
-      title: 'Merhaba, $name',
+      title: 'BeTaller',
       subtitle: DateFormat('EEEE, d MMMM', 'tr').format(DateTime.now()),
     );
   }
@@ -163,7 +162,6 @@ class _HomeScreenState extends State<HomeScreen>
         final completedChallenges = challenges.length - incompleteChallenges;
 
         final greeting = _buildGreeting(
-          name: profile.name,
           streak: provider.streak,
           allDone: provider.allRoutinesCompleted,
           hasRoutines: provider.routines.isNotEmpty,
@@ -2132,17 +2130,6 @@ class _ExploreRowState extends State<_ExploreRow> {
   Widget build(BuildContext context) {
     final items = [
       _ExploreItemData(
-        icon: CupertinoIcons.leaf_arrow_circlepath,
-        label: 'Beslenme',
-        subtitle: 'Protein, kalsiyum ve vitamin rehberi',
-        color: const Color(0xFF4ADE80),
-        gradientColors: const [Color(0xFF064E3B), Color(0xFF0A3D2F)],
-        onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(builder: (_) => const NutritionScreen()),
-        ),
-      ),
-      _ExploreItemData(
         icon: Icons.accessibility_new_rounded,
         label: 'Postür Analizi',
         subtitle: 'Duruş analizi ve düzeltme önerileri',
@@ -2165,6 +2152,17 @@ class _ExploreRowState extends State<_ExploreRow> {
           context,
           CupertinoPageRoute(
               builder: (_) => const ProgressPhotosScreen()),
+        ),
+      ),
+      _ExploreItemData(
+        icon: CupertinoIcons.leaf_arrow_circlepath,
+        label: 'Beslenme',
+        subtitle: 'Protein, kalsiyum ve vitamin rehberi',
+        color: const Color(0xFF4ADE80),
+        gradientColors: const [Color(0xFF064E3B), Color(0xFF0A3D2F)],
+        onTap: () => Navigator.push(
+          context,
+          CupertinoPageRoute(builder: (_) => const NutritionScreen()),
         ),
       ),
       _ExploreItemData(

@@ -241,11 +241,13 @@ class AppProvider extends ChangeNotifier {
     final h = _profile?.currentHeight;
     final age = _profile?.age;
     final isMale = (_profile?.gender ?? 'male') == 'male';
+    final ethnicity = _profile?.ethnicity ?? '';
     if (h == null || age == null) return 50;
     return HeightReference.percentile(
       heightCm: h,
       age: age,
       isMale: isMale,
+      ethnicity: ethnicity,
     ).round();
   }
 

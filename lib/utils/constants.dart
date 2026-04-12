@@ -7,9 +7,9 @@ import 'package:flutter/cupertino.dart';
 class AppColors {
   AppColors._();
 
-  // Core backgrounds — cinematic deep black with purple undertone
-  static const scaffold = Color(0xFF040309);
-  static const surfaceDark = Color(0xFF0A0814);
+  // Core backgrounds — cinematic dark with purple undertone
+  static const scaffold = Color(0xFF08060F);
+  static const surfaceDark = Color(0xFF0C0A16);
 
   // Card fills — premium dark surfaces
   static const cardFill = Color(0xFF0C0A16);

@@ -85,17 +85,11 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
             slivers: [
               SliverToBoxAdapter(
                 child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF0E0920), Color(0xFF040309)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                  ),
+                  color: AppColors.scaffold,
                   child: SafeArea(
                     bottom: false,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(22, 12, 22, 22),
+                      padding: const EdgeInsets.fromLTRB(22, 12, 22, 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -127,7 +121,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
               ),
 
               SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 110),
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 110),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
 
@@ -150,12 +144,12 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      l.betallerScore.toUpperCase(),
+                                      'GENEL PERFORMANS',
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w700,
-                                        color: Colors.white.withValues(alpha: 0.45),
-                                        letterSpacing: 2.2,
+                                        color: Colors.white.withValues(alpha: 0.40),
+                                        letterSpacing: 2.5,
                                       ),
                                     ),
                                     const SizedBox(height: 4),
@@ -681,29 +675,8 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                         Expanded(child: _ScoreCard(icon: CupertinoIcons.person_fill, title: l.age, value: '${profile.age}', subtitle: profile.gender == 'male' ? l.male : l.female, color: AppColors.pink)),
                       ],
                     ),
-                    const SizedBox(height: 20),
-                    // ── Health Disclaimer ────────────
-                    Container(
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.03),
-                        borderRadius: BorderRadius.circular(26),
-                        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(CupertinoIcons.info_circle, color: AppColors.textTertiary, size: 14),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              l.healthDisclaimerBody,
-                              style: TextStyle(fontSize: 10, color: AppColors.textTertiary, height: 1.4),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+
+
                   ]),
                 ),
               ),

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:in_app_review/in_app_review.dart';
 
 import '../l10n/app_localizations.dart';
 import '../models/user_profile.dart';
@@ -13,7 +12,7 @@ import '../utils/constants.dart';
 import '../utils/localized_data.dart';
 import 'onboarding_screen.dart';
 import '../widgets/premium_paywall.dart';
-import '../widgets/xp_bar.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -54,13 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               // ── Header ──────────────────────────────
               SliverToBoxAdapter(
                 child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF0E0920), Color(0xFF040309)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                  ),
+                  color: AppColors.scaffold,
                   child: SafeArea(
                     bottom: false,
                     child: const Padding(
@@ -75,10 +68,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    // ── XP Bar ───────────────────────
-                    const XpBar(),
-                    const SizedBox(height: 14),
-
                     // ── Stats ─────────────────────────
                     GlassCard(
                       child: Column(
@@ -94,6 +83,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               const SizedBox(width: 10),
                               _StatBox(icon: CupertinoIcons.star_fill, label: l.achievementLabel, value: '${provider.earnedAchievementCount}/${achievements.length}', color: AppColors.warning),
                             ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    // ── Sosyal ───────────────────────
+                    GlassCard(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Column(
+                        children: [
+                          _MenuRow(
+                            icon: CupertinoIcons.star_fill,
+                            label: l.rateUs,
+                            subtitle: l.rateSubtitle,
+                            color: AppColors.warning,
+                            onTap: () async {
+                              const url = 'https://play.google.com/store/apps/details?id=com.glowup.boyuzatma_app';
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+                              }
+                            },
+                          ),
+                          _menuDivider(),
+                          _MenuRow(
+                            icon: CupertinoIcons.share,
+                            label: l.share,
+                            subtitle: l.shareSubtitle,
+                            color: AppColors.cyan,
+                            onTap: () {
+                              SharePlus.instance.share(
+                                ShareParams(text: l.shareText),
+                              );
+                            },
+                          ),
+                          _menuDivider(),
+                          _MenuRow(
+                            icon: CupertinoIcons.mail_solid,
+                            label: l.feedback,
+                            subtitle: l.feedbackSubtitle,
+                            color: AppColors.sleep,
+                            onTap: () async {
+                              final uri = Uri(scheme: 'mailto', path: 'contact.betaller@gmail.com', queryParameters: {'subject': l.emailSubject});
+                              if (await canLaunchUrl(uri)) {
+                                await launchUrl(uri);
+                              }
+                            },
                           ),
                         ],
                       ),
@@ -228,7 +264,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     const SizedBox(height: 14),
 
-                    // ── Ayarlar ──────────────────────
+                    // ── Hesap ────────────────────────
                     GlassCard(
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: Column(
@@ -241,36 +277,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTap: () => _showEditProfileSheet(context, provider, profile),
                           ),
                           _menuDivider(),
-                          _MenuToggleRow(
-                            icon: CupertinoIcons.bell_fill,
-                            label: l.notifications,
-                            subtitle: _notificationsEnabled ? l.notificationsOn : l.notificationsOff,
-                            color: AppColors.orange,
-                            value: _notificationsEnabled,
-                            onChanged: (val) async {
-                              await NotificationService().setEnabled(val);
-                              setState(() => _notificationsEnabled = val);
-                            },
-                          ),
-                          _menuDivider(),
-                          _MenuToggleRow(
-                            icon: CupertinoIcons.gift_fill,
-                            label: l.premiumTest,
-                            subtitle: provider.isPremium ? l.premiumActive : l.premiumFree,
-                            color: const Color(0xFFFFD700),
-                            value: provider.isPremium,
-                            onChanged: (val) => provider.setPremium(val),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-
-                    // ── Premium & Sosyal ─────────────
-                    GlassCard(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Column(
-                        children: [
                           _MenuRow(
                             icon: CupertinoIcons.gift_fill,
                             label: l.premium,
@@ -278,50 +284,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: const Color(0xFFFFD700),
                             onTap: () => showPremiumPaywall(context),
                           ),
-                          _menuDivider(),
-                          _MenuRow(
-                            icon: CupertinoIcons.star_fill,
-                            label: l.rateUs,
-                            subtitle: l.rateSubtitle,
-                            color: AppColors.warning,
-                            onTap: () async {
-                              const url = 'https://play.google.com/store/apps/details?id=com.glowup.boyuzatma_app';
-                              if (await canLaunchUrl(Uri.parse(url))) {
-                                await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-                              }
-                            },
-                          ),
-                          _menuDivider(),
-                          _MenuRow(
-                            icon: CupertinoIcons.share,
-                            label: l.share,
-                            subtitle: l.shareSubtitle,
-                            color: AppColors.cyan,
-                            onTap: () {
-                              SharePlus.instance.share(
-                                ShareParams(text: l.shareText),
-                              );
-                            },
-                          ),
-                          _menuDivider(),
-                          _MenuRow(
-                            icon: CupertinoIcons.mail_solid,
-                            label: l.feedback,
-                            subtitle: l.feedbackSubtitle,
-                            color: AppColors.sleep,
-                            onTap: () async {
-                              final uri = Uri(scheme: 'mailto', path: 'support@betaller.app', queryParameters: {'subject': l.emailSubject});
-                              if (await canLaunchUrl(uri)) {
-                                await launchUrl(uri);
-                              }
-                            },
-                          ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 14),
 
-                    // ── Diğer ────────────────────────
+                    // ── Uygulama ─────────────────────
                     GlassCard(
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: Column(
@@ -342,6 +310,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTap: () => provider.setUseImperial(!provider.useImperial),
                           ),
                           _menuDivider(),
+                          _MenuToggleRow(
+                            icon: CupertinoIcons.bell_fill,
+                            label: l.notifications,
+                            subtitle: _notificationsEnabled ? l.notificationsOn : l.notificationsOff,
+                            color: AppColors.orange,
+                            value: _notificationsEnabled,
+                            onChanged: (val) async {
+                              await NotificationService().setEnabled(val);
+                              setState(() => _notificationsEnabled = val);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    // ── Tehlike ──────────────────────
+                    GlassCard(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Column(
+                        children: [
                           _MenuRow(
                             icon: CupertinoIcons.trash,
                             label: l.resetData,
@@ -352,29 +341,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 14),
-                    // ── Health Disclaimer ────────────────
-                    GlassCard(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(CupertinoIcons.exclamationmark_shield_fill, color: AppColors.warning, size: 18),
-                              const SizedBox(width: 8),
-                              Text(l.healthDisclaimer, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.warning)),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            l.healthDisclaimerBody,
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: AppColors.textTertiary, height: 1.5),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 28),
                     // ── BeTaller Branding ────────────────
                     Center(
                       child: Column(
@@ -421,15 +388,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
-                          GestureDetector(
-                            onTap: () async {
-                              final review = InAppReview.instance;
-                              if (await review.isAvailable()) {
-                                await review.requestReview();
-                              }
-                            },
-                            child: Text(l.rateApp, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.primary)),
+                          const SizedBox(height: 16),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            child: Text(
+                              l.healthDisclaimerBody,
+                              style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.22), height: 1.5),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ],
                       ),

@@ -58,17 +58,11 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
               // ── Header ──────────────────────────────
               SliverToBoxAdapter(
                 child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF0E0920), Color(0xFF040309)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                  ),
+                  color: AppColors.scaffold,
                   child: SafeArea(
                     bottom: false,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+                      padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
                       child: Text(
                         l.progressTitle,
                         style: TextStyle(
