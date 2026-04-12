@@ -2456,129 +2456,397 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get sciSourcePrefix => 'Kaynak: ';
 
-  // ── v6 Home Screen ──
-  @override String get greetingAllDone => 'Harika iş! 🎯';
-  @override String get greetingAllDoneSub => 'Bugünkü görevlerini tamamladın.';
-  @override String greetingStreak30(int streak) => '$streak günlük seri — efsane seviyedesin.';
-  @override String greetingStreak7(int streak) => '$streak günlük seri — yoluna devam et.';
-  @override String greetingStreak3(int streak) => '$streak gün art arda. Çoğu kişi bıraktı. Sen bırakmadın.';
-  @override String get greetingMorning => 'Günaydın. Yeni bir gün, yeni bir fırsat.';
-  @override String get greetingAfternoon => 'Serine başlamak için bugün harika bir gün.';
-  @override String get greetingEvening => 'Görevleri tamamla, serine başla.';
-  @override String get todayCompleted => 'Bugün tamamlandı ✓';
-  @override String get todayGoals => 'Bugünkü hedefler';
-  @override String get challengesLabel => 'Görevler';
-  @override String get dailyChallengesLabel => 'GÜNLÜK GÖREVLER';
-  @override String get expiresTonight => 'Bu gece bitiyor';
-  @override String get allChallengesCompleted => 'Hepsi tamamlandı ✓';
-  @override String get challengesLoading => 'Yeni görevler yakında yükleniyor.';
-  @override String get challengesLoadingTitle => 'Günlük görevler';
-  @override String get behindPace => 'Geride kalıyorsun';
-  @override String get growthTracking => 'Büyüme takibi';
-  @override String get growthEmptyFirst => 'İlk boyunu kaydet, büyümeni takip et.';
-  @override String get growthEmptySecond => 'İkinci ölçümünü kaydet, grafiğini gör.';
-  @override String get growthSectionLabel => 'BÜYÜME';
-  @override String get generalPerformance => 'GENEL PERFORMANS';
-  @override String get exploreLabel => 'KEŞFET';
-  @override String get explorePosture => 'Postür Analizi';
-  @override String get explorePostureSub => 'Duruş analizi ve düzeltme önerileri';
-  @override String get explorePhotos => 'İlerleme Fotoğrafları';
-  @override String get explorePhotosSub => 'Değişimi fotoğraflarla takip et';
-  @override String get exploreNutrition => 'Beslenme';
-  @override String get exploreNutritionSub => 'Protein, kalsiyum ve vitamin rehberi';
-  @override String get exploreHealth => 'Sağlık Takibi';
-  @override String get exploreHealthSub => 'Stres, kafein ve wellness takibi';
-  @override String get exploreRecipes => 'Büyüme Tarifleri';
-  @override String get exploreRecipesSub => 'Büyümeyi destekleyen yemek tarifleri';
-  @override String get educationLabel => 'EĞİTİM';
-  @override String get educationTitle => 'Boy uzatma\nbilimi';
-  @override String get educationSubtitle => 'Uzman içerikler, araştırmalar ve rehberler';
-  @override String get aiAnalysisLabel => 'AI ANALİZ';
-  @override String get peerCompareLabel => 'AKRANLARLA KARŞILAŞTIR';
-  @override String peerCompareText(int topPct) => 'Akranlarının Top $topPct%\'ündesin';
+  @override
+  String get greetingAllDone => 'Harika iş! 🎯';
 
-  // ── v6 Notifications ──
-  @override String get notifWaterTitle => '💧 Su İçmeyi Unutma!';
-  @override String get notifWaterBody => 'Günlük su hedefine ulaştın mı? Bir bardak daha iç, metabolizmanı hızlandır!';
-  @override String get notifMorningTitle => '🌅 Günaydın! Egzersiz Vakti';
-  @override String get notifMorningBody => 'Sabah germe egzersizini yap! 10 dakika omurga ve bacak kaslarını esnet.';
-  @override String get notifRoutineTitle => '🔥 Rutinlerini Tamamla!';
-  @override String get notifRoutineBody => 'Gün bitmeden rutinlerini kontrol et. Seri yapmak = disiplin skoru artışı!';
-  @override String get notifProteinTitle => '🥚 Protein Günü!';
-  @override String get notifProteinBody => 'Haftaya güçlü başla! Her öğünde protein al. Yumurta, tavuk, balık, süt ürünleri.';
-  @override String get notifNewWeekTitle => '✨ Yeni Hafta, Yeni Hedefler!';
-  @override String get notifNewWeekBody => 'Bu hafta rutinlerini aksatma. Küçük adımlar büyük farklar yaratır!';
-  @override String get notifSleepTitle => '😴 Uyku Zamanı!';
-  @override String get notifSleepBody => 'Büyüme hormonu 22:00-02:00 arası en yüksek. Telefonunu bırak ve uyu!';
-  @override String get notifPostureTitle => '🧍 Duruş Kontrolü!';
-  @override String get notifPostureBody => 'Sırtını dik tut, omuzlarını geri çek. Doğru duruş = 2-3 cm fark yaratır!';
-  @override String get notifVitaminDTitle => '☀️ D Vitamini Zamanı!';
-  @override String get notifVitaminDBody => '15 dakika güneşlen! D vitamini kalsiyum emilimini artırır, kemik gelişimini hızlandırır.';
-  @override String get notifMidweekTitle => '✨ Yarı Yoldayız!';
-  @override String get notifMidweekBody => 'Haftanın ortası. Büyüme sabır ister ama düzenli olan kazanır. Devam et!';
-  @override String get notifScreenTitle => '📵 Ekranları Kapat!';
-  @override String get notifScreenBody => 'Yatmadan 1 saat önce ekranlardan uzaklaş. Mavi ışık melatonin üretimini engeller!';
-  @override String get notifJumpTitle => '🦘 Zıplama Vakti!';
-  @override String get notifJumpBody => 'Zıplama egzersizleri büyüme plakalarını uyarır. 3 set x 20 tekrar dene!';
-  @override String get notifCalciumTitle => '🥛 Kalsiyum Zamanı!';
-  @override String get notifCalciumBody => 'Bir bardak süt veya yoğurt tüket. Kalsiyum kemik gelişimi için kritik!';
-  @override String get notifPostureCheckTitle => '🧍 Duruş Kontrolü!';
-  @override String get notifPostureCheckBody => 'Telefona bakarken boynunu eğme! Omurgana dikkat, dik otur dik yürü.';
-  @override String get notifWeekendTitle => '✨ Hafta Sonu Motivasyonu';
-  @override String get notifWeekendBody => 'Hafta sonu da rutinlerini aksatma! Disiplin her gün geçerli. Sen yapabilirsin!';
-  @override String get notifWeeklyProgressTitle => '📊 Haftalık İlerleme';
-  @override String get notifWeeklyProgressBody => 'Bu haftayı nasıl geçirdin? İlerleme sayfandan büyüme grafiğini kontrol et!';
-  @override String get notifMeasureTitle => '📏 Haftalık Boy Ölçümü!';
-  @override String get notifMeasureBody => 'Boyunu ölç ve kaydet! Sabah ölçümü en doğru sonucu verir. Seni bekliyoruz!';
-  @override String get notifEarlySleepTitle => '😴 Erken Yat, Erken Kalk!';
-  @override String get notifEarlySleepBody => 'Yarın pazartesi! İyi bir uykuyla haftaya güçlü başla. Hedefin en az 8 saat.';
-  @override String get notifStreak3Title => '🔥 3 Gün Serisi!';
-  @override String get notifStreak3Body => 'Harika başlangıç! 3 gün üst üste tamamladın. Devam et, 7 güne ulaş!';
-  @override String get notifStreak7Title => '🏆 1 Hafta Serisi!';
-  @override String get notifStreak7Body => 'İnanılmaz! 7 gün üst üste tüm rutinleri tamamladın. Büyüme hormonun teşekkür ediyor!';
-  @override String get notifStreak14Title => '⭐ 2 Hafta Serisi!';
-  @override String get notifStreak14Body => '14 gün disiplin! Vücudun değişmeye başlıyor. Duruşun düzeliyor, kasların güçleniyor.';
-  @override String get notifStreak30Title => '👑 1 Ay Serisi!';
-  @override String get notifStreak30Body => '30 gün! Sen bir şampiyon! Bu disiplinle boyunu optimize etmeye devam edeceksin.';
-  @override String get notifStreak60Title => '🌟 60 Gün Serisi!';
-  @override String get notifStreak60Body => '60 gün! İnanılmaz bir başarı. Dünyada çok az kişi bu seviyeye ulaşır.';
-  @override String get notifStreak100Title => '💎 100 GÜN! EFSANEVİ!';
-  @override String get notifStreak100Body => '100 gün üst üste! Sen bir efsane oldun. Bu disiplin hayatını değiştirecek.';
-  @override String get notifStreakRiskTitle => '⚠️ Serini Kaybetme!';
-  @override String notifStreakRiskBody(int streak) => '$streak günlük serin tehlikede! Bugünkü rutinlerini tamamla, serini koru.';
+  @override
+  String get greetingAllDoneSub => 'Bugünkü görevlerini tamamladın.';
 
-  // ── v6 Premium Paywall ──
-  @override String get paywallStat1 => 'cm — senin potansiyelin kilitli';
-  @override String get paywallTitle1 => 'Kaç cm Daha\nUzayabilirsin?';
-  @override String get paywallBullet1a => 'Genetik tavanın hesaplandı, görmek ister misin?';
-  @override String get paywallBullet1b => 'Yaşam tarzın büyümeni nasıl etkiliyor?';
-  @override String get paywallBullet1c => 'Sana özel yol haritası seni bekliyor';
-  @override String get paywallStat2 => 'sana özel rutin hazır';
-  @override String get paywallTitle2 => 'Planın\nHazır';
-  @override String get paywallBullet2a => 'Her sabah 8 dakika — omurgan için tasarlandı';
-  @override String get paywallBullet2b => 'Uyku, beslenme, su — hepsi takip altında';
-  @override String get paywallBullet2c => 'Her gün bir adım daha, seri kırılmasın';
-  @override String get paywallStat3 => 'gerçek zamanlı ilerleme grafiklerin';
-  @override String get paywallTitle3 => 'Büyümeni\nTakip Et';
-  @override String get paywallBullet3a => 'Aylık ölçüm — büyümeni kendi gözlerinle gör';
-  @override String get paywallBullet3b => 'Postür analizi ile şu an bile 2 cm kazan';
-  @override String get paywallBullet3c => 'İlerleme fotoğrafları — farkı net göreceksin';
-  @override String get paywallStat4 => 'günlük program — seviye atlıyor';
-  @override String get paywallTitle4 => 'Her Gün\nDaha Güçlü';
-  @override String get paywallBullet4a => 'XP kazan, seviyeleri aç — alışkanlık oyuna döner';
-  @override String get paywallBullet4b => 'Hedefine ulaşanlar buradan geçti';
-  @override String get paywallBullet4c => 'Sen de başla — ilk hafta ücretsiz';
-  @override String get paywallRestore => 'Daha önce yapılmış bir satın alma bulunamadı';
-  @override String get paywallRestoreNotFound => 'Daha önce yapılmış bir satın alma bulunamadı';
-  @override String get paywallRestoreLabel => 'Satın Alımları Geri Yükle';
-  @override String get paywallYearly => 'Yıllık';
-  @override String get paywallBestValue => 'En iyi değer';
-  @override String get paywallMonthly => 'Aylık';
-  @override String get paywallFreeTrial => '3 gün ücretsiz';
-  @override String get paywallLoadError => 'Şu an satın alma yüklenemedi, tekrar dene';
-  @override String get paywallCta => 'Ücretsiz Dene';
-  @override String get paywallCtaAlt => 'Devam Et';
-  @override String get paywallTrialDisclaimer => '3 gün ücretsiz · sonra otomatik yenilenir · istediğin zaman iptal et';
-  @override String get paywallYearlyDisclaimer => 'Yıllık otomatik yenilenir · istediğin zaman iptal et';
-  @override String get paywallTester => 'Tester';
+  @override
+  String greetingStreak30(int streak) {
+    return '$streak günlük seri — efsane seviyedesin.';
+  }
+
+  @override
+  String greetingStreak7(int streak) {
+    return '$streak günlük seri — yoluna devam et.';
+  }
+
+  @override
+  String greetingStreak3(int streak) {
+    return '$streak gün art arda. Çoğu kişi bıraktı. Sen bırakmadın.';
+  }
+
+  @override
+  String get greetingMorning => 'Günaydın. Yeni bir gün, yeni bir fırsat.';
+
+  @override
+  String get greetingAfternoon => 'Serine başlamak için bugün harika bir gün.';
+
+  @override
+  String get greetingEvening => 'Görevleri tamamla, serine başla.';
+
+  @override
+  String get todayCompleted => 'Bugün tamamlandı ✓';
+
+  @override
+  String get todayGoals => 'Bugünkü hedefler';
+
+  @override
+  String get challengesLabel => 'Görevler';
+
+  @override
+  String get dailyChallengesLabel => 'GÜNLÜK GÖREVLER';
+
+  @override
+  String get expiresTonight => 'Bu gece bitiyor';
+
+  @override
+  String get allChallengesCompleted => 'Hepsi tamamlandı ✓';
+
+  @override
+  String get challengesLoading => 'Yeni görevler yakında yükleniyor.';
+
+  @override
+  String get challengesLoadingTitle => 'Günlük görevler';
+
+  @override
+  String get behindPace => 'Geride kalıyorsun';
+
+  @override
+  String get growthTracking => 'Büyüme takibi';
+
+  @override
+  String get growthEmptyFirst => 'İlk boyunu kaydet, büyümeni takip et.';
+
+  @override
+  String get growthEmptySecond => 'İkinci ölçümünü kaydet, grafiğini gör.';
+
+  @override
+  String get growthSectionLabel => 'BÜYÜME';
+
+  @override
+  String get generalPerformance => 'GENEL PERFORMANS';
+
+  @override
+  String get exploreLabel => 'KEŞFET';
+
+  @override
+  String get explorePosture => 'Postür Analizi';
+
+  @override
+  String get explorePostureSub => 'Duruş analizi ve düzeltme önerileri';
+
+  @override
+  String get explorePhotos => 'İlerleme Fotoğrafları';
+
+  @override
+  String get explorePhotosSub => 'Değişimi fotoğraflarla takip et';
+
+  @override
+  String get exploreNutrition => 'Beslenme';
+
+  @override
+  String get exploreNutritionSub => 'Protein, kalsiyum ve vitamin rehberi';
+
+  @override
+  String get exploreHealth => 'Sağlık Takibi';
+
+  @override
+  String get exploreHealthSub => 'Stres, kafein ve wellness takibi';
+
+  @override
+  String get exploreRecipes => 'Büyüme Tarifleri';
+
+  @override
+  String get exploreRecipesSub => 'Büyümeyi destekleyen yemek tarifleri';
+
+  @override
+  String get educationLabel => 'EĞİTİM';
+
+  @override
+  String get educationTitle => 'Boy uzatma\nbilimi';
+
+  @override
+  String get educationSubtitle => 'Uzman içerikler, araştırmalar ve rehberler';
+
+  @override
+  String get aiAnalysisLabel => 'AI ANALİZ';
+
+  @override
+  String get peerCompareLabel => 'AKRANLARLA KARŞILAŞTIR';
+
+  @override
+  String peerCompareText(int topPct) {
+    return 'Akranlarının Top $topPct%\'ündesin';
+  }
+
+  @override
+  String get notifWaterTitle => '💧 Su İçmeyi Unutma!';
+
+  @override
+  String get notifWaterBody =>
+      'Günlük su hedefine ulaştın mı? Bir bardak daha iç!';
+
+  @override
+  String get notifMorningTitle => '🌅 Günaydın! Egzersiz Vakti';
+
+  @override
+  String get notifMorningBody =>
+      'Sabah germe egzersizini yap! 10 dakika omurga ve bacak kaslarını esnet.';
+
+  @override
+  String get notifRoutineTitle => '🔥 Rutinlerini Tamamla!';
+
+  @override
+  String get notifRoutineBody =>
+      'Gün bitmeden rutinlerini kontrol et. Seri yapmak = disiplin!';
+
+  @override
+  String get notifProteinTitle => '🥚 Protein Günü!';
+
+  @override
+  String get notifProteinBody => 'Haftaya güçlü başla! Her öğünde protein al.';
+
+  @override
+  String get notifNewWeekTitle => '✨ Yeni Hafta, Yeni Hedefler!';
+
+  @override
+  String get notifNewWeekBody =>
+      'Bu hafta rutinlerini aksatma. Küçük adımlar büyük farklar yaratır!';
+
+  @override
+  String get notifSleepTitle => '😴 Uyku Zamanı!';
+
+  @override
+  String get notifSleepBody =>
+      'Büyüme hormonu 22:00-02:00 arası en yüksek. Telefonunu bırak ve uyu!';
+
+  @override
+  String get notifPostureTitle => '🧍 Duruş Kontrolü!';
+
+  @override
+  String get notifPostureBody =>
+      'Sırtını dik tut, omuzlarını geri çek. Doğru duruş = 2-3 cm fark!';
+
+  @override
+  String get notifVitaminDTitle => '☀️ D Vitamini Zamanı!';
+
+  @override
+  String get notifVitaminDBody =>
+      '15 dakika güneşlen! D vitamini kalsiyum emilimini artırır.';
+
+  @override
+  String get notifMidweekTitle => '✨ Yarı Yoldayız!';
+
+  @override
+  String get notifMidweekBody =>
+      'Haftanın ortası. Büyüme sabır ister ama düzenli olan kazanır!';
+
+  @override
+  String get notifScreenTitle => '📵 Ekranları Kapat!';
+
+  @override
+  String get notifScreenBody =>
+      'Yatmadan 1 saat önce ekranlardan uzaklaş. Mavi ışık melatonin üretimini engeller!';
+
+  @override
+  String get notifJumpTitle => '🦘 Zıplama Vakti!';
+
+  @override
+  String get notifJumpBody =>
+      'Zıplama egzersizleri büyüme plakalarını uyarır. 3 set x 20 tekrar dene!';
+
+  @override
+  String get notifCalciumTitle => '🥛 Kalsiyum Zamanı!';
+
+  @override
+  String get notifCalciumBody =>
+      'Bir bardak süt veya yoğurt tüket. Kalsiyum kemik gelişimi için kritik!';
+
+  @override
+  String get notifPostureCheckTitle => '🧍 Duruş Kontrolü!';
+
+  @override
+  String get notifPostureCheckBody =>
+      'Telefona bakarken boynunu eğme! Dik otur dik yürü.';
+
+  @override
+  String get notifWeekendTitle => '✨ Hafta Sonu Motivasyonu';
+
+  @override
+  String get notifWeekendBody =>
+      'Hafta sonu da rutinlerini aksatma! Disiplin her gün geçerli.';
+
+  @override
+  String get notifWeeklyProgressTitle => '📊 Haftalık İlerleme';
+
+  @override
+  String get notifWeeklyProgressBody =>
+      'Bu haftayı nasıl geçirdin? Büyüme grafiğini kontrol et!';
+
+  @override
+  String get notifMeasureTitle => '📏 Haftalık Boy Ölçümü!';
+
+  @override
+  String get notifMeasureBody =>
+      'Boyunu ölç ve kaydet! Sabah ölçümü en doğru sonucu verir.';
+
+  @override
+  String get notifEarlySleepTitle => '😴 Erken Yat, Erken Kalk!';
+
+  @override
+  String get notifEarlySleepBody =>
+      'Yarın pazartesi! İyi bir uykuyla haftaya güçlü başla.';
+
+  @override
+  String get notifStreak3Title => '🔥 3 Gün Serisi!';
+
+  @override
+  String get notifStreak3Body =>
+      'Harika başlangıç! 3 gün üst üste tamamladın. Devam et!';
+
+  @override
+  String get notifStreak7Title => '🏆 1 Hafta Serisi!';
+
+  @override
+  String get notifStreak7Body =>
+      'İnanılmaz! 7 gün üst üste tüm rutinleri tamamladın!';
+
+  @override
+  String get notifStreak14Title => '⭐ 2 Hafta Serisi!';
+
+  @override
+  String get notifStreak14Body =>
+      '14 gün disiplin! Vücudun değişmeye başlıyor.';
+
+  @override
+  String get notifStreak30Title => '👑 1 Ay Serisi!';
+
+  @override
+  String get notifStreak30Body => '30 gün! Sen bir şampiyon!';
+
+  @override
+  String get notifStreak60Title => '🌟 60 Gün Serisi!';
+
+  @override
+  String get notifStreak60Body => '60 gün! İnanılmaz bir başarı.';
+
+  @override
+  String get notifStreak100Title => '💎 100 GÜN! EFSANEVİ!';
+
+  @override
+  String get notifStreak100Body => '100 gün üst üste! Sen bir efsane oldun.';
+
+  @override
+  String get notifStreakRiskTitle => '⚠️ Serini Kaybetme!';
+
+  @override
+  String notifStreakRiskBody(int streak) {
+    return '$streak günlük serin tehlikede! Rutinlerini tamamla.';
+  }
+
+  @override
+  String get paywallStat1 => 'cm — senin potansiyelin kilitli';
+
+  @override
+  String get paywallTitle1 => 'Kaç cm Daha\nUzayabilirsin?';
+
+  @override
+  String get paywallBullet1a =>
+      'Genetik tavanın hesaplandı, görmek ister misin?';
+
+  @override
+  String get paywallBullet1b => 'Yaşam tarzın büyümeni nasıl etkiliyor?';
+
+  @override
+  String get paywallBullet1c => 'Sana özel yol haritası seni bekliyor';
+
+  @override
+  String get paywallStat2 => 'sana özel rutin hazır';
+
+  @override
+  String get paywallTitle2 => 'Planın\nHazır';
+
+  @override
+  String get paywallBullet2a => 'Her sabah 8 dakika — omurgan için tasarlandı';
+
+  @override
+  String get paywallBullet2b => 'Uyku, beslenme, su — hepsi takip altında';
+
+  @override
+  String get paywallBullet2c => 'Her gün bir adım daha, seri kırılmasın';
+
+  @override
+  String get paywallStat3 => 'gerçek zamanlı ilerleme grafiklerin';
+
+  @override
+  String get paywallTitle3 => 'Büyümeni\nTakip Et';
+
+  @override
+  String get paywallBullet3a => 'Aylık ölçüm — büyümeni kendi gözlerinle gör';
+
+  @override
+  String get paywallBullet3b => 'Postür analizi ile şu an bile 2 cm kazan';
+
+  @override
+  String get paywallBullet3c => 'İlerleme fotoğrafları — farkı net göreceksin';
+
+  @override
+  String get paywallStat4 => 'günlük program — seviye atlıyor';
+
+  @override
+  String get paywallTitle4 => 'Her Gün\nDaha Güçlü';
+
+  @override
+  String get paywallBullet4a =>
+      'XP kazan, seviyeleri aç — alışkanlık oyuna döner';
+
+  @override
+  String get paywallBullet4b => 'Hedefine ulaşanlar buradan geçti';
+
+  @override
+  String get paywallBullet4c => 'Sen de başla — ilk hafta ücretsiz';
+
+  @override
+  String get paywallRestore => 'Daha önce yapılmış bir satın alma bulunamadı';
+
+  @override
+  String get paywallRestoreNotFound =>
+      'Daha önce yapılmış bir satın alma bulunamadı';
+
+  @override
+  String get paywallRestoreLabel => 'Satın Alımları Geri Yükle';
+
+  @override
+  String get paywallYearly => 'Yıllık';
+
+  @override
+  String get paywallBestValue => 'En iyi değer';
+
+  @override
+  String get paywallMonthly => 'Aylık';
+
+  @override
+  String get paywallFreeTrial => '3 gün ücretsiz';
+
+  @override
+  String get paywallLoadError => 'Satın alma yüklenemedi, tekrar dene';
+
+  @override
+  String get paywallCta => 'Ücretsiz Dene';
+
+  @override
+  String get paywallCtaAlt => 'Devam Et';
+
+  @override
+  String get paywallTrialDisclaimer =>
+      '3 gün ücretsiz · sonra otomatik yenilenir · istediğin zaman iptal et';
+
+  @override
+  String get paywallYearlyDisclaimer =>
+      'Yıllık otomatik yenilenir · istediğin zaman iptal et';
+
+  @override
+  String get paywallTester => 'Tester';
 }

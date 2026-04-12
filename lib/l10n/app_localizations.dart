@@ -4537,125 +4537,725 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Source: '**
   String get sciSourcePrefix;
+
+  /// No description provided for @greetingAllDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Great job! 🎯'**
   String get greetingAllDone;
+
+  /// No description provided for @greetingAllDoneSub.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve completed today\'s tasks.'**
   String get greetingAllDoneSub;
+
+  /// No description provided for @greetingStreak30.
+  ///
+  /// In en, this message translates to:
+  /// **'{streak} day streak — legendary level.'**
   String greetingStreak30(int streak);
+
+  /// No description provided for @greetingStreak7.
+  ///
+  /// In en, this message translates to:
+  /// **'{streak} day streak — keep it up.'**
   String greetingStreak7(int streak);
+
+  /// No description provided for @greetingStreak3.
+  ///
+  /// In en, this message translates to:
+  /// **'{streak} days in a row. Most people quit. You didn\'t.'**
   String greetingStreak3(int streak);
+
+  /// No description provided for @greetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning. A new day, a new chance.'**
   String get greetingMorning;
+
+  /// No description provided for @greetingAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Today is a great day to start your streak.'**
   String get greetingAfternoon;
+
+  /// No description provided for @greetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your tasks, start your streak.'**
   String get greetingEvening;
+
+  /// No description provided for @todayCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Today completed ✓'**
   String get todayCompleted;
+
+  /// No description provided for @todayGoals.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s goals'**
   String get todayGoals;
+
+  /// No description provided for @challengesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenges'**
   String get challengesLabel;
+
+  /// No description provided for @dailyChallengesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DAILY CHALLENGES'**
   String get dailyChallengesLabel;
+
+  /// No description provided for @expiresTonight.
+  ///
+  /// In en, this message translates to:
+  /// **'Expires tonight'**
   String get expiresTonight;
+
+  /// No description provided for @allChallengesCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'All completed ✓'**
   String get allChallengesCompleted;
+
+  /// No description provided for @challengesLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'New challenges loading soon.'**
   String get challengesLoading;
+
+  /// No description provided for @challengesLoadingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily challenges'**
   String get challengesLoadingTitle;
+
+  /// No description provided for @behindPace.
+  ///
+  /// In en, this message translates to:
+  /// **'Behind pace'**
   String get behindPace;
+
+  /// No description provided for @growthTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth tracking'**
   String get growthTracking;
+
+  /// No description provided for @growthEmptyFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Log your first height to start tracking.'**
   String get growthEmptyFirst;
+
+  /// No description provided for @growthEmptySecond.
+  ///
+  /// In en, this message translates to:
+  /// **'Log your second measurement to see your chart.'**
   String get growthEmptySecond;
+
+  /// No description provided for @growthSectionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'GROWTH'**
   String get growthSectionLabel;
+
+  /// No description provided for @generalPerformance.
+  ///
+  /// In en, this message translates to:
+  /// **'OVERALL PERFORMANCE'**
   String get generalPerformance;
+
+  /// No description provided for @exploreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'EXPLORE'**
   String get exploreLabel;
+
+  /// No description provided for @explorePosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture Analysis'**
   String get explorePosture;
+
+  /// No description provided for @explorePostureSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture analysis and correction tips'**
   String get explorePostureSub;
+
+  /// No description provided for @explorePhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress Photos'**
   String get explorePhotos;
+
+  /// No description provided for @explorePhotosSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your transformation with photos'**
   String get explorePhotosSub;
+
+  /// No description provided for @exploreNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition'**
   String get exploreNutrition;
+
+  /// No description provided for @exploreNutritionSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein, calcium and vitamin guide'**
   String get exploreNutritionSub;
+
+  /// No description provided for @exploreHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Tracking'**
   String get exploreHealth;
+
+  /// No description provided for @exploreHealthSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Stress, caffeine and wellness tracking'**
   String get exploreHealthSub;
+
+  /// No description provided for @exploreRecipes.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth Recipes'**
   String get exploreRecipes;
+
+  /// No description provided for @exploreRecipesSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipes that support growth'**
   String get exploreRecipesSub;
+
+  /// No description provided for @educationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'EDUCATION'**
   String get educationLabel;
+
+  /// No description provided for @educationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Height growth\nscience'**
   String get educationTitle;
+
+  /// No description provided for @educationSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Expert content, research and guides'**
   String get educationSubtitle;
+
+  /// No description provided for @aiAnalysisLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'AI ANALYSIS'**
   String get aiAnalysisLabel;
+
+  /// No description provided for @peerCompareLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'COMPARE WITH PEERS'**
   String get peerCompareLabel;
+
+  /// No description provided for @peerCompareText.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re in the Top {topPct}% of your peers'**
   String peerCompareText(int topPct);
+
+  /// No description provided for @notifWaterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'💧 Don\'t Forget to Drink Water!'**
   String get notifWaterTitle;
+
+  /// No description provided for @notifWaterBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you reached your daily water goal? Drink another glass!'**
   String get notifWaterBody;
+
+  /// No description provided for @notifMorningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🌅 Good Morning! Exercise Time'**
   String get notifMorningTitle;
+
+  /// No description provided for @notifMorningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Do your morning stretching! 10 minutes of spine and leg stretches.'**
   String get notifMorningBody;
+
+  /// No description provided for @notifRoutineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🔥 Complete Your Routines!'**
   String get notifRoutineTitle;
+
+  /// No description provided for @notifRoutineBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your routines before the day ends. Streak = discipline!'**
   String get notifRoutineBody;
+
+  /// No description provided for @notifProteinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🥚 Protein Day!'**
   String get notifProteinTitle;
+
+  /// No description provided for @notifProteinBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the week strong! Get protein every meal.'**
   String get notifProteinBody;
+
+  /// No description provided for @notifNewWeekTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'✨ New Week, New Goals!'**
   String get notifNewWeekTitle;
+
+  /// No description provided for @notifNewWeekBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t skip routines this week. Small steps, big differences!'**
   String get notifNewWeekBody;
+
+  /// No description provided for @notifSleepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'😴 Sleep Time!'**
   String get notifSleepTitle;
+
+  /// No description provided for @notifSleepBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth hormone peaks between 10PM-2AM. Put your phone down!'**
   String get notifSleepBody;
+
+  /// No description provided for @notifPostureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🧍 Posture Check!'**
   String get notifPostureTitle;
+
+  /// No description provided for @notifPostureBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Back straight, shoulders back. Good posture = 2-3 cm difference!'**
   String get notifPostureBody;
+
+  /// No description provided for @notifVitaminDTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'☀️ Vitamin D Time!'**
   String get notifVitaminDTitle;
+
+  /// No description provided for @notifVitaminDBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Get 15 minutes of sun! Vitamin D boosts calcium absorption.'**
   String get notifVitaminDBody;
+
+  /// No description provided for @notifMidweekTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'✨ Halfway There!'**
   String get notifMidweekTitle;
+
+  /// No description provided for @notifMidweekBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Midweek check. Growth takes patience but consistency wins!'**
   String get notifMidweekBody;
+
+  /// No description provided for @notifScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'📵 Screens Off!'**
   String get notifScreenTitle;
+
+  /// No description provided for @notifScreenBody.
+  ///
+  /// In en, this message translates to:
+  /// **'No screens 1 hour before bed. Blue light blocks melatonin!'**
   String get notifScreenBody;
+
+  /// No description provided for @notifJumpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🦘 Jump Time!'**
   String get notifJumpTitle;
+
+  /// No description provided for @notifJumpBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumping exercises stimulate growth plates. Try 3 x 20 reps!'**
   String get notifJumpBody;
+
+  /// No description provided for @notifCalciumTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🥛 Calcium Time!'**
   String get notifCalciumTitle;
+
+  /// No description provided for @notifCalciumBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A glass of milk or yogurt. Calcium is critical for bones!'**
   String get notifCalciumBody;
+
+  /// No description provided for @notifPostureCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🧍 Posture Check!'**
   String get notifPostureCheckTitle;
+
+  /// No description provided for @notifPostureCheckBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t tilt your neck at your phone! Sit and walk tall.'**
   String get notifPostureCheckBody;
+
+  /// No description provided for @notifWeekendTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'✨ Weekend Motivation'**
   String get notifWeekendTitle;
+
+  /// No description provided for @notifWeekendBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t skip routines on weekends! Discipline applies every day.'**
   String get notifWeekendBody;
+
+  /// No description provided for @notifWeeklyProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'📊 Weekly Progress'**
   String get notifWeeklyProgressTitle;
+
+  /// No description provided for @notifWeeklyProgressBody.
+  ///
+  /// In en, this message translates to:
+  /// **'How was your week? Check your growth chart!'**
   String get notifWeeklyProgressBody;
+
+  /// No description provided for @notifMeasureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'📏 Weekly Measurement!'**
   String get notifMeasureTitle;
+
+  /// No description provided for @notifMeasureBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure and log your height! Morning measurements are most accurate.'**
   String get notifMeasureBody;
+
+  /// No description provided for @notifEarlySleepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'😴 Early to Bed!'**
   String get notifEarlySleepTitle;
+
+  /// No description provided for @notifEarlySleepBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow is Monday! Start the week strong with good sleep.'**
   String get notifEarlySleepBody;
+
+  /// No description provided for @notifStreak3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'🔥 3 Day Streak!'**
   String get notifStreak3Title;
+
+  /// No description provided for @notifStreak3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Great start! 3 days in a row. Keep going to 7!'**
   String get notifStreak3Body;
+
+  /// No description provided for @notifStreak7Title.
+  ///
+  /// In en, this message translates to:
+  /// **'🏆 1 Week Streak!'**
   String get notifStreak7Title;
+
+  /// No description provided for @notifStreak7Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Incredible! 7 consecutive days of completed routines!'**
   String get notifStreak7Body;
+
+  /// No description provided for @notifStreak14Title.
+  ///
+  /// In en, this message translates to:
+  /// **'⭐ 2 Week Streak!'**
   String get notifStreak14Title;
+
+  /// No description provided for @notifStreak14Body.
+  ///
+  /// In en, this message translates to:
+  /// **'14 days of discipline! Your body is starting to change.'**
   String get notifStreak14Body;
+
+  /// No description provided for @notifStreak30Title.
+  ///
+  /// In en, this message translates to:
+  /// **'👑 1 Month Streak!'**
   String get notifStreak30Title;
+
+  /// No description provided for @notifStreak30Body.
+  ///
+  /// In en, this message translates to:
+  /// **'30 days! You\'re a champion!'**
   String get notifStreak30Body;
+
+  /// No description provided for @notifStreak60Title.
+  ///
+  /// In en, this message translates to:
+  /// **'🌟 60 Day Streak!'**
   String get notifStreak60Title;
+
+  /// No description provided for @notifStreak60Body.
+  ///
+  /// In en, this message translates to:
+  /// **'60 days! An incredible achievement.'**
   String get notifStreak60Body;
+
+  /// No description provided for @notifStreak100Title.
+  ///
+  /// In en, this message translates to:
+  /// **'💎 100 DAYS! LEGENDARY!'**
   String get notifStreak100Title;
+
+  /// No description provided for @notifStreak100Body.
+  ///
+  /// In en, this message translates to:
+  /// **'100 days in a row! You\'ve become a legend.'**
   String get notifStreak100Body;
+
+  /// No description provided for @notifStreakRiskTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ Don\'t Lose Your Streak!'**
   String get notifStreakRiskTitle;
+
+  /// No description provided for @notifStreakRiskBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your {streak} day streak is at risk! Complete your routines.'**
   String notifStreakRiskBody(int streak);
+
+  /// No description provided for @paywallStat1.
+  ///
+  /// In en, this message translates to:
+  /// **'cm — your potential is locked'**
   String get paywallStat1;
+
+  /// No description provided for @paywallTitle1.
+  ///
+  /// In en, this message translates to:
+  /// **'How Many cm\nCan You Grow?'**
   String get paywallTitle1;
+
+  /// No description provided for @paywallBullet1a.
+  ///
+  /// In en, this message translates to:
+  /// **'Your genetic ceiling has been calculated, want to see it?'**
   String get paywallBullet1a;
+
+  /// No description provided for @paywallBullet1b.
+  ///
+  /// In en, this message translates to:
+  /// **'How does your lifestyle affect your growth?'**
   String get paywallBullet1b;
+
+  /// No description provided for @paywallBullet1c.
+  ///
+  /// In en, this message translates to:
+  /// **'Your personalized roadmap awaits'**
   String get paywallBullet1c;
+
+  /// No description provided for @paywallStat2.
+  ///
+  /// In en, this message translates to:
+  /// **'your custom routine is ready'**
   String get paywallStat2;
+
+  /// No description provided for @paywallTitle2.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Plan\nis Ready'**
   String get paywallTitle2;
+
+  /// No description provided for @paywallBullet2a.
+  ///
+  /// In en, this message translates to:
+  /// **'8 minutes every morning — designed for your spine'**
   String get paywallBullet2a;
+
+  /// No description provided for @paywallBullet2b.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep, nutrition, water — all tracked'**
   String get paywallBullet2b;
+
+  /// No description provided for @paywallBullet2c.
+  ///
+  /// In en, this message translates to:
+  /// **'One step closer every day, don\'t break the streak'**
   String get paywallBullet2c;
+
+  /// No description provided for @paywallStat3.
+  ///
+  /// In en, this message translates to:
+  /// **'real-time progress charts'**
   String get paywallStat3;
+
+  /// No description provided for @paywallTitle3.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Your\nGrowth'**
   String get paywallTitle3;
+
+  /// No description provided for @paywallBullet3a.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly measurements — see your growth with your own eyes'**
   String get paywallBullet3a;
+
+  /// No description provided for @paywallBullet3b.
+  ///
+  /// In en, this message translates to:
+  /// **'Gain 2 cm right now with posture analysis'**
   String get paywallBullet3b;
+
+  /// No description provided for @paywallBullet3c.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress photos — you\'ll see the difference'**
   String get paywallBullet3c;
+
+  /// No description provided for @paywallStat4.
+  ///
+  /// In en, this message translates to:
+  /// **'daily program — leveling up'**
   String get paywallStat4;
+
+  /// No description provided for @paywallTitle4.
+  ///
+  /// In en, this message translates to:
+  /// **'Stronger\nEvery Day'**
   String get paywallTitle4;
+
+  /// No description provided for @paywallBullet4a.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn XP, unlock levels — habits become a game'**
   String get paywallBullet4a;
+
+  /// No description provided for @paywallBullet4b.
+  ///
+  /// In en, this message translates to:
+  /// **'Those who reached their goal came through here'**
   String get paywallBullet4b;
+
+  /// No description provided for @paywallBullet4c.
+  ///
+  /// In en, this message translates to:
+  /// **'Start now — first week free'**
   String get paywallBullet4c;
+
+  /// No description provided for @paywallRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'No previous purchase found'**
   String get paywallRestore;
+
+  /// No description provided for @paywallRestoreNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No previous purchase found'**
   String get paywallRestoreNotFound;
+
+  /// No description provided for @paywallRestoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Purchases'**
   String get paywallRestoreLabel;
+
+  /// No description provided for @paywallYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly'**
   String get paywallYearly;
+
+  /// No description provided for @paywallBestValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Best value'**
   String get paywallBestValue;
+
+  /// No description provided for @paywallMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
   String get paywallMonthly;
+
+  /// No description provided for @paywallFreeTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'3 days free'**
   String get paywallFreeTrial;
+
+  /// No description provided for @paywallLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load purchase options, try again'**
   String get paywallLoadError;
+
+  /// No description provided for @paywallCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Free'**
   String get paywallCta;
+
+  /// No description provided for @paywallCtaAlt.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
   String get paywallCtaAlt;
+
+  /// No description provided for @paywallTrialDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'3 days free · then auto-renews · cancel anytime'**
   String get paywallTrialDisclaimer;
+
+  /// No description provided for @paywallYearlyDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-renews yearly · cancel anytime'**
   String get paywallYearlyDisclaimer;
+
+  /// No description provided for @paywallTester.
+  ///
+  /// In en, this message translates to:
+  /// **'Tester'**
   String get paywallTester;
 }
 

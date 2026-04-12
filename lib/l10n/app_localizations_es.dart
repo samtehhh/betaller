@@ -2474,127 +2474,377 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get sciSourcePrefix => 'Source: ';
 
-  // ── v6 Home Screen ──
-  @override String get greetingAllDone => '¡Gran trabajo! 🎯';
-  @override String get greetingAllDoneSub => 'Has completado las tareas de hoy.';
-  @override String greetingStreak30(int streak) => 'Racha de $streak días — nivel legendario.';
-  @override String greetingStreak7(int streak) => 'Racha de $streak días — sigue así.';
-  @override String greetingStreak3(int streak) => '$streak días seguidos. La mayoría abandona. Tú no.';
-  @override String get greetingMorning => 'Buenos días. Un nuevo día, una nueva oportunidad.';
-  @override String get greetingAfternoon => 'Hoy es un gran día para empezar tu racha.';
-  @override String get greetingEvening => 'Completa tus tareas, inicia tu racha.';
-  @override String get todayCompleted => 'Hoy completado ✓';
-  @override String get todayGoals => 'Objetivos de hoy';
-  @override String get challengesLabel => 'Desafíos';
-  @override String get dailyChallengesLabel => 'DESAFÍOS DIARIOS';
-  @override String get expiresTonight => 'Expira esta noche';
-  @override String get allChallengesCompleted => 'Todos completados ✓';
-  @override String get challengesLoading => 'Nuevos desafíos cargando pronto.';
-  @override String get challengesLoadingTitle => 'Desafíos diarios';
-  @override String get behindPace => 'Vas atrasado';
-  @override String get growthTracking => 'Seguimiento de crecimiento';
-  @override String get growthEmptyFirst => 'Registra tu primera altura.';
-  @override String get growthEmptySecond => 'Añade una 2ª medición para ver el gráfico.';
-  @override String get growthSectionLabel => 'CRECIMIENTO';
-  @override String get generalPerformance => 'RENDIMIENTO GENERAL';
-  @override String get exploreLabel => 'EXPLORAR';
-  @override String get explorePosture => 'Análisis postural';
-  @override String get explorePostureSub => 'Análisis y consejos de corrección postural';
-  @override String get explorePhotos => 'Fotos de progreso';
-  @override String get explorePhotosSub => 'Sigue tu transformación con fotos';
-  @override String get exploreNutrition => 'Nutrición';
-  @override String get exploreNutritionSub => 'Guía de proteínas, calcio y vitaminas';
-  @override String get exploreHealth => 'Seguimiento de salud';
-  @override String get exploreHealthSub => 'Seguimiento de estrés, cafeína y bienestar';
-  @override String get exploreRecipes => 'Recetas de crecimiento';
-  @override String get exploreRecipesSub => 'Recetas que apoyan el crecimiento';
-  @override String get educationLabel => 'EDUCACIÓN';
-  @override String get educationTitle => 'Ciencia del\ncrecimiento';
-  @override String get educationSubtitle => 'Contenido experto, investigación y guías';
-  @override String get aiAnalysisLabel => 'ANÁLISIS IA';
-  @override String get peerCompareLabel => 'COMPARAR CON TUS PARES';
-  @override String peerCompareText(int topPct) => 'Estás en el Top $topPct% de tus compañeros';
-  // ── v6 Notifications ──
-  @override String get notifWaterTitle => '💧 ¡No olvides beber agua!';
-  @override String get notifWaterBody => '¿Has alcanzado tu meta diaria? ¡Bebe otro vaso!';
-  @override String get notifMorningTitle => '🌅 ¡Buenos días! Hora de ejercitar';
-  @override String get notifMorningBody => '¡Haz tus estiramientos matutinos! 10 minutos para columna y piernas.';
-  @override String get notifRoutineTitle => '🔥 ¡Completa tus rutinas!';
-  @override String get notifRoutineBody => 'Revisa tus rutinas antes de que termine el día. ¡Racha = disciplina!';
-  @override String get notifProteinTitle => '🥚 ¡Día de proteínas!';
-  @override String get notifProteinBody => '¡Empieza la semana fuerte! Proteína en cada comida.';
-  @override String get notifNewWeekTitle => '✨ ¡Nueva semana, nuevas metas!';
-  @override String get notifNewWeekBody => 'No te saltes las rutinas esta semana. ¡Pequeños pasos, grandes cambios!';
-  @override String get notifSleepTitle => '😴 ¡Hora de dormir!';
-  @override String get notifSleepBody => 'La hormona del crecimiento alcanza su máximo entre 22h-2h. ¡Deja el teléfono!';
-  @override String get notifPostureTitle => '🧍 ¡Control de postura!';
-  @override String get notifPostureBody => 'Espalda recta, hombros hacia atrás. ¡Buena postura = 2-3 cm de diferencia!';
-  @override String get notifVitaminDTitle => '☀️ ¡Vitamina D!';
-  @override String get notifVitaminDBody => '¡15 minutos de sol! La vitamina D mejora la absorción de calcio.';
-  @override String get notifMidweekTitle => '✨ ¡A mitad de semana!';
-  @override String get notifMidweekBody => 'Mitad de semana. El crecimiento requiere paciencia. ¡Sigue adelante!';
-  @override String get notifScreenTitle => '📵 ¡Apaga las pantallas!';
-  @override String get notifScreenBody => 'Sin pantallas 1 hora antes de dormir. ¡La luz azul bloquea la melatonina!';
-  @override String get notifJumpTitle => '🦘 ¡Hora de saltar!';
-  @override String get notifJumpBody => 'Los ejercicios de salto estimulan las placas de crecimiento. ¡Prueba 3 x 20!';
-  @override String get notifCalciumTitle => '🥛 ¡Calcio!';
-  @override String get notifCalciumBody => 'Un vaso de leche o yogur. ¡El calcio es crítico para los huesos!';
-  @override String get notifPostureCheckTitle => '🧍 ¡Revisión de postura!';
-  @override String get notifPostureCheckBody => '¡No inclines el cuello mirando el teléfono! Siéntate y camina erguido.';
-  @override String get notifWeekendTitle => '✨ Motivación de fin de semana';
-  @override String get notifWeekendBody => '¡No te saltes las rutinas el fin de semana! La disciplina aplica cada día.';
-  @override String get notifWeeklyProgressTitle => '📊 Progreso semanal';
-  @override String get notifWeeklyProgressBody => '¿Cómo fue tu semana? ¡Revisa tu gráfico de crecimiento!';
-  @override String get notifMeasureTitle => '📏 ¡Medición semanal!';
-  @override String get notifMeasureBody => '¡Mídete y regístralo! Las mediciones matutinas son las más precisas.';
-  @override String get notifEarlySleepTitle => '😴 ¡A dormir temprano!';
-  @override String get notifEarlySleepBody => '¡Mañana es lunes! Empieza la semana con buen sueño. Al menos 8 horas.';
-  @override String get notifStreak3Title => '🔥 ¡Racha de 3 días!';
-  @override String get notifStreak3Body => '¡Gran inicio! 3 días seguidos. ¡Sigue hasta 7!';
-  @override String get notifStreak7Title => '🏆 ¡Racha de 1 semana!';
-  @override String get notifStreak7Body => '¡Increíble! 7 días consecutivos completando todas las rutinas.';
-  @override String get notifStreak14Title => '⭐ ¡Racha de 2 semanas!';
-  @override String get notifStreak14Body => '¡14 días de disciplina! Tu cuerpo está empezando a cambiar.';
-  @override String get notifStreak30Title => '👑 ¡Racha de 1 mes!';
-  @override String get notifStreak30Body => '¡30 días! ¡Eres un campeón! ¡Sigue así!';
-  @override String get notifStreak60Title => '🌟 ¡Racha de 60 días!';
-  @override String get notifStreak60Body => '¡60 días! Un logro increíble. ¡Muy pocos lo consiguen!';
-  @override String get notifStreak100Title => '💎 ¡100 DÍAS! ¡LEGENDARIO!';
-  @override String get notifStreak100Body => '¡100 días seguidos! ¡Te has convertido en una leyenda!';
-  @override String get notifStreakRiskTitle => '⚠️ ¡No pierdas tu racha!';
-  @override String notifStreakRiskBody(int streak) => '¡Tu racha de $streak días está en riesgo! Completa las rutinas de hoy.';
-  // ── v6 Premium Paywall ──
-  @override String get paywallStat1 => 'cm — tu potencial está bloqueado';
-  @override String get paywallTitle1 => '¿Cuántos cm\npuedes crecer?';
-  @override String get paywallBullet1a => 'Tu techo genético ha sido calculado, ¿quieres verlo?';
-  @override String get paywallBullet1b => '¿Cómo afecta tu estilo de vida a tu crecimiento?';
-  @override String get paywallBullet1c => 'Tu hoja de ruta personalizada te espera';
-  @override String get paywallStat2 => 'tu rutina personalizada está lista';
-  @override String get paywallTitle2 => 'Tu plan\nestá listo';
-  @override String get paywallBullet2a => '8 minutos cada mañana — diseñado para tu columna';
-  @override String get paywallBullet2b => 'Sueño, nutrición, agua — todo bajo control';
-  @override String get paywallBullet2c => 'Un paso más cada día, no rompas la racha';
-  @override String get paywallStat3 => 'gráficos de progreso en tiempo real';
-  @override String get paywallTitle3 => 'Sigue tu\ncrecimiento';
-  @override String get paywallBullet3a => 'Mediciones mensuales — ve tu crecimiento con tus propios ojos';
-  @override String get paywallBullet3b => 'Gana 2 cm ahora con análisis postural';
-  @override String get paywallBullet3c => 'Fotos de progreso — verás la diferencia';
-  @override String get paywallStat4 => 'programa diario — subiendo de nivel';
-  @override String get paywallTitle4 => 'Más fuerte\ncada día';
-  @override String get paywallBullet4a => 'Gana XP, desbloquea niveles — los hábitos se vuelven un juego';
-  @override String get paywallBullet4b => 'Los que alcanzaron su meta pasaron por aquí';
-  @override String get paywallBullet4c => 'Empieza ahora — primera semana gratis';
-  @override String get paywallRestore => 'No se encontró compra anterior';
-  @override String get paywallRestoreNotFound => 'No se encontró compra anterior';
-  @override String get paywallRestoreLabel => 'Restaurar compras';
-  @override String get paywallYearly => 'Anual';
-  @override String get paywallBestValue => 'Mejor valor';
-  @override String get paywallMonthly => 'Mensual';
-  @override String get paywallFreeTrial => '3 días gratis';
-  @override String get paywallLoadError => 'No se pudo cargar, inténtalo de nuevo';
-  @override String get paywallCta => 'Prueba gratis';
-  @override String get paywallCtaAlt => 'Continuar';
-  @override String get paywallTrialDisclaimer => '3 días gratis · luego renovación auto · cancela en cualquier momento';
-  @override String get paywallYearlyDisclaimer => 'Renovación anual auto · cancela en cualquier momento';
-  @override String get paywallTester => 'Tester';
+  @override
+  String get greetingAllDone => '¡Gran trabajo! 🎯';
+
+  @override
+  String get greetingAllDoneSub => 'Has completado las tareas de hoy.';
+
+  @override
+  String greetingStreak30(int streak) {
+    return 'Racha de $streak días — nivel legendario.';
+  }
+
+  @override
+  String greetingStreak7(int streak) {
+    return 'Racha de $streak días — sigue así.';
+  }
+
+  @override
+  String greetingStreak3(int streak) {
+    return '$streak días seguidos. La mayoría abandona. Tú no.';
+  }
+
+  @override
+  String get greetingMorning =>
+      'Buenos días. Un nuevo día, una nueva oportunidad.';
+
+  @override
+  String get greetingAfternoon => 'Hoy es un gran día para empezar tu racha.';
+
+  @override
+  String get greetingEvening => 'Completa tus tareas, inicia tu racha.';
+
+  @override
+  String get todayCompleted => 'Hoy completado ✓';
+
+  @override
+  String get todayGoals => 'Objetivos de hoy';
+
+  @override
+  String get challengesLabel => 'Desafíos';
+
+  @override
+  String get dailyChallengesLabel => 'DESAFÍOS DIARIOS';
+
+  @override
+  String get expiresTonight => 'Expira esta noche';
+
+  @override
+  String get allChallengesCompleted => 'Todos completados ✓';
+
+  @override
+  String get challengesLoading => 'Nuevos desafíos pronto.';
+
+  @override
+  String get challengesLoadingTitle => 'Desafíos diarios';
+
+  @override
+  String get behindPace => 'Vas atrasado';
+
+  @override
+  String get growthTracking => 'Seguimiento de crecimiento';
+
+  @override
+  String get growthEmptyFirst => 'Registra tu primera altura.';
+
+  @override
+  String get growthEmptySecond => '2ª medición para ver el gráfico.';
+
+  @override
+  String get growthSectionLabel => 'CRECIMIENTO';
+
+  @override
+  String get generalPerformance => 'RENDIMIENTO GENERAL';
+
+  @override
+  String get exploreLabel => 'EXPLORAR';
+
+  @override
+  String get explorePosture => 'Análisis postural';
+
+  @override
+  String get explorePostureSub => 'Análisis y consejos de postura';
+
+  @override
+  String get explorePhotos => 'Fotos de progreso';
+
+  @override
+  String get explorePhotosSub => 'Sigue tu transformación con fotos';
+
+  @override
+  String get exploreNutrition => 'Nutrición';
+
+  @override
+  String get exploreNutritionSub => 'Guía de proteínas, calcio y vitaminas';
+
+  @override
+  String get exploreHealth => 'Seguimiento de salud';
+
+  @override
+  String get exploreHealthSub => 'Seguimiento de estrés, cafeína y bienestar';
+
+  @override
+  String get exploreRecipes => 'Recetas de crecimiento';
+
+  @override
+  String get exploreRecipesSub => 'Recetas que apoyan el crecimiento';
+
+  @override
+  String get educationLabel => 'EDUCACIÓN';
+
+  @override
+  String get educationTitle => 'Ciencia del\ncrecimiento';
+
+  @override
+  String get educationSubtitle => 'Contenido experto, investigación y guías';
+
+  @override
+  String get aiAnalysisLabel => 'ANÁLISIS IA';
+
+  @override
+  String get peerCompareLabel => 'COMPARAR CON PARES';
+
+  @override
+  String peerCompareText(int topPct) {
+    return 'Estás en el Top $topPct% de tus compañeros';
+  }
+
+  @override
+  String get notifWaterTitle => '💧 ¡No olvides beber agua!';
+
+  @override
+  String get notifWaterBody => '¿Meta alcanzada? ¡Bebe otro vaso!';
+
+  @override
+  String get notifMorningTitle => '🌅 ¡Buenos días! Ejercicio';
+
+  @override
+  String get notifMorningBody => '¡Estiramientos matutinos! 10 min.';
+
+  @override
+  String get notifRoutineTitle => '🔥 ¡Completa rutinas!';
+
+  @override
+  String get notifRoutineBody => 'Revisa antes de que termine el día.';
+
+  @override
+  String get notifProteinTitle => '🥚 ¡Día de proteínas!';
+
+  @override
+  String get notifProteinBody => '¡Semana fuerte! Proteína en cada comida.';
+
+  @override
+  String get notifNewWeekTitle => '✨ ¡Nueva semana!';
+
+  @override
+  String get notifNewWeekBody => 'No te saltes rutinas. ¡Pequeños pasos!';
+
+  @override
+  String get notifSleepTitle => '😴 ¡A dormir!';
+
+  @override
+  String get notifSleepBody => 'Hormona del crecimiento máxima entre 22h-2h.';
+
+  @override
+  String get notifPostureTitle => '🧍 ¡Postura!';
+
+  @override
+  String get notifPostureBody => 'Espalda recta, hombros atrás. ¡2-3 cm!';
+
+  @override
+  String get notifVitaminDTitle => '☀️ ¡Vitamina D!';
+
+  @override
+  String get notifVitaminDBody => '¡15 min de sol!';
+
+  @override
+  String get notifMidweekTitle => '✨ ¡Mitad de semana!';
+
+  @override
+  String get notifMidweekBody => '¡Sigue adelante!';
+
+  @override
+  String get notifScreenTitle => '📵 ¡Pantallas apagadas!';
+
+  @override
+  String get notifScreenBody => 'Sin pantallas 1h antes de dormir.';
+
+  @override
+  String get notifJumpTitle => '🦘 ¡A saltar!';
+
+  @override
+  String get notifJumpBody =>
+      'Saltos estimulan placas de crecimiento. ¡3 x 20!';
+
+  @override
+  String get notifCalciumTitle => '🥛 ¡Calcio!';
+
+  @override
+  String get notifCalciumBody => 'Leche o yogur. ¡Calcio crítico para huesos!';
+
+  @override
+  String get notifPostureCheckTitle => '🧍 ¡Postura!';
+
+  @override
+  String get notifPostureCheckBody => '¡No inclines el cuello!';
+
+  @override
+  String get notifWeekendTitle => '✨ Motivación fin de semana';
+
+  @override
+  String get notifWeekendBody => '¡No te saltes rutinas!';
+
+  @override
+  String get notifWeeklyProgressTitle => '📊 Progreso semanal';
+
+  @override
+  String get notifWeeklyProgressBody => '¡Revisa tu gráfico!';
+
+  @override
+  String get notifMeasureTitle => '📏 ¡Medición semanal!';
+
+  @override
+  String get notifMeasureBody => '¡Mídete! Mañana es más preciso.';
+
+  @override
+  String get notifEarlySleepTitle => '😴 ¡A dormir temprano!';
+
+  @override
+  String get notifEarlySleepBody => '¡Mañana es lunes! Al menos 8 horas.';
+
+  @override
+  String get notifStreak3Title => '🔥 ¡Racha de 3 días!';
+
+  @override
+  String get notifStreak3Body => '¡Gran inicio! ¡Sigue a 7!';
+
+  @override
+  String get notifStreak7Title => '🏆 ¡1 semana!';
+
+  @override
+  String get notifStreak7Body => '¡Increíble! 7 días consecutivos!';
+
+  @override
+  String get notifStreak14Title => '⭐ ¡2 semanas!';
+
+  @override
+  String get notifStreak14Body => '¡14 días de disciplina!';
+
+  @override
+  String get notifStreak30Title => '👑 ¡1 mes!';
+
+  @override
+  String get notifStreak30Body => '¡30 días! ¡Eres campeón!';
+
+  @override
+  String get notifStreak60Title => '🌟 ¡60 días!';
+
+  @override
+  String get notifStreak60Body => '¡60 días! Logro increíble.';
+
+  @override
+  String get notifStreak100Title => '💎 ¡100 DÍAS! ¡LEGENDARIO!';
+
+  @override
+  String get notifStreak100Body => '¡100 días! ¡Eres leyenda!';
+
+  @override
+  String get notifStreakRiskTitle => '⚠️ ¡No pierdas tu racha!';
+
+  @override
+  String notifStreakRiskBody(int streak) {
+    return '¡Tu racha de $streak días está en riesgo!';
+  }
+
+  @override
+  String get paywallStat1 => 'cm — tu potencial bloqueado';
+
+  @override
+  String get paywallTitle1 => '¿Cuántos cm\npuedes crecer?';
+
+  @override
+  String get paywallBullet1a => 'Tu techo genético calculado, ¿verlo?';
+
+  @override
+  String get paywallBullet1b => '¿Cómo afecta tu estilo de vida?';
+
+  @override
+  String get paywallBullet1c => 'Tu hoja de ruta personalizada espera';
+
+  @override
+  String get paywallStat2 => 'tu rutina personalizada lista';
+
+  @override
+  String get paywallTitle2 => 'Tu plan\nestá listo';
+
+  @override
+  String get paywallBullet2a => '8 min cada mañana — para tu columna';
+
+  @override
+  String get paywallBullet2b => 'Sueño, nutrición, agua — todo controlado';
+
+  @override
+  String get paywallBullet2c => 'Un paso más cada día';
+
+  @override
+  String get paywallStat3 => 'gráficos en tiempo real';
+
+  @override
+  String get paywallTitle3 => 'Sigue tu\ncrecimiento';
+
+  @override
+  String get paywallBullet3a => 'Mediciones mensuales — ve tu crecimiento';
+
+  @override
+  String get paywallBullet3b => '2 cm ahora con análisis postural';
+
+  @override
+  String get paywallBullet3c => 'Fotos de progreso — verás la diferencia';
+
+  @override
+  String get paywallStat4 => 'programa diario — subiendo';
+
+  @override
+  String get paywallTitle4 => 'Más fuerte\ncada día';
+
+  @override
+  String get paywallBullet4a => 'XP, niveles — hábitos = juego';
+
+  @override
+  String get paywallBullet4b => 'Los que llegaron pasaron por aquí';
+
+  @override
+  String get paywallBullet4c => 'Empieza — primera semana gratis';
+
+  @override
+  String get paywallRestore => 'No se encontró compra anterior';
+
+  @override
+  String get paywallRestoreNotFound => 'No se encontró compra anterior';
+
+  @override
+  String get paywallRestoreLabel => 'Restaurar compras';
+
+  @override
+  String get paywallYearly => 'Anual';
+
+  @override
+  String get paywallBestValue => 'Mejor valor';
+
+  @override
+  String get paywallMonthly => 'Mensual';
+
+  @override
+  String get paywallFreeTrial => '3 días gratis';
+
+  @override
+  String get paywallLoadError => 'No se pudo cargar, inténtalo de nuevo';
+
+  @override
+  String get paywallCta => 'Prueba gratis';
+
+  @override
+  String get paywallCtaAlt => 'Continuar';
+
+  @override
+  String get paywallTrialDisclaimer =>
+      '3 días gratis · renovación auto · cancela cuando quieras';
+
+  @override
+  String get paywallYearlyDisclaimer =>
+      'Renovación anual auto · cancela cuando quieras';
+
+  @override
+  String get paywallTester => 'Tester';
 }
