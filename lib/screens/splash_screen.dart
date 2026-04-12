@@ -65,9 +65,16 @@ class _SplashScreenState extends State<SplashScreen>
       _fadeController.forward().then((_) {
         if (!mounted) return;
         final provider = context.read<AppProvider>();
-        final destination = provider.profile == null
-            ? const OnboardingScreen()
-            : const MainScreen();
+        Widget destination;
+        if (provider.profile == null) {
+          destination = const OnboardingScreen();
+        } else if (!provider.isPremium) {
+          // Not premium → reset data and restart onboarding
+          provider.resetAllData();
+          destination = const OnboardingScreen();
+        } else {
+          destination = const MainScreen();
+        }
         Navigator.of(context).pushReplacement(
           PageRouteBuilder(
             pageBuilder: (_, __, ___) => destination,

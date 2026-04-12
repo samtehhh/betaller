@@ -2475,6 +2475,15 @@ class AppLocalizationsPt extends AppLocalizations {
   String get sciSourcePrefix => 'Source: ';
 
   @override
+  String get program => 'Programa';
+
+  @override
+  String get todaysExercises => 'EXERCÍCIOS DE HOJE';
+
+  @override
+  String get dailyNutritionPlan => 'PLANO NUTRICIONAL DIÁRIO';
+
+  @override
   String get greetingAllDone => 'Ótimo trabalho! 🎯';
 
   @override

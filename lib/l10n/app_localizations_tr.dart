@@ -2457,6 +2457,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get sciSourcePrefix => 'Kaynak: ';
 
   @override
+  String get program => 'Program';
+
+  @override
+  String get todaysExercises => 'BUGÜNKÜ EGZERSİZLER';
+
+  @override
+  String get dailyNutritionPlan => 'GÜNLÜK BESLENME PLANI';
+
+  @override
   String get greetingAllDone => 'Harika iş! 🎯';
 
   @override

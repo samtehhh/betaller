@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../models/routine.dart';
 import '../utils/constants.dart';
+import '../utils/localized_data.dart';
 import '../widgets/premium_paywall.dart';
 import 'exercise_detail_screen.dart';
 import 'custom_routine_builder_screen.dart';
@@ -88,6 +90,7 @@ class _RoutinesScreenState extends State<RoutinesScreen>
   Widget build(BuildContext context) {
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
+        final l = AppLocalizations.of(context)!;
         return Scaffold(
           backgroundColor: AppColors.scaffold,
           body: Column(
@@ -117,6 +120,7 @@ class _RoutinesScreenState extends State<RoutinesScreen>
   }
 
   Widget _buildHeader(BuildContext context, AppProvider provider) {
+    final l = AppLocalizations.of(context)!;
     return Container(
       color: AppColors.scaffold,
       child: SafeArea(
@@ -130,7 +134,7 @@ class _RoutinesScreenState extends State<RoutinesScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Planım',
+                      l.navRoutines,
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.w800,
@@ -191,7 +195,8 @@ class _RoutinesScreenState extends State<RoutinesScreen>
   }
 
   Widget _buildTabBar() {
-    const labels = ['Train', 'Program', 'Nutrition'];
+    final l = AppLocalizations.of(context)!;
+    final labels = [l.navRoutines, l.program, l.nutrition];
     return Container(
       color: AppColors.scaffold,
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 14),
@@ -272,6 +277,7 @@ class _TrainTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final exerciseIds = _weekdayExerciseIds[selectedDayIndex];
 
     return CustomScrollView(
@@ -291,7 +297,7 @@ class _TrainTab extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(18, 0, 18, 8),
             child: Text(
-              "TODAY'S EXERCISES",
+              l.todaysExercises,
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
@@ -563,6 +569,8 @@ class _ExerciseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final loc = localizedRoutine(l, routine.id);
     final locked = !isFree && !provider.isPremium;
     final category = routine.category;
     final catColor = _catColor(category);
@@ -610,7 +618,7 @@ class _ExerciseCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    routine.title,
+                    loc['title'] ?? routine.title,
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -1264,6 +1272,7 @@ class _NutritionTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final completedCount = _nutritionIds
         .where((id) => provider.allRoutines.any((r) => r.id == id && r.completed))
         .length;
@@ -1339,6 +1348,7 @@ class _NutritionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.fromLTRB(18, 16, 18, 16),
       padding: const EdgeInsets.all(18),
@@ -1361,9 +1371,9 @@ class _NutritionHeader extends StatelessWidget {
             children: [
               const Text('🥗', style: TextStyle(fontSize: 24)),
               const SizedBox(width: 10),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'DAILY NUTRITION PLAN',
+                  l.dailyNutritionPlan,
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w800,
@@ -1423,6 +1433,8 @@ class _NutritionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final loc = localizedRoutine(l, routine.id);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -1459,7 +1471,7 @@ class _NutritionCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    routine.title,
+                    loc['title'] ?? routine.title,
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -1472,7 +1484,7 @@ class _NutritionCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    routine.description,
+                    loc['description'] ?? routine.description,
                     style: TextStyle(
                       fontSize: 11,
                       color: Colors.white.withValues(alpha: 0.4),

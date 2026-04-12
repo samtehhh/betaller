@@ -4538,6 +4538,24 @@ abstract class AppLocalizations {
   /// **'Source: '**
   String get sciSourcePrefix;
 
+  /// No description provided for @program.
+  ///
+  /// In en, this message translates to:
+  /// **'Program'**
+  String get program;
+
+  /// No description provided for @todaysExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'TODAY\'S EXERCISES'**
+  String get todaysExercises;
+
+  /// No description provided for @dailyNutritionPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'DAILY NUTRITION PLAN'**
+  String get dailyNutritionPlan;
+
   /// No description provided for @greetingAllDone.
   ///
   /// In en, this message translates to:

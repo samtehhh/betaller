@@ -2462,6 +2462,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get sciSourcePrefix => 'Source: ';
 
   @override
+  String get program => 'कार्यक्रम';
+
+  @override
+  String get todaysExercises => 'आज के व्यायाम';
+
+  @override
+  String get dailyNutritionPlan => 'दैनिक पोषण योजना';
+
+  @override
   String get greetingAllDone => 'बहुत बढ़िया! 🎯';
 
   @override
