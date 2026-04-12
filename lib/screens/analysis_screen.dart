@@ -144,7 +144,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'GENEL PERFORMANS',
+                                      l.generalPerformance,
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w700,

@@ -82,32 +82,33 @@ class _HomeScreenState extends State<HomeScreen>
     required bool allDone,
     required bool hasRoutines,
     required int hour,
+    required AppLocalizations l,
   }) {
     if (allDone && hasRoutines) {
       return _GreetingData(
-        title: 'Harika iş! 🎯',
-        subtitle: 'Bugünkü görevlerini tamamladın.',
+        title: l.greetingAllDone,
+        subtitle: l.greetingAllDoneSub,
         subtitleColor: AppColors.success,
       );
     }
     if (streak >= 30) {
       return _GreetingData(
         title: 'BeTaller',
-        subtitle: '$streak günlük seri — efsane seviyedesin.',
+        subtitle: l.greetingStreak30(streak),
         subtitleColor: AppColors.warning,
       );
     }
     if (streak >= 7) {
       return _GreetingData(
         title: 'BeTaller',
-        subtitle: '$streak günlük seri — yoluna devam et.',
+        subtitle: l.greetingStreak7(streak),
         subtitleColor: AppColors.orange,
       );
     }
     if (streak >= 3) {
       return _GreetingData(
         title: 'BeTaller',
-        subtitle: '$streak gün art arda. Çoğu kişi bıraktı. Sen bırakmadın.',
+        subtitle: l.greetingStreak3(streak),
         subtitleColor: AppColors.primaryLight,
       );
     }
@@ -115,17 +116,17 @@ class _HomeScreenState extends State<HomeScreen>
       if (hour < 12) {
         return _GreetingData(
           title: 'BeTaller',
-          subtitle: 'Günaydın. Yeni bir gün, yeni bir fırsat.',
+          subtitle: l.greetingMorning,
         );
       } else if (hour < 18) {
         return _GreetingData(
           title: 'BeTaller',
-          subtitle: 'Serine başlamak için bugün harika bir gün.',
+          subtitle: l.greetingAfternoon,
         );
       } else {
         return _GreetingData(
           title: 'BeTaller',
-          subtitle: 'Görevleri tamamla, serine başla.',
+          subtitle: l.greetingEvening,
         );
       }
     }
@@ -166,6 +167,7 @@ class _HomeScreenState extends State<HomeScreen>
           allDone: provider.allRoutinesCompleted,
           hasRoutines: provider.routines.isNotEmpty,
           hour: hour,
+          l: l,
         );
 
         final allTodayDone = provider.allRoutinesCompleted &&
@@ -370,7 +372,7 @@ class _HomeScreenState extends State<HomeScreen>
                     // ── 7. AI ANALYSIS (first time) ───────────────────────
                     if (!provider.analysisCompleted) ...[
                       _BannerCard(
-                        label: 'AI ANALİZ',
+                        label: l.aiAnalysisLabel,
                         title: l.startAnalysis,
                         subtitle: l.analysisSubtitle,
                         accentColor: AppColors.primary,
@@ -398,7 +400,7 @@ class _HomeScreenState extends State<HomeScreen>
                     // ── AI ANALYSIS UPDATE (after completion) ─────────────
                     if (provider.analysisCompleted) ...[
                       _BannerCard(
-                        label: 'AI ANALİZ',
+                        label: l.aiAnalysisLabel,
                         title: l.updateAnalysis,
                         subtitle: l.analysisSubtitle,
                         accentColor: AppColors.primary,
@@ -421,10 +423,10 @@ class _HomeScreenState extends State<HomeScreen>
 
                     // ── 9. EDUCATION BANNER ───────────────────────────────
                     _BannerCard(
-                      label: 'EĞİTİM',
-                      title: 'Boy uzatma\nbilimi',
+                      label: l.educationLabel,
+                      title: l.educationTitle,
                       subtitle:
-                          'Uzman içerikler, araştırmalar ve rehberler',
+                          l.educationSubtitle,
                       accentColor: AppColors.cyan,
                       gradientColors: const [
                         Color(0xFF062533),
@@ -915,6 +917,7 @@ class _TodayMissionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final routineRatio =
         routineTotal > 0 ? routineCompleted / routineTotal : 0.0;
     final challengeRatio =
@@ -983,7 +986,7 @@ class _TodayMissionCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  allDone ? 'Bugün tamamlandı ✓' : 'Bugünkü hedefler',
+                  allDone ? l.todayCompleted : l.todayGoals,
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
@@ -997,7 +1000,7 @@ class _TodayMissionCard extends StatelessWidget {
                 _MissionRow(
                   icon: CupertinoIcons.checkmark_circle_fill,
                   iconColor: AppColors.primary,
-                  label: 'Rutinler',
+                  label: l.routinesLabel,
                   value:
                       '$routineCompleted/${routineTotal > 0 ? routineTotal : "—"}',
                   done: routineCompleted >= routineTotal &&
@@ -1007,7 +1010,7 @@ class _TodayMissionCard extends StatelessWidget {
                 _MissionRow(
                   icon: CupertinoIcons.bolt_fill,
                   iconColor: AppColors.warning,
-                  label: 'Görevler',
+                  label: l.challengesLabel,
                   value:
                       '$challengeCompleted/${challengeTotal > 0 ? challengeTotal : "—"}',
                   done: challengeCompleted >= challengeTotal &&
@@ -1721,6 +1724,7 @@ class _LeaderboardCardState extends State<_LeaderboardCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final topPct = (100 - widget.percentile).clamp(1, 99).toInt();
     return GestureDetector(
       onTapDown: (_) => setState(() => _pressed = true),
@@ -1773,7 +1777,7 @@ class _LeaderboardCardState extends State<_LeaderboardCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'AKRANLARLA KARŞILAŞTIR',
+                      l.peerCompareLabel,
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w700,
@@ -1783,7 +1787,7 @@ class _LeaderboardCardState extends State<_LeaderboardCard> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Akranlarının Top $topPct%\'ündesin',
+                      l.peerCompareText(topPct),
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
@@ -1870,9 +1874,9 @@ class _ChallengesSection extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Günlük görevler',
-                    style: TextStyle(
+                  Text(
+                    l.challengesLoadingTitle,
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
@@ -1881,7 +1885,7 @@ class _ChallengesSection extends StatelessWidget {
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    'Yeni görevler yakında yükleniyor.',
+                    l.challengesLoading,
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.white.withValues(alpha: 0.35),
@@ -1909,7 +1913,7 @@ class _ChallengesSection extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                'GÜNLÜK GÖREVLER',
+                l.dailyChallengesLabel,
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,
@@ -1929,9 +1933,9 @@ class _ChallengesSection extends StatelessWidget {
                       color: AppColors.error.withValues(alpha: 0.18),
                     ),
                   ),
-                  child: const Text(
-                    'Bu gece bitiyor',
-                    style: TextStyle(
+                  child: Text(
+                    l.expiresTonight,
+                    style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
                       color: AppColors.error,
@@ -1946,9 +1950,9 @@ class _ChallengesSection extends StatelessWidget {
                     color: AppColors.success.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Text(
-                    'Hepsi tamamlandı ✓',
-                    style: TextStyle(
+                  child: Text(
+                    l.allChallengesCompleted,
+                    style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
                       color: AppColors.success,
@@ -2128,11 +2132,12 @@ class _ExploreRowState extends State<_ExploreRow> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final items = [
       _ExploreItemData(
         icon: Icons.accessibility_new_rounded,
-        label: 'Postür Analizi',
-        subtitle: 'Duruş analizi ve düzeltme önerileri',
+        label: l.explorePosture,
+        subtitle: l.explorePostureSub,
         color: const Color(0xFFFBBF24),
         gradientColors: const [Color(0xFF422006), Color(0xFF3B1E04)],
         onTap: () => Navigator.push(
@@ -2144,8 +2149,8 @@ class _ExploreRowState extends State<_ExploreRow> {
       ),
       _ExploreItemData(
         icon: CupertinoIcons.photo_fill_on_rectangle_fill,
-        label: 'İlerleme Fotoğrafları',
-        subtitle: 'Değişimi fotoğraflarla takip et',
+        label: l.explorePhotos,
+        subtitle: l.explorePhotosSub,
         color: const Color(0xFF38BDF8),
         gradientColors: const [Color(0xFF0C2D48), Color(0xFF0A2440)],
         onTap: () => Navigator.push(
@@ -2156,8 +2161,8 @@ class _ExploreRowState extends State<_ExploreRow> {
       ),
       _ExploreItemData(
         icon: CupertinoIcons.leaf_arrow_circlepath,
-        label: 'Beslenme',
-        subtitle: 'Protein, kalsiyum ve vitamin rehberi',
+        label: l.exploreNutrition,
+        subtitle: l.exploreNutritionSub,
         color: const Color(0xFF4ADE80),
         gradientColors: const [Color(0xFF064E3B), Color(0xFF0A3D2F)],
         onTap: () => Navigator.push(
@@ -2167,8 +2172,8 @@ class _ExploreRowState extends State<_ExploreRow> {
       ),
       _ExploreItemData(
         icon: CupertinoIcons.heart_circle_fill,
-        label: 'Sağlık Takibi',
-        subtitle: 'Stres, kafein ve wellness takibi',
+        label: l.exploreHealth,
+        subtitle: l.exploreHealthSub,
         color: const Color(0xFFF472B6),
         gradientColors: const [Color(0xFF4A1942), Color(0xFF3D1338)],
         onTap: () => Navigator.push(
@@ -2180,8 +2185,8 @@ class _ExploreRowState extends State<_ExploreRow> {
       ),
       _ExploreItemData(
         icon: Icons.restaurant_rounded,
-        label: 'Büyüme Tarifleri',
-        subtitle: 'Büyümeyi destekleyen yemek tarifleri',
+        label: l.exploreRecipes,
+        subtitle: l.exploreRecipesSub,
         color: const Color(0xFFFB923C),
         gradientColors: const [Color(0xFF431407), Color(0xFF3B1106)],
         onTap: () => Navigator.push(
@@ -2198,7 +2203,7 @@ class _ExploreRowState extends State<_ExploreRow> {
         Padding(
           padding: const EdgeInsets.only(left: 4),
           child: Text(
-            'KEŞFET',
+            l.exploreLabel,
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -2501,9 +2506,9 @@ class _GrowthStatsCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Büyüme takibi',
-                      style: TextStyle(
+                    Text(
+                      l.growthTracking,
+                      style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
@@ -2513,8 +2518,8 @@ class _GrowthStatsCard extends StatelessWidget {
                     const SizedBox(height: 3),
                     Text(
                       measurementCount == 0
-                          ? 'İlk boyunu kaydet, büyümeni takip et.'
-                          : 'İkinci ölçümünü kaydet, grafiğini gör.',
+                          ? l.growthEmptyFirst
+                          : l.growthEmptySecond,
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.white.withValues(alpha: 0.35),
@@ -2546,7 +2551,7 @@ class _GrowthStatsCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'BÜYÜME',
+            l.growthSectionLabel,
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,

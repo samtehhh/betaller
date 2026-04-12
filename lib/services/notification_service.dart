@@ -4,6 +4,8 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz_data;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../l10n/app_localizations.dart';
+
 class NotificationService {
   static final NotificationService _instance = NotificationService._();
   factory NotificationService() => _instance;
@@ -45,7 +47,7 @@ class NotificationService {
     return true;
   }
 
-  Future<void> scheduleAllNotifications() async {
+  Future<void> scheduleAllNotifications(AppLocalizations l) async {
     await cancelAll();
 
     // ════════════════════════════════════════════════════════════
@@ -56,8 +58,8 @@ class NotificationService {
     _scheduleDaily(
       id: 100,
       hour: 14, minute: 0,
-      title: '💧 Su İçmeyi Unutma!',
-      body: 'Günlük su hedefine ulaştın mı? Bir bardak daha iç, metabolizmanı hızlandır!',
+      title: l.notifWaterTitle,
+      body: l.notifWaterBody,
       channel: 'water', channelName: 'Su Hatırlatması',
     );
 
@@ -65,8 +67,8 @@ class NotificationService {
     _scheduleDaily(
       id: 200,
       hour: 7, minute: 30,
-      title: '🌅 Günaydın! Egzersiz Vakti',
-      body: 'Sabah germe egzersizini yap! 10 dakika omurga ve bacak kaslarını esnet.',
+      title: l.notifMorningTitle,
+      body: l.notifMorningBody,
       channel: 'exercise', channelName: 'Egzersiz Hatırlatması',
     );
 
@@ -74,8 +76,8 @@ class NotificationService {
     _scheduleDaily(
       id: 400,
       hour: 20, minute: 30,
-      title: '🔥 Rutinlerini Tamamla!',
-      body: 'Gün bitmeden rutinlerini kontrol et. Seri yapmak = disiplin skoru artışı!',
+      title: l.notifRoutineTitle,
+      body: l.notifRoutineBody,
       channel: 'routine', channelName: 'Rutin Hatırlatması',
     );
 
@@ -85,85 +87,85 @@ class NotificationService {
 
     // ── PAZARTESİ: Beslenme + Motivasyon ─────────────────────
     _scheduleWeekly(id: 700, weekday: DateTime.monday, hour: 12, minute: 0,
-      title: '🥚 Protein Günü!',
-      body: 'Haftaya güçlü başla! Her öğünde protein al. Yumurta, tavuk, balık, süt ürünleri.',
+      title: l.notifProteinTitle,
+      body: l.notifProteinBody,
       channel: 'nutrition', channelName: 'Beslenme Hatırlatması',
     );
     _scheduleWeekly(id: 800, weekday: DateTime.monday, hour: 9, minute: 0,
-      title: '✨ Yeni Hafta, Yeni Hedefler!',
-      body: 'Bu hafta rutinlerini aksatma. Küçük adımlar büyük farklar yaratır!',
+      title: l.notifNewWeekTitle,
+      body: l.notifNewWeekBody,
       channel: 'motivation', channelName: 'Motivasyon',
     );
 
     // ── SALI: Uyku + Duruş ───────────────────────────────────
     _scheduleWeekly(id: 300, weekday: DateTime.tuesday, hour: 22, minute: 0,
-      title: '😴 Uyku Zamanı!',
-      body: 'Büyüme hormonu 22:00-02:00 arası en yüksek. Telefonunu bırak ve uyu!',
+      title: l.notifSleepTitle,
+      body: l.notifSleepBody,
       channel: 'sleep', channelName: 'Uyku Hatırlatması',
     );
     _scheduleWeekly(id: 600, weekday: DateTime.tuesday, hour: 13, minute: 0,
-      title: '🧍 Duruş Kontrolü!',
-      body: 'Sırtını dik tut, omuzlarını geri çek. Doğru duruş = 2-3 cm fark yaratır!',
+      title: l.notifPostureTitle,
+      body: l.notifPostureBody,
       channel: 'posture', channelName: 'Duruş Hatırlatması',
     );
 
     // ── ÇARŞAMBA: Beslenme + Motivasyon ──────────────────────
     _scheduleWeekly(id: 701, weekday: DateTime.wednesday, hour: 11, minute: 0,
-      title: '☀️ D Vitamini Zamanı!',
-      body: '15 dakika güneşlen! D vitamini kalsiyum emilimini artırır, kemik gelişimini hızlandırır.',
+      title: l.notifVitaminDTitle,
+      body: l.notifVitaminDBody,
       channel: 'nutrition', channelName: 'Beslenme Hatırlatması',
     );
     _scheduleWeekly(id: 801, weekday: DateTime.wednesday, hour: 9, minute: 0,
-      title: '✨ Yarı Yoldayız!',
-      body: 'Haftanın ortası. Büyüme sabır ister ama düzenli olan kazanır. Devam et!',
+      title: l.notifMidweekTitle,
+      body: l.notifMidweekBody,
       channel: 'motivation', channelName: 'Motivasyon',
     );
 
     // ── PERŞEMBE: Uyku + Egzersiz ────────────────────────────
     _scheduleWeekly(id: 301, weekday: DateTime.thursday, hour: 21, minute: 30,
-      title: '📵 Ekranları Kapat!',
-      body: 'Yatmadan 1 saat önce ekranlardan uzaklaş. Mavi ışık melatonin üretimini engeller!',
+      title: l.notifScreenTitle,
+      body: l.notifScreenBody,
       channel: 'sleep', channelName: 'Uyku Hatırlatması',
     );
     _scheduleWeekly(id: 201, weekday: DateTime.thursday, hour: 17, minute: 0,
-      title: '🦘 Zıplama Vakti!',
-      body: 'Zıplama egzersizleri büyüme plakalarını uyarır. 3 set x 20 tekrar dene!',
+      title: l.notifJumpTitle,
+      body: l.notifJumpBody,
       channel: 'exercise', channelName: 'Egzersiz Hatırlatması',
     );
 
     // ── CUMA: Beslenme + Duruş ───────────────────────────────
     _scheduleWeekly(id: 702, weekday: DateTime.friday, hour: 15, minute: 30,
-      title: '🥛 Kalsiyum Zamanı!',
-      body: 'Bir bardak süt veya yoğurt tüket. Kalsiyum kemik gelişimi için kritik!',
+      title: l.notifCalciumTitle,
+      body: l.notifCalciumBody,
       channel: 'nutrition', channelName: 'Beslenme Hatırlatması',
     );
     _scheduleWeekly(id: 601, weekday: DateTime.friday, hour: 14, minute: 0,
-      title: '🧍 Duruş Kontrolü!',
-      body: 'Telefona bakarken boynunu eğme! Omurgana dikkat, dik otur dik yürü.',
+      title: l.notifPostureCheckTitle,
+      body: l.notifPostureCheckBody,
       channel: 'posture', channelName: 'Duruş Hatırlatması',
     );
 
     // ── CUMARTESİ: Motivasyon + İlerleme ────────────────────
     _scheduleWeekly(id: 802, weekday: DateTime.saturday, hour: 10, minute: 0,
-      title: '✨ Hafta Sonu Motivasyonu',
-      body: 'Hafta sonu da rutinlerini aksatma! Disiplin her gün geçerli. Sen yapabilirsin!',
+      title: l.notifWeekendTitle,
+      body: l.notifWeekendBody,
       channel: 'motivation', channelName: 'Motivasyon',
     );
     _scheduleWeekly(id: 501, weekday: DateTime.saturday, hour: 19, minute: 0,
-      title: '📊 Haftalık İlerleme',
-      body: 'Bu haftayı nasıl geçirdin? İlerleme sayfandan büyüme grafiğini kontrol et!',
+      title: l.notifWeeklyProgressTitle,
+      body: l.notifWeeklyProgressBody,
       channel: 'measurement', channelName: 'Ölçüm Hatırlatması',
     );
 
     // ── PAZAR: Ölçüm (SABİT) + Uyku ─────────────────────────
     _scheduleWeekly(id: 500, weekday: DateTime.sunday, hour: 10, minute: 0,
-      title: '📏 Haftalık Boy Ölçümü!',
-      body: 'Boyunu ölç ve kaydet! Sabah ölçümü en doğru sonucu verir. Seni bekliyoruz!',
+      title: l.notifMeasureTitle,
+      body: l.notifMeasureBody,
       channel: 'measurement', channelName: 'Ölçüm Hatırlatması',
     );
     _scheduleWeekly(id: 302, weekday: DateTime.sunday, hour: 22, minute: 0,
-      title: '😴 Erken Yat, Erken Kalk!',
-      body: 'Yarın pazartesi! İyi bir uykuyla haftaya güçlü başla. Hedefin en az 8 saat.',
+      title: l.notifEarlySleepTitle,
+      body: l.notifEarlySleepBody,
       channel: 'sleep', channelName: 'Uyku Hatırlatması',
     );
   }
@@ -249,12 +251,12 @@ class NotificationService {
     return prefs.getBool(_prefsKey) ?? false;
   }
 
-  Future<void> setEnabled(bool enabled) async {
+  Future<void> setEnabled(bool enabled, AppLocalizations l) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_prefsKey, enabled);
     if (enabled) {
       await requestPermission();
-      await scheduleAllNotifications();
+      await scheduleAllNotifications(l);
     } else {
       await cancelAll();
     }
@@ -263,7 +265,7 @@ class NotificationService {
   // ── Streak-based smart notifications ──────────────────────────
 
   /// Call this when streak updates. Sends contextual notification.
-  Future<void> sendStreakNotification(int streak) async {
+  Future<void> sendStreakNotification(int streak, AppLocalizations l) async {
     if (!await isEnabled()) return;
 
     // Milestone celebrations
@@ -271,23 +273,23 @@ class NotificationService {
     String? body;
 
     if (streak == 3) {
-      title = '🔥 3 Gün Serisi!';
-      body = 'Harika başlangıç! 3 gün üst üste tamamladın. Devam et, 7 güne ulaş!';
+      title = l.notifStreak3Title;
+      body = l.notifStreak3Body;
     } else if (streak == 7) {
-      title = '🏆 1 Hafta Serisi!';
-      body = 'İnanılmaz! 7 gün üst üste tüm rutinleri tamamladın. Büyüme hormonun teşekkür ediyor!';
+      title = l.notifStreak7Title;
+      body = l.notifStreak7Body;
     } else if (streak == 14) {
-      title = '⭐ 2 Hafta Serisi!';
-      body = '14 gün disiplin! Vücudun değişmeye başlıyor. Duruşun düzeliyor, kasların güçleniyor.';
+      title = l.notifStreak14Title;
+      body = l.notifStreak14Body;
     } else if (streak == 30) {
-      title = '👑 1 Ay Serisi!';
-      body = '30 gün! Sen bir şampiyon! Bu disiplinle boyunu optimize etmeye devam edeceksin.';
+      title = l.notifStreak30Title;
+      body = l.notifStreak30Body;
     } else if (streak == 60) {
-      title = '🌟 60 Gün Serisi!';
-      body = '60 gün! İnanılmaz bir başarı. Dünyada çok az kişi bu seviyeye ulaşır.';
+      title = l.notifStreak60Title;
+      body = l.notifStreak60Body;
     } else if (streak == 100) {
-      title = '💎 100 GÜN! EFSANEVİ!';
-      body = '100 gün üst üste! Sen bir efsane oldun. Bu disiplin hayatını değiştirecek.';
+      title = l.notifStreak100Title;
+      body = l.notifStreak100Body;
     }
 
     if (title != null && body != null) {
@@ -301,7 +303,7 @@ class NotificationService {
   }
 
   /// Send streak-at-risk notification (call in the evening if routines not done)
-  Future<void> scheduleStreakRiskNotification(int currentStreak) async {
+  Future<void> scheduleStreakRiskNotification(int currentStreak, AppLocalizations l) async {
     if (!await isEnabled() || currentStreak < 2) return;
 
     // Schedule for 21:00 today
@@ -309,12 +311,13 @@ class NotificationService {
     var scheduled = tz.TZDateTime(tz.local, now.year, now.month, now.day, 21, 0);
     if (scheduled.isBefore(now)) return; // already past 21:00
 
+    final body = l.notifStreakRiskBody(currentStreak);
     _plugin.zonedSchedule(
       id: 950,
-      title: '⚠️ Serini Kaybetme!',
-      body: '$currentStreak günlük serin tehlikede! Bugünkü rutinlerini tamamla, serinı koru.',
+      title: l.notifStreakRiskTitle,
+      body: body,
       scheduledDate: scheduled,
-      notificationDetails: _notifDetails('streak_risk', 'Seri Uyarısı', 'Serini kaybetme!'),
+      notificationDetails: _notifDetails('streak_risk', 'Seri Uyarısı', body),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
     );
   }

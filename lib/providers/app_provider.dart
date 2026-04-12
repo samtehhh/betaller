@@ -12,6 +12,7 @@ import '../utils/constants.dart';
 import '../utils/height_reference.dart';
 import '../services/purchase_service.dart';
 import '../services/notification_service.dart';
+import '../l10n/app_localizations.dart';
 
 class AppProvider extends ChangeNotifier {
   UserProfile? _profile;
@@ -553,7 +554,8 @@ class AppProvider extends ChangeNotifier {
       updateChallengeProgress('weekly_streak_7', _streak);
 
       // Send milestone notification + cancel streak risk
-      NotificationService().sendStreakNotification(_streak);
+      final l = lookupAppLocalizations(_locale ?? const Locale('en'));
+      NotificationService().sendStreakNotification(_streak, l);
       NotificationService().cancelStreakRiskNotification();
     }
 
@@ -564,7 +566,8 @@ class AppProvider extends ChangeNotifier {
 
     // Schedule streak-at-risk if routines not all done yet
     if (!allRoutinesCompleted && _streak >= 2) {
-      NotificationService().scheduleStreakRiskNotification(_streak);
+      final l = lookupAppLocalizations(_locale ?? const Locale('en'));
+      NotificationService().scheduleStreakRiskNotification(_streak, l);
     }
 
     _saveData();

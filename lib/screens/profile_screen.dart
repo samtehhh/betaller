@@ -317,7 +317,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColors.orange,
                             value: _notificationsEnabled,
                             onChanged: (val) async {
-                              await NotificationService().setEnabled(val);
+                              await NotificationService().setEnabled(val, l);
                               setState(() => _notificationsEnabled = val);
                             },
                           ),

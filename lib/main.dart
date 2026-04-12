@@ -32,7 +32,9 @@ void main() async {
   final notifService = NotificationService();
   await notifService.init();
   if (await notifService.isEnabled()) {
-    await notifService.scheduleAllNotifications();
+    final locale = appProvider.locale ?? const Locale('en');
+    final l = lookupAppLocalizations(locale);
+    await notifService.scheduleAllNotifications(l);
   }
 
   // Initialize RevenueCat

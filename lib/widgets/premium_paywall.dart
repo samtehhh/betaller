@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../services/purchase_service.dart';
 import '../utils/constants.dart';
@@ -50,58 +51,42 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
   final PageController _pageCtrl = PageController();
   late final AnimationController _entryAnim;
 
-  static const _features = [
+  static List<_Feature> _features(AppLocalizations l) => [
     _Feature(
-      gradient: [Color(0xFF6D28D9), Color(0xFF1E0A3C)],
-      glowColor: Color(0xFF8B5CF6),
+      gradient: const [Color(0xFF6D28D9), Color(0xFF1E0A3C)],
+      glowColor: const Color(0xFF8B5CF6),
       heroIcon: CupertinoIcons.chart_bar_fill,
       stat: '??',
-      statLabel: 'cm — senin potansiyelin kilitli',
-      title: 'Kaç cm Daha\nUzayabilirsin?',
-      bullets: [
-        'Genetik tavanın hesaplandı, görmek ister misin?',
-        'Yaşam tarzın büyümeni nasıl etkiliyor?',
-        'Sana özel yol haritası seni bekliyor',
-      ],
+      statLabel: l.paywallStat1,
+      title: l.paywallTitle1,
+      bullets: [l.paywallBullet1a, l.paywallBullet1b, l.paywallBullet1c],
     ),
     _Feature(
-      gradient: [Color(0xFF065F46), Color(0xFF071A10)],
-      glowColor: Color(0xFF22FF88),
+      gradient: const [Color(0xFF065F46), Color(0xFF071A10)],
+      glowColor: const Color(0xFF22FF88),
       heroIcon: CupertinoIcons.flame_fill,
       stat: '29+',
-      statLabel: 'sana özel rutin hazır',
-      title: 'Planın\nHazır',
-      bullets: [
-        'Her sabah 8 dakika — omurgan için tasarlandı',
-        'Uyku, beslenme, su — hepsi takip altında',
-        'Her gün bir adım daha, seri kırılmasın',
-      ],
+      statLabel: l.paywallStat2,
+      title: l.paywallTitle2,
+      bullets: [l.paywallBullet2a, l.paywallBullet2b, l.paywallBullet2c],
     ),
     _Feature(
-      gradient: [Color(0xFF0C4A6E), Color(0xFF050E1A)],
-      glowColor: Color(0xFF00C6FF),
+      gradient: const [Color(0xFF0C4A6E), Color(0xFF050E1A)],
+      glowColor: const Color(0xFF00C6FF),
       heroIcon: CupertinoIcons.graph_square_fill,
       stat: '📊',
-      statLabel: 'gerçek zamanlı ilerleme grafiklerin',
-      title: 'Büyümeni\nTakip Et',
-      bullets: [
-        'Aylık ölçüm — büyümeni kendi gözlerinle gör',
-        'Postür analizi ile şu an bile 2 cm kazan',
-        'İlerleme fotoğrafları — farkı net göreceksin',
-      ],
+      statLabel: l.paywallStat3,
+      title: l.paywallTitle3,
+      bullets: [l.paywallBullet3a, l.paywallBullet3b, l.paywallBullet3c],
     ),
     _Feature(
-      gradient: [Color(0xFF7C2D12), Color(0xFF180A04)],
-      glowColor: Color(0xFFFF8A00),
+      gradient: const [Color(0xFF7C2D12), Color(0xFF180A04)],
+      glowColor: const Color(0xFFFF8A00),
       heroIcon: CupertinoIcons.bolt_fill,
       stat: '70',
-      statLabel: 'günlük program — seviye atlıyor',
-      title: 'Her Gün\nDaha Güçlü',
-      bullets: [
-        'XP kazan, seviyeleri aç — alışkanlık oyuna döner',
-        'Hedefine ulaşanlar buradan geçti',
-        'Sen de başla — ilk hafta ücretsiz',
-      ],
+      statLabel: l.paywallStat4,
+      title: l.paywallTitle4,
+      bullets: [l.paywallBullet4a, l.paywallBullet4b, l.paywallBullet4c],
     ),
   ];
 
@@ -147,8 +132,9 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
         context.read<AppProvider>().setPremium(true);
         Navigator.pop(context, true);
       } else {
+        final l = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: const Text('Daha önce yapılmış bir satın alma bulunamadı'), backgroundColor: AppColors.surfaceDark),
+          SnackBar(content: Text(l.paywallRestore), backgroundColor: AppColors.surfaceDark),
         );
       }
     }
@@ -156,8 +142,10 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final bottom = MediaQuery.of(context).padding.bottom;
-    final f = _features[_page];
+    final features = _features(l);
+    final f = features[_page];
     final current = _offerings?.current;
     final monthly = current?.monthly;
     final annual = current?.annual;
@@ -201,13 +189,13 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
                           ),
-                          child: Text('Tester', style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.30), fontWeight: FontWeight.w600)),
+                          child: Text(l.paywallTester, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.30), fontWeight: FontWeight.w600)),
                         ),
                       ),
                       const Spacer(),
                       GestureDetector(
                         onTap: _restore,
-                        child: Text('Satın Alımları Geri Yükle', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.30))),
+                        child: Text(l.paywallRestoreLabel, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.30))),
                       ),
                     ],
                   ),
@@ -221,8 +209,8 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                       setState(() => _page = i);
                       _entryAnim.forward(from: 0);
                     },
-                    itemCount: _features.length,
-                    itemBuilder: (_, i) => _FeaturePage(feature: _features[i], entryAnim: _entryAnim),
+                    itemCount: features.length,
+                    itemBuilder: (_, i) => _FeaturePage(feature: features[i], entryAnim: _entryAnim),
                   ),
                 ),
 
@@ -231,7 +219,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                   padding: const EdgeInsets.only(bottom: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(_features.length, (i) {
+                    children: List.generate(features.length, (i) {
                       final active = i == _page;
                       return AnimatedContainer(
                         duration: const Duration(milliseconds: 280),
@@ -256,18 +244,19 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                       children: [
                         Expanded(child: _PlanPill(
                           selected: _selectedPlan == 1,
-                          label: 'Yıllık',
+                          label: l.paywallYearly,
                           price: annual?.storeProduct.priceString ?? '\$39.99',
-                          note: 'En iyi değer',
+                          note: l.paywallBestValue,
                           glowColor: f.glowColor,
+                          showBadge: true,
                           onTap: () => setState(() => _selectedPlan = 1),
                         )),
                         const SizedBox(width: 10),
                         Expanded(child: _PlanPill(
                           selected: _selectedPlan == 0,
-                          label: 'Aylık',
+                          label: l.paywallMonthly,
                           price: monthly?.storeProduct.priceString ?? '\$11.99',
-                          note: '3 gün ücretsiz',
+                          note: l.paywallFreeTrial,
                           glowColor: f.glowColor,
                           onTap: () => setState(() => _selectedPlan = 0),
                         )),
@@ -289,7 +278,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                         _purchase(pkg);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: const Text('Şu an satın alma yüklenemedi, tekrar dene'), backgroundColor: const Color(0xFF1A1145)),
+                          SnackBar(content: Text(l.paywallLoadError), backgroundColor: const Color(0xFF1A1145)),
                         );
                       }
                     },
@@ -309,7 +298,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                         child: _purchasing
                             ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5))
                             : Text(
-                                _selectedPlan == 0 ? 'Ücretsiz Dene' : 'Devam Et',
+                                _selectedPlan == 0 ? l.paywallCta : l.paywallCtaAlt,
                                 style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: 0.1),
                               ),
                       ),
@@ -320,7 +309,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                 SizedBox(height: math.max(bottom + 6, 16)),
 
                 Text(
-                  _selectedPlan == 0 ? '3 gün ücretsiz · sonra otomatik yenilenir · istediğin zaman iptal et' : 'Yıllık otomatik yenilenir · istediğin zaman iptal et',
+                  _selectedPlan == 0 ? l.paywallTrialDisclaimer : l.paywallYearlyDisclaimer,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25)),
                 ),
@@ -581,7 +570,8 @@ class _PlanPill extends StatelessWidget {
   final String note;
   final Color glowColor;
   final VoidCallback onTap;
-  const _PlanPill({required this.selected, required this.label, required this.price, required this.note, required this.glowColor, required this.onTap});
+  final bool showBadge;
+  const _PlanPill({required this.selected, required this.label, required this.price, required this.note, required this.glowColor, required this.onTap, this.showBadge = false});
 
   @override
   Widget build(BuildContext context) {
@@ -605,7 +595,7 @@ class _PlanPill extends StatelessWidget {
             Row(
               children: [
                 Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: selected ? Colors.white : Colors.white.withValues(alpha: 0.45))),
-                if (label == 'Yıllık') ...[
+                if (showBadge) ...[
                   const Spacer(),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
