@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -385,11 +386,23 @@ class AppProvider extends ChangeNotifier {
   }
 
   Future<void> _syncPremiumStatus() async {
-    final hasEntitlement = await PurchaseService().checkEntitlement();
-    if (hasEntitlement != _isPremium) {
-      _isPremium = hasEntitlement;
-      _saveData();
-      notifyListeners();
+    // On Android we don't have a valid RevenueCat key, so skip the
+    // entitlement sync — the value stored in SharedPreferences is the
+    // source of truth (e.g. tester bypass sets it to true and it stays).
+    if (!Platform.isIOS) return;
+
+    try {
+      final hasEntitlement = await PurchaseService().checkEntitlement();
+      // Only UPGRADE to premium — never auto-downgrade.
+      // A false result could be a network error, sandbox issue, or
+      // RevenueCat cache miss. Explicit restore is the only way down.
+      if (hasEntitlement && !_isPremium) {
+        _isPremium = true;
+        _saveData();
+        notifyListeners();
+      }
+    } catch (_) {
+      // RevenueCat unreachable — keep whatever is in SharedPreferences.
     }
   }
 
