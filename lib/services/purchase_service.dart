@@ -12,8 +12,8 @@ class PurchaseService {
 
   // ── RevenueCat API Keys ────────────────────────────────────────
   // Replace with your production keys from RevenueCat dashboard.
-  static const _iosApiKey = 'test_txhoySotQjiTYXoKcszSgaMiAEm';
-  static const _androidApiKey = 'test_txhoySotQjiTYXoKcszSgaMiAEm';
+  static const _iosApiKey = 'appl_pFFwABbSJFcSbIQKDftWEIAMetk';
+  static const _androidApiKey = 'appl_pFFwABbSJFcSbIQKDftWEIAMetk';
 
   // ── Entitlement & offering IDs (set these in RevenueCat dashboard) ──
   static const entitlementId = 'Premium';
