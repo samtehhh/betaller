@@ -150,7 +150,7 @@ class _RoutinesScreenState extends State<RoutinesScreen>
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      'Level ${provider.level} · ${provider.levelTitle}',
+                      'Level ${provider.level} · ${localizedLevelTitle(l, provider.levelTitle)}',
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.white.withValues(alpha: 0.55),
@@ -462,9 +462,9 @@ class _OptimalBanner extends StatelessWidget {
             children: [
               const Text('⚡', style: TextStyle(fontSize: 18)),
               const SizedBox(width: 8),
-              const Text(
-                'OPTIMAL DAILY ROUTINE',
-                style: TextStyle(
+              Text(
+                l.dailyRoutines.toUpperCase(),
+                style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
                   color: AppColors.primaryLight,

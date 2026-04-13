@@ -313,7 +313,7 @@ class _HomeScreenState extends State<HomeScreen>
                         Expanded(
                           child: _TrackCard(
                             icon: CupertinoIcons.drop_fill,
-                            label: 'Su',
+                            label: l.water,
                             value: provider.todayWater.toStringAsFixed(1),
                             target: waterNeed.toStringAsFixed(1),
                             unit: 'L',
@@ -334,7 +334,7 @@ class _HomeScreenState extends State<HomeScreen>
                         Expanded(
                           child: _TrackCard(
                             icon: CupertinoIcons.moon_fill,
-                            label: 'Uyku',
+                            label: l.sleepLabel,
                             value: provider.todaySleep.toStringAsFixed(1),
                             target: sleepNeed.toStringAsFixed(1),
                             unit: l.hoursShort,
@@ -1020,7 +1020,7 @@ class _TodayMissionCard extends StatelessWidget {
                 _MissionRow(
                   icon: CupertinoIcons.drop_fill,
                   iconColor: AppColors.water,
-                  label: 'Su',
+                  label: l.water,
                   value:
                       '${waterCurrent.toStringAsFixed(1)}/${waterTarget.toStringAsFixed(1)}L',
                   done: waterCurrent >= waterTarget,
