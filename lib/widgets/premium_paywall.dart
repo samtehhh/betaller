@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -12,15 +13,18 @@ import '../services/purchase_service.dart';
 import '../utils/constants.dart';
 
 Future<bool?> showPremiumPaywall(BuildContext context) async {
-  try {
-    final purchased = await PurchaseService().presentPaywall();
-    if (purchased) {
-      if (context.mounted) context.read<AppProvider>().setPremium(true);
-      return true;
-    }
-    return false;
-  } catch (_) {}
-
+  if (Platform.isIOS) {
+    // iOS: try RevenueCat native paywall first
+    try {
+      final purchased = await PurchaseService().presentPaywall();
+      if (purchased) {
+        if (context.mounted) context.read<AppProvider>().setPremium(true);
+        return true;
+      }
+      return false;
+    } catch (_) {}
+  }
+  // Android (or fallback): use our custom paywall screen
   if (!context.mounted) return false;
   return Navigator.push<bool>(
     context,
@@ -113,6 +117,12 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
   Future<void> _purchase(Package pkg) async {
     if (_purchasing) return;
     HapticFeedback.mediumImpact();
+    // Android test mode: bypass purchase flow
+    if (Platform.isAndroid) {
+      context.read<AppProvider>().setPremium(true);
+      if (widget.dismissible && context.mounted) Navigator.pop(context, true);
+      return;
+    }
     setState(() => _purchasing = true);
     final ok = await PurchaseService().purchasePackage(pkg);
     if (mounted) {
@@ -125,6 +135,12 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
   }
 
   Future<void> _restore() async {
+    // Android test mode: bypass restore flow
+    if (Platform.isAndroid) {
+      context.read<AppProvider>().setPremium(true);
+      if (widget.dismissible && context.mounted) Navigator.pop(context, true);
+      return;
+    }
     setState(() => _purchasing = true);
     final ok = await PurchaseService().restore();
     if (mounted) {

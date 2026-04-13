@@ -2341,6 +2341,21 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
     if (mounted) widget.onComplete();
   }
 
+  /// Returns a 5×4 colour-filter matrix that desaturates the image when
+  /// [t] = 0 (grayscale) and shows full colour when [t] = 1.
+  List<double> _buildSaturationMatrix(double t) {
+    // Luminance weights (Rec. 601)
+    const lr = 0.2126, lg = 0.7152, lb = 0.0722;
+    final s = t.clamp(0.0, 1.0);
+    final inv = 1.0 - s;
+    return [
+      lr + s * (1 - lr), lg * inv,          lb * inv,          0, 0,
+      lr * inv,          lg + s * (1 - lg), lb * inv,          0, 0,
+      lr * inv,          lg * inv,          lb + s * (1 - lb), 0, 0,
+      0,                 0,                 0,                  1, 0,
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
@@ -2376,40 +2391,60 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
           ),
           const SizedBox(height: 28),
 
-          // Glowing person circle
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 500),
-            width: 170, height: 170,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: RadialGradient(
-                colors: [
-                  AppColors.primary.withValues(alpha: 0.35 + _progress * 0.35),
-                  AppColors.primary.withValues(alpha: 0.10),
-                  Colors.transparent,
-                ],
-                stops: const [0.0, 0.55, 1.0],
-              ),
-            ),
-            child: Center(
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 500),
-                width: 96, height: 96,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.primary.withValues(alpha: 0.80 + _progress * 0.20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withValues(alpha: _progress * 0.55),
-                      blurRadius: 28 + _progress * 16,
-                      spreadRadius: 2 + _progress * 4,
+          // App logo — grayscale → purple glow, edges softly faded
+          SizedBox(
+            width: 200, height: 200,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // ── Animated glow halo behind the logo ──
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  width: 200, height: 200,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.primary.withValues(alpha: _progress * 0.65),
+                        blurRadius: 30 + _progress * 50,
+                        spreadRadius: _progress * 10,
+                      ),
+                      BoxShadow(
+                        color: AppColors.primary.withValues(alpha: _progress * 0.25),
+                        blurRadius: 80 + _progress * 40,
+                        spreadRadius: _progress * 4,
+                      ),
+                    ],
+                    gradient: RadialGradient(
+                      colors: [
+                        AppColors.primary.withValues(alpha: _progress * 0.30),
+                        AppColors.primary.withValues(alpha: _progress * 0.08),
+                        Colors.transparent,
+                      ],
+                      stops: const [0.0, 0.5, 1.0],
                     ),
-                  ],
+                  ),
                 ),
-                child: const Icon(CupertinoIcons.person_fill, color: Colors.white, size: 46),
-              ),
+
+                // ── Logo: icon_2.png (proper transparent-bg version) ──
+                ColorFiltered(
+                  colorFilter: ColorFilter.matrix(_buildSaturationMatrix(_progress)),
+                  child: Image.asset(
+                    'assets/icon_2.png',
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, __, ___) => const Icon(
+                      CupertinoIcons.person_fill,
+                      color: Colors.white,
+                      size: 56,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
+
           const SizedBox(height: 28),
 
           // Progress bar
@@ -3356,23 +3391,25 @@ class _IntroMockupLevels extends StatelessWidget {
                   child: const Center(child: Text('🌱', style: TextStyle(fontSize: 13))),
                 ),
                 const SizedBox(width: 7),
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Row(children: [
-                    Text('LEVEL 1', style: TextStyle(fontSize: 7, fontWeight: FontWeight.w800, letterSpacing: 1, color: const Color(0xFF4CAF50))),
-                    const SizedBox(width: 5),
-                    // intensity bar
-                    ...List.generate(10, (i) => Container(
-                      margin: const EdgeInsets.only(right: 1.5),
-                      width: 4, height: 7,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(1.5),
-                        color: i == 0 ? const Color(0xFF4CAF50) : const Color(0xFF4CAF50).withValues(alpha: 0.15),
-                      ),
-                    )),
+                Flexible(
+                  child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Row(children: [
+                      Text('LEVEL 1', style: TextStyle(fontSize: 7, fontWeight: FontWeight.w800, letterSpacing: 1, color: const Color(0xFF4CAF50))),
+                      const SizedBox(width: 5),
+                      // intensity bar
+                      ...List.generate(10, (i) => Container(
+                        margin: const EdgeInsets.only(right: 1.5),
+                        width: 4, height: 7,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(1.5),
+                          color: i == 0 ? const Color(0xFF4CAF50) : const Color(0xFF4CAF50).withValues(alpha: 0.15),
+                        ),
+                      )),
+                    ]),
+                    const Text('Starter', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w800)),
                   ]),
-                  const Text('Starter', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w800)),
-                ]),
-                const Spacer(),
+                ),
+                const SizedBox(width: 6),
                 Text('7/7', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.lime)),
               ]),
               const SizedBox(height: 8),
@@ -3412,22 +3449,24 @@ class _IntroMockupLevels extends StatelessWidget {
                   child: const Center(child: Text('⚡', style: TextStyle(fontSize: 13))),
                 ),
                 const SizedBox(width: 7),
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Row(children: [
-                    Text('LEVEL 2', style: TextStyle(fontSize: 7, fontWeight: FontWeight.w800, letterSpacing: 1, color: AppColors.primary)),
-                    const SizedBox(width: 5),
-                    ...List.generate(10, (i) => Container(
-                      margin: const EdgeInsets.only(right: 1.5),
-                      width: 4, height: 7,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(1.5),
-                        color: i < 2 ? AppColors.primary : AppColors.primary.withValues(alpha: 0.15),
-                      ),
-                    )),
+                Flexible(
+                  child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Row(children: [
+                      Text('LEVEL 2', style: TextStyle(fontSize: 7, fontWeight: FontWeight.w800, letterSpacing: 1, color: AppColors.primary)),
+                      const SizedBox(width: 5),
+                      ...List.generate(10, (i) => Container(
+                        margin: const EdgeInsets.only(right: 1.5),
+                        width: 4, height: 7,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(1.5),
+                          color: i < 2 ? AppColors.primary : AppColors.primary.withValues(alpha: 0.15),
+                        ),
+                      )),
+                    ]),
+                    const Text('Novice', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w800)),
                   ]),
-                  const Text('Novice', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w800)),
-                ]),
-                const Spacer(),
+                ),
+                const SizedBox(width: 6),
                 Text('2/7', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.primaryBright)),
               ]),
               const SizedBox(height: 8),
@@ -3481,40 +3520,129 @@ class _IntroMockupLevels extends StatelessWidget {
 class _IntroMockupReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final items = [
-      ('GabrielBhatt', 'Crazy how accurate the height prediction is 💀'),
-      ('Arslan T.', 'The app makes it super easy to track progress.'),
+    final l = AppLocalizations.of(context)!;
+
+    // Featured hero review — Gökdeniz
+    const heroImage = 'assets/testimonials/gokdeniz.jpg';
+
+    // Secondary reviews with real photos
+    final reviews = [
+      (image: 'assets/testimonials/umut.jpg',  name: 'Umut',  text: l.testimonial1),
+      (image: 'assets/testimonials/aydin.jpg', name: 'Aydın', text: l.testimonial3),
     ];
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: items.map((r) => Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: const Color(0xFF161220),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 34, height: 34,
-                  decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.20), shape: BoxShape.circle),
-                  child: const Icon(CupertinoIcons.person_fill, size: 18, color: AppColors.primary),
-                ),
-                const SizedBox(width: 8),
-                Expanded(child: Text(r.$1, style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700))),
-                Row(children: List.generate(5, (_) => const Icon(CupertinoIcons.star_fill, color: AppColors.primary, size: 12))),
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // ── Hero card (Gökdeniz) ────────────────────────────────────
+          Container(
+            margin: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 14),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.primary.withValues(alpha: 0.18),
+                  const Color(0xFF13102A),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: AppColors.primary.withValues(alpha: 0.28), width: 1.2),
+              boxShadow: [
+                BoxShadow(color: AppColors.primary.withValues(alpha: 0.10), blurRadius: 16),
               ],
             ),
-            const SizedBox(height: 8),
-            Text(r.$2, style: TextStyle(color: Colors.white.withValues(alpha: 0.80), fontSize: 13, height: 1.4)),
-          ],
-        ),
-      )).toList(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    // Real photo avatar
+                    Container(
+                      width: 42, height: 42,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: AppColors.primary, width: 1.8),
+                        boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 8)],
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(heroImage, fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => const Icon(CupertinoIcons.person_fill, size: 22, color: AppColors.primary)),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Gökdeniz', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w800)),
+                        Row(children: [
+                          ...List.generate(5, (_) => const Icon(CupertinoIcons.star_fill, color: Color(0xFFFFD700), size: 11)),
+                          const SizedBox(width: 5),
+                          Text('5.0', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.55))),
+                        ]),
+                      ],
+                    ),
+                    const Spacer(),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: AppColors.primary.withValues(alpha: 0.30)),
+                      ),
+                      child: const Text('✓ Verified', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.primary)),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Text(l.testimonial2,
+                  style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12.5, height: 1.45)),
+              ],
+            ),
+          ),
+
+          // ── Secondary review cards ─────────────────────────────────
+          ...reviews.map((r) => Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.fromLTRB(14, 13, 14, 11),
+            decoration: BoxDecoration(
+              color: const Color(0xFF161220),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [
+                  // Real photo avatar
+                  Container(
+                    width: 34, height: 34,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.15), width: 1.2),
+                    ),
+                    child: ClipOval(
+                      child: Image.asset(r.image, fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Container(
+                          color: AppColors.primary.withValues(alpha: 0.20),
+                          child: const Icon(CupertinoIcons.person_fill, size: 16, color: AppColors.primary))),
+                    ),
+                  ),
+                  const SizedBox(width: 9),
+                  Expanded(child: Text(r.name, style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700))),
+                  Row(children: List.generate(5, (_) => const Icon(CupertinoIcons.star_fill, color: AppColors.primary, size: 11))),
+                ]),
+                const SizedBox(height: 8),
+                Text(r.text,
+                  style: TextStyle(color: Colors.white.withValues(alpha: 0.78), fontSize: 12, height: 1.42)),
+              ],
+            ),
+          )),
+        ],
+      ),
     );
   }
 }

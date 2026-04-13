@@ -48,6 +48,7 @@ flutter:
 
   assets:
     - assets/icon.png
+    - assets/icon_2.png
     - assets/exercises/
     - assets/testimonials/
 
