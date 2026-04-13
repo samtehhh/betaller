@@ -7,9 +7,9 @@ import 'package:flutter/cupertino.dart';
 class AppColors {
   AppColors._();
 
-  // Core backgrounds — cinematic dark with purple undertone
-  static const scaffold = Color(0xFF08060F);
-  static const surfaceDark = Color(0xFF0C0A16);
+  // Core backgrounds — deep navy-indigo dark
+  static const scaffold = Color(0xFF0F0D1C);
+  static const surfaceDark = Color(0xFF161428);
 
   // Card fills — premium dark surfaces
   static const cardFill = Color(0xFF0C0A16);
@@ -57,7 +57,7 @@ class AppColors {
   );
 
   static const gradientHeader = LinearGradient(
-    colors: [Color(0xFF0A0814), Color(0xFF040309)],
+    colors: [Color(0xFF161428), Color(0xFF0F0D1C)],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );

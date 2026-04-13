@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
+import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/education_data.dart';
 import '../utils/localized_data.dart';
+import 'exercise_detail_screen.dart';
 
 // ── Category filter definitions ──────────────────────────────────
 
@@ -419,7 +422,16 @@ class ArticleDetailScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     onPressed: () {
-                      // TODO: Navigate to routine detail
+                      final provider = context.read<AppProvider>();
+                      try {
+                        final routine = provider.allRoutines.firstWhere((r) => r.id == id);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ExerciseDetailScreen(routine: routine),
+                          ),
+                        );
+                      } catch (_) {}
                     },
                   );
                 }).toList(),

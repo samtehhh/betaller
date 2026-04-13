@@ -90,7 +90,6 @@ class _RoutinesScreenState extends State<RoutinesScreen>
   Widget build(BuildContext context) {
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
-        final l = AppLocalizations.of(context)!;
         return Scaffold(
           backgroundColor: AppColors.scaffold,
           body: Column(
@@ -434,6 +433,7 @@ class _OptimalBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final completedCount = _optimalRoutineIds
         .where((id) => provider.allRoutines.any((r) => r.id == id && r.completed))
         .length;
@@ -1272,7 +1272,6 @@ class _NutritionTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
     final completedCount = _nutritionIds
         .where((id) => provider.allRoutines.any((r) => r.id == id && r.completed))
         .length;

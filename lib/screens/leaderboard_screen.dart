@@ -36,8 +36,31 @@ class LeaderboardScreen extends StatelessWidget {
       ethnicity: ethnicity,
     );
     final refs = HeightReference.referenceHeights(age, isMale, ethnicity: ethnicity);
+
+    // pastHeights'tan HeightRecord listesi türet (analysis flow'dan girilen geçmiş boylar)
+    final pastHeightRecords = provider.pastHeights.entries.map((e) {
+      final year = DateTime.now().year - (age - e.key);
+      return HeightRecord(
+        date: DateTime(year, 6, 15).toIso8601String(),
+        height: e.value,
+      );
+    }).toList();
+
+    // İkisini birleştir; aynı yıl varsa pastHeights öncelikli
+    final mergedRecords = [
+      ...pastHeightRecords,
+      ...provider.heightRecords.where((r) {
+        final d = DateTime.tryParse(r.date);
+        if (d == null) return true;
+        return !pastHeightRecords.any((pr) {
+          final pd = DateTime.tryParse(pr.date);
+          return pd != null && pd.year == d.year;
+        });
+      }),
+    ];
+
     final prediction = provider.profile != null
-        ? Calculations.predictFinalHeight(provider.profile!, provider.heightRecords)
+        ? Calculations.predictFinalHeight(provider.profile!, mergedRecords)
         : null;
 
     return Scaffold(
@@ -85,7 +108,8 @@ class LeaderboardScreen extends StatelessWidget {
                   age: age,
                   isMale: isMale,
                   userHeight: height,
-                  records: provider.heightRecords,
+                  records: mergedRecords,
+                  pastHeights: provider.pastHeights,
                   yearlyPredictions: prediction?.yearlyPredictions ?? {},
                   ethnicity: ethnicity,
                 ),
@@ -582,6 +606,7 @@ class _ReferenceTable extends StatelessWidget {
   final bool isMale;
   final double userHeight;
   final List<HeightRecord> records;
+  final Map<int, double> pastHeights;
   final Map<int, double> yearlyPredictions;
   final String ethnicity;
 
@@ -590,6 +615,7 @@ class _ReferenceTable extends StatelessWidget {
     required this.isMale,
     required this.userHeight,
     required this.records,
+    required this.pastHeights,
     required this.yearlyPredictions,
     this.ethnicity = '',
   });
@@ -637,18 +663,23 @@ class _ReferenceTable extends StatelessWidget {
             if (a == age) {
               rowHeight = userHeight;
             } else if (a < age) {
-              // Geçmiş — kayıtlardan bul
-              final targetYear = DateTime.now().year - (age - a);
-              HeightRecord? best;
-              int bestDiff = 9999;
-              for (final r in records) {
-                final d = DateTime.tryParse(r.date);
-                if (d == null) continue;
-                final diff = (d.year - targetYear).abs();
-                if (diff < bestDiff) { bestDiff = diff; best = r; }
-              }
-              if (best != null && bestDiff <= 1) {
-                rowHeight = best.height;
+              // Geçmiş — önce analysis flow'dan girilen pastHeights'a bak
+              if (pastHeights.containsKey(a)) {
+                rowHeight = pastHeights[a];
+              } else {
+                // Tarihli heightRecords'ta ara
+                final targetYear = DateTime.now().year - (age - a);
+                HeightRecord? best;
+                int bestDiff = 9999;
+                for (final r in records) {
+                  final d = DateTime.tryParse(r.date);
+                  if (d == null) continue;
+                  final diff = (d.year - targetYear).abs();
+                  if (diff < bestDiff) { bestDiff = diff; best = r; }
+                }
+                if (best != null && bestDiff <= 1) {
+                  rowHeight = best.height;
+                }
               }
             } else {
               // Gelecek — yearlyPredictions'dan
