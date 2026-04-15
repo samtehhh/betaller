@@ -1,0 +1,21 @@
+name: Create iOS Distribution Certificate
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-cert:
+    runs-on: macos-latest
+    steps:
+      - name: Install Codemagic CLI Tools
+        run: pip3 install codemagic-cli-tools
+
+      - name: Create iOS Distribution Certificate
+        env:
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_IDENTIFIER: ${{ secrets.APP_STORE_CONNECT_KEY_IDENTIFIER }}
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+        run: |
+          app-store-connect certificates create \
+            --type IOS_DISTRIBUTION \
+            --save
