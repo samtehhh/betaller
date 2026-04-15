@@ -6,22 +6,40 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
+      groups:
+        - ios_credentials
+      vars:
+        BUNDLE_ID: "com.glowup.boyuzatmaApp"
+        XCODE_WORKSPACE: "ios/Runner.xcworkspace"
+        XCODE_SCHEME: "Runner"
+    integrations:
+      app_store_connect: BeTaller
     scripts:
+      - name: Set up code signing
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+          keychain add-certificates
+          xcode-project use-profiles
       - name: Get Flutter packages
         script: |
           flutter packages pub get
-      - name: Build iOS release (no signing)
+      - name: Build iOS release
         script: |
-          flutter build ios --release --no-codesign
-      - name: Create unsigned IPA
+          flutter build ios --release
+      - name: Package IPA
         script: |
-          cd build/ios/iphoneos
-          mkdir -p Payload
-          cp -r Runner.app Payload/
-          zip -r GlowUp.ipa Payload
+          xcode-project build-ipa \
+            --workspace "$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
     artifacts:
-      - build/ios/iphoneos/GlowUp.ipa
+      - build/ios/ipa/*.ipa
     publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
       email:
         recipients:
           - samtehhh@gmail.com
