@@ -9,7 +9,7 @@ workflows:
       groups:
         - ios_credentials
       vars:
-        BUNDLE_ID: "com.glowup.boyuzatmaApp"
+        BUNDLE_ID: "com.glowup.boyuzatmaApp.33JY92T594"
         XCODE_WORKSPACE: "ios/Runner.xcworkspace"
         XCODE_SCHEME: "Runner"
     integrations:
