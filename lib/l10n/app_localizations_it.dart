@@ -3220,4 +3220,103 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get tallerThanPct => 'Taller than 76.7% of your age';
+
+  @override
+  String get levelNovice => 'Novizio';
+
+  @override
+  String get levelBuilder => 'Costruttore';
+
+  @override
+  String get levelGrinder => 'Instancabile';
+
+  @override
+  String get levelWarrior => 'Guerriero';
+
+  @override
+  String get levelGodTier => 'Divino';
+
+  @override
+  String get levelDesc0 => 'Costruisci le tue basi';
+
+  @override
+  String get levelDesc1 => 'Accelera la crescita';
+
+  @override
+  String get levelDesc2 => 'Intensifica l\'allenamento';
+
+  @override
+  String get levelDesc3 => 'Supera i tuoi limiti';
+
+  @override
+  String get levelDesc4 => 'Nessun dolore, nessun guadagno';
+
+  @override
+  String get levelDesc5 => 'Mentalità da campione';
+
+  @override
+  String get levelDesc6 => 'Prestazione élite';
+
+  @override
+  String get levelDesc7 => 'Domina il tuo corpo';
+
+  @override
+  String get levelDesc8 => 'Disciplina leggendaria';
+
+  @override
+  String get levelDesc9 => 'Potenziale massimo';
+
+  @override
+  String levelLabel(int level) {
+    return 'LIVELLO $level';
+  }
+
+  @override
+  String daysLeftProgram(int days) {
+    return '$days giorni rimasti nel programma';
+  }
+
+  @override
+  String get tapLabel => 'TOCCA';
+
+  @override
+  String kcalPer100g(int calories) {
+    return '$calories kcal / 100g';
+  }
+
+  @override
+  String get dayShort => 'Giorno';
+
+  @override
+  String get legendShort => 'Basso';
+
+  @override
+  String get legendBelowAvg => 'Sotto media';
+
+  @override
+  String get legendAverage => 'Media';
+
+  @override
+  String get legendTall => 'Alto';
+
+  @override
+  String get legendVeryTall => 'Molto alto';
+
+  @override
+  String get pctBottom5 => '5% inferiore';
+
+  @override
+  String get pctBottom25 => '25% inferiore';
+
+  @override
+  String get pctMedian => 'Mediana';
+
+  @override
+  String get pctTop25 => '25% superiore';
+
+  @override
+  String get pctTop5 => '5% superiore';
+
+  @override
+  String get fallingBehind => 'Stai rimanendo indietro';
 }

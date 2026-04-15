@@ -19,19 +19,51 @@ const _freeRoutineIds = {'morning_stretch', 'protein', 'quality_sleep', 'posture
 const _totalLevels = 10;
 const _daysPerLevel = 7;
 
-// Level metadata: title, emoji, color, description, badge (shown next to level number)
+// Level metadata: emoji, color, intensity badge (non-localizable parts)
 const _levelMeta = [
-  ('Starter',   '🌱', Color(0xFF4CAF50), 'Build your foundation',   '◦◦◦◦◦◦◦◦◦◦'),
-  ('Novice',    '⚡', Color(0xFF8B5CF6), 'Accelerate growth',        '█◦◦◦◦◦◦◦◦◦'),
-  ('Builder',   '🔥', Color(0xFFFF8A00), 'Intensify training',       '██◦◦◦◦◦◦◦◦'),
-  ('Grinder',   '💪', Color(0xFF00E5FF), 'Push your limits',         '███◦◦◦◦◦◦◦'),
-  ('Warrior',   '⚔️', Color(0xFFFF4DB8), 'No pain, no gain',         '████◦◦◦◦◦◦'),
-  ('Champion',  '🏆', Color(0xFFF5C542), 'Champion mindset',         '█████◦◦◦◦◦'),
-  ('Elite',     '🌟', Color(0xFF8B5CF6), 'Elite performance',        '██████◦◦◦◦'),
-  ('Master',    '👑', Color(0xFFFF8A00), 'Master your body',         '███████◦◦◦'),
-  ('Legend',    '🦅', Color(0xFF00E5FF), 'Legendary discipline',     '████████◦◦'),
-  ('God Tier',  '🚀', Color(0xFFFF4DB8), 'Maximum potential',        '██████████'),
+  ('🌱', Color(0xFF4CAF50), '◦◦◦◦◦◦◦◦◦◦'),
+  ('⚡', Color(0xFF8B5CF6), '█◦◦◦◦◦◦◦◦◦'),
+  ('🔥', Color(0xFFFF8A00), '██◦◦◦◦◦◦◦◦'),
+  ('💪', Color(0xFF00E5FF), '███◦◦◦◦◦◦◦'),
+  ('⚔️', Color(0xFFFF4DB8), '████◦◦◦◦◦◦'),
+  ('🏆', Color(0xFFF5C542), '█████◦◦◦◦◦'),
+  ('🌟', Color(0xFF8B5CF6), '██████◦◦◦◦'),
+  ('👑', Color(0xFFFF8A00), '███████◦◦◦'),
+  ('🦅', Color(0xFF00E5FF), '████████◦◦'),
+  ('🚀', Color(0xFFFF4DB8), '██████████'),
 ];
+
+String _localizedLevelName(AppLocalizations l, int index) {
+  switch (index) {
+    case 0: return l.levelStarter;
+    case 1: return l.levelNovice;
+    case 2: return l.levelBuilder;
+    case 3: return l.levelGrinder;
+    case 4: return l.levelWarrior;
+    case 5: return l.levelChampion;
+    case 6: return l.levelElite;
+    case 7: return l.levelMaster;
+    case 8: return l.levelLegend;
+    case 9: return l.levelGodTier;
+    default: return 'Level ${index + 1}';
+  }
+}
+
+String _localizedLevelDesc(AppLocalizations l, int index) {
+  switch (index) {
+    case 0: return l.levelDesc0;
+    case 1: return l.levelDesc1;
+    case 2: return l.levelDesc2;
+    case 3: return l.levelDesc3;
+    case 4: return l.levelDesc4;
+    case 5: return l.levelDesc5;
+    case 6: return l.levelDesc6;
+    case 7: return l.levelDesc7;
+    case 8: return l.levelDesc8;
+    case 9: return l.levelDesc9;
+    default: return '';
+  }
+}
 
 // Exercise IDs per weekday (0=Mon … 6=Sun) — 7-day rotating schedule
 const _weekdayExerciseIds = [
@@ -783,6 +815,7 @@ class _DaysLeftBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.fromLTRB(18, 16, 18, 8),
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -801,7 +834,7 @@ class _DaysLeftBanner extends StatelessWidget {
           const Text('🏁', style: TextStyle(fontSize: 20)),
           const SizedBox(width: 10),
           Text(
-            '$daysLeft days left in your program',
+            l.daysLeftProgram(daysLeft),
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w700,
@@ -846,12 +879,13 @@ class _LevelCardState extends State<_LevelCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final meta = _levelMeta[widget.levelIndex];
-    final title = meta.$1;
-    final emoji = meta.$2;
-    final color = meta.$3;
-    final desc = meta.$4;
-    final intensityBar = meta.$5;
+    final emoji = meta.$1;
+    final color = meta.$2;
+    final intensityBar = meta.$3;
+    final title = _localizedLevelName(l, widget.levelIndex);
+    final desc = _localizedLevelDesc(l, widget.levelIndex);
 
     final levelStartDay = widget.levelIndex * _daysPerLevel;
     final isCompleted = widget.completedDays.contains(levelStartDay) &&
@@ -931,7 +965,7 @@ class _LevelCardState extends State<_LevelCard> {
                         Row(
                           children: [
                             Text(
-                              'LEVEL ${widget.levelIndex + 1}',
+                              l.levelLabel(widget.levelIndex + 1),
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
@@ -1146,6 +1180,7 @@ class _DayNode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final dayNum = (dayIndex % _daysPerLevel) + 1;
 
     return GestureDetector(
@@ -1197,7 +1232,7 @@ class _DayNode extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Day',
+                              l.dayShort,
                               style: TextStyle(
                                 fontSize: 9,
                                 color: color,
@@ -1235,7 +1270,7 @@ class _DayNode extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                'TAP',
+                l.tapLabel,
                 style: TextStyle(
                   fontSize: 9,
                   fontWeight: FontWeight.w800,

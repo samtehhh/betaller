@@ -14,10 +14,11 @@ import 'main_screen.dart';
 import '../widgets/premium_paywall.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
-const int _kGenderPage   = 2;
-const int _kWorkoutPage  = 7;
-const int _kAnalyzingPage = 14;
-const int _kLastQuestion = 13; // last page that shows the Next button
+const int _kGenderPage      = 2;
+const int _kWorkoutPage     = 7;
+const int _kPastHeightsPage = 11;
+const int _kAnalyzingPage   = 15;
+const int _kLastQuestion    = 14; // last page that shows the Next button
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -61,8 +62,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
 
   // ── Foot size ────────────────────────────────────────────────────────────────
-  double _footSize   = 8.5;
-  bool   _footSizeEU = false;
+  double _footSize   = 8.5;   // US equivalent of EU 41
+  bool   _footSizeEU = true;
 
   // ── Dream height ─────────────────────────────────────────────────────────────
   bool _dreamImperial  = false;
@@ -72,8 +73,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // ── Sleep ────────────────────────────────────────────────────────────────────
   double _sleepHours = 7.5;
 
-  // ── Legacy – past heights (kept for compatibility) ───────────────────────────
-  final _pastHeightValues = <int, int>{};
+  // ── Past heights — onboarding picker ─────────────────────────────────────────
+  final _obPastHeightValues = <int, double?>{};
+  List<int> _obAges = [];
+  int _obCurrentAgeIndex = 0;
+  final PageController _obAgePageController = PageController(viewportFraction: 0.50);
+  FixedExtentScrollController _obHeightPickerController = FixedExtentScrollController(initialItem: 60);
+  static const int _kObMinH = 100;
+  static const int _kObMaxH = 220;
 
   // ── Analysis ─────────────────────────────────────────────────────────────────
   PredictionResult? _prediction;
@@ -119,6 +126,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     _pageController.dispose();
     _introController.dispose();
     _resultAnim.dispose();
+    _obAgePageController.dispose();
+    _obHeightPickerController.dispose();
     super.dispose();
   }
 
@@ -143,6 +152,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       setState(() => _currentPage = _kAnalyzingPage);
       _pageController.jumpToPage(_kAnalyzingPage);
     } else {
+      // Geçmiş boylar sayfasına girerken picker'ı hazırla
+      if (page == _kPastHeightsPage - 1) _initObPastHeights();
       setState(() => _currentPage = page + 1);
       _pageController.animateToPage(
         page + 1,
@@ -150,6 +161,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         curve: Curves.easeInOut,
       );
     }
+  }
+
+  void _initObPastHeights() {
+    final lastPastAge = _userAge - 1;
+    _obAges = lastPastAge >= 10
+        ? List.generate(lastPastAge - 9, (i) => lastPastAge - i)
+        : [];
+    _obCurrentAgeIndex = 0;
+    _obHeightPickerController.dispose();
+    final initialItem = (_selectedHeight - 5 - _kObMinH).clamp(0, _kObMaxH - _kObMinH);
+    _obHeightPickerController = FixedExtentScrollController(initialItem: initialItem);
   }
 
   void _computeAnalysisResults() {
@@ -163,9 +185,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       motherHeight: _selectedMotherHeight.toDouble(),
     );
     final pastHeights = <int, double>{};
-    for (final e in _pastHeightValues.entries) {
-      if (e.key <= _userAge && e.value > 50 && e.value < 250) {
-        pastHeights[e.key] = e.value.toDouble();
+    for (final e in _obPastHeightValues.entries) {
+      final val = e.value;
+      if (val != null && e.key <= _userAge && val > 50 && val < 250) {
+        pastHeights[e.key] = val;
       }
     }
     pastHeights[_userAge] = profile.currentHeight;
@@ -218,8 +241,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ethnicity: _ethnicity,
     );
     final past = <int, double>{};
-    for (final e in _pastHeightValues.entries) {
-      if (e.key <= _userAge && e.value > 50 && e.value < 250) past[e.key] = e.value.toDouble();
+    for (final e in _obPastHeightValues.entries) {
+      final val = e.value;
+      if (val != null && e.key <= _userAge && val > 50 && val < 250) past[e.key] = val;
     }
     final p = context.read<AppProvider>();
     p.savePastHeights(past);
@@ -349,7 +373,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final showNav    = _currentPage >= _kGenderPage && _currentPage <= _kLastQuestion;
-    final showButton = _currentPage <= _kLastQuestion;
+    final showButton = _currentPage <= _kLastQuestion && _currentPage != _kPastHeightsPage;
     final progress   = _currentPage <= _kGenderPage
         ? 0.0
         : (_currentPage - 1) / (_kLastQuestion - 1).toDouble();
@@ -429,12 +453,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         _buildEthnicityPage(),     // 7
                         _buildFootSizePage(),      // 8
                         _buildDreamHeightPage(),   // 9
-                        _buildSleepPage(),         // 10
-                        _buildReviewsPage(),       // 11
-                        _buildChartPage(),         // 12
-                        _buildJourneyPage(),       // 13 NEW
-                        const SizedBox(),          // 14 placeholder for analyzing
-                        _buildResultPage(),        // 15
+                        _buildSleepPage(),                    // 10
+                        _buildOnboardingPastHeightsPage(),    // 11
+                        _buildReviewsPage(),                  // 12
+                        _buildChartPage(),                    // 13
+                        _buildJourneyPage(),                  // 14
+                        const SizedBox(),                     // 15 placeholder for analyzing
+                        _buildResultPage(),                   // 16
                       ],
                     ),
                   ),
@@ -1155,6 +1180,294 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
+  // PAGE 11 — Geçmiş Boylar (onboarding picker)
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  double _obDefaultHeightForAge(int age) {
+    final ageRange = (_userAge - 10).clamp(1, 100);
+    final fraction = ((age - 10) / ageRange).clamp(0.0, 1.0);
+    return (120 + (_selectedHeight - 120) * fraction).roundToDouble();
+  }
+
+  int _obHeightToItem(double h) => (h.round() - _kObMinH).clamp(0, _kObMaxH - _kObMinH);
+
+  void _obJumpPickerToAge(int age) {
+    final val = _obPastHeightValues[age] ?? _obDefaultHeightForAge(age);
+    final item = _obHeightToItem(val);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_obHeightPickerController.hasClients) {
+        _obHeightPickerController.jumpToItem(item);
+      }
+    });
+  }
+
+  void _obOnAgePageChanged(int newIndex) {
+    setState(() => _obCurrentAgeIndex = newIndex);
+    _obJumpPickerToAge(_obAges[newIndex]);
+  }
+
+  void _obPrevAge() {
+    if (_obCurrentAgeIndex > 0) {
+      _obAgePageController.previousPage(
+        duration: const Duration(milliseconds: 320),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _obConfirmAndAdvance() {
+    final currentAge = _obAges[_obCurrentAgeIndex];
+    final item = _obHeightPickerController.hasClients
+        ? _obHeightPickerController.selectedItem
+        : _obHeightToItem(_obDefaultHeightForAge(currentAge));
+    _obPastHeightValues[currentAge] = (_kObMinH + item).toDouble();
+
+    if (_obCurrentAgeIndex < _obAges.length - 1) {
+      _obAgePageController.nextPage(
+        duration: const Duration(milliseconds: 320),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      _nextPage();
+    }
+  }
+
+  void _obSkipAge() {
+    _obPastHeightValues[_obAges[_obCurrentAgeIndex]] = null;
+    if (_obCurrentAgeIndex < _obAges.length - 1) {
+      _obAgePageController.nextPage(
+        duration: const Duration(milliseconds: 320),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      _nextPage();
+    }
+  }
+
+  Widget _buildObAgeSlot(int age, bool isSelected) {
+    final hasSaved = _obPastHeightValues[age] != null;
+    return AnimatedOpacity(
+      opacity: isSelected ? 1.0 : 0.25,
+      duration: const Duration(milliseconds: 300),
+      child: AnimatedScale(
+        scale: isSelected ? 1.0 : 0.70,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOutCubic,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            gradient: isSelected
+                ? const LinearGradient(
+                    colors: [Color(0xFF3D1A78), Color(0xFF1C0A3E)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  )
+                : null,
+            color: isSelected ? null : const Color(0xFF110D22),
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: isSelected
+                  ? const Color(0xFF8B5CF6).withValues(alpha: 0.60)
+                  : Colors.white.withValues(alpha: 0.07),
+              width: isSelected ? 1.5 : 1,
+            ),
+            boxShadow: isSelected
+                ? [BoxShadow(color: const Color(0xFF8B5CF6).withValues(alpha: 0.32), blurRadius: 28, offset: const Offset(0, 10))]
+                : null,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '$age',
+                style: TextStyle(
+                  fontSize: isSelected ? 46 : 24,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: -2,
+                  height: 1,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'yaş',
+                style: TextStyle(
+                  fontSize: isSelected ? 11 : 9,
+                  fontWeight: FontWeight.w700,
+                  color: isSelected ? const Color(0xFFB794F4) : Colors.white.withValues(alpha: 0.28),
+                  letterSpacing: 0.8,
+                ),
+              ),
+              if (hasSaved && isSelected) ...[
+                const SizedBox(height: 8),
+                Container(
+                  width: 22, height: 3,
+                  decoration: BoxDecoration(color: AppColors.lime, borderRadius: BorderRadius.circular(2)),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOnboardingPastHeightsPage() {
+    if (_obAges.isEmpty) return const SizedBox();
+
+    final currentAge = _obAges[_obCurrentAgeIndex];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Başlık
+        Padding(
+          padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Geçmiş Boylar',
+                style: const TextStyle(
+                  fontSize: 34, fontWeight: FontWeight.w900,
+                  color: Colors.white, letterSpacing: -1.3, height: 1.05,
+                ),
+              ),
+              const SizedBox(height: 6),
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.52), height: 1.45),
+                  children: [
+                    const TextSpan(text: 'Geçmiş boylarını girerek tahminin güvenini '),
+                    TextSpan(
+                      text: '%97\'ye',
+                      style: TextStyle(fontWeight: FontWeight.w800, color: const Color(0xFF22FF88).withValues(alpha: 0.90)),
+                    ),
+                    const TextSpan(text: ' çıkar.'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+
+        // Yaş carousel
+        SizedBox(
+          height: 118,
+          child: PageView.builder(
+            controller: _obAgePageController,
+            itemCount: _obAges.length,
+            onPageChanged: _obOnAgePageChanged,
+            itemBuilder: (context, index) => _buildObAgeSlot(_obAges[index], index == _obCurrentAgeIndex),
+          ),
+        ),
+        const SizedBox(height: 14),
+
+        // Soru metni
+        Center(
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 200),
+            transitionBuilder: (child, anim) => FadeTransition(opacity: anim, child: child),
+            child: Text(
+              key: ValueKey(_obCurrentAgeIndex),
+              '$currentAge yaşında kaç cm\'din?',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.48), letterSpacing: -0.2),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+
+        // Boy picker
+        Expanded(
+          child: Stack(
+            children: [
+              CupertinoPicker(
+                scrollController: _obHeightPickerController,
+                itemExtent: 56,
+                backgroundColor: Colors.transparent,
+                useMagnifier: true,
+                magnification: 1.12,
+                squeeze: 1.15,
+                onSelectedItemChanged: (index) {
+                  _obPastHeightValues[currentAge] = (_kObMinH + index).toDouble();
+                },
+                selectionOverlay: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 44, vertical: 5),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [const Color(0xFF7C3AED).withValues(alpha: 0.20), const Color(0xFF4C1D95).withValues(alpha: 0.20)]),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.55), width: 1.5),
+                  ),
+                ),
+                children: List.generate(
+                  _kObMaxH - _kObMinH + 1,
+                  (i) => Center(
+                    child: Text('${_kObMinH + i} cm',
+                      style: const TextStyle(fontSize: 27, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8)),
+                  ),
+                ),
+              ),
+              Positioned(top: 0, left: 0, right: 0, height: 100,
+                child: IgnorePointer(child: Container(decoration: const BoxDecoration(gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFF09070F), Colors.transparent]))))),
+              Positioned(bottom: 0, left: 0, right: 0, height: 100,
+                child: IgnorePointer(child: Container(decoration: const BoxDecoration(gradient: LinearGradient(begin: Alignment.bottomCenter, end: Alignment.topCenter, colors: [Color(0xFF09070F), Colors.transparent]))))),
+            ],
+          ),
+        ),
+
+        // Butonlar
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+          child: Row(
+            children: [
+              if (_obCurrentAgeIndex > 0) ...[
+                GestureDetector(
+                  onTap: _obPrevAge,
+                  child: Container(
+                    width: 58, height: 64,
+                    decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(18), border: Border.all(color: Colors.white.withValues(alpha: 0.08))),
+                    child: const Icon(CupertinoIcons.chevron_left, color: Colors.white60, size: 20),
+                  ),
+                ),
+                const SizedBox(width: 10),
+              ],
+              GestureDetector(
+                onTap: _obSkipAge,
+                child: Container(
+                  height: 64,
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
+                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(18), border: Border.all(color: Colors.white.withValues(alpha: 0.07))),
+                  child: Center(child: Text('Atla', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.38)))),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: GestureDetector(
+                  onTap: _obConfirmAndAdvance,
+                  child: Container(
+                    height: 64,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(colors: [Color(0xFFA78BFA), Color(0xFF7C3AED)], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                      borderRadius: BorderRadius.circular(18),
+                      boxShadow: [BoxShadow(color: const Color(0xFF8B5CF6).withValues(alpha: 0.42), blurRadius: 20, offset: const Offset(0, 8))],
+                    ),
+                    child: Center(
+                      child: Text(
+                        _obCurrentAgeIndex == _obAges.length - 1 ? 'Devam' : 'İleri',
+                        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.3),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   // PAGE 12 — Social proof "Binlerce Kişi Başardı"
   // ─────────────────────────────────────────────────────────────────────────────
 
@@ -1369,7 +1682,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   void _goToMain() {
     Navigator.of(context).pushReplacement(
-      CupertinoPageRoute(builder: (_) => const MainScreen()),
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 600),
+        pageBuilder: (_, __, ___) => const _WelcomeScreen(),
+        transitionsBuilder: (_, anim, __, child) =>
+            FadeTransition(opacity: anim, child: child),
+      ),
     );
   }
 
@@ -1568,6 +1886,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   opacity: predFade.value,
                   child: PremiumLockedOverlay(
                     onTap: () => showPremiumPaywall(context),
+                    unlocked: context.read<AppProvider>().isPremium,
                     borderRadius: 28,
                     blurAmount: 18,
                     child: Container(
@@ -1627,6 +1946,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   opacity: scoreFade.value,
                   child: PremiumLockedOverlay(
                     onTap: () => showPremiumPaywall(context),
+                    unlocked: context.read<AppProvider>().isPremium,
                     child: GlassCard(
                       child: Column(
                         children: [
@@ -1669,6 +1989,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   opacity: scoreFade.value,
                   child: PremiumLockedOverlay(
                     onTap: () => showPremiumPaywall(context),
+                    unlocked: context.read<AppProvider>().isPremium,
                     child: GlassCard(
                       padding: const EdgeInsets.all(20),
                       child: Column(
@@ -1724,6 +2045,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   opacity: scoreFade.value,
                   child: PremiumLockedOverlay(
                     onTap: () => showPremiumPaywall(context),
+                    unlocked: context.read<AppProvider>().isPremium,
                     child: GlassCard(
                       padding: const EdgeInsets.all(20),
                       child: Column(
@@ -3414,17 +3736,21 @@ class _IntroMockupLevels extends StatelessWidget {
               ]),
               const SizedBox(height: 8),
               // Snake path — row of 7 day nodes
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: List.generate(7, (i) => Container(
-                  width: 22, height: 22,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.primary,
-                    boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.5), blurRadius: 6)],
-                  ),
-                  child: const Center(child: Text('🔥', style: TextStyle(fontSize: 10))),
-                )),
-              ),
+              LayoutBuilder(builder: (_, bc) {
+                final sz = ((bc.maxWidth - 12) / 7).clamp(16.0, 26.0);
+                final emojiSz = sz * 0.52;
+                return Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: List.generate(7, (i) => Container(
+                    width: sz, height: sz,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.primary,
+                      boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.5), blurRadius: 6)],
+                    ),
+                    child: Center(child: Text('🔥', style: TextStyle(fontSize: emojiSz))),
+                  )),
+                );
+              }),
             ]),
           ),
           const SizedBox(height: 6),
@@ -3470,26 +3796,31 @@ class _IntroMockupLevels extends StatelessWidget {
                 Text('2/7', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.primaryBright)),
               ]),
               const SizedBox(height: 8),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: List.generate(7, (i) {
-                  if (i < 2) {
-                    return Container(width: 22, height: 22,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.primary,
-                        boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.5), blurRadius: 6)]),
-                      child: const Center(child: Text('🔥', style: TextStyle(fontSize: 10))));
-                  }
-                  if (i == 2) {
-                    return Container(width: 22, height: 22,
-                      decoration: BoxDecoration(shape: BoxShape.circle,
-                        color: AppColors.primary.withValues(alpha: 0.15),
-                        border: Border.all(color: AppColors.primary, width: 1.5)),
-                      child: Center(child: Text('${i+1}', style: TextStyle(fontSize: 7, fontWeight: FontWeight.w800, color: AppColors.primary))));
-                  }
-                  return Container(width: 22, height: 22,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withValues(alpha: 0.05)),
-                    child: Center(child: Text('${i+1}', style: TextStyle(fontSize: 7, color: Colors.white.withValues(alpha: 0.2)))));
-                }),
-              ),
+              LayoutBuilder(builder: (_, bc) {
+                final sz = ((bc.maxWidth - 12) / 7).clamp(16.0, 26.0);
+                final emojiSz = sz * 0.52;
+                final numSz = sz * 0.36;
+                return Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: List.generate(7, (i) {
+                    if (i < 2) {
+                      return Container(width: sz, height: sz,
+                        decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.primary,
+                          boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.5), blurRadius: 6)]),
+                        child: Center(child: Text('🔥', style: TextStyle(fontSize: emojiSz))));
+                    }
+                    if (i == 2) {
+                      return Container(width: sz, height: sz,
+                        decoration: BoxDecoration(shape: BoxShape.circle,
+                          color: AppColors.primary.withValues(alpha: 0.15),
+                          border: Border.all(color: AppColors.primary, width: 1.5)),
+                        child: Center(child: Text('${i+1}', style: TextStyle(fontSize: numSz, fontWeight: FontWeight.w800, color: AppColors.primary))));
+                    }
+                    return Container(width: sz, height: sz,
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withValues(alpha: 0.05)),
+                      child: Center(child: Text('${i+1}', style: TextStyle(fontSize: numSz, color: Colors.white.withValues(alpha: 0.2)))));
+                  }),
+                );
+              }),
             ]),
           ),
           const SizedBox(height: 6),
@@ -3731,4 +4062,225 @@ class _AnimatedScoreRow extends StatelessWidget {
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: color))),
     ],
   );
+}
+
+
+// Welcome Screen
+class _WelcomeScreen extends StatefulWidget {
+  const _WelcomeScreen();
+  @override
+  State<_WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<_WelcomeScreen>
+    with TickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _logoScale;
+  late final Animation<double> _logoOpacity;
+  late final Animation<double> _glowOpacity;
+  late final Animation<double> _textOpacity;
+  late final Animation<Offset> _textSlide;
+  late final Animation<double> _btnOpacity;
+  late final Animation<Offset> _btnSlide;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 1800));
+    _logoScale   = Tween(begin: 0.5, end: 1.0).animate(
+        CurvedAnimation(parent: _ctrl, curve: const Interval(0.0, 0.5, curve: Curves.elasticOut)));
+    _logoOpacity = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: _ctrl, curve: const Interval(0.0, 0.3, curve: Curves.easeOut)));
+    _glowOpacity = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: _ctrl, curve: const Interval(0.3, 0.6, curve: Curves.easeOut)));
+    _textOpacity = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: _ctrl, curve: const Interval(0.4, 0.65, curve: Curves.easeOut)));
+    _textSlide   = Tween(begin: const Offset(0, 0.3), end: Offset.zero).animate(
+        CurvedAnimation(parent: _ctrl, curve: const Interval(0.4, 0.65, curve: Curves.easeOutCubic)));
+    _btnOpacity  = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: _ctrl, curve: const Interval(0.65, 0.9, curve: Curves.easeOut)));
+    _btnSlide    = Tween(begin: const Offset(0, 0.4), end: Offset.zero).animate(
+        CurvedAnimation(parent: _ctrl, curve: const Interval(0.65, 0.9, curve: Curves.easeOutCubic)));
+    _ctrl.forward();
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  void _enter() {
+    HapticFeedback.mediumImpact();
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 500),
+        pageBuilder: (_, __, ___) => const MainScreen(),
+        transitionsBuilder: (_, anim, __, child) =>
+            FadeTransition(opacity: anim, child: child),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _ctrl,
+      builder: (context, _) => Scaffold(
+        backgroundColor: const Color(0xFF07050F),
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF1A0A3C), Color(0xFF0A0718), Color(0xFF07050F)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: SafeArea(
+            child: Column(
+              children: [
+                const Spacer(flex: 2),
+                Stack(alignment: Alignment.center, children: [
+                  Opacity(
+                    opacity: _glowOpacity.value,
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primary.withValues(alpha: 0.35),
+                            blurRadius: 90,
+                            spreadRadius: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Opacity(
+                    opacity: _logoOpacity.value,
+                    child: Transform.scale(
+                      scale: _logoScale.value,
+                      child: Container(
+                        width: 108,
+                        height: 108,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(28),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.primary.withValues(alpha: 0.5),
+                              blurRadius: 40,
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(28),
+                          child: Image.asset('assets/icon.png', fit: BoxFit.cover),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
+                const SizedBox(height: 36),
+                SlideTransition(
+                  position: _textSlide,
+                  child: Opacity(
+                    opacity: _textOpacity.value,
+                    child: Column(
+                      children: [
+                        Text(
+                          'BeTaller',
+                          style: TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                            letterSpacing: -1.5,
+                            shadows: [
+                              Shadow(color: AppColors.primary.withValues(alpha: 0.5), blurRadius: 20),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Yolculuğun başlıyor. 🚀',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white.withValues(alpha: 0.85),
+                            letterSpacing: 0.2,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Sana özel plan hazır.\nBoy potansiyelini keşfetmeye hazır mısın?',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white.withValues(alpha: 0.55),
+                            height: 1.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const Spacer(flex: 2),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(28, 0, 28, 40),
+                  child: SlideTransition(
+                    position: _btnSlide,
+                    child: Opacity(
+                      opacity: _btnOpacity.value,
+                      child: GestureDetector(
+                        onTap: _enter,
+                        child: Container(
+                          width: double.infinity,
+                          height: 62,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.primary.withValues(alpha: 0.45),
+                                blurRadius: 24,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
+                          ),
+                          child: const Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Hadi Başlayalım',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white,
+                                    letterSpacing: 0.3,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Icon(CupertinoIcons.arrow_right, color: Colors.white, size: 20),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

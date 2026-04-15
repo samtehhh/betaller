@@ -131,7 +131,7 @@
   "resetMessage": "Tüm veriler silinecek ve giriş ekranına döneceksiniz. Bu işlem geri alınamaz!",
   "reset": "Sıfırla",
   "premiumSoon": "Premium yakında geliyor!",
-  "brandingSubtitle": "Büyüme potansiyelini keşfet",
+  "brandingSubtitle": "Boy potansiyelini keşfet",
   "statistics": "İstatistikler",
   "currentStreak": "Mevcut Seri",
   "bestStreakLabel": "En İyi Seri",
@@ -143,7 +143,7 @@
   "language": "Dil",
   "languageSubtitle": "Uygulama dilini değiştir",
   "onboardingTitle": "BeTaller",
-  "onboardingSubtitle": "Büyüme potansiyelini keşfet",
+  "onboardingSubtitle": "Boy potansiyelini keşfet",
   "onboardingMeetYou": "Seni Tanıyalım",
   "onboardingInfoNeeded": "Analiz için temel bilgiler gerekli.",
   "gender": "CİNSİYET",
@@ -1020,5 +1020,51 @@
 
   "dreamHeightOdds": "Hedef boy\nolasılığı",
   "growthCompleteLabel": "Büyüme\ntamamlanma",
-  "tallerThanPct": "Yaşıtlarının %76.7'sinden uzun"
+  "tallerThanPct": "Yaşıtlarının %76.7'sinden uzun",
+
+  "levelNovice": "Acemi",
+  "levelBuilder": "Geliştirici",
+  "levelGrinder": "Azimkar",
+  "levelWarrior": "Savaşçı",
+  "levelGodTier": "Efsanevi",
+
+  "levelDesc0": "Temelini oluştur",
+  "levelDesc1": "Büyümeyi hızlandır",
+  "levelDesc2": "Antrenmanı yoğunlaştır",
+  "levelDesc3": "Limitlerini zorla",
+  "levelDesc4": "Acısız zafer olmaz",
+  "levelDesc5": "Şampiyon zihniyeti",
+  "levelDesc6": "Elit performans",
+  "levelDesc7": "Bedenine hakim ol",
+  "levelDesc8": "Efsanevi disiplin",
+  "levelDesc9": "Maksimum potansiyel",
+
+  "levelLabel": "SEVİYE {level}",
+  "@levelLabel": {"placeholders": {"level": {"type": "int"}}},
+
+  "daysLeftProgram": "Programında {days} gün kaldı",
+  "@daysLeftProgram": {"placeholders": {"days": {"type": "int"}}},
+
+  "tapLabel": "TIKLA",
+
+  "kcalPer100g": "{calories} kcal / 100g",
+  "@kcalPer100g": {"placeholders": {"calories": {"type": "int"}}},
+
+  "dayShort": "Gün",
+
+  "legendShort": "Kısa",
+  "legendBelowAvg": "Orta altı",
+  "legendAverage": "Ortalama",
+  "legendTall": "Uzun",
+  "legendVeryTall": "Çok uzun",
+
+  "pctBottom5": "Alt 5%",
+  "pctBottom25": "Alt 25%",
+  "pctMedian": "Ortalama",
+  "pctTop25": "Üst 25%",
+  "pctTop5": "Üst 5%",
+
+  "youLabel": "Sen",
+
+  "fallingBehind": "Geride kalıyorsun"
 }

@@ -3214,4 +3214,103 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get tallerThanPct => 'Taller than 76.7% of your age';
+
+  @override
+  String get levelNovice => 'Novato';
+
+  @override
+  String get levelBuilder => 'Constructor';
+
+  @override
+  String get levelGrinder => 'Perseverante';
+
+  @override
+  String get levelWarrior => 'Guerrero';
+
+  @override
+  String get levelGodTier => 'Dios';
+
+  @override
+  String get levelDesc0 => 'Construye tu base';
+
+  @override
+  String get levelDesc1 => 'Acelera el crecimiento';
+
+  @override
+  String get levelDesc2 => 'Intensifica el entrenamiento';
+
+  @override
+  String get levelDesc3 => 'Supera tus límites';
+
+  @override
+  String get levelDesc4 => 'Sin dolor no hay ganancia';
+
+  @override
+  String get levelDesc5 => 'Mentalidad de campeón';
+
+  @override
+  String get levelDesc6 => 'Rendimiento élite';
+
+  @override
+  String get levelDesc7 => 'Domina tu cuerpo';
+
+  @override
+  String get levelDesc8 => 'Disciplina legendaria';
+
+  @override
+  String get levelDesc9 => 'Potencial máximo';
+
+  @override
+  String levelLabel(int level) {
+    return 'NIVEL $level';
+  }
+
+  @override
+  String daysLeftProgram(int days) {
+    return '$days días restantes en tu programa';
+  }
+
+  @override
+  String get tapLabel => 'TOCA';
+
+  @override
+  String kcalPer100g(int calories) {
+    return '$calories kcal / 100g';
+  }
+
+  @override
+  String get dayShort => 'Día';
+
+  @override
+  String get legendShort => 'Bajo';
+
+  @override
+  String get legendBelowAvg => 'Bajo promedio';
+
+  @override
+  String get legendAverage => 'Promedio';
+
+  @override
+  String get legendTall => 'Alto';
+
+  @override
+  String get legendVeryTall => 'Muy alto';
+
+  @override
+  String get pctBottom5 => '5% inferior';
+
+  @override
+  String get pctBottom25 => '25% inferior';
+
+  @override
+  String get pctMedian => 'Mediana';
+
+  @override
+  String get pctTop25 => '25% superior';
+
+  @override
+  String get pctTop5 => '5% superior';
+
+  @override
+  String get fallingBehind => 'Te estás quedando atrás';
 }

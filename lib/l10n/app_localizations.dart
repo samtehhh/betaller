@@ -5947,6 +5947,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Taller than 76.7% of your age'**
   String get tallerThanPct;
+
+  /// No description provided for @levelNovice.
+  ///
+  /// In en, this message translates to:
+  /// **'Novice'**
+  String get levelNovice;
+
+  /// No description provided for @levelBuilder.
+  ///
+  /// In en, this message translates to:
+  /// **'Builder'**
+  String get levelBuilder;
+
+  /// No description provided for @levelGrinder.
+  ///
+  /// In en, this message translates to:
+  /// **'Grinder'**
+  String get levelGrinder;
+
+  /// No description provided for @levelWarrior.
+  ///
+  /// In en, this message translates to:
+  /// **'Warrior'**
+  String get levelWarrior;
+
+  /// No description provided for @levelGodTier.
+  ///
+  /// In en, this message translates to:
+  /// **'God Tier'**
+  String get levelGodTier;
+
+  /// No description provided for @levelDesc0.
+  ///
+  /// In en, this message translates to:
+  /// **'Build your foundation'**
+  String get levelDesc0;
+
+  /// No description provided for @levelDesc1.
+  ///
+  /// In en, this message translates to:
+  /// **'Accelerate growth'**
+  String get levelDesc1;
+
+  /// No description provided for @levelDesc2.
+  ///
+  /// In en, this message translates to:
+  /// **'Intensify training'**
+  String get levelDesc2;
+
+  /// No description provided for @levelDesc3.
+  ///
+  /// In en, this message translates to:
+  /// **'Push your limits'**
+  String get levelDesc3;
+
+  /// No description provided for @levelDesc4.
+  ///
+  /// In en, this message translates to:
+  /// **'No pain, no gain'**
+  String get levelDesc4;
+
+  /// No description provided for @levelDesc5.
+  ///
+  /// In en, this message translates to:
+  /// **'Champion mindset'**
+  String get levelDesc5;
+
+  /// No description provided for @levelDesc6.
+  ///
+  /// In en, this message translates to:
+  /// **'Elite performance'**
+  String get levelDesc6;
+
+  /// No description provided for @levelDesc7.
+  ///
+  /// In en, this message translates to:
+  /// **'Master your body'**
+  String get levelDesc7;
+
+  /// No description provided for @levelDesc8.
+  ///
+  /// In en, this message translates to:
+  /// **'Legendary discipline'**
+  String get levelDesc8;
+
+  /// No description provided for @levelDesc9.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum potential'**
+  String get levelDesc9;
+
+  /// No description provided for @levelLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'LEVEL {level}'**
+  String levelLabel(int level);
+
+  /// No description provided for @daysLeftProgram.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days left in your program'**
+  String daysLeftProgram(int days);
+
+  /// No description provided for @tapLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'TAP'**
+  String get tapLabel;
+
+  /// No description provided for @kcalPer100g.
+  ///
+  /// In en, this message translates to:
+  /// **'{calories} kcal / 100g'**
+  String kcalPer100g(int calories);
+
+  /// No description provided for @dayShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get dayShort;
+
+  /// No description provided for @legendShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Short'**
+  String get legendShort;
+
+  /// No description provided for @legendBelowAvg.
+  ///
+  /// In en, this message translates to:
+  /// **'Below avg'**
+  String get legendBelowAvg;
+
+  /// No description provided for @legendAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Average'**
+  String get legendAverage;
+
+  /// No description provided for @legendTall.
+  ///
+  /// In en, this message translates to:
+  /// **'Tall'**
+  String get legendTall;
+
+  /// No description provided for @legendVeryTall.
+  ///
+  /// In en, this message translates to:
+  /// **'Very tall'**
+  String get legendVeryTall;
+
+  /// No description provided for @pctBottom5.
+  ///
+  /// In en, this message translates to:
+  /// **'Bottom 5%'**
+  String get pctBottom5;
+
+  /// No description provided for @pctBottom25.
+  ///
+  /// In en, this message translates to:
+  /// **'Bottom 25%'**
+  String get pctBottom25;
+
+  /// No description provided for @pctMedian.
+  ///
+  /// In en, this message translates to:
+  /// **'Median'**
+  String get pctMedian;
+
+  /// No description provided for @pctTop25.
+  ///
+  /// In en, this message translates to:
+  /// **'Top 25%'**
+  String get pctTop25;
+
+  /// No description provided for @pctTop5.
+  ///
+  /// In en, this message translates to:
+  /// **'Top 5%'**
+  String get pctTop5;
+
+  /// No description provided for @fallingBehind.
+  ///
+  /// In en, this message translates to:
+  /// **'Falling behind'**
+  String get fallingBehind;
 }
 
 class _AppLocalizationsDelegate

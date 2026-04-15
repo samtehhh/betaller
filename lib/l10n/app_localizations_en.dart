@@ -3223,4 +3223,103 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tallerThanPct => 'Taller than 76.7% of your age';
+
+  @override
+  String get levelNovice => 'Novice';
+
+  @override
+  String get levelBuilder => 'Builder';
+
+  @override
+  String get levelGrinder => 'Grinder';
+
+  @override
+  String get levelWarrior => 'Warrior';
+
+  @override
+  String get levelGodTier => 'God Tier';
+
+  @override
+  String get levelDesc0 => 'Build your foundation';
+
+  @override
+  String get levelDesc1 => 'Accelerate growth';
+
+  @override
+  String get levelDesc2 => 'Intensify training';
+
+  @override
+  String get levelDesc3 => 'Push your limits';
+
+  @override
+  String get levelDesc4 => 'No pain, no gain';
+
+  @override
+  String get levelDesc5 => 'Champion mindset';
+
+  @override
+  String get levelDesc6 => 'Elite performance';
+
+  @override
+  String get levelDesc7 => 'Master your body';
+
+  @override
+  String get levelDesc8 => 'Legendary discipline';
+
+  @override
+  String get levelDesc9 => 'Maximum potential';
+
+  @override
+  String levelLabel(int level) {
+    return 'LEVEL $level';
+  }
+
+  @override
+  String daysLeftProgram(int days) {
+    return '$days days left in your program';
+  }
+
+  @override
+  String get tapLabel => 'TAP';
+
+  @override
+  String kcalPer100g(int calories) {
+    return '$calories kcal / 100g';
+  }
+
+  @override
+  String get dayShort => 'Day';
+
+  @override
+  String get legendShort => 'Short';
+
+  @override
+  String get legendBelowAvg => 'Below avg';
+
+  @override
+  String get legendAverage => 'Average';
+
+  @override
+  String get legendTall => 'Tall';
+
+  @override
+  String get legendVeryTall => 'Very tall';
+
+  @override
+  String get pctBottom5 => 'Bottom 5%';
+
+  @override
+  String get pctBottom25 => 'Bottom 25%';
+
+  @override
+  String get pctMedian => 'Median';
+
+  @override
+  String get pctTop25 => 'Top 25%';
+
+  @override
+  String get pctTop5 => 'Top 5%';
+
+  @override
+  String get fallingBehind => 'Falling behind';
 }

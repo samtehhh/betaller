@@ -1598,6 +1598,7 @@ class _TrackCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final displayColor = isUrgent ? AppColors.error : color;
 
     return GestureDetector(
@@ -1656,7 +1657,7 @@ class _TrackCard extends StatelessWidget {
             if (isUrgent) ...[
               const SizedBox(height: 5),
               Text(
-                'Geride kalıyorsun',
+                l.fallingBehind,
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w600,

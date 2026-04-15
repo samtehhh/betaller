@@ -1077,5 +1077,51 @@
 
   "dreamHeightOdds": "Dream height\nodds",
   "growthCompleteLabel": "Growth\ncomplete",
-  "tallerThanPct": "Taller than 76.7% of your age"
+  "tallerThanPct": "Taller than 76.7% of your age",
+
+  "levelNovice": "Novice",
+  "levelBuilder": "Builder",
+  "levelGrinder": "Grinder",
+  "levelWarrior": "Warrior",
+  "levelGodTier": "God Tier",
+
+  "levelDesc0": "Build your foundation",
+  "levelDesc1": "Accelerate growth",
+  "levelDesc2": "Intensify training",
+  "levelDesc3": "Push your limits",
+  "levelDesc4": "No pain, no gain",
+  "levelDesc5": "Champion mindset",
+  "levelDesc6": "Elite performance",
+  "levelDesc7": "Master your body",
+  "levelDesc8": "Legendary discipline",
+  "levelDesc9": "Maximum potential",
+
+  "levelLabel": "LEVEL {level}",
+  "@levelLabel": {"placeholders": {"level": {"type": "int"}}},
+
+  "daysLeftProgram": "{days} days left in your program",
+  "@daysLeftProgram": {"placeholders": {"days": {"type": "int"}}},
+
+  "tapLabel": "TAP",
+
+  "kcalPer100g": "{calories} kcal / 100g",
+  "@kcalPer100g": {"placeholders": {"calories": {"type": "int"}}},
+
+  "dayShort": "Day",
+
+  "legendShort": "Short",
+  "legendBelowAvg": "Below avg",
+  "legendAverage": "Average",
+  "legendTall": "Tall",
+  "legendVeryTall": "Very tall",
+
+  "pctBottom5": "Bottom 5%",
+  "pctBottom25": "Bottom 25%",
+  "pctMedian": "Median",
+  "pctTop25": "Top 25%",
+  "pctTop5": "Top 5%",
+
+  "youLabel": "You",
+
+  "fallingBehind": "Falling behind"
 }

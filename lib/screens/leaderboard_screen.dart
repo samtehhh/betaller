@@ -392,13 +392,14 @@ class _PopulationBarChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     // Build 5 bands between consecutive percentile values
     final bands = [
-      (label: 'Alt 5%', pct: 5, cm: refs['p5']!),
-      (label: 'Alt 25%', pct: 25, cm: refs['p25']!),
-      (label: 'Ortalama', pct: 50, cm: refs['p50']!),
-      (label: 'Üst 25%', pct: 75, cm: refs['p75']!),
-      (label: 'Üst 5%', pct: 95, cm: refs['p95']!),
+      (label: l.pctBottom5, pct: 5, cm: refs['p5']!),
+      (label: l.pctBottom25, pct: 25, cm: refs['p25']!),
+      (label: l.pctMedian, pct: 50, cm: refs['p50']!),
+      (label: l.pctTop25, pct: 75, cm: refs['p75']!),
+      (label: l.pctTop5, pct: 95, cm: refs['p95']!),
     ];
 
     final minH = bands.first.cm - 4;
@@ -555,11 +556,11 @@ class _PopulationBarChart extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _LegendDot(color: AppColors.orange,  label: 'Kısa'),
-              _LegendDot(color: AppColors.warning, label: 'Orta altı'),
-              _LegendDot(color: AppColors.lime,    label: 'Ortalama'),
-              _LegendDot(color: AppColors.cyan,    label: 'Uzun'),
-              _LegendDot(color: color,             label: 'Çok uzun'),
+              _LegendDot(color: AppColors.orange,  label: l.legendShort),
+              _LegendDot(color: AppColors.warning, label: l.legendBelowAvg),
+              _LegendDot(color: AppColors.lime,    label: l.legendAverage),
+              _LegendDot(color: AppColors.cyan,    label: l.legendTall),
+              _LegendDot(color: color,             label: l.legendVeryTall),
             ],
           ),
         ],
@@ -642,7 +643,7 @@ class _ReferenceTable extends StatelessWidget {
               children: [
                 _TableHeader(l.ageLabel, flex: 2),
                 _TableHeader(l.avgHeightLabel, flex: 3),
-                _TableHeader('Sen', flex: 3),
+                _TableHeader(l.youLabel, flex: 3),
                 _TableHeader('%', flex: 3, align: TextAlign.right),
               ],
             ),

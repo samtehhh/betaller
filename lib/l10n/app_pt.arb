@@ -833,5 +833,51 @@
   "paywallRestore": "Nenhuma compra encontrada", "paywallRestoreNotFound": "Nenhuma compra encontrada", "paywallRestoreLabel": "Restaurar compras",
   "paywallYearly": "Anual", "paywallBestValue": "Melhor valor", "paywallMonthly": "Mensal", "paywallFreeTrial": "3 dias grátis",
   "paywallLoadError": "Não foi possível carregar", "paywallCta": "Teste grátis", "paywallCtaAlt": "Continuar",
-  "paywallTrialDisclaimer": "3 dias grátis · renovação auto · cancele quando quiser", "paywallYearlyDisclaimer": "Renovação anual auto · cancele quando quiser", "paywallTester": "Tester"
+  "paywallTrialDisclaimer": "3 dias grátis · renovação auto · cancele quando quiser", "paywallYearlyDisclaimer": "Renovação anual auto · cancele quando quiser", "paywallTester": "Tester",
+
+  "levelNovice": "Novato",
+  "levelBuilder": "Construtor",
+  "levelGrinder": "Perseverante",
+  "levelWarrior": "Guerreiro",
+  "levelGodTier": "Nível Divino",
+
+  "levelDesc0": "Construa sua base",
+  "levelDesc1": "Acelere o crescimento",
+  "levelDesc2": "Intensifique o treino",
+  "levelDesc3": "Supere seus limites",
+  "levelDesc4": "Sem dor, sem ganho",
+  "levelDesc5": "Mentalidade de campeão",
+  "levelDesc6": "Performance élite",
+  "levelDesc7": "Domine seu corpo",
+  "levelDesc8": "Disciplina lendária",
+  "levelDesc9": "Potencial máximo",
+
+  "levelLabel": "NÍVEL {level}",
+  "@levelLabel": {"placeholders": {"level": {"type": "int"}}},
+
+  "daysLeftProgram": "{days} dias restantes no programa",
+  "@daysLeftProgram": {"placeholders": {"days": {"type": "int"}}},
+
+  "tapLabel": "TOQUE",
+
+  "kcalPer100g": "{calories} kcal / 100g",
+  "@kcalPer100g": {"placeholders": {"calories": {"type": "int"}}},
+
+  "dayShort": "Dia",
+
+  "legendShort": "Baixo",
+  "legendBelowAvg": "Abaixo da média",
+  "legendAverage": "Média",
+  "legendTall": "Alto",
+  "legendVeryTall": "Muito alto",
+
+  "pctBottom5": "5% inferior",
+  "pctBottom25": "25% inferior",
+  "pctMedian": "Mediana",
+  "pctTop25": "25% superior",
+  "pctTop5": "5% superior",
+
+  "youLabel": "Você",
+
+  "fallingBehind": "Você está ficando atrás"
 }

@@ -833,5 +833,51 @@
   "paywallRestore": "कोई खरीदारी नहीं मिली", "paywallRestoreNotFound": "कोई खरीदारी नहीं मिली", "paywallRestoreLabel": "खरीदारी बहाल करें",
   "paywallYearly": "वार्षिक", "paywallBestValue": "सर्वोत्तम मूल्य", "paywallMonthly": "मासिक", "paywallFreeTrial": "3 दिन मुफ्त",
   "paywallLoadError": "लोड नहीं हो सका", "paywallCta": "मुफ्त आज़माएं", "paywallCtaAlt": "जारी रखें",
-  "paywallTrialDisclaimer": "3 दिन मुफ्त · ऑटो-रिन्यू · कभी भी रद्द", "paywallYearlyDisclaimer": "वार्षिक ऑटो-रिन्यू · कभी भी रद्द", "paywallTester": "Tester"
+  "paywallTrialDisclaimer": "3 दिन मुफ्त · ऑटो-रिन्यू · कभी भी रद्द", "paywallYearlyDisclaimer": "वार्षिक ऑटो-रिन्यू · कभी भी रद्द", "paywallTester": "Tester",
+
+  "levelNovice": "नौसिखिया",
+  "levelBuilder": "निर्माता",
+  "levelGrinder": "मेहनती",
+  "levelWarrior": "योद्धा",
+  "levelGodTier": "देव स्तर",
+
+  "levelDesc0": "अपनी नींव बनाओ",
+  "levelDesc1": "विकास तेज करो",
+  "levelDesc2": "प्रशिक्षण तीव्र करो",
+  "levelDesc3": "अपनी सीमाएं तोड़ो",
+  "levelDesc4": "बिना दर्द, कोई लाभ नहीं",
+  "levelDesc5": "चैंपियन मानसिकता",
+  "levelDesc6": "एलीट प्रदर्शन",
+  "levelDesc7": "अपने शरीर पर काबू",
+  "levelDesc8": "किंवदंती अनुशासन",
+  "levelDesc9": "अधिकतम क्षमता",
+
+  "levelLabel": "स्तर {level}",
+  "@levelLabel": {"placeholders": {"level": {"type": "int"}}},
+
+  "daysLeftProgram": "कार्यक्रम में {days} दिन बाकी",
+  "@daysLeftProgram": {"placeholders": {"days": {"type": "int"}}},
+
+  "tapLabel": "दबाएं",
+
+  "kcalPer100g": "{calories} kcal / 100g",
+  "@kcalPer100g": {"placeholders": {"calories": {"type": "int"}}},
+
+  "dayShort": "दिन",
+
+  "legendShort": "छोटा",
+  "legendBelowAvg": "औसत से कम",
+  "legendAverage": "औसत",
+  "legendTall": "लंबा",
+  "legendVeryTall": "बहुत लंबा",
+
+  "pctBottom5": "नीचे 5%",
+  "pctBottom25": "नीचे 25%",
+  "pctMedian": "मध्यिका",
+  "pctTop25": "ऊपर 25%",
+  "pctTop5": "ऊपर 5%",
+
+  "youLabel": "आप",
+
+  "fallingBehind": "पिछड़ रहे हैं"
 }

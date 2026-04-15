@@ -14,7 +14,7 @@ List<Map<String, dynamic>> getGrowthNutrients(String languageCode) {
     'icon': _nutrientIcons[i],
     'role': roles[i],
     'dailyNeedByAge': _nutrientDailyNeeds[i],
-    'topFoods': _nutrientTopFoods[i],
+    'topFoods': getTopFoodsForNutrient(i, languageCode),
   });
 }
 
@@ -38,17 +38,125 @@ const _nutrientDailyNeeds = [
   {'6-8': '2-3 g',    '9-13': '3-4 g',    '14-18': '4-5 g',    '19-25': '4-6 g'},
 ];
 
-const _nutrientTopFoods = [
-  [{'name': 'Milk (1 cup / 240 ml)', 'amount': '300 mg'}, {'name': 'Yogurt (1 cup / 245 g)', 'amount': '275 mg'}, {'name': 'Cheddar cheese (30 g)', 'amount': '200 mg'}, {'name': 'Sardines with bones (85 g)', 'amount': '325 mg'}, {'name': 'Fortified orange juice (1 cup)', 'amount': '350 mg'}],
-  [{'name': 'Chicken breast (100 g)', 'amount': '31 g'}, {'name': 'Eggs (2 large)', 'amount': '12 g'}, {'name': 'Greek yogurt (170 g)', 'amount': '17 g'}, {'name': 'Lentils, cooked (1 cup)', 'amount': '18 g'}, {'name': 'Salmon fillet (100 g)', 'amount': '25 g'}],
-  [{'name': 'Oysters (6 medium)', 'amount': '32 mg'}, {'name': 'Beef steak (100 g)', 'amount': '5.5 mg'}, {'name': 'Pumpkin seeds (30 g)', 'amount': '2.5 mg'}, {'name': 'Chickpeas, cooked (1 cup)', 'amount': '2.5 mg'}, {'name': 'Cashews (30 g)', 'amount': '1.6 mg'}],
-  [{'name': 'Salmon (100 g)', 'amount': '570 IU'}, {'name': 'Fortified milk (1 cup)', 'amount': '120 IU'}, {'name': 'Egg yolk (1 large)', 'amount': '44 IU'}, {'name': 'Fortified cereal (1 serving)', 'amount': '80 IU'}, {'name': 'Sunlight (15 min, midday)', 'amount': '~1,000 IU'}],
-  [{'name': 'Sweet potato (1 medium)', 'amount': '1,100 mcg RAE'}, {'name': 'Carrots (1 medium)', 'amount': '509 mcg RAE'}, {'name': 'Spinach, cooked (1/2 cup)', 'amount': '472 mcg RAE'}, {'name': 'Beef liver (85 g)', 'amount': '6,582 mcg RAE'}, {'name': 'Red bell pepper (1 medium)', 'amount': '187 mcg RAE'}],
-  [{'name': 'Beef steak (100 g)', 'amount': '2.6 mg'}, {'name': 'Spinach, cooked (1/2 cup)', 'amount': '3.2 mg'}, {'name': 'Lentils, cooked (1 cup)', 'amount': '6.6 mg'}, {'name': 'Fortified cereal (1 serving)', 'amount': '8.0 mg'}, {'name': 'Dark chocolate (30 g)', 'amount': '3.4 mg'}],
-  [{'name': 'Chicken breast (100 g)', 'amount': '228 mg'}, {'name': 'Salmon (100 g)', 'amount': '252 mg'}, {'name': 'Lentils, cooked (1 cup)', 'amount': '356 mg'}, {'name': 'Milk (1 cup)', 'amount': '247 mg'}, {'name': 'Sunflower seeds (30 g)', 'amount': '206 mg'}],
-  [{'name': 'Pumpkin seeds (30 g)', 'amount': '156 mg'}, {'name': 'Almonds (30 g)', 'amount': '80 mg'}, {'name': 'Spinach, cooked (1/2 cup)', 'amount': '78 mg'}, {'name': 'Dark chocolate (30 g)', 'amount': '65 mg'}, {'name': 'Banana (1 medium)', 'amount': '32 mg'}],
-  [{'name': 'Turkey breast (100 g)', 'amount': '1.6 g'}, {'name': 'Pumpkin seeds (30 g)', 'amount': '1.4 g'}, {'name': 'Soybeans, cooked (1 cup)', 'amount': '2.5 g'}, {'name': 'Chicken breast (100 g)', 'amount': '1.4 g'}, {'name': 'Peanuts (30 g)', 'amount': '1.0 g'}],
+// Top food sources per nutrient — amounts are universal, names are localized via _topFoodNames
+const _topFoodAmounts = [
+  // Calcium
+  ['300 mg', '275 mg', '200 mg', '325 mg', '350 mg'],
+  // Protein
+  ['31 g', '12 g', '17 g', '18 g', '25 g'],
+  // Zinc
+  ['32 mg', '5.5 mg', '2.5 mg', '2.5 mg', '1.6 mg'],
+  // Vitamin D
+  ['570 IU', '120 IU', '44 IU', '80 IU', '~1,000 IU'],
+  // Vitamin A
+  ['1,100 mcg RAE', '509 mcg RAE', '472 mcg RAE', '6,582 mcg RAE', '187 mcg RAE'],
+  // Iron
+  ['2.6 mg', '3.2 mg', '6.6 mg', '8.0 mg', '3.4 mg'],
+  // Phosphorus
+  ['228 mg', '252 mg', '356 mg', '247 mg', '206 mg'],
+  // Magnesium
+  ['156 mg', '80 mg', '78 mg', '65 mg', '32 mg'],
+  // L-Arginine
+  ['1.6 g', '1.4 g', '2.5 g', '1.4 g', '1.0 g'],
 ];
+
+const _topFoodNames = <String, List<List<String>>>{
+  'en': [
+    ['Milk (1 cup / 240 ml)', 'Yogurt (1 cup / 245 g)', 'Cheddar cheese (30 g)', 'Sardines with bones (85 g)', 'Fortified orange juice (1 cup)'],
+    ['Chicken breast (100 g)', 'Eggs (2 large)', 'Greek yogurt (170 g)', 'Lentils, cooked (1 cup)', 'Salmon fillet (100 g)'],
+    ['Oysters (6 medium)', 'Beef steak (100 g)', 'Pumpkin seeds (30 g)', 'Chickpeas, cooked (1 cup)', 'Cashews (30 g)'],
+    ['Salmon (100 g)', 'Fortified milk (1 cup)', 'Egg yolk (1 large)', 'Fortified cereal (1 serving)', 'Sunlight (15 min, midday)'],
+    ['Sweet potato (1 medium)', 'Carrots (1 medium)', 'Spinach, cooked (1/2 cup)', 'Beef liver (85 g)', 'Red bell pepper (1 medium)'],
+    ['Beef steak (100 g)', 'Spinach, cooked (1/2 cup)', 'Lentils, cooked (1 cup)', 'Fortified cereal (1 serving)', 'Dark chocolate (30 g)'],
+    ['Chicken breast (100 g)', 'Salmon (100 g)', 'Lentils, cooked (1 cup)', 'Milk (1 cup)', 'Sunflower seeds (30 g)'],
+    ['Pumpkin seeds (30 g)', 'Almonds (30 g)', 'Spinach, cooked (1/2 cup)', 'Dark chocolate (30 g)', 'Banana (1 medium)'],
+    ['Turkey breast (100 g)', 'Pumpkin seeds (30 g)', 'Soybeans, cooked (1 cup)', 'Chicken breast (100 g)', 'Peanuts (30 g)'],
+  ],
+  'tr': [
+    ['Süt (1 su bardağı / 240 ml)', 'Yoğurt (1 su bardağı / 245 g)', 'Cheddar peyniri (30 g)', 'Kemikli sardalye (85 g)', 'Zenginleştirilmiş portakal suyu (1 bardak)'],
+    ['Tavuk göğsü (100 g)', 'Yumurta (2 büyük)', 'Yunan yoğurdu (170 g)', 'Mercimek, pişmiş (1 bardak)', 'Somon fileto (100 g)'],
+    ['İstiridye (6 orta boy)', 'Biftek (100 g)', 'Kabak çekirdeği (30 g)', 'Nohut, pişmiş (1 bardak)', 'Kaju (30 g)'],
+    ['Somon (100 g)', 'Zenginleştirilmiş süt (1 bardak)', 'Yumurta sarısı (1 büyük)', 'Zenginleştirilmiş tahıl (1 porsiyon)', 'Güneş ışığı (15 dk, öğlen)'],
+    ['Tatlı patates (1 orta boy)', 'Havuç (1 orta boy)', 'Ispanak, pişmiş (1/2 bardak)', 'Dana ciğeri (85 g)', 'Kırmızı biber (1 orta boy)'],
+    ['Biftek (100 g)', 'Ispanak, pişmiş (1/2 bardak)', 'Mercimek, pişmiş (1 bardak)', 'Zenginleştirilmiş tahıl (1 porsiyon)', 'Bitter çikolata (30 g)'],
+    ['Tavuk göğsü (100 g)', 'Somon (100 g)', 'Mercimek, pişmiş (1 bardak)', 'Süt (1 bardak)', 'Ayçiçek çekirdeği (30 g)'],
+    ['Kabak çekirdeği (30 g)', 'Badem (30 g)', 'Ispanak, pişmiş (1/2 bardak)', 'Bitter çikolata (30 g)', 'Muz (1 orta boy)'],
+    ['Hindi göğsü (100 g)', 'Kabak çekirdeği (30 g)', 'Soya fasulyesi, pişmiş (1 bardak)', 'Tavuk göğsü (100 g)', 'Yer fıstığı (30 g)'],
+  ],
+  'de': [
+    ['Milch (1 Tasse / 240 ml)', 'Joghurt (1 Tasse / 245 g)', 'Cheddar-Käse (30 g)', 'Sardinen mit Knochen (85 g)', 'Angereicherter Orangensaft (1 Tasse)'],
+    ['Hähnchenbrust (100 g)', 'Eier (2 groß)', 'Griechischer Joghurt (170 g)', 'Linsen, gekocht (1 Tasse)', 'Lachsfilet (100 g)'],
+    ['Austern (6 mittelgroß)', 'Rindersteak (100 g)', 'Kürbiskerne (30 g)', 'Kichererbsen, gekocht (1 Tasse)', 'Cashews (30 g)'],
+    ['Lachs (100 g)', 'Angereicherte Milch (1 Tasse)', 'Eigelb (1 groß)', 'Angereichertes Müsli (1 Portion)', 'Sonnenlicht (15 Min, mittags)'],
+    ['Süßkartoffel (1 mittelgroß)', 'Karotten (1 mittelgroß)', 'Spinat, gekocht (1/2 Tasse)', 'Rinderleber (85 g)', 'Rote Paprika (1 mittelgroß)'],
+    ['Rindersteak (100 g)', 'Spinat, gekocht (1/2 Tasse)', 'Linsen, gekocht (1 Tasse)', 'Angereichertes Müsli (1 Portion)', 'Dunkle Schokolade (30 g)'],
+    ['Hähnchenbrust (100 g)', 'Lachs (100 g)', 'Linsen, gekocht (1 Tasse)', 'Milch (1 Tasse)', 'Sonnenblumenkerne (30 g)'],
+    ['Kürbiskerne (30 g)', 'Mandeln (30 g)', 'Spinat, gekocht (1/2 Tasse)', 'Dunkle Schokolade (30 g)', 'Banane (1 mittelgroß)'],
+    ['Putenbrust (100 g)', 'Kürbiskerne (30 g)', 'Sojabohnen, gekocht (1 Tasse)', 'Hähnchenbrust (100 g)', 'Erdnüsse (30 g)'],
+  ],
+  'fr': [
+    ['Lait (1 tasse / 240 ml)', 'Yaourt (1 tasse / 245 g)', 'Cheddar (30 g)', 'Sardines avec os (85 g)', 'Jus d\'orange enrichi (1 tasse)'],
+    ['Blanc de poulet (100 g)', 'Œufs (2 gros)', 'Yaourt grec (170 g)', 'Lentilles, cuites (1 tasse)', 'Filet de saumon (100 g)'],
+    ['Huîtres (6 moyennes)', 'Steak de bœuf (100 g)', 'Graines de courge (30 g)', 'Pois chiches, cuits (1 tasse)', 'Noix de cajou (30 g)'],
+    ['Saumon (100 g)', 'Lait enrichi (1 tasse)', 'Jaune d\'œuf (1 gros)', 'Céréales enrichies (1 portion)', 'Soleil (15 min, midi)'],
+    ['Patate douce (1 moyenne)', 'Carottes (1 moyenne)', 'Épinards, cuits (1/2 tasse)', 'Foie de bœuf (85 g)', 'Poivron rouge (1 moyen)'],
+    ['Steak de bœuf (100 g)', 'Épinards, cuits (1/2 tasse)', 'Lentilles, cuites (1 tasse)', 'Céréales enrichies (1 portion)', 'Chocolat noir (30 g)'],
+    ['Blanc de poulet (100 g)', 'Saumon (100 g)', 'Lentilles, cuites (1 tasse)', 'Lait (1 tasse)', 'Graines de tournesol (30 g)'],
+    ['Graines de courge (30 g)', 'Amandes (30 g)', 'Épinards, cuits (1/2 tasse)', 'Chocolat noir (30 g)', 'Banane (1 moyenne)'],
+    ['Blanc de dinde (100 g)', 'Graines de courge (30 g)', 'Soja, cuit (1 tasse)', 'Blanc de poulet (100 g)', 'Cacahuètes (30 g)'],
+  ],
+  'es': [
+    ['Leche (1 taza / 240 ml)', 'Yogur (1 taza / 245 g)', 'Queso cheddar (30 g)', 'Sardinas con huesos (85 g)', 'Jugo de naranja enriquecido (1 taza)'],
+    ['Pechuga de pollo (100 g)', 'Huevos (2 grandes)', 'Yogur griego (170 g)', 'Lentejas, cocidas (1 taza)', 'Filete de salmón (100 g)'],
+    ['Ostras (6 medianas)', 'Bistec de res (100 g)', 'Semillas de calabaza (30 g)', 'Garbanzos, cocidos (1 taza)', 'Anacardos (30 g)'],
+    ['Salmón (100 g)', 'Leche enriquecida (1 taza)', 'Yema de huevo (1 grande)', 'Cereal enriquecido (1 porción)', 'Sol (15 min, mediodía)'],
+    ['Camote (1 mediano)', 'Zanahorias (1 mediana)', 'Espinacas, cocidas (1/2 taza)', 'Hígado de res (85 g)', 'Pimiento rojo (1 mediano)'],
+    ['Bistec de res (100 g)', 'Espinacas, cocidas (1/2 taza)', 'Lentejas, cocidas (1 taza)', 'Cereal enriquecido (1 porción)', 'Chocolate negro (30 g)'],
+    ['Pechuga de pollo (100 g)', 'Salmón (100 g)', 'Lentejas, cocidas (1 taza)', 'Leche (1 taza)', 'Semillas de girasol (30 g)'],
+    ['Semillas de calabaza (30 g)', 'Almendras (30 g)', 'Espinacas, cocidas (1/2 taza)', 'Chocolate negro (30 g)', 'Plátano (1 mediano)'],
+    ['Pechuga de pavo (100 g)', 'Semillas de calabaza (30 g)', 'Soja, cocida (1 taza)', 'Pechuga de pollo (100 g)', 'Maníes (30 g)'],
+  ],
+  'pt': [
+    ['Leite (1 xícara / 240 ml)', 'Iogurte (1 xícara / 245 g)', 'Queijo cheddar (30 g)', 'Sardinhas com ossos (85 g)', 'Suco de laranja enriquecido (1 xícara)'],
+    ['Peito de frango (100 g)', 'Ovos (2 grandes)', 'Iogurte grego (170 g)', 'Lentilhas, cozidas (1 xícara)', 'Filé de salmão (100 g)'],
+    ['Ostras (6 médias)', 'Bife de vaca (100 g)', 'Sementes de abóbora (30 g)', 'Grão-de-bico, cozido (1 xícara)', 'Castanha de caju (30 g)'],
+    ['Salmão (100 g)', 'Leite enriquecido (1 xícara)', 'Gema de ovo (1 grande)', 'Cereal enriquecido (1 porção)', 'Sol (15 min, meio-dia)'],
+    ['Batata-doce (1 média)', 'Cenouras (1 média)', 'Espinafre, cozido (1/2 xícara)', 'Fígado de vaca (85 g)', 'Pimentão vermelho (1 médio)'],
+    ['Bife de vaca (100 g)', 'Espinafre, cozido (1/2 xícara)', 'Lentilhas, cozidas (1 xícara)', 'Cereal enriquecido (1 porção)', 'Chocolate amargo (30 g)'],
+    ['Peito de frango (100 g)', 'Salmão (100 g)', 'Lentilhas, cozidas (1 xícara)', 'Leite (1 xícara)', 'Sementes de girassol (30 g)'],
+    ['Sementes de abóbora (30 g)', 'Amêndoas (30 g)', 'Espinafre, cozido (1/2 xícara)', 'Chocolate amargo (30 g)', 'Banana (1 média)'],
+    ['Peito de peru (100 g)', 'Sementes de abóbora (30 g)', 'Soja, cozida (1 xícara)', 'Peito de frango (100 g)', 'Amendoins (30 g)'],
+  ],
+  'it': [
+    ['Latte (1 tazza / 240 ml)', 'Yogurt (1 tazza / 245 g)', 'Formaggio cheddar (30 g)', 'Sardine con le lische (85 g)', 'Succo d\'arancia arricchito (1 tazza)'],
+    ['Petto di pollo (100 g)', 'Uova (2 grandi)', 'Yogurt greco (170 g)', 'Lenticchie, cotte (1 tazza)', 'Filetto di salmone (100 g)'],
+    ['Ostriche (6 medie)', 'Bistecca di manzo (100 g)', 'Semi di zucca (30 g)', 'Ceci, cotti (1 tazza)', 'Anacardi (30 g)'],
+    ['Salmone (100 g)', 'Latte arricchito (1 tazza)', 'Tuorlo d\'uovo (1 grande)', 'Cereali arricchiti (1 porzione)', 'Sole (15 min, mezzogiorno)'],
+    ['Patata dolce (1 media)', 'Carote (1 media)', 'Spinaci, cotti (1/2 tazza)', 'Fegato di manzo (85 g)', 'Peperone rosso (1 medio)'],
+    ['Bistecca di manzo (100 g)', 'Spinaci, cotti (1/2 tazza)', 'Lenticchie, cotte (1 tazza)', 'Cereali arricchiti (1 porzione)', 'Cioccolato fondente (30 g)'],
+    ['Petto di pollo (100 g)', 'Salmone (100 g)', 'Lenticchie, cotte (1 tazza)', 'Latte (1 tazza)', 'Semi di girasole (30 g)'],
+    ['Semi di zucca (30 g)', 'Mandorle (30 g)', 'Spinaci, cotti (1/2 tazza)', 'Cioccolato fondente (30 g)', 'Banana (1 media)'],
+    ['Petto di tacchino (100 g)', 'Semi di zucca (30 g)', 'Soia, cotta (1 tazza)', 'Petto di pollo (100 g)', 'Arachidi (30 g)'],
+  ],
+  'hi': [
+    ['दूध (1 कप / 240 मि.ली.)', 'दही (1 कप / 245 ग्रा.)', 'चेडर पनीर (30 ग्रा.)', 'हड्डी सहित सार्डिन (85 ग्रा.)', 'फोर्टिफाइड संतरे का रस (1 कप)'],
+    ['चिकन ब्रेस्ट (100 ग्रा.)', 'अंडे (2 बड़े)', 'ग्रीक योगर्ट (170 ग्रा.)', 'दाल, पकी (1 कप)', 'सामन फिलेट (100 ग्रा.)'],
+    ['सीप (6 मध्यम)', 'बीफ स्टेक (100 ग्रा.)', 'कद्दू के बीज (30 ग्रा.)', 'छोले, पके (1 कप)', 'काजू (30 ग्रा.)'],
+    ['सामन (100 ग्रा.)', 'फोर्टिफाइड दूध (1 कप)', 'अंडे की जर्दी (1 बड़ी)', 'फोर्टिफाइड अनाज (1 सर्विंग)', 'धूप (15 मिनट, दोपहर)'],
+    ['शकरकंद (1 मध्यम)', 'गाजर (1 मध्यम)', 'पालक, पकी (1/2 कप)', 'बीफ लिवर (85 ग्रा.)', 'लाल शिमला मिर्च (1 मध्यम)'],
+    ['बीफ स्टेक (100 ग्रा.)', 'पालक, पकी (1/2 कप)', 'दाल, पकी (1 कप)', 'फोर्टिफाइड अनाज (1 सर्विंग)', 'डार्क चॉकलेट (30 ग्रा.)'],
+    ['चिकन ब्रेस्ट (100 ग्रा.)', 'सामन (100 ग्रा.)', 'दाल, पकी (1 कप)', 'दूध (1 कप)', 'सूरजमुखी के बीज (30 ग्रा.)'],
+    ['कद्दू के बीज (30 ग्रा.)', 'बादाम (30 ग्रा.)', 'पालक, पकी (1/2 कप)', 'डार्क चॉकलेट (30 ग्रा.)', 'केला (1 मध्यम)'],
+    ['टर्की ब्रेस्ट (100 ग्रा.)', 'कद्दू के बीज (30 ग्रा.)', 'सोयाबीन, पकी (1 कप)', 'चिकन ब्रेस्ट (100 ग्रा.)', 'मूंगफली (30 ग्रा.)'],
+  ],
+};
+
+/// Returns top food sources for a nutrient at [nutrientIndex] in the given language.
+List<Map<String, dynamic>> getTopFoodsForNutrient(int nutrientIndex, String languageCode) {
+  final names = (_topFoodNames[languageCode] ?? _topFoodNames['en']!)[nutrientIndex];
+  final amounts = _topFoodAmounts[nutrientIndex];
+  return List.generate(names.length, (i) => {'name': names[i], 'amount': amounts[i]});
+}
 
 const _nutrientNames = {
   'en': ['Calcium', 'Protein', 'Zinc', 'Vitamin D', 'Vitamin A', 'Iron', 'Phosphorus', 'Magnesium', 'L-Arginine'],
@@ -156,54 +264,155 @@ const _nutrientRoles = {
 // B) Food Database (40+ growth-friendly foods — language-independent)
 // ══════════════════════════════════════════════════════════════════════
 
+// Food database — 'nameKey' is the canonical English name used for search/reference.
+// Localized names are in _foodNames map below.
 const List<Map<String, dynamic>> foodDatabase = [
-  {'name': 'Whole Milk', 'icon': '🥛', 'category': 'dairy', 'caloriesPer100g': 61, 'protein': 3.2, 'calcium': 125, 'zinc': 0.4, 'vitaminD': 50},
-  {'name': 'Greek Yogurt', 'icon': '🥛', 'category': 'dairy', 'caloriesPer100g': 97, 'protein': 9.0, 'calcium': 110, 'zinc': 0.5, 'vitaminD': 0},
-  {'name': 'Cheddar Cheese', 'icon': '🧀', 'category': 'dairy', 'caloriesPer100g': 403, 'protein': 24.9, 'calcium': 721, 'zinc': 3.1, 'vitaminD': 24},
-  {'name': 'Cottage Cheese', 'icon': '🧀', 'category': 'dairy', 'caloriesPer100g': 98, 'protein': 11.1, 'calcium': 83, 'zinc': 0.4, 'vitaminD': 3},
-  {'name': 'Mozzarella', 'icon': '🧀', 'category': 'dairy', 'caloriesPer100g': 280, 'protein': 28.0, 'calcium': 505, 'zinc': 2.9, 'vitaminD': 16},
-  {'name': 'Chicken Breast', 'icon': '🍗', 'category': 'meat', 'caloriesPer100g': 165, 'protein': 31.0, 'calcium': 15, 'zinc': 1.0, 'vitaminD': 5},
-  {'name': 'Turkey Breast', 'icon': '🦃', 'category': 'meat', 'caloriesPer100g': 135, 'protein': 30.0, 'calcium': 11, 'zinc': 1.7, 'vitaminD': 6},
-  {'name': 'Beef Steak (Sirloin)', 'icon': '🥩', 'category': 'meat', 'caloriesPer100g': 271, 'protein': 26.0, 'calcium': 18, 'zinc': 5.5, 'vitaminD': 7},
-  {'name': 'Lean Ground Beef', 'icon': '🥩', 'category': 'meat', 'caloriesPer100g': 250, 'protein': 26.1, 'calcium': 18, 'zinc': 5.3, 'vitaminD': 6},
-  {'name': 'Lamb Chop', 'icon': '🍖', 'category': 'meat', 'caloriesPer100g': 282, 'protein': 25.5, 'calcium': 17, 'zinc': 4.5, 'vitaminD': 2},
-  {'name': 'Beef Liver', 'icon': '🥩', 'category': 'meat', 'caloriesPer100g': 135, 'protein': 20.4, 'calcium': 5, 'zinc': 4.0, 'vitaminD': 49},
-  {'name': 'Salmon', 'icon': '🐟', 'category': 'meat', 'caloriesPer100g': 208, 'protein': 25.4, 'calcium': 12, 'zinc': 0.6, 'vitaminD': 570},
-  {'name': 'Sardines (canned)', 'icon': '🐟', 'category': 'meat', 'caloriesPer100g': 208, 'protein': 24.6, 'calcium': 382, 'zinc': 1.3, 'vitaminD': 193},
-  {'name': 'Tuna (canned in water)', 'icon': '🐟', 'category': 'meat', 'caloriesPer100g': 116, 'protein': 25.5, 'calcium': 11, 'zinc': 0.8, 'vitaminD': 68},
-  {'name': 'Shrimp', 'icon': '🦐', 'category': 'meat', 'caloriesPer100g': 99, 'protein': 24.0, 'calcium': 52, 'zinc': 1.6, 'vitaminD': 3},
-  {'name': 'Mackerel', 'icon': '🐟', 'category': 'meat', 'caloriesPer100g': 205, 'protein': 18.6, 'calcium': 12, 'zinc': 0.6, 'vitaminD': 360},
-  {'name': 'Whole Egg', 'icon': '🥚', 'category': 'meat', 'caloriesPer100g': 155, 'protein': 12.6, 'calcium': 56, 'zinc': 1.3, 'vitaminD': 87},
-  {'name': 'Lentils (cooked)', 'icon': '🫘', 'category': 'grain', 'caloriesPer100g': 116, 'protein': 9.0, 'calcium': 19, 'zinc': 1.3, 'vitaminD': 0},
-  {'name': 'Chickpeas (cooked)', 'icon': '🫘', 'category': 'grain', 'caloriesPer100g': 164, 'protein': 8.9, 'calcium': 49, 'zinc': 1.5, 'vitaminD': 0},
-  {'name': 'Black Beans (cooked)', 'icon': '🫘', 'category': 'grain', 'caloriesPer100g': 132, 'protein': 8.9, 'calcium': 27, 'zinc': 1.1, 'vitaminD': 0},
-  {'name': 'Soybeans (cooked)', 'icon': '🫘', 'category': 'grain', 'caloriesPer100g': 173, 'protein': 16.6, 'calcium': 102, 'zinc': 1.2, 'vitaminD': 0},
-  {'name': 'Tofu (firm)', 'icon': '🧊', 'category': 'grain', 'caloriesPer100g': 144, 'protein': 15.5, 'calcium': 350, 'zinc': 1.0, 'vitaminD': 0},
-  {'name': 'Spinach (cooked)', 'icon': '🥬', 'category': 'vegetable', 'caloriesPer100g': 23, 'protein': 2.9, 'calcium': 136, 'zinc': 0.8, 'vitaminD': 0},
-  {'name': 'Broccoli', 'icon': '🥦', 'category': 'vegetable', 'caloriesPer100g': 34, 'protein': 2.8, 'calcium': 47, 'zinc': 0.4, 'vitaminD': 0},
-  {'name': 'Kale (cooked)', 'icon': '🥬', 'category': 'vegetable', 'caloriesPer100g': 28, 'protein': 1.9, 'calcium': 150, 'zinc': 0.3, 'vitaminD': 0},
-  {'name': 'Sweet Potato', 'icon': '🍠', 'category': 'vegetable', 'caloriesPer100g': 86, 'protein': 1.6, 'calcium': 30, 'zinc': 0.3, 'vitaminD': 0},
-  {'name': 'Carrots', 'icon': '🥕', 'category': 'vegetable', 'caloriesPer100g': 41, 'protein': 0.9, 'calcium': 33, 'zinc': 0.2, 'vitaminD': 0},
-  {'name': 'Red Bell Pepper', 'icon': '🫑', 'category': 'vegetable', 'caloriesPer100g': 31, 'protein': 1.0, 'calcium': 7, 'zinc': 0.3, 'vitaminD': 0},
-  {'name': 'Edamame', 'icon': '🫛', 'category': 'vegetable', 'caloriesPer100g': 121, 'protein': 11.9, 'calcium': 63, 'zinc': 1.4, 'vitaminD': 0},
-  {'name': 'Banana', 'icon': '🍌', 'category': 'fruit', 'caloriesPer100g': 89, 'protein': 1.1, 'calcium': 5, 'zinc': 0.2, 'vitaminD': 0},
-  {'name': 'Orange', 'icon': '🍊', 'category': 'fruit', 'caloriesPer100g': 47, 'protein': 0.9, 'calcium': 40, 'zinc': 0.1, 'vitaminD': 0},
-  {'name': 'Avocado', 'icon': '🥑', 'category': 'fruit', 'caloriesPer100g': 160, 'protein': 2.0, 'calcium': 12, 'zinc': 0.6, 'vitaminD': 0},
-  {'name': 'Blueberries', 'icon': '🫐', 'category': 'fruit', 'caloriesPer100g': 57, 'protein': 0.7, 'calcium': 6, 'zinc': 0.2, 'vitaminD': 0},
-  {'name': 'Strawberries', 'icon': '🍓', 'category': 'fruit', 'caloriesPer100g': 32, 'protein': 0.7, 'calcium': 16, 'zinc': 0.1, 'vitaminD': 0},
-  {'name': 'Kiwi', 'icon': '🥝', 'category': 'fruit', 'caloriesPer100g': 61, 'protein': 1.1, 'calcium': 34, 'zinc': 0.1, 'vitaminD': 0},
-  {'name': 'Oats (dry)', 'icon': '🌾', 'category': 'grain', 'caloriesPer100g': 389, 'protein': 16.9, 'calcium': 54, 'zinc': 3.6, 'vitaminD': 0},
-  {'name': 'Quinoa (cooked)', 'icon': '🌾', 'category': 'grain', 'caloriesPer100g': 120, 'protein': 4.4, 'calcium': 17, 'zinc': 1.1, 'vitaminD': 0},
-  {'name': 'Brown Rice (cooked)', 'icon': '🍚', 'category': 'grain', 'caloriesPer100g': 123, 'protein': 2.7, 'calcium': 10, 'zinc': 0.6, 'vitaminD': 0},
-  {'name': 'Whole Wheat Bread', 'icon': '🍞', 'category': 'grain', 'caloriesPer100g': 247, 'protein': 12.9, 'calcium': 107, 'zinc': 1.8, 'vitaminD': 0},
-  {'name': 'Almonds', 'icon': '🌰', 'category': 'nuts', 'caloriesPer100g': 579, 'protein': 21.2, 'calcium': 269, 'zinc': 3.1, 'vitaminD': 0},
-  {'name': 'Pumpkin Seeds', 'icon': '🎃', 'category': 'nuts', 'caloriesPer100g': 559, 'protein': 30.2, 'calcium': 46, 'zinc': 7.8, 'vitaminD': 0},
-  {'name': 'Peanuts', 'icon': '🥜', 'category': 'nuts', 'caloriesPer100g': 567, 'protein': 25.8, 'calcium': 92, 'zinc': 3.3, 'vitaminD': 0},
-  {'name': 'Cashews', 'icon': '🥜', 'category': 'nuts', 'caloriesPer100g': 553, 'protein': 18.2, 'calcium': 37, 'zinc': 5.8, 'vitaminD': 0},
-  {'name': 'Sunflower Seeds', 'icon': '🌻', 'category': 'nuts', 'caloriesPer100g': 584, 'protein': 20.8, 'calcium': 78, 'zinc': 5.0, 'vitaminD': 0},
-  {'name': 'Chia Seeds', 'icon': '🌱', 'category': 'nuts', 'caloriesPer100g': 486, 'protein': 16.5, 'calcium': 631, 'zinc': 4.6, 'vitaminD': 0},
-  {'name': 'Walnuts', 'icon': '🌰', 'category': 'nuts', 'caloriesPer100g': 654, 'protein': 15.2, 'calcium': 98, 'zinc': 3.1, 'vitaminD': 0},
+  {'nameKey': 'Whole Milk',             'icon': '🥛', 'category': 'dairy',     'caloriesPer100g': 61,  'protein': 3.2,  'calcium': 125, 'zinc': 0.4, 'vitaminD': 50},
+  {'nameKey': 'Greek Yogurt',           'icon': '🥛', 'category': 'dairy',     'caloriesPer100g': 97,  'protein': 9.0,  'calcium': 110, 'zinc': 0.5, 'vitaminD': 0},
+  {'nameKey': 'Cheddar Cheese',         'icon': '🧀', 'category': 'dairy',     'caloriesPer100g': 403, 'protein': 24.9, 'calcium': 721, 'zinc': 3.1, 'vitaminD': 24},
+  {'nameKey': 'Cottage Cheese',         'icon': '🧀', 'category': 'dairy',     'caloriesPer100g': 98,  'protein': 11.1, 'calcium': 83,  'zinc': 0.4, 'vitaminD': 3},
+  {'nameKey': 'Mozzarella',             'icon': '🧀', 'category': 'dairy',     'caloriesPer100g': 280, 'protein': 28.0, 'calcium': 505, 'zinc': 2.9, 'vitaminD': 16},
+  {'nameKey': 'Chicken Breast',         'icon': '🍗', 'category': 'meat',      'caloriesPer100g': 165, 'protein': 31.0, 'calcium': 15,  'zinc': 1.0, 'vitaminD': 5},
+  {'nameKey': 'Turkey Breast',          'icon': '🦃', 'category': 'meat',      'caloriesPer100g': 135, 'protein': 30.0, 'calcium': 11,  'zinc': 1.7, 'vitaminD': 6},
+  {'nameKey': 'Beef Steak (Sirloin)',   'icon': '🥩', 'category': 'meat',      'caloriesPer100g': 271, 'protein': 26.0, 'calcium': 18,  'zinc': 5.5, 'vitaminD': 7},
+  {'nameKey': 'Lean Ground Beef',       'icon': '🥩', 'category': 'meat',      'caloriesPer100g': 250, 'protein': 26.1, 'calcium': 18,  'zinc': 5.3, 'vitaminD': 6},
+  {'nameKey': 'Lamb Chop',              'icon': '🍖', 'category': 'meat',      'caloriesPer100g': 282, 'protein': 25.5, 'calcium': 17,  'zinc': 4.5, 'vitaminD': 2},
+  {'nameKey': 'Beef Liver',             'icon': '🥩', 'category': 'meat',      'caloriesPer100g': 135, 'protein': 20.4, 'calcium': 5,   'zinc': 4.0, 'vitaminD': 49},
+  {'nameKey': 'Salmon',                 'icon': '🐟', 'category': 'meat',      'caloriesPer100g': 208, 'protein': 25.4, 'calcium': 12,  'zinc': 0.6, 'vitaminD': 570},
+  {'nameKey': 'Sardines (canned)',      'icon': '🐟', 'category': 'meat',      'caloriesPer100g': 208, 'protein': 24.6, 'calcium': 382, 'zinc': 1.3, 'vitaminD': 193},
+  {'nameKey': 'Tuna (canned in water)', 'icon': '🐟', 'category': 'meat',      'caloriesPer100g': 116, 'protein': 25.5, 'calcium': 11,  'zinc': 0.8, 'vitaminD': 68},
+  {'nameKey': 'Shrimp',                 'icon': '🦐', 'category': 'meat',      'caloriesPer100g': 99,  'protein': 24.0, 'calcium': 52,  'zinc': 1.6, 'vitaminD': 3},
+  {'nameKey': 'Mackerel',               'icon': '🐟', 'category': 'meat',      'caloriesPer100g': 205, 'protein': 18.6, 'calcium': 12,  'zinc': 0.6, 'vitaminD': 360},
+  {'nameKey': 'Whole Egg',              'icon': '🥚', 'category': 'meat',      'caloriesPer100g': 155, 'protein': 12.6, 'calcium': 56,  'zinc': 1.3, 'vitaminD': 87},
+  {'nameKey': 'Lentils (cooked)',       'icon': '🫘', 'category': 'grain',     'caloriesPer100g': 116, 'protein': 9.0,  'calcium': 19,  'zinc': 1.3, 'vitaminD': 0},
+  {'nameKey': 'Chickpeas (cooked)',     'icon': '🫘', 'category': 'grain',     'caloriesPer100g': 164, 'protein': 8.9,  'calcium': 49,  'zinc': 1.5, 'vitaminD': 0},
+  {'nameKey': 'Black Beans (cooked)',   'icon': '🫘', 'category': 'grain',     'caloriesPer100g': 132, 'protein': 8.9,  'calcium': 27,  'zinc': 1.1, 'vitaminD': 0},
+  {'nameKey': 'Soybeans (cooked)',      'icon': '🫘', 'category': 'grain',     'caloriesPer100g': 173, 'protein': 16.6, 'calcium': 102, 'zinc': 1.2, 'vitaminD': 0},
+  {'nameKey': 'Tofu (firm)',            'icon': '🧊', 'category': 'grain',     'caloriesPer100g': 144, 'protein': 15.5, 'calcium': 350, 'zinc': 1.0, 'vitaminD': 0},
+  {'nameKey': 'Spinach (cooked)',       'icon': '🥬', 'category': 'vegetable', 'caloriesPer100g': 23,  'protein': 2.9,  'calcium': 136, 'zinc': 0.8, 'vitaminD': 0},
+  {'nameKey': 'Broccoli',               'icon': '🥦', 'category': 'vegetable', 'caloriesPer100g': 34,  'protein': 2.8,  'calcium': 47,  'zinc': 0.4, 'vitaminD': 0},
+  {'nameKey': 'Kale (cooked)',          'icon': '🥬', 'category': 'vegetable', 'caloriesPer100g': 28,  'protein': 1.9,  'calcium': 150, 'zinc': 0.3, 'vitaminD': 0},
+  {'nameKey': 'Sweet Potato',           'icon': '🍠', 'category': 'vegetable', 'caloriesPer100g': 86,  'protein': 1.6,  'calcium': 30,  'zinc': 0.3, 'vitaminD': 0},
+  {'nameKey': 'Carrots',                'icon': '🥕', 'category': 'vegetable', 'caloriesPer100g': 41,  'protein': 0.9,  'calcium': 33,  'zinc': 0.2, 'vitaminD': 0},
+  {'nameKey': 'Red Bell Pepper',        'icon': '🫑', 'category': 'vegetable', 'caloriesPer100g': 31,  'protein': 1.0,  'calcium': 7,   'zinc': 0.3, 'vitaminD': 0},
+  {'nameKey': 'Edamame',                'icon': '🫛', 'category': 'vegetable', 'caloriesPer100g': 121, 'protein': 11.9, 'calcium': 63,  'zinc': 1.4, 'vitaminD': 0},
+  {'nameKey': 'Banana',                 'icon': '🍌', 'category': 'fruit',     'caloriesPer100g': 89,  'protein': 1.1,  'calcium': 5,   'zinc': 0.2, 'vitaminD': 0},
+  {'nameKey': 'Orange',                 'icon': '🍊', 'category': 'fruit',     'caloriesPer100g': 47,  'protein': 0.9,  'calcium': 40,  'zinc': 0.1, 'vitaminD': 0},
+  {'nameKey': 'Avocado',                'icon': '🥑', 'category': 'fruit',     'caloriesPer100g': 160, 'protein': 2.0,  'calcium': 12,  'zinc': 0.6, 'vitaminD': 0},
+  {'nameKey': 'Blueberries',            'icon': '🫐', 'category': 'fruit',     'caloriesPer100g': 57,  'protein': 0.7,  'calcium': 6,   'zinc': 0.2, 'vitaminD': 0},
+  {'nameKey': 'Strawberries',           'icon': '🍓', 'category': 'fruit',     'caloriesPer100g': 32,  'protein': 0.7,  'calcium': 16,  'zinc': 0.1, 'vitaminD': 0},
+  {'nameKey': 'Kiwi',                   'icon': '🥝', 'category': 'fruit',     'caloriesPer100g': 61,  'protein': 1.1,  'calcium': 34,  'zinc': 0.1, 'vitaminD': 0},
+  {'nameKey': 'Oats (dry)',             'icon': '🌾', 'category': 'grain',     'caloriesPer100g': 389, 'protein': 16.9, 'calcium': 54,  'zinc': 3.6, 'vitaminD': 0},
+  {'nameKey': 'Quinoa (cooked)',        'icon': '🌾', 'category': 'grain',     'caloriesPer100g': 120, 'protein': 4.4,  'calcium': 17,  'zinc': 1.1, 'vitaminD': 0},
+  {'nameKey': 'Brown Rice (cooked)',    'icon': '🍚', 'category': 'grain',     'caloriesPer100g': 123, 'protein': 2.7,  'calcium': 10,  'zinc': 0.6, 'vitaminD': 0},
+  {'nameKey': 'Whole Wheat Bread',      'icon': '🍞', 'category': 'grain',     'caloriesPer100g': 247, 'protein': 12.9, 'calcium': 107, 'zinc': 1.8, 'vitaminD': 0},
+  {'nameKey': 'Almonds',                'icon': '🌰', 'category': 'nuts',      'caloriesPer100g': 579, 'protein': 21.2, 'calcium': 269, 'zinc': 3.1, 'vitaminD': 0},
+  {'nameKey': 'Pumpkin Seeds',          'icon': '🎃', 'category': 'nuts',      'caloriesPer100g': 559, 'protein': 30.2, 'calcium': 46,  'zinc': 7.8, 'vitaminD': 0},
+  {'nameKey': 'Peanuts',                'icon': '🥜', 'category': 'nuts',      'caloriesPer100g': 567, 'protein': 25.8, 'calcium': 92,  'zinc': 3.3, 'vitaminD': 0},
+  {'nameKey': 'Cashews',                'icon': '🥜', 'category': 'nuts',      'caloriesPer100g': 553, 'protein': 18.2, 'calcium': 37,  'zinc': 5.8, 'vitaminD': 0},
+  {'nameKey': 'Sunflower Seeds',        'icon': '🌻', 'category': 'nuts',      'caloriesPer100g': 584, 'protein': 20.8, 'calcium': 78,  'zinc': 5.0, 'vitaminD': 0},
+  {'nameKey': 'Chia Seeds',             'icon': '🌱', 'category': 'nuts',      'caloriesPer100g': 486, 'protein': 16.5, 'calcium': 631, 'zinc': 4.6, 'vitaminD': 0},
+  {'nameKey': 'Walnuts',                'icon': '🌰', 'category': 'nuts',      'caloriesPer100g': 654, 'protein': 15.2, 'calcium': 98,  'zinc': 3.1, 'vitaminD': 0},
 ];
+
+// Localized food names — same order as foodDatabase
+const _foodNames = <String, List<String>>{
+  'en': [
+    'Whole Milk', 'Greek Yogurt', 'Cheddar Cheese', 'Cottage Cheese', 'Mozzarella',
+    'Chicken Breast', 'Turkey Breast', 'Beef Steak (Sirloin)', 'Lean Ground Beef', 'Lamb Chop',
+    'Beef Liver', 'Salmon', 'Sardines (canned)', 'Tuna (canned in water)', 'Shrimp',
+    'Mackerel', 'Whole Egg', 'Lentils (cooked)', 'Chickpeas (cooked)', 'Black Beans (cooked)',
+    'Soybeans (cooked)', 'Tofu (firm)', 'Spinach (cooked)', 'Broccoli', 'Kale (cooked)',
+    'Sweet Potato', 'Carrots', 'Red Bell Pepper', 'Edamame', 'Banana',
+    'Orange', 'Avocado', 'Blueberries', 'Strawberries', 'Kiwi',
+    'Oats (dry)', 'Quinoa (cooked)', 'Brown Rice (cooked)', 'Whole Wheat Bread',
+    'Almonds', 'Pumpkin Seeds', 'Peanuts', 'Cashews', 'Sunflower Seeds', 'Chia Seeds', 'Walnuts',
+  ],
+  'tr': [
+    'Tam Yağlı Süt', 'Yunan Yoğurdu', 'Cheddar Peyniri', 'Lor Peyniri', 'Mozzarella',
+    'Tavuk Göğsü', 'Hindi Göğsü', 'Biftek (Sığır)', 'Yağsız Kıyma', 'Kuzu Pirzola',
+    'Dana Ciğeri', 'Somon', 'Sardalye (konserve)', 'Ton Balığı (suda konserve)', 'Karides',
+    'Uskumru', 'Bütün Yumurta', 'Mercimek (pişmiş)', 'Nohut (pişmiş)', 'Siyah Fasulye (pişmiş)',
+    'Soya Fasulyesi (pişmiş)', 'Tofu (sert)', 'Ispanak (pişmiş)', 'Brokoli', 'Kara Lahana (pişmiş)',
+    'Tatlı Patates', 'Havuç', 'Kırmızı Biber', 'Edamame', 'Muz',
+    'Portakal', 'Avokado', 'Yaban Mersini', 'Çilek', 'Kivi',
+    'Yulaf (kuru)', 'Kinoa (pişmiş)', 'Esmer Pirinç (pişmiş)', 'Tam Buğday Ekmeği',
+    'Badem', 'Kabak Çekirdeği', 'Yer Fıstığı', 'Kaju', 'Ayçiçek Çekirdeği', 'Chia Tohumu', 'Ceviz',
+  ],
+  'de': [
+    'Vollmilch', 'Griechischer Joghurt', 'Cheddar-Käse', 'Hüttenkäse', 'Mozzarella',
+    'Hähnchenbrust', 'Putenbrust', 'Rindersteak (Sirloin)', 'Mageres Hackfleisch', 'Lammkotelett',
+    'Rinderleber', 'Lachs', 'Sardinen (Dose)', 'Thunfisch (in Wasser, Dose)', 'Garnelen',
+    'Makrele', 'Ganzes Ei', 'Linsen (gekocht)', 'Kichererbsen (gekocht)', 'Schwarze Bohnen (gekocht)',
+    'Sojabohnen (gekocht)', 'Tofu (fest)', 'Spinat (gekocht)', 'Brokkoli', 'Grünkohl (gekocht)',
+    'Süßkartoffel', 'Karotten', 'Rote Paprika', 'Edamame', 'Banane',
+    'Orange', 'Avocado', 'Heidelbeeren', 'Erdbeeren', 'Kiwi',
+    'Haferflocken (trocken)', 'Quinoa (gekocht)', 'Brauner Reis (gekocht)', 'Vollkornbrot',
+    'Mandeln', 'Kürbiskerne', 'Erdnüsse', 'Cashews', 'Sonnenblumenkerne', 'Chiasamen', 'Walnüsse',
+  ],
+  'fr': [
+    'Lait entier', 'Yaourt grec', 'Cheddar', 'Fromage cottage', 'Mozzarella',
+    'Blanc de poulet', 'Blanc de dinde', 'Steak de bœuf (faux-filet)', 'Bœuf haché maigre', 'Côtelette d\'agneau',
+    'Foie de bœuf', 'Saumon', 'Sardines (en boîte)', 'Thon (en boîte dans l\'eau)', 'Crevettes',
+    'Maquereau', 'Œuf entier', 'Lentilles (cuites)', 'Pois chiches (cuits)', 'Haricots noirs (cuits)',
+    'Soja (cuit)', 'Tofu (ferme)', 'Épinards (cuits)', 'Brocoli', 'Chou frisé (cuit)',
+    'Patate douce', 'Carottes', 'Poivron rouge', 'Edamame', 'Banane',
+    'Orange', 'Avocat', 'Myrtilles', 'Fraises', 'Kiwi',
+    'Flocons d\'avoine (secs)', 'Quinoa (cuit)', 'Riz brun (cuit)', 'Pain complet',
+    'Amandes', 'Graines de courge', 'Cacahuètes', 'Noix de cajou', 'Graines de tournesol', 'Graines de chia', 'Noix',
+  ],
+  'es': [
+    'Leche entera', 'Yogur griego', 'Queso cheddar', 'Requesón', 'Mozzarella',
+    'Pechuga de pollo', 'Pechuga de pavo', 'Bistec de res (solomillo)', 'Carne molida magra', 'Chuleta de cordero',
+    'Hígado de res', 'Salmón', 'Sardinas (en lata)', 'Atún (en agua, en lata)', 'Camarones',
+    'Caballa', 'Huevo entero', 'Lentejas (cocidas)', 'Garbanzos (cocidos)', 'Frijoles negros (cocidos)',
+    'Soja (cocida)', 'Tofu (firme)', 'Espinacas (cocidas)', 'Brócoli', 'Col rizada (cocida)',
+    'Camote', 'Zanahorias', 'Pimiento rojo', 'Edamame', 'Plátano',
+    'Naranja', 'Aguacate', 'Arándanos', 'Fresas', 'Kiwi',
+    'Avena (seca)', 'Quinoa (cocida)', 'Arroz integral (cocido)', 'Pan integral',
+    'Almendras', 'Semillas de calabaza', 'Maníes', 'Anacardos', 'Semillas de girasol', 'Semillas de chía', 'Nueces',
+  ],
+  'pt': [
+    'Leite integral', 'Iogurte grego', 'Queijo cheddar', 'Queijo cottage', 'Mozzarella',
+    'Peito de frango', 'Peito de peru', 'Bife de vaca (lombo)', 'Carne moída magra', 'Costeleta de cordeiro',
+    'Fígado de vaca', 'Salmão', 'Sardinhas (em lata)', 'Atum (em água, em lata)', 'Camarão',
+    'Cavala', 'Ovo inteiro', 'Lentilhas (cozidas)', 'Grão-de-bico (cozido)', 'Feijão preto (cozido)',
+    'Soja (cozida)', 'Tofu (firme)', 'Espinafre (cozido)', 'Brócolis', 'Couve (cozida)',
+    'Batata-doce', 'Cenouras', 'Pimentão vermelho', 'Edamame', 'Banana',
+    'Laranja', 'Abacate', 'Mirtilos', 'Morangos', 'Kiwi',
+    'Aveia (seca)', 'Quinoa (cozida)', 'Arroz integral (cozido)', 'Pão integral',
+    'Amêndoas', 'Sementes de abóbora', 'Amendoins', 'Castanha de caju', 'Sementes de girassol', 'Sementes de chia', 'Nozes',
+  ],
+  'it': [
+    'Latte intero', 'Yogurt greco', 'Formaggio cheddar', 'Ricotta', 'Mozzarella',
+    'Petto di pollo', 'Petto di tacchino', 'Bistecca di manzo (controfiletto)', 'Macinato magro', 'Costoletta di agnello',
+    'Fegato di manzo', 'Salmone', 'Sardine (in scatola)', 'Tonno (in acqua, in scatola)', 'Gamberi',
+    'Sgombro', 'Uovo intero', 'Lenticchie (cotte)', 'Ceci (cotti)', 'Fagioli neri (cotti)',
+    'Soia (cotta)', 'Tofu (sodo)', 'Spinaci (cotti)', 'Broccoli', 'Cavolo riccio (cotto)',
+    'Patata dolce', 'Carote', 'Peperone rosso', 'Edamame', 'Banana',
+    'Arancia', 'Avocado', 'Mirtilli', 'Fragole', 'Kiwi',
+    'Fiocchi d\'avena (secchi)', 'Quinoa (cotta)', 'Riso integrale (cotto)', 'Pane integrale',
+    'Mandorle', 'Semi di zucca', 'Arachidi', 'Anacardi', 'Semi di girasole', 'Semi di chia', 'Noci',
+  ],
+  'hi': [
+    'पूर्ण वसा दूध', 'ग्रीक योगर्ट', 'चेडर पनीर', 'कॉटेज चीज़', 'मोज़रेला',
+    'चिकन ब्रेस्ट', 'टर्की ब्रेस्ट', 'बीफ स्टेक (सिरलोइन)', 'लीन कीमा', 'लैम्ब चॉप',
+    'बीफ लिवर', 'सामन', 'सार्डिन (डिब्बाबंद)', 'टूना (पानी में, डिब्बाबंद)', 'झींगा',
+    'मैकेरल', 'साबुत अंडा', 'दाल (पकी)', 'छोले (पके)', 'काली फलियाँ (पकी)',
+    'सोयाबीन (पकी)', 'टोफू (कठोर)', 'पालक (पकी)', 'ब्रोकली', 'केल (पकी)',
+    'शकरकंद', 'गाजर', 'लाल शिमला मिर्च', 'एडामेम', 'केला',
+    'संतरा', 'एवोकाडो', 'ब्लूबेरी', 'स्ट्रॉबेरी', 'कीवी',
+    'जई (सूखी)', 'क्विनोआ (पकी)', 'ब्राउन राइस (पका)', 'साबुत गेहूं की रोटी',
+    'बादाम', 'कद्दू के बीज', 'मूंगफली', 'काजू', 'सूरजमुखी के बीज', 'चिया बीज', 'अखरोट',
+  ],
+};
+
+/// Returns the localized display name for a food item by its index in [foodDatabase].
+String localizedFoodName(int index, String languageCode) {
+  final names = _foodNames[languageCode] ?? _foodNames['en']!;
+  if (index < 0 || index >= names.length) return foodDatabase[index]['nameKey'] as String;
+  return names[index];
+}
 
 // ══════════════════════════════════════════════════════════════════════
 // C) Weekly Meal Plans
@@ -331,3 +540,18 @@ const _mealHi = [
   ['शनिवार','प्रोटीन ऑमलेट','मोज़रेला, पालक और मशरूम से भरा तीन अंडों का ऑमलेट, एक गिलास दूध के साथ।','ग्रिल्ड श्रिम्प टैकोस','ग्रिल्ड झींगा, एवोकाडो, कोलस्लॉ और नींबू-धनिया सॉस के साथ मकई टोर्टिलास।','चिकन & दाल स्टू','दाल, गाजर, अजवायन और टमाटर के साथ धीमी आंच पर पके चिकन थाइज़, होल व्हीट ब्रेड के साथ।','टोस्ट पर सार्डिन','नींबू के साथ होल व्हीट टोस्ट पर डिब्बाबंद सार्डिन।','मिक्स्ड नट्स','एक मुट्ठी बादाम, काजू और अखरोट।'],
   ['रविवार','बेरीज़ के साथ फ्रेंच टोस्ट','अंडे और दूध में डुबोया होल व्हीट फ्रेंच टोस्ट, स्ट्रॉबेरी, ब्लूबेरी और ग्रीक योगर्ट से सजाया गया।','शकरकंद फ्राइज़ के साथ बीफ बर्गर','होल व्हीट बन पर घर का बना लीन बीफ पैटी, लेट्यूस, टमाटर और चीज़ के साथ, बेक्ड शकरकंद फ्राइज़ के साथ।','क्विनोआ & एडामेम के साथ बेक्ड सामन','क्विनोआ पर टेरियाकी-ग्लेज़्ड बेक्ड सामन, भाप में पके एडामेम और सौटे पालक के साथ।','कॉटेज चीज़ & अनानास','अनानास के टुकड़े और शहद की बूंद के साथ कॉटेज चीज़।','पीनट बटर केला बाइट्स','पीनट बटर के साथ केले के स्लाइस, ऊपर से चिया बीज।'],
 ];
+
+// English canonical nutrient keys (same order as _nutrientNames lists)
+const _nutrientEnKeys = [
+  'Calcium', 'Protein', 'Zinc', 'Vitamin D', 'Vitamin A',
+  'Iron', 'Phosphorus', 'Magnesium', 'L-Arginine',
+];
+
+/// Converts an English canonical nutrient key to the localized display name.
+/// Falls back to the English key if language or key not found.
+String localizeNutrientKey(String englishKey, String languageCode) {
+  final names = _nutrientNames[languageCode] ?? _nutrientNames['en']!;
+  final index = _nutrientEnKeys.indexOf(englishKey);
+  if (index == -1) return englishKey;
+  return names[index];
+}

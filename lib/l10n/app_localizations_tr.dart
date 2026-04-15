@@ -459,7 +459,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get premiumSoon => 'Premium yakında geliyor!';
 
   @override
-  String get brandingSubtitle => 'Büyüme potansiyelini keşfet';
+  String get brandingSubtitle => 'Boy potansiyelini keşfet';
 
   @override
   String get statistics => 'İstatistikler';
@@ -495,7 +495,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get onboardingTitle => 'BeTaller';
 
   @override
-  String get onboardingSubtitle => 'Büyüme potansiyelini keşfet';
+  String get onboardingSubtitle => 'Boy potansiyelini keşfet';
 
   @override
   String get onboardingMeetYou => 'Seni Tanıyalım';
@@ -3216,4 +3216,103 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tallerThanPct => 'Yaşıtlarının %76.7\'sinden uzun';
+
+  @override
+  String get levelNovice => 'Acemi';
+
+  @override
+  String get levelBuilder => 'Geliştirici';
+
+  @override
+  String get levelGrinder => 'Azimkar';
+
+  @override
+  String get levelWarrior => 'Savaşçı';
+
+  @override
+  String get levelGodTier => 'Efsanevi';
+
+  @override
+  String get levelDesc0 => 'Temelini oluştur';
+
+  @override
+  String get levelDesc1 => 'Büyümeyi hızlandır';
+
+  @override
+  String get levelDesc2 => 'Antrenmanı yoğunlaştır';
+
+  @override
+  String get levelDesc3 => 'Limitlerini zorla';
+
+  @override
+  String get levelDesc4 => 'Acısız zafer olmaz';
+
+  @override
+  String get levelDesc5 => 'Şampiyon zihniyeti';
+
+  @override
+  String get levelDesc6 => 'Elit performans';
+
+  @override
+  String get levelDesc7 => 'Bedenine hakim ol';
+
+  @override
+  String get levelDesc8 => 'Efsanevi disiplin';
+
+  @override
+  String get levelDesc9 => 'Maksimum potansiyel';
+
+  @override
+  String levelLabel(int level) {
+    return 'SEVİYE $level';
+  }
+
+  @override
+  String daysLeftProgram(int days) {
+    return 'Programında $days gün kaldı';
+  }
+
+  @override
+  String get tapLabel => 'TIKLA';
+
+  @override
+  String kcalPer100g(int calories) {
+    return '$calories kcal / 100g';
+  }
+
+  @override
+  String get dayShort => 'Gün';
+
+  @override
+  String get legendShort => 'Kısa';
+
+  @override
+  String get legendBelowAvg => 'Orta altı';
+
+  @override
+  String get legendAverage => 'Ortalama';
+
+  @override
+  String get legendTall => 'Uzun';
+
+  @override
+  String get legendVeryTall => 'Çok uzun';
+
+  @override
+  String get pctBottom5 => 'Alt 5%';
+
+  @override
+  String get pctBottom25 => 'Alt 25%';
+
+  @override
+  String get pctMedian => 'Ortalama';
+
+  @override
+  String get pctTop25 => 'Üst 25%';
+
+  @override
+  String get pctTop5 => 'Üst 5%';
+
+  @override
+  String get fallingBehind => 'Geride kalıyorsun';
 }

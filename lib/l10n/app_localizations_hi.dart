@@ -3197,4 +3197,103 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get tallerThanPct => 'Taller than 76.7% of your age';
+
+  @override
+  String get levelNovice => 'नौसिखिया';
+
+  @override
+  String get levelBuilder => 'निर्माता';
+
+  @override
+  String get levelGrinder => 'मेहनती';
+
+  @override
+  String get levelWarrior => 'योद्धा';
+
+  @override
+  String get levelGodTier => 'देव स्तर';
+
+  @override
+  String get levelDesc0 => 'अपनी नींव बनाओ';
+
+  @override
+  String get levelDesc1 => 'विकास तेज करो';
+
+  @override
+  String get levelDesc2 => 'प्रशिक्षण तीव्र करो';
+
+  @override
+  String get levelDesc3 => 'अपनी सीमाएं तोड़ो';
+
+  @override
+  String get levelDesc4 => 'बिना दर्द, कोई लाभ नहीं';
+
+  @override
+  String get levelDesc5 => 'चैंपियन मानसिकता';
+
+  @override
+  String get levelDesc6 => 'एलीट प्रदर्शन';
+
+  @override
+  String get levelDesc7 => 'अपने शरीर पर काबू';
+
+  @override
+  String get levelDesc8 => 'किंवदंती अनुशासन';
+
+  @override
+  String get levelDesc9 => 'अधिकतम क्षमता';
+
+  @override
+  String levelLabel(int level) {
+    return 'स्तर $level';
+  }
+
+  @override
+  String daysLeftProgram(int days) {
+    return 'कार्यक्रम में $days दिन बाकी';
+  }
+
+  @override
+  String get tapLabel => 'दबाएं';
+
+  @override
+  String kcalPer100g(int calories) {
+    return '$calories kcal / 100g';
+  }
+
+  @override
+  String get dayShort => 'दिन';
+
+  @override
+  String get legendShort => 'छोटा';
+
+  @override
+  String get legendBelowAvg => 'औसत से कम';
+
+  @override
+  String get legendAverage => 'औसत';
+
+  @override
+  String get legendTall => 'लंबा';
+
+  @override
+  String get legendVeryTall => 'बहुत लंबा';
+
+  @override
+  String get pctBottom5 => 'नीचे 5%';
+
+  @override
+  String get pctBottom25 => 'नीचे 25%';
+
+  @override
+  String get pctMedian => 'मध्यिका';
+
+  @override
+  String get pctTop25 => 'ऊपर 25%';
+
+  @override
+  String get pctTop5 => 'ऊपर 5%';
+
+  @override
+  String get fallingBehind => 'पिछड़ रहे हैं';
 }

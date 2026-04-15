@@ -643,16 +643,19 @@ class PremiumLockedOverlay extends StatelessWidget {
   final VoidCallback onTap;
   final double blurAmount;
   final double borderRadius;
+  final bool unlocked;
   const PremiumLockedOverlay({
     super.key,
     required this.child,
     required this.onTap,
     this.blurAmount = 8,
     this.borderRadius = 22,
+    this.unlocked = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (unlocked) return child;
     return GestureDetector(
       onTap: onTap,
       child: ClipRRect(

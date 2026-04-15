@@ -860,5 +860,51 @@
   "paywallRestore": "Kein früherer Kauf gefunden", "paywallRestoreNotFound": "Kein früherer Kauf gefunden", "paywallRestoreLabel": "Käufe wiederherstellen",
   "paywallYearly": "Jährlich", "paywallBestValue": "Bester Wert", "paywallMonthly": "Monatlich", "paywallFreeTrial": "3 Tage kostenlos",
   "paywallLoadError": "Kauf konnte nicht geladen werden", "paywallCta": "Kostenlos testen", "paywallCtaAlt": "Weiter",
-  "paywallTrialDisclaimer": "3 Tage kostenlos · auto Verlängerung · jederzeit kündbar", "paywallYearlyDisclaimer": "Jährliche auto Verlängerung · jederzeit kündbar", "paywallTester": "Tester"
+  "paywallTrialDisclaimer": "3 Tage kostenlos · auto Verlängerung · jederzeit kündbar", "paywallYearlyDisclaimer": "Jährliche auto Verlängerung · jederzeit kündbar", "paywallTester": "Tester",
+
+  "levelNovice": "Anfänger",
+  "levelBuilder": "Aufbauer",
+  "levelGrinder": "Kämpfer",
+  "levelWarrior": "Krieger",
+  "levelGodTier": "Gottgleich",
+
+  "levelDesc0": "Lege dein Fundament",
+  "levelDesc1": "Beschleunige dein Wachstum",
+  "levelDesc2": "Intensiviere das Training",
+  "levelDesc3": "Überschreite deine Grenzen",
+  "levelDesc4": "Kein Schmerz, kein Gewinn",
+  "levelDesc5": "Champion-Mentalität",
+  "levelDesc6": "Elite-Leistung",
+  "levelDesc7": "Meistere deinen Körper",
+  "levelDesc8": "Legendäre Disziplin",
+  "levelDesc9": "Maximales Potenzial",
+
+  "levelLabel": "LEVEL {level}",
+  "@levelLabel": {"placeholders": {"level": {"type": "int"}}},
+
+  "daysLeftProgram": "{days} Tage im Programm verbleibend",
+  "@daysLeftProgram": {"placeholders": {"days": {"type": "int"}}},
+
+  "tapLabel": "TIPPEN",
+
+  "kcalPer100g": "{calories} kcal / 100g",
+  "@kcalPer100g": {"placeholders": {"calories": {"type": "int"}}},
+
+  "dayShort": "Tag",
+
+  "legendShort": "Klein",
+  "legendBelowAvg": "Unter Durchschnitt",
+  "legendAverage": "Durchschnitt",
+  "legendTall": "Groß",
+  "legendVeryTall": "Sehr groß",
+
+  "pctBottom5": "Untere 5%",
+  "pctBottom25": "Untere 25%",
+  "pctMedian": "Median",
+  "pctTop25": "Obere 25%",
+  "pctTop5": "Obere 5%",
+
+  "youLabel": "Du",
+
+  "fallingBehind": "Du liegst zurück"
 }

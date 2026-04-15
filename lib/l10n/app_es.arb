@@ -833,5 +833,51 @@
   "paywallRestore": "No se encontró compra anterior", "paywallRestoreNotFound": "No se encontró compra anterior", "paywallRestoreLabel": "Restaurar compras",
   "paywallYearly": "Anual", "paywallBestValue": "Mejor valor", "paywallMonthly": "Mensual", "paywallFreeTrial": "3 días gratis",
   "paywallLoadError": "No se pudo cargar, inténtalo de nuevo", "paywallCta": "Prueba gratis", "paywallCtaAlt": "Continuar",
-  "paywallTrialDisclaimer": "3 días gratis · renovación auto · cancela cuando quieras", "paywallYearlyDisclaimer": "Renovación anual auto · cancela cuando quieras", "paywallTester": "Tester"
+  "paywallTrialDisclaimer": "3 días gratis · renovación auto · cancela cuando quieras", "paywallYearlyDisclaimer": "Renovación anual auto · cancela cuando quieras", "paywallTester": "Tester",
+
+  "levelNovice": "Novato",
+  "levelBuilder": "Constructor",
+  "levelGrinder": "Perseverante",
+  "levelWarrior": "Guerrero",
+  "levelGodTier": "Dios",
+
+  "levelDesc0": "Construye tu base",
+  "levelDesc1": "Acelera el crecimiento",
+  "levelDesc2": "Intensifica el entrenamiento",
+  "levelDesc3": "Supera tus límites",
+  "levelDesc4": "Sin dolor no hay ganancia",
+  "levelDesc5": "Mentalidad de campeón",
+  "levelDesc6": "Rendimiento élite",
+  "levelDesc7": "Domina tu cuerpo",
+  "levelDesc8": "Disciplina legendaria",
+  "levelDesc9": "Potencial máximo",
+
+  "levelLabel": "NIVEL {level}",
+  "@levelLabel": {"placeholders": {"level": {"type": "int"}}},
+
+  "daysLeftProgram": "{days} días restantes en tu programa",
+  "@daysLeftProgram": {"placeholders": {"days": {"type": "int"}}},
+
+  "tapLabel": "TOCA",
+
+  "kcalPer100g": "{calories} kcal / 100g",
+  "@kcalPer100g": {"placeholders": {"calories": {"type": "int"}}},
+
+  "dayShort": "Día",
+
+  "legendShort": "Bajo",
+  "legendBelowAvg": "Bajo promedio",
+  "legendAverage": "Promedio",
+  "legendTall": "Alto",
+  "legendVeryTall": "Muy alto",
+
+  "pctBottom5": "5% inferior",
+  "pctBottom25": "25% inferior",
+  "pctMedian": "Mediana",
+  "pctTop25": "25% superior",
+  "pctTop5": "5% superior",
+
+  "youLabel": "Tú",
+
+  "fallingBehind": "Te estás quedando atrás"
 }

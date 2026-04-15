@@ -833,5 +833,51 @@
   "paywallRestore": "Aucun achat trouvé", "paywallRestoreNotFound": "Aucun achat trouvé", "paywallRestoreLabel": "Restaurer les achats",
   "paywallYearly": "Annuel", "paywallBestValue": "Meilleur rapport", "paywallMonthly": "Mensuel", "paywallFreeTrial": "3 jours gratuits",
   "paywallLoadError": "Impossible de charger, réessayez", "paywallCta": "Essai gratuit", "paywallCtaAlt": "Continuer",
-  "paywallTrialDisclaimer": "3 jours gratuits · renouvellement auto · annulation à tout moment", "paywallYearlyDisclaimer": "Renouvellement annuel auto · annulation à tout moment", "paywallTester": "Testeur"
+  "paywallTrialDisclaimer": "3 jours gratuits · renouvellement auto · annulation à tout moment", "paywallYearlyDisclaimer": "Renouvellement annuel auto · annulation à tout moment", "paywallTester": "Testeur",
+
+  "levelNovice": "Novice",
+  "levelBuilder": "Bâtisseur",
+  "levelGrinder": "Acharné",
+  "levelWarrior": "Guerrier",
+  "levelGodTier": "Divin",
+
+  "levelDesc0": "Bâtis tes fondations",
+  "levelDesc1": "Accélère ta croissance",
+  "levelDesc2": "Intensifie l'entraînement",
+  "levelDesc3": "Repousse tes limites",
+  "levelDesc4": "Pas de douleur, pas de gain",
+  "levelDesc5": "Mentalité de champion",
+  "levelDesc6": "Performance élite",
+  "levelDesc7": "Maîtrise ton corps",
+  "levelDesc8": "Discipline légendaire",
+  "levelDesc9": "Potentiel maximum",
+
+  "levelLabel": "NIVEAU {level}",
+  "@levelLabel": {"placeholders": {"level": {"type": "int"}}},
+
+  "daysLeftProgram": "{days} jours restants dans ton programme",
+  "@daysLeftProgram": {"placeholders": {"days": {"type": "int"}}},
+
+  "tapLabel": "APPUIE",
+
+  "kcalPer100g": "{calories} kcal / 100g",
+  "@kcalPer100g": {"placeholders": {"calories": {"type": "int"}}},
+
+  "dayShort": "Jour",
+
+  "legendShort": "Petit",
+  "legendBelowAvg": "En dessous",
+  "legendAverage": "Moyenne",
+  "legendTall": "Grand",
+  "legendVeryTall": "Très grand",
+
+  "pctBottom5": "5% inférieur",
+  "pctBottom25": "25% inférieur",
+  "pctMedian": "Médiane",
+  "pctTop25": "25% supérieur",
+  "pctTop5": "5% supérieur",
+
+  "youLabel": "Toi",
+
+  "fallingBehind": "Tu prends du retard"
 }

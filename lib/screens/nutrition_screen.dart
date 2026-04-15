@@ -177,7 +177,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
       case 1:
         return _buildNutrientsSection(l, lang);
       case 2:
-        return _buildFoodDatabaseSection(l, foodCats);
+        return _buildFoodDatabaseSection(l, foodCats, lang);
       default:
         return const SliverToBoxAdapter(child: SizedBox());
     }
@@ -220,9 +220,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
           ),
         ),
 
-        _buildMealCard(l.breakfast, '🌅', breakfast),
-        _buildMealCard(l.lunch, '☀️', lunch),
-        _buildMealCard(l.dinner, '🌙', dinner),
+        _buildMealCard(l.breakfast, '🌅', breakfast, lang: lang),
+        _buildMealCard(l.lunch, '☀️', lunch, lang: lang),
+        _buildMealCard(l.dinner, '🌙', dinner, lang: lang),
 
         // Snacks header
         Padding(
@@ -241,6 +241,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
             '🍎',
             snack,
             compact: true,
+            lang: lang,
           );
         }),
       ]),
@@ -252,6 +253,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
     String emoji,
     Map<String, dynamic> meal, {
     bool compact = false,
+    String lang = 'en',
   }) {
     final name = meal['name'] as String;
     final desc = meal['description'] as String;
@@ -312,7 +314,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                   border: Border.all(color: color.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                  n,
+                  localizeNutrientKey(n, lang),
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
@@ -572,16 +574,20 @@ class _NutritionScreenState extends State<NutritionScreen> {
   // SECTION 3: Food Database
   // ════════════════════════════════════════════════════════════════
 
-  SliverList _buildFoodDatabaseSection(AppLocalizations l, Map<String, String> foodCats) {
-    // Filter foods
-    final filtered = foodDatabase.where((food) {
-      final name = (food['name'] as String).toLowerCase();
-      final matchesSearch =
-          _searchQuery.isEmpty || name.contains(_searchQuery.toLowerCase());
+  SliverList _buildFoodDatabaseSection(AppLocalizations l, Map<String, String> foodCats, String lang) {
+    // Filter foods — search matches both localized name and English key
+    final filteredIndexed = foodDatabase.asMap().entries.where((entry) {
+      final food = entry.value;
+      final localName = localizedFoodName(entry.key, lang).toLowerCase();
+      final keyName = (food['nameKey'] as String).toLowerCase();
+      final matchesSearch = _searchQuery.isEmpty ||
+          localName.contains(_searchQuery.toLowerCase()) ||
+          keyName.contains(_searchQuery.toLowerCase());
       final matchesCategory =
           _selectedCategory == 'all' || food['category'] == _selectedCategory;
       return matchesSearch && matchesCategory;
     }).toList();
+    final filtered = filteredIndexed.map((e) => {'index': e.key, ...e.value}).toList();
 
     return SliverList(
       delegate: SliverChildListDelegate([
@@ -685,13 +691,14 @@ class _NutritionScreenState extends State<NutritionScreen> {
         ),
 
         // Food list
-        ...filtered.map((food) => _buildFoodItem(food)),
+        ...filtered.map((food) => _buildFoodItem(food, l, lang)),
       ]),
     );
   }
 
-  Widget _buildFoodItem(Map<String, dynamic> food) {
-    final name = food['name'] as String;
+  Widget _buildFoodItem(Map<String, dynamic> food, AppLocalizations l, String lang) {
+    final index = food['index'] as int;
+    final name = localizedFoodName(index, lang);
     final icon = food['icon'] as String;
     final protein = food['protein'] as num;
     final calcium = food['calcium'] as num;
@@ -730,7 +737,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  '$calories kcal / 100g',
+                  l.kcalPer100g(calories.toInt()),
                   style: TextStyle(
                     fontSize: 11,
                     color: AppColors.textTertiary,
@@ -743,7 +750,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
           // Protein badge
           _buildNutrientBadge(
             '${protein.toStringAsFixed(1)}g',
-            'Protein',
+            l.protein,
             AppColors.orange,
           ),
           const SizedBox(width: 8),
