@@ -13,28 +13,35 @@ jobs:
           KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_IDENTIFIER }}
           PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         run: |
-          # Write private key to file
           echo "$PRIVATE_KEY" > AuthKey.p8
+          pip3 install pyjwt cryptography --break-system-packages
           
-          # Install jwt-creator
-          brew install node
-          npm install -g jwt-cli
-          
-          # Generate JWT token
-          HEADER=$(echo -n '{"alg":"ES256","kid":"'"$KEY_ID"'","typ":"JWT"}' | base64 | tr '+/' '-_' | tr -d '=')
-          PAYLOAD=$(echo -n '{"iss":"'"$ISSUER_ID"'","iat":'"$(date +%s)"',"exp":'"$(($(date +%s)+1200))"',"aud":"appstoreconnect-v1"}' | base64 | tr '+/' '-_' | tr -d '=')
-          SIGN_INPUT="$HEADER.$PAYLOAD"
-          SIGNATURE=$(echo -n "$SIGN_INPUT" | openssl dgst -sha256 -sign AuthKey.p8 -binary | base64 | tr '+/' '-_' | tr -d '=')
-          JWT="$SIGN_INPUT.$SIGNATURE"
-          
-          # Generate distribution key and CSR
-          openssl genrsa -out dist.key 2048
-          openssl req -new -key dist.key -out dist.csr -subj "/CN=iOS Distribution"
-          CSR_CONTENT=$(cat dist.csr | base64 | tr -d '\n')
-          
-          # Create certificate via API
-          curl -s -X POST \
-            -H "Authorization: Bearer $JWT" \
-            -H "Content-Type: application/json" \
-            -d "{\"data\":{\"type\":\"certificates\",\"attributes\":{\"certificateType\":\"IOS_DISTRIBUTION\",\"csrContent\":\"$CSR_CONTENT\"}}}" \
-            "https://api.appstoreconnect.apple.com/v1/certificates"
+          python3 << 'PYTHON'
+import jwt, time, subprocess, json, os, base64
+
+key_id = os.environ['KEY_ID']
+issuer_id = os.environ['ISSUER_ID']
+
+with open('AuthKey.p8', 'r') as f:
+    private_key = f.read()
+
+token = jwt.encode(
+    {"iss": issuer_id, "iat": int(time.time()), "exp": int(time.time()) + 1200, "aud": "appstoreconnect-v1"},
+    private_key,
+    algorithm="ES256",
+    headers={"kid": key_id}
+)
+
+# Generate distribution key and CSR
+subprocess.run(["openssl", "genrsa", "-out", "dist.key", "2048"])
+subprocess.run(["openssl", "req", "-new", "-key", "dist.key", "-out", "dist.csr", "-subj", "/CN=iOS Distribution"])
+
+with open("dist.csr", "rb") as f:
+    csr_content = base64.b64encode(f.read()).decode()
+
+import urllib.request
+data = json.dumps({"data": {"type": "certificates", "attributes": {"certificateType": "IOS_DISTRIBUTION", "csrContent": csr_content}}}).encode()
+req = urllib.request.Request("https://api.appstoreconnect.apple.com/v1/certificates", data=data, headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"})
+with urllib.request.urlopen(req) as r:
+    print(r.read().decode())
+PYTHON
