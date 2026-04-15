@@ -7,25 +7,34 @@ jobs:
   create-cert:
     runs-on: macos-latest
     steps:
-      - name: Install Codemagic CLI Tools
-        run: |
-          brew install pipx
-          pipx install codemagic-cli-tools
-          pipx ensurepath
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
       - name: Create iOS Distribution Certificate
         env:
-          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-          APP_STORE_CONNECT_KEY_IDENTIFIER: ${{ secrets.APP_STORE_CONNECT_KEY_IDENTIFIER }}
-          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+          ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_IDENTIFIER }}
+          PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         run: |
-          echo "$APP_STORE_CONNECT_PRIVATE_KEY" > api_key.p8
-          openssl genrsa -out distribution.key 2048
-          app-store-connect certificates create \
-            --type IOS_DISTRIBUTION \
-            --certificate-key @file:distribution.key \
-            --issuer-id "$APP_STORE_CONNECT_ISSUER_ID" \
-            --key-id "$APP_STORE_CONNECT_KEY_IDENTIFIER" \
-            --private-key @file:api_key.p8 \
-            --save
+          # Write private key to file
+          echo "$PRIVATE_KEY" > AuthKey.p8
+          
+          # Install jwt-creator
+          brew install node
+          npm install -g jwt-cli
+          
+          # Generate JWT token
+          HEADER=$(echo -n '{"alg":"ES256","kid":"'"$KEY_ID"'","typ":"JWT"}' | base64 | tr '+/' '-_' | tr -d '=')
+          PAYLOAD=$(echo -n '{"iss":"'"$ISSUER_ID"'","iat":'"$(date +%s)"',"exp":'"$(($(date +%s)+1200))"',"aud":"appstoreconnect-v1"}' | base64 | tr '+/' '-_' | tr -d '=')
+          SIGN_INPUT="$HEADER.$PAYLOAD"
+          SIGNATURE=$(echo -n "$SIGN_INPUT" | openssl dgst -sha256 -sign AuthKey.p8 -binary | base64 | tr '+/' '-_' | tr -d '=')
+          JWT="$SIGN_INPUT.$SIGNATURE"
+          
+          # Generate distribution key and CSR
+          openssl genrsa -out dist.key 2048
+          openssl req -new -key dist.key -out dist.csr -subj "/CN=iOS Distribution"
+          CSR_CONTENT=$(cat dist.csr | base64 | tr -d '\n')
+          
+          # Create certificate via API
+          curl -s -X POST \
+            -H "Authorization: Bearer $JWT" \
+            -H "Content-Type: application/json" \
+            -d "{\"data\":{\"type\":\"certificates\",\"attributes\":{\"certificateType\":\"IOS_DISTRIBUTION\",\"csrContent\":\"$CSR_CONTENT\"}}}" \
+            "https://api.appstoreconnect.apple.com/v1/certificates"
