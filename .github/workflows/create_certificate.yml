@@ -20,6 +20,8 @@ jobs:
           APP_STORE_CONNECT_KEY_IDENTIFIER: ${{ secrets.APP_STORE_CONNECT_KEY_IDENTIFIER }}
           APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         run: |
+          openssl genrsa -out distribution.key 2048
           app-store-connect certificates create \
             --type IOS_DISTRIBUTION \
+            --certificate-key @file:distribution.key \
             --save
