@@ -3,29 +3,15 @@ workflows:
     name: iOS Build
     max_build_duration: 120
     instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: BeTaller
     environment:
       flutter: stable
       xcode: latest
-      groups:
-        - ios_credentials
-      vars:
-        BUNDLE_ID: "com.glowup.boyuzatmaApp.33JY92T594"
-        XCODE_WORKSPACE: "ios/Runner.xcworkspace"
-        XCODE_SCHEME: "Runner"
-    integrations:
-      app_store_connect: BeTaller
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.glowup.boyuzatmaApp.33JY92T594
     scripts:
-      - name: Set up code signing
-        script: |
-          keychain initialize
-          app-store-connect create-certificate \
-            --type IOS_DISTRIBUTION \
-            --save
-          app-store-connect fetch-signing-files "$BUNDLE_ID" \
-            --type IOS_APP_STORE \
-            --create
-          keychain add-certificates
-          xcode-project use-profiles
       - name: Get Flutter packages
         script: |
           flutter packages pub get
@@ -35,8 +21,8 @@ workflows:
       - name: Package IPA
         script: |
           xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME"
+            --workspace ios/Runner.xcworkspace \
+            --scheme Runner
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:
