@@ -20,6 +20,11 @@ jobs:
           APP_STORE_CONNECT_KEY_IDENTIFIER: ${{ secrets.APP_STORE_CONNECT_KEY_IDENTIFIER }}
           APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
         run: |
+          openssl genrsa -out distribution.key 2048
+          openssl req -new -key distribution.key \
+            -out distribution.csr \
+            -subj "/CN=iOS Distribution/O=BeTaller/C=TR"
           app-store-connect certificates create \
             --type IOS_DISTRIBUTION \
+            --csr-path distribution.csr \
             --save
