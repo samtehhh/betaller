@@ -8,10 +8,15 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.glowup.boyuzatmaApp.33JY92T594
     scripts:
+      - name: Set up keychain and code signing
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files com.glowup.boyuzatmaApp.33JY92T594 \
+            --type IOS_APP_STORE \
+            --create
+          keychain add-certificates
+          xcode-project use-profiles
       - name: Get Flutter packages
         script: |
           flutter packages pub get
