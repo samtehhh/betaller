@@ -8,60 +8,25 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
+      vars:
+        BUNDLE_ID: com.glowup.boyuzatmaApp.33JY92T594
     scripts:
-      - name: Set up keychain and code signing
+      - name: Initialize keychain
+        script: keychain initialize
+      - name: Fetch signing files
         script: |
-          keychain initialize
-          app-store-connect fetch-signing-files com.glowup.boyuzatmaApp.33JY92T594 \
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
             --type IOS_APP_STORE \
+            --certificate-key @env:APP_STORE_CONNECT_PRIVATE_KEY \
             --create
-          keychain add-certificates
-          xcode-project use-profiles
-          echo "Installed profiles:"
-          ls ~/Library/MobileDevice/Provisioning\ Profiles/ 2>/dev/null || echo "none"
+      - name: Add certificates to keychain
+        script: keychain add-certificates
+      - name: Apply provisioning profiles
+        script: xcode-project use-profiles
       - name: Get Flutter packages
-        script: |
-          flutter packages pub get
-      - name: Build iOS release
-        script: |
-          flutter build ios --release --no-codesign
-      - name: Package IPA
-        script: |
-          cat > /tmp/ExportOptions.plist << 'EOF'
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-              <key>method</key>
-              <string>app-store</string>
-              <key>teamID</key>
-              <string>33JY92T594</string>
-              <key>signingStyle</key>
-              <string>manual</string>
-              <key>provisioningProfiles</key>
-              <dict>
-                  <key>com.glowup.boyuzatmaApp.33JY92T594</key>
-                  <string>BeTaller App Store</string>
-              </dict>
-          </dict>
-          </plist>
-          EOF
-
-          xcodebuild \
-            -workspace ios/Runner.xcworkspace \
-            -scheme Runner \
-            -archivePath build/ios/xcarchive/Runner.xcarchive \
-            archive \
-            CODE_SIGN_STYLE=Manual \
-            DEVELOPMENT_TEAM=33JY92T594 \
-            "PROVISIONING_PROFILE_SPECIFIER=BeTaller App Store" \
-            COMPILER_INDEX_STORE_ENABLE=NO
-
-          xcodebuild \
-            -exportArchive \
-            -archivePath build/ios/xcarchive/Runner.xcarchive \
-            -exportPath build/ios/ipa \
-            -exportOptionsPlist /tmp/ExportOptions.plist
+        script: flutter packages pub get
+      - name: Build IPA
+        script: flutter build ipa --release
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:
