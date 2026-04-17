@@ -27,7 +27,7 @@ workflows:
       - name: Get Flutter packages
         script: flutter packages pub get
       - name: Build IPA
-        script: flutter build ipa --release
+        script: flutter build ipa --release --verbose 2>&1 | tail -100
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:
