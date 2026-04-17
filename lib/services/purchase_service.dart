@@ -38,10 +38,7 @@ class PurchaseService {
 
     await Purchases.configure(PurchasesConfiguration(apiKey));
     _initialized = true;
-
-    if (kDebugMode) {
-      await Purchases.setLogLevel(LogLevel.debug);
-    }
+    await Purchases.setLogLevel(LogLevel.debug);
   }
 
   // ── Check if user has premium entitlement ─────────────────────
@@ -60,7 +57,11 @@ class PurchaseService {
   Future<Offerings?> getOfferings() async {
     if (!_initialized) return null;
     try {
-      return await Purchases.getOfferings();
+      final offerings = await Purchases.getOfferings();
+      debugPrint('PurchaseService.getOfferings current: ${offerings.current?.identifier}');
+      debugPrint('PurchaseService.getOfferings monthly: ${offerings.current?.monthly?.storeProduct.identifier}');
+      debugPrint('PurchaseService.getOfferings annual: ${offerings.current?.annual?.storeProduct.identifier}');
+      return offerings;
     } catch (e) {
       debugPrint('PurchaseService.getOfferings error: $e');
       return null;
