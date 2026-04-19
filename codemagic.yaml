@@ -8,6 +8,8 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
+      groups:
+        - ios_credentials
       vars:
         BUNDLE_ID: com.glowup.boyuzatmaApp.33JY92T594
     scripts:
