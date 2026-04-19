@@ -1318,6 +1318,21 @@ class AppLocalizationsHi extends AppLocalizations {
   String get heightLabel => 'ऊँचाई';
 
   @override
+  String get weightLabel => 'वज़न';
+
+  @override
+  String get dadLabel => 'पिता';
+
+  @override
+  String get motherLabel => 'माँ';
+
+  @override
+  String get metricShort => 'मेट्रिक';
+
+  @override
+  String get imperialShort => 'इम्पीरियल';
+
+  @override
   String get dailyScores => 'दैनिक अंक';
 
   @override

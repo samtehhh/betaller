@@ -2468,6 +2468,36 @@ abstract class AppLocalizations {
   /// **'Height'**
   String get heightLabel;
 
+  /// No description provided for @weightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get weightLabel;
+
+  /// No description provided for @dadLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Dad'**
+  String get dadLabel;
+
+  /// No description provided for @motherLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Mother'**
+  String get motherLabel;
+
+  /// No description provided for @metricShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Metric'**
+  String get metricShort;
+
+  /// No description provided for @imperialShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Imperial'**
+  String get imperialShort;
+
   /// No description provided for @dailyScores.
   ///
   /// In en, this message translates to:

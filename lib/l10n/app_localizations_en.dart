@@ -1320,6 +1320,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get heightLabel => 'Height';
 
   @override
+  String get weightLabel => 'Weight';
+
+  @override
+  String get dadLabel => 'Dad';
+
+  @override
+  String get motherLabel => 'Mother';
+
+  @override
+  String get metricShort => 'Metric';
+
+  @override
+  String get imperialShort => 'Imperial';
+
+  @override
   String get dailyScores => 'Daily Scores';
 
   @override

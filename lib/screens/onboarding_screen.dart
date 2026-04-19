@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -814,7 +815,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       title: l.heightAndWeight,
       subtitle: l.onboardingPredictSubtitle,
       unitToggle: _UnitToggle(
-        left: 'Imperial', right: 'Metric',
+        left: l.imperialShort, right: l.metricShort,
         isRight: !_heightImperial,
         onToggle: (isMetric) => setState(() {
           _heightImperial = !isMetric;
@@ -826,8 +827,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         }),
       ),
       headerRow: _pickerHeaders(_heightImperial
-          ? ['Height', '', 'Weight']
-          : ['Height', 'Weight'],
+          ? [l.heightLabel, '', l.weightLabel]
+          : [l.heightLabel, l.weightLabel],
         flex: _heightImperial ? [1, 1, 1] : [1, 1]),
       child: _heightImperial
           ? Row(children: [
@@ -897,13 +898,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       title: l.parentsHeight,
       subtitle: l.onboardingPredictSubtitle,
       unitToggle: _UnitToggle(
-        left: 'Imperial', right: 'Metric',
+        left: l.imperialShort, right: l.metricShort,
         isRight: !_heightImperial,
         onToggle: (isMetric) => setState(() => _heightImperial = !isMetric),
       ),
       headerRow: _pickerHeaders(_heightImperial
-          ? ['Dad', '', 'Mother', '']
-          : ['Dad', 'Mother'],
+          ? [l.dadLabel, '', l.motherLabel, '']
+          : [l.dadLabel, l.motherLabel],
         flex: _heightImperial ? [1, 1, 1, 1] : [1, 1]),
       child: _heightImperial
           ? Row(children: [
@@ -1144,7 +1145,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   ),
           ),
           const SizedBox(height: 16),
-          _UnitToggle(left: 'Imperial', right: 'Metric', isRight: !_dreamImperial,
+          _UnitToggle(left: l.imperialShort, right: l.metricShort, isRight: !_dreamImperial,
             onToggle: (isMetric) => setState(() => _dreamImperial = !isMetric)),
           const SizedBox(height: 8),
         ],
@@ -2896,10 +2897,6 @@ class _BirthDatePickers extends StatefulWidget {
 }
 
 class _BirthDatePickersState extends State<_BirthDatePickers> {
-  static const _months = [
-    'January','February','March','April','May','June',
-    'July','August','September','October','November','December',
-  ];
   static final _days  = List.generate(31, (i) => '${i + 1}');
   static final _years = List.generate(36, (i) => '${2024 - i}');
 
@@ -2937,13 +2934,15 @@ class _BirthDatePickersState extends State<_BirthDatePickers> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    final months = List.generate(12, (i) => DateFormat('MMMM', locale).format(DateTime(2000, i + 1)));
     return Row(
       children: [
         Expanded(
           flex: 3,
           child: _RawPicker(
             controller: _mCtrl,
-            items: _months,
+            items: months,
             onChanged: (i) { _month = i + 1; _notify(); },
           ),
         ),

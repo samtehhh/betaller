@@ -1329,6 +1329,21 @@ class AppLocalizationsPt extends AppLocalizations {
   String get heightLabel => 'Altura';
 
   @override
+  String get weightLabel => 'Peso';
+
+  @override
+  String get dadLabel => 'Pai';
+
+  @override
+  String get motherLabel => 'Mãe';
+
+  @override
+  String get metricShort => 'Métrico';
+
+  @override
+  String get imperialShort => 'Imperial';
+
+  @override
   String get dailyScores => 'Pontuações diárias';
 
   @override

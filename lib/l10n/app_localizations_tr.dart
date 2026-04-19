@@ -1317,6 +1317,21 @@ class AppLocalizationsTr extends AppLocalizations {
   String get heightLabel => 'Boy';
 
   @override
+  String get weightLabel => 'Kilo';
+
+  @override
+  String get dadLabel => 'Baba';
+
+  @override
+  String get motherLabel => 'Anne';
+
+  @override
+  String get metricShort => 'Metrik';
+
+  @override
+  String get imperialShort => 'İngiliz';
+
+  @override
   String get dailyScores => 'Günlük Puanlar';
 
   @override

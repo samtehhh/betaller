@@ -1331,6 +1331,21 @@ class AppLocalizationsIt extends AppLocalizations {
   String get heightLabel => 'Altezza';
 
   @override
+  String get weightLabel => 'Peso';
+
+  @override
+  String get dadLabel => 'Papà';
+
+  @override
+  String get motherLabel => 'Mamma';
+
+  @override
+  String get metricShort => 'Metrico';
+
+  @override
+  String get imperialShort => 'Imperiale';
+
+  @override
   String get dailyScores => 'Punteggi giornalieri';
 
   @override
