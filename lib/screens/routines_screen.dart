@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
@@ -394,10 +395,11 @@ class _DaySelector extends StatelessWidget {
 
   const _DaySelector({required this.selectedIndex, required this.onSelected});
 
-  static const _days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-
   @override
   Widget build(BuildContext context) {
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    final days = List.generate(7, (i) =>
+      DateFormat('EEEEE', locale).format(DateTime(2000, 1, 3 + i)));
     final today = DateTime.now().weekday - 1;
     return Container(
       margin: const EdgeInsets.fromLTRB(18, 16, 18, 16),
@@ -437,7 +439,7 @@ class _DaySelector extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  _days[i],
+                  days[i],
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,

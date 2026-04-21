@@ -513,7 +513,7 @@ class _HomeScreenState extends State<HomeScreen>
             ),
             const SizedBox(height: 32),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _WaterButton(
                   label: '0.2L',
@@ -522,6 +522,7 @@ class _HomeScreenState extends State<HomeScreen>
                     Navigator.pop(context);
                   },
                 ),
+                const SizedBox(width: 12),
                 _WaterButton(
                   label: '0.3L',
                   onTap: () {
@@ -529,6 +530,7 @@ class _HomeScreenState extends State<HomeScreen>
                     Navigator.pop(context);
                   },
                 ),
+                const SizedBox(width: 12),
                 _WaterButton(
                   label: '0.5L',
                   onTap: () {
@@ -536,6 +538,7 @@ class _HomeScreenState extends State<HomeScreen>
                     Navigator.pop(context);
                   },
                 ),
+                const SizedBox(width: 12),
                 _WaterButton(
                   label: '1.0L',
                   onTap: () {
@@ -565,7 +568,7 @@ class _HomeScreenState extends State<HomeScreen>
       backgroundColor: Colors.transparent,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => Container(
-          padding: const EdgeInsets.all(28),
+          padding: EdgeInsets.fromLTRB(28, 28, 28, 28 + MediaQuery.of(context).padding.bottom),
           decoration: BoxDecoration(
             color: AppColors.cardFill,
             borderRadius:
