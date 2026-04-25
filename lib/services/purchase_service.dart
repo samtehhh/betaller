@@ -68,6 +68,35 @@ class PurchaseService {
     }
   }
 
+  // ── Fetch products directly from StoreKit (bypasses offerings) ─
+  Future<List<StoreProduct>> getProducts() async {
+    if (!_initialized) return [];
+    try {
+      final products = await Purchases.getProducts([monthlyProductId, yearlyProductId]);
+      debugPrint('PurchaseService.getProducts: ${products.map((p) => p.identifier).toList()}');
+      return products;
+    } catch (e) {
+      debugPrint('PurchaseService.getProducts error: $e');
+      return [];
+    }
+  }
+
+  // ── Purchase a StoreProduct directly ─────────────────────────
+  Future<bool> purchaseProduct(StoreProduct product) async {
+    try {
+      await Purchases.purchase(PurchaseParams.storeProduct(product));
+      final info = await Purchases.getCustomerInfo();
+      return info.entitlements.all[entitlementId]?.isActive ?? false;
+    } on PurchasesErrorCode catch (e) {
+      if (e == PurchasesErrorCode.purchaseCancelledError) return false;
+      debugPrint('PurchaseService.purchaseProduct error: $e');
+      return false;
+    } catch (e) {
+      debugPrint('PurchaseService.purchaseProduct error: $e');
+      return false;
+    }
+  }
+
   // ── Purchase a package ────────────────────────────────────────
   /// Returns true if the purchase was successful and entitlement is now active.
   Future<bool> purchasePackage(Package package) async {

@@ -49,6 +49,7 @@ class PremiumPaywallScreen extends StatefulWidget {
 class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     with SingleTickerProviderStateMixin {
   Offerings? _offerings;
+  List<StoreProduct> _directProducts = [];
   bool _loading = true;
   bool _purchasing = false;
   int _selectedPlan = 1;
@@ -111,20 +112,25 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
 
   Future<void> _loadOfferings() async {
     final o = await PurchaseService().getOfferings();
-    if (mounted) setState(() { _offerings = o; _loading = false; });
+    final direct = await PurchaseService().getProducts();
+    if (mounted) setState(() { _offerings = o; _directProducts = direct; _loading = false; });
   }
 
-  Future<void> _purchase(Package pkg) async {
+  Future<void> _purchase(Package? pkg, {StoreProduct? product}) async {
     if (_purchasing) return;
     HapticFeedback.mediumImpact();
-    // Android test mode: bypass purchase flow
     if (Platform.isAndroid) {
       context.read<AppProvider>().setPremium(true);
       if (widget.dismissible && context.mounted) Navigator.pop(context, true);
       return;
     }
     setState(() => _purchasing = true);
-    final ok = await PurchaseService().purchasePackage(pkg);
+    bool ok = false;
+    if (pkg != null) {
+      ok = await PurchaseService().purchasePackage(pkg);
+    } else if (product != null) {
+      ok = await PurchaseService().purchaseProduct(product);
+    }
     if (mounted) {
       setState(() => _purchasing = false);
       if (ok) {
@@ -171,6 +177,14 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     }
     final monthly = current?.monthly ?? findPkg(PurchaseService.monthlyProductId);
     final annual = current?.annual ?? findPkg(PurchaseService.yearlyProductId);
+    StoreProduct? directMonthly;
+    StoreProduct? directAnnual;
+    if (monthly == null || annual == null) {
+      for (final p in _directProducts) {
+        if (p.identifier == PurchaseService.monthlyProductId) directMonthly = p;
+        if (p.identifier == PurchaseService.yearlyProductId) directAnnual = p;
+      }
+    }
 
     return PopScope(
       canPop: false,
@@ -266,7 +280,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                         Expanded(child: _PlanPill(
                           selected: _selectedPlan == 1,
                           label: l.paywallYearly,
-                          price: annual?.storeProduct.priceString ?? '\$39.99',
+                          price: annual?.storeProduct.priceString ?? directAnnual?.priceString ?? '\$39.99',
                           note: l.paywallBestValue,
                           glowColor: f.glowColor,
                           showBadge: true,
@@ -277,7 +291,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                         Expanded(child: _PlanPill(
                           selected: _selectedPlan == 0,
                           label: l.paywallMonthly,
-                          price: monthly?.storeProduct.priceString ?? '\$11.99',
+                          price: monthly?.storeProduct.priceString ?? directMonthly?.priceString ?? '\$11.99',
                           note: l.paywallFreeTrial,
                           glowColor: f.glowColor,
                           onTap: () => setState(() => _selectedPlan = 0),
@@ -296,8 +310,9 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                   child: GestureDetector(
                     onTap: _purchasing ? null : () {
                       final pkg = _selectedPlan == 0 ? monthly : annual;
-                      if (pkg != null) {
-                        _purchase(pkg);
+                      final direct = _selectedPlan == 0 ? directMonthly : directAnnual;
+                      if (pkg != null || direct != null) {
+                        _purchase(pkg, product: direct);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(l.paywallLoadError), backgroundColor: const Color(0xFF1A1145)),
