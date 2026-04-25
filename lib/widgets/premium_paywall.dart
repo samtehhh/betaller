@@ -164,8 +164,13 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     final features = _features(l);
     final f = features[_page];
     final current = _offerings?.current;
-    final monthly = current?.monthly;
-    final annual = current?.annual;
+    final packages = current?.availablePackages ?? [];
+    Package? findPkg(String productId) {
+      try { return packages.firstWhere((p) => p.storeProduct.identifier == productId); }
+      catch (_) { return null; }
+    }
+    final monthly = current?.monthly ?? findPkg(PurchaseService.monthlyProductId);
+    final annual = current?.annual ?? findPkg(PurchaseService.yearlyProductId);
 
     return PopScope(
       canPop: false,
