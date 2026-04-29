@@ -257,6 +257,21 @@ class AppLocalizationsTr extends AppLocalizations {
   String get growthStatus => 'Büyüme Durumu';
 
   @override
+  String get geneticGainLabel => 'Genetik Kazanım';
+
+  @override
+  String get lifestyleLabel => 'Yaşam Tarzı';
+
+  @override
+  String get geneticCeilingLabel => 'Tavan';
+
+  @override
+  String get reachableTargetHeight => 'Ulaşabileceğin hedef boy';
+
+  @override
+  String get geneticCeilingProgress => 'Genetik tavana ilerleme';
+
+  @override
   String get completionLabel => 'TAMAMLANMA';
 
   @override

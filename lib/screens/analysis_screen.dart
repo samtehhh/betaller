@@ -444,9 +444,10 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                             ),
                             const SizedBox(height: 12),
                             ...prediction.yearlyPredictions.entries.map((e) {
-                              final progress = profile.currentHeight > 0
-                                  ? ((e.value - profile.currentHeight) / (prediction.finalHeight - profile.currentHeight)).clamp(0.0, 1.0)
-                                  : 0.0;
+                              final heightDelta = prediction.finalHeight - profile.currentHeight;
+                              final progress = heightDelta.abs() > 0.01
+                                  ? ((e.value - profile.currentHeight) / heightDelta).clamp(0.0, 1.0)
+                                  : 1.0;
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Row(
@@ -537,16 +538,16 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                 Row(children: [
                                   Expanded(child: _PotentialStatBox(
                                     emoji: '🧬',
-                                    label: 'Genetik Kazanım',
+                                    label: l.geneticGainLabel,
                                     value: geneticGain > 0
                                         ? '+${geneticGain.toStringAsFixed(1)} cm'
-                                        : 'Tavan',
+                                        : l.geneticCeilingLabel,
                                     color: AppColors.primary,
                                   )),
                                   const SizedBox(width: 10),
                                   Expanded(child: _PotentialStatBox(
                                     emoji: '🏃',
-                                    label: 'Yaşam Tarzı',
+                                    label: l.lifestyleLabel,
                                     value: lifestyleGain > 0
                                         ? '+${lifestyleGain.toStringAsFixed(1)} cm'
                                         : '+0 cm',
@@ -555,7 +556,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                   const SizedBox(width: 10),
                                   Expanded(child: _PotentialStatBox(
                                     emoji: '🦴',
-                                    label: 'Postür',
+                                    label: l.quickPosture,
                                     value: '+${postureGain.toStringAsFixed(1)} cm',
                                     color: AppColors.orange,
                                   )),
@@ -580,7 +581,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Ulaşabileceğin hedef boy',
+                                          l.reachableTargetHeight,
                                           style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.55)),
                                         ),
                                         const SizedBox(height: 3),
@@ -599,7 +600,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('Genetik tavana ilerleme',
+                                    Text(l.geneticCeilingProgress,
                                       style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.45))),
                                     Text('%${(towardCeiling * 100).floor()}',
                                       style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Colors.white)),

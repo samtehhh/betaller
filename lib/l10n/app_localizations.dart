@@ -518,6 +518,36 @@ abstract class AppLocalizations {
   /// **'Growth Status'**
   String get growthStatus;
 
+  /// No description provided for @geneticGainLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Genetic Gain'**
+  String get geneticGainLabel;
+
+  /// No description provided for @lifestyleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifestyle'**
+  String get lifestyleLabel;
+
+  /// No description provided for @geneticCeilingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ceiling'**
+  String get geneticCeilingLabel;
+
+  /// No description provided for @reachableTargetHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Your reachable target height'**
+  String get reachableTargetHeight;
+
+  /// No description provided for @geneticCeilingProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress toward genetic ceiling'**
+  String get geneticCeilingProgress;
+
   /// No description provided for @completionLabel.
   ///
   /// In en, this message translates to:
@@ -5855,7 +5885,7 @@ abstract class AppLocalizations {
   /// No description provided for @transformJourneySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'A scientifically proven program will\ntake you to your goal step by step.'**
+  /// **'A comprehensive program designed to support\nyour healthy growth, step by step.'**
   String get transformJourneySubtitle;
 
   /// No description provided for @week1Label.

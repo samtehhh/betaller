@@ -500,7 +500,7 @@ class AppProvider extends ChangeNotifier {
     _heightRecords.removeWhere((r) => r.date == record.date);
     _heightRecords.add(record);
     _heightRecords.sort((a, b) => a.date.compareTo(b.date));
-    addXP(xpRewards['height_logged']!);
+    addXP(xpRewards['height_logged'] ?? 50);
     updateChallengeProgress('weekly_measure', 1);
     _maybeRequestReview();
     _saveData();

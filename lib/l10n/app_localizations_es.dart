@@ -258,6 +258,21 @@ class AppLocalizationsEs extends AppLocalizations {
   String get growthStatus => 'Estado de Crecimiento';
 
   @override
+  String get geneticGainLabel => 'Ganancia Genética';
+
+  @override
+  String get lifestyleLabel => 'Estilo de Vida';
+
+  @override
+  String get geneticCeilingLabel => 'Techo';
+
+  @override
+  String get reachableTargetHeight => 'Tu altura objetivo alcanzable';
+
+  @override
+  String get geneticCeilingProgress => 'Progreso hacia el techo genético';
+
+  @override
   String get completionLabel => 'COMPLETADO';
 
   @override
@@ -3168,7 +3183,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get transformJourneySubtitle =>
-      'A scientifically proven program will\ntake you to your goal step by step.';
+      'A comprehensive program designed to support\nyour healthy growth, step by step.';
 
   @override
   String get week1Label => '1W';

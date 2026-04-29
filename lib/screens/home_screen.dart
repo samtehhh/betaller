@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen>
     }
     return _GreetingData(
       title: 'BeTaller',
-      subtitle: DateFormat('EEEE, d MMMM', 'tr').format(DateTime.now()),
+      subtitle: DateFormat('EEEE, d MMMM', l.localeName).format(DateTime.now()),
     );
   }
 
@@ -766,6 +766,7 @@ class _InlineXpBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final isNearLevelUp = !isMaxLevel && xpToNext <= 50;
 
     return ClipRRect(
@@ -826,7 +827,7 @@ class _InlineXpBar extends StatelessWidget {
                     )
                   else if (isNearLevelUp)
                     Text(
-                      '⚡ $xpToNext XP kaldı',
+                      '⚡ ${l.xpToNextLevel(xpToNext.toString())}',
                       style: const TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
