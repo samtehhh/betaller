@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
@@ -335,6 +336,21 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                   _selectedPlan == 0 ? l.paywallTrialDisclaimer : l.paywallYearlyDisclaimer,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25)),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () => launchUrl(Uri.parse('https://samtehhh.github.io/betaller/privacy.html')),
+                      child: Text('Privacy Policy', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
+                    ),
+                    Text('  ·  ', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25))),
+                    GestureDetector(
+                      onTap: () => launchUrl(Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
+                      child: Text('Terms of Use', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 12),
               ],
