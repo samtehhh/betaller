@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/camera_utils.dart';
 
 class PostureAnalysisScreen extends StatefulWidget {
   const PostureAnalysisScreen({super.key});
@@ -198,13 +199,9 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
       ),
     );
     if (source == null) return;
+    if (!context.mounted) return;
 
-    final picker = ImagePicker();
-    final picked = await picker.pickImage(
-      source: source,
-      maxWidth: 1080,
-      imageQuality: 85,
-    );
+    final picked = await pickImageWithCountdown(context, source);
     if (picked == null) return;
 
     // Save photo permanently

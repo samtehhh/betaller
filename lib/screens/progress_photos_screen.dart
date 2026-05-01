@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/camera_utils.dart';
 
 class ProgressPhotosScreen extends StatefulWidget {
   const ProgressPhotosScreen({super.key});
@@ -49,12 +50,8 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
 
   // ── Picker logic ────────────────────────────────────────────────
   Future<void> _pickPhoto(BuildContext context, ImageSource source) async {
-    final picker = ImagePicker();
-    final picked = await picker.pickImage(
-      source: source,
-      maxWidth: 1080,
-      imageQuality: 85,
-    );
+    if (!context.mounted) return;
+    final picked = await pickImageWithCountdown(context, source);
     if (picked == null) return;
 
     final appDir = await getApplicationDocumentsDirectory();

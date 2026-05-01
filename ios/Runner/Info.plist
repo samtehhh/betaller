@@ -49,5 +49,11 @@
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>BeTaller uses your camera to take posture and progress photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>BeTaller saves your progress photos to your photo library.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>BeTaller saves your progress photos to your photo library.</string>
 </dict>
 </plist>
