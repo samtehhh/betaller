@@ -2142,233 +2142,233 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get formMorningStretch =>
-      'Start with neck rolls, then move to full body stretches. Hold each stretch for 20-30 seconds without bouncing.';
+      'Beginne mit Nackenrollen, dann zu vollen Körperdehnungen übergehen. Jede Dehnung 20–30 Sekunden halten ohne zu wippen.';
 
   @override
   String get formBarHanging =>
-      'Grip the bar shoulder-width apart, relax your body completely, let gravity stretch your spine. Avoid swinging.';
+      'Die Stange schulterbreit greifen, Körper vollständig entspannen, Schwerkraft die Wirbelsäule dehnen lassen. Schwingen vermeiden.';
 
   @override
   String get formCobraStretch =>
-      'Lie face down, place hands under shoulders, slowly push upper body up while keeping hips on the floor. Look upward.';
+      'Bauchlage einnehmen, Hände unter die Schultern legen, Oberkörper langsam hochdrücken, Hüften am Boden lassen. Nach oben schauen.';
 
   @override
   String get formJumping =>
-      'Perform squat jumps or jump rope. Land softly on the balls of your feet. Rest 30 seconds between sets.';
+      'Kniebeugensprünge oder Seilspringen ausführen. Weich auf den Fußballen landen. 30 Sekunden Pause zwischen den Sätzen.';
 
   @override
   String get formSwimmingBasketball =>
-      'Choose swimming (freestyle/backstroke) or basketball. Focus on jumping, reaching, and full range of motion.';
+      'Schwimmen (Freistil/Rückenschwimmen) oder Basketball wählen. Auf Springen, Strecken und vollen Bewegungsumfang konzentrieren.';
 
   @override
   String get formEveningYoga =>
-      'Perform gentle poses: cat-cow, child pose, downward dog, forward fold. Breathe deeply and hold each pose 30-60 seconds.';
+      'Sanfte Posen ausführen: Katze-Kuh, Kindpose, herabschauender Hund, Vorwärtsbeuge. Tief atmen und jede Pose 30–60 Sekunden halten.';
 
   @override
   String get formSprintIntervals =>
-      'Warm up for 5 minutes, then sprint at maximum effort for 30 seconds. Walk or jog for 90 seconds to recover. Repeat.';
+      '5 Minuten aufwärmen, dann 30 Sekunden mit maximaler Anstrengung sprinten. 90 Sekunden gehen oder joggen zur Erholung. Wiederholen.';
 
   @override
   String get formHiitWorkout =>
-      'Perform exercises like burpees, mountain climbers, and jump squats at maximum intensity for 45 seconds, rest 15 seconds.';
+      'Übungen wie Burpees, Mountain Climbers und Sprungkniebeugen mit maximaler Intensität 45 Sekunden ausführen, 15 Sekunden Pause.';
 
   @override
   String get formSquats =>
-      'Stand with feet shoulder-width apart. Lower your body until thighs are parallel to ground. Keep back straight and knees behind toes.';
+      'Mit schulterbreitem Stand aufstellen. Körper absenken bis Oberschenkel parallel zum Boden. Rücken gerade, Knie hinter den Zehen halten.';
 
   @override
   String get formDeadliftStretch =>
-      'Stand with feet hip-width apart, hinge at hips keeping back flat. Reach toward toes, feel the stretch in hamstrings and back.';
+      'Hüftbreiter Stand, in den Hüften falten und Rücken flach halten. In Richtung Zehen reichen, Dehnung in Oberschenkelrückseite und Rücken spüren.';
 
   @override
   String get formOverheadPress =>
-      'Stand tall, press arms overhead fully extending. Use light weights or bodyweight. Keep core tight and avoid arching back.';
+      'Aufrecht stehen, Arme vollständig über den Kopf drücken. Leichte Gewichte oder Körpergewicht verwenden. Core angespannt, Rücken nicht durchbiegen.';
 
   @override
   String get formSkippingRope =>
-      'Jump with both feet, landing softly on the balls of your feet. Keep jumps low and consistent. Rest between sets.';
+      'Mit beiden Füßen springen, weich auf den Fußballen landen. Sprünge niedrig und gleichmäßig halten. Pause zwischen Sätzen.';
 
   @override
   String get formPilatesCore =>
-      'Perform plank, dead bug, bird dog, bridge, and leg raises. Focus on controlled movement and breathing.';
+      'Plank, Dead Bug, Bird Dog, Brücke und Beinheben ausführen. Auf kontrollierte Bewegung und Atmung konzentrieren.';
 
   @override
   String get formInversionHang =>
-      'Use an inversion table or gravity boots. Start with a slight incline and gradually increase. Keep sessions short.';
+      'Inversionsbank oder Schwerkraftstiefel verwenden. Mit leichter Neigung beginnen und schrittweise erhöhen. Sitzungen kurz halten.';
 
   @override
   String get formProtein =>
-      'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.';
+      'Proteinaufnahme auf 3–4 Mahlzeiten verteilen. Eier, Huhn, Fisch, Milchprodukte und Hülsenfrüchte einbeziehen.';
 
   @override
   String get formCalciumVitaminD =>
-      'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.';
+      'Täglich 3 Portionen Milchprodukte konsumieren und 15 Minuten Sonnenlicht für natürliche Vitamin-D-Synthese.';
 
   @override
   String get formWater =>
-      'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.';
+      'Den ganzen Tag gleichmäßig Wasser trinken. Eine Wasserflasche mitführen und stündliche Erinnerungen setzen.';
 
   @override
   String get formAvoidJunk =>
-      'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.';
+      'Fast Food durch Vollwertnahrung ersetzen. Zuckerhaltige Getränke gegen Wasser tauschen. Etiketten lesen und verarbeitete Zutaten vermeiden.';
 
   @override
   String get formZincIntake =>
-      'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.';
+      'Rotes Fleisch, Kürbiskerne, Kichererbsen, Cashews und Austern in die Ernährung integrieren. Täglich 8–11 mg anstreben.';
 
   @override
   String get formVitaminDSunlight =>
-      'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.';
+      'Arme und Gesicht 15 Minuten direktem Sonnenlicht aussetzen, vorzugsweise vor dem Mittag. Für diese Dauer kein Sonnenschutz nötig.';
 
   @override
   String get formArginineFoods =>
-      'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.';
+      'Nüsse, Samen, Truthahn, Huhn, Sojabohnen und Milchprodukte in die Mahlzeiten aufnehmen. Am besten vor dem Schlafen verzehren.';
 
   @override
   String get formQualitySleep =>
-      'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.';
+      'Bis 22 Uhr schlafen gehen. Zimmer dunkel und kühl halten. Nach 14 Uhr kein Koffein.';
 
   @override
   String get formNoScreen =>
-      'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.';
+      '1 Stunde vor dem Schlafengehen einen Alarm stellen. Alle Bildschirme weglegen. Stattdessen ein Buch lesen oder sanft dehnen.';
 
   @override
   String get formSleepEnvironment =>
-      'Use blackout curtains, keep room at 18-20°C, remove all light sources. Use a comfortable mattress and pillow.';
+      'Verdunkelungsvorhänge verwenden, Zimmer auf 18–20 °C halten, alle Lichtquellen entfernen. Bequette Matratze und Kissen verwenden.';
 
   @override
   String get formPreSleepRoutine =>
-      'Start 30 minutes before bed: dim lights, read a book, do breathing exercises, avoid stimulating activities.';
+      '30 Minuten vor dem Schlafen beginnen: Licht dimmen, Buch lesen, Atemübungen machen, stimulierende Aktivitäten vermeiden.';
 
   @override
   String get formPostureCheck =>
-      'Stand tall with shoulders back and down. Engage core slightly. Imagine a string pulling you up from the crown of your head.';
+      'Aufrecht stehen mit Schultern zurück und unten. Core leicht anspannen. Stell dir vor, ein Faden zieht dich am Scheitel nach oben.';
 
   @override
   String get formWallStand =>
-      'Stand with heels, buttocks, shoulder blades, and head touching the wall. Hold for 5 minutes. Breathe normally.';
+      'Mit Fersen, Gesäß, Schulterblättern und Kopf an der Wand stehen. 5 Minuten halten. Normal atmen.';
 
   @override
   String get formNeckStretches =>
-      'Tilt head slowly to each side, forward, and backward. Hold each direction for 30 seconds. Do not force the stretch.';
+      'Kopf langsam zu jeder Seite, nach vorne und hinten neigen. Jede Richtung 30 Sekunden halten. Die Dehnung nicht erzwingen.';
 
   @override
   String get formShoulderRolls =>
-      'Roll shoulders forward 15 times, then backward 15 times. Follow with chest-opening stretches holding for 20 seconds.';
+      'Schultern 15 Mal nach vorne, dann 15 Mal nach hinten rollen. Mit brustöffnenden Dehnungen 20 Sekunden halten abschließen.';
 
   @override
   String get sciMorningStretch =>
-      'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention';
+      'Morgendehnungen dekomprimieren die über Nacht rehydrierten Bandscheiben und maximieren die Größenerhaltung';
 
   @override
   String get sciBarHanging =>
-      'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height';
+      'Hängen dekomprimiert Bandscheiben durch Schwerkraft und kann vorübergehend Größe hinzufügen';
 
   @override
   String get sciCobraStretch =>
-      'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting';
+      'Kobra-Dehnung streckt die Wirbelsäule und öffnet die Brust, wirkt der Wirbelsäulenkompression durch Sitzen entgegen';
 
   @override
   String get sciJumping =>
-      'High-impact jumping stimulates growth plates in the legs and triggers growth hormone release';
+      'Hochintensives Springen stimuliert Wachstumsfugen in den Beinen und löst Wachstumshormonausschüttung aus';
 
   @override
   String get sciSwimmingBasketball =>
-      'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity';
+      'Schwimmen und Basketball beinhalten ganzkörperliches Strecken, Springen und Greifen, das die Wachstumsfugenaktivität stimuliert';
 
   @override
   String get sciEveningYoga =>
-      'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery';
+      'Abendyoga reduziert Cortisol, das Wachstumshormon hemmt, und dehnt Muskeln zur nächtlichen Erholung';
 
   @override
   String get sciSprintIntervals =>
-      'Sprinting triggers significant growth hormone release';
+      'Sprinten löst signifikante Wachstumshormonausschüttung aus';
 
   @override
   String get sciHiitWorkout =>
-      'High intensity exercise increases HGH by up to 450%';
+      'Hochintensives Training erhöht HGH um bis zu 450%';
 
   @override
-  String get sciSquats => 'Squats stimulate growth plates in legs and spine';
+  String get sciSquats => 'Kniebeugen stimulieren Wachstumsfugen in Beinen und Wirbelsäule';
 
   @override
   String get sciDeadliftStretch =>
-      'Spinal decompression promotes vertebral disc health';
+      'Wirbelsäulendekompression fördert die Bandscheibengesundheit';
 
   @override
   String get sciOverheadPress =>
-      'Overhead pressing stretches the spine and strengthens posture muscles';
+      'Überkopfdrücken dehnt die Wirbelsäule und stärkt Haltungsmuskulatur';
 
   @override
   String get sciSkippingRope =>
-      'Repetitive jumping stimulates growth plates in lower extremities';
+      'Wiederholtes Springen stimuliert Wachstumsfugen in den unteren Extremitäten';
 
   @override
   String get sciPilatesCore =>
-      'Core strength supports spinal alignment and posture';
+      'Core-Stärke unterstützt Wirbelsäulenausrichtung und Haltung';
 
   @override
   String get sciInversionHang =>
-      'Inversion decompresses spinal discs, can temporarily add 1-2cm';
+      'Inversion dekomprimiert Bandscheiben, kann vorübergehend 1–2 cm hinzufügen';
 
   @override
   String get sciProtein =>
-      'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts';
+      'Protein liefert Aminosäuren, die für Knochen- und Muskelwachstum essentiell sind, besonders während Wachstumsschüben';
 
   @override
   String get sciCalciumVitaminD =>
-      'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth';
+      'Kalzium und Vitamin D sind die primären Bausteine für Knochendichte und lineares Knochenwachstum';
 
   @override
   String get sciWater =>
-      'Hydration is essential for nutrient transport to growth plates and joint cartilage health';
+      'Hydratation ist essentiell für den Nährstofftransport zu Wachstumsfugen und Gelenkknorpelgesundheit';
 
   @override
   String get sciAvoidJunk =>
-      'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion';
+      'Verarbeitete Lebensmittel und Zucker verursachen Entzündungen und Insulinspitzen, die die Wachstumshormonausschüttung unterdrücken';
 
   @override
-  String get sciZincIntake => 'Zinc is essential for growth hormone production';
+  String get sciZincIntake => 'Zink ist essentiell für die Wachstumshormonproduktion';
 
   @override
   String get sciVitaminDSunlight =>
-      'Vitamin D is crucial for calcium absorption and bone growth';
+      'Vitamin D ist entscheidend für die Kalziumaufnahme und das Knochenwachstum';
 
   @override
   String get sciArginineFoods =>
-      'L-Arginine stimulates growth hormone secretion';
+      'L-Arginin stimuliert die Wachstumshormonausschüttung';
 
   @override
   String get sciQualitySleep =>
-      '70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM';
+      '70–80% des täglichen Wachstumshormons wird während des Tiefschlafs ausgeschüttet, besonders zwischen 22 und 2 Uhr';
 
   @override
   String get sciNoScreen =>
-      'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality';
+      'Blaues Licht von Bildschirmen unterdrückt die Melatoninproduktion, verzögert den Schlafbeginn und reduziert die Tiefschlafqualität';
 
   @override
   String get sciSleepEnvironment =>
-      'Dark, cool environment maximizes melatonin and growth hormone';
+      'Dunkle, kühle Umgebung maximiert Melatonin und Wachstumshormon';
 
   @override
   String get sciPreSleepRoutine =>
-      'Consistent pre-sleep routine improves deep sleep quality by 23%';
+      'Konsistente Vor-Schlaf-Routine verbessert die Tiefschlafqualität um 23%';
 
   @override
   String get sciPostureCheck =>
-      'Correct posture alignment can immediately add 2-3 cm to apparent height and prevents spinal compression';
+      'Korrekte Haltungsausrichtung kann sofort 2–3 cm zur scheinbaren Körpergröße hinzufügen und verhindert Wirbelsäulenkompression';
 
   @override
   String get sciWallStand =>
-      'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day';
+      'Wandstehen trainiert das Haltungsmuskelgedächtnis und hilft, die korrekte Wirbelsäulenausrichtung den ganzen Tag aufrechtzuerhalten';
 
   @override
   String get sciNeckStretches =>
-      'Neck stretches relieve compression and improve cervical alignment';
+      'Nackendehnung lindert Kompression und verbessert die Halswirbelsäulenausrichtung';
 
   @override
   String get sciShoulderRolls =>
-      'Opening shoulders corrects forward posture, can add 1-2cm appearance';
+      'Schulteröffnung korrigiert Vorwärtshaltung und kann 1–2 cm Erscheinung hinzufügen';
 
   @override
   String get muscleSpine => 'Wirbelsäule';
@@ -2476,34 +2476,34 @@ class AppLocalizationsDe extends AppLocalizations {
   String get catPosture => 'Haltung';
 
   @override
-  String get postureTip1 => 'Stand sideways (side profile) to the camera.';
+  String get postureTip1 => 'Stehe seitlich (Seitenprofil) zur Kamera.';
 
   @override
-  String get postureTip2 => 'Keep ~2 meters distance from the lens.';
+  String get postureTip2 => 'Halte ~2 Meter Abstand zur Linse.';
 
   @override
-  String get postureTip3 => 'Arms relaxed, look straight ahead.';
+  String get postureTip3 => 'Arme entspannt, geradeaus schauen.';
 
   @override
-  String get postureTip4 => 'Wear fitted clothes for accurate scoring.';
+  String get postureTip4 => 'Trage eng anliegende Kleidung für genaues Scoring.';
 
   @override
-  String get postureTip5 => 'Use good lighting and a plain background.';
+  String get postureTip5 => 'Nutze gute Beleuchtung und einen schlichten Hintergrund.';
 
   @override
-  String get kyphosisLabel => 'Kyphosis (upper back)';
+  String get kyphosisLabel => 'Kyphose (oberer Rücken)';
 
   @override
-  String get lordosisLabel => 'Lordosis (lower back)';
+  String get lordosisLabel => 'Lordose (unterer Rücken)';
 
   @override
-  String get analyzingPosture => 'ANALYZING POSTURE';
+  String get analyzingPosture => 'HALTUNG WIRD ANALYSIERT';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'Datenschutzrichtlinie';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'Nutzungsbedingungen';
 
   @override
   String version(String ver) {
@@ -2517,23 +2517,23 @@ class AppLocalizationsDe extends AppLocalizations {
   String get rateAppSubtitle => 'Your review helps us grow!';
 
   @override
-  String get unitSystem => 'Unit System';
+  String get unitSystem => 'Einheitensystem';
 
   @override
-  String get unitMetric => 'Metric (cm, kg)';
+  String get unitMetric => 'Metrisch (cm, kg)';
 
   @override
-  String get unitImperial => 'Imperial (ft-in, lbs)';
+  String get unitImperial => 'Imperial (Fuß-Zoll, Pfund)';
 
   @override
   String get healthDisclaimer => 'Health Disclaimer';
 
   @override
   String get healthDisclaimerBody =>
-      'BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.';
+      'BeTaller bietet allgemeine Wellness- und Fitnessanleitungen. Diese Inhalte sind nicht als medizinischer Rat gedacht und ersetzen keinen Arztbesuch. Ergebnisse können je nach Alter, Genetik und individuellen Faktoren variieren. Konsultiere vor Beginn eines neuen Trainings- oder Ernährungsprogramms einen Arzt.';
 
   @override
-  String get sciSourcePrefix => 'Source: ';
+  String get sciSourcePrefix => 'Quelle: ';
 
   @override
   String get program => 'Programm';
@@ -2993,39 +2993,39 @@ class AppLocalizationsDe extends AppLocalizations {
   String get introTag5 => 'COMMUNITY';
 
   @override
-  String get introTitle1 => 'Discover your\nheight potential';
+  String get introTitle1 => 'Entdecke dein\nHöhenpotenzial';
 
   @override
   String get introSubtitle1 =>
-      'Let us calculate your full potential\nbased on genetics, age, and lifestyle.';
+      'Lass uns dein volles Potenzial berechnen\nbasierend auf Genetik, Alter und Lebensstil.';
 
   @override
-  String get introTitle2 => 'One step taller\nevery day';
+  String get introTitle2 => 'Jeden Tag\neinen Schritt größer';
 
   @override
   String get introSubtitle2 =>
-      'Push your potential with personalized\nexercise and nutrition plans.';
+      'Erweitere dein Potenzial mit personalisierten\nTrainings- und Ernährungsplänen.';
 
   @override
-  String get introTitle3 => 'Track every\ncentimeter';
+  String get introTitle3 => 'Jeden\nZentimeter verfolgen';
 
   @override
   String get introSubtitle3 =>
-      'See how your real progress\ndevelops with monthly measurements.';
+      'Sieh, wie sich dein echter Fortschritt\nmit monatlichen Messungen entwickelt.';
 
   @override
-  String get introTitle4 => 'Level up,\nearn rewards';
+  String get introTitle4 => 'Level aufsteigen,\nBelohnungen verdienen';
 
   @override
   String get introSubtitle4 =>
-      'Complete 70-day programs,\nearn XP, and unlock new levels.';
+      'Schließe 70-Tage-Programme ab,\nverdiene XP und schalte neue Level frei.';
 
   @override
-  String get introTitle5 => 'Thousands already\ngrew taller';
+  String get introTitle5 => 'Tausende sind\nbereits gewachsen';
 
   @override
   String get introSubtitle5 =>
-      'Join the community of users\nwho reached their goals.';
+      'Tritt der Gemeinschaft von Nutzern bei,\ndie ihre Ziele erreicht haben.';
 
   @override
   String get criticalWindow => 'KRITISCHES FENSTER';
@@ -3061,237 +3061,237 @@ class AppLocalizationsDe extends AppLocalizations {
   String get painSleepTag => 'Tracking';
 
   @override
-  String get painPostureTitle => 'Gain centimeters now with posture';
+  String get painPostureTitle => 'Gewinne jetzt Zentimeter durch Haltung';
 
   @override
   String get painPostureDesc =>
-      'Correct posture can instantly add 1.5–3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.';
+      'Korrekte Haltung kann sofort 1,5–3 cm hinzufügen. BeTallers tägliche Haltungsroutine etabliert dies in wenigen Wochen.';
 
   @override
-  String get painPostureTag => 'Posture';
+  String get painPostureTag => 'Haltung';
 
   @override
-  String get painExerciseTitle => 'Your custom exercise plan is ready';
+  String get painExerciseTitle => 'Dein individueller Trainingsplan ist bereit';
 
   @override
   String get painExerciseDesc =>
-      'Morning stretches, hanging, spine routines — BeTaller prepared and scheduled these for you. Just 8–12 minutes a day.';
+      'Morgendehnungen, Hängen, Wirbelsäulenroutinen — BeTaller hat diese für dich vorbereitet und geplant. Nur 8–12 Minuten täglich.';
 
   @override
-  String get painExerciseTag => 'Routines';
+  String get painExerciseTag => 'Routinen';
 
   @override
-  String get painNutritionTitle => 'Your nutrition directly affects growth';
+  String get painNutritionTitle => 'Deine Ernährung beeinflusst direkt dein Wachstum';
 
   @override
   String get painNutritionDesc =>
-      'Protein, calcium, vitamin D — BeTaller reminds you every day which nutrients to take and when.';
+      'Protein, Kalzium, Vitamin D — BeTaller erinnert dich jeden Tag, welche Nährstoffe du wann einnehmen sollst.';
 
   @override
-  String get painNutritionTag => 'Nutrition';
+  String get painNutritionTag => 'Ernährung';
 
   @override
-  String get painTrackingTitle => 'Track your growth with your own eyes';
+  String get painTrackingTitle => 'Verfolge dein Wachstum mit eigenen Augen';
 
   @override
   String get painTrackingDesc =>
-      'Monthly measurements, progress photos, growth chart — see every centimeter you gain.';
+      'Monatliche Messungen, Fortschrittsfotos, Wachstumsdiagramm — sieh jeden Zentimeter, den du gewinnst.';
 
   @override
-  String get painTrackingTag => 'Progress';
+  String get painTrackingTag => 'Fortschritt';
 
   @override
-  String get selectYourGender => 'Select your gender';
+  String get selectYourGender => 'Wähle dein Geschlecht';
 
   @override
   String get onboardingPredictSubtitle =>
-      'This will be used to predict your height potential & create your custom plan.';
+      'Diese Angaben werden verwendet, um dein Höhenpotenzial vorherzusagen und deinen individuellen Plan zu erstellen.';
 
   @override
-  String get other => 'Other';
+  String get other => 'Sonstiges';
 
   @override
-  String get whenWereYouBorn => 'When were you born?';
+  String get whenWereYouBorn => 'Wann wurdest du geboren?';
 
   @override
-  String get heightAndWeight => 'Height & weight';
+  String get heightAndWeight => 'Größe & Gewicht';
 
   @override
-  String get parentsHeight => 'Parents height';
+  String get parentsHeight => 'Körpergröße der Eltern';
 
   @override
-  String get weeklyWorkout => 'Weekly workout';
+  String get weeklyWorkout => 'Wöchentliches Training';
 
   @override
-  String get workoutsPerWeek => 'Workouts per week';
+  String get workoutsPerWeek => 'Trainings pro Woche';
 
   @override
-  String get whatsYourEthnicity => 'What\'s your ethnicity?';
+  String get whatsYourEthnicity => 'Was ist deine Herkunft?';
 
   @override
-  String get whiteCaucasian => 'White / Caucasian';
+  String get whiteCaucasian => 'Weiß / Kaukasisch';
 
   @override
-  String get blackAfricanAmerican => 'Black / African American';
+  String get blackAfricanAmerican => 'Schwarz / Afroamerikanisch';
 
   @override
-  String get hispanicLatino => 'Hispanic / Latino';
+  String get hispanicLatino => 'Hispanisch / Latino';
 
   @override
-  String get asian => 'Asian';
+  String get asian => 'Asiatisch';
 
   @override
-  String get middleEasternIndigenous => 'Middle Eastern / Indigenous';
+  String get middleEasternIndigenous => 'Naher Osten / Indigen';
 
   @override
-  String get dontWantToAnswer => 'I don\'t want to answer';
+  String get dontWantToAnswer => 'Ich möchte nicht antworten';
 
   @override
-  String get footSizeLabel => 'Foot size';
+  String get footSizeLabel => 'Schuhgröße';
 
   @override
-  String get selectYourSize => 'Select your size';
+  String get selectYourSize => 'Wähle deine Größe';
 
   @override
-  String get whatsYourDreamHeight => 'What\'s your dream height?';
+  String get whatsYourDreamHeight => 'Was ist deine Wunschgröße?';
 
   @override
   String get dreamHeightCalcSubtitle =>
-      'Based on your input, we\'ll calculate the likelihood of achieving this height.';
+      'Basierend auf deinen Angaben berechnen wir die Wahrscheinlichkeit, diese Größe zu erreichen.';
 
   @override
-  String get dreamHeightLabel => 'Dream height';
+  String get dreamHeightLabel => 'Wunschgröße';
 
   @override
-  String get sleepQuestion => 'How many hours do\nyou sleep each night?';
+  String get sleepQuestion => 'Wie viele Stunden\nschläfst du jede Nacht?';
 
   @override
-  String get thousandsSucceeded => 'Thousands\nSucceeded';
+  String get thousandsSucceeded => 'Tausende\nhaben es geschafft';
 
   @override
-  String get youCanToo => 'You can do it too';
+  String get youCanToo => 'Du schaffst es auch';
 
   @override
-  String get yearsOld => 'years old';
+  String get yearsOld => 'Jahre alt';
 
   @override
-  String get verifiedLabel => 'Verified';
+  String get verifiedLabel => 'Verifiziert';
 
   @override
-  String get scientificData => 'SCIENTIFIC DATA';
+  String get scientificData => 'WISSENSCHAFTLICHE DATEN';
 
   @override
-  String get longTermResults => 'BeTaller creates\nlong-term results';
+  String get longTermResults => 'BeTaller schafft\nlangfristige Ergebnisse';
 
   @override
   String get longTermResultsSubtitle =>
-      'Many people don\'t reach their ultimate height due to bad habits.';
+      'Viele Menschen erreichen ihre maximale Körpergröße nicht aufgrund schlechter Gewohnheiten.';
 
   @override
-  String get yourFinalHeight => 'Your final height';
+  String get yourFinalHeight => 'Deine endgültige Größe';
 
   @override
-  String get badHabitsLegend => 'Bad habits';
+  String get badHabitsLegend => 'Schlechte Gewohnheiten';
 
   @override
-  String get optimizedLegend => 'Optimized';
+  String get optimizedLegend => 'Optimiert';
 
   @override
   String get chartFact1Pct => '30%';
 
   @override
-  String get chartFact1Desc => 'Height can be changed\nwith habits';
+  String get chartFact1Desc => 'Größe kann durch\nGewohnheiten verändert werden';
 
   @override
   String get chartFact2Pct => '9-10h';
 
   @override
-  String get chartFact2Desc => 'Ideal sleep boosts\ngrowth hormone';
+  String get chartFact2Desc => 'Idealer Schlaf fördert\nWachstumshormon';
 
   @override
   String get chartFact3Pct => '3 cm';
 
   @override
-  String get chartFact3Desc => 'Can be gained with\nposture improvement';
+  String get chartFact3Desc => 'Durch Haltungsverbesserung\ngewinnbar';
 
   @override
-  String get didYouKnow => 'Did you know?';
+  String get didYouKnow => 'Wusstest du schon?';
 
   @override
-  String get didYouKnowFact1 => 'Daily habits affect 30% of your height';
+  String get didYouKnowFact1 => 'Tägliche Gewohnheiten beeinflussen 30% deiner Körpergröße';
 
   @override
-  String get didYouKnowFact2 => 'Spinal compression steals 1.5-3 cm of height';
+  String get didYouKnowFact2 => 'Wirbelsäulenstauchung stiehlt 1,5–3 cm Körpergröße';
 
   @override
-  String get didYouKnowFact3 => 'Sleep deprivation reduces HGH by 70%';
+  String get didYouKnowFact3 => 'Schlafmangel reduziert HGH um 70%';
 
   @override
-  String get transformJourneyBegins => 'Your Transformation\nJourney Begins';
+  String get transformJourneyBegins => 'Deine Transformation\nbeginnt jetzt';
 
   @override
   String get transformJourneySubtitle =>
-      'A comprehensive program designed to support\nyour healthy growth, step by step.';
+      'Ein umfassendes Programm, das dein\ngesundes Wachstum Schritt für Schritt unterstützt.';
 
   @override
   String get week1Label => '1W';
 
   @override
-  String get week1Title => 'Week 1';
+  String get week1Title => 'Woche 1';
 
   @override
-  String get week1Desc => 'Spine alignment improves, posture gets better';
+  String get week1Desc => 'Wirbelsäulenausrichtung verbessert sich, Haltung wird besser';
 
   @override
   String get month1Label => '1M';
 
   @override
-  String get month1Title => 'Month 1';
+  String get month1Title => 'Monat 1';
 
   @override
-  String get month1Desc => 'First visible centimeters, sleep quality improves';
+  String get month1Desc => 'Erste sichtbare Zentimeter, Schlafqualität verbessert sich';
 
   @override
   String get month3Label => '3M';
 
   @override
-  String get month3Title => 'Month 3';
+  String get month3Title => 'Monat 3';
 
   @override
-  String get month3Desc => 'Average +1.5–2.5 cm gain, muscle development';
+  String get month3Desc => 'Durchschnittlich +1,5–2,5 cm Gewinn, Muskelentwicklung';
 
   @override
   String get month6Label => '6M';
 
   @override
-  String get month6Title => 'Month 6';
+  String get month6Title => 'Monat 6';
 
   @override
-  String get month6Desc => 'Reach maximum potential, live with your new height';
+  String get month6Desc => 'Maximales Potenzial erreicht, mit deiner neuen Größe leben';
 
   @override
-  String get reachYourGoal => 'Reach Your Goal';
+  String get reachYourGoal => 'Dein Ziel erreichen';
 
   @override
-  String get journeyBullet1 => 'Unlock your maximum potential';
+  String get journeyBullet1 => 'Dein maximales Potenzial entfalten';
 
   @override
-  String get journeyBullet2 => 'Start living with your new height';
+  String get journeyBullet2 => 'Mit deiner neuen Größe leben';
 
   @override
-  String get journeyBullet3 => 'Write your success story';
+  String get journeyBullet3 => 'Deine Erfolgsgeschichte schreiben';
 
   @override
-  String get unlockButton => 'Unlock All';
+  String get unlockButton => 'Alles freischalten';
 
   @override
-  String get dreamHeightOdds => 'Dream height\nodds';
+  String get dreamHeightOdds => 'Wunschgröße\nChancen';
 
   @override
-  String get growthCompleteLabel => 'Growth\ncomplete';
+  String get growthCompleteLabel => 'Wachstum\nabgeschlossen';
 
   @override
-  String get tallerThanPct => 'Taller than 76.7% of your age';
+  String get tallerThanPct => 'Größer als 76,7% deiner Altersgruppe';
 
   @override
   String get levelNovice => 'Anfänger';

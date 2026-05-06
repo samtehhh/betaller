@@ -2126,233 +2126,233 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get formMorningStretch =>
-      'Start with neck rolls, then move to full body stretches. Hold each stretch for 20-30 seconds without bouncing.';
+      'गर्दन के चक्कर से शुरू करें, फिर पूरे शरीर की स्ट्रेचिंग पर जाएं। प्रत्येक स्ट्रेच को उछाले बिना 20-30 सेकंड तक रखें।';
 
   @override
   String get formBarHanging =>
-      'Grip the bar shoulder-width apart, relax your body completely, let gravity stretch your spine. Avoid swinging.';
+      'कंधे की चौड़ाई पर बार पकड़ें, शरीर को पूरी तरह से शिथिल करें, गुरुत्वाकर्षण को आपकी रीढ़ को खींचने दें। झूलने से बचें।';
 
   @override
   String get formCobraStretch =>
-      'Lie face down, place hands under shoulders, slowly push upper body up while keeping hips on the floor. Look upward.';
+      'पेट के बल लेटें, हाथों को कंधों के नीचे रखें, कूल्हों को जमीन पर रखते हुए धीरे-धीरे ऊपरी शरीर को उठाएं। ऊपर देखें।';
 
   @override
   String get formJumping =>
-      'Perform squat jumps or jump rope. Land softly on the balls of your feet. Rest 30 seconds between sets.';
+      'स्क्वाट जंप या रस्सी कूदें। पैरों की उंगलियों पर धीरे से उतरें। सेट के बीच 30 सेकंड आराम करें।';
 
   @override
   String get formSwimmingBasketball =>
-      'Choose swimming (freestyle/backstroke) or basketball. Focus on jumping, reaching, and full range of motion.';
+      'तैराकी (फ्रीस्टाइल/बैकस्ट्रोक) या बास्केटबॉल चुनें। कूदने, पहुंचने और पूर्ण गति सीमा पर ध्यान दें।';
 
   @override
   String get formEveningYoga =>
-      'Perform gentle poses: cat-cow, child pose, downward dog, forward fold. Breathe deeply and hold each pose 30-60 seconds.';
+      'सौम्य आसन करें: कैट-काउ, बाल मुद्रा, अधोमुख श्वान, आगे की ओर झुकाव। गहरी सांस लें और प्रत्येक आसन को 30-60 सेकंड तक रखें।';
 
   @override
   String get formSprintIntervals =>
-      'Warm up for 5 minutes, then sprint at maximum effort for 30 seconds. Walk or jog for 90 seconds to recover. Repeat.';
+      '5 मिनट गर्म करें, फिर 30 सेकंड के लिए पूरी गति से दौड़ें। ठीक होने के लिए 90 सेकंड चलें या जॉग करें। दोहराएं।';
 
   @override
   String get formHiitWorkout =>
-      'Perform exercises like burpees, mountain climbers, and jump squats at maximum intensity for 45 seconds, rest 15 seconds.';
+      'अधिकतम तीव्रता पर 45 सेकंड के लिए बर्पीज़, माउंटेन क्लाइंबर्स और जंप स्क्वाट जैसे व्यायाम करें, 15 सेकंड आराम करें।';
 
   @override
   String get formSquats =>
-      'Stand with feet shoulder-width apart. Lower your body until thighs are parallel to ground. Keep back straight and knees behind toes.';
+      'पैरों को कंधे की चौड़ाई पर रखें। जांघें जमीन के समानांतर होने तक शरीर को नीचे करें। पीठ सीधी और घुटने पैर की उंगलियों के पीछे रखें।';
 
   @override
   String get formDeadliftStretch =>
-      'Stand with feet hip-width apart, hinge at hips keeping back flat. Reach toward toes, feel the stretch in hamstrings and back.';
+      'पैरों को कूल्हे की चौड़ाई पर रखें, पीठ को सपाट रखते हुए कूल्हों पर झुकें। पैर की उंगलियों तक पहुंचें, हैमस्ट्रिंग और पीठ में खिंचाव महसूस करें।';
 
   @override
   String get formOverheadPress =>
-      'Stand tall, press arms overhead fully extending. Use light weights or bodyweight. Keep core tight and avoid arching back.';
+      'सीधे खड़े हों, बाहों को सिर के ऊपर पूरी तरह फैलाकर दबाएं। हल्के वजन या शरीर के वजन का उपयोग करें। कोर तंग रखें और पीठ को झुकाने से बचें।';
 
   @override
   String get formSkippingRope =>
-      'Jump with both feet, landing softly on the balls of your feet. Keep jumps low and consistent. Rest between sets.';
+      'दोनों पैरों से कूदें, पैरों की उंगलियों पर धीरे से उतरें। कूद को कम और लगातार रखें। सेट के बीच आराम करें।';
 
   @override
   String get formPilatesCore =>
-      'Perform plank, dead bug, bird dog, bridge, and leg raises. Focus on controlled movement and breathing.';
+      'प्लैंक, डेड बग, बर्ड डॉग, ब्रिज और लेग रेज करें। नियंत्रित गति और श्वास पर ध्यान दें।';
 
   @override
   String get formInversionHang =>
-      'Use an inversion table or gravity boots. Start with a slight incline and gradually increase. Keep sessions short.';
+      'इनवर्जन टेबल या ग्रेविटी बूट का उपयोग करें। थोड़ी झुकाव से शुरू करें और धीरे-धीरे बढ़ाएं। सत्र छोटे रखें।';
 
   @override
   String get formProtein =>
-      'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.';
+      'प्रोटीन का सेवन 3-4 भोजन में बांटें। अंडे, चिकन, मछली, डेयरी और फलियां शामिल करें।';
 
   @override
   String get formCalciumVitaminD =>
-      'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.';
+      'रोजाना 3 डेयरी सर्विंग लें और प्राकृतिक विटामिन D संश्लेषण के लिए 15 मिनट धूप लें।';
 
   @override
   String get formWater =>
-      'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.';
+      'पूरे दिन नियमित रूप से पानी पिएं। पानी की बोतल साथ रखें और घंटेवार अनुस्मारक सेट करें।';
 
   @override
   String get formAvoidJunk =>
-      'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.';
+      'फास्ट फूड को साबुत खाद्य पदार्थों से बदलें। मीठे पेय को पानी से बदलें। लेबल पढ़ें और प्रसंस्कृत सामग्री से बचें।';
 
   @override
   String get formZincIntake =>
-      'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.';
+      'आहार में लाल मांस, कद्दू के बीज, छोले, काजू और सीप शामिल करें। प्रतिदिन 8-11 मिग्रा लक्ष्य रखें।';
 
   @override
   String get formVitaminDSunlight =>
-      'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.';
+      'दोपहर से पहले 15 मिनट के लिए बाहों और चेहरे को सीधी धूप में रखें। इस अवधि के लिए सनस्क्रीन की जरूरत नहीं।';
 
   @override
   String get formArginineFoods =>
-      'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.';
+      'भोजन में मेवे, बीज, टर्की, चिकन, सोयाबीन और डेयरी शामिल करें। सोने से पहले सेवन करना सबसे अच्छा है।';
 
   @override
   String get formQualitySleep =>
-      'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.';
+      'रात 10 बजे तक सो जाएं। कमरे को अंधेरा और ठंडा रखें। दोपहर 2 बजे के बाद कैफीन से बचें।';
 
   @override
   String get formNoScreen =>
-      'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.';
+      'सोने से 1 घंटे पहले अलार्म सेट करें। सभी स्क्रीन रख दें। इसके बजाय किताब पढ़ें या हल्की स्ट्रेचिंग करें।';
 
   @override
   String get formSleepEnvironment =>
-      'Use blackout curtains, keep room at 18-20°C, remove all light sources. Use a comfortable mattress and pillow.';
+      'ब्लैकआउट पर्दे उपयोग करें, कमरे को 18-20°C पर रखें, सभी प्रकाश स्रोत हटाएं। आरामदायक गद्दा और तकिया उपयोग करें।';
 
   @override
   String get formPreSleepRoutine =>
-      'Start 30 minutes before bed: dim lights, read a book, do breathing exercises, avoid stimulating activities.';
+      'सोने से 30 मिनट पहले शुरू करें: रोशनी कम करें, किताब पढ़ें, श्वास व्यायाम करें, उत्तेजक गतिविधियों से बचें।';
 
   @override
   String get formPostureCheck =>
-      'Stand tall with shoulders back and down. Engage core slightly. Imagine a string pulling you up from the crown of your head.';
+      'कंधों को पीछे और नीचे रखकर सीधे खड़े हों। थोड़ा कोर सक्रिय करें। कल्पना करें कि सिर के ऊपर से एक धागा आपको ऊपर खींच रहा है।';
 
   @override
   String get formWallStand =>
-      'Stand with heels, buttocks, shoulder blades, and head touching the wall. Hold for 5 minutes. Breathe normally.';
+      'एड़ियां, नितंब, कंधे के ब्लेड और सिर को दीवार से लगाकर खड़े हों। 5 मिनट तक रखें। सामान्य रूप से सांस लें।';
 
   @override
   String get formNeckStretches =>
-      'Tilt head slowly to each side, forward, and backward. Hold each direction for 30 seconds. Do not force the stretch.';
+      'सिर को धीरे-धीरे हर तरफ, आगे और पीछे झुकाएं। प्रत्येक दिशा को 30 सेकंड तक रखें। खिंचाव को जबरदस्ती न करें।';
 
   @override
   String get formShoulderRolls =>
-      'Roll shoulders forward 15 times, then backward 15 times. Follow with chest-opening stretches holding for 20 seconds.';
+      'कंधों को आगे 15 बार, फिर पीछे 15 बार घुमाएं। 20 सेकंड तक पकड़े हुए चेस्ट-ओपनिंग स्ट्रेच के साथ जारी रखें।';
 
   @override
   String get sciMorningStretch =>
-      'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention';
+      'सुबह की स्ट्रेचिंग रीढ़ की डिस्क को डीकंप्रेस करती है जो रात भर रीहाइड्रेट हुई, ऊंचाई को अधिकतम बनाए रखती है';
 
   @override
   String get sciBarHanging =>
-      'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height';
+      'लटकना गुरुत्वाकर्षण का उपयोग करके कशेरुकीय डिस्क को डीकंप्रेस करता है, संभावित रूप से अस्थायी ऊंचाई जोड़ता है';
 
   @override
   String get sciCobraStretch =>
-      'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting';
+      'कोबरा स्ट्रेच रीढ़ को फैलाता है और छाती खोलता है, बैठने से रीढ़ के संपीड़न का मुकाबला करता है';
 
   @override
   String get sciJumping =>
-      'High-impact jumping stimulates growth plates in the legs and triggers growth hormone release';
+      'उच्च प्रभाव कूदना पैरों में विकास प्लेट को उत्तेजित करता है और विकास हार्मोन की रिहाई को ट्रिगर करता है';
 
   @override
   String get sciSwimmingBasketball =>
-      'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity';
+      'तैराकी और बास्केटबॉल में पूरे शरीर को खींचना, कूदना और पहुंचना शामिल है जो विकास प्लेट गतिविधि को उत्तेजित करता है';
 
   @override
   String get sciEveningYoga =>
-      'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery';
+      'शाम का योग कोर्टिसोल को कम करता है जो विकास हार्मोन को रोकता है, और रात की वसूली के लिए मांसपेशियों को खींचता है';
 
   @override
   String get sciSprintIntervals =>
-      'Sprinting triggers significant growth hormone release';
+      'दौड़ना महत्वपूर्ण विकास हार्मोन रिहाई को ट्रिगर करता है';
 
   @override
   String get sciHiitWorkout =>
-      'High intensity exercise increases HGH by up to 450%';
+      'उच्च तीव्रता व्यायाम HGH को 450% तक बढ़ाता है';
 
   @override
-  String get sciSquats => 'Squats stimulate growth plates in legs and spine';
+  String get sciSquats => 'स्क्वाट पैरों और रीढ़ में विकास प्लेट को उत्तेजित करते हैं';
 
   @override
   String get sciDeadliftStretch =>
-      'Spinal decompression promotes vertebral disc health';
+      'रीढ़ की डीकंप्रेशन कशेरुकीय डिस्क स्वास्थ्य को बढ़ावा देती है';
 
   @override
   String get sciOverheadPress =>
-      'Overhead pressing stretches the spine and strengthens posture muscles';
+      'ओवरहेड प्रेसिंग रीढ़ को खींचती है और मुद्रा मांसपेशियों को मजबूत करती है';
 
   @override
   String get sciSkippingRope =>
-      'Repetitive jumping stimulates growth plates in lower extremities';
+      'बार-बार कूदना निचले अंगों में विकास प्लेट को उत्तेजित करता है';
 
   @override
   String get sciPilatesCore =>
-      'Core strength supports spinal alignment and posture';
+      'कोर शक्ति रीढ़ के संरेखण और मुद्रा का समर्थन करती है';
 
   @override
   String get sciInversionHang =>
-      'Inversion decompresses spinal discs, can temporarily add 1-2cm';
+      'उलटा लटकना रीढ़ की डिस्क को डीकंप्रेस करता है, अस्थायी रूप से 1-2 सेमी जोड़ सकता है';
 
   @override
   String get sciProtein =>
-      'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts';
+      'प्रोटीन हड्डी और मांसपेशियों की वृद्धि के लिए आवश्यक अमीनो एसिड प्रदान करता है, विशेष रूप से विकास के समय';
 
   @override
   String get sciCalciumVitaminD =>
-      'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth';
+      'कैल्शियम और विटामिन D हड्डी के घनत्व और रैखिक हड्डी विकास के लिए मुख्य निर्माण खंड हैं';
 
   @override
   String get sciWater =>
-      'Hydration is essential for nutrient transport to growth plates and joint cartilage health';
+      'जलयोजन विकास प्लेट में पोषक तत्वों के परिवहन और जोड़ उपास्थि स्वास्थ्य के लिए आवश्यक है';
 
   @override
   String get sciAvoidJunk =>
-      'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion';
+      'प्रसंस्कृत खाद्य पदार्थ और चीनी सूजन और इंसुलिन स्पाइक का कारण बनते हैं जो विकास हार्मोन स्राव को दबाते हैं';
 
   @override
-  String get sciZincIntake => 'Zinc is essential for growth hormone production';
+  String get sciZincIntake => 'जिंक विकास हार्मोन उत्पादन के लिए आवश्यक है';
 
   @override
   String get sciVitaminDSunlight =>
-      'Vitamin D is crucial for calcium absorption and bone growth';
+      'विटामिन D कैल्शियम अवशोषण और हड्डी विकास के लिए महत्वपूर्ण है';
 
   @override
   String get sciArginineFoods =>
-      'L-Arginine stimulates growth hormone secretion';
+      'L-आर्जिनिन विकास हार्मोन स्राव को उत्तेजित करता है';
 
   @override
   String get sciQualitySleep =>
-      '70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM';
+      'दैनिक विकास हार्मोन का 70-80% गहरी नींद के चरणों के दौरान रिलीज होता है, विशेष रूप से रात 10 बजे से सुबह 2 बजे के बीच';
 
   @override
   String get sciNoScreen =>
-      'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality';
+      'स्क्रीन से नीली रोशनी मेलाटोनिन उत्पादन को दबाती है, नींद आने में देरी करती है और गहरी नींद की गुणवत्ता कम करती है';
 
   @override
   String get sciSleepEnvironment =>
-      'Dark, cool environment maximizes melatonin and growth hormone';
+      'अंधेरा, ठंडा वातावरण मेलाटोनिन और विकास हार्मोन को अधिकतम करता है';
 
   @override
   String get sciPreSleepRoutine =>
-      'Consistent pre-sleep routine improves deep sleep quality by 23%';
+      'लगातार पूर्व-नींद दिनचर्या गहरी नींद की गुणवत्ता को 23% सुधारती है';
 
   @override
   String get sciPostureCheck =>
-      'Correct posture alignment can immediately add 2-3 cm to apparent height and prevents spinal compression';
+      'सही मुद्रा संरेखण तुरंत 2-3 सेमी ऊंचाई जोड़ सकता है और रीढ़ के संपीड़न को रोकता है';
 
   @override
   String get sciWallStand =>
-      'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day';
+      'दीवार स्टैंड मुद्रा मांसपेशी स्मृति को प्रशिक्षित करता है, पूरे दिन उचित रीढ़ संरेखण बनाए रखने में मदद करता है';
 
   @override
   String get sciNeckStretches =>
-      'Neck stretches relieve compression and improve cervical alignment';
+      'गर्दन की स्ट्रेचिंग संपीड़न को दूर करती है और ग्रीवा संरेखण में सुधार करती है';
 
   @override
   String get sciShoulderRolls =>
-      'Opening shoulders corrects forward posture, can add 1-2cm appearance';
+      'कंधे खोलना आगे की मुद्रा को ठीक करता है, दिखावे में 1-2 सेमी जोड़ सकता है';
 
   @override
   String get muscleSpine => 'रीढ़';
@@ -2460,64 +2460,64 @@ class AppLocalizationsHi extends AppLocalizations {
   String get catPosture => 'पोस्चर';
 
   @override
-  String get postureTip1 => 'Stand sideways (side profile) to the camera.';
+  String get postureTip1 => 'कैमरे की ओर बगल में (साइड प्रोफाइल) खड़े हों।';
 
   @override
-  String get postureTip2 => 'Keep ~2 meters distance from the lens.';
+  String get postureTip2 => 'लेंस से ~2 मीटर की दूरी बनाए रखें।';
 
   @override
-  String get postureTip3 => 'Arms relaxed, look straight ahead.';
+  String get postureTip3 => 'बाहें शिथिल, सीधे आगे देखें।';
 
   @override
-  String get postureTip4 => 'Wear fitted clothes for accurate scoring.';
+  String get postureTip4 => 'सटीक स्कोरिंग के लिए फिटिंग कपड़े पहनें।';
 
   @override
-  String get postureTip5 => 'Use good lighting and a plain background.';
+  String get postureTip5 => 'अच्छी रोशनी और सादी पृष्ठभूमि का उपयोग करें।';
 
   @override
-  String get kyphosisLabel => 'Kyphosis (upper back)';
+  String get kyphosisLabel => 'किफोसिस (ऊपरी पीठ)';
 
   @override
-  String get lordosisLabel => 'Lordosis (lower back)';
+  String get lordosisLabel => 'लोर्डोसिस (निचली पीठ)';
 
   @override
-  String get analyzingPosture => 'ANALYZING POSTURE';
+  String get analyzingPosture => 'मुद्रा का विश्लेषण';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'गोपनीयता नीति';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'सेवा की शर्तें';
 
   @override
   String version(String ver) {
-    return 'Version $ver';
+    return 'संस्करण $ver';
   }
 
   @override
-  String get rateApp => 'Rate BeTaller';
+  String get rateApp => 'BeTaller को रेट करें';
 
   @override
-  String get rateAppSubtitle => 'Your review helps us grow!';
+  String get rateAppSubtitle => 'आपकी समीक्षा हमें बढ़ने में मदद करती है!';
 
   @override
-  String get unitSystem => 'Unit System';
+  String get unitSystem => 'इकाई प्रणाली';
 
   @override
-  String get unitMetric => 'Metric (cm, kg)';
+  String get unitMetric => 'मेट्रिक (सेमी, किग्रा)';
 
   @override
-  String get unitImperial => 'Imperial (ft-in, lbs)';
+  String get unitImperial => 'इम्पीरियल (फीट-इंच, पाउंड)';
 
   @override
-  String get healthDisclaimer => 'Health Disclaimer';
+  String get healthDisclaimer => 'स्वास्थ्य अस्वीकरण';
 
   @override
   String get healthDisclaimerBody =>
-      'BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.';
+      'BeTaller सामान्य स्वास्थ्य और फिटनेस मार्गदर्शन प्रदान करता है। परिणाम आयु, आनुवंशिकी और व्यक्तिगत कारकों के आधार पर भिन्न होते हैं। यह ऐप चिकित्सा सलाह प्रदान नहीं करता। व्यायाम मुद्रा अनुकूलन, रीढ़ की स्वास्थ्य और प्राकृतिक आदतों के माध्यम से विकास हार्मोन समर्थन पर ध्यान केंद्रित करते हैं। कोई भी नया व्यायाम या पोषण कार्यक्रम शुरू करने से पहले स्वास्थ्य देखभाल पेशेवर से परामर्श करें। विकास प्लेट बंद होने के बाद ऊंचाई में बदलाव (आमतौर पर 18-25) मुख्य रूप से मुद्रा सुधार से होता है।';
 
   @override
-  String get sciSourcePrefix => 'Source: ';
+  String get sciSourcePrefix => 'स्रोत: ';
 
   @override
   String get program => 'कार्यक्रम';
@@ -2941,54 +2941,54 @@ class AppLocalizationsHi extends AppLocalizations {
   String get paywallTester => 'Tester';
 
   @override
-  String get introTag1 => 'PREDICTION';
+  String get introTag1 => 'पूर्वानुमान';
 
   @override
-  String get introTag2 => 'GROWTH';
+  String get introTag2 => 'विकास';
 
   @override
-  String get introTag3 => 'TRACKING';
+  String get introTag3 => 'ट्रैकिंग';
 
   @override
-  String get introTag4 => 'GAMIFICATION';
+  String get introTag4 => 'गेमिफिकेशन';
 
   @override
-  String get introTag5 => 'COMMUNITY';
+  String get introTag5 => 'समुदाय';
 
   @override
-  String get introTitle1 => 'Discover your\nheight potential';
+  String get introTitle1 => 'अपनी ऊंचाई\nक्षमता खोजें';
 
   @override
   String get introSubtitle1 =>
-      'Let us calculate your full potential\nbased on genetics, age, and lifestyle.';
+      'हमें आपकी पूरी क्षमता की गणना करने दें\nजेनेटिक्स, उम्र और जीवनशैली के आधार पर।';
 
   @override
-  String get introTitle2 => 'One step taller\nevery day';
+  String get introTitle2 => 'हर दिन एक कदम\nऊंचे जाएं';
 
   @override
   String get introSubtitle2 =>
-      'Push your potential with personalized\nexercise and nutrition plans.';
+      'व्यक्तिगत व्यायाम और पोषण योजनाओं से\nअपनी क्षमता बढ़ाएं।';
 
   @override
-  String get introTitle3 => 'Track every\ncentimeter';
+  String get introTitle3 => 'हर सेंटीमीटर\nट्रैक करें';
 
   @override
   String get introSubtitle3 =>
-      'See how your real progress\ndevelops with monthly measurements.';
+      'देखें कि मासिक माप के साथ\nआपकी वास्तविक प्रगति कैसे विकसित होती है।';
 
   @override
-  String get introTitle4 => 'Level up,\nearn rewards';
+  String get introTitle4 => 'लेवल अप करें,\nइनाम कमाएं';
 
   @override
   String get introSubtitle4 =>
-      'Complete 70-day programs,\nearn XP, and unlock new levels.';
+      '70-दिन के कार्यक्रम पूरे करें,\nXP कमाएं और नए स्तर अनलॉक करें।';
 
   @override
-  String get introTitle5 => 'Thousands already\ngrew taller';
+  String get introTitle5 => 'हजारों पहले ही\nलंबे हो गए';
 
   @override
   String get introSubtitle5 =>
-      'Join the community of users\nwho reached their goals.';
+      'उन उपयोगकर्ताओं के समुदाय में शामिल हों\nजिन्होंने अपने लक्ष्य प्राप्त किए।';
 
   @override
   String get criticalWindow => 'महत्वपूर्ण समय';
@@ -3024,237 +3024,237 @@ class AppLocalizationsHi extends AppLocalizations {
   String get painSleepTag => 'ट्रैकिंग';
 
   @override
-  String get painPostureTitle => 'Gain centimeters now with posture';
+  String get painPostureTitle => 'मुद्रा से अभी सेंटीमीटर पाएं';
 
   @override
   String get painPostureDesc =>
-      'Correct posture can instantly add 1.5–3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.';
+      'सही मुद्रा तुरंत 1.5–3 सेमी जोड़ सकती है। BeTaller की दैनिक मुद्रा दिनचर्या इसे कुछ हफ्तों में स्थापित करती है।';
 
   @override
-  String get painPostureTag => 'Posture';
+  String get painPostureTag => 'मुद्रा';
 
   @override
-  String get painExerciseTitle => 'Your custom exercise plan is ready';
+  String get painExerciseTitle => 'आपकी कस्टम व्यायाम योजना तैयार है';
 
   @override
   String get painExerciseDesc =>
-      'Morning stretches, hanging, spine routines — BeTaller prepared and scheduled these for you. Just 8–12 minutes a day.';
+      'सुबह की स्ट्रेचिंग, लटकना, रीढ़ की दिनचर्या — BeTaller ने इन्हें आपके लिए तैयार किया है। बस 8–12 मिनट प्रतिदिन।';
 
   @override
-  String get painExerciseTag => 'Routines';
+  String get painExerciseTag => 'दिनचर्या';
 
   @override
-  String get painNutritionTitle => 'Your nutrition directly affects growth';
+  String get painNutritionTitle => 'आपका पोषण विकास को सीधे प्रभावित करता है';
 
   @override
   String get painNutritionDesc =>
-      'Protein, calcium, vitamin D — BeTaller reminds you every day which nutrients to take and when.';
+      'प्रोटीन, कैल्शियम, विटामिन D — BeTaller आपको हर दिन याद दिलाता है कि कौन से पोषक तत्व लेने हैं और कब।';
 
   @override
-  String get painNutritionTag => 'Nutrition';
+  String get painNutritionTag => 'पोषण';
 
   @override
-  String get painTrackingTitle => 'Track your growth with your own eyes';
+  String get painTrackingTitle => 'अपनी आंखों से अपना विकास ट्रैक करें';
 
   @override
   String get painTrackingDesc =>
-      'Monthly measurements, progress photos, growth chart — see every centimeter you gain.';
+      'मासिक माप, प्रगति फोटो, विकास चार्ट — हर सेंटीमीटर देखें जो आप प्राप्त करते हैं।';
 
   @override
-  String get painTrackingTag => 'Progress';
+  String get painTrackingTag => 'प्रगति';
 
   @override
-  String get selectYourGender => 'Select your gender';
+  String get selectYourGender => 'अपना लिंग चुनें';
 
   @override
   String get onboardingPredictSubtitle =>
-      'This will be used to predict your height potential & create your custom plan.';
+      'इसका उपयोग आपकी ऊंचाई क्षमता का अनुमान लगाने और आपकी कस्टम योजना बनाने के लिए किया जाएगा।';
 
   @override
-  String get other => 'Other';
+  String get other => 'अन्य';
 
   @override
-  String get whenWereYouBorn => 'When were you born?';
+  String get whenWereYouBorn => 'आप कब पैदा हुए?';
 
   @override
-  String get heightAndWeight => 'Height & weight';
+  String get heightAndWeight => 'ऊंचाई और वजन';
 
   @override
-  String get parentsHeight => 'Parents height';
+  String get parentsHeight => 'माता-पिता की ऊंचाई';
 
   @override
-  String get weeklyWorkout => 'Weekly workout';
+  String get weeklyWorkout => 'साप्ताहिक व्यायाम';
 
   @override
-  String get workoutsPerWeek => 'Workouts per week';
+  String get workoutsPerWeek => 'प्रति सप्ताह वर्कआउट';
 
   @override
-  String get whatsYourEthnicity => 'What\'s your ethnicity?';
+  String get whatsYourEthnicity => 'आपकी जातीयता क्या है?';
 
   @override
-  String get whiteCaucasian => 'White / Caucasian';
+  String get whiteCaucasian => 'सफेद / कॉकेशियन';
 
   @override
-  String get blackAfricanAmerican => 'Black / African American';
+  String get blackAfricanAmerican => 'काला / अफ्रीकी अमेरिकी';
 
   @override
-  String get hispanicLatino => 'Hispanic / Latino';
+  String get hispanicLatino => 'हिस्पैनिक / लैटिनो';
 
   @override
-  String get asian => 'Asian';
+  String get asian => 'एशियाई';
 
   @override
-  String get middleEasternIndigenous => 'Middle Eastern / Indigenous';
+  String get middleEasternIndigenous => 'मध्य पूर्वी / स्वदेशी';
 
   @override
-  String get dontWantToAnswer => 'I don\'t want to answer';
+  String get dontWantToAnswer => 'मैं जवाब नहीं देना चाहता';
 
   @override
-  String get footSizeLabel => 'Foot size';
+  String get footSizeLabel => 'पैर का आकार';
 
   @override
-  String get selectYourSize => 'Select your size';
+  String get selectYourSize => 'अपना आकार चुनें';
 
   @override
-  String get whatsYourDreamHeight => 'What\'s your dream height?';
+  String get whatsYourDreamHeight => 'आपकी सपनों की ऊंचाई क्या है?';
 
   @override
   String get dreamHeightCalcSubtitle =>
-      'Based on your input, we\'ll calculate the likelihood of achieving this height.';
+      'आपके इनपुट के आधार पर, हम इस ऊंचाई को प्राप्त करने की संभावना की गणना करेंगे।';
 
   @override
-  String get dreamHeightLabel => 'Dream height';
+  String get dreamHeightLabel => 'सपनों की ऊंचाई';
 
   @override
-  String get sleepQuestion => 'How many hours do\nyou sleep each night?';
+  String get sleepQuestion => 'आप हर रात कितने\nघंटे सोते हैं?';
 
   @override
-  String get thousandsSucceeded => 'Thousands\nSucceeded';
+  String get thousandsSucceeded => 'हजारों ने\nसफलता पाई';
 
   @override
-  String get youCanToo => 'You can do it too';
+  String get youCanToo => 'आप भी कर सकते हैं';
 
   @override
-  String get yearsOld => 'years old';
+  String get yearsOld => 'साल';
 
   @override
-  String get verifiedLabel => 'Verified';
+  String get verifiedLabel => 'सत्यापित';
 
   @override
-  String get scientificData => 'SCIENTIFIC DATA';
+  String get scientificData => 'वैज्ञानिक डेटा';
 
   @override
-  String get longTermResults => 'BeTaller creates\nlong-term results';
+  String get longTermResults => 'BeTaller बनाता है\nदीर्घकालिक परिणाम';
 
   @override
   String get longTermResultsSubtitle =>
-      'Many people don\'t reach their ultimate height due to bad habits.';
+      'बहुत से लोग बुरी आदतों के कारण अपनी अंतिम ऊंचाई नहीं पा पाते।';
 
   @override
-  String get yourFinalHeight => 'Your final height';
+  String get yourFinalHeight => 'आपकी अंतिम ऊंचाई';
 
   @override
-  String get badHabitsLegend => 'Bad habits';
+  String get badHabitsLegend => 'बुरी आदतें';
 
   @override
-  String get optimizedLegend => 'Optimized';
+  String get optimizedLegend => 'अनुकूलित';
 
   @override
   String get chartFact1Pct => '30%';
 
   @override
-  String get chartFact1Desc => 'Height can be changed\nwith habits';
+  String get chartFact1Desc => 'ऊंचाई को आदतों से\nबदला जा सकता है';
 
   @override
   String get chartFact2Pct => '9-10h';
 
   @override
-  String get chartFact2Desc => 'Ideal sleep boosts\ngrowth hormone';
+  String get chartFact2Desc => 'आदर्श नींद विकास\nहार्मोन को बढ़ाती है';
 
   @override
   String get chartFact3Pct => '3 cm';
 
   @override
-  String get chartFact3Desc => 'Can be gained with\nposture improvement';
+  String get chartFact3Desc => 'मुद्रा सुधार से\nपाया जा सकता है';
 
   @override
-  String get didYouKnow => 'Did you know?';
+  String get didYouKnow => 'क्या आप जानते हैं?';
 
   @override
-  String get didYouKnowFact1 => 'Daily habits affect 30% of your height';
+  String get didYouKnowFact1 => 'दैनिक आदतें आपकी ऊंचाई के 30% को प्रभावित करती हैं';
 
   @override
-  String get didYouKnowFact2 => 'Spinal compression steals 1.5-3 cm of height';
+  String get didYouKnowFact2 => 'रीढ़ की हड्डी का दबाव 1.5-3 सेमी ऊंचाई चुराता है';
 
   @override
-  String get didYouKnowFact3 => 'Sleep deprivation reduces HGH by 70%';
+  String get didYouKnowFact3 => 'नींद की कमी HGH को 70% कम कर देती है';
 
   @override
-  String get transformJourneyBegins => 'Your Transformation\nJourney Begins';
+  String get transformJourneyBegins => 'आपकी परिवर्तन\nयात्रा शुरू होती है';
 
   @override
   String get transformJourneySubtitle =>
-      'A comprehensive program designed to support\nyour healthy growth, step by step.';
+      'आपके स्वस्थ विकास को समर्थन देने के लिए डिज़ाइन किया गया\nएक व्यापक कार्यक्रम, कदम दर कदम।';
 
   @override
-  String get week1Label => '1W';
+  String get week1Label => '1स';
 
   @override
-  String get week1Title => 'Week 1';
+  String get week1Title => 'सप्ताह 1';
 
   @override
-  String get week1Desc => 'Spine alignment improves, posture gets better';
+  String get week1Desc => 'रीढ़ की हड्डी का संरेखण सुधरता है, मुद्रा बेहतर होती है';
 
   @override
-  String get month1Label => '1M';
+  String get month1Label => '1म';
 
   @override
-  String get month1Title => 'Month 1';
+  String get month1Title => 'महीना 1';
 
   @override
-  String get month1Desc => 'First visible centimeters, sleep quality improves';
+  String get month1Desc => 'पहले दिखाई देने वाले सेंटीमीटर, नींद की गुणवत्ता सुधरती है';
 
   @override
-  String get month3Label => '3M';
+  String get month3Label => '3म';
 
   @override
-  String get month3Title => 'Month 3';
+  String get month3Title => 'महीना 3';
 
   @override
-  String get month3Desc => 'Average +1.5–2.5 cm gain, muscle development';
+  String get month3Desc => 'औसत +1.5–2.5 सेमी वृद्धि, मांसपेशियों का विकास';
 
   @override
-  String get month6Label => '6M';
+  String get month6Label => '6म';
 
   @override
-  String get month6Title => 'Month 6';
+  String get month6Title => 'महीना 6';
 
   @override
-  String get month6Desc => 'Reach maximum potential, live with your new height';
+  String get month6Desc => 'अधिकतम क्षमता प्राप्त करें, अपनी नई ऊंचाई के साथ जिएं';
 
   @override
-  String get reachYourGoal => 'Reach Your Goal';
+  String get reachYourGoal => 'अपना लक्ष्य प्राप्त करें';
 
   @override
-  String get journeyBullet1 => 'Unlock your maximum potential';
+  String get journeyBullet1 => 'अपनी अधिकतम क्षमता अनलॉक करें';
 
   @override
-  String get journeyBullet2 => 'Start living with your new height';
+  String get journeyBullet2 => 'अपनी नई ऊंचाई के साथ जीना शुरू करें';
 
   @override
-  String get journeyBullet3 => 'Write your success story';
+  String get journeyBullet3 => 'अपनी सफलता की कहानी लिखें';
 
   @override
-  String get unlockButton => 'Unlock All';
+  String get unlockButton => 'सब अनलॉक करें';
 
   @override
-  String get dreamHeightOdds => 'Dream height\nodds';
+  String get dreamHeightOdds => 'सपनों की ऊंचाई\nकी संभावना';
 
   @override
-  String get growthCompleteLabel => 'Growth\ncomplete';
+  String get growthCompleteLabel => 'विकास\nपूर्ण';
 
   @override
-  String get tallerThanPct => 'Taller than 76.7% of your age';
+  String get tallerThanPct => 'आपकी उम्र के 76.7% से लंबे';
 
   @override
   String get levelNovice => 'नौसिखिया';
