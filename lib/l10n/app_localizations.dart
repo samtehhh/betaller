@@ -1184,6 +1184,18 @@ abstract class AppLocalizations {
   /// **'Let\'s Start'**
   String get letsStart;
 
+  /// No description provided for @splashJourneySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your journey begins. 🚀'**
+  String get splashJourneySubtitle;
+
+  /// No description provided for @splashPlanSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your personalized plan is ready.\nReady to discover your height potential?'**
+  String get splashPlanSubtitle;
+
   /// No description provided for @doneBtn.
   ///
   /// In en, this message translates to:
@@ -2066,11 +2078,40 @@ abstract class AppLocalizations {
   /// **'You can leave unknown ages blank. Entering 1-2 past heights is enough.'**
   String get pastHeightsTip;
 
+  /// No description provided for @obPastHeightsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Past Heights'**
   String get obPastHeightsTitle;
+
+  /// No description provided for @obPastHeightsSubPart1.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your past heights to boost your prediction confidence to '**
   String get obPastHeightsSubPart1;
+
+  /// No description provided for @obPastHeightsSubPart2.
+  ///
+  /// In en, this message translates to:
+  /// **' higher.'**
   String get obPastHeightsSubPart2;
+
+  /// No description provided for @obHowTallAtAge.
+  ///
+  /// In en, this message translates to:
+  /// **'How tall were you at age {age}?'**
   String obHowTallAtAge(String age);
+
+  /// No description provided for @obSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
   String get obSkip;
+
+  /// No description provided for @obNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
   String get obNext;
 
   /// No description provided for @currentSuffix.

@@ -14,18 +14,6 @@ import '../services/purchase_service.dart';
 import '../utils/constants.dart';
 
 Future<bool?> showPremiumPaywall(BuildContext context) async {
-  if (Platform.isIOS) {
-    // iOS: try RevenueCat native paywall first
-    try {
-      final purchased = await PurchaseService().presentPaywall();
-      if (purchased) {
-        if (context.mounted) context.read<AppProvider>().setPremium(true);
-        return true;
-      }
-      return false;
-    } catch (_) {}
-  }
-  // Android (or fallback): use our custom paywall screen
   if (!context.mounted) return false;
   return Navigator.push<bool>(
     context,
@@ -138,6 +126,17 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
         context.read<AppProvider>().setPremium(true);
         if (widget.dismissible && context.mounted) Navigator.pop(context, true);
       }
+    }
+  }
+
+  Future<void> _redeemPromoCode() async {
+    if (!Platform.isIOS) return;
+    await Purchases.presentCodeRedemptionSheet();
+    if (!mounted) return;
+    final ok = await PurchaseService().checkEntitlement();
+    if (ok) {
+      context.read<AppProvider>().setPremium(true);
+      if (widget.dismissible && context.mounted) Navigator.pop(context, true);
     }
   }
 
@@ -267,7 +266,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                         Expanded(child: _PlanPill(
                           selected: _selectedPlan == 1,
                           label: l.paywallYearly,
-                          price: annual?.storeProduct.priceString ?? directAnnual?.priceString ?? '\$39.99',
+                          price: annual?.storeProduct.priceString ?? directAnnual?.priceString ?? '–',
                           note: l.paywallBestValue,
                           glowColor: f.glowColor,
                           showBadge: true,
@@ -278,7 +277,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                         Expanded(child: _PlanPill(
                           selected: _selectedPlan == 0,
                           label: l.paywallMonthly,
-                          price: monthly?.storeProduct.priceString ?? directMonthly?.priceString ?? '\$11.99',
+                          price: monthly?.storeProduct.priceString ?? directMonthly?.priceString ?? '–',
                           note: l.paywallFreeTrial,
                           glowColor: f.glowColor,
                           onTap: () => setState(() => _selectedPlan = 0),
@@ -337,6 +336,15 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25)),
                 ),
+                const SizedBox(height: 8),
+                if (Platform.isIOS)
+                  GestureDetector(
+                    onTap: _redeemPromoCode,
+                    child: Text(
+                      'Promo kodun var mı?',
+                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.45)),
+                    ),
+                  ),
                 const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

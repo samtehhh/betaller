@@ -605,6 +605,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get letsStart => 'Hadi Başlayalım';
 
   @override
+  String get splashJourneySubtitle => 'Yolculuğun başlıyor. 🚀';
+
+  @override
+  String get splashPlanSubtitle => 'Sana özel plan hazır.\nBoy potansiyelini keşfetmeye hazır mısın?';
+
+  @override
   String get doneBtn => 'Tamam';
 
   @override
@@ -1093,12 +1099,26 @@ class AppLocalizationsTr extends AppLocalizations {
   String get pastHeightsTip =>
       'Hatırlamadığın yaşları boş bırakabilirsin. En az 1-2 geçmiş boy girmen yeterli.';
 
-  @override String get obPastHeightsTitle => 'Geçmiş Boylar';
-  @override String get obPastHeightsSubPart1 => 'Geçmiş boylarını girerek tahminin güvenini ';
-  @override String get obPastHeightsSubPart2 => "'ye çıkar.";
-  @override String obHowTallAtAge(String age) => '$age yaşında kaç cm\'din?';
-  @override String get obSkip => 'Atla';
-  @override String get obNext => 'İleri';
+  @override
+  String get obPastHeightsTitle => 'Geçmiş Boylar';
+
+  @override
+  String get obPastHeightsSubPart1 =>
+      'Geçmiş boylarını girerek tahminin güvenini ';
+
+  @override
+  String get obPastHeightsSubPart2 => '\'ye çıkar.';
+
+  @override
+  String obHowTallAtAge(String age) {
+    return '$age yaşında kaç cm\'din?';
+  }
+
+  @override
+  String get obSkip => 'Atla';
+
+  @override
+  String get obNext => 'İleri';
 
   @override
   String get currentSuffix => '(mevcut)';

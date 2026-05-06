@@ -4203,7 +4203,7 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Yolculuğun başlıyor. 🚀',
+                          AppLocalizations.of(context)!.splashJourneySubtitle,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -4213,7 +4213,7 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Sana özel plan hazır.\nBoy potansiyelini keşfetmeye hazır mısın?',
+                          AppLocalizations.of(context)!.splashPlanSubtitle,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -4253,21 +4253,21 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                               ),
                             ],
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  'Hadi Başlayalım',
-                                  style: TextStyle(
+                                  AppLocalizations.of(context)!.letsStart,
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w800,
                                     color: Colors.white,
                                     letterSpacing: 0.3,
                                   ),
                                 ),
-                                SizedBox(width: 10),
-                                Icon(CupertinoIcons.arrow_right, color: Colors.white, size: 20),
+                                const SizedBox(width: 10),
+                                const Icon(CupertinoIcons.arrow_right, color: Colors.white, size: 20),
                               ],
                             ),
                           ),

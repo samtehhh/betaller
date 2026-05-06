@@ -211,6 +211,8 @@
   "analysisComplete": "Completed!",
   "yourScore": "Your BeTaller Score",
   "letsStart": "Let's Start",
+  "splashJourneySubtitle": "Your journey begins. 🚀",
+  "splashPlanSubtitle": "Your personalized plan is ready.\nReady to discover your height potential?",
   "doneBtn": "Done",
 
   "analysisStep1": "Analyzing genetic data...",

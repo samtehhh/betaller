@@ -608,6 +608,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get letsStart => 'शुरू करें';
 
   @override
+  String get splashJourneySubtitle => 'तुम्हारी यात्रा शुरू होती है। 🚀';
+
+  @override
+  String get splashPlanSubtitle => 'तुम्हारी व्यक्तिगत योजना तैयार है।\nअपनी ऊंचाई की क्षमता जानने के लिए तैयार हो?';
+
+  @override
   String get doneBtn => 'हो गया';
 
   @override
@@ -1096,12 +1102,26 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pastHeightsTip =>
       'अज्ञात उम्र को खाली छोड़ सकते हैं। 1-2 पिछली लंबाई दर्ज करना पर्याप्त है।';
 
-  @override String get obPastHeightsTitle => 'पिछली लंबाइयाँ';
-  @override String get obPastHeightsSubPart1 => 'अपनी पिछली लंबाइयाँ दर्ज करके अनुमान की विश्वसनीयता को ';
-  @override String get obPastHeightsSubPart2 => ' तक बढ़ाएं।';
-  @override String obHowTallAtAge(String age) => '$age साल की उम्र में आपकी लंबाई कितनी थी?';
-  @override String get obSkip => 'छोड़ें';
-  @override String get obNext => 'आगे';
+  @override
+  String get obPastHeightsTitle => 'पिछली लंबाइयाँ';
+
+  @override
+  String get obPastHeightsSubPart1 =>
+      'अपनी पिछली लंबाइयाँ दर्ज करके अनुमान की विश्वसनीयता को ';
+
+  @override
+  String get obPastHeightsSubPart2 => ' तक बढ़ाएं।';
+
+  @override
+  String obHowTallAtAge(String age) {
+    return '$age साल की उम्र में आपकी लंबाई कितनी थी?';
+  }
+
+  @override
+  String get obSkip => 'छोड़ें';
+
+  @override
+  String get obNext => 'आगे';
 
   @override
   String get currentSuffix => '(वर्तमान)';

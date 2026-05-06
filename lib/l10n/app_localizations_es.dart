@@ -613,6 +613,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get letsStart => 'Comencemos';
 
   @override
+  String get splashJourneySubtitle => 'Tu viaje comienza. 🚀';
+
+  @override
+  String get splashPlanSubtitle => 'Tu plan personalizado está listo.\n¿Listo para descubrir tu potencial de altura?';
+
+  @override
   String get doneBtn => 'Listo';
 
   @override
@@ -1104,12 +1110,26 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pastHeightsTip =>
       'Puedes dejar en blanco las edades que no recuerdes. Ingresar 1-2 alturas pasadas es suficiente.';
 
-  @override String get obPastHeightsTitle => 'Alturas Pasadas';
-  @override String get obPastHeightsSubPart1 => 'Ingresa tus alturas pasadas para aumentar la confianza al ';
-  @override String get obPastHeightsSubPart2 => ' o más.';
-  @override String obHowTallAtAge(String age) => '¿Cuánto medías a los $age años?';
-  @override String get obSkip => 'Omitir';
-  @override String get obNext => 'Siguiente';
+  @override
+  String get obPastHeightsTitle => 'Alturas Pasadas';
+
+  @override
+  String get obPastHeightsSubPart1 =>
+      'Ingresa tus alturas pasadas para aumentar la confianza de tu predicción a ';
+
+  @override
+  String get obPastHeightsSubPart2 => ' o más.';
+
+  @override
+  String obHowTallAtAge(String age) {
+    return '¿Cuánto medías a los $age años?';
+  }
+
+  @override
+  String get obSkip => 'Omitir';
+
+  @override
+  String get obNext => 'Siguiente';
 
   @override
   String get currentSuffix => '(actual)';
