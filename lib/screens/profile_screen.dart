@@ -100,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             subtitle: l.rateSubtitle,
                             color: AppColors.warning,
                             onTap: () async {
-                              const url = 'https://play.google.com/store/apps/details?id=com.glowup.boyuzatma_app';
+                              const url = 'https://apps.apple.com/app/id6761445065?action=write-review';
                               if (await canLaunchUrl(Uri.parse(url))) {
                                 await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
                               }
