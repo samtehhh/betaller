@@ -1109,6 +1109,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pastHeightsTip =>
       'Tu peux laisser les âges inconnus vides. Entrer 1-2 tailles passées suffit.';
 
+  @override String get obPastHeightsTitle => 'Tailles Passées';
+  @override String get obPastHeightsSubPart1 => 'Entre tes tailles passées pour augmenter la confiance de la prédiction à ';
+  @override String get obPastHeightsSubPart2 => ' ou plus.';
+  @override String obHowTallAtAge(String age) => 'Quelle était ta taille à $age ans ?';
+  @override String get obSkip => 'Passer';
+  @override String get obNext => 'Suivant';
+
   @override
   String get currentSuffix => '(actuel)';
 

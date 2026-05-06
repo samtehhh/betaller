@@ -2066,6 +2066,13 @@ abstract class AppLocalizations {
   /// **'You can leave unknown ages blank. Entering 1-2 past heights is enough.'**
   String get pastHeightsTip;
 
+  String get obPastHeightsTitle;
+  String get obPastHeightsSubPart1;
+  String get obPastHeightsSubPart2;
+  String obHowTallAtAge(String age);
+  String get obSkip;
+  String get obNext;
+
   /// No description provided for @currentSuffix.
   ///
   /// In en, this message translates to:

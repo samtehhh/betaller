@@ -1106,6 +1106,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get pastHeightsTip =>
       'Du kannst unbekannte Alter leer lassen. 1-2 vergangene Größen einzugeben reicht.';
 
+  @override String get obPastHeightsTitle => 'Vergangene Größen';
+  @override String get obPastHeightsSubPart1 => 'Gib vergangene Größen ein, um die Konfidenz auf ';
+  @override String get obPastHeightsSubPart2 => ' zu erhöhen.';
+  @override String obHowTallAtAge(String age) => 'Wie groß warst du mit $age Jahren?';
+  @override String get obSkip => 'Überspringen';
+  @override String get obNext => 'Weiter';
+
   @override
   String get currentSuffix => '(aktuell)';
 

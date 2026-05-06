@@ -1096,6 +1096,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pastHeightsTip =>
       'अज्ञात उम्र को खाली छोड़ सकते हैं। 1-2 पिछली लंबाई दर्ज करना पर्याप्त है।';
 
+  @override String get obPastHeightsTitle => 'पिछली लंबाइयाँ';
+  @override String get obPastHeightsSubPart1 => 'अपनी पिछली लंबाइयाँ दर्ज करके अनुमान की विश्वसनीयता को ';
+  @override String get obPastHeightsSubPart2 => ' तक बढ़ाएं।';
+  @override String obHowTallAtAge(String age) => '$age साल की उम्र में आपकी लंबाई कितनी थी?';
+  @override String get obSkip => 'छोड़ें';
+  @override String get obNext => 'आगे';
+
   @override
   String get currentSuffix => '(वर्तमान)';
 

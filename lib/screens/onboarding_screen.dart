@@ -1317,6 +1317,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     if (_obAges.isEmpty) return const SizedBox();
 
     final currentAge = _obAges[_obCurrentAgeIndex];
+    final l = AppLocalizations.of(context)!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1328,7 +1329,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Geçmiş Boylar',
+                l.obPastHeightsTitle,
                 style: const TextStyle(
                   fontSize: 34, fontWeight: FontWeight.w900,
                   color: Colors.white, letterSpacing: -1.3, height: 1.05,
@@ -1339,12 +1340,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 text: TextSpan(
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.52), height: 1.45),
                   children: [
-                    const TextSpan(text: 'Geçmiş boylarını girerek tahminin güvenini '),
+                    TextSpan(text: l.obPastHeightsSubPart1),
                     TextSpan(
-                      text: '%97\'ye',
+                      text: '97%',
                       style: TextStyle(fontWeight: FontWeight.w800, color: const Color(0xFF22FF88).withValues(alpha: 0.90)),
                     ),
-                    const TextSpan(text: ' çıkar.'),
+                    TextSpan(text: l.obPastHeightsSubPart2),
                   ],
                 ),
               ),
@@ -1372,7 +1373,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             transitionBuilder: (child, anim) => FadeTransition(opacity: anim, child: child),
             child: Text(
               key: ValueKey(_obCurrentAgeIndex),
-              '$currentAge yaşında kaç cm\'din?',
+              l.obHowTallAtAge(currentAge.toString()),
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.48), letterSpacing: -0.2),
             ),
           ),
@@ -1439,7 +1440,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   height: 64,
                   padding: const EdgeInsets.symmetric(horizontal: 22),
                   decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(18), border: Border.all(color: Colors.white.withValues(alpha: 0.07))),
-                  child: Center(child: Text('Atla', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.38)))),
+                  child: Center(child: Text(l.obSkip, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.38)))),
                 ),
               ),
               const SizedBox(width: 10),
@@ -1455,7 +1456,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     ),
                     child: Center(
                       child: Text(
-                        _obCurrentAgeIndex == _obAges.length - 1 ? 'Devam' : 'İleri',
+                        _obCurrentAgeIndex == _obAges.length - 1 ? l.continueBtn : l.obNext,
                         style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.3),
                       ),
                     ),
