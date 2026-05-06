@@ -2991,37 +2991,37 @@ class AppLocalizationsHi extends AppLocalizations {
       'Join the community of users\nwho reached their goals.';
 
   @override
-  String get criticalWindow => 'CRITICAL WINDOW';
+  String get criticalWindow => 'महत्वपूर्ण समय';
 
   @override
-  String get heightPotentialFading => 'Your height potential';
+  String get heightPotentialFading => 'तुम्हारी लंबाई की क्षमता';
 
   @override
-  String get fadingAway => 'is fading away!';
+  String get fadingAway => 'खत्म होती जा रही है!';
 
   @override
   String get painHookDesc =>
-      'Every passing day, centimeters are permanently lost without the right habits. But this can still be reversed.';
+      'हर गुजरते दिन के साथ, सही आदतों के बिना सेंटीमीटर हमेशा के लिए खो जाते हैं। लेकिन इसे अभी भी बदला जा सकता है।';
 
   @override
-  String get painGeneticTitle => 'Genetics isn\'t everything';
+  String get painGeneticTitle => 'आनुवंशिकता सब कुछ नहीं है';
 
   @override
   String get painGeneticDesc =>
-      'Genetics determines 60% — but what you do determines the other 40%. BeTaller is here for exactly that 40%.';
+      'आनुवंशिकता 60% निर्धारित करती है — लेकिन तुम जो करते हो वह बाकी 40% निर्धारित करता है। BeTaller ठीक उसी 40% के लिए है।';
 
   @override
-  String get painGeneticTag => 'Analysis';
+  String get painGeneticTag => 'विश्लेषण';
 
   @override
-  String get painSleepTitle => 'Optimize your sleep routine';
+  String get painSleepTitle => 'अपनी नींद की दिनचर्या को बेहतर बनाओ';
 
   @override
   String get painSleepDesc =>
-      'Proper sleep every night can boost growth hormone production by 70%. BeTaller automates sleep tracking, you just sleep.';
+      'हर रात अच्छी नींद विकास हार्मोन उत्पादन को 70% तक बढ़ा सकती है। BeTaller नींद की ट्रैकिंग स्वचालित करता है, तुम बस सोओ।';
 
   @override
-  String get painSleepTag => 'Tracking';
+  String get painSleepTag => 'ट्रैकिंग';
 
   @override
   String get painPostureTitle => 'Gain centimeters now with posture';

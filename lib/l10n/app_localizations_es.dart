@@ -3008,37 +3008,37 @@ class AppLocalizationsEs extends AppLocalizations {
       'Join the community of users\nwho reached their goals.';
 
   @override
-  String get criticalWindow => 'CRITICAL WINDOW';
+  String get criticalWindow => 'VENTANA CRÍTICA';
 
   @override
-  String get heightPotentialFading => 'Your height potential';
+  String get heightPotentialFading => 'Tu potencial de altura';
 
   @override
-  String get fadingAway => 'is fading away!';
+  String get fadingAway => '¡se está desvaneciendo!';
 
   @override
   String get painHookDesc =>
-      'Every passing day, centimeters are permanently lost without the right habits. But this can still be reversed.';
+      'Cada día que pasa, centímetros se pierden permanentemente sin los hábitos correctos. Pero esto todavía puede revertirse.';
 
   @override
-  String get painGeneticTitle => 'Genetics isn\'t everything';
+  String get painGeneticTitle => 'La genética no lo es todo';
 
   @override
   String get painGeneticDesc =>
-      'Genetics determines 60% — but what you do determines the other 40%. BeTaller is here for exactly that 40%.';
+      'La genética determina el 60 % — pero lo que haces determina el otro 40 %. BeTaller está aquí exactamente para ese 40 %.';
 
   @override
-  String get painGeneticTag => 'Analysis';
+  String get painGeneticTag => 'Análisis';
 
   @override
-  String get painSleepTitle => 'Optimize your sleep routine';
+  String get painSleepTitle => 'Optimiza tu rutina de sueño';
 
   @override
   String get painSleepDesc =>
-      'Proper sleep every night can boost growth hormone production by 70%. BeTaller automates sleep tracking, you just sleep.';
+      'Dormir bien cada noche puede aumentar la producción de hormona de crecimiento un 70 %. BeTaller automatiza el seguimiento del sueño, tú solo duermes.';
 
   @override
-  String get painSleepTag => 'Tracking';
+  String get painSleepTag => 'Seguimiento';
 
   @override
   String get painPostureTitle => 'Gain centimeters now with posture';
