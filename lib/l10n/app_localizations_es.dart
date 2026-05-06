@@ -450,7 +450,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get shareText =>
-      '¡Descubrí mi potencial de crecimiento con BeTaller! Pruébalo tú también: https://play.google.com/store/apps/details?id=com.glowup.boyuzatma_app';
+      '¡Descubrí mi potencial de crecimiento con BeTaller! Pruébalo tú también: https://apps.apple.com/app/id6761445065';
 
   @override
   String get feedback => 'Enviar Comentarios';
@@ -616,7 +616,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get splashJourneySubtitle => 'Tu viaje comienza. 🚀';
 
   @override
-  String get splashPlanSubtitle => 'Tu plan personalizado está listo.\n¿Listo para descubrir tu potencial de altura?';
+  String get splashPlanSubtitle =>
+      'Tu plan personalizado está listo.\n¿Listo para descubrir tu potencial de altura?';
 
   @override
   String get doneBtn => 'Listo';

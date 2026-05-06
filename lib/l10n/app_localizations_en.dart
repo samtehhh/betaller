@@ -446,7 +446,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shareText =>
-      'I discovered my growth potential with BeTaller! Try it too: https://play.google.com/store/apps/details?id=com.glowup.boyuzatma_app';
+      'I discovered my growth potential with BeTaller! Try it too: https://apps.apple.com/app/id6761445065';
 
   @override
   String get feedback => 'Give Feedback';
@@ -608,7 +608,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get splashJourneySubtitle => 'Your journey begins. 🚀';
 
   @override
-  String get splashPlanSubtitle => 'Your personalized plan is ready.\nReady to discover your height potential?';
+  String get splashPlanSubtitle =>
+      'Your personalized plan is ready.\nReady to discover your height potential?';
 
   @override
   String get doneBtn => 'Done';

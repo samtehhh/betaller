@@ -446,7 +446,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get shareText =>
-      'BeTaller ile büyüme potansiyelimi keşfettim! Sen de dene: https://play.google.com/store/apps/details?id=com.glowup.boyuzatma_app';
+      'BeTaller ile büyüme potansiyelimi keşfettim! Sen de dene: https://apps.apple.com/app/id6761445065';
 
   @override
   String get feedback => 'Geri Bildirim';
@@ -608,7 +608,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get splashJourneySubtitle => 'Yolculuğun başlıyor. 🚀';
 
   @override
-  String get splashPlanSubtitle => 'Sana özel plan hazır.\nBoy potansiyelini keşfetmeye hazır mısın?';
+  String get splashPlanSubtitle =>
+      'Sana özel plan hazır.\nBoy potansiyelini keşfetmeye hazır mısın?';
 
   @override
   String get doneBtn => 'Tamam';
