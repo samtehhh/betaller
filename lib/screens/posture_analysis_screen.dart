@@ -10,6 +10,7 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/camera_utils.dart';
+import '../widgets/premium_paywall.dart';
 
 class PostureAnalysisScreen extends StatefulWidget {
   const PostureAnalysisScreen({super.key});
