@@ -28,6 +28,10 @@ workflows:
         script: xcode-project use-profiles
       - name: Get Flutter packages
         script: flutter packages pub get
+      - name: Install CocoaPods
+        script: |
+          cd ios
+          pod install
       - name: Build IPA
         script: flutter build ipa --release --verbose
     artifacts:
