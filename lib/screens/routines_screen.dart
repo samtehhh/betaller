@@ -608,7 +608,7 @@ class _ExerciseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final loc = localizedRoutine(l, routine.id);
-    final locked = !isFree && !provider.isPremium;
+    final isPremiumLocked = !isFree && !provider.isPremium;
     final category = routine.category;
     final catColor = _catColor(category);
 
@@ -644,7 +644,7 @@ class _ExerciseCard extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  locked ? '🔒' : routine.icon,
+                  routine.icon,
                   style: const TextStyle(fontSize: 22),
                 ),
               ),
@@ -656,12 +656,10 @@ class _ExerciseCard extends StatelessWidget {
                 children: [
                   Text(
                     loc['title'] ?? routine.title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      color: locked
-                          ? Colors.white.withValues(alpha: 0.35)
-                          : Colors.white,
+                      color: Colors.white,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -686,39 +684,43 @@ class _ExerciseCard extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             // Check or chevron
-            if (!locked)
-              GestureDetector(
-                onTap: () => provider.toggleRoutine(routine.id),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: routine.completed
+            GestureDetector(
+              onTap: () {
+                if (isPremiumLocked) {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (_) => const PremiumPaywallScreen(),
+                  );
+                } else {
+                  provider.toggleRoutine(routine.id);
+                }
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: (!isPremiumLocked && routine.completed)
+                      ? AppColors.lime
+                      : Colors.white.withValues(alpha: 0.08),
+                  border: Border.all(
+                    color: (!isPremiumLocked && routine.completed)
                         ? AppColors.lime
-                        : Colors.white.withValues(alpha: 0.08),
-                    border: Border.all(
-                      color: routine.completed
-                          ? AppColors.lime
-                          : Colors.white.withValues(alpha: 0.2),
-                    ),
-                  ),
-                  child: Icon(
-                    CupertinoIcons.checkmark_alt,
-                    size: 16,
-                    color: routine.completed
-                        ? Colors.black
-                        : Colors.white.withValues(alpha: 0.35),
+                        : Colors.white.withValues(alpha: 0.2),
                   ),
                 ),
-              )
-            else
-              Icon(
-                CupertinoIcons.lock_fill,
-                size: 18,
-                color: Colors.white.withValues(alpha: 0.25),
+                child: Icon(
+                  CupertinoIcons.checkmark_alt,
+                  size: 16,
+                  color: (!isPremiumLocked && routine.completed)
+                      ? Colors.black
+                      : Colors.white.withValues(alpha: 0.35),
+                ),
               ),
+            ),
           ],
         ),
       ),
@@ -1341,13 +1343,24 @@ class _NutritionTab extends StatelessWidget {
                 return const SizedBox.shrink();
               }
               final isFree = _freeRoutineIds.contains(id);
-              final locked = !isFree && !provider.isPremium;
+              final isPremiumLocked = !isFree && !provider.isPremium;
               return _NutritionCard(
                 routine: routine,
-                locked: locked,
-                onToggle: locked ? null : () => provider.toggleRoutine(id),
+                isPremiumLocked: isPremiumLocked,
+                onToggle: () {
+                  if (isPremiumLocked) {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (_) => const PremiumPaywallScreen(),
+                    );
+                  } else {
+                    provider.toggleRoutine(id);
+                  }
+                },
                 onTap: () {
-                  if (locked) {
+                  if (isPremiumLocked) {
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
@@ -1459,13 +1472,13 @@ class _NutritionHeader extends StatelessWidget {
 
 class _NutritionCard extends StatelessWidget {
   final Routine routine;
-  final bool locked;
+  final bool isPremiumLocked;
   final VoidCallback? onToggle;
   final VoidCallback onTap;
 
   const _NutritionCard({
     required this.routine,
-    required this.locked,
+    required this.isPremiumLocked,
     this.onToggle,
     required this.onTap,
   });
@@ -1499,7 +1512,7 @@ class _NutritionCard extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  locked ? '🔒' : routine.icon,
+                  routine.icon,
                   style: const TextStyle(fontSize: 22),
                 ),
               ),
@@ -1511,12 +1524,10 @@ class _NutritionCard extends StatelessWidget {
                 children: [
                   Text(
                     loc['title'] ?? routine.title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      color: locked
-                          ? Colors.white.withValues(alpha: 0.35)
-                          : Colors.white,
+                      color: Colors.white,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -1535,39 +1546,32 @@ class _NutritionCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            if (!locked)
-              GestureDetector(
-                onTap: onToggle,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: routine.completed
+            GestureDetector(
+              onTap: onToggle,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 250),
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: (!isPremiumLocked && routine.completed)
+                      ? AppColors.lime
+                      : Colors.white.withValues(alpha: 0.08),
+                  border: Border.all(
+                    color: (!isPremiumLocked && routine.completed)
                         ? AppColors.lime
-                        : Colors.white.withValues(alpha: 0.08),
-                    border: Border.all(
-                      color: routine.completed
-                          ? AppColors.lime
-                          : Colors.white.withValues(alpha: 0.2),
-                    ),
-                  ),
-                  child: Icon(
-                    CupertinoIcons.checkmark_alt,
-                    size: 16,
-                    color: routine.completed
-                        ? Colors.black
-                        : Colors.white.withValues(alpha: 0.35),
+                        : Colors.white.withValues(alpha: 0.2),
                   ),
                 ),
-              )
-            else
-              Icon(
-                CupertinoIcons.lock_fill,
-                size: 18,
-                color: Colors.white.withValues(alpha: 0.25),
+                child: Icon(
+                  CupertinoIcons.checkmark_alt,
+                  size: 16,
+                  color: (!isPremiumLocked && routine.completed)
+                      ? Colors.black
+                      : Colors.white.withValues(alpha: 0.35),
+                ),
               ),
+            ),
           ],
         ),
       ),

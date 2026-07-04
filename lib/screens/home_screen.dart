@@ -382,14 +382,12 @@ class _HomeScreenState extends State<HomeScreen>
                           Color(0xFF120A30),
                         ],
                         icon: CupertinoIcons.sparkles,
-                        locked: !provider.isPremium,
-                        onTap: provider.isPremium
-                            ? () => Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (_) => const GrowthAnalysisFlow(),
-                                ))
-                            : () => showPremiumPaywall(context),
+                        locked: false,
+                        onTap: () => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (_) => const GrowthAnalysisFlow(),
+                            )),
                       ),
                       const SizedBox(height: _sectionGap),
                     ],
@@ -410,14 +408,12 @@ class _HomeScreenState extends State<HomeScreen>
                           Color(0xFF120A30),
                         ],
                         icon: CupertinoIcons.sparkles,
-                        locked: !provider.isPremium,
-                        onTap: provider.isPremium
-                            ? () => Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (_) => const GrowthAnalysisFlow(),
-                                ))
-                            : () => showPremiumPaywall(context),
+                        locked: false,
+                        onTap: () => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (_) => const GrowthAnalysisFlow(),
+                            )),
                       ),
                       const SizedBox(height: _sectionGap),
                     ],
@@ -2148,12 +2144,18 @@ class _ExploreRowState extends State<_ExploreRow> {
         subtitle: l.explorePostureSub,
         color: const Color(0xFFFBBF24),
         gradientColors: const [Color(0xFF422006), Color(0xFF3B1E04)],
-        onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(
-            builder: (_) => const PostureAnalysisScreen(),
-          ),
-        ),
+        onTap: () {
+          if (context.read<AppProvider>().isPremium) {
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (_) => const PostureAnalysisScreen(),
+              ),
+            );
+          } else {
+            showPremiumPaywall(context);
+          }
+        },
       ),
       _ExploreItemData(
         icon: CupertinoIcons.photo_fill_on_rectangle_fill,
@@ -2161,11 +2163,18 @@ class _ExploreRowState extends State<_ExploreRow> {
         subtitle: l.explorePhotosSub,
         color: const Color(0xFF38BDF8),
         gradientColors: const [Color(0xFF0C2D48), Color(0xFF0A2440)],
-        onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(
-              builder: (_) => const ProgressPhotosScreen()),
-        ),
+        onTap: () {
+          if (context.read<AppProvider>().isPremium) {
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (_) => const ProgressPhotosScreen(),
+              ),
+            );
+          } else {
+            showPremiumPaywall(context);
+          }
+        },
       ),
       _ExploreItemData(
         icon: CupertinoIcons.leaf_arrow_circlepath,
@@ -2173,10 +2182,16 @@ class _ExploreRowState extends State<_ExploreRow> {
         subtitle: l.exploreNutritionSub,
         color: const Color(0xFF4ADE80),
         gradientColors: const [Color(0xFF064E3B), Color(0xFF0A3D2F)],
-        onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(builder: (_) => const NutritionScreen()),
-        ),
+        onTap: () {
+          if (context.read<AppProvider>().isPremium) {
+            Navigator.push(
+              context,
+              CupertinoPageRoute(builder: (_) => const NutritionScreen()),
+            );
+          } else {
+            showPremiumPaywall(context);
+          }
+        },
       ),
       _ExploreItemData(
         icon: CupertinoIcons.heart_circle_fill,
@@ -2184,12 +2199,18 @@ class _ExploreRowState extends State<_ExploreRow> {
         subtitle: l.exploreHealthSub,
         color: const Color(0xFFF472B6),
         gradientColors: const [Color(0xFF4A1942), Color(0xFF3D1338)],
-        onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(
-            builder: (_) => const WellnessTrackerScreen(),
-          ),
-        ),
+        onTap: () {
+          if (context.read<AppProvider>().isPremium) {
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (_) => const WellnessTrackerScreen(),
+              ),
+            );
+          } else {
+            showPremiumPaywall(context);
+          }
+        },
       ),
       _ExploreItemData(
         icon: Icons.restaurant_rounded,
@@ -2197,11 +2218,18 @@ class _ExploreRowState extends State<_ExploreRow> {
         subtitle: l.exploreRecipesSub,
         color: const Color(0xFFFB923C),
         gradientColors: const [Color(0xFF431407), Color(0xFF3B1106)],
-        onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(
-              builder: (_) => const RecipeGeneratorScreen()),
-        ),
+        onTap: () {
+          if (context.read<AppProvider>().isPremium) {
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (_) => const RecipeGeneratorScreen(),
+              ),
+            );
+          } else {
+            showPremiumPaywall(context);
+          }
+        },
       ),
     ];
 

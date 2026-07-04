@@ -83,7 +83,7 @@ class AppProvider extends ChangeNotifier {
   bool get analysisCompleted => _analysisCompleted;
   String get todayQuote => _todayQuote;
   Locale? get locale => _locale;
-  bool get isPremium => true; // Free app - all features unlocked!
+  bool get isPremium => _isPremium;
   bool get hasPaidPremium => _isPremium; // Check if paid to remove ads
   bool get useImperial => _useImperial;
 
