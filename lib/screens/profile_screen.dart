@@ -318,6 +318,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: Column(
                         children: [
+                          if (!provider.hasPaidPremium) ...[
+                            _MenuRow(
+                              icon: CupertinoIcons.sparkles,
+                              label: 'Premium Satın Al',
+                              subtitle: 'Reklamları kaldır ve destek ol',
+                              color: const Color(0xFF8B5CF6),
+                              onTap: () => showPremiumPaywall(context),
+                            ),
+                            _menuDivider(),
+                          ],
                           _MenuRow(
                             icon: CupertinoIcons.pencil,
                             label: l.editProfile,
