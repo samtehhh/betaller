@@ -169,7 +169,7 @@ class _EducationScreenState extends State<EducationScreen> {
                               context: context,
                               isScrollControlled: true,
                               backgroundColor: Colors.transparent,
-                              builder: (_) => const PremiumPaywallScreen(),
+                              builder: (_) => PremiumPaywallScreen(),
                             );
                           }
                         },

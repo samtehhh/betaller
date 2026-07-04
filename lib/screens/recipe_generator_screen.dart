@@ -564,7 +564,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
             context: context,
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
-            builder: (_) => const PremiumPaywallScreen(),
+            builder: (_) => PremiumPaywallScreen(),
           );
         }
       },

@@ -164,7 +164,7 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (_) => const PremiumPaywallScreen(),
+        builder: (_) => PremiumPaywallScreen(),
       );
       return;
     }

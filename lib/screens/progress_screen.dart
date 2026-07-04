@@ -343,6 +343,7 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                           ],
                         ),
                       ),
+                    ),
                     const SizedBox(height: 100),
                     ],
                   ]),

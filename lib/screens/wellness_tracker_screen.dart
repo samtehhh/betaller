@@ -46,7 +46,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
         context: context,
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
-        builder: (_) => const PremiumPaywallScreen(),
+        builder: (_) => PremiumPaywallScreen(),
       );
       return false;
     }
