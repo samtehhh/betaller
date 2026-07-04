@@ -277,31 +277,42 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
 
                 // ── Plan pills ───────────────────────────────────────────
                 if (!_loading)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: [
-                        Expanded(child: _PlanPill(
-                          selected: _selectedPlan == 1,
-                          label: l.paywallYearly,
-                          price: annual?.storeProduct.priceString ?? directAnnual?.priceString ?? '–',
-                          note: l.paywallBestValue,
-                          glowColor: f.glowColor,
-                          showBadge: true,
-                          badgeText: l.paywallBestValue,
-                          onTap: () => setState(() => _selectedPlan = 1),
-                        )),
-                        const SizedBox(width: 10),
-                        Expanded(child: _PlanPill(
-                          selected: _selectedPlan == 0,
-                          label: l.paywallMonthly,
-                          price: monthly?.storeProduct.priceString ?? directMonthly?.priceString ?? '–',
-                          note: l.paywallFreeTrial,
-                          glowColor: f.glowColor,
-                          onTap: () => setState(() => _selectedPlan = 0),
-                        )),
-                      ],
-                    ),
+                  Builder(
+                    builder: (context) {
+                      final isTr = Localizations.localeOf(context).languageCode == 'tr';
+                      final defaultMonthlyPrice = isTr ? '₺99,99' : '\$4.99';
+                      final defaultAnnualPrice = isTr ? '₺599,99' : '\$29.99';
+
+                      final monthlyPriceString = monthly?.storeProduct.priceString ?? directMonthly?.priceString ?? defaultMonthlyPrice;
+                      final annualPriceString = annual?.storeProduct.priceString ?? directAnnual?.priceString ?? defaultAnnualPrice;
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            Expanded(child: _PlanPill(
+                              selected: _selectedPlan == 1,
+                              label: l.paywallYearly,
+                              price: annualPriceString,
+                              note: l.paywallBestValue,
+                              glowColor: f.glowColor,
+                              showBadge: true,
+                              badgeText: l.paywallBestValue,
+                              onTap: () => setState(() => _selectedPlan = 1),
+                            )),
+                            const SizedBox(width: 10),
+                            Expanded(child: _PlanPill(
+                              selected: _selectedPlan == 0,
+                              label: l.paywallMonthly,
+                              price: monthlyPriceString,
+                              note: l.paywallFreeTrial,
+                              glowColor: f.glowColor,
+                              onTap: () => setState(() => _selectedPlan = 0),
+                            )),
+                          ],
+                        ),
+                      );
+                    }
                   )
                 else
                   SizedBox(height: 76, child: Center(child: CircularProgressIndicator(color: f.glowColor, strokeWidth: 2))),
