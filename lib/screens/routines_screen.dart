@@ -644,7 +644,7 @@ class _ExerciseCard extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  routine.icon,
+                  isPremiumLocked ? '🔒' : routine.icon,
                   style: const TextStyle(fontSize: 22),
                 ),
               ),
@@ -656,10 +656,12 @@ class _ExerciseCard extends StatelessWidget {
                 children: [
                   Text(
                     loc['title'] ?? routine.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      color: isPremiumLocked
+                          ? Colors.white.withValues(alpha: 0.35)
+                          : Colors.white,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -683,44 +685,50 @@ class _ExerciseCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            // Check or chevron
-            GestureDetector(
-              onTap: () {
-                if (isPremiumLocked) {
+            // Check or lock
+            if (isPremiumLocked)
+              GestureDetector(
+                onTap: () {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
                     builder: (_) => const PremiumPaywallScreen(),
                   );
-                } else {
-                  provider.toggleRoutine(routine.id);
-                }
-              },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: (!isPremiumLocked && routine.completed)
-                      ? AppColors.lime
-                      : Colors.white.withValues(alpha: 0.08),
-                  border: Border.all(
-                    color: (!isPremiumLocked && routine.completed)
+                },
+                child: Icon(
+                  CupertinoIcons.lock_fill,
+                  size: 18,
+                  color: Colors.white.withValues(alpha: 0.25),
+                ),
+              )
+            else
+              GestureDetector(
+                onTap: () => provider.toggleRoutine(routine.id),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: routine.completed
                         ? AppColors.lime
-                        : Colors.white.withValues(alpha: 0.2),
+                        : Colors.white.withValues(alpha: 0.08),
+                    border: Border.all(
+                      color: routine.completed
+                          ? AppColors.lime
+                          : Colors.white.withValues(alpha: 0.2),
+                    ),
+                  ),
+                  child: Icon(
+                    CupertinoIcons.checkmark_alt,
+                    size: 16,
+                    color: routine.completed
+                        ? Colors.black
+                        : Colors.white.withValues(alpha: 0.35),
                   ),
                 ),
-                child: Icon(
-                  CupertinoIcons.checkmark_alt,
-                  size: 16,
-                  color: (!isPremiumLocked && routine.completed)
-                      ? Colors.black
-                      : Colors.white.withValues(alpha: 0.35),
-                ),
               ),
-            ),
           ],
         ),
       ),
@@ -1512,7 +1520,7 @@ class _NutritionCard extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  routine.icon,
+                  isPremiumLocked ? '🔒' : routine.icon,
                   style: const TextStyle(fontSize: 22),
                 ),
               ),
@@ -1524,10 +1532,12 @@ class _NutritionCard extends StatelessWidget {
                 children: [
                   Text(
                     loc['title'] ?? routine.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      color: isPremiumLocked
+                          ? Colors.white.withValues(alpha: 0.35)
+                          : Colors.white,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -1546,32 +1556,42 @@ class _NutritionCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            GestureDetector(
-              onTap: onToggle,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: (!isPremiumLocked && routine.completed)
-                      ? AppColors.lime
-                      : Colors.white.withValues(alpha: 0.08),
-                  border: Border.all(
-                    color: (!isPremiumLocked && routine.completed)
+            if (isPremiumLocked)
+              GestureDetector(
+                onTap: onToggle, // onToggle has been mapped to show paywall in page code!
+                child: Icon(
+                  CupertinoIcons.lock_fill,
+                  size: 18,
+                  color: Colors.white.withValues(alpha: 0.25),
+                ),
+              )
+            else
+              GestureDetector(
+                onTap: onToggle,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: routine.completed
                         ? AppColors.lime
-                        : Colors.white.withValues(alpha: 0.2),
+                        : Colors.white.withValues(alpha: 0.08),
+                    border: Border.all(
+                      color: routine.completed
+                          ? AppColors.lime
+                          : Colors.white.withValues(alpha: 0.2),
+                    ),
+                  ),
+                  child: Icon(
+                    CupertinoIcons.checkmark_alt,
+                    size: 16,
+                    color: routine.completed
+                        ? Colors.black
+                        : Colors.white.withValues(alpha: 0.35),
                   ),
                 ),
-                child: Icon(
-                  CupertinoIcons.checkmark_alt,
-                  size: 16,
-                  color: (!isPremiumLocked && routine.completed)
-                      ? Colors.black
-                      : Colors.white.withValues(alpha: 0.35),
-                ),
               ),
-            ),
           ],
         ),
       ),

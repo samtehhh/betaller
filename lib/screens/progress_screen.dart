@@ -170,8 +170,8 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
-                              CupertinoIcons.add,
+                            Icon(
+                              provider.isPremium ? CupertinoIcons.add : CupertinoIcons.lock_fill,
                               size: 18,
                               color: Colors.white,
                             ),
