@@ -187,7 +187,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     }
 
     return PopScope(
-      canPop: false,
+      canPop: widget.dismissible,
       child: Scaffold(
       backgroundColor: const Color(0xFF07050F),
       body: Stack(
@@ -212,8 +212,26 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Spacer(),
+                      if (widget.dismissible)
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context, false),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white.withValues(alpha: 0.1),
+                            ),
+                            child: const Icon(
+                              CupertinoIcons.xmark,
+                              size: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      else
+                        const SizedBox.shrink(),
                       GestureDetector(
                         onTap: _restore,
                         child: Text(l.paywallRestoreLabel, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.30))),

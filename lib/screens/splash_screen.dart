@@ -68,10 +68,6 @@ class _SplashScreenState extends State<SplashScreen>
         Widget destination;
         if (provider.profile == null) {
           destination = const OnboardingScreen();
-        } else if (!provider.isPremium) {
-          // Not premium → reset data and restart onboarding
-          provider.resetAllData();
-          destination = const OnboardingScreen();
         } else {
           destination = const MainScreen();
         }

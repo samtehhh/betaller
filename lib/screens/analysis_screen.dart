@@ -10,6 +10,7 @@ import '../utils/constants.dart';
 import '../utils/calculations.dart';
 import '../utils/localized_data.dart';
 import '../widgets/premium_paywall.dart';
+import '../services/ad_service.dart';
 
 class AnalysisScreen extends StatefulWidget {
   const AnalysisScreen({super.key});
@@ -676,8 +677,8 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                         Expanded(child: _ScoreCard(icon: CupertinoIcons.person_fill, title: l.age, value: '${profile.age}', subtitle: profile.gender == 'male' ? l.male : l.female, color: AppColors.pink)),
                       ],
                     ),
-
-
+                    const AdBannerWidget(),
+                    const SizedBox(height: 100),
                   ]),
                 ),
               ),

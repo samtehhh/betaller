@@ -39,6 +39,21 @@ class _MainScreenState extends State<MainScreen> {
       AnalysisScreen(key: _analysisKey),
       const ProfileScreen(),
     ];
+
+    // Show dismissible paywall after 3.5 seconds if not premium
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = context.read<AppProvider>();
+      if (!provider.isPremium) {
+        Future.delayed(const Duration(milliseconds: 3500), () {
+          if (mounted) {
+            final currentProvider = context.read<AppProvider>();
+            if (!currentProvider.isPremium) {
+              showPremiumPaywall(context);
+            }
+          }
+        });
+      }
+    });
   }
 
   @override
@@ -53,11 +68,6 @@ class _MainScreenState extends State<MainScreen> {
           await review.requestReview();
         }
       });
-    }
-
-    // ── HARD PAYWALL: block entire app if not premium ──
-    if (!provider.isPremium) {
-      return const PremiumPaywallScreen(dismissible: false);
     }
 
     return Scaffold(

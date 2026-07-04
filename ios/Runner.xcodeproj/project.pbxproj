@@ -63,6 +63,7 @@
 		BB2000000000000000000005 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "it.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BB2000000000000000000006 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BB2000000000000000000007 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = "tr.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		BB2000000000000000000008 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +321,7 @@
 		BB3000000000000000000001 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				BB2000000000000000000008 /* en */,
 				BB2000000000000000000001 /* de */,
 				BB2000000000000000000002 /* es */,
 				BB2000000000000000000003 /* fr */,

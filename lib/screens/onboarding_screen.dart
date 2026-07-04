@@ -1665,21 +1665,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // Called by result page CTA button
   void _onResultContinue() async {
     if (!mounted) return;
-    final provider = context.read<AppProvider>();
-    if (provider.isPremium) {
-      _goToMain();
-      return;
-    }
-    final purchased = await Navigator.push<bool>(
-      context,
-      CupertinoPageRoute(
-        fullscreenDialog: true,
-        builder: (_) => const PremiumPaywallScreen(),
-      ),
-    );
-    if (mounted && purchased == true) {
-      _goToMain();
-    }
+    _goToMain();
   }
 
   void _goToMain() {

@@ -20,6 +20,7 @@ import 'recipe_generator_screen.dart';
 import 'leaderboard_screen.dart';
 import 'progress_screen.dart';
 import '../widgets/premium_paywall.dart';
+import '../services/ad_service.dart';
 
 // ── Design Tokens (reference AppColors for consistency) ───────────
 const double _radiusXL = 30.0;
@@ -453,6 +454,8 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                       l: l,
                     ),
+                    const AdBannerWidget(),
+                    const SizedBox(height: 100),
                   ]),
                 ),
               ),

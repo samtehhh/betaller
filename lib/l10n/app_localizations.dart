@@ -875,7 +875,7 @@ abstract class AppLocalizations {
   /// No description provided for @shareText.
   ///
   /// In en, this message translates to:
-  /// **'I discovered my growth potential with BeTaller! Try it too: https://play.google.com/store/apps/details?id=com.glowup.boyuzatma_app'**
+  /// **'I discovered my growth potential with BeTaller! Try it too: https://apps.apple.com/app/id6761445065'**
   String get shareText;
 
   /// No description provided for @feedback.
