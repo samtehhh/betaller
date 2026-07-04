@@ -172,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       ),
                                       const SizedBox(height: 2),
                                       Text(
-                                        'Reklamları kaldır ve geliştiriciye destek ol.',
+                                        'Tüm premium özelliklerin kilidini açın.',
                                         style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.8)),
                                       ),
                                     ],

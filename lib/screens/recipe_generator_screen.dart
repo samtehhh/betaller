@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../widgets/premium_paywall.dart';
 
 // ── Recipe database ────────────────────────────────────────────
 const _recipes = [
@@ -556,7 +557,16 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
     return GestureDetector(
       onTap: () {
         HapticFeedback.selectionClick();
-        _showRecipeDetail(recipe);
+        if (context.read<AppProvider>().isPremium) {
+          _showRecipeDetail(recipe);
+        } else {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (_) => const PremiumPaywallScreen(),
+          );
+        }
       },
       child: GlassCard(
         glowColor: catColor.withValues(alpha: 0.14),

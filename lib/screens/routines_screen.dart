@@ -10,7 +10,6 @@ import '../utils/constants.dart';
 import '../utils/localized_data.dart';
 import '../widgets/premium_paywall.dart';
 import 'exercise_detail_screen.dart';
-import '../services/ad_service.dart';
 import 'custom_routine_builder_screen.dart';
 
 // ── Free routine IDs (no paywall) ─────────────────────────────────
@@ -141,10 +140,6 @@ class _RoutinesScreenState extends State<RoutinesScreen>
                     ),
                     _ProgramTab(provider: provider),
                     _NutritionTab(provider: provider),
-                  ],
-                ),
-              ),
-              const AdBannerWidget(),
               const SizedBox(height: 80),
             ],
           ),

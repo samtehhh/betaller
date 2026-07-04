@@ -10,7 +10,6 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../widgets/premium_paywall.dart';
 import 'weekly_report_screen.dart';
-import '../services/ad_service.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -344,8 +343,6 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                           ],
                         ),
                       ),
-                    ),
-                    const AdBannerWidget(),
                     const SizedBox(height: 100),
                     ],
                   ]),

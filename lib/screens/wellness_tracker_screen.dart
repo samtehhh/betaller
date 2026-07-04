@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../widgets/premium_paywall.dart';
 
 /// Wellness Tracker — caffeine, stress, and growth journal in one screen.
 ///
@@ -37,6 +38,20 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
   late final TextEditingController _noteController;
   int _selectedMood = 0; // 0 = none, 1-5 otherwise
   bool _editingJournal = false;
+
+  bool _checkPremium(BuildContext context) {
+    final provider = context.read<AppProvider>();
+    if (!provider.isPremium) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (_) => const PremiumPaywallScreen(),
+      );
+      return false;
+    }
+    return true;
+  }
 
   @override
   void initState() {
@@ -472,6 +487,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                     label: _caffeineSources[i]['name'] as String,
                     mg: _caffeineSources[i]['mg'] as int,
                     onTap: () {
+                      if (!_checkPremium(context)) return;
                       HapticFeedback.lightImpact();
                       provider.addCaffeine(
                           _caffeineSources[i]['mg'] as int);
@@ -488,6 +504,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
               onPressed: current == 0
                   ? null
                   : () {
+                      if (!_checkPremium(context)) return;
                       HapticFeedback.mediumImpact();
                       provider.resetTodayCaffeine();
                     },
@@ -543,6 +560,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                 selected: selected,
                 accent: _stressColor(level),
                 onTap: () {
+                  if (!_checkPremium(context)) return;
                   HapticFeedback.lightImpact();
                   provider.setTodayStress(level);
                 },
@@ -632,6 +650,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
           alignment: Alignment.centerRight,
           child: TextButton.icon(
             onPressed: () {
+              if (!_checkPremium(context)) return;
               HapticFeedback.lightImpact();
               setState(() {
                 _editingJournal = true;
@@ -672,6 +691,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
               emoji: _moodEmojis[i],
               selected: selected,
               onTap: () {
+                if (!_checkPremium(context)) return;
                 HapticFeedback.lightImpact();
                 setState(() => _selectedMood = mood);
               },
@@ -718,6 +738,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
             onPressed: _selectedMood == 0
                 ? null
                 : () {
+                    if (!_checkPremium(context)) return;
                     HapticFeedback.mediumImpact();
                     provider.setTodayJournal(
                       mood: _selectedMood,

@@ -9,6 +9,7 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/camera_utils.dart';
+import '../widgets/premium_paywall.dart';
 
 class ProgressPhotosScreen extends StatefulWidget {
   const ProgressPhotosScreen({super.key});
@@ -182,6 +183,16 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   }
 
   void _openPickerSheet(BuildContext context) {
+    final provider = context.read<AppProvider>();
+    if (!provider.isPremium) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (_) => const PremiumPaywallScreen(),
+      );
+      return;
+    }
     final l = AppLocalizations.of(context)!;
     HapticFeedback.mediumImpact();
     showCupertinoModalPopup<void>(

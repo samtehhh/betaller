@@ -7,6 +7,7 @@ import '../utils/constants.dart';
 import '../utils/education_data.dart';
 import '../utils/localized_data.dart';
 import 'exercise_detail_screen.dart';
+import '../widgets/premium_paywall.dart';
 
 // ── Category filter definitions ──────────────────────────────────
 
@@ -155,12 +156,23 @@ class _EducationScreenState extends State<EducationScreen> {
                       final article = articles[index];
                       return _ArticleCard(
                         article: article,
-                        onTap: () => Navigator.of(context).push(
-                          CupertinoPageRoute(
-                            builder: (_) =>
-                                ArticleDetailScreen(article: article),
-                          ),
-                        ),
+                        onTap: () {
+                          if (context.read<AppProvider>().isPremium) {
+                            Navigator.of(context).push(
+                              CupertinoPageRoute(
+                                builder: (_) =>
+                                    ArticleDetailScreen(article: article),
+                              ),
+                            );
+                          } else {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              builder: (_) => const PremiumPaywallScreen(),
+                            );
+                          }
+                        },
                       );
                     },
                     childCount: articles.length,

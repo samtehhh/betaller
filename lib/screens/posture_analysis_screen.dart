@@ -158,6 +158,16 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
   // ── Image source picker (camera or gallery) ──────────────────
   Future<void> _startAnalysis(BuildContext context) async {
     HapticFeedback.mediumImpact();
+    final provider = context.read<AppProvider>();
+    if (!provider.isPremium) {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (_) => const PremiumPaywallScreen(),
+      );
+      return;
+    }
     final l = AppLocalizations.of(context)!;
     final source = await showCupertinoModalPopup<ImageSource>(
       context: context,

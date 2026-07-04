@@ -20,7 +20,6 @@ import 'recipe_generator_screen.dart';
 import 'leaderboard_screen.dart';
 import 'progress_screen.dart';
 import '../widgets/premium_paywall.dart';
-import '../services/ad_service.dart';
 
 // ── Design Tokens (reference AppColors for consistency) ───────────
 const double _radiusXL = 30.0;
@@ -450,7 +449,6 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                       l: l,
                     ),
-                    const AdBannerWidget(),
                     const SizedBox(height: 100),
                   ]),
                 ),
@@ -2144,18 +2142,12 @@ class _ExploreRowState extends State<_ExploreRow> {
         subtitle: l.explorePostureSub,
         color: const Color(0xFFFBBF24),
         gradientColors: const [Color(0xFF422006), Color(0xFF3B1E04)],
-        onTap: () {
-          if (context.read<AppProvider>().isPremium) {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (_) => const PostureAnalysisScreen(),
-              ),
-            );
-          } else {
-            showPremiumPaywall(context);
-          }
-        },
+        onTap: () => Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (_) => const PostureAnalysisScreen(),
+          ),
+        ),
       ),
       _ExploreItemData(
         icon: CupertinoIcons.photo_fill_on_rectangle_fill,
@@ -2163,18 +2155,12 @@ class _ExploreRowState extends State<_ExploreRow> {
         subtitle: l.explorePhotosSub,
         color: const Color(0xFF38BDF8),
         gradientColors: const [Color(0xFF0C2D48), Color(0xFF0A2440)],
-        onTap: () {
-          if (context.read<AppProvider>().isPremium) {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (_) => const ProgressPhotosScreen(),
-              ),
-            );
-          } else {
-            showPremiumPaywall(context);
-          }
-        },
+        onTap: () => Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (_) => const ProgressPhotosScreen(),
+          ),
+        ),
       ),
       _ExploreItemData(
         icon: CupertinoIcons.leaf_arrow_circlepath,
@@ -2182,16 +2168,10 @@ class _ExploreRowState extends State<_ExploreRow> {
         subtitle: l.exploreNutritionSub,
         color: const Color(0xFF4ADE80),
         gradientColors: const [Color(0xFF064E3B), Color(0xFF0A3D2F)],
-        onTap: () {
-          if (context.read<AppProvider>().isPremium) {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(builder: (_) => const NutritionScreen()),
-            );
-          } else {
-            showPremiumPaywall(context);
-          }
-        },
+        onTap: () => Navigator.push(
+          context,
+          CupertinoPageRoute(builder: (_) => const NutritionScreen()),
+        ),
       ),
       _ExploreItemData(
         icon: CupertinoIcons.heart_circle_fill,
@@ -2199,18 +2179,12 @@ class _ExploreRowState extends State<_ExploreRow> {
         subtitle: l.exploreHealthSub,
         color: const Color(0xFFF472B6),
         gradientColors: const [Color(0xFF4A1942), Color(0xFF3D1338)],
-        onTap: () {
-          if (context.read<AppProvider>().isPremium) {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (_) => const WellnessTrackerScreen(),
-              ),
-            );
-          } else {
-            showPremiumPaywall(context);
-          }
-        },
+        onTap: () => Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (_) => const WellnessTrackerScreen(),
+          ),
+        ),
       ),
       _ExploreItemData(
         icon: Icons.restaurant_rounded,
@@ -2218,18 +2192,12 @@ class _ExploreRowState extends State<_ExploreRow> {
         subtitle: l.exploreRecipesSub,
         color: const Color(0xFFFB923C),
         gradientColors: const [Color(0xFF431407), Color(0xFF3B1106)],
-        onTap: () {
-          if (context.read<AppProvider>().isPremium) {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (_) => const RecipeGeneratorScreen(),
-              ),
-            );
-          } else {
-            showPremiumPaywall(context);
-          }
-        },
+        onTap: () => Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (_) => const RecipeGeneratorScreen(),
+          ),
+        ),
       ),
     ];
 
