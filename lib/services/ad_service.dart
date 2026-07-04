@@ -114,7 +114,7 @@ class _InterstitialAdDialogState extends State<_InterstitialAdDialog> {
                   const SizedBox(height: 24),
                   const Text(
                     'BeTaller Premium',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.extrabold, color: Colors.white),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: Colors.white),
                   ),
                   const SizedBox(height: 12),
                   const Text(
