@@ -1238,6 +1238,30 @@ abstract class AppLocalizations {
   /// **'Statistics'**
   String get statistics;
 
+  /// No description provided for @profileGroupSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get profileGroupSupport;
+
+  /// No description provided for @profileGroupAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get profileGroupAccount;
+
+  /// No description provided for @profileGroupApp.
+  ///
+  /// In en, this message translates to:
+  /// **'App'**
+  String get profileGroupApp;
+
+  /// No description provided for @profileGroupDanger.
+  ///
+  /// In en, this message translates to:
+  /// **'Danger zone'**
+  String get profileGroupDanger;
+
   /// No description provided for @profileMemberSince.
   ///
   /// In en, this message translates to:

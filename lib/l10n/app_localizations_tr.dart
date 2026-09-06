@@ -648,6 +648,18 @@ class AppLocalizationsTr extends AppLocalizations {
   String get statistics => 'İstatistikler';
 
   @override
+  String get profileGroupSupport => 'Destek';
+
+  @override
+  String get profileGroupAccount => 'Hesap';
+
+  @override
+  String get profileGroupApp => 'Uygulama';
+
+  @override
+  String get profileGroupDanger => 'Tehlikeli bölge';
+
+  @override
   String profileMemberSince(String date) {
     return '$date tarihinden beri';
   }

@@ -1,4 +1,3 @@
-import 'package:characters/characters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -146,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 18),
 
                     // ── Achievements ──────────────────
                     if (provider.isPremium)
@@ -311,11 +310,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     const SizedBox(height: 14),
 
-                    // ── Sosyal ───────────────────────
-                    GlassCard(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Column(
-                        children: [
+                    // ── Destek ───────────────────────
+                    _GroupLabel(l.profileGroupSupport),
+                    _MenuGroup(
+                      children: [
                           _MenuRow(
                             icon: CupertinoIcons.star_fill,
                             label: l.rateUs,
@@ -353,16 +351,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               }
                             },
                           ),
-                        ],
-                      ),
+                      ],
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 18),
 
                     // ── Hesap ────────────────────────
-                    GlassCard(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Column(
-                        children: [
+                    _GroupLabel(l.profileGroupAccount),
+                    _MenuGroup(
+                      children: [
                           if (provider.hasPaidPremium) ...[
                             _MenuRow(
                               icon: CupertinoIcons.sparkles,
@@ -380,31 +376,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: AppColors.primary,
                             onTap: () => _showEditProfileSheet(context, provider, profile),
                           ),
-                        ],
-                      ),
+                      ],
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 18),
 
                     // ── Uygulama ─────────────────────
-                    GlassCard(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Column(
-                        children: [
-                          _MenuRow(
-                            icon: CupertinoIcons.globe,
-                            label: l.language,
-                            subtitle: _languageName(provider.locale),
-                            color: AppColors.primary,
-                            onTap: () => _showLanguagePicker(context, provider),
-                          ),
+                    _GroupLabel(l.profileGroupApp),
+                    _MenuGroup(
+                      children: [
+                        _MenuRow(
+                          icon: CupertinoIcons.globe,
+                          label: l.language,
+                          subtitle: '',
+                          value: _languageName(provider.locale),
+                          color: AppColors.primary,
+                          onTap: () => _showLanguagePicker(context, provider),
+                        ),
                           _menuDivider(),
-                          _MenuRow(
-                            icon: Icons.straighten_rounded,
-                            label: l.unitSystem,
-                            subtitle: provider.useImperial ? l.unitImperial : l.unitMetric,
-                            color: AppColors.cyan,
-                            onTap: () => provider.setUseImperial(!provider.useImperial),
-                          ),
+                        _MenuRow(
+                          icon: Icons.straighten_rounded,
+                          label: l.unitSystem,
+                          subtitle: '',
+                          value: provider.useImperial ? l.unitImperial : l.unitMetric,
+                          color: AppColors.cyan,
+                          onTap: () => provider.setUseImperial(!provider.useImperial),
+                        ),
                           _menuDivider(),
                           _MenuToggleRow(
                             icon: CupertinoIcons.bell_fill,
@@ -417,25 +413,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               setState(() => _notificationsEnabled = val);
                             },
                           ),
-                        ],
-                      ),
+                      ],
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 18),
 
                     // ── Tehlike ──────────────────────
-                    GlassCard(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Column(
-                        children: [
-                          _MenuRow(
-                            icon: CupertinoIcons.trash,
-                            label: l.resetData,
-                            subtitle: l.resetSubtitle,
-                            color: AppColors.error,
-                            onTap: () => _showResetDialog(context, provider),
-                          ),
-                        ],
-                      ),
+                    _GroupLabel(l.profileGroupDanger, color: AppColors.error),
+                    _MenuGroup(
+                      danger: true,
+                      children: [
+                        _MenuRow(
+                          icon: CupertinoIcons.trash,
+                          label: l.resetData,
+                          subtitle: l.resetSubtitle,
+                          color: AppColors.error,
+                          onTap: () => _showResetDialog(context, provider),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 28),
                     // ── BeTaller Branding ────────────────
@@ -966,7 +960,17 @@ class _MenuRow extends StatelessWidget {
   final Color color;
   final VoidCallback onTap;
 
-  const _MenuRow({required this.icon, required this.label, required this.subtitle, required this.color, required this.onTap});
+  /// Current setting, shown on the right the way settings screens do.
+  final String? value;
+
+  const _MenuRow({
+    required this.icon,
+    required this.label,
+    required this.subtitle,
+    required this.color,
+    required this.onTap,
+    this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -974,14 +978,16 @@ class _MenuRow extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+        padding: const EdgeInsets.fromLTRB(16, 13, 16, 13),
         child: Row(
           children: [
             Container(
-              width: 36, height: 36,
+              width: 38,
+              height: 38,
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(10),
+                color: color.withValues(alpha: 0.13),
+                borderRadius: BorderRadius.circular(13),
+                border: Border.all(color: color.withValues(alpha: 0.22)),
               ),
               child: Icon(icon, color: color, size: 18),
             ),
@@ -990,13 +996,98 @@ class _MenuRow extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(label, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white, letterSpacing: -0.2)),
-                  Text(subtitle, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.72))),
+                  Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      letterSpacing: -0.2,
+                    ),
+                  ),
+                  if (value == null && subtitle.isNotEmpty) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white.withValues(alpha: 0.42),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
-            Icon(CupertinoIcons.chevron_right, color: Colors.white.withValues(alpha: 0.50), size: 15),
+            if (value != null) ...[
+              const SizedBox(width: 10),
+              Flexible(
+                child: Text(
+                  value!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: color.withValues(alpha: 0.9),
+                  ),
+                ),
+              ),
+            ],
+            const SizedBox(width: 8),
+            Icon(CupertinoIcons.chevron_right,
+                color: Colors.white.withValues(alpha: 0.28), size: 15),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// A titled block of rows.
+class _MenuGroup extends StatelessWidget {
+  final List<Widget> children;
+  final bool danger;
+  const _MenuGroup({required this.children, this.danger = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: danger
+              ? AppColors.error.withValues(alpha: 0.22)
+              : Colors.white.withValues(alpha: 0.06),
+        ),
+      ),
+      child: Column(children: children),
+    );
+  }
+}
+
+class _GroupLabel extends StatelessWidget {
+  final String text;
+  final Color? color;
+  const _GroupLabel(this.text, {this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
+      child: Text(
+        text.toUpperCase(),
+        style: TextStyle(
+          fontSize: 10.5,
+          fontWeight: FontWeight.w900,
+          letterSpacing: 1.4,
+          color: (color ?? Colors.white).withValues(alpha: color == null ? 0.38 : 0.75),
         ),
       ),
     );

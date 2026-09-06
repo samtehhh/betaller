@@ -649,6 +649,18 @@ class AppLocalizationsHi extends AppLocalizations {
   String get statistics => 'आँकड़े';
 
   @override
+  String get profileGroupSupport => 'Support';
+
+  @override
+  String get profileGroupAccount => 'Account';
+
+  @override
+  String get profileGroupApp => 'App';
+
+  @override
+  String get profileGroupDanger => 'Danger zone';
+
+  @override
   String profileMemberSince(String date) {
     return 'Since $date';
   }
