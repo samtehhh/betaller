@@ -50,93 +50,58 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     _Feature(
       glowColor: Color(0xFF8B5CF6),
       asset: 'assets/paywall/genetik_potansiyel.png',
-      mockupCaption: 'Boy Tahmini',
       stat: '174.9',
-      statLabel: "cm'ye kadar birlikte ulaşabiliriz",
-      title: 'Kaç Cm Daha\nUzayabilirsin?',
-      bullets: [
-        'Genetiğini, yaşam tarzını ve duruşunu birlikte analiz edip senin tavanını çıkarıyoruz',
-        'Yıl yıl tahminini görüyorsun — bu bir sır değil, birlikte takip ettiğimiz bir yolculuk',
-        'Sonuç sabit değil: attığın her adımla birlikte güncelliyoruz',
-      ],
+      statUnit: 'cm hedef boy',
+      title: 'Kaç cm daha uzayabilirsin?',
+      description: 'Genetiğini, yaşam tarzını ve duruşunu birlikte analiz edip yıl yıl tahminini çıkarıyoruz. Sonuç sabit değil, attığın her adımla güncelleniyor.',
     ),
     _Feature(
       glowColor: Color(0xFF6366F1),
       asset: 'assets/paywall/buyume_grafigi.png',
-      mockupCaption: 'Büyüme Grafiği',
       stat: '+6.0',
-      statLabel: 'cm bu yıl kaydettin, birlikte devam ediyoruz',
-      title: 'Büyümeni\nBirlikte Takip Ediyoruz',
-      bullets: [
-        'Her ölçümün anında gerçek zamanlı grafiğe işleniyor',
-        'Postür analizin bu grafiği doğrudan etkiliyor — hepsi bağlantılı',
-        'İlerlemeni ay ay, santim santim seninle birlikte görüyoruz',
-      ],
+      statUnit: 'cm bu yıl',
+      title: 'Büyümeni birlikte takip ediyoruz',
+      description: 'Her ölçümün anında grafiğe işleniyor. İlerlemeni ay ay, santim santim görüyorsun.',
     ),
     _Feature(
       glowColor: Color(0xFFFF4DB8),
       asset: 'assets/paywall/postur_analizi.png',
-      mockupCaption: 'Postür Analizi',
-      stat: '86/100',
-      statLabel: 'duruş puanın — yapay zeka anında ölçüyor',
-      title: 'Duruşun,\nRutinlerinin Anahtarı',
-      bullets: [
-        'Tek fotoğraftan kifoz, lordoz ve baş pozisyonunu yapay zeka ile ölçüyoruz',
-        'Sonuca göre sana özel düzeltme rutinleri öneriyoruz',
-        'Doğru duruş tek başına 2-3 cm fark yaratabilir',
-      ],
+      stat: '86',
+      statUnit: '/100 duruş puanı',
+      title: 'Duruşun, rutinlerinin anahtarı',
+      description: 'Tek fotoğraftan kifoz, lordoz ve baş pozisyonunu ölçüp sana özel düzeltme rutinleri veriyoruz. Doğru duruş tek başına 2-3 cm fark yaratabilir.',
     ),
     _Feature(
       glowColor: Color(0xFF00E5FF),
       asset: 'assets/paywall/haftalik_rapor.png',
-      mockupCaption: 'Haftalık Rapor',
       stat: '%82',
-      statLabel: 'rutin tamamlama oranın bu hafta',
-      title: 'Her Hafta\nSeni Değerlendiriyoruz',
-      bullets: [
-        'Su, uyku, rutin ve serin tek ekranda — nerede olduğunu net gör',
-        'Güçlü ve eksik yönlerini her hafta birlikte belirliyoruz',
-        'Küçük iyileştirmeler, haftalar içinde büyük sonuçlara dönüşüyor',
-      ],
+      statUnit: 'rutin tamamlama',
+      title: 'Her hafta seni değerlendiriyoruz',
+      description: 'Su, uyku, rutin ve serin tek ekranda. Güçlü ve eksik yönlerini her hafta birlikte belirliyoruz.',
     ),
     _Feature(
       glowColor: Color(0xFFFF8A00),
       asset: 'assets/paywall/beslenme_programi.png',
-      mockupCaption: 'Beslenme Programı',
       stat: '3',
-      statLabel: 'öğün, onlarca kişiye özel besin önerisi',
-      title: 'Komple Beslenme\nProgramın Hazır',
-      bullets: [
-        'Kahvaltıdan akşam yemeğine, boy uzatan besinlerle dolu tam bir plan',
-        'Protein, kalsiyum, çinko, D vitamini — hepsi hesaplanmış',
-        'Sadece bir rehber değil, her gün uygulayabileceğin bir program',
-      ],
+      statUnit: 'öğünlük plan',
+      title: 'Komple beslenme programın hazır',
+      description: 'Kahvaltıdan akşam yemeğine, protein, kalsiyum, çinko ve D vitamini hesaplanmış tam bir günlük program.',
     ),
     _Feature(
       glowColor: Color(0xFF22FF88),
       asset: 'assets/paywall/betaller_puani.png',
-      mockupCaption: 'BeTaller Puanı',
-      stat: '97/100',
-      statLabel: 'BeTaller Puanın — seni daima daha iyiye taşıyor',
-      title: 'Seni Sürekli\nDaha İyiye Taşıyan Sistem',
-      bullets: [
-        'Genetik, büyüme, beslenme, uyku ve disiplinin tek puanda birleşiyor',
-        'Puanın düştüğü an nerede gelişmen gerektiğini birlikte görüyoruz',
-        'Hedefin sabit değil — seninle birlikte sürekli güncelleniyor',
-      ],
+      stat: '97',
+      statUnit: '/100 BeTaller Puanı',
+      title: 'Seni sürekli daha iyiye taşıyan sistem',
+      description: 'Genetik, büyüme, beslenme, uyku ve disiplinin tek puanda birleşiyor. Puanın düştüğü an nerede gelişmen gerektiğini görüyorsun.',
     ),
     _Feature(
       glowColor: Color(0xFFF5C542),
       asset: 'assets/paywall/ilerleme_fotolari.png',
-      mockupCaption: 'İlerleme Fotoğrafları',
       stat: '+2.0',
-      statLabel: "cm'lik değişimini kendi gözünle gör",
-      title: 'Değişimini\nFotoğraflarla Kanıtla',
-      bullets: [
-        'Öncesi/sonrası karşılaştırmalarını otomatik oluşturuyoruz',
-        'Zaman çizelgende her ayın fotoğrafı bir arada duruyor',
-        'Rakamlar değil, gözle görülen fark seni motive eder',
-      ],
+      statUnit: 'cm gözle görülür fark',
+      title: 'Değişimini fotoğraflarla kanıtla',
+      description: 'Öncesi/sonrası karşılaştırmaların otomatik oluşuyor, zaman çizelgende her ayın fotoğrafı bir arada duruyor.',
     ),
   ];
 
@@ -244,28 +209,241 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     return PopScope(
       canPop: widget.dismissible,
       child: Scaffold(
-      backgroundColor: const Color(0xFF07050F),
-      body: Stack(
-        children: [
-          // ── Animated background glow ──────────────────────────────────────
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.easeInOut,
-            decoration: BoxDecoration(
-              gradient: RadialGradient(
-                center: const Alignment(0.0, -0.5),
-                radius: 1.1,
-                colors: [f.glowColor.withValues(alpha: 0.22), const Color(0xFF07050F)],
-              ),
-            ),
-          ),
+        backgroundColor: const Color(0xFF07050F),
+        body: LayoutBuilder(
+          builder: (context, box) {
+            final topPad = MediaQuery.of(context).padding.top;
+            // The device panel owns the top of the screen; the purchase sheet
+            // rises over its bottom edge.
+            final heroH = (box.maxHeight * 0.46).clamp(220.0, 460.0);
 
-          SafeArea(
-            child: Column(
+            return Stack(
               children: [
-                // ── Top bar ───────────────────────────────────────────────
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+                // ── Accent glow behind the device ─────────────────────────
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 600),
+                  curve: Curves.easeInOut,
+                  decoration: BoxDecoration(
+                    gradient: RadialGradient(
+                      center: const Alignment(0.0, -0.85),
+                      radius: 1.0,
+                      colors: [f.glowColor.withValues(alpha: 0.28), const Color(0xFF07050F)],
+                    ),
+                  ),
+                ),
+
+                // ── Purchase sheet ────────────────────────────────────────
+                Positioned(
+                  top: heroH,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF0D0920),
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
+                      boxShadow: [
+                        BoxShadow(color: Colors.black.withValues(alpha: 0.55), blurRadius: 34, offset: const Offset(0, -10)),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
+                      child: Stack(
+                        children: [
+                          // accent spill from the device above
+                          Positioned(
+                            top: 0, left: 0, right: 0, height: 140,
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 500),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [f.glowColor.withValues(alpha: 0.10), Colors.transparent],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0, left: 0, right: 0, height: 1,
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 500),
+                              color: f.glowColor.withValues(alpha: 0.35),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                // ── Swipeable pages + fixed purchase controls ─────────────
+                Column(
+                  children: [
+                    Expanded(
+                      child: PageView.builder(
+                        controller: _pageCtrl,
+                        onPageChanged: (i) {
+                          setState(() => _page = i);
+                          _entryAnim.forward(from: 0);
+                        },
+                        itemCount: features.length,
+                        itemBuilder: (_, i) => _FeaturePage(
+                          feature: features[i],
+                          entryAnim: _entryAnim,
+                          heroHeight: heroH,
+                          topInset: topPad,
+                        ),
+                      ),
+                    ),
+
+                    // ── Page dots ─────────────────────────────────────────
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(features.length, (i) {
+                          final active = i == _page;
+                          return AnimatedContainer(
+                            duration: const Duration(milliseconds: 280),
+                            margin: const EdgeInsets.symmetric(horizontal: 3),
+                            width: active ? 20 : 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              color: active ? f.glowColor : Colors.white.withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(3),
+                              boxShadow: active ? [BoxShadow(color: f.glowColor.withValues(alpha: 0.7), blurRadius: 8)] : null,
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
+
+                    // ── Plan pills ────────────────────────────────────────
+                    if (!_loading)
+                      Builder(
+                        builder: (context) {
+                          final isTr = Localizations.localeOf(context).languageCode == 'tr';
+                          final defaultMonthlyPrice = isTr ? '₺149,99' : '\$11.99';
+                          final defaultAnnualPrice = isTr ? '₺999,99' : '\$49.99';
+
+                          final monthlyPriceString = monthly?.storeProduct.priceString ?? directMonthly?.priceString ?? defaultMonthlyPrice;
+                          final annualPriceString = annual?.storeProduct.priceString ?? directAnnual?.priceString ?? defaultAnnualPrice;
+
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              children: [
+                                Expanded(child: _PlanPill(
+                                  selected: _selectedPlan == 1,
+                                  label: l.paywallYearly,
+                                  price: annualPriceString,
+                                  note: '',
+                                  glowColor: f.glowColor,
+                                  showBadge: true,
+                                  badgeText: l.paywallBestValue,
+                                  onTap: () => setState(() => _selectedPlan = 1),
+                                )),
+                                const SizedBox(width: 10),
+                                Expanded(child: _PlanPill(
+                                  selected: _selectedPlan == 0,
+                                  label: l.paywallMonthly,
+                                  price: monthlyPriceString,
+                                  note: l.paywallFreeTrial,
+                                  glowColor: f.glowColor,
+                                  onTap: () => setState(() => _selectedPlan = 0),
+                                )),
+                              ],
+                            ),
+                          );
+                        }
+                      )
+                    else
+                      SizedBox(height: 76, child: Center(child: CircularProgressIndicator(color: f.glowColor, strokeWidth: 2))),
+
+                    const SizedBox(height: 12),
+
+                    // ── CTA ───────────────────────────────────────────────
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: GestureDetector(
+                        onTap: _purchasing ? null : () {
+                          final pkg = _selectedPlan == 0 ? monthly : annual;
+                          final direct = _selectedPlan == 0 ? directMonthly : directAnnual;
+                          if (pkg != null || direct != null) {
+                            _purchase(pkg, product: direct);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(l.paywallLoadError), backgroundColor: const Color(0xFF1A1145)),
+                            );
+                          }
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          height: 56,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [f.glowColor, f.glowColor.withValues(alpha: 0.65)],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                            borderRadius: BorderRadius.circular(17),
+                            boxShadow: [BoxShadow(color: f.glowColor.withValues(alpha: 0.40), blurRadius: 22, offset: const Offset(0, 6))],
+                          ),
+                          child: Center(
+                            child: _purchasing
+                                ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5))
+                                : Text(
+                                    _selectedPlan == 0 ? l.paywallCta : l.paywallCtaAlt,
+                                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: 0.1),
+                                  ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    Text(
+                      _selectedPlan == 0 ? l.paywallTrialDisclaimer : l.paywallYearlyDisclaimer,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25)),
+                    ),
+                    const SizedBox(height: 6),
+                    if (Platform.isIOS) ...[
+                      GestureDetector(
+                        onTap: _redeemPromoCode,
+                        child: Text(
+                          'Promo kodun var mı?',
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.45)),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                    ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () => launchUrl(Uri.parse('https://samtehhh.github.io/betaller/privacy.html')),
+                          child: Text('Privacy Policy', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
+                        ),
+                        Text('  ·  ', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25))),
+                        GestureDetector(
+                          onTap: () => launchUrl(Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
+                          child: Text('Terms of Use', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: math.max(bottom, 10)),
+                  ],
+                ),
+
+                // ── Top bar, floating over the device panel ───────────────
+                Positioned(
+                  top: topPad + 6,
+                  left: 18,
+                  right: 18,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -273,184 +451,32 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                         GestureDetector(
                           onTap: () => Navigator.pop(context, false),
                           child: Container(
-                            padding: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(9),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.white.withValues(alpha: 0.1),
+                              color: Colors.white.withValues(alpha: 0.10),
+                              border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
                             ),
-                            child: const Icon(
-                              CupertinoIcons.xmark,
-                              size: 16,
-                              color: Colors.white,
-                            ),
+                            child: const Icon(CupertinoIcons.xmark, size: 15, color: Colors.white),
                           ),
                         )
                       else
                         const SizedBox.shrink(),
                       GestureDetector(
                         onTap: _restore,
-                        child: Text(l.paywallRestoreLabel, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.30))),
+                        child: Text(
+                          l.paywallRestoreLabel,
+                          style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.35)),
+                        ),
                       ),
                     ],
                   ),
                 ),
-
-                // ── Swipeable feature pages ───────────────────────────────
-                Expanded(
-                  child: PageView.builder(
-                    controller: _pageCtrl,
-                    onPageChanged: (i) {
-                      setState(() => _page = i);
-                      _entryAnim.forward(from: 0);
-                    },
-                    itemCount: features.length,
-                    itemBuilder: (_, i) => _FeaturePage(feature: features[i], entryAnim: _entryAnim),
-                  ),
-                ),
-
-                // ── Page dots ────────────────────────────────────────────
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(features.length, (i) {
-                      final active = i == _page;
-                      return AnimatedContainer(
-                        duration: const Duration(milliseconds: 280),
-                        margin: const EdgeInsets.symmetric(horizontal: 3),
-                        width: active ? 22 : 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: active ? f.glowColor : Colors.white.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(3),
-                          boxShadow: active ? [BoxShadow(color: f.glowColor.withValues(alpha: 0.7), blurRadius: 8)] : null,
-                        ),
-                      );
-                    }),
-                  ),
-                ),
-
-                // ── Plan pills ───────────────────────────────────────────
-                if (!_loading)
-                  Builder(
-                    builder: (context) {
-                      final isTr = Localizations.localeOf(context).languageCode == 'tr';
-                      final defaultMonthlyPrice = isTr ? '₺149,99' : '\$11.99';
-                      final defaultAnnualPrice = isTr ? '₺999,99' : '\$49.99';
-
-                      final monthlyPriceString = monthly?.storeProduct.priceString ?? directMonthly?.priceString ?? defaultMonthlyPrice;
-                      final annualPriceString = annual?.storeProduct.priceString ?? directAnnual?.priceString ?? defaultAnnualPrice;
-
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          children: [
-                            Expanded(child: _PlanPill(
-                              selected: _selectedPlan == 1,
-                              label: l.paywallYearly,
-                              price: annualPriceString,
-                              note: '',
-                              glowColor: f.glowColor,
-                              showBadge: true,
-                              badgeText: l.paywallBestValue,
-                              onTap: () => setState(() => _selectedPlan = 1),
-                            )),
-                            const SizedBox(width: 10),
-                            Expanded(child: _PlanPill(
-                              selected: _selectedPlan == 0,
-                              label: l.paywallMonthly,
-                              price: monthlyPriceString,
-                              note: l.paywallFreeTrial,
-                              glowColor: f.glowColor,
-                              onTap: () => setState(() => _selectedPlan = 0),
-                            )),
-                          ],
-                        ),
-                      );
-                    }
-                  )
-                else
-                  SizedBox(height: 76, child: Center(child: CircularProgressIndicator(color: f.glowColor, strokeWidth: 2))),
-
-                const SizedBox(height: 14),
-
-                // ── CTA ───────────────────────────────────────────────────
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: GestureDetector(
-                    onTap: _purchasing ? null : () {
-                      final pkg = _selectedPlan == 0 ? monthly : annual;
-                      final direct = _selectedPlan == 0 ? directMonthly : directAnnual;
-                      if (pkg != null || direct != null) {
-                        _purchase(pkg, product: direct);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(l.paywallLoadError), backgroundColor: const Color(0xFF1A1145)),
-                        );
-                      }
-                    },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      height: 56,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [f.glowColor, f.glowColor.withValues(alpha: 0.65)],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.circular(17),
-                        boxShadow: [BoxShadow(color: f.glowColor.withValues(alpha: 0.40), blurRadius: 22, offset: const Offset(0, 6))],
-                      ),
-                      child: Center(
-                        child: _purchasing
-                            ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5))
-                            : Text(
-                                _selectedPlan == 0 ? l.paywallCta : l.paywallCtaAlt,
-                                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: 0.1),
-                              ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                SizedBox(height: math.max(bottom + 6, 16)),
-
-                Text(
-                  _selectedPlan == 0 ? l.paywallTrialDisclaimer : l.paywallYearlyDisclaimer,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25)),
-                ),
-                const SizedBox(height: 8),
-                if (Platform.isIOS)
-                  GestureDetector(
-                    onTap: _redeemPromoCode,
-                    child: Text(
-                      'Promo kodun var mı?',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.45)),
-                    ),
-                  ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () => launchUrl(Uri.parse('https://samtehhh.github.io/betaller/privacy.html')),
-                      child: Text('Privacy Policy', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
-                    ),
-                    Text('  ·  ', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25))),
-                    GestureDetector(
-                      onTap: () => launchUrl(Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
-                      child: Text('Terms of Use', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
               ],
-            ),
-          ),
-        ],
+            );
+          },
+        ),
       ),
-    ),
     );
   }
 }
@@ -462,129 +488,109 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
 class _FeaturePage extends StatelessWidget {
   final _Feature feature;
   final AnimationController entryAnim;
-  const _FeaturePage({required this.feature, required this.entryAnim});
+  final double heroHeight;
+  final double topInset;
+  const _FeaturePage({
+    required this.feature,
+    required this.entryAnim,
+    required this.heroHeight,
+    required this.topInset,
+  });
 
   @override
   Widget build(BuildContext context) {
     final f = feature;
     final fadeSlide = CurvedAnimation(parent: entryAnim, curve: Curves.easeOutCubic);
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(28, 8, 28, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // ── Hero visual — a real in-app preview card ────────────────────
-          Expanded(
-            flex: 5,
-            child: Center(
-              child: AnimatedBuilder(
-                animation: fadeSlide,
-                builder: (_, child) => Opacity(
-                  opacity: fadeSlide.value,
-                  child: Transform.translate(
-                    offset: Offset(0, 24 * (1 - fadeSlide.value)),
-                    child: child,
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // ── Device panel ────────────────────────────────────────────────
+        SizedBox(
+          height: heroHeight,
+          child: Padding(
+            padding: EdgeInsets.only(top: topInset + 42),
+            child: AnimatedBuilder(
+              animation: fadeSlide,
+              builder: (_, child) => Opacity(
+                opacity: fadeSlide.value,
+                child: Transform.translate(
+                  offset: Offset(0, 18 * (1 - fadeSlide.value)),
+                  child: child,
                 ),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: _PhoneMockup(
-                    asset: f.asset,
-                    glowColor: f.glowColor,
-                    caption: f.mockupCaption,
+              ),
+              child: _PhoneMockup(asset: f.asset, glowColor: f.glowColor),
+            ),
+          ),
+        ),
+
+        // ── Copy, sitting on the purchase sheet ─────────────────────────
+        Expanded(
+          child: AnimatedBuilder(
+            animation: fadeSlide,
+            builder: (_, child) => Opacity(opacity: fadeSlide.value.clamp(0.0, 1.0), child: child),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(24, 22, 24, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // stat pill
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(11, 6, 13, 7),
+                    decoration: BoxDecoration(
+                      color: f.glowColor.withValues(alpha: 0.14),
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: f.glowColor.withValues(alpha: 0.30)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          f.stat,
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: f.glowColor, letterSpacing: -0.3),
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          f.statUnit,
+                          style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: f.glowColor.withValues(alpha: 0.85)),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+
+                  const SizedBox(height: 14),
+
+                  Text(
+                    f.title,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: -0.7,
+                      height: 1.15,
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  Text(
+                    f.description,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      height: 1.45,
+                      color: Colors.white.withValues(alpha: 0.58),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-
-          // ── Stat ───────────────────────────────────────────────────────
-          AnimatedBuilder(
-            animation: fadeSlide,
-            builder: (_, child) => Opacity(
-              opacity: fadeSlide.value.clamp(0.0, 1.0),
-              child: child,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Big stat
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      f.stat,
-                      style: TextStyle(
-                        fontSize: 46,
-                        fontWeight: FontWeight.w900,
-                        color: f.glowColor,
-                        letterSpacing: -2.0,
-                        height: 1.0,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 7),
-                        child: Text(
-                          f.statLabel,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white.withValues(alpha: 0.45),
-                            height: 1.3,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 12),
-
-                // Title
-                Text(
-                  f.title,
-                  style: const TextStyle(
-                    fontSize: 27,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    letterSpacing: -0.8,
-                    height: 1.12,
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Bullets
-                ...f.bullets.map((b) => Padding(
-                  padding: const EdgeInsets.only(bottom: 9),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 18, height: 18,
-                        margin: const EdgeInsets.only(top: 1),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: f.glowColor.withValues(alpha: 0.16),
-                          border: Border.all(color: f.glowColor.withValues(alpha: 0.35), width: 0.8),
-                        ),
-                        child: Icon(CupertinoIcons.check_mark, size: 10, color: f.glowColor),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(child: Text(b, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, height: 1.35, color: Colors.white.withValues(alpha: 0.62)))),
-                    ],
-                  ),
-                )),
-
-                const SizedBox(height: 6),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -596,8 +602,7 @@ class _FeaturePage extends StatelessWidget {
 class _PhoneMockup extends StatelessWidget {
   final String asset;
   final Color glowColor;
-  final String caption;
-  const _PhoneMockup({required this.asset, required this.glowColor, required this.caption});
+  const _PhoneMockup({required this.asset, required this.glowColor});
 
   @override
   Widget build(BuildContext context) {
@@ -608,11 +613,13 @@ class _PhoneMockup extends StatelessWidget {
         // the way App Store hero shots do, so the screen stays readable.
         const aspect = 0.485;
         final slotH = c.maxHeight;
-        double h = slotH * 1.34;
-        double w = h * aspect;
-        if (w > c.maxWidth * 0.78) {
-          w = c.maxWidth * 0.78;
-          h = w / aspect;
+        // Sized by width, not by the slot: the device is deliberately taller
+        // than the space it gets, so its screen fills the panel edge to edge.
+        double w = c.maxWidth * 0.78;
+        double h = w / aspect;
+        if (h < slotH * 1.15) {
+          h = slotH * 1.15;
+          w = h * aspect;
         }
 
         final radius = w * 0.155;
@@ -629,7 +636,7 @@ class _PhoneMockup extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [Colors.white, Colors.white, Colors.transparent],
-              stops: [0.0, 0.66, 1.0],
+              stops: [0.0, 0.82, 1.0],
             ).createShader(rect),
             child: Stack(
               children: [
@@ -699,36 +706,7 @@ class _PhoneMockup extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
                                       _StatusBar(width: w),
-                                      Padding(
-                                        padding: EdgeInsets.fromLTRB(w * 0.065, w * 0.030, w * 0.065, w * 0.030),
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: w * 0.020,
-                                              height: w * 0.020,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: glowColor,
-                                                boxShadow: [BoxShadow(color: glowColor.withValues(alpha: 0.9), blurRadius: w * 0.035)],
-                                              ),
-                                            ),
-                                            SizedBox(width: w * 0.026),
-                                            Expanded(
-                                              child: Text(
-                                                caption.toUpperCase(),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontSize: w * 0.040,
-                                                  fontWeight: FontWeight.w800,
-                                                  color: Colors.white.withValues(alpha: 0.60),
-                                                  letterSpacing: w * 0.005,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                      SizedBox(height: w * 0.045),
                                       Expanded(
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(horizontal: w * 0.045),
@@ -912,18 +890,16 @@ class _Feature {
   final Color glowColor;
   final String asset;
   final String stat;
-  final String statLabel;
+  final String statUnit;
   final String title;
-  final String mockupCaption;
-  final List<String> bullets;
+  final String description;
   const _Feature({
     required this.glowColor,
     required this.asset,
     required this.stat,
-    required this.statLabel,
+    required this.statUnit,
     required this.title,
-    required this.mockupCaption,
-    required this.bullets,
+    required this.description,
   });
 }
 
