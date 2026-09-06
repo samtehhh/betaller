@@ -1852,6 +1852,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get yourHeightStanding => 'DEIN KÖRPERGRÖSSEN-RANG';
 
   @override
+  String get bellCurveCaption => 'How height is spread at your age';
+
+  @override
+  String get bellShorterThanYou => 'shorter than you';
+
+  @override
   String get yourHeight => 'Du';
 
   @override

@@ -7,6 +7,7 @@ import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
+import '../widgets/height_bell_curve.dart';
 import '../utils/height_reference.dart';
 
 // ─────────────────────────────────────────────────────────────────
@@ -78,6 +79,7 @@ class LeaderboardScreen extends StatelessWidget {
                   heightCm: height,
                   pct: pct,
                   mean: mean,
+                  sd: HeightReference.getSd(age, isMale),
                   age: age,
                   isMale: isMale,
                 ),
@@ -167,6 +169,7 @@ class _HeroPercentileCard extends StatelessWidget {
   final double heightCm;
   final double pct;
   final double mean;
+  final double sd;
   final int age;
   final bool isMale;
 
@@ -174,6 +177,7 @@ class _HeroPercentileCard extends StatelessWidget {
     required this.heightCm,
     required this.pct,
     required this.mean,
+    required this.sd,
     required this.age,
     required this.isMale,
   });
@@ -183,10 +187,9 @@ class _HeroPercentileCard extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     final diff = heightCm - mean;
     final isAbove = diff >= 0;
-    final diffAbs = diff.abs();
-    final diffStr = '${isAbove ? '+' : '-'}${diffAbs.toStringAsFixed(1)} cm';
+    final diffStr =
+        '${isAbove ? '+' : '-'}${diff.abs().toStringAsFixed(1)} cm';
 
-    // Pick accent color by percentile
     Color accent;
     String standing;
     if (pct >= 75) {
@@ -203,82 +206,170 @@ class _HeroPercentileCard extends StatelessWidget {
       standing = l.standingShort;
     }
 
-    return GlassCard(
-      glowColor: accent.withValues(alpha: 0.28),
-      padding: const EdgeInsets.fromLTRB(24, 24, 24, 20),
-      child: Column(
-        children: [
-          // Label
-          Text(
-            l.yourHeightStanding.toUpperCase(),
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textTertiary,
-              letterSpacing: 1.8,
-            ),
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 18),
+      decoration: BoxDecoration(
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: accent.withValues(alpha: 0.26)),
+        boxShadow: [
+          BoxShadow(
+            color: accent.withValues(alpha: 0.16),
+            blurRadius: 32,
+            offset: const Offset(0, 10),
+            spreadRadius: -10,
           ),
-          const SizedBox(height: 14),
-
-          // Big percentile number
-          ShaderMask(
-            blendMode: BlendMode.srcIn,
-            shaderCallback: (bounds) => LinearGradient(
-              colors: [accent, accent.withValues(alpha: 0.7)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ).createShader(bounds),
-            child: Text(
-              'TOP ${(100 - pct).clamp(1, 99).toStringAsFixed(0)}%',
-              style: TextStyle(
-                fontSize: 56,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 1.0,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    color: accent.withValues(alpha: 0.55),
-                    blurRadius: 24,
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ── Standing, stated once ─────────────────────────────────────
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l.yourHeightStanding.toUpperCase(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.4,
+                        color: Colors.white.withValues(alpha: 0.40),
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          '${heightCm.toStringAsFixed(1)}',
+                          style: const TextStyle(
+                            fontSize: 40,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                            letterSpacing: -2,
+                            height: 1,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Text(
+                          'cm',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white.withValues(alpha: 0.45),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    'TOP ${(100 - pct).clamp(1, 99).toStringAsFixed(0)}%',
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      color: accent,
+                      letterSpacing: -0.8,
+                      shadows: [
+                        Shadow(
+                            color: accent.withValues(alpha: 0.45),
+                            blurRadius: 16)
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: accent.withValues(alpha: 0.14),
+                      borderRadius: BorderRadius.circular(999),
+                      border:
+                          Border.all(color: accent.withValues(alpha: 0.34)),
+                    ),
+                    child: Text(
+                      standing,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 10.5,
+                        fontWeight: FontWeight.w800,
+                        color: accent,
+                      ),
+                    ),
                   ),
                 ],
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 20),
+
+          // ── The distribution the number comes from ───────────────────
+          Text(
+            l.bellCurveCaption,
+            style: TextStyle(
+              fontSize: 11.5,
+              fontWeight: FontWeight.w600,
+              color: Colors.white.withValues(alpha: 0.42),
+            ),
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 132,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: 1),
+              duration: const Duration(milliseconds: 900),
+              curve: Curves.easeOutCubic,
+              builder: (context, t, _) => HeightBellCurve(
+                heightCm: heightCm,
+                mean: mean,
+                sd: sd,
+                percentile: pct,
+                color: accent,
+                progress: t,
               ),
             ),
           ),
           const SizedBox(height: 6),
-
-          // Standing badge
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  accent.withValues(alpha: 0.22),
-                  accent.withValues(alpha: 0.12),
-                ],
+          Row(
+            children: [
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                  color: accent.withValues(alpha: 0.45),
+                  borderRadius: BorderRadius.circular(3),
+                ),
               ),
-              borderRadius: BorderRadius.circular(999),
-              border: Border.all(
-                color: accent.withValues(alpha: 0.45),
-                width: 1,
+              const SizedBox(width: 8),
+              Text(
+                '%${pct.toStringAsFixed(0)} ${l.bellShorterThanYou}',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white.withValues(alpha: 0.62),
+                ),
               ),
-            ),
-            child: Text(
-              standing,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: accent,
-                letterSpacing: 0.4,
-              ),
-            ),
+            ],
           ),
-          const SizedBox(height: 22),
 
-          // Divider
-          Container(height: 1, color: Colors.white.withValues(alpha: 0.06)),
-          const SizedBox(height: 18),
+          const SizedBox(height: 16),
+          Divider(color: Colors.white.withValues(alpha: 0.07), height: 1),
+          const SizedBox(height: 16),
 
-          // Stats row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -289,10 +380,9 @@ class _HeroPercentileCard extends StatelessWidget {
                 icon: CupertinoIcons.person_fill,
               ),
               Container(
-                width: 1,
-                height: 40,
-                color: Colors.white.withValues(alpha: 0.08),
-              ),
+                  width: 1,
+                  height: 40,
+                  color: Colors.white.withValues(alpha: 0.08)),
               _StatCol(
                 label: l.peerAvg(age),
                 value: '${mean.toStringAsFixed(1)} cm',
@@ -300,10 +390,9 @@ class _HeroPercentileCard extends StatelessWidget {
                 icon: CupertinoIcons.group_solid,
               ),
               Container(
-                width: 1,
-                height: 40,
-                color: Colors.white.withValues(alpha: 0.08),
-              ),
+                  width: 1,
+                  height: 40,
+                  color: Colors.white.withValues(alpha: 0.08)),
               _StatCol(
                 label: isAbove ? l.aboveAvg : l.belowAvg,
                 value: diffStr,
@@ -315,16 +404,16 @@ class _HeroPercentileCard extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 18),
-          // Source line
-          Text(
-            l.whoDataSource,
-            style: TextStyle(
-              fontSize: 10,
-              color: AppColors.textTertiary.withValues(alpha: 0.6),
-              letterSpacing: 0.2,
+          const SizedBox(height: 14),
+          Center(
+            child: Text(
+              l.whoDataSource,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 10,
+                color: Colors.white.withValues(alpha: 0.28),
+              ),
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),

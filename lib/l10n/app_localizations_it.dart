@@ -1853,6 +1853,12 @@ class AppLocalizationsIt extends AppLocalizations {
   String get yourHeightStanding => 'LA TUA POSIZIONE IN ALTEZZA';
 
   @override
+  String get bellCurveCaption => 'How height is spread at your age';
+
+  @override
+  String get bellShorterThanYou => 'shorter than you';
+
+  @override
   String get yourHeight => 'Tu';
 
   @override

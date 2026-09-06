@@ -3428,6 +3428,18 @@ abstract class AppLocalizations {
   /// **'YOUR HEIGHT STANDING'**
   String get yourHeightStanding;
 
+  /// No description provided for @bellCurveCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'How height is spread at your age'**
+  String get bellCurveCaption;
+
+  /// No description provided for @bellShorterThanYou.
+  ///
+  /// In en, this message translates to:
+  /// **'shorter than you'**
+  String get bellShorterThanYou;
+
   /// No description provided for @yourHeight.
   ///
   /// In en, this message translates to:

@@ -1831,6 +1831,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get yourHeightStanding => 'BOY DURUMUN';
 
   @override
+  String get bellCurveCaption => 'Yaşındaki herkesin boy dağılımı';
+
+  @override
+  String get bellShorterThanYou => 'senden kısa';
+
+  @override
   String get yourHeight => 'Sen';
 
   @override

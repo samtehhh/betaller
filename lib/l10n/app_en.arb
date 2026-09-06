@@ -635,6 +635,8 @@
   "standingBelowAverage": "Below Average",
   "standingShort": "Below Peers",
   "yourHeightStanding": "YOUR HEIGHT STANDING",
+  "bellCurveCaption": "How height is spread at your age",
+  "bellShorterThanYou": "shorter than you",
   "yourHeight": "You",
   "peerAvg": "Age {age} avg",
   "@peerAvg": {"placeholders": {"age": {"type": "int"}}},
