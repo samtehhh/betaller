@@ -62,6 +62,8 @@
   "waterAlmostDone": "{amount}L left to reach water goal. Almost there!",
   "@waterAlmostDone": {"placeholders": {"amount": {"type": "String"}}},
   "bmiLow": "Your BMI is {bmi} — a bit low. Increase protein and calorie intake.",
+  "bodyFactsTitle": "Your body",
+  "dailyNeedsTitle": "Your daily targets",
   "@bmiLow": {"placeholders": {"bmi": {"type": "String"}}},
   "bmiHigh": "Your BMI is {bmi} — a bit high. Focus on healthy eating.",
   "@bmiHigh": {"placeholders": {"bmi": {"type": "String"}}},

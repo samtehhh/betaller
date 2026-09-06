@@ -77,6 +77,8 @@
   "growthVelocity": "BÜYÜME HIZI",
   "noData": "Veri yok",
   "growthRate": "Büyüme hızı: {rating}",
+  "bodyFactsTitle": "Vücut Bilgilerin",
+  "dailyNeedsTitle": "Günlük Alman Gerekenler",
   "bmi": "BMI",
   "calories": "Kalori",
   "kcalDay": "kcal/gün",

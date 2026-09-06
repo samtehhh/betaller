@@ -180,6 +180,12 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String get bodyFactsTitle => 'Your body';
+
+  @override
+  String get dailyNeedsTitle => 'Your daily targets';
+
+  @override
   String bmiHigh(String bmi) {
     return 'आपका BMI $bmi है — थोड़ा अधिक। स्वस्थ खान-पान पर ध्यान दें।';
   }

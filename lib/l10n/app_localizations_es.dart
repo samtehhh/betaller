@@ -180,6 +180,12 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get bodyFactsTitle => 'Your body';
+
+  @override
+  String get dailyNeedsTitle => 'Your daily targets';
+
+  @override
   String bmiHigh(String bmi) {
     return 'Tu IMC es $bmi — un poco alto. Enfócate en una alimentación saludable.';
   }

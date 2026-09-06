@@ -179,6 +179,12 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get bodyFactsTitle => 'Vücut Bilgilerin';
+
+  @override
+  String get dailyNeedsTitle => 'Günlük Alman Gerekenler';
+
+  @override
   String bmiHigh(String bmi) {
     return 'BMI değeriniz $bmi — biraz yüksek. Sağlıklı beslenmeye odaklanın.';
   }

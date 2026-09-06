@@ -410,6 +410,18 @@ abstract class AppLocalizations {
   /// **'Your BMI is {bmi} — a bit low. Increase protein and calorie intake.'**
   String bmiLow(String bmi);
 
+  /// No description provided for @bodyFactsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your body'**
+  String get bodyFactsTitle;
+
+  /// No description provided for @dailyNeedsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily targets'**
+  String get dailyNeedsTitle;
+
   /// No description provided for @bmiHigh.
   ///
   /// In en, this message translates to:

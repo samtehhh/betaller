@@ -179,6 +179,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get bodyFactsTitle => 'Your body';
+
+  @override
+  String get dailyNeedsTitle => 'Your daily targets';
+
+  @override
   String bmiHigh(String bmi) {
     return 'Your BMI is $bmi — a bit high. Focus on healthy eating.';
   }

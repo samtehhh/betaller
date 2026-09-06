@@ -651,7 +651,13 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     )),
                     const SizedBox(height: 14),
 
-                    // ── Score Detail Cards ────────────────
+                    // ── Daily targets ─────────────────────
+                    SectionHeader(
+                      icon: CupertinoIcons.checkmark_seal_fill,
+                      title: l.dailyNeedsTitle,
+                      iconColor: AppColors.lime,
+                    ),
+                    const SizedBox(height: 12),
                     _buildPremiumGate(
                       isPremium: provider.isPremium,
                       context: context,
@@ -676,6 +682,14 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                           Expanded(child: _ScoreCard(icon: CupertinoIcons.drop_fill, title: l.water, value: '${waterNeed.toStringAsFixed(1)}L', subtitle: l.daily, color: AppColors.water)),
                         ],
                       ),
+                    ),
+                    const SizedBox(height: 22),
+
+                    // ── Body facts ────────────────────────
+                    SectionHeader(
+                      icon: CupertinoIcons.person_crop_circle_fill,
+                      title: l.bodyFactsTitle,
+                      iconColor: AppColors.pink,
                     ),
                     const SizedBox(height: 12),
                     Row(
