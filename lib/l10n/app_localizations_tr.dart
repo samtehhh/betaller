@@ -124,6 +124,25 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navProgress => 'İlerleme';
 
   @override
+  String get trackingSection => 'Takip araçların';
+
+  @override
+  String get photosSummaryEmpty => 'İlk fotoğrafını ekle';
+
+  @override
+  String photosSummaryCount(int count) {
+    return '$count fotoğraf';
+  }
+
+  @override
+  String get postureSummaryEmpty => 'Henüz analiz yok';
+
+  @override
+  String postureSummaryScore(int score) {
+    return '$score/100 duruş';
+  }
+
+  @override
   String get navProfile => 'Profil';
 
   @override
@@ -1466,6 +1485,15 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get weeklyReportTitle => 'Haftalık Rapor';
+
+  @override
+  String get weeklyScoreLabel => 'Hafta puanı';
+
+  @override
+  String get weeklyDailyCompletion => 'Gün gün tamamlama';
+
+  @override
+  String get weeklyHabits => 'Alışkanlıklar';
 
   @override
   String get overview => 'Genel Bakış';

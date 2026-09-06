@@ -124,6 +124,25 @@ class AppLocalizationsHi extends AppLocalizations {
   String get navProgress => 'प्रगति';
 
   @override
+  String get trackingSection => 'Your tracking tools';
+
+  @override
+  String get photosSummaryEmpty => 'Add your first photo';
+
+  @override
+  String photosSummaryCount(int count) {
+    return '$count photos';
+  }
+
+  @override
+  String get postureSummaryEmpty => 'No analysis yet';
+
+  @override
+  String postureSummaryScore(int score) {
+    return '$score/100 posture';
+  }
+
+  @override
   String get navProfile => 'प्रोफ़ाइल';
 
   @override
@@ -1467,6 +1486,15 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get weeklyReportTitle => 'साप्ताहिक रिपोर्ट';
+
+  @override
+  String get weeklyScoreLabel => 'Week score';
+
+  @override
+  String get weeklyDailyCompletion => 'Day by day';
+
+  @override
+  String get weeklyHabits => 'Habits';
 
   @override
   String get overview => 'अवलोकन';

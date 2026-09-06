@@ -14,8 +14,6 @@ import '../utils/localized_data.dart';
 import 'growth_analysis_flow.dart';
 import 'education_screen.dart';
 import 'nutrition_screen.dart';
-import 'progress_photos_screen.dart';
-import 'posture_analysis_screen.dart';
 import 'wellness_tracker_screen.dart';
 import 'recipe_generator_screen.dart';
 import 'progress_screen.dart';
@@ -2021,58 +2019,13 @@ class _ChallengeCard extends StatelessWidget {
 //  EXPLORE CAROUSEL — cinematic glassmorphism hero cards
 // ═══════════════════════════════════════════════════════════════════
 
-class _ExploreRow extends StatefulWidget {
+class _ExploreRow extends StatelessWidget {
   const _ExploreRow();
-
-  @override
-  State<_ExploreRow> createState() => _ExploreRowState();
-}
-
-class _ExploreRowState extends State<_ExploreRow> {
-  late final PageController _pageController;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(viewportFraction: 0.82);
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final items = [
-      _ExploreItemData(
-        icon: Icons.accessibility_new_rounded,
-        label: l.explorePosture,
-        subtitle: l.explorePostureSub,
-        color: const Color(0xFFFBBF24),
-        gradientColors: const [Color(0xFF422006), Color(0xFF3B1E04)],
-        onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(
-            builder: (_) => const PostureAnalysisScreen(),
-          ),
-        ),
-      ),
-      _ExploreItemData(
-        icon: CupertinoIcons.photo_fill_on_rectangle_fill,
-        label: l.explorePhotos,
-        subtitle: l.explorePhotosSub,
-        color: const Color(0xFF38BDF8),
-        gradientColors: const [Color(0xFF0C2D48), Color(0xFF0A2440)],
-        onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(
-            builder: (_) => const ProgressPhotosScreen(),
-          ),
-        ),
-      ),
       _ExploreItemData(
         icon: CupertinoIcons.leaf_arrow_circlepath,
         label: l.exploreNutrition,
@@ -2085,19 +2038,6 @@ class _ExploreRowState extends State<_ExploreRow> {
         ),
       ),
       _ExploreItemData(
-        icon: CupertinoIcons.heart_circle_fill,
-        label: l.exploreHealth,
-        subtitle: l.exploreHealthSub,
-        color: const Color(0xFFF472B6),
-        gradientColors: const [Color(0xFF4A1942), Color(0xFF3D1338)],
-        onTap: () => Navigator.push(
-          context,
-          CupertinoPageRoute(
-            builder: (_) => const WellnessTrackerScreen(),
-          ),
-        ),
-      ),
-      _ExploreItemData(
         icon: Icons.restaurant_rounded,
         label: l.exploreRecipes,
         subtitle: l.exploreRecipesSub,
@@ -2105,9 +2045,18 @@ class _ExploreRowState extends State<_ExploreRow> {
         gradientColors: const [Color(0xFF431407), Color(0xFF3B1106)],
         onTap: () => Navigator.push(
           context,
-          CupertinoPageRoute(
-            builder: (_) => const RecipeGeneratorScreen(),
-          ),
+          CupertinoPageRoute(builder: (_) => const RecipeGeneratorScreen()),
+        ),
+      ),
+      _ExploreItemData(
+        icon: CupertinoIcons.heart_circle_fill,
+        label: l.exploreHealth,
+        subtitle: l.exploreHealthSub,
+        color: const Color(0xFFF472B6),
+        gradientColors: const [Color(0xFF4A1942), Color(0xFF3D1338)],
+        onTap: () => Navigator.push(
+          context,
+          CupertinoPageRoute(builder: (_) => const WellnessTrackerScreen()),
         ),
       ),
     ];
@@ -2116,44 +2065,113 @@ class _ExploreRowState extends State<_ExploreRow> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 4),
-          child: Text(
-            l.exploreLabel,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: Colors.white.withValues(alpha: 0.30),
-              letterSpacing: 2.5,
-            ),
+          padding: const EdgeInsets.only(left: 4, bottom: 12),
+          child: Row(
+            children: [
+              Icon(CupertinoIcons.compass_fill,
+                  size: 15, color: AppColors.primary),
+              const SizedBox(width: 8),
+              Text(
+                l.exploreLabel.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 1.3,
+                  color: Colors.white.withValues(alpha: 0.55),
+                ),
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: 14),
-        SizedBox(
-          height: 190,
-          child: PageView.builder(
-            controller: _pageController,
-            physics: const BouncingScrollPhysics(),
-            clipBehavior: Clip.none,
-            padEnds: false,
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return AnimatedBuilder(
-                animation: _pageController,
-                builder: (context, child) {
-                  double scale = 1.0;
-                  if (_pageController.position.haveDimensions) {
-                    final page = _pageController.page ?? 0.0;
-                    final diff = (page - index).abs();
-                    scale = (1 - diff * 0.06).clamp(0.92, 1.0);
-                  }
-                  return Transform.scale(scale: scale, child: child);
-                },
-                child: _ExploreHeroCard(item: items[index]),
-              );
-            },
+        Container(
+          decoration: BoxDecoration(
+            color: AppColors.cardFill,
+            borderRadius: BorderRadius.circular(_radiusXL),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+          ),
+          child: Column(
+            children: [
+              for (var i = 0; i < items.length; i++) ...[
+                _ExploreRowTile(item: items[i]),
+                if (i != items.length - 1)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 66, right: 16),
+                    child: Divider(
+                      height: 1,
+                      color: Colors.white.withValues(alpha: 0.05),
+                    ),
+                  ),
+              ],
+            ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class _ExploreRowTile extends StatelessWidget {
+  final _ExploreItemData item;
+  const _ExploreRowTile({required this.item});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: item.onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
+        child: Row(
+          children: [
+            Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: item.gradientColors,
+                ),
+                borderRadius: BorderRadius.circular(13),
+                border: Border.all(color: item.color.withValues(alpha: 0.30)),
+              ),
+              child: Icon(item.icon, size: 19, color: item.color),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      letterSpacing: -0.2,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    item.subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white.withValues(alpha: 0.42),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(CupertinoIcons.chevron_right,
+                size: 15, color: Colors.white.withValues(alpha: 0.25)),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -2647,45 +2665,6 @@ class _GrowthStat extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════════
-//  WATER BUTTON
-// ═══════════════════════════════════════════════════════════════════
-
-class _WaterButton extends StatelessWidget {
-  final String label;
-  final VoidCallback onTap;
-  const _WaterButton({required this.label, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        HapticFeedback.lightImpact();
-        onTap();
-      },
-      child: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        decoration: BoxDecoration(
-          color: AppColors.water.withValues(alpha: 0.10),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: AppColors.water.withValues(alpha: 0.15),
-          ),
-        ),
-        child: Text(
-          label,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w700,
-            color: AppColors.water,
-          ),
-        ),
       ),
     );
   }

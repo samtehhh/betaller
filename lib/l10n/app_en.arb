@@ -41,6 +41,13 @@
   "disciplineDayProgress": "{done}/{total} done",
   "@disciplineDayProgress": {"placeholders": {"done": {"type": "int"}, "total": {"type": "int"}}},
   "navProgress": "Progress",
+  "trackingSection": "Your tracking tools",
+  "photosSummaryEmpty": "Add your first photo",
+  "photosSummaryCount": "{count} photos",
+  "@photosSummaryCount": {"placeholders": {"count": {"type": "int"}}},
+  "postureSummaryEmpty": "No analysis yet",
+  "postureSummaryScore": "{score}/100 posture",
+  "@postureSummaryScore": {"placeholders": {"score": {"type": "int"}}},
   "navProfile": "Profile",
 
   "greeting": "Hello, {name}",
@@ -505,6 +512,9 @@
   "categoryNutsSeeds": "Nuts & Seeds",
 
   "weeklyReportTitle": "Weekly Report",
+  "weeklyScoreLabel": "Week score",
+  "weeklyDailyCompletion": "Day by day",
+  "weeklyHabits": "Habits",
   "overview": "Overview",
   "routinesLabel": "Routines",
   "streakLabel": "Streak",

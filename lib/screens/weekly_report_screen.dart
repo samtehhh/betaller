@@ -1,405 +1,262 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/daily_plan.dart';
 import '../utils/localized_data.dart';
+import '../widgets/discipline_widgets.dart';
 
+/// The week, actually measured over the week: every day is scored against the
+/// plan that day asked for, and the goals match the ones on the Disiplin tab.
 class WeeklyReportScreen extends StatelessWidget {
   const WeeklyReportScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).languageCode;
+
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final now = DateTime.now();
-        final weekStart = now.subtract(Duration(days: now.weekday - 1));
-        final weekEnd = weekStart.add(const Duration(days: 6));
+        final today = DateTime(now.year, now.month, now.day);
+        final weekStart = today.subtract(Duration(days: today.weekday - 1));
+        final days = List.generate(7, (i) => weekStart.add(Duration(days: i)));
 
-        String fmt(DateTime d) =>
-            '${d.day.toString().padLeft(2, '0')}/${d.month.toString().padLeft(2, '0')}';
+        final ratios = [
+          for (final d in days)
+            d.isAfter(today) ? null : provider.dayCompletionRatio(d)
+        ];
+        final scored = ratios.whereType<double>().toList();
+        final weekScore = scored.isEmpty
+            ? 0.0
+            : scored.reduce((a, b) => a + b) / scored.length;
 
-        // Height change in last 7 days
-        final recentRecords = provider.heightRecords.where((r) {
+        // height change inside this week
+        final weekRecords = provider.heightRecords.where((r) {
           final d = DateTime.tryParse(r.date);
-          return d != null && now.difference(d).inDays <= 7;
-        }).toList();
+          return d != null && !d.isBefore(weekStart) && !d.isAfter(today);
+        }).toList()
+          ..sort((a, b) => a.date.compareTo(b.date));
         double? heightChange;
-        if (recentRecords.length >= 2) {
-          recentRecords.sort((a, b) => a.date.compareTo(b.date));
+        if (weekRecords.length >= 2) {
           heightChange = double.parse(
-            (recentRecords.last.height - recentRecords.first.height)
+            (weekRecords.last.height - weekRecords.first.height)
                 .toStringAsFixed(1),
           );
         }
 
-        // Active challenges
         final challenges = provider.activeChallenges;
         final completedChallenges =
             challenges.where((c) => c['completed'] == true).length;
+
+        final fmt = DateFormat('d MMM', locale);
 
         return Scaffold(
           backgroundColor: AppColors.scaffold,
           body: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
-              // ── App Bar ──
               SliverAppBar(
-                expandedHeight: 100,
                 pinned: true,
-                backgroundColor: AppColors.surfaceDark,
+                backgroundColor: AppColors.scaffold,
+                surfaceTintColor: Colors.transparent,
                 leading: IconButton(
                   icon: const Icon(CupertinoIcons.back, color: Colors.white),
                   onPressed: () => Navigator.pop(context),
                 ),
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(
-                    l.weeklyReportTitle,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                  background: Container(
-                    decoration: const BoxDecoration(
-                      gradient: AppColors.gradientHeader,
-                    ),
+                title: Text(
+                  l.weeklyReportTitle,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
                   ),
                 ),
+                centerTitle: true,
               ),
 
               SliverPadding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.fromLTRB(16, 4, 16, 40),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    // Week range
-                    Center(
-                      child: Text(
-                        '${fmt(weekStart)} – ${fmt(weekEnd)}',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.textTertiary,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                    // ── The week at a glance ──────────────────────────────
+                    _WeekHeader(
+                      score: weekScore,
+                      range: '${fmt.format(weekStart)} – ${fmt.format(days.last)}',
+                      streak: provider.streak,
+                      heightChange: heightChange,
                     ),
                     const SizedBox(height: 20),
 
-                    // ── 1. Overview Stats ──
+                    // ── Day by day ────────────────────────────────────────
                     SectionHeader(
-                      icon: CupertinoIcons.chart_bar_alt_fill,
-                      title: l.overview,
+                      icon: CupertinoIcons.calendar,
+                      title: l.weeklyDailyCompletion,
                     ),
-                    const SizedBox(height: 10),
-                    GlassCard(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    const SizedBox(height: 12),
+                    _DayStrip(
+                      days: days,
+                      ratios: ratios,
+                      today: today,
+                      locale: locale,
+                    ),
+                    const SizedBox(height: 22),
+
+                    // ── The same goals the Disiplin tab tracks ────────────
+                    SectionHeader(
+                      icon: CupertinoIcons.checkmark_seal_fill,
+                      title: l.disciplineWeek,
+                      iconColor: AppColors.lime,
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
+                      decoration: BoxDecoration(
+                        color: AppColors.cardFill,
+                        borderRadius: BorderRadius.circular(22),
+                        border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.06)),
+                      ),
+                      child: Column(
                         children: [
-                          _StatColumn(
-                            label: l.routinesLabel,
-                            value: '${provider.completedRoutineCount}/${provider.todayRoutineTotal}',
-                            icon: CupertinoIcons.checkmark_circle_fill,
-                            color: AppColors.lime,
+                          GoalBar(
+                            icon: CupertinoIcons.checkmark_seal_fill,
+                            label: l.goalPerfectDays,
+                            done: provider.perfectDaysInWeek(),
+                            target: kWeeklyPerfectDays,
+                            color: AppColors.primary,
                           ),
-                          _StatColumn(
-                            label: l.streakLabel,
-                            value: '${provider.streak}',
-                            icon: CupertinoIcons.flame_fill,
+                          GoalBar(
+                            icon: CupertinoIcons.bolt_fill,
+                            label: l.goalWorkouts,
+                            done: provider.workoutsInWeek(),
+                            target: kWeeklyWorkouts,
                             color: AppColors.orange,
                           ),
-                          _StatColumn(
-                            label: l.heightLabel,
-                            value: heightChange != null
-                                ? '${heightChange > 0 ? '+' : ''}$heightChange cm'
-                                : '—',
-                            icon: CupertinoIcons.arrow_up,
+                          GoalBar(
+                            icon: CupertinoIcons.arrow_up_right_circle_fill,
+                            label: l.goalMeasurement,
+                            done: provider.measurementsInWeek(),
+                            target: kWeeklyMeasurements,
                             color: AppColors.cyan,
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 22),
 
-                    // ── 2. Score Breakdown ──
+                    // ── Habits, averaged over the days that have happened ──
                     SectionHeader(
-                      icon: CupertinoIcons.star_fill,
-                      title: l.dailyScores,
-                      iconColor: AppColors.warning,
+                      icon: CupertinoIcons.drop_fill,
+                      title: l.weeklyHabits,
+                      iconColor: AppColors.water,
                     ),
-                    const SizedBox(height: 10),
-                    GlassCard(
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
+                      decoration: BoxDecoration(
+                        color: AppColors.cardFill,
+                        borderRadius: BorderRadius.circular(22),
+                        border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.06)),
+                      ),
                       child: Column(
                         children: [
-                          _ScoreRow(
+                          _HabitRow(
                             icon: CupertinoIcons.drop_fill,
                             label: l.waterToday2,
-                            value: '${provider.todayWater} L',
-                            progress: (provider.todayWater / 2.5).clamp(0.0, 1.0),
+                            value: '${provider.todayWater.toStringAsFixed(1)} L',
+                            progress:
+                                (provider.todayWater / 2.5).clamp(0.0, 1.0),
                             color: AppColors.water,
                           ),
-                          const SizedBox(height: 14),
-                          _ScoreRow(
+                          _HabitRow(
                             icon: CupertinoIcons.moon_fill,
                             label: l.sleepToday,
-                            value: '${provider.todaySleep} ${l.hoursShort}',
-                            progress: (provider.todaySleep / 9.0).clamp(0.0, 1.0),
+                            value:
+                                '${provider.todaySleep.toStringAsFixed(1)} ${l.hoursShort}',
+                            progress:
+                                (provider.todaySleep / 9.0).clamp(0.0, 1.0),
                             color: AppColors.sleep,
                           ),
-                          const SizedBox(height: 14),
-                          _ScoreRow(
+                          _HabitRow(
                             icon: CupertinoIcons.checkmark_seal_fill,
                             label: l.routineCompletion,
-                            value: '${(provider.routineProgress * 100).toInt()}%',
+                            value:
+                                '${(provider.routineProgress * 100).round()}%',
                             progress: provider.routineProgress,
                             color: AppColors.lime,
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 22),
 
-                    // ── 3. XP & Level ──
+                    // ── Level ─────────────────────────────────────────────
                     SectionHeader(
                       icon: CupertinoIcons.bolt_fill,
                       title: l.xpAndLevel,
                       iconColor: AppColors.cyan,
                     ),
-                    const SizedBox(height: 10),
-                    GlassCard(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 4,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      gradient: AppColors.gradientCyan,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Text(
-                                      l.lvl('${provider.level}'),
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    localizedLevelTitle(l, provider.levelTitle),
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                '${provider.totalXP} XP',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.textTertiary,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 14),
-                          // Progress bar
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(6),
-                            child: SizedBox(
-                              height: 10,
-                              child: TweenAnimationBuilder<double>(
-                                tween: Tween(
-                                  begin: 0.0,
-                                  end: provider.levelProgress,
-                                ),
-                                duration: const Duration(milliseconds: 800),
-                                curve: Curves.easeOutCubic,
-                                builder: (context, value, _) {
-                                  return Stack(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: AppColors.cardFillLight,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                      ),
-                                      FractionallySizedBox(
-                                        widthFactor: value.clamp(0.0, 1.0),
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            gradient: AppColors.gradientCyan,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              l.xpToNextLevel('${provider.xpForNextLevel - provider.totalXP}'),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: AppColors.textTertiary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 12),
+                    _LevelStrip(provider: provider),
 
-                    // ── 4. Active Challenges ──
+                    // ── Challenges ────────────────────────────────────────
                     if (challenges.isNotEmpty) ...[
+                      const SizedBox(height: 22),
                       SectionHeader(
                         icon: CupertinoIcons.flag_fill,
                         title: l.activeChallenges,
                         iconColor: AppColors.pink,
                       ),
-                      const SizedBox(height: 10),
-                      GlassCard(
+                      const SizedBox(height: 12),
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 6),
+                        decoration: BoxDecoration(
+                          color: AppColors.cardFill,
+                          borderRadius: BorderRadius.circular(22),
+                          border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.06)),
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              l.nOfMCompleted('$completedChallenges', '${challenges.length}'),
+                              l.nOfMCompleted(
+                                  '$completedChallenges', '${challenges.length}'),
                               style: TextStyle(
                                 fontSize: 12,
-                                color: AppColors.textTertiary,
-                                fontWeight: FontWeight.w500,
+                                color: Colors.white.withValues(alpha: 0.40),
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 14),
                             ...challenges.map((c) {
                               final target = (c['target'] as num?) ?? 1;
                               final progress = (c['progress'] as num?) ?? 0;
                               final completed = c['completed'] == true;
-                              final ratio =
-                                  (progress / target).clamp(0.0, 1.0);
-
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 12),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            localizedChallengeTitle(l, c['id'] as String? ?? ''),
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w600,
-                                              color: completed
-                                                  ? AppColors.lime
-                                                  : Colors.white,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        if (completed)
-                                          const Icon(
-                                            CupertinoIcons
-                                                .checkmark_circle_fill,
-                                            size: 16,
-                                            color: AppColors.lime,
-                                          )
-                                        else
-                                          Text(
-                                            '$progress/$target',
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: AppColors.textTertiary,
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 6),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(4),
-                                      child: LinearProgressIndicator(
-                                        value: ratio.toDouble(),
-                                        backgroundColor:
-                                            AppColors.cardFillLight,
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          completed
-                                              ? AppColors.lime
-                                              : AppColors.primary,
-                                        ),
-                                        minHeight: 5,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              return GoalBar(
+                                icon: completed
+                                    ? CupertinoIcons.checkmark_alt_circle_fill
+                                    : CupertinoIcons.flag_fill,
+                                label: localizedChallengeTitle(
+                                    l, c['id'] as String? ?? ''),
+                                done: progress.toInt(),
+                                target: target.toInt(),
+                                color: AppColors.pink,
                               );
                             }),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 24),
                     ],
-
-                    // ── 5. Share Button ──
-                    SizedBox(
-                      width: double.infinity,
-                      height: 52,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          gradient: AppColors.gradientPrimary,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(l.shareComingSoon),
-                                behavior: SnackBarBehavior.floating,
-                              ),
-                            );
-                          },
-                          icon: const Icon(CupertinoIcons.share,
-                              color: Colors.white),
-                          label: Text(
-                            l.shareYourProgress,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 32),
                   ]),
                 ),
               ),
@@ -411,42 +268,157 @@ class WeeklyReportScreen extends StatelessWidget {
   }
 }
 
-// ── Helper Widgets ──────────────────────────────────────────────────
+// ═════════════════════════════════════════════════════════════════════════════
 
-class _StatColumn extends StatelessWidget {
-  final String label;
-  final String value;
-  final IconData icon;
-  final Color color;
+class _WeekHeader extends StatelessWidget {
+  final double score;
+  final String range;
+  final int streak;
+  final double? heightChange;
 
-  const _StatColumn({
-    required this.label,
-    required this.value,
-    required this.icon,
-    required this.color,
+  const _WeekHeader({
+    required this.score,
+    required this.range,
+    required this.streak,
+    required this.heightChange,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final l = AppLocalizations.of(context)!;
+    final color = score >= 0.8
+        ? AppColors.success
+        : score >= 0.5
+            ? AppColors.primary
+            : AppColors.orange;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 18),
+      decoration: BoxDecoration(
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(26),
+        border: Border.all(color: color.withValues(alpha: 0.22)),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.14),
+            blurRadius: 28,
+            offset: const Offset(0, 8),
+            spreadRadius: -8,
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 92,
+            height: 92,
+            child: CustomPaint(
+              painter: DisciplineRingPainter(
+                  progress: score, color: color, segments: 28),
+              child: Center(
+                child: Text(
+                  '${(score * 100).round()}%',
+                  style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.w900,
+                    color: color,
+                    letterSpacing: -1,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 18),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l.weeklyScoreLabel.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1.3,
+                    color: Colors.white.withValues(alpha: 0.40),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  range,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    _MiniStat(
+                      icon: CupertinoIcons.flame_fill,
+                      color: AppColors.orange,
+                      value: '$streak',
+                      label: l.streakLabel,
+                    ),
+                    const SizedBox(width: 16),
+                    _MiniStat(
+                      icon: CupertinoIcons.arrow_up,
+                      color: AppColors.cyan,
+                      value: heightChange == null
+                          ? '—'
+                          : '${heightChange! > 0 ? '+' : ''}$heightChange',
+                      label: l.heightLabel,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MiniStat extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String value;
+  final String label;
+  const _MiniStat({
+    required this.icon,
+    required this.color,
+    required this.value,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: color, size: 24),
-        const SizedBox(height: 6),
+        Icon(icon, size: 14, color: color),
+        const SizedBox(width: 6),
         Text(
           value,
           style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
             color: Colors.white,
           ),
         ),
-        const SizedBox(height: 2),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            color: AppColors.textTertiary,
-            fontWeight: FontWeight.w500,
+        const SizedBox(width: 4),
+        Flexible(
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              color: Colors.white.withValues(alpha: 0.40),
+            ),
           ),
         ),
       ],
@@ -454,14 +426,153 @@ class _StatColumn extends StatelessWidget {
   }
 }
 
-class _ScoreRow extends StatelessWidget {
+/// Seven columns, one per day, each as tall as that day's completion.
+class _DayStrip extends StatelessWidget {
+  final List<DateTime> days;
+  final List<double?> ratios;
+  final DateTime today;
+  final String locale;
+
+  const _DayStrip({
+    required this.days,
+    required this.ratios,
+    required this.today,
+    required this.locale,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final label = DateFormat('E', locale);
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 18, 14, 14),
+      decoration: BoxDecoration(
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          for (var i = 0; i < days.length; i++)
+            Expanded(
+              child: _DayColumn(
+                label: label.format(days[i]),
+                ratio: ratios[i],
+                isToday: days[i] == today,
+                isFuture: days[i].isAfter(today),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DayColumn extends StatelessWidget {
+  final String label;
+  final double? ratio;
+  final bool isToday;
+  final bool isFuture;
+
+  const _DayColumn({
+    required this.label,
+    required this.ratio,
+    required this.isToday,
+    required this.isFuture,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    const barHeight = 84.0;
+    final value = ratio ?? 0;
+    final full = value >= 0.999;
+    final color = full
+        ? AppColors.success
+        : isToday
+            ? AppColors.primary
+            : AppColors.primary.withValues(alpha: 0.7);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 3),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            ratio == null ? '' : '${(value * 100).round()}',
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w800,
+              color: color.withValues(alpha: 0.9),
+            ),
+          ),
+          const SizedBox(height: 5),
+          Container(
+            height: barHeight,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(9),
+              border: isToday
+                  ? Border.all(color: AppColors.primary.withValues(alpha: 0.5))
+                  : null,
+            ),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0, end: value),
+                duration: const Duration(milliseconds: 700),
+                curve: Curves.easeOutCubic,
+                builder: (context, v, _) => FractionallySizedBox(
+                  heightFactor: math.max(v, 0.02),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [color, color.withValues(alpha: 0.55)],
+                      ),
+                      borderRadius: BorderRadius.circular(9),
+                      boxShadow: v > 0.05
+                          ? [
+                              BoxShadow(
+                                  color: color.withValues(alpha: 0.35),
+                                  blurRadius: 10)
+                            ]
+                          : null,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 7),
+          Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 10.5,
+              fontWeight: isToday ? FontWeight.w800 : FontWeight.w600,
+              color: isFuture
+                  ? Colors.white.withValues(alpha: 0.22)
+                  : isToday
+                      ? AppColors.primary
+                      : Colors.white.withValues(alpha: 0.45),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HabitRow extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
   final double progress;
   final Color color;
 
-  const _ScoreRow({
+  const _HabitRow({
     required this.icon,
     required this.label,
     required this.value,
@@ -471,43 +582,137 @@ class _ScoreRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Icon(icon, size: 16, color: color),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                label,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, size: 14, color: color),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white.withValues(alpha: 0.72),
+                  ),
+                ),
+              ),
+              Text(
+                value,
                 style: const TextStyle(
                   fontSize: 13,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w800,
                   color: Colors.white,
                 ),
               ),
+            ],
+          ),
+          const SizedBox(height: 7),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: progress,
+              minHeight: 6,
+              backgroundColor: Colors.white.withValues(alpha: 0.07),
+              valueColor: AlwaysStoppedAnimation<Color>(color),
             ),
-            Text(
-              value,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LevelStrip extends StatelessWidget {
+  final AppProvider provider;
+  const _LevelStrip({required this.provider});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final ratio = provider.xpForNextLevel == 0
+        ? 0.0
+        : (provider.totalXP / provider.xpForNextLevel).clamp(0.0, 1.0);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+      decoration: BoxDecoration(
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  gradient: AppColors.gradientCyan,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  l.lvl('${provider.level}'),
+                  style: const TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  localizedLevelTitle(l, provider.levelTitle),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 14.5,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Text(
+                '${provider.totalXP} XP',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white.withValues(alpha: 0.45),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: ratio,
+              minHeight: 7,
+              backgroundColor: Colors.white.withValues(alpha: 0.07),
+              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.cyan),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              l.xpToNextLevel('${provider.xpForNextLevel - provider.totalXP}'),
               style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: color,
+                fontSize: 11.5,
+                color: Colors.white.withValues(alpha: 0.40),
               ),
             ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: progress,
-            backgroundColor: AppColors.cardFillLight,
-            valueColor: AlwaysStoppedAnimation<Color>(color),
-            minHeight: 5,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -320,6 +320,36 @@ abstract class AppLocalizations {
   /// **'Progress'**
   String get navProgress;
 
+  /// No description provided for @trackingSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Your tracking tools'**
+  String get trackingSection;
+
+  /// No description provided for @photosSummaryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first photo'**
+  String get photosSummaryEmpty;
+
+  /// No description provided for @photosSummaryCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} photos'**
+  String photosSummaryCount(int count);
+
+  /// No description provided for @postureSummaryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No analysis yet'**
+  String get postureSummaryEmpty;
+
+  /// No description provided for @postureSummaryScore.
+  ///
+  /// In en, this message translates to:
+  /// **'{score}/100 posture'**
+  String postureSummaryScore(int score);
+
   /// No description provided for @navProfile.
   ///
   /// In en, this message translates to:
@@ -2737,6 +2767,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Weekly Report'**
   String get weeklyReportTitle;
+
+  /// No description provided for @weeklyScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Week score'**
+  String get weeklyScoreLabel;
+
+  /// No description provided for @weeklyDailyCompletion.
+  ///
+  /// In en, this message translates to:
+  /// **'Day by day'**
+  String get weeklyDailyCompletion;
+
+  /// No description provided for @weeklyHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Habits'**
+  String get weeklyHabits;
 
   /// No description provided for @overview.
   ///

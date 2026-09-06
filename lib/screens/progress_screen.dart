@@ -10,6 +10,8 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../widgets/premium_paywall.dart';
 import 'weekly_report_screen.dart';
+import 'posture_analysis_screen.dart';
+import 'progress_photos_screen.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -89,6 +91,54 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
+                    // ── Tracking tools ────────────────
+                    SectionHeader(
+                      icon: CupertinoIcons.square_stack_3d_down_right_fill,
+                      title: l.trackingSection,
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _ToolCard(
+                            icon: CupertinoIcons.photo_fill_on_rectangle_fill,
+                            color: AppColors.cyan,
+                            title: l.progressPhotosTitle,
+                            subtitle: provider.progressPhotos.isEmpty
+                                ? l.photosSummaryEmpty
+                                : l.photosSummaryCount(
+                                    provider.progressPhotos.length),
+                            onTap: () => Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (_) => const ProgressPhotosScreen()),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: _ToolCard(
+                            icon: Icons.accessibility_new_rounded,
+                            color: AppColors.lime,
+                            title: l.explorePosture,
+                            subtitle: provider.postureAnalyses.isEmpty
+                                ? l.postureSummaryEmpty
+                                : l.postureSummaryScore(
+                                    (provider.postureAnalyses.last['totalScore']
+                                            as num?)
+                                        ?.toInt() ??
+                                        0),
+                            onTap: () => Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (_) => const PostureAnalysisScreen()),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 18),
+
                     // ── Stats Row ─────────────────────
                     GlassCard(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
@@ -694,6 +744,84 @@ class _StatItem extends StatelessWidget {
           const SizedBox(height: 4),
           Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.72), letterSpacing: -0.1)),
         ],
+      ),
+    );
+  }
+}
+
+
+/// One of the tracking tools that live under İlerleme.
+class _ToolCard extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const _ToolCard({
+    required this.icon,
+    required this.color,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(16, 16, 14, 16),
+        decoration: BoxDecoration(
+          color: AppColors.cardFill,
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(color: color.withValues(alpha: 0.22)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 34,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.14),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(icon, size: 18, color: color),
+                ),
+                const Spacer(),
+                Icon(CupertinoIcons.chevron_right,
+                    size: 14, color: Colors.white.withValues(alpha: 0.25)),
+              ],
+            ),
+            const SizedBox(height: 14),
+            Text(
+              title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontSize: 14.5,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+                height: 1.2,
+                letterSpacing: -0.3,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              subtitle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 11.5,
+                fontWeight: FontWeight.w600,
+                color: color.withValues(alpha: 0.85),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

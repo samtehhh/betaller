@@ -78,21 +78,35 @@ class _NutritionScreenState extends State<NutritionScreen> {
               child: SafeArea(
                 bottom: false,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(22, 8, 22, 16),
-                  child: Text(
-                    l.nutritionTitle,
-                    style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.primary,
-                      letterSpacing: 2.0,
-                      shadows: [
-                        Shadow(
-                          color: AppColors.primary.withValues(alpha: 0.3),
-                          blurRadius: 12,
+                  padding: const EdgeInsets.fromLTRB(10, 4, 22, 16),
+                  child: Row(
+                    children: [
+                      // this screen is pushed, so it needs a way back
+                      IconButton(
+                        icon: const Icon(CupertinoIcons.back,
+                            color: Colors.white, size: 24),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      Expanded(
+                        child: Text(
+                          l.nutritionTitle,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.primary,
+                            letterSpacing: 1.2,
+                            shadows: [
+                              Shadow(
+                                color: AppColors.primary.withValues(alpha: 0.3),
+                                blurRadius: 12,
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -660,6 +660,18 @@ class AppProvider extends ChangeNotifier {
     }
   }
 
+  /// How much of [date]'s plan was finished, 0-1.
+  double dayCompletionRatio(DateTime date) {
+    final key =
+        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+    final plan = dailyPlanIds(date);
+    if (plan.isEmpty) return 0;
+    final ids = key == _today
+        ? _completedRoutineIds
+        : (_routineHistory[key] ?? const <String>[]);
+    return plan.where(ids.contains).length / plan.length;
+  }
+
   /// Days in [key]'s week where the whole plan was finished.
   int perfectDaysInWeek([String? key]) {
     final target = key ?? weekKey();
