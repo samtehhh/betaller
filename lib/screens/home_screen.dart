@@ -510,38 +510,45 @@ class _HomeScreenState extends State<HomeScreen>
             ),
             const SizedBox(height: 32),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _WaterButton(
-                  label: '0.2L',
-                  onTap: () {
-                    provider.addWater(0.2);
-                    Navigator.pop(context);
-                  },
+                Expanded(
+                  child: _WaterButton(
+                    label: '0.2L',
+                    onTap: () {
+                      provider.addWater(0.2);
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
-                const SizedBox(width: 12),
-                _WaterButton(
-                  label: '0.3L',
-                  onTap: () {
-                    provider.addWater(0.3);
-                    Navigator.pop(context);
-                  },
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _WaterButton(
+                    label: '0.3L',
+                    onTap: () {
+                      provider.addWater(0.3);
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
-                const SizedBox(width: 12),
-                _WaterButton(
-                  label: '0.5L',
-                  onTap: () {
-                    provider.addWater(0.5);
-                    Navigator.pop(context);
-                  },
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _WaterButton(
+                    label: '0.5L',
+                    onTap: () {
+                      provider.addWater(0.5);
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
-                const SizedBox(width: 12),
-                _WaterButton(
-                  label: '1.0L',
-                  onTap: () {
-                    provider.addWater(1.0);
-                    Navigator.pop(context);
-                  },
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _WaterButton(
+                    label: '1.0L',
+                    onTap: () {
+                      provider.addWater(1.0);
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -2758,7 +2765,8 @@ class _WaterButton extends StatelessWidget {
         onTap();
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 15),
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(
           color: AppColors.water.withValues(alpha: 0.10),
           borderRadius: BorderRadius.circular(16),
