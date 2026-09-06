@@ -837,61 +837,122 @@ class _StatusBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final w = width;
-    final s = w * 0.045;
+    final iconH = w * 0.042;
     return Padding(
-      padding: EdgeInsets.fromLTRB(w * 0.10, w * 0.055, w * 0.085, 0),
+      padding: EdgeInsets.fromLTRB(w * 0.105, w * 0.055, w * 0.095, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             '9:41',
-            style: TextStyle(fontSize: s, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.9)),
+            style: TextStyle(
+              fontSize: w * 0.047,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -w * 0.001,
+              color: Colors.white,
+            ),
           ),
-          Row(
-            children: [
-              // signal bars
-              ...List.generate(4, (i) {
-                return Padding(
-                  padding: EdgeInsets.only(right: w * 0.006),
-                  child: Container(
-                    width: w * 0.010,
-                    height: s * (0.42 + i * 0.19),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      borderRadius: BorderRadius.circular(w * 0.005),
-                    ),
-                  ),
-                );
-              }),
-              SizedBox(width: w * 0.014),
-              Icon(CupertinoIcons.wifi, size: s * 1.05, color: Colors.white.withValues(alpha: 0.9)),
-              SizedBox(width: w * 0.016),
-              // battery
-              Container(
-                width: w * 0.055,
-                height: s * 0.62,
-                padding: EdgeInsets.all(w * 0.004),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(w * 0.014),
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: w * 0.004),
-                ),
-                child: FractionallySizedBox(
-                  alignment: Alignment.centerLeft,
-                  widthFactor: 0.82,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      borderRadius: BorderRadius.circular(w * 0.008),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          CustomPaint(
+            size: Size(iconH * 5.35, iconH),
+            painter: _StatusIconsPainter(color: Colors.white),
           ),
         ],
       ),
     );
   }
+}
+
+/// Signal, Wi-Fi and battery, drawn to iOS proportions: bars share a baseline,
+/// the Wi-Fi arcs share a centre, and the battery keeps its terminal nub.
+class _StatusIconsPainter extends CustomPainter {
+  final Color color;
+  const _StatusIconsPainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final h = size.height;
+    final fill = Paint()..color = color..isAntiAlias = true;
+    double x = 0;
+
+    // ── Signal: four bars on one baseline ────────────────────────────────
+    final barW = h * 0.28;
+    final gap = h * 0.17;
+    for (var i = 0; i < 4; i++) {
+      final barH = h * (0.38 + i * 0.207);
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(x, h - barH, barW, barH),
+          Radius.circular(barW * 0.35),
+        ),
+        fill,
+      );
+      x += barW + gap;
+    }
+
+    // ── Wi-Fi: three arcs plus the dot, all about one centre ─────────────
+    x += h * 0.34;
+    final wifiW = h * 1.36;
+    final cx = x + wifiW / 2;
+    final cy = h * 0.97;
+    final stroke = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = h * 0.155
+      ..isAntiAlias = true;
+    for (final r in [wifiW * 0.50, wifiW * 0.31]) {
+      canvas.drawArc(
+        Rect.fromCircle(center: Offset(cx, cy), radius: r),
+        math.pi * 1.25,
+        math.pi * 0.5,
+        false,
+        stroke,
+      );
+    }
+    canvas.drawCircle(Offset(cx, cy - h * 0.07), h * 0.115, fill);
+    x += wifiW;
+
+    // ── Battery: outline, terminal nub, charge level ─────────────────────
+    x += h * 0.40;
+    final bodyW = h * 1.95;
+    final bodyH = h * 0.92;
+    final top = (h - bodyH) / 2;
+    final line = h * 0.09;
+    final body = RRect.fromRectAndRadius(
+      Rect.fromLTWH(x + line / 2, top + line / 2, bodyW - line, bodyH - line),
+      Radius.circular(bodyH * 0.32),
+    );
+    canvas.drawRRect(
+      body,
+      Paint()
+        ..color = color.withValues(alpha: 0.55)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = line
+        ..isAntiAlias = true,
+    );
+    // terminal nub
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(x + bodyW + h * 0.03, h / 2 - bodyH * 0.19, h * 0.13, bodyH * 0.38),
+        Radius.circular(h * 0.06),
+      ),
+      Paint()..color = color.withValues(alpha: 0.55)..isAntiAlias = true,
+    );
+    // charge level
+    final inset = line * 2.4;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(x + inset, top + inset,
+            (bodyW - inset * 2) * 0.82, bodyH - inset * 2),
+        Radius.circular(bodyH * 0.16),
+      ),
+      fill,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _StatusIconsPainter old) => old.color != color;
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
