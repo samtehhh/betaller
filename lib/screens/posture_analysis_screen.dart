@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/camera_utils.dart';
+import '../widgets/photo_source_sheet.dart';
 import '../widgets/premium_paywall.dart';
 
 class PostureAnalysisScreen extends StatefulWidget {
@@ -170,44 +170,10 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
       return;
     }
     final l = AppLocalizations.of(context)!;
-    final source = await showCupertinoModalPopup<ImageSource>(
-      context: context,
-      builder: (ctx) => CupertinoActionSheet(
-        title: Text(
-          l.choosePhotoSource,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
-        ),
-        message: Text(l.sideProfileHint),
-        actions: [
-          CupertinoActionSheetAction(
-            onPressed: () => Navigator.of(ctx).pop(ImageSource.camera),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(CupertinoIcons.camera_fill, size: 20),
-                const SizedBox(width: 10),
-                Text(l.takePhoto),
-              ],
-            ),
-          ),
-          CupertinoActionSheetAction(
-            onPressed: () => Navigator.of(ctx).pop(ImageSource.gallery),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(CupertinoIcons.photo_fill, size: 20),
-                const SizedBox(width: 10),
-                Text(l.chooseFromLibrary),
-              ],
-            ),
-          ),
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          isDestructiveAction: true,
-          onPressed: () => Navigator.of(ctx).pop(),
-          child: Text(l.cancel),
-        ),
-      ),
+    final source = await showPhotoSourceSheet(
+      context,
+      title: l.choosePhotoSource,
+      subtitle: l.sideProfileHint,
     );
     if (source == null) return;
     if (!context.mounted) return;

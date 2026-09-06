@@ -10,6 +10,7 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/camera_utils.dart';
+import '../widgets/photo_source_sheet.dart';
 import '../widgets/premium_paywall.dart';
 
 class ProgressPhotosScreen extends StatefulWidget {
@@ -177,7 +178,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
     );
   }
 
-  void _openPickerSheet(BuildContext context) {
+  Future<void> _openPickerSheet(BuildContext context) async {
     final provider = context.read<AppProvider>();
     if (!provider.isPremium) {
       showModalBottomSheet(
@@ -189,38 +190,13 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
       return;
     }
     final l = AppLocalizations.of(context)!;
-    HapticFeedback.mediumImpact();
-    showCupertinoModalPopup<void>(
-      context: context,
-      builder: (sheetContext) => CupertinoActionSheet(
-        title: Text(
-          l.addProgressPhoto,
-          style: const TextStyle(fontWeight: FontWeight.w700),
-        ),
-        message: Text(l.captureJourney),
-        actions: [
-          CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.of(sheetContext).pop();
-              _pickPhoto(context, ImageSource.camera);
-            },
-            child: Text(l.takePhoto),
-          ),
-          CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.of(sheetContext).pop();
-              _pickPhoto(context, ImageSource.gallery);
-            },
-            child: Text(l.chooseFromLibrary),
-          ),
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          isDefaultAction: true,
-          onPressed: () => Navigator.of(sheetContext).pop(),
-          child: Text(l.cancel),
-        ),
-      ),
+    final source = await showPhotoSourceSheet(
+      context,
+      title: l.addProgressPhoto,
+      subtitle: l.captureJourney,
     );
+    if (source == null || !context.mounted) return;
+    _pickPhoto(context, source);
   }
 
   // ── Delete confirm ──────────────────────────────────────────────
