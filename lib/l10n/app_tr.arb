@@ -122,6 +122,8 @@
   "predictedHeightAt21": "21 yaşında tahmini boy",
   "predictionMethod": "Genetik (anne-baba), büyüme hızı, BMI ve yaş verileri birleştirilerek hesaplandı.",
   "growthStatus": "Büyüme Durumu",
+  "growthRemaining": "Önündeki potansiyel",
+  "growthBreakdown": "Bu santimler nereden geliyor",
   "geneticGainLabel": "Genetik Kazanım",
   "lifestyleLabel": "Yaşam Tarzı",
   "geneticCeilingLabel": "Tavan",

@@ -421,6 +421,12 @@ class AppLocalizationsIt extends AppLocalizations {
   String get growthStatus => 'Stato di Crescita';
 
   @override
+  String get growthRemaining => 'Still ahead of you';
+
+  @override
+  String get growthBreakdown => 'Where those centimetres come from';
+
+  @override
   String get geneticGainLabel => 'Guadagno Genetico';
 
   @override

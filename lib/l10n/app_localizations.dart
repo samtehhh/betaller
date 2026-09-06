@@ -806,6 +806,18 @@ abstract class AppLocalizations {
   /// **'Growth Status'**
   String get growthStatus;
 
+  /// No description provided for @growthRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Still ahead of you'**
+  String get growthRemaining;
+
+  /// No description provided for @growthBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Where those centimetres come from'**
+  String get growthBreakdown;
+
   /// No description provided for @geneticGainLabel.
   ///
   /// In en, this message translates to:

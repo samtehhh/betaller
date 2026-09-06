@@ -419,6 +419,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get growthStatus => 'Büyüme Durumu';
 
   @override
+  String get growthRemaining => 'Önündeki potansiyel';
+
+  @override
+  String get growthBreakdown => 'Bu santimler nereden geliyor';
+
+  @override
   String get geneticGainLabel => 'Genetik Kazanım';
 
   @override

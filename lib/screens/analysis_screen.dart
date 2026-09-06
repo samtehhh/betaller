@@ -576,103 +576,303 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(l.growthStatus, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.5)),
-                          const SizedBox(height: 18),
-                          // ── Büyüme Potansiyeli paneli — prediction ile tutarlı ──
+                          // the section header above already names this card
                           Builder(builder: (_) {
-                            // All values come from the SAME prediction object as Boy Tahmini card
-                            final totalGain = prediction.finalHeight - profile.currentHeight;
-                            final geneticGain   = prediction.geneticGain;
+                            final totalGain =
+                                prediction.finalHeight - profile.currentHeight;
+                            final geneticGain = prediction.geneticGain;
                             final lifestyleGain = prediction.lifestyleGain;
-                            final postureGain   = prediction.postureGain;
-                            // Use genetic ceiling as reference for the progress bar
+                            final postureGain = prediction.postureGain;
                             final geneticCeiling = prediction.geneticEstimate;
-                            final towardCeiling = geneticCeiling > profile.currentHeight
-                                ? (profile.currentHeight / geneticCeiling).clamp(0.0, 1.0)
-                                : 1.0;
+                            final towardCeiling =
+                                geneticCeiling > profile.currentHeight
+                                    ? (profile.currentHeight / geneticCeiling)
+                                        .clamp(0.0, 1.0)
+                                    : 1.0;
+
+                            final parts = <(String, double, Color)>[
+                              (l.geneticGainLabel, geneticGain, AppColors.primary),
+                              (l.lifestyleLabel, lifestyleGain, AppColors.cyan),
+                              (l.quickPosture, postureGain, AppColors.orange),
+                            ].where((p) => p.$2 > 0.05).toList();
+                            // the three sources can add up past the net gain,
+                            // so shares are of their own sum, not of the total
+                            final partsSum = parts.fold<double>(
+                                0, (sum, p) => sum + p.$2);
+
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Top 3-metric row — all from prediction
-                                Row(children: [
-                                  Expanded(child: _PotentialStatBox(
-                                    emoji: '🧬',
-                                    label: l.geneticGainLabel,
-                                    value: geneticGain > 0
-                                        ? '+${geneticGain.toStringAsFixed(1)} cm'
-                                        : l.geneticCeilingLabel,
-                                    color: AppColors.primary,
-                                  )),
-                                  const SizedBox(width: 10),
-                                  Expanded(child: _PotentialStatBox(
-                                    emoji: '🏃',
-                                    label: l.lifestyleLabel,
-                                    value: lifestyleGain > 0
-                                        ? '+${lifestyleGain.toStringAsFixed(1)} cm'
-                                        : '+0 cm',
-                                    color: AppColors.cyan,
-                                  )),
-                                  const SizedBox(width: 10),
-                                  Expanded(child: _PotentialStatBox(
-                                    emoji: '🦴',
-                                    label: l.quickPosture,
-                                    value: '+${postureGain.toStringAsFixed(1)} cm',
-                                    color: AppColors.orange,
-                                  )),
-                                ]),
-                                const SizedBox(height: 16),
-                                // Banner: total reachable — same as finalHeight card above
-                                Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [AppColors.primary.withValues(alpha: 0.13), AppColors.cyan.withValues(alpha: 0.06)],
-                                      begin: Alignment.topLeft, end: Alignment.bottomRight,
-                                    ),
-                                    borderRadius: BorderRadius.circular(26),
-                                    border: Border.all(color: AppColors.primary.withValues(alpha: 0.22)),
-                                  ),
-                                  child: Row(children: [
-                                    const Text('🎯', style: TextStyle(fontSize: 22)),
-                                    const SizedBox(width: 12),
-                                    Expanded(child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                // ── What is still on the table ──────────
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          l.reachableTargetHeight,
-                                          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.55)),
+                                          l.growthRemaining.toUpperCase(),
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w800,
+                                            letterSpacing: 1.3,
+                                            color: Colors.white
+                                                .withValues(alpha: 0.40),
+                                          ),
                                         ),
-                                        const SizedBox(height: 3),
-                                        Text(
-                                          totalGain > 0
-                                              ? '${prediction.finalHeight.toStringAsFixed(1)} cm  (+${totalGain.toStringAsFixed(1)} cm)'
-                                              : '${prediction.finalHeight.toStringAsFixed(1)} cm',
-                                          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.white),
+                                        const SizedBox(height: 6),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.baseline,
+                                          textBaseline:
+                                              TextBaseline.alphabetic,
+                                          children: [
+                                            Text(
+                                              '+${totalGain.toStringAsFixed(1)}',
+                                              style: const TextStyle(
+                                                fontSize: 40,
+                                                fontWeight: FontWeight.w900,
+                                                color: AppColors.lime,
+                                                letterSpacing: -2,
+                                                height: 1,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 5),
+                                            Text(
+                                              'cm',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white
+                                                    .withValues(alpha: 0.45),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
-                                    )),
-                                  ]),
-                                ),
-                                const SizedBox(height: 14),
-                                // Progress bar — toward genetic ceiling
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(l.geneticCeilingProgress,
-                                      style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.45))),
-                                    Text('%${(towardCeiling * 100).floor()}',
-                                      style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Colors.white)),
+                                    ),
+                                    const Spacer(),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 9),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.cyan
+                                            .withValues(alpha: 0.11),
+                                        borderRadius:
+                                            BorderRadius.circular(16),
+                                        border: Border.all(
+                                            color: AppColors.cyan
+                                                .withValues(alpha: 0.28)),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            l.reachableTargetHeight,
+                                            style: TextStyle(
+                                              fontSize: 9.5,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white
+                                                  .withValues(alpha: 0.45),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 2),
+                                          Text(
+                                            '${prediction.finalHeight.toStringAsFixed(1)} cm',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w900,
+                                              color: AppColors.cyan,
+                                              letterSpacing: -0.4,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
-                                const SizedBox(height: 6),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: LinearProgressIndicator(
-                                    value: towardCeiling,
-                                    minHeight: 8,
-                                    backgroundColor: Colors.white.withValues(alpha: 0.10),
-                                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+
+                                const SizedBox(height: 20),
+
+                                // ── One bar, split by source ────────────
+                                Text(
+                                  l.growthBreakdown,
+                                  style: TextStyle(
+                                    fontSize: 11.5,
+                                    fontWeight: FontWeight.w600,
+                                    color:
+                                        Colors.white.withValues(alpha: 0.45),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                if (parts.isNotEmpty) ...[
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(6),
+                                    child: SizedBox(
+                                      height: 12,
+                                      child: Row(
+                                        children: [
+                                          for (var i = 0; i < parts.length; i++)
+                                            Expanded(
+                                              flex: (parts[i].$2 * 100).round(),
+                                              child: Container(
+                                                margin: EdgeInsets.only(
+                                                    right: i == parts.length - 1
+                                                        ? 0
+                                                        : 2),
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    colors: [
+                                                      parts[i].$3,
+                                                      parts[i].$3.withValues(
+                                                          alpha: 0.65),
+                                                    ],
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 14),
+                                  ...parts.map((p) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 9),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              width: 9,
+                                              height: 9,
+                                              decoration: BoxDecoration(
+                                                color: p.$3,
+                                                borderRadius:
+                                                    BorderRadius.circular(3),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 9),
+                                            Expanded(
+                                              child: Text(
+                                                p.$1,
+                                                maxLines: 1,
+                                                overflow:
+                                                    TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white
+                                                      .withValues(alpha: 0.72),
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              '${partsSum <= 0 ? 0 : (p.$2 / partsSum * 100).round()}%',
+                                              style: TextStyle(
+                                                fontSize: 11.5,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white
+                                                    .withValues(alpha: 0.35),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Text(
+                                              '+${p.$2.toStringAsFixed(1)} cm',
+                                              style: TextStyle(
+                                                fontSize: 13.5,
+                                                fontWeight: FontWeight.w800,
+                                                color: p.$3,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                ],
+
+                                const SizedBox(height: 8),
+
+                                // ── The walk toward the genetic ceiling ──
+                                Container(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      14, 13, 14, 14),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Colors.white.withValues(alpha: 0.035),
+                                    borderRadius: BorderRadius.circular(18),
+                                    border: Border.all(
+                                        color: Colors.white
+                                            .withValues(alpha: 0.06)),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              l.geneticCeilingProgress,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 11.5,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white
+                                                    .withValues(alpha: 0.45),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            '%${(towardCeiling * 100).floor()}',
+                                            style: const TextStyle(
+                                              fontSize: 12.5,
+                                              fontWeight: FontWeight.w900,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 9),
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(5),
+                                        child: LinearProgressIndicator(
+                                          value: towardCeiling,
+                                          minHeight: 8,
+                                          backgroundColor: Colors.white
+                                              .withValues(alpha: 0.08),
+                                          valueColor:
+                                              const AlwaysStoppedAnimation<
+                                                  Color>(AppColors.primary),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            '${profile.currentHeight.toStringAsFixed(1)} cm',
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white
+                                                  .withValues(alpha: 0.55),
+                                            ),
+                                          ),
+                                          Text(
+                                            '${geneticCeiling.toStringAsFixed(1)} cm',
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w700,
+                                              color: AppColors.primary
+                                                  .withValues(alpha: 0.85),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 if (velocity != null) ...[
@@ -972,37 +1172,6 @@ class _ScoreRingPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _ScoreRingPainter oldDelegate) =>
       oldDelegate.progress != progress || oldDelegate.color != color;
-}
-
-// ── Sub-widgets ───────────────────────────────────────────────────
-
-class _PotentialStatBox extends StatelessWidget {
-  final String emoji, label, value;
-  final Color color;
-
-  const _PotentialStatBox({required this.emoji, required this.label, required this.value, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(26),
-        border: Border.all(color: color.withValues(alpha: 0.20)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(emoji, style: const TextStyle(fontSize: 18)),
-          const SizedBox(height: 6),
-          Text(value, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.3)),
-          const SizedBox(height: 2),
-          Text(label, style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.45), height: 1.3)),
-        ],
-      ),
-    );
-  }
 }
 
 class _ScoreCard extends StatelessWidget {

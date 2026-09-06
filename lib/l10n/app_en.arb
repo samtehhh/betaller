@@ -147,6 +147,8 @@
   "predictedHeightAt21": "Predicted height at 21",
   "predictionMethod": "Calculated by combining genetic (parents), growth velocity, BMI and age data.",
   "growthStatus": "Growth Status",
+  "growthRemaining": "Still ahead of you",
+  "growthBreakdown": "Where those centimetres come from",
   "geneticGainLabel": "Genetic Gain",
   "lifestyleLabel": "Lifestyle",
   "geneticCeilingLabel": "Ceiling",

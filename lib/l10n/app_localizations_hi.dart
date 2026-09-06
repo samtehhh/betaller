@@ -421,6 +421,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get growthStatus => 'विकास स्थिति';
 
   @override
+  String get growthRemaining => 'Still ahead of you';
+
+  @override
+  String get growthBreakdown => 'Where those centimetres come from';
+
+  @override
   String get geneticGainLabel => 'आनुवंशिक लाभ';
 
   @override
