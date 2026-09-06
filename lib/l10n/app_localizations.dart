@@ -5795,13 +5795,13 @@ abstract class AppLocalizations {
   /// No description provided for @heightPotentialFading.
   ///
   /// In en, this message translates to:
-  /// **'Your height potential'**
+  /// **'The facts about your'**
   String get heightPotentialFading;
 
   /// No description provided for @fadingAway.
   ///
   /// In en, this message translates to:
-  /// **'is fading away!'**
+  /// **'height potential..'**
   String get fadingAway;
 
   /// No description provided for @painHookDesc.

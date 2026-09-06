@@ -3143,10 +3143,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get criticalWindow => 'CRITICAL WINDOW';
 
   @override
-  String get heightPotentialFading => 'Your height potential';
+  String get heightPotentialFading => 'The facts about your';
 
   @override
-  String get fadingAway => 'is fading away!';
+  String get fadingAway => 'height potential..';
 
   @override
   String get painHookDesc =>

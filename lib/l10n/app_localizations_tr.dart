@@ -3147,10 +3147,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get criticalWindow => 'KRİTİK PENCERE';
 
   @override
-  String get heightPotentialFading => 'Boy potansiyelin';
+  String get heightPotentialFading => 'Boy potansiyelin hakkında';
 
   @override
-  String get fadingAway => 'kaybolup gidiyor!';
+  String get fadingAway => 'gerçekler..';
 
   @override
   String get painHookDesc =>

@@ -326,7 +326,8 @@ class _StepRow extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(top: 4, bottom: isLast ? 0 : _gapBelow),
+                padding: EdgeInsets.only(
+                    left: 14, top: 4, bottom: isLast ? 0 : _gapBelow),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
