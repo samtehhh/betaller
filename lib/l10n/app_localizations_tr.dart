@@ -3006,6 +3006,56 @@ class AppLocalizationsTr extends AppLocalizations {
   String get paywallReportStat => '%82';
 
   @override
+  String get journeyIntroTitle => 'Üç adımda başlayalım';
+
+  @override
+  String get journeyIntroSubtitle =>
+      'BeTaller’ı birlikte kuruyoruz. Sıradaki adım seni bekliyor.';
+
+  @override
+  String get journeyStep1Title => 'Verilerin alınması';
+
+  @override
+  String get journeyStep1Desc =>
+      'Boyunu, yaşını ve yaşam tarzını alıp potansiyelini hesaplıyoruz.';
+
+  @override
+  String get journeyStep2Title => 'Uygulamanın tanıtımı';
+
+  @override
+  String get journeyStep2Desc =>
+      'Her özelliğin ne işe yaradığını ve nasıl kullanılacağını tek tek gösteriyoruz.';
+
+  @override
+  String get journeyStep3Title => 'Kullanım';
+
+  @override
+  String get journeyStep3Desc =>
+      'Günlük rutinini kendin işletiyorsun, biz ilerlemeni takip ediyoruz.';
+
+  @override
+  String get journeyNow => 'ŞİMDİ';
+
+  @override
+  String get journeyDone => 'TAMAM';
+
+  @override
+  String get journeySoon => 'YAKINDA';
+
+  @override
+  String get journeyDataDoneTitle => 'İlk adım tamam';
+
+  @override
+  String get journeyDataDoneSubtitle =>
+      'Verilerini aldık ve potansiyelini hesapladık. Sırada uygulamayı tanımak var.';
+
+  @override
+  String get journeyEnterApp => 'Uygulamaya Geç';
+
+  @override
+  String get journeyProgressLabel => 'Başlangıç';
+
+  @override
   String get paywallRestoreLabel => 'Satın Alımları Geri Yükle';
 
   @override

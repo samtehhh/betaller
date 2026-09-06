@@ -19,6 +19,7 @@ import 'wellness_tracker_screen.dart';
 import 'recipe_generator_screen.dart';
 import 'leaderboard_screen.dart';
 import 'progress_screen.dart';
+import '../widgets/journey_steps.dart';
 import '../widgets/premium_paywall.dart';
 
 // ── Design Tokens (reference AppColors for consistency) ───────────
@@ -254,6 +255,13 @@ class _HomeScreenState extends State<HomeScreen>
                 padding: const EdgeInsets.fromLTRB(18, 10, 18, 120),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
+
+                    // ── 0. GETTING STARTED ────────────────────────────────
+                    // Stays until all three steps are behind the user.
+                    if (!provider.journeyComplete) ...[
+                      JourneyStrip(completed: provider.journeyProgress),
+                      const SizedBox(height: _sectionGap),
+                    ],
 
                     // ── 1. TODAY'S MISSION ────────────────────────────────
                     _TodayMissionCard(

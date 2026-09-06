@@ -374,6 +374,10 @@ class AppProvider extends ChangeNotifier {
         (json['completedProgramDays'] as List? ?? []).map((e) => (e as num).toInt()),
       );
       _reviewShownOnce = json['reviewShownOnce'] ?? false;
+      // Anyone who already answered the questionnaire has step one behind
+      // them, even if they installed before the journey existed.
+      _journeyProgress = (json['journeyProgress'] as num?)?.toInt() ??
+          (_profile != null ? 1 : 0);
     }
 
     _initRoutines();
@@ -475,6 +479,7 @@ class AppProvider extends ChangeNotifier {
       'journalByDate': _journalByDate,
       'completedProgramDays': _completedProgramDays.toList(),
       'reviewShownOnce': _reviewShownOnce,
+      'journeyProgress': _journeyProgress,
     };
     await prefs.setString('glowup_app_data', jsonEncode(data));
   }
@@ -529,6 +534,8 @@ class AppProvider extends ChangeNotifier {
     // Award XP for completing a routine
     if (routine.completed) {
       addXP(xpRewards['routine_complete']!);
+      // Running a routine on their own is what closes the journey's last step
+      completeJourneyStep(2);
       // Track exercise routine completions for challenges
       if (routine.category == 'exercise') {
         final exerciseCount = _routines.where((r) => r.category == 'exercise' && r.completed).length;
@@ -609,6 +616,21 @@ class AppProvider extends ChangeNotifier {
     _shouldRequestReview = false;
     _reviewShownOnce = true;
     _saveData();
+  }
+
+  // ── Getting-started journey ────────────────────────────────────────────────
+  // Number of completed steps: data collection, app tour, then daily use.
+  int _journeyProgress = 0;
+  int get journeyProgress => _journeyProgress;
+  bool get journeyComplete => _journeyProgress >= 3;
+
+  /// Marks [step] (0-based) finished. Steps only ever move forward, and a step
+  /// cannot complete before the ones in front of it.
+  void completeJourneyStep(int step) {
+    if (step != _journeyProgress) return;
+    _journeyProgress = (step + 1).clamp(0, 3);
+    _saveData();
+    notifyListeners();
   }
 
   void setPremium(bool value) {

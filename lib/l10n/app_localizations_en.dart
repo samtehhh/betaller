@@ -3014,6 +3014,56 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paywallReportStat => '82%';
 
   @override
+  String get journeyIntroTitle => 'Let’s start in three steps';
+
+  @override
+  String get journeyIntroSubtitle =>
+      'We set BeTaller up together. Your next step is waiting.';
+
+  @override
+  String get journeyStep1Title => 'Collecting your data';
+
+  @override
+  String get journeyStep1Desc =>
+      'We take your height, age and lifestyle, then work out your potential.';
+
+  @override
+  String get journeyStep2Title => 'A tour of the app';
+
+  @override
+  String get journeyStep2Desc =>
+      'We walk through every feature: what it does and how you use it.';
+
+  @override
+  String get journeyStep3Title => 'Using it yourself';
+
+  @override
+  String get journeyStep3Desc =>
+      'You run your daily routine and we keep track of your progress.';
+
+  @override
+  String get journeyNow => 'NOW';
+
+  @override
+  String get journeyDone => 'DONE';
+
+  @override
+  String get journeySoon => 'SOON';
+
+  @override
+  String get journeyDataDoneTitle => 'First step done';
+
+  @override
+  String get journeyDataDoneSubtitle =>
+      'We have your data and your potential. Next comes the tour of the app.';
+
+  @override
+  String get journeyEnterApp => 'Enter the app';
+
+  @override
+  String get journeyProgressLabel => 'Getting started';
+
+  @override
   String get paywallRestoreLabel => 'Restore Purchases';
 
   @override

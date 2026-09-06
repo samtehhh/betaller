@@ -3029,6 +3029,56 @@ class AppLocalizationsFr extends AppLocalizations {
   String get paywallReportStat => '82 %';
 
   @override
+  String get journeyIntroTitle => 'Commençons en trois étapes';
+
+  @override
+  String get journeyIntroSubtitle =>
+      'Nous installons BeTaller ensemble. Ta prochaine étape t’attend.';
+
+  @override
+  String get journeyStep1Title => 'Collecte de tes données';
+
+  @override
+  String get journeyStep1Desc =>
+      'Nous prenons ta taille, ton âge et ton mode de vie, puis calculons ton potentiel.';
+
+  @override
+  String get journeyStep2Title => 'Visite de l’application';
+
+  @override
+  String get journeyStep2Desc =>
+      'Nous passons en revue chaque fonction : à quoi elle sert et comment l’utiliser.';
+
+  @override
+  String get journeyStep3Title => 'À toi de jouer';
+
+  @override
+  String get journeyStep3Desc =>
+      'Tu suis ta routine quotidienne et nous suivons ta progression.';
+
+  @override
+  String get journeyNow => 'MAINTENANT';
+
+  @override
+  String get journeyDone => 'FAIT';
+
+  @override
+  String get journeySoon => 'BIENTÔT';
+
+  @override
+  String get journeyDataDoneTitle => 'Première étape terminée';
+
+  @override
+  String get journeyDataDoneSubtitle =>
+      'Nous avons tes données et ton potentiel. Place à la visite guidée.';
+
+  @override
+  String get journeyEnterApp => 'Ouvrir l’application';
+
+  @override
+  String get journeyProgressLabel => 'Démarrage';
+
+  @override
   String get paywallRestoreLabel => 'Restaurer les achats';
 
   @override

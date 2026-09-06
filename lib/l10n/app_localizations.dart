@@ -5534,6 +5534,96 @@ abstract class AppLocalizations {
   /// **'82%'**
   String get paywallReportStat;
 
+  /// No description provided for @journeyIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Let’s start in three steps'**
+  String get journeyIntroTitle;
+
+  /// No description provided for @journeyIntroSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We set BeTaller up together. Your next step is waiting.'**
+  String get journeyIntroSubtitle;
+
+  /// No description provided for @journeyStep1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Collecting your data'**
+  String get journeyStep1Title;
+
+  /// No description provided for @journeyStep1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'We take your height, age and lifestyle, then work out your potential.'**
+  String get journeyStep1Desc;
+
+  /// No description provided for @journeyStep2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'A tour of the app'**
+  String get journeyStep2Title;
+
+  /// No description provided for @journeyStep2Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'We walk through every feature: what it does and how you use it.'**
+  String get journeyStep2Desc;
+
+  /// No description provided for @journeyStep3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Using it yourself'**
+  String get journeyStep3Title;
+
+  /// No description provided for @journeyStep3Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'You run your daily routine and we keep track of your progress.'**
+  String get journeyStep3Desc;
+
+  /// No description provided for @journeyNow.
+  ///
+  /// In en, this message translates to:
+  /// **'NOW'**
+  String get journeyNow;
+
+  /// No description provided for @journeyDone.
+  ///
+  /// In en, this message translates to:
+  /// **'DONE'**
+  String get journeyDone;
+
+  /// No description provided for @journeySoon.
+  ///
+  /// In en, this message translates to:
+  /// **'SOON'**
+  String get journeySoon;
+
+  /// No description provided for @journeyDataDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'First step done'**
+  String get journeyDataDoneTitle;
+
+  /// No description provided for @journeyDataDoneSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We have your data and your potential. Next comes the tour of the app.'**
+  String get journeyDataDoneSubtitle;
+
+  /// No description provided for @journeyEnterApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the app'**
+  String get journeyEnterApp;
+
+  /// No description provided for @journeyProgressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting started'**
+  String get journeyProgressLabel;
+
   /// No description provided for @paywallRestoreLabel.
   ///
   /// In en, this message translates to:

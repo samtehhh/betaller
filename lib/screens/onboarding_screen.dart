@@ -12,6 +12,7 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
 import 'main_screen.dart';
+import '../widgets/journey_steps.dart';
 import '../widgets/premium_paywall.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
@@ -35,9 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   // ── Controllers ─────────────────────────────────────────────────────────────
   final _pageController  = PageController();
-  final _introController = PageController();
   int _currentPage = 0;
-  int _introSlide  = 0;
 
   // ── Basic profile ────────────────────────────────────────────────────────────
   String   _gender    = 'male';
@@ -125,7 +124,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   void dispose() {
     _pageController.dispose();
-    _introController.dispose();
     _resultAnim.dispose();
     _obAgePageController.dispose();
     _obHeightPickerController.dispose();
@@ -516,111 +514,78 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   Widget _buildIntroContent() {
     final l = AppLocalizations.of(context)!;
-    final slides = [
-      _IntroSlideData(
-        tag: l.introTag1,
-        tagColor: AppColors.primary,
-        title: l.introTitle1,
-        subtitle: l.introSubtitle1,
-        child: _IntroMockupHeight(),
-      ),
-      _IntroSlideData(
-        tag: l.introTag2,
-        tagColor: const Color(0xFF22C55E),
-        title: l.introTitle2,
-        subtitle: l.introSubtitle2,
-        child: _IntroMockupTrain(),
-      ),
-      _IntroSlideData(
-        tag: l.introTag3,
-        tagColor: AppColors.cyan,
-        title: l.introTitle3,
-        subtitle: l.introSubtitle3,
-        child: _IntroMockupProgress(),
-      ),
-      _IntroSlideData(
-        tag: l.introTag4,
-        tagColor: AppColors.orange,
-        title: l.introTitle4,
-        subtitle: l.introSubtitle4,
-        child: _IntroMockupLevels(),
-      ),
-      _IntroSlideData(
-        tag: l.introTag5,
-        tagColor: const Color(0xFFFFD700),
-        title: l.introTitle5,
-        subtitle: l.introSubtitle5,
-        child: _IntroMockupReviews(),
-      ),
-    ];
+    final progress = context.watch<AppProvider>().journeyProgress;
 
-    return Column(
-      children: [
-        Expanded(
-          child: PageView.builder(
-            controller: _introController,
-            onPageChanged: (i) => setState(() => _introSlide = i),
-            itemCount: slides.length,
-            itemBuilder: (ctx, i) {
-              final s = slides[i];
-              return Column(
-                children: [
-                  const SizedBox(height: 10),
-                  Expanded(child: s.child),
-                  const SizedBox(height: 18),
-                  // Tag pill
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: s.tagColor.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: s.tagColor.withValues(alpha: 0.35)),
-                    ),
-                    child: Text(s.tag, style: TextStyle(
-                      fontSize: 10, fontWeight: FontWeight.w800, letterSpacing: 1.2,
-                      color: s.tagColor,
-                    )),
-                  ),
-                  const SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 28),
-                    child: Text(s.title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.0, height: 1.12),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: Text(s.subtitle,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 14.5, color: Colors.white.withValues(alpha: 0.58), height: 1.5),
-                    ),
-                  ),
-                  const SizedBox(height: 14),
-                ],
-              );
-            },
-          ),
-        ),
-        // Dot indicators
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(slides.length, (i) => AnimatedContainer(
-              duration: const Duration(milliseconds: 280),
-              margin: const EdgeInsets.symmetric(horizontal: 3),
-              width: _introSlide == i ? 24 : 8,
-              height: 8,
-              decoration: BoxDecoration(
-                color: _introSlide == i ? AppColors.primary : Colors.white.withValues(alpha: 0.18),
-                borderRadius: BorderRadius.circular(4),
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(26, 8, 26, 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 46),
+
+            // ── Wordmark ────────────────────────────────────────────────
+            ShaderMask(
+              shaderCallback: (r) => const LinearGradient(
+                colors: [Colors.white, Color(0xFFB39DFF)],
+              ).createShader(r),
+              child: const Text(
+                'BeTaller',
+                style: TextStyle(
+                  fontSize: 34,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: -1.2,
+                ),
               ),
-            )),
-          ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.14),
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(color: AppColors.primary.withValues(alpha: 0.35)),
+              ),
+              child: Text(
+                l.journeyProgressLabel.toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 9.5,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 1.4,
+                  color: AppColors.primary,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 22),
+            Text(
+              l.journeyIntroTitle,
+              style: const TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+                height: 1.12,
+                letterSpacing: -1.0,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              l.journeyIntroSubtitle,
+              style: TextStyle(
+                fontSize: 14.5,
+                height: 1.5,
+                fontWeight: FontWeight.w500,
+                color: Colors.white.withValues(alpha: 0.58),
+              ),
+            ),
+
+            const SizedBox(height: 34),
+            JourneySteps(completed: progress),
+            const SizedBox(height: 18),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -2153,25 +2118,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-// Data models for new pages
-// ═════════════════════════════════════════════════════════════════════════════
-
-class _IntroSlideData {
-  final String tag;
-  final Color tagColor;
-  final String title;
-  final String subtitle;
-  final Widget child;
-  const _IntroSlideData({
-    required this.tag,
-    required this.tagColor,
-    required this.title,
-    required this.subtitle,
-    required this.child,
-  });
-}
-
 class _JourneyMilestone {
   final String label, title, desc, icon;
   final Color color;
@@ -3262,762 +3208,6 @@ class _GrowthChartPainter extends CustomPainter {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-// Intro mockup widgets
-// ═════════════════════════════════════════════════════════════════════════════
-
-class _PhoneMockup extends StatelessWidget {
-  final Widget child;
-  const _PhoneMockup({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    final screenH = MediaQuery.of(context).size.height;
-    final h = (screenH * 0.42).clamp(270.0, 380.0);
-    final w = h * 0.59;
-    return Center(
-      child: Container(
-        width: w, height: h,
-        decoration: BoxDecoration(
-          color: const Color(0xFF150F22),
-          borderRadius: BorderRadius.circular(26),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.12), width: 1.5),
-          boxShadow: [
-            BoxShadow(color: AppColors.primary.withValues(alpha: 0.22), blurRadius: 60, spreadRadius: 4),
-            BoxShadow(color: Colors.black.withValues(alpha: 0.40), blurRadius: 20),
-          ],
-        ),
-        child: ClipRRect(borderRadius: BorderRadius.circular(24), child: child),
-      ),
-    );
-  }
-}
-
-class _IntroMockupHeight extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
-    return _PhoneMockup(
-    child: Padding(
-      padding: const EdgeInsets.all(14),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Expanded(child: Text('Last report', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700))),
-              Icon(CupertinoIcons.gear, color: Colors.white.withValues(alpha: 0.5), size: 14),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(child: _MiniStatTile('Current height', "5'11", Colors.white.withValues(alpha: 0.15))),
-              const SizedBox(width: 6),
-              Expanded(child: _MiniStatTile('Predicted height', "6'2 ²⁄₁₀", AppColors.primary.withValues(alpha: 0.35))),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-            decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.07), borderRadius: BorderRadius.circular(7)),
-            child: const Text('Optimize up to 1.1 inches 📈', style: TextStyle(color: Colors.white, fontSize: 8)),
-          ),
-          const SizedBox(height: 8),
-          Container(
-            height: 55,
-            decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.04), borderRadius: BorderRadius.circular(8)),
-            child: CustomPaint(size: const Size(double.infinity, 55), painter: _MiniChartPainter()),
-          ),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(8)),
-            child: Text('${l.tallerThanPct} \ud83c\udf0d', style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 8)),
-          ),
-          const SizedBox(height: 6),
-          Row(
-            children: [
-              Expanded(child: _MiniInfoTile('68%', l.dreamHeightOdds)),
-              const SizedBox(width: 6),
-              Expanded(child: _MiniInfoTile('89.8%', l.growthCompleteLabel)),
-            ],
-          ),
-        ],
-      ),
-    ),
-  );
-  }
-}
-
-// ── Slide 2: Daily Train mockup ───────────────────────────────────
-class _IntroMockupTrain extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => _PhoneMockup(
-    child: Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header
-          const Text('Your Plan', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800)),
-          const SizedBox(height: 6),
-          // Tab bar
-          Row(children: [
-            _MiniTab('TRAIN', true),
-            const SizedBox(width: 8),
-            _MiniTab('PROGRAM', false),
-            const SizedBox(width: 8),
-            _MiniTab('NUTRITION', false),
-          ]),
-          const SizedBox(height: 8),
-          // Day selector  M T W T F S S
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.05),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: ['M','T','W','T','F','S','S'].asMap().entries.map((e) {
-                final sel = e.key == 2; // Wednesday selected
-                return Container(
-                  width: 20, height: 20,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: sel ? AppColors.primary : Colors.transparent,
-                  ),
-                  child: Center(child: Text(e.value,
-                    style: TextStyle(fontSize: 7, fontWeight: FontWeight.w700,
-                      color: sel ? Colors.white : Colors.white.withValues(alpha: 0.4)))),
-                );
-              }).toList(),
-            ),
-          ),
-          const SizedBox(height: 8),
-          // Optimal daily routine banner
-          Container(
-            padding: const EdgeInsets.all(7),
-            decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
-            ),
-            child: Row(children: [
-              const Text('⚡', style: TextStyle(fontSize: 9)),
-              const SizedBox(width: 4),
-              Text('OPTIMAL DAILY ROUTINE', style: TextStyle(fontSize: 6, fontWeight: FontWeight.w800, color: AppColors.primaryLight, letterSpacing: 0.5)),
-              const Spacer(),
-              Text('3/6', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w700, color: AppColors.primaryBright)),
-            ]),
-          ),
-          const SizedBox(height: 7),
-          // Exercise cards
-          ...[
-            ('🌅', 'Morning Stretch', '10 min', true),
-            ('💪', 'Bar Hanging', '5 min', true),
-            ('🦘', 'Jump Training', '10 min', false),
-          ].map((ex) => Padding(
-            padding: const EdgeInsets.only(bottom: 5),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: ex.$4
-                  ? AppColors.lime.withValues(alpha: 0.35)
-                  : Colors.white.withValues(alpha: 0.08)),
-              ),
-              child: Row(children: [
-                Text(ex.$1, style: const TextStyle(fontSize: 13)),
-                const SizedBox(width: 6),
-                Expanded(child: Text(ex.$2, style: TextStyle(fontSize: 8, fontWeight: FontWeight.w600,
-                  color: ex.$4 ? Colors.white.withValues(alpha: 0.45) : Colors.white))),
-                Text(ex.$3, style: TextStyle(fontSize: 7, color: Colors.white.withValues(alpha: 0.35))),
-                const SizedBox(width: 5),
-                Container(
-                  width: 14, height: 14,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: ex.$4 ? AppColors.lime : Colors.white.withValues(alpha: 0.08),
-                  ),
-                  child: Icon(CupertinoIcons.checkmark_alt, size: 8,
-                    color: ex.$4 ? Colors.black : Colors.white.withValues(alpha: 0.3)),
-                ),
-              ]),
-            ),
-          )),
-        ],
-      ),
-    ),
-  );
-}
-
-// ── Slide 3: Progress / Growth tracking mockup ────────────────────
-class _IntroMockupProgress extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => _PhoneMockup(
-    child: Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header
-          Row(children: [
-            const Text('Progress', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800)),
-            const Spacer(),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-              decoration: BoxDecoration(
-                color: AppColors.orange.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: AppColors.orange.withValues(alpha: 0.3)),
-              ),
-              child: Row(mainAxisSize: MainAxisSize.min, children: [
-                const Text('🔥', style: TextStyle(fontSize: 8)),
-                const SizedBox(width: 2),
-                const Text('12', style: TextStyle(color: AppColors.orange, fontSize: 9, fontWeight: FontWeight.w800)),
-              ]),
-            ),
-          ]),
-          const SizedBox(height: 8),
-          // Stat cards row
-          Row(children: [
-            Expanded(child: _MiniMetricCard('HEIGHT', "5'11\"", AppColors.primary)),
-            const SizedBox(width: 5),
-            Expanded(child: _MiniMetricCard('GAINED', '+1.2"', AppColors.lime)),
-            const SizedBox(width: 5),
-            Expanded(child: _MiniMetricCard('XP', '840', AppColors.warning)),
-          ]),
-          const SizedBox(height: 8),
-          // Growth chart
-          Container(
-            height: 70,
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.04),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
-            ),
-            child: CustomPaint(
-              size: const Size(double.infinity, 58),
-              painter: _MiniProgressChartPainter(),
-            ),
-          ),
-          const SizedBox(height: 8),
-          // XP / Level bar
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: 0.10),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.20)),
-            ),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(children: [
-                const Text('⚡', style: TextStyle(fontSize: 9)),
-                const SizedBox(width: 4),
-                Text('Level 3  •  Builder', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.9))),
-                const Spacer(),
-                Text('840 / 1200 XP', style: TextStyle(fontSize: 7, color: Colors.white.withValues(alpha: 0.5))),
-              ]),
-              const SizedBox(height: 5),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(3),
-                child: LinearProgressIndicator(
-                  value: 840/1200, minHeight: 4,
-                  backgroundColor: Colors.white.withValues(alpha: 0.08),
-                  valueColor: const AlwaysStoppedAnimation(AppColors.primary),
-                ),
-              ),
-            ]),
-          ),
-          const SizedBox(height: 8),
-          // Height records list
-          ...[
-            ('Jan 2025', "5'10.5\"", '+0.5"'),
-            ('Feb 2025', "5'11\"",   '+0.5"'),
-          ].map((r) => Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Row(children: [
-              Container(width: 5, height: 5, decoration: const BoxDecoration(color: AppColors.primary, shape: BoxShape.circle)),
-              const SizedBox(width: 6),
-              Text(r.$1, style: TextStyle(fontSize: 7, color: Colors.white.withValues(alpha: 0.45))),
-              const Spacer(),
-              Text(r.$2, style: const TextStyle(fontSize: 8, fontWeight: FontWeight.w700, color: Colors.white)),
-              const SizedBox(width: 6),
-              Text(r.$3, style: const TextStyle(fontSize: 7, fontWeight: FontWeight.w700, color: AppColors.lime)),
-            ]),
-          )),
-        ],
-      ),
-    ),
-  );
-}
-
-// ── Mini helpers ──────────────────────────────────────────────────
-
-class _MiniTab extends StatelessWidget {
-  final String label;
-  final bool active;
-  const _MiniTab(this.label, this.active);
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-    decoration: BoxDecoration(
-      border: Border(bottom: BorderSide(
-        color: active ? AppColors.primary : Colors.transparent,
-        width: 1.5,
-      )),
-    ),
-    child: Text(label, style: TextStyle(
-      fontSize: 7, fontWeight: FontWeight.w700,
-      color: active ? AppColors.primary : Colors.white.withValues(alpha: 0.35),
-    )),
-  );
-}
-
-class _MiniMetricCard extends StatelessWidget {
-  final String label, value;
-  final Color color;
-  const _MiniMetricCard(this.label, this.value, this.color);
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-    decoration: BoxDecoration(
-      color: color.withValues(alpha: 0.10),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: color.withValues(alpha: 0.20)),
-    ),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(label, style: TextStyle(fontSize: 5.5, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: Colors.white.withValues(alpha: 0.45))),
-      const SizedBox(height: 2),
-      Text(value, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: color)),
-    ]),
-  );
-}
-
-class _MiniProgressChartPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Baseline (faded)
-    final basePaint = Paint()
-      ..color = Colors.white.withValues(alpha: 0.12)
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-    final basePath = Path()
-      ..moveTo(0, size.height * 0.85)
-      ..lineTo(size.width, size.height * 0.85);
-    canvas.drawPath(basePath, basePaint);
-
-    // Growth line
-    final paint = Paint()
-      ..color = AppColors.primary
-      ..strokeWidth = 1.8
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-    final path = Path()
-      ..moveTo(0, size.height * 0.80)
-      ..cubicTo(size.width * 0.25, size.height * 0.75,
-                size.width * 0.50, size.height * 0.50,
-                size.width * 0.75, size.height * 0.35)
-      ..lineTo(size.width, size.height * 0.20);
-    canvas.drawPath(path, paint);
-
-    // Fill under line
-    final fillPath = Path()
-      ..moveTo(0, size.height * 0.80)
-      ..cubicTo(size.width * 0.25, size.height * 0.75,
-                size.width * 0.50, size.height * 0.50,
-                size.width * 0.75, size.height * 0.35)
-      ..lineTo(size.width, size.height * 0.20)
-      ..lineTo(size.width, size.height * 0.85)
-      ..lineTo(0, size.height * 0.85)
-      ..close();
-    canvas.drawPath(fillPath, Paint()
-      ..shader = LinearGradient(
-        colors: [AppColors.primary.withValues(alpha: 0.25), Colors.transparent],
-        begin: Alignment.topCenter, end: Alignment.bottomCenter,
-      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height)));
-
-    // Dots at data points
-    for (final pt in [
-      Offset(0, size.height * 0.80),
-      Offset(size.width * 0.35, size.height * 0.60),
-      Offset(size.width * 0.65, size.height * 0.38),
-      Offset(size.width, size.height * 0.20),
-    ]) {
-      canvas.drawCircle(pt, 3, Paint()..color = AppColors.primary);
-      canvas.drawCircle(pt, 3, Paint()..color = Colors.white..style = PaintingStyle.stroke..strokeWidth = 1);
-    }
-  }
-  @override
-  bool shouldRepaint(_MiniProgressChartPainter old) => false;
-}
-
-class _IntroMockupLevels extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => _PhoneMockup(
-    child: Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header with days left
-          Row(children: [
-            const Text('Your Plan', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w800)),
-            const Spacer(),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: AppColors.orange.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: AppColors.orange.withValues(alpha: 0.3)),
-              ),
-              child: const Text('63 days left', style: TextStyle(color: AppColors.orange, fontSize: 6.5, fontWeight: FontWeight.w700)),
-            ),
-          ]),
-          const SizedBox(height: 8),
-          // Level 1 card — current (expanded)
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: const Color(0xFF13102A),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.45), width: 1.2),
-              boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.10), blurRadius: 10)],
-            ),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(children: [
-                Container(
-                  width: 28, height: 28,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: const LinearGradient(colors: [Color(0xFF4CAF50), Color(0xFF2E7D32)]),
-                    boxShadow: [BoxShadow(color: const Color(0xFF4CAF50).withValues(alpha: 0.4), blurRadius: 6)],
-                  ),
-                  child: const Center(child: Text('🌱', style: TextStyle(fontSize: 13))),
-                ),
-                const SizedBox(width: 7),
-                Flexible(
-                  child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Row(children: [
-                      Text('LEVEL 1', style: TextStyle(fontSize: 7, fontWeight: FontWeight.w800, letterSpacing: 1, color: const Color(0xFF4CAF50))),
-                      const SizedBox(width: 5),
-                      // intensity bar
-                      ...List.generate(10, (i) => Container(
-                        margin: const EdgeInsets.only(right: 1.5),
-                        width: 4, height: 7,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(1.5),
-                          color: i == 0 ? const Color(0xFF4CAF50) : const Color(0xFF4CAF50).withValues(alpha: 0.15),
-                        ),
-                      )),
-                    ]),
-                    const Text('Starter', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w800)),
-                  ]),
-                ),
-                const SizedBox(width: 6),
-                Text('7/7', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.lime)),
-              ]),
-              const SizedBox(height: 8),
-              // Snake path — row of 7 day nodes
-              LayoutBuilder(builder: (_, bc) {
-                final sz = ((bc.maxWidth - 12) / 7).clamp(16.0, 26.0);
-                final emojiSz = sz * 0.52;
-                return Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: List.generate(7, (i) => Container(
-                    width: sz, height: sz,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.primary,
-                      boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.5), blurRadius: 6)],
-                    ),
-                    child: Center(child: Text('🔥', style: TextStyle(fontSize: emojiSz))),
-                  )),
-                );
-              }),
-            ]),
-          ),
-          const SizedBox(height: 6),
-          // Level 2 card — current active
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: const Color(0xFF13102A),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.5), width: 1.4),
-              boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.12), blurRadius: 12)],
-            ),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(children: [
-                Container(
-                  width: 28, height: 28,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.5)]),
-                    boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.4), blurRadius: 6)],
-                  ),
-                  child: const Center(child: Text('⚡', style: TextStyle(fontSize: 13))),
-                ),
-                const SizedBox(width: 7),
-                Flexible(
-                  child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Row(children: [
-                      Text('LEVEL 2', style: TextStyle(fontSize: 7, fontWeight: FontWeight.w800, letterSpacing: 1, color: AppColors.primary)),
-                      const SizedBox(width: 5),
-                      ...List.generate(10, (i) => Container(
-                        margin: const EdgeInsets.only(right: 1.5),
-                        width: 4, height: 7,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(1.5),
-                          color: i < 2 ? AppColors.primary : AppColors.primary.withValues(alpha: 0.15),
-                        ),
-                      )),
-                    ]),
-                    const Text('Novice', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w800)),
-                  ]),
-                ),
-                const SizedBox(width: 6),
-                Text('2/7', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.primaryBright)),
-              ]),
-              const SizedBox(height: 8),
-              LayoutBuilder(builder: (_, bc) {
-                final sz = ((bc.maxWidth - 12) / 7).clamp(16.0, 26.0);
-                final emojiSz = sz * 0.52;
-                final numSz = sz * 0.36;
-                return Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: List.generate(7, (i) {
-                    if (i < 2) {
-                      return Container(width: sz, height: sz,
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.primary,
-                          boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.5), blurRadius: 6)]),
-                        child: Center(child: Text('🔥', style: TextStyle(fontSize: emojiSz))));
-                    }
-                    if (i == 2) {
-                      return Container(width: sz, height: sz,
-                        decoration: BoxDecoration(shape: BoxShape.circle,
-                          color: AppColors.primary.withValues(alpha: 0.15),
-                          border: Border.all(color: AppColors.primary, width: 1.5)),
-                        child: Center(child: Text('${i+1}', style: TextStyle(fontSize: numSz, fontWeight: FontWeight.w800, color: AppColors.primary))));
-                    }
-                    return Container(width: sz, height: sz,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withValues(alpha: 0.05)),
-                      child: Center(child: Text('${i+1}', style: TextStyle(fontSize: numSz, color: Colors.white.withValues(alpha: 0.2)))));
-                  }),
-                );
-              }),
-            ]),
-          ),
-          const SizedBox(height: 6),
-          // Level 3 — locked
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-            decoration: BoxDecoration(
-              color: const Color(0xFF13102A),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
-            ),
-            child: Row(children: [
-              Container(
-                width: 28, height: 28,
-                decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withValues(alpha: 0.06)),
-                child: const Icon(CupertinoIcons.lock_fill, size: 13, color: Colors.white38),
-              ),
-              const SizedBox(width: 7),
-              Text('LEVEL 3  ·  Builder', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.25))),
-            ]),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-class _IntroMockupReviews extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
-
-    // Featured hero review — Gökdeniz
-    const heroImage = 'assets/testimonials/gokdeniz.jpg';
-
-    // Secondary reviews with real photos
-    final reviews = [
-      (image: 'assets/testimonials/umut.jpg',  name: 'Umut',  text: l.testimonial1),
-      (image: 'assets/testimonials/aydin.jpg', name: 'Aydın', text: l.testimonial3),
-    ];
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // ── Hero card (Gökdeniz) ────────────────────────────────────
-          Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 14),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.primary.withValues(alpha: 0.18),
-                  const Color(0xFF13102A),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.28), width: 1.2),
-              boxShadow: [
-                BoxShadow(color: AppColors.primary.withValues(alpha: 0.10), blurRadius: 16),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    // Real photo avatar
-                    Container(
-                      width: 42, height: 42,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.primary, width: 1.8),
-                        boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 8)],
-                      ),
-                      child: ClipOval(
-                        child: Image.asset(heroImage, fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => const Icon(CupertinoIcons.person_fill, size: 22, color: AppColors.primary)),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Gökdeniz', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w800)),
-                        Row(children: [
-                          ...List.generate(5, (_) => const Icon(CupertinoIcons.star_fill, color: Color(0xFFFFD700), size: 11)),
-                          const SizedBox(width: 5),
-                          Text('5.0', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: Colors.white.withValues(alpha: 0.55))),
-                        ]),
-                      ],
-                    ),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: AppColors.primary.withValues(alpha: 0.30)),
-                      ),
-                      child: const Text('✓ Verified', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: AppColors.primary)),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Text(l.testimonial2,
-                  style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12.5, height: 1.45)),
-              ],
-            ),
-          ),
-
-          // ── Secondary review cards ─────────────────────────────────
-          ...reviews.map((r) => Container(
-            margin: const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.fromLTRB(14, 13, 14, 11),
-            decoration: BoxDecoration(
-              color: const Color(0xFF161220),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(children: [
-                  // Real photo avatar
-                  Container(
-                    width: 34, height: 34,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white.withValues(alpha: 0.15), width: 1.2),
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(r.image, fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => Container(
-                          color: AppColors.primary.withValues(alpha: 0.20),
-                          child: const Icon(CupertinoIcons.person_fill, size: 16, color: AppColors.primary))),
-                    ),
-                  ),
-                  const SizedBox(width: 9),
-                  Expanded(child: Text(r.name, style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700))),
-                  Row(children: List.generate(5, (_) => const Icon(CupertinoIcons.star_fill, color: AppColors.primary, size: 11))),
-                ]),
-                const SizedBox(height: 8),
-                Text(r.text,
-                  style: TextStyle(color: Colors.white.withValues(alpha: 0.78), fontSize: 12, height: 1.42)),
-              ],
-            ),
-          )),
-        ],
-      ),
-    );
-  }
-}
-
-// ─── Mini helpers for intro mockups ──────────────────────────────────────────
-
-class _MiniStatTile extends StatelessWidget {
-  final String label, value;
-  final Color bg;
-  const _MiniStatTile(this.label, this.value, this.bg);
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(7),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(8)),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: TextStyle(color: Colors.white.withValues(alpha: 0.65), fontSize: 7)),
-        const SizedBox(height: 2),
-        Text(value, style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w800)),
-      ],
-    ),
-  );
-}
-
-class _MiniInfoTile extends StatelessWidget {
-  final String value, label;
-  const _MiniInfoTile(this.value, this.label);
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-    decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(7)),
-    child: Column(
-      children: [
-        Text(value, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w800)),
-        const SizedBox(height: 1),
-        Text(label, textAlign: TextAlign.center, style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 7)),
-      ],
-    ),
-  );
-}
-
-class _MiniChartPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final path = Path()
-      ..moveTo(0, size.height * 0.9)
-      ..cubicTo(size.width * 0.3, size.height * 0.7, size.width * 0.6, size.height * 0.4, size.width, size.height * 0.2);
-    canvas.drawPath(path, Paint()
-      ..color = AppColors.primary..strokeWidth = 2..style = PaintingStyle.stroke..strokeCap = StrokeCap.round);
-    // Dot at end
-    canvas.drawCircle(Offset(size.width, size.height * 0.2), 4, Paint()..color = AppColors.primary);
-  }
-  @override
-  bool shouldRepaint(_MiniChartPainter old) => false;
-}
-
-// ═════════════════════════════════════════════════════════════════════════════
 // Existing sub-widgets (kept for result page compatibility)
 // ═════════════════════════════════════════════════════════════════════════════
 
@@ -4058,36 +3248,44 @@ class _WelcomeScreen extends StatefulWidget {
   State<_WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
+/// Shown once the questionnaire is done: the first journey step ticks off in
+/// front of the user, and the second one lights up as what comes next.
 class _WelcomeScreenState extends State<_WelcomeScreen>
     with TickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<double> _logoScale;
-  late final Animation<double> _logoOpacity;
-  late final Animation<double> _glowOpacity;
-  late final Animation<double> _textOpacity;
-  late final Animation<Offset> _textSlide;
+  late final Animation<double> _headOpacity;
+  late final Animation<Offset> _headSlide;
   late final Animation<double> _btnOpacity;
   late final Animation<Offset> _btnSlide;
+
+  int _from = 0;
 
   @override
   void initState() {
     super.initState();
-    _ctrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 1800));
-    _logoScale   = Tween(begin: 0.5, end: 1.0).animate(
-        CurvedAnimation(parent: _ctrl, curve: const Interval(0.0, 0.5, curve: Curves.elasticOut)));
-    _logoOpacity = Tween(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(parent: _ctrl, curve: const Interval(0.0, 0.3, curve: Curves.easeOut)));
-    _glowOpacity = Tween(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(parent: _ctrl, curve: const Interval(0.3, 0.6, curve: Curves.easeOut)));
-    _textOpacity = Tween(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(parent: _ctrl, curve: const Interval(0.4, 0.65, curve: Curves.easeOut)));
-    _textSlide   = Tween(begin: const Offset(0, 0.3), end: Offset.zero).animate(
-        CurvedAnimation(parent: _ctrl, curve: const Interval(0.4, 0.65, curve: Curves.easeOutCubic)));
-    _btnOpacity  = Tween(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(parent: _ctrl, curve: const Interval(0.65, 0.9, curve: Curves.easeOut)));
-    _btnSlide    = Tween(begin: const Offset(0, 0.4), end: Offset.zero).animate(
-        CurvedAnimation(parent: _ctrl, curve: const Interval(0.65, 0.9, curve: Curves.easeOutCubic)));
+    _ctrl = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1400));
+    _headOpacity = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent: _ctrl, curve: const Interval(0.0, 0.35, curve: Curves.easeOut)));
+    _headSlide = Tween(begin: const Offset(0, 0.25), end: Offset.zero).animate(
+        CurvedAnimation(
+            parent: _ctrl,
+            curve: const Interval(0.0, 0.4, curve: Curves.easeOutCubic)));
+    _btnOpacity = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent: _ctrl, curve: const Interval(0.7, 1.0, curve: Curves.easeOut)));
+    _btnSlide = Tween(begin: const Offset(0, 0.35), end: Offset.zero).animate(
+        CurvedAnimation(
+            parent: _ctrl,
+            curve: const Interval(0.7, 1.0, curve: Curves.easeOutCubic)));
     _ctrl.forward();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final provider = context.read<AppProvider>();
+      setState(() => _from = provider.journeyProgress);
+      // The questionnaire is behind us, so step one is done.
+      provider.completeJourneyStep(0);
+    });
   }
 
   @override
@@ -4101,8 +3299,8 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 500),
-        pageBuilder: (_, __, ___) => const MainScreen(),
-        transitionsBuilder: (_, anim, __, child) =>
+        pageBuilder: (_, _, _) => const MainScreen(),
+        transitionsBuilder: (_, anim, _, child) =>
             FadeTransition(opacity: anim, child: child),
       ),
     );
@@ -4110,160 +3308,102 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _ctrl,
-      builder: (context, _) => Scaffold(
-        backgroundColor: const Color(0xFF07050F),
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF1A0A3C), Color(0xFF0A0718), Color(0xFF07050F)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+    final l = AppLocalizations.of(context)!;
+    final progress = context.watch<AppProvider>().journeyProgress;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFF07050F),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF1A0A3C), Color(0xFF0A0718), Color(0xFF07050F)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          child: SafeArea(
-            child: Column(
-              children: [
-                const Spacer(flex: 2),
-                Stack(alignment: Alignment.center, children: [
-                  Opacity(
-                    opacity: _glowOpacity.value,
-                    child: Container(
-                      width: 200,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.primary.withValues(alpha: 0.35),
-                            blurRadius: 90,
-                            spreadRadius: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Opacity(
-                    opacity: _logoOpacity.value,
-                    child: Transform.scale(
-                      scale: _logoScale.value,
-                      child: Container(
-                        width: 108,
-                        height: 108,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(28),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.primary.withValues(alpha: 0.5),
-                              blurRadius: 40,
-                            ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(28),
-                          child: Image.asset('assets/icon.png', fit: BoxFit.cover),
-                        ),
-                      ),
-                    ),
-                  ),
-                ]),
-                const SizedBox(height: 36),
-                SlideTransition(
-                  position: _textSlide,
-                  child: Opacity(
-                    opacity: _textOpacity.value,
-                    child: Column(
-                      children: [
-                        Text(
-                          'BeTaller',
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.white,
-                            letterSpacing: -1.5,
-                            shadows: [
-                              Shadow(color: AppColors.primary.withValues(alpha: 0.5), blurRadius: 20),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          AppLocalizations.of(context)!.splashJourneySubtitle,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white.withValues(alpha: 0.85),
-                            letterSpacing: 0.2,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          AppLocalizations.of(context)!.splashPlanSubtitle,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white.withValues(alpha: 0.55),
-                            height: 1.5,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const Spacer(flex: 2),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(28, 0, 28, 40),
-                  child: SlideTransition(
-                    position: _btnSlide,
-                    child: Opacity(
-                      opacity: _btnOpacity.value,
-                      child: GestureDetector(
-                        onTap: _enter,
-                        child: Container(
-                          width: double.infinity,
-                          height: 62,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.primary.withValues(alpha: 0.45),
-                                blurRadius: 24,
-                                offset: const Offset(0, 8),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(26, 40, 26, 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FadeTransition(
+                        opacity: _headOpacity,
+                        child: SlideTransition(
+                          position: _headSlide,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                decoration: BoxDecoration(
+                                  color: AppColors.lime.withValues(alpha: 0.14),
+                                  borderRadius: BorderRadius.circular(100),
+                                  border: Border.all(
+                                      color: AppColors.lime
+                                          .withValues(alpha: 0.35)),
+                                ),
+                                child: Text(
+                                  '1/$kJourneyStepCount',
+                                  style: const TextStyle(
+                                    fontSize: 9.5,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 1.4,
+                                    color: AppColors.lime,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                l.journeyDataDoneTitle,
+                                style: const TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.white,
+                                  height: 1.1,
+                                  letterSpacing: -1.1,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                l.journeyDataDoneSubtitle,
+                                style: TextStyle(
+                                  fontSize: 14.5,
+                                  height: 1.5,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white.withValues(alpha: 0.58),
+                                ),
                               ),
                             ],
                           ),
-                          child: Center(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.letsStart,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.white,
-                                    letterSpacing: 0.3,
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                const Icon(CupertinoIcons.arrow_right, color: Colors.white, size: 20),
-                              ],
-                            ),
-                          ),
                         ),
                       ),
+                      const SizedBox(height: 36),
+                      JourneySteps(completed: progress, animateFrom: _from),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+                ),
+              ),
+              FadeTransition(
+                opacity: _btnOpacity,
+                child: SlideTransition(
+                  position: _btnSlide,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 8, 24, 20),
+                    child: _TallerButton(
+                      label: l.journeyEnterApp,
+                      enabled: true,
+                      onTap: _enter,
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

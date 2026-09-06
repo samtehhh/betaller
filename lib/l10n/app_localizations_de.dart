@@ -3024,6 +3024,56 @@ class AppLocalizationsDe extends AppLocalizations {
   String get paywallReportStat => '82 %';
 
   @override
+  String get journeyIntroTitle => 'Starten wir in drei Schritten';
+
+  @override
+  String get journeyIntroSubtitle =>
+      'Wir richten BeTaller gemeinsam ein. Dein nächster Schritt wartet.';
+
+  @override
+  String get journeyStep1Title => 'Deine Daten erfassen';
+
+  @override
+  String get journeyStep1Desc =>
+      'Wir nehmen Größe, Alter und Lebensstil auf und berechnen dein Potenzial.';
+
+  @override
+  String get journeyStep2Title => 'Rundgang durch die App';
+
+  @override
+  String get journeyStep2Desc =>
+      'Wir zeigen jede Funktion: was sie kann und wie du sie nutzt.';
+
+  @override
+  String get journeyStep3Title => 'Selbst nutzen';
+
+  @override
+  String get journeyStep3Desc =>
+      'Du führst deine tägliche Routine aus, wir verfolgen deinen Fortschritt.';
+
+  @override
+  String get journeyNow => 'JETZT';
+
+  @override
+  String get journeyDone => 'FERTIG';
+
+  @override
+  String get journeySoon => 'BALD';
+
+  @override
+  String get journeyDataDoneTitle => 'Erster Schritt geschafft';
+
+  @override
+  String get journeyDataDoneSubtitle =>
+      'Deine Daten und dein Potenzial stehen. Jetzt folgt der Rundgang.';
+
+  @override
+  String get journeyEnterApp => 'Zur App';
+
+  @override
+  String get journeyProgressLabel => 'Einstieg';
+
+  @override
   String get paywallRestoreLabel => 'Käufe wiederherstellen';
 
   @override
