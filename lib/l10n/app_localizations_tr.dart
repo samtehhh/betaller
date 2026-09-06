@@ -2849,6 +2849,24 @@ class AppLocalizationsTr extends AppLocalizations {
   String get generalPerformance => 'GENEL PERFORMANS';
 
   @override
+  String get analysisBalance => 'Denge haritan';
+
+  @override
+  String get analysisWeakest => 'En zayıf halkan';
+
+  @override
+  String get analysisPrediction => 'Boy tahmini';
+
+  @override
+  String get analysisComparison => 'Karşılaştırma';
+
+  @override
+  String get analysisGrowth => 'Büyüme durumu';
+
+  @override
+  String get analysisWeakestHint => 'Puanını en hızlı buradan yükseltirsin.';
+
+  @override
   String get exploreLabel => 'KEŞFET';
 
   @override

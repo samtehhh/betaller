@@ -5246,6 +5246,42 @@ abstract class AppLocalizations {
   /// **'OVERALL PERFORMANCE'**
   String get generalPerformance;
 
+  /// No description provided for @analysisBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Your balance'**
+  String get analysisBalance;
+
+  /// No description provided for @analysisWeakest.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weakest link'**
+  String get analysisWeakest;
+
+  /// No description provided for @analysisPrediction.
+  ///
+  /// In en, this message translates to:
+  /// **'Height prediction'**
+  String get analysisPrediction;
+
+  /// No description provided for @analysisComparison.
+  ///
+  /// In en, this message translates to:
+  /// **'Comparison'**
+  String get analysisComparison;
+
+  /// No description provided for @analysisGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth status'**
+  String get analysisGrowth;
+
+  /// No description provided for @analysisWeakestHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This is the fastest place to raise your score.'**
+  String get analysisWeakestHint;
+
   /// No description provided for @exploreLabel.
   ///
   /// In en, this message translates to:

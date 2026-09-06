@@ -11,6 +11,7 @@ import '../utils/calculations.dart';
 import '../utils/localized_data.dart';
 import 'leaderboard_screen.dart';
 import '../widgets/peer_rank_card.dart';
+import '../widgets/radar_chart.dart';
 import '../widgets/premium_paywall.dart';
 
 class AnalysisScreen extends StatefulWidget {
@@ -252,46 +253,63 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.88), height: 1.4, letterSpacing: -0.1),
                             ),
                             const SizedBox(height: 28),
-                            // ── Score breakdown with GlowProgressBar ──
-                            _buildMetricRow(
-                              label: l.genetic,
-                              value: glowScore.genetic,
-                              color: AppColors.primary,
-                              gradient: AppColors.gradientPrimary,
-                              anim: _barCurve,
+                            // ── The shape of the five metrics ──
+                            Divider(
+                                color: Colors.white.withValues(alpha: 0.07),
+                                height: 1),
+                            const SizedBox(height: 18),
+                            Row(
+                              children: [
+                                Icon(CupertinoIcons.hexagon_fill,
+                                    size: 14, color: AppColors.primary),
+                                const SizedBox(width: 8),
+                                Text(
+                                  l.analysisBalance.toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: 10.5,
+                                    fontWeight: FontWeight.w800,
+                                    letterSpacing: 1.3,
+                                    color: Colors.white.withValues(alpha: 0.45),
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 14),
-                            _buildMetricRow(
-                              label: l.growth,
-                              value: glowScore.velocity,
-                              color: AppColors.lime,
-                              gradient: const LinearGradient(colors: [Color(0xFF22FF88), Color(0xFF00C853)]),
-                              anim: _barCurve,
+                            const SizedBox(height: 6),
+                            AnimatedBuilder(
+                              animation: _barAnim,
+                              builder: (context, _) => SizedBox(
+                                height: 250,
+                                child: Center(
+                                  child: RadarChart(
+                                    progress: _barCurve.value,
+                                    axes: [
+                                      RadarAxis(
+                                          label: l.genetic,
+                                          value: glowScore.genetic,
+                                          color: AppColors.primary),
+                                      RadarAxis(
+                                          label: l.growth,
+                                          value: glowScore.velocity,
+                                          color: AppColors.lime),
+                                      RadarAxis(
+                                          label: l.nutrition,
+                                          value: glowScore.nutrition,
+                                          color: AppColors.orange),
+                                      RadarAxis(
+                                          label: l.sleepLabel,
+                                          value: glowScore.sleep,
+                                          color: AppColors.sleep),
+                                      RadarAxis(
+                                          label: l.discipline,
+                                          value: glowScore.discipline,
+                                          color: AppColors.warning),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                            const SizedBox(height: 14),
-                            _buildMetricRow(
-                              label: l.nutrition,
-                              value: glowScore.nutrition,
-                              color: AppColors.orange,
-                              gradient: AppColors.gradientEnergy,
-                              anim: _barCurve,
-                            ),
-                            const SizedBox(height: 14),
-                            _buildMetricRow(
-                              label: l.sleepLabel,
-                              value: glowScore.sleep,
-                              color: AppColors.sleep,
-                              gradient: const LinearGradient(colors: [Color(0xFF6366F1), Color(0xFF4338CA)]),
-                              anim: _barCurve,
-                            ),
-                            const SizedBox(height: 14),
-                            _buildMetricRow(
-                              label: l.discipline,
-                              value: glowScore.discipline,
-                              color: AppColors.warning,
-                              gradient: const LinearGradient(colors: [Color(0xFFF5C542), Color(0xFFE5A813)]),
-                              anim: _barCurve,
-                            ),
+                            const SizedBox(height: 10),
+                            _WeakestLink(score: glowScore, l: l),
                           ],
                         ),
                       ),
@@ -392,6 +410,12 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     ],
 
                     // ── Boy Tahmini Hero Card ─────────────
+                    SectionHeader(
+                      icon: CupertinoIcons.arrow_up_right_circle_fill,
+                      title: l.analysisPrediction,
+                      iconColor: AppColors.cyan,
+                    ),
+                    const SizedBox(height: 12),
                     _buildPremiumGate(
                       isPremium: provider.isPremium,
                       context: context,
@@ -521,6 +545,12 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     const SizedBox(height: 12),
 
                     // ── Peer rank, right under the prediction ──
+                    SectionHeader(
+                      icon: CupertinoIcons.person_2_fill,
+                      title: l.analysisComparison,
+                      iconColor: AppColors.warning,
+                    ),
+                    const SizedBox(height: 12),
                     PeerRankCard(
                       percentile: provider.peerPercentile.toDouble(),
                       onTap: () => Navigator.push(
@@ -533,6 +563,12 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     const SizedBox(height: 14),
 
                     // ── Growth Status + Velocity ──────────
+                    SectionHeader(
+                      icon: CupertinoIcons.chart_bar_alt_fill,
+                      title: l.analysisGrowth,
+                      iconColor: AppColors.lime,
+                    ),
+                    const SizedBox(height: 12),
                     _buildPremiumGate(
                       isPremium: provider.isPremium,
                       context: context,
@@ -763,62 +799,6 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
     if (score >= 21) { final pts = 41 - score; return l.nextTierHint(l.tierC, '$pts'); }
     final pts = 21 - score;
     return l.nextTierHint(l.tierD, '$pts');
-  }
-
-  // ── Metric row with GlowProgressBar ──
-
-  Widget _buildMetricRow({
-    required String label,
-    required int value,
-    required Color color,
-    required Gradient gradient,
-    required Animation<double> anim,
-  }) {
-    return AnimatedBuilder(
-      animation: anim,
-      builder: (context, _) {
-        final animatedValue = (value / 100) * anim.value;
-        return Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    label.toUpperCase(),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white.withValues(alpha: 0.65),
-                      letterSpacing: 0.8,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  '${(value * anim.value).round()}/100',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w800,
-                    color: color,
-                    letterSpacing: -0.3,
-                    shadows: [Shadow(color: color.withValues(alpha: 0.35), blurRadius: 6)],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 7),
-            GlowProgressBar(
-              value: animatedValue,
-              gradient: gradient,
-              glowColor: color,
-              height: 9,
-            ),
-          ],
-        );
-      },
-    );
   }
 
   String _nextGrade(String grade) {
@@ -1061,6 +1041,94 @@ class _ScoreCard extends StatelessWidget {
           Text(value, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: color, letterSpacing: -1, shadows: [Shadow(color: color.withValues(alpha: 0.25), blurRadius: 8)])),
           const SizedBox(height: 2),
           Text(subtitle, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82))),
+        ],
+      ),
+    );
+  }
+}
+
+
+/// Points at the lowest of the five metrics: the one place where effort moves
+/// the total score fastest.
+class _WeakestLink extends StatelessWidget {
+  final GlowUpScore score;
+  final AppLocalizations l;
+  const _WeakestLink({required this.score, required this.l});
+
+  @override
+  Widget build(BuildContext context) {
+    final entries = <(String, int, Color, IconData)>[
+      (l.genetic, score.genetic, AppColors.primary, CupertinoIcons.wand_stars),
+      (l.growth, score.velocity, AppColors.lime, CupertinoIcons.arrow_up_right),
+      (l.nutrition, score.nutrition, AppColors.orange, CupertinoIcons.leaf_arrow_circlepath),
+      (l.sleepLabel, score.sleep, AppColors.sleep, CupertinoIcons.moon_fill),
+      (l.discipline, score.discipline, AppColors.warning, CupertinoIcons.flame_fill),
+    ];
+    entries.sort((a, b) => a.$2.compareTo(b.$2));
+    final weakest = entries.first;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
+      decoration: BoxDecoration(
+        color: weakest.$3.withValues(alpha: 0.09),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: weakest.$3.withValues(alpha: 0.28)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: weakest.$3.withValues(alpha: 0.16),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Icon(weakest.$4, size: 19, color: weakest.$3),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        '${l.analysisWeakest}: ${weakest.$1}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          letterSpacing: -0.2,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '${weakest.$2}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w900,
+                        color: weakest.$3,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  l.analysisWeakestHint,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    height: 1.35,
+                    color: Colors.white.withValues(alpha: 0.52),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

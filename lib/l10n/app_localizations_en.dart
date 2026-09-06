@@ -2854,6 +2854,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get generalPerformance => 'OVERALL PERFORMANCE';
 
   @override
+  String get analysisBalance => 'Your balance';
+
+  @override
+  String get analysisWeakest => 'Your weakest link';
+
+  @override
+  String get analysisPrediction => 'Height prediction';
+
+  @override
+  String get analysisComparison => 'Comparison';
+
+  @override
+  String get analysisGrowth => 'Growth status';
+
+  @override
+  String get analysisWeakestHint =>
+      'This is the fastest place to raise your score.';
+
+  @override
   String get exploreLabel => 'EXPLORE';
 
   @override
