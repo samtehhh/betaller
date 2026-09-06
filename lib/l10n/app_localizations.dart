@@ -4046,6 +4046,72 @@ abstract class AppLocalizations {
   /// **'All'**
   String get recipesGoalAll;
 
+  /// No description provided for @recipeDiffEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get recipeDiffEasy;
+
+  /// No description provided for @recipeDiffMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get recipeDiffMedium;
+
+  /// No description provided for @recipeDiffHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get recipeDiffHard;
+
+  /// No description provided for @recipesFilterType.
+  ///
+  /// In en, this message translates to:
+  /// **'TYPE'**
+  String get recipesFilterType;
+
+  /// No description provided for @recipesFilterNutrient.
+  ///
+  /// In en, this message translates to:
+  /// **'RICH IN'**
+  String get recipesFilterNutrient;
+
+  /// No description provided for @recipesGoalVitaminD.
+  ///
+  /// In en, this message translates to:
+  /// **'Vitamin D'**
+  String get recipesGoalVitaminD;
+
+  /// No description provided for @recipesGoalZinc.
+  ///
+  /// In en, this message translates to:
+  /// **'Zinc'**
+  String get recipesGoalZinc;
+
+  /// No description provided for @recipesGoalMagnesium.
+  ///
+  /// In en, this message translates to:
+  /// **'Magnesium'**
+  String get recipesGoalMagnesium;
+
+  /// No description provided for @recipesCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} recipes'**
+  String recipesCountLabel(int count);
+
+  /// No description provided for @recipeIngredients.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get recipeIngredients;
+
+  /// No description provided for @recipeSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'Method'**
+  String get recipeSteps;
+
   /// No description provided for @recipesGoalProtein.
   ///
   /// In en, this message translates to:

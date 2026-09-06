@@ -4,170 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
+import '../data/recipes.dart';
 import '../utils/constants.dart';
 import '../widgets/premium_paywall.dart';
 
 // ── Recipe database ────────────────────────────────────────────
-const _recipes = [
-  {
-    'id': 'high_protein_breakfast',
-    'name': 'Power Protein Oatmeal',
-    'category': 'breakfast',
-    'goal': 'high_protein',
-    'icon': '🥣',
-    'protein': 32,
-    'calories': 480,
-    'time': 10, // minutes
-    'difficulty': 'easy',
-    'ingredients': [
-      '1 cup oats',
-      '1 cup milk',
-      '2 scoops whey protein',
-      '1 banana',
-      '20g almonds',
-      '1 tbsp honey',
-    ],
-    'instructions':
-        'Cook oats with milk. Mix in protein powder. Top with banana, almonds, and honey.',
-  },
-  {
-    'id': 'salmon_quinoa_bowl',
-    'name': 'Salmon Quinoa Bowl',
-    'category': 'lunch',
-    'goal': 'omega3',
-    'icon': '🍣',
-    'protein': 38,
-    'calories': 620,
-    'time': 25,
-    'difficulty': 'medium',
-    'ingredients': [
-      '150g salmon fillet',
-      '1 cup quinoa',
-      'Mixed greens',
-      '1/2 avocado',
-      'Lemon-olive oil dressing',
-    ],
-    'instructions':
-        'Pan-sear salmon. Cook quinoa. Combine with greens and avocado. Drizzle dressing.',
-  },
-  {
-    'id': 'greek_yogurt_parfait',
-    'name': 'Greek Yogurt Parfait',
-    'category': 'snack',
-    'goal': 'calcium',
-    'icon': '🥛',
-    'protein': 20,
-    'calories': 280,
-    'time': 5,
-    'difficulty': 'easy',
-    'ingredients': [
-      '1 cup Greek yogurt',
-      '1/4 cup granola',
-      '1/2 cup berries',
-      '1 tbsp honey',
-    ],
-    'instructions':
-        'Layer yogurt, granola, and berries in a glass. Drizzle with honey.',
-  },
-  {
-    'id': 'chicken_sweet_potato',
-    'name': 'Grilled Chicken & Sweet Potato',
-    'category': 'dinner',
-    'goal': 'high_protein',
-    'icon': '🍗',
-    'protein': 45,
-    'calories': 580,
-    'time': 30,
-    'difficulty': 'medium',
-    'ingredients': [
-      '200g chicken breast',
-      '1 large sweet potato',
-      'Broccoli',
-      'Olive oil, herbs',
-    ],
-    'instructions':
-        'Grill chicken. Roast sweet potato. Steam broccoli. Season with herbs.',
-  },
-  {
-    'id': 'spinach_omelet',
-    'name': 'Spinach & Cheese Omelet',
-    'category': 'breakfast',
-    'goal': 'iron',
-    'icon': '🍳',
-    'protein': 28,
-    'calories': 380,
-    'time': 8,
-    'difficulty': 'easy',
-    'ingredients': [
-      '3 eggs',
-      '1 cup spinach',
-      '30g cheese',
-      'Olive oil',
-    ],
-    'instructions':
-        'Whisk eggs. Sauté spinach. Pour eggs over spinach, add cheese, fold.',
-  },
-  {
-    'id': 'lentil_soup',
-    'name': 'Hearty Lentil Soup',
-    'category': 'lunch',
-    'goal': 'iron',
-    'icon': '🍲',
-    'protein': 22,
-    'calories': 420,
-    'time': 35,
-    'difficulty': 'easy',
-    'ingredients': [
-      '1 cup red lentils',
-      '1 onion',
-      '2 carrots',
-      'Tomato paste',
-      'Cumin, paprika',
-    ],
-    'instructions':
-        'Sauté onion and carrots. Add lentils, water, tomato paste, spices. Simmer 25 min.',
-  },
-  {
-    'id': 'tuna_avocado_toast',
-    'name': 'Tuna Avocado Toast',
-    'category': 'snack',
-    'goal': 'omega3',
-    'icon': '🥑',
-    'protein': 26,
-    'calories': 340,
-    'time': 5,
-    'difficulty': 'easy',
-    'ingredients': [
-      '2 slices whole grain bread',
-      '1 can tuna',
-      '1/2 avocado',
-      'Lemon, salt, pepper',
-    ],
-    'instructions':
-        'Toast bread. Mash avocado. Mix tuna with lemon. Layer on toast.',
-  },
-  {
-    'id': 'turkey_quinoa_bowl',
-    'name': 'Turkey Quinoa Power Bowl',
-    'category': 'dinner',
-    'goal': 'high_protein',
-    'icon': '🦃',
-    'protein': 42,
-    'calories': 550,
-    'time': 25,
-    'difficulty': 'medium',
-    'ingredients': [
-      '180g turkey breast',
-      '1 cup cooked quinoa',
-      'Mixed vegetables',
-      'Tahini dressing',
-    ],
-    'instructions':
-        'Grill turkey. Combine with quinoa and vegetables. Drizzle tahini.',
-  },
-];
-
-// ── Screen ─────────────────────────────────────────────────────
 class RecipeGeneratorScreen extends StatefulWidget {
   const RecipeGeneratorScreen({super.key});
 
@@ -189,19 +30,43 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
 
   static List<Map<String, String>> _goals(AppLocalizations l) => [
         {'key': 'all', 'label': l.recipesGoalAll},
-        {'key': 'high_protein', 'label': l.recipesGoalProtein},
+        {'key': 'protein', 'label': l.recipesGoalProtein},
         {'key': 'calcium', 'label': l.recipesGoalCalcium},
+        {'key': 'vitamin_d', 'label': l.recipesGoalVitaminD},
+        {'key': 'zinc', 'label': l.recipesGoalZinc},
+        {'key': 'magnesium', 'label': l.recipesGoalMagnesium},
         {'key': 'omega3', 'label': l.recipesGoalOmega3},
         {'key': 'iron', 'label': l.recipesGoalIron},
       ];
 
-  List<Map<String, dynamic>> get _filteredRecipes {
-    return _recipes.where((r) {
-      final catOk =
-          _categoryFilter == 'all' || r['category'] == _categoryFilter;
-      final goalOk = _goalFilter == 'all' || r['goal'] == _goalFilter;
+  List<Recipe> get _filteredRecipes {
+    return kRecipes.where((r) {
+      final catOk = _categoryFilter == 'all' || r.category == _categoryFilter;
+      final goalOk =
+          _goalFilter == 'all' || r.nutrients.contains(_goalFilter);
       return catOk && goalOk;
     }).toList();
+  }
+
+  String _nutrientLabel(AppLocalizations l, String key) {
+    switch (key) {
+      case 'protein':
+        return l.recipesGoalProtein;
+      case 'calcium':
+        return l.recipesGoalCalcium;
+      case 'vitamin_d':
+        return l.recipesGoalVitaminD;
+      case 'zinc':
+        return l.recipesGoalZinc;
+      case 'magnesium':
+        return l.recipesGoalMagnesium;
+      case 'omega3':
+        return l.recipesGoalOmega3;
+      case 'iron':
+        return l.recipesGoalIron;
+      default:
+        return key;
+    }
   }
 
   Color _difficultyColor(String diff) {
@@ -214,6 +79,32 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
         return AppColors.error;
       default:
         return AppColors.primary;
+    }
+  }
+
+  String _categoryLabel(AppLocalizations l, String key) {
+    switch (key) {
+      case 'breakfast':
+        return l.recipesCategoryBreakfast;
+      case 'lunch':
+        return l.recipesCategoryLunch;
+      case 'dinner':
+        return l.recipesCategoryDinner;
+      case 'snack':
+        return l.recipesCategorySnack;
+      default:
+        return key;
+    }
+  }
+
+  String _difficultyLabel(AppLocalizations l, String key) {
+    switch (key) {
+      case 'medium':
+        return l.recipeDiffMedium;
+      case 'hard':
+        return l.recipeDiffHard;
+      default:
+        return l.recipeDiffEasy;
     }
   }
 
@@ -411,26 +302,37 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
             ),
           ),
 
-          // ── Filters ──
+          // ── Filters, each row saying what it filters ──
           SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 8, 0, 6),
-              child: _buildChipRow(
-                items: _categories(l),
-                selected: _categoryFilter,
-                onSelect: (k) => setState(() => _categoryFilter = k),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 4, 0, 12),
-              child: _buildChipRow(
-                items: _goals(l),
-                selected: _goalFilter,
-                onSelect: (k) => setState(() => _goalFilter = k),
-                accent: AppColors.cyan,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _filterLabel(l.recipesFilterType, AppColors.primary),
+                _buildChipRow(
+                  items: _categories(l),
+                  selected: _categoryFilter,
+                  onSelect: (k) => setState(() => _categoryFilter = k),
+                ),
+                const SizedBox(height: 12),
+                _filterLabel(l.recipesFilterNutrient, AppColors.cyan),
+                _buildChipRow(
+                  items: _goals(l),
+                  selected: _goalFilter,
+                  onSelect: (k) => setState(() => _goalFilter = k),
+                  accent: AppColors.cyan,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 14, 20, 10),
+                  child: Text(
+                    l.recipesCountLabel(recipes.length),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white.withValues(alpha: 0.40),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -479,6 +381,29 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
       ),
     );
   }
+
+  Widget _filterLabel(String text, Color color) => Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+        child: Row(
+          children: [
+            Container(
+              width: 4,
+              height: 4,
+              decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+            ),
+            const SizedBox(width: 7),
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: 10.5,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 1.4,
+                color: color.withValues(alpha: 0.85),
+              ),
+            ),
+          ],
+        ),
+      );
 
   // ── Chip row ──────────────────────────────────────────────
   Widget _buildChipRow({
@@ -544,15 +469,18 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
   }
 
   // ── Recipe card ──────────────────────────────────────────
-  Widget _buildRecipeCard(Map<String, dynamic> recipe) {
-    final category = recipe['category'] as String;
+  Widget _buildRecipeCard(Recipe recipe) {
+    final l = AppLocalizations.of(context)!;
+    final lang = Localizations.localeOf(context).languageCode;
+    final copy = recipeCopy(lang, recipe.id);
+    final category = recipe.category;
     final catColor = _categoryColor(category);
-    final diff = recipe['difficulty'] as String;
+    final diff = recipe.difficulty;
     final diffColor = _difficultyColor(diff);
-    final calories = recipe['calories'] as int;
-    final protein = recipe['protein'] as int;
-    final time = recipe['time'] as int;
-    final icon = recipe['icon'] as String;
+    final calories = recipe.calories;
+    final protein = recipe.protein;
+    final time = recipe.minutes;
+    final icon = recipe.icon;
 
     return GestureDetector(
       onTap: () {
@@ -609,7 +537,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    recipe['name'] as String,
+                    copy.name,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -627,7 +555,34 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
                       _buildDifficultyBadge(diff, diffColor),
                     ],
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
+                  // what the dish is rich in, which is why it is here
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: recipe.nutrients
+                        .map((n) => Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 7, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: AppColors.cyan.withValues(alpha: 0.12),
+                                borderRadius: BorderRadius.circular(100),
+                                border: Border.all(
+                                    color: AppColors.cyan
+                                        .withValues(alpha: 0.28)),
+                              ),
+                              child: Text(
+                                _nutrientLabel(l, n),
+                                style: const TextStyle(
+                                  fontSize: 9.5,
+                                  fontWeight: FontWeight.w800,
+                                  color: AppColors.cyan,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                  const SizedBox(height: 11),
                   Row(
                     children: [
                       _buildStat('🔥', '$calories'),
@@ -660,7 +615,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
         border: Border.all(color: color.withValues(alpha: 0.4)),
       ),
       child: Text(
-        category.toUpperCase(),
+        _categoryLabel(AppLocalizations.of(context)!, category).toUpperCase(),
         style: TextStyle(
           fontSize: 9,
           fontWeight: FontWeight.w800,
@@ -680,7 +635,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
         border: Border.all(color: color.withValues(alpha: 0.4)),
       ),
       child: Text(
-        diff.toUpperCase(),
+        _difficultyLabel(AppLocalizations.of(context)!, diff).toUpperCase(),
         style: TextStyle(
           fontSize: 9,
           fontWeight: FontWeight.w800,
@@ -711,20 +666,22 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
   }
 
   // ── Detail dialog ────────────────────────────────────────
-  void _showRecipeDetail(Map<String, dynamic> recipe) {
+  void _showRecipeDetail(Recipe recipe) {
     final l = AppLocalizations.of(context)!;
-    final category = recipe['category'] as String;
+    final lang = Localizations.localeOf(context).languageCode;
+    final copy = recipeCopy(lang, recipe.id);
+    final category = recipe.category;
     final catColor = _categoryColor(category);
-    final diff = recipe['difficulty'] as String;
+    final diff = recipe.difficulty;
     final diffColor = _difficultyColor(diff);
-    final icon = recipe['icon'] as String;
-    final name = recipe['name'] as String;
-    final calories = recipe['calories'] as int;
-    final protein = recipe['protein'] as int;
-    final time = recipe['time'] as int;
+    final icon = recipe.icon;
+    final name = copy.name;
+    final calories = recipe.calories;
+    final protein = recipe.protein;
+    final time = recipe.minutes;
     final ingredients =
-        (recipe['ingredients'] as List).cast<String>();
-    final instructions = recipe['instructions'] as String;
+        copy.ingredients;
+    final instructions = copy.steps;
 
     showDialog<void>(
       context: context,

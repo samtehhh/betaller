@@ -2179,6 +2179,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recipesGoalAll => 'All';
 
   @override
+  String get recipeDiffEasy => 'Easy';
+
+  @override
+  String get recipeDiffMedium => 'Medium';
+
+  @override
+  String get recipeDiffHard => 'Hard';
+
+  @override
+  String get recipesFilterType => 'TYPE';
+
+  @override
+  String get recipesFilterNutrient => 'RICH IN';
+
+  @override
+  String get recipesGoalVitaminD => 'Vitamin D';
+
+  @override
+  String get recipesGoalZinc => 'Zinc';
+
+  @override
+  String get recipesGoalMagnesium => 'Magnesium';
+
+  @override
+  String recipesCountLabel(int count) {
+    return '$count recipes';
+  }
+
+  @override
+  String get recipeIngredients => 'Ingredients';
+
+  @override
+  String get recipeSteps => 'Method';
+
+  @override
   String get recipesGoalProtein => 'High Protein';
 
   @override

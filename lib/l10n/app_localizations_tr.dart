@@ -2175,6 +2175,41 @@ class AppLocalizationsTr extends AppLocalizations {
   String get recipesGoalAll => 'Tümü';
 
   @override
+  String get recipeDiffEasy => 'Kolay';
+
+  @override
+  String get recipeDiffMedium => 'Orta';
+
+  @override
+  String get recipeDiffHard => 'Zor';
+
+  @override
+  String get recipesFilterType => 'TÜR';
+
+  @override
+  String get recipesFilterNutrient => 'ÖZELLİK';
+
+  @override
+  String get recipesGoalVitaminD => 'D Vitamini';
+
+  @override
+  String get recipesGoalZinc => 'Çinko';
+
+  @override
+  String get recipesGoalMagnesium => 'Magnezyum';
+
+  @override
+  String recipesCountLabel(int count) {
+    return '$count tarif';
+  }
+
+  @override
+  String get recipeIngredients => 'Malzemeler';
+
+  @override
+  String get recipeSteps => 'Hazırlanışı';
+
+  @override
   String get recipesGoalProtein => 'Yüksek Protein';
 
   @override
