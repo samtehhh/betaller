@@ -9,6 +9,8 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
 import '../utils/localized_data.dart';
+import 'leaderboard_screen.dart';
+import '../widgets/peer_rank_card.dart';
 import '../widgets/premium_paywall.dart';
 
 class AnalysisScreen extends StatefulWidget {
@@ -516,6 +518,18 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                         ],
                       ),
                     )),
+                    const SizedBox(height: 12),
+
+                    // ── Peer rank, right under the prediction ──
+                    PeerRankCard(
+                      percentile: provider.peerPercentile.toDouble(),
+                      onTap: () => Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (_) => const LeaderboardScreen(),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 14),
 
                     // ── Growth Status + Velocity ──────────

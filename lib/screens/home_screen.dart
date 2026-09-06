@@ -1,4 +1,5 @@
 import 'dart:ui' show ImageFilter;
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +18,6 @@ import 'progress_photos_screen.dart';
 import 'posture_analysis_screen.dart';
 import 'wellness_tracker_screen.dart';
 import 'recipe_generator_screen.dart';
-import 'leaderboard_screen.dart';
 import 'progress_screen.dart';
 import '../widgets/journey_steps.dart';
 import '../widgets/premium_paywall.dart';
@@ -274,48 +274,9 @@ class _HomeScreenState extends State<HomeScreen>
                       allDone: allTodayDone,
                       animValue: _curve.value,
                     ),
-                    const SizedBox(height: _sectionGap),
+                    const SizedBox(height: 12),
 
-                    // ── 2. HERO HEIGHT CARD ───────────────────────────────
-                    _HeroHeightCard(
-                      currentHeight: profile.currentHeight,
-                      potential: potential,
-                      remaining: remaining,
-                      isPremium: provider.isPremium,
-                      routineProgress: provider.routineProgress,
-                      completedCount: provider.completedRoutineCount,
-                      totalCount: provider.routines.length,
-                      allDone: provider.allRoutinesCompleted,
-                      animValue: _curve.value,
-                      startHeight: provider.heightRecords.length >= 2
-                          ? provider.heightRecords.first.height
-                          : null,
-                      l: l,
-                      onPremiumTap: () => showPremiumPaywall(context),
-                    ),
-                    const SizedBox(height: _sectionGap),
-
-                    // ── 3. PEER RANK ──────────────────────────────────────
-                    _LeaderboardCard(
-                      percentile: provider.peerPercentile.toDouble(),
-                      onTap: () => Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (_) => const LeaderboardScreen(),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: _sectionGap),
-
-                    // ── 4. ACTIVE CHALLENGES ──────────────────────────────
-                    _ChallengesSection(
-                      challenges: challenges,
-                      isEvening: isEvening,
-                      l: l,
-                    ),
-                    const SizedBox(height: _sectionGap),
-
-                    // ── 5. WATER + SLEEP ──────────────────────────────────
+                    // ── 1b. WATER + SLEEP, right under today's goals ──────
                     Row(
                       children: [
                         Expanded(
@@ -362,6 +323,34 @@ class _HomeScreenState extends State<HomeScreen>
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(height: _sectionGap),
+                    const SizedBox(height: _sectionGap),
+
+                    // ── 2. HERO HEIGHT CARD ───────────────────────────────
+                    _HeroHeightCard(
+                      currentHeight: profile.currentHeight,
+                      potential: potential,
+                      remaining: remaining,
+                      isPremium: provider.isPremium,
+                      routineProgress: provider.routineProgress,
+                      completedCount: provider.completedRoutineCount,
+                      totalCount: provider.routines.length,
+                      allDone: provider.allRoutinesCompleted,
+                      animValue: _curve.value,
+                      startHeight: provider.heightRecords.length >= 2
+                          ? provider.heightRecords.first.height
+                          : null,
+                      l: l,
+                      onPremiumTap: () => showPremiumPaywall(context),
+                    ),
+                    const SizedBox(height: _sectionGap),
+
+                    // ── 4. ACTIVE CHALLENGES ──────────────────────────────
+                    _ChallengesSection(
+                      challenges: challenges,
+                      isEvening: isEvening,
+                      l: l,
                     ),
                     const SizedBox(height: _sectionGap),
 
@@ -935,119 +924,241 @@ class _TodayMissionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final routineRatio =
-        routineTotal > 0 ? routineCompleted / routineTotal : 0.0;
-    final challengeRatio =
-        challengeTotal > 0 ? challengeCompleted / challengeTotal : 0.0;
+        routineTotal > 0 ? (routineCompleted / routineTotal).clamp(0.0, 1.0) : 0.0;
+    final challengeRatio = challengeTotal > 0
+        ? (challengeCompleted / challengeTotal).clamp(0.0, 1.0)
+        : 0.0;
     final waterRatio =
         waterTarget > 0 ? (waterCurrent / waterTarget).clamp(0.0, 1.0) : 0.0;
-    final overall = ((routineRatio + challengeRatio + waterRatio) / 3 *
-            animValue)
-        .clamp(0.0, 1.0);
-    final overallPct = (overall * 100).toInt();
+    final overall =
+        ((routineRatio + challengeRatio + waterRatio) / 3 * animValue)
+            .clamp(0.0, 1.0);
+    final overallPct = (overall * 100).round();
+    final doneCount = [
+      routineRatio >= 1,
+      challengeRatio >= 1,
+      waterRatio >= 1,
+    ].where((e) => e).length;
 
-    final accentColor = allDone ? AppColors.success : AppColors.primary;
+    final accent = allDone ? AppColors.success : AppColors.primary;
 
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       decoration: BoxDecoration(
         color: AppColors.cardFill,
         borderRadius: BorderRadius.circular(_radiusXL),
         border: Border.all(
-          color: accentColor.withValues(alpha: allDone ? 0.18 : 0.08),
+          color: accent.withValues(alpha: allDone ? 0.30 : 0.12),
         ),
         boxShadow: [
           BoxShadow(
-            color: accentColor.withValues(alpha: 0.12),
-            blurRadius: 32,
+            color: accent.withValues(alpha: 0.14),
+            blurRadius: 30,
             offset: const Offset(0, 8),
-            spreadRadius: -4,
+            spreadRadius: -6,
           ),
         ],
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: 78,
-            height: 78,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox.expand(
-                  child: Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: CircularProgressIndicator(
-                      value: overall,
-                      strokeWidth: 5,
-                      backgroundColor: Colors.white.withValues(alpha: 0.06),
-                      valueColor: AlwaysStoppedAnimation<Color>(accentColor),
-                      strokeCap: StrokeCap.round,
+          // ── Heading + how many of the three are closed ─────────────────
+          Row(
+            children: [
+              Icon(
+                allDone
+                    ? CupertinoIcons.checkmark_seal_fill
+                    : CupertinoIcons.sun_max_fill,
+                size: 17,
+                color: accent,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  allDone ? l.todayCompleted : l.todayGoals,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 14.5,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.2,
+                    color: allDone ? AppColors.success : Colors.white,
+                  ),
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+                decoration: BoxDecoration(
+                  color: accent.withValues(alpha: 0.14),
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(color: accent.withValues(alpha: 0.30)),
+                ),
+                child: Text(
+                  '$doneCount/3',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w900,
+                    color: accent,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 18),
+
+          Row(
+            children: [
+              // ── Ring ───────────────────────────────────────────────────
+              SizedBox(
+                width: 86,
+                height: 86,
+                child: CustomPaint(
+                  painter: _MissionRingPainter(
+                    progress: overall,
+                    color: accent,
+                    allDone: allDone,
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '$overallPct',
+                          style: TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.w900,
+                            height: 1.0,
+                            color: allDone ? AppColors.success : Colors.white,
+                            letterSpacing: -1.2,
+                          ),
+                        ),
+                        Text(
+                          '%',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white.withValues(alpha: 0.40),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Text(
-                  '$overallPct%',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900,
-                    color: allDone ? AppColors.success : Colors.white,
-                    letterSpacing: -0.8,
-                  ),
+              ),
+
+              const SizedBox(width: 18),
+
+              // ── The three goals, each with its own bar ─────────────────
+              Expanded(
+                child: Column(
+                  children: [
+                    _MissionRow(
+                      icon: CupertinoIcons.checkmark_circle_fill,
+                      iconColor: AppColors.primary,
+                      label: l.routinesLabel,
+                      value:
+                          '$routineCompleted/${routineTotal > 0 ? routineTotal : "—"}',
+                      progress: routineRatio * animValue,
+                      done: routineRatio >= 1,
+                    ),
+                    const SizedBox(height: 12),
+                    _MissionRow(
+                      icon: CupertinoIcons.bolt_fill,
+                      iconColor: AppColors.warning,
+                      label: l.challengesLabel,
+                      value:
+                          '$challengeCompleted/${challengeTotal > 0 ? challengeTotal : "—"}',
+                      progress: challengeRatio * animValue,
+                      done: challengeRatio >= 1,
+                    ),
+                    const SizedBox(height: 12),
+                    _MissionRow(
+                      icon: CupertinoIcons.drop_fill,
+                      iconColor: AppColors.water,
+                      label: l.water,
+                      value:
+                          '${waterCurrent.toStringAsFixed(1)}/${waterTarget.toStringAsFixed(1)}L',
+                      progress: waterRatio * animValue,
+                      done: waterRatio >= 1,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 22),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  allDone ? l.todayCompleted : l.todayGoals,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.1,
-                    color: allDone
-                        ? AppColors.success
-                        : Colors.white.withValues(alpha: 0.45),
-                  ),
-                ),
-                const SizedBox(height: 14),
-                _MissionRow(
-                  icon: CupertinoIcons.checkmark_circle_fill,
-                  iconColor: AppColors.primary,
-                  label: l.routinesLabel,
-                  value:
-                      '$routineCompleted/${routineTotal > 0 ? routineTotal : "—"}',
-                  done: routineCompleted >= routineTotal &&
-                      routineTotal > 0,
-                ),
-                const SizedBox(height: 9),
-                _MissionRow(
-                  icon: CupertinoIcons.bolt_fill,
-                  iconColor: AppColors.warning,
-                  label: l.challengesLabel,
-                  value:
-                      '$challengeCompleted/${challengeTotal > 0 ? challengeTotal : "—"}',
-                  done: challengeCompleted >= challengeTotal &&
-                      challengeTotal > 0,
-                ),
-                const SizedBox(height: 9),
-                _MissionRow(
-                  icon: CupertinoIcons.drop_fill,
-                  iconColor: AppColors.water,
-                  label: l.water,
-                  value:
-                      '${waterCurrent.toStringAsFixed(1)}/${waterTarget.toStringAsFixed(1)}L',
-                  done: waterCurrent >= waterTarget,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
+}
+
+/// The ring around the day's percentage: a soft track, a gradient sweep and a
+/// dot riding the end of the arc.
+class _MissionRingPainter extends CustomPainter {
+  final double progress;
+  final Color color;
+  final bool allDone;
+  const _MissionRingPainter({
+    required this.progress,
+    required this.color,
+    required this.allDone,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2 - 5;
+    const startAngle = -math.pi / 2;
+    final sweep = 2 * math.pi * progress;
+
+    canvas.drawCircle(
+      center,
+      radius,
+      Paint()
+        ..color = Colors.white.withValues(alpha: 0.06)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 7,
+    );
+
+    if (progress <= 0) return;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      startAngle,
+      sweep,
+      false,
+      Paint()
+        ..shader = SweepGradient(
+          startAngle: 0,
+          endAngle: 2 * math.pi,
+          colors: allDone
+              ? [AppColors.success, AppColors.lime, AppColors.success]
+              : [AppColors.primary, AppColors.cyan, AppColors.primary],
+          transform: const GradientRotation(-math.pi / 2),
+        ).createShader(Rect.fromCircle(center: center, radius: radius))
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 7
+        ..strokeCap = StrokeCap.round,
+    );
+
+    final end = Offset(
+      center.dx + radius * math.cos(startAngle + sweep),
+      center.dy + radius * math.sin(startAngle + sweep),
+    );
+    canvas.drawCircle(
+        end,
+        7,
+        Paint()
+          ..color = color.withValues(alpha: 0.35)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6));
+    canvas.drawCircle(end, 3.5, Paint()..color = Colors.white);
+  }
+
+  @override
+  bool shouldRepaint(_MissionRingPainter old) =>
+      old.progress != progress || old.color != color || old.allDone != allDone;
 }
 
 class _MissionRow extends StatelessWidget {
@@ -1055,6 +1166,7 @@ class _MissionRow extends StatelessWidget {
   final Color iconColor;
   final String label;
   final String value;
+  final double progress;
   final bool done;
 
   const _MissionRow({
@@ -1062,48 +1174,58 @@ class _MissionRow extends StatelessWidget {
     required this.iconColor,
     required this.label,
     required this.value,
+    required this.progress,
     required this.done,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    final tint = done ? AppColors.success : iconColor;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          icon,
-          size: 14,
-          color: done ? AppColors.success : iconColor.withValues(alpha: 0.55),
+        Row(
+          children: [
+            Icon(icon, size: 13, color: tint.withValues(alpha: done ? 1 : 0.75)),
+            const SizedBox(width: 7),
+            Expanded(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white.withValues(alpha: done ? 0.85 : 0.60),
+                ),
+              ),
+            ),
+            const SizedBox(width: 6),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w800,
+                color: done ? AppColors.success : Colors.white,
+                letterSpacing: -0.2,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 8),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            color: Colors.white.withValues(alpha: 0.42),
-            fontWeight: FontWeight.w500,
-            letterSpacing: -0.1,
-          ),
-        ),
-        const Spacer(),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.3,
-            color: done
-                ? AppColors.success
-                : Colors.white.withValues(alpha: 0.78),
+        const SizedBox(height: 6),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(3),
+          child: LinearProgressIndicator(
+            value: progress.clamp(0.0, 1.0),
+            minHeight: 4,
+            backgroundColor: Colors.white.withValues(alpha: 0.07),
+            valueColor: AlwaysStoppedAnimation<Color>(tint),
           ),
         ),
       ],
     );
   }
 }
-
-// ═══════════════════════════════════════════════════════════════════
-//  HERO HEIGHT CARD — cinematic with purple glow
-// ═══════════════════════════════════════════════════════════════════
 
 class _HeroHeightCard extends StatelessWidget {
   final double currentHeight;
@@ -1722,134 +1844,6 @@ class _TrackCard extends StatelessWidget {
     );
   }
 }
-
-// ═══════════════════════════════════════════════════════════════════
-//  LEADERBOARD CARD — refined with haptic
-// ═══════════════════════════════════════════════════════════════════
-
-class _LeaderboardCard extends StatefulWidget {
-  final double percentile;
-  final VoidCallback onTap;
-  const _LeaderboardCard({required this.percentile, required this.onTap});
-
-  @override
-  State<_LeaderboardCard> createState() => _LeaderboardCardState();
-}
-
-class _LeaderboardCardState extends State<_LeaderboardCard> {
-  bool _pressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
-    final topPct = (100 - widget.percentile).clamp(1, 99).toInt();
-    return GestureDetector(
-      onTapDown: (_) => setState(() => _pressed = true),
-      onTapUp: (_) {
-        setState(() => _pressed = false);
-        HapticFeedback.lightImpact();
-        widget.onTap();
-      },
-      onTapCancel: () => setState(() => _pressed = false),
-      child: AnimatedScale(
-        scale: _pressed ? 0.97 : 1.0,
-        duration: const Duration(milliseconds: 110),
-        child: Container(
-          padding: const EdgeInsets.all(22),
-          decoration: BoxDecoration(
-            color: AppColors.cardFill,
-            borderRadius: BorderRadius.circular(_radiusL),
-            border: Border.all(
-              color: AppColors.warning.withValues(alpha: 0.12),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.warning.withValues(alpha: 0.08),
-                blurRadius: 24,
-                spreadRadius: -6,
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 52,
-                height: 52,
-                decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(17),
-                  border: Border.all(
-                    color: AppColors.warning.withValues(alpha: 0.18),
-                  ),
-                ),
-                child: const Icon(
-                  CupertinoIcons.rosette,
-                  color: AppColors.warning,
-                  size: 24,
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l.peerCompareLabel,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.warning.withValues(alpha: 0.80),
-                        letterSpacing: 1.5,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      l.peerCompareText(topPct),
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        letterSpacing: -0.4,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 14, vertical: 10),
-                decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(alpha: 0.10),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: AppColors.warning.withValues(alpha: 0.20),
-                  ),
-                ),
-                child: Text(
-                  'TOP\n$topPct%',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w900,
-                    color: AppColors.warning,
-                    letterSpacing: -0.5,
-                    height: 1.1,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════════
-//  CHALLENGES SECTION — always visible, urgency-aware
-// ═══════════════════════════════════════════════════════════════════
-
 class _ChallengesSection extends StatelessWidget {
   final List<Map<String, dynamic>> challenges;
   final bool isEvening;

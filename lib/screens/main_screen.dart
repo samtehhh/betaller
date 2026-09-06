@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:in_app_review/in_app_review.dart';
 
@@ -77,64 +78,73 @@ class _MainScreenState extends State<MainScreen> {
         children: _screens,
       ),
       extendBody: true,
-      bottomNavigationBar: ClipRRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xFF080610).withValues(alpha: 0.97),
-              border: Border(
-                top: BorderSide(
-                  color: AppColors.primary.withValues(alpha: 0.06),
-                  width: 0.5,
-                ),
+      bottomNavigationBar: _NavBar(
+        currentIndex: _currentIndex,
+        onSelect: (i) {
+          setState(() => _currentIndex = i);
+          if (i == 2) _progressKey.currentState?.replayAnimation();
+          if (i == 3) _analysisKey.currentState?.replayAnimation();
+        },
+      ),
+    );
+  }
+}
+
+/// Floating glass bar. Only the selected tab carries its label, inside a
+/// tinted pill that grows into place, so the bar stays quiet until you look.
+class _NavBar extends StatelessWidget {
+  final int currentIndex;
+  final ValueChanged<int> onSelect;
+  const _NavBar({required this.currentIndex, required this.onSelect});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final items = <(IconData, String)>[
+      (CupertinoIcons.house_fill, l.navHome),
+      (CupertinoIcons.bolt_fill, l.navRoutines),
+      (CupertinoIcons.graph_square_fill, l.navProgress),
+      (CupertinoIcons.chart_bar_fill, l.navAnalysis),
+      (CupertinoIcons.person_fill, l.navProfile),
+    ];
+
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(14, 0, 14, 10),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(28),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 26, sigmaY: 26),
+            child: Container(
+              height: 62,
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              decoration: BoxDecoration(
+                color: const Color(0xFF0E0B1C).withValues(alpha: 0.92),
+                borderRadius: BorderRadius.circular(28),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.45),
+                    blurRadius: 24,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
               ),
-            ),
-            child: SafeArea(
-              top: false,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  for (var i = 0; i < items.length; i++)
                     _NavItem(
-                      icon: CupertinoIcons.house_fill,
-                      label: AppLocalizations.of(context)!.navHome,
-                      selected: _currentIndex == 0,
-                      onTap: () => setState(() => _currentIndex = 0),
-                    ),
-                    _NavItem(
-                      icon: CupertinoIcons.bolt_fill,
-                      label: AppLocalizations.of(context)!.navRoutines,
-                      selected: _currentIndex == 1,
-                      onTap: () => setState(() => _currentIndex = 1),
-                    ),
-                    _NavItem(
-                      icon: CupertinoIcons.graph_square_fill,
-                      label: AppLocalizations.of(context)!.navProgress,
-                      selected: _currentIndex == 2,
+                      icon: items[i].$1,
+                      label: items[i].$2,
+                      selected: currentIndex == i,
                       onTap: () {
-                        setState(() => _currentIndex = 2);
-                        _progressKey.currentState?.replayAnimation();
+                        if (currentIndex != i) HapticFeedback.selectionClick();
+                        onSelect(i);
                       },
                     ),
-                    _NavItem(
-                      icon: CupertinoIcons.chart_bar_fill,
-                      label: AppLocalizations.of(context)!.navAnalysis,
-                      selected: _currentIndex == 3,
-                      onTap: () {
-                        setState(() => _currentIndex = 3);
-                        _analysisKey.currentState?.replayAnimation();
-                      },
-                    ),
-                    _NavItem(
-                      icon: CupertinoIcons.person_fill,
-                      label: AppLocalizations.of(context)!.navProfile,
-                      selected: _currentIndex == 4,
-                      onTap: () => setState(() => _currentIndex = 4),
-                    ),
-                  ],
-                ),
+                ],
               ),
             ),
           ),
@@ -162,46 +172,76 @@ class _NavItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
-      child: SizedBox(
-        width: 68,
-        child: Column(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 320),
+        curve: Curves.easeOutCubic,
+        height: 44,
+        padding: EdgeInsets.symmetric(horizontal: selected ? 14 : 12),
+        decoration: BoxDecoration(
+          gradient: selected
+              ? LinearGradient(
+                  colors: [
+                    AppColors.primary.withValues(alpha: 0.30),
+                    AppColors.primary.withValues(alpha: 0.14),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : null,
+          borderRadius: BorderRadius.circular(22),
+          border: selected
+              ? Border.all(color: AppColors.primary.withValues(alpha: 0.35))
+              : null,
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: AppColors.primary.withValues(alpha: 0.28),
+                    blurRadius: 18,
+                  )
+                ]
+              : null,
+        ),
+        child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              padding: const EdgeInsets.all(8),
-              decoration: selected
-                  ? BoxDecoration(
-                      color: AppColors.primary.withValues(alpha: 0.12),
-                      borderRadius: BorderRadius.circular(14),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.3),
-                          blurRadius: 16,
-                        ),
-                      ],
-                    )
-                  : const BoxDecoration(),
+            AnimatedScale(
+              scale: selected ? 1.0 : 0.94,
+              duration: const Duration(milliseconds: 320),
+              curve: Curves.easeOutBack,
               child: Icon(
                 icon,
+                size: 21,
                 color: selected
                     ? AppColors.primary
-                    : Colors.white.withValues(alpha: 0.82),
-                size: 24,
-                shadows: selected ? [Shadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 10)] : null,
+                    : Colors.white.withValues(alpha: 0.45),
               ),
             ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                color: selected
-                    ? AppColors.primary
-                    : Colors.white.withValues(alpha: 0.82),
-                shadows: selected ? [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 12)] : null,
-                fontSize: 11,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                letterSpacing: -0.2,
+            // The label rides in with the pill rather than sitting under every
+            // icon, which keeps five tabs from crowding the bar.
+            ClipRect(
+              child: AnimatedAlign(
+                duration: const Duration(milliseconds: 320),
+                curve: Curves.easeOutCubic,
+                alignment: Alignment.centerLeft,
+                widthFactor: selected ? 1.0 : 0.0,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 220),
+                  opacity: selected ? 1 : 0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.2,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
