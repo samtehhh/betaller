@@ -63,14 +63,21 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                     bottom: false,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
-                      child: Text(
-                        l.progressTitle,
-                        style: TextStyle(
-                          fontSize: 34,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.primary,
-                          letterSpacing: -1.2,
-                          shadows: [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 8)],
+                      // German runs to one very long word, so scale the title
+                      // down rather than letting it break mid-word.
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          l.progressTitle,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 34,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.primary,
+                            letterSpacing: -1.2,
+                            shadows: [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 8)],
+                          ),
                         ),
                       ),
                     ),

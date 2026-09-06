@@ -138,15 +138,24 @@ class _NutritionScreenState extends State<NutritionScreen> {
                                     : AppColors.textTertiary,
                               ),
                               const SizedBox(width: 6),
-                              Text(
-                                sectionLabels[i],
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight:
-                                      selected ? FontWeight.w700 : FontWeight.w500,
-                                  color: selected
-                                      ? AppColors.textPrimary
-                                      : AppColors.textTertiary,
+                              // Labels run long in German, Spanish and
+                              // Portuguese, so let them shrink instead of
+                              // overflowing the segmented control.
+                              Flexible(
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                  sectionLabels[i],
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight:
+                                        selected ? FontWeight.w700 : FontWeight.w500,
+                                    color: selected
+                                        ? AppColors.textPrimary
+                                        : AppColors.textTertiary,
+                                  ),
+                                ),
                                 ),
                               ),
                             ],

@@ -140,11 +140,14 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                             // ── Header row ──
                             Row(
                               children: [
-                                Column(
+                                Expanded(
+                                  child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       l.generalPerformance,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w700,
@@ -155,14 +158,16 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                     const SizedBox(height: 4),
                                     Text(
                                       l.betallerScore,
+                                      maxLines: 2,
                                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.5),
                                     ),
                                   ],
                                 ),
-                                const Spacer(),
+                                ),
+                                const SizedBox(width: 12),
                                 // Tier badge
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                                   decoration: BoxDecoration(
                                     color: _tierColor(glowScore.total).withValues(alpha: 0.18),
                                     borderRadius: BorderRadius.circular(18),
@@ -171,8 +176,10 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                   ),
                                   child: Text(
                                     _tierLabel(glowScore.total, l),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.w900,
                                       color: _tierColor(glowScore.total),
                                       letterSpacing: 1.5,
@@ -453,9 +460,11 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                                 child: Row(
                                   children: [
                                     SizedBox(
-                                      width: 55,
+                                      width: 74,
                                       child: Text(
                                         l.ageYear(e.key),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82)),
                                       ),
                                     ),
@@ -745,10 +754,11 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
           children: [
             Row(
               children: [
-                SizedBox(
-                  width: 78,
+                Expanded(
                   child: Text(
                     label.toUpperCase(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w700,
@@ -757,7 +767,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
                     ),
                   ),
                 ),
-                Expanded(child: const SizedBox()),
+                const SizedBox(width: 10),
                 Text(
                   '${(value * anim.value).round()}/100',
                   style: TextStyle(

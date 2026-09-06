@@ -1859,6 +1859,11 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String photoGainInDays(String cm, int days) {
+    return '$days günde $cm cm';
+  }
+
+  @override
   String dayLabel(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -2926,6 +2931,79 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get paywallPromoCode => 'Promo kodun var mı?';
+
+  @override
+  String get paywallHeightUnit => 'hedef boy';
+
+  @override
+  String get paywallHeightTitle => 'Kaç cm daha uzayabilirsin?';
+
+  @override
+  String get paywallHeightDesc =>
+      'Genetiğini, yaşam tarzını ve duruşunu birlikte analiz edip yıl yıl tahminini çıkarıyoruz. Sonuç sabit değil, attığın her adımla güncelleniyor.';
+
+  @override
+  String get paywallGrowthUnit => 'bu yıl';
+
+  @override
+  String get paywallGrowthTitle => 'Büyümeni birlikte takip ediyoruz';
+
+  @override
+  String get paywallGrowthDesc =>
+      'Her ölçümün anında grafiğe işleniyor. İlerlemeni ay ay, santim santim görüyorsun.';
+
+  @override
+  String get paywallPostureUnit => 'duruş puanı';
+
+  @override
+  String get paywallPostureTitle => 'Duruşun, rutinlerinin anahtarı';
+
+  @override
+  String get paywallPostureDesc =>
+      'Tek fotoğraftan kifoz, lordoz ve baş pozisyonunu ölçüp sana özel düzeltme rutinleri veriyoruz. Doğru duruş tek başına 2-3 cm fark yaratabilir.';
+
+  @override
+  String get paywallReportUnit => 'rutin tamamlama';
+
+  @override
+  String get paywallReportTitle => 'Her hafta seni değerlendiriyoruz';
+
+  @override
+  String get paywallReportDesc =>
+      'Su, uyku, rutin ve serin tek ekranda. Güçlü ve eksik yönlerini her hafta birlikte belirliyoruz.';
+
+  @override
+  String get paywallNutritionUnit => 'öğünlük günlük plan';
+
+  @override
+  String get paywallNutritionTitle => 'Komple beslenme programın hazır';
+
+  @override
+  String get paywallNutritionDesc =>
+      'Kahvaltıdan akşam yemeğine, protein, kalsiyum, çinko ve D vitamini hesaplanmış tam bir günlük program.';
+
+  @override
+  String get paywallScoreUnit => 'BeTaller Puanı';
+
+  @override
+  String get paywallScoreTitle => 'Seni sürekli daha iyiye taşıyan sistem';
+
+  @override
+  String get paywallScoreDesc =>
+      'Genetik, büyüme, beslenme, uyku ve disiplinin tek puanda birleşiyor. Puanın düştüğü an nerede gelişmen gerektiğini görüyorsun.';
+
+  @override
+  String get paywallPhotosUnit => 'gözle görülür fark';
+
+  @override
+  String get paywallPhotosTitle => 'Değişimini fotoğraflarla kanıtla';
+
+  @override
+  String get paywallPhotosDesc =>
+      'Öncesi/sonrası karşılaştırmaların otomatik oluşuyor, zaman çizelgende her ayın fotoğrafı bir arada duruyor.';
+
+  @override
+  String get paywallReportStat => '%82';
 
   @override
   String get paywallRestoreLabel => 'Satın Alımları Geri Yükle';

@@ -3482,6 +3482,12 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{photo} other{photos}}'**
   String photoLabel(int count);
 
+  /// No description provided for @photoGainInDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{cm} cm in {days} days'**
+  String photoGainInDays(String cm, int days);
+
   /// No description provided for @dayLabel.
   ///
   /// In en, this message translates to:
@@ -5395,6 +5401,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Have a promo code?'**
   String get paywallPromoCode;
+
+  /// No description provided for @paywallHeightUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'target height'**
+  String get paywallHeightUnit;
+
+  /// No description provided for @paywallHeightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How much taller can you get?'**
+  String get paywallHeightTitle;
+
+  /// No description provided for @paywallHeightDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'We analyse your genetics, lifestyle and posture together and map the prediction year by year. Nothing is fixed: every step you take updates it.'**
+  String get paywallHeightDesc;
+
+  /// No description provided for @paywallGrowthUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'this year'**
+  String get paywallGrowthUnit;
+
+  /// No description provided for @paywallGrowthTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We track your growth with you'**
+  String get paywallGrowthTitle;
+
+  /// No description provided for @paywallGrowthDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Every measurement lands on the chart instantly. You watch your progress month by month, centimetre by centimetre.'**
+  String get paywallGrowthDesc;
+
+  /// No description provided for @paywallPostureUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'posture score'**
+  String get paywallPostureUnit;
+
+  /// No description provided for @paywallPostureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your posture is the key to your routines'**
+  String get paywallPostureTitle;
+
+  /// No description provided for @paywallPostureDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'One photo measures kyphosis, lordosis and head position, and you get correction routines built for you. Good posture alone can be worth 2-3 cm.'**
+  String get paywallPostureDesc;
+
+  /// No description provided for @paywallReportUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'routines completed'**
+  String get paywallReportUnit;
+
+  /// No description provided for @paywallReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We review you every week'**
+  String get paywallReportTitle;
+
+  /// No description provided for @paywallReportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Water, sleep, routines and streak on one screen. Every week we pinpoint your strengths and your gaps together.'**
+  String get paywallReportDesc;
+
+  /// No description provided for @paywallNutritionUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'meals a day'**
+  String get paywallNutritionUnit;
+
+  /// No description provided for @paywallNutritionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your complete nutrition plan is ready'**
+  String get paywallNutritionTitle;
+
+  /// No description provided for @paywallNutritionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'From breakfast to dinner, a full daily plan with protein, calcium, zinc and vitamin D already worked out.'**
+  String get paywallNutritionDesc;
+
+  /// No description provided for @paywallScoreUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'BeTaller Score'**
+  String get paywallScoreUnit;
+
+  /// No description provided for @paywallScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The system that keeps pushing you forward'**
+  String get paywallScoreTitle;
+
+  /// No description provided for @paywallScoreDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Genetics, growth, nutrition, sleep and discipline merge into a single score. The moment it drops, you see exactly where to improve.'**
+  String get paywallScoreDesc;
+
+  /// No description provided for @paywallPhotosUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'visible difference'**
+  String get paywallPhotosUnit;
+
+  /// No description provided for @paywallPhotosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Prove your change with photos'**
+  String get paywallPhotosTitle;
+
+  /// No description provided for @paywallPhotosDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Before and after comparisons build themselves, and every month’s photo sits together on your timeline.'**
+  String get paywallPhotosDesc;
+
+  /// No description provided for @paywallReportStat.
+  ///
+  /// In en, this message translates to:
+  /// **'82%'**
+  String get paywallReportStat;
 
   /// No description provided for @paywallRestoreLabel.
   ///

@@ -1880,6 +1880,11 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String photoGainInDays(String cm, int days) {
+    return '$cm cm in $days Tagen';
+  }
+
+  @override
   String dayLabel(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -2491,10 +2496,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get postureTip5 => 'Use good lighting and a plain background.';
 
   @override
-  String get kyphosisLabel => 'Kyphosis (upper back)';
+  String get kyphosisLabel => 'Kyphose (oberer Rücken)';
 
   @override
-  String get lordosisLabel => 'Lordosis (lower back)';
+  String get lordosisLabel => 'Lordose (unterer Rücken)';
 
   @override
   String get analyzingPosture => 'ANALYZING POSTURE';
@@ -2944,6 +2949,79 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get paywallPromoCode => 'Hast du einen Promo-Code?';
+
+  @override
+  String get paywallHeightUnit => 'Zielgröße';
+
+  @override
+  String get paywallHeightTitle => 'Wie viel größer kannst du werden?';
+
+  @override
+  String get paywallHeightDesc =>
+      'Wir analysieren Genetik, Lebensstil und Haltung zusammen und zeigen deine Prognose Jahr für Jahr. Nichts steht fest: Jeder Schritt aktualisiert sie.';
+
+  @override
+  String get paywallGrowthUnit => 'in diesem Jahr';
+
+  @override
+  String get paywallGrowthTitle => 'Wir verfolgen dein Wachstum gemeinsam';
+
+  @override
+  String get paywallGrowthDesc =>
+      'Jede Messung landet sofort im Diagramm. Du siehst deinen Fortschritt Monat für Monat, Zentimeter für Zentimeter.';
+
+  @override
+  String get paywallPostureUnit => 'Haltungswert';
+
+  @override
+  String get paywallPostureTitle => 'Deine Haltung ist der Schlüssel';
+
+  @override
+  String get paywallPostureDesc =>
+      'Ein Foto misst Kyphose, Lordose und Kopfposition, dazu bekommst du passende Korrekturroutinen. Gute Haltung allein bringt 2-3 cm.';
+
+  @override
+  String get paywallReportUnit => 'Routinen erledigt';
+
+  @override
+  String get paywallReportTitle => 'Jede Woche werten wir dich aus';
+
+  @override
+  String get paywallReportDesc =>
+      'Wasser, Schlaf, Routinen und Serie auf einem Bildschirm. Jede Woche finden wir deine Stärken und deine Lücken.';
+
+  @override
+  String get paywallNutritionUnit => 'Mahlzeiten am Tag';
+
+  @override
+  String get paywallNutritionTitle => 'Dein kompletter Ernährungsplan steht';
+
+  @override
+  String get paywallNutritionDesc =>
+      'Vom Frühstück bis zum Abendessen: ein ganzer Tagesplan mit Protein, Kalzium, Zink und Vitamin D.';
+
+  @override
+  String get paywallScoreUnit => 'BeTaller-Punktzahl';
+
+  @override
+  String get paywallScoreTitle => 'Das System, das dich weiterbringt';
+
+  @override
+  String get paywallScoreDesc =>
+      'Genetik, Wachstum, Ernährung, Schlaf und Disziplin fließen in einen Wert. Fällt er, siehst du sofort, wo du ansetzen musst.';
+
+  @override
+  String get paywallPhotosUnit => 'sichtbarer Unterschied';
+
+  @override
+  String get paywallPhotosTitle => 'Beweise deine Veränderung mit Fotos';
+
+  @override
+  String get paywallPhotosDesc =>
+      'Vorher-Nachher-Vergleiche entstehen automatisch, und jedes Monatsfoto liegt in deiner Zeitleiste beisammen.';
+
+  @override
+  String get paywallReportStat => '82 %';
 
   @override
   String get paywallRestoreLabel => 'Käufe wiederherstellen';

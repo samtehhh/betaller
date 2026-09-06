@@ -51,7 +51,14 @@ flutter:
     - assets/icon_2.png
     - assets/exercises/
     - assets/testimonials/
-    - assets/paywall/
+    - assets/paywall/tr/
+    - assets/paywall/en/
+    - assets/paywall/de/
+    - assets/paywall/fr/
+    - assets/paywall/es/
+    - assets/paywall/it/
+    - assets/paywall/pt/
+    - assets/paywall/hi/
 
   fonts:
     - family: Inter

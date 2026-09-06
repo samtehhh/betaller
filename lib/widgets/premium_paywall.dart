@@ -48,60 +48,46 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
 
   static const List<_Feature> _features = [
     _Feature(
+      id: 'height',
       glowColor: Color(0xFF00E5FF),
-      asset: 'assets/paywall/genetik_potansiyel.png',
-      stat: '174.9 cm',
-      statUnit: 'hedef boy',
-      title: 'Kaç cm daha uzayabilirsin?',
-      description: 'Genetiğini, yaşam tarzını ve duruşunu birlikte analiz edip yıl yıl tahminini çıkarıyoruz. Sonuç sabit değil, attığın her adımla güncelleniyor.',
+      asset: 'genetik_potansiyel',
+      stat: '175.7 cm',
     ),
     _Feature(
+      id: 'growth',
       glowColor: Color(0xFF6366F1),
-      asset: 'assets/paywall/buyume_grafigi.png',
+      asset: 'buyume_grafigi',
       stat: '+6.0 cm',
-      statUnit: 'bu yıl',
-      title: 'Büyümeni birlikte takip ediyoruz',
-      description: 'Her ölçümün anında grafiğe işleniyor. İlerlemeni ay ay, santim santim görüyorsun.',
     ),
     _Feature(
+      id: 'posture',
       glowColor: Color(0xFF22E06A),
-      asset: 'assets/paywall/postur_analizi.png',
+      asset: 'postur_analizi',
       stat: '86/100',
-      statUnit: 'duruş puanı',
-      title: 'Duruşun, rutinlerinin anahtarı',
-      description: 'Tek fotoğraftan kifoz, lordoz ve baş pozisyonunu ölçüp sana özel düzeltme rutinleri veriyoruz. Doğru duruş tek başına 2-3 cm fark yaratabilir.',
     ),
     _Feature(
+      id: 'report',
       glowColor: Color(0xFFF5C542),
-      asset: 'assets/paywall/haftalik_rapor.png',
-      stat: '%82',
-      statUnit: 'rutin tamamlama',
-      title: 'Her hafta seni değerlendiriyoruz',
-      description: 'Su, uyku, rutin ve serin tek ekranda. Güçlü ve eksik yönlerini her hafta birlikte belirliyoruz.',
+      asset: 'haftalik_rapor',
+      stat: '',
     ),
     _Feature(
+      id: 'nutrition',
       glowColor: Color(0xFF8B5CF6),
-      asset: 'assets/paywall/beslenme_programi.png',
-      stat: '3 öğün',
-      statUnit: 'günlük plan',
-      title: 'Komple beslenme programın hazır',
-      description: 'Kahvaltıdan akşam yemeğine, protein, kalsiyum, çinko ve D vitamini hesaplanmış tam bir günlük program.',
+      asset: 'beslenme_programi',
+      stat: '3',
     ),
     _Feature(
+      id: 'score',
       glowColor: Color(0xFF22FF88),
-      asset: 'assets/paywall/betaller_puani.png',
-      stat: '97/100',
-      statUnit: 'BeTaller Puanı',
-      title: 'Seni sürekli daha iyiye taşıyan sistem',
-      description: 'Genetik, büyüme, beslenme, uyku ve disiplinin tek puanda birleşiyor. Puanın düştüğü an nerede gelişmen gerektiğini görüyorsun.',
+      asset: 'betaller_puani',
+      stat: '98/100',
     ),
     _Feature(
+      id: 'photos',
       glowColor: Color(0xFF38BDF8),
-      asset: 'assets/paywall/ilerleme_fotolari.png',
+      asset: 'ilerleme_fotolari',
       stat: '+2.1 cm',
-      statUnit: 'gözle görülür fark',
-      title: 'Değişimini fotoğraflarla kanıtla',
-      description: 'Öncesi/sonrası karşılaştırmaların otomatik oluşuyor, zaman çizelgende her ayın fotoğrafı bir arada duruyor.',
     ),
   ];
 
@@ -502,6 +488,7 @@ class _FeaturePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final f = feature;
+    final l = AppLocalizations.of(context)!;
     final fadeSlide = CurvedAnimation(parent: entryAnim, curve: Curves.easeOutCubic);
 
     return Column(
@@ -521,7 +508,10 @@ class _FeaturePage extends StatelessWidget {
                   child: child,
                 ),
               ),
-              child: _PhoneMockup(asset: f.asset, glowColor: f.glowColor),
+              child: _PhoneMockup(
+                asset: f.assetFor(Localizations.localeOf(context).languageCode),
+                glowColor: f.glowColor,
+              ),
             ),
           ),
         ),
@@ -551,12 +541,12 @@ class _FeaturePage extends StatelessWidget {
                       textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
-                          f.stat,
+                          f.statFor(l),
                           style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900, color: f.glowColor, letterSpacing: -0.3),
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          f.statUnit,
+                          f.unit(l),
                           style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: f.glowColor.withValues(alpha: 0.80)),
                         ),
                       ],
@@ -566,7 +556,7 @@ class _FeaturePage extends StatelessWidget {
                   const SizedBox(height: 14),
 
                   Text(
-                    f.title,
+                    f.title(l),
                     style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w900,
@@ -579,7 +569,7 @@ class _FeaturePage extends StatelessWidget {
                   const SizedBox(height: 10),
 
                   Text(
-                    f.description,
+                    f.description(l),
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -757,12 +747,28 @@ class _PhoneMockup extends StatelessWidget {
                           ),
                         ),
 
+                        // Earpiece slot, milled into the top edge of the frame
+                        Positioned(
+                          top: bezel * 0.28,
+                          child: Container(
+                            width: w * 0.22,
+                            height: math.max(bezel * 0.34, 1.2),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF15151A),
+                              borderRadius: BorderRadius.circular(bezel),
+                              boxShadow: [
+                                BoxShadow(color: Colors.white.withValues(alpha: 0.14), blurRadius: 0, offset: const Offset(0, 0.6)),
+                              ],
+                            ),
+                          ),
+                        ),
+
                         // Dynamic Island
                         Positioned(
-                          top: bezel + w * 0.030,
+                          top: bezel + w * 0.032,
                           child: Container(
-                            width: w * 0.30,
-                            height: w * 0.085,
+                            width: w * 0.305,
+                            height: w * 0.088,
                             decoration: BoxDecoration(
                               color: Colors.black,
                               borderRadius: BorderRadius.circular(w * 0.05),
@@ -770,14 +776,18 @@ class _PhoneMockup extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: Padding(
-                                padding: EdgeInsets.only(right: w * 0.022),
+                                padding: EdgeInsets.only(right: w * 0.024),
                                 child: Container(
-                                  width: w * 0.028,
-                                  height: w * 0.028,
+                                  width: w * 0.030,
+                                  height: w * 0.030,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: const Color(0xFF14141C),
-                                    border: Border.all(color: Colors.white.withValues(alpha: 0.06), width: 0.5),
+                                    gradient: const RadialGradient(
+                                      center: Alignment(-0.3, -0.4),
+                                      radius: 0.9,
+                                      colors: [Color(0xFF2A3350), Color(0xFF0B0B12)],
+                                    ),
+                                    border: Border.all(color: Colors.white.withValues(alpha: 0.08), width: 0.5),
                                   ),
                                 ),
                               ),
@@ -889,20 +899,85 @@ class _StatusBar extends StatelessWidget {
 // ═════════════════════════════════════════════════════════════════════════════
 
 class _Feature {
+  final String id;
   final Color glowColor;
   final String asset;
   final String stat;
-  final String statUnit;
-  final String title;
-  final String description;
   const _Feature({
+    required this.id,
     required this.glowColor,
     required this.asset,
     required this.stat,
-    required this.statUnit,
-    required this.title,
-    required this.description,
   });
+
+  /// Hero art is shot per language; every supported locale ships a folder.
+  String assetFor(String languageCode) {
+    const shipped = {'tr', 'en', 'de', 'fr', 'es', 'it', 'pt', 'hi'};
+    final lang = shipped.contains(languageCode) ? languageCode : 'en';
+    return 'assets/paywall/$lang/$asset.webp';
+  }
+
+  String statFor(AppLocalizations l) => stat.isEmpty ? l.paywallReportStat : stat;
+
+  String unit(AppLocalizations l) {
+    switch (id) {
+      case 'growth':
+        return l.paywallGrowthUnit;
+      case 'posture':
+        return l.paywallPostureUnit;
+      case 'report':
+        return l.paywallReportUnit;
+      case 'nutrition':
+        return l.paywallNutritionUnit;
+      case 'score':
+        return l.paywallScoreUnit;
+      case 'photos':
+        return l.paywallPhotosUnit;
+      case 'height':
+      default:
+        return l.paywallHeightUnit;
+    }
+  }
+
+  String title(AppLocalizations l) {
+    switch (id) {
+      case 'growth':
+        return l.paywallGrowthTitle;
+      case 'posture':
+        return l.paywallPostureTitle;
+      case 'report':
+        return l.paywallReportTitle;
+      case 'nutrition':
+        return l.paywallNutritionTitle;
+      case 'score':
+        return l.paywallScoreTitle;
+      case 'photos':
+        return l.paywallPhotosTitle;
+      case 'height':
+      default:
+        return l.paywallHeightTitle;
+    }
+  }
+
+  String description(AppLocalizations l) {
+    switch (id) {
+      case 'growth':
+        return l.paywallGrowthDesc;
+      case 'posture':
+        return l.paywallPostureDesc;
+      case 'report':
+        return l.paywallReportDesc;
+      case 'nutrition':
+        return l.paywallNutritionDesc;
+      case 'score':
+        return l.paywallScoreDesc;
+      case 'photos':
+        return l.paywallPhotosDesc;
+      case 'height':
+      default:
+        return l.paywallHeightDesc;
+    }
+  }
 }
 
 // ═════════════════════════════════════════════════════════════════════════════

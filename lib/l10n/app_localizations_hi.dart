@@ -1864,6 +1864,11 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String photoGainInDays(String cm, int days) {
+    return '$days दिनों में $cm cm';
+  }
+
+  @override
   String dayLabel(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -2475,10 +2480,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get postureTip5 => 'Use good lighting and a plain background.';
 
   @override
-  String get kyphosisLabel => 'Kyphosis (upper back)';
+  String get kyphosisLabel => 'काइफ़ोसिस (ऊपरी पीठ)';
 
   @override
-  String get lordosisLabel => 'Lordosis (lower back)';
+  String get lordosisLabel => 'लॉर्डोसिस (निचली पीठ)';
 
   @override
   String get analyzingPosture => 'ANALYZING POSTURE';
@@ -2909,6 +2914,79 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get paywallPromoCode => 'क्या आपके पास प्रोमो कोड है?';
+
+  @override
+  String get paywallHeightUnit => 'लक्ष्य ऊंचाई';
+
+  @override
+  String get paywallHeightTitle => 'तुम कितने सेंटीमीटर और बढ़ सकते हो?';
+
+  @override
+  String get paywallHeightDesc =>
+      'हम तुम्हारी आनुवंशिकी, जीवनशैली और मुद्रा का एक साथ विश्लेषण करके साल दर साल अनुमान बनाते हैं। कुछ भी तय नहीं है, हर कदम इसे बदलता है।';
+
+  @override
+  String get paywallGrowthUnit => 'इस साल';
+
+  @override
+  String get paywallGrowthTitle => 'हम तुम्हारी बढ़त साथ में देखते हैं';
+
+  @override
+  String get paywallGrowthDesc =>
+      'हर माप तुरंत ग्राफ़ पर आ जाती है। तुम अपनी प्रगति महीने दर महीने, सेंटीमीटर दर सेंटीमीटर देखते हो।';
+
+  @override
+  String get paywallPostureUnit => 'मुद्रा स्कोर';
+
+  @override
+  String get paywallPostureTitle => 'तुम्हारी मुद्रा ही रूटीन की कुंजी है';
+
+  @override
+  String get paywallPostureDesc =>
+      'एक तस्वीर से काइफ़ोसिस, लॉर्डोसिस और सिर की स्थिति मापकर तुम्हारे लिए सुधार रूटीन बनते हैं। सही मुद्रा अकेले 2-3 सेमी का फ़र्क़ ला सकती है।';
+
+  @override
+  String get paywallReportUnit => 'रूटीन पूरे';
+
+  @override
+  String get paywallReportTitle => 'हर हफ़्ते तुम्हारा आकलन करते हैं';
+
+  @override
+  String get paywallReportDesc =>
+      'पानी, नींद, रूटीन और स्ट्रीक एक ही स्क्रीन पर। हर हफ़्ते तुम्हारी मज़बूती और कमियाँ साथ में तय करते हैं।';
+
+  @override
+  String get paywallNutritionUnit => 'भोजन प्रतिदिन';
+
+  @override
+  String get paywallNutritionTitle => 'तुम्हारी पूरी पोषण योजना तैयार है';
+
+  @override
+  String get paywallNutritionDesc =>
+      'नाश्ते से रात के खाने तक, प्रोटीन, कैल्शियम, ज़िंक और विटामिन डी की गणना के साथ पूरा दैनिक प्लान।';
+
+  @override
+  String get paywallScoreUnit => 'BeTaller स्कोर';
+
+  @override
+  String get paywallScoreTitle => 'वह सिस्टम जो तुम्हें आगे बढ़ाता रहता है';
+
+  @override
+  String get paywallScoreDesc =>
+      'आनुवंशिकी, बढ़त, पोषण, नींद और अनुशासन एक ही स्कोर में मिलते हैं। स्कोर गिरते ही दिखता है कि कहाँ सुधार चाहिए।';
+
+  @override
+  String get paywallPhotosUnit => 'दिखने वाला फ़र्क़';
+
+  @override
+  String get paywallPhotosTitle => 'अपने बदलाव को तस्वीरों से साबित करो';
+
+  @override
+  String get paywallPhotosDesc =>
+      'पहले/बाद की तुलना अपने आप बनती है और हर महीने की तस्वीर तुम्हारी टाइमलाइन पर साथ रहती है।';
+
+  @override
+  String get paywallReportStat => '82%';
 
   @override
   String get paywallRestoreLabel => 'खरीदारी बहाल करें';

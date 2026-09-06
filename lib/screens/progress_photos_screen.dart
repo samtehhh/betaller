@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -19,10 +20,6 @@ class ProgressPhotosScreen extends StatefulWidget {
 }
 
 class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
-  static const List<String> _monthAbbr = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-  ];
 
   // ── Date helpers ────────────────────────────────────────────────
   DateTime? _parseDate(String? raw) {
@@ -34,12 +31,10 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
     }
   }
 
-  String _formatShortDate(String raw) {
+  String _formatShortDate(BuildContext context, String raw) {
     final dt = _parseDate(raw);
     if (dt == null) return raw;
-    final day = dt.day.toString().padLeft(2, '0');
-    final month = _monthAbbr[dt.month - 1];
-    return '$day $month';
+    return DateFormat('d MMM', Localizations.localeOf(context).languageCode).format(dt);
   }
 
   int _daysBetween(String firstRaw, String lastRaw) {
@@ -654,6 +649,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
             children: [
               Expanded(
                 child: _buildComparisonAvatar(
+                  context: context,
                   photo: first,
                   label: l.beforeLabel,
                   color: AppColors.primaryBright,
@@ -683,6 +679,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               ),
               Expanded(
                 child: _buildComparisonAvatar(
+                  context: context,
                   photo: last,
                   label: l.afterLabel,
                   color: AppColors.lime,
@@ -720,7 +717,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                   ),
                   const SizedBox(width: 6),
                   Text(
-                    '${diff >= 0 ? '+' : ''}${diff.toStringAsFixed(1)} cm in ${l.dayLabel(days)}',
+                    l.photoGainInDays('${diff >= 0 ? '+' : ''}${diff.toStringAsFixed(1)}', days),
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w800,
@@ -738,13 +735,14 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   }
 
   Widget _buildComparisonAvatar({
+    required BuildContext context,
     required Map<String, dynamic> photo,
     required String label,
     required Color color,
   }) {
     final path = photo['path'] as String;
     final height = (photo['height'] as num?)?.toDouble() ?? 0;
-    final date = _formatShortDate(photo['date'] as String);
+    final date = _formatShortDate(context, photo['date'] as String);
     return Column(
       children: [
         Container(
@@ -823,7 +821,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   Widget _buildPhotoTile(BuildContext context, Map<String, dynamic> photo) {
     final path = photo['path'] as String;
     final height = (photo['height'] as num?)?.toDouble() ?? 0;
-    final date = _formatShortDate(photo['date'] as String);
+    final date = _formatShortDate(context, photo['date'] as String);
 
     return GestureDetector(
       onTap: () => _openViewer(context, photo),

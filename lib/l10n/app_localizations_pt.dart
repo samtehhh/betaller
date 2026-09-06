@@ -1877,6 +1877,11 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String photoGainInDays(String cm, int days) {
+    return '$cm cm em $days dias';
+  }
+
+  @override
   String dayLabel(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -2488,10 +2493,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get postureTip5 => 'Use good lighting and a plain background.';
 
   @override
-  String get kyphosisLabel => 'Kyphosis (upper back)';
+  String get kyphosisLabel => 'Cifose (costas superiores)';
 
   @override
-  String get lordosisLabel => 'Lordosis (lower back)';
+  String get lordosisLabel => 'Lordose (costas inferiores)';
 
   @override
   String get analyzingPosture => 'ANALYZING POSTURE';
@@ -2922,6 +2927,79 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get paywallPromoCode => 'Tem um código promocional?';
+
+  @override
+  String get paywallHeightUnit => 'altura alvo';
+
+  @override
+  String get paywallHeightTitle => 'Quantos cm você ainda pode crescer?';
+
+  @override
+  String get paywallHeightDesc =>
+      'Analisamos sua genética, seu estilo de vida e sua postura e traçamos a previsão ano a ano. Nada é fixo: cada passo atualiza o resultado.';
+
+  @override
+  String get paywallGrowthUnit => 'neste ano';
+
+  @override
+  String get paywallGrowthTitle => 'Acompanhamos seu crescimento com você';
+
+  @override
+  String get paywallGrowthDesc =>
+      'Cada medição entra no gráfico na hora. Você vê o progresso mês a mês, centímetro a centímetro.';
+
+  @override
+  String get paywallPostureUnit => 'pontuação postural';
+
+  @override
+  String get paywallPostureTitle => 'Sua postura é a chave das rotinas';
+
+  @override
+  String get paywallPostureDesc =>
+      'Uma foto mede cifose, lordose e posição da cabeça, e você recebe rotinas de correção feitas para você. Boa postura já vale 2-3 cm.';
+
+  @override
+  String get paywallReportUnit => 'rotinas concluídas';
+
+  @override
+  String get paywallReportTitle => 'Avaliamos você toda semana';
+
+  @override
+  String get paywallReportDesc =>
+      'Água, sono, rotinas e sequência em uma tela só. Toda semana apontamos seus pontos fortes e as falhas.';
+
+  @override
+  String get paywallNutritionUnit => 'refeições por dia';
+
+  @override
+  String get paywallNutritionTitle => 'Seu plano alimentar está pronto';
+
+  @override
+  String get paywallNutritionDesc =>
+      'Do café da manhã ao jantar, um plano diário completo com proteína, cálcio, zinco e vitamina D já calculados.';
+
+  @override
+  String get paywallScoreUnit => 'Pontuação BeTaller';
+
+  @override
+  String get paywallScoreTitle => 'O sistema que sempre te leva adiante';
+
+  @override
+  String get paywallScoreDesc =>
+      'Genética, crescimento, nutrição, sono e disciplina se juntam em uma única pontuação. Quando ela cai, você vê onde melhorar.';
+
+  @override
+  String get paywallPhotosUnit => 'diferença visível';
+
+  @override
+  String get paywallPhotosTitle => 'Prove sua mudança com fotos';
+
+  @override
+  String get paywallPhotosDesc =>
+      'As comparações antes e depois se criam sozinhas, e a foto de cada mês fica junta na sua linha do tempo.';
+
+  @override
+  String get paywallReportStat => '82%';
 
   @override
   String get paywallRestoreLabel => 'Restaurar compras';

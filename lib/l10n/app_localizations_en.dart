@@ -1862,6 +1862,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String photoGainInDays(String cm, int days) {
+    return '$cm cm in $days days';
+  }
+
+  @override
   String dayLabel(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -2934,6 +2939,79 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get paywallPromoCode => 'Have a promo code?';
+
+  @override
+  String get paywallHeightUnit => 'target height';
+
+  @override
+  String get paywallHeightTitle => 'How much taller can you get?';
+
+  @override
+  String get paywallHeightDesc =>
+      'We analyse your genetics, lifestyle and posture together and map the prediction year by year. Nothing is fixed: every step you take updates it.';
+
+  @override
+  String get paywallGrowthUnit => 'this year';
+
+  @override
+  String get paywallGrowthTitle => 'We track your growth with you';
+
+  @override
+  String get paywallGrowthDesc =>
+      'Every measurement lands on the chart instantly. You watch your progress month by month, centimetre by centimetre.';
+
+  @override
+  String get paywallPostureUnit => 'posture score';
+
+  @override
+  String get paywallPostureTitle => 'Your posture is the key to your routines';
+
+  @override
+  String get paywallPostureDesc =>
+      'One photo measures kyphosis, lordosis and head position, and you get correction routines built for you. Good posture alone can be worth 2-3 cm.';
+
+  @override
+  String get paywallReportUnit => 'routines completed';
+
+  @override
+  String get paywallReportTitle => 'We review you every week';
+
+  @override
+  String get paywallReportDesc =>
+      'Water, sleep, routines and streak on one screen. Every week we pinpoint your strengths and your gaps together.';
+
+  @override
+  String get paywallNutritionUnit => 'meals a day';
+
+  @override
+  String get paywallNutritionTitle => 'Your complete nutrition plan is ready';
+
+  @override
+  String get paywallNutritionDesc =>
+      'From breakfast to dinner, a full daily plan with protein, calcium, zinc and vitamin D already worked out.';
+
+  @override
+  String get paywallScoreUnit => 'BeTaller Score';
+
+  @override
+  String get paywallScoreTitle => 'The system that keeps pushing you forward';
+
+  @override
+  String get paywallScoreDesc =>
+      'Genetics, growth, nutrition, sleep and discipline merge into a single score. The moment it drops, you see exactly where to improve.';
+
+  @override
+  String get paywallPhotosUnit => 'visible difference';
+
+  @override
+  String get paywallPhotosTitle => 'Prove your change with photos';
+
+  @override
+  String get paywallPhotosDesc =>
+      'Before and after comparisons build themselves, and every month’s photo sits together on your timeline.';
+
+  @override
+  String get paywallReportStat => '82%';
 
   @override
   String get paywallRestoreLabel => 'Restore Purchases';
