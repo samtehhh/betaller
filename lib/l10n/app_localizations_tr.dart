@@ -2925,6 +2925,9 @@ class AppLocalizationsTr extends AppLocalizations {
       'Daha önce yapılmış bir satın alma bulunamadı';
 
   @override
+  String get paywallPromoCode => 'Promo kodun var mı?';
+
+  @override
   String get paywallRestoreLabel => 'Satın Alımları Geri Yükle';
 
   @override

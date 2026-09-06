@@ -2933,6 +2933,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paywallRestoreNotFound => 'No previous purchase found';
 
   @override
+  String get paywallPromoCode => 'Have a promo code?';
+
+  @override
   String get paywallRestoreLabel => 'Restore Purchases';
 
   @override

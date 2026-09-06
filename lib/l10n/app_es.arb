@@ -849,6 +849,7 @@
   "paywallBullet3a": "Mediciones mensuales — ve tu crecimiento", "paywallBullet3b": "2 cm ahora con análisis postural", "paywallBullet3c": "Fotos de progreso — verás la diferencia",
   "paywallStat4": "programa diario — subiendo", "paywallTitle4": "Más fuerte\ncada día",
   "paywallBullet4a": "XP, niveles — hábitos = juego", "paywallBullet4b": "Los que llegaron pasaron por aquí", "paywallBullet4c": "Empieza — primera semana gratis",
+  "paywallPromoCode": "¿Tienes un código promocional?",
   "paywallRestore": "No se encontró compra anterior", "paywallRestoreNotFound": "No se encontró compra anterior", "paywallRestoreLabel": "Restaurar compras",
   "paywallYearly": "Anual", "paywallBestValue": "Mejor valor", "paywallMonthly": "Mensual", "paywallFreeTrial": "3 días gratis",
   "paywallLoadError": "No se pudo cargar, inténtalo de nuevo", "paywallCta": "Prueba gratis", "paywallCtaAlt": "Continuar",

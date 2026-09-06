@@ -48,31 +48,31 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
 
   static const List<_Feature> _features = [
     _Feature(
-      glowColor: Color(0xFF8B5CF6),
+      glowColor: Color(0xFF00E5FF),
       asset: 'assets/paywall/genetik_potansiyel.png',
-      stat: '174.9',
-      statUnit: 'cm hedef boy',
+      stat: '174.9 cm',
+      statUnit: 'hedef boy',
       title: 'Kaç cm daha uzayabilirsin?',
       description: 'Genetiğini, yaşam tarzını ve duruşunu birlikte analiz edip yıl yıl tahminini çıkarıyoruz. Sonuç sabit değil, attığın her adımla güncelleniyor.',
     ),
     _Feature(
       glowColor: Color(0xFF6366F1),
       asset: 'assets/paywall/buyume_grafigi.png',
-      stat: '+6.0',
-      statUnit: 'cm bu yıl',
+      stat: '+6.0 cm',
+      statUnit: 'bu yıl',
       title: 'Büyümeni birlikte takip ediyoruz',
       description: 'Her ölçümün anında grafiğe işleniyor. İlerlemeni ay ay, santim santim görüyorsun.',
     ),
     _Feature(
-      glowColor: Color(0xFFFF4DB8),
+      glowColor: Color(0xFF22E06A),
       asset: 'assets/paywall/postur_analizi.png',
-      stat: '86',
-      statUnit: '/100 duruş puanı',
+      stat: '86/100',
+      statUnit: 'duruş puanı',
       title: 'Duruşun, rutinlerinin anahtarı',
       description: 'Tek fotoğraftan kifoz, lordoz ve baş pozisyonunu ölçüp sana özel düzeltme rutinleri veriyoruz. Doğru duruş tek başına 2-3 cm fark yaratabilir.',
     ),
     _Feature(
-      glowColor: Color(0xFF00E5FF),
+      glowColor: Color(0xFFF5C542),
       asset: 'assets/paywall/haftalik_rapor.png',
       stat: '%82',
       statUnit: 'rutin tamamlama',
@@ -80,26 +80,26 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
       description: 'Su, uyku, rutin ve serin tek ekranda. Güçlü ve eksik yönlerini her hafta birlikte belirliyoruz.',
     ),
     _Feature(
-      glowColor: Color(0xFFFF8A00),
+      glowColor: Color(0xFF8B5CF6),
       asset: 'assets/paywall/beslenme_programi.png',
-      stat: '3',
-      statUnit: 'öğünlük plan',
+      stat: '3 öğün',
+      statUnit: 'günlük plan',
       title: 'Komple beslenme programın hazır',
       description: 'Kahvaltıdan akşam yemeğine, protein, kalsiyum, çinko ve D vitamini hesaplanmış tam bir günlük program.',
     ),
     _Feature(
       glowColor: Color(0xFF22FF88),
       asset: 'assets/paywall/betaller_puani.png',
-      stat: '97',
-      statUnit: '/100 BeTaller Puanı',
+      stat: '97/100',
+      statUnit: 'BeTaller Puanı',
       title: 'Seni sürekli daha iyiye taşıyan sistem',
       description: 'Genetik, büyüme, beslenme, uyku ve disiplinin tek puanda birleşiyor. Puanın düştüğü an nerede gelişmen gerektiğini görüyorsun.',
     ),
     _Feature(
-      glowColor: Color(0xFFF5C542),
+      glowColor: Color(0xFF38BDF8),
       asset: 'assets/paywall/ilerleme_fotolari.png',
-      stat: '+2.1',
-      statUnit: 'cm gözle görülür fark',
+      stat: '+2.1 cm',
+      statUnit: 'gözle görülür fark',
       title: 'Değişimini fotoğraflarla kanıtla',
       description: 'Öncesi/sonrası karşılaştırmaların otomatik oluşuyor, zaman çizelgende her ayın fotoğrafı bir arada duruyor.',
     ),
@@ -189,6 +189,8 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     final bottom = MediaQuery.of(context).padding.bottom;
     final features = _features;
     final f = features[_page];
+    // Bright accents (green, amber, cyan) need dark text on the CTA
+    final onAccent = f.glowColor.computeLuminance() > 0.5 ? const Color(0xFF07050F) : Colors.white;
     final current = _offerings?.current;
     final packages = current?.availablePackages ?? [];
     Package? findPkg(String productId) {
@@ -375,7 +377,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                             _purchase(pkg, product: direct);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(l.paywallLoadError), backgroundColor: const Color(0xFF1A1145)),
+                              SnackBar(content: Text(l.paywallLoadError), backgroundColor: AppColors.surfaceDark),
                             );
                           }
                         },
@@ -393,10 +395,10 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                           ),
                           child: Center(
                             child: _purchasing
-                                ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5))
+                                ? SizedBox(width: 22, height: 22, child: CircularProgressIndicator(color: onAccent, strokeWidth: 2.5))
                                 : Text(
                                     _selectedPlan == 0 ? l.paywallCta : l.paywallCtaAlt,
-                                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: 0.1),
+                                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: onAccent, letterSpacing: 0.1),
                                   ),
                           ),
                         ),
@@ -415,7 +417,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                       GestureDetector(
                         onTap: _redeemPromoCode,
                         child: Text(
-                          'Promo kodun var mı?',
+                          l.paywallPromoCode,
                           style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.45)),
                         ),
                       ),
@@ -426,12 +428,12 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                       children: [
                         GestureDetector(
                           onTap: () => launchUrl(Uri.parse('https://samtehhh.github.io/betaller/privacy.html')),
-                          child: Text('Privacy Policy', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
+                          child: Text(l.privacyPolicy, style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
                         ),
                         Text('  ·  ', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25))),
                         GestureDetector(
                           onTap: () => launchUrl(Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
-                          child: Text('Terms of Use', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
+                          child: Text(l.termsOfService, style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
                         ),
                       ],
                     ),
@@ -550,12 +552,12 @@ class _FeaturePage extends StatelessWidget {
                       children: [
                         Text(
                           f.stat,
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: f.glowColor, letterSpacing: -0.3),
+                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900, color: f.glowColor, letterSpacing: -0.3),
                         ),
                         const SizedBox(width: 5),
                         Text(
                           f.statUnit,
-                          style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: f.glowColor.withValues(alpha: 0.85)),
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: f.glowColor.withValues(alpha: 0.80)),
                         ),
                       ],
                     ),

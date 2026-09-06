@@ -2908,6 +2908,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get paywallRestoreNotFound => 'कोई खरीदारी नहीं मिली';
 
   @override
+  String get paywallPromoCode => 'क्या आपके पास प्रोमो कोड है?';
+
+  @override
   String get paywallRestoreLabel => 'खरीदारी बहाल करें';
 
   @override

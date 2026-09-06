@@ -849,6 +849,7 @@
   "paywallBullet3a": "Misurazioni mensili", "paywallBullet3b": "2 cm ora con analisi posturale", "paywallBullet3c": "Foto progressi — vedrai la differenza",
   "paywallStat4": "programma giornaliero — sali", "paywallTitle4": "Più forte\nogni giorno",
   "paywallBullet4a": "XP, livelli — abitudini = gioco", "paywallBullet4b": "Chi ha raggiunto l'obiettivo è passato da qui", "paywallBullet4c": "Inizia — prima settimana gratuita",
+  "paywallPromoCode": "Hai un codice promozionale?",
   "paywallRestore": "Nessun acquisto trovato", "paywallRestoreNotFound": "Nessun acquisto trovato", "paywallRestoreLabel": "Ripristina acquisti",
   "paywallYearly": "Annuale", "paywallBestValue": "Miglior valore", "paywallMonthly": "Mensile", "paywallFreeTrial": "3 giorni gratis",
   "paywallLoadError": "Impossibile caricare, riprova", "paywallCta": "Prova gratuita", "paywallCtaAlt": "Continua",

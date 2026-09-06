@@ -5390,6 +5390,12 @@ abstract class AppLocalizations {
   /// **'No previous purchase found'**
   String get paywallRestoreNotFound;
 
+  /// No description provided for @paywallPromoCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Have a promo code?'**
+  String get paywallPromoCode;
+
   /// No description provided for @paywallRestoreLabel.
   ///
   /// In en, this message translates to:

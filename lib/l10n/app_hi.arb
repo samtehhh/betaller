@@ -849,6 +849,7 @@
   "paywallBullet3a": "मासिक माप", "paywallBullet3b": "पोस्चर विश्लेषण से 2 cm", "paywallBullet3c": "प्रगति फ़ोटो — फर्क दिखेगा",
   "paywallStat4": "दैनिक कार्यक्रम — लेवल अप", "paywallTitle4": "हर दिन\nमजबूत",
   "paywallBullet4a": "XP, लेवल — आदतें खेल", "paywallBullet4b": "जो सफल हुए वो यहीं से गुज़रे", "paywallBullet4c": "शुरू करें — पहला सप्ताह मुफ्त",
+  "paywallPromoCode": "क्या आपके पास प्रोमो कोड है?",
   "paywallRestore": "कोई खरीदारी नहीं मिली", "paywallRestoreNotFound": "कोई खरीदारी नहीं मिली", "paywallRestoreLabel": "खरीदारी बहाल करें",
   "paywallYearly": "वार्षिक", "paywallBestValue": "सर्वोत्तम मूल्य", "paywallMonthly": "मासिक", "paywallFreeTrial": "3 दिन मुफ्त",
   "paywallLoadError": "लोड नहीं हो सका", "paywallCta": "मुफ्त आज़माएं", "paywallCtaAlt": "जारी रखें",
