@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../models/routine.dart';
 import '../utils/constants.dart';
+import '../utils/daily_plan.dart';
+import '../widgets/discipline_widgets.dart';
 import '../utils/localized_data.dart';
 import '../widgets/premium_paywall.dart';
 import 'exercise_detail_screen.dart';
@@ -65,34 +67,6 @@ String _localizedLevelDesc(AppLocalizations l, int index) {
     default: return '';
   }
 }
-
-// Exercise IDs per weekday (0=Mon … 6=Sun) — 7-day rotating schedule
-const _weekdayExerciseIds = [
-  // Monday
-  ['morning_stretch', 'bar_hanging', 'jumping', 'posture_check'],
-  // Tuesday
-  ['cobra_stretch', 'evening_yoga', 'water', 'quality_sleep'],
-  // Wednesday
-  ['morning_stretch', 'swimming_basketball', 'protein', 'posture_check'],
-  // Thursday
-  ['bar_hanging', 'sprint_intervals', 'calcium_vitamin_d', 'no_screen'],
-  // Friday
-  ['cobra_stretch', 'hiit_workout', 'zinc_intake', 'sleep_environment'],
-  // Saturday
-  ['morning_stretch', 'pilates_core', 'water', 'vitamin_d_sunlight'],
-  // Sunday
-  ['evening_yoga', 'inversion_hang', 'pre_sleep_routine', 'quality_sleep'],
-];
-
-// Optimal daily routine — always the same 6 items
-const _optimalRoutineIds = [
-  'morning_stretch',
-  'bar_hanging',
-  'water',
-  'protein',
-  'quality_sleep',
-  'posture_check',
-];
 
 class RoutinesScreen extends StatefulWidget {
   const RoutinesScreen({super.key});
@@ -181,15 +155,6 @@ class _RoutinesScreenState extends State<RoutinesScreen>
                         ],
                       ),
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Level ${provider.level} · ${localizedLevelTitle(l, provider.levelTitle)}',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.white.withValues(alpha: 0.55),
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -229,7 +194,7 @@ class _RoutinesScreenState extends State<RoutinesScreen>
 
   Widget _buildTabBar() {
     final l = AppLocalizations.of(context)!;
-    final labels = [l.navRoutines, l.program, l.nutrition];
+    final labels = [l.disciplineToday, l.program, l.nutrition];
     return Container(
       color: AppColors.scaffold,
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 14),
@@ -282,13 +247,17 @@ class _RoutinesScreenState extends State<RoutinesScreen>
 
   Widget _buildFAB(BuildContext context, AppProvider provider) {
     if (!provider.isPremium) return const SizedBox.shrink();
-    return FloatingActionButton(
+    // clears the floating nav bar
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 76),
+      child: FloatingActionButton(
       backgroundColor: AppColors.primary,
       onPressed: () => Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => const CustomRoutineBuilderScreen()),
       ),
-      child: const Icon(CupertinoIcons.add, color: Colors.white, size: 28),
+        child: const Icon(CupertinoIcons.add, color: Colors.white, size: 28),
+      ),
     );
   }
 }
@@ -311,458 +280,465 @@ class _TrainTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final exerciseIds = _weekdayExerciseIds[selectedDayIndex];
+    final today = provider.todayRoutines;
+    final done = provider.completedRoutineCount;
 
-    return CustomScrollView(
+    return ListView(
       physics: const BouncingScrollPhysics(),
-      slivers: [
-        // Day selector
-        SliverToBoxAdapter(child: _DaySelector(
-          selectedIndex: selectedDayIndex,
-          onSelected: onDaySelected,
-        )),
+      padding: const EdgeInsets.fromLTRB(18, 0, 18, 130),
+      children: [
+        _DisciplineLevelCard(provider: provider),
+        const SizedBox(height: 18),
 
-        // Optimal daily routine banner
-        SliverToBoxAdapter(child: _OptimalBanner(provider: provider)),
-
-        // Daily exercise list
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(18, 0, 18, 8),
-            child: Text(
-              l.todaysExercises,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.4,
-                color: Colors.white.withValues(alpha: 0.45),
-              ),
-            ),
-          ),
+        // ── Today ───────────────────────────────────────────────────────
+        _SectionLabel(
+          icon: CupertinoIcons.sun_max_fill,
+          title: l.disciplineTodayPlan,
+          trailing: done >= today.length && today.isNotEmpty
+              ? l.disciplineAllDone
+              : l.disciplineDayProgress(done, today.length),
+          trailingColor: done >= today.length && today.isNotEmpty
+              ? AppColors.success
+              : Colors.white.withValues(alpha: 0.45),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, i) {
-              final id = exerciseIds[i];
-              final routine = _findRoutine(provider, id);
-              if (routine == null) return const SizedBox.shrink();
-              final isFree = _freeRoutineIds.contains(id);
-              return _ExerciseCard(
-                routine: routine,
-                isFree: isFree,
-                provider: provider,
-                onTap: () {
-                  if (!isFree && !provider.isPremium) {
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (_) => const PremiumPaywallScreen(),
-                    );
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ExerciseDetailScreen(routine: routine),
-                      ),
-                    );
-                  }
-                },
-              );
-            },
-            childCount: exerciseIds.length,
-          ),
-        ),
+        const SizedBox(height: 10),
+        ...today.map((r) => _PlanRow(
+              routine: r,
+              locked: !_freeRoutineIds.contains(r.id) && !provider.isPremium,
+              onToggle: () {
+                if (!_freeRoutineIds.contains(r.id) && !provider.isPremium) {
+                  showPremiumPaywall(context);
+                  return;
+                }
+                HapticFeedback.selectionClick();
+                provider.toggleRoutine(r.id);
+              },
+              onOpen: () {
+                if (!_freeRoutineIds.contains(r.id) && !provider.isPremium) {
+                  showPremiumPaywall(context);
+                  return;
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ExerciseDetailScreen(routine: r),
+                  ),
+                );
+              },
+            )),
 
-        const SliverToBoxAdapter(child: SizedBox(height: 120)),
+        const SizedBox(height: 22),
+
+        // ── This week ───────────────────────────────────────────────────
+        _SectionLabel(
+          icon: CupertinoIcons.calendar,
+          title: l.disciplineWeek,
+        ),
+        const SizedBox(height: 12),
+        _GoalGroup(children: [
+          GoalBar(
+            icon: CupertinoIcons.checkmark_seal_fill,
+            label: l.goalPerfectDays,
+            done: provider.perfectDaysInWeek(),
+            target: kWeeklyPerfectDays,
+            color: AppColors.primary,
+          ),
+          GoalBar(
+            icon: CupertinoIcons.bolt_fill,
+            label: l.goalWorkouts,
+            done: provider.workoutsInWeek(),
+            target: kWeeklyWorkouts,
+            color: AppColors.orange,
+          ),
+          GoalBar(
+            icon: CupertinoIcons.arrow_up_right_circle_fill,
+            label: l.goalMeasurement,
+            done: provider.measurementsInWeek(),
+            target: kWeeklyMeasurements,
+            color: AppColors.cyan,
+          ),
+        ]),
+
+        const SizedBox(height: 22),
+
+        // ── This month ──────────────────────────────────────────────────
+        _SectionLabel(
+          icon: CupertinoIcons.calendar_circle_fill,
+          title: l.disciplineMonth,
+        ),
+        const SizedBox(height: 12),
+        _GoalGroup(children: [
+          GoalBar(
+            icon: CupertinoIcons.camera_fill,
+            label: l.goalPhoto,
+            done: provider.photosInMonth(),
+            target: kMonthlyPhotos,
+            color: AppColors.lime,
+          ),
+          GoalBar(
+            icon: CupertinoIcons.person_crop_rectangle,
+            label: l.goalPostureCheck,
+            done: provider.postureChecksInMonth(),
+            target: kMonthlyPostureChecks,
+            color: AppColors.pink,
+          ),
+          GoalBar(
+            icon: CupertinoIcons.chart_bar_alt_fill,
+            label: l.goalMeasurement,
+            done: provider.measurementsInMonth(),
+            target: kMonthlyMeasurements,
+            color: AppColors.sleep,
+          ),
+        ]),
       ],
     );
   }
+}
 
-  Routine? _findRoutine(AppProvider provider, String id) {
-    try {
-      return provider.allRoutines.firstWhere((r) => r.id == id);
-    } catch (_) {
-      return null;
+/// Level, streak and how far the next tier is.
+class _DisciplineLevelCard extends StatelessWidget {
+  final AppProvider provider;
+  const _DisciplineLevelCard({required this.provider});
+
+  static const _tierKeys = [
+    'spark', 'steady', 'sharp', 'solid', 'relentless', 'unbroken', 'legend',
+  ];
+
+  String _tierName(AppLocalizations l, String key) {
+    switch (key) {
+      case 'steady':
+        return l.disciplineTierSteady;
+      case 'sharp':
+        return l.disciplineTierSharp;
+      case 'solid':
+        return l.disciplineTierSolid;
+      case 'relentless':
+        return l.disciplineTierRelentless;
+      case 'unbroken':
+        return l.disciplineTierUnbroken;
+      case 'legend':
+        return l.disciplineTierLegend;
+      default:
+        return l.disciplineTierSpark;
     }
   }
-}
-
-// ── Day selector M T W T F S S ──────────────────────────────────
-
-class _DaySelector extends StatelessWidget {
-  final int selectedIndex;
-  final ValueChanged<int> onSelected;
-
-  const _DaySelector({required this.selectedIndex, required this.onSelected});
-
-  @override
-  Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context).toLanguageTag();
-    final days = List.generate(7, (i) =>
-      DateFormat('EEEEE', locale).format(DateTime(2000, 1, 3 + i)));
-    final today = DateTime.now().weekday - 1;
-    return Container(
-      margin: const EdgeInsets.fromLTRB(18, 16, 18, 16),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-      decoration: BoxDecoration(
-        color: AppColors.cardFill,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.12)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(7, (i) {
-          final isSelected = i == selectedIndex;
-          final isToday = i == today;
-          return GestureDetector(
-            onTap: () => onSelected(i),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isSelected
-                    ? AppColors.primary
-                    : isToday
-                        ? AppColors.primary.withValues(alpha: 0.15)
-                        : Colors.transparent,
-                border: isToday && !isSelected
-                    ? Border.all(color: AppColors.primary.withValues(alpha: 0.4))
-                    : null,
-                boxShadow: isSelected
-                    ? [BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.45),
-                        blurRadius: 10,
-                      )]
-                    : null,
-              ),
-              child: Center(
-                child: Text(
-                  days[i],
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
-                    color: isSelected
-                        ? Colors.white
-                        : isToday
-                            ? AppColors.primary
-                            : Colors.white.withValues(alpha: 0.55),
-                  ),
-                ),
-              ),
-            ),
-          );
-        }),
-      ),
-    );
-  }
-}
-
-// ── Optimal daily routine banner ─────────────────────────────────
-
-class _OptimalBanner extends StatelessWidget {
-  final AppProvider provider;
-  const _OptimalBanner({required this.provider});
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final completedCount = _optimalRoutineIds
-        .where((id) => provider.allRoutines.any((r) => r.id == id && r.completed))
-        .length;
-    final total = _optimalRoutineIds.length;
-    final progress = total == 0 ? 0.0 : completedCount / total;
+    final streak = provider.streak;
+    final idx = disciplineTierIndex(streak);
+    final tier = kDisciplineTiers[idx];
+    final progress = disciplineTierProgress(streak);
+    final isMax = idx >= kDisciplineTiers.length - 1;
+    final toNext = isMax ? 0 : kDisciplineTiers[idx + 1].days - streak;
 
     return Container(
-      margin: const EdgeInsets.fromLTRB(18, 0, 18, 18),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppColors.primary.withValues(alpha: 0.18),
-            const Color(0xFF00E5FF).withValues(alpha: 0.08),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Text('⚡', style: TextStyle(fontSize: 18)),
-              const SizedBox(width: 8),
-              Text(
-                l.dailyRoutines.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.primaryLight,
-                  letterSpacing: 1.2,
-                ),
-              ),
-              const Spacer(),
-              Text(
-                '$completedCount/$total',
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.primaryBright,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: progress,
-              backgroundColor: Colors.white.withValues(alpha: 0.08),
-              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
-              minHeight: 5,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 6,
-            alignment: WrapAlignment.center,
-            children: _optimalRoutineIds.map((id) {
-              final done = provider.allRoutines.any((r) => r.id == id && r.completed);
-              final routine = _findRoutine(provider, id);
-              final icon = routine?.icon ?? '•';
-              return _OptimalChip(icon: icon, done: done);
-            }).toList(),
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(26),
+        border: Border.all(color: tier.color.withValues(alpha: 0.22)),
+        boxShadow: [
+          BoxShadow(
+            color: tier.color.withValues(alpha: 0.16),
+            blurRadius: 30,
+            offset: const Offset(0, 8),
+            spreadRadius: -8,
           ),
         ],
-      ),
-    );
-  }
-
-  Routine? _findRoutine(AppProvider provider, String id) {
-    try {
-      return provider.allRoutines.firstWhere((r) => r.id == id);
-    } catch (_) {
-      return null;
-    }
-  }
-}
-
-class _OptimalChip extends StatelessWidget {
-  final String icon;
-  final bool done;
-  const _OptimalChip({required this.icon, required this.done});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: done
-            ? AppColors.lime.withValues(alpha: 0.15)
-            : Colors.white.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: done
-              ? AppColors.lime.withValues(alpha: 0.4)
-              : Colors.white.withValues(alpha: 0.1),
-        ),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(icon, style: const TextStyle(fontSize: 13)),
-          if (done) ...[
-            const SizedBox(width: 4),
-            const Icon(CupertinoIcons.checkmark_alt, size: 11, color: AppColors.lime),
-          ],
+          SizedBox(
+            width: 92,
+            height: 92,
+            child: CustomPaint(
+              painter: DisciplineRingPainter(
+                progress: isMax ? 1 : progress,
+                color: tier.color,
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '$streak',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w900,
+                        height: 1,
+                        color: tier.color,
+                        letterSpacing: -1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      '🔥',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.white.withValues(alpha: 0.6),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 18),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l.disciplineLevel.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1.3,
+                    color: Colors.white.withValues(alpha: 0.40),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  _tierName(l, _tierKeys[idx]),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: -0.6,
+                    color: tier.color,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  l.disciplineStreakDays(streak),
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white.withValues(alpha: 0.55),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: tier.color.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(100),
+                    border:
+                        Border.all(color: tier.color.withValues(alpha: 0.28)),
+                  ),
+                  child: Text(
+                    isMax ? l.disciplineMaxTier : l.disciplineToNext(toNext),
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: tier.color,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-// ── Exercise card ─────────────────────────────────────────────────
-
-class _ExerciseCard extends StatelessWidget {
-  final Routine routine;
-  final bool isFree;
-  final AppProvider provider;
-  final VoidCallback onTap;
-
-  const _ExerciseCard({
-    required this.routine,
-    required this.isFree,
-    required this.provider,
-    required this.onTap,
+class _SectionLabel extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String? trailing;
+  final Color? trailingColor;
+  const _SectionLabel({
+    required this.icon,
+    required this.title,
+    this.trailing,
+    this.trailingColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
-    final loc = localizedRoutine(l, routine.id);
-    final isPremiumLocked = !isFree && !provider.isPremium;
-    final category = routine.category;
-    final catColor = _catColor(category);
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(18, 0, 18, 12),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: AppColors.cardFill,
-          borderRadius: BorderRadius.circular(22),
-          border: Border.all(
-            color: routine.completed
-                ? AppColors.lime.withValues(alpha: 0.4)
-                : catColor.withValues(alpha: 0.18),
+    return Row(
+      children: [
+        Icon(icon, size: 16, color: AppColors.primary),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            title.toUpperCase(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1.2,
+              color: Colors.white.withValues(alpha: 0.62),
+            ),
           ),
-          boxShadow: routine.completed
-              ? [BoxShadow(
-                  color: AppColors.lime.withValues(alpha: 0.08),
-                  blurRadius: 12,
-                )]
-              : null,
         ),
-        child: Row(
-          children: [
-            // Icon
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: catColor.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Center(
-                child: Text(
-                  isPremiumLocked ? '🔒' : routine.icon,
-                  style: const TextStyle(fontSize: 22),
-                ),
-              ),
+        if (trailing != null)
+          Text(
+            trailing!,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: trailingColor ?? Colors.white.withValues(alpha: 0.45),
             ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    loc['title'] ?? routine.title,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: isPremiumLocked
-                          ? Colors.white.withValues(alpha: 0.35)
-                          : Colors.white,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 3),
-                  Row(
-                    children: [
-                      _PillBadge(
-                        text: routine.duration,
-                        color: catColor,
-                      ),
-                      const SizedBox(width: 6),
-                      if (routine.difficulty.isNotEmpty)
-                        _PillBadge(
-                          text: routine.difficulty,
-                          color: Colors.white.withValues(alpha: 0.25),
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 12),
-            // Check or lock
-            if (isPremiumLocked)
-              GestureDetector(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (_) => const PremiumPaywallScreen(),
-                  );
-                },
-                child: Icon(
-                  CupertinoIcons.lock_fill,
-                  size: 18,
-                  color: Colors.white.withValues(alpha: 0.25),
-                ),
-              )
-            else
-              GestureDetector(
-                onTap: () => provider.toggleRoutine(routine.id),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: routine.completed
-                        ? AppColors.lime
-                        : Colors.white.withValues(alpha: 0.08),
-                    border: Border.all(
-                      color: routine.completed
-                          ? AppColors.lime
-                          : Colors.white.withValues(alpha: 0.2),
-                    ),
-                  ),
-                  child: Icon(
-                    CupertinoIcons.checkmark_alt,
-                    size: 16,
-                    color: routine.completed
-                        ? Colors.black
-                        : Colors.white.withValues(alpha: 0.35),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
+          ),
+      ],
     );
-  }
-
-  Color _catColor(String cat) {
-    switch (cat) {
-      case 'exercise': return AppColors.exerciseColor;
-      case 'nutrition': return AppColors.nutritionColor;
-      case 'sleep': return AppColors.sleepColor;
-      case 'posture': return AppColors.postureColor;
-      default: return AppColors.primary;
-    }
   }
 }
 
-class _PillBadge extends StatelessWidget {
-  final String text;
-  final Color color;
-  const _PillBadge({required this.text, required this.color});
+class _GoalGroup extends StatelessWidget {
+  final List<Widget> children;
+  const _GoalGroup({required this.children});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(20),
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w600,
-          color: color.withValues(alpha: 0.85),
+      child: Column(children: children),
+    );
+  }
+}
+
+/// One line of today's plan: tap the box to tick it, tap the row to read it.
+class _PlanRow extends StatelessWidget {
+  final Routine routine;
+  final bool locked;
+  final VoidCallback onToggle;
+  final VoidCallback onOpen;
+
+  const _PlanRow({
+    required this.routine,
+    required this.locked,
+    required this.onToggle,
+    required this.onOpen,
+  });
+
+  Color get _categoryColor {
+    switch (routine.category) {
+      case 'nutrition':
+        return AppColors.lime;
+      case 'sleep':
+        return AppColors.sleep;
+      case 'posture':
+        return AppColors.pink;
+      default:
+        return AppColors.primary;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final copy = localizedRoutine(l, routine.id);
+    final title = copy['title']!.isEmpty ? routine.title : copy['title']!;
+    final done = routine.completed;
+    final color = _categoryColor;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: GestureDetector(
+        onTap: onOpen,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 220),
+          padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
+          decoration: BoxDecoration(
+            color: done
+                ? AppColors.success.withValues(alpha: 0.07)
+                : AppColors.cardFill,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: done
+                  ? AppColors.success.withValues(alpha: 0.30)
+                  : Colors.white.withValues(alpha: 0.06),
+            ),
+          ),
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: onToggle,
+                behavior: HitTestBehavior.opaque,
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 220),
+                  width: 26,
+                  height: 26,
+                  decoration: BoxDecoration(
+                    color: done ? AppColors.success : Colors.transparent,
+                    borderRadius: BorderRadius.circular(9),
+                    border: Border.all(
+                      color: done
+                          ? AppColors.success
+                          : Colors.white.withValues(alpha: 0.22),
+                      width: 1.6,
+                    ),
+                  ),
+                  child: done
+                      ? const Icon(Icons.check_rounded,
+                          size: 17, color: Colors.white)
+                      : null,
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.w700,
+                        color: done
+                            ? Colors.white.withValues(alpha: 0.55)
+                            : Colors.white,
+                        decoration:
+                            done ? TextDecoration.lineThrough : null,
+                        decorationColor: Colors.white.withValues(alpha: 0.4),
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Row(
+                      children: [
+                        Container(
+                          width: 6,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: color.withValues(alpha: 0.9),
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          routine.duration,
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white.withValues(alpha: 0.42),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              if (locked)
+                Icon(CupertinoIcons.lock_fill,
+                    size: 15, color: Colors.white.withValues(alpha: 0.35))
+              else
+                Icon(CupertinoIcons.chevron_right,
+                    size: 15, color: Colors.white.withValues(alpha: 0.25)),
+            ],
+          ),
         ),
       ),
     );

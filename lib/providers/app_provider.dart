@@ -10,6 +10,7 @@ import '../models/height_record.dart';
 import '../models/routine.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
+import '../utils/daily_plan.dart';
 import '../utils/height_reference.dart';
 import '../services/purchase_service.dart';
 import '../services/notification_service.dart';
@@ -256,11 +257,24 @@ class AppProvider extends ChangeNotifier {
 
   String get _today => DateTime.now().toIso8601String().substring(0, 10);
 
-  int get completedRoutineCount => _routines.where((r) => r.completed).length;
-  double get routineProgress =>
-      _routines.isEmpty ? 0 : completedRoutineCount / _routines.length;
+  /// The routines the app asks for today: the weekday's training block plus
+  /// the everyday habits. The catalogue holds far more than a day's work.
+  List<Routine> get todayRoutines {
+    final ids = dailyPlanIds();
+    final byId = {for (final r in _routines) r.id: r};
+    return [
+      for (final id in ids)
+        if (byId[id] != null && !_hiddenRoutineIds.contains(id)) byId[id]!,
+    ];
+  }
+
+  int get todayRoutineTotal => todayRoutines.length;
+  int get completedRoutineCount => todayRoutines.where((r) => r.completed).length;
+  double get routineProgress => todayRoutines.isEmpty
+      ? 0
+      : completedRoutineCount / todayRoutines.length;
   bool get allRoutinesCompleted =>
-      _routines.isNotEmpty && completedRoutineCount == _routines.length;
+      todayRoutines.isNotEmpty && completedRoutineCount == todayRoutines.length;
 
   double get totalGrowth {
     if (_heightRecords.length < 2) return 0;
@@ -376,6 +390,9 @@ class AppProvider extends ChangeNotifier {
       _reviewShownOnce = json['reviewShownOnce'] ?? false;
       // Anyone who already answered the questionnaire has step one behind
       // them, even if they installed before the journey existed.
+      _routineHistory = ((json['routineHistory'] as Map?) ?? {}).map(
+        (k, v) => MapEntry(k.toString(), List<String>.from(v as List)),
+      );
       _journeyProgress = (json['journeyProgress'] as num?)?.toInt() ??
           (_profile != null ? 1 : 0);
     }
@@ -479,6 +496,7 @@ class AppProvider extends ChangeNotifier {
       'journalByDate': _journalByDate,
       'completedProgramDays': _completedProgramDays.toList(),
       'reviewShownOnce': _reviewShownOnce,
+      'routineHistory': _routineHistory,
       'journeyProgress': _journeyProgress,
     };
     await prefs.setString('glowup_app_data', jsonEncode(data));
@@ -530,6 +548,7 @@ class AppProvider extends ChangeNotifier {
     }
 
     _lastRoutineDate = _today;
+    _recordHistory();
 
     // Award XP for completing a routine
     if (routine.completed) {
@@ -620,12 +639,88 @@ class AppProvider extends ChangeNotifier {
 
   // ── Getting-started journey ────────────────────────────────────────────────
   // Number of completed steps: data collection, app tour, then daily use.
+  // date -> routine ids finished that day, kept for the last 60 days so the
+  // week and month views have something to count.
+  Map<String, List<String>> _routineHistory = {};
+  Map<String, List<String>> get routineHistory => _routineHistory;
+
   int _journeyProgress = 0;
   int get journeyProgress => _journeyProgress;
   bool get journeyComplete => _journeyProgress >= 3;
 
   /// Marks [step] (0-based) finished. Steps only ever move forward, and a step
   /// cannot complete before the ones in front of it.
+  void _recordHistory() {
+    _routineHistory[_today] = List<String>.from(_completedRoutineIds);
+    if (_routineHistory.length > 60) {
+      final keys = _routineHistory.keys.toList()..sort();
+      for (final k in keys.take(_routineHistory.length - 60)) {
+        _routineHistory.remove(k);
+      }
+    }
+  }
+
+  /// Days in [key]'s week where the whole plan was finished.
+  int perfectDaysInWeek([String? key]) {
+    final target = key ?? weekKey();
+    var count = 0;
+    _routineHistory.forEach((date, ids) {
+      final d = DateTime.tryParse(date);
+      if (d == null || weekKey(d) != target) return;
+      final plan = dailyPlanIds(d);
+      if (plan.every(ids.contains)) count++;
+    });
+    return count;
+  }
+
+  /// Training routines finished in [key]'s week.
+  int workoutsInWeek([String? key]) {
+    final target = key ?? weekKey();
+    final exerciseIds = _routines
+        .where((r) => r.category == 'exercise')
+        .map((r) => r.id)
+        .toSet();
+    var count = 0;
+    _routineHistory.forEach((date, ids) {
+      final d = DateTime.tryParse(date);
+      if (d == null || weekKey(d) != target) return;
+      count += ids.where(exerciseIds.contains).length;
+    });
+    return count;
+  }
+
+  int measurementsInWeek([String? key]) {
+    final target = key ?? weekKey();
+    return _heightRecords.where((r) {
+      final d = DateTime.tryParse(r.date);
+      return d != null && weekKey(d) == target;
+    }).length;
+  }
+
+  int measurementsInMonth([String? key]) {
+    final target = key ?? monthKey();
+    return _heightRecords.where((r) {
+      final d = DateTime.tryParse(r.date);
+      return d != null && monthKey(d) == target;
+    }).length;
+  }
+
+  int photosInMonth([String? key]) {
+    final target = key ?? monthKey();
+    return _progressPhotos.where((p) {
+      final d = DateTime.tryParse(p['date'] as String? ?? '');
+      return d != null && monthKey(d) == target;
+    }).length;
+  }
+
+  int postureChecksInMonth([String? key]) {
+    final target = key ?? monthKey();
+    return _postureAnalyses.where((p) {
+      final d = DateTime.tryParse(p['date'] as String? ?? '');
+      return d != null && monthKey(d) == target;
+    }).length;
+  }
+
   void completeJourneyStep(int step) {
     if (step != _journeyProgress) return;
     _journeyProgress = (step + 1).clamp(0, 3);
@@ -819,6 +914,7 @@ class AppProvider extends ChangeNotifier {
     _lastChallengeDate = '';
     _dailyChallengeProgress = {};
     _reviewShownOnce = false;
+    _routineHistory = {};
     _journeyProgress = 0;
 
     final prefs = await SharedPreferences.getInstance();

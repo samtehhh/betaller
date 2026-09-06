@@ -125,8 +125,140 @@ abstract class AppLocalizations {
   /// No description provided for @navRoutines.
   ///
   /// In en, this message translates to:
-  /// **'Routines'**
+  /// **'Discipline'**
   String get navRoutines;
+
+  /// No description provided for @disciplineToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get disciplineToday;
+
+  /// No description provided for @disciplineTodayPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s plan'**
+  String get disciplineTodayPlan;
+
+  /// No description provided for @disciplineWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get disciplineWeek;
+
+  /// No description provided for @disciplineMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get disciplineMonth;
+
+  /// No description provided for @disciplineLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Discipline level'**
+  String get disciplineLevel;
+
+  /// No description provided for @disciplineStreakDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} day streak'**
+  String disciplineStreakDays(int days);
+
+  /// No description provided for @disciplineToNext.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days to the next level'**
+  String disciplineToNext(int days);
+
+  /// No description provided for @disciplineMaxTier.
+  ///
+  /// In en, this message translates to:
+  /// **'Top level reached'**
+  String get disciplineMaxTier;
+
+  /// No description provided for @disciplineTierSpark.
+  ///
+  /// In en, this message translates to:
+  /// **'Spark'**
+  String get disciplineTierSpark;
+
+  /// No description provided for @disciplineTierSteady.
+  ///
+  /// In en, this message translates to:
+  /// **'Steady'**
+  String get disciplineTierSteady;
+
+  /// No description provided for @disciplineTierSharp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharp'**
+  String get disciplineTierSharp;
+
+  /// No description provided for @disciplineTierSolid.
+  ///
+  /// In en, this message translates to:
+  /// **'Solid'**
+  String get disciplineTierSolid;
+
+  /// No description provided for @disciplineTierRelentless.
+  ///
+  /// In en, this message translates to:
+  /// **'Relentless'**
+  String get disciplineTierRelentless;
+
+  /// No description provided for @disciplineTierUnbroken.
+  ///
+  /// In en, this message translates to:
+  /// **'Unbroken'**
+  String get disciplineTierUnbroken;
+
+  /// No description provided for @disciplineTierLegend.
+  ///
+  /// In en, this message translates to:
+  /// **'Legend'**
+  String get disciplineTierLegend;
+
+  /// No description provided for @goalPerfectDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Days you finished the plan'**
+  String get goalPerfectDays;
+
+  /// No description provided for @goalWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Training sessions'**
+  String get goalWorkouts;
+
+  /// No description provided for @goalMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Height measurement'**
+  String get goalMeasurement;
+
+  /// No description provided for @goalPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress photo'**
+  String get goalPhoto;
+
+  /// No description provided for @goalPostureCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture check'**
+  String get goalPostureCheck;
+
+  /// No description provided for @disciplineAllDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s done'**
+  String get disciplineAllDone;
+
+  /// No description provided for @disciplineDayProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total} done'**
+  String disciplineDayProgress(int done, int total);
 
   /// No description provided for @navProgress.
   ///

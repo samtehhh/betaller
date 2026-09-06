@@ -100,7 +100,7 @@ class WeeklyReportScreen extends StatelessWidget {
                         children: [
                           _StatColumn(
                             label: l.routinesLabel,
-                            value: '${provider.completedRoutineCount}/${provider.routines.length}',
+                            value: '${provider.completedRoutineCount}/${provider.todayRoutineTotal}',
                             icon: CupertinoIcons.checkmark_circle_fill,
                             color: AppColors.lime,
                           ),

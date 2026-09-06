@@ -18,6 +18,78 @@ class AppLocalizationsPt extends AppLocalizations {
   String get navRoutines => 'Rotinas';
 
   @override
+  String get disciplineToday => 'Today';
+
+  @override
+  String get disciplineTodayPlan => 'Today\'s plan';
+
+  @override
+  String get disciplineWeek => 'This week';
+
+  @override
+  String get disciplineMonth => 'This month';
+
+  @override
+  String get disciplineLevel => 'Discipline level';
+
+  @override
+  String disciplineStreakDays(int days) {
+    return '$days day streak';
+  }
+
+  @override
+  String disciplineToNext(int days) {
+    return '$days days to the next level';
+  }
+
+  @override
+  String get disciplineMaxTier => 'Top level reached';
+
+  @override
+  String get disciplineTierSpark => 'Spark';
+
+  @override
+  String get disciplineTierSteady => 'Steady';
+
+  @override
+  String get disciplineTierSharp => 'Sharp';
+
+  @override
+  String get disciplineTierSolid => 'Solid';
+
+  @override
+  String get disciplineTierRelentless => 'Relentless';
+
+  @override
+  String get disciplineTierUnbroken => 'Unbroken';
+
+  @override
+  String get disciplineTierLegend => 'Legend';
+
+  @override
+  String get goalPerfectDays => 'Days you finished the plan';
+
+  @override
+  String get goalWorkouts => 'Training sessions';
+
+  @override
+  String get goalMeasurement => 'Height measurement';
+
+  @override
+  String get goalPhoto => 'Progress photo';
+
+  @override
+  String get goalPostureCheck => 'Posture check';
+
+  @override
+  String get disciplineAllDone => 'Today\'s done';
+
+  @override
+  String disciplineDayProgress(int done, int total) {
+    return '$done/$total done';
+  }
+
+  @override
   String get navProgress => 'Progresso';
 
   @override

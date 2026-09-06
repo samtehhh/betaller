@@ -839,7 +839,7 @@ class AnalysisScreenState extends State<AnalysisScreen> with SingleTickerProvide
     final sleepNeed = Calculations.dailySleepNeed(profile.age);
     final bmi = Calculations.calculateBMI(profile.currentHeight, profile.weight);
     final completed = provider.completedRoutineCount;
-    final total = provider.routines.length;
+    final total = provider.todayRoutineTotal;
     final remaining = total - completed;
 
     // ── Beslenme — gerçek veriye göre ──

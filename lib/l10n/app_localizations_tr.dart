@@ -15,7 +15,79 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navAnalysis => 'Analiz';
 
   @override
-  String get navRoutines => 'Planım';
+  String get navRoutines => 'Disiplin';
+
+  @override
+  String get disciplineToday => 'Bugün';
+
+  @override
+  String get disciplineTodayPlan => 'Bugünün planı';
+
+  @override
+  String get disciplineWeek => 'Bu hafta';
+
+  @override
+  String get disciplineMonth => 'Bu ay';
+
+  @override
+  String get disciplineLevel => 'Disiplin Seviyesi';
+
+  @override
+  String disciplineStreakDays(int days) {
+    return '$days gün seri';
+  }
+
+  @override
+  String disciplineToNext(int days) {
+    return 'Sonraki seviyeye $days gün';
+  }
+
+  @override
+  String get disciplineMaxTier => 'En üst seviyedesin';
+
+  @override
+  String get disciplineTierSpark => 'Kıvılcım';
+
+  @override
+  String get disciplineTierSteady => 'İstikrar';
+
+  @override
+  String get disciplineTierSharp => 'Keskin';
+
+  @override
+  String get disciplineTierSolid => 'Sağlam';
+
+  @override
+  String get disciplineTierRelentless => 'Amansız';
+
+  @override
+  String get disciplineTierUnbroken => 'Kırılmaz';
+
+  @override
+  String get disciplineTierLegend => 'Efsane';
+
+  @override
+  String get goalPerfectDays => 'Planı tam bitirdiğin gün';
+
+  @override
+  String get goalWorkouts => 'Antrenman';
+
+  @override
+  String get goalMeasurement => 'Boy ölçümü';
+
+  @override
+  String get goalPhoto => 'İlerleme fotoğrafı';
+
+  @override
+  String get goalPostureCheck => 'Postür analizi';
+
+  @override
+  String get disciplineAllDone => 'Bugünü tamamladın';
+
+  @override
+  String disciplineDayProgress(int done, int total) {
+    return '$done/$total tamamlandı';
+  }
 
   @override
   String get navProgress => 'İlerleme';

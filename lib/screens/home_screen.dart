@@ -266,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen>
                     // ── 1. TODAY'S MISSION ────────────────────────────────
                     _TodayMissionCard(
                       routineCompleted: provider.completedRoutineCount,
-                      routineTotal: provider.routines.length,
+                      routineTotal: provider.todayRoutineTotal,
                       challengeCompleted: completedChallenges,
                       challengeTotal: challenges.length,
                       waterCurrent: provider.todayWater,
@@ -335,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen>
                       isPremium: provider.isPremium,
                       routineProgress: provider.routineProgress,
                       completedCount: provider.completedRoutineCount,
-                      totalCount: provider.routines.length,
+                      totalCount: provider.todayRoutineTotal,
                       allDone: provider.allRoutinesCompleted,
                       animValue: _curve.value,
                       startHeight: provider.heightRecords.length >= 2
