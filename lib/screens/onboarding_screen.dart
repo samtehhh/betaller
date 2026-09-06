@@ -7,17 +7,15 @@ import 'package:provider/provider.dart';
 
 import '../l10n/app_localizations.dart';
 import '../models/user_profile.dart';
-import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
-import '../utils/calculations.dart';
 import 'main_screen.dart';
 import '../widgets/journey_steps.dart';
-import '../widgets/premium_paywall.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
 const int _kGenderPage      = 2;
-const int _kWorkoutPage     = 7;
+const int _kWorkoutPage     = 6;
+const int _kEthnicityPage   = 7;
 const int _kPastHeightsPage = 11;
 const int _kAnalyzingPage   = 15;
 const int _kLastQuestion    = 14; // last page that shows the Next button
@@ -82,12 +80,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   static const int _kObMinH = 100;
   static const int _kObMaxH = 220;
 
-  // ── Analysis ─────────────────────────────────────────────────────────────────
-  PredictionResult? _prediction;
-  GlowUpScore?      _score;
-
   // ── Animation controllers ────────────────────────────────────────────────────
-  late AnimationController _resultAnim;
 
   // ─── Unit conversion helpers ──────────────────────────────────────────────
   static int    _ftInToCm(int ft, int inches) => ((ft * 12 + inches) * 2.54).round();
@@ -105,10 +98,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   void initState() {
     super.initState();
-    _resultAnim = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    );
     // Sync ft/in with metric defaults
     _heightFt = _cmToFt(_selectedHeight);
     _heightIn = _cmToIn(_selectedHeight);
@@ -124,7 +113,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   void dispose() {
     _pageController.dispose();
-    _resultAnim.dispose();
     _obAgePageController.dispose();
     _obHeightPickerController.dispose();
     super.dispose();
@@ -191,19 +179,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       }
     }
     pastHeights[_userAge] = profile.currentHeight;
-    final records = pastHeights.entries.map((e) {
-      final year = DateTime.now().year - (_userAge - e.key);
-      return HeightRecord(date: '$year-06-15', height: e.value);
-    }).toList()..sort((a, b) => a.date.compareTo(b.date));
-    _prediction = Calculations.predictFinalHeight(profile, records);
-    _score = Calculations.calculateGlowUpScore(
-      profile: profile,
-      records: records,
-      routineProgress: (_weeklyWorkout == '6+' ? 0.9 : _weeklyWorkout == '3-5' ? 0.6 : 0.2).clamp(0.0, 1.0),
-      waterProgress: 0.7,
-      sleepHours: _sleepHours,
-      streak: 0,
-    );
   }
 
   void _prevPage() {
@@ -219,8 +194,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   bool _canProceed() {
     switch (_currentPage) {
-      case _kWorkoutPage: return _weeklyWorkout.isNotEmpty;
-      default:           return true;
+      case _kWorkoutPage:   return _weeklyWorkout.isNotEmpty;
+      case _kEthnicityPage: return _ethnicity.isNotEmpty;
+      default:              return true;
     }
   }
 
@@ -458,7 +434,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         _buildChartPage(),                    // 13
                         _buildJourneyPage(),                  // 14
                         const SizedBox(),                     // 15 placeholder for analyzing
-                        _buildResultPage(),                   // 16
                       ],
                     ),
                   ),
@@ -1618,18 +1593,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
 
-  // Called by _AnalyzingPage when animation finishes — show result page
+  // Called by _AnalyzingPage when its animation finishes. The questionnaire is
+  // over, so we save and hand straight over to the journey screen.
   void _onAnalysisComplete() {
     if (!mounted) return;
     _saveProfile();
-    setState(() => _currentPage = _kAnalyzingPage + 1);
-    _pageController.jumpToPage(_kAnalyzingPage + 1);
-    _resultAnim.forward();
-  }
-
-  // Called by result page CTA button
-  void _onResultContinue() async {
-    if (!mounted) return;
     _goToMain();
   }
 
@@ -1806,285 +1774,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // ─────────────────────────────────────────────────────────────────────────────
   // PAGE 16 — Result (kept from original design)
   // ─────────────────────────────────────────────────────────────────────────────
-
-  Widget _buildResultPage() {
-    if (_prediction == null || _score == null) return const SizedBox();
-    final l = AppLocalizations.of(context)!;
-    final currentHeight = _selectedHeight.toDouble();
-    final growth = _prediction!.finalHeight - currentHeight;
-
-    return AnimatedBuilder(
-      animation: _resultAnim,
-      builder: (context, _) {
-        final predFade  = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.0, 0.35, curve: Curves.easeOut));
-        final predSlide = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.0, 0.45, curve: Curves.easeOutCubic));
-        final scoreFade  = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.2, 0.5, curve: Curves.easeOut));
-        final scoreSlide = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.2, 0.6, curve: Curves.easeOutCubic));
-
-        final counterAnim = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.1, 0.55, curve: Curves.easeOutCubic));
-        final barFill     = CurvedAnimation(parent: _resultAnim, curve: const Interval(0.35, 0.8, curve: Curves.easeOutCubic));
-        final displayHeight = currentHeight + (growth > 0 ? growth * counterAnim.value : 0);
-
-        return Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
-                child: Column(
-                  children: [
-              // Prediction card
-              Transform.translate(
-                offset: Offset(0, 40 * (1 - predSlide.value)),
-                child: Opacity(
-                  opacity: predFade.value,
-                  child: PremiumLockedOverlay(
-                    onTap: () => showPremiumPaywall(context),
-                    unlocked: context.read<AppProvider>().isPremium,
-                    borderRadius: 28,
-                    blurAmount: 18,
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF2D1B69), Color(0xFF1A1145)],
-                          begin: Alignment.topLeft, end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(28),
-                        border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
-                        boxShadow: [BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.15 * predFade.value),
-                          blurRadius: 30,
-                        )],
-                      ),
-                      padding: const EdgeInsets.all(28),
-                      child: Column(
-                        children: [
-                          Text(l.predictedHeightAt21, style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500,
-                            color: Colors.white.withValues(alpha: 0.75),
-                          )),
-                          const SizedBox(height: 12),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            textBaseline: TextBaseline.alphabetic,
-                            children: [
-                              Text(displayHeight.toStringAsFixed(1),
-                                style: const TextStyle(fontSize: 64, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -3, height: 1)),
-                              const SizedBox(width: 4),
-                              Text('cm', style: TextStyle(fontSize: 20, color: Colors.white.withValues(alpha: 0.82))),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            decoration: BoxDecoration(
-                              color: AppColors.lime.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(l.growthPotential(growth.toStringAsFixed(1)),
-                              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.lime)),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              // Score card
-              Transform.translate(
-                offset: Offset(0, 50 * (1 - scoreSlide.value)),
-                child: Opacity(
-                  opacity: scoreFade.value,
-                  child: PremiumLockedOverlay(
-                    onTap: () => showPremiumPaywall(context),
-                    unlocked: context.read<AppProvider>().isPremium,
-                    child: GlassCard(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(l.yourScore, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
-                              const Spacer(),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                                decoration: BoxDecoration(
-                                  color: _gradeColor(_score!.grade).withValues(alpha: 0.18),
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: _gradeColor(_score!.grade).withValues(alpha: 0.4)),
-                                ),
-                                child: Text(_score!.grade, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: _gradeColor(_score!.grade))),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          _AnimatedScoreRow(label: l.genetic,    value: _score!.genetic,    color: AppColors.primary, fill: barFill.value),
-                          const SizedBox(height: 8),
-                          _AnimatedScoreRow(label: l.growth,     value: _score!.velocity,   color: AppColors.cyan,    fill: barFill.value),
-                          const SizedBox(height: 8),
-                          _AnimatedScoreRow(label: l.nutrition,  value: _score!.nutrition,  color: AppColors.orange,  fill: barFill.value),
-                          const SizedBox(height: 8),
-                          _AnimatedScoreRow(label: l.sleepLabel, value: _score!.sleep,      color: AppColors.sleep,   fill: barFill.value),
-                          const SizedBox(height: 8),
-                          _AnimatedScoreRow(label: l.discipline, value: _score!.discipline, color: AppColors.lime,    fill: barFill.value),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 4),
-              // Peer comparison locked card
-              Transform.translate(
-                offset: Offset(0, 50 * (1 - scoreSlide.value)),
-                child: Opacity(
-                  opacity: scoreFade.value,
-                  child: PremiumLockedOverlay(
-                    onTap: () => showPremiumPaywall(context),
-                    unlocked: context.read<AppProvider>().isPremium,
-                    child: GlassCard(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(children: [
-                            const Icon(CupertinoIcons.globe, color: AppColors.cyan, size: 18),
-                            const SizedBox(width: 8),
-                            const Text('Yaşıtlarına Göre Konumun', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
-                          ]),
-                          const SizedBox(height: 14),
-                          Container(
-                            height: 10,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              gradient: const LinearGradient(colors: [Color(0xFFFF6B35), Color(0xFFFFD700), Color(0xFF22FF88)]),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Kısa', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.4))),
-                              Text('Ortalama', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.4))),
-                              Text('Uzun', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.4))),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: AppColors.cyan.withValues(alpha: 0.08),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: AppColors.cyan.withValues(alpha: 0.15)),
-                            ),
-                            child: Row(children: [
-                              const Icon(CupertinoIcons.person_2_fill, color: AppColors.cyan, size: 14),
-                              const SizedBox(width: 8),
-                              Text('Küresel sıralamanda tam konumunu gör', style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.7))),
-                            ]),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              // Routine preview locked card
-              Transform.translate(
-                offset: Offset(0, 60 * (1 - scoreSlide.value)),
-                child: Opacity(
-                  opacity: scoreFade.value,
-                  child: PremiumLockedOverlay(
-                    onTap: () => showPremiumPaywall(context),
-                    unlocked: context.read<AppProvider>().isPremium,
-                    child: GlassCard(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(children: [
-                            const Icon(CupertinoIcons.bolt_fill, color: AppColors.lime, size: 18),
-                            const SizedBox(width: 8),
-                            const Text('Senin İçin Hazırlanan Plan', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
-                          ]),
-                          const SizedBox(height: 14),
-                          ...['🌅  Sabah Omurga Açılımı  •  8 dk', '💪  Asılma & Germe Serisi  •  12 dk', '🥗  Büyüme Besinleri Listesi  •  Günlük', '🌙  Uyku Optimizasyon Rutini  •  Gece'].map((item) => Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Row(children: [
-                              Expanded(child: Text(item, style: TextStyle(fontSize: 13, color: Colors.white.withValues(alpha: 0.75)))),
-                              Container(
-                                width: 8, height: 8,
-                                decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.lime.withValues(alpha: 0.4)),
-                              ),
-                            ]),
-                          )),
-                          const SizedBox(height: 4),
-                          Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: AppColors.lime.withValues(alpha: 0.07),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: AppColors.lime.withValues(alpha: 0.15)),
-                            ),
-                            child: Row(children: [
-                              const Icon(CupertinoIcons.lock_fill, color: AppColors.lime, size: 13),
-                              const SizedBox(width: 8),
-                              Text('Premium ile tüm planına eriş', style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.7))),
-                            ]),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-                ),
-              ),
-            ),
-            // Fixed CTA
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
-              child: Container(
-                width: double.infinity, height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF22FF88), Color(0xFF00CC66)],
-                    begin: Alignment.topLeft, end: Alignment.bottomRight,
-                  ),
-                  boxShadow: [
-                    BoxShadow(color: AppColors.lime.withValues(alpha: 0.35), blurRadius: 20, offset: const Offset(0, 6)),
-                  ],
-                ),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(18),
-                    onTap: _onResultContinue,
-                    child: Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(CupertinoIcons.lock_open_fill, color: Color(0xFF0A0A14), size: 20),
-                          const SizedBox(width: 10),
-                          Text(l.unlockButton, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF0A0A14))),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
   // Helpers
   // ─────────────────────────────────────────────────────────────────────────────
 
@@ -2105,16 +1794,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         }),
       ),
     );
-  }
-
-  Color _gradeColor(String grade) {
-    switch (grade) {
-      case 'S': return const Color(0xFFFFD700);
-      case 'A': return AppColors.lime;
-      case 'B': return AppColors.cyan;
-      case 'C': return AppColors.orange;
-      default:  return AppColors.error;
-    }
   }
 }
 
@@ -2974,145 +2653,247 @@ class _CircularSleepDial extends StatefulWidget {
   State<_CircularSleepDial> createState() => _CircularSleepDialState();
 }
 
-class _CircularSleepDialState extends State<_CircularSleepDial> {
-  Offset? _center;
+class _CircularSleepDialState extends State<_CircularSleepDial>
+    with SingleTickerProviderStateMixin {
+  // The track runs 270° clockwise from the bottom-left, leaving a 90° gap at
+  // the bottom. The gap gives the drag two hard ends instead of a seam that
+  // flips 12h back to 4h under the thumb.
+  static const double _start = math.pi * 0.75;
+  static const double _sweep = math.pi * 1.5;
+  static const double _minValue = 4.0;
+  static const double _maxValue = 12.0;
 
-  double _angleToValue(double angle) {
-    // Map full circle (0..2π) to 4..12 hours
-    final norm = (angle + math.pi) % (2 * math.pi); // 0..2π starting from bottom
-    return 4.0 + (norm / (2 * math.pi)) * 8.0;
+  late final AnimationController _anim;
+  late double _display;
+  late double _animFrom;
+  double _knobPop = 0;
+  bool _dragging = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _display = widget.value;
+    _animFrom = widget.value;
+    _anim = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 260),
+    )..addListener(() {
+        final t = Curves.easeOutCubic.transform(_anim.value);
+        setState(() {
+          _display = _animFrom + (widget.value - _animFrom) * t;
+          // knob gives a small kick as it lands
+          _knobPop = math.sin(t * math.pi) * (_dragging ? 0.0 : 1.0);
+        });
+      });
   }
 
-  void _handlePan(Offset global) {
-    if (_center == null) return;
-    final local = global - _center!;
-    final angle = math.atan2(local.dy, local.dx);
-    final v = _angleToValue(angle).clamp(4.0, 12.0);
-    // Round to nearest 0.5
-    widget.onChanged((v * 2).round() / 2.0);
+  @override
+  void didUpdateWidget(covariant _CircularSleepDial old) {
+    super.didUpdateWidget(old);
+    if (old.value != widget.value) {
+      _animFrom = _display;
+      _anim
+        ..reset()
+        ..forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _anim.dispose();
+    super.dispose();
+  }
+
+  void _handleTouch(Offset local, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final d = local - center;
+    // Ignore the middle of the dial so a stray touch cannot fling the value.
+    if (d.distance < size.width * 0.18) return;
+
+    var rel = (math.atan2(d.dy, d.dx) - _start) % (2 * math.pi);
+    if (rel > _sweep) {
+      // inside the bottom gap: stick to whichever end is nearer
+      rel = (rel - _sweep) < (2 * math.pi - rel) ? _sweep : 0;
+    }
+    final raw = _minValue + (rel / _sweep) * (_maxValue - _minValue);
+    final snapped = ((raw * 2).round() / 2).clamp(_minValue, _maxValue);
+    if (snapped != widget.value) {
+      HapticFeedback.selectionClick();
+      widget.onChanged(snapped);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final hours   = widget.value.floor();
+    final hours = widget.value.floor();
     final minutes = ((widget.value - hours) * 60).round();
-    final minStr  = minutes == 0 ? '' : minutes.toString().padLeft(2, '0');
-    final label   = minStr.isEmpty ? '${hours}h' : '${hours}h$minStr';
+    final minStr = minutes == 0 ? '' : minutes.toString().padLeft(2, '0');
+    final label = minStr.isEmpty ? '${hours}h' : '${hours}h$minStr';
 
     return LayoutBuilder(builder: (ctx, constraints) {
-      final size   = math.min(constraints.maxWidth, constraints.maxHeight).clamp(0.0, 280.0);
-      final center = Offset(size / 2, size / 2);
+      final size =
+          math.min(constraints.maxWidth, constraints.maxHeight).clamp(0.0, 290.0);
+      final box = Size(size, size);
 
-      return GestureDetector(
-        onPanStart: (_) {
-          final box = ctx.findRenderObject() as RenderBox?;
-          _center = box?.localToGlobal(center);
-        },
-        onPanUpdate: (d) => _handlePan(d.globalPosition),
-        onTapDown: (d) {
-          final box = ctx.findRenderObject() as RenderBox?;
-          _center = box?.localToGlobal(center);
-          _handlePan(d.globalPosition);
-        },
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              width: size, height: size,
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            width: size,
+            height: size,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onPanDown: (d) {
+                setState(() => _dragging = true);
+                _handleTouch(d.localPosition, box);
+              },
+              onPanUpdate: (d) => _handleTouch(d.localPosition, box),
+              onPanEnd: (_) {
+                setState(() => _dragging = false);
+                HapticFeedback.lightImpact();
+              },
+              onPanCancel: () => setState(() => _dragging = false),
               child: CustomPaint(
-                painter: _SleepDialPainter(value: widget.value),
+                painter: _SleepDialPainter(
+                  value: _display,
+                  start: _start,
+                  sweep: _sweep,
+                  minValue: _minValue,
+                  maxValue: _maxValue,
+                  knobPop: _knobPop,
+                  dragging: _dragging,
+                ),
                 child: Center(
-                  child: Text(label, style: const TextStyle(
-                    fontSize: 48, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.5,
-                  )),
+                  child: AnimatedScale(
+                    scale: _dragging ? 1.06 : 1.0,
+                    duration: const Duration(milliseconds: 180),
+                    curve: Curves.easeOut,
+                    child: Text(
+                      label,
+                      style: const TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        letterSpacing: -1.5,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _DialButton(
-                  icon: Icons.remove_rounded,
-                  onTap: () {
-                    final v = (widget.value - 0.5).clamp(4.0, 12.0);
-                    widget.onChanged((v * 2).round() / 2.0);
-                  },
-                ),
-                const SizedBox(width: 48),
-                _DialButton(
-                  icon: Icons.add_rounded,
-                  onTap: () {
-                    final v = (widget.value + 0.5).clamp(4.0, 12.0);
-                    widget.onChanged((v * 2).round() / 2.0);
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _DialButton(
+                icon: Icons.remove_rounded,
+                onTap: () {
+                  final v = (widget.value - 0.5).clamp(_minValue, _maxValue);
+                  widget.onChanged((v * 2).round() / 2.0);
+                },
+              ),
+              const SizedBox(width: 48),
+              _DialButton(
+                icon: Icons.add_rounded,
+                onTap: () {
+                  final v = (widget.value + 0.5).clamp(_minValue, _maxValue);
+                  widget.onChanged((v * 2).round() / 2.0);
+                },
+              ),
+            ],
+          ),
+        ],
       );
     });
   }
 }
 
 class _SleepDialPainter extends CustomPainter {
-  final double value; // 4..12
-  const _SleepDialPainter({required this.value});
+  final double value;
+  final double start;
+  final double sweep;
+  final double minValue;
+  final double maxValue;
+  final double knobPop;
+  final bool dragging;
+
+  const _SleepDialPainter({
+    required this.value,
+    required this.start,
+    required this.sweep,
+    required this.minValue,
+    required this.maxValue,
+    required this.knobPop,
+    required this.dragging,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final cx = size.width / 2;
-    final cy = size.height / 2;
-    final r  = math.min(cx, cy) - 14;
+    final center = Offset(size.width / 2, size.height / 2);
+    final r = math.min(center.dx, center.dy) - 18;
+    final t = ((value - minValue) / (maxValue - minValue)).clamp(0.0, 1.0);
+    final angle = start + t * sweep;
 
-    const totalTicks = 36;
-    const startAngle = -math.pi / 2; // start at top
-    const sweep      = 2 * math.pi;
-    const gap        = sweep / totalTicks;
-
-    // How many ticks are "active" based on value (4..12 mapped to 0..totalTicks)
-    final activeFraction = (value - 4.0) / 8.0;
-    final activeTicks    = (activeFraction * totalTicks).round();
-
-    for (int i = 0; i < totalTicks; i++) {
-      final angle  = startAngle + i * gap;
-      final active = i < activeTicks;
-
-      final tickLen   = active ? 14.0 : 9.0;
-      final tickWidth = active ? 4.5  : 3.0;
-      final tickColor = active
-          ? AppColors.primary.withValues(alpha: 0.9 - (i / totalTicks) * 0.2)
+    // ── Ticks along the track ────────────────────────────────────────────
+    const ticks = 33; // one per quarter hour
+    for (var i = 0; i < ticks; i++) {
+      final f = i / (ticks - 1);
+      final a = start + f * sweep;
+      final active = f <= t + 0.0001;
+      final len = active ? 15.0 : 9.0;
+      final width = active ? 4.5 : 3.0;
+      final color = active
+          ? Color.lerp(AppColors.primary, AppColors.cyan, f)!
+              .withValues(alpha: 0.95)
           : Colors.white.withValues(alpha: 0.12);
 
-      final x1 = cx + (r - tickLen) * math.cos(angle);
-      final y1 = cy + (r - tickLen) * math.sin(angle);
-      final x2 = cx + r             * math.cos(angle);
-      final y2 = cy + r             * math.sin(angle);
-
-      final paint = Paint()
-        ..color       = tickColor
-        ..strokeWidth = tickWidth
-        ..strokeCap   = StrokeCap.round;
-
-      canvas.drawLine(Offset(x1, y1), Offset(x2, y2), paint);
+      canvas.drawLine(
+        Offset(center.dx + (r - len) * math.cos(a),
+            center.dy + (r - len) * math.sin(a)),
+        Offset(center.dx + r * math.cos(a), center.dy + r * math.sin(a)),
+        Paint()
+          ..color = color
+          ..strokeWidth = width
+          ..strokeCap = StrokeCap.round,
+      );
     }
 
-    // Glowing dot at the current position
-    final dotAngle = startAngle + activeTicks * gap;
-    final dotX     = cx + (r - 7) * math.cos(dotAngle);
-    final dotY     = cy + (r - 7) * math.sin(dotAngle);
+    // ── Glow along the filled part ───────────────────────────────────────
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: r - 7),
+      start,
+      t * sweep,
+      false,
+      Paint()
+        ..color = AppColors.primary.withValues(alpha: dragging ? 0.30 : 0.18)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 16
+        ..strokeCap = StrokeCap.round
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12),
+    );
 
-    canvas.drawCircle(Offset(dotX, dotY), 8,
-      Paint()..color = AppColors.primary.withValues(alpha: 0.35)..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8));
-    canvas.drawCircle(Offset(dotX, dotY), 5,
-      Paint()..color = AppColors.primary);
-    canvas.drawCircle(Offset(dotX, dotY), 3,
-      Paint()..color = Colors.white);
+    // ── Knob ─────────────────────────────────────────────────────────────
+    final knob = Offset(
+      center.dx + (r - 7) * math.cos(angle),
+      center.dy + (r - 7) * math.sin(angle),
+    );
+    final grow = (dragging ? 2.5 : 0) + knobPop * 2.0;
+    canvas.drawCircle(
+      knob,
+      13 + grow,
+      Paint()
+        ..color = AppColors.primary.withValues(alpha: 0.35)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
+    );
+    canvas.drawCircle(knob, 9 + grow, Paint()..color = Colors.white);
+    canvas.drawCircle(knob, 4.5 + grow * 0.4,
+        Paint()..color = AppColors.primary);
   }
 
   @override
-  bool shouldRepaint(_SleepDialPainter old) => old.value != value;
+  bool shouldRepaint(_SleepDialPainter old) =>
+      old.value != value || old.knobPop != knobPop || old.dragging != dragging;
 }
 
 class _DialButton extends StatelessWidget {
@@ -3205,39 +2986,6 @@ class _GrowthChartPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_GrowthChartPainter old) => false;
-}
-
-// ═════════════════════════════════════════════════════════════════════════════
-// Existing sub-widgets (kept for result page compatibility)
-// ═════════════════════════════════════════════════════════════════════════════
-
-class _AnimatedScoreRow extends StatelessWidget {
-  final String label;
-  final int value;
-  final Color color;
-  final double fill;
-  const _AnimatedScoreRow({required this.label, required this.value, required this.color, required this.fill});
-
-  @override
-  Widget build(BuildContext context) => Row(
-    children: [
-      SizedBox(width: 72,
-        child: Text(label, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.82)))),
-      Expanded(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: (value / 100) * fill, minHeight: 10,
-            backgroundColor: Colors.white.withValues(alpha: 0.12),
-            valueColor: AlwaysStoppedAnimation(color),
-          ),
-        ),
-      ),
-      SizedBox(width: 36,
-        child: Text('${(value * fill).round()}', textAlign: TextAlign.right,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: color))),
-    ],
-  );
 }
 
 
