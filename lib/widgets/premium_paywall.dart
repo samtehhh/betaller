@@ -98,7 +98,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     _Feature(
       glowColor: Color(0xFFF5C542),
       asset: 'assets/paywall/ilerleme_fotolari.png',
-      stat: '+2.0',
+      stat: '+2.1',
       statUnit: 'cm gözle görülür fark',
       title: 'Değişimini fotoğraflarla kanıtla',
       description: 'Öncesi/sonrası karşılaştırmaların otomatik oluşuyor, zaman çizelgende her ayın fotoğrafı bir arada duruyor.',
