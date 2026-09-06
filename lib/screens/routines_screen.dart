@@ -194,7 +194,7 @@ class _RoutinesScreenState extends State<RoutinesScreen>
 
   Widget _buildTabBar() {
     final l = AppLocalizations.of(context)!;
-    final labels = [l.disciplineToday, l.program, l.nutrition];
+    final labels = [l.disciplineToday, l.disciplineTitle, l.nutrition];
     return Container(
       color: AppColors.scaffold,
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 14),
@@ -755,10 +755,13 @@ class _ProgramTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     final completed = provider.completedProgramDays;
-    // Current day = first incomplete day
-    int currentDay = 0;
-    for (int i = 0; i < _totalLevels * _daysPerLevel; i++) {
+    const totalDays = _totalLevels * _daysPerLevel;
+
+    // The current day is the first one still open.
+    var currentDay = 0;
+    for (var i = 0; i < totalDays; i++) {
       if (!completed.contains(i)) {
         currentDay = i;
         break;
@@ -766,69 +769,181 @@ class _ProgramTab extends StatelessWidget {
       currentDay = i + 1;
     }
     final currentLevel = (currentDay ~/ _daysPerLevel).clamp(0, _totalLevels - 1);
-    final daysLeft = (_totalLevels * _daysPerLevel) - completed.length;
 
-    return CustomScrollView(
+    return ListView(
       physics: const BouncingScrollPhysics(),
-      slivers: [
-        // Days left banner
-        SliverToBoxAdapter(
-          child: _DaysLeftBanner(daysLeft: daysLeft),
+      padding: const EdgeInsets.fromLTRB(18, 0, 18, 130),
+      children: [
+        _JourneyHeader(
+          done: completed.length,
+          total: totalDays,
+          currentLevel: currentLevel,
+          completedDays: completed,
         ),
-        // Level cards
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, levelIndex) {
-              final isUnlocked = levelIndex <= currentLevel;
-              return _LevelCard(
-                levelIndex: levelIndex,
-                isUnlocked: isUnlocked,
-                isCurrent: levelIndex == currentLevel,
-                currentDay: currentDay,
-                completedDays: completed,
-                provider: provider,
-              );
-            },
-            childCount: _totalLevels,
+        const SizedBox(height: 20),
+        _SectionLabel(
+          icon: CupertinoIcons.square_stack_3d_up_fill,
+          title: l.disciplineLevels,
+        ),
+        const SizedBox(height: 12),
+        for (var i = 0; i < _totalLevels; i++)
+          _LevelCard(
+            levelIndex: i,
+            isUnlocked: i <= currentLevel,
+            isCurrent: i == currentLevel,
+            currentDay: currentDay,
+            completedDays: completed,
+            provider: provider,
           ),
-        ),
-        const SliverToBoxAdapter(child: SizedBox(height: 120)),
       ],
     );
   }
 }
 
-class _DaysLeftBanner extends StatelessWidget {
-  final int daysLeft;
-  const _DaysLeftBanner({required this.daysLeft});
+/// The whole 70-day run at a glance: a ring for the days, a strip for the
+/// levels, and the name of the level you are standing on.
+class _JourneyHeader extends StatelessWidget {
+  final int done;
+  final int total;
+  final int currentLevel;
+  final Set<int> completedDays;
+
+  const _JourneyHeader({
+    required this.done,
+    required this.total,
+    required this.currentLevel,
+    required this.completedDays,
+  });
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final meta = _levelMeta[currentLevel];
+    final color = meta.$2;
+    final progress = total == 0 ? 0.0 : done / total;
+
     return Container(
-      margin: const EdgeInsets.fromLTRB(18, 16, 18, 8),
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 18),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppColors.orange.withValues(alpha: 0.2),
-            AppColors.warning.withValues(alpha: 0.1),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.orange.withValues(alpha: 0.3)),
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(26),
+        border: Border.all(color: color.withValues(alpha: 0.22)),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.16),
+            blurRadius: 30,
+            offset: const Offset(0, 8),
+            spreadRadius: -8,
+          ),
+        ],
       ),
-      child: Row(
+      child: Column(
         children: [
-          const Text('🏁', style: TextStyle(fontSize: 20)),
-          const SizedBox(width: 10),
-          Text(
-            l.daysLeftProgram(daysLeft),
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: AppColors.warning,
-            ),
+          Row(
+            children: [
+              SizedBox(
+                width: 92,
+                height: 92,
+                child: CustomPaint(
+                  painter: DisciplineRingPainter(
+                    progress: progress,
+                    color: color,
+                    segments: 35,
+                  ),
+                  child: Center(
+                    child: Text(
+                      meta.$1,
+                      style: const TextStyle(fontSize: 30),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 18),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l.disciplineProgramTitle.toUpperCase(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.3,
+                        color: Colors.white.withValues(alpha: 0.40),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      _localizedLevelName(l, currentLevel),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 21,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: -0.6,
+                        color: color,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      l.disciplineJourneyDay(done, total),
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white.withValues(alpha: 0.55),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: AppColors.warning.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(
+                            color: AppColors.warning.withValues(alpha: 0.28)),
+                      ),
+                      child: Text(
+                        l.daysLeftProgram(total - done),
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.warning,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 18),
+          // one block per level, filling as its week is finished
+          Row(
+            children: List.generate(_totalLevels, (i) {
+              final levelStart = i * _daysPerLevel;
+              final doneInLevel = List.generate(_daysPerLevel, (d) => levelStart + d)
+                  .where(completedDays.contains)
+                  .length;
+              final ratio = doneInLevel / _daysPerLevel;
+              return Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(right: i == _totalLevels - 1 ? 0 : 4),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(3),
+                    child: LinearProgressIndicator(
+                      value: ratio,
+                      minHeight: 5,
+                      backgroundColor: Colors.white.withValues(alpha: 0.07),
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(_levelMeta[i].$2),
+                    ),
+                  ),
+                ),
+              );
+            }),
           ),
         ],
       ),
@@ -858,13 +973,7 @@ class _LevelCard extends StatefulWidget {
 }
 
 class _LevelCardState extends State<_LevelCard> {
-  bool _expanded = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _expanded = widget.isCurrent;
-  }
+  late bool _expanded = widget.isCurrent;
 
   @override
   Widget build(BuildContext context) {
@@ -872,412 +981,311 @@ class _LevelCardState extends State<_LevelCard> {
     final meta = _levelMeta[widget.levelIndex];
     final emoji = meta.$1;
     final color = meta.$2;
-    final intensityBar = meta.$3;
-    final title = _localizedLevelName(l, widget.levelIndex);
+    final name = _localizedLevelName(l, widget.levelIndex);
     final desc = _localizedLevelDesc(l, widget.levelIndex);
 
-    final levelStartDay = widget.levelIndex * _daysPerLevel;
-    final isCompleted = widget.completedDays.contains(levelStartDay) &&
-        widget.completedDays.contains(levelStartDay + _daysPerLevel - 1);
-    // Count completed within this level
-    final levelCompletedCount = List.generate(_daysPerLevel, (d) => levelStartDay + d)
-        .where((d) => widget.completedDays.contains(d))
-        .length;
+    final levelStart = widget.levelIndex * _daysPerLevel;
+    final days = List.generate(_daysPerLevel, (d) => levelStart + d);
+    final doneCount = days.where(widget.completedDays.contains).length;
+    final isDone = doneCount == _daysPerLevel;
+    final locked = !widget.isUnlocked;
 
-    return Container(
-      margin: const EdgeInsets.fromLTRB(18, 0, 18, 14),
-      decoration: BoxDecoration(
-        color: AppColors.cardFill,
-        borderRadius: BorderRadius.circular(26),
-        border: Border.all(
-          color: widget.isCurrent
-              ? color.withValues(alpha: 0.5)
-              : widget.isUnlocked
-                  ? color.withValues(alpha: 0.15)
-                  : Colors.white.withValues(alpha: 0.06),
-          width: widget.isCurrent ? 1.5 : 1,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 240),
+        decoration: BoxDecoration(
+          color: AppColors.cardFill,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: widget.isCurrent
+                ? color.withValues(alpha: 0.45)
+                : locked
+                    ? Colors.white.withValues(alpha: 0.05)
+                    : color.withValues(alpha: 0.16),
+            width: widget.isCurrent ? 1.4 : 1,
+          ),
+          boxShadow: widget.isCurrent
+              ? [
+                  BoxShadow(
+                    color: color.withValues(alpha: 0.16),
+                    blurRadius: 24,
+                    spreadRadius: -6,
+                  )
+                ]
+              : null,
         ),
-        boxShadow: widget.isCurrent
-            ? [BoxShadow(
-                color: color.withValues(alpha: 0.12),
-                blurRadius: 20,
-              )]
-            : null,
-      ),
-      child: Column(
-        children: [
-          // Level header
-          GestureDetector(
-            onTap: () => setState(() => _expanded = !_expanded),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  // Level circle
-                  Container(
-                    width: 52,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        colors: widget.isUnlocked
-                            ? [color, color.withValues(alpha: 0.5)]
-                            : [
-                                Colors.white.withValues(alpha: 0.08),
-                                Colors.white.withValues(alpha: 0.04),
-                              ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+        child: Column(
+          children: [
+            // ── Row: badge, name, progress ───────────────────────────────
+            GestureDetector(
+              onTap: locked
+                  ? null
+                  : () {
+                      HapticFeedback.selectionClick();
+                      setState(() => _expanded = !_expanded);
+                    },
+              behavior: HitTestBehavior.opaque,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 46,
+                      height: 46,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: locked
+                            ? Colors.white.withValues(alpha: 0.04)
+                            : color.withValues(alpha: 0.14),
+                        border: Border.all(
+                          color: locked
+                              ? Colors.white.withValues(alpha: 0.08)
+                              : color.withValues(alpha: 0.45),
+                        ),
                       ),
-                      boxShadow: widget.isUnlocked
-                          ? [BoxShadow(
-                              color: color.withValues(alpha: 0.35),
-                              blurRadius: 10,
-                            )]
-                          : null,
+                      child: Center(
+                        child: locked
+                            ? Icon(CupertinoIcons.lock_fill,
+                                size: 17,
+                                color: Colors.white.withValues(alpha: 0.35))
+                            : Text(emoji,
+                                style: const TextStyle(fontSize: 20)),
+                      ),
                     ),
-                    child: Center(
-                      child: widget.isUnlocked
-                          ? Text(emoji, style: const TextStyle(fontSize: 22))
-                          : const Icon(
-                              CupertinoIcons.lock_fill,
-                              color: Colors.white38,
-                              size: 20,
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l.levelLabel(widget.levelIndex + 1).toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 9.5,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 1.2,
+                              color: Colors.white.withValues(alpha: 0.35),
                             ),
-                    ),
-                  ),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: -0.3,
+                              color: locked
+                                  ? Colors.white.withValues(alpha: 0.42)
+                                  : Colors.white,
+                            ),
+                          ),
+                          if (!locked) ...[
+                            const SizedBox(height: 3),
                             Text(
-                              l.levelLabel(widget.levelIndex + 1),
+                              desc,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 1.5,
-                                color: widget.isUnlocked
-                                    ? color
-                                    : Colors.white.withValues(alpha: 0.3),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white.withValues(alpha: 0.42),
                               ),
                             ),
-                            const SizedBox(width: 8),
-                            _IntensityBar(
-                              pattern: intensityBar,
-                              color: color,
-                              isUnlocked: widget.isUnlocked,
-                            ),
                           ],
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    if (isDone)
+                      const Icon(CupertinoIcons.checkmark_seal_fill,
+                          size: 20, color: AppColors.success)
+                    else
+                      Text(
+                        '$doneCount/$_daysPerLevel',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800,
+                          color: locked
+                              ? Colors.white.withValues(alpha: 0.30)
+                              : color,
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: widget.isUnlocked
-                                ? Colors.white
-                                : Colors.white.withValues(alpha: 0.3),
-                          ),
-                        ),
-                        if (widget.isUnlocked)
-                          Text(
-                            desc,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.white.withValues(alpha: 0.45),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+
+            // ── The week, one dot per day ────────────────────────────────
+            if (_expanded && !locked) ...[
+              Divider(
+                  color: Colors.white.withValues(alpha: 0.06),
+                  height: 1),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(14, 18, 14, 16),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        for (var i = 0; i < days.length; i++) ...[
+                          Expanded(
+                            child: _DayDot(
+                              number: i + 1,
+                              done: widget.completedDays.contains(days[i]),
+                              isToday: days[i] == widget.currentDay,
+                              locked: days[i] > widget.currentDay,
+                              color: color,
                             ),
                           ),
+                          if (i != days.length - 1)
+                            Container(
+                              width: 10,
+                              height: 2,
+                              margin: const EdgeInsets.only(bottom: 18),
+                              color: widget.completedDays.contains(days[i])
+                                  ? color.withValues(alpha: 0.6)
+                                  : Colors.white.withValues(alpha: 0.08),
+                            ),
+                        ],
                       ],
                     ),
-                  ),
-                  // Progress or lock
-                  if (widget.isUnlocked) ...[
-                    Column(
-                      children: [
-                        Text(
-                          '$levelCompletedCount/$_daysPerLevel',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: isCompleted ? AppColors.lime : color,
+                    if (widget.isCurrent) ...[
+                      const SizedBox(height: 16),
+                      GestureDetector(
+                        onTap: () {
+                          HapticFeedback.mediumImpact();
+                          widget.provider
+                              .markProgramDayComplete(widget.currentDay);
+                        },
+                        child: Container(
+                          height: 46,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [color, color.withValues(alpha: 0.66)],
+                            ),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: color.withValues(alpha: 0.35),
+                                blurRadius: 16,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              l.disciplineCompleteDay,
+                              style: TextStyle(
+                                fontSize: 14.5,
+                                fontWeight: FontWeight.w800,
+                                color: color.computeLuminance() > 0.5
+                                    ? const Color(0xFF07050F)
+                                    : Colors.white,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 4),
-                        Icon(
-                          _expanded
-                              ? CupertinoIcons.chevron_up
-                              : CupertinoIcons.chevron_down,
-                          size: 14,
-                          color: Colors.white.withValues(alpha: 0.4),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ],
-                ],
+                ),
               ),
-            ),
-          ),
-          // Snake-path days (expanded)
-          if (_expanded && widget.isUnlocked) ...[
-            const Divider(color: Colors.white12, height: 1),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-              child: _SnakePath(
-                levelIndex: widget.levelIndex,
-                currentDay: widget.currentDay,
-                completedDays: widget.completedDays,
-                color: color,
-                provider: widget.provider,
-              ),
-            ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
 }
 
-// ── Snake-path day visualization ──────────────────────────────────
-
-class _SnakePath extends StatelessWidget {
-  final int levelIndex;
-  final int currentDay;
-  final Set<int> completedDays;
+/// One day of a level's week.
+class _DayDot extends StatelessWidget {
+  final int number;
+  final bool done;
+  final bool isToday;
+  final bool locked;
   final Color color;
-  final AppProvider provider;
 
-  const _SnakePath({
-    required this.levelIndex,
-    required this.currentDay,
-    required this.completedDays,
+  const _DayDot({
+    required this.number,
+    required this.done,
+    required this.isToday,
+    required this.locked,
     required this.color,
-    required this.provider,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final startDay = levelIndex * _daysPerLevel;
-    final days = List.generate(_daysPerLevel, (i) => startDay + i);
-
-    // Arrange in rows of 4, 3 (snake)
-    // Row 0: days 0-3 (left→right)
-    // Row 1: days 4-6 (right←left)
-    final row0 = days.sublist(0, 4);
-    final row1 = days.sublist(4).reversed.toList();
-
-    return Column(
-      children: [
-        _buildRow(context, row0, false),
-        const SizedBox(height: 8),
-        _buildConnector(true),
-        const SizedBox(height: 8),
-        _buildRow(context, row1, true),
-      ],
-    );
-  }
-
-  Widget _buildRow(BuildContext context, List<int> days, bool reversed) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: days.map((day) => _DayNode(
-        dayIndex: day,
-        isCompleted: completedDays.contains(day),
-        isCurrent: day == currentDay,
-        isLocked: day > currentDay,
-        color: color,
-        onTap: day == currentDay
-            ? () => provider.markProgramDayComplete(day)
-            : null,
-      )).toList(),
-    );
-  }
-
-  Widget _buildConnector(bool rightToLeft) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 32),
-          child: Icon(
-            CupertinoIcons.arrow_down,
-            size: 16,
-            color: color.withValues(alpha: 0.4),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-// ── Intensity bar — e.g. "███◦◦◦◦◦◦◦" ──────────────────────────
-
-class _IntensityBar extends StatelessWidget {
-  final String pattern;
-  final Color color;
-  final bool isUnlocked;
-
-  const _IntensityBar({
-    required this.pattern,
-    required this.color,
-    required this.isUnlocked,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final filled = pattern.split('').where((c) => c == '█').length;
-    final total = pattern.replaceAll(' ', '').length;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      spacing: 2,
-      children: List.generate(total, (i) {
-        final isFilled = i < filled;
-        return Container(
-          width: 5,
-          height: 9,
-          decoration: BoxDecoration(
-            color: isUnlocked
-                ? (isFilled ? color : color.withValues(alpha: 0.15))
-                : Colors.white.withValues(alpha: isFilled ? 0.12 : 0.05),
-            borderRadius: BorderRadius.circular(2),
-          ),
-        );
-      }),
-    );
-  }
-}
-
-class _DayNode extends StatelessWidget {
-  final int dayIndex;
-  final bool isCompleted;
-  final bool isCurrent;
-  final bool isLocked;
-  final Color color;
-  final VoidCallback? onTap;
-
-  const _DayNode({
-    required this.dayIndex,
-    required this.isCompleted,
-    required this.isCurrent,
-    required this.isLocked,
-    required this.color,
-    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final dayNum = (dayIndex % _daysPerLevel) + 1;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isCompleted
+    return Column(
+      children: [
+        Container(
+          height: 34,
+          decoration: BoxDecoration(
+            color: done
+                ? color
+                : isToday
+                    ? color.withValues(alpha: 0.16)
+                    : Colors.white.withValues(alpha: 0.04),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: done
                   ? color
-                  : isCurrent
-                      ? color.withValues(alpha: 0.2)
-                      : Colors.white.withValues(alpha: 0.05),
-              border: isLocked
-                  ? Border.all(
-                      color: Colors.white.withValues(alpha: 0.1),
-                      style: BorderStyle.solid,
-                    )
-                  : isCurrent
-                      ? Border.all(
-                          color: color,
-                          width: 2,
-                          strokeAlign: BorderSide.strokeAlignOutside,
-                        )
-                      : Border.all(
-                          color: color.withValues(alpha: 0.3),
-                        ),
-              boxShadow: isCompleted
-                  ? [BoxShadow(
-                      color: color.withValues(alpha: 0.4),
+                  : isToday
+                      ? color
+                      : Colors.white.withValues(alpha: 0.08),
+              width: isToday ? 1.6 : 1,
+            ),
+            boxShadow: isToday || done
+                ? [
+                    BoxShadow(
+                      color: color.withValues(alpha: 0.35),
                       blurRadius: 12,
-                    )]
-                  : isCurrent
-                      ? [BoxShadow(
-                          color: color.withValues(alpha: 0.25),
-                          blurRadius: 16,
-                        )]
-                      : null,
-            ),
-            child: Center(
-              child: isCompleted
-                  ? const Text('🔥', style: TextStyle(fontSize: 22))
-                  : isCurrent
-                      ? Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              l.dayShort,
-                              style: TextStyle(
-                                fontSize: 9,
-                                color: color,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Text(
-                              '$dayNum',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w800,
-                                color: color,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Text(
-                          '$dayNum',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: isLocked
-                                ? Colors.white.withValues(alpha: 0.2)
-                                : Colors.white.withValues(alpha: 0.5),
-                          ),
-                        ),
-            ),
+                    )
+                  ]
+                : null,
           ),
-          if (isCurrent) ...[
-            const SizedBox(height: 4),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                l.tapLabel,
-                style: TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.w800,
-                  color: color,
-                  letterSpacing: 0.8,
-                ),
-              ),
-            ),
-          ],
-        ],
-      ),
+          child: Center(
+            child: done
+                ? Icon(Icons.check_rounded,
+                    size: 17,
+                    color: color.computeLuminance() > 0.5
+                        ? const Color(0xFF07050F)
+                        : Colors.white)
+                : Text(
+                    '$number',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                      color: isToday
+                          ? color
+                          : Colors.white.withValues(alpha: locked ? 0.28 : 0.55),
+                    ),
+                  ),
+          ),
+        ),
+        const SizedBox(height: 5),
+        SizedBox(
+          height: 13,
+          child: isToday
+              ? Text(
+                  l.disciplineTodayIs,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0.2,
+                    color: color,
+                  ),
+                )
+              : null,
+        ),
+      ],
     );
   }
 }
-
-// ══════════════════════════════════════════════════════════════════
-// NUTRITION TAB
-// ══════════════════════════════════════════════════════════════════
 
 class _NutritionTab extends StatelessWidget {
   final AppProvider provider;

@@ -764,7 +764,8 @@ class AppProvider extends ChangeNotifier {
   void addWater(double amount) {
     final waterGoal = _profile != null ? Calculations.dailyWaterNeed(_profile!.weight) : 2.5;
     final wasUnderGoal = _todayWater < waterGoal;
-    _todayWater = double.parse((_todayWater + amount).toStringAsFixed(1));
+    _todayWater = double.parse(
+        (_todayWater + amount).clamp(0.0, 99.0).toStringAsFixed(1));
     if (wasUnderGoal && _todayWater >= waterGoal) {
       addXP(xpRewards['water_goal']!);
       updateChallengeProgress('daily_water', 1);

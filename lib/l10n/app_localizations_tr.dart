@@ -15,7 +15,38 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navAnalysis => 'Analiz';
 
   @override
-  String get navRoutines => 'Disiplin';
+  String get navRoutines => 'Planım';
+
+  @override
+  String get disciplineTitle => 'Disiplin';
+
+  @override
+  String get disciplineProgramTitle => 'Disiplin programı';
+
+  @override
+  String disciplineJourneyDay(int done, int total) {
+    return '$done/$total gün';
+  }
+
+  @override
+  String get disciplineCompleteDay => 'Günü tamamla';
+
+  @override
+  String disciplineDayN(int n) {
+    return '$n. gün';
+  }
+
+  @override
+  String get disciplineLevels => 'Seviyeler';
+
+  @override
+  String get disciplineLevelDone => 'Tamamlandı';
+
+  @override
+  String get disciplineLocked => 'Kilitli';
+
+  @override
+  String get disciplineTodayIs => 'Bugün';
 
   @override
   String get disciplineToday => 'Bugün';
@@ -151,6 +182,17 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get waterTracking => 'Su Takibi';
+
+  @override
+  String get waterGoalReached => 'Günlük hedef doldu';
+
+  @override
+  String waterRemaining(String amount) {
+    return '$amount L kaldı';
+  }
+
+  @override
+  String get undo => 'Geri al';
 
   @override
   String waterToday(String amount) {

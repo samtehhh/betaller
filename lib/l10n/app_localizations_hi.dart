@@ -18,6 +18,37 @@ class AppLocalizationsHi extends AppLocalizations {
   String get navRoutines => 'दिनचर्या';
 
   @override
+  String get disciplineTitle => 'Discipline';
+
+  @override
+  String get disciplineProgramTitle => 'Discipline programme';
+
+  @override
+  String disciplineJourneyDay(int done, int total) {
+    return '$done/$total days';
+  }
+
+  @override
+  String get disciplineCompleteDay => 'Complete the day';
+
+  @override
+  String disciplineDayN(int n) {
+    return 'Day $n';
+  }
+
+  @override
+  String get disciplineLevels => 'Levels';
+
+  @override
+  String get disciplineLevelDone => 'Done';
+
+  @override
+  String get disciplineLocked => 'Locked';
+
+  @override
+  String get disciplineTodayIs => 'Today';
+
+  @override
   String get disciplineToday => 'Today';
 
   @override
@@ -152,6 +183,17 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get waterTracking => 'पानी ट्रैकिंग';
+
+  @override
+  String get waterGoalReached => 'Daily goal reached';
+
+  @override
+  String waterRemaining(String amount) {
+    return '$amount L to go';
+  }
+
+  @override
+  String get undo => 'Undo';
 
   @override
   String waterToday(String amount) {

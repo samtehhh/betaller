@@ -125,8 +125,62 @@ abstract class AppLocalizations {
   /// No description provided for @navRoutines.
   ///
   /// In en, this message translates to:
-  /// **'Discipline'**
+  /// **'My Plan'**
   String get navRoutines;
+
+  /// No description provided for @disciplineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discipline'**
+  String get disciplineTitle;
+
+  /// No description provided for @disciplineProgramTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discipline programme'**
+  String get disciplineProgramTitle;
+
+  /// No description provided for @disciplineJourneyDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total} days'**
+  String disciplineJourneyDay(int done, int total);
+
+  /// No description provided for @disciplineCompleteDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the day'**
+  String get disciplineCompleteDay;
+
+  /// No description provided for @disciplineDayN.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {n}'**
+  String disciplineDayN(int n);
+
+  /// No description provided for @disciplineLevels.
+  ///
+  /// In en, this message translates to:
+  /// **'Levels'**
+  String get disciplineLevels;
+
+  /// No description provided for @disciplineLevelDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get disciplineLevelDone;
+
+  /// No description provided for @disciplineLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get disciplineLocked;
+
+  /// No description provided for @disciplineTodayIs.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get disciplineTodayIs;
 
   /// No description provided for @disciplineToday.
   ///
@@ -373,6 +427,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Water Tracking'**
   String get waterTracking;
+
+  /// No description provided for @waterGoalReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily goal reached'**
+  String get waterGoalReached;
+
+  /// No description provided for @waterRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} L to go'**
+  String waterRemaining(String amount);
+
+  /// No description provided for @undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
 
   /// No description provided for @waterToday.
   ///

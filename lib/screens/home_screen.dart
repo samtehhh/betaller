@@ -21,6 +21,7 @@ import 'recipe_generator_screen.dart';
 import 'progress_screen.dart';
 import '../widgets/journey_steps.dart';
 import '../widgets/premium_paywall.dart';
+import '../widgets/water_sheet.dart';
 
 // ── Design Tokens (reference AppColors for consistency) ───────────
 const double _radiusXL = 30.0;
@@ -292,10 +293,10 @@ class _HomeScreenState extends State<HomeScreen>
                             isUrgent: isEvening &&
                                 provider.todayWater < waterNeed * 0.6,
                             onTap: provider.isPremium
-                                ? () => _showWaterSheet(context, provider)
+                                ? () => showWaterSheet(context, provider, waterNeed)
                                 : () => showPremiumPaywall(context),
                             onAdd: provider.isPremium
-                                ? () => provider.addWater(0.3)
+                                ? () => showWaterSheet(context, provider, waterNeed)
                                 : () => showPremiumPaywall(context),
                           ),
                         ),
@@ -454,105 +455,6 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         );
       },
-    );
-  }
-
-  void _showWaterSheet(BuildContext context, AppProvider provider) {
-    final l = AppLocalizations.of(context)!;
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(28),
-        decoration: BoxDecoration(
-          color: AppColors.cardFill,
-          borderRadius:
-              const BorderRadius.vertical(top: Radius.circular(32)),
-          border: Border(
-            top: BorderSide(
-              color: AppColors.primary.withValues(alpha: 0.12),
-            ),
-          ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40,
-              height: 5,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.20),
-                borderRadius: BorderRadius.circular(3),
-              ),
-            ),
-            const SizedBox(height: 28),
-            Text(
-              l.waterTracking,
-              style: const TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w900,
-                color: Colors.white,
-                letterSpacing: -1.0,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              l.waterToday(provider.todayWater.toStringAsFixed(1)),
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: Colors.white.withValues(alpha: 0.50),
-                letterSpacing: -0.2,
-              ),
-            ),
-            const SizedBox(height: 32),
-            Row(
-              children: [
-                Expanded(
-                  child: _WaterButton(
-                    label: '0.2L',
-                    onTap: () {
-                      provider.addWater(0.2);
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: _WaterButton(
-                    label: '0.3L',
-                    onTap: () {
-                      provider.addWater(0.3);
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: _WaterButton(
-                    label: '0.5L',
-                    onTap: () {
-                      provider.addWater(0.5);
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: _WaterButton(
-                    label: '1.0L',
-                    onTap: () {
-                      provider.addWater(1.0);
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-          ],
-        ),
-      ),
     );
   }
 
