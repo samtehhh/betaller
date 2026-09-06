@@ -1238,6 +1238,24 @@ abstract class AppLocalizations {
   /// **'Statistics'**
   String get statistics;
 
+  /// No description provided for @profileMemberSince.
+  ///
+  /// In en, this message translates to:
+  /// **'Since {date}'**
+  String profileMemberSince(String date);
+
+  /// No description provided for @profileYourJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'Your journey'**
+  String get profileYourJourney;
+
+  /// No description provided for @profileTotalGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get profileTotalGrowth;
+
   /// No description provided for @currentStreak.
   ///
   /// In en, this message translates to:

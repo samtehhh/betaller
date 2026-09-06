@@ -648,6 +648,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get statistics => 'İstatistikler';
 
   @override
+  String profileMemberSince(String date) {
+    return '$date tarihinden beri';
+  }
+
+  @override
+  String get profileYourJourney => 'Yolculuğun';
+
+  @override
+  String get profileTotalGrowth => 'Toplam';
+
+  @override
   String get currentStreak => 'Mevcut Seri';
 
   @override

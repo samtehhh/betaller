@@ -1,3 +1,4 @@
+import 'package:characters/characters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -68,6 +69,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
+                    // ── Who this is ───────────────────
+                    _IdentityCard(
+                      provider: provider,
+                      profile: profile,
+                      onEdit: () =>
+                          _showEditProfileSheet(context, provider, profile),
+                    ),
+                    const SizedBox(height: 14),
+
                     if (!provider.hasPaidPremium)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 14),
@@ -138,53 +148,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(height: 14),
 
-                    // ── Sosyal ───────────────────────
-                    GlassCard(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Column(
-                        children: [
-                          _MenuRow(
-                            icon: CupertinoIcons.star_fill,
-                            label: l.rateUs,
-                            subtitle: l.rateSubtitle,
-                            color: AppColors.warning,
-                            onTap: () async {
-                              const url = 'https://apps.apple.com/app/id6761445065?action=write-review';
-                              if (await canLaunchUrl(Uri.parse(url))) {
-                                await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-                              }
-                            },
-                          ),
-                          _menuDivider(),
-                          _MenuRow(
-                            icon: CupertinoIcons.share,
-                            label: l.share,
-                            subtitle: l.shareSubtitle,
-                            color: AppColors.cyan,
-                            onTap: () {
-                              SharePlus.instance.share(
-                                ShareParams(text: l.shareText),
-                              );
-                            },
-                          ),
-                          _menuDivider(),
-                          _MenuRow(
-                            icon: CupertinoIcons.mail_solid,
-                            label: l.feedback,
-                            subtitle: l.feedbackSubtitle,
-                            color: AppColors.sleep,
-                            onTap: () async {
-                              final uri = Uri(scheme: 'mailto', path: 'contact.betaller@gmail.com', queryParameters: {'subject': l.emailSubject});
-                              if (await canLaunchUrl(uri)) {
-                                await launchUrl(uri);
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-
                     // ── Achievements ──────────────────
                     if (provider.isPremium)
                       GlassCard(
@@ -193,10 +156,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 8),
-                              child: SectionHeader(icon: CupertinoIcons.star_circle_fill, title: l.achievements),
+                              padding: const EdgeInsets.only(left: 8, right: 8),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: SectionHeader(
+                                        icon: CupertinoIcons.star_circle_fill,
+                                        title: l.achievements),
+                                  ),
+                                  Text(
+                                    '${provider.earnedAchievementCount}/${achievements.length}',
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w900,
+                                      color: AppColors.warning,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(height: 12),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(4),
+                                child: LinearProgressIndicator(
+                                  value: achievements.isEmpty
+                                      ? 0
+                                      : provider.earnedAchievementCount /
+                                          achievements.length,
+                                  minHeight: 6,
+                                  backgroundColor:
+                                      Colors.white.withValues(alpha: 0.07),
+                                  valueColor:
+                                      const AlwaysStoppedAnimation<Color>(
+                                          AppColors.warning),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
                             ...List.generate((achievements.length / 5).ceil(), (row) {
                               final start = row * 5;
                               final end = (start + 5).clamp(0, achievements.length);
@@ -313,19 +311,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     const SizedBox(height: 14),
 
-                    // ── Hesap ────────────────────────
+                    // ── Sosyal ───────────────────────
                     GlassCard(
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: Column(
                         children: [
                           _MenuRow(
-                            icon: CupertinoIcons.sparkles,
-                            label: provider.hasPaidPremium ? 'Planı Görüntüle' : 'Premium Satın Al',
-                            subtitle: provider.hasPaidPremium ? 'Abonelik detaylarını görüntüle' : 'Reklamları kaldır ve destek ol',
-                            color: const Color(0xFF8B5CF6),
-                            onTap: () => showPremiumPaywall(context),
+                            icon: CupertinoIcons.star_fill,
+                            label: l.rateUs,
+                            subtitle: l.rateSubtitle,
+                            color: AppColors.warning,
+                            onTap: () async {
+                              const url = 'https://apps.apple.com/app/id6761445065?action=write-review';
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+                              }
+                            },
                           ),
                           _menuDivider(),
+                          _MenuRow(
+                            icon: CupertinoIcons.share,
+                            label: l.share,
+                            subtitle: l.shareSubtitle,
+                            color: AppColors.cyan,
+                            onTap: () {
+                              SharePlus.instance.share(
+                                ShareParams(text: l.shareText),
+                              );
+                            },
+                          ),
+                          _menuDivider(),
+                          _MenuRow(
+                            icon: CupertinoIcons.mail_solid,
+                            label: l.feedback,
+                            subtitle: l.feedbackSubtitle,
+                            color: AppColors.sleep,
+                            onTap: () async {
+                              final uri = Uri(scheme: 'mailto', path: 'contact.betaller@gmail.com', queryParameters: {'subject': l.emailSubject});
+                              if (await canLaunchUrl(uri)) {
+                                await launchUrl(uri);
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    // ── Hesap ────────────────────────
+                    GlassCard(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Column(
+                        children: [
+                          if (provider.hasPaidPremium) ...[
+                            _MenuRow(
+                              icon: CupertinoIcons.sparkles,
+                              label: 'Planı Görüntüle',
+                              subtitle: 'Abonelik detaylarını görüntüle',
+                              color: const Color(0xFF8B5CF6),
+                              onTap: () => showPremiumPaywall(context),
+                            ),
+                            _menuDivider(),
+                          ],
                           _MenuRow(
                             icon: CupertinoIcons.pencil,
                             label: l.editProfile,
@@ -1058,6 +1105,225 @@ class _EditField extends StatelessWidget {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
         enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
         focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(18), borderSide: const BorderSide(color: AppColors.primary, width: 1.5)),
+      ),
+    );
+  }
+}
+
+
+/// The person the app is for: who they are, how far along, and one tap to
+/// change any of it.
+class _IdentityCard extends StatelessWidget {
+  final AppProvider provider;
+  final UserProfile profile;
+  final VoidCallback onEdit;
+
+  const _IdentityCard({
+    required this.provider,
+    required this.profile,
+    required this.onEdit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final initial = profile.name.trim().isEmpty
+        ? 'B'
+        : profile.name.trim().characters.first.toUpperCase();
+    final xpRatio = provider.xpForNextLevel == 0
+        ? 0.0
+        : (provider.totalXP / provider.xpForNextLevel).clamp(0.0, 1.0);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 20, 16, 18),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF1A1240), Color(0xFF0C0A1C)],
+        ),
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.22)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withValues(alpha: 0.16),
+            blurRadius: 30,
+            offset: const Offset(0, 10),
+            spreadRadius: -10,
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              // avatar
+              Container(
+                width: 62,
+                height: 62,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [AppColors.primary, AppColors.cyan],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withValues(alpha: 0.40),
+                      blurRadius: 18,
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    initial,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      profile.name.trim().isEmpty ? 'BeTaller' : profile.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 6,
+                      runSpacing: 6,
+                      children: [
+                        _Chip(
+                            text: l.ageYear(profile.age),
+                            color: AppColors.primary),
+                        _Chip(
+                          text: profile.gender == 'male' ? l.male : l.female,
+                          color: AppColors.cyan,
+                        ),
+                        _Chip(
+                          text: '${profile.currentHeight.toStringAsFixed(1)} cm',
+                          color: AppColors.lime,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: onEdit,
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  width: 38,
+                  height: 38,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.07),
+                    borderRadius: BorderRadius.circular(13),
+                    border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.10)),
+                  ),
+                  child: Icon(CupertinoIcons.pencil,
+                      size: 17,
+                      color: Colors.white.withValues(alpha: 0.75)),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 18),
+
+          // level and the road to the next one
+          Row(
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  gradient: AppColors.gradientCyan,
+                  borderRadius: BorderRadius.circular(9),
+                ),
+                child: Text(
+                  l.lvl('${provider.level}'),
+                  style: const TextStyle(
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  localizedLevelTitle(l, provider.levelTitle),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Text(
+                '${provider.totalXP} XP',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white.withValues(alpha: 0.45),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: xpRatio,
+              minHeight: 7,
+              backgroundColor: Colors.white.withValues(alpha: 0.08),
+              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.cyan),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Chip extends StatelessWidget {
+  final String text;
+  final Color color;
+  const _Chip({required this.text, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.13),
+        borderRadius: BorderRadius.circular(100),
+        border: Border.all(color: color.withValues(alpha: 0.30)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w800,
+          color: color,
+        ),
       ),
     );
   }

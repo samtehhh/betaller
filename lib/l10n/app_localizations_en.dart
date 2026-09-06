@@ -649,6 +649,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statistics => 'Statistics';
 
   @override
+  String profileMemberSince(String date) {
+    return 'Since $date';
+  }
+
+  @override
+  String get profileYourJourney => 'Your journey';
+
+  @override
+  String get profileTotalGrowth => 'Total';
+
+  @override
   String get currentStreak => 'Current Streak';
 
   @override
