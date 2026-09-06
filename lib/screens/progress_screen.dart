@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -48,38 +50,43 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).languageCode;
+
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final records = provider.heightRecords;
+        final current = records.isNotEmpty
+            ? records.last.height
+            : provider.profile?.currentHeight ?? 0;
+        final start = records.isNotEmpty ? records.first.height : current;
+        final gained = double.parse((current - start).toStringAsFixed(1));
 
         return Scaffold(
           backgroundColor: AppColors.scaffold,
           body: CustomScrollView(
             physics: const ClampingScrollPhysics(),
             slivers: [
-              // ── Header ──────────────────────────────
               SliverToBoxAdapter(
-                child: Container(
-                  color: AppColors.scaffold,
-                  child: SafeArea(
-                    bottom: false,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
-                      // German runs to one very long word, so scale the title
-                      // down rather than letting it break mid-word.
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          l.progressTitle,
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.primary,
-                            letterSpacing: -1.2,
-                            shadows: [Shadow(color: AppColors.primary.withValues(alpha: 0.2), blurRadius: 8)],
-                          ),
+                child: SafeArea(
+                  bottom: false,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 14),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        l.progressTitle,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w900,
+                          color: AppColors.primary,
+                          letterSpacing: -1.1,
+                          shadows: [
+                            Shadow(
+                                color: AppColors.primary.withValues(alpha: 0.25),
+                                blurRadius: 10)
+                          ],
                         ),
                       ),
                     ),
@@ -88,19 +95,147 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
               ),
 
               SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    // ── Tracking tools ────────────────
+                    // ── Where you stand ───────────────────────────────────
+                    _HeightHero(
+                      current: current,
+                      gained: gained,
+                      records: records,
+                      onAdd: provider.isPremium
+                          ? () => _showAddMeasurementSheet(context, provider)
+                          : () => showPremiumPaywall(context),
+                      locked: !provider.isPremium,
+                    ),
+                    const SizedBox(height: 16),
+
+                    // ── The curve, with its numbers underneath ────────────
+                    if (records.length >= 2)
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(18, 18, 18, 16),
+                        decoration: BoxDecoration(
+                          color: AppColors.cardFill,
+                          borderRadius: BorderRadius.circular(26),
+                          border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.06)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SectionHeader(
+                                icon: CupertinoIcons.graph_square_fill,
+                                title: l.heightChart),
+                            const SizedBox(height: 18),
+                            SizedBox(
+                              height: 190,
+                              child: AnimatedBuilder(
+                                animation: _chartAnim,
+                                builder: (context, _) => _buildChart(
+                                    context, records, _chartCurve.value),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Divider(
+                                color: Colors.white.withValues(alpha: 0.06),
+                                height: 1),
+                            const SizedBox(height: 14),
+                            Row(
+                              children: [
+                                _StatItem(
+                                  label: l.totalGrowth,
+                                  value:
+                                      '${provider.totalGrowth > 0 ? '+' : ''}${provider.totalGrowth}',
+                                  unit: 'cm',
+                                  color: provider.totalGrowth > 0
+                                      ? AppColors.success
+                                      : AppColors.textSecondary,
+                                ),
+                                Container(
+                                    width: 1,
+                                    height: 32,
+                                    color:
+                                        Colors.white.withValues(alpha: 0.10)),
+                                _StatItem(
+                                  label: l.lastDiff,
+                                  value:
+                                      '${provider.lastGrowth > 0 ? '+' : ''}${provider.lastGrowth}',
+                                  unit: 'cm',
+                                  color: provider.lastGrowth > 0
+                                      ? AppColors.success
+                                      : AppColors.textSecondary,
+                                ),
+                                Container(
+                                    width: 1,
+                                    height: 32,
+                                    color:
+                                        Colors.white.withValues(alpha: 0.10)),
+                                _StatItem(
+                                  label: l.measurementCount,
+                                  value: '${records.length}',
+                                  unit: '',
+                                  color: AppColors.primaryLight,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    else
+                      Container(
+                        padding: const EdgeInsets.all(26),
+                        decoration: BoxDecoration(
+                          color: AppColors.cardFill,
+                          borderRadius: BorderRadius.circular(26),
+                          border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.06)),
+                        ),
+                        child: Column(
+                          children: [
+                            Icon(CupertinoIcons.graph_square,
+                                color: Colors.white.withValues(alpha: 0.25),
+                                size: 34),
+                            const SizedBox(height: 12),
+                            Text(
+                              l.chartMinData,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white.withValues(alpha: 0.62),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              l.chartInstruction,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.white.withValues(alpha: 0.35),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    const SizedBox(height: 22),
+
+                    // ── Tracking tools ────────────────────────────────────
                     SectionHeader(
                       icon: CupertinoIcons.square_stack_3d_down_right_fill,
                       title: l.trackingSection,
                     ),
                     const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _ToolCard(
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.cardFill,
+                        borderRadius: BorderRadius.circular(26),
+                        border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.06)),
+                      ),
+                      child: Column(
+                        children: [
+                          _ToolRow(
                             icon: CupertinoIcons.photo_fill_on_rectangle_fill,
                             color: AppColors.cyan,
                             title: l.progressPhotosTitle,
@@ -108,16 +243,18 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                                 ? l.photosSummaryEmpty
                                 : l.photosSummaryCount(
                                     provider.progressPhotos.length),
+                            thumbnailPath: provider.progressPhotos.isEmpty
+                                ? null
+                                : provider.progressPhotos.last['path']
+                                    as String?,
                             onTap: () => Navigator.push(
                               context,
                               CupertinoPageRoute(
                                   builder: (_) => const ProgressPhotosScreen()),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _ToolCard(
+                          _toolDivider(),
+                          _ToolRow(
                             icon: Icons.accessibility_new_rounded,
                             color: AppColors.lime,
                             title: l.explorePosture,
@@ -125,283 +262,109 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                                 ? l.postureSummaryEmpty
                                 : l.postureSummaryScore(
                                     (provider.postureAnalyses.last['totalScore']
-                                            as num?)
-                                        ?.toInt() ??
+                                                as num?)
+                                            ?.toInt() ??
                                         0),
+                            score: provider.postureAnalyses.isEmpty
+                                ? null
+                                : (provider.postureAnalyses.last['totalScore']
+                                        as num?)
+                                    ?.toInt(),
                             onTap: () => Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                  builder: (_) => const PostureAnalysisScreen()),
+                                  builder: (_) =>
+                                      const PostureAnalysisScreen()),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 18),
-
-                    // ── Stats Row ─────────────────────
-                    GlassCard(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
-                      child: Row(
-                        children: [
-                          _StatItem(
-                            label: l.totalGrowth,
-                            value: '${provider.totalGrowth > 0 ? '+' : ''}${provider.totalGrowth}',
-                            unit: 'cm',
-                            color: provider.totalGrowth > 0 ? AppColors.success : AppColors.textSecondary,
-                          ),
-                          Container(width: 1, height: 36, color: Colors.white.withValues(alpha: 0.14)),
-                          _StatItem(
-                            label: l.lastDiff,
-                            value: '${provider.lastGrowth > 0 ? '+' : ''}${provider.lastGrowth}',
-                            unit: 'cm',
-                            color: provider.lastGrowth > 0 ? AppColors.success : AppColors.textSecondary,
-                          ),
-                          Container(width: 1, height: 36, color: Colors.white.withValues(alpha: 0.14)),
-                          _StatItem(
-                            label: l.measurementCount,
-                            value: '${records.length}',
-                            unit: '',
-                            color: AppColors.primaryLight,
+                          _toolDivider(),
+                          _ToolRow(
+                            icon: CupertinoIcons.doc_chart_fill,
+                            color: AppColors.orange,
+                            title: l.weeklyReportMenu,
+                            subtitle: l.weeklyReportMenuSubtitle,
+                            onTap: () => Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (_) => const WeeklyReportScreen()),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 14),
 
-                    // ── Chart ─────────────────────────
-                    if (records.length >= 2)
-                      GlassCard(
-                        padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SectionHeader(icon: CupertinoIcons.graph_square_fill, title: l.heightChart),
-                            const SizedBox(height: 18),
-                            SizedBox(
-                              height: 200,
-                              child: AnimatedBuilder(
-                                animation: _chartAnim,
-                                builder: (context, _) => _buildChart(context, records, _chartCurve.value),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    else
-                      GlassCard(
-                        padding: const EdgeInsets.all(28),
-                        child: Column(
-                          children: [
-                            Icon(CupertinoIcons.graph_square, color: AppColors.textTertiary, size: 36),
-                            const SizedBox(height: 14),
-                            Text(
-                              l.chartMinData,
-                              style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              l.chartInstruction,
-                              style: TextStyle(fontSize: 12, color: AppColors.textTertiary),
-                            ),
-                          ],
-                        ),
-                      ),
-                    const SizedBox(height: 14),
-
-                    // ── Add Measurement Button ────────
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [BoxShadow(color: AppColors.primary.withValues(alpha: 0.25), blurRadius: 14, offset: const Offset(0, 4))],
-                      ),
-                      child: CupertinoButton(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(20),
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        onPressed: provider.isPremium
-                            ? () => _showAddMeasurementSheet(context, provider)
-                            : () => showPremiumPaywall(context),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              provider.isPremium ? CupertinoIcons.add : CupertinoIcons.lock_fill,
-                              size: 18,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              l.addMeasurementButton,
-                              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: 1.2),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // ── Measurement History ───────────
+                    // ── History as a timeline ─────────────────────────────
                     if (records.isNotEmpty) ...[
-                      SectionHeader(icon: CupertinoIcons.clock, title: l.measurementHistory),
-                      const SizedBox(height: 14),
+                      const SizedBox(height: 22),
+                      SectionHeader(
+                          icon: CupertinoIcons.clock,
+                          title: l.measurementHistory),
+                      const SizedBox(height: 12),
                       ...List.generate(records.length, (i) {
                         final index = records.length - 1 - i;
                         final record = records[index];
-                        final diff = index > 0 ? record.height - records[index - 1].height : 0.0;
-                        final diffStr = diff != 0 ? '${diff > 0 ? '+' : ''}${diff.toStringAsFixed(1)} cm' : '';
+                        final diff = index > 0
+                            ? double.parse((record.height -
+                                    records[index - 1].height)
+                                .toStringAsFixed(1))
+                            : 0.0;
 
-                        DateTime? parsedDate;
-                        try { parsedDate = DateTime.parse(record.date); } catch (_) {}
-                        final dateStr = parsedDate != null
-                            ? DateFormat('d MMM yyyy', Localizations.localeOf(context).languageCode).format(parsedDate)
+                        DateTime? parsed;
+                        try {
+                          parsed = DateTime.parse(record.date);
+                        } catch (_) {}
+                        final dateStr = parsed != null
+                            ? DateFormat('d MMM yyyy', locale).format(parsed)
                             : record.date;
 
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: Dismissible(
-                            key: Key(record.date),
-                            direction: DismissDirection.endToStart,
-                            background: Container(
-                              alignment: Alignment.centerRight,
-                              padding: const EdgeInsets.only(right: 20),
-                              decoration: BoxDecoration(
-                                color: AppColors.error.withValues(alpha: 0.2),
-                                borderRadius: BorderRadius.circular(22),
-                              ),
-                              child: const Icon(CupertinoIcons.delete, color: AppColors.error, size: 20),
+                        return Dismissible(
+                          key: Key(record.date),
+                          direction: DismissDirection.endToStart,
+                          background: Container(
+                            alignment: Alignment.centerRight,
+                            margin: const EdgeInsets.only(bottom: 2),
+                            padding: const EdgeInsets.only(right: 22),
+                            decoration: BoxDecoration(
+                              color: AppColors.error.withValues(alpha: 0.18),
+                              borderRadius: BorderRadius.circular(18),
                             ),
-                            confirmDismiss: (direction) async {
-                              return await showCupertinoDialog<bool>(
-                                context: context,
-                                builder: (context) => CupertinoAlertDialog(
-                                  title: Text(l.deleteTitle),
-                                  content: Text(l.deleteMessage),
-                                  actions: [
-                                    CupertinoDialogAction(
-                                      onPressed: () => Navigator.pop(context, false),
-                                      child: Text(l.dismiss),
-                                    ),
-                                    CupertinoDialogAction(
-                                      isDestructiveAction: true,
-                                      onPressed: () => Navigator.pop(context, true),
-                                      child: Text(l.delete),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            onDismissed: (_) => provider.deleteHeightRecord(record.date),
-                            child: GlassCard(
-                              padding: const EdgeInsets.all(20),
-                              borderRadius: 22,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.primary.withValues(alpha: 0.12),
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: const Icon(CupertinoIcons.resize_v, color: AppColors.primaryLight, size: 16),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          dateStr,
-                                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.3),
-                                        ),
-                                        const SizedBox(height: 2),
-                                        Text(
-                                          '${record.height.toStringAsFixed(1)} cm',
-                                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.textSecondary, letterSpacing: -0.1),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  if (diffStr.isNotEmpty)
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                      decoration: BoxDecoration(
-                                        color: (diff > 0 ? AppColors.success : AppColors.error).withValues(alpha: 0.12),
-                                        borderRadius: BorderRadius.circular(10),
+                            child: const Icon(CupertinoIcons.delete,
+                                color: AppColors.error, size: 20),
+                          ),
+                          confirmDismiss: (_) async {
+                            return await showCupertinoDialog<bool>(
+                                  context: context,
+                                  builder: (context) => CupertinoAlertDialog(
+                                    title: Text(l.deleteTitle),
+                                    content: Text(l.deleteMessage),
+                                    actions: [
+                                      CupertinoDialogAction(
+                                        onPressed: () =>
+                                            Navigator.pop(context, false),
+                                        child: Text(l.dismiss),
                                       ),
-                                      child: Text(
-                                        diffStr,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w800,
-                                          color: diff > 0 ? AppColors.success : AppColors.error,
-                                        ),
+                                      CupertinoDialogAction(
+                                        isDestructiveAction: true,
+                                        onPressed: () =>
+                                            Navigator.pop(context, true),
+                                        child: Text(l.delete),
                                       ),
-                                    ),
-                                ],
-                              ),
-                            ),
+                                    ],
+                                  ),
+                                ) ??
+                                false;
+                          },
+                          onDismissed: (_) =>
+                              provider.deleteHeightRecord(record.date),
+                          child: _TimelineEntry(
+                            date: dateStr,
+                            height: record.height,
+                            diff: diff,
+                            isFirst: i == 0,
+                            isLast: i == records.length - 1,
                           ),
                         );
                       }),
-
-                    // ── Weekly Report ──────────────────
-                    const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => const WeeklyReportScreen())),
-                      child: GlassCard(
-                        glowColor: AppColors.orange.withValues(alpha: 0.15),
-                        padding: const EdgeInsets.all(18),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 48,
-                              height: 48,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [AppColors.orange.withValues(alpha: 0.25), AppColors.warning.withValues(alpha: 0.12)],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
-                                borderRadius: BorderRadius.circular(14),
-                                border: Border.all(color: AppColors.orange.withValues(alpha: 0.35)),
-                              ),
-                              child: const Icon(CupertinoIcons.doc_chart_fill, color: AppColors.orange, size: 22),
-                            ),
-                            const SizedBox(width: 14),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    l.weeklyReportMenu,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w800,
-                                      color: Colors.white,
-                                      letterSpacing: -0.3,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 3),
-                                  Text(
-                                    l.weeklyReportMenuSubtitle,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.textTertiary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Icon(CupertinoIcons.chevron_right, color: AppColors.orange.withValues(alpha: 0.7), size: 18),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 100),
                     ],
                   ]),
                 ),
@@ -412,6 +375,12 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
       },
     );
   }
+
+  Widget _toolDivider() => Padding(
+        padding: const EdgeInsets.only(left: 70, right: 16),
+        child: Divider(
+            height: 1, color: Colors.white.withValues(alpha: 0.05)),
+      );
 
   Widget _buildChart(BuildContext context, List<HeightRecord> records, double animValue) {
     final locale = Localizations.localeOf(context).languageCode;
@@ -751,77 +720,547 @@ class _StatItem extends StatelessWidget {
 
 
 /// One of the tracking tools that live under İlerleme.
-class _ToolCard extends StatelessWidget {
+/// A row in the tracking group. Photos bring their own thumbnail, posture
+/// brings its score, the report just points onward.
+class _ToolRow extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String title;
   final String subtitle;
+  final String? thumbnailPath;
+  final int? score;
   final VoidCallback onTap;
 
-  const _ToolCard({
+  const _ToolRow({
     required this.icon,
     required this.color,
     required this.title,
     required this.subtitle,
     required this.onTap,
+    this.thumbnailPath,
+    this.score,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(16, 16, 14, 16),
-        decoration: BoxDecoration(
-          color: AppColors.cardFill,
-          borderRadius: BorderRadius.circular(22),
-          border: Border.all(color: color.withValues(alpha: 0.22)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      behavior: HitTestBehavior.opaque,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+        child: Row(
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.14),
-                    borderRadius: BorderRadius.circular(12),
+            _leading(),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      letterSpacing: -0.2,
+                    ),
                   ),
-                  child: Icon(icon, size: 18, color: color),
-                ),
-                const Spacer(),
-                Icon(CupertinoIcons.chevron_right,
-                    size: 14, color: Colors.white.withValues(alpha: 0.25)),
-              ],
-            ),
-            const SizedBox(height: 14),
-            Text(
-              title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 14.5,
-                fontWeight: FontWeight.w800,
-                color: Colors.white,
-                height: 1.2,
-                letterSpacing: -0.3,
+                  const SizedBox(height: 3),
+                  Text(
+                    subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: color.withValues(alpha: 0.85),
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 5),
-            Text(
-              subtitle,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w600,
-                color: color.withValues(alpha: 0.85),
-              ),
-            ),
+            Icon(CupertinoIcons.chevron_right,
+                size: 15, color: Colors.white.withValues(alpha: 0.25)),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _leading() {
+    if (thumbnailPath != null && File(thumbnailPath!).existsSync()) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(14),
+        child: Image.file(
+          File(thumbnailPath!),
+          width: 44,
+          height: 44,
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+    if (score != null) {
+      return SizedBox(
+        width: 44,
+        height: 44,
+        child: CustomPaint(
+          painter: _ScoreRingPainter(
+              progress: (score! / 100).clamp(0.0, 1.0), color: color),
+          child: Center(
+            child: Text(
+              '$score',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w900,
+                color: color,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    return Container(
+      width: 44,
+      height: 44,
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.13),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: color.withValues(alpha: 0.28)),
+      ),
+      child: Icon(icon, size: 20, color: color),
+    );
+  }
+}
+
+class _ScoreRingPainter extends CustomPainter {
+  final double progress;
+  final Color color;
+  const _ScoreRingPainter({required this.progress, required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2 - 2.5;
+    canvas.drawCircle(
+      center,
+      radius,
+      Paint()
+        ..color = Colors.white.withValues(alpha: 0.08)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3.5,
+    );
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      -math.pi / 2,
+      2 * math.pi * progress,
+      false,
+      Paint()
+        ..color = color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3.5
+        ..strokeCap = StrokeCap.round,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_ScoreRingPainter old) =>
+      old.progress != progress || old.color != color;
+}
+
+/// The hero: current height, what has been gained, and the way to add more.
+class _HeightHero extends StatelessWidget {
+  final double current;
+  final double gained;
+  final List<HeightRecord> records;
+  final VoidCallback onAdd;
+  final bool locked;
+
+  const _HeightHero({
+    required this.current,
+    required this.gained,
+    required this.records,
+    required this.onAdd,
+    required this.locked,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    return Container(
+      padding: const EdgeInsets.fromLTRB(22, 22, 22, 20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF1A1240), Color(0xFF0C0A1C)],
+        ),
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.22)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withValues(alpha: 0.18),
+            blurRadius: 32,
+            offset: const Offset(0, 10),
+            spreadRadius: -10,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l.currentHeight.toUpperCase(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.4,
+                        color: Colors.white.withValues(alpha: 0.40),
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          current.toStringAsFixed(1),
+                          style: const TextStyle(
+                            fontSize: 46,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                            letterSpacing: -2.2,
+                            height: 1,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          'cm',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white.withValues(alpha: 0.45),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              if (records.length >= 2)
+                SizedBox(
+                  width: 96,
+                  height: 46,
+                  child: CustomPaint(
+                    painter: _SparklinePainter(
+                      values: records.map((r) => r.height).toList(),
+                      color: AppColors.cyan,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  color: (gained > 0 ? AppColors.success : Colors.white)
+                      .withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(
+                    color: (gained > 0 ? AppColors.success : Colors.white)
+                        .withValues(alpha: 0.28),
+                  ),
+                ),
+                child: Text(
+                  '${gained > 0 ? '+' : ''}$gained cm',
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w800,
+                    color: gained > 0
+                        ? AppColors.success
+                        : Colors.white.withValues(alpha: 0.6),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  l.totalGrowth,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white.withValues(alpha: 0.42),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 18),
+          GestureDetector(
+            onTap: onAdd,
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [AppColors.primary, Color(0xFF6D28D9)],
+                ),
+                borderRadius: BorderRadius.circular(17),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primary.withValues(alpha: 0.35),
+                    blurRadius: 18,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    locked ? CupertinoIcons.lock_fill : CupertinoIcons.add,
+                    size: 17,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      l.addMeasurementButton,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        letterSpacing: 0.4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SparklinePainter extends CustomPainter {
+  final List<double> values;
+  final Color color;
+  const _SparklinePainter({required this.values, required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (values.length < 2) return;
+    final minV = values.reduce(math.min);
+    final maxV = values.reduce(math.max);
+    final span = (maxV - minV).abs() < 0.01 ? 1.0 : maxV - minV;
+
+    final path = Path();
+    for (var i = 0; i < values.length; i++) {
+      final x = size.width * (i / (values.length - 1));
+      final y = size.height - ((values[i] - minV) / span) * (size.height - 6) - 3;
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
+    }
+
+    final fill = Path.from(path)
+      ..lineTo(size.width, size.height)
+      ..lineTo(0, size.height)
+      ..close();
+    canvas.drawPath(
+      fill,
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [color.withValues(alpha: 0.28), color.withValues(alpha: 0)],
+        ).createShader(Rect.fromLTWH(0, 0, size.width, size.height)),
+    );
+
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.2
+        ..strokeCap = StrokeCap.round
+        ..strokeJoin = StrokeJoin.round,
+    );
+
+    final lastX = size.width;
+    final lastY =
+        size.height - ((values.last - minV) / span) * (size.height - 6) - 3;
+    canvas.drawCircle(Offset(lastX, lastY), 3.4, Paint()..color = color);
+  }
+
+  @override
+  bool shouldRepaint(_SparklinePainter old) => old.values != values;
+}
+
+/// One measurement on the timeline rail.
+class _TimelineEntry extends StatelessWidget {
+  final String date;
+  final double height;
+  final double diff;
+  final bool isFirst;
+  final bool isLast;
+
+  const _TimelineEntry({
+    required this.date,
+    required this.height,
+    required this.diff,
+    required this.isFirst,
+    required this.isLast,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final up = diff > 0;
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            width: 28,
+            child: Column(
+              children: [
+                Container(
+                  width: 2,
+                  height: 10,
+                  color: isFirst
+                      ? Colors.transparent
+                      : Colors.white.withValues(alpha: 0.08),
+                ),
+                Container(
+                  width: 12,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isFirst ? AppColors.primary : AppColors.cardFill,
+                    border: Border.all(
+                      color: isFirst
+                          ? AppColors.primary
+                          : Colors.white.withValues(alpha: 0.20),
+                      width: 2,
+                    ),
+                    boxShadow: isFirst
+                        ? [
+                            BoxShadow(
+                                color:
+                                    AppColors.primary.withValues(alpha: 0.5),
+                                blurRadius: 10)
+                          ]
+                        : null,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    width: 2,
+                    color: isLast
+                        ? Colors.transparent
+                        : Colors.white.withValues(alpha: 0.08),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(16, 14, 14, 14),
+                decoration: BoxDecoration(
+                  color: AppColors.cardFill,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.06)),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${height.toStringAsFixed(1)} cm',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: -0.4,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            date,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white.withValues(alpha: 0.42),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (diff != 0)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 9, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: (up ? AppColors.success : AppColors.error)
+                              .withValues(alpha: 0.13),
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              up
+                                  ? CupertinoIcons.arrow_up_right
+                                  : CupertinoIcons.arrow_down_right,
+                              size: 11,
+                              color: up ? AppColors.success : AppColors.error,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${up ? '+' : ''}${diff.toStringAsFixed(1)}',
+                              style: TextStyle(
+                                fontSize: 12.5,
+                                fontWeight: FontWeight.w800,
+                                color:
+                                    up ? AppColors.success : AppColors.error,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
