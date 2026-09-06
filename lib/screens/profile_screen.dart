@@ -68,6 +68,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
+                    if (!provider.hasPaidPremium)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 14),
+                        child: GestureDetector(
+                          onTap: () => showPremiumPaywall(context),
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(22),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
+                                  blurRadius: 12,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(CupertinoIcons.sparkles, color: Colors.white, size: 24),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'Premium\'a Geç',
+                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                      ),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        'Tüm premium özelliklerin kilidini açın.',
+                                        style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.8)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Icon(CupertinoIcons.chevron_right, color: Colors.white, size: 16),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
                     // ── Stats ─────────────────────────
                     GlassCard(
                       child: Column(
@@ -135,55 +184,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: 14),
-
-                    if (!provider.hasPaidPremium)
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
-                        child: GestureDetector(
-                          onTap: () => showPremiumPaywall(context),
-                          child: Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              borderRadius: BorderRadius.circular(22),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
-                                  blurRadius: 12,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(CupertinoIcons.sparkles, color: Colors.white, size: 24),
-                                const SizedBox(width: 12),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        'Premium\'a Geç',
-                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-                                      ),
-                                      const SizedBox(height: 2),
-                                      Text(
-                                        'Tüm premium özelliklerin kilidini açın.',
-                                        style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.8)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const Icon(CupertinoIcons.chevron_right, color: Colors.white, size: 16),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
 
                     // ── Achievements ──────────────────
                     if (provider.isPremium)
