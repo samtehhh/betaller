@@ -837,9 +837,11 @@ class _StatusBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final w = width;
-    final iconH = w * 0.042;
+    // iOS keeps these icons small: about 11pt tall on a 393pt screen, with the
+    // cluster ending roughly 14pt from the edge, well clear of the island.
+    final iconH = w * 0.032;
     return Padding(
-      padding: EdgeInsets.fromLTRB(w * 0.105, w * 0.055, w * 0.095, 0),
+      padding: EdgeInsets.fromLTRB(w * 0.10, w * 0.058, w * 0.062, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -847,7 +849,7 @@ class _StatusBar extends StatelessWidget {
           Text(
             '9:41',
             style: TextStyle(
-              fontSize: w * 0.047,
+              fontSize: w * 0.042,
               fontWeight: FontWeight.w600,
               letterSpacing: -w * 0.001,
               color: Colors.white,
