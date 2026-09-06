@@ -127,6 +127,30 @@ class AppLocalizationsHi extends AppLocalizations {
   String get trackingSection => 'Your tracking tools';
 
   @override
+  String get photosBenefit =>
+      'Before and after, side by side. See the change instead of reading it.';
+
+  @override
+  String get postureBenefit =>
+      'Kyphosis, lordosis and head position. Good posture alone is worth 2-3 cm.';
+
+  @override
+  String get reportBenefit =>
+      'Score your week day by day and see where it slipped.';
+
+  @override
+  String get photosCta => 'Add a photo';
+
+  @override
+  String get postureCta => 'Analyse';
+
+  @override
+  String get reportCta => 'Open the report';
+
+  @override
+  String get toolStateReady => 'Ready';
+
+  @override
   String get photosSummaryEmpty => 'Add your first photo';
 
   @override

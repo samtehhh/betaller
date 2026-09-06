@@ -226,70 +226,67 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                       title: l.trackingSection,
                     ),
                     const SizedBox(height: 12),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.cardFill,
-                        borderRadius: BorderRadius.circular(26),
-                        border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.06)),
+                    _ToolCard(
+                      color: AppColors.cyan,
+                      icon: CupertinoIcons.photo_fill_on_rectangle_fill,
+                      title: l.progressPhotosTitle,
+                      benefit: l.photosBenefit,
+                      state: provider.progressPhotos.isEmpty
+                          ? l.photosSummaryEmpty
+                          : l.photosSummaryCount(provider.progressPhotos.length),
+                      cta: l.photosCta,
+                      visual: _PhotoStrip(
+                        paths: provider.progressPhotos
+                            .map((p) => p['path'] as String?)
+                            .whereType<String>()
+                            .toList(),
                       ),
-                      child: Column(
-                        children: [
-                          _ToolRow(
-                            icon: CupertinoIcons.photo_fill_on_rectangle_fill,
-                            color: AppColors.cyan,
-                            title: l.progressPhotosTitle,
-                            subtitle: provider.progressPhotos.isEmpty
-                                ? l.photosSummaryEmpty
-                                : l.photosSummaryCount(
-                                    provider.progressPhotos.length),
-                            thumbnailPath: provider.progressPhotos.isEmpty
-                                ? null
-                                : provider.progressPhotos.last['path']
-                                    as String?,
-                            onTap: () => Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (_) => const ProgressPhotosScreen()),
-                            ),
-                          ),
-                          _toolDivider(),
-                          _ToolRow(
-                            icon: Icons.accessibility_new_rounded,
-                            color: AppColors.lime,
-                            title: l.explorePosture,
-                            subtitle: provider.postureAnalyses.isEmpty
-                                ? l.postureSummaryEmpty
-                                : l.postureSummaryScore(
-                                    (provider.postureAnalyses.last['totalScore']
-                                                as num?)
-                                            ?.toInt() ??
-                                        0),
-                            score: provider.postureAnalyses.isEmpty
-                                ? null
-                                : (provider.postureAnalyses.last['totalScore']
-                                        as num?)
-                                    ?.toInt(),
-                            onTap: () => Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (_) =>
-                                      const PostureAnalysisScreen()),
-                            ),
-                          ),
-                          _toolDivider(),
-                          _ToolRow(
-                            icon: CupertinoIcons.doc_chart_fill,
-                            color: AppColors.orange,
-                            title: l.weeklyReportMenu,
-                            subtitle: l.weeklyReportMenuSubtitle,
-                            onTap: () => Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (_) => const WeeklyReportScreen()),
-                            ),
-                          ),
-                        ],
+                      onTap: () => Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (_) => const ProgressPhotosScreen()),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    _ToolCard(
+                      color: AppColors.lime,
+                      icon: Icons.accessibility_new_rounded,
+                      title: l.explorePosture,
+                      benefit: l.postureBenefit,
+                      state: provider.postureAnalyses.isEmpty
+                          ? l.postureSummaryEmpty
+                          : l.postureSummaryScore(
+                              (provider.postureAnalyses.last['totalScore']
+                                          as num?)
+                                      ?.toInt() ??
+                                  0),
+                      cta: l.postureCta,
+                      visual: _PostureDial(
+                        score: provider.postureAnalyses.isEmpty
+                            ? null
+                            : (provider.postureAnalyses.last['totalScore']
+                                    as num?)
+                                ?.toInt(),
+                      ),
+                      onTap: () => Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (_) => const PostureAnalysisScreen()),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    _ToolCard(
+                      color: AppColors.orange,
+                      icon: CupertinoIcons.doc_chart_fill,
+                      title: l.weeklyReportMenu,
+                      benefit: l.reportBenefit,
+                      state: l.toolStateReady,
+                      cta: l.reportCta,
+                      visual: _WeekSpark(provider: provider),
+                      onTap: () => Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (_) => const WeeklyReportScreen()),
                       ),
                     ),
 
@@ -375,12 +372,6 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
       },
     );
   }
-
-  Widget _toolDivider() => Padding(
-        padding: const EdgeInsets.only(left: 70, right: 16),
-        child: Divider(
-            height: 1, color: Colors.white.withValues(alpha: 0.05)),
-      );
 
   Widget _buildChart(BuildContext context, List<HeightRecord> records, double animValue) {
     final locale = Localizations.localeOf(context).languageCode;
@@ -720,116 +711,281 @@ class _StatItem extends StatelessWidget {
 
 
 /// One of the tracking tools that live under İlerleme.
-/// A row in the tracking group. Photos bring their own thumbnail, posture
-/// brings its score, the report just points onward.
-class _ToolRow extends StatelessWidget {
-  final IconData icon;
+/// A tracking tool, sized like it matters: its own live visual, what it is
+/// for, and where the user currently stands with it.
+class _ToolCard extends StatelessWidget {
   final Color color;
+  final IconData icon;
   final String title;
-  final String subtitle;
-  final String? thumbnailPath;
-  final int? score;
+  final String benefit;
+  final String state;
+  final String cta;
+  final Widget visual;
   final VoidCallback onTap;
 
-  const _ToolRow({
-    required this.icon,
+  const _ToolCard({
     required this.color,
+    required this.icon,
     required this.title,
-    required this.subtitle,
+    required this.benefit,
+    required this.state,
+    required this.cta,
+    required this.visual,
     required this.onTap,
-    this.thumbnailPath,
-    this.score,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-        child: Row(
-          children: [
-            _leading(),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      letterSpacing: -0.2,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    subtitle,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: color.withValues(alpha: 0.85),
-                    ),
-                  ),
-                ],
-              ),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(18, 18, 18, 16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              color.withValues(alpha: 0.11),
+              AppColors.cardFill,
+            ],
+            stops: const [0.0, 0.62],
+          ),
+          borderRadius: BorderRadius.circular(26),
+          border: Border.all(color: color.withValues(alpha: 0.28)),
+          boxShadow: [
+            BoxShadow(
+              color: color.withValues(alpha: 0.14),
+              blurRadius: 26,
+              offset: const Offset(0, 8),
+              spreadRadius: -10,
             ),
-            Icon(CupertinoIcons.chevron_right,
-                size: 15, color: Colors.white.withValues(alpha: 0.25)),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(icon, size: 16, color: color),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: Text(
+                              title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w900,
+                                color: Colors.white,
+                                letterSpacing: -0.4,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        benefit,
+                        style: TextStyle(
+                          fontSize: 12.5,
+                          height: 1.42,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white.withValues(alpha: 0.55),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 14),
+                SizedBox(width: 78, height: 78, child: visual),
+              ],
+            ),
+            const SizedBox(height: 14),
+            Row(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.14),
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(color: color.withValues(alpha: 0.30)),
+                  ),
+                  child: Text(
+                    state,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w800,
+                      color: color,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  cta,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w800,
+                    color: color,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Icon(CupertinoIcons.chevron_right, size: 13, color: color),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _leading() {
-    if (thumbnailPath != null && File(thumbnailPath!).existsSync()) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(14),
-        child: Image.file(
-          File(thumbnailPath!),
-          width: 44,
-          height: 44,
-          fit: BoxFit.cover,
+/// Two photos stacked like a before/after, or empty frames inviting the first.
+class _PhotoStrip extends StatelessWidget {
+  final List<String> paths;
+  const _PhotoStrip({required this.paths});
+
+  @override
+  Widget build(BuildContext context) {
+    final first = paths.isNotEmpty ? paths.first : null;
+    final last = paths.length > 1 ? paths.last : null;
+
+    Widget frame(String? path, {required bool highlight}) {
+      final border = highlight ? AppColors.lime : AppColors.cyan;
+      return Container(
+        width: 46,
+        height: 62,
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.04),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: border.withValues(alpha: 0.55), width: 1.4),
+          boxShadow: [
+            BoxShadow(color: border.withValues(alpha: 0.22), blurRadius: 10),
+          ],
         ),
+        clipBehavior: Clip.antiAlias,
+        child: path != null && File(path).existsSync()
+            ? Image.file(File(path), fit: BoxFit.cover)
+            : Icon(CupertinoIcons.person_fill,
+                size: 20, color: border.withValues(alpha: 0.35)),
       );
     }
-    if (score != null) {
-      return SizedBox(
-        width: 44,
-        height: 44,
-        child: CustomPaint(
-          painter: _ScoreRingPainter(
-              progress: (score! / 100).clamp(0.0, 1.0), color: color),
-          child: Center(
-            child: Text(
-              '$score',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w900,
-                color: color,
-              ),
-            ),
+
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Positioned(
+          left: 0,
+          child: Transform.rotate(
+            angle: -0.10,
+            child: frame(first, highlight: false),
           ),
         ),
-      );
-    }
-    return Container(
-      width: 44,
-      height: 44,
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.13),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: color.withValues(alpha: 0.28)),
+        Positioned(
+          right: 0,
+          child: Transform.rotate(
+            angle: 0.10,
+            child: frame(last ?? first, highlight: true),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// The last posture score as a dial, or an empty dial waiting for one.
+class _PostureDial extends StatelessWidget {
+  final int? score;
+  const _PostureDial({required this.score});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: _ScoreRingPainter(
+        progress: score == null ? 0 : (score! / 100).clamp(0.0, 1.0),
+        color: AppColors.lime,
       ),
-      child: Icon(icon, size: 20, color: color),
+      child: Center(
+        child: score == null
+            ? Icon(Icons.accessibility_new_rounded,
+                size: 26, color: AppColors.lime.withValues(alpha: 0.55))
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '$score',
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.lime,
+                      height: 1,
+                      letterSpacing: -1,
+                    ),
+                  ),
+                  Text(
+                    '/100',
+                    style: TextStyle(
+                      fontSize: 9,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white.withValues(alpha: 0.35),
+                    ),
+                  ),
+                ],
+              ),
+      ),
+    );
+  }
+}
+
+/// Seven bars, one per day of the current week.
+class _WeekSpark extends StatelessWidget {
+  final AppProvider provider;
+  const _WeekSpark({required this.provider});
+
+  @override
+  Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final start = today.subtract(Duration(days: today.weekday - 1));
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: List.generate(7, (i) {
+        final day = start.add(Duration(days: i));
+        final future = day.isAfter(today);
+        final ratio = future ? 0.0 : provider.dayCompletionRatio(day);
+        final isToday = day == today;
+        return Container(
+          width: 7,
+          height: 20 + 48 * ratio,
+          decoration: BoxDecoration(
+            color: future
+                ? Colors.white.withValues(alpha: 0.05)
+                : AppColors.orange
+                    .withValues(alpha: ratio > 0 ? 0.95 : 0.16),
+            borderRadius: BorderRadius.circular(4),
+            border: isToday
+                ? Border.all(
+                    color: AppColors.orange.withValues(alpha: 0.8), width: 1)
+                : null,
+            boxShadow: ratio > 0.05
+                ? [
+                    BoxShadow(
+                        color: AppColors.orange.withValues(alpha: 0.35),
+                        blurRadius: 8)
+                  ]
+                : null,
+          ),
+        );
+      }),
     );
   }
 }
@@ -842,15 +998,16 @@ class _ScoreRingPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2 - 2.5;
+    final radius = size.width / 2 - 4;
     canvas.drawCircle(
       center,
       radius,
       Paint()
-        ..color = Colors.white.withValues(alpha: 0.08)
+        ..color = Colors.white.withValues(alpha: 0.07)
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 3.5,
+        ..strokeWidth = 5,
     );
+    if (progress <= 0) return;
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       -math.pi / 2,
@@ -859,8 +1016,9 @@ class _ScoreRingPainter extends CustomPainter {
       Paint()
         ..color = color
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 3.5
-        ..strokeCap = StrokeCap.round,
+        ..strokeWidth = 5
+        ..strokeCap = StrokeCap.round
+        ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 2),
     );
   }
 

@@ -127,6 +127,29 @@ class AppLocalizationsTr extends AppLocalizations {
   String get trackingSection => 'Takip araçların';
 
   @override
+  String get photosBenefit =>
+      'Öncesi ve sonrası yan yana. Değişimini rakamla değil gözünle gör.';
+
+  @override
+  String get postureBenefit =>
+      'Kifoz, lordoz ve baş pozisyonu. Doğru duruş tek başına 2-3 cm fark yaratır.';
+
+  @override
+  String get reportBenefit => 'Haftanı gün gün puanla, nerede aksadığını gör.';
+
+  @override
+  String get photosCta => 'Fotoğraf ekle';
+
+  @override
+  String get postureCta => 'Analiz et';
+
+  @override
+  String get reportCta => 'Raporu aç';
+
+  @override
+  String get toolStateReady => 'Hazır';
+
+  @override
   String get photosSummaryEmpty => 'İlk fotoğrafını ekle';
 
   @override

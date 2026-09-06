@@ -326,6 +326,48 @@ abstract class AppLocalizations {
   /// **'Your tracking tools'**
   String get trackingSection;
 
+  /// No description provided for @photosBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Before and after, side by side. See the change instead of reading it.'**
+  String get photosBenefit;
+
+  /// No description provided for @postureBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Kyphosis, lordosis and head position. Good posture alone is worth 2-3 cm.'**
+  String get postureBenefit;
+
+  /// No description provided for @reportBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Score your week day by day and see where it slipped.'**
+  String get reportBenefit;
+
+  /// No description provided for @photosCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a photo'**
+  String get photosCta;
+
+  /// No description provided for @postureCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyse'**
+  String get postureCta;
+
+  /// No description provided for @reportCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the report'**
+  String get reportCta;
+
+  /// No description provided for @toolStateReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get toolStateReady;
+
   /// No description provided for @photosSummaryEmpty.
   ///
   /// In en, this message translates to:
