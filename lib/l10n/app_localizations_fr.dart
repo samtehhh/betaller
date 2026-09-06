@@ -3073,6 +3073,9 @@ class AppLocalizationsFr extends AppLocalizations {
       'Nous avons tes données et ton potentiel. Place à la visite guidée.';
 
   @override
+  String get journeyContinue => 'Continue';
+
+  @override
   String get journeyEnterApp => 'Ouvrir l’application';
 
   @override

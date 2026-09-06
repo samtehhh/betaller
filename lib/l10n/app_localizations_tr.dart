@@ -3031,7 +3031,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get journeyStep3Desc =>
-      'Günlük rutinini kendin işletiyorsun, biz ilerlemeni takip ediyoruz.';
+      'BeTaller\'i kullanarak boyunu gerçek potansiyeline ulaştırma yolculuğuna başlayalım.';
 
   @override
   String get journeyNow => 'ŞİMDİ';
@@ -3048,6 +3048,9 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get journeyDataDoneSubtitle =>
       'Verilerini aldık ve potansiyelini hesapladık. Sırada uygulamayı tanımak var.';
+
+  @override
+  String get journeyContinue => 'Devam Et';
 
   @override
   String get journeyEnterApp => 'Uygulamaya Geç';

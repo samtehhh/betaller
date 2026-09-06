@@ -3248,11 +3248,15 @@ class _WelcomeScreen extends StatefulWidget {
   State<_WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-/// Shown once the questionnaire is done: the first journey step ticks off in
-/// front of the user, and the second one lights up as what comes next.
+/// The hand-off into step two. The questionnaire is behind the user, so the
+/// first step ticks off in front of them and the tour lights up as what comes
+/// next. This is also the door into the app itself.
 class _WelcomeScreenState extends State<_WelcomeScreen>
     with TickerProviderStateMixin {
   late final AnimationController _ctrl;
+  late final AnimationController _halo;
+  late final Animation<double> _badge;
+  late final Animation<double> _ring;
   late final Animation<double> _headOpacity;
   late final Animation<Offset> _headSlide;
   late final Animation<double> _btnOpacity;
@@ -3264,19 +3268,27 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
   void initState() {
     super.initState();
     _ctrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1400));
+        vsync: this, duration: const Duration(milliseconds: 1700));
+    _halo = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 2400))
+      ..repeat();
+
+    _badge = CurvedAnimation(
+        parent: _ctrl, curve: const Interval(0.0, 0.30, curve: Curves.easeOutBack));
+    _ring = CurvedAnimation(
+        parent: _ctrl, curve: const Interval(0.10, 0.55, curve: Curves.easeOutCubic));
     _headOpacity = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: _ctrl, curve: const Interval(0.0, 0.35, curve: Curves.easeOut)));
-    _headSlide = Tween(begin: const Offset(0, 0.25), end: Offset.zero).animate(
+        parent: _ctrl, curve: const Interval(0.25, 0.5, curve: Curves.easeOut)));
+    _headSlide = Tween(begin: const Offset(0, 0.22), end: Offset.zero).animate(
         CurvedAnimation(
             parent: _ctrl,
-            curve: const Interval(0.0, 0.4, curve: Curves.easeOutCubic)));
+            curve: const Interval(0.25, 0.55, curve: Curves.easeOutCubic)));
     _btnOpacity = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: _ctrl, curve: const Interval(0.7, 1.0, curve: Curves.easeOut)));
+        parent: _ctrl, curve: const Interval(0.75, 1.0, curve: Curves.easeOut)));
     _btnSlide = Tween(begin: const Offset(0, 0.35), end: Offset.zero).animate(
         CurvedAnimation(
             parent: _ctrl,
-            curve: const Interval(0.7, 1.0, curve: Curves.easeOutCubic)));
+            curve: const Interval(0.75, 1.0, curve: Curves.easeOutCubic)));
     _ctrl.forward();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -3291,6 +3303,7 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
   @override
   void dispose() {
     _ctrl.dispose();
+    _halo.dispose();
     super.dispose();
   }
 
@@ -3310,103 +3323,260 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final progress = context.watch<AppProvider>().journeyProgress;
+    final next = journeySteps(l)[1];
 
     return Scaffold(
       backgroundColor: const Color(0xFF07050F),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF1A0A3C), Color(0xFF0A0718), Color(0xFF07050F)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(26, 40, 26, 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FadeTransition(
-                        opacity: _headOpacity,
-                        child: SlideTransition(
-                          position: _headSlide,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 5),
-                                decoration: BoxDecoration(
-                                  color: AppColors.lime.withValues(alpha: 0.14),
-                                  borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(
-                                      color: AppColors.lime
-                                          .withValues(alpha: 0.35)),
-                                ),
-                                child: Text(
-                                  '1/$kJourneyStepCount',
-                                  style: const TextStyle(
-                                    fontSize: 9.5,
-                                    fontWeight: FontWeight.w900,
-                                    letterSpacing: 1.4,
-                                    color: AppColors.lime,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                l.journeyDataDoneTitle,
-                                style: const TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.white,
-                                  height: 1.1,
-                                  letterSpacing: -1.1,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                l.journeyDataDoneSubtitle,
-                                style: TextStyle(
-                                  fontSize: 14.5,
-                                  height: 1.5,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white.withValues(alpha: 0.58),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 36),
-                      JourneySteps(completed: progress, animateFrom: _from),
-                      const SizedBox(height: 16),
-                    ],
-                  ),
-                ),
+      body: Stack(
+        children: [
+          // ── Ground: a cool wash that leans toward the next step's colour ──
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF160B33), Color(0xFF0A0718), Color(0xFF07050F)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              FadeTransition(
-                opacity: _btnOpacity,
-                child: SlideTransition(
-                  position: _btnSlide,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(24, 8, 24, 20),
-                    child: _TallerButton(
-                      label: l.journeyEnterApp,
-                      enabled: true,
-                      onTap: _enter,
+            ),
+          ),
+          AnimatedBuilder(
+            animation: _ring,
+            builder: (context, _) => Positioned(
+              top: -120,
+              left: -60,
+              right: -60,
+              height: 420,
+              child: IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: RadialGradient(
+                      colors: [
+                        AppColors.lime.withValues(alpha: 0.16 * _ring.value),
+                        Colors.transparent,
+                      ],
                     ),
                   ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+
+          SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(26, 26, 26, 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // ── Badge: the first step landing ────────────────
+                        Center(
+                          child: AnimatedBuilder(
+                            animation: Listenable.merge([_ctrl, _halo]),
+                            builder: (context, _) => SizedBox(
+                              width: 128,
+                              height: 128,
+                              child: CustomPaint(
+                                painter: _CompletionBadgePainter(
+                                  sweep: _ring.value,
+                                  halo: _halo.value,
+                                  color: AppColors.lime,
+                                ),
+                                child: Center(
+                                  child: Transform.scale(
+                                    scale: _badge.value.clamp(0.0, 1.4),
+                                    child: Container(
+                                      width: 78,
+                                      height: 78,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [
+                                            AppColors.lime,
+                                            AppColors.lime.withValues(alpha: 0.72),
+                                          ],
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: AppColors.lime
+                                                .withValues(alpha: 0.45),
+                                            blurRadius: 30,
+                                            spreadRadius: 2,
+                                          ),
+                                        ],
+                                      ),
+                                      child: const Icon(Icons.check_rounded,
+                                          size: 40, color: Color(0xFF06210F)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 22),
+
+                        FadeTransition(
+                          opacity: _headOpacity,
+                          child: SlideTransition(
+                            position: _headSlide,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  l.journeyDataDoneTitle,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.white,
+                                    height: 1.1,
+                                    letterSpacing: -1.0,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  l.journeyDataDoneSubtitle,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 14.5,
+                                    height: 1.5,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white.withValues(alpha: 0.58),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 32),
+
+                        // ── The journey, with step one ticking off ───────
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(18, 22, 18, 22),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.035),
+                            borderRadius: BorderRadius.circular(26),
+                            border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.07)),
+                          ),
+                          child: JourneySteps(
+                              completed: progress, animateFrom: _from),
+                        ),
+
+                        const SizedBox(height: 18),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // ── What comes next, then the door into the app ──────────
+                FadeTransition(
+                  opacity: _btnOpacity,
+                  child: SlideTransition(
+                    position: _btnSlide,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 4, 24, 20),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(next.icon, size: 15, color: next.color),
+                              const SizedBox(width: 7),
+                              Flexible(
+                                child: Text(
+                                  next.title,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w800,
+                                    letterSpacing: 0.2,
+                                    color: next.color,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          _TallerButton(
+                            label: l.journeyContinue,
+                            enabled: true,
+                            onTap: _enter,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
+}
+
+/// The ring that draws itself around the completion badge, plus a halo that
+/// keeps breathing once the ring has closed.
+class _CompletionBadgePainter extends CustomPainter {
+  final double sweep;
+  final double halo;
+  final Color color;
+  const _CompletionBadgePainter({
+    required this.sweep,
+    required this.halo,
+    required this.color,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width * 0.42;
+
+    // breathing halo
+    final pulse = (math.sin(halo * math.pi * 2) + 1) / 2;
+    canvas.drawCircle(
+      center,
+      radius * (1.02 + 0.10 * pulse),
+      Paint()
+        ..color = color.withValues(alpha: 0.10 * (1 - pulse) * sweep)
+        ..style = PaintingStyle.fill,
+    );
+
+    // track
+    canvas.drawCircle(
+      center,
+      radius,
+      Paint()
+        ..color = Colors.white.withValues(alpha: 0.07)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3,
+    );
+
+    // the arc closing as the step completes
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      -math.pi / 2,
+      math.pi * 2 * sweep,
+      false,
+      Paint()
+        ..color = color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 3
+        ..strokeCap = StrokeCap.round
+        ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 3),
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _CompletionBadgePainter old) =>
+      old.sweep != sweep || old.halo != halo || old.color != color;
 }

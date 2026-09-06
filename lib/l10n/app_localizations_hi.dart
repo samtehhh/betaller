@@ -3033,6 +3033,9 @@ class AppLocalizationsHi extends AppLocalizations {
       'तुम्हारा डेटा और क्षमता तैयार है। अब ऐप का परिचय बाकी है।';
 
   @override
+  String get journeyContinue => 'Continue';
+
+  @override
   String get journeyEnterApp => 'ऐप में जाएँ';
 
   @override

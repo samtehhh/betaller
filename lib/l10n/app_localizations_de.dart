@@ -3068,6 +3068,9 @@ class AppLocalizationsDe extends AppLocalizations {
       'Deine Daten und dein Potenzial stehen. Jetzt folgt der Rundgang.';
 
   @override
+  String get journeyContinue => 'Continue';
+
+  @override
   String get journeyEnterApp => 'Zur App';
 
   @override

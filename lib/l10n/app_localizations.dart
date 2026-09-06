@@ -5612,6 +5612,12 @@ abstract class AppLocalizations {
   /// **'We have your data and your potential. Next comes the tour of the app.'**
   String get journeyDataDoneSubtitle;
 
+  /// No description provided for @journeyContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get journeyContinue;
+
   /// No description provided for @journeyEnterApp.
   ///
   /// In en, this message translates to:

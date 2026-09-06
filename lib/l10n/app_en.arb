@@ -1016,6 +1016,7 @@
   "journeySoon": "SOON",
   "journeyDataDoneTitle": "First step done",
   "journeyDataDoneSubtitle": "We have your data and your potential. Next comes the tour of the app.",
+  "journeyContinue": "Continue",
   "journeyEnterApp": "Enter the app",
   "journeyProgressLabel": "Getting started",
   "paywallRestoreLabel": "Restore Purchases",

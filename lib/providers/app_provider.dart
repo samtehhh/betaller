@@ -819,6 +819,7 @@ class AppProvider extends ChangeNotifier {
     _lastChallengeDate = '';
     _dailyChallengeProgress = {};
     _reviewShownOnce = false;
+    _journeyProgress = 0;
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('glowup_app_data');
