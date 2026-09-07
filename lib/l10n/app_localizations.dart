@@ -1442,6 +1442,18 @@ abstract class AppLocalizations {
   /// **'Achievements'**
   String get achievements;
 
+  /// No description provided for @achievementUnlockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'🏆 Achievement unlocked!'**
+  String get achievementUnlockedTitle;
+
+  /// No description provided for @reminderTapHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap one to change its time and days'**
+  String get reminderTapHint;
+
   /// No description provided for @earned.
   ///
   /// In en, this message translates to:

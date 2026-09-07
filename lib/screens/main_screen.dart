@@ -7,6 +7,8 @@ import 'package:in_app_review/in_app_review.dart';
 
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/localized_data.dart';
+import '../services/notification_service.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
 import '../widgets/premium_paywall.dart';
@@ -59,8 +61,25 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     // Check if provider wants to show review prompt
     final provider = context.watch<AppProvider>();
+
+    // Announce any badge earned since the last frame.
+    final notices = provider.pendingAchievementNotices;
+    if (notices.isNotEmpty) {
+      provider.clearAchievementNotices();
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        for (final a in notices) {
+          final copy = localizedAchievement(l, a['id'] as String? ?? '');
+          await NotificationService().sendAchievementNotification(
+            l.achievementUnlockedTitle,
+            copy['title'] ?? '',
+            l,
+          );
+        }
+      });
+    }
     if (provider.shouldRequestReview) {
       provider.clearReviewFlag();
       WidgetsBinding.instance.addPostFrameCallback((_) async {

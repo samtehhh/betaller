@@ -263,6 +263,8 @@
   "bestStreakLabel": "Best Streak",
   "achievementLabel": "Achievement",
   "achievements": "Achievements",
+  "achievementUnlockedTitle": "🏆 Achievement unlocked!",
+  "reminderTapHint": "Tap one to change its time and days",
   "earned": "Earned!",
   "notEarned": "Not yet earned",
   "ok": "OK",

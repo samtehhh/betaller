@@ -232,6 +232,8 @@
   "bestStreakLabel": "En İyi Seri",
   "achievementLabel": "Başarım",
   "achievements": "Başarımlar",
+  "achievementUnlockedTitle": "🏆 Başarım kazandın!",
+  "reminderTapHint": "Saatini ve günlerini değiştirmek için üzerine dokun",
   "earned": "Kazanıldı!",
   "notEarned": "Henüz kazanılmadı",
   "ok": "Tamam",

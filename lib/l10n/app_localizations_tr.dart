@@ -755,6 +755,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get achievements => 'Başarımlar';
 
   @override
+  String get achievementUnlockedTitle => '🏆 Başarım kazandın!';
+
+  @override
+  String get reminderTapHint =>
+      'Saatini ve günlerini değiştirmek için üzerine dokun';
+
+  @override
   String get earned => 'Kazanıldı!';
 
   @override

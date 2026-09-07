@@ -336,6 +336,21 @@ class NotificationService {
   // ── Streak-based smart notifications ──────────────────────────
 
   /// Call this when streak updates. Sends contextual notification.
+  /// Announces a badge the moment it is earned.
+  Future<void> sendAchievementNotification(
+    String title,
+    String body,
+    AppLocalizations l,
+  ) async {
+    if (!await isEnabled()) return;
+    await _plugin.show(
+      id: DateTime.now().millisecondsSinceEpoch.remainder(100000),
+      title: title,
+      body: body,
+      notificationDetails: _notifDetails('achievement', 'Başarımlar', body),
+    );
+  }
+
   Future<void> sendStreakNotification(int streak, AppLocalizations l) async {
     if (!await isEnabled()) return;
 

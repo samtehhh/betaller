@@ -314,6 +314,31 @@ class AppProvider extends ChangeNotifier {
     return unlocked;
   }
 
+  /// Collects achievements earned since the last check so the UI can announce
+  /// them. Marking them here means a badge is celebrated once, not on every
+  /// rebuild.
+  void checkNewAchievements() {
+    final fresh = unlockedAchievements
+        .where((x) =>
+            x['earned'] == true &&
+            !_announcedAchievements.contains(x['id'] as String))
+        .toList();
+    if (fresh.isEmpty) return;
+
+    // A first run on an account that already qualifies would fire a burst of
+    // notifications, so the very first pass only records them.
+    final firstPass = _announcedAchievements.isEmpty;
+    _announcedAchievements = {
+      ..._announcedAchievements,
+      ...fresh.map((x) => x['id'] as String),
+    };
+    if (!firstPass) {
+      _pendingAchievementNotices = [..._pendingAchievementNotices, ...fresh];
+    }
+    _saveData();
+    if (!firstPass) notifyListeners();
+  }
+
   int get earnedAchievementCount =>
       unlockedAchievements.where((a) => a['earned'] == true).length;
 
@@ -391,6 +416,8 @@ class AppProvider extends ChangeNotifier {
       _reviewShownOnce = json['reviewShownOnce'] ?? false;
       // Anyone who already answered the questionnaire has step one behind
       // them, even if they installed before the journey existed.
+      _announcedAchievements = Set<String>.from(
+          (json['announcedAchievements'] as List?) ?? const []);
       final storedReminders = (json['reminders'] as List?) ?? [];
       if (storedReminders.isNotEmpty) {
         _reminders = storedReminders
@@ -406,6 +433,7 @@ class AppProvider extends ChangeNotifier {
 
     _initRoutines();
     _checkDailyReset();
+    checkNewAchievements();
     _setDailyQuote();
     _checkAndGenerateChallenges();
     notifyListeners();
@@ -503,6 +531,7 @@ class AppProvider extends ChangeNotifier {
       'journalByDate': _journalByDate,
       'completedProgramDays': _completedProgramDays.toList(),
       'reviewShownOnce': _reviewShownOnce,
+      'announcedAchievements': _announcedAchievements.toList(),
       'reminders': _reminders.map((r) => r.toJson()).toList(),
       'routineHistory': _routineHistory,
       'journeyProgress': _journeyProgress,
@@ -535,6 +564,8 @@ class AppProvider extends ChangeNotifier {
     addXP(xpRewards['height_logged'] ?? 50);
     updateChallengeProgress('weekly_measure', 1);
     _maybeRequestReview();
+    // a measurement can unlock both counting and growth badges
+    checkNewAchievements();
     _saveData();
     notifyListeners();
   }
@@ -557,6 +588,7 @@ class AppProvider extends ChangeNotifier {
 
     _lastRoutineDate = _today;
     _recordHistory();
+    checkNewAchievements();
 
     // Award XP for completing a routine
     if (routine.completed) {
@@ -655,6 +687,13 @@ class AppProvider extends ChangeNotifier {
   // Reminders the user can switch on, retime, or write themselves.
   List<Reminder> _reminders = List<Reminder>.from(kDefaultReminders);
   List<Reminder> get reminders => List.unmodifiable(_reminders);
+
+  // Achievements already announced, so one is celebrated exactly once.
+  Set<String> _announcedAchievements = {};
+  List<Map<String, dynamic>> _pendingAchievementNotices = [];
+  List<Map<String, dynamic>> get pendingAchievementNotices =>
+      List.unmodifiable(_pendingAchievementNotices);
+  void clearAchievementNotices() => _pendingAchievementNotices = [];
 
   int _journeyProgress = 0;
   int get journeyProgress => _journeyProgress;
@@ -974,6 +1013,8 @@ class AppProvider extends ChangeNotifier {
     _lastChallengeDate = '';
     _dailyChallengeProgress = {};
     _reviewShownOnce = false;
+    _announcedAchievements = {};
+    _pendingAchievementNotices = [];
     _routineHistory = {};
     _reminders = List<Reminder>.from(kDefaultReminders);
     _journeyProgress = 0;

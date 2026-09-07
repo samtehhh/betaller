@@ -204,6 +204,27 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
                 // ── Built-in reminders ────────────────────────────────
                 _GroupLabel(l.reminderBuiltIn),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(6, 0, 6, 12),
+                  child: Row(
+                    children: [
+                      Icon(CupertinoIcons.hand_point_right_fill,
+                          size: 13,
+                          color: Colors.white.withValues(alpha: 0.30)),
+                      const SizedBox(width: 7),
+                      Expanded(
+                        child: Text(
+                          l.reminderTapHint,
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white.withValues(alpha: 0.38),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 ...builtIn.map((r) => _ReminderTile(
                       reminder: r,
                       title: _title(l, r),

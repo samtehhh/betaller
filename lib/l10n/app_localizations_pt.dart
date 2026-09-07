@@ -759,6 +759,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get achievements => 'Conquistas';
 
   @override
+  String get achievementUnlockedTitle => '🏆 Achievement unlocked!';
+
+  @override
+  String get reminderTapHint => 'Tap one to change its time and days';
+
+  @override
   String get earned => 'Conquistado!';
 
   @override
