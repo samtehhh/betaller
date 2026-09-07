@@ -593,6 +593,69 @@ class AppLocalizationsFr extends AppLocalizations {
   String get notifications => 'Notifications';
 
   @override
+  String get stateOn => 'On';
+
+  @override
+  String get stateOff => 'Off';
+
+  @override
+  String get reminderMasterTitle => 'Notifications';
+
+  @override
+  String reminderActiveCount(int count) {
+    return '$count reminders on';
+  }
+
+  @override
+  String get reminderBuiltIn => 'Built-in reminders';
+
+  @override
+  String get reminderYourOwn => 'Your own reminders';
+
+  @override
+  String get reminderAdd => 'Add a reminder';
+
+  @override
+  String get reminderDays => 'Days';
+
+  @override
+  String get reminderEveryDay => 'Every day';
+
+  @override
+  String get reminderLabelHint => 'What should we remind you of?';
+
+  @override
+  String get reminderEmptyHint =>
+      'Add your own: training, vitamins, stretching, whatever you need.';
+
+  @override
+  String get reminderCustom => 'Reminder';
+
+  @override
+  String get reminderCustomBody => 'The time you set has come.';
+
+  @override
+  String get reminderExercise => 'Exercise';
+
+  @override
+  String get reminderNutrition => 'Nutrition';
+
+  @override
+  String get reminderWater => 'Water';
+
+  @override
+  String get reminderPosture => 'Posture';
+
+  @override
+  String get reminderRoutine => 'Daily routine';
+
+  @override
+  String get reminderSleep => 'Sleep';
+
+  @override
+  String get reminderMeasurement => 'Height measurement';
+
+  @override
   String get notificationsOn => 'Rappels activés';
 
   @override

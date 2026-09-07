@@ -5,6 +5,7 @@ import 'package:timezone/data/latest_all.dart' as tz_data;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../l10n/app_localizations.dart';
+import '../models/reminder.dart';
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._();
@@ -171,6 +172,76 @@ class NotificationService {
   }
 
   // ── Scheduling helpers ────────────────────────────────────────
+
+  /// Schedules exactly what the user asked for and nothing else.
+  ///
+  /// Ids are derived from the reminder's position and weekday so a reminder
+  /// can be rescheduled without leaving its old firings behind.
+  Future<void> scheduleReminders(
+    List<Reminder> reminders,
+    AppLocalizations l,
+  ) async {
+    await cancelAll();
+    if (!await isEnabled()) return;
+
+    for (var i = 0; i < reminders.length; i++) {
+      final r = reminders[i];
+      if (!r.enabled) continue;
+
+      final copy = _copyFor(r, l);
+      final base = 5000 + i * 10;
+
+      if (r.isDaily) {
+        _scheduleDaily(
+          id: base,
+          hour: r.hour,
+          minute: r.minute,
+          title: copy.$1,
+          body: copy.$2,
+          channel: r.category,
+          channelName: copy.$1,
+        );
+      } else {
+        for (final day in r.weekdays) {
+          _scheduleWeekly(
+            id: base + day,
+            weekday: day,
+            hour: r.hour,
+            minute: r.minute,
+            title: copy.$1,
+            body: copy.$2,
+            channel: r.category,
+            channelName: copy.$1,
+          );
+        }
+      }
+    }
+  }
+
+  /// Title and body for a reminder. Custom ones speak in the user's own words.
+  (String, String) _copyFor(Reminder r, AppLocalizations l) {
+    switch (r.category) {
+      case 'water':
+        return (l.notifWaterTitle, l.notifWaterBody);
+      case 'exercise':
+        return (l.notifMorningTitle, l.notifMorningBody);
+      case 'routine':
+        return (l.notifRoutineTitle, l.notifRoutineBody);
+      case 'sleep':
+        return (l.notifSleepTitle, l.notifSleepBody);
+      case 'posture':
+        return (l.notifPostureTitle, l.notifPostureBody);
+      case 'nutrition':
+        return (l.notifProteinTitle, l.notifProteinBody);
+      case 'measurement':
+        return (l.notifMeasureTitle, l.notifMeasureBody);
+      default:
+        return (
+          r.label.isEmpty ? l.reminderCustom : r.label,
+          l.reminderCustomBody,
+        );
+    }
+  }
 
   void _scheduleDaily({
     required int id,

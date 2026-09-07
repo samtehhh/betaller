@@ -589,6 +589,69 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notifications => 'Bildirimler';
 
   @override
+  String get stateOn => 'Açık';
+
+  @override
+  String get stateOff => 'Kapalı';
+
+  @override
+  String get reminderMasterTitle => 'Bildirimler';
+
+  @override
+  String reminderActiveCount(int count) {
+    return '$count hatırlatıcı açık';
+  }
+
+  @override
+  String get reminderBuiltIn => 'Hazır hatırlatıcılar';
+
+  @override
+  String get reminderYourOwn => 'Kendi hatırlatıcıların';
+
+  @override
+  String get reminderAdd => 'Hatırlatıcı ekle';
+
+  @override
+  String get reminderDays => 'Günler';
+
+  @override
+  String get reminderEveryDay => 'Her gün';
+
+  @override
+  String get reminderLabelHint => 'Ne hatırlatalım?';
+
+  @override
+  String get reminderEmptyHint =>
+      'Kendi hatırlatıcını ekle: antrenman, vitamin, esneme, ne istersen.';
+
+  @override
+  String get reminderCustom => 'Hatırlatıcı';
+
+  @override
+  String get reminderCustomBody => 'Planladığın zaman geldi.';
+
+  @override
+  String get reminderExercise => 'Egzersiz';
+
+  @override
+  String get reminderNutrition => 'Beslenme';
+
+  @override
+  String get reminderWater => 'Su';
+
+  @override
+  String get reminderPosture => 'Duruş';
+
+  @override
+  String get reminderRoutine => 'Günlük rutin';
+
+  @override
+  String get reminderSleep => 'Uyku';
+
+  @override
+  String get reminderMeasurement => 'Boy ölçümü';
+
+  @override
   String get notificationsOn => 'Hatırlatmalar açık';
 
   @override

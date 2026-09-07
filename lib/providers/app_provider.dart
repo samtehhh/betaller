@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user_profile.dart';
 import '../models/height_record.dart';
+import '../models/reminder.dart';
 import '../models/routine.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
@@ -390,6 +391,12 @@ class AppProvider extends ChangeNotifier {
       _reviewShownOnce = json['reviewShownOnce'] ?? false;
       // Anyone who already answered the questionnaire has step one behind
       // them, even if they installed before the journey existed.
+      final storedReminders = (json['reminders'] as List?) ?? [];
+      if (storedReminders.isNotEmpty) {
+        _reminders = storedReminders
+            .map((e) => Reminder.fromJson(Map<String, dynamic>.from(e as Map)))
+            .toList();
+      }
       _routineHistory = ((json['routineHistory'] as Map?) ?? {}).map(
         (k, v) => MapEntry(k.toString(), List<String>.from(v as List)),
       );
@@ -496,6 +503,7 @@ class AppProvider extends ChangeNotifier {
       'journalByDate': _journalByDate,
       'completedProgramDays': _completedProgramDays.toList(),
       'reviewShownOnce': _reviewShownOnce,
+      'reminders': _reminders.map((r) => r.toJson()).toList(),
       'routineHistory': _routineHistory,
       'journeyProgress': _journeyProgress,
     };
@@ -644,12 +652,51 @@ class AppProvider extends ChangeNotifier {
   Map<String, List<String>> _routineHistory = {};
   Map<String, List<String>> get routineHistory => _routineHistory;
 
+  // Reminders the user can switch on, retime, or write themselves.
+  List<Reminder> _reminders = List<Reminder>.from(kDefaultReminders);
+  List<Reminder> get reminders => List.unmodifiable(_reminders);
+
   int _journeyProgress = 0;
   int get journeyProgress => _journeyProgress;
   bool get journeyComplete => _journeyProgress >= 3;
 
   /// Marks [step] (0-based) finished. Steps only ever move forward, and a step
   /// cannot complete before the ones in front of it.
+  /// Replaces one reminder and saves. The caller re-schedules, since only the
+  /// UI layer holds the localisations the scheduler needs.
+  void updateReminder(Reminder reminder) {
+    final i = _reminders.indexWhere((r) => r.id == reminder.id);
+    if (i == -1) {
+      _reminders = [..._reminders, reminder];
+    } else {
+      _reminders = [..._reminders]..[i] = reminder;
+    }
+    _sortReminders();
+    _saveData();
+    notifyListeners();
+  }
+
+  void addReminder(Reminder reminder) {
+    _reminders = [..._reminders, reminder];
+    _sortReminders();
+    _saveData();
+    notifyListeners();
+  }
+
+  void deleteReminder(String id) {
+    _reminders = _reminders.where((r) => r.id != id).toList();
+    _saveData();
+    notifyListeners();
+  }
+
+  void _sortReminders() {
+    _reminders.sort((a, b) {
+      final at = a.hour * 60 + a.minute;
+      final bt = b.hour * 60 + b.minute;
+      return at.compareTo(bt);
+    });
+  }
+
   void _recordHistory() {
     _routineHistory[_today] = List<String>.from(_completedRoutineIds);
     if (_routineHistory.length > 60) {
@@ -928,6 +975,7 @@ class AppProvider extends ChangeNotifier {
     _dailyChallengeProgress = {};
     _reviewShownOnce = false;
     _routineHistory = {};
+    _reminders = List<Reminder>.from(kDefaultReminders);
     _journeyProgress = 0;
 
     final prefs = await SharedPreferences.getInstance();

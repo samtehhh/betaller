@@ -1124,6 +1124,126 @@ abstract class AppLocalizations {
   /// **'Notifications'**
   String get notifications;
 
+  /// No description provided for @stateOn.
+  ///
+  /// In en, this message translates to:
+  /// **'On'**
+  String get stateOn;
+
+  /// No description provided for @stateOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get stateOff;
+
+  /// No description provided for @reminderMasterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get reminderMasterTitle;
+
+  /// No description provided for @reminderActiveCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} reminders on'**
+  String reminderActiveCount(int count);
+
+  /// No description provided for @reminderBuiltIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Built-in reminders'**
+  String get reminderBuiltIn;
+
+  /// No description provided for @reminderYourOwn.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own reminders'**
+  String get reminderYourOwn;
+
+  /// No description provided for @reminderAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a reminder'**
+  String get reminderAdd;
+
+  /// No description provided for @reminderDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Days'**
+  String get reminderDays;
+
+  /// No description provided for @reminderEveryDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get reminderEveryDay;
+
+  /// No description provided for @reminderLabelHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we remind you of?'**
+  String get reminderLabelHint;
+
+  /// No description provided for @reminderEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your own: training, vitamins, stretching, whatever you need.'**
+  String get reminderEmptyHint;
+
+  /// No description provided for @reminderCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get reminderCustom;
+
+  /// No description provided for @reminderCustomBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The time you set has come.'**
+  String get reminderCustomBody;
+
+  /// No description provided for @reminderExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise'**
+  String get reminderExercise;
+
+  /// No description provided for @reminderNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition'**
+  String get reminderNutrition;
+
+  /// No description provided for @reminderWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Water'**
+  String get reminderWater;
+
+  /// No description provided for @reminderPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture'**
+  String get reminderPosture;
+
+  /// No description provided for @reminderRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily routine'**
+  String get reminderRoutine;
+
+  /// No description provided for @reminderSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep'**
+  String get reminderSleep;
+
+  /// No description provided for @reminderMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Height measurement'**
+  String get reminderMeasurement;
+
   /// No description provided for @notificationsOn.
   ///
   /// In en, this message translates to:

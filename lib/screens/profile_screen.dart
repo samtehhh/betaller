@@ -10,6 +10,7 @@ import '../providers/app_provider.dart';
 import '../services/notification_service.dart';
 import '../utils/constants.dart';
 import '../utils/localized_data.dart';
+import 'notifications_screen.dart';
 import 'onboarding_screen.dart';
 import '../widgets/premium_paywall.dart';
 
@@ -402,17 +403,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onTap: () => provider.setUseImperial(!provider.useImperial),
                         ),
                           _menuDivider(),
-                          _MenuToggleRow(
-                            icon: CupertinoIcons.bell_fill,
-                            label: l.notifications,
-                            subtitle: _notificationsEnabled ? l.notificationsOn : l.notificationsOff,
-                            color: AppColors.orange,
-                            value: _notificationsEnabled,
-                            onChanged: (val) async {
-                              await NotificationService().setEnabled(val, l);
-                              setState(() => _notificationsEnabled = val);
-                            },
-                          ),
+                        _MenuRow(
+                          icon: CupertinoIcons.bell_fill,
+                          label: l.notifications,
+                          subtitle: '',
+                          value: _notificationsEnabled ? l.stateOn : l.stateOff,
+                          color: AppColors.orange,
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (_) => const NotificationsScreen()),
+                            );
+                            final enabled =
+                                await NotificationService().isEnabled();
+                            if (mounted) {
+                              setState(() => _notificationsEnabled = enabled);
+                            }
+                          },
+                        ),
                       ],
                     ),
                     const SizedBox(height: 18),
@@ -1089,51 +1098,6 @@ class _GroupLabel extends StatelessWidget {
           letterSpacing: 1.4,
           color: (color ?? Colors.white).withValues(alpha: color == null ? 0.38 : 0.75),
         ),
-      ),
-    );
-  }
-}
-
-class _MenuToggleRow extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String subtitle;
-  final Color color;
-  final bool value;
-  final ValueChanged<bool> onChanged;
-
-  const _MenuToggleRow({required this.icon, required this.label, required this.subtitle, required this.color, required this.value, required this.onChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-      child: Row(
-        children: [
-          Container(
-            width: 36, height: 36,
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(icon, color: color, size: 18),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(label, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white, letterSpacing: -0.2)),
-                Text(subtitle, style: TextStyle(fontSize: 11, color: Colors.white.withValues(alpha: 0.72))),
-              ],
-            ),
-          ),
-          CupertinoSwitch(
-            value: value,
-            activeTrackColor: color,
-            onChanged: onChanged,
-          ),
-        ],
       ),
     );
   }
