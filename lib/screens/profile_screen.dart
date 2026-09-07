@@ -12,6 +12,7 @@ import '../utils/constants.dart';
 import '../utils/localized_data.dart';
 import 'notifications_screen.dart';
 import 'onboarding_screen.dart';
+import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 
 
@@ -76,6 +77,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onEdit: () =>
                           _showEditProfileSheet(context, provider, profile),
                     ),
+                    const SizedBox(height: 14),
+
+                    // ── Reminders, one tap from the top ───
+                    const NextReminderCard(),
                     const SizedBox(height: 14),
 
                     if (!provider.hasPaidPremium)

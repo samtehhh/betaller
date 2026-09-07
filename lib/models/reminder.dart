@@ -91,3 +91,40 @@ const List<Reminder> kDefaultReminders = [
     weekdays: [DateTime.sunday],
   ),
 ];
+
+/// The next reminder that will actually fire, and when.
+///
+/// Returns null when nothing is enabled. Used to surface "what is coming"
+/// rather than making the user open the panel to find out.
+({Reminder reminder, DateTime at})? nextReminder(
+  List<Reminder> reminders, {
+  DateTime? from,
+}) {
+  final now = from ?? DateTime.now();
+  ({Reminder reminder, DateTime at})? best;
+
+  for (final r in reminders) {
+    if (!r.enabled) continue;
+
+    DateTime? candidate;
+    if (r.isDaily) {
+      var t = DateTime(now.year, now.month, now.day, r.hour, r.minute);
+      if (!t.isAfter(now)) t = t.add(const Duration(days: 1));
+      candidate = t;
+    } else {
+      for (final day in r.weekdays) {
+        var t = DateTime(now.year, now.month, now.day, r.hour, r.minute);
+        while (t.weekday != day || !t.isAfter(now)) {
+          t = t.add(const Duration(days: 1));
+        }
+        if (candidate == null || t.isBefore(candidate)) candidate = t;
+      }
+    }
+
+    if (candidate == null) continue;
+    if (best == null || candidate.isBefore(best.at)) {
+      best = (reminder: r, at: candidate);
+    }
+  }
+  return best;
+}

@@ -1124,6 +1124,24 @@ abstract class AppLocalizations {
   /// **'Notifications'**
   String get notifications;
 
+  /// No description provided for @reminderNextLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Next reminder'**
+  String get reminderNextLabel;
+
+  /// No description provided for @reminderManageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your reminders'**
+  String get reminderManageHint;
+
+  /// No description provided for @reminderOffCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn notifications on'**
+  String get reminderOffCta;
+
   /// No description provided for @stateOn.
   ///
   /// In en, this message translates to:

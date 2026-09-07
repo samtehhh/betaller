@@ -590,6 +590,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifications => 'Notifications';
 
   @override
+  String get reminderNextLabel => 'Next reminder';
+
+  @override
+  String get reminderManageHint => 'Manage your reminders';
+
+  @override
+  String get reminderOffCta => 'Turn notifications on';
+
+  @override
   String get stateOn => 'On';
 
   @override

@@ -589,6 +589,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notifications => 'Bildirimler';
 
   @override
+  String get reminderNextLabel => 'Sıradaki hatırlatıcı';
+
+  @override
+  String get reminderManageHint => 'Hatırlatıcılarını düzenle';
+
+  @override
+  String get reminderOffCta => 'Bildirimleri aç';
+
+  @override
   String get stateOn => 'Açık';
 
   @override

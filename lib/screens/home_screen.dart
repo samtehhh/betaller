@@ -18,6 +18,7 @@ import 'wellness_tracker_screen.dart';
 import 'recipe_generator_screen.dart';
 import 'progress_screen.dart';
 import '../widgets/journey_steps.dart';
+import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/water_sheet.dart';
 
@@ -324,6 +325,10 @@ class _HomeScreenState extends State<HomeScreen>
                       ],
                     ),
                     const SizedBox(height: _sectionGap),
+                    const SizedBox(height: 12),
+
+                    // ── 1c. WHAT WE WILL NUDGE YOU ABOUT NEXT ─────────────
+                    const NextReminderCard(),
                     const SizedBox(height: _sectionGap),
 
                     // ── 2. HERO HEIGHT CARD ───────────────────────────────
