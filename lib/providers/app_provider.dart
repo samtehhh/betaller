@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui' show PlatformDispatcher;
 import 'dart:io';
 import 'dart:math';
 
@@ -634,7 +635,7 @@ class AppProvider extends ChangeNotifier {
       updateChallengeProgress('weekly_streak_7', _streak);
 
       // Send milestone notification + cancel streak risk
-      final l = lookupAppLocalizations(_locale ?? const Locale('en'));
+      final l = lookupAppLocalizations(effectiveLocale);
       NotificationService().sendStreakNotification(_streak, l);
       NotificationService().cancelStreakRiskNotification();
     }
@@ -646,7 +647,7 @@ class AppProvider extends ChangeNotifier {
 
     // Schedule streak-at-risk if routines not all done yet
     if (!allRoutinesCompleted && _streak >= 2) {
-      final l = lookupAppLocalizations(_locale ?? const Locale('en'));
+      final l = lookupAppLocalizations(effectiveLocale);
       NotificationService().scheduleStreakRiskNotification(_streak, l);
     }
 
@@ -830,6 +831,18 @@ class AppProvider extends ChangeNotifier {
     _isPremium = value;
     _saveData();
     notifyListeners();
+  }
+
+  /// The language the app is actually running in.
+  ///
+  /// A null [_locale] means "follow the device", which the UI does through
+  /// localeResolutionCallback. Background work has no context, so it has to
+  /// resolve the same way instead of defaulting to English.
+  Locale get effectiveLocale {
+    if (_locale != null) return _locale!;
+    const supported = {'en', 'tr', 'de', 'fr', 'hi', 'pt', 'es', 'it'};
+    final device = PlatformDispatcher.instance.locale.languageCode;
+    return Locale(supported.contains(device) ? device : 'en');
   }
 
   void setLocale(Locale newLocale) {

@@ -32,9 +32,10 @@ void main() async {
   final notifService = NotificationService();
   await notifService.init();
   if (await notifService.isEnabled()) {
-    final locale = appProvider.locale ?? const Locale('en');
-    final l = lookupAppLocalizations(locale);
-    await notifService.scheduleAllNotifications(l);
+    // The user's own reminders, not the old fixed timetable, and in the
+    // language the app is actually running in.
+    final l = lookupAppLocalizations(appProvider.effectiveLocale);
+    await notifService.scheduleReminders(appProvider.reminders, l);
   }
 
   // Initialize RevenueCat
