@@ -38,7 +38,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   // ── Basic profile ────────────────────────────────────────────────────────────
   String   _gender    = 'male';
-  DateTime _birthDate = DateTime(2008, 1, 1);
+  // Starts mid-range rather than on a fixed year, so the wheel always opens on
+  // a value the picker actually offers.
+  DateTime _birthDate = DateTime(DateTime.now().year - 17, 1, 1);
 
   // ── Height / Weight (metric stored internally) ───────────────────────────────
   bool _heightImperial = false;
@@ -1231,7 +1233,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               ),
               const SizedBox(height: 5),
               Text(
-                'yaş',
+                AppLocalizations.of(context)!.ageLabel,
                 style: TextStyle(
                   fontSize: isSelected ? 11 : 9,
                   fontWeight: FontWeight.w700,
@@ -2508,9 +2510,23 @@ class _BirthDatePickers extends StatefulWidget {
   State<_BirthDatePickers> createState() => _BirthDatePickersState();
 }
 
+/// Youngest and oldest birth years the picker offers.
+///
+/// 9 matches the App Store age rating the app already ships under, so nobody
+/// the live version serves is locked out. Both bounds are derived from today,
+/// so the list no longer goes stale the way a hardcoded "2024" did — that one
+/// had drifted to offering 2-year-olds while capping the newest year in the
+/// past.
+const int kMinimumAge = 9;
+const int kMaximumAge = 45;
+
 class _BirthDatePickersState extends State<_BirthDatePickers> {
-  static final _days  = List.generate(31, (i) => '${i + 1}');
-  static final _years = List.generate(36, (i) => '${2024 - i}');
+  static final _days = List.generate(31, (i) => '${i + 1}');
+  static final int _newestYear = DateTime.now().year - kMinimumAge;
+  static final _years = List.generate(
+    kMaximumAge - kMinimumAge + 1,
+    (i) => '${_newestYear - i}',
+  );
 
   late FixedExtentScrollController _mCtrl;
   late FixedExtentScrollController _dCtrl;
@@ -2528,7 +2544,9 @@ class _BirthDatePickersState extends State<_BirthDatePickers> {
     _year  = widget.initialDate.year;
     _mCtrl = FixedExtentScrollController(initialItem: _month - 1);
     _dCtrl = FixedExtentScrollController(initialItem: _day - 1);
-    _yCtrl = FixedExtentScrollController(initialItem: (2024 - _year).clamp(0, 35));
+    _yCtrl = FixedExtentScrollController(
+      initialItem: (_newestYear - _year).clamp(0, _years.length - 1),
+    );
   }
 
   @override
@@ -2573,7 +2591,7 @@ class _BirthDatePickersState extends State<_BirthDatePickers> {
           child: _RawPicker(
             controller: _yCtrl,
             items: _years,
-            onChanged: (i) { _year = 2024 - i; _notify(); },
+            onChanged: (i) { _year = _newestYear - i; _notify(); },
           ),
         ),
       ],

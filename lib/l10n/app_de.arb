@@ -965,5 +965,14 @@
 
   "youLabel": "Du",
 
-  "fallingBehind": "Du liegst zurück"
+  "fallingBehind": "Du liegst zurück",
+
+  "readTimeMinutes": "{minutes} Min. Lesezeit",
+  "inThisArticle": "In diesem Artikel",
+  "nextArticle": "Nächster Artikel",
+
+  "purchaseUnavailable": "Kauf konnte nicht abgeschlossen werden. Bitte versuche es erneut.",
+  "viewPlan": "Plan ansehen",
+  "viewPlanSubtitle": "Deine Abodetails ansehen",
+  "predictionConfidenceHint": "Mit jeder Messung steigt die Prognose auf {percent}%"
 }

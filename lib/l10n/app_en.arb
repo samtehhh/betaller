@@ -1298,5 +1298,16 @@
 
   "youLabel": "You",
 
-  "fallingBehind": "Falling behind"
+  "fallingBehind": "Falling behind",
+
+  "readTimeMinutes": "{minutes} min read",
+  "@readTimeMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "inThisArticle": "In this article",
+  "nextArticle": "Next article",
+
+  "purchaseUnavailable": "Purchase could not be completed. Please try again.",
+  "viewPlan": "View Plan",
+  "viewPlanSubtitle": "See your subscription details",
+  "predictionConfidenceHint": "Adding height measurements takes the prediction to {percent}%",
+  "@predictionConfidenceHint": {"placeholders": {"percent": {"type": "String"}}}
 }

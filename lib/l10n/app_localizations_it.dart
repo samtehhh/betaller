@@ -3850,4 +3850,30 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get fallingBehind => 'Stai rimanendo indietro';
+
+  @override
+  String readTimeMinutes(int minutes) {
+    return '$minutes min di lettura';
+  }
+
+  @override
+  String get inThisArticle => 'In questo articolo';
+
+  @override
+  String get nextArticle => 'Articolo successivo';
+
+  @override
+  String get purchaseUnavailable =>
+      'Non è stato possibile completare l\'acquisto. Riprova.';
+
+  @override
+  String get viewPlan => 'Vedi piano';
+
+  @override
+  String get viewPlanSubtitle => 'Consulta i dettagli del tuo abbonamento';
+
+  @override
+  String predictionConfidenceHint(String percent) {
+    return 'Ogni misurazione porta la previsione al $percent%';
+  }
 }

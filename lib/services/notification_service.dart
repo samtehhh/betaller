@@ -27,10 +27,14 @@ class NotificationService {
     }
 
     const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
+    // Permission is NOT requested here. init() runs during app start-up, and
+    // asking on the very first frame — before the user has seen what reminders
+    // are for — is the fastest way to get a permanent "Don't allow".
+    // requestPermission() does the asking, when the user turns reminders on.
     const iosSettings = DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: false,
     );
 
     await _plugin.initialize(
@@ -43,6 +47,16 @@ class NotificationService {
         AndroidFlutterLocalNotificationsPlugin>();
     if (android != null) {
       final granted = await android.requestNotificationsPermission();
+      return granted ?? false;
+    }
+    final ios = _plugin.resolvePlatformSpecificImplementation<
+        IOSFlutterLocalNotificationsPlugin>();
+    if (ios != null) {
+      final granted = await ios.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
       return granted ?? false;
     }
     return true;

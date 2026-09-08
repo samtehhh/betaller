@@ -3827,4 +3827,30 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get fallingBehind => 'पिछड़ रहे हैं';
+
+  @override
+  String readTimeMinutes(int minutes) {
+    return '$minutes मिनट पढ़ें';
+  }
+
+  @override
+  String get inThisArticle => 'इस लेख में';
+
+  @override
+  String get nextArticle => 'अगला लेख';
+
+  @override
+  String get purchaseUnavailable =>
+      'खरीद पूरी नहीं हो सकी। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get viewPlan => 'प्लान देखें';
+
+  @override
+  String get viewPlanSubtitle => 'अपनी सदस्यता का विवरण देखें';
+
+  @override
+  String predictionConfidenceHint(String percent) {
+    return 'हर माप जोड़ने पर अनुमान $percent% तक पहुँचता है';
+  }
 }

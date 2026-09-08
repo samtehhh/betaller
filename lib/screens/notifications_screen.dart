@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../l10n/app_localizations.dart';
@@ -8,6 +9,18 @@ import '../models/reminder.dart';
 import '../providers/app_provider.dart';
 import '../services/notification_service.dart';
 import '../utils/constants.dart';
+
+/// Short weekday names, Monday first, in the language the app is showing.
+/// Hardcoding them left Turkish abbreviations on every other locale.
+List<String> _shortWeekdays(BuildContext context) {
+  final locale = Localizations.localeOf(context).toLanguageTag();
+  final format = DateFormat.E(locale);
+  // 2024-01-01 is a Monday, so the offsets line up with DateTime.weekday.
+  final monday = DateTime(2024, 1, 1);
+  return [
+    for (var i = 0; i < 7; i++) format.format(monday.add(Duration(days: i))),
+  ];
+}
 
 /// Everything the app is allowed to interrupt the user for, in one place: the
 /// built-in reminders they can retime or switch off, and their own.
@@ -90,7 +103,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   String _daysLabel(AppLocalizations l, Reminder r) {
     if (r.isDaily) return l.reminderEveryDay;
-    const short = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+    final short = _shortWeekdays(context);
     final days = [...r.weekdays]..sort();
     return days.map((d) => short[(d - 1) % 7]).join(', ');
   }
@@ -562,7 +575,7 @@ class _ReminderEditorState extends State<_ReminderEditor> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    const short = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+    final short = _shortWeekdays(context);
 
     return Container(
       padding: EdgeInsets.fromLTRB(

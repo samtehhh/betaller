@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -113,13 +115,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const Text(
-                                        'Premium\'a Geç',
-                                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                                      Text(
+                                        l.premium,
+                                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                                       ),
                                       const SizedBox(height: 2),
                                       Text(
-                                        'Tüm premium özelliklerin kilidini açın.',
+                                        l.premiumSubtitle,
                                         style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.8)),
                                       ),
                                     ],
@@ -368,8 +370,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           if (provider.hasPaidPremium) ...[
                             _MenuRow(
                               icon: CupertinoIcons.sparkles,
-                              label: 'Planı Görüntüle',
-                              subtitle: 'Abonelik detaylarını görüntüle',
+                              label: l.viewPlan,
+                              subtitle: l.viewPlanSubtitle,
                               color: const Color(0xFF8B5CF6),
                               onTap: () => showPremiumPaywall(context),
                             ),
@@ -450,19 +452,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Center(
                       child: Column(
                         children: [
-                          ShaderMask(
-                            shaderCallback: (bounds) => const LinearGradient(
-                              colors: [AppColors.primaryDark, AppColors.primary, AppColors.primaryLight],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ).createShader(bounds),
-                            child: const Text(
-                              'BeTaller',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.white,
-                                letterSpacing: -1,
+                          // Long-pressing the wordmark opens the debug tools
+                          // in debug builds — kept off the settings list so it
+                          // never shows up in a store screenshot.
+                          GestureDetector(
+                            onLongPress: kDebugMode
+                                ? () => _showDebugSheet(context, provider)
+                                : null,
+                            child: ShaderMask(
+                              shaderCallback: (bounds) => const LinearGradient(
+                                colors: [AppColors.primaryDark, AppColors.primary, AppColors.primaryLight],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ).createShader(bounds),
+                              child: const Text(
+                                'BeTaller',
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.white,
+                                  letterSpacing: -1,
+                                ),
                               ),
                             ),
                           ),
@@ -859,6 +869,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(height: MediaQuery.of(context).padding.bottom + 16),
                   ],
                 ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ── Debug tools ──────────────────────────────────────────────────
+  // Screenshot helpers, reachable only by long-pressing the wordmark in a
+  // debug build. Labels stay untranslated on purpose — this never ships.
+
+  void _showDebugSheet(BuildContext context, AppProvider provider) {
+    if (!kDebugMode) return;
+    HapticFeedback.mediumImpact();
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.surfaceDark,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+      ),
+      builder: (sheetContext) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.5),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Debug — ekran görüntüsü araçları',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: -0.4,
+                ),
+              ),
+              const SizedBox(height: 18),
+              _DebugRow(
+                icon: CupertinoIcons.wand_stars,
+                color: AppColors.lime,
+                label: 'Demo verisi yükle',
+                subtitle:
+                    '46 günlük kullanım: ölçümler, seri, program, XP, günlük',
+                onTap: () async {
+                  Navigator.pop(sheetContext);
+                  await provider.seedDemoData();
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Demo verisi yüklendi')),
+                  );
+                },
+              ),
+              const SizedBox(height: 10),
+              _DebugRow(
+                icon: CupertinoIcons.star_circle_fill,
+                color: AppColors.warning,
+                label: 'Premium',
+                subtitle: provider.isPremium
+                    ? 'Açık — paywall görmek için kapat'
+                    : 'Kapalı — premium ekranlar için aç',
+                trailing: provider.isPremium ? 'ON' : 'OFF',
+                onTap: () {
+                  provider.setPremium(!provider.isPremium);
+                  Navigator.pop(sheetContext);
+                },
               ),
             ],
           ),
@@ -1383,6 +1470,76 @@ class _Chip extends StatelessWidget {
           fontSize: 11,
           fontWeight: FontWeight.w800,
           color: color,
+        ),
+      ),
+    );
+  }
+}
+
+// ── Debug sheet row ───────────────────────────────────────────────
+
+class _DebugRow extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String label;
+  final String subtitle;
+  final String? trailing;
+  final VoidCallback onTap;
+
+  const _DebugRow({
+    required this.icon,
+    required this.color,
+    required this.label,
+    required this.subtitle,
+    required this.onTap,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.04),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: color.withValues(alpha: 0.25)),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 22, color: color),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1.35,
+                      color: AppColors.textTertiary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (trailing != null) ...[
+              const SizedBox(width: 10),
+              _Chip(text: trailing!, color: color),
+            ],
+          ],
         ),
       ),
     );

@@ -938,5 +938,14 @@
 
   "youLabel": "Tú",
 
-  "fallingBehind": "Te estás quedando atrás"
+  "fallingBehind": "Te estás quedando atrás",
+
+  "readTimeMinutes": "{minutes} min de lectura",
+  "inThisArticle": "En este artículo",
+  "nextArticle": "Siguiente artículo",
+
+  "purchaseUnavailable": "No se pudo completar la compra. Inténtalo de nuevo.",
+  "viewPlan": "Ver plan",
+  "viewPlanSubtitle": "Consulta los detalles de tu suscripción",
+  "predictionConfidenceHint": "Cada medición añadida lleva la predicción al {percent} %"
 }

@@ -3,7 +3,10 @@ import 'dart:ui' show PlatformDispatcher;
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user_profile.dart';
@@ -1031,11 +1034,217 @@ class AppProvider extends ChangeNotifier {
     _routineHistory = {};
     _reminders = List<Reminder>.from(kDefaultReminders);
     _journeyProgress = 0;
+    // v5 state — without these a reset leaves the old journal, tracker and
+    // program history behind, which reads as a half-wiped account.
+    _progressPhotos = [];
+    _postureAnalyses = [];
+    _customRoutines = [];
+    _caffeineByDate = {};
+    _stressByDate = {};
+    _journalByDate = {};
+    _completedProgramDays = {};
+    _hiddenRoutineIds = {};
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('glowup_app_data');
 
     _initRoutines();
     notifyListeners();
+  }
+
+  // ── Demo data ────────────────────────────────────────────────────
+  // Debug-only. Fills the account with a plausible history so store and
+  // paywall screenshots have something to show instead of empty states.
+
+  String _dateKey(DateTime d) =>
+      '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+
+  /// Rewrites the account as if the app had been used for [days] days:
+  /// height measurements, routine history, streak, program progress, XP,
+  /// wellness logs and challenges. Keeps the profile and premium flag.
+  /// No-op outside debug builds.
+  Future<void> seedDemoData({int days = 46}) async {
+    if (!kDebugMode) return;
+
+    final today = DateTime.now();
+    final startedAt = today.subtract(Duration(days: days - 1));
+
+    // ── Profile stays, but the join date has to fit the history ──
+    if (_profile != null) {
+      _profile = UserProfile.fromJson({
+        ..._profile!.toJson(),
+        'createdAt': startedAt.toIso8601String(),
+      });
+    }
+
+    // ── Height measurements: ten readings, +1.1 cm over the window ──
+    final endHeight = _profile?.currentHeight ?? 170.0;
+    const cumulativeGain = [0.0, 0.1, 0.3, 0.4, 0.5, 0.6, 0.8, 0.9, 1.0, 1.1];
+    _heightRecords = [
+      for (var i = 0; i < cumulativeGain.length; i++)
+        HeightRecord(
+          date: _dateKey(
+            startedAt.add(
+              Duration(
+                days: ((days - 1) * i / (cumulativeGain.length - 1)).round(),
+              ),
+            ),
+          ),
+          height: double.parse(
+            (endHeight - cumulativeGain.last + cumulativeGain[i])
+                .toStringAsFixed(1),
+          ),
+        ),
+    ];
+
+    // ── Routine history: mostly complete, with a few off days early on ──
+    _routineHistory = {};
+    for (var back = days - 1; back >= 1; back--) {
+      final date = today.subtract(Duration(days: back));
+      final plan = dailyPlanIds(date);
+      // The last ten days run clean so the streak on screen is believable.
+      final double ratio;
+      if (back <= 10) {
+        ratio = 1.0;
+      } else if (back % 11 == 3) {
+        ratio = 0.5;
+      } else if (back % 7 == 5) {
+        ratio = 0.75;
+      } else {
+        ratio = 1.0;
+      }
+      _routineHistory[_dateKey(date)] = plan
+          .take((plan.length * ratio).round())
+          .toList();
+    }
+
+    // ── Today: one item left open, so the ring reads as in progress ──
+    final todayPlan = dailyPlanIds(today);
+    _completedRoutineIds = todayPlan.take(todayPlan.length - 1).toList();
+    _lastRoutineDate = _dateKey(today);
+    _lastAllCompletedDate = _dateKey(today.subtract(const Duration(days: 1)));
+
+    // ── Streak: count the unbroken run of full days ending yesterday ──
+    var streak = 0;
+    for (var back = 1; back < days; back++) {
+      final date = today.subtract(Duration(days: back));
+      final plan = dailyPlanIds(date);
+      final done = _routineHistory[_dateKey(date)] ?? const <String>[];
+      if (plan.isNotEmpty && done.length >= plan.length) {
+        streak++;
+      } else {
+        break;
+      }
+    }
+    _streak = streak;
+    _bestStreak = streak > 21 ? streak : 21;
+
+    // ── 70-day discipline program: everything but today's step ──
+    _completedProgramDays = {for (var i = 0; i < days - 1; i++) i};
+
+    // ── Wellness logs ──
+    _caffeineByDate = {};
+    _stressByDate = {};
+    _journalByDate = {};
+    for (var back = days - 1; back >= 0; back--) {
+      final key = _dateKey(today.subtract(Duration(days: back)));
+      _caffeineByDate[key] = 30 + (back * 17) % 70;
+      _stressByDate[key] = 1 + back % 3;
+      // Note left blank on purpose: a canned sentence would be in the wrong
+      // language the moment the screenshots are taken in another locale.
+      _journalByDate[key] = {'mood': 3 + back % 3, 'note': '', 'date': key};
+    }
+
+    final waterGoal = _profile != null
+        ? Calculations.dailyWaterNeed(_profile!.weight)
+        : 2.5;
+    // Water goal met, sleep just over target: both bars read as done.
+    _todayWater = double.parse(waterGoal.toStringAsFixed(1));
+    _todaySleep = 8.2;
+
+    // ── Level 9 of 20 — earned-looking without maxing the bar out ──
+    _totalXP = 4200;
+
+    _analysisCompleted = true;
+    _journeyProgress = 3;
+    _reviewShownOnce = true;
+
+    // Badges the history already earned are marked as seen, so seeding does
+    // not fire a burst of congratulation notifications.
+    _announcedAchievements = {
+      for (final a in unlockedAchievements)
+        if (a['earned'] == true) a['id'] as String,
+    };
+    _pendingAchievementNotices = [];
+
+    // ── Challenges: fresh set for today, the first two already claimed and
+    // the rest one step short, so the card shows both states at once ──
+    _activeChallenges = [];
+    _lastChallengeDate = '';
+    _dailyChallengeProgress = {};
+    _checkAndGenerateChallenges();
+    _activeChallenges = [
+      for (var i = 0; i < _activeChallenges.length; i++)
+        if (i < 2)
+          {..._activeChallenges[i], 'progress': _activeChallenges[i]['target'], 'completed': true}
+        else
+          {
+            ..._activeChallenges[i],
+            'progress': (_activeChallenges[i]['target'] as int) > 1
+                ? (_activeChallenges[i]['target'] as int) - 1
+                : 0,
+          },
+    ];
+
+    // ── Progress photos: a before/after pair from bundled stand-ins ──
+    await _seedDemoPhotos(startedAt, today);
+
+    _initRoutines();
+    await _saveData();
+    notifyListeners();
+  }
+
+  /// Copies the bundled demo shots into the same folder the camera flow writes
+  /// to, then registers them, so the gallery and the before/after comparison
+  /// have real files to read. Leaves the list untouched if the copy fails.
+  Future<void> _seedDemoPhotos(DateTime startedAt, DateTime today) async {
+    const sources = [
+      ('assets/demo/posture_before.png', 0),
+      ('assets/demo/posture_after.png', 1),
+    ];
+    try {
+      final appDir = await getApplicationDocumentsDirectory();
+      final photosDir = Directory('${appDir.path}/progress_photos');
+      if (!photosDir.existsSync()) photosDir.createSync(recursive: true);
+
+      final first = _heightRecords.isNotEmpty
+          ? _heightRecords.first.height
+          : (_profile?.currentHeight ?? 170.0);
+      final last = _heightRecords.isNotEmpty
+          ? _heightRecords.last.height
+          : (_profile?.currentHeight ?? 170.0);
+
+      final photos = <Map<String, dynamic>>[];
+      for (final (asset, index) in sources) {
+        final bytes = await rootBundle.load(asset);
+        final file = File('${photosDir.path}/demo_$index.jpg');
+        await file.writeAsBytes(
+          bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes),
+          flush: true,
+        );
+        final date = index == 0 ? startedAt : today;
+        photos.add({
+          'id': 'demo_$index',
+          'date': _dateKey(date),
+          'path': file.path,
+          'height': index == 0 ? first : last,
+        });
+      }
+      _progressPhotos = photos;
+    } catch (_) {
+      // Asset missing or storage unavailable — better an empty gallery than
+      // rows pointing at files that are not there.
+      _progressPhotos = [];
+    }
   }
 }

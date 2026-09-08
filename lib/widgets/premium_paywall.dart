@@ -114,11 +114,6 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
   Future<void> _purchase(Package? pkg, {StoreProduct? product}) async {
     if (_purchasing) return;
     HapticFeedback.mediumImpact();
-    if (Platform.isAndroid) {
-      context.read<AppProvider>().setPremium(true);
-      if (widget.dismissible && context.mounted) Navigator.pop(context, true);
-      return;
-    }
     setState(() => _purchasing = true);
     bool ok = false;
     if (pkg != null) {
@@ -126,13 +121,28 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     } else if (product != null) {
       ok = await PurchaseService().purchaseProduct(product);
     }
-    if (mounted) {
-      setState(() => _purchasing = false);
-      if (ok) {
-        context.read<AppProvider>().setPremium(true);
-        if (widget.dismissible && context.mounted) Navigator.pop(context, true);
-      }
+    if (!mounted) return;
+    setState(() => _purchasing = false);
+    if (ok) {
+      context.read<AppProvider>().setPremium(true);
+      if (widget.dismissible) Navigator.pop(context, true);
+    } else {
+      _showStoreUnavailable();
     }
+  }
+
+  /// The store said no — a cancelled sheet, an unreachable billing service, or
+  /// a build whose RevenueCat key is not configured. Either way the user needs
+  /// to see that nothing was bought.
+  void _showStoreUnavailable() {
+    if (!mounted) return;
+    final l = AppLocalizations.of(context)!;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(l.purchaseUnavailable),
+        backgroundColor: AppColors.surfaceDark,
+      ),
+    );
   }
 
   Future<void> _redeemPromoCode() async {
@@ -140,32 +150,29 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
     await Purchases.presentCodeRedemptionSheet();
     if (!mounted) return;
     final ok = await PurchaseService().checkEntitlement();
+    if (!mounted) return;
     if (ok) {
       context.read<AppProvider>().setPremium(true);
-      if (widget.dismissible && context.mounted) Navigator.pop(context, true);
+      if (widget.dismissible) Navigator.pop(context, true);
     }
   }
 
   Future<void> _restore() async {
-    // Android test mode: bypass restore flow
-    if (Platform.isAndroid) {
-      context.read<AppProvider>().setPremium(true);
-      if (widget.dismissible && context.mounted) Navigator.pop(context, true);
-      return;
-    }
     setState(() => _purchasing = true);
     final ok = await PurchaseService().restore();
-    if (mounted) {
-      setState(() => _purchasing = false);
-      if (ok) {
-        context.read<AppProvider>().setPremium(true);
-        if (widget.dismissible && context.mounted) Navigator.pop(context, true);
-      } else {
-        final l = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l.paywallRestore), backgroundColor: AppColors.surfaceDark),
-        );
-      }
+    if (!mounted) return;
+    setState(() => _purchasing = false);
+    if (ok) {
+      context.read<AppProvider>().setPremium(true);
+      if (widget.dismissible) Navigator.pop(context, true);
+    } else {
+      final l = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l.paywallRestore),
+          backgroundColor: AppColors.surfaceDark,
+        ),
+      );
     }
   }
 
@@ -312,13 +319,18 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                     if (!_loading)
                       Builder(
                         builder: (context) {
-                          final isTr = Localizations.localeOf(context).languageCode == 'tr';
-                          final defaultMonthlyPrice = isTr ? '₺149,99' : '\$11.99';
-                          final defaultAnnualPrice = isTr ? '₺999,99' : '\$49.99';
-
-                          final monthlyPriceString = monthly?.storeProduct.priceString ?? directMonthly?.priceString ?? defaultMonthlyPrice;
-                          final annualPriceString = annual?.storeProduct.priceString ?? directAnnual?.priceString ?? defaultAnnualPrice;
-
+                          // Prices come from the store or not at all. Falling
+                          // back to a hardcoded figure showed a Turkish lira
+                          // amount to every locale whenever the offering
+                          // failed to load — the wrong currency and, after any
+                          // price change, the wrong number. Both stores treat
+                          // that as misleading pricing.
+                          final monthlyPriceString =
+                              monthly?.storeProduct.priceString ??
+                              directMonthly?.priceString;
+                          final annualPriceString =
+                              annual?.storeProduct.priceString ??
+                              directAnnual?.priceString;
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
@@ -1050,7 +1062,10 @@ class _Feature {
 class _PlanPill extends StatelessWidget {
   final bool selected;
   final String label;
-  final String price;
+
+  /// The store's own price string, or null when the offering has not loaded.
+  /// Never a hardcoded stand-in — see the note where this is built.
+  final String? price;
   final String note;
   final Color glowColor;
   final VoidCallback onTap;
@@ -1091,7 +1106,7 @@ class _PlanPill extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 4),
-            Text(price, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: selected ? Colors.white : Colors.white.withValues(alpha: 0.45), letterSpacing: -0.5, height: 1.0)),
+            Text(price ?? '—', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: selected ? Colors.white : Colors.white.withValues(alpha: 0.45), letterSpacing: -0.5, height: 1.0)),
             if (note.isNotEmpty) ...[
               const SizedBox(height: 3),
               Text(note, style: TextStyle(fontSize: 9.5, color: selected ? glowColor.withValues(alpha: 0.80) : Colors.white.withValues(alpha: 0.30), fontWeight: FontWeight.w500)),

@@ -44,3 +44,6 @@ dist-ssr/
 .claude/
 devtools_options.yaml
 pubspec.lock
+
+# Android upload signing — never commit
+android/key.properties

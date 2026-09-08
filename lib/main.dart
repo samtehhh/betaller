@@ -1,3 +1,4 @@
+import 'dart:async' show unawaited;
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,21 +26,13 @@ void main() async {
     systemNavigationBarIconBrightness: Brightness.light,
   ));
 
+  // The stored profile decides what the first frame looks like, so this one
+  // has to finish first. Everything else is started after the UI is up —
+  // awaiting the notification and billing SDKs here left the user staring at a
+  // blank screen for as long as they took, and a hang in either one meant the
+  // app never drew at all.
   final appProvider = AppProvider();
   await appProvider.loadData();
-
-  // Initialize notifications
-  final notifService = NotificationService();
-  await notifService.init();
-  if (await notifService.isEnabled()) {
-    // The user's own reminders, not the old fixed timetable, and in the
-    // language the app is actually running in.
-    final l = lookupAppLocalizations(appProvider.effectiveLocale);
-    await notifService.scheduleReminders(appProvider.reminders, l);
-  }
-
-  // Initialize RevenueCat
-  await PurchaseService().init();
 
   runApp(
     ChangeNotifierProvider.value(
@@ -47,6 +40,31 @@ void main() async {
       child: const BeTallerApp(),
     ),
   );
+
+  unawaited(_initServices(appProvider));
+}
+
+/// Notifications and billing, off the start-up path. Failures are contained:
+/// a dead store connection must not take the rest of the app down with it.
+Future<void> _initServices(AppProvider appProvider) async {
+  try {
+    final notifService = NotificationService();
+    await notifService.init();
+    if (await notifService.isEnabled()) {
+      // The user's own reminders, not the old fixed timetable, and in the
+      // language the app is actually running in.
+      final l = lookupAppLocalizations(appProvider.effectiveLocale);
+      await notifService.scheduleReminders(appProvider.reminders, l);
+    }
+  } catch (e) {
+    debugPrint('Notification init failed: $e');
+  }
+
+  try {
+    await PurchaseService().init();
+  } catch (e) {
+    debugPrint('Purchase init failed: $e');
+  }
 }
 
 class BeTallerApp extends StatelessWidget {

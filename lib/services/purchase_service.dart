@@ -11,9 +11,19 @@ class PurchaseService {
   factory PurchaseService() => _instance;
 
   // ── RevenueCat API Keys ────────────────────────────────────────
-  // Replace with your production keys from RevenueCat dashboard.
-  static const _iosApiKey = 'appl_pFFwABbSJFcSbIQKDftWEIAMetk';
-  static const _androidApiKey = 'appl_pFFwABbSJFcSbIQKDftWEIAMetk';
+  // Platform-specific by design: Apple keys start with `appl_`, Google Play
+  // keys with `goog_`. They are not interchangeable — handing the SDK the
+  // wrong one leaves the store connection dead, with no purchases and no
+  // entitlements. Both can be overridden at build time, e.g.
+  //   flutter build appbundle --dart-define=RC_ANDROID_KEY=goog_xxx
+  static const _iosApiKey = String.fromEnvironment(
+    'RC_IOS_KEY',
+    defaultValue: 'appl_pFFwABbSJFcSbIQKDftWEIAMetk',
+  );
+  static const _androidApiKey = String.fromEnvironment(
+    'RC_ANDROID_KEY',
+    defaultValue: 'goog_REPLACE_WITH_YOUR_PLAY_KEY',
+  );
 
   // ── Entitlement & offering IDs (set these in RevenueCat dashboard) ──
   static const entitlementId = 'Premium';
@@ -22,11 +32,20 @@ class PurchaseService {
 
   bool _initialized = false;
 
+  /// True once the SDK is live. Everything below returns an inert answer when
+  /// it is false, so a missing key degrades to "no premium" instead of
+  /// throwing at the user.
+  bool get isInitialized => _initialized;
+
+  /// Whether [key] is the kind of key the running platform can actually use.
+  static bool _keyMatchesPlatform(String key) =>
+      Platform.isIOS ? key.startsWith('appl_') : key.startsWith('goog_');
+
   // ── Initialize RevenueCat ──────────────────────────────────────
   Future<void> init() async {
     if (_initialized) return;
 
-    late String apiKey;
+    final String apiKey;
     if (Platform.isIOS) {
       apiKey = _iosApiKey;
     } else if (Platform.isAndroid) {
@@ -36,9 +55,25 @@ class PurchaseService {
       return;
     }
 
-    await Purchases.configure(PurchasesConfiguration(apiKey));
-    _initialized = true;
-    await Purchases.setLogLevel(LogLevel.debug);
+    if (!_keyMatchesPlatform(apiKey)) {
+      debugPrint(
+        'PurchaseService: no valid RevenueCat key for this platform '
+        '(got "${apiKey.split('_').first}_…"). Purchases stay disabled — set '
+        'the key via --dart-define=RC_ANDROID_KEY / RC_IOS_KEY.',
+      );
+      return;
+    }
+
+    try {
+      await Purchases.configure(PurchasesConfiguration(apiKey));
+      _initialized = true;
+    } catch (e) {
+      debugPrint('PurchaseService.init error: $e');
+      return;
+    }
+    // Verbose SDK logs are for development only; they leak purchase details
+    // into logcat/Console on a shipped build.
+    await Purchases.setLogLevel(kDebugMode ? LogLevel.debug : LogLevel.error);
   }
 
   // ── Check if user has premium entitlement ─────────────────────

@@ -938,5 +938,14 @@
 
   "youLabel": "आप",
 
-  "fallingBehind": "पिछड़ रहे हैं"
+  "fallingBehind": "पिछड़ रहे हैं",
+
+  "readTimeMinutes": "{minutes} मिनट पढ़ें",
+  "inThisArticle": "इस लेख में",
+  "nextArticle": "अगला लेख",
+
+  "purchaseUnavailable": "खरीद पूरी नहीं हो सकी। कृपया फिर से कोशिश करें।",
+  "viewPlan": "प्लान देखें",
+  "viewPlanSubtitle": "अपनी सदस्यता का विवरण देखें",
+  "predictionConfidenceHint": "हर माप जोड़ने पर अनुमान {percent}% तक पहुँचता है"
 }

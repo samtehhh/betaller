@@ -938,5 +938,14 @@
 
   "youLabel": "Toi",
 
-  "fallingBehind": "Tu prends du retard"
+  "fallingBehind": "Tu prends du retard",
+
+  "readTimeMinutes": "{minutes} min de lecture",
+  "inThisArticle": "Dans cet article",
+  "nextArticle": "Article suivant",
+
+  "purchaseUnavailable": "L'achat n'a pas pu être finalisé. Réessaie.",
+  "viewPlan": "Voir l'offre",
+  "viewPlanSubtitle": "Consulter les détails de ton abonnement",
+  "predictionConfidenceHint": "Chaque mesure ajoutée porte la prédiction à {percent} %"
 }

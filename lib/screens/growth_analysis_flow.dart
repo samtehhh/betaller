@@ -547,18 +547,12 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                         ),
                         const SizedBox(width: 10),
                         Flexible(
-                          child: RichText(
-                            text: TextSpan(
-                              style: TextStyle(fontSize: 11.5, color: Colors.white.withValues(alpha: 0.55), height: 1.4),
-                              children: [
-                                const TextSpan(text: 'Boy ölçümü ekledikçe tahmin '),
-                                TextSpan(
-                                  text: '%${((_prediction!.confidence + 5).clamp(0, 97))}\'e',
-                                  style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.cyan.withValues(alpha: 0.85)),
-                                ),
-                                const TextSpan(text: ' ulaşır'),
-                              ],
+                          child: Text(
+                            l.predictionConfidenceHint(
+                              ((_prediction!.confidence + 5).clamp(0, 97))
+                                  .toString(),
                             ),
+                            style: TextStyle(fontSize: 11.5, color: Colors.white.withValues(alpha: 0.55), height: 1.4),
                           ),
                         ),
                       ],

@@ -3845,4 +3845,30 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get fallingBehind => 'Geride kalıyorsun';
+
+  @override
+  String readTimeMinutes(int minutes) {
+    return '$minutes dk okuma';
+  }
+
+  @override
+  String get inThisArticle => 'Bu makalede';
+
+  @override
+  String get nextArticle => 'Sonraki makale';
+
+  @override
+  String get purchaseUnavailable =>
+      'Satın alma tamamlanamadı. Lütfen tekrar dene.';
+
+  @override
+  String get viewPlan => 'Planı Görüntüle';
+
+  @override
+  String get viewPlanSubtitle => 'Abonelik detaylarını görüntüle';
+
+  @override
+  String predictionConfidenceHint(String percent) {
+    return 'Boy ölçümü ekledikçe tahmin %$percent\'e ulaşır';
+  }
 }

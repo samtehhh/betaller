@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <!-- No SCHEDULE_EXACT_ALARM on purpose: every reminder is scheduled with
+         AndroidScheduleMode.inexactAllowWhileIdle, so the restricted permission
+         would be unused and Play requires a justification form for it. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <application

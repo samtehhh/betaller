@@ -7105,6 +7105,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Falling behind'**
   String get fallingBehind;
+
+  /// No description provided for @readTimeMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min read'**
+  String readTimeMinutes(int minutes);
+
+  /// No description provided for @inThisArticle.
+  ///
+  /// In en, this message translates to:
+  /// **'In this article'**
+  String get inThisArticle;
+
+  /// No description provided for @nextArticle.
+  ///
+  /// In en, this message translates to:
+  /// **'Next article'**
+  String get nextArticle;
+
+  /// No description provided for @purchaseUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase could not be completed. Please try again.'**
+  String get purchaseUnavailable;
+
+  /// No description provided for @viewPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'View Plan'**
+  String get viewPlan;
+
+  /// No description provided for @viewPlanSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See your subscription details'**
+  String get viewPlanSubtitle;
+
+  /// No description provided for @predictionConfidenceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Adding height measurements takes the prediction to {percent}%'**
+  String predictionConfidenceHint(String percent);
 }
 
 class _AppLocalizationsDelegate

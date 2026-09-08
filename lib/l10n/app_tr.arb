@@ -1241,5 +1241,14 @@
 
   "youLabel": "Sen",
 
-  "fallingBehind": "Geride kalıyorsun"
+  "fallingBehind": "Geride kalıyorsun",
+
+  "readTimeMinutes": "{minutes} dk okuma",
+  "inThisArticle": "Bu makalede",
+  "nextArticle": "Sonraki makale",
+
+  "purchaseUnavailable": "Satın alma tamamlanamadı. Lütfen tekrar dene.",
+  "viewPlan": "Planı Görüntüle",
+  "viewPlanSubtitle": "Abonelik detaylarını görüntüle",
+  "predictionConfidenceHint": "Boy ölçümü ekledikçe tahmin %{percent}'e ulaşır"
 }

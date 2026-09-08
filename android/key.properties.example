@@ -1,0 +1,17 @@
+# Copy this file to android/key.properties and fill in your own values.
+# key.properties and the .jks itself are gitignored — never commit them, and
+# keep a backup somewhere safe: losing the upload key means you can no longer
+# push updates to the same Play listing.
+#
+# Create the keystore once:
+#
+#   keytool -genkey -v -keystore %USERPROFILE%\betaller-upload.jks \
+#           -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 \
+#           -alias betaller
+#
+# Then point storeFile at the file you just created.
+
+storePassword=CHANGE_ME
+keyPassword=CHANGE_ME
+keyAlias=betaller
+storeFile=C:/Users/YOUR_NAME/betaller-upload.jks
