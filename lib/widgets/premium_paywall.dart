@@ -210,7 +210,13 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
             final topPad = MediaQuery.of(context).padding.top;
             // The device panel owns the top of the screen; the purchase sheet
             // rises over its bottom edge.
-            final heroH = (box.maxHeight * 0.46).clamp(220.0, 460.0);
+            //
+            // A flat 46% left the copy roughly 135pt on a 667pt screen (SE,
+            // iPhone 8) for text that wants ~200, so the headline was cut in
+            // half and the description vanished. Short screens give the mockup
+            // less, and the copy below scrolls, so no phone or language clips.
+            final heroFraction = box.maxHeight < 720 ? 0.34 : 0.46;
+            final heroH = (box.maxHeight * heroFraction).clamp(190.0, 460.0);
 
             return Stack(
               children: [
@@ -421,8 +427,13 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                       ),
                       const SizedBox(height: 6),
                     ],
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    // Wrap, not Row: these two links are required on the
+                    // purchase screen, and in German on a 320pt phone they do
+                    // not fit side by side. Better a second line than a clipped
+                    // one.
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         GestureDetector(
                           onTap: () => launchUrl(Uri.parse('https://samtehhh.github.io/betaller/privacy.html')),
@@ -462,11 +473,18 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                         )
                       else
                         const SizedBox.shrink(),
-                      GestureDetector(
-                        onTap: _restore,
-                        child: Text(
-                          l.paywallRestoreLabel,
-                          style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.35)),
+                      // "Restore Purchases" runs long in several languages and
+                      // sat next to the close button with nothing to give.
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: _restore,
+                          child: Text(
+                            l.paywallRestoreLabel,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.end,
+                            style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.35)),
+                          ),
                         ),
                       ),
                     ],
@@ -533,8 +551,10 @@ class _FeaturePage extends StatelessWidget {
           child: AnimatedBuilder(
             animation: fadeSlide,
             builder: (_, child) => Opacity(opacity: fadeSlide.value.clamp(0.0, 1.0), child: child),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 22, 24, 0),
+            // Scrolls rather than clips: German and French wrap onto extra
+            // lines, and a large accessibility text size adds more still.
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(24, 22, 24, 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -557,9 +577,16 @@ class _FeaturePage extends StatelessWidget {
                           style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900, color: f.glowColor, letterSpacing: -0.3),
                         ),
                         const SizedBox(width: 5),
-                        Text(
-                          f.unit(l),
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: f.glowColor.withValues(alpha: 0.80)),
+                        // The unit label is a phrase, not a word, and runs long
+                        // in several languages — it gives way before the pill
+                        // can push past the screen edge.
+                        Flexible(
+                          child: Text(
+                            f.unit(l),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: f.glowColor.withValues(alpha: 0.80)),
+                          ),
                         ),
                       ],
                     ),
@@ -1094,13 +1121,30 @@ class _PlanPill extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: selected ? Colors.white : Colors.white.withValues(alpha: 0.45))),
+                // Expanded keeps the badge pinned right, the way a Spacer did,
+                // but lets a long plan name ellipsize instead of shoving the
+                // badge off the pill.
+                Expanded(
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: selected ? Colors.white : Colors.white.withValues(alpha: 0.45)),
+                  ),
+                ),
                 if (showBadge) ...[
-                  const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(color: glowColor.withValues(alpha: 0.20), borderRadius: BorderRadius.circular(5)),
-                    child: Text(badgeText ?? '', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: glowColor, letterSpacing: 0.5)),
+                  const SizedBox(width: 6),
+                  Flexible(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(color: glowColor.withValues(alpha: 0.20), borderRadius: BorderRadius.circular(5)),
+                      child: Text(
+                        badgeText ?? '',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: glowColor, letterSpacing: 0.5),
+                      ),
+                    ),
                   ),
                 ],
               ],
