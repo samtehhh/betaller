@@ -12,6 +12,7 @@ workflows:
         - ios_credentials
       vars:
         BUNDLE_ID: com.glowup.boyuzatmaApp.33JY92T594
+        APP_STORE_APP_ID: "6761445065"
     scripts:
       - name: Initialize keychain
         script: keychain initialize
@@ -34,8 +35,32 @@ workflows:
         script: |
           cd ios
           pod install
+      - name: Pick a build number App Store Connect has not seen
+        script: |
+          # App Store Connect rejects an upload whose build number was used
+          # before, and it is easy to push a code change and forget to bump it.
+          # Ask the store what the highest number is and go one past it.
+          #
+          # Deliberately non-fatal: if this lookup fails for any reason the
+          # step says so and BUILD_NUMBER stays unset, and the build below
+          # falls back to the number in pubspec.yaml — exactly what happened
+          # before this step existed. It can slow a build down, never break it.
+          LATEST=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID" 2>/dev/null || true)
+          if echo "$LATEST" | grep -Eq '^[0-9]+$'; then
+            NEXT=$((LATEST + 1))
+            echo "BUILD_NUMBER=$NEXT" >> "$CM_ENV"
+            echo "Highest build on TestFlight is $LATEST — this one goes up as $NEXT."
+          else
+            echo "Could not read the latest build number (got: '$LATEST')."
+            echo "Falling back to the version in pubspec.yaml."
+          fi
       - name: Build IPA
-        script: flutter build ipa --release --verbose
+        script: |
+          if [ -n "$BUILD_NUMBER" ]; then
+            flutter build ipa --release --build-number="$BUILD_NUMBER" --verbose
+          else
+            flutter build ipa --release --verbose
+          fi
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:
