@@ -36,7 +36,11 @@ class LeaderboardScreen extends StatelessWidget {
       isMale: isMale,
       ethnicity: ethnicity,
     );
-    final refs = HeightReference.referenceHeights(age, isMale, ethnicity: ethnicity);
+    final refs = HeightReference.referenceHeights(
+      age,
+      isMale,
+      ethnicity: ethnicity,
+    );
 
     // pastHeights'tan HeightRecord listesi türet (analysis flow'dan girilen geçmiş boylar)
     final pastHeightRecords = provider.pastHeights.entries.map((e) {
@@ -187,8 +191,7 @@ class _HeroPercentileCard extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     final diff = heightCm - mean;
     final isAbove = diff >= 0;
-    final diffStr =
-        '${isAbove ? '+' : '-'}${diff.abs().toStringAsFixed(1)} cm';
+    final diffStr = '${isAbove ? '+' : '-'}${diff.abs().toStringAsFixed(1)} cm';
 
     Color accent;
     String standing;
@@ -249,7 +252,7 @@ class _HeroPercentileCard extends StatelessWidget {
                       textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
-                          '${heightCm.toStringAsFixed(1)}',
+                          heightCm.toStringAsFixed(1),
                           style: const TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.w900,
@@ -284,20 +287,22 @@ class _HeroPercentileCard extends StatelessWidget {
                       letterSpacing: -0.8,
                       shadows: [
                         Shadow(
-                            color: accent.withValues(alpha: 0.45),
-                            blurRadius: 16)
+                          color: accent.withValues(alpha: 0.45),
+                          blurRadius: 16,
+                        ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 6),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 5),
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
                     decoration: BoxDecoration(
                       color: accent.withValues(alpha: 0.14),
                       borderRadius: BorderRadius.circular(999),
-                      border:
-                          Border.all(color: accent.withValues(alpha: 0.34)),
+                      border: Border.all(color: accent.withValues(alpha: 0.34)),
                     ),
                     child: Text(
                       standing,
@@ -380,9 +385,10 @@ class _HeroPercentileCard extends StatelessWidget {
                 icon: CupertinoIcons.person_fill,
               ),
               Container(
-                  width: 1,
-                  height: 40,
-                  color: Colors.white.withValues(alpha: 0.08)),
+                width: 1,
+                height: 40,
+                color: Colors.white.withValues(alpha: 0.08),
+              ),
               _StatCol(
                 label: l.peerAvg(age),
                 value: '${mean.toStringAsFixed(1)} cm',
@@ -390,9 +396,10 @@ class _HeroPercentileCard extends StatelessWidget {
                 icon: CupertinoIcons.group_solid,
               ),
               Container(
-                  width: 1,
-                  height: 40,
-                  color: Colors.white.withValues(alpha: 0.08)),
+                width: 1,
+                height: 40,
+                color: Colors.white.withValues(alpha: 0.08),
+              ),
               _StatCol(
                 label: isAbove ? l.aboveAvg : l.belowAvg,
                 value: diffStr,
@@ -590,11 +597,7 @@ class _PopulationBarChart extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Container(
-                            width: 2,
-                            height: 6,
-                            color: Colors.white,
-                          ),
+                          Container(width: 2, height: 6, color: Colors.white),
                           Container(
                             width: 12,
                             height: 12,
@@ -645,11 +648,11 @@ class _PopulationBarChart extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _LegendDot(color: AppColors.orange,  label: l.legendShort),
+              _LegendDot(color: AppColors.orange, label: l.legendShort),
               _LegendDot(color: AppColors.warning, label: l.legendBelowAvg),
-              _LegendDot(color: AppColors.lime,    label: l.legendAverage),
-              _LegendDot(color: AppColors.cyan,    label: l.legendTall),
-              _LegendDot(color: color,             label: l.legendVeryTall),
+              _LegendDot(color: AppColors.lime, label: l.legendAverage),
+              _LegendDot(color: AppColors.cyan, label: l.legendTall),
+              _LegendDot(color: color, label: l.legendVeryTall),
             ],
           ),
         ],
@@ -737,10 +740,7 @@ class _ReferenceTable extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            height: 1,
-            color: Colors.white.withValues(alpha: 0.06),
-          ),
+          Container(height: 1, color: Colors.white.withValues(alpha: 0.06)),
           // Rows
           ...ages.map((a) {
             final isUserAge = a == age;
@@ -765,7 +765,10 @@ class _ReferenceTable extends StatelessWidget {
                   final d = DateTime.tryParse(r.date);
                   if (d == null) continue;
                   final diff = (d.year - targetYear).abs();
-                  if (diff < bestDiff) { bestDiff = diff; best = r; }
+                  if (diff < bestDiff) {
+                    bestDiff = diff;
+                    best = r;
+                  }
                 }
                 if (best != null && bestDiff <= 1) {
                   rowHeight = best.height;
@@ -780,7 +783,12 @@ class _ReferenceTable extends StatelessWidget {
             }
 
             final p = rowHeight != null
-                ? HeightReference.percentile(heightCm: rowHeight, age: a, isMale: isMale, ethnicity: ethnicity)
+                ? HeightReference.percentile(
+                    heightCm: rowHeight,
+                    age: a,
+                    isMale: isMale,
+                    ethnicity: ethnicity,
+                  )
                 : null;
 
             return Column(
@@ -809,8 +817,9 @@ class _ReferenceTable extends StatelessWidget {
                                   color: AppColors.primary,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppColors.primary
-                                          .withValues(alpha: 0.6),
+                                      color: AppColors.primary.withValues(
+                                        alpha: 0.6,
+                                      ),
                                       blurRadius: 6,
                                     ),
                                   ],
@@ -839,7 +848,9 @@ class _ReferenceTable extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
-                            color: isUserAge ? Colors.white : AppColors.textSecondary,
+                            color: isUserAge
+                                ? Colors.white
+                                : AppColors.textSecondary,
                           ),
                         ),
                       ),
@@ -855,14 +866,19 @@ class _ReferenceTable extends StatelessWidget {
                                   color: isUserAge
                                       ? AppColors.primaryBright
                                       : isFuture
-                                          ? AppColors.cyan.withValues(alpha: 0.6)
-                                          : AppColors.textSecondary,
-                                  fontStyle: isFuture ? FontStyle.italic : FontStyle.normal,
+                                      ? AppColors.cyan.withValues(alpha: 0.6)
+                                      : AppColors.textSecondary,
+                                  fontStyle: isFuture
+                                      ? FontStyle.italic
+                                      : FontStyle.normal,
                                 ),
                               )
                             : Text(
                                 '—',
-                                style: TextStyle(fontSize: 13, color: Colors.white.withValues(alpha: 0.2)),
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.white.withValues(alpha: 0.2),
+                                ),
                               ),
                       ),
                       // Yüzde
@@ -878,13 +894,18 @@ class _ReferenceTable extends StatelessWidget {
                                   color: isFuture
                                       ? _pctColor(p).withValues(alpha: 0.55)
                                       : _pctColor(p),
-                                  fontStyle: isFuture ? FontStyle.italic : FontStyle.normal,
+                                  fontStyle: isFuture
+                                      ? FontStyle.italic
+                                      : FontStyle.normal,
                                 ),
                               )
                             : Text(
                                 '—',
                                 textAlign: TextAlign.right,
-                                style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.2)),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white.withValues(alpha: 0.2),
+                                ),
                               ),
                       ),
                     ],
@@ -907,12 +928,11 @@ class _ReferenceTable extends StatelessWidget {
   // düşük topPct (100-p) = daha uzun = daha iyi renk
   Color _pctColor(double p) {
     final top = 100 - p; // gösterilen değer
-    if (top <= 25) return AppColors.lime;    // üst %25 = yeşil
-    if (top <= 50) return AppColors.cyan;    // üst %50 = mavi
+    if (top <= 25) return AppColors.lime; // üst %25 = yeşil
+    if (top <= 50) return AppColors.cyan; // üst %50 = mavi
     if (top <= 75) return AppColors.warning; // orta = sarı
-    return AppColors.orange;                 // alt çeyrek = turuncu
+    return AppColors.orange; // alt çeyrek = turuncu
   }
-
 }
 
 class _TableHeader extends StatelessWidget {
@@ -920,7 +940,11 @@ class _TableHeader extends StatelessWidget {
   final int flex;
   final TextAlign align;
 
-  const _TableHeader(this.text, {required this.flex, this.align = TextAlign.left});
+  const _TableHeader(
+    this.text, {
+    required this.flex,
+    this.align = TextAlign.left,
+  });
 
   @override
   Widget build(BuildContext context) {
