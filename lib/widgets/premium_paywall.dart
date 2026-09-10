@@ -132,13 +132,21 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
 
   void _startAutoAdvance() {
     _advance?.cancel();
-    _advance = Timer.periodic(_kSlideDuration, (_) {
-      if (!mounted || !_pageCtrl.hasClients) return;
-      _pageCtrl.nextPage(
+    // One-shot and re-armed after each move, not periodic: a tick that arrives
+    // while the last one is still animating would otherwise stack up.
+    _advance = Timer(_kSlideDuration, _advanceOnce);
+  }
+
+  Future<void> _advanceOnce() async {
+    if (!mounted) return;
+    if (_pageCtrl.hasClients) {
+      await _pageCtrl.animateToPage(
+        _rawPage + 1,
         duration: const Duration(milliseconds: 620),
         curve: Curves.easeInOutCubic,
       );
-    });
+    }
+    if (mounted) _startAutoAdvance();
   }
 
   /// The user took the wheel. Stop advancing, and hand it back only after they
@@ -489,12 +497,10 @@ class _Slide extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(20, topInset + 44, 20, 0),
-            child: _PhoneMockup(
-              accent: preview.accent,
-              screen: preview.screen(l),
-            ),
+          child: _PhoneMockup(
+            accent: preview.accent,
+            screen: preview.screen(l),
+            topInset: topInset + 44,
           ),
         ),
         const SizedBox(height: 16),
@@ -798,7 +804,16 @@ const Size _kScreenDesign = kPreviewDesignSize;
 class _PhoneMockup extends StatelessWidget {
   final Widget screen;
   final Color accent;
-  const _PhoneMockup({required this.screen, required this.accent});
+
+  /// How far down the slot the device starts, clearing the close button and
+  /// the status bar. The slot itself still reaches the top of the screen so
+  /// the glow has somewhere to spill.
+  final double topInset;
+  const _PhoneMockup({
+    required this.screen,
+    required this.accent,
+    required this.topInset,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -808,10 +823,14 @@ class _PhoneMockup extends StatelessWidget {
         // to fit its slot outright — the tour changes screens every few
         // seconds, so the whole screen should be there the moment it lands.
         const aspect = 0.485;
-        double h = c.maxHeight;
+        // The device keeps a margin of its own now that the slot runs edge to
+        // edge; only the glow is allowed past it.
+        final slotW = math.max(c.maxWidth - 40, 1.0);
+        final slotH = math.max(c.maxHeight - topInset, 1.0);
+        double h = slotH;
         double w = h * aspect;
-        if (w > c.maxWidth * 0.86) {
-          w = c.maxWidth * 0.86;
+        if (w > slotW * 0.86) {
+          w = slotW * 0.86;
           h = w / aspect;
         }
 
@@ -821,9 +840,9 @@ class _PhoneMockup extends StatelessWidget {
         // sized by width instead and bleeds off the bottom of the slot, the way
         // App Store shots do: a large, legible top half beats a complete but
         // illegible whole.
-        final byHeight = w >= c.maxWidth * 0.58;
+        final byHeight = w >= slotW * 0.58;
         if (!byHeight) {
-          w = c.maxWidth * 0.74;
+          w = slotW * 0.74;
           h = w / aspect;
         }
 
@@ -1033,24 +1052,36 @@ class _PhoneMockup extends StatelessWidget {
           ),
         );
 
-        if (byHeight) return Center(child: device);
+        // Fits: no clip at all, so the glow bleeds into the copy below the
+        // way a light source should.
+        if (byHeight) {
+          return Padding(
+            padding: EdgeInsets.only(top: topInset),
+            child: Center(child: device),
+          );
+        }
 
-        // Sized by width: hang the device from the top of the slot and let the
-        // frame run off the bottom edge, fading out rather than ending on a cut.
+        // Sized by width: hang the device from the top and let the frame run
+        // off the bottom, fading out rather than ending on a cut. The clip is
+        // the whole slot — full width, and up to the very top of the screen —
+        // so the only hard edges it can make are ones the screen already has.
         return ClipRect(
-          child: ShaderMask(
-            blendMode: BlendMode.dstIn,
-            shaderCallback: (rect) => const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.white, Colors.white, Colors.transparent],
-              stops: [0.0, 0.86, 1.0],
-            ).createShader(rect),
-            child: OverflowBox(
-              alignment: Alignment.topCenter,
-              minHeight: 0,
-              maxHeight: h,
-              child: device,
+          child: Padding(
+            padding: EdgeInsets.only(top: topInset),
+            child: ShaderMask(
+              blendMode: BlendMode.dstIn,
+              shaderCallback: (rect) => const LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.white, Colors.white, Colors.transparent],
+                stops: [0.0, 0.86, 1.0],
+              ).createShader(rect),
+              child: OverflowBox(
+                alignment: Alignment.topCenter,
+                minHeight: 0,
+                maxHeight: h,
+                child: device,
+              ),
             ),
           ),
         );

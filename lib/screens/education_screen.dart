@@ -604,9 +604,14 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                     onTap: () => Navigator.of(context).pop(),
                   ),
                 ),
+                // Left-aligned: iOS centres an app bar title by default, and a
+                // centred article title is laid out across the full width —
+                // straight through the back button sitting on the left.
+                centerTitle: false,
                 flexibleSpace: FlexibleSpaceBar(
                   expandedTitleScale: 1.0,
-                  titlePadding: const EdgeInsets.fromLTRB(20, 0, 20, 14),
+                  // Starts clear of the 60pt leading button.
+                  titlePadding: const EdgeInsets.fromLTRB(68, 0, 20, 14),
                   title: _CollapsedTitle(
                     title: article['title'] as String? ?? '',
                   ),

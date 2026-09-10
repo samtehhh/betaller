@@ -35,11 +35,7 @@ class _GreetingData {
   final String title;
   final String? subtitle;
   final Color? subtitleColor;
-  const _GreetingData({
-    required this.title,
-    this.subtitle,
-    this.subtitleColor,
-  });
+  const _GreetingData({required this.title, this.subtitle, this.subtitleColor});
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -115,20 +111,11 @@ class _HomeScreenState extends State<HomeScreen>
     }
     if (streak == 0) {
       if (hour < 12) {
-        return _GreetingData(
-          title: 'BeTaller',
-          subtitle: l.greetingMorning,
-        );
+        return _GreetingData(title: 'BeTaller', subtitle: l.greetingMorning);
       } else if (hour < 18) {
-        return _GreetingData(
-          title: 'BeTaller',
-          subtitle: l.greetingAfternoon,
-        );
+        return _GreetingData(title: 'BeTaller', subtitle: l.greetingAfternoon);
       } else {
-        return _GreetingData(
-          title: 'BeTaller',
-          subtitle: l.greetingEvening,
-        );
+        return _GreetingData(title: 'BeTaller', subtitle: l.greetingEvening);
       }
     }
     return _GreetingData(
@@ -151,16 +138,16 @@ class _HomeScreenState extends State<HomeScreen>
           provider.heightRecords,
         );
         final potential = prediction.finalHeight;
-        final remaining =
-            (potential - profile.currentHeight).clamp(0.0, 100.0);
+        final remaining = (potential - profile.currentHeight).clamp(0.0, 100.0);
         final waterNeed = Calculations.dailyWaterNeed(profile.weight);
         final sleepNeed = Calculations.dailySleepNeed(profile.age);
 
         final hour = DateTime.now().hour;
         final isEvening = hour >= 18;
         final challenges = provider.activeChallenges;
-        final incompleteChallenges =
-            challenges.where((c) => c['completed'] != true).length;
+        final incompleteChallenges = challenges
+            .where((c) => c['completed'] != true)
+            .length;
         final completedChallenges = challenges.length - incompleteChallenges;
 
         final greeting = _buildGreeting(
@@ -171,7 +158,8 @@ class _HomeScreenState extends State<HomeScreen>
           l: l,
         );
 
-        final allTodayDone = provider.allRoutinesCompleted &&
+        final allTodayDone =
+            provider.allRoutinesCompleted &&
             provider.routines.isNotEmpty &&
             incompleteChallenges == 0 &&
             challenges.isNotEmpty &&
@@ -215,9 +203,11 @@ class _HomeScreenState extends State<HomeScreen>
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
-                                        color: greeting.subtitleColor ??
+                                        color:
+                                            greeting.subtitleColor ??
                                             Colors.white.withValues(
-                                                alpha: 0.40),
+                                              alpha: 0.40,
+                                            ),
                                         letterSpacing: -0.1,
                                       ),
                                     ),
@@ -239,9 +229,8 @@ class _HomeScreenState extends State<HomeScreen>
                           totalXP: provider.totalXP,
                           xpForNextLevel: provider.xpForNextLevel,
                           progress: provider.levelProgress,
-                          xpToNext:
-                              (provider.xpForNextLevel - provider.totalXP)
-                                  .clamp(0, 999999),
+                          xpToNext: (provider.xpForNextLevel - provider.totalXP)
+                              .clamp(0, 999999),
                           isMaxLevel: provider.level >= 20,
                         ),
                         const SizedBox(height: 10),
@@ -255,7 +244,6 @@ class _HomeScreenState extends State<HomeScreen>
                 padding: const EdgeInsets.fromLTRB(18, 10, 18, 120),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-
                     // ── 0. GETTING STARTED ────────────────────────────────
                     // Stays until all three steps are behind the user.
                     if (!provider.journeyComplete) ...[
@@ -287,15 +275,26 @@ class _HomeScreenState extends State<HomeScreen>
                             target: waterNeed.toStringAsFixed(1),
                             unit: 'L',
                             color: AppColors.water,
-                            progress: (provider.todayWater / waterNeed)
-                                .clamp(0.0, 1.0),
-                            isUrgent: isEvening &&
+                            progress: (provider.todayWater / waterNeed).clamp(
+                              0.0,
+                              1.0,
+                            ),
+                            isUrgent:
+                                isEvening &&
                                 provider.todayWater < waterNeed * 0.6,
                             onTap: provider.isPremium
-                                ? () => showWaterSheet(context, provider, waterNeed)
+                                ? () => showWaterSheet(
+                                    context,
+                                    provider,
+                                    waterNeed,
+                                  )
                                 : () => showPremiumPaywall(context),
                             onAdd: provider.isPremium
-                                ? () => showWaterSheet(context, provider, waterNeed)
+                                ? () => showWaterSheet(
+                                    context,
+                                    provider,
+                                    waterNeed,
+                                  )
                                 : () => showPremiumPaywall(context),
                           ),
                         ),
@@ -308,17 +307,26 @@ class _HomeScreenState extends State<HomeScreen>
                             target: sleepNeed.toStringAsFixed(1),
                             unit: l.hoursShort,
                             color: AppColors.sleep,
-                            progress: (provider.todaySleep / sleepNeed)
-                                .clamp(0.0, 1.0),
-                            isUrgent: isEvening &&
+                            progress: (provider.todaySleep / sleepNeed).clamp(
+                              0.0,
+                              1.0,
+                            ),
+                            isUrgent:
+                                isEvening &&
                                 provider.todaySleep < sleepNeed * 0.5,
                             onTap: provider.isPremium
                                 ? () => _showSleepSheet(
-                                    context, provider, sleepNeed)
+                                    context,
+                                    provider,
+                                    sleepNeed,
+                                  )
                                 : () => showPremiumPaywall(context),
                             onAdd: provider.isPremium
                                 ? () => _showSleepSheet(
-                                    context, provider, sleepNeed)
+                                    context,
+                                    provider,
+                                    sleepNeed,
+                                  )
                                 : () => showPremiumPaywall(context),
                           ),
                         ),
@@ -384,10 +392,11 @@ class _HomeScreenState extends State<HomeScreen>
                         icon: CupertinoIcons.sparkles,
                         locked: false,
                         onTap: () => Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (_) => const GrowthAnalysisFlow(),
-                            )),
+                          context,
+                          CupertinoPageRoute(
+                            builder: (_) => const GrowthAnalysisFlow(),
+                          ),
+                        ),
                       ),
                       const SizedBox(height: _sectionGap),
                     ],
@@ -410,10 +419,11 @@ class _HomeScreenState extends State<HomeScreen>
                         icon: CupertinoIcons.sparkles,
                         locked: false,
                         onTap: () => Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (_) => const GrowthAnalysisFlow(),
-                            )),
+                          context,
+                          CupertinoPageRoute(
+                            builder: (_) => const GrowthAnalysisFlow(),
+                          ),
+                        ),
                       ),
                       const SizedBox(height: _sectionGap),
                     ],
@@ -422,8 +432,7 @@ class _HomeScreenState extends State<HomeScreen>
                     _BannerCard(
                       label: l.educationLabel,
                       title: l.educationTitle,
-                      subtitle:
-                          l.educationSubtitle,
+                      subtitle: l.educationSubtitle,
                       accentColor: AppColors.cyan,
                       gradientColors: const [
                         Color(0xFF062533),
@@ -467,22 +476,28 @@ class _HomeScreenState extends State<HomeScreen>
     double sleepNeed,
   ) {
     final l = AppLocalizations.of(context)!;
-    double selectedHours =
-        provider.todaySleep > 0 ? provider.todaySleep : sleepNeed;
+    double selectedHours = provider.todaySleep > 0
+        ? provider.todaySleep
+        : sleepNeed;
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      // Without this the sheet is capped at 9/16 of the screen, and on a short
+      // phone the Save button falls off the bottom edge.
+      isScrollControlled: true,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => Container(
-          padding: EdgeInsets.fromLTRB(28, 28, 28, 28 + MediaQuery.of(context).padding.bottom),
+          padding: EdgeInsets.fromLTRB(
+            28,
+            20,
+            28,
+            20 + MediaQuery.of(context).viewPadding.bottom,
+          ),
           decoration: BoxDecoration(
             color: AppColors.cardFill,
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(32)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
             border: Border(
-              top: BorderSide(
-                color: AppColors.primary.withValues(alpha: 0.12),
-              ),
+              top: BorderSide(color: AppColors.primary.withValues(alpha: 0.12)),
             ),
           ),
           child: Column(
@@ -496,7 +511,7 @@ class _HomeScreenState extends State<HomeScreen>
                   borderRadius: BorderRadius.circular(3),
                 ),
               ),
-              const SizedBox(height: 28),
+              const SizedBox(height: 20),
               Text(
                 l.sleepTracking,
                 style: const TextStyle(
@@ -514,7 +529,7 @@ class _HomeScreenState extends State<HomeScreen>
                   color: Colors.white.withValues(alpha: 0.45),
                 ),
               ),
-              const SizedBox(height: 28),
+              const SizedBox(height: 20),
               Text(
                 selectedHours.toStringAsFixed(1),
                 style: TextStyle(
@@ -541,8 +556,7 @@ class _HomeScreenState extends State<HomeScreen>
               SliderTheme(
                 data: SliderThemeData(
                   activeTrackColor: AppColors.sleep,
-                  inactiveTrackColor:
-                      AppColors.sleep.withValues(alpha: 0.12),
+                  inactiveTrackColor: AppColors.sleep.withValues(alpha: 0.12),
                   thumbColor: Colors.white,
                   overlayColor: AppColors.sleep.withValues(alpha: 0.08),
                   trackHeight: 5,
@@ -555,7 +569,7 @@ class _HomeScreenState extends State<HomeScreen>
                   onChanged: (v) => setState(() => selectedHours = v),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 18),
               SizedBox(
                 width: double.infinity,
                 child: CupertinoButton(
@@ -757,8 +771,7 @@ class _InlineXpBar extends StatelessWidget {
                 child: SizedBox(
                   height: 4,
                   child: TweenAnimationBuilder<double>(
-                    tween: Tween(
-                        begin: 0.0, end: isMaxLevel ? 1.0 : progress),
+                    tween: Tween(begin: 0.0, end: isMaxLevel ? 1.0 : progress),
                     duration: const Duration(milliseconds: 1000),
                     curve: Curves.easeOutCubic,
                     builder: (context, value, _) {
@@ -778,8 +791,9 @@ class _InlineXpBar extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(4),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColors.cyan
-                                        .withValues(alpha: 0.40),
+                                    color: AppColors.cyan.withValues(
+                                      alpha: 0.40,
+                                    ),
                                     blurRadius: 6,
                                   ),
                                 ],
@@ -828,16 +842,20 @@ class _TodayMissionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final routineRatio =
-        routineTotal > 0 ? (routineCompleted / routineTotal).clamp(0.0, 1.0) : 0.0;
+    final routineRatio = routineTotal > 0
+        ? (routineCompleted / routineTotal).clamp(0.0, 1.0)
+        : 0.0;
     final challengeRatio = challengeTotal > 0
         ? (challengeCompleted / challengeTotal).clamp(0.0, 1.0)
         : 0.0;
-    final waterRatio =
-        waterTarget > 0 ? (waterCurrent / waterTarget).clamp(0.0, 1.0) : 0.0;
+    final waterRatio = waterTarget > 0
+        ? (waterCurrent / waterTarget).clamp(0.0, 1.0)
+        : 0.0;
     final overall =
-        ((routineRatio + challengeRatio + waterRatio) / 3 * animValue)
-            .clamp(0.0, 1.0);
+        ((routineRatio + challengeRatio + waterRatio) / 3 * animValue).clamp(
+          0.0,
+          1.0,
+        );
     final overallPct = (overall * 100).round();
     final doneCount = [
       routineRatio >= 1,
@@ -892,8 +910,7 @@ class _TodayMissionCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(100),
@@ -1053,11 +1070,12 @@ class _MissionRingPainter extends CustomPainter {
       center.dy + radius * math.sin(startAngle + sweep),
     );
     canvas.drawCircle(
-        end,
-        7,
-        Paint()
-          ..color = color.withValues(alpha: 0.35)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6));
+      end,
+      7,
+      Paint()
+        ..color = color.withValues(alpha: 0.35)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+    );
     canvas.drawCircle(end, 3.5, Paint()..color = Colors.white);
   }
 
@@ -1091,7 +1109,11 @@ class _MissionRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(icon, size: 13, color: tint.withValues(alpha: done ? 1 : 0.75)),
+            Icon(
+              icon,
+              size: 13,
+              color: tint.withValues(alpha: done ? 1 : 0.75),
+            ),
             const SizedBox(width: 7),
             Expanded(
               child: Text(
@@ -1164,9 +1186,7 @@ class _HeroHeightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final delta = startHeight != null
-        ? double.parse(
-            (currentHeight - startHeight!).toStringAsFixed(1),
-          )
+        ? double.parse((currentHeight - startHeight!).toStringAsFixed(1))
         : null;
     final hasDelta = delta != null && delta > 0.05;
 
@@ -1179,9 +1199,7 @@ class _HeroHeightCard extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(_radiusXL),
-        border: Border.all(
-          color: AppColors.primary.withValues(alpha: 0.15),
-        ),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
         boxShadow: [
           BoxShadow(
             color: AppColors.primary.withValues(alpha: 0.18),
@@ -1208,15 +1226,16 @@ class _HeroHeightCard extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 5),
+                  horizontal: 12,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: (allDone ? AppColors.success : AppColors.primary)
                       .withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color:
-                        (allDone ? AppColors.success : AppColors.primary)
-                            .withValues(alpha: 0.22),
+                    color: (allDone ? AppColors.success : AppColors.primary)
+                        .withValues(alpha: 0.22),
                   ),
                 ),
                 child: Row(
@@ -1337,8 +1356,7 @@ class _HeroHeightCard extends StatelessWidget {
                         color: AppColors.primary.withValues(alpha: 0.10),
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(
-                          color:
-                              AppColors.primary.withValues(alpha: 0.22),
+                          color: AppColors.primary.withValues(alpha: 0.22),
                         ),
                       ),
                       child: Text(
@@ -1358,12 +1376,14 @@ class _HeroHeightCard extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFFFD700)
-                              .withValues(alpha: 0.08),
+                          color: const Color(
+                            0xFFFFD700,
+                          ).withValues(alpha: 0.08),
                           borderRadius: BorderRadius.circular(14),
                           border: Border.all(
-                            color: const Color(0xFFFFD700)
-                                .withValues(alpha: 0.20),
+                            color: const Color(
+                              0xFFFFD700,
+                            ).withValues(alpha: 0.20),
                           ),
                         ),
                         child: const Row(
@@ -1394,9 +1414,8 @@ class _HeroHeightCard extends StatelessWidget {
 
           GlowProgressBar(
             value: (potential > currentHeight + 0.1)
-                ? ((currentHeight - 140) / (potential - 140))
-                        .clamp(0.0, 1.0) *
-                    animValue
+                ? ((currentHeight - 140) / (potential - 140)).clamp(0.0, 1.0) *
+                      animValue
                 : animValue,
             gradient: AppColors.gradientGrowth,
             glowColor: AppColors.primary,
@@ -1423,8 +1442,7 @@ class _HeroHeightCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
-                  color:
-                      allDone ? AppColors.success : AppColors.primaryLight,
+                  color: allDone ? AppColors.success : AppColors.primaryLight,
                 ),
               ),
             ],
@@ -1596,11 +1614,7 @@ class _BannerCardState extends State<_BannerCard> {
                     ),
                   ],
                 ),
-                child: Icon(
-                  widget.icon,
-                  color: widget.accentColor,
-                  size: 30,
-                ),
+                child: Icon(widget.icon, color: widget.accentColor, size: 30),
               ),
             ],
           ),
@@ -1749,6 +1763,7 @@ class _TrackCard extends StatelessWidget {
     );
   }
 }
+
 class _ChallengesSection extends StatelessWidget {
   final List<Map<String, dynamic>> challenges;
   final bool isEvening;
@@ -1815,10 +1830,8 @@ class _ChallengesSection extends StatelessWidget {
       );
     }
 
-    final incomplete =
-        challenges.where((c) => c['completed'] != true).toList();
-    final completed =
-        challenges.where((c) => c['completed'] == true).toList();
+    final incomplete = challenges.where((c) => c['completed'] != true).toList();
+    final completed = challenges.where((c) => c['completed'] == true).toList();
     final toShow = [...incomplete, ...completed].take(3).toList();
 
     return Column(
@@ -1841,7 +1854,9 @@ class _ChallengesSection extends StatelessWidget {
               if (isEvening && incomplete.isNotEmpty)
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 9, vertical: 4),
+                    horizontal: 9,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.error.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(10),
@@ -1861,7 +1876,9 @@ class _ChallengesSection extends StatelessWidget {
               else if (incomplete.isEmpty)
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 9, vertical: 4),
+                    horizontal: 9,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.success.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(10),
@@ -1958,8 +1975,7 @@ class _ChallengeCard extends StatelessWidget {
                         ? Colors.white.withValues(alpha: 0.40)
                         : Colors.white,
                     letterSpacing: -0.2,
-                    decoration:
-                        isCompleted ? TextDecoration.lineThrough : null,
+                    decoration: isCompleted ? TextDecoration.lineThrough : null,
                     decorationColor: Colors.white.withValues(alpha: 0.25),
                   ),
                 ),
@@ -1997,8 +2013,7 @@ class _ChallengeCard extends StatelessWidget {
                 ),
               const SizedBox(height: 5),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 7, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                 decoration: BoxDecoration(
                   color: AppColors.warning.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(8),
@@ -2073,8 +2088,11 @@ class _ExploreRow extends StatelessWidget {
           padding: const EdgeInsets.only(left: 4, bottom: 12),
           child: Row(
             children: [
-              Icon(CupertinoIcons.compass_fill,
-                  size: 15, color: AppColors.primary),
+              Icon(
+                CupertinoIcons.compass_fill,
+                size: 15,
+                color: AppColors.primary,
+              ),
               const SizedBox(width: 8),
               Text(
                 l.exploreLabel.toUpperCase(),
@@ -2172,8 +2190,11 @@ class _ExploreRowTile extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(CupertinoIcons.chevron_right,
-                size: 15, color: Colors.white.withValues(alpha: 0.25)),
+            Icon(
+              CupertinoIcons.chevron_right,
+              size: 15,
+              color: Colors.white.withValues(alpha: 0.25),
+            ),
           ],
         ),
       ),
@@ -2298,18 +2319,14 @@ class _ExploreHeroCardState extends State<_ExploreHeroCard> {
                               width: 46,
                               height: 46,
                               decoration: BoxDecoration(
-                                color:
-                                    item.color.withValues(alpha: 0.12),
-                                borderRadius:
-                                    BorderRadius.circular(_radiusS),
+                                color: item.color.withValues(alpha: 0.12),
+                                borderRadius: BorderRadius.circular(_radiusS),
                                 border: Border.all(
-                                  color: item.color
-                                      .withValues(alpha: 0.22),
+                                  color: item.color.withValues(alpha: 0.22),
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: item.color
-                                        .withValues(alpha: 0.15),
+                                    color: item.color.withValues(alpha: 0.15),
                                     blurRadius: 14,
                                     spreadRadius: -3,
                                   ),
@@ -2338,8 +2355,7 @@ class _ExploreHeroCardState extends State<_ExploreHeroCard> {
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.white
-                                    .withValues(alpha: 0.45),
+                                color: Colors.white.withValues(alpha: 0.45),
                                 height: 1.3,
                                 letterSpacing: -0.1,
                               ),
@@ -2360,8 +2376,7 @@ class _ExploreHeroCardState extends State<_ExploreHeroCard> {
                             color: item.color.withValues(alpha: 0.10),
                             borderRadius: BorderRadius.circular(11),
                             border: Border.all(
-                              color:
-                                  item.color.withValues(alpha: 0.18),
+                              color: item.color.withValues(alpha: 0.18),
                             ),
                           ),
                           child: Icon(
@@ -2418,8 +2433,7 @@ class _GrowthStatsCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.cardFill,
             borderRadius: BorderRadius.circular(_radiusL),
-            border: Border.all(
-                color: Colors.white.withValues(alpha: 0.05)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
           ),
           child: Row(
             children: [
@@ -2504,9 +2518,7 @@ class _GrowthStatsCard extends StatelessWidget {
                 label: l.total,
                 value: '${totalGrowth > 0 ? '+' : ''}$totalGrowth',
                 unit: 'cm',
-                color: totalGrowth > 0
-                    ? AppColors.success
-                    : AppColors.error,
+                color: totalGrowth > 0 ? AppColors.success : AppColors.error,
               ),
               Container(
                 width: 1,
@@ -2560,9 +2572,7 @@ class _DailyTipCard extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(_radiusL),
-        border: Border.all(
-          color: AppColors.orange.withValues(alpha: 0.14),
-        ),
+        border: Border.all(color: AppColors.orange.withValues(alpha: 0.14)),
         boxShadow: [
           BoxShadow(
             color: AppColors.orange.withValues(alpha: 0.08),
