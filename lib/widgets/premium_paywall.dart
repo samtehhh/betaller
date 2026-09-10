@@ -175,19 +175,24 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     if (_purchasing) return;
     HapticFeedback.mediumImpact();
     setState(() => _purchasing = true);
-    bool ok = false;
+    var outcome = PurchaseOutcome.failed;
     if (pkg != null) {
-      ok = await PurchaseService().purchasePackage(pkg);
+      outcome = await PurchaseService().purchasePackage(pkg);
     } else if (product != null) {
-      ok = await PurchaseService().purchaseProduct(product);
+      outcome = await PurchaseService().purchaseProduct(product);
     }
     if (!mounted) return;
     setState(() => _purchasing = false);
-    if (ok) {
-      context.read<AppProvider>().setPremium(true);
-      if (widget.dismissible) Navigator.pop(context, true);
-    } else {
-      _showStoreUnavailable();
+    switch (outcome) {
+      case PurchaseOutcome.success:
+        context.read<AppProvider>().setPremium(true);
+        if (widget.dismissible) Navigator.pop(context, true);
+      case PurchaseOutcome.cancelled:
+        // The user closed the store sheet on purpose. Telling them the
+        // purchase could not be completed reads as an error they caused.
+        break;
+      case PurchaseOutcome.failed:
+        _showStoreUnavailable();
     }
   }
 

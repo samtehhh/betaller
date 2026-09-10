@@ -1,7 +1,24 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
+
+/// How a purchase attempt ended.
+///
+/// Backing out of the store sheet is not a failure, and the three used to be
+/// one bool: the paywall could not tell "you changed your mind" from "the
+/// billing service is down", so it apologised for both.
+enum PurchaseOutcome {
+  /// Paid for, and the entitlement is active.
+  success,
+
+  /// The user dismissed the store sheet. Say nothing.
+  cancelled,
+
+  /// The store refused, or the entitlement did not arrive.
+  failed,
+}
 
 /// RevenueCat purchase service — handles initialization, entitlement checks,
 /// purchasing, and restore. Wraps the purchases_flutter SDK.
@@ -93,9 +110,15 @@ class PurchaseService {
     if (!_initialized) return null;
     try {
       final offerings = await Purchases.getOfferings();
-      debugPrint('PurchaseService.getOfferings current: ${offerings.current?.identifier}');
-      debugPrint('PurchaseService.getOfferings monthly: ${offerings.current?.monthly?.storeProduct.identifier}');
-      debugPrint('PurchaseService.getOfferings annual: ${offerings.current?.annual?.storeProduct.identifier}');
+      debugPrint(
+        'PurchaseService.getOfferings current: ${offerings.current?.identifier}',
+      );
+      debugPrint(
+        'PurchaseService.getOfferings monthly: ${offerings.current?.monthly?.storeProduct.identifier}',
+      );
+      debugPrint(
+        'PurchaseService.getOfferings annual: ${offerings.current?.annual?.storeProduct.identifier}',
+      );
       return offerings;
     } catch (e) {
       debugPrint('PurchaseService.getOfferings error: $e');
@@ -107,8 +130,13 @@ class PurchaseService {
   Future<List<StoreProduct>> getProducts() async {
     if (!_initialized) return [];
     try {
-      final products = await Purchases.getProducts([monthlyProductId, yearlyProductId]);
-      debugPrint('PurchaseService.getProducts: ${products.map((p) => p.identifier).toList()}');
+      final products = await Purchases.getProducts([
+        monthlyProductId,
+        yearlyProductId,
+      ]);
+      debugPrint(
+        'PurchaseService.getProducts: ${products.map((p) => p.identifier).toList()}',
+      );
       return products;
     } catch (e) {
       debugPrint('PurchaseService.getProducts error: $e');
@@ -117,38 +145,35 @@ class PurchaseService {
   }
 
   // ── Purchase a StoreProduct directly ─────────────────────────
-  Future<bool> purchaseProduct(StoreProduct product) async {
-    try {
-      await Purchases.purchase(PurchaseParams.storeProduct(product));
-      final info = await Purchases.getCustomerInfo();
-      return info.entitlements.all[entitlementId]?.isActive ?? false;
-    } on PurchasesErrorCode catch (e) {
-      if (e == PurchasesErrorCode.purchaseCancelledError) return false;
-      debugPrint('PurchaseService.purchaseProduct error: $e');
-      return false;
-    } catch (e) {
-      debugPrint('PurchaseService.purchaseProduct error: $e');
-      return false;
-    }
-  }
+  Future<PurchaseOutcome> purchaseProduct(StoreProduct product) =>
+      _buy(() => Purchases.purchase(PurchaseParams.storeProduct(product)));
 
   // ── Purchase a package ────────────────────────────────────────
-  /// Returns true if the purchase was successful and entitlement is now active.
-  Future<bool> purchasePackage(Package package) async {
+  Future<PurchaseOutcome> purchasePackage(Package package) =>
+      _buy(() => Purchases.purchase(PurchaseParams.package(package)));
+
+  /// Runs a purchase and reports how it ended.
+  ///
+  /// The SDK reports a cancellation as a [PlatformException] carrying a
+  /// RevenueCat code, not as a [PurchasesErrorCode] thrown on its own — an
+  /// `on PurchasesErrorCode catch` clause never matches it, which is how
+  /// backing out of the sheet used to land in the generic failure branch.
+  Future<PurchaseOutcome> _buy(Future<void> Function() attempt) async {
     try {
-      await Purchases.purchase(PurchaseParams.package(package));
-      // After purchase, check entitlement
+      await attempt();
       final info = await Purchases.getCustomerInfo();
-      return info.entitlements.all[entitlementId]?.isActive ?? false;
-    } on PurchasesErrorCode catch (e) {
-      if (e == PurchasesErrorCode.purchaseCancelledError) {
-        return false;
+      final active = info.entitlements.all[entitlementId]?.isActive ?? false;
+      return active ? PurchaseOutcome.success : PurchaseOutcome.failed;
+    } on PlatformException catch (e) {
+      final code = PurchasesErrorHelper.getErrorCode(e);
+      if (code == PurchasesErrorCode.purchaseCancelledError) {
+        return PurchaseOutcome.cancelled;
       }
-      debugPrint('PurchaseService.purchase error: $e');
-      return false;
+      debugPrint('PurchaseService purchase error: $code');
+      return PurchaseOutcome.failed;
     } catch (e) {
-      debugPrint('PurchaseService.purchase error: $e');
-      return false;
+      debugPrint('PurchaseService purchase error: $e');
+      return PurchaseOutcome.failed;
     }
   }
 
@@ -171,7 +196,8 @@ class PurchaseService {
   Future<bool> presentPaywall() async {
     if (!_initialized) throw Exception('RevenueCat not initialized');
     final result = await RevenueCatUI.presentPaywall();
-    return result == PaywallResult.purchased || result == PaywallResult.restored;
+    return result == PaywallResult.purchased ||
+        result == PaywallResult.restored;
   }
 
   // ── Check entitlement (screenshot pattern) ────────────────────
