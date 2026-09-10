@@ -947,5 +947,27 @@
   "purchaseUnavailable": "L'achat n'a pas pu être finalisé. Réessaie.",
   "viewPlan": "Voir l'offre",
   "viewPlanSubtitle": "Consulter les détails de ton abonnement",
-  "predictionConfidenceHint": "Chaque mesure ajoutée porte la prédiction à {percent} %"
+  "predictionConfidenceHint": "Chaque mesure ajoutée porte la prédiction à {percent} %",
+
+  "paywallSlideHomeTitle": "Ta journée, un écran",
+  "paywallSlideHomeCaption": "Routines, eau, sommeil — trois cercles à fermer.",
+  "paywallSlideProgressTitle": "Vois chaque centimètre",
+  "paywallSlideProgressCaption": "Chaque mesure rejoint la courbe aussitôt.",
+  "paywallSlideAnalysisTitle": "Cinq mesures, une forme",
+  "paywallSlideAnalysisCaption": "Le radar désigne ton maillon faible.",
+  "paywallSlidePotentialTitle": "Connais ton potentiel",
+  "paywallSlidePotentialCaption": "Vois où tu te situes parmi les autres.",
+  "paywallSlideDisciplineTitle": "Garde la série",
+  "paywallSlideDisciplineCaption": "Chaque jour fait monter ton niveau.",
+  "paywallSlideRemindersTitle": "Rappelé au bon moment",
+  "paywallSlideRemindersCaption": "Règle tes heures, l'app fait le reste.",
+  "paywallSlidePostureTitle": "Corrige ta posture",
+  "paywallSlidePostureCaption": "Une photo, un score mesuré, une routine claire.",
+
+  "paywallTrialHeadline": "{days} JOURS OFFERTS",
+  "@paywallTrialHeadline": {"placeholders": {"days": {"type": "String"}}},
+  "paywallTrialThen": "Puis {price} · annulable à tout moment",
+  "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
+  "paywallYearlyBilled": "{price} / an · annulable à tout moment",
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
 }

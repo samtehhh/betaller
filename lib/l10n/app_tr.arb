@@ -1250,5 +1250,27 @@
   "purchaseUnavailable": "Satın alma tamamlanamadı. Lütfen tekrar dene.",
   "viewPlan": "Planı Görüntüle",
   "viewPlanSubtitle": "Abonelik detaylarını görüntüle",
-  "predictionConfidenceHint": "Boy ölçümü ekledikçe tahmin %{percent}'e ulaşır"
+  "predictionConfidenceHint": "Boy ölçümü ekledikçe tahmin %{percent}'e ulaşır",
+
+  "paywallSlideHomeTitle": "Günün tek ekranda",
+  "paywallSlideHomeCaption": "Rutin, su, uyku — kapatman gereken üç halka.",
+  "paywallSlideProgressTitle": "Her santimi gör",
+  "paywallSlideProgressCaption": "Ölçümlerin anında eğriye işlenir.",
+  "paywallSlideAnalysisTitle": "Beş metrik, tek şekil",
+  "paywallSlideAnalysisCaption": "Radar en zayıf halkanı söyler.",
+  "paywallSlidePotentialTitle": "Potansiyelini öğren",
+  "paywallSlidePotentialCaption": "Yaşıtlarının dağılımında yerini gör.",
+  "paywallSlideDisciplineTitle": "Seriyi kırma",
+  "paywallSlideDisciplineCaption": "Her gün seviyeni yukarı taşır.",
+  "paywallSlideRemindersTitle": "Doğru anda hatırlat",
+  "paywallSlideRemindersCaption": "Saatlerini kur, gerisini uygulama halleder.",
+  "paywallSlidePostureTitle": "Duruşunu düzelt",
+  "paywallSlidePostureCaption": "Tek fotoğraf, ölçülmüş puan, net rutin.",
+
+  "paywallTrialHeadline": "{days} GÜN ÜCRETSİZ",
+  "@paywallTrialHeadline": {"placeholders": {"days": {"type": "String"}}},
+  "paywallTrialThen": "Sonra {price} · istediğin zaman iptal et",
+  "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
+  "paywallYearlyBilled": "{price} / yıl · istediğin zaman iptal et",
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
 }

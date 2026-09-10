@@ -974,5 +974,27 @@
   "purchaseUnavailable": "Kauf konnte nicht abgeschlossen werden. Bitte versuche es erneut.",
   "viewPlan": "Plan ansehen",
   "viewPlanSubtitle": "Deine Abodetails ansehen",
-  "predictionConfidenceHint": "Mit jeder Messung steigt die Prognose auf {percent}%"
+  "predictionConfidenceHint": "Mit jeder Messung steigt die Prognose auf {percent}%",
+
+  "paywallSlideHomeTitle": "Dein Tag, ein Bildschirm",
+  "paywallSlideHomeCaption": "Routinen, Wasser, Schlaf — drei Ringe zum Schließen.",
+  "paywallSlideProgressTitle": "Jeden Zentimeter sehen",
+  "paywallSlideProgressCaption": "Jede Messung landet sofort in der Kurve.",
+  "paywallSlideAnalysisTitle": "Fünf Werte, eine Form",
+  "paywallSlideAnalysisCaption": "Das Radar zeigt dein schwächstes Glied.",
+  "paywallSlidePotentialTitle": "Kenne dein Potenzial",
+  "paywallSlidePotentialCaption": "Sieh, wo du unter Gleichaltrigen stehst.",
+  "paywallSlideDisciplineTitle": "Halte die Serie",
+  "paywallSlideDisciplineCaption": "Jeder Tag hebt dein Level.",
+  "paywallSlideRemindersTitle": "Zur richtigen Zeit erinnert",
+  "paywallSlideRemindersCaption": "Zeiten setzen — den Rest macht die App.",
+  "paywallSlidePostureTitle": "Haltung korrigieren",
+  "paywallSlidePostureCaption": "Ein Foto, ein gemessener Wert, eine klare Routine.",
+
+  "paywallTrialHeadline": "{days} TAGE GRATIS",
+  "@paywallTrialHeadline": {"placeholders": {"days": {"type": "String"}}},
+  "paywallTrialThen": "Danach {price} · jederzeit kündbar",
+  "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
+  "paywallYearlyBilled": "{price} / Jahr · jederzeit kündbar",
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
 }

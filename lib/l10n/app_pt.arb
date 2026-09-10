@@ -947,5 +947,27 @@
   "purchaseUnavailable": "Não foi possível concluir a compra. Tente novamente.",
   "viewPlan": "Ver plano",
   "viewPlanSubtitle": "Veja os detalhes da sua assinatura",
-  "predictionConfidenceHint": "Cada medição adicionada leva a previsão a {percent}%"
+  "predictionConfidenceHint": "Cada medição adicionada leva a previsão a {percent}%",
+
+  "paywallSlideHomeTitle": "O teu dia, num ecrã",
+  "paywallSlideHomeCaption": "Rotinas, água, sono: três anéis para fechar.",
+  "paywallSlideProgressTitle": "Vê cada centímetro",
+  "paywallSlideProgressCaption": "Cada medição entra logo na curva.",
+  "paywallSlideAnalysisTitle": "Cinco métricas, uma forma",
+  "paywallSlideAnalysisCaption": "O radar aponta o teu elo mais fraco.",
+  "paywallSlidePotentialTitle": "Conhece o teu potencial",
+  "paywallSlidePotentialCaption": "Vê onde estás entre os da tua idade.",
+  "paywallSlideDisciplineTitle": "Não quebres a sequência",
+  "paywallSlideDisciplineCaption": "Cada dia sobe o teu nível.",
+  "paywallSlideRemindersTitle": "Lembrado na hora certa",
+  "paywallSlideRemindersCaption": "Define os horários, a app trata do resto.",
+  "paywallSlidePostureTitle": "Corrige a tua postura",
+  "paywallSlidePostureCaption": "Uma foto, uma pontuação medida, uma rotina clara.",
+
+  "paywallTrialHeadline": "{days} DIAS GRÁTIS",
+  "@paywallTrialHeadline": {"placeholders": {"days": {"type": "String"}}},
+  "paywallTrialThen": "Depois {price} · cancela quando quiseres",
+  "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
+  "paywallYearlyBilled": "{price} / ano · cancela quando quiseres",
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
 }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui';
@@ -12,6 +13,7 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../services/purchase_service.dart';
 import '../utils/constants.dart';
+import 'paywall_previews.dart';
 
 Future<bool?> showPremiumPaywall(BuildContext context) async {
   if (!context.mounted) return false;
@@ -26,7 +28,68 @@ Future<bool?> showPremiumPaywall(BuildContext context) async {
 
 // ═════════════════════════════════════════════════════════════════════════════
 //  Paywall Screen
+//
+//  Two halves that never trade places: the tour on top, the purchase below.
+//  The tour advances itself every few seconds so a user who reads rather than
+//  swipes still sees all seven screens, and the plan pills and the CTA stay
+//  exactly where they were on the first frame — the earlier build slid the
+//  buttons around with the pages, which cost the tap as often as it earned it.
 // ═════════════════════════════════════════════════════════════════════════════
+
+/// How long each screen holds before the tour moves on.
+const Duration _kSlideDuration = Duration(milliseconds: 2800);
+
+/// After a manual swipe the tour waits this long before taking over again, so
+/// it never yanks a screen away from someone who is still looking at it.
+const Duration _kResumeDelay = Duration(seconds: 7);
+
+/// The trial length to advertise on the monthly plan when the store has not
+/// told us one.
+///
+/// The store is the authority: [_freeTrialDays] reads the real introductory
+/// offer, so a user who has already burned their trial is not promised another,
+/// and a change made in App Store Connect needs no app release. This constant
+/// only covers the window before the offering resolves — and the sheet is a
+/// spinner then anyway — plus Android builds whose trial is expressed as an
+/// offer the plugin does not surface as an introductory price. Keep it in step
+/// with what the stores are actually configured to give.
+const int _kAssumedTrialDays = 3;
+
+/// One plan as the sheet needs it: what the store charges, and how many days
+/// it gives away first.
+class _PlanOffer {
+  /// The store's own price string, or null when the offering has not loaded.
+  /// Never a hardcoded stand-in — see the note where this is built.
+  final String? price;
+
+  /// Free days up front, or null for a plan that starts billing immediately.
+  final int? trialDays;
+
+  const _PlanOffer({required this.price, required this.trialDays});
+
+  bool get hasTrial => trialDays != null && trialDays! > 0;
+}
+
+/// The free trial the store is actually offering on this product, in days, or
+/// null when it offers none. An introductory price above zero is a discount,
+/// not a trial, and is not advertised as one.
+int? _freeTrialDays(StoreProduct? product) {
+  final intro = product?.introductoryPrice;
+  if (intro == null || intro.price > 0) return null;
+  final n = intro.periodNumberOfUnits;
+  switch (intro.periodUnit) {
+    case PeriodUnit.day:
+      return n;
+    case PeriodUnit.week:
+      return n * 7;
+    case PeriodUnit.month:
+      return n * 30;
+    case PeriodUnit.year:
+      return n * 365;
+    case PeriodUnit.unknown:
+      return null;
+  }
+}
 
 class PremiumPaywallScreen extends StatefulWidget {
   final bool dismissible;
@@ -35,80 +98,69 @@ class PremiumPaywallScreen extends StatefulWidget {
   State<PremiumPaywallScreen> createState() => _PremiumPaywallScreenState();
 }
 
-class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
-    with SingleTickerProviderStateMixin {
+class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
   Offerings? _offerings;
   List<StoreProduct> _directProducts = [];
   bool _loading = true;
   bool _purchasing = false;
   int _selectedPlan = 1;
-  int _page = 0;
-  final PageController _pageCtrl = PageController();
-  late final AnimationController _entryAnim;
 
-  static const List<_Feature> _features = [
-    _Feature(
-      id: 'height',
-      glowColor: Color(0xFF00E5FF),
-      asset: 'genetik_potansiyel',
-      stat: '175.7 cm',
-    ),
-    _Feature(
-      id: 'growth',
-      glowColor: Color(0xFF6366F1),
-      asset: 'buyume_grafigi',
-      stat: '+6.0 cm',
-    ),
-    _Feature(
-      id: 'posture',
-      glowColor: Color(0xFF22E06A),
-      asset: 'postur_analizi',
-      stat: '86/100',
-    ),
-    _Feature(
-      id: 'report',
-      glowColor: Color(0xFFF5C542),
-      asset: 'haftalik_rapor',
-      stat: '',
-    ),
-    _Feature(
-      id: 'nutrition',
-      glowColor: Color(0xFF8B5CF6),
-      asset: 'beslenme_programi',
-      stat: '3',
-    ),
-    _Feature(
-      id: 'score',
-      glowColor: Color(0xFF22FF88),
-      asset: 'betaller_puani',
-      stat: '98/100',
-    ),
-    _Feature(
-      id: 'photos',
-      glowColor: Color(0xFF38BDF8),
-      asset: 'ilerleme_fotolari',
-      stat: '+2.1 cm',
-    ),
-  ];
+  /// Index into the endless page list; the slide shown is this modulo the
+  /// number of previews.
+  int _rawPage = 0;
+  final PageController _pageCtrl = PageController();
+  Timer? _advance;
+  Timer? _resume;
+
+  int get _slide => _rawPage % kPaywallPreviews.length;
+  PaywallPreview get _preview => kPaywallPreviews[_slide];
 
   @override
   void initState() {
     super.initState();
-    _entryAnim = AnimationController(vsync: this, duration: const Duration(milliseconds: 600))..forward();
+    _startAutoAdvance();
     _loadOfferings();
   }
 
   @override
   void dispose() {
+    _advance?.cancel();
+    _resume?.cancel();
     _pageCtrl.dispose();
-    _entryAnim.dispose();
     super.dispose();
+  }
+
+  void _startAutoAdvance() {
+    _advance?.cancel();
+    _advance = Timer.periodic(_kSlideDuration, (_) {
+      if (!mounted || !_pageCtrl.hasClients) return;
+      _pageCtrl.nextPage(
+        duration: const Duration(milliseconds: 620),
+        curve: Curves.easeInOutCubic,
+      );
+    });
+  }
+
+  /// The user took the wheel. Stop advancing, and hand it back only after they
+  /// have gone quiet.
+  void _pauseAutoAdvance() {
+    _advance?.cancel();
+    _resume?.cancel();
+    _resume = Timer(_kResumeDelay, () {
+      if (mounted) _startAutoAdvance();
+    });
   }
 
   Future<void> _loadOfferings() async {
     final o = await PurchaseService().getOfferings();
     final direct = await PurchaseService().getProducts();
-    if (mounted) setState(() { _offerings = o; _directProducts = direct; _loading = false; });
+    if (mounted) {
+      setState(() {
+        _offerings = o;
+        _directProducts = direct;
+        _loading = false;
+      });
+    }
   }
 
   Future<void> _purchase(Package? pkg, {StoreProduct? product}) async {
@@ -179,18 +231,24 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final bottom = MediaQuery.of(context).padding.bottom;
-    final features = _features;
-    final f = features[_page];
-    // Bright accents (green, amber, cyan) need dark text on the CTA
-    final onAccent = f.glowColor.computeLuminance() > 0.5 ? const Color(0xFF07050F) : Colors.white;
+    final media = MediaQuery.of(context);
+    final topPad = media.padding.top;
+    final bottomPad = media.padding.bottom;
+
     final current = _offerings?.current;
     final packages = current?.availablePackages ?? [];
     Package? findPkg(String productId) {
-      try { return packages.firstWhere((p) => p.storeProduct.identifier == productId); }
-      catch (_) { return null; }
+      try {
+        return packages.firstWhere(
+          (p) => p.storeProduct.identifier == productId,
+        );
+      } catch (_) {
+        return null;
+      }
     }
-    final monthly = current?.monthly ?? findPkg(PurchaseService.monthlyProductId);
+
+    final monthly =
+        current?.monthly ?? findPkg(PurchaseService.monthlyProductId);
     final annual = current?.annual ?? findPkg(PurchaseService.yearlyProductId);
     StoreProduct? directMonthly;
     StoreProduct? directAnnual;
@@ -201,252 +259,123 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
       }
     }
 
+    final monthlyProduct = monthly?.storeProduct ?? directMonthly;
+    final annualProduct = annual?.storeProduct ?? directAnnual;
+    final monthlyOffer = _PlanOffer(
+      price: monthlyProduct?.priceString,
+      trialDays: _freeTrialDays(monthlyProduct) ?? _kAssumedTrialDays,
+    );
+    final annualOffer = _PlanOffer(
+      price: annualProduct?.priceString,
+      trialDays: _freeTrialDays(annualProduct),
+    );
+
     return PopScope(
       canPop: widget.dismissible,
       child: Scaffold(
         backgroundColor: const Color(0xFF07050F),
-        body: LayoutBuilder(
-          builder: (context, box) {
-            final topPad = MediaQuery.of(context).padding.top;
-            // The device panel owns the top of the screen; the purchase sheet
-            // rises over its bottom edge.
-            //
-            // A flat 46% left the copy roughly 135pt on a 667pt screen (SE,
-            // iPhone 8) for text that wants ~200, so the headline was cut in
-            // half and the description vanished. Short screens give the mockup
-            // less, and the copy below scrolls, so no phone or language clips.
-            final heroFraction = box.maxHeight < 720 ? 0.34 : 0.46;
-            final heroH = (box.maxHeight * heroFraction).clamp(190.0, 460.0);
+        body: TweenAnimationBuilder<Color?>(
+          tween: ColorTween(
+            begin: kPaywallPreviews.first.accent,
+            end: _preview.accent,
+          ),
+          duration: const Duration(milliseconds: 520),
+          curve: Curves.easeInOut,
+          builder: (context, tweened, _) {
+            final accent = tweened ?? _preview.accent;
+            // Bright accents (green, amber, cyan) need dark text on the CTA.
+            final onAccent = accent.computeLuminance() > 0.5
+                ? const Color(0xFF07050F)
+                : Colors.white;
 
             return Stack(
               children: [
                 // ── Accent glow behind the device ─────────────────────────
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 600),
-                  curve: Curves.easeInOut,
+                DecoratedBox(
                   decoration: BoxDecoration(
                     gradient: RadialGradient(
-                      center: const Alignment(0.0, -0.85),
-                      radius: 1.0,
-                      colors: [f.glowColor.withValues(alpha: 0.28), const Color(0xFF07050F)],
-                    ),
-                  ),
-                ),
-
-                // ── Purchase sheet ────────────────────────────────────────
-                Positioned(
-                  top: heroH,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 400),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF0D0920),
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
-                      boxShadow: [
-                        BoxShadow(color: Colors.black.withValues(alpha: 0.55), blurRadius: 34, offset: const Offset(0, -10)),
+                      center: const Alignment(0.0, -0.75),
+                      radius: 1.05,
+                      colors: [
+                        accent.withValues(alpha: 0.30),
+                        const Color(0xFF07050F),
                       ],
                     ),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
-                      child: Stack(
-                        children: [
-                          // accent spill from the device above
-                          Positioned(
-                            top: 0, left: 0, right: 0, height: 140,
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 500),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [f.glowColor.withValues(alpha: 0.10), Colors.transparent],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 0, left: 0, right: 0, height: 1,
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 500),
-                              color: f.glowColor.withValues(alpha: 0.35),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ),
+                  child: const SizedBox.expand(),
                 ),
 
-                // ── Swipeable pages + fixed purchase controls ─────────────
                 Column(
                   children: [
+                    // ── The tour ──────────────────────────────────────────
                     Expanded(
-                      child: PageView.builder(
+                      child: _Tour(
                         controller: _pageCtrl,
-                        onPageChanged: (i) {
-                          setState(() => _page = i);
-                          _entryAnim.forward(from: 0);
-                        },
-                        itemCount: features.length,
-                        itemBuilder: (_, i) => _FeaturePage(
-                          feature: features[i],
-                          entryAnim: _entryAnim,
-                          heroHeight: heroH,
-                          topInset: topPad,
-                        ),
+                        topInset: topPad,
+                        onPageChanged: (i) => setState(() => _rawPage = i),
+                        onUserInteraction: _pauseAutoAdvance,
                       ),
                     ),
 
                     // ── Page dots ─────────────────────────────────────────
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.fromLTRB(20, 2, 20, 14),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(features.length, (i) {
-                          final active = i == _page;
+                        children: List.generate(kPaywallPreviews.length, (i) {
+                          final active = i == _slide;
+                          // Only the width is animated here. The colour is
+                          // already being tweened above, and animating it a
+                          // second time left the dot a whole slide behind the
+                          // CTA mid-change — two different accents on screen
+                          // at once.
                           return AnimatedContainer(
                             duration: const Duration(milliseconds: 280),
                             margin: const EdgeInsets.symmetric(horizontal: 3),
-                            width: active ? 20 : 6,
+                            width: active ? 18 : 6,
                             height: 6,
-                            decoration: BoxDecoration(
-                              color: active ? f.glowColor : Colors.white.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(3),
-                              boxShadow: active ? [BoxShadow(color: f.glowColor.withValues(alpha: 0.7), blurRadius: 8)] : null,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: active
+                                    ? accent
+                                    : Colors.white.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(3),
+                              ),
                             ),
                           );
                         }),
                       ),
                     ),
 
-                    // ── Plan pills ────────────────────────────────────────
-                    if (!_loading)
-                      Builder(
-                        builder: (context) {
-                          // Prices come from the store or not at all. Falling
-                          // back to a hardcoded figure showed a Turkish lira
-                          // amount to every locale whenever the offering
-                          // failed to load — the wrong currency and, after any
-                          // price change, the wrong number. Both stores treat
-                          // that as misleading pricing.
-                          final monthlyPriceString =
-                              monthly?.storeProduct.priceString ??
-                              directMonthly?.priceString;
-                          final annualPriceString =
-                              annual?.storeProduct.priceString ??
-                              directAnnual?.priceString;
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Row(
-                              children: [
-                                Expanded(child: _PlanPill(
-                                  selected: _selectedPlan == 1,
-                                  label: l.paywallYearly,
-                                  price: annualPriceString,
-                                  note: '',
-                                  glowColor: f.glowColor,
-                                  showBadge: true,
-                                  badgeText: l.paywallBestValue,
-                                  onTap: () => setState(() => _selectedPlan = 1),
-                                )),
-                                const SizedBox(width: 10),
-                                Expanded(child: _PlanPill(
-                                  selected: _selectedPlan == 0,
-                                  label: l.paywallMonthly,
-                                  price: monthlyPriceString,
-                                  note: l.paywallFreeTrial,
-                                  glowColor: f.glowColor,
-                                  onTap: () => setState(() => _selectedPlan = 0),
-                                )),
-                              ],
+                    // ── The purchase sheet, which never moves ─────────────
+                    _PurchaseSheet(
+                      accent: accent,
+                      onAccent: onAccent,
+                      loading: _loading,
+                      purchasing: _purchasing,
+                      selectedPlan: _selectedPlan,
+                      bottomPad: bottomPad,
+                      monthlyOffer: monthlyOffer,
+                      annualOffer: annualOffer,
+                      onSelectPlan: (i) => setState(() => _selectedPlan = i),
+                      onRedeemPromo: _redeemPromoCode,
+                      onBuy: () {
+                        final pkg = _selectedPlan == 0 ? monthly : annual;
+                        final direct = _selectedPlan == 0
+                            ? directMonthly
+                            : directAnnual;
+                        if (pkg != null || direct != null) {
+                          _purchase(pkg, product: direct);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(l.paywallLoadError),
+                              backgroundColor: AppColors.surfaceDark,
                             ),
                           );
                         }
-                      )
-                    else
-                      SizedBox(height: 76, child: Center(child: CircularProgressIndicator(color: f.glowColor, strokeWidth: 2))),
-
-                    const SizedBox(height: 12),
-
-                    // ── CTA ───────────────────────────────────────────────
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: GestureDetector(
-                        onTap: _purchasing ? null : () {
-                          final pkg = _selectedPlan == 0 ? monthly : annual;
-                          final direct = _selectedPlan == 0 ? directMonthly : directAnnual;
-                          if (pkg != null || direct != null) {
-                            _purchase(pkg, product: direct);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(l.paywallLoadError), backgroundColor: AppColors.surfaceDark),
-                            );
-                          }
-                        },
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          height: 56,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [f.glowColor, f.glowColor.withValues(alpha: 0.65)],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
-                            borderRadius: BorderRadius.circular(17),
-                            boxShadow: [BoxShadow(color: f.glowColor.withValues(alpha: 0.40), blurRadius: 22, offset: const Offset(0, 6))],
-                          ),
-                          child: Center(
-                            child: _purchasing
-                                ? SizedBox(width: 22, height: 22, child: CircularProgressIndicator(color: onAccent, strokeWidth: 2.5))
-                                : Text(
-                                    _selectedPlan == 0 ? l.paywallCta : l.paywallCtaAlt,
-                                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: onAccent, letterSpacing: 0.1),
-                                  ),
-                          ),
-                        ),
-                      ),
+                      },
                     ),
-
-                    const SizedBox(height: 10),
-
-                    Text(
-                      _selectedPlan == 0 ? l.paywallTrialDisclaimer : l.paywallYearlyDisclaimer,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25)),
-                    ),
-                    const SizedBox(height: 6),
-                    if (Platform.isIOS) ...[
-                      GestureDetector(
-                        onTap: _redeemPromoCode,
-                        child: Text(
-                          l.paywallPromoCode,
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.45)),
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                    ],
-                    // Wrap, not Row: these two links are required on the
-                    // purchase screen, and in German on a 320pt phone they do
-                    // not fit side by side. Better a second line than a clipped
-                    // one.
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () => launchUrl(Uri.parse('https://samtehhh.github.io/betaller/privacy.html')),
-                          child: Text(l.privacyPolicy, style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
-                        ),
-                        Text('  ·  ', style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.25))),
-                        GestureDetector(
-                          onTap: () => launchUrl(Uri.parse('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
-                          child: Text(l.termsOfService, style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.40), decoration: TextDecoration.underline, decorationColor: Colors.white.withValues(alpha: 0.40))),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: math.max(bottom, 10)),
                   ],
                 ),
 
@@ -466,9 +395,15 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: Colors.white.withValues(alpha: 0.10),
-                              border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.10),
+                              ),
                             ),
-                            child: const Icon(CupertinoIcons.xmark, size: 15, color: Colors.white),
+                            child: const Icon(
+                              CupertinoIcons.xmark,
+                              size: 15,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       else
@@ -483,7 +418,11 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.end,
-                            style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.35)),
+                            style: TextStyle(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white.withValues(alpha: 0.35),
+                            ),
                           ),
                         ),
                       ),
@@ -500,125 +439,99 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen>
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-//  Feature page — one per swipe
+//  The tour — an endless carousel of app screens
 // ═════════════════════════════════════════════════════════════════════════════
 
-class _FeaturePage extends StatelessWidget {
-  final _Feature feature;
-  final AnimationController entryAnim;
-  final double heroHeight;
+class _Tour extends StatelessWidget {
+  final PageController controller;
   final double topInset;
-  const _FeaturePage({
-    required this.feature,
-    required this.entryAnim,
-    required this.heroHeight,
+  final ValueChanged<int> onPageChanged;
+  final VoidCallback onUserInteraction;
+
+  const _Tour({
+    required this.controller,
     required this.topInset,
+    required this.onPageChanged,
+    required this.onUserInteraction,
   });
 
   @override
   Widget build(BuildContext context) {
-    final f = feature;
     final l = AppLocalizations.of(context)!;
-    final fadeSlide = CurvedAnimation(parent: entryAnim, curve: Curves.easeOutCubic);
+    return Listener(
+      onPointerDown: (_) => onUserInteraction(),
+      child: PageView.builder(
+        controller: controller,
+        onPageChanged: onPageChanged,
+        // No itemCount: the tour wraps from the last screen back to the first
+        // without a rewind animation across every slide in between.
+        itemBuilder: (_, i) {
+          final preview = kPaywallPreviews[i % kPaywallPreviews.length];
+          return _Slide(preview: preview, topInset: topInset, l: l);
+        },
+      ),
+    );
+  }
+}
 
+class _Slide extends StatelessWidget {
+  final PaywallPreview preview;
+  final double topInset;
+  final AppLocalizations l;
+  const _Slide({
+    required this.preview,
+    required this.topInset,
+    required this.l,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // ── Device panel ────────────────────────────────────────────────
-        SizedBox(
-          height: heroHeight,
+        Expanded(
           child: Padding(
-            padding: EdgeInsets.only(top: topInset + 42),
-            child: AnimatedBuilder(
-              animation: fadeSlide,
-              builder: (_, child) => Opacity(
-                opacity: fadeSlide.value,
-                child: Transform.translate(
-                  offset: Offset(0, 18 * (1 - fadeSlide.value)),
-                  child: child,
-                ),
-              ),
-              child: _PhoneMockup(
-                asset: f.assetFor(Localizations.localeOf(context).languageCode),
-                glowColor: f.glowColor,
-              ),
+            padding: EdgeInsets.fromLTRB(20, topInset + 44, 20, 0),
+            child: _PhoneMockup(
+              accent: preview.accent,
+              screen: preview.screen(l),
             ),
           ),
         ),
-
-        // ── Copy, sitting on the purchase sheet ─────────────────────────
-        Expanded(
-          child: AnimatedBuilder(
-            animation: fadeSlide,
-            builder: (_, child) => Opacity(opacity: fadeSlide.value.clamp(0.0, 1.0), child: child),
-            // Scrolls rather than clips: German and French wrap onto extra
-            // lines, and a large accessibility text size adds more still.
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 22, 24, 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // stat pill
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(11, 6, 13, 7),
-                    decoration: BoxDecoration(
-                      color: f.glowColor.withValues(alpha: 0.14),
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(color: f.glowColor.withValues(alpha: 0.30)),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Text(
-                          f.statFor(l),
-                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900, color: f.glowColor, letterSpacing: -0.3),
-                        ),
-                        const SizedBox(width: 5),
-                        // The unit label is a phrase, not a word, and runs long
-                        // in several languages — it gives way before the pill
-                        // can push past the screen edge.
-                        Flexible(
-                          child: Text(
-                            f.unit(l),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: f.glowColor.withValues(alpha: 0.80)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 14),
-
-                  Text(
-                    f.title(l),
-                    style: const TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                      letterSpacing: -0.7,
-                      height: 1.15,
-                    ),
-                  ),
-
-                  const SizedBox(height: 10),
-
-                  Text(
-                    f.description(l),
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      height: 1.45,
-                      color: Colors.white.withValues(alpha: 0.58),
-                    ),
-                  ),
-                ],
+        const SizedBox(height: 16),
+        // The headline is the whole pitch. The redesigned screen above says
+        // what the feature is far better than a paragraph would, so the copy
+        // stays at a line and a half and never has to scroll.
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 26),
+          child: Column(
+            children: [
+              Text(
+                preview.title(l),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: -0.6,
+                  height: 1.15,
+                ),
               ),
-            ),
+              const SizedBox(height: 6),
+              Text(
+                preview.caption(l),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  height: 1.35,
+                  color: Colors.white.withValues(alpha: 0.55),
+                ),
+              ),
+            ],
           ),
         ),
       ],
@@ -627,30 +540,291 @@ class _FeaturePage extends StatelessWidget {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-//  Hero visual — real in-app preview cards, one per feature page
+//  The purchase sheet — fixed for the life of the screen
 // ═════════════════════════════════════════════════════════════════════════════
 
+class _PurchaseSheet extends StatelessWidget {
+  final Color accent;
+  final Color onAccent;
+  final bool loading;
+  final bool purchasing;
+  final int selectedPlan;
+  final double bottomPad;
+  final _PlanOffer monthlyOffer;
+  final _PlanOffer annualOffer;
+  final ValueChanged<int> onSelectPlan;
+  final VoidCallback onBuy;
+  final VoidCallback onRedeemPromo;
+
+  const _PurchaseSheet({
+    required this.accent,
+    required this.onAccent,
+    required this.loading,
+    required this.purchasing,
+    required this.selectedPlan,
+    required this.bottomPad,
+    required this.monthlyOffer,
+    required this.annualOffer,
+    required this.onSelectPlan,
+    required this.onBuy,
+    required this.onRedeemPromo,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: const Color(0xFF0D0920),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
+        border: Border(top: BorderSide(color: accent.withValues(alpha: 0.30))),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.55),
+            blurRadius: 34,
+            offset: const Offset(0, -10),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.only(top: 18, bottom: math.max(bottomPad, 10)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // ── The plans ─────────────────────────────────────────────────
+            //
+            // Full-width rows, not two narrow pills. The trial used to be
+            // nine-point grey type under a price — the place offers go to die —
+            // and the moment it was promoted to a badge the pill was too narrow
+            // to spell it: "3 gün ücre…". A row has the width to say it, and
+            // says it in filled accent so it is the loudest thing in the sheet.
+            //
+            // Prices come from the store or not at all. Falling back to a
+            // hardcoded figure showed a Turkish lira amount to every locale
+            // whenever the offering failed to load — the wrong currency and,
+            // after any price change, the wrong number. Both stores treat that
+            // as misleading pricing.
+            if (!loading)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    _PlanRow(
+                      selected: selectedPlan == 1,
+                      label: l.paywallYearly,
+                      price: annualOffer.price,
+                      badgeText: l.paywallBestValue,
+                      badgeFilled: false,
+                      accent: accent,
+                      onTap: () => onSelectPlan(1),
+                    ),
+                    const SizedBox(height: 10),
+                    _PlanRow(
+                      selected: selectedPlan == 0,
+                      label: l.paywallMonthly,
+                      price: monthlyOffer.price,
+                      badgeText: monthlyOffer.hasTrial
+                          ? l.paywallTrialHeadline('${monthlyOffer.trialDays}')
+                          : null,
+                      badgeFilled: true,
+                      accent: accent,
+                      onTap: () => onSelectPlan(0),
+                    ),
+                  ],
+                ),
+              )
+            else
+              SizedBox(
+                height: 106,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: accent,
+                    strokeWidth: 2,
+                  ),
+                ),
+              ),
+
+            const SizedBox(height: 12),
+
+            // ── CTA ───────────────────────────────────────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: GestureDetector(
+                onTap: purchasing ? null : onBuy,
+                child: Container(
+                  height: 56,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [accent, accent.withValues(alpha: 0.65)],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.circular(17),
+                    boxShadow: [
+                      BoxShadow(
+                        color: accent.withValues(alpha: 0.40),
+                        blurRadius: 22,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: purchasing
+                        ? SizedBox(
+                            width: 22,
+                            height: 22,
+                            child: CircularProgressIndicator(
+                              color: onAccent,
+                              strokeWidth: 2.5,
+                            ),
+                          )
+                        : Text(
+                            (selectedPlan == 0 ? monthlyOffer : annualOffer)
+                                    .hasTrial
+                                ? l.paywallCta
+                                : l.paywallCtaAlt,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w800,
+                              color: onAccent,
+                              letterSpacing: 0.1,
+                            ),
+                          ),
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                (selectedPlan == 0 ? monthlyOffer : annualOffer).hasTrial
+                    ? l.paywallTrialDisclaimer
+                    : l.paywallYearlyDisclaimer,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Colors.white.withValues(alpha: 0.25),
+                ),
+              ),
+            ),
+            const SizedBox(height: 6),
+            if (Platform.isIOS) ...[
+              GestureDetector(
+                onTap: onRedeemPromo,
+                child: Text(
+                  l.paywallPromoCode,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white.withValues(alpha: 0.45),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 6),
+            ],
+            // Wrap, not Row: these two links are required on the purchase
+            // screen, and in German on a 320pt phone they do not fit side by
+            // side. Better a second line than a clipped one.
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () => launchUrl(
+                      Uri.parse(
+                        'https://samtehhh.github.io/betaller/privacy.html',
+                      ),
+                    ),
+                    child: Text(
+                      l.privacyPolicy,
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white.withValues(alpha: 0.40),
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.white.withValues(alpha: 0.40),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    '  ·  ',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.white.withValues(alpha: 0.25),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => launchUrl(
+                      Uri.parse(
+                        'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/',
+                      ),
+                    ),
+                    child: Text(
+                      l.termsOfService,
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white.withValues(alpha: 0.40),
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.white.withValues(alpha: 0.40),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  Hero visual — the app's own screens, drawn inside a device
+// ═════════════════════════════════════════════════════════════════════════════
+
+/// The design box a preview screen is authored in. Its aspect matches the
+/// mockup's display area below the status bar, so a screen scales in without
+/// letterboxing or a squeeze.
+const Size _kScreenDesign = kPreviewDesignSize;
+
 class _PhoneMockup extends StatelessWidget {
-  final String asset;
-  final Color glowColor;
-  const _PhoneMockup({required this.asset, required this.glowColor});
+  final Widget screen;
+  final Color accent;
+  const _PhoneMockup({required this.screen, required this.accent});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, c) {
-        // iPhone form factor: 71.6 x 147.6 mm => 0.485 aspect.
-        // The device is drawn taller than its slot and bleeds off the bottom,
-        // the way App Store hero shots do, so the screen stays readable.
+        // iPhone form factor: 71.6 x 147.6 mm => 0.485 aspect. The device wants
+        // to fit its slot outright — the tour changes screens every few
+        // seconds, so the whole screen should be there the moment it lands.
         const aspect = 0.485;
-        final slotH = c.maxHeight;
-        // Sized by width, not by the slot: the device is deliberately taller
-        // than the space it gets, so its screen fills the panel edge to edge.
-        double w = c.maxWidth * 0.78;
-        double h = w / aspect;
-        if (h < slotH * 1.15) {
-          h = slotH * 1.15;
-          w = h * aspect;
+        double h = c.maxHeight;
+        double w = h * aspect;
+        if (w > c.maxWidth * 0.86) {
+          w = c.maxWidth * 0.86;
+          h = w / aspect;
+        }
+
+        // On a short phone, though, fitting by height leaves a device barely
+        // wider than a finger, and the screen inside it unreadable — which
+        // defeats the point of showing it at all. Past that floor the device is
+        // sized by width instead and bleeds off the bottom of the slot, the way
+        // App Store shots do: a large, legible top half beats a complete but
+        // illegible whole.
+        final byHeight = w >= c.maxWidth * 0.58;
+        if (!byHeight) {
+          w = c.maxWidth * 0.74;
+          h = w / aspect;
         }
 
         final radius = w * 0.155;
@@ -658,176 +832,138 @@ class _PhoneMockup extends StatelessWidget {
         final screenRadius = radius - bezel;
         final btnW = w * 0.013;
 
-        return SizedBox(
-          height: slotH,
-          // The device fades out into the page instead of ending on a hard cut
-          child: ShaderMask(
-            blendMode: BlendMode.dstIn,
-            shaderCallback: (rect) => const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.white, Colors.white, Colors.transparent],
-              stops: [0.0, 0.82, 1.0],
-            ).createShader(rect),
-            child: Stack(
-              children: [
-                // The device, clipped by its slot
-                ClipRect(
-                child: OverflowBox(
-                  alignment: Alignment.topCenter,
-                  minHeight: 0,
-                  maxHeight: h,
-                  minWidth: 0,
-                  maxWidth: c.maxWidth,
-                  child: SizedBox(
-                    width: w,
-                    height: h,
+        final device = SizedBox(
+          width: w,
+          height: h,
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              // Ambient glow behind the device
+              Center(
+                child: Container(
+                  width: w * 0.88,
+                  height: h * 0.80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(radius),
+                    boxShadow: [
+                      BoxShadow(
+                        color: accent.withValues(alpha: 0.42),
+                        blurRadius: w * 0.62,
+                        spreadRadius: w * 0.03,
+                      ),
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.60),
+                        blurRadius: w * 0.22,
+                        offset: Offset(0, w * 0.10),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Side buttons (behind the frame)
+              Positioned(
+                left: -btnW * 0.7,
+                top: h * 0.150,
+                child: _SideButton(width: btnW, height: h * 0.030),
+              ),
+              Positioned(
+                left: -btnW * 0.7,
+                top: h * 0.215,
+                child: _SideButton(width: btnW, height: h * 0.055),
+              ),
+              Positioned(
+                left: -btnW * 0.7,
+                top: h * 0.285,
+                child: _SideButton(width: btnW, height: h * 0.055),
+              ),
+              Positioned(
+                right: -btnW * 0.7,
+                top: h * 0.245,
+                child: _SideButton(width: btnW, height: h * 0.080),
+              ),
+
+              // Titanium frame
+              Container(
+                width: w,
+                height: h,
+                padding: EdgeInsets.all(bezel),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(radius),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFFA6A6B2),
+                      Color(0xFF3A3A44),
+                      Color(0xFF74747F),
+                      Color(0xFF23232B),
+                      Color(0xFF9295A0),
+                    ],
+                    stops: [0.0, 0.20, 0.5, 0.80, 1.0],
+                  ),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(screenRadius),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFF130B2B), Color(0xFF090515)],
+                      ),
+                    ),
                     child: Stack(
-                      clipBehavior: Clip.none,
-                      alignment: Alignment.center,
                       children: [
-                        // Ambient glow behind the device
-                        Center(
-                          child: Container(
-                            width: w * 0.88,
-                            height: h * 0.80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(radius),
-                              boxShadow: [
-                                BoxShadow(color: glowColor.withValues(alpha: 0.42), blurRadius: w * 0.62, spreadRadius: w * 0.03),
-                                BoxShadow(color: Colors.black.withValues(alpha: 0.60), blurRadius: w * 0.22, offset: Offset(0, w * 0.10)),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        // Side buttons (behind the frame)
-                        Positioned(left: -btnW * 0.7, top: h * 0.150, child: _SideButton(width: btnW, height: h * 0.030)),
-                        Positioned(left: -btnW * 0.7, top: h * 0.215, child: _SideButton(width: btnW, height: h * 0.055)),
-                        Positioned(left: -btnW * 0.7, top: h * 0.285, child: _SideButton(width: btnW, height: h * 0.055)),
-                        Positioned(right: -btnW * 0.7, top: h * 0.245, child: _SideButton(width: btnW, height: h * 0.080)),
-
-                        // Titanium frame
-                        Container(
-                          width: w,
-                          height: h,
-                          padding: EdgeInsets.all(bezel),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(radius),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [Color(0xFFA6A6B2), Color(0xFF3A3A44), Color(0xFF74747F), Color(0xFF23232B), Color(0xFF9295A0)],
-                              stops: [0.0, 0.20, 0.5, 0.80, 1.0],
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(screenRadius),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [Color(0xFF130B2B), Color(0xFF090515)],
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            _StatusBar(width: w),
+                            SizedBox(height: w * 0.045),
+                            Expanded(
+                              child: ClipRect(
+                                // The screen is authored at a fixed size and
+                                // scaled down like a screenshot, so a phone
+                                // three inches tall shows the same layout as
+                                // the real one and no text reflows.
+                                child: FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  alignment: Alignment.topCenter,
+                                  child: SizedBox(
+                                    width: _kScreenDesign.width,
+                                    height: _kScreenDesign.height,
+                                    // The preview must not inherit the user's
+                                    // text scale: at 200% a fake screen turns
+                                    // into a wall of clipped labels.
+                                    child: MediaQuery(
+                                      data: MediaQuery.of(context).copyWith(
+                                        textScaler: TextScaler.noScaling,
+                                      ),
+                                      child: screen,
+                                    ),
+                                  ),
                                 ),
                               ),
-                              child: Stack(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                                    children: [
-                                      _StatusBar(width: w),
-                                      SizedBox(height: w * 0.045),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: w * 0.045),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(w * 0.055),
-                                            child: Align(
-                                              alignment: Alignment.topCenter,
-                                              heightFactor: 1.0,
-                                              child: Image.asset(
-                                                asset,
-                                                fit: BoxFit.fitWidth,
-                                                width: double.infinity,
-                                                alignment: Alignment.topCenter,
-                                                filterQuality: FilterQuality.high,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                  // Glass reflection
-                                  Positioned.fill(
-                                    child: IgnorePointer(
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
-                                            colors: [
-                                              Colors.white.withValues(alpha: 0.10),
-                                              Colors.white.withValues(alpha: 0.02),
-                                              Colors.transparent,
-                                              Colors.transparent,
-                                            ],
-                                            stops: const [0.0, 0.14, 0.38, 1.0],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ),
-                          ),
+                          ],
                         ),
 
-                        // Earpiece slot, milled into the top edge of the frame
-                        Positioned(
-                          top: bezel * 0.28,
-                          child: Container(
-                            width: w * 0.22,
-                            height: math.max(bezel * 0.34, 1.2),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF15151A),
-                              borderRadius: BorderRadius.circular(bezel),
-                              boxShadow: [
-                                BoxShadow(color: Colors.white.withValues(alpha: 0.14), blurRadius: 0, offset: const Offset(0, 0.6)),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        // Dynamic Island
-                        Positioned(
-                          top: bezel + w * 0.032,
-                          child: Container(
-                            width: w * 0.305,
-                            height: w * 0.088,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(w * 0.05),
-                            ),
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                padding: EdgeInsets.only(right: w * 0.024),
-                                child: Container(
-                                  width: w * 0.030,
-                                  height: w * 0.030,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    gradient: const RadialGradient(
-                                      center: Alignment(-0.3, -0.4),
-                                      radius: 0.9,
-                                      colors: [Color(0xFF2A3350), Color(0xFF0B0B12)],
-                                    ),
-                                    border: Border.all(color: Colors.white.withValues(alpha: 0.08), width: 0.5),
-                                  ),
+                        // Glass reflection
+                        Positioned.fill(
+                          child: IgnorePointer(
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withValues(alpha: 0.10),
+                                    Colors.white.withValues(alpha: 0.02),
+                                    Colors.transparent,
+                                    Colors.transparent,
+                                  ],
+                                  stops: const [0.0, 0.14, 0.38, 1.0],
                                 ),
                               ),
                             ),
@@ -837,8 +973,84 @@ class _PhoneMockup extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+
+              // Earpiece slot, milled into the top edge of the frame
+              Positioned(
+                top: bezel * 0.28,
+                child: Container(
+                  width: w * 0.22,
+                  height: math.max(bezel * 0.34, 1.2),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF15151A),
+                    borderRadius: BorderRadius.circular(bezel),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white.withValues(alpha: 0.14),
+                        blurRadius: 0,
+                        offset: const Offset(0, 0.6),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
+
+              // Dynamic Island
+              Positioned(
+                top: bezel + w * 0.032,
+                child: Container(
+                  width: w * 0.305,
+                  height: w * 0.088,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(w * 0.05),
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: EdgeInsets.only(right: w * 0.024),
+                      child: Container(
+                        width: w * 0.030,
+                        height: w * 0.030,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: const RadialGradient(
+                            center: Alignment(-0.3, -0.4),
+                            radius: 0.9,
+                            colors: [Color(0xFF2A3350), Color(0xFF0B0B12)],
+                          ),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.08),
+                            width: 0.5,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+
+        if (byHeight) return Center(child: device);
+
+        // Sized by width: hang the device from the top of the slot and let the
+        // frame run off the bottom edge, fading out rather than ending on a cut.
+        return ClipRect(
+          child: ShaderMask(
+            blendMode: BlendMode.dstIn,
+            shaderCallback: (rect) => const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.white, Colors.white, Colors.transparent],
+              stops: [0.0, 0.86, 1.0],
+            ).createShader(rect),
+            child: OverflowBox(
+              alignment: Alignment.topCenter,
+              minHeight: 0,
+              maxHeight: h,
+              child: device,
             ),
           ),
         );
@@ -913,7 +1125,9 @@ class _StatusIconsPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final h = size.height;
-    final fill = Paint()..color = color..isAntiAlias = true;
+    final fill = Paint()
+      ..color = color
+      ..isAntiAlias = true;
     double x = 0;
 
     // ── Signal: four bars on one baseline ────────────────────────────────
@@ -975,17 +1189,28 @@ class _StatusIconsPainter extends CustomPainter {
     // terminal nub
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(x + bodyW + h * 0.03, h / 2 - bodyH * 0.19, h * 0.13, bodyH * 0.38),
+        Rect.fromLTWH(
+          x + bodyW + h * 0.03,
+          h / 2 - bodyH * 0.19,
+          h * 0.13,
+          bodyH * 0.38,
+        ),
         Radius.circular(h * 0.06),
       ),
-      Paint()..color = color.withValues(alpha: 0.55)..isAntiAlias = true,
+      Paint()
+        ..color = color.withValues(alpha: 0.55)
+        ..isAntiAlias = true,
     );
     // charge level
     final inset = line * 2.4;
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(x + inset, top + inset,
-            (bodyW - inset * 2) * 0.82, bodyH - inset * 2),
+        Rect.fromLTWH(
+          x + inset,
+          top + inset,
+          (bodyW - inset * 2) * 0.82,
+          bodyH - inset * 2,
+        ),
         Radius.circular(bodyH * 0.16),
       ),
       fill,
@@ -997,165 +1222,167 @@ class _StatusIconsPainter extends CustomPainter {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-//  Data model
+//  Plan row
 // ═════════════════════════════════════════════════════════════════════════════
 
-class _Feature {
-  final String id;
-  final Color glowColor;
-  final String asset;
-  final String stat;
-  const _Feature({
-    required this.id,
-    required this.glowColor,
-    required this.asset,
-    required this.stat,
-  });
-
-  /// Hero art is shot per language; every supported locale ships a folder.
-  String assetFor(String languageCode) {
-    const shipped = {'tr', 'en', 'de', 'fr', 'es', 'it', 'pt', 'hi'};
-    final lang = shipped.contains(languageCode) ? languageCode : 'en';
-    return 'assets/paywall/$lang/$asset.webp';
-  }
-
-  String statFor(AppLocalizations l) => stat.isEmpty ? l.paywallReportStat : stat;
-
-  String unit(AppLocalizations l) {
-    switch (id) {
-      case 'growth':
-        return l.paywallGrowthUnit;
-      case 'posture':
-        return l.paywallPostureUnit;
-      case 'report':
-        return l.paywallReportUnit;
-      case 'nutrition':
-        return l.paywallNutritionUnit;
-      case 'score':
-        return l.paywallScoreUnit;
-      case 'photos':
-        return l.paywallPhotosUnit;
-      case 'height':
-      default:
-        return l.paywallHeightUnit;
-    }
-  }
-
-  String title(AppLocalizations l) {
-    switch (id) {
-      case 'growth':
-        return l.paywallGrowthTitle;
-      case 'posture':
-        return l.paywallPostureTitle;
-      case 'report':
-        return l.paywallReportTitle;
-      case 'nutrition':
-        return l.paywallNutritionTitle;
-      case 'score':
-        return l.paywallScoreTitle;
-      case 'photos':
-        return l.paywallPhotosTitle;
-      case 'height':
-      default:
-        return l.paywallHeightTitle;
-    }
-  }
-
-  String description(AppLocalizations l) {
-    switch (id) {
-      case 'growth':
-        return l.paywallGrowthDesc;
-      case 'posture':
-        return l.paywallPostureDesc;
-      case 'report':
-        return l.paywallReportDesc;
-      case 'nutrition':
-        return l.paywallNutritionDesc;
-      case 'score':
-        return l.paywallScoreDesc;
-      case 'photos':
-        return l.paywallPhotosDesc;
-      case 'height':
-      default:
-        return l.paywallHeightDesc;
-    }
-  }
-}
-
-// ═════════════════════════════════════════════════════════════════════════════
-//  Plan pill
-// ═════════════════════════════════════════════════════════════════════════════
-
-class _PlanPill extends StatelessWidget {
+/// One plan, full width: what it is called, what it costs, and the one thing
+/// worth shouting about it.
+class _PlanRow extends StatelessWidget {
   final bool selected;
   final String label;
 
   /// The store's own price string, or null when the offering has not loaded.
   /// Never a hardcoded stand-in — see the note where this is built.
   final String? price;
-  final String note;
-  final Color glowColor;
-  final VoidCallback onTap;
-  final bool showBadge;
+
+  /// Best value, or the free days. Null on a plan with neither.
   final String? badgeText;
-  const _PlanPill({required this.selected, required this.label, required this.price, required this.note, required this.glowColor, required this.onTap, this.showBadge = false, this.badgeText});
+
+  /// Filled badges read as an offer, tinted ones as a label. The free trial
+  /// gets the filled one — it is the thing this sheet is selling.
+  final bool badgeFilled;
+
+  final Color accent;
+  final VoidCallback onTap;
+
+  const _PlanRow({
+    required this.selected,
+    required this.label,
+    required this.price,
+    required this.badgeText,
+    required this.badgeFilled,
+    required this.accent,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
+    // Bright accents (green, amber, cyan) need dark text on a filled badge.
+    final onAccent = accent.computeLuminance() > 0.5
+        ? const Color(0xFF07050F)
+        : Colors.white;
+
     return GestureDetector(
       onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 220),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+      // Not animated: the accent already arrives tweened, and animating it
+      // again here left the row trailing the CTA by most of a slide. Selecting
+      // a plan lands instantly, which is the right feel for a tap anyway.
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(13, 12, 13, 12),
         decoration: BoxDecoration(
-          color: selected ? glowColor.withValues(alpha: 0.12) : Colors.white.withValues(alpha: 0.05),
+          color: selected
+              ? accent.withValues(alpha: 0.12)
+              : Colors.white.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: selected ? glowColor.withValues(alpha: 0.60) : Colors.white.withValues(alpha: 0.10),
+            color: selected
+                ? accent.withValues(alpha: 0.65)
+                : Colors.white.withValues(alpha: 0.10),
             width: selected ? 1.5 : 1,
           ),
-          boxShadow: selected ? [BoxShadow(color: glowColor.withValues(alpha: 0.18), blurRadius: 14)] : null,
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: accent.withValues(alpha: 0.18),
+                    blurRadius: 16,
+                    spreadRadius: -4,
+                  ),
+                ]
+              : null,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
           children: [
-            Row(
-              children: [
-                // Expanded keeps the badge pinned right, the way a Spacer did,
-                // but lets a long plan name ellipsize instead of shoving the
-                // badge off the pill.
-                Expanded(
+            // The radio, so it is obvious these are a choice of one.
+            Container(
+              width: 19,
+              height: 19,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: selected ? accent : Colors.transparent,
+                border: Border.all(
+                  color: selected
+                      ? accent
+                      : Colors.white.withValues(alpha: 0.28),
+                  width: 1.6,
+                ),
+              ),
+              child: selected
+                  ? Icon(Icons.check_rounded, size: 13, color: onAccent)
+                  : null,
+            ),
+            const SizedBox(width: 10),
+            // Everything in this row competes for a 320pt screen's width, so
+            // the order of who gives way matters. The price and the offer never
+            // shorten — a clipped "₺399,…" is worse than no price at all, and
+            // both stores treat a misstated price as grounds for rejection — so
+            // the plan's name is the only thing here that may ellipsize.
+            Flexible(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: selected
+                      ? Colors.white
+                      : Colors.white.withValues(alpha: 0.60),
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              price ?? '—',
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w900,
+                color: selected
+                    ? Colors.white
+                    : Colors.white.withValues(alpha: 0.60),
+                letterSpacing: -0.4,
+              ),
+            ),
+            if (badgeText != null) ...[
+              const SizedBox(width: 8),
+              // Capped only as a last resort, for a translation long enough to
+              // crowd out the price on the narrowest phone.
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 132),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 7,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: badgeFilled
+                        ? accent
+                        : accent.withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(7),
+                    boxShadow: badgeFilled
+                        ? [
+                            BoxShadow(
+                              color: accent.withValues(alpha: 0.45),
+                              blurRadius: 12,
+                              spreadRadius: -2,
+                            ),
+                          ]
+                        : null,
+                  ),
                   child: Text(
-                    label,
+                    badgeText!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: selected ? Colors.white : Colors.white.withValues(alpha: 0.45)),
-                  ),
-                ),
-                if (showBadge) ...[
-                  const SizedBox(width: 6),
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(color: glowColor.withValues(alpha: 0.20), borderRadius: BorderRadius.circular(5)),
-                      child: Text(
-                        badgeText ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 8, fontWeight: FontWeight.w800, color: glowColor, letterSpacing: 0.5),
-                      ),
+                    style: TextStyle(
+                      fontSize: 9.5,
+                      fontWeight: FontWeight.w900,
+                      color: badgeFilled ? onAccent : accent,
+                      letterSpacing: 0.3,
                     ),
                   ),
-                ],
-              ],
-            ),
-            const SizedBox(height: 4),
-            Text(price ?? '—', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: selected ? Colors.white : Colors.white.withValues(alpha: 0.45), letterSpacing: -0.5, height: 1.0)),
-            if (note.isNotEmpty) ...[
-              const SizedBox(height: 3),
-              Text(note, style: TextStyle(fontSize: 9.5, color: selected ? glowColor.withValues(alpha: 0.80) : Colors.white.withValues(alpha: 0.30), fontWeight: FontWeight.w500)),
-            ] else
-              const SizedBox(height: 15),
+                ),
+              ),
+            ],
           ],
         ),
       ),
@@ -1189,25 +1416,34 @@ class PremiumLockedOverlay extends StatelessWidget {
       onTap: onTap,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
-        child: Stack(children: [
-          child,
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: blurAmount, sigmaY: blurAmount),
-              child: Container(
-                decoration: BoxDecoration(color: AppColors.scaffold.withValues(alpha: 0.3)),
-                child: Center(
-                  child: Icon(
-                    CupertinoIcons.lock_fill,
-                    color: Colors.white.withValues(alpha: 0.85),
-                    size: 36,
-                    shadows: const [Shadow(color: Colors.black54, blurRadius: 12)],
+        child: Stack(
+          children: [
+            child,
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: blurAmount,
+                  sigmaY: blurAmount,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.scaffold.withValues(alpha: 0.3),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      CupertinoIcons.lock_fill,
+                      color: Colors.white.withValues(alpha: 0.85),
+                      size: 36,
+                      shadows: const [
+                        Shadow(color: Colors.black54, blurRadius: 12),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }

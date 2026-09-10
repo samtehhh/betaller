@@ -1309,5 +1309,27 @@
   "viewPlan": "View Plan",
   "viewPlanSubtitle": "See your subscription details",
   "predictionConfidenceHint": "Adding height measurements takes the prediction to {percent}%",
-  "@predictionConfidenceHint": {"placeholders": {"percent": {"type": "String"}}}
+  "@predictionConfidenceHint": {"placeholders": {"percent": {"type": "String"}}},
+
+  "paywallSlideHomeTitle": "Your day, one screen",
+  "paywallSlideHomeCaption": "Routines, water, sleep — three rings to close.",
+  "paywallSlideProgressTitle": "See every centimetre",
+  "paywallSlideProgressCaption": "Each measurement lands on the curve instantly.",
+  "paywallSlideAnalysisTitle": "Five metrics, one shape",
+  "paywallSlideAnalysisCaption": "The radar names your weakest link.",
+  "paywallSlidePotentialTitle": "Know your potential",
+  "paywallSlidePotentialCaption": "See where you stand among your peers.",
+  "paywallSlideDisciplineTitle": "Keep the streak",
+  "paywallSlideDisciplineCaption": "Every day pushes your level up.",
+  "paywallSlideRemindersTitle": "Nudged at the right time",
+  "paywallSlideRemindersCaption": "Set your hours, the app handles the rest.",
+  "paywallSlidePostureTitle": "Fix your posture",
+  "paywallSlidePostureCaption": "One photo, a measured score, a clear routine.",
+
+  "paywallTrialHeadline": "{days} DAYS FREE",
+  "@paywallTrialHeadline": {"placeholders": {"days": {"type": "String"}}},
+  "paywallTrialThen": "Then {price} · cancel anytime",
+  "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
+  "paywallYearlyBilled": "{price} / year · cancel anytime",
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
 }

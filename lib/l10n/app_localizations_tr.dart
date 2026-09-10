@@ -3871,4 +3871,65 @@ class AppLocalizationsTr extends AppLocalizations {
   String predictionConfidenceHint(String percent) {
     return 'Boy ölçümü ekledikçe tahmin %$percent\'e ulaşır';
   }
+
+  @override
+  String get paywallSlideHomeTitle => 'Günün tek ekranda';
+
+  @override
+  String get paywallSlideHomeCaption =>
+      'Rutin, su, uyku — kapatman gereken üç halka.';
+
+  @override
+  String get paywallSlideProgressTitle => 'Her santimi gör';
+
+  @override
+  String get paywallSlideProgressCaption => 'Ölçümlerin anında eğriye işlenir.';
+
+  @override
+  String get paywallSlideAnalysisTitle => 'Beş metrik, tek şekil';
+
+  @override
+  String get paywallSlideAnalysisCaption => 'Radar en zayıf halkanı söyler.';
+
+  @override
+  String get paywallSlidePotentialTitle => 'Potansiyelini öğren';
+
+  @override
+  String get paywallSlidePotentialCaption =>
+      'Yaşıtlarının dağılımında yerini gör.';
+
+  @override
+  String get paywallSlideDisciplineTitle => 'Seriyi kırma';
+
+  @override
+  String get paywallSlideDisciplineCaption => 'Her gün seviyeni yukarı taşır.';
+
+  @override
+  String get paywallSlideRemindersTitle => 'Doğru anda hatırlat';
+
+  @override
+  String get paywallSlideRemindersCaption =>
+      'Saatlerini kur, gerisini uygulama halleder.';
+
+  @override
+  String get paywallSlidePostureTitle => 'Duruşunu düzelt';
+
+  @override
+  String get paywallSlidePostureCaption =>
+      'Tek fotoğraf, ölçülmüş puan, net rutin.';
+
+  @override
+  String paywallTrialHeadline(String days) {
+    return '$days GÜN ÜCRETSİZ';
+  }
+
+  @override
+  String paywallTrialThen(String price) {
+    return 'Sonra $price · istediğin zaman iptal et';
+  }
+
+  @override
+  String paywallYearlyBilled(String price) {
+    return '$price / yıl · istediğin zaman iptal et';
+  }
 }

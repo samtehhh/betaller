@@ -404,25 +404,6 @@ class _DisciplineLevelCard extends StatelessWidget {
     'spark', 'steady', 'sharp', 'solid', 'relentless', 'unbroken', 'legend',
   ];
 
-  String _tierName(AppLocalizations l, String key) {
-    switch (key) {
-      case 'steady':
-        return l.disciplineTierSteady;
-      case 'sharp':
-        return l.disciplineTierSharp;
-      case 'solid':
-        return l.disciplineTierSolid;
-      case 'relentless':
-        return l.disciplineTierRelentless;
-      case 'unbroken':
-        return l.disciplineTierUnbroken;
-      case 'legend':
-        return l.disciplineTierLegend;
-      default:
-        return l.disciplineTierSpark;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
@@ -501,7 +482,7 @@ class _DisciplineLevelCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  _tierName(l, _tierKeys[idx]),
+                  disciplineTierName(l, _tierKeys[idx]),
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w900,

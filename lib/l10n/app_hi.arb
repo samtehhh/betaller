@@ -947,5 +947,27 @@
   "purchaseUnavailable": "खरीद पूरी नहीं हो सकी। कृपया फिर से कोशिश करें।",
   "viewPlan": "प्लान देखें",
   "viewPlanSubtitle": "अपनी सदस्यता का विवरण देखें",
-  "predictionConfidenceHint": "हर माप जोड़ने पर अनुमान {percent}% तक पहुँचता है"
+  "predictionConfidenceHint": "हर माप जोड़ने पर अनुमान {percent}% तक पहुँचता है",
+
+  "paywallSlideHomeTitle": "तुम्हारा दिन, एक स्क्रीन",
+  "paywallSlideHomeCaption": "रूटीन, पानी, नींद — तीन रिंग पूरी करनी हैं।",
+  "paywallSlideProgressTitle": "हर सेंटीमीटर देखो",
+  "paywallSlideProgressCaption": "हर माप तुरंत ग्राफ़ पर आ जाता है।",
+  "paywallSlideAnalysisTitle": "पाँच मापदंड, एक आकार",
+  "paywallSlideAnalysisCaption": "रडार तुम्हारी सबसे कमज़ोर कड़ी बताता है।",
+  "paywallSlidePotentialTitle": "अपनी संभावना जानो",
+  "paywallSlidePotentialCaption": "देखो तुम अपने हमउम्रों में कहाँ हो।",
+  "paywallSlideDisciplineTitle": "स्ट्रीक मत तोड़ो",
+  "paywallSlideDisciplineCaption": "हर दिन तुम्हारा स्तर ऊपर ले जाता है।",
+  "paywallSlideRemindersTitle": "सही समय पर याद दिलाए",
+  "paywallSlideRemindersCaption": "समय तय करो, बाकी ऐप संभालेगा।",
+  "paywallSlidePostureTitle": "अपनी मुद्रा सुधारो",
+  "paywallSlidePostureCaption": "एक फ़ोटो, मापा गया स्कोर, साफ़ रूटीन।",
+
+  "paywallTrialHeadline": "{days} दिन मुफ़्त",
+  "@paywallTrialHeadline": {"placeholders": {"days": {"type": "String"}}},
+  "paywallTrialThen": "फिर {price} · कभी भी रद्द करें",
+  "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
+  "paywallYearlyBilled": "{price} / साल · कभी भी रद्द करें",
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
 }

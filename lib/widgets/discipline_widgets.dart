@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../l10n/app_localizations.dart';
 import '../utils/constants.dart';
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -34,6 +35,27 @@ int disciplineTierIndex(int streak) {
     if (streak >= kDisciplineTiers[i].days) idx = i;
   }
   return idx;
+}
+
+/// The tier's name in the user's language. Keyed off [DisciplineTier.key] so a
+/// caller cannot pair one tier's colour with another's name.
+String disciplineTierName(AppLocalizations l, String key) {
+  switch (key) {
+    case 'steady':
+      return l.disciplineTierSteady;
+    case 'sharp':
+      return l.disciplineTierSharp;
+    case 'solid':
+      return l.disciplineTierSolid;
+    case 'relentless':
+      return l.disciplineTierRelentless;
+    case 'unbroken':
+      return l.disciplineTierUnbroken;
+    case 'legend':
+      return l.disciplineTierLegend;
+    default:
+      return l.disciplineTierSpark;
+  }
 }
 
 /// 0-1 progress from the current tier toward the next one.
@@ -76,8 +98,7 @@ class GoalBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(icon,
-                  size: 14, color: complete ? AppColors.success : color),
+              Icon(icon, size: 14, color: complete ? AppColors.success : color),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -102,8 +123,11 @@ class GoalBar extends StatelessWidget {
               ),
               if (complete) ...[
                 const SizedBox(width: 6),
-                const Icon(CupertinoIcons.checkmark_alt_circle_fill,
-                    size: 14, color: AppColors.success),
+                const Icon(
+                  CupertinoIcons.checkmark_alt_circle_fill,
+                  size: 14,
+                  color: AppColors.success,
+                ),
               ],
             ],
           ),
@@ -115,7 +139,8 @@ class GoalBar extends StatelessWidget {
               minHeight: 6,
               backgroundColor: Colors.white.withValues(alpha: 0.07),
               valueColor: AlwaysStoppedAnimation<Color>(
-                  complete ? AppColors.success : color),
+                complete ? AppColors.success : color,
+              ),
             ),
           ),
         ],
@@ -156,9 +181,7 @@ class DisciplineRingPainter extends CustomPainter {
         step - gap,
         false,
         Paint()
-          ..color = active
-              ? color
-              : Colors.white.withValues(alpha: 0.07)
+          ..color = active ? color : Colors.white.withValues(alpha: 0.07)
           ..style = PaintingStyle.stroke
           ..strokeWidth = active ? 6 : 4
           ..strokeCap = StrokeCap.round

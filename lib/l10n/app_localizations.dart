@@ -7147,6 +7147,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Adding height measurements takes the prediction to {percent}%'**
   String predictionConfidenceHint(String percent);
+
+  /// No description provided for @paywallSlideHomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day, one screen'**
+  String get paywallSlideHomeTitle;
+
+  /// No description provided for @paywallSlideHomeCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Routines, water, sleep — three rings to close.'**
+  String get paywallSlideHomeCaption;
+
+  /// No description provided for @paywallSlideProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See every centimetre'**
+  String get paywallSlideProgressTitle;
+
+  /// No description provided for @paywallSlideProgressCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Each measurement lands on the curve instantly.'**
+  String get paywallSlideProgressCaption;
+
+  /// No description provided for @paywallSlideAnalysisTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Five metrics, one shape'**
+  String get paywallSlideAnalysisTitle;
+
+  /// No description provided for @paywallSlideAnalysisCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'The radar names your weakest link.'**
+  String get paywallSlideAnalysisCaption;
+
+  /// No description provided for @paywallSlidePotentialTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Know your potential'**
+  String get paywallSlidePotentialTitle;
+
+  /// No description provided for @paywallSlidePotentialCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'See where you stand among your peers.'**
+  String get paywallSlidePotentialCaption;
+
+  /// No description provided for @paywallSlideDisciplineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the streak'**
+  String get paywallSlideDisciplineTitle;
+
+  /// No description provided for @paywallSlideDisciplineCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day pushes your level up.'**
+  String get paywallSlideDisciplineCaption;
+
+  /// No description provided for @paywallSlideRemindersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nudged at the right time'**
+  String get paywallSlideRemindersTitle;
+
+  /// No description provided for @paywallSlideRemindersCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your hours, the app handles the rest.'**
+  String get paywallSlideRemindersCaption;
+
+  /// No description provided for @paywallSlidePostureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix your posture'**
+  String get paywallSlidePostureTitle;
+
+  /// No description provided for @paywallSlidePostureCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'One photo, a measured score, a clear routine.'**
+  String get paywallSlidePostureCaption;
+
+  /// No description provided for @paywallTrialHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} DAYS FREE'**
+  String paywallTrialHeadline(String days);
+
+  /// No description provided for @paywallTrialThen.
+  ///
+  /// In en, this message translates to:
+  /// **'Then {price} · cancel anytime'**
+  String paywallTrialThen(String price);
+
+  /// No description provided for @paywallYearlyBilled.
+  ///
+  /// In en, this message translates to:
+  /// **'{price} / year · cancel anytime'**
+  String paywallYearlyBilled(String price);
 }
 
 class _AppLocalizationsDelegate

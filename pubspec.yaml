@@ -51,6 +51,10 @@ flutter:
     - assets/icon_2.png
     - assets/exercises/
     - assets/testimonials/
+    # The paywall's hero screens are drawn from the app's own widgets now (see
+    # lib/widgets/paywall_previews.dart), so these per-language screenshots are
+    # no longer loaded by anything. Kept only until the new tour has shipped and
+    # been seen in the wild; delete the folders and these lines after that.
     - assets/paywall/tr/
     - assets/paywall/en/
     - assets/paywall/de/
@@ -59,8 +63,8 @@ flutter:
     - assets/paywall/it/
     - assets/paywall/pt/
     - assets/paywall/hi/
-    # Stand-in before/after shots for the debug demo-data seeder. Safe to drop
-    # from the bundle once the store screenshots are done.
+    # Before/after shots for the debug demo-data seeder, and for the paywall's
+    # posture slide — which means they now ship, not just seed.
     - assets/demo/
 
   fonts:

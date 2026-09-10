@@ -3853,4 +3853,66 @@ class AppLocalizationsHi extends AppLocalizations {
   String predictionConfidenceHint(String percent) {
     return 'हर माप जोड़ने पर अनुमान $percent% तक पहुँचता है';
   }
+
+  @override
+  String get paywallSlideHomeTitle => 'तुम्हारा दिन, एक स्क्रीन';
+
+  @override
+  String get paywallSlideHomeCaption =>
+      'रूटीन, पानी, नींद — तीन रिंग पूरी करनी हैं।';
+
+  @override
+  String get paywallSlideProgressTitle => 'हर सेंटीमीटर देखो';
+
+  @override
+  String get paywallSlideProgressCaption => 'हर माप तुरंत ग्राफ़ पर आ जाता है।';
+
+  @override
+  String get paywallSlideAnalysisTitle => 'पाँच मापदंड, एक आकार';
+
+  @override
+  String get paywallSlideAnalysisCaption =>
+      'रडार तुम्हारी सबसे कमज़ोर कड़ी बताता है।';
+
+  @override
+  String get paywallSlidePotentialTitle => 'अपनी संभावना जानो';
+
+  @override
+  String get paywallSlidePotentialCaption =>
+      'देखो तुम अपने हमउम्रों में कहाँ हो।';
+
+  @override
+  String get paywallSlideDisciplineTitle => 'स्ट्रीक मत तोड़ो';
+
+  @override
+  String get paywallSlideDisciplineCaption =>
+      'हर दिन तुम्हारा स्तर ऊपर ले जाता है।';
+
+  @override
+  String get paywallSlideRemindersTitle => 'सही समय पर याद दिलाए';
+
+  @override
+  String get paywallSlideRemindersCaption => 'समय तय करो, बाकी ऐप संभालेगा।';
+
+  @override
+  String get paywallSlidePostureTitle => 'अपनी मुद्रा सुधारो';
+
+  @override
+  String get paywallSlidePostureCaption =>
+      'एक फ़ोटो, मापा गया स्कोर, साफ़ रूटीन।';
+
+  @override
+  String paywallTrialHeadline(String days) {
+    return '$days दिन मुफ़्त';
+  }
+
+  @override
+  String paywallTrialThen(String price) {
+    return 'फिर $price · कभी भी रद्द करें';
+  }
+
+  @override
+  String paywallYearlyBilled(String price) {
+    return '$price / साल · कभी भी रद्द करें';
+  }
 }

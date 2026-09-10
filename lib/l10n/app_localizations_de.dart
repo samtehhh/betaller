@@ -3890,4 +3890,67 @@ class AppLocalizationsDe extends AppLocalizations {
   String predictionConfidenceHint(String percent) {
     return 'Mit jeder Messung steigt die Prognose auf $percent%';
   }
+
+  @override
+  String get paywallSlideHomeTitle => 'Dein Tag, ein Bildschirm';
+
+  @override
+  String get paywallSlideHomeCaption =>
+      'Routinen, Wasser, Schlaf — drei Ringe zum Schließen.';
+
+  @override
+  String get paywallSlideProgressTitle => 'Jeden Zentimeter sehen';
+
+  @override
+  String get paywallSlideProgressCaption =>
+      'Jede Messung landet sofort in der Kurve.';
+
+  @override
+  String get paywallSlideAnalysisTitle => 'Fünf Werte, eine Form';
+
+  @override
+  String get paywallSlideAnalysisCaption =>
+      'Das Radar zeigt dein schwächstes Glied.';
+
+  @override
+  String get paywallSlidePotentialTitle => 'Kenne dein Potenzial';
+
+  @override
+  String get paywallSlidePotentialCaption =>
+      'Sieh, wo du unter Gleichaltrigen stehst.';
+
+  @override
+  String get paywallSlideDisciplineTitle => 'Halte die Serie';
+
+  @override
+  String get paywallSlideDisciplineCaption => 'Jeder Tag hebt dein Level.';
+
+  @override
+  String get paywallSlideRemindersTitle => 'Zur richtigen Zeit erinnert';
+
+  @override
+  String get paywallSlideRemindersCaption =>
+      'Zeiten setzen — den Rest macht die App.';
+
+  @override
+  String get paywallSlidePostureTitle => 'Haltung korrigieren';
+
+  @override
+  String get paywallSlidePostureCaption =>
+      'Ein Foto, ein gemessener Wert, eine klare Routine.';
+
+  @override
+  String paywallTrialHeadline(String days) {
+    return '$days TAGE GRATIS';
+  }
+
+  @override
+  String paywallTrialThen(String price) {
+    return 'Danach $price · jederzeit kündbar';
+  }
+
+  @override
+  String paywallYearlyBilled(String price) {
+    return '$price / Jahr · jederzeit kündbar';
+  }
 }
