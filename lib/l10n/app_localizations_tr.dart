@@ -3932,4 +3932,51 @@ class AppLocalizationsTr extends AppLocalizations {
   String paywallYearlyBilled(String price) {
     return '$price / yıl · istediğin zaman iptal et';
   }
+
+  @override
+  String get obBedtimeTitle => 'Genelde saat kaçta uyursun?';
+
+  @override
+  String get obBedtimeSubtitle => 'Uyku hatırlatmanı bu saate göre kuracağız.';
+
+  @override
+  String get obWorkoutTimeTitle => 'Egzersizini saat kaçta yaparsın?';
+
+  @override
+  String get obWorkoutTimeSubtitle =>
+      'Antrenman hatırlatman tam o saatte gelsin.';
+
+  @override
+  String get obMealsTitle => 'Günde kaç öğün yersin?';
+
+  @override
+  String get obMealsSubtitle =>
+      'Saatlere dokunup kendine göre ayarlayabilirsin.';
+
+  @override
+  String obMealsCount(String count) {
+    return '$count öğün';
+  }
+
+  @override
+  String obMealLabel(String n) {
+    return '$n. öğün';
+  }
+
+  @override
+  String get obProteinTitle => 'Günde kaç gram protein alırsın?';
+
+  @override
+  String get obProteinSubtitle =>
+      'Yaklaşık bir değer yeter — planını buna göre kuruyoruz.';
+
+  @override
+  String get obCaloriesTitle => 'Günde ortalama kaç kalori alırsın?';
+
+  @override
+  String get obCaloriesSubtitle =>
+      'Tahmini söylemen yeterli, sonra birlikte netleştiririz.';
+
+  @override
+  String get obNotSure => 'Emin değilim';
 }

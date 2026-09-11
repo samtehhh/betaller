@@ -1,4 +1,6 @@
 import 'dart:math' as math;
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,15 +12,16 @@ import '../models/user_profile.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import 'main_screen.dart';
+import '../services/notification_service.dart';
 import '../widgets/journey_steps.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
 const int _kGenderPage = 2;
 const int _kWorkoutPage = 6;
 const int _kEthnicityPage = 7;
-const int _kPastHeightsPage = 11;
-const int _kAnalyzingPage = 15;
-const int _kLastQuestion = 14; // last page that shows the Next button
+const int _kPastHeightsPage = 16;
+const int _kAnalyzingPage = 20;
+const int _kLastQuestion = 19; // last page that shows the Next button
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -58,6 +61,23 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // ── Lifestyle questions ──────────────────────────────────────────────────────
   String _weeklyWorkout = '';
   String _ethnicity = '';
+
+  // ── Daily rhythm ─────────────────────────────────────────────────────────────
+  // What the reminders are scheduled against, so a night owl is not nudged to
+  // sleep at ten and someone who trains at dawn is not told to at six in the
+  // evening.
+  int _bedHour = 23, _bedMin = 0;
+  int _workoutHour = 18, _workoutMin = 0;
+
+  /// One entry per meal: how many, and when. Defaults to three, spread the way
+  /// most days go.
+  List<String> _mealTimes = const ['08:00', '13:00', '19:00'];
+
+  /// Zero means "did not say" — the plan falls back to its own estimate.
+  int _dailyProtein = 0;
+  int _dailyCalories = 0;
+  bool _proteinUnknown = false;
+  bool _caloriesUnknown = false;
 
   // ── Foot size ────────────────────────────────────────────────────────────────
   double _footSize = 8.5; // US equivalent of EU 41
@@ -228,6 +248,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       fatherHeight: _selectedFatherHeight.toDouble(),
       motherHeight: _selectedMotherHeight.toDouble(),
       ethnicity: _ethnicity,
+      bedtime: _clock(_bedHour, _bedMin),
+      workoutTime: _clock(_workoutHour, _workoutMin),
+      mealTimes: _mealTimes,
+      dailyProtein: _proteinUnknown ? 0 : _dailyProtein,
+      dailyCalories: _caloriesUnknown ? 0 : _dailyCalories,
     );
     final past = <int, double>{};
     for (final e in _obPastHeightValues.entries) {
@@ -238,6 +263,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final p = context.read<AppProvider>();
     p.savePastHeights(past);
     p.setProfile(profile);
+
+    // setProfile has just re-timed the reminders around the hours the user
+    // gave. Putting them on the clock needs their language, which is here and
+    // not in the provider.
+    unawaited(
+      NotificationService().scheduleReminders(
+        p.reminders,
+        AppLocalizations.of(context)!,
+      ),
+    );
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -476,11 +511,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         _buildFootSizePage(), // 8
                         _buildDreamHeightPage(), // 9
                         _buildSleepPage(), // 10
-                        _buildOnboardingPastHeightsPage(), // 11
-                        _buildReviewsPage(), // 12
-                        _buildChartPage(), // 13
-                        _buildJourneyPage(), // 14
-                        const SizedBox(), // 15 placeholder for analyzing
+                        _buildBedtimePage(), // 11
+                        _buildWorkoutTimePage(), // 12
+                        _buildMealsPage(), // 13
+                        _buildProteinPage(), // 14
+                        _buildCaloriesPage(), // 15
+                        _buildOnboardingPastHeightsPage(), // 16
+                        _buildReviewsPage(), // 17
+                        _buildChartPage(), // 18
+                        _buildJourneyPage(), // 19
+                        const SizedBox(), // 20 placeholder for analyzing
                       ],
                     ),
                   ),
@@ -1484,6 +1524,264 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // PAGES 11-15 — the daily rhythm the reminders are built on
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  static String _clock(int h, int m) =>
+      '${h.toString().padLeft(2, '0')}:${m.toString().padLeft(2, '0')}';
+
+  /// Meal times worth suggesting for a given number of meals. The user can
+  /// move any of them, but nobody should have to set five times by hand to get
+  /// to a perfectly ordinary day.
+  static const _mealDefaults = <int, List<String>>{
+    2: ['10:00', '19:00'],
+    3: ['08:00', '13:00', '19:00'],
+    4: ['08:00', '12:00', '16:00', '20:00'],
+    5: ['08:00', '11:00', '14:00', '17:00', '20:00'],
+    6: ['07:30', '10:00', '13:00', '16:00', '19:00', '21:30'],
+  };
+
+  Widget _buildBedtimePage() {
+    final l = AppLocalizations.of(context)!;
+    return _ScrollPickerPage(
+      title: l.obBedtimeTitle,
+      subtitle: l.obBedtimeSubtitle,
+      icon: CupertinoIcons.moon_stars_fill,
+      accent: AppColors.sleep,
+      child: _TimeWheels(
+        hour: _bedHour,
+        minute: _bedMin,
+        accent: AppColors.sleep,
+        onChanged: (h, m) => setState(() {
+          _bedHour = h;
+          _bedMin = m;
+        }),
+      ),
+    );
+  }
+
+  Widget _buildWorkoutTimePage() {
+    final l = AppLocalizations.of(context)!;
+    return _ScrollPickerPage(
+      title: l.obWorkoutTimeTitle,
+      subtitle: l.obWorkoutTimeSubtitle,
+      icon: CupertinoIcons.bolt_fill,
+      accent: AppColors.warning,
+      child: _TimeWheels(
+        hour: _workoutHour,
+        minute: _workoutMin,
+        accent: AppColors.warning,
+        onChanged: (h, m) => setState(() {
+          _workoutHour = h;
+          _workoutMin = m;
+        }),
+      ),
+    );
+  }
+
+  Widget _buildMealsPage() {
+    final l = AppLocalizations.of(context)!;
+    const accent = AppColors.orange;
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(24, 22, 24, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _QuestionHeader(
+            icon: CupertinoIcons.leaf_arrow_circlepath,
+            accent: accent,
+            title: l.obMealsTitle,
+            subtitle: l.obMealsSubtitle,
+          ),
+          const SizedBox(height: 20),
+
+          // How many. Picking a number lays out a day's worth of times.
+          Row(
+            children: [
+              for (final n in _mealDefaults.keys) ...[
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      HapticFeedback.selectionClick();
+                      setState(() => _mealTimes = List.of(_mealDefaults[n]!));
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      height: 52,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: _mealTimes.length == n
+                            ? accent.withValues(alpha: 0.18)
+                            : const Color(0xFF141020),
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(
+                          color: _mealTimes.length == n
+                              ? accent.withValues(alpha: 0.75)
+                              : Colors.white.withValues(alpha: 0.07),
+                          width: _mealTimes.length == n ? 1.5 : 1,
+                        ),
+                      ),
+                      child: Text(
+                        '$n',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          color: _mealTimes.length == n
+                              ? Colors.white
+                              : Colors.white.withValues(alpha: 0.55),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                if (n != _mealDefaults.keys.last) const SizedBox(width: 8),
+              ],
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            l.obMealsCount('${_mealTimes.length}'),
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+              color: accent.withValues(alpha: 0.85),
+            ),
+          ),
+          const SizedBox(height: 18),
+
+          // And when. Each one opens a wheel.
+          for (var i = 0; i < _mealTimes.length; i++)
+            _MealTimeRow(
+              accent: accent,
+              label: l.obMealLabel('${i + 1}'),
+              time: _mealTimes[i],
+              onTap: () => _editMealTime(i, accent),
+            ),
+          const SizedBox(height: 12),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _editMealTime(int index, Color accent) async {
+    final parsed = UserProfile.parseTime(_mealTimes[index]) ?? (8, 0);
+    var h = parsed.$1;
+    var m = parsed.$2;
+    await showModalBottomSheet<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (sheetContext) => Container(
+        padding: EdgeInsets.fromLTRB(
+          20,
+          16,
+          20,
+          20 + MediaQuery.of(sheetContext).viewPadding.bottom,
+        ),
+        decoration: const BoxDecoration(
+          color: Color(0xFF15111F),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 38,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 18),
+            SizedBox(
+              height: 200,
+              child: _TimeWheels(
+                hour: h,
+                minute: m,
+                accent: accent,
+                onChanged: (nh, nm) {
+                  h = nh;
+                  m = nm;
+                },
+              ),
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: CupertinoButton(
+                color: accent,
+                borderRadius: BorderRadius.circular(16),
+                onPressed: () => Navigator.pop(sheetContext),
+                child: Text(
+                  AppLocalizations.of(sheetContext)!.save,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (!mounted) return;
+    setState(() {
+      final next = List.of(_mealTimes);
+      next[index] = _clock(h, m);
+      // Meals read in order whatever order they were set in.
+      next.sort();
+      _mealTimes = next;
+    });
+  }
+
+  Widget _buildProteinPage() {
+    final l = AppLocalizations.of(context)!;
+    const accent = AppColors.lime;
+    // 40g to 250g covers everyone from "barely tracks it" to a heavy bulk.
+    final items = List.generate(43, (i) => '${40 + i * 5} g');
+    final index = ((_dailyProtein == 0 ? 90 : _dailyProtein) - 40) ~/ 5;
+    return _ScrollPickerPage(
+      title: l.obProteinTitle,
+      subtitle: l.obProteinSubtitle,
+      icon: CupertinoIcons.flame_fill,
+      accent: accent,
+      child: _UnknownableWheel(
+        accent: accent,
+        unknown: _proteinUnknown,
+        unknownLabel: l.obNotSure,
+        items: items,
+        initialItem: index.clamp(0, items.length - 1),
+        onChanged: (i) => setState(() => _dailyProtein = 40 + i * 5),
+        onUnknownChanged: (v) => setState(() => _proteinUnknown = v),
+      ),
+    );
+  }
+
+  Widget _buildCaloriesPage() {
+    final l = AppLocalizations.of(context)!;
+    const accent = AppColors.orange;
+    final items = List.generate(57, (i) => '${1200 + i * 50} kcal');
+    final index = ((_dailyCalories == 0 ? 2200 : _dailyCalories) - 1200) ~/ 50;
+    return _ScrollPickerPage(
+      title: l.obCaloriesTitle,
+      subtitle: l.obCaloriesSubtitle,
+      icon: CupertinoIcons.chart_pie_fill,
+      accent: accent,
+      child: _UnknownableWheel(
+        accent: accent,
+        unknown: _caloriesUnknown,
+        unknownLabel: l.obNotSure,
+        items: items,
+        initialItem: index.clamp(0, items.length - 1),
+        onChanged: (i) => setState(() => _dailyCalories = 1200 + i * 50),
+        onUnknownChanged: (v) => setState(() => _caloriesUnknown = v),
       ),
     );
   }
@@ -3052,6 +3350,208 @@ class _UnitToggle extends StatelessWidget {
       fontWeight: active ? FontWeight.w700 : FontWeight.w400,
     ),
   );
+}
+
+/// An hour and a minute, side by side.
+///
+/// Minutes move in fives: nobody sets a bedtime reminder for 23:07, and a
+/// sixty-item wheel makes the one they do want harder to reach.
+class _TimeWheels extends StatelessWidget {
+  final int hour;
+  final int minute;
+  final Color accent;
+  final void Function(int hour, int minute) onChanged;
+
+  const _TimeWheels({
+    required this.hour,
+    required this.minute,
+    required this.accent,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final minutes = List.generate(
+      12,
+      (i) => (i * 5).toString().padLeft(2, '0'),
+    );
+    return Row(
+      children: [
+        Expanded(
+          child: _PickerBox(
+            key: ValueKey('hour-$accent'),
+            accent: accent,
+            initialItem: hour.clamp(0, 23),
+            items: List.generate(24, (i) => i.toString().padLeft(2, '0')),
+            onChanged: (i) => onChanged(i, minute),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: _PickerBox(
+            key: ValueKey('minute-$accent'),
+            accent: accent,
+            initialItem: (minute ~/ 5).clamp(0, minutes.length - 1),
+            items: minutes,
+            onChanged: (i) => onChanged(hour, i * 5),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// One meal on the meals page: which meal it is, when it is, and a hint that
+/// tapping changes it.
+class _MealTimeRow extends StatelessWidget {
+  final Color accent;
+  final String label;
+  final String time;
+  final VoidCallback onTap;
+
+  const _MealTimeRow({
+    required this.accent,
+    required this.label,
+    required this.time,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 9),
+        padding: const EdgeInsets.fromLTRB(16, 14, 14, 14),
+        decoration: BoxDecoration(
+          color: const Color(0xFF141020),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
+        ),
+        child: Row(
+          children: [
+            Icon(CupertinoIcons.clock, size: 16, color: accent),
+            const SizedBox(width: 11),
+            Expanded(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 14.5,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white.withValues(alpha: 0.80),
+                ),
+              ),
+            ),
+            Text(
+              time,
+              style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+                letterSpacing: -0.3,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Icon(
+              CupertinoIcons.chevron_right,
+              size: 14,
+              color: Colors.white.withValues(alpha: 0.25),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// A wheel with an honest way out.
+///
+/// Asking somebody how many grams of protein they eat and forcing a number
+/// gets a made-up one, which is worse than nothing: the plan would be built on
+/// it. Saying so is a valid answer.
+class _UnknownableWheel extends StatelessWidget {
+  final Color accent;
+  final bool unknown;
+  final String unknownLabel;
+  final List<String> items;
+  final int initialItem;
+  final ValueChanged<int> onChanged;
+  final ValueChanged<bool> onUnknownChanged;
+
+  const _UnknownableWheel({
+    required this.accent,
+    required this.unknown,
+    required this.unknownLabel,
+    required this.items,
+    required this.initialItem,
+    required this.onChanged,
+    required this.onUnknownChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 200),
+            opacity: unknown ? 0.35 : 1,
+            child: IgnorePointer(
+              ignoring: unknown,
+              child: _PickerBox(
+                accent: accent,
+                initialItem: initialItem,
+                items: items,
+                onChanged: onChanged,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 14),
+        GestureDetector(
+          onTap: () {
+            HapticFeedback.selectionClick();
+            onUnknownChanged(!unknown);
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: unknown
+                  ? accent.withValues(alpha: 0.16)
+                  : Colors.white.withValues(alpha: 0.04),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: unknown
+                    ? accent.withValues(alpha: 0.7)
+                    : Colors.white.withValues(alpha: 0.08),
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _RadioDot(selected: unknown, accent: accent),
+                const SizedBox(width: 10),
+                Text(
+                  unknownLabel,
+                  style: TextStyle(
+                    fontSize: 14.5,
+                    fontWeight: FontWeight.w600,
+                    color: unknown
+                        ? Colors.white
+                        : Colors.white.withValues(alpha: 0.6),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+      ],
+    );
+  }
 }
 
 class _PickerBox extends StatefulWidget {

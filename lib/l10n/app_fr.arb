@@ -969,5 +969,21 @@
   "paywallTrialThen": "Puis {price} · annulable à tout moment",
   "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
   "paywallYearlyBilled": "{price} / an · annulable à tout moment",
-  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}},
+
+  "obBedtimeTitle": "À quelle heure dors-tu ?",
+  "obBedtimeSubtitle": "Ton rappel de sommeil suivra cette heure.",
+  "obWorkoutTimeTitle": "À quelle heure t'entraînes-tu ?",
+  "obWorkoutTimeSubtitle": "Pour que le rappel arrive au bon moment.",
+  "obMealsTitle": "Combien de repas par jour ?",
+  "obMealsSubtitle": "Touche une heure pour la régler à ton rythme.",
+  "obMealsCount": "{count} repas",
+  "@obMealsCount": {"placeholders": {"count": {"type": "String"}}},
+  "obMealLabel": "Repas {n}",
+  "@obMealLabel": {"placeholders": {"n": {"type": "String"}}},
+  "obProteinTitle": "Combien de protéines par jour ?",
+  "obProteinSubtitle": "Une valeur approximative suffit pour bâtir ton plan.",
+  "obCaloriesTitle": "Combien de calories par jour ?",
+  "obCaloriesSubtitle": "Une estimation suffit, on l’affinera ensemble.",
+  "obNotSure": "Je ne sais pas"
 }

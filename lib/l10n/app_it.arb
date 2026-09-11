@@ -969,5 +969,21 @@
   "paywallTrialThen": "Poi {price} · disdici quando vuoi",
   "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
   "paywallYearlyBilled": "{price} / anno · disdici quando vuoi",
-  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}},
+
+  "obBedtimeTitle": "A che ora vai a dormire?",
+  "obBedtimeSubtitle": "Il promemoria del sonno seguirà questo orario.",
+  "obWorkoutTimeTitle": "A che ora ti alleni?",
+  "obWorkoutTimeSubtitle": "Così il promemoria arriva al momento giusto.",
+  "obMealsTitle": "Quanti pasti al giorno?",
+  "obMealsSubtitle": "Tocca un orario per adattarlo a te.",
+  "obMealsCount": "{count} pasti",
+  "@obMealsCount": {"placeholders": {"count": {"type": "String"}}},
+  "obMealLabel": "Pasto {n}",
+  "@obMealLabel": {"placeholders": {"n": {"type": "String"}}},
+  "obProteinTitle": "Quanti grammi di proteine al giorno?",
+  "obProteinSubtitle": "Basta un valore indicativo per costruire il piano.",
+  "obCaloriesTitle": "Quante calorie al giorno?",
+  "obCaloriesSubtitle": "Una stima basta, la affiniamo insieme più avanti.",
+  "obNotSure": "Non ne sono sicuro"
 }

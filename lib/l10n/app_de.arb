@@ -996,5 +996,21 @@
   "paywallTrialThen": "Danach {price} · jederzeit kündbar",
   "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
   "paywallYearlyBilled": "{price} / Jahr · jederzeit kündbar",
-  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}},
+
+  "obBedtimeTitle": "Wann gehst du meist schlafen?",
+  "obBedtimeSubtitle": "Deine Schlaferinnerung richtet sich danach.",
+  "obWorkoutTimeTitle": "Wann trainierst du?",
+  "obWorkoutTimeSubtitle": "Damit die Trainingserinnerung genau dann kommt.",
+  "obMealsTitle": "Wie viele Mahlzeiten am Tag?",
+  "obMealsSubtitle": "Tippe auf eine Zeit, um sie anzupassen.",
+  "obMealsCount": "{count} Mahlzeiten",
+  "@obMealsCount": {"placeholders": {"count": {"type": "String"}}},
+  "obMealLabel": "{n}. Mahlzeit",
+  "@obMealLabel": {"placeholders": {"n": {"type": "String"}}},
+  "obProteinTitle": "Wie viel Protein am Tag?",
+  "obProteinSubtitle": "Ein grober Wert reicht — wir bauen den Plan darauf.",
+  "obCaloriesTitle": "Wie viele Kalorien am Tag?",
+  "obCaloriesSubtitle": "Eine Schätzung genügt, wir präzisieren sie später.",
+  "obNotSure": "Ich bin unsicher"
 }

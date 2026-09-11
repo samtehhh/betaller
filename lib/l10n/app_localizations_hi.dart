@@ -3915,4 +3915,48 @@ class AppLocalizationsHi extends AppLocalizations {
   String paywallYearlyBilled(String price) {
     return '$price / साल · कभी भी रद्द करें';
   }
+
+  @override
+  String get obBedtimeTitle => 'तुम आमतौर पर कितने बजे सोते हो?';
+
+  @override
+  String get obBedtimeSubtitle => 'नींद का रिमाइंडर इसी समय के हिसाब से लगेगा।';
+
+  @override
+  String get obWorkoutTimeTitle => 'तुम कितने बजे कसरत करते हो?';
+
+  @override
+  String get obWorkoutTimeSubtitle => 'ताकि ट्रेनिंग रिमाइंडर ठीक समय पर आए।';
+
+  @override
+  String get obMealsTitle => 'दिन में कितनी बार खाते हो?';
+
+  @override
+  String get obMealsSubtitle => 'समय पर टैप करके अपने हिसाब से बदलो।';
+
+  @override
+  String obMealsCount(String count) {
+    return '$count बार';
+  }
+
+  @override
+  String obMealLabel(String n) {
+    return 'भोजन $n';
+  }
+
+  @override
+  String get obProteinTitle => 'दिन में कितने ग्राम प्रोटीन लेते हो?';
+
+  @override
+  String get obProteinSubtitle => 'अंदाज़न बताओ — योजना उसी पर बनेगी।';
+
+  @override
+  String get obCaloriesTitle => 'दिन में औसतन कितनी कैलोरी लेते हो?';
+
+  @override
+  String get obCaloriesSubtitle =>
+      'अनुमान काफ़ी है, बाद में साथ मिलकर ठीक कर लेंगे।';
+
+  @override
+  String get obNotSure => 'मुझे ठीक से पता नहीं';
 }

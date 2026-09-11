@@ -13,13 +13,13 @@ import '../utils/dev_tools.dart';
 import '../models/user_profile.dart';
 import '../models/height_record.dart';
 import '../models/reminder.dart';
+import '../services/notification_service.dart';
 import '../models/routine.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import '../utils/daily_plan.dart';
 import '../utils/height_reference.dart';
 import '../services/purchase_service.dart';
-import '../services/notification_service.dart';
 import '../l10n/app_localizations.dart';
 
 class AppProvider extends ChangeNotifier {
@@ -590,9 +590,30 @@ class AppProvider extends ChangeNotifier {
       _heightRecords.add(
         HeightRecord(date: _today, height: profile.currentHeight),
       );
+      // First time through: the onboarding just asked when this person sleeps,
+      // trains and eats, so the suggested reminders are built around those
+      // hours rather than a generic day. Only on a new profile — after that
+      // the times are the user's to set, and an edit elsewhere must not
+      // silently move reminders they have already adjusted.
+      _applyProfileReminderTimes(profile);
     }
     _saveData();
     notifyListeners();
+  }
+
+  /// Re-times the built-in reminders against the profile's daily rhythm, then
+  /// reschedules whatever is enabled.
+  void _applyProfileReminderTimes(UserProfile profile) {
+    final suggested = remindersForProfile(
+      bedtime: profile.bedtime,
+      workoutTime: profile.workoutTime,
+      mealTimes: profile.mealTimes,
+    );
+    // Custom reminders are the user's own and are left exactly as they are.
+    final custom = _reminders.where((r) => r.isCustom).toList();
+    _reminders = [...suggested, ...custom];
+    // Putting them on the clock needs the user's language, which lives in the
+    // widget tree — the onboarding schedules them the moment it finishes.
   }
 
   void updateProfile(UserProfile profile) {

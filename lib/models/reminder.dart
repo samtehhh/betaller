@@ -41,38 +41,37 @@ class Reminder {
     int? minute,
     List<int>? weekdays,
     String? label,
-  }) =>
-      Reminder(
-        id: id,
-        category: category,
-        label: label ?? this.label,
-        enabled: enabled ?? this.enabled,
-        hour: hour ?? this.hour,
-        minute: minute ?? this.minute,
-        weekdays: weekdays ?? this.weekdays,
-      );
+  }) => Reminder(
+    id: id,
+    category: category,
+    label: label ?? this.label,
+    enabled: enabled ?? this.enabled,
+    hour: hour ?? this.hour,
+    minute: minute ?? this.minute,
+    weekdays: weekdays ?? this.weekdays,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'category': category,
-        'label': label,
-        'enabled': enabled,
-        'hour': hour,
-        'minute': minute,
-        'weekdays': weekdays,
-      };
+    'id': id,
+    'category': category,
+    'label': label,
+    'enabled': enabled,
+    'hour': hour,
+    'minute': minute,
+    'weekdays': weekdays,
+  };
 
   factory Reminder.fromJson(Map<String, dynamic> json) => Reminder(
-        id: json['id'] as String? ?? 'custom',
-        category: json['category'] as String? ?? 'custom',
-        label: json['label'] as String? ?? '',
-        enabled: json['enabled'] as bool? ?? true,
-        hour: (json['hour'] as num?)?.toInt() ?? 9,
-        minute: (json['minute'] as num?)?.toInt() ?? 0,
-        weekdays: ((json['weekdays'] as List?) ?? [])
-            .map((e) => (e as num).toInt())
-            .toList(),
-      );
+    id: json['id'] as String? ?? 'custom',
+    category: json['category'] as String? ?? 'custom',
+    label: json['label'] as String? ?? '',
+    enabled: json['enabled'] as bool? ?? true,
+    hour: (json['hour'] as num?)?.toInt() ?? 9,
+    minute: (json['minute'] as num?)?.toInt() ?? 0,
+    weekdays: ((json['weekdays'] as List?) ?? [])
+        .map((e) => (e as num).toInt())
+        .toList(),
+  );
 }
 
 /// What the app suggests before the user changes anything.
@@ -91,6 +90,72 @@ const List<Reminder> kDefaultReminders = [
     weekdays: [DateTime.sunday],
   ),
 ];
+
+/// The suggested reminders, set against the hours the user actually keeps.
+///
+/// The constants above are a guess at an average day. Somebody who trains at
+/// six in the morning does not want to be told to at half past seven, and a
+/// night owl nudged to sleep at ten has already learned to ignore the app. The
+/// onboarding asks; this is where the answers land.
+///
+/// Anything the profile does not know keeps its default.
+List<Reminder> remindersForProfile({
+  required String bedtime,
+  required String workoutTime,
+  required List<String> mealTimes,
+}) {
+  (int, int)? parse(String value) {
+    final parts = value.split(':');
+    if (parts.length != 2) return null;
+    final h = int.tryParse(parts[0]);
+    final m = int.tryParse(parts[1]);
+    if (h == null || m == null || h < 0 || h > 23 || m < 0 || m > 59) {
+      return null;
+    }
+    return (h, m);
+  }
+
+  /// Wind a time back by [minutes], wrapping past midnight.
+  (int, int) earlier((int, int) t, int minutes) {
+    final total = (t.$1 * 60 + t.$2 - minutes + 24 * 60) % (24 * 60);
+    return (total ~/ 60, total % 60);
+  }
+
+  final bed = parse(bedtime);
+  final workout = parse(workoutTime);
+
+  // The middle meal is the one worth a nudge: the first is usually habit and
+  // the last rarely gets forgotten.
+  final meals = mealTimes.map(parse).whereType<(int, int)>().toList();
+  final nutrition = meals.isEmpty ? null : meals[meals.length ~/ 2];
+
+  return [
+    for (final r in kDefaultReminders)
+      switch (r.category) {
+        // Half an hour before training, which is when it is still useful.
+        'exercise' when workout != null => () {
+          final at = earlier(workout, 30);
+          return r.copyWith(hour: at.$1, minute: at.$2);
+        }(),
+        'nutrition' when nutrition != null => r.copyWith(
+          hour: nutrition.$1,
+          minute: nutrition.$2,
+        ),
+        // An hour before bed: late enough to be relevant, early enough to act
+        // on.
+        'sleep' when bed != null => () {
+          final at = earlier(bed, 60);
+          return r.copyWith(hour: at.$1, minute: at.$2);
+        }(),
+        // The evening routine belongs between dinner and bed.
+        'routine' when bed != null => () {
+          final at = earlier(bed, 150);
+          return r.copyWith(hour: at.$1, minute: at.$2);
+        }(),
+        _ => r,
+      },
+  ];
+}
 
 /// The next reminder that will actually fire, and when.
 ///

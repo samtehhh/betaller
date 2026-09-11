@@ -969,5 +969,21 @@
   "paywallTrialThen": "फिर {price} · कभी भी रद्द करें",
   "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
   "paywallYearlyBilled": "{price} / साल · कभी भी रद्द करें",
-  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}},
+
+  "obBedtimeTitle": "तुम आमतौर पर कितने बजे सोते हो?",
+  "obBedtimeSubtitle": "नींद का रिमाइंडर इसी समय के हिसाब से लगेगा।",
+  "obWorkoutTimeTitle": "तुम कितने बजे कसरत करते हो?",
+  "obWorkoutTimeSubtitle": "ताकि ट्रेनिंग रिमाइंडर ठीक समय पर आए।",
+  "obMealsTitle": "दिन में कितनी बार खाते हो?",
+  "obMealsSubtitle": "समय पर टैप करके अपने हिसाब से बदलो।",
+  "obMealsCount": "{count} बार",
+  "@obMealsCount": {"placeholders": {"count": {"type": "String"}}},
+  "obMealLabel": "भोजन {n}",
+  "@obMealLabel": {"placeholders": {"n": {"type": "String"}}},
+  "obProteinTitle": "दिन में कितने ग्राम प्रोटीन लेते हो?",
+  "obProteinSubtitle": "अंदाज़न बताओ — योजना उसी पर बनेगी।",
+  "obCaloriesTitle": "दिन में औसतन कितनी कैलोरी लेते हो?",
+  "obCaloriesSubtitle": "अनुमान काफ़ी है, बाद में साथ मिलकर ठीक कर लेंगे।",
+  "obNotSure": "मुझे ठीक से पता नहीं"
 }

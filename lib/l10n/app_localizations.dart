@@ -7249,6 +7249,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{price} / year · cancel anytime'**
   String paywallYearlyBilled(String price);
+
+  /// No description provided for @obBedtimeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What time do you usually sleep?'**
+  String get obBedtimeTitle;
+
+  /// No description provided for @obBedtimeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your sleep reminder will be set around this time.'**
+  String get obBedtimeSubtitle;
+
+  /// No description provided for @obWorkoutTimeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What time do you work out?'**
+  String get obWorkoutTimeTitle;
+
+  /// No description provided for @obWorkoutTimeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'So your training reminder lands right on time.'**
+  String get obWorkoutTimeSubtitle;
+
+  /// No description provided for @obMealsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How many meals a day?'**
+  String get obMealsTitle;
+
+  /// No description provided for @obMealsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a time to adjust it to your own routine.'**
+  String get obMealsSubtitle;
+
+  /// No description provided for @obMealsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} meals'**
+  String obMealsCount(String count);
+
+  /// No description provided for @obMealLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal {n}'**
+  String obMealLabel(String n);
+
+  /// No description provided for @obProteinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How many grams of protein a day?'**
+  String get obProteinTitle;
+
+  /// No description provided for @obProteinSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A rough figure is enough — we build your plan around it.'**
+  String get obProteinSubtitle;
+
+  /// No description provided for @obCaloriesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How many calories a day, on average?'**
+  String get obCaloriesTitle;
+
+  /// No description provided for @obCaloriesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'An estimate will do; we can sharpen it together later.'**
+  String get obCaloriesSubtitle;
+
+  /// No description provided for @obNotSure.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m not sure'**
+  String get obNotSure;
 }
 
 class _AppLocalizationsDelegate

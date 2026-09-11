@@ -3930,4 +3930,48 @@ class AppLocalizationsPt extends AppLocalizations {
   String paywallYearlyBilled(String price) {
     return '$price / ano · cancela quando quiseres';
   }
+
+  @override
+  String get obBedtimeTitle => 'A que horas costumas dormir?';
+
+  @override
+  String get obBedtimeSubtitle => 'O teu lembrete de sono seguirá esta hora.';
+
+  @override
+  String get obWorkoutTimeTitle => 'A que horas treinas?';
+
+  @override
+  String get obWorkoutTimeSubtitle => 'Para o lembrete chegar na hora certa.';
+
+  @override
+  String get obMealsTitle => 'Quantas refeições por dia?';
+
+  @override
+  String get obMealsSubtitle => 'Toca numa hora para a ajustares à tua rotina.';
+
+  @override
+  String obMealsCount(String count) {
+    return '$count refeições';
+  }
+
+  @override
+  String obMealLabel(String n) {
+    return 'Refeição $n';
+  }
+
+  @override
+  String get obProteinTitle => 'Quantos gramas de proteína por dia?';
+
+  @override
+  String get obProteinSubtitle =>
+      'Um valor aproximado chega para montar o plano.';
+
+  @override
+  String get obCaloriesTitle => 'Quantas calorias por dia?';
+
+  @override
+  String get obCaloriesSubtitle => 'Uma estimativa serve; afinamos depois.';
+
+  @override
+  String get obNotSure => 'Não tenho a certeza';
 }

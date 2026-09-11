@@ -1272,5 +1272,21 @@
   "paywallTrialThen": "Sonra {price} · istediğin zaman iptal et",
   "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
   "paywallYearlyBilled": "{price} / yıl · istediğin zaman iptal et",
-  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}}
+  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}},
+
+  "obBedtimeTitle": "Genelde saat kaçta uyursun?",
+  "obBedtimeSubtitle": "Uyku hatırlatmanı bu saate göre kuracağız.",
+  "obWorkoutTimeTitle": "Egzersizini saat kaçta yaparsın?",
+  "obWorkoutTimeSubtitle": "Antrenman hatırlatman tam o saatte gelsin.",
+  "obMealsTitle": "Günde kaç öğün yersin?",
+  "obMealsSubtitle": "Saatlere dokunup kendine göre ayarlayabilirsin.",
+  "obMealsCount": "{count} öğün",
+  "@obMealsCount": {"placeholders": {"count": {"type": "String"}}},
+  "obMealLabel": "{n}. öğün",
+  "@obMealLabel": {"placeholders": {"n": {"type": "String"}}},
+  "obProteinTitle": "Günde kaç gram protein alırsın?",
+  "obProteinSubtitle": "Yaklaşık bir değer yeter — planını buna göre kuruyoruz.",
+  "obCaloriesTitle": "Günde ortalama kaç kalori alırsın?",
+  "obCaloriesSubtitle": "Tahmini söylemen yeterli, sonra birlikte netleştiririz.",
+  "obNotSure": "Emin değilim"
 }
