@@ -13,12 +13,12 @@ import 'main_screen.dart';
 import '../widgets/journey_steps.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
-const int _kGenderPage      = 2;
-const int _kWorkoutPage     = 6;
-const int _kEthnicityPage   = 7;
+const int _kGenderPage = 2;
+const int _kWorkoutPage = 6;
+const int _kEthnicityPage = 7;
 const int _kPastHeightsPage = 11;
-const int _kAnalyzingPage   = 15;
-const int _kLastQuestion    = 14; // last page that shows the Next button
+const int _kAnalyzingPage = 15;
+const int _kLastQuestion = 14; // last page that shows the Next button
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -31,24 +31,23 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen>
     with TickerProviderStateMixin {
-
   // ── Controllers ─────────────────────────────────────────────────────────────
-  final _pageController  = PageController();
+  final _pageController = PageController();
   int _currentPage = 0;
 
   // ── Basic profile ────────────────────────────────────────────────────────────
-  String   _gender    = 'male';
+  String _gender = 'male';
   // Starts mid-range rather than on a fixed year, so the wheel always opens on
   // a value the picker actually offers.
   DateTime _birthDate = DateTime(DateTime.now().year - 17, 1, 1);
 
   // ── Height / Weight (metric stored internally) ───────────────────────────────
   bool _heightImperial = false;
-  int  _selectedHeight = 170; // cm
-  int  _selectedWeight = 65;  // kg
-  int  _heightFt = 5;
-  int  _heightIn = 7;
-  int  _weightLbs = 150;
+  int _selectedHeight = 170; // cm
+  int _selectedWeight = 65; // kg
+  int _heightFt = 5;
+  int _heightIn = 7;
+  int _weightLbs = 150;
 
   // ── Parents ──────────────────────────────────────────────────────────────────
   int _selectedFatherHeight = 175; // cm
@@ -58,17 +57,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   // ── Lifestyle questions ──────────────────────────────────────────────────────
   String _weeklyWorkout = '';
-  String _ethnicity     = '';
-
+  String _ethnicity = '';
 
   // ── Foot size ────────────────────────────────────────────────────────────────
-  double _footSize   = 8.5;   // US equivalent of EU 41
-  bool   _footSizeEU = true;
+  double _footSize = 8.5; // US equivalent of EU 41
+  bool _footSizeEU = true;
 
   // ── Dream height ─────────────────────────────────────────────────────────────
-  bool _dreamImperial  = false;
-  int  _dreamHeightCm  = 183;
-  int  _dreamFt = 6, _dreamIn = 0;
+  bool _dreamImperial = false;
+  int _dreamHeightCm = 183;
+  int _dreamFt = 6, _dreamIn = 0;
 
   // ── Sleep ────────────────────────────────────────────────────────────────────
   double _sleepHours = 7.5;
@@ -77,19 +75,23 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   final _obPastHeightValues = <int, double?>{};
   List<int> _obAges = [];
   int _obCurrentAgeIndex = 0;
-  final PageController _obAgePageController = PageController(viewportFraction: 0.50);
-  FixedExtentScrollController _obHeightPickerController = FixedExtentScrollController(initialItem: 60);
+  final PageController _obAgePageController = PageController(
+    viewportFraction: 0.50,
+  );
+  FixedExtentScrollController _obHeightPickerController =
+      FixedExtentScrollController(initialItem: 60);
   static const int _kObMinH = 100;
   static const int _kObMaxH = 220;
 
   // ── Animation controllers ────────────────────────────────────────────────────
 
   // ─── Unit conversion helpers ──────────────────────────────────────────────
-  static int    _ftInToCm(int ft, int inches) => ((ft * 12 + inches) * 2.54).round();
-  static int    _cmToFt(int cm)    => (cm / 30.48).floor();
-  static int    _cmToIn(int cm)    => ((cm / 2.54).round()) % 12;
-  static int    _lbsToKg(int lbs)  => (lbs * 0.453592).round();
-  static int    _kgToLbs(int kg)   => (kg * 2.20462).round();
+  static int _ftInToCm(int ft, int inches) =>
+      ((ft * 12 + inches) * 2.54).round();
+  static int _cmToFt(int cm) => (cm / 30.48).floor();
+  static int _cmToIn(int cm) => ((cm / 2.54).round()) % 12;
+  static int _lbsToKg(int lbs) => (lbs * 0.453592).round();
+  static int _kgToLbs(int kg) => (kg * 2.20462).round();
   static double _usToEU(double us) => us + 32.5;
   static double _euToUS(double eu) => eu - 32.5;
 
@@ -124,7 +126,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final now = DateTime.now();
     int a = now.year - _birthDate.year;
     if (now.month < _birthDate.month ||
-        (now.month == _birthDate.month && now.day < _birthDate.day)) { a--; }
+        (now.month == _birthDate.month && now.day < _birthDate.day)) {
+      a--;
+    }
     return a;
   }
 
@@ -159,8 +163,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         : [];
     _obCurrentAgeIndex = 0;
     _obHeightPickerController.dispose();
-    final initialItem = (_selectedHeight - 5 - _kObMinH).clamp(0, _kObMaxH - _kObMinH);
-    _obHeightPickerController = FixedExtentScrollController(initialItem: initialItem);
+    final initialItem = (_selectedHeight - 5 - _kObMinH).clamp(
+      0,
+      _kObMaxH - _kObMinH,
+    );
+    _obHeightPickerController = FixedExtentScrollController(
+      initialItem: initialItem,
+    );
   }
 
   void _computeAnalysisResults() {
@@ -196,9 +205,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   bool _canProceed() {
     switch (_currentPage) {
-      case _kWorkoutPage:   return _weeklyWorkout.isNotEmpty;
-      case _kEthnicityPage: return _ethnicity.isNotEmpty;
-      default:              return true;
+      case _kWorkoutPage:
+        return _weeklyWorkout.isNotEmpty;
+      case _kEthnicityPage:
+        return _ethnicity.isNotEmpty;
+      default:
+        return true;
     }
   }
 
@@ -220,7 +232,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final past = <int, double>{};
     for (final e in _obPastHeightValues.entries) {
       final val = e.value;
-      if (val != null && e.key <= _userAge && val > 50 && val < 250) past[e.key] = val;
+      if (val != null && e.key <= _userAge && val > 50 && val < 250)
+        past[e.key] = val;
     }
     final p = context.read<AppProvider>();
     p.savePastHeights(past);
@@ -244,11 +257,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   Widget _buildLanguageButton(BuildContext context) {
     final provider = context.read<AppProvider>();
-    final currentCode = Localizations.localeOf(context).languageCode.toUpperCase();
-    final currentFlag = _langs.firstWhere(
-      (l) => l.name == currentCode,
-      orElse: () => _langs[0],
-    ).flag;
+    final currentCode = Localizations.localeOf(
+      context,
+    ).languageCode.toUpperCase();
+    final currentFlag = _langs
+        .firstWhere((l) => l.name == currentCode, orElse: () => _langs[0])
+        .flag;
 
     return GestureDetector(
       onTap: () => _showLanguageSheet(context, provider),
@@ -264,7 +278,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           children: [
             Text(currentFlag, style: const TextStyle(fontSize: 16)),
             const SizedBox(width: 4),
-            Icon(CupertinoIcons.chevron_down, size: 10, color: Colors.white.withValues(alpha: 0.50)),
+            Icon(
+              CupertinoIcons.chevron_down,
+              size: 10,
+              color: Colors.white.withValues(alpha: 0.50),
+            ),
           ],
         ),
       ),
@@ -285,7 +303,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             decoration: BoxDecoration(
               color: const Color(0xFF0C0A16),
               borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
+              border: Border.all(
+                color: AppColors.primary.withValues(alpha: 0.15),
+              ),
               boxShadow: [
                 BoxShadow(
                   color: AppColors.primary.withValues(alpha: 0.12),
@@ -304,15 +324,23 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     Navigator.pop(ctx);
                   },
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 11,
+                    ),
                     decoration: BoxDecoration(
                       color: selected
                           ? AppColors.primary.withValues(alpha: 0.12)
                           : Colors.transparent,
                       borderRadius: BorderRadius.circular(14),
                       border: selected
-                          ? Border.all(color: AppColors.primary.withValues(alpha: 0.30))
+                          ? Border.all(
+                              color: AppColors.primary.withValues(alpha: 0.30),
+                            )
                           : null,
                     ),
                     child: Row(
@@ -323,13 +351,19 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                           lang.name,
                           style: TextStyle(
                             fontSize: 15,
-                            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                            fontWeight: selected
+                                ? FontWeight.w700
+                                : FontWeight.w500,
                             color: Colors.white,
                           ),
                         ),
                         const Spacer(),
                         if (selected)
-                          const Icon(CupertinoIcons.checkmark_circle_fill, color: AppColors.primary, size: 20),
+                          const Icon(
+                            CupertinoIcons.checkmark_circle_fill,
+                            color: AppColors.primary,
+                            size: 20,
+                          ),
                       ],
                     ),
                   ),
@@ -349,9 +383,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final showNav    = _currentPage >= _kGenderPage && _currentPage <= _kLastQuestion;
-    final showButton = _currentPage <= _kLastQuestion && _currentPage != _kPastHeightsPage;
-    final progress   = _currentPage <= _kGenderPage
+    final showNav =
+        _currentPage >= _kGenderPage && _currentPage <= _kLastQuestion;
+    final showButton =
+        _currentPage <= _kLastQuestion && _currentPage != _kPastHeightsPage;
+    final progress = _currentPage <= _kGenderPage
         ? 0.0
         : (_currentPage - 1) / (_kLastQuestion - 1).toDouble();
 
@@ -383,12 +419,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                           GestureDetector(
                             onTap: _prevPage,
                             child: Container(
-                              width: 40, height: 40,
+                              width: 40,
+                              height: 40,
                               decoration: BoxDecoration(
                                 color: Colors.white.withValues(alpha: 0.10),
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(CupertinoIcons.arrow_left, color: Colors.white, size: 18),
+                              child: const Icon(
+                                CupertinoIcons.arrow_left,
+                                color: Colors.white,
+                                size: 18,
+                              ),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -402,8 +443,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                 builder: (ctx, v, _) => LinearProgressIndicator(
                                   value: v,
                                   minHeight: 4,
-                                  backgroundColor: Colors.white.withValues(alpha: 0.10),
-                                  valueColor: const AlwaysStoppedAnimation(AppColors.primary),
+                                  backgroundColor: Colors.white.withValues(
+                                    alpha: 0.10,
+                                  ),
+                                  valueColor: const AlwaysStoppedAnimation(
+                                    AppColors.primary,
+                                  ),
                                 ),
                               ),
                             ),
@@ -420,22 +465,22 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       controller: _pageController,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        _buildIntroPage(),        // 0
-                        _buildPainHookPage(),      // 1 NEW
-                        _buildGenderPage(),        // 2
-                        _buildBirthDatePage(),     // 3
-                        _buildHeightWeightPage(),  // 4
-                        _buildParentsPage(),       // 5
-                        _buildWorkoutPage(),       // 6
-                        _buildEthnicityPage(),     // 7
-                        _buildFootSizePage(),      // 8
-                        _buildDreamHeightPage(),   // 9
-                        _buildSleepPage(),                    // 10
-                        _buildOnboardingPastHeightsPage(),    // 11
-                        _buildReviewsPage(),                  // 12
-                        _buildChartPage(),                    // 13
-                        _buildJourneyPage(),                  // 14
-                        const SizedBox(),                     // 15 placeholder for analyzing
+                        _buildIntroPage(), // 0
+                        _buildPainHookPage(), // 1 NEW
+                        _buildGenderPage(), // 2
+                        _buildBirthDatePage(), // 3
+                        _buildHeightWeightPage(), // 4
+                        _buildParentsPage(), // 5
+                        _buildWorkoutPage(), // 6
+                        _buildEthnicityPage(), // 7
+                        _buildFootSizePage(), // 8
+                        _buildDreamHeightPage(), // 9
+                        _buildSleepPage(), // 10
+                        _buildOnboardingPastHeightsPage(), // 11
+                        _buildReviewsPage(), // 12
+                        _buildChartPage(), // 13
+                        _buildJourneyPage(), // 14
+                        const SizedBox(), // 15 placeholder for analyzing
                       ],
                     ),
                   ),
@@ -448,8 +493,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         label: _currentPage == 0
                             ? l.letsStart
                             : _currentPage == _kLastQuestion
-                                ? l.analyzeBtn
-                                : l.continueBtn,
+                            ? l.analyzeBtn
+                            : l.continueBtn,
                         enabled: _canProceed(),
                         onTap: _nextPage,
                       ),
@@ -480,11 +525,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     return Stack(
       children: [
         _buildIntroContent(),
-        Positioned(
-          top: 8,
-          right: 16,
-          child: _buildLanguageButton(context),
-        ),
+        Positioned(top: 8, right: 16, child: _buildLanguageButton(context)),
       ],
     );
   }
@@ -522,7 +563,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               decoration: BoxDecoration(
                 color: AppColors.primary.withValues(alpha: 0.14),
                 borderRadius: BorderRadius.circular(100),
-                border: Border.all(color: AppColors.primary.withValues(alpha: 0.35)),
+                border: Border.all(
+                  color: AppColors.primary.withValues(alpha: 0.35),
+                ),
               ),
               child: Text(
                 l.journeyProgressLabel.toUpperCase(),
@@ -583,129 +626,228 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             decoration: BoxDecoration(
               color: const Color(0xFFEF4444).withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: const Color(0xFFEF4444).withValues(alpha: 0.30)),
+              border: Border.all(
+                color: const Color(0xFFEF4444).withValues(alpha: 0.30),
+              ),
             ),
-            child: Text('\u26a0\ufe0f  ${l.criticalWindow}', style: const TextStyle(
-              fontSize: 11, fontWeight: FontWeight.w800, letterSpacing: 1.0,
-              color: Color(0xFFEF4444),
-            )),
+            child: Text(
+              '\u26a0\ufe0f  ${l.criticalWindow}',
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.0,
+                color: Color(0xFFEF4444),
+              ),
+            ),
           ),
           const SizedBox(height: 18),
-          Text(l.heightPotentialFading,
-            style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.2, height: 1.05),
+          Text(
+            l.heightPotentialFading,
+            style: const TextStyle(
+              fontSize: 34,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: -1.2,
+              height: 1.05,
+            ),
           ),
-          RichText(text: TextSpan(children: [
-            TextSpan(text: l.fadingAway,
-              style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w900, color: Color(0xFFEF4444), letterSpacing: -1.2)),
-          ])),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: l.fadingAway,
+                  style: const TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFFEF4444),
+                    letterSpacing: -1.2,
+                  ),
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: 16),
-          Text(l.painHookDesc,
-            style: TextStyle(fontSize: 15.5, color: Colors.white.withValues(alpha: 0.65), height: 1.55)),
+          Text(
+            l.painHookDesc,
+            style: TextStyle(
+              fontSize: 15.5,
+              color: Colors.white.withValues(alpha: 0.65),
+              height: 1.55,
+            ),
+          ),
           const SizedBox(height: 28),
           // Fact cards
           ...[
             (
-              '🧬', const Color(0xFF8B5CF6),
+              '🧬',
+              const Color(0xFF8B5CF6),
               l.painGeneticTitle,
               l.painGeneticDesc,
               l.painGeneticTag,
             ),
             (
-              '😴', const Color(0xFF6366F1),
+              '😴',
+              const Color(0xFF6366F1),
               l.painSleepTitle,
               l.painSleepDesc,
               l.painSleepTag,
             ),
             (
-              '🦴', const Color(0xFF00C6FF),
+              '🦴',
+              const Color(0xFF00C6FF),
               l.painPostureTitle,
               l.painPostureDesc,
               l.painPostureTag,
             ),
             (
-              '💪', const Color(0xFF22FF88),
+              '💪',
+              const Color(0xFF22FF88),
               l.painExerciseTitle,
               l.painExerciseDesc,
               l.painExerciseTag,
             ),
             (
-              '🥗', const Color(0xFFFF8A00),
+              '🥗',
+              const Color(0xFFFF8A00),
               l.painNutritionTitle,
               l.painNutritionDesc,
               l.painNutritionTag,
             ),
             (
-              '📈', const Color(0xFFFFD700),
+              '📈',
+              const Color(0xFFFFD700),
               l.painTrackingTitle,
               l.painTrackingDesc,
               l.painTrackingTag,
             ),
-          ].map((item) => Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: const Color(0xFF161220),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: item.$2.withValues(alpha: 0.15)),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(item.$1, style: const TextStyle(fontSize: 24)),
-                const SizedBox(width: 14),
-                Expanded(child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(children: [
-                      Expanded(child: Text(item.$3, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w700, color: Colors.white))),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-                        decoration: BoxDecoration(
-                          color: item.$2.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(6),
+          ].map(
+            (item) => Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF161220),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: item.$2.withValues(alpha: 0.15)),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(item.$1, style: const TextStyle(fontSize: 24)),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                item.$3,
+                                style: const TextStyle(
+                                  fontSize: 13.5,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 7,
+                                vertical: 3,
+                              ),
+                              decoration: BoxDecoration(
+                                color: item.$2.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                item.$5,
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.w800,
+                                  color: item.$2,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        child: Text(item.$5, style: TextStyle(fontSize: 9, fontWeight: FontWeight.w800, color: item.$2, letterSpacing: 0.5)),
-                      ),
-                    ]),
-                    const SizedBox(height: 5),
-                    Text(item.$4, style: TextStyle(fontSize: 12.5, color: Colors.white.withValues(alpha: 0.55), height: 1.45)),
-                  ],
-                )),
-              ],
+                        const SizedBox(height: 5),
+                        Text(
+                          item.$4,
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            color: Colors.white.withValues(alpha: 0.55),
+                            height: 1.45,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )),
+          ),
           const SizedBox(height: 8),
           // Bottom credibility
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [AppColors.primary.withValues(alpha: 0.12), AppColors.primary.withValues(alpha: 0.04)],
-                begin: Alignment.topLeft, end: Alignment.bottomRight,
+                colors: [
+                  AppColors.primary.withValues(alpha: 0.12),
+                  AppColors.primary.withValues(alpha: 0.04),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.20)),
+              border: Border.all(
+                color: AppColors.primary.withValues(alpha: 0.20),
+              ),
             ),
             child: Row(
               children: [
                 Container(
-                  width: 44, height: 44,
+                  width: 44,
+                  height: 44,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppColors.primary.withValues(alpha: 0.20),
                   ),
-                  child: ClipOval(child: Image.asset('assets/icon.png', width: 44, height: 44, fit: BoxFit.cover)),
+                  child: ClipOval(
+                    child: Image.asset(
+                      'assets/icon.png',
+                      width: 44,
+                      height: 44,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 14),
-                Expanded(child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(l.designedForYou, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: Colors.white)),
-                    const SizedBox(height: 3),
-                    Text(l.designedForYouDesc,
-                      style: TextStyle(fontSize: 12.5, color: Colors.white.withValues(alpha: 0.60), height: 1.4)),
-                  ],
-                )),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l.designedForYou,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        l.designedForYouDesc,
+                        style: TextStyle(
+                          fontSize: 12.5,
+                          color: Colors.white.withValues(alpha: 0.60),
+                          height: 1.4,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -724,6 +866,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     return _RadioListPage(
       title: l.selectYourGender,
       subtitle: l.onboardingPredictSubtitle,
+      icon: CupertinoIcons.person_2_fill,
+      accent: AppColors.primary,
       options: [('male', l.male), ('female', l.female), ('other', l.other)],
       selected: _gender,
       onSelect: (v) => setState(() => _gender = v),
@@ -739,6 +883,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     return _ScrollPickerPage(
       title: l.whenWereYouBorn,
       subtitle: l.onboardingPredictSubtitle,
+      icon: CupertinoIcons.calendar,
+      accent: AppColors.cyan,
       child: _BirthDatePickers(
         initialDate: _birthDate,
         onChanged: (date) => setState(() => _birthDate = date),
@@ -756,76 +902,100 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     return _ScrollPickerPage(
       title: l.heightAndWeight,
       subtitle: l.onboardingPredictSubtitle,
+      icon: CupertinoIcons.arrow_up_right_circle_fill,
+      accent: AppColors.lime,
       unitToggle: _UnitToggle(
-        left: l.imperialShort, right: l.metricShort,
+        left: l.imperialShort,
+        right: l.metricShort,
         isRight: !_heightImperial,
         onToggle: (isMetric) => setState(() {
           _heightImperial = !isMetric;
           if (_heightImperial) {
-            _heightFt  = _cmToFt(_selectedHeight);
-            _heightIn  = _cmToIn(_selectedHeight);
+            _heightFt = _cmToFt(_selectedHeight);
+            _heightIn = _cmToIn(_selectedHeight);
             _weightLbs = _kgToLbs(_selectedWeight);
           }
         }),
       ),
-      headerRow: _pickerHeaders(_heightImperial
-          ? [l.heightLabel, '', l.weightLabel]
-          : [l.heightLabel, l.weightLabel],
-        flex: _heightImperial ? [1, 1, 1] : [1, 1]),
+      headerRow: _pickerHeaders(
+        _heightImperial
+            ? [l.heightLabel, '', l.weightLabel]
+            : [l.heightLabel, l.weightLabel],
+        flex: _heightImperial ? [1, 1, 1] : [1, 1],
+      ),
       child: _heightImperial
-          ? Row(children: [
-              Expanded(child: _PickerBox(
-                key: ValueKey('hft_$unitKey'),
-                initialItem: (_heightFt - 3).clamp(0, 5),
-                items: List.generate(6, (i) => '${i + 3} ft'),
-                onChanged: (i) => setState(() {
-                  _heightFt = i + 3;
-                  _selectedHeight = _ftInToCm(_heightFt, _heightIn);
-                }),
-              )),
-              const SizedBox(width: 8),
-              Expanded(child: _PickerBox(
-                key: ValueKey('hin_$unitKey'),
-                initialItem: _heightIn.clamp(0, 11),
-                items: List.generate(12, (i) => '$i in'),
-                onChanged: (i) => setState(() {
-                  _heightIn = i;
-                  _selectedHeight = _ftInToCm(_heightFt, _heightIn);
-                }),
-              )),
-              const SizedBox(width: 8),
-              Expanded(child: _PickerBox(
-                key: ValueKey('wlbs_$unitKey'),
-                initialItem: (_weightLbs - 66).clamp(0, 264),
-                items: List.generate(265, (i) => '${i + 66} lb'),
-                onChanged: (i) => setState(() {
-                  _weightLbs = i + 66;
-                  _selectedWeight = _lbsToKg(_weightLbs);
-                }),
-              )),
-            ])
-          : Row(children: [
-              Expanded(child: _PickerBox(
-                key: ValueKey('hcm_$unitKey'),
-                initialItem: (_selectedHeight - 100).clamp(0, 120),
-                items: List.generate(121, (i) => '${i + 100} cm'),
-                onChanged: (i) => setState(() {
-                  _selectedHeight = i + 100;
-                  _heightFt = _cmToFt(_selectedHeight);
-                  _heightIn = _cmToIn(_selectedHeight);
-                }),
-              )),
-              const SizedBox(width: 8),
-              Expanded(child: _PickerBox(
-                key: ValueKey('wkg_$unitKey'),
-                initialItem: (_selectedWeight - 30).clamp(0, 120),
-                items: List.generate(121, (i) => '${i + 30} kg'),
-                onChanged: (i) => setState(() {
-                  _selectedWeight = i + 30;
-                  _weightLbs = _kgToLbs(_selectedWeight);
-                }),
-              )),
-            ]),
+          ? Row(
+              children: [
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.lime,
+                    key: ValueKey('hft_$unitKey'),
+                    initialItem: (_heightFt - 3).clamp(0, 5),
+                    items: List.generate(6, (i) => '${i + 3} ft'),
+                    onChanged: (i) => setState(() {
+                      _heightFt = i + 3;
+                      _selectedHeight = _ftInToCm(_heightFt, _heightIn);
+                    }),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.lime,
+                    key: ValueKey('hin_$unitKey'),
+                    initialItem: _heightIn.clamp(0, 11),
+                    items: List.generate(12, (i) => '$i in'),
+                    onChanged: (i) => setState(() {
+                      _heightIn = i;
+                      _selectedHeight = _ftInToCm(_heightFt, _heightIn);
+                    }),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.lime,
+                    key: ValueKey('wlbs_$unitKey'),
+                    initialItem: (_weightLbs - 66).clamp(0, 264),
+                    items: List.generate(265, (i) => '${i + 66} lb'),
+                    onChanged: (i) => setState(() {
+                      _weightLbs = i + 66;
+                      _selectedWeight = _lbsToKg(_weightLbs);
+                    }),
+                  ),
+                ),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.lime,
+                    key: ValueKey('hcm_$unitKey'),
+                    initialItem: (_selectedHeight - 100).clamp(0, 120),
+                    items: List.generate(121, (i) => '${i + 100} cm'),
+                    onChanged: (i) => setState(() {
+                      _selectedHeight = i + 100;
+                      _heightFt = _cmToFt(_selectedHeight);
+                      _heightIn = _cmToIn(_selectedHeight);
+                    }),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.lime,
+                    key: ValueKey('wkg_$unitKey'),
+                    initialItem: (_selectedWeight - 30).clamp(0, 120),
+                    items: List.generate(121, (i) => '${i + 30} kg'),
+                    onChanged: (i) => setState(() {
+                      _selectedWeight = i + 30;
+                      _weightLbs = _kgToLbs(_selectedWeight);
+                    }),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 
@@ -839,68 +1009,107 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     return _ScrollPickerPage(
       title: l.parentsHeight,
       subtitle: l.onboardingPredictSubtitle,
+      icon: CupertinoIcons.person_2_square_stack_fill,
+      accent: AppColors.pink,
       unitToggle: _UnitToggle(
-        left: l.imperialShort, right: l.metricShort,
+        left: l.imperialShort,
+        right: l.metricShort,
         isRight: !_heightImperial,
         onToggle: (isMetric) => setState(() => _heightImperial = !isMetric),
       ),
-      headerRow: _pickerHeaders(_heightImperial
-          ? [l.dadLabel, '', l.motherLabel, '']
-          : [l.dadLabel, l.motherLabel],
-        flex: _heightImperial ? [1, 1, 1, 1] : [1, 1]),
+      headerRow: _pickerHeaders(
+        _heightImperial
+            ? [l.dadLabel, '', l.motherLabel, '']
+            : [l.dadLabel, l.motherLabel],
+        flex: _heightImperial ? [1, 1, 1, 1] : [1, 1],
+      ),
       child: _heightImperial
-          ? Row(children: [
-              Expanded(child: _PickerBox(
-                key: ValueKey('dft_$unitKey'),
-                initialItem: (_dadFt - 4).clamp(0, 4),
-                items: List.generate(5, (i) => '${i + 4} ft'),
-                onChanged: (i) => setState(() { _dadFt = i + 4; _selectedFatherHeight = _ftInToCm(_dadFt, _dadIn); }),
-              )),
-              const SizedBox(width: 8),
-              Expanded(child: _PickerBox(
-                key: ValueKey('din_$unitKey'),
-                initialItem: _dadIn.clamp(0, 11),
-                items: List.generate(12, (i) => '$i in'),
-                onChanged: (i) => setState(() { _dadIn = i; _selectedFatherHeight = _ftInToCm(_dadFt, _dadIn); }),
-              )),
-              const SizedBox(width: 8),
-              Expanded(child: _PickerBox(
-                key: ValueKey('mft_$unitKey'),
-                initialItem: (_momFt - 4).clamp(0, 4),
-                items: List.generate(5, (i) => '${i + 4} ft'),
-                onChanged: (i) => setState(() { _momFt = i + 4; _selectedMotherHeight = _ftInToCm(_momFt, _momIn); }),
-              )),
-              const SizedBox(width: 8),
-              Expanded(child: _PickerBox(
-                key: ValueKey('min_$unitKey'),
-                initialItem: _momIn.clamp(0, 11),
-                items: List.generate(12, (i) => '$i in'),
-                onChanged: (i) => setState(() { _momIn = i; _selectedMotherHeight = _ftInToCm(_momFt, _momIn); }),
-              )),
-            ])
-          : Row(children: [
-              Expanded(child: _PickerBox(
-                key: ValueKey('dcm_$unitKey'),
-                initialItem: (_selectedFatherHeight - 100).clamp(0, 120),
-                items: List.generate(121, (i) => '${i + 100} cm'),
-                onChanged: (i) => setState(() {
-                  _selectedFatherHeight = i + 100;
-                  _dadFt = _cmToFt(_selectedFatherHeight);
-                  _dadIn = _cmToIn(_selectedFatherHeight);
-                }),
-              )),
-              const SizedBox(width: 8),
-              Expanded(child: _PickerBox(
-                key: ValueKey('mcm_$unitKey'),
-                initialItem: (_selectedMotherHeight - 100).clamp(0, 120),
-                items: List.generate(121, (i) => '${i + 100} cm'),
-                onChanged: (i) => setState(() {
-                  _selectedMotherHeight = i + 100;
-                  _momFt = _cmToFt(_selectedMotherHeight);
-                  _momIn = _cmToIn(_selectedMotherHeight);
-                }),
-              )),
-            ]),
+          ? Row(
+              children: [
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.pink,
+                    key: ValueKey('dft_$unitKey'),
+                    initialItem: (_dadFt - 4).clamp(0, 4),
+                    items: List.generate(5, (i) => '${i + 4} ft'),
+                    onChanged: (i) => setState(() {
+                      _dadFt = i + 4;
+                      _selectedFatherHeight = _ftInToCm(_dadFt, _dadIn);
+                    }),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.pink,
+                    key: ValueKey('din_$unitKey'),
+                    initialItem: _dadIn.clamp(0, 11),
+                    items: List.generate(12, (i) => '$i in'),
+                    onChanged: (i) => setState(() {
+                      _dadIn = i;
+                      _selectedFatherHeight = _ftInToCm(_dadFt, _dadIn);
+                    }),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.pink,
+                    key: ValueKey('mft_$unitKey'),
+                    initialItem: (_momFt - 4).clamp(0, 4),
+                    items: List.generate(5, (i) => '${i + 4} ft'),
+                    onChanged: (i) => setState(() {
+                      _momFt = i + 4;
+                      _selectedMotherHeight = _ftInToCm(_momFt, _momIn);
+                    }),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.pink,
+                    key: ValueKey('min_$unitKey'),
+                    initialItem: _momIn.clamp(0, 11),
+                    items: List.generate(12, (i) => '$i in'),
+                    onChanged: (i) => setState(() {
+                      _momIn = i;
+                      _selectedMotherHeight = _ftInToCm(_momFt, _momIn);
+                    }),
+                  ),
+                ),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.pink,
+                    key: ValueKey('dcm_$unitKey'),
+                    initialItem: (_selectedFatherHeight - 100).clamp(0, 120),
+                    items: List.generate(121, (i) => '${i + 100} cm'),
+                    onChanged: (i) => setState(() {
+                      _selectedFatherHeight = i + 100;
+                      _dadFt = _cmToFt(_selectedFatherHeight);
+                      _dadIn = _cmToIn(_selectedFatherHeight);
+                    }),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _PickerBox(
+                    accent: AppColors.pink,
+                    key: ValueKey('mcm_$unitKey'),
+                    initialItem: (_selectedMotherHeight - 100).clamp(0, 120),
+                    items: List.generate(121, (i) => '${i + 100} cm'),
+                    onChanged: (i) => setState(() {
+                      _selectedMotherHeight = i + 100;
+                      _momFt = _cmToFt(_selectedMotherHeight);
+                      _momIn = _cmToIn(_selectedMotherHeight);
+                    }),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 
@@ -913,59 +1122,29 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final options = [
       ('0-2', '0-2', l.workoutsPerWeek),
       ('3-5', '3-5', l.workoutsPerWeek),
-      ('6+',  '6+',  l.workoutsPerWeek),
+      ('6+', '6+', l.workoutsPerWeek),
     ];
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
+      padding: const EdgeInsets.fromLTRB(24, 22, 24, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _PageTitle(l.weeklyWorkout),
-          const SizedBox(height: 8),
-          _PageSubtitle(l.onboardingPredictSubtitle),
-          const SizedBox(height: 24),
-          ...options.map((opt) {
-            final selected = _weeklyWorkout == opt.$1;
-            return GestureDetector(
+          _QuestionHeader(
+            icon: CupertinoIcons.bolt_fill,
+            accent: AppColors.warning,
+            title: l.weeklyWorkout,
+            subtitle: l.onboardingPredictSubtitle,
+          ),
+          const SizedBox(height: 22),
+          ...options.map(
+            (opt) => _ChoiceCard(
+              accent: AppColors.warning,
+              selected: _weeklyWorkout == opt.$1,
+              title: opt.$2,
+              subtitle: opt.$3,
               onTap: () => setState(() => _weeklyWorkout = opt.$1),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                margin: const EdgeInsets.only(bottom: 12),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 22),
-                decoration: BoxDecoration(
-                  color: selected ? AppColors.primary.withValues(alpha: 0.15) : const Color(0xFF161220),
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(
-                    color: selected ? AppColors.primary : Colors.white.withValues(alpha: 0.08),
-                    width: selected ? 1.5 : 1.0,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(opt.$2, style: TextStyle(
-                            color: selected ? Colors.white : Colors.white.withValues(alpha: 0.9),
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: -0.5,
-                          )),
-                          const SizedBox(height: 2),
-                          Text(opt.$3, style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.55),
-                            fontSize: 14,
-                          )),
-                        ],
-                      ),
-                    ),
-                    _RadioDot(selected: selected),
-                  ],
-                ),
-              ),
-            );
-          }),
+            ),
+          ),
         ],
       ),
     );
@@ -980,13 +1159,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     return _RadioListPage(
       title: l.whatsYourEthnicity,
       subtitle: l.onboardingPredictSubtitle,
+      icon: CupertinoIcons.globe,
+      accent: AppColors.cyan,
       options: [
-        ('white',          l.whiteCaucasian),
-        ('black',          l.blackAfricanAmerican),
-        ('hispanic',       l.hispanicLatino),
-        ('asian',          l.asian),
+        ('white', l.whiteCaucasian),
+        ('black', l.blackAfricanAmerican),
+        ('hispanic', l.hispanicLatino),
+        ('asian', l.asian),
         ('middle_eastern', l.middleEasternIndigenous),
-        ('no_answer',      l.dontWantToAnswer),
+        ('no_answer', l.dontWantToAnswer),
       ],
       selected: _ethnicity,
       onSelect: (v) => setState(() => _ethnicity = v),
@@ -1004,7 +1185,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         ? List.generate(21, (i) => (36.0 + i).toStringAsFixed(0))
         : List.generate(21, (i) => (5.0 + i * 0.5).toStringAsFixed(1));
     final currentEU = _usToEU(_footSize);
-    final initIdx   = _footSizeEU
+    final initIdx = _footSizeEU
         ? (currentEU - 36).clamp(0, 20).round()
         : ((_footSize - 5.0) * 2).clamp(0, 20).round();
 
@@ -1013,15 +1194,25 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _PageTitle(l.footSizeLabel),
-          const SizedBox(height: 8),
-          _PageSubtitle(l.onboardingPredictSubtitle),
-          const SizedBox(height: 20),
-          Text(l.selectYourSize,
-            style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700)),
+          _QuestionHeader(
+            icon: CupertinoIcons.printer_fill,
+            accent: AppColors.orange,
+            title: l.footSizeLabel,
+            subtitle: l.onboardingPredictSubtitle,
+          ),
+          const SizedBox(height: 18),
+          Text(
+            l.selectYourSize,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const SizedBox(height: 12),
           Expanded(
             child: _PickerBox(
+              accent: AppColors.orange,
               key: ValueKey('foot_$unitKey'),
               initialItem: initIdx,
               items: items,
@@ -1031,8 +1222,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             ),
           ),
           const SizedBox(height: 16),
-          _UnitToggle(left: 'US', right: 'EU', isRight: _footSizeEU,
-            onToggle: (isEU) => setState(() => _footSizeEU = isEU)),
+          _UnitToggle(
+            left: 'US',
+            right: 'EU',
+            isRight: _footSizeEU,
+            onToggle: (isEU) => setState(() => _footSizeEU = isEU),
+          ),
           const SizedBox(height: 8),
         ],
       ),
@@ -1055,27 +1250,48 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           const SizedBox(height: 8),
           _PageSubtitle(l.dreamHeightCalcSubtitle),
           const SizedBox(height: 20),
-          Text(l.dreamHeightLabel,
-            style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.w700)),
+          Text(
+            l.dreamHeightLabel,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const SizedBox(height: 12),
           Expanded(
             child: _dreamImperial
-                ? Row(children: [
-                    Expanded(child: _PickerBox(
-                      key: ValueKey('dft_$unitKey'),
-                      initialItem: (_dreamFt - 3).clamp(0, 5),
-                      items: List.generate(6, (i) => '${i + 3} ft'),
-                      onChanged: (i) => setState(() { _dreamFt = i + 3; _dreamHeightCm = _ftInToCm(_dreamFt, _dreamIn); }),
-                    )),
-                    const SizedBox(width: 8),
-                    Expanded(child: _PickerBox(
-                      key: ValueKey('din_$unitKey'),
-                      initialItem: _dreamIn.clamp(0, 11),
-                      items: List.generate(12, (i) => '$i in'),
-                      onChanged: (i) => setState(() { _dreamIn = i; _dreamHeightCm = _ftInToCm(_dreamFt, _dreamIn); }),
-                    )),
-                  ])
+                ? Row(
+                    children: [
+                      Expanded(
+                        child: _PickerBox(
+                          accent: AppColors.lime,
+                          key: ValueKey('dft_$unitKey'),
+                          initialItem: (_dreamFt - 3).clamp(0, 5),
+                          items: List.generate(6, (i) => '${i + 3} ft'),
+                          onChanged: (i) => setState(() {
+                            _dreamFt = i + 3;
+                            _dreamHeightCm = _ftInToCm(_dreamFt, _dreamIn);
+                          }),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: _PickerBox(
+                          accent: AppColors.lime,
+                          key: ValueKey('din_$unitKey'),
+                          initialItem: _dreamIn.clamp(0, 11),
+                          items: List.generate(12, (i) => '$i in'),
+                          onChanged: (i) => setState(() {
+                            _dreamIn = i;
+                            _dreamHeightCm = _ftInToCm(_dreamFt, _dreamIn);
+                          }),
+                        ),
+                      ),
+                    ],
+                  )
                 : _PickerBox(
+                    accent: AppColors.lime,
                     key: ValueKey('dcm_$unitKey'),
                     initialItem: (_dreamHeightCm - 140).clamp(0, 80),
                     items: List.generate(81, (i) => '${i + 140} cm'),
@@ -1087,8 +1303,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   ),
           ),
           const SizedBox(height: 16),
-          _UnitToggle(left: l.imperialShort, right: l.metricShort, isRight: !_dreamImperial,
-            onToggle: (isMetric) => setState(() => _dreamImperial = !isMetric)),
+          _UnitToggle(
+            left: l.imperialShort,
+            right: l.metricShort,
+            isRight: !_dreamImperial,
+            onToggle: (isMetric) => setState(() => _dreamImperial = !isMetric),
+          ),
           const SizedBox(height: 8),
         ],
       ),
@@ -1102,24 +1322,24 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   Widget _buildSleepPage() {
     final l = AppLocalizations.of(context)!;
     return Padding(
-    padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _PageTitle(l.sleepQuestion),
-        const SizedBox(height: 8),
-        _PageSubtitle(l.onboardingPredictSubtitle),
-        Expanded(
-          child: Center(
-            child: _CircularSleepDial(
-              value: _sleepHours,
-              onChanged: (v) => setState(() => _sleepHours = v),
+      padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _PageTitle(l.sleepQuestion),
+          const SizedBox(height: 8),
+          _PageSubtitle(l.onboardingPredictSubtitle),
+          Expanded(
+            child: Center(
+              child: _CircularSleepDial(
+                value: _sleepHours,
+                onChanged: (v) => setState(() => _sleepHours = v),
+              ),
             ),
           ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -1132,7 +1352,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     return (120 + (_selectedHeight - 120) * fraction).roundToDouble();
   }
 
-  int _obHeightToItem(double h) => (h.round() - _kObMinH).clamp(0, _kObMaxH - _kObMinH);
+  int _obHeightToItem(double h) =>
+      (h.round() - _kObMinH).clamp(0, _kObMaxH - _kObMinH);
 
   void _obJumpPickerToAge(int age) {
     final val = _obPastHeightValues[age] ?? _obDefaultHeightForAge(age);
@@ -1215,7 +1436,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               width: isSelected ? 1.5 : 1,
             ),
             boxShadow: isSelected
-                ? [BoxShadow(color: const Color(0xFF8B5CF6).withValues(alpha: 0.32), blurRadius: 28, offset: const Offset(0, 10))]
+                ? [
+                    BoxShadow(
+                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.32),
+                      blurRadius: 28,
+                      offset: const Offset(0, 10),
+                    ),
+                  ]
                 : null,
           ),
           child: Column(
@@ -1237,15 +1464,21 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 style: TextStyle(
                   fontSize: isSelected ? 11 : 9,
                   fontWeight: FontWeight.w700,
-                  color: isSelected ? const Color(0xFFB794F4) : Colors.white.withValues(alpha: 0.28),
+                  color: isSelected
+                      ? const Color(0xFFB794F4)
+                      : Colors.white.withValues(alpha: 0.28),
                   letterSpacing: 0.8,
                 ),
               ),
               if (hasSaved && isSelected) ...[
                 const SizedBox(height: 8),
                 Container(
-                  width: 22, height: 3,
-                  decoration: BoxDecoration(color: AppColors.lime, borderRadius: BorderRadius.circular(2)),
+                  width: 22,
+                  height: 3,
+                  decoration: BoxDecoration(
+                    color: AppColors.lime,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                 ),
               ],
             ],
@@ -1273,19 +1506,30 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               Text(
                 l.obPastHeightsTitle,
                 style: const TextStyle(
-                  fontSize: 34, fontWeight: FontWeight.w900,
-                  color: Colors.white, letterSpacing: -1.3, height: 1.05,
+                  fontSize: 34,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: -1.3,
+                  height: 1.05,
                 ),
               ),
               const SizedBox(height: 6),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.52), height: 1.45),
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white.withValues(alpha: 0.52),
+                    height: 1.45,
+                  ),
                   children: [
                     TextSpan(text: l.obPastHeightsSubPart1),
                     TextSpan(
                       text: '97%',
-                      style: TextStyle(fontWeight: FontWeight.w800, color: const Color(0xFF22FF88).withValues(alpha: 0.90)),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        color: const Color(0xFF22FF88).withValues(alpha: 0.90),
+                      ),
                     ),
                     TextSpan(text: l.obPastHeightsSubPart2),
                   ],
@@ -1303,7 +1547,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             controller: _obAgePageController,
             itemCount: _obAges.length,
             onPageChanged: _obOnAgePageChanged,
-            itemBuilder: (context, index) => _buildObAgeSlot(_obAges[index], index == _obCurrentAgeIndex),
+            itemBuilder: (context, index) =>
+                _buildObAgeSlot(_obAges[index], index == _obCurrentAgeIndex),
           ),
         ),
         const SizedBox(height: 14),
@@ -1312,11 +1557,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         Center(
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
-            transitionBuilder: (child, anim) => FadeTransition(opacity: anim, child: child),
+            transitionBuilder: (child, anim) =>
+                FadeTransition(opacity: anim, child: child),
             child: Text(
               key: ValueKey(_obCurrentAgeIndex),
               l.obHowTallAtAge(currentAge.toString()),
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.48), letterSpacing: -0.2),
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: Colors.white.withValues(alpha: 0.48),
+                letterSpacing: -0.2,
+              ),
             ),
           ),
         ),
@@ -1334,28 +1585,77 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 magnification: 1.12,
                 squeeze: 1.15,
                 onSelectedItemChanged: (index) {
-                  _obPastHeightValues[currentAge] = (_kObMinH + index).toDouble();
+                  _obPastHeightValues[currentAge] = (_kObMinH + index)
+                      .toDouble();
                 },
                 selectionOverlay: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 44, vertical: 5),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 44,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [const Color(0xFF7C3AED).withValues(alpha: 0.20), const Color(0xFF4C1D95).withValues(alpha: 0.20)]),
+                    gradient: LinearGradient(
+                      colors: [
+                        const Color(0xFF7C3AED).withValues(alpha: 0.20),
+                        const Color(0xFF4C1D95).withValues(alpha: 0.20),
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.55), width: 1.5),
+                    border: Border.all(
+                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.55),
+                      width: 1.5,
+                    ),
                   ),
                 ),
                 children: List.generate(
                   _kObMaxH - _kObMinH + 1,
                   (i) => Center(
-                    child: Text('${_kObMinH + i} cm',
-                      style: const TextStyle(fontSize: 27, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8)),
+                    child: Text(
+                      '${_kObMinH + i} cm',
+                      style: const TextStyle(
+                        fontSize: 27,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        letterSpacing: -0.8,
+                      ),
+                    ),
                   ),
                 ),
               ),
-              Positioned(top: 0, left: 0, right: 0, height: 100,
-                child: IgnorePointer(child: Container(decoration: const BoxDecoration(gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFF09070F), Colors.transparent]))))),
-              Positioned(bottom: 0, left: 0, right: 0, height: 100,
-                child: IgnorePointer(child: Container(decoration: const BoxDecoration(gradient: LinearGradient(begin: Alignment.bottomCenter, end: Alignment.topCenter, colors: [Color(0xFF09070F), Colors.transparent]))))),
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 100,
+                child: IgnorePointer(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFF09070F), Colors.transparent],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 100,
+                child: IgnorePointer(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [Color(0xFF09070F), Colors.transparent],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -1369,9 +1669,20 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 GestureDetector(
                   onTap: _obPrevAge,
                   child: Container(
-                    width: 58, height: 64,
-                    decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(18), border: Border.all(color: Colors.white.withValues(alpha: 0.08))),
-                    child: const Icon(CupertinoIcons.chevron_left, color: Colors.white60, size: 20),
+                    width: 58,
+                    height: 64,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.06),
+                      borderRadius: BorderRadius.circular(18),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.08),
+                      ),
+                    ),
+                    child: const Icon(
+                      CupertinoIcons.chevron_left,
+                      color: Colors.white60,
+                      size: 20,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -1381,8 +1692,23 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 child: Container(
                   height: 64,
                   padding: const EdgeInsets.symmetric(horizontal: 22),
-                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(18), border: Border.all(color: Colors.white.withValues(alpha: 0.07))),
-                  child: Center(child: Text(l.obSkip, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white.withValues(alpha: 0.38)))),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.07),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      l.obSkip,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white.withValues(alpha: 0.38),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -1392,14 +1718,33 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   child: Container(
                     height: 64,
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(colors: [Color(0xFFA78BFA), Color(0xFF7C3AED)], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFA78BFA), Color(0xFF7C3AED)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
                       borderRadius: BorderRadius.circular(18),
-                      boxShadow: [BoxShadow(color: const Color(0xFF8B5CF6).withValues(alpha: 0.42), blurRadius: 20, offset: const Offset(0, 8))],
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(
+                            0xFF8B5CF6,
+                          ).withValues(alpha: 0.42),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
                     ),
                     child: Center(
                       child: Text(
-                        _obCurrentAgeIndex == _obAges.length - 1 ? l.continueBtn : l.obNext,
-                        style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.3),
+                        _obCurrentAgeIndex == _obAges.length - 1
+                            ? l.continueBtn
+                            : l.obNext,
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          letterSpacing: -0.3,
+                        ),
                       ),
                     ),
                   ),
@@ -1419,37 +1764,52 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final l = AppLocalizations.of(context)!;
     final testimonials = [
       _Testimonial(
-        name: 'Ertuğ E.', age: 23, emoji: '💪',
+        name: 'Ertuğ E.',
+        age: 23,
+        emoji: '💪',
         quote: l.testimonial1,
-        gain: '+2.6 cm', duration: l.testimonialDuration1,
+        gain: '+2.6 cm',
+        duration: l.testimonialDuration1,
         verified: true,
         photoPath: 'assets/testimonials/ertug.jpg',
       ),
       _Testimonial(
-        name: 'Ahmet', age: 20, emoji: '🔥',
+        name: 'Ahmet',
+        age: 20,
+        emoji: '🔥',
         quote: l.testimonial2,
-        gain: '+2.5 cm', duration: l.testimonialDuration2,
+        gain: '+2.5 cm',
+        duration: l.testimonialDuration2,
         verified: true,
         photoPath: 'assets/testimonials/ahmet2.jpg',
       ),
       _Testimonial(
-        name: 'Gökdeniz', age: 22, emoji: '🌟',
+        name: 'Gökdeniz',
+        age: 22,
+        emoji: '🌟',
         quote: l.testimonial3,
-        gain: '+2.3 cm', duration: l.testimonialDuration3,
+        gain: '+2.3 cm',
+        duration: l.testimonialDuration3,
         verified: true,
         photoPath: 'assets/testimonials/gokdeniz.jpg',
       ),
       _Testimonial(
-        name: 'Mert', age: 19, emoji: '📈',
+        name: 'Mert',
+        age: 19,
+        emoji: '📈',
         quote: l.testimonial4,
-        gain: '+3.3 cm', duration: l.testimonialDuration4,
+        gain: '+3.3 cm',
+        duration: l.testimonialDuration4,
         verified: true,
         photoPath: 'assets/testimonials/mert.jpg',
       ),
       _Testimonial(
-        name: 'Aydın', age: 18, emoji: '🎯',
+        name: 'Aydın',
+        age: 18,
+        emoji: '🎯',
         quote: l.testimonial5,
-        gain: '+3.1 cm', duration: l.testimonialDuration5,
+        gain: '+3.1 cm',
+        duration: l.testimonialDuration5,
         verified: true,
         photoPath: 'assets/testimonials/aydin.jpg',
       ),
@@ -1462,12 +1822,25 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         children: [
           const Text('🏆', style: TextStyle(fontSize: 44)),
           const SizedBox(height: 14),
-          Text(l.thousandsSucceeded,
+          Text(
+            l.thousandsSucceeded,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.0, height: 1.12)),
+            style: const TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: -1.0,
+              height: 1.12,
+            ),
+          ),
           const SizedBox(height: 8),
-          Text(l.youCanToo,
-            style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.50))),
+          Text(
+            l.youCanToo,
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.white.withValues(alpha: 0.50),
+            ),
+          ),
           const SizedBox(height: 24),
           ...testimonials.map((t) => _TestimonialCard(t: t)),
           const SizedBox(height: 20),
@@ -1483,117 +1856,178 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   Widget _buildChartPage() {
     final l = AppLocalizations.of(context)!;
     return SingleChildScrollView(
-    padding: const EdgeInsets.fromLTRB(24, 28, 24, 20),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Tag
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-          decoration: BoxDecoration(
-            color: AppColors.primary.withValues(alpha: 0.12),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.primary.withValues(alpha: 0.30)),
+      padding: const EdgeInsets.fromLTRB(24, 28, 24, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Tag
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: AppColors.primary.withValues(alpha: 0.30),
+              ),
+            ),
+            child: Text(
+              l.scientificData,
+              style: const TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.2,
+                color: AppColors.primary,
+              ),
+            ),
           ),
-          child: Text(l.scientificData, style: const TextStyle(
-            fontSize: 10, fontWeight: FontWeight.w800, letterSpacing: 1.2, color: AppColors.primary,
-          )),
-        ),
-        const SizedBox(height: 14),
-        _PageTitle(l.longTermResults),
-        const SizedBox(height: 8),
-        _PageSubtitle(l.longTermResultsSubtitle),
-        const SizedBox(height: 22),
-        // Chart card
-        Container(
-          width: double.infinity,
-          height: 210,
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: const Color(0xFF100D1A),
-            borderRadius: BorderRadius.circular(22),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
+          const SizedBox(height: 14),
+          _PageTitle(l.longTermResults),
+          const SizedBox(height: 8),
+          _PageSubtitle(l.longTermResultsSubtitle),
+          const SizedBox(height: 22),
+          // Chart card
+          Container(
+            width: double.infinity,
+            height: 210,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: const Color(0xFF100D1A),
+              borderRadius: BorderRadius.circular(22),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  l.yourFinalHeight,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Expanded(
+                  child: CustomPaint(
+                    size: Size.infinite,
+                    painter: _GrowthChartPainter(),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _LegendDot(
+                      color: const Color(0xFFFF6B4A),
+                      label: l.badHabitsLegend,
+                    ),
+                    const SizedBox(width: 22),
+                    _LegendDot(
+                      color: AppColors.primary,
+                      label: l.optimizedLegend,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          child: Column(
+          const SizedBox(height: 18),
+          // Fact cards row
+          Row(
             children: [
-              Text(l.yourFinalHeight,
-                style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w700)),
-              const SizedBox(height: 12),
-              Expanded(child: CustomPaint(size: Size.infinite, painter: _GrowthChartPainter())),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _LegendDot(color: const Color(0xFFFF6B4A), label: l.badHabitsLegend),
-                  const SizedBox(width: 22),
-                  _LegendDot(color: AppColors.primary, label: l.optimizedLegend),
-                ],
+              Expanded(
+                child: _ChartFactCard(
+                  emoji: '🧬',
+                  pct: l.chartFact1Pct,
+                  desc: l.chartFact1Desc,
+                  color: AppColors.primary,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: _ChartFactCard(
+                  emoji: '😴',
+                  pct: l.chartFact2Pct,
+                  desc: l.chartFact2Desc,
+                  color: AppColors.cyan,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: _ChartFactCard(
+                  emoji: '🦴',
+                  pct: l.chartFact3Pct,
+                  desc: l.chartFact3Desc,
+                  color: const Color(0xFF22C55E),
+                ),
               ),
             ],
           ),
-        ),
-        const SizedBox(height: 18),
-        // Fact cards row
-        Row(children: [
-          Expanded(child: _ChartFactCard(
-            emoji: '🧬',
-            pct: l.chartFact1Pct,
-            desc: l.chartFact1Desc,
-            color: AppColors.primary,
-          )),
-          const SizedBox(width: 10),
-          Expanded(child: _ChartFactCard(
-            emoji: '😴',
-            pct: l.chartFact2Pct,
-            desc: l.chartFact2Desc,
-            color: AppColors.cyan,
-          )),
-          const SizedBox(width: 10),
-          Expanded(child: _ChartFactCard(
-            emoji: '🦴',
-            pct: l.chartFact3Pct,
-            desc: l.chartFact3Desc,
-            color: const Color(0xFF22C55E),
-          )),
-        ]),
-        const SizedBox(height: 20),
-        // "What being short really costs" hook
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [const Color(0xFF1A0A2E), const Color(0xFF0F0820)],
-              begin: Alignment.topLeft, end: Alignment.bottomRight,
+          const SizedBox(height: 20),
+          // "What being short really costs" hook
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [const Color(0xFF1A0A2E), const Color(0xFF0F0820)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(
+                color: AppColors.primary.withValues(alpha: 0.20),
+              ),
             ),
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: AppColors.primary.withValues(alpha: 0.20)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '\ud83d\udca1  ${l.didYouKnow}',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.primary,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                ...[
+                  l.didYouKnowFact1,
+                  l.didYouKnowFact2,
+                  l.didYouKnowFact3,
+                ].map(
+                  (fact) => Padding(
+                    padding: const EdgeInsets.only(bottom: 7),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 6,
+                          height: 6,
+                          decoration: const BoxDecoration(
+                            color: AppColors.primary,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            fact,
+                            style: TextStyle(
+                              fontSize: 13.5,
+                              color: Colors.white.withValues(alpha: 0.75),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('\ud83d\udca1  ${l.didYouKnow}',
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.primary)),
-              const SizedBox(height: 10),
-              ...[l.didYouKnowFact1, l.didYouKnowFact2, l.didYouKnowFact3]
-                .map((fact) => Padding(
-                  padding: const EdgeInsets.only(bottom: 7),
-                  child: Row(children: [
-                    Container(width: 6, height: 6,
-                      decoration: const BoxDecoration(color: AppColors.primary, shape: BoxShape.circle)),
-                    const SizedBox(width: 10),
-                    Expanded(child: Text(fact,
-                      style: TextStyle(fontSize: 13.5, color: Colors.white.withValues(alpha: 0.75)))),
-                  ]),
-                )),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
   }
-
 
   // Called by _AnalyzingPage when its animation finishes. The questionnaire is
   // over, so we save and hand straight over to the journey screen.
@@ -1613,7 +2047,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ),
     );
   }
-
 
   // ─────────────────────────────────────────────────────────────────────────────
   // PAGE 14 — Journey roadmap
@@ -1662,13 +2095,27 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         children: [
           const Text('✨', style: TextStyle(fontSize: 40)),
           const SizedBox(height: 16),
-          Text(l.transformJourneyBegins,
+          Text(
+            l.transformJourneyBegins,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -1.2, height: 1.12)),
+            style: const TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: -1.2,
+              height: 1.12,
+            ),
+          ),
           const SizedBox(height: 10),
-          Text(l.transformJourneySubtitle,
+          Text(
+            l.transformJourneySubtitle,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14.5, color: Colors.white.withValues(alpha: 0.58), height: 1.5)),
+            style: TextStyle(
+              fontSize: 14.5,
+              color: Colors.white.withValues(alpha: 0.58),
+              height: 1.5,
+            ),
+          ),
           const SizedBox(height: 32),
           // Timeline row
           Row(
@@ -1683,31 +2130,55 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         children: [
                           // Circle
                           Container(
-                            width: 52, height: 52,
+                            width: 52,
+                            height: 52,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: m.isActive ? m.color : m.color.withValues(alpha: 0.15),
-                              border: Border.all(color: m.color, width: m.isActive ? 2.5 : 1.5),
-                              boxShadow: m.isActive ? [BoxShadow(color: m.color.withValues(alpha: 0.40), blurRadius: 14)] : null,
+                              color: m.isActive
+                                  ? m.color
+                                  : m.color.withValues(alpha: 0.15),
+                              border: Border.all(
+                                color: m.color,
+                                width: m.isActive ? 2.5 : 1.5,
+                              ),
+                              boxShadow: m.isActive
+                                  ? [
+                                      BoxShadow(
+                                        color: m.color.withValues(alpha: 0.40),
+                                        blurRadius: 14,
+                                      ),
+                                    ]
+                                  : null,
                             ),
                             child: Center(
-                              child: Text(m.label, style: TextStyle(
-                                fontSize: 13, fontWeight: FontWeight.w900,
-                                color: m.isActive ? Colors.black : m.color,
-                              )),
+                              child: Text(
+                                m.label,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w900,
+                                  color: m.isActive ? Colors.black : m.color,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(height: 6),
-                          Text(m.title, style: TextStyle(
-                            fontSize: 10.5, fontWeight: FontWeight.w700,
-                            color: m.isActive ? m.color : Colors.white.withValues(alpha: 0.50),
-                          )),
+                          Text(
+                            m.title,
+                            style: TextStyle(
+                              fontSize: 10.5,
+                              fontWeight: FontWeight.w700,
+                              color: m.isActive
+                                  ? m.color
+                                  : Colors.white.withValues(alpha: 0.50),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     if (i < milestones.length - 1)
                       Container(
-                        width: 24, height: 2,
+                        width: 24,
+                        height: 2,
                         color: Colors.white.withValues(alpha: 0.15),
                         margin: const EdgeInsets.only(bottom: 20),
                       ),
@@ -1723,45 +2194,98 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [const Color(0xFFFFD700).withValues(alpha: 0.10), const Color(0xFFFFD700).withValues(alpha: 0.04)],
-                begin: Alignment.topLeft, end: Alignment.bottomRight,
+                colors: [
+                  const Color(0xFFFFD700).withValues(alpha: 0.10),
+                  const Color(0xFFFFD700).withValues(alpha: 0.04),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: const Color(0xFFFFD700).withValues(alpha: 0.30)),
+              border: Border.all(
+                color: const Color(0xFFFFD700).withValues(alpha: 0.30),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(children: [
-                  const Text('🏆', style: TextStyle(fontSize: 22)),
-                  const SizedBox(width: 10),
-                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text(l.month6Title, style: TextStyle(fontSize: 12, color: const Color(0xFFFFD700).withValues(alpha: 0.80))),
-                    Text(l.reachYourGoal, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: Colors.white)),
-                  ]),
-                ]),
+                Row(
+                  children: [
+                    const Text('🏆', style: TextStyle(fontSize: 22)),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l.month6Title,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: const Color(
+                              0xFFFFD700,
+                            ).withValues(alpha: 0.80),
+                          ),
+                        ),
+                        Text(
+                          l.reachYourGoal,
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 14),
                 Divider(color: Colors.white.withValues(alpha: 0.08)),
                 const SizedBox(height: 10),
-                ...[l.journeyBullet1, l.journeyBullet2, l.journeyBullet3].asMap().entries.map((e) =>
-                  Padding(
+                ...[
+                  l.journeyBullet1,
+                  l.journeyBullet2,
+                  l.journeyBullet3,
+                ].asMap().entries.map(
+                  (e) => Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(children: [
-                      Container(
-                        width: 18, height: 18,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: e.key == 0 ? const Color(0xFF22C55E) : Colors.white.withValues(alpha: 0.06),
-                          border: Border.all(color: e.key == 0 ? Colors.transparent : Colors.white.withValues(alpha: 0.15)),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 18,
+                          height: 18,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: e.key == 0
+                                ? const Color(0xFF22C55E)
+                                : Colors.white.withValues(alpha: 0.06),
+                            border: Border.all(
+                              color: e.key == 0
+                                  ? Colors.transparent
+                                  : Colors.white.withValues(alpha: 0.15),
+                            ),
+                          ),
+                          child: e.key == 0
+                              ? const Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: 10,
+                                )
+                              : null,
                         ),
-                        child: e.key == 0 ? const Icon(Icons.check, color: Colors.white, size: 10) : null,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(e.value, style: TextStyle(
-                        fontSize: 14, color: e.key == 0 ? Colors.white : Colors.white.withValues(alpha: 0.45),
-                        fontWeight: e.key == 0 ? FontWeight.w600 : FontWeight.w400,
-                      )),
-                    ]),
+                        const SizedBox(width: 10),
+                        Text(
+                          e.value,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: e.key == 0
+                                ? Colors.white
+                                : Colors.white.withValues(alpha: 0.45),
+                            fontWeight: e.key == 0
+                                ? FontWeight.w600
+                                : FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -1789,8 +2313,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             flex: f,
             child: Padding(
               padding: EdgeInsets.only(left: i > 0 ? 8 : 0),
-              child: Text(labels[i], textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
+              child: Text(
+                labels[i],
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
           );
         }),
@@ -1821,9 +2352,14 @@ class _Testimonial {
   final bool verified;
   final String? photoPath;
   const _Testimonial({
-    required this.name, required this.age, required this.emoji,
-    required this.quote, required this.gain, required this.duration,
-    required this.verified, this.photoPath,
+    required this.name,
+    required this.age,
+    required this.emoji,
+    required this.quote,
+    required this.gain,
+    required this.duration,
+    required this.verified,
+    this.photoPath,
   });
 }
 
@@ -1835,88 +2371,182 @@ class _TestimonialCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     return Container(
-    margin: const EdgeInsets.only(bottom: 12),
-    padding: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      color: const Color(0xFF161220),
-      borderRadius: BorderRadius.circular(18),
-      border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(children: [
-          // Avatar
-          Container(
-            width: 44, height: 44,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.primary.withValues(alpha: 0.15),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
-            ),
-            child: ClipOval(
-              child: t.photoPath != null
-                  ? Image.asset(t.photoPath!, fit: BoxFit.cover, width: 44, height: 44,
-                      errorBuilder: (context, error, stack) => Center(child: Text(t.emoji, style: const TextStyle(fontSize: 20))))
-                  : Center(child: Text(t.emoji, style: const TextStyle(fontSize: 20))),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('${t.name}, ${t.age}',
-              style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700)),
-            Text(l.yearsOld, style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.40))),
-          ]),
-          const Spacer(),
-          if (t.verified)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: const Color(0xFF22C55E).withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: const Color(0xFF22C55E).withValues(alpha: 0.30)),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF161220),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              // Avatar
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.primary.withValues(alpha: 0.15),
+                  border: Border.all(
+                    color: AppColors.primary.withValues(alpha: 0.25),
+                  ),
+                ),
+                child: ClipOval(
+                  child: t.photoPath != null
+                      ? Image.asset(
+                          t.photoPath!,
+                          fit: BoxFit.cover,
+                          width: 44,
+                          height: 44,
+                          errorBuilder: (context, error, stack) => Center(
+                            child: Text(
+                              t.emoji,
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        )
+                      : Center(
+                          child: Text(
+                            t.emoji,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ),
+                ),
               ),
-              child: Row(mainAxisSize: MainAxisSize.min, children: [
-                const Icon(Icons.verified, color: Color(0xFF22C55E), size: 12),
-                const SizedBox(width: 4),
-                Text(l.verifiedLabel, style: const TextStyle(color: Color(0xFF22C55E), fontSize: 10, fontWeight: FontWeight.w700)),
-              ]),
-            ),
-        ]),
-        const SizedBox(height: 12),
-        Text('"${t.quote}"',
-          style: TextStyle(fontSize: 13.5, color: Colors.white.withValues(alpha: 0.80), height: 1.5)),
-        const SizedBox(height: 12),
-        Divider(color: Colors.white.withValues(alpha: 0.07)),
-        const SizedBox(height: 8),
-        Row(children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: const Color(0xFF22C55E).withValues(alpha: 0.10),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(mainAxisSize: MainAxisSize.min, children: [
-              const Text('↗', style: TextStyle(color: Color(0xFF22C55E), fontSize: 13, fontWeight: FontWeight.w800)),
-              const SizedBox(width: 4),
-              Text(t.gain, style: const TextStyle(color: Color(0xFF22C55E), fontSize: 13, fontWeight: FontWeight.w800)),
-            ]),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${t.name}, ${t.age}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    l.yearsOld,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white.withValues(alpha: 0.40),
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              if (t.verified)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF22C55E).withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: const Color(0xFF22C55E).withValues(alpha: 0.30),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.verified,
+                        color: Color(0xFF22C55E),
+                        size: 12,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        l.verifiedLabel,
+                        style: const TextStyle(
+                          color: Color(0xFF22C55E),
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
           ),
-          const SizedBox(width: 10),
-          Icon(CupertinoIcons.clock, size: 13, color: Colors.white.withValues(alpha: 0.35)),
-          const SizedBox(width: 4),
-          Text(t.duration, style: TextStyle(fontSize: 12, color: Colors.white.withValues(alpha: 0.40))),
-        ]),
-      ],
-    ),
-  );
+          const SizedBox(height: 12),
+          Text(
+            '"${t.quote}"',
+            style: TextStyle(
+              fontSize: 13.5,
+              color: Colors.white.withValues(alpha: 0.80),
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Divider(color: Colors.white.withValues(alpha: 0.07)),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF22C55E).withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      '↗',
+                      style: TextStyle(
+                        color: Color(0xFF22C55E),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      t.gain,
+                      style: const TextStyle(
+                        color: Color(0xFF22C55E),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              Icon(
+                CupertinoIcons.clock,
+                size: 13,
+                color: Colors.white.withValues(alpha: 0.35),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                t.duration,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.white.withValues(alpha: 0.40),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
 class _ChartFactCard extends StatelessWidget {
   final String emoji, pct, desc;
   final Color color;
-  const _ChartFactCard({required this.emoji, required this.pct, required this.desc, required this.color});
+  const _ChartFactCard({
+    required this.emoji,
+    required this.pct,
+    required this.desc,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) => Container(
@@ -1926,14 +2556,30 @@ class _ChartFactCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: color.withValues(alpha: 0.18)),
     ),
-    child: Column(children: [
-      Text(emoji, style: const TextStyle(fontSize: 22)),
-      const SizedBox(height: 6),
-      Text(pct, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: color)),
-      const SizedBox(height: 4),
-      Text(desc, textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 10.5, color: Colors.white.withValues(alpha: 0.55), height: 1.4)),
-    ]),
+    child: Column(
+      children: [
+        Text(emoji, style: const TextStyle(fontSize: 22)),
+        const SizedBox(height: 6),
+        Text(
+          pct,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w900,
+            color: color,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          desc,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 10.5,
+            color: Colors.white.withValues(alpha: 0.55),
+            height: 1.4,
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -1943,6 +2589,8 @@ class _ChartFactCard extends StatelessWidget {
 
 class _RadioListPage extends StatelessWidget {
   final String title, subtitle;
+  final IconData icon;
+  final Color accent;
   final List<(String, String)> options;
   final String selected;
   final ValueChanged<String> onSelect;
@@ -1950,6 +2598,8 @@ class _RadioListPage extends StatelessWidget {
   const _RadioListPage({
     required this.title,
     required this.subtitle,
+    required this.icon,
+    required this.accent,
     required this.options,
     required this.selected,
     required this.onSelect,
@@ -1958,47 +2608,223 @@ class _RadioListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
+      padding: const EdgeInsets.fromLTRB(24, 22, 24, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _PageTitle(title),
-          const SizedBox(height: 8),
-          _PageSubtitle(subtitle),
-          const SizedBox(height: 24),
-          ...options.map((opt) {
-            final sel = selected == opt.$1;
-            return GestureDetector(
+          _QuestionHeader(
+            icon: icon,
+            accent: accent,
+            title: title,
+            subtitle: subtitle,
+          ),
+          const SizedBox(height: 22),
+          ...options.map(
+            (opt) => _ChoiceCard(
+              accent: accent,
+              selected: selected == opt.$1,
+              title: opt.$2,
               onTap: () => onSelect(opt.$1),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                margin: const EdgeInsets.only(bottom: 10),
-                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 20),
-                decoration: BoxDecoration(
-                  color: sel ? AppColors.primary.withValues(alpha: 0.15) : const Color(0xFF161220),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: sel ? AppColors.primary : Colors.white.withValues(alpha: 0.08),
-                    width: sel ? 1.5 : 1.0,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The question, wearing its own colour and mark.
+///
+/// Every one of these pages used to open with the same 32pt line over the same
+/// sentence, so five different questions arrived looking like one screen shown
+/// five times. The chip gives each its own identity, and the accent carries
+/// through to the options and the wheel below it.
+class _QuestionHeader extends StatelessWidget {
+  final IconData icon;
+  final Color accent;
+  final String title;
+  final String subtitle;
+
+  const _QuestionHeader({
+    required this.icon,
+    required this.accent,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                accent.withValues(alpha: 0.28),
+                accent.withValues(alpha: 0.08),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: accent.withValues(alpha: 0.35)),
+            boxShadow: [
+              BoxShadow(
+                color: accent.withValues(alpha: 0.25),
+                blurRadius: 18,
+                spreadRadius: -4,
+              ),
+            ],
+          ),
+          child: Icon(icon, color: accent, size: 21),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            letterSpacing: -1.1,
+            height: 1.12,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          subtitle,
+          style: TextStyle(
+            fontSize: 14.5,
+            height: 1.45,
+            color: Colors.white.withValues(alpha: 0.50),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// One answer. Picking it lights the card in the question's colour and runs a
+/// bar down its leading edge, so the choice reads at a glance rather than from
+/// a single dot on the far right.
+class _ChoiceCard extends StatelessWidget {
+  final Color accent;
+  final bool selected;
+  final String title;
+
+  /// The smaller line some questions carry under the answer.
+  final String? subtitle;
+
+  final VoidCallback onTap;
+
+  const _ChoiceCard({
+    required this.accent,
+    required this.selected,
+    required this.title,
+    required this.onTap,
+    this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.selectionClick();
+        onTap();
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOutCubic,
+        margin: const EdgeInsets.only(bottom: 11),
+        decoration: BoxDecoration(
+          gradient: selected
+              ? LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    accent.withValues(alpha: 0.22),
+                    accent.withValues(alpha: 0.05),
+                  ],
+                )
+              : null,
+          color: selected ? null : const Color(0xFF141020),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: selected
+                ? accent.withValues(alpha: 0.75)
+                : Colors.white.withValues(alpha: 0.07),
+            width: selected ? 1.5 : 1,
+          ),
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: accent.withValues(alpha: 0.22),
+                    blurRadius: 20,
+                    spreadRadius: -6,
                   ),
+                ]
+              : null,
+        ),
+        child: Row(
+          children: [
+            // The leading bar: the cue you catch without reading.
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 220),
+              curve: Curves.easeOutCubic,
+              margin: const EdgeInsets.symmetric(vertical: 16),
+              width: 3,
+              height: selected ? 30 : 0,
+              decoration: BoxDecoration(
+                color: accent,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(
+                  selected ? 15 : 18,
+                  subtitle == null ? 19 : 16,
+                  14,
+                  subtitle == null ? 19 : 16,
                 ),
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Text(opt.$2, style: TextStyle(
-                        color: sel ? Colors.white : Colors.white.withValues(alpha: 0.85),
-                        fontSize: 16,
-                        fontWeight: sel ? FontWeight.w700 : FontWeight.w500,
-                      )),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: selected
+                            ? Colors.white
+                            : Colors.white.withValues(alpha: 0.82),
+                        fontSize: subtitle == null ? 16 : 21,
+                        fontWeight: selected || subtitle != null
+                            ? FontWeight.w800
+                            : FontWeight.w500,
+                        letterSpacing: subtitle == null ? -0.1 : -0.5,
+                      ),
                     ),
-                    const SizedBox(width: 12),
-                    _RadioDot(selected: sel),
+                    if (subtitle != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle!,
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.48),
+                          fontSize: 13.5,
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
-            );
-          }),
-        ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: _RadioDot(selected: selected, accent: accent),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -2006,6 +2832,8 @@ class _RadioListPage extends StatelessWidget {
 
 class _ScrollPickerPage extends StatelessWidget {
   final String title, subtitle;
+  final IconData icon;
+  final Color accent;
   final Widget child;
   final Widget? unitToggle;
   final Widget? headerRow;
@@ -2013,6 +2841,8 @@ class _ScrollPickerPage extends StatelessWidget {
   const _ScrollPickerPage({
     required this.title,
     required this.subtitle,
+    required this.icon,
+    required this.accent,
     required this.child,
     this.unitToggle,
     this.headerRow,
@@ -2021,16 +2851,22 @@ class _ScrollPickerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
+      padding: const EdgeInsets.fromLTRB(24, 22, 24, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _PageTitle(title),
-          const SizedBox(height: 8),
-          _PageSubtitle(subtitle),
-          if (unitToggle != null) ...[const SizedBox(height: 16), unitToggle!],
-          if (headerRow != null) ...[const SizedBox(height: 12), headerRow!]
-          else const SizedBox(height: 12),
+          _QuestionHeader(
+            icon: icon,
+            accent: accent,
+            title: title,
+            subtitle: subtitle,
+          ),
+          if (unitToggle != null) ...[const SizedBox(height: 18), unitToggle!],
+          if (headerRow != null) ...[
+            const SizedBox(height: 14),
+            headerRow!,
+          ] else
+            const SizedBox(height: 14),
           Expanded(child: child),
         ],
       ),
@@ -2046,34 +2882,61 @@ class _PageTitle extends StatelessWidget {
   final String text;
   const _PageTitle(this.text);
   @override
-  Widget build(BuildContext context) => Text(text,
-    style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1.0, height: 1.15));
+  Widget build(BuildContext context) => Text(
+    text,
+    style: const TextStyle(
+      fontSize: 32,
+      fontWeight: FontWeight.w800,
+      color: Colors.white,
+      letterSpacing: -1.0,
+      height: 1.15,
+    ),
+  );
 }
 
 class _PageSubtitle extends StatelessWidget {
   final String text;
   const _PageSubtitle(this.text);
   @override
-  Widget build(BuildContext context) => Text(text,
-    style: TextStyle(fontSize: 15, color: Colors.white.withValues(alpha: 0.55), height: 1.45));
+  Widget build(BuildContext context) => Text(
+    text,
+    style: TextStyle(
+      fontSize: 15,
+      color: Colors.white.withValues(alpha: 0.55),
+      height: 1.45,
+    ),
+  );
 }
 
 class _RadioDot extends StatelessWidget {
   final bool selected;
-  const _RadioDot({required this.selected});
+  final Color accent;
+  const _RadioDot({required this.selected, this.accent = AppColors.primary});
   @override
   Widget build(BuildContext context) => AnimatedContainer(
     duration: const Duration(milliseconds: 200),
-    width: 24, height: 24,
+    width: 24,
+    height: 24,
     decoration: BoxDecoration(
       shape: BoxShape.circle,
-      color: selected ? AppColors.primary : Colors.transparent,
+      color: selected ? accent : Colors.transparent,
       border: Border.all(
-        color: selected ? AppColors.primary : Colors.white.withValues(alpha: 0.28),
+        color: selected ? accent : Colors.white.withValues(alpha: 0.24),
         width: 1.5,
       ),
+      boxShadow: selected
+          ? [
+              BoxShadow(
+                color: accent.withValues(alpha: 0.45),
+                blurRadius: 10,
+                spreadRadius: -2,
+              ),
+            ]
+          : null,
     ),
-    child: selected ? const Icon(Icons.check, color: Colors.white, size: 14) : null,
+    child: selected
+        ? const Icon(Icons.check_rounded, color: Colors.white, size: 15)
+        : null,
   );
 }
 
@@ -2081,7 +2944,11 @@ class _TallerButton extends StatelessWidget {
   final String label;
   final bool enabled;
   final VoidCallback onTap;
-  const _TallerButton({required this.label, required this.enabled, required this.onTap});
+  const _TallerButton({
+    required this.label,
+    required this.enabled,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2089,25 +2956,40 @@ class _TallerButton extends StatelessWidget {
       onTap: enabled ? onTap : null,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        width: double.infinity, height: 60,
+        width: double.infinity,
+        height: 60,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           gradient: enabled
               ? const LinearGradient(
                   colors: [Color(0xFF9E6CF8), Color(0xFF7B3CF6)],
-                  begin: Alignment.topLeft, end: Alignment.bottomRight,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 )
               : null,
           color: enabled ? null : Colors.white.withValues(alpha: 0.07),
           boxShadow: enabled
-              ? [BoxShadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 22, offset: const Offset(0, 7))]
+              ? [
+                  BoxShadow(
+                    color: AppColors.primary.withValues(alpha: 0.35),
+                    blurRadius: 22,
+                    offset: const Offset(0, 7),
+                  ),
+                ]
               : null,
         ),
         child: Center(
-          child: Text(label, style: TextStyle(
-            fontSize: 17, fontWeight: FontWeight.w700, letterSpacing: -0.2,
-            color: enabled ? Colors.white : Colors.white.withValues(alpha: 0.35),
-          )),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.2,
+              color: enabled
+                  ? Colors.white
+                  : Colors.white.withValues(alpha: 0.35),
+            ),
+          ),
         ),
       ),
     );
@@ -2118,7 +3000,12 @@ class _UnitToggle extends StatelessWidget {
   final String left, right;
   final bool isRight;
   final ValueChanged<bool> onToggle;
-  const _UnitToggle({required this.left, required this.right, required this.isRight, required this.onToggle});
+  const _UnitToggle({
+    required this.left,
+    required this.right,
+    required this.isRight,
+    required this.onToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2130,7 +3017,8 @@ class _UnitToggle extends StatelessWidget {
         GestureDetector(
           onTap: () => onToggle(!isRight),
           child: Container(
-            width: 52, height: 28,
+            width: 52,
+            height: 28,
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(14),
@@ -2139,9 +3027,13 @@ class _UnitToggle extends StatelessWidget {
               duration: const Duration(milliseconds: 200),
               alignment: isRight ? Alignment.centerRight : Alignment.centerLeft,
               child: Container(
-                width: 24, height: 24,
+                width: 24,
+                height: 24,
                 margin: const EdgeInsets.symmetric(horizontal: 2),
-                decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
               ),
             ),
           ),
@@ -2152,10 +3044,14 @@ class _UnitToggle extends StatelessWidget {
     );
   }
 
-  Widget _label(String text, bool active) => Text(text, style: TextStyle(
-    color: active ? Colors.white : Colors.white.withValues(alpha: 0.38),
-    fontSize: 15, fontWeight: active ? FontWeight.w700 : FontWeight.w400,
-  ));
+  Widget _label(String text, bool active) => Text(
+    text,
+    style: TextStyle(
+      color: active ? Colors.white : Colors.white.withValues(alpha: 0.38),
+      fontSize: 15,
+      fontWeight: active ? FontWeight.w700 : FontWeight.w400,
+    ),
+  );
 }
 
 class _PickerBox extends StatefulWidget {
@@ -2163,11 +3059,15 @@ class _PickerBox extends StatefulWidget {
   final List<String> items;
   final ValueChanged<int> onChanged;
 
+  /// The question's colour, so the selected row belongs to the page it is on.
+  final Color accent;
+
   const _PickerBox({
     super.key,
     required this.initialItem,
     required this.items,
     required this.onChanged,
+    this.accent = AppColors.primary,
   });
 
   @override
@@ -2187,10 +3087,13 @@ class _PickerBoxState extends State<_PickerBox> {
   void didUpdateWidget(_PickerBox old) {
     super.didUpdateWidget(old);
     // Only jump if the items list itself changed (unit toggle), not just a callback rebuild
-    if (old.items.length != widget.items.length || old.items.first != widget.items.first) {
+    if (old.items.length != widget.items.length ||
+        old.items.first != widget.items.first) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (_ctrl.hasClients) {
-          _ctrl.jumpToItem(widget.initialItem.clamp(0, widget.items.length - 1));
+          _ctrl.jumpToItem(
+            widget.initialItem.clamp(0, widget.items.length - 1),
+          );
         }
       });
     }
@@ -2204,25 +3107,82 @@ class _PickerBoxState extends State<_PickerBox> {
 
   @override
   Widget build(BuildContext context) {
+    final accent = widget.accent;
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF120E1C),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
-      child: CupertinoPicker(
-        itemExtent: 50,
-        scrollController: _ctrl,
-        selectionOverlay: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.07),
-            borderRadius: BorderRadius.circular(10),
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        children: [
+          CupertinoPicker(
+            itemExtent: 50,
+            scrollController: _ctrl,
+            // A little curve and magnification, so the value you are on reads
+            // as the one being chosen rather than the one that happens to be
+            // in the middle.
+            diameterRatio: 1.35,
+            magnification: 1.12,
+            squeeze: 1.05,
+            selectionOverlay: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+              decoration: BoxDecoration(
+                color: accent.withValues(alpha: 0.14),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: accent.withValues(alpha: 0.45)),
+                boxShadow: [
+                  BoxShadow(
+                    color: accent.withValues(alpha: 0.20),
+                    blurRadius: 16,
+                    spreadRadius: -4,
+                  ),
+                ],
+              ),
+            ),
+            onSelectedItemChanged: (i) {
+              HapticFeedback.selectionClick();
+              widget.onChanged(i);
+            },
+            children: widget.items
+                .map(
+                  (item) => Center(
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
           ),
-        ),
-        onSelectedItemChanged: widget.onChanged,
-        children: widget.items.map((item) => Center(
-          child: Text(item, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600)),
-        )).toList(),
+
+          // The wheel used to end on a hard line at the top and bottom of its
+          // box. It dissolves into the page instead.
+          Positioned.fill(
+            child: IgnorePointer(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      const Color(0xFF120E1C),
+                      const Color(0xFF120E1C).withValues(alpha: 0.0),
+                      const Color(0xFF120E1C).withValues(alpha: 0.0),
+                      const Color(0xFF120E1C),
+                    ],
+                    stops: const [0.0, 0.22, 0.78, 1.0],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -2249,7 +3209,7 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
   bool _done = false;
 
   static const _stepDurationMs = 900; // ms per step
-  static const _tickMs = 30;          // timer tick
+  static const _tickMs = 30; // timer tick
 
   @override
   void initState() {
@@ -2273,7 +3233,10 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
       await Future.delayed(const Duration(milliseconds: 120));
     }
     if (!mounted) return;
-    setState(() { _done = true; _progress = 1.0; });
+    setState(() {
+      _done = true;
+      _progress = 1.0;
+    });
     await Future.delayed(const Duration(milliseconds: 800));
     if (mounted) widget.onComplete();
   }
@@ -2286,10 +3249,26 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
     final s = t.clamp(0.0, 1.0);
     final inv = 1.0 - s;
     return [
-      lr + s * (1 - lr), lg * inv,          lb * inv,          0, 0,
-      lr * inv,          lg + s * (1 - lg), lb * inv,          0, 0,
-      lr * inv,          lg * inv,          lb + s * (1 - lb), 0, 0,
-      0,                 0,                 0,                  1, 0,
+      lr + s * (1 - lr),
+      lg * inv,
+      lb * inv,
+      0,
+      0,
+      lr * inv,
+      lg + s * (1 - lg),
+      lb * inv,
+      0,
+      0,
+      lr * inv,
+      lg * inv,
+      lb + s * (1 - lb),
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ];
   }
 
@@ -2330,24 +3309,30 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
 
           // App logo — grayscale → purple glow, edges softly faded
           SizedBox(
-            width: 200, height: 200,
+            width: 200,
+            height: 200,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 // ── Animated glow halo behind the logo ──
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
-                  width: 200, height: 200,
+                  width: 200,
+                  height: 200,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.primary.withValues(alpha: _progress * 0.65),
+                        color: AppColors.primary.withValues(
+                          alpha: _progress * 0.65,
+                        ),
                         blurRadius: 30 + _progress * 50,
                         spreadRadius: _progress * 10,
                       ),
                       BoxShadow(
-                        color: AppColors.primary.withValues(alpha: _progress * 0.25),
+                        color: AppColors.primary.withValues(
+                          alpha: _progress * 0.25,
+                        ),
                         blurRadius: 80 + _progress * 40,
                         spreadRadius: _progress * 4,
                       ),
@@ -2365,7 +3350,9 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
 
                 // ── Logo: icon_2.png (proper transparent-bg version) ──
                 ColorFiltered(
-                  colorFilter: ColorFilter.matrix(_buildSaturationMatrix(_progress)),
+                  colorFilter: ColorFilter.matrix(
+                    _buildSaturationMatrix(_progress),
+                  ),
                   child: Image.asset(
                     'assets/icon_2.png',
                     width: 150,
@@ -2388,10 +3375,21 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('progression',
-                style: TextStyle(color: Colors.white.withValues(alpha: 0.45), fontSize: 13)),
-              Text('${(_progress * 100).toInt()}%',
-                style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700)),
+              Text(
+                'progression',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.45),
+                  fontSize: 13,
+                ),
+              ),
+              Text(
+                '${(_progress * 100).toInt()}%',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -2401,7 +3399,9 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
               value: _progress,
               minHeight: 9,
               backgroundColor: Colors.white.withValues(alpha: 0.10),
-              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.primary,
+              ),
             ),
           ),
           const SizedBox(height: 24),
@@ -2412,19 +3412,22 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: steps.length,
               itemBuilder: (_, i) {
-                final isDone    = i < _step || _done;
+                final isDone = i < _step || _done;
                 final isCurrent = i == _step && !_done;
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 350),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
                     decoration: BoxDecoration(
                       color: isDone
                           ? AppColors.primary.withValues(alpha: 0.12)
                           : isCurrent
-                              ? Colors.white.withValues(alpha: 0.05)
-                              : Colors.white.withValues(alpha: 0.025),
+                          ? Colors.white.withValues(alpha: 0.05)
+                          : Colors.white.withValues(alpha: 0.025),
                       borderRadius: BorderRadius.circular(14),
                       border: Border.all(
                         color: isCurrent
@@ -2437,54 +3440,79 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
                         // Icon circle
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 350),
-                          width: 36, height: 36,
+                          width: 36,
+                          height: 36,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: isDone
                                 ? AppColors.primary.withValues(alpha: 0.25)
                                 : isCurrent
-                                    ? AppColors.primary.withValues(alpha: 0.15)
-                                    : Colors.white.withValues(alpha: 0.06),
+                                ? AppColors.primary.withValues(alpha: 0.15)
+                                : Colors.white.withValues(alpha: 0.06),
                           ),
                           child: Center(
                             child: isDone
-                                ? const Icon(CupertinoIcons.checkmark, color: AppColors.primary, size: 16)
+                                ? const Icon(
+                                    CupertinoIcons.checkmark,
+                                    color: AppColors.primary,
+                                    size: 16,
+                                  )
                                 : isCurrent
-                                    ? const SizedBox(
-                                        width: 16, height: 16,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                          valueColor: AlwaysStoppedAnimation(AppColors.primary),
-                                        ))
-                                    : Icon(stepIcons[i],
-                                        color: Colors.white.withValues(alpha: 0.20), size: 16),
+                                ? const SizedBox(
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      valueColor: AlwaysStoppedAnimation(
+                                        AppColors.primary,
+                                      ),
+                                    ),
+                                  )
+                                : Icon(
+                                    stepIcons[i],
+                                    color: Colors.white.withValues(alpha: 0.20),
+                                    size: 16,
+                                  ),
                           ),
                         ),
                         const SizedBox(width: 14),
                         Expanded(
-                          child: Text(steps[i],
+                          child: Text(
+                            steps[i],
                             style: TextStyle(
                               color: isDone
                                   ? Colors.white
                                   : isCurrent
-                                      ? Colors.white.withValues(alpha: 0.90)
-                                      : Colors.white.withValues(alpha: 0.30),
+                                  ? Colors.white.withValues(alpha: 0.90)
+                                  : Colors.white.withValues(alpha: 0.30),
                               fontSize: 15,
-                              fontWeight: (isDone || isCurrent) ? FontWeight.w600 : FontWeight.w400,
-                            )),
+                              fontWeight: (isDone || isCurrent)
+                                  ? FontWeight.w600
+                                  : FontWeight.w400,
+                            ),
+                          ),
                         ),
                         if (isDone)
                           Container(
-                            width: 22, height: 22,
+                            width: 22,
+                            height: 22,
                             decoration: BoxDecoration(
                               color: AppColors.primary,
                               shape: BoxShape.circle,
-                              boxShadow: [BoxShadow(
-                                color: AppColors.primary.withValues(alpha: 0.4),
-                                blurRadius: 8,
-                              )],
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.primary.withValues(
+                                    alpha: 0.4,
+                                  ),
+                                  blurRadius: 8,
+                                ),
+                              ],
                             ),
-                            child: const Icon(CupertinoIcons.checkmark, color: Colors.white, size: 12),
+                            child: const Icon(
+                              CupertinoIcons.checkmark,
+                              color: Colors.white,
+                              size: 12,
+                            ),
                           ),
                       ],
                     ),
@@ -2533,15 +3561,15 @@ class _BirthDatePickersState extends State<_BirthDatePickers> {
   late FixedExtentScrollController _yCtrl;
 
   late int _month; // 1–12
-  late int _day;   // 1–31
+  late int _day; // 1–31
   late int _year;
 
   @override
   void initState() {
     super.initState();
     _month = widget.initialDate.month;
-    _day   = widget.initialDate.day;
-    _year  = widget.initialDate.year;
+    _day = widget.initialDate.day;
+    _year = widget.initialDate.year;
     _mCtrl = FixedExtentScrollController(initialItem: _month - 1);
     _dCtrl = FixedExtentScrollController(initialItem: _day - 1);
     _yCtrl = FixedExtentScrollController(
@@ -2565,33 +3593,48 @@ class _BirthDatePickersState extends State<_BirthDatePickers> {
   @override
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context).toLanguageTag();
-    final months = List.generate(12, (i) => DateFormat('MMMM', locale).format(DateTime(2000, i + 1)));
+    final months = List.generate(
+      12,
+      (i) => DateFormat('MMMM', locale).format(DateTime(2000, i + 1)),
+    );
     return Row(
       children: [
         Expanded(
           flex: 3,
           child: _RawPicker(
+            accent: AppColors.cyan,
             controller: _mCtrl,
             items: months,
-            onChanged: (i) { _month = i + 1; _notify(); },
+            onChanged: (i) {
+              _month = i + 1;
+              _notify();
+            },
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           flex: 2,
           child: _RawPicker(
+            accent: AppColors.cyan,
             controller: _dCtrl,
             items: _days,
-            onChanged: (i) { _day = i + 1; _notify(); },
+            onChanged: (i) {
+              _day = i + 1;
+              _notify();
+            },
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           flex: 2,
           child: _RawPicker(
+            accent: AppColors.cyan,
             controller: _yCtrl,
             items: _years,
-            onChanged: (i) { _year = _newestYear - i; _notify(); },
+            onChanged: (i) {
+              _year = _newestYear - i;
+              _notify();
+            },
           ),
         ),
       ],
@@ -2605,10 +3648,14 @@ class _RawPicker extends StatelessWidget {
   final List<String> items;
   final ValueChanged<int> onChanged;
 
+  /// The question's colour, so the selected row belongs to the page it is on.
+  final Color accent;
+
   const _RawPicker({
     required this.controller,
     required this.items,
     required this.onChanged,
+    this.accent = AppColors.primary,
   });
 
   @override
@@ -2616,28 +3663,72 @@ class _RawPicker extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFF120E1C),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
-      child: CupertinoPicker(
-        itemExtent: 50,
-        scrollController: controller,
-        selectionOverlay: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.07),
-            borderRadius: BorderRadius.circular(10),
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        children: [
+          CupertinoPicker(
+            itemExtent: 50,
+            scrollController: controller,
+            diameterRatio: 1.35,
+            magnification: 1.12,
+            squeeze: 1.05,
+            selectionOverlay: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+              decoration: BoxDecoration(
+                color: accent.withValues(alpha: 0.14),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: accent.withValues(alpha: 0.45)),
+                boxShadow: [
+                  BoxShadow(
+                    color: accent.withValues(alpha: 0.20),
+                    blurRadius: 16,
+                    spreadRadius: -4,
+                  ),
+                ],
+              ),
+            ),
+            onSelectedItemChanged: (i) {
+              HapticFeedback.selectionClick();
+              onChanged(i);
+            },
+            children: items
+                .map(
+                  (item) => Center(
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
           ),
-        ),
-        onSelectedItemChanged: onChanged,
-        children: items.map((item) => Center(
-          child: Text(item,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
+          Positioned.fill(
+            child: IgnorePointer(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      const Color(0xFF120E1C),
+                      const Color(0xFF120E1C).withValues(alpha: 0.0),
+                      const Color(0xFF120E1C).withValues(alpha: 0.0),
+                      const Color(0xFF120E1C),
+                    ],
+                    stops: const [0.0, 0.22, 0.78, 1.0],
+                  ),
+                ),
+              ),
             ),
           ),
-        )).toList(),
+        ],
       ),
     );
   }
@@ -2651,9 +3742,19 @@ class _LegendDot extends StatelessWidget {
   Widget build(BuildContext context) => Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Container(width: 10, height: 10, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+      Container(
+        width: 10,
+        height: 10,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
       const SizedBox(width: 6),
-      Text(label, style: TextStyle(color: Colors.white.withValues(alpha: 0.75), fontSize: 13)),
+      Text(
+        label,
+        style: TextStyle(
+          color: Colors.white.withValues(alpha: 0.75),
+          fontSize: 13,
+        ),
+      ),
     ],
   );
 }
@@ -2692,17 +3793,18 @@ class _CircularSleepDialState extends State<_CircularSleepDial>
     super.initState();
     _display = widget.value;
     _animFrom = widget.value;
-    _anim = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 260),
-    )..addListener(() {
-        final t = Curves.easeOutCubic.transform(_anim.value);
-        setState(() {
-          _display = _animFrom + (widget.value - _animFrom) * t;
-          // knob gives a small kick as it lands
-          _knobPop = math.sin(t * math.pi) * (_dragging ? 0.0 : 1.0);
+    _anim =
+        AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 260),
+        )..addListener(() {
+          final t = Curves.easeOutCubic.transform(_anim.value);
+          setState(() {
+            _display = _animFrom + (widget.value - _animFrom) * t;
+            // knob gives a small kick as it lands
+            _knobPop = math.sin(t * math.pi) * (_dragging ? 0.0 : 1.0);
+          });
         });
-      });
   }
 
   @override
@@ -2748,82 +3850,85 @@ class _CircularSleepDialState extends State<_CircularSleepDial>
     final minStr = minutes == 0 ? '' : minutes.toString().padLeft(2, '0');
     final label = minStr.isEmpty ? '${hours}h' : '${hours}h$minStr';
 
-    return LayoutBuilder(builder: (ctx, constraints) {
-      final size =
-          math.min(constraints.maxWidth, constraints.maxHeight).clamp(0.0, 290.0);
-      final box = Size(size, size);
+    return LayoutBuilder(
+      builder: (ctx, constraints) {
+        final size = math
+            .min(constraints.maxWidth, constraints.maxHeight)
+            .clamp(0.0, 290.0);
+        final box = Size(size, size);
 
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            width: size,
-            height: size,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onPanDown: (d) {
-                setState(() => _dragging = true);
-                _handleTouch(d.localPosition, box);
-              },
-              onPanUpdate: (d) => _handleTouch(d.localPosition, box),
-              onPanEnd: (_) {
-                setState(() => _dragging = false);
-                HapticFeedback.lightImpact();
-              },
-              onPanCancel: () => setState(() => _dragging = false),
-              child: CustomPaint(
-                painter: _SleepDialPainter(
-                  value: _display,
-                  start: _start,
-                  sweep: _sweep,
-                  minValue: _minValue,
-                  maxValue: _maxValue,
-                  knobPop: _knobPop,
-                  dragging: _dragging,
-                ),
-                child: Center(
-                  child: AnimatedScale(
-                    scale: _dragging ? 1.06 : 1.0,
-                    duration: const Duration(milliseconds: 180),
-                    curve: Curves.easeOut,
-                    child: Text(
-                      label,
-                      style: const TextStyle(
-                        fontSize: 48,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        letterSpacing: -1.5,
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: size,
+              height: size,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onPanDown: (d) {
+                  setState(() => _dragging = true);
+                  _handleTouch(d.localPosition, box);
+                },
+                onPanUpdate: (d) => _handleTouch(d.localPosition, box),
+                onPanEnd: (_) {
+                  setState(() => _dragging = false);
+                  HapticFeedback.lightImpact();
+                },
+                onPanCancel: () => setState(() => _dragging = false),
+                child: CustomPaint(
+                  painter: _SleepDialPainter(
+                    value: _display,
+                    start: _start,
+                    sweep: _sweep,
+                    minValue: _minValue,
+                    maxValue: _maxValue,
+                    knobPop: _knobPop,
+                    dragging: _dragging,
+                  ),
+                  child: Center(
+                    child: AnimatedScale(
+                      scale: _dragging ? 1.06 : 1.0,
+                      duration: const Duration(milliseconds: 180),
+                      curve: Curves.easeOut,
+                      child: Text(
+                        label,
+                        style: const TextStyle(
+                          fontSize: 48,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          letterSpacing: -1.5,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _DialButton(
-                icon: Icons.remove_rounded,
-                onTap: () {
-                  final v = (widget.value - 0.5).clamp(_minValue, _maxValue);
-                  widget.onChanged((v * 2).round() / 2.0);
-                },
-              ),
-              const SizedBox(width: 48),
-              _DialButton(
-                icon: Icons.add_rounded,
-                onTap: () {
-                  final v = (widget.value + 0.5).clamp(_minValue, _maxValue);
-                  widget.onChanged((v * 2).round() / 2.0);
-                },
-              ),
-            ],
-          ),
-        ],
-      );
-    });
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _DialButton(
+                  icon: Icons.remove_rounded,
+                  onTap: () {
+                    final v = (widget.value - 0.5).clamp(_minValue, _maxValue);
+                    widget.onChanged((v * 2).round() / 2.0);
+                  },
+                ),
+                const SizedBox(width: 48),
+                _DialButton(
+                  icon: Icons.add_rounded,
+                  onTap: () {
+                    final v = (widget.value + 0.5).clamp(_minValue, _maxValue);
+                    widget.onChanged((v * 2).round() / 2.0);
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -2862,13 +3967,18 @@ class _SleepDialPainter extends CustomPainter {
       final len = active ? 15.0 : 9.0;
       final width = active ? 4.5 : 3.0;
       final color = active
-          ? Color.lerp(AppColors.primary, AppColors.cyan, f)!
-              .withValues(alpha: 0.95)
+          ? Color.lerp(
+              AppColors.primary,
+              AppColors.cyan,
+              f,
+            )!.withValues(alpha: 0.95)
           : Colors.white.withValues(alpha: 0.12);
 
       canvas.drawLine(
-        Offset(center.dx + (r - len) * math.cos(a),
-            center.dy + (r - len) * math.sin(a)),
+        Offset(
+          center.dx + (r - len) * math.cos(a),
+          center.dy + (r - len) * math.sin(a),
+        ),
         Offset(center.dx + r * math.cos(a), center.dy + r * math.sin(a)),
         Paint()
           ..color = color
@@ -2905,8 +4015,11 @@ class _SleepDialPainter extends CustomPainter {
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
     );
     canvas.drawCircle(knob, 9 + grow, Paint()..color = Colors.white);
-    canvas.drawCircle(knob, 4.5 + grow * 0.4,
-        Paint()..color = AppColors.primary);
+    canvas.drawCircle(
+      knob,
+      4.5 + grow * 0.4,
+      Paint()..color = AppColors.primary,
+    );
   }
 
   @override
@@ -2927,11 +4040,15 @@ class _DialButton extends StatelessWidget {
         onTap();
       },
       child: Container(
-        width: 56, height: 56,
+        width: 56,
+        height: 56,
         decoration: BoxDecoration(
           color: AppColors.primary.withValues(alpha: 0.15),
           shape: BoxShape.circle,
-          border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 1.5),
+          border: Border.all(
+            color: AppColors.primary.withValues(alpha: 0.3),
+            width: 1.5,
+          ),
         ),
         child: Icon(icon, color: AppColors.primary, size: 28),
       ),
@@ -2955,17 +4072,32 @@ class _GrowthChartPainter extends CustomPainter {
     badPath.cubicTo(w * 0.3, h * 0.75, w * 0.6, h * 0.50, w, h * 0.40);
 
     final badFill = Path.from(badPath)
-      ..lineTo(w, h)..lineTo(0, h)..close();
+      ..lineTo(w, h)
+      ..lineTo(0, h)
+      ..close();
 
-    canvas.drawPath(badFill, Paint()
-      ..shader = LinearGradient(
-          colors: [const Color(0xFFFF6B4A).withValues(alpha: 0.3), const Color(0xFFFF6B4A).withValues(alpha: 0.0)],
-          begin: Alignment.topCenter, end: Alignment.bottomCenter,
+    canvas.drawPath(
+      badFill,
+      Paint()
+        ..shader = LinearGradient(
+          colors: [
+            const Color(0xFFFF6B4A).withValues(alpha: 0.3),
+            const Color(0xFFFF6B4A).withValues(alpha: 0.0),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ).createShader(Rect.fromLTWH(0, 0, w, h))
-      ..style = PaintingStyle.fill);
+        ..style = PaintingStyle.fill,
+    );
 
-    canvas.drawPath(badPath, Paint()
-      ..color = const Color(0xFFFF6B4A)..strokeWidth = 2.5..style = PaintingStyle.stroke..strokeCap = StrokeCap.round);
+    canvas.drawPath(
+      badPath,
+      Paint()
+        ..color = const Color(0xFFFF6B4A)
+        ..strokeWidth = 2.5
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round,
+    );
 
     // Optimized habits curve (purple)
     final goodPath = Path();
@@ -2973,17 +4105,32 @@ class _GrowthChartPainter extends CustomPainter {
     goodPath.cubicTo(w * 0.25, h * 0.60, w * 0.55, h * 0.25, w, h * 0.05);
 
     final goodFill = Path.from(goodPath)
-      ..lineTo(w, h)..lineTo(0, h)..close();
+      ..lineTo(w, h)
+      ..lineTo(0, h)
+      ..close();
 
-    canvas.drawPath(goodFill, Paint()
-      ..shader = LinearGradient(
-          colors: [AppColors.primary.withValues(alpha: 0.35), AppColors.primary.withValues(alpha: 0.0)],
-          begin: Alignment.topCenter, end: Alignment.bottomCenter,
+    canvas.drawPath(
+      goodFill,
+      Paint()
+        ..shader = LinearGradient(
+          colors: [
+            AppColors.primary.withValues(alpha: 0.35),
+            AppColors.primary.withValues(alpha: 0.0),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ).createShader(Rect.fromLTWH(0, 0, w, h))
-      ..style = PaintingStyle.fill);
+        ..style = PaintingStyle.fill,
+    );
 
-    canvas.drawPath(goodPath, Paint()
-      ..color = AppColors.primary..strokeWidth = 2.5..style = PaintingStyle.stroke..strokeCap = StrokeCap.round);
+    canvas.drawPath(
+      goodPath,
+      Paint()
+        ..color = AppColors.primary
+        ..strokeWidth = 2.5
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round,
+    );
 
     // End dots
     final endDots = <(double, double, Color)>[
@@ -2991,21 +4138,33 @@ class _GrowthChartPainter extends CustomPainter {
       (w, h * 0.40, const Color(0xFFFF6B4A)),
     ];
     for (final dot in endDots) {
-      canvas.drawCircle(Offset(dot.$1, dot.$2), 7,
-        Paint()..color = dot.$3.withValues(alpha: 0.3)..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6));
+      canvas.drawCircle(
+        Offset(dot.$1, dot.$2),
+        7,
+        Paint()
+          ..color = dot.$3.withValues(alpha: 0.3)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+      );
       canvas.drawCircle(Offset(dot.$1, dot.$2), 5, Paint()..color = dot.$3);
-      canvas.drawCircle(Offset(dot.$1, dot.$2), 2.5, Paint()..color = Colors.white);
+      canvas.drawCircle(
+        Offset(dot.$1, dot.$2),
+        2.5,
+        Paint()..color = Colors.white,
+      );
     }
 
     // Start dot
-    canvas.drawCircle(Offset(0, h * 0.85), 5, Paint()..color = AppColors.primary);
+    canvas.drawCircle(
+      Offset(0, h * 0.85),
+      5,
+      Paint()..color = AppColors.primary,
+    );
     canvas.drawCircle(Offset(0, h * 0.85), 2.5, Paint()..color = Colors.white);
   }
 
   @override
   bool shouldRepaint(_GrowthChartPainter old) => false;
 }
-
 
 // Welcome Screen
 class _WelcomeScreen extends StatefulWidget {
@@ -3034,27 +4193,46 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
   void initState() {
     super.initState();
     _ctrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1700));
+      vsync: this,
+      duration: const Duration(milliseconds: 1700),
+    );
     _halo = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 2400))
-      ..repeat();
+      vsync: this,
+      duration: const Duration(milliseconds: 2400),
+    )..repeat();
 
     _badge = CurvedAnimation(
-        parent: _ctrl, curve: const Interval(0.0, 0.30, curve: Curves.easeOutBack));
+      parent: _ctrl,
+      curve: const Interval(0.0, 0.30, curve: Curves.easeOutBack),
+    );
     _ring = CurvedAnimation(
-        parent: _ctrl, curve: const Interval(0.10, 0.55, curve: Curves.easeOutCubic));
-    _headOpacity = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: _ctrl, curve: const Interval(0.25, 0.5, curve: Curves.easeOut)));
+      parent: _ctrl,
+      curve: const Interval(0.10, 0.55, curve: Curves.easeOutCubic),
+    );
+    _headOpacity = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _ctrl,
+        curve: const Interval(0.25, 0.5, curve: Curves.easeOut),
+      ),
+    );
     _headSlide = Tween(begin: const Offset(0, 0.22), end: Offset.zero).animate(
-        CurvedAnimation(
-            parent: _ctrl,
-            curve: const Interval(0.25, 0.55, curve: Curves.easeOutCubic)));
-    _btnOpacity = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: _ctrl, curve: const Interval(0.75, 1.0, curve: Curves.easeOut)));
+      CurvedAnimation(
+        parent: _ctrl,
+        curve: const Interval(0.25, 0.55, curve: Curves.easeOutCubic),
+      ),
+    );
+    _btnOpacity = Tween(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _ctrl,
+        curve: const Interval(0.75, 1.0, curve: Curves.easeOut),
+      ),
+    );
     _btnSlide = Tween(begin: const Offset(0, 0.35), end: Offset.zero).animate(
-        CurvedAnimation(
-            parent: _ctrl,
-            curve: const Interval(0.75, 1.0, curve: Curves.easeOutCubic)));
+      CurvedAnimation(
+        parent: _ctrl,
+        curve: const Interval(0.75, 1.0, curve: Curves.easeOutCubic),
+      ),
+    );
     _ctrl.forward();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -3099,7 +4277,11 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF160B33), Color(0xFF0A0718), Color(0xFF07050F)],
+                colors: [
+                  Color(0xFF160B33),
+                  Color(0xFF0A0718),
+                  Color(0xFF07050F),
+                ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -3162,20 +4344,26 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                                           end: Alignment.bottomRight,
                                           colors: [
                                             AppColors.lime,
-                                            AppColors.lime.withValues(alpha: 0.72),
+                                            AppColors.lime.withValues(
+                                              alpha: 0.72,
+                                            ),
                                           ],
                                         ),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: AppColors.lime
-                                                .withValues(alpha: 0.45),
+                                            color: AppColors.lime.withValues(
+                                              alpha: 0.45,
+                                            ),
                                             blurRadius: 30,
                                             spreadRadius: 2,
                                           ),
                                         ],
                                       ),
-                                      child: const Icon(Icons.check_rounded,
-                                          size: 40, color: Color(0xFF06210F)),
+                                      child: const Icon(
+                                        Icons.check_rounded,
+                                        size: 40,
+                                        color: Color(0xFF06210F),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -3229,10 +4417,13 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                             color: Colors.white.withValues(alpha: 0.035),
                             borderRadius: BorderRadius.circular(26),
                             border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.07)),
+                              color: Colors.white.withValues(alpha: 0.07),
+                            ),
                           ),
                           child: JourneySteps(
-                              completed: progress, animateFrom: _from),
+                            completed: progress,
+                            animateFrom: _from,
+                          ),
                         ),
 
                         const SizedBox(height: 18),
