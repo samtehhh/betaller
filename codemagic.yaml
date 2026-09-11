@@ -56,10 +56,25 @@ workflows:
           fi
       - name: Build IPA
         script: |
-          if [ -n "$BUILD_NUMBER" ]; then
-            flutter build ipa --release --build-number="$BUILD_NUMBER" --verbose
+          # The developer switches — flip premium on, load the demo history —
+          # unlock every paid screen with a tap, so a build that carries them
+          # is a build that gives the subscription away. They ride along on a
+          # feature branch, where the only audience is TestFlight, and are
+          # left out of anything built from main. Ship from main.
+          if [ "$CM_BRANCH" = "main" ]; then
+            DEV_TOOLS=false
           else
-            flutter build ipa --release --verbose
+            DEV_TOOLS=true
+          fi
+          echo "Building $CM_BRANCH with DEV_TOOLS=$DEV_TOOLS"
+
+          if [ -n "$BUILD_NUMBER" ]; then
+            flutter build ipa --release \
+              --build-number="$BUILD_NUMBER" \
+              --dart-define=DEV_TOOLS=$DEV_TOOLS --verbose
+          else
+            flutter build ipa --release \
+              --dart-define=DEV_TOOLS=$DEV_TOOLS --verbose
           fi
     artifacts:
       - build/ios/ipa/*.ipa

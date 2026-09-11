@@ -3,11 +3,12 @@ import 'dart:ui' show PlatformDispatcher;
 import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../utils/dev_tools.dart';
 
 import '../models/user_profile.dart';
 import '../models/height_record.dart';
@@ -38,7 +39,8 @@ class AppProvider extends ChangeNotifier {
   bool _analysisCompleted = false;
   Locale? _locale;
   bool _isPremium = false;
-  bool _useImperial = false; // false = metric (cm/kg), true = imperial (ft-in/lbs)
+  bool _useImperial =
+      false; // false = metric (cm/kg), true = imperial (ft-in/lbs)
 
   // Gamification state
   int _totalXP = 0;
@@ -64,7 +66,8 @@ class AppProvider extends ChangeNotifier {
 
   UserProfile? get profile => _profile;
   List<HeightRecord> get heightRecords => _heightRecords;
-  List<Routine> get routines => _routines.where((r) => !_hiddenRoutineIds.contains(r.id)).toList();
+  List<Routine> get routines =>
+      _routines.where((r) => !_hiddenRoutineIds.contains(r.id)).toList();
   List<Routine> get allRoutines => _routines;
   Set<String> get hiddenRoutineIds => _hiddenRoutineIds;
 
@@ -75,12 +78,23 @@ class AppProvider extends ChangeNotifier {
       _hiddenRoutineIds.add(id);
       // If hiding a completed routine, also remove its completed flag from persistence
       _completedRoutineIds.remove(id);
-      final r = _routines.firstWhere((x) => x.id == id, orElse: () => Routine.fromJson(const {'id': '', 'title': '', 'description': '', 'category': '', 'duration': '', 'icon': ''}));
+      final r = _routines.firstWhere(
+        (x) => x.id == id,
+        orElse: () => Routine.fromJson(const {
+          'id': '',
+          'title': '',
+          'description': '',
+          'category': '',
+          'duration': '',
+          'icon': '',
+        }),
+      );
       if (r.id.isNotEmpty) r.completed = false;
     }
     _saveData();
     notifyListeners();
   }
+
   int get streak => _streak;
   int get bestStreak => _bestStreak;
   double get todayWater => _todayWater;
@@ -96,8 +110,13 @@ class AppProvider extends ChangeNotifier {
   // Gamification getters
   int get totalXP => _totalXP;
   int get level => _calculateLevel();
-  String get levelTitle => levelTitles[(_calculateLevel() - 1).clamp(0, levelTitles.length - 1)];
-  int get xpForCurrentLevel => levelThresholds[(_calculateLevel() - 1).clamp(0, levelThresholds.length - 1)];
+  String get levelTitle =>
+      levelTitles[(_calculateLevel() - 1).clamp(0, levelTitles.length - 1)];
+  int get xpForCurrentLevel =>
+      levelThresholds[(_calculateLevel() - 1).clamp(
+        0,
+        levelThresholds.length - 1,
+      )];
   int get xpForNextLevel => _calculateLevel() < levelThresholds.length
       ? levelThresholds[_calculateLevel()]
       : levelThresholds.last;
@@ -105,8 +124,12 @@ class AppProvider extends ChangeNotifier {
     final currentLevelXP = xpForCurrentLevel;
     final nextLevelXP = xpForNextLevel;
     if (nextLevelXP == currentLevelXP) return 1.0;
-    return ((_totalXP - currentLevelXP) / (nextLevelXP - currentLevelXP)).clamp(0.0, 1.0);
+    return ((_totalXP - currentLevelXP) / (nextLevelXP - currentLevelXP)).clamp(
+      0.0,
+      1.0,
+    );
   }
+
   List<Map<String, dynamic>> get activeChallenges => _activeChallenges;
 
   // ── v5 getters ──
@@ -139,7 +162,9 @@ class AppProvider extends ChangeNotifier {
       'height': height,
     };
     _progressPhotos = [..._progressPhotos, photo];
-    _progressPhotos.sort((a, b) => (a['date'] as String).compareTo(b['date'] as String));
+    _progressPhotos.sort(
+      (a, b) => (a['date'] as String).compareTo(b['date'] as String),
+    );
     addXP(15);
     _saveData();
     notifyListeners();
@@ -169,7 +194,9 @@ class AppProvider extends ChangeNotifier {
       'totalScore': total,
     };
     _postureAnalyses = [..._postureAnalyses, analysis];
-    _postureAnalyses.sort((a, b) => (a['date'] as String).compareTo(b['date'] as String));
+    _postureAnalyses.sort(
+      (a, b) => (a['date'] as String).compareTo(b['date'] as String),
+    );
     addXP(20);
     _maybeRequestReview();
     _saveData();
@@ -274,10 +301,10 @@ class AppProvider extends ChangeNotifier {
   }
 
   int get todayRoutineTotal => todayRoutines.length;
-  int get completedRoutineCount => todayRoutines.where((r) => r.completed).length;
-  double get routineProgress => todayRoutines.isEmpty
-      ? 0
-      : completedRoutineCount / todayRoutines.length;
+  int get completedRoutineCount =>
+      todayRoutines.where((r) => r.completed).length;
+  double get routineProgress =>
+      todayRoutines.isEmpty ? 0 : completedRoutineCount / todayRoutines.length;
   bool get allRoutinesCompleted =>
       todayRoutines.isNotEmpty && completedRoutineCount == todayRoutines.length;
 
@@ -323,9 +350,11 @@ class AppProvider extends ChangeNotifier {
   /// rebuild.
   void checkNewAchievements() {
     final fresh = unlockedAchievements
-        .where((x) =>
-            x['earned'] == true &&
-            !_announcedAchievements.contains(x['id'] as String))
+        .where(
+          (x) =>
+              x['earned'] == true &&
+              !_announcedAchievements.contains(x['id'] as String),
+        )
         .toList();
     if (fresh.isEmpty) return;
 
@@ -348,6 +377,7 @@ class AppProvider extends ChangeNotifier {
 
   Future<void> loadData() async {
     final prefs = await SharedPreferences.getInstance();
+    _demoDataActive = prefs.containsKey(_demoBackupKey);
     final data = prefs.getString('glowup_app_data');
 
     if (data != null) {
@@ -375,8 +405,9 @@ class AppProvider extends ChangeNotifier {
       _isPremium = json['isPremium'] ?? false;
       _useImperial = json['useImperial'] ?? false;
       if (json['pastHeights'] != null) {
-        _pastHeights = (json['pastHeights'] as Map<String, dynamic>)
-            .map((k, v) => MapEntry(int.parse(k), (v as num).toDouble()));
+        _pastHeights = (json['pastHeights'] as Map<String, dynamic>).map(
+          (k, v) => MapEntry(int.parse(k), (v as num).toDouble()),
+        );
       }
 
       final lastWaterDate = json['lastWaterDate'] ?? '';
@@ -395,8 +426,10 @@ class AppProvider extends ChangeNotifier {
           .map((e) => Map<String, dynamic>.from(e as Map))
           .toList();
       _lastChallengeDate = json['lastChallengeDate'] ?? '';
-      _dailyChallengeProgress = (json['dailyChallengeProgress'] as Map<String, dynamic>? ?? {})
-          .map((k, v) => MapEntry(k, (v as num).toInt()));
+      _dailyChallengeProgress =
+          (json['dailyChallengeProgress'] as Map<String, dynamic>? ?? {}).map(
+            (k, v) => MapEntry(k, (v as num).toInt()),
+          );
 
       // v5 features
       _progressPhotos = ((json['progressPhotos'] as List?) ?? [])
@@ -408,20 +441,26 @@ class AppProvider extends ChangeNotifier {
       _customRoutines = ((json['customRoutines'] as List?) ?? [])
           .map((e) => Map<String, dynamic>.from(e as Map))
           .toList();
-      _caffeineByDate = ((json['caffeineByDate'] as Map?) ?? {})
-          .map((k, v) => MapEntry(k.toString(), (v as num).toInt()));
-      _stressByDate = ((json['stressByDate'] as Map?) ?? {})
-          .map((k, v) => MapEntry(k.toString(), (v as num).toInt()));
-      _journalByDate = ((json['journalByDate'] as Map?) ?? {})
-          .map((k, v) => MapEntry(k.toString(), Map<String, dynamic>.from(v as Map)));
+      _caffeineByDate = ((json['caffeineByDate'] as Map?) ?? {}).map(
+        (k, v) => MapEntry(k.toString(), (v as num).toInt()),
+      );
+      _stressByDate = ((json['stressByDate'] as Map?) ?? {}).map(
+        (k, v) => MapEntry(k.toString(), (v as num).toInt()),
+      );
+      _journalByDate = ((json['journalByDate'] as Map?) ?? {}).map(
+        (k, v) => MapEntry(k.toString(), Map<String, dynamic>.from(v as Map)),
+      );
       _completedProgramDays = Set<int>.from(
-        (json['completedProgramDays'] as List? ?? []).map((e) => (e as num).toInt()),
+        (json['completedProgramDays'] as List? ?? []).map(
+          (e) => (e as num).toInt(),
+        ),
       );
       _reviewShownOnce = json['reviewShownOnce'] ?? false;
       // Anyone who already answered the questionnaire has step one behind
       // them, even if they installed before the journey existed.
       _announcedAchievements = Set<String>.from(
-          (json['announcedAchievements'] as List?) ?? const []);
+        (json['announcedAchievements'] as List?) ?? const [],
+      );
       final storedReminders = (json['reminders'] as List?) ?? [];
       if (storedReminders.isNotEmpty) {
         _reminders = storedReminders
@@ -431,7 +470,8 @@ class AppProvider extends ChangeNotifier {
       _routineHistory = ((json['routineHistory'] as Map?) ?? {}).map(
         (k, v) => MapEntry(k.toString(), List<String>.from(v as List)),
       );
-      _journeyProgress = (json['journeyProgress'] as num?)?.toInt() ??
+      _journeyProgress =
+          (json['journeyProgress'] as num?)?.toInt() ??
           (_profile != null ? 1 : 0);
     }
 
@@ -601,7 +641,9 @@ class AppProvider extends ChangeNotifier {
       completeJourneyStep(2);
       // Track exercise routine completions for challenges
       if (routine.category == 'exercise') {
-        final exerciseCount = _routines.where((r) => r.category == 'exercise' && r.completed).length;
+        final exerciseCount = _routines
+            .where((r) => r.category == 'exercise' && r.completed)
+            .length;
         updateChallengeProgress('daily_exercise_3', exerciseCount);
       }
       // Check morning stretch challenge
@@ -660,7 +702,8 @@ class AppProvider extends ChangeNotifier {
 
   // ── App Review ──
   bool _shouldRequestReview = false;
-  bool _reviewShownOnce = false; // persisted — never show again after first time
+  bool _reviewShownOnce =
+      false; // persisted — never show again after first time
 
   bool get shouldRequestReview => _shouldRequestReview;
 
@@ -876,17 +919,24 @@ class AppProvider extends ChangeNotifier {
   }
 
   void addWater(double amount) {
-    final waterGoal = _profile != null ? Calculations.dailyWaterNeed(_profile!.weight) : 2.5;
+    final waterGoal = _profile != null
+        ? Calculations.dailyWaterNeed(_profile!.weight)
+        : 2.5;
     final wasUnderGoal = _todayWater < waterGoal;
     _todayWater = double.parse(
-        (_todayWater + amount).clamp(0.0, 99.0).toStringAsFixed(1));
+      (_todayWater + amount).clamp(0.0, 99.0).toStringAsFixed(1),
+    );
     if (wasUnderGoal && _todayWater >= waterGoal) {
       addXP(xpRewards['water_goal']!);
       updateChallengeProgress('daily_water', 1);
       // Track weekly water days via dailyChallengeProgress
       final weeklyWaterKey = 'weekly_water_days_${_today.substring(0, 7)}';
-      _dailyChallengeProgress[weeklyWaterKey] = (_dailyChallengeProgress[weeklyWaterKey] ?? 0) + 1;
-      updateChallengeProgress('weekly_water_5', _dailyChallengeProgress[weeklyWaterKey]!);
+      _dailyChallengeProgress[weeklyWaterKey] =
+          (_dailyChallengeProgress[weeklyWaterKey] ?? 0) + 1;
+      updateChallengeProgress(
+        'weekly_water_5',
+        _dailyChallengeProgress[weeklyWaterKey]!,
+      );
     }
     _saveData();
     notifyListeners();
@@ -900,8 +950,12 @@ class AppProvider extends ChangeNotifier {
       updateChallengeProgress('daily_sleep_early', hours.round());
       // Track weekly sleep days
       final weeklySleepKey = 'weekly_sleep_days_${_today.substring(0, 7)}';
-      _dailyChallengeProgress[weeklySleepKey] = (_dailyChallengeProgress[weeklySleepKey] ?? 0) + 1;
-      updateChallengeProgress('weekly_sleep_5', _dailyChallengeProgress[weeklySleepKey]!);
+      _dailyChallengeProgress[weeklySleepKey] =
+          (_dailyChallengeProgress[weeklySleepKey] ?? 0) + 1;
+      updateChallengeProgress(
+        'weekly_sleep_5',
+        _dailyChallengeProgress[weeklySleepKey]!,
+      );
     }
     _saveData();
     notifyListeners();
@@ -944,7 +998,8 @@ class AppProvider extends ChangeNotifier {
         .where((c) => c['type'] == 'daily')
         .toList();
     final rng = Random();
-    final shuffled = List<Map<String, dynamic>>.from(dailyTemplates)..shuffle(rng);
+    final shuffled = List<Map<String, dynamic>>.from(dailyTemplates)
+      ..shuffle(rng);
     final pickedDaily = shuffled.take(3).toList();
 
     // Keep active weekly challenges that aren't completed, or generate new ones
@@ -957,21 +1012,16 @@ class AppProvider extends ChangeNotifier {
       final weeklyTemplates = challengeTemplates
           .where((c) => c['type'] == 'weekly')
           .toList();
-      final shuffledWeekly = List<Map<String, dynamic>>.from(weeklyTemplates)..shuffle(rng);
+      final shuffledWeekly = List<Map<String, dynamic>>.from(weeklyTemplates)
+        ..shuffle(rng);
       final pickedWeekly = shuffledWeekly.take(2).toList();
-      existingWeekly.addAll(pickedWeekly.map((c) => {
-        ...c,
-        'progress': 0,
-        'completed': false,
-      }));
+      existingWeekly.addAll(
+        pickedWeekly.map((c) => {...c, 'progress': 0, 'completed': false}),
+      );
     }
 
     _activeChallenges = [
-      ...pickedDaily.map((c) => {
-        ...c,
-        'progress': 0,
-        'completed': false,
-      }),
+      ...pickedDaily.map((c) => {...c, 'progress': 0, 'completed': false}),
       ...existingWeekly,
     ];
 
@@ -983,10 +1033,7 @@ class AppProvider extends ChangeNotifier {
     for (int i = 0; i < _activeChallenges.length; i++) {
       final challenge = _activeChallenges[i];
       if (challenge['id'] == challengeId && challenge['completed'] != true) {
-        _activeChallenges[i] = {
-          ...challenge,
-          'progress': progress,
-        };
+        _activeChallenges[i] = {...challenge, 'progress': progress};
         // Check if target reached
         final target = challenge['target'] as int;
         if (progress >= target) {
@@ -1003,7 +1050,8 @@ class AppProvider extends ChangeNotifier {
   void _awardChallengeXP(String challengeId) {
     for (final challenge in _activeChallenges) {
       if (challenge['id'] == challengeId) {
-        final reward = challenge['xpReward'] as int? ?? xpRewards['challenge_complete']!;
+        final reward =
+            challenge['xpReward'] as int? ?? xpRewards['challenge_complete']!;
         addXP(reward);
         return;
       }
@@ -1063,8 +1111,27 @@ class AppProvider extends ChangeNotifier {
   /// height measurements, routine history, streak, program progress, XP,
   /// wellness logs and challenges. Keeps the profile and premium flag.
   /// No-op outside debug builds.
+  /// Everything the app owns lives under one key, so the real data can be
+  /// set aside whole and put back when the demo is switched off.
+  static const _dataKey = 'glowup_app_data';
+  static const _demoBackupKey = 'glowup_demo_backup';
+
+  bool _demoDataActive = false;
+
+  /// Whether the demo history is the one currently on screen.
+  bool get demoDataActive => _demoDataActive;
+
   Future<void> seedDemoData({int days = 46}) async {
-    if (!kDebugMode) return;
+    if (!kDevTools) return;
+
+    // Put the real history somewhere safe first. Guarded, so seeding twice
+    // cannot overwrite the backup with demo data.
+    final prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey(_demoBackupKey)) {
+      final real = prefs.getString(_dataKey);
+      if (real != null) await prefs.setString(_demoBackupKey, real);
+    }
+    _demoDataActive = true;
 
     final today = DateTime.now();
     final startedAt = today.subtract(Duration(days: days - 1));
@@ -1186,7 +1253,11 @@ class AppProvider extends ChangeNotifier {
     _activeChallenges = [
       for (var i = 0; i < _activeChallenges.length; i++)
         if (i < 2)
-          {..._activeChallenges[i], 'progress': _activeChallenges[i]['target'], 'completed': true}
+          {
+            ..._activeChallenges[i],
+            'progress': _activeChallenges[i]['target'],
+            'completed': true,
+          }
         else
           {
             ..._activeChallenges[i],
@@ -1207,6 +1278,25 @@ class AppProvider extends ChangeNotifier {
   /// Copies the bundled demo shots into the same folder the camera flow writes
   /// to, then registers them, so the gallery and the before/after comparison
   /// have real files to read. Leaves the list untouched if the copy fails.
+  /// Puts the real history back and forgets the demo.
+  ///
+  /// The demo's photo files are left on disk — they are a handful of copies of
+  /// a bundled asset, and the restored record no longer points at them.
+  Future<void> clearDemoData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final backup = prefs.getString(_demoBackupKey);
+    if (backup == null) {
+      _demoDataActive = false;
+      notifyListeners();
+      return;
+    }
+    await prefs.setString(_dataKey, backup);
+    await prefs.remove(_demoBackupKey);
+    _demoDataActive = false;
+    await loadData();
+    notifyListeners();
+  }
+
   Future<void> _seedDemoPhotos(DateTime startedAt, DateTime today) async {
     const sources = [
       ('assets/demo/posture_before.png', 0),
