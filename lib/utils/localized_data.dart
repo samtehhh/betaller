@@ -239,6 +239,11 @@ String localizedMuscle(AppLocalizations l, String key) {
 /// Returns localized achievement title/description by achievement ID
 Map<String, String> localizedAchievement(AppLocalizations l, String id) {
   switch (id) {
+    case 'commitment':
+      return {
+        'title': l.achieveCommitment,
+        'description': l.achieveCommitmentDesc,
+      };
     case 'first_day':
       return {'title': l.achieveFirstDay, 'description': l.achieveFirstDayDesc};
     case 'three_streak':

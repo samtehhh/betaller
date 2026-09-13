@@ -875,6 +875,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get analysisComplete => 'Concluído!';
 
   @override
+  String get analysisDataReceivedTitle => 'Dados recebidos';
+
+  @override
+  String get analysisDataReceivedSubtitle => 'Sua análise está começando...';
+
+  @override
   String get yourScore => 'Sua Pontuação BeTaller';
 
   @override
@@ -1164,6 +1170,13 @@ class AppLocalizationsPt extends AppLocalizations {
       'Abrir os ombros corrige a postura para frente e pode adicionar 1-2 cm na aparência.';
 
   @override
+  String get achieveCommitment => 'Determinação';
+
+  @override
+  String get achieveCommitmentDesc =>
+      'Insira todos os seus dados, explore o app por completo e comece a usá-lo';
+
+  @override
   String get achieveFirstDay => 'Primeiro Passo';
 
   @override
@@ -1399,6 +1412,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get obNext => 'Próximo';
+
+  @override
+  String get obSkipAll => 'Pular tudo';
 
   @override
   String get currentSuffix => '(atual)';
@@ -3378,6 +3394,231 @@ class AppLocalizationsPt extends AppLocalizations {
   String get journeySoon => 'EM BREVE';
 
   @override
+  String get tourHomeStreakTitle => 'A Sua Sequência';
+
+  @override
+  String get tourHomeStreakDesc =>
+      'Cresce enquanto mantém a sua disciplina — perca um dia e ela reinicia.';
+
+  @override
+  String get tourHomeXpTitle => 'O Seu Nível';
+
+  @override
+  String get tourHomeXpDesc =>
+      'Sobe com o XP que ganha ao manter a disciplina. Não saia dos trilhos!';
+
+  @override
+  String get tourHomeGoalsTitle => 'Metas de Hoje';
+
+  @override
+  String get tourHomeGoalsDesc =>
+      'Mostra as suas rotinas, tarefas e meta de água do dia num relance.';
+
+  @override
+  String get tourHomeTrackTitle => 'Acompanhamento de Água e Sono';
+
+  @override
+  String get tourHomeTrackDesc =>
+      'Registe a sua água e sono diários aqui mesmo, em segundos.';
+
+  @override
+  String get tourPlanTabsTitle =>
+      'Três Separadores: Hoje, Disciplina, Nutrição';
+
+  @override
+  String get tourPlanTabsDesc =>
+      'A sua rotina diária, o seu programa semanal e o seu plano de nutrição estão todos aqui.';
+
+  @override
+  String get tourPlanLevelTitle => 'O Seu Nível de Disciplina';
+
+  @override
+  String get tourPlanLevelDesc =>
+      'Mostra com que consistência completa as suas rotinas. Suba de nível para melhores resultados.';
+
+  @override
+  String get tourPlanTodayTitle => 'Plano de Hoje';
+
+  @override
+  String get tourPlanTodayDesc =>
+      'Marque aqui as suas rotinas diárias para aumentar a sua sequência.';
+
+  @override
+  String get tourPlanTodayListTitle => 'As Suas Rotinas de Hoje';
+
+  @override
+  String get tourPlanTodayListDesc =>
+      'Marque cada uma à medida que a faz — toque numa rotina para ver os detalhes.';
+
+  @override
+  String get tourPlanWeekGoalsTitle => 'Esta Semana';
+
+  @override
+  String get tourPlanWeekGoalsDesc =>
+      'Dias perfeitos, treinos e a medição pedida esta semana, incluindo a obrigatória.';
+
+  @override
+  String get tourPlanMonthGoalsTitle => 'Este Mês';
+
+  @override
+  String get tourPlanMonthGoalsDesc =>
+      'Foto de progresso, verificação de postura e as medições deste mês — as que não deve saltar.';
+
+  @override
+  String get tourProgressHeightTitle => 'A Sua Altura Atual';
+
+  @override
+  String get tourProgressHeightDesc =>
+      'Mostra a sua altura atual e o seu ganho total. Adicione uma nova medição a partir daqui.';
+
+  @override
+  String get tourProgressPhotosTitle => 'Fotos de Progresso';
+
+  @override
+  String get tourProgressPhotosDesc =>
+      'Acompanhe a sua transformação visualmente com fotos tiradas regularmente.';
+
+  @override
+  String get tourProgressPostureTitle => 'Análise de Postura';
+
+  @override
+  String get tourProgressPostureDesc =>
+      'Analise a sua postura a partir de uma foto e descubra no que trabalhar.';
+
+  @override
+  String get tourAnalysisScoreTitle => 'A Sua Pontuação BeTaller';
+
+  @override
+  String get tourAnalysisScoreDesc =>
+      'A sua pontuação geral, calculada a partir da genética, velocidade, nutrição e sono.';
+
+  @override
+  String get tourAnalysisPredictionTitle => 'A Sua Previsão de Altura';
+
+  @override
+  String get tourAnalysisPredictionDesc =>
+      'Mostra a sua altura final prevista e a sua trajetória ano a ano.';
+
+  @override
+  String get tourAnalysisPeerTitle => 'Compare-se com Seus Pares';
+
+  @override
+  String get tourAnalysisPeerDesc =>
+      'Veja a sua posição no ranking e compare-se com outros da sua idade.';
+
+  @override
+  String get tourHomeGoalsRoutinesTitle => 'As Suas Rotinas';
+
+  @override
+  String get tourHomeGoalsRoutinesDesc =>
+      'Veja quantas rotinas de exercício ainda precisa de completar hoje.';
+
+  @override
+  String get tourHomeGoalsChallengesTitle => 'As Suas Tarefas';
+
+  @override
+  String get tourHomeGoalsChallengesDesc =>
+      'Acompanhe o progresso dos seus desafios ativos aqui mesmo.';
+
+  @override
+  String get tourHomeGoalsWaterTitle => 'A Sua Meta de Água';
+
+  @override
+  String get tourHomeGoalsWaterDesc =>
+      'Veja o quão perto está da sua meta diária de água.';
+
+  @override
+  String get tourHomeReminderTitle => 'O Seu Próximo Lembrete';
+
+  @override
+  String get tourHomeReminderDesc =>
+      'Veja quando chega o seu próximo lembrete e edite-o a partir daqui.';
+
+  @override
+  String get tourHomeChallengesTitle => 'Os Seus Desafios';
+
+  @override
+  String get tourHomeChallengesDesc =>
+      'Complete os desafios ativos para ganhar XP extra.';
+
+  @override
+  String get tourHomeGrowthTitle => 'O Seu Estado de Crescimento';
+
+  @override
+  String get tourHomeGrowthDesc =>
+      'Veja a diferença entre a sua medição total e a mais recente, e quantas já registou.';
+
+  @override
+  String get tourHomeExploreTitle => 'Explorar';
+
+  @override
+  String get tourHomeExploreDesc =>
+      'Guias de nutrição, receitas de crescimento e muito mais esperam por si aqui.';
+
+  @override
+  String get tourPlanProgramHeaderTitle => 'O Seu Programa de 70 Dias';
+
+  @override
+  String get tourPlanProgramHeaderDesc =>
+      'Veja o seu progresso geral, o seu nível atual e o dia neste anel.';
+
+  @override
+  String get tourPlanProgramLevelsTitle => 'Níveis';
+
+  @override
+  String get tourPlanProgramLevelsDesc =>
+      'Veja em qual dos 10 níveis está e quais ainda estão bloqueados.';
+
+  @override
+  String get tourPlanNutritionHeaderTitle => 'O Seu Progresso Nutricional';
+
+  @override
+  String get tourPlanNutritionHeaderDesc =>
+      'Acompanhe quantas das suas rotinas nutricionais diárias já completou.';
+
+  @override
+  String get tourPlanNutritionFirstTitle => 'Rotinas de Nutrição';
+
+  @override
+  String get tourPlanNutritionFirstDesc =>
+      'Marque os hábitos nutricionais que apoiam o seu crescimento.';
+
+  @override
+  String get tourProgressChartTitle => 'Curva de Crescimento';
+
+  @override
+  String get tourProgressChartDesc =>
+      'Veja as suas medições anteriores num gráfico e entenda para onde está a ir.';
+
+  @override
+  String get tourProgressReportTitle => 'Relatório Semanal';
+
+  @override
+  String get tourProgressReportDesc =>
+      'Consulte o relatório que resume o progresso da sua semana.';
+
+  @override
+  String get tourProgressHistoryTitle => 'O Seu Histórico de Medições';
+
+  @override
+  String get tourProgressHistoryDesc =>
+      'Veja todas as medições de altura registadas numa linha do tempo.';
+
+  @override
+  String get tourAnalysisRadarTitle => 'O Seu Gráfico de Equilíbrio';
+
+  @override
+  String get tourAnalysisRadarDesc =>
+      'Veja o seu equilíbrio de genética, velocidade de crescimento, nutrição, sono e disciplina num gráfico radar, e descubra o seu ponto mais fraco.';
+
+  @override
+  String get tourAnalysisDailyNeedsTitle => 'As Suas Necessidades Diárias';
+
+  @override
+  String get tourAnalysisDailyNeedsDesc =>
+      'Veja as suas necessidades diárias de proteína, calorias, sono e água, ajustadas à sua altura e peso.';
+
+  @override
   String get journeyDataDoneTitle => 'Primeiro passo concluído';
 
   @override
@@ -3392,6 +3633,16 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get journeyProgressLabel => 'Começo';
+
+  @override
+  String get journeyTourDoneTitle => 'Bem-vindo ao BeTaller!';
+
+  @override
+  String get journeyTourDoneSubtitle =>
+      'Você concluiu as três etapas. Agora é a sua vez — comece sua jornada completando sua primeira rotina.';
+
+  @override
+  String get journeyViewPlansButton => 'Ver planos para começar';
 
   @override
   String get paywallRestoreLabel => 'Restaurar compras';

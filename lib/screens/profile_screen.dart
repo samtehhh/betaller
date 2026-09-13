@@ -19,7 +19,11 @@ import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  /// Lets MainScreen re-launch the guided walkthrough from here too — a
+  /// dev-only shortcut for testing it without waiting on the journey step
+  /// that normally triggers it (see the "Geliştirici" group below).
+  final VoidCallback? onOpenTour;
+  const ProfileScreen({super.key, this.onOpenTour});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -400,10 +404,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),
-                                                child: const Center(
+                                                child: Center(
                                                   child: Text(
-                                                    '🔒',
-                                                    style: TextStyle(
+                                                    a['icon'] as String? ??
+                                                        '🏆',
+                                                    style: const TextStyle(
                                                       fontSize: 20,
                                                     ),
                                                   ),
@@ -612,6 +617,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   backgroundColor: AppColors.surfaceDark,
                                 ),
                               );
+                            },
+                          ),
+                          _MenuRow(
+                            icon: CupertinoIcons.sparkles,
+                            label: 'Uygulama turu',
+                            subtitle:
+                                'Rehberli anlatımı — journey adımını beklemeden — şimdi başlat',
+                            color: AppColors.cyan,
+                            onTap: () {
+                              HapticFeedback.selectionClick();
+                              widget.onOpenTour?.call();
                             },
                           ),
                         ],

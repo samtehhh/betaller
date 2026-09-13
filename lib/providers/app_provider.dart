@@ -339,6 +339,9 @@ class AppProvider extends ChangeNotifier {
         case 'growth':
           earned = totalGrowth >= (a['value'] as int);
           break;
+        case 'tour':
+          earned = _journeyProgress >= (a['value'] as int);
+          break;
       }
       unlocked.add({...a, 'earned': earned});
     }
@@ -637,6 +640,14 @@ class AppProvider extends ChangeNotifier {
 
   void deleteHeightRecord(String date) {
     _heightRecords.removeWhere((r) => r.date == date);
+    // Adding a measurement syncs the profile's own currentHeight to it (see
+    // the add-measurement sheet); deleting one has to undo that the same
+    // way, or the profile is left pointing at a height that no longer has
+    // a record behind it — showing stale numbers everywhere that reads
+    // currentHeight instead of the height history directly.
+    if (_profile != null && _heightRecords.isNotEmpty) {
+      _profile = _profile!.copyWith(currentHeight: _heightRecords.last.height);
+    }
     _saveData();
     notifyListeners();
   }
@@ -890,6 +901,27 @@ class AppProvider extends ChangeNotifier {
   void completeJourneyStep(int step) {
     if (step != _journeyProgress) return;
     _journeyProgress = (step + 1).clamp(0, 3);
+    _saveData();
+    notifyListeners();
+  }
+
+  /// Called when the app walkthrough finishes or is skipped. Closes the
+  /// journey's second step and hands out the "Kararlılık" badge right away.
+  ///
+  /// This is meant to be the very first achievement most players ever see —
+  /// [checkNewAchievements]'s passive scan silently swallows whatever is
+  /// already earned the first time it ever runs for an account (so an
+  /// existing user picking up new badge definitions isn't hit with a burst
+  /// of notifications), and for a brand-new player that "first pass" would
+  /// otherwise be this exact moment. Granting it directly here skips that
+  /// guard so the badge actually pops instead of unlocking silently.
+  void completeTour() {
+    completeJourneyStep(1);
+    const id = 'commitment';
+    if (_announcedAchievements.contains(id)) return;
+    _announcedAchievements = {..._announcedAchievements, id};
+    final def = achievementDefinitions.firstWhere((a) => a['id'] == id);
+    _pendingAchievementNotices = [..._pendingAchievementNotices, def];
     _saveData();
     notifyListeners();
   }

@@ -1,3 +1,5 @@
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -391,97 +393,128 @@ class _ArticleCard extends StatelessWidget {
             padding: const EdgeInsets.all(14),
             child: Row(
               children: [
-                // Emoji tile with category tint
-                Container(
-                  width: 54,
-                  height: 54,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        color.withValues(alpha: 0.22),
-                        color.withValues(alpha: 0.06),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
+                ImageFiltered(
+                  imageFilter: locked
+                      ? ImageFilter.blur(sigmaX: 3.4, sigmaY: 3.4)
+                      : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                  child: Container(
+                    width: 54,
+                    height: 54,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          color.withValues(alpha: 0.22),
+                          color.withValues(alpha: 0.06),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: color.withValues(alpha: 0.22)),
                     ),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: color.withValues(alpha: 0.22)),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    article['icon'] as String? ?? '',
-                    style: const TextStyle(fontSize: 26),
+                    alignment: Alignment.center,
+                    child: Text(
+                      article['icon'] as String? ?? '',
+                      style: const TextStyle(fontSize: 26),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 14),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        article['title'] as String? ?? '',
-                        style: const TextStyle(
-                          fontSize: 15.5,
-                          fontWeight: FontWeight.w700,
-                          height: 1.3,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Container(
-                            width: 6,
-                            height: 6,
-                            decoration: BoxDecoration(
-                              color: color,
-                              shape: BoxShape.circle,
-                            ),
+                  child: ImageFiltered(
+                    imageFilter: locked
+                        ? ImageFilter.blur(sigmaX: 3.4, sigmaY: 3.4)
+                        : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          article['title'] as String? ?? '',
+                          style: const TextStyle(
+                            fontSize: 15.5,
+                            fontWeight: FontWeight.w700,
+                            height: 1.3,
+                            color: Colors.white,
                           ),
-                          const SizedBox(width: 6),
-                          Flexible(
-                            child: Text(
-                              localizedEducationCategory(l, category),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 11.5,
-                                fontWeight: FontWeight.w600,
-                                color: color.withValues(alpha: 0.9),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Container(
+                              width: 6,
+                              height: 6,
+                              decoration: BoxDecoration(
+                                color: color,
+                                shape: BoxShape.circle,
                               ),
                             ),
-                          ),
-                          Text(
-                            '  ·  ',
-                            style: TextStyle(
-                              fontSize: 11.5,
-                              color: AppColors.textTertiary,
+                            const SizedBox(width: 6),
+                            Flexible(
+                              child: Text(
+                                localizedEducationCategory(l, category),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 11.5,
+                                  fontWeight: FontWeight.w600,
+                                  color: color.withValues(alpha: 0.9),
+                                ),
+                              ),
                             ),
-                          ),
-                          Flexible(
-                            child: Text(
-                              l.readTimeMinutes(_readMinutes(article)),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            Text(
+                              '  ·  ',
                               style: TextStyle(
                                 fontSize: 11.5,
                                 color: AppColors.textTertiary,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                            Flexible(
+                              child: Text(
+                                l.readTimeMinutes(_readMinutes(article)),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 11.5,
+                                  color: AppColors.textTertiary,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
-                Icon(
-                  locked
-                      ? CupertinoIcons.lock_fill
-                      : CupertinoIcons.chevron_right,
-                  size: locked ? 15 : 16,
-                  color: locked ? AppColors.warning : AppColors.textTertiary,
-                ),
+                if (locked)
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFD700).withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(
+                        color: const Color(0xFFFFD700).withValues(alpha: 0.30),
+                      ),
+                    ),
+                    child: const Text(
+                      'PRO',
+                      style: TextStyle(
+                        fontSize: 9.5,
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xFFFFD700),
+                        letterSpacing: 0.4,
+                      ),
+                    ),
+                  )
+                else
+                  Icon(
+                    CupertinoIcons.chevron_right,
+                    size: 16,
+                    color: AppColors.textTertiary,
+                  ),
               ],
             ),
           ),

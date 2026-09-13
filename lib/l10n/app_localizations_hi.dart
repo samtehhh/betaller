@@ -872,6 +872,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get analysisComplete => 'पूरा हुआ!';
 
   @override
+  String get analysisDataReceivedTitle => 'डेटा प्राप्त हुआ';
+
+  @override
+  String get analysisDataReceivedSubtitle => 'आपका विश्लेषण शुरू हो रहा है...';
+
+  @override
   String get yourScore => 'आपका BeTaller स्कोर';
 
   @override
@@ -1161,6 +1167,13 @@ class AppLocalizationsHi extends AppLocalizations {
       'कंधे खोलने से आगे झुकी मुद्रा ठीक होती है, दिखने में 1-2 सेमी का अंतर हो सकता है।';
 
   @override
+  String get achieveCommitment => 'दृढ़ संकल्प';
+
+  @override
+  String get achieveCommitmentDesc =>
+      'सारा डेटा भरें, ऐप को पूरी तरह से एक्सप्लोर करें और इस्तेमाल शुरू करें';
+
+  @override
   String get achieveFirstDay => 'पहला कदम';
 
   @override
@@ -1393,6 +1406,9 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get obNext => 'आगे';
+
+  @override
+  String get obSkipAll => 'सभी छोड़ें';
 
   @override
   String get currentSuffix => '(वर्तमान)';
@@ -3365,6 +3381,230 @@ class AppLocalizationsHi extends AppLocalizations {
   String get journeySoon => 'जल्द';
 
   @override
+  String get tourHomeStreakTitle => 'आपकी स्ट्रीक';
+
+  @override
+  String get tourHomeStreakDesc =>
+      'जब तक आप अनुशासन बनाए रखते हैं तब तक बढ़ती रहती है — एक दिन छूटा तो रीसेट हो जाती है।';
+
+  @override
+  String get tourHomeXpTitle => 'आपका लेवल';
+
+  @override
+  String get tourHomeXpDesc =>
+      'अनुशासन बनाए रखने से मिलने वाले XP से बढ़ता है। पटरी से मत उतरिए!';
+
+  @override
+  String get tourHomeGoalsTitle => 'आज के लक्ष्य';
+
+  @override
+  String get tourHomeGoalsDesc =>
+      'आज की रूटीन, कार्य और पानी का लक्ष्य एक नज़र में दिखाता है, कुछ भी छूटता नहीं।';
+
+  @override
+  String get tourHomeTrackTitle => 'पानी और नींद ट्रैकिंग';
+
+  @override
+  String get tourHomeTrackDesc =>
+      'अपना दैनिक पानी और नींद यहीं, कुछ ही सेकंड में दर्ज करें।';
+
+  @override
+  String get tourPlanTabsTitle => 'तीन टैब: आज, डिसिप्लिन, पोषण';
+
+  @override
+  String get tourPlanTabsDesc =>
+      'आपकी दैनिक रूटीन, साप्ताहिक प्रोग्राम और पोषण योजना — सब यहीं हैं।';
+
+  @override
+  String get tourPlanLevelTitle => 'आपका डिसिप्लिन लेवल';
+
+  @override
+  String get tourPlanLevelDesc =>
+      'दिखाता है कि आप कितनी नियमितता से रूटीन पूरी करते हैं। बेहतर नतीजों के लिए लेवल बढ़ाएं।';
+
+  @override
+  String get tourPlanTodayTitle => 'आज का प्लान';
+
+  @override
+  String get tourPlanTodayDesc =>
+      'अपनी स्ट्रीक बढ़ाने के लिए यहाँ रोज़ाना रूटीन पूरी करके चेक करें।';
+
+  @override
+  String get tourPlanTodayListTitle => 'आज की आपकी रूटीन';
+
+  @override
+  String get tourPlanTodayListDesc =>
+      'जैसे-जैसे करें, वैसे-वैसे चेक करें — विवरण के लिए किसी रूटीन पर टैप करें।';
+
+  @override
+  String get tourPlanWeekGoalsTitle => 'इस हफ्ते';
+
+  @override
+  String get tourPlanWeekGoalsDesc =>
+      'परफेक्ट दिन, वर्कआउट और इस हफ्ते का ज़रूरी माप — अनिवार्य वाला भी शामिल।';
+
+  @override
+  String get tourPlanMonthGoalsTitle => 'इस महीने';
+
+  @override
+  String get tourPlanMonthGoalsDesc =>
+      'प्रोग्रेस फ़ोटो, पॉस्चर चेक और इस महीने के माप — जिन्हें छोड़ना नहीं चाहिए।';
+
+  @override
+  String get tourProgressHeightTitle => 'आपकी मौजूदा लंबाई';
+
+  @override
+  String get tourProgressHeightDesc =>
+      'आपकी अभी की लंबाई और कुल बढ़ोतरी दिखाता है। यहाँ से नया माप जोड़ें।';
+
+  @override
+  String get tourProgressPhotosTitle => 'प्रोग्रेस फ़ोटो';
+
+  @override
+  String get tourProgressPhotosDesc =>
+      'नियमित रूप से ली गई फ़ोटो से अपना बदलाव आँखों से देखें।';
+
+  @override
+  String get tourProgressPostureTitle => 'पॉस्चर विश्लेषण';
+
+  @override
+  String get tourProgressPostureDesc =>
+      'फ़ोटो से अपने पॉस्चर का विश्लेषण करवाएं, जानें किस पर काम करना है।';
+
+  @override
+  String get tourAnalysisScoreTitle => 'आपका BeTaller स्कोर';
+
+  @override
+  String get tourAnalysisScoreDesc =>
+      'जेनेटिक्स, गति, पोषण और नींद के आधार पर बना आपका समग्र प्रदर्शन स्कोर।';
+
+  @override
+  String get tourAnalysisPredictionTitle => 'आपकी लंबाई का अनुमान';
+
+  @override
+  String get tourAnalysisPredictionDesc =>
+      'आपकी अनुमानित अंतिम लंबाई और साल-दर-साल का रुझान दिखाता है।';
+
+  @override
+  String get tourAnalysisPeerTitle => 'साथियों से तुलना';
+
+  @override
+  String get tourAnalysisPeerDesc =>
+      'देखें आप रैंकिंग में कहाँ हैं, और अपनी उम्र के लोगों से खुद की तुलना करें।';
+
+  @override
+  String get tourHomeGoalsRoutinesTitle => 'आपकी रूटीन';
+
+  @override
+  String get tourHomeGoalsRoutinesDesc =>
+      'देखें आज आपको कितनी और व्यायाम रूटीन पूरी करनी हैं।';
+
+  @override
+  String get tourHomeGoalsChallengesTitle => 'आपके कार्य';
+
+  @override
+  String get tourHomeGoalsChallengesDesc =>
+      'अपनी सक्रिय चुनौतियों की प्रगति यहीं ट्रैक करें।';
+
+  @override
+  String get tourHomeGoalsWaterTitle => 'आपका पानी लक्ष्य';
+
+  @override
+  String get tourHomeGoalsWaterDesc =>
+      'देखें आप अपने दैनिक पानी लक्ष्य के कितने करीब हैं।';
+
+  @override
+  String get tourHomeReminderTitle => 'आपका अगला रिमाइंडर';
+
+  @override
+  String get tourHomeReminderDesc =>
+      'देखें आपका अगला रिमाइंडर कब आएगा, और यहीं से इसे संपादित करें।';
+
+  @override
+  String get tourHomeChallengesTitle => 'आपकी चुनौतियाँ';
+
+  @override
+  String get tourHomeChallengesDesc =>
+      'अतिरिक्त XP कमाने के लिए सक्रिय चुनौतियाँ पूरी करें।';
+
+  @override
+  String get tourHomeGrowthTitle => 'आपकी ग्रोथ स्थिति';
+
+  @override
+  String get tourHomeGrowthDesc =>
+      'अपने कुल और नवीनतम माप के बीच का अंतर देखें, और आपने कितने माप दर्ज किए हैं।';
+
+  @override
+  String get tourHomeExploreTitle => 'एक्सप्लोर करें';
+
+  @override
+  String get tourHomeExploreDesc =>
+      'पोषण गाइड, ग्रोथ रेसिपी और भी बहुत कुछ यहाँ आपका इंतज़ार कर रहा है।';
+
+  @override
+  String get tourPlanProgramHeaderTitle => 'आपका 70-दिन का प्रोग्राम';
+
+  @override
+  String get tourPlanProgramHeaderDesc =>
+      'इस रिंग में अपनी कुल प्रगति, मौजूदा लेवल और दिन देखें।';
+
+  @override
+  String get tourPlanProgramLevelsTitle => 'लेवल्स';
+
+  @override
+  String get tourPlanProgramLevelsDesc =>
+      'देखें आप 10 में से किस लेवल पर हैं, और कौन-से अभी लॉक हैं।';
+
+  @override
+  String get tourPlanNutritionHeaderTitle => 'आपकी पोषण प्रगति';
+
+  @override
+  String get tourPlanNutritionHeaderDesc =>
+      'ट्रैक करें आपने अपनी दैनिक पोषण रूटीन में से कितनी पूरी कीं।';
+
+  @override
+  String get tourPlanNutritionFirstTitle => 'पोषण रूटीन';
+
+  @override
+  String get tourPlanNutritionFirstDesc =>
+      'अपने विकास में मदद करने वाली पोषण आदतों को यहाँ चेक करें।';
+
+  @override
+  String get tourProgressChartTitle => 'ग्रोथ कर्व';
+
+  @override
+  String get tourProgressChartDesc =>
+      'चार्ट पर अपने पिछले माप देखें और समझें कि आप किस दिशा में जा रहे हैं।';
+
+  @override
+  String get tourProgressReportTitle => 'साप्ताहिक रिपोर्ट';
+
+  @override
+  String get tourProgressReportDesc =>
+      'अपने सप्ताह की प्रगति को संक्षेप में बताने वाली रिपोर्ट देखें।';
+
+  @override
+  String get tourProgressHistoryTitle => 'आपका माप इतिहास';
+
+  @override
+  String get tourProgressHistoryDesc =>
+      'अपनी दर्ज की गई हर लंबाई माप को टाइमलाइन पर देखें।';
+
+  @override
+  String get tourAnalysisRadarTitle => 'आपका बैलेंस चार्ट';
+
+  @override
+  String get tourAnalysisRadarDesc =>
+      'रडार चार्ट पर जेनेटिक्स, विकास गति, पोषण, नींद और अनुशासन का संतुलन देखें, और अपनी सबसे कमज़ोर कड़ी जानें।';
+
+  @override
+  String get tourAnalysisDailyNeedsTitle => 'आपकी दैनिक ज़रूरतें';
+
+  @override
+  String get tourAnalysisDailyNeedsDesc =>
+      'अपनी लंबाई और वज़न के अनुसार दैनिक प्रोटीन, कैलोरी, नींद और पानी की ज़रूरत देखें।';
+
+  @override
   String get journeyDataDoneTitle => 'पहला चरण पूरा';
 
   @override
@@ -3379,6 +3619,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get journeyProgressLabel => 'शुरुआत';
+
+  @override
+  String get journeyTourDoneTitle => 'BeTaller में आपका स्वागत है!';
+
+  @override
+  String get journeyTourDoneSubtitle =>
+      'तुमने तीनों चरण पूरे कर लिए हैं। अब तुम्हारी बारी है — अपनी पहली रूटीन पूरी करके शुरुआत करो।';
+
+  @override
+  String get journeyViewPlansButton => 'शुरू करने के लिए प्लान देखें';
 
   @override
   String get paywallRestoreLabel => 'खरीदारी बहाल करें';

@@ -11,11 +11,12 @@ import '../utils/localized_data.dart';
 import '../services/notification_service.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
-import '../widgets/premium_paywall.dart';
+import '../widgets/feature_tour.dart';
 import 'analysis_screen.dart';
 import 'routines_screen.dart';
 import 'progress_screen.dart';
 import 'profile_screen.dart';
+import 'journey_complete_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -26,9 +27,11 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
+  bool _tourActive = false;
 
   final _progressKey = GlobalKey<ProgressScreenState>();
   final _analysisKey = GlobalKey<AnalysisScreenState>();
+  final _routinesKey = GlobalKey<RoutinesScreenState>();
 
   late final List<Widget> _screens;
 
@@ -36,27 +39,48 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _screens = [
-      const HomeScreen(),
-      const RoutinesScreen(),
+      HomeScreen(onOpenTour: _startTour),
+      RoutinesScreen(key: _routinesKey),
       ProgressScreen(key: _progressKey),
       AnalysisScreen(key: _analysisKey),
-      const ProfileScreen(),
+      ProfileScreen(onOpenTour: _startTour),
     ];
 
-    // Show dismissible paywall after 3.5 seconds if not premium
+    // Once onboarding is behind them and the tour hasn't run yet, give the
+    // home screen a beat to land, then spotlight the app's own features one
+    // by one. Finishing or skipping it always closes this journey step, so
+    // it never fires again after the first time.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<AppProvider>();
-      if (!provider.isPremium) {
-        Future.delayed(const Duration(milliseconds: 3500), () {
-          if (mounted) {
-            final currentProvider = context.read<AppProvider>();
-            if (!currentProvider.isPremium) {
-              showPremiumPaywall(context);
-            }
-          }
-        });
-      }
+      if (provider.journeyProgress != 1) return;
+      Future.delayed(const Duration(seconds: 3), () {
+        if (!mounted) return;
+        if (context.read<AppProvider>().journeyProgress != 1) return;
+        _startTour();
+      });
     });
+  }
+
+  void _startTour() {
+    if (_tourActive) return;
+    setState(() => _tourActive = true);
+  }
+
+  void _finishTour() {
+    if (!mounted) return;
+    setState(() => _tourActive = false);
+    context.read<AppProvider>().completeTour();
+    // The journey's last step lands here too — finishing or skipping the
+    // tour is what tells the user they're actually ready to use the app.
+    // The screen itself opens the paywall from its CTA and pops when done.
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 500),
+        pageBuilder: (_, _, _) => const JourneyCompleteScreen(),
+        transitionsBuilder: (_, anim, _, child) =>
+            FadeTransition(opacity: anim, child: child),
+      ),
+    );
   }
 
   @override
@@ -92,18 +116,40 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.scaffold,
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
+      body: Stack(
+        children: [
+          IndexedStack(index: _currentIndex, children: _screens),
+          if (_tourActive)
+            FeatureTourOverlay(
+              steps: tourStepsFor(
+                l,
+                goToTrainTab: () => _routinesKey.currentState?.goToSubTab(0),
+                goToProgramTab: () => _routinesKey.currentState?.goToSubTab(1),
+                goToNutritionTab: () =>
+                    _routinesKey.currentState?.goToSubTab(2),
+              ),
+              currentTab: _currentIndex,
+              onRequestTab: (i) => setState(() => _currentIndex = i),
+              onFinished: _finishTour,
+              nextLabel: l.continueBtn,
+              finishLabel: l.letsStart,
+              skipLabel: l.obSkip,
+            ),
+        ],
       ),
       extendBody: true,
       bottomNavigationBar: _NavBar(
         currentIndex: _currentIndex,
-        onSelect: (i) {
-          setState(() => _currentIndex = i);
-          if (i == 2) _progressKey.currentState?.replayAnimation();
-          if (i == 3) _analysisKey.currentState?.replayAnimation();
-        },
+        // Switching tabs by hand mid-tour would leave the tour highlighting
+        // a target on a screen that's no longer showing, so the bar goes
+        // inert rather than fighting the tour for which tab is active.
+        onSelect: _tourActive
+            ? (_) {}
+            : (i) {
+                setState(() => _currentIndex = i);
+                if (i == 2) _progressKey.currentState?.replayAnimation();
+                if (i == 3) _analysisKey.currentState?.replayAnimation();
+              },
       ),
     );
   }
@@ -216,7 +262,7 @@ class _NavItem extends StatelessWidget {
                   BoxShadow(
                     color: AppColors.primary.withValues(alpha: 0.28),
                     blurRadius: 18,
-                  )
+                  ),
                 ]
               : null,
         ),

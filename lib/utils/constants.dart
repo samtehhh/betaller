@@ -15,7 +15,9 @@ class AppColors {
   static const cardFill = Color(0xFF0C0A16);
   static const cardFillLight = Color(0xFF110E1E);
   static final cardBorder = const Color(0xFFFFFFFF).withValues(alpha: 0.05);
-  static final cardBorderLight = const Color(0xFF8B5CF6).withValues(alpha: 0.12);
+  static final cardBorderLight = const Color(
+    0xFF8B5CF6,
+  ).withValues(alpha: 0.12);
 
   // Primary accent — #8B5CF6 Purple
   static const primary = Color(0xFF8B5CF6);
@@ -25,14 +27,14 @@ class AppColors {
 
   // Secondary accents
   static const cyan = Color(0xFF00E5FF);
-  static const orange = Color(0xFFFF8A00);    // Energy Orange
+  static const orange = Color(0xFFFF8A00); // Energy Orange
   static const pink = Color(0xFFFF4DB8);
-  static const lime = Color(0xFF22FF88);      // Neon Growth Green — KEY COLOR
+  static const lime = Color(0xFF22FF88); // Neon Growth Green — KEY COLOR
 
   // Semantic
-  static const success = Color(0xFF22FF88);   // Neon green for success/growth
+  static const success = Color(0xFF22FF88); // Neon green for success/growth
   static const error = Color(0xFFFF5252);
-  static const warning = Color(0xFFF5C542);   // Premium Gold
+  static const warning = Color(0xFFF5C542); // Premium Gold
 
   // Text hierarchy
   static const textPrimary = Color(0xFFFFFFFF);
@@ -97,7 +99,7 @@ class GlassCard extends StatelessWidget {
   final double borderRadius;
   final Color? fillColor;
   final Color? borderColor;
-  final Color? glowColor;  // NEW
+  final Color? glowColor; // NEW
 
   const GlassCard({
     super.key,
@@ -116,12 +118,14 @@ class GlassCard extends StatelessWidget {
     return Container(
       margin: margin,
       decoration: BoxDecoration(
-        gradient: fillColor == null ? const LinearGradient(
-          colors: [Color(0xFF0C0A16), Color(0xFF080614)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          transform: GradientRotation(2.53),
-        ) : null,
+        gradient: fillColor == null
+            ? const LinearGradient(
+                colors: [Color(0xFF0C0A16), Color(0xFF080614)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                transform: GradientRotation(2.53),
+              )
+            : null,
         color: fillColor,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
@@ -135,10 +139,7 @@ class GlassCard extends StatelessWidget {
             offset: const Offset(0, 10),
             spreadRadius: -6,
           ),
-          BoxShadow(
-            color: glow,
-            blurRadius: 28,
-          ),
+          BoxShadow(color: glow, blurRadius: 28),
         ],
       ),
       child: ClipRRect(
@@ -177,38 +178,40 @@ class GlowProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final clampedValue = value.clamp(0.0, 1.0);
-    return LayoutBuilder(builder: (context, constraints) {
-      return Stack(
-        children: [
-          // Background track
-          Container(
-            height: height,
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.06),
-              borderRadius: BorderRadius.circular(borderRadius),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Stack(
+          children: [
+            // Background track
+            Container(
+              height: height,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.06),
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
             ),
-          ),
-          // Filled portion
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.easeOutCubic,
-            width: constraints.maxWidth * clampedValue,
-            height: height,
-            decoration: BoxDecoration(
-              gradient: gradient,
-              borderRadius: BorderRadius.circular(borderRadius),
-              boxShadow: [
-                BoxShadow(
-                  color: glowColor.withValues(alpha: 0.50),
-                  blurRadius: 8,
-                  offset: Offset.zero,
-                ),
-              ],
+            // Filled portion
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeOutCubic,
+              width: constraints.maxWidth * clampedValue,
+              height: height,
+              decoration: BoxDecoration(
+                gradient: gradient,
+                borderRadius: BorderRadius.circular(borderRadius),
+                boxShadow: [
+                  BoxShadow(
+                    color: glowColor.withValues(alpha: 0.50),
+                    blurRadius: 8,
+                    offset: Offset.zero,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      );
-    });
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -331,13 +334,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'morning_stretch',
     'title': 'Sabah Germe Egzersizi',
-    'description': 'Uyanır uyanmaz 10 dakika germe hareketleri yap. Omurga ve bacak kaslarını esnet.',
+    'description':
+        'Uyanır uyanmaz 10 dakika germe hareketleri yap. Omurga ve bacak kaslarını esnet.',
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '🌅',
     'musclesTargeted': ['spine', 'legs', 'back'],
-    'scientificBasis': 'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention. (Spine Journal, 2014)',
-    'formDescription': 'Start with neck rolls, then move to full body stretches. Hold each stretch for 20-30 seconds without bouncing.',
+    'scientificBasis':
+        'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention. (Spine Journal, 2014)',
+    'formDescription':
+        'Start with neck rolls, then move to full body stretches. Hold each stretch for 20-30 seconds without bouncing.',
     'setsReps': '5-6 stretches x 30s hold',
     'timerSeconds': 600,
     'difficulty': 'beginner',
@@ -345,13 +351,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'bar_hanging',
     'title': 'Barfiks Barına Asılma',
-    'description': 'Barfiks barına asılarak omurgayı uzat. 3 set x 30 saniye tut.',
+    'description':
+        'Barfiks barına asılarak omurgayı uzat. 3 set x 30 saniye tut.',
     'category': 'exercise',
     'duration': '5 dk',
     'icon': '💪',
     'musclesTargeted': ['spine', 'shoulders', 'arms'],
-    'scientificBasis': 'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height. (J Orthopedic Research, 2012)',
-    'formDescription': 'Grip the bar shoulder-width apart, relax your body completely, let gravity stretch your spine. Avoid swinging.',
+    'scientificBasis':
+        'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height. (J Orthopedic Research, 2012)',
+    'formDescription':
+        'Grip the bar shoulder-width apart, relax your body completely, let gravity stretch your spine. Avoid swinging.',
     'setsReps': '3x30 seconds',
     'timerSeconds': 300,
     'difficulty': 'beginner',
@@ -359,13 +368,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'cobra_stretch',
     'title': 'Kobra Germe',
-    'description': 'Yüzüstü yatıp üst vücudu yukarı kaldır. Omurgayı esnet. 3 set x 15 saniye.',
+    'description':
+        'Yüzüstü yatıp üst vücudu yukarı kaldır. Omurgayı esnet. 3 set x 15 saniye.',
     'category': 'exercise',
     'duration': '5 dk',
     'icon': '🐍',
     'musclesTargeted': ['spine', 'core', 'chest'],
-    'scientificBasis': 'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting',
-    'formDescription': 'Lie face down, place hands under shoulders, slowly push upper body up while keeping hips on the floor. Look upward.',
+    'scientificBasis':
+        'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting',
+    'formDescription':
+        'Lie face down, place hands under shoulders, slowly push upper body up while keeping hips on the floor. Look upward.',
     'setsReps': '3x15 seconds',
     'timerSeconds': 300,
     'difficulty': 'beginner',
@@ -373,13 +385,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'jumping',
     'title': 'Zıplama Egzersizleri',
-    'description': 'İp atlama veya squat jump. Büyüme plakalarını uyarır. 3 set x 20 tekrar.',
+    'description':
+        'İp atlama veya squat jump. Büyüme plakalarını uyarır. 3 set x 20 tekrar.',
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '🦘',
     'musclesTargeted': ['legs', 'calves', 'core'],
-    'scientificBasis': 'High-impact loading stimulates bone modeling and triggers growth hormone release through mechanical stress. (J Bone Mineral Research, 2016)',
-    'formDescription': 'Perform squat jumps or jump rope. Land softly on the balls of your feet. Rest 30 seconds between sets.',
+    'scientificBasis':
+        'High-impact loading stimulates bone modeling and triggers growth hormone release through mechanical stress. (J Bone Mineral Research, 2016)',
+    'formDescription':
+        'Perform squat jumps or jump rope. Land softly on the balls of your feet. Rest 30 seconds between sets.',
     'setsReps': '3x20 reps',
     'timerSeconds': 600,
     'difficulty': 'intermediate',
@@ -387,13 +402,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'swimming_basketball',
     'title': 'Yüzme veya Basketbol',
-    'description': 'Boy uzamasını destekleyen sporlardan birini yap. En az 30 dakika.',
+    'description':
+        'Boy uzamasını destekleyen sporlardan birini yap. En az 30 dakika.',
     'category': 'exercise',
     'duration': '30 dk',
     'icon': '🏀',
     'musclesTargeted': ['full_body', 'legs', 'spine'],
-    'scientificBasis': 'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity',
-    'formDescription': 'Choose swimming (freestyle/backstroke) or basketball. Focus on jumping, reaching, and full range of motion.',
+    'scientificBasis':
+        'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity',
+    'formDescription':
+        'Choose swimming (freestyle/backstroke) or basketball. Focus on jumping, reaching, and full range of motion.',
     'setsReps': '30 min continuous',
     'timerSeconds': 1800,
     'difficulty': 'intermediate',
@@ -401,13 +419,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'evening_yoga',
     'title': 'Akşam Yoga & Esneme',
-    'description': 'Yatmadan önce yoga ve esneme rutini. Günün stresini at, kasları gevşet.',
+    'description':
+        'Yatmadan önce yoga ve esneme rutini. Günün stresini at, kasları gevşet.',
     'category': 'exercise',
     'duration': '15 dk',
     'icon': '🧘',
     'musclesTargeted': ['spine', 'legs', 'hips', 'back'],
-    'scientificBasis': 'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery. (J Clinical Endocrinology, 2017)',
-    'formDescription': 'Perform gentle poses: cat-cow, child pose, downward dog, forward fold. Breathe deeply and hold each pose 30-60 seconds.',
+    'scientificBasis':
+        'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery. (J Clinical Endocrinology, 2017)',
+    'formDescription':
+        'Perform gentle poses: cat-cow, child pose, downward dog, forward fold. Breathe deeply and hold each pose 30-60 seconds.',
     'setsReps': '6-8 poses x 60s hold',
     'timerSeconds': 900,
     'difficulty': 'beginner',
@@ -416,13 +437,15 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'sprint_intervals',
     'title': 'Sprint Interval Training',
-    'description': 'Sprint interval training triggers significant growth hormone release through high-intensity bursts.',
+    'description':
+        'Sprint interval training triggers significant growth hormone release through high-intensity bursts.',
     'category': 'exercise',
     'duration': '20 dk',
     'icon': '🏃',
     'musclesTargeted': ['legs', 'core'],
     'scientificBasis': 'Sprinting triggers significant growth hormone release',
-    'formDescription': 'Warm up for 5 minutes, then sprint at maximum effort for 30 seconds. Walk or jog for 90 seconds to recover. Repeat.',
+    'formDescription':
+        'Warm up for 5 minutes, then sprint at maximum effort for 30 seconds. Walk or jog for 90 seconds to recover. Repeat.',
     'setsReps': '3x30 second sprints',
     'timerSeconds': 1200,
     'difficulty': 'advanced',
@@ -430,13 +453,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'hiit_workout',
     'title': 'HIIT Workout',
-    'description': 'High intensity interval training to maximize growth hormone release.',
+    'description':
+        'High intensity interval training to maximize growth hormone release.',
     'category': 'exercise',
     'duration': '15 dk',
     'icon': '💥',
     'musclesTargeted': ['full_body'],
-    'scientificBasis': 'High intensity exercise increases HGH secretion by up to 450% through lactate accumulation. (Sports Medicine, 2003)',
-    'formDescription': 'Perform exercises like burpees, mountain climbers, and jump squats at maximum intensity for 45 seconds, rest 15 seconds.',
+    'scientificBasis':
+        'High intensity exercise increases HGH secretion by up to 450% through lactate accumulation. (Sports Medicine, 2003)',
+    'formDescription':
+        'Perform exercises like burpees, mountain climbers, and jump squats at maximum intensity for 45 seconds, rest 15 seconds.',
     'setsReps': '4 rounds of 45s work/15s rest',
     'timerSeconds': 900,
     'difficulty': 'advanced',
@@ -444,13 +470,15 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'squats',
     'title': 'Bodyweight Squats',
-    'description': 'Bodyweight squats stimulate growth plates in legs and spine.',
+    'description':
+        'Bodyweight squats stimulate growth plates in legs and spine.',
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '🦵',
     'musclesTargeted': ['legs', 'spine'],
     'scientificBasis': 'Squats stimulate growth plates in legs and spine',
-    'formDescription': 'Stand with feet shoulder-width apart. Lower your body until thighs are parallel to ground. Keep back straight and knees behind toes.',
+    'formDescription':
+        'Stand with feet shoulder-width apart. Lower your body until thighs are parallel to ground. Keep back straight and knees behind toes.',
     'setsReps': '3x20 reps',
     'timerSeconds': 600,
     'difficulty': 'beginner',
@@ -458,13 +486,15 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'deadlift_stretch',
     'title': 'Deadlift Stretch',
-    'description': 'Deadlift stretch for spinal decompression and vertebral disc health.',
+    'description':
+        'Deadlift stretch for spinal decompression and vertebral disc health.',
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '🏋️',
     'musclesTargeted': ['back', 'legs', 'spine'],
     'scientificBasis': 'Spinal decompression promotes vertebral disc health',
-    'formDescription': 'Stand with feet hip-width apart, hinge at hips keeping back flat. Reach toward toes, feel the stretch in hamstrings and back.',
+    'formDescription':
+        'Stand with feet hip-width apart, hinge at hips keeping back flat. Reach toward toes, feel the stretch in hamstrings and back.',
     'setsReps': '3x12 reps',
     'timerSeconds': 600,
     'difficulty': 'intermediate',
@@ -472,13 +502,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'overhead_press',
     'title': 'Overhead Press',
-    'description': 'Overhead pressing stretches the spine and strengthens posture muscles.',
+    'description':
+        'Overhead pressing stretches the spine and strengthens posture muscles.',
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '💪',
     'musclesTargeted': ['shoulders', 'spine'],
-    'scientificBasis': 'Overhead pressing stretches the spine and strengthens posture muscles',
-    'formDescription': 'Stand tall, press arms overhead fully extending. Use light weights or bodyweight. Keep core tight and avoid arching back.',
+    'scientificBasis':
+        'Overhead pressing stretches the spine and strengthens posture muscles',
+    'formDescription':
+        'Stand tall, press arms overhead fully extending. Use light weights or bodyweight. Keep core tight and avoid arching back.',
     'setsReps': '3x10 reps',
     'timerSeconds': 600,
     'difficulty': 'intermediate',
@@ -486,13 +519,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'skipping_rope',
     'title': 'Skipping Rope',
-    'description': 'Repetitive jumping with a skipping rope stimulates growth plates in lower extremities.',
+    'description':
+        'Repetitive jumping with a skipping rope stimulates growth plates in lower extremities.',
     'category': 'exercise',
     'duration': '15 dk',
     'icon': '⏭️',
     'musclesTargeted': ['legs', 'calves'],
-    'scientificBasis': 'Repetitive jumping stimulates growth plates in lower extremities',
-    'formDescription': 'Jump with both feet, landing softly on the balls of your feet. Keep jumps low and consistent. Rest between sets.',
+    'scientificBasis':
+        'Repetitive jumping stimulates growth plates in lower extremities',
+    'formDescription':
+        'Jump with both feet, landing softly on the balls of your feet. Keep jumps low and consistent. Rest between sets.',
     'setsReps': '5 min x 3 sets',
     'timerSeconds': 900,
     'difficulty': 'intermediate',
@@ -500,13 +536,15 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'pilates_core',
     'title': 'Pilates Core',
-    'description': 'Pilates core exercises support spinal alignment and posture.',
+    'description':
+        'Pilates core exercises support spinal alignment and posture.',
     'category': 'exercise',
     'duration': '15 dk',
     'icon': '🧘',
     'musclesTargeted': ['core', 'spine'],
     'scientificBasis': 'Core strength supports spinal alignment and posture',
-    'formDescription': 'Perform plank, dead bug, bird dog, bridge, and leg raises. Focus on controlled movement and breathing.',
+    'formDescription':
+        'Perform plank, dead bug, bird dog, bridge, and leg raises. Focus on controlled movement and breathing.',
     'setsReps': '5 exercises x 1 min each',
     'timerSeconds': 900,
     'difficulty': 'intermediate',
@@ -514,13 +552,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'inversion_hang',
     'title': 'Inversion Hanging',
-    'description': 'Inversion decompresses spinal discs, can temporarily add 1-2cm.',
+    'description':
+        'Inversion decompresses spinal discs, can temporarily add 1-2cm.',
     'category': 'exercise',
     'duration': '5 dk',
     'icon': '🔄',
     'musclesTargeted': ['spine', 'back'],
-    'scientificBasis': 'Inversion decompresses spinal discs, can temporarily add 1-2cm',
-    'formDescription': 'Use an inversion table or gravity boots. Start with a slight incline and gradually increase. Keep sessions short.',
+    'scientificBasis':
+        'Inversion decompresses spinal discs, can temporarily add 1-2cm',
+    'formDescription':
+        'Use an inversion table or gravity boots. Start with a slight incline and gradually increase. Keep sessions short.',
     'setsReps': '3x1 minute',
     'timerSeconds': 300,
     'difficulty': 'intermediate',
@@ -529,52 +570,64 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'protein',
     'title': 'Protein Alımı',
-    'description': 'Yumurta, tavuk, balık, süt ürünleri. Günde en az 1.5g/kg protein al.',
+    'description':
+        'Yumurta, tavuk, balık, süt ürünleri. Günde en az 1.5g/kg protein al.',
     'category': 'nutrition',
     'duration': 'Gün boyu',
     'icon': '🥚',
     'musclesTargeted': ['bones', 'muscles'],
-    'scientificBasis': 'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts. (Am J Clinical Nutrition, 2015)',
-    'formDescription': 'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.',
+    'scientificBasis':
+        'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts. (Am J Clinical Nutrition, 2015)',
+    'formDescription':
+        'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.',
     'setsReps': '',
     'difficulty': 'beginner',
   },
   {
     'id': 'calcium_vitamin_d',
     'title': 'Kalsiyum & D Vitamini',
-    'description': 'Süt, peynir, yoğurt tüket. 15 dk güneşlen. Kemik gelişimi için kritik.',
+    'description':
+        'Süt, peynir, yoğurt tüket. 15 dk güneşlen. Kemik gelişimi için kritik.',
     'category': 'nutrition',
     'duration': 'Gün boyu',
     'icon': '🥛',
     'musclesTargeted': ['bones'],
-    'scientificBasis': 'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth. (Osteoporosis International, 2018)',
-    'formDescription': 'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.',
+    'scientificBasis':
+        'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth. (Osteoporosis International, 2018)',
+    'formDescription':
+        'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.',
     'setsReps': '',
     'difficulty': 'beginner',
   },
   {
     'id': 'water',
     'title': 'Su İçme Hedefi',
-    'description': 'Günde en az 2-3 litre su iç. Metabolizma ve büyüme için şart.',
+    'description':
+        'Günde en az 2-3 litre su iç. Metabolizma ve büyüme için şart.',
     'category': 'nutrition',
     'duration': 'Gün boyu',
     'icon': '💧',
     'musclesTargeted': [],
-    'scientificBasis': 'Hydration is essential for nutrient transport to growth plates and joint cartilage health',
-    'formDescription': 'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.',
+    'scientificBasis':
+        'Hydration is essential for nutrient transport to growth plates and joint cartilage health',
+    'formDescription':
+        'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.',
     'setsReps': '',
     'difficulty': 'beginner',
   },
   {
     'id': 'avoid_junk',
     'title': 'Zararlı Gıdalardan Kaçın',
-    'description': 'Fast food, şekerli içecekler ve işlenmiş gıdalardan uzak dur.',
+    'description':
+        'Fast food, şekerli içecekler ve işlenmiş gıdalardan uzak dur.',
     'category': 'nutrition',
     'duration': 'Gün boyu',
     'icon': '🚫',
     'musclesTargeted': [],
-    'scientificBasis': 'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion',
-    'formDescription': 'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.',
+    'scientificBasis':
+        'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion',
+    'formDescription':
+        'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.',
     'setsReps': '',
     'difficulty': 'beginner',
   },
@@ -582,26 +635,31 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'zinc_intake',
     'title': 'Zinc Rich Foods',
-    'description': 'Consume zinc-rich foods throughout the day for growth hormone production.',
+    'description':
+        'Consume zinc-rich foods throughout the day for growth hormone production.',
     'category': 'nutrition',
     'duration': 'Gün boyu',
     'icon': '🥩',
     'musclesTargeted': [],
     'scientificBasis': 'Zinc is essential for growth hormone production',
-    'formDescription': 'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.',
+    'formDescription':
+        'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.',
     'setsReps': '',
     'difficulty': 'beginner',
   },
   {
     'id': 'vitamin_d_sunlight',
     'title': 'Vitamin D & Sunlight',
-    'description': 'Get at least 15 minutes of direct sunlight for Vitamin D synthesis and bone growth.',
+    'description':
+        'Get at least 15 minutes of direct sunlight for Vitamin D synthesis and bone growth.',
     'category': 'nutrition',
     'duration': '15 dk',
     'icon': '☀️',
     'musclesTargeted': ['bones'],
-    'scientificBasis': 'Vitamin D is crucial for calcium absorption and bone growth',
-    'formDescription': 'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.',
+    'scientificBasis':
+        'Vitamin D is crucial for calcium absorption and bone growth',
+    'formDescription':
+        'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.',
     'setsReps': '',
     'timerSeconds': 900,
     'difficulty': 'beginner',
@@ -609,13 +667,15 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'arginine_foods',
     'title': 'Arginine Rich Foods',
-    'description': 'Eat arginine-rich foods to stimulate growth hormone secretion.',
+    'description':
+        'Eat arginine-rich foods to stimulate growth hormone secretion.',
     'category': 'nutrition',
     'duration': 'Gün boyu',
     'icon': '🥜',
     'musclesTargeted': [],
     'scientificBasis': 'L-Arginine stimulates growth hormone secretion',
-    'formDescription': 'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.',
+    'formDescription':
+        'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.',
     'setsReps': '',
     'difficulty': 'beginner',
   },
@@ -623,26 +683,32 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'quality_sleep',
     'title': 'Kaliteli Uyku (8-10 saat)',
-    'description': 'Büyüme hormonu uyku sırasında salgılanır. 22:00-06:00 arası altın saatler.',
+    'description':
+        'Büyüme hormonu uyku sırasında salgılanır. 22:00-06:00 arası altın saatler.',
     'category': 'sleep',
     'duration': '8-10 saat',
     'icon': '😴',
     'musclesTargeted': [],
-    'scientificBasis': '70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM. (Endocrine Reviews, 1991)',
-    'formDescription': 'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.',
+    'scientificBasis':
+        '70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM. (Endocrine Reviews, 1991)',
+    'formDescription':
+        'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.',
     'setsReps': '',
     'difficulty': 'beginner',
   },
   {
     'id': 'no_screen',
     'title': 'Yatmadan Önce Ekran Molası',
-    'description': 'Yatmadan 1 saat önce telefon ve bilgisayarı bırak. Melatonin üretimini engelleme.',
+    'description':
+        'Yatmadan 1 saat önce telefon ve bilgisayarı bırak. Melatonin üretimini engelleme.',
     'category': 'sleep',
     'duration': '1 saat',
     'icon': '📵',
     'musclesTargeted': [],
-    'scientificBasis': 'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality. (PNAS, 2014)',
-    'formDescription': 'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.',
+    'scientificBasis':
+        'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality. (PNAS, 2014)',
+    'formDescription':
+        'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.',
     'setsReps': '',
     'difficulty': 'beginner',
   },
@@ -650,26 +716,32 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'sleep_environment',
     'title': 'Optimize Sleep Environment',
-    'description': 'Create a dark, cool sleeping environment to maximize melatonin and growth hormone release.',
+    'description':
+        'Create a dark, cool sleeping environment to maximize melatonin and growth hormone release.',
     'category': 'sleep',
     'duration': 'Gece',
     'icon': '🌙',
     'musclesTargeted': [],
-    'scientificBasis': 'Dark, cool environment maximizes melatonin and growth hormone',
-    'formDescription': 'Use blackout curtains, keep room at 18-20C, remove all light sources. Use a comfortable mattress and pillow.',
+    'scientificBasis':
+        'Dark, cool environment maximizes melatonin and growth hormone',
+    'formDescription':
+        'Use blackout curtains, keep room at 18-20C, remove all light sources. Use a comfortable mattress and pillow.',
     'setsReps': '',
     'difficulty': 'beginner',
   },
   {
     'id': 'pre_sleep_routine',
     'title': 'Pre-Sleep Wind Down',
-    'description': 'A consistent pre-sleep routine improves deep sleep quality by 23%.',
+    'description':
+        'A consistent pre-sleep routine improves deep sleep quality by 23%.',
     'category': 'sleep',
     'duration': '30 dk',
     'icon': '📖',
     'musclesTargeted': [],
-    'scientificBasis': 'Consistent pre-sleep routine improves deep sleep quality by 23%',
-    'formDescription': 'Start 30 minutes before bed: dim lights, read a book, do breathing exercises, avoid stimulating activities.',
+    'scientificBasis':
+        'Consistent pre-sleep routine improves deep sleep quality by 23%',
+    'formDescription':
+        'Start 30 minutes before bed: dim lights, read a book, do breathing exercises, avoid stimulating activities.',
     'setsReps': '',
     'timerSeconds': 1800,
     'difficulty': 'beginner',
@@ -678,26 +750,32 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'posture_check',
     'title': 'Duruş Kontrolü',
-    'description': 'Sırtını dik tut, omuzlarını geri çek. Saatte bir kontrol et. Doğru duruş = 2-3 cm fark.',
+    'description':
+        'Sırtını dik tut, omuzlarını geri çek. Saatte bir kontrol et. Doğru duruş = 2-3 cm fark.',
     'category': 'posture',
     'duration': 'Gün boyu',
     'icon': '🧍',
     'musclesTargeted': ['spine', 'core', 'shoulders'],
-    'scientificBasis': 'Correct posture alignment can improve apparent height by 2-3 cm and prevents spinal compression over time. (Physical Therapy Reviews, 2019)',
-    'formDescription': 'Stand tall with shoulders back and down. Engage core slightly. Imagine a string pulling you up from the crown of your head.',
+    'scientificBasis':
+        'Correct posture alignment can improve apparent height by 2-3 cm and prevents spinal compression over time. (Physical Therapy Reviews, 2019)',
+    'formDescription':
+        'Stand tall with shoulders back and down. Engage core slightly. Imagine a string pulling you up from the crown of your head.',
     'setsReps': 'Check every hour',
     'difficulty': 'beginner',
   },
   {
     'id': 'wall_stand',
     'title': 'Duvara Yaslanma Egzersizi',
-    'description': 'Sırtını duvara yasla: topuklar, kalça, omuz, baş duvara değsin. 5 dk tut.',
+    'description':
+        'Sırtını duvara yasla: topuklar, kalça, omuz, baş duvara değsin. 5 dk tut.',
     'category': 'posture',
     'duration': '5 dk',
     'icon': '🏛️',
     'musclesTargeted': ['spine', 'back', 'shoulders'],
-    'scientificBasis': 'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day',
-    'formDescription': 'Stand with heels, buttocks, shoulder blades, and head touching the wall. Hold for 5 minutes. Breathe normally.',
+    'scientificBasis':
+        'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day',
+    'formDescription':
+        'Stand with heels, buttocks, shoulder blades, and head touching the wall. Hold for 5 minutes. Breathe normally.',
     'setsReps': '5 min hold',
     'timerSeconds': 300,
     'difficulty': 'beginner',
@@ -706,13 +784,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'neck_stretches',
     'title': 'Neck Stretches',
-    'description': 'Neck stretches relieve compression and improve cervical alignment.',
+    'description':
+        'Neck stretches relieve compression and improve cervical alignment.',
     'category': 'posture',
     'duration': '5 dk',
     'icon': '🦒',
     'musclesTargeted': ['neck', 'upper_spine'],
-    'scientificBasis': 'Neck stretches relieve compression and improve cervical alignment',
-    'formDescription': 'Tilt head slowly to each side, forward, and backward. Hold each direction for 30 seconds. Do not force the stretch.',
+    'scientificBasis':
+        'Neck stretches relieve compression and improve cervical alignment',
+    'formDescription':
+        'Tilt head slowly to each side, forward, and backward. Hold each direction for 30 seconds. Do not force the stretch.',
     'setsReps': '3 directions x 30s hold',
     'timerSeconds': 300,
     'difficulty': 'beginner',
@@ -720,13 +801,16 @@ const List<Map<String, dynamic>> defaultRoutines = [
   {
     'id': 'shoulder_rolls',
     'title': 'Shoulder Rolls & Opens',
-    'description': 'Opening shoulders corrects forward posture, can add 1-2cm in appearance.',
+    'description':
+        'Opening shoulders corrects forward posture, can add 1-2cm in appearance.',
     'category': 'posture',
     'duration': '5 dk',
     'icon': '🔄',
     'musclesTargeted': ['shoulders', 'upper_back'],
-    'scientificBasis': 'Opening shoulders corrects forward posture, can add 1-2cm appearance',
-    'formDescription': 'Roll shoulders forward 15 times, then backward 15 times. Follow with chest-opening stretches holding for 20 seconds.',
+    'scientificBasis':
+        'Opening shoulders corrects forward posture, can add 1-2cm appearance',
+    'formDescription':
+        'Roll shoulders forward 15 times, then backward 15 times. Follow with chest-opening stretches holding for 20 seconds.',
     'setsReps': '3x15 each direction',
     'timerSeconds': 300,
     'difficulty': 'beginner',
@@ -794,24 +878,140 @@ const Map<String, Map<String, dynamic>> categoryInfo = {
 };
 
 const List<Map<String, dynamic>> achievementDefinitions = [
+  // Kararlılık — earned by finishing the app walkthrough, so it's the
+  // first badge most players ever see, ahead of any streak or measurement.
+  {
+    'id': 'commitment',
+    'title': 'Kararlılık',
+    'description':
+        'Tüm verileri gir ve uygulamayı tamamen keşfet, kullanıma başla',
+    'icon': '🎯',
+    'type': 'tour',
+    'value': 2,
+  },
   // Seri
-  {'id': 'first_day', 'title': 'İlk Adım', 'description': 'İlk gününü tamamla', 'icon': '🌟', 'type': 'streak', 'value': 1},
-  {'id': 'three_streak', 'title': '3 Gün Seri', 'description': '3 gün üst üste rutinleri tamamla', 'icon': '✊', 'type': 'streak', 'value': 3},
-  {'id': 'week_streak', 'title': '7 Gün Seri', 'description': '7 gün üst üste rutinleri tamamla', 'icon': '🔥', 'type': 'streak', 'value': 7},
-  {'id': 'two_week_streak', 'title': '14 Gün Seri', 'description': '14 gün üst üste devam et', 'icon': '⚡', 'type': 'streak', 'value': 14},
-  {'id': 'month_streak', 'title': '30 Gün Seri', 'description': '30 gün üst üste tamamla', 'icon': '💎', 'type': 'streak', 'value': 30},
-  {'id': 'two_month_streak', 'title': '60 Gün Seri', 'description': '60 gün üst üste tamamla', 'icon': '👑', 'type': 'streak', 'value': 60},
-  {'id': 'hundred_streak', 'title': '100 Gün Seri', 'description': '100 gün üst üste tamamla', 'icon': '🏆', 'type': 'streak', 'value': 100},
+  {
+    'id': 'first_day',
+    'title': 'İlk Adım',
+    'description': 'İlk gününü tamamla',
+    'icon': '🌟',
+    'type': 'streak',
+    'value': 1,
+  },
+  {
+    'id': 'three_streak',
+    'title': '3 Gün Seri',
+    'description': '3 gün üst üste rutinleri tamamla',
+    'icon': '✊',
+    'type': 'streak',
+    'value': 3,
+  },
+  {
+    'id': 'week_streak',
+    'title': '7 Gün Seri',
+    'description': '7 gün üst üste rutinleri tamamla',
+    'icon': '🔥',
+    'type': 'streak',
+    'value': 7,
+  },
+  {
+    'id': 'two_week_streak',
+    'title': '14 Gün Seri',
+    'description': '14 gün üst üste devam et',
+    'icon': '⚡',
+    'type': 'streak',
+    'value': 14,
+  },
+  {
+    'id': 'month_streak',
+    'title': '30 Gün Seri',
+    'description': '30 gün üst üste tamamla',
+    'icon': '💎',
+    'type': 'streak',
+    'value': 30,
+  },
+  {
+    'id': 'two_month_streak',
+    'title': '60 Gün Seri',
+    'description': '60 gün üst üste tamamla',
+    'icon': '👑',
+    'type': 'streak',
+    'value': 60,
+  },
+  {
+    'id': 'hundred_streak',
+    'title': '100 Gün Seri',
+    'description': '100 gün üst üste tamamla',
+    'icon': '🏆',
+    'type': 'streak',
+    'value': 100,
+  },
   // Ölçüm
-  {'id': 'first_measure', 'title': 'İlk Ölçüm', 'description': 'İlk boy ölçümünü kaydet', 'icon': '📐', 'type': 'measures', 'value': 1},
-  {'id': 'three_measures', 'title': 'Takipçi', 'description': '3 boy ölçümü kaydet', 'icon': '📋', 'type': 'measures', 'value': 3},
-  {'id': 'five_measures', 'title': 'Düzenli Takip', 'description': '5 boy ölçümü kaydet', 'icon': '📊', 'type': 'measures', 'value': 5},
-  {'id': 'ten_measures', 'title': 'Veri Avcısı', 'description': '10 boy ölçümü kaydet', 'icon': '📈', 'type': 'measures', 'value': 10},
+  {
+    'id': 'first_measure',
+    'title': 'İlk Ölçüm',
+    'description': 'İlk boy ölçümünü kaydet',
+    'icon': '📐',
+    'type': 'measures',
+    'value': 1,
+  },
+  {
+    'id': 'three_measures',
+    'title': 'Takipçi',
+    'description': '3 boy ölçümü kaydet',
+    'icon': '📋',
+    'type': 'measures',
+    'value': 3,
+  },
+  {
+    'id': 'five_measures',
+    'title': 'Düzenli Takip',
+    'description': '5 boy ölçümü kaydet',
+    'icon': '📊',
+    'type': 'measures',
+    'value': 5,
+  },
+  {
+    'id': 'ten_measures',
+    'title': 'Veri Avcısı',
+    'description': '10 boy ölçümü kaydet',
+    'icon': '📈',
+    'type': 'measures',
+    'value': 10,
+  },
   // Büyüme
-  {'id': 'first_cm', 'title': 'İlk Santim', 'description': 'Toplam 1 cm uzama kaydet', 'icon': '📏', 'type': 'growth', 'value': 1},
-  {'id': 'three_cm', 'title': '3 cm Büyüme', 'description': 'Toplam 3 cm uzama kaydet', 'icon': '🌱', 'type': 'growth', 'value': 3},
-  {'id': 'five_cm', 'title': '5 cm Büyüme', 'description': 'Toplam 5 cm uzama kaydet', 'icon': '🚀', 'type': 'growth', 'value': 5},
-  {'id': 'ten_cm', 'title': '10 cm Büyüme', 'description': 'Toplam 10 cm uzama kaydet', 'icon': '🗼', 'type': 'growth', 'value': 10},
+  {
+    'id': 'first_cm',
+    'title': 'İlk Santim',
+    'description': 'Toplam 1 cm uzama kaydet',
+    'icon': '📏',
+    'type': 'growth',
+    'value': 1,
+  },
+  {
+    'id': 'three_cm',
+    'title': '3 cm Büyüme',
+    'description': 'Toplam 3 cm uzama kaydet',
+    'icon': '🌱',
+    'type': 'growth',
+    'value': 3,
+  },
+  {
+    'id': 'five_cm',
+    'title': '5 cm Büyüme',
+    'description': 'Toplam 5 cm uzama kaydet',
+    'icon': '🚀',
+    'type': 'growth',
+    'value': 5,
+  },
+  {
+    'id': 'ten_cm',
+    'title': '10 cm Büyüme',
+    'description': 'Toplam 10 cm uzama kaydet',
+    'icon': '🗼',
+    'type': 'growth',
+    'value': 10,
+  },
 ];
 
 /// XP rewards for actions
@@ -819,7 +1019,7 @@ const xpRewards = {
   'routine_complete': 5,
   'all_routines_done': 25,
   'height_logged': 15,
-  'streak_day': 10,  // multiplied by streak count
+  'streak_day': 10, // multiplied by streak count
   'challenge_complete': 50,
   'water_goal': 10,
   'sleep_goal': 10,
@@ -828,18 +1028,18 @@ const xpRewards = {
 
 /// Level thresholds
 const levelThresholds = [
-  0,     // Level 1
-  100,   // Level 2
-  250,   // Level 3
-  500,   // Level 4
-  850,   // Level 5
-  1300,  // Level 6
-  1900,  // Level 7
-  2700,  // Level 8
-  3700,  // Level 9
-  5000,  // Level 10
-  6500,  // Level 11
-  8500,  // Level 12
+  0, // Level 1
+  100, // Level 2
+  250, // Level 3
+  500, // Level 4
+  850, // Level 5
+  1300, // Level 6
+  1900, // Level 7
+  2700, // Level 8
+  3700, // Level 9
+  5000, // Level 10
+  6500, // Level 11
+  8500, // Level 12
   11000, // Level 13
   14000, // Level 14
   18000, // Level 15
@@ -852,40 +1052,120 @@ const levelThresholds = [
 
 /// Level titles
 const levelTitles = [
-  'Beginner',       // 1
-  'Starter',        // 2
-  'Committed',      // 3
-  'Dedicated',      // 4
-  'Consistent',     // 5
-  'Focused',        // 6
-  'Determined',     // 7
-  'Disciplined',    // 8
-  'Strong',         // 9
-  'Advanced',       // 10
-  'Expert',         // 11
-  'Master',         // 12
-  'Elite',          // 13
-  'Champion',       // 14
-  'Legend',         // 15
-  'Titan',          // 16
-  'Mythic',         // 17
-  'Immortal',       // 18
-  'Transcendent',   // 19
-  'Ultimate',       // 20
+  'Beginner', // 1
+  'Starter', // 2
+  'Committed', // 3
+  'Dedicated', // 4
+  'Consistent', // 5
+  'Focused', // 6
+  'Determined', // 7
+  'Disciplined', // 8
+  'Strong', // 9
+  'Advanced', // 10
+  'Expert', // 11
+  'Master', // 12
+  'Elite', // 13
+  'Champion', // 14
+  'Legend', // 15
+  'Titan', // 16
+  'Mythic', // 17
+  'Immortal', // 18
+  'Transcendent', // 19
+  'Ultimate', // 20
 ];
 
 /// Challenge templates
 const challengeTemplates = [
   // Daily challenges
-  {'id': 'daily_all_routines', 'type': 'daily', 'title': 'Complete All Routines', 'description': 'Finish every routine today', 'target': 1, 'xpReward': 30, 'icon': '🔥'},
-  {'id': 'daily_water', 'type': 'daily', 'title': 'Hydration Hero', 'description': 'Reach your daily water goal', 'target': 1, 'xpReward': 20, 'icon': '💧'},
-  {'id': 'daily_sleep_early', 'type': 'daily', 'title': 'Early Sleeper', 'description': 'Log 8+ hours of sleep', 'target': 8, 'xpReward': 20, 'icon': '😴'},
-  {'id': 'daily_exercise_3', 'type': 'daily', 'title': 'Exercise Trio', 'description': 'Complete 3 exercise routines', 'target': 3, 'xpReward': 25, 'icon': '💪'},
-  {'id': 'daily_stretch', 'type': 'daily', 'title': 'Morning Stretch', 'description': 'Do morning stretching before 9 AM', 'target': 1, 'xpReward': 15, 'icon': '🌅'},
+  {
+    'id': 'daily_all_routines',
+    'type': 'daily',
+    'title': 'Complete All Routines',
+    'description': 'Finish every routine today',
+    'target': 1,
+    'xpReward': 30,
+    'icon': '🔥',
+  },
+  {
+    'id': 'daily_water',
+    'type': 'daily',
+    'title': 'Hydration Hero',
+    'description': 'Reach your daily water goal',
+    'target': 1,
+    'xpReward': 20,
+    'icon': '💧',
+  },
+  {
+    'id': 'daily_sleep_early',
+    'type': 'daily',
+    'title': 'Early Sleeper',
+    'description': 'Log 8+ hours of sleep',
+    'target': 8,
+    'xpReward': 20,
+    'icon': '😴',
+  },
+  {
+    'id': 'daily_exercise_3',
+    'type': 'daily',
+    'title': 'Exercise Trio',
+    'description': 'Complete 3 exercise routines',
+    'target': 3,
+    'xpReward': 25,
+    'icon': '💪',
+  },
+  {
+    'id': 'daily_stretch',
+    'type': 'daily',
+    'title': 'Morning Stretch',
+    'description': 'Do morning stretching before 9 AM',
+    'target': 1,
+    'xpReward': 15,
+    'icon': '🌅',
+  },
   // Weekly challenges
-  {'id': 'weekly_streak_7', 'type': 'weekly', 'title': '7-Day Warrior', 'description': 'Complete all routines for 7 consecutive days', 'target': 7, 'xpReward': 100, 'icon': '⚡'},
-  {'id': 'weekly_measure', 'type': 'weekly', 'title': 'Growth Tracker', 'description': 'Log a height measurement this week', 'target': 1, 'xpReward': 30, 'icon': '📏'},
-  {'id': 'weekly_water_5', 'type': 'weekly', 'title': 'Hydration Week', 'description': 'Hit water goal 5 days this week', 'target': 5, 'xpReward': 60, 'icon': '🌊'},
-  {'id': 'weekly_exercise_15', 'type': 'weekly', 'title': 'Fitness Champion', 'description': 'Complete 15 exercise routines this week', 'target': 15, 'xpReward': 80, 'icon': '🏆'},
-  {'id': 'weekly_sleep_5', 'type': 'weekly', 'title': 'Sleep Master', 'description': 'Log 8+ hours of sleep for 5 days', 'target': 5, 'xpReward': 60, 'icon': '🌙'},
+  {
+    'id': 'weekly_streak_7',
+    'type': 'weekly',
+    'title': '7-Day Warrior',
+    'description': 'Complete all routines for 7 consecutive days',
+    'target': 7,
+    'xpReward': 100,
+    'icon': '⚡',
+  },
+  {
+    'id': 'weekly_measure',
+    'type': 'weekly',
+    'title': 'Growth Tracker',
+    'description': 'Log a height measurement this week',
+    'target': 1,
+    'xpReward': 30,
+    'icon': '📏',
+  },
+  {
+    'id': 'weekly_water_5',
+    'type': 'weekly',
+    'title': 'Hydration Week',
+    'description': 'Hit water goal 5 days this week',
+    'target': 5,
+    'xpReward': 60,
+    'icon': '🌊',
+  },
+  {
+    'id': 'weekly_exercise_15',
+    'type': 'weekly',
+    'title': 'Fitness Champion',
+    'description': 'Complete 15 exercise routines this week',
+    'target': 15,
+    'xpReward': 80,
+    'icon': '🏆',
+  },
+  {
+    'id': 'weekly_sleep_5',
+    'type': 'weekly',
+    'title': 'Sleep Master',
+    'description': 'Log 8+ hours of sleep for 5 days',
+    'target': 5,
+    'xpReward': 60,
+    'icon': '🌙',
+  },
 ];

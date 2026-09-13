@@ -1,3 +1,5 @@
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -11,71 +13,37 @@ import '../utils/daily_plan.dart';
 import '../widgets/discipline_widgets.dart';
 import '../utils/localized_data.dart';
 import '../widgets/premium_paywall.dart';
+import '../widgets/tour_keys.dart';
 import 'exercise_detail_screen.dart';
 import 'custom_routine_builder_screen.dart';
 
 // ── Free routine IDs (no paywall) ─────────────────────────────────
-const _freeRoutineIds = {'morning_stretch', 'protein', 'quality_sleep', 'posture_check'};
+const _freeRoutineIds = {
+  'morning_stretch',
+  'protein',
+  'quality_sleep',
+  'posture_check',
+};
 
 // ── Program structure ─────────────────────────────────────────────
-// 10 levels × 7 days = 70 program days total
-const _totalLevels = 10;
-const _daysPerLevel = 7;
-
-// Level metadata: emoji, color, intensity badge (non-localizable parts)
-const _levelMeta = [
-  ('🌱', Color(0xFF4CAF50), '◦◦◦◦◦◦◦◦◦◦'),
-  ('⚡', Color(0xFF8B5CF6), '█◦◦◦◦◦◦◦◦◦'),
-  ('🔥', Color(0xFFFF8A00), '██◦◦◦◦◦◦◦◦'),
-  ('💪', Color(0xFF00E5FF), '███◦◦◦◦◦◦◦'),
-  ('⚔️', Color(0xFFFF4DB8), '████◦◦◦◦◦◦'),
-  ('🏆', Color(0xFFF5C542), '█████◦◦◦◦◦'),
-  ('🌟', Color(0xFF8B5CF6), '██████◦◦◦◦'),
-  ('👑', Color(0xFFFF8A00), '███████◦◦◦'),
-  ('🦅', Color(0xFF00E5FF), '████████◦◦'),
-  ('🚀', Color(0xFFFF4DB8), '██████████'),
-];
-
-String _localizedLevelName(AppLocalizations l, int index) {
-  switch (index) {
-    case 0: return l.levelStarter;
-    case 1: return l.levelNovice;
-    case 2: return l.levelBuilder;
-    case 3: return l.levelGrinder;
-    case 4: return l.levelWarrior;
-    case 5: return l.levelChampion;
-    case 6: return l.levelElite;
-    case 7: return l.levelMaster;
-    case 8: return l.levelLegend;
-    case 9: return l.levelGodTier;
-    default: return 'Level ${index + 1}';
-  }
-}
-
-String _localizedLevelDesc(AppLocalizations l, int index) {
-  switch (index) {
-    case 0: return l.levelDesc0;
-    case 1: return l.levelDesc1;
-    case 2: return l.levelDesc2;
-    case 3: return l.levelDesc3;
-    case 4: return l.levelDesc4;
-    case 5: return l.levelDesc5;
-    case 6: return l.levelDesc6;
-    case 7: return l.levelDesc7;
-    case 8: return l.levelDesc8;
-    case 9: return l.levelDesc9;
-    default: return '';
-  }
-}
+// 10 levels × 7 days = 70 program days total. Shared with the paywall's own
+// preview of this tab — see discipline_widgets.dart.
+const _totalLevels = kProgramTotalLevels;
+const _daysPerLevel = kProgramDaysPerLevel;
+const _levelMeta = kProgramLevelMeta;
+String _localizedLevelName(AppLocalizations l, int index) =>
+    programLevelName(l, index);
+String _localizedLevelDesc(AppLocalizations l, int index) =>
+    programLevelDesc(l, index);
 
 class RoutinesScreen extends StatefulWidget {
   const RoutinesScreen({super.key});
 
   @override
-  State<RoutinesScreen> createState() => _RoutinesScreenState();
+  State<RoutinesScreen> createState() => RoutinesScreenState();
 }
 
-class _RoutinesScreenState extends State<RoutinesScreen>
+class RoutinesScreenState extends State<RoutinesScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   // Train tab
@@ -86,6 +54,11 @@ class _RoutinesScreenState extends State<RoutinesScreen>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
   }
+
+  /// Jumps straight to one of the three in-screen tabs (0=Bugün,
+  /// 1=Disiplin, 2=Beslenme) without the sliding animation — used by the
+  /// app walkthrough, which switches tabs itself rather than a tap.
+  void goToSubTab(int index) => _tabController.index = index;
 
   @override
   void dispose() {
@@ -102,14 +75,15 @@ class _RoutinesScreenState extends State<RoutinesScreen>
           body: Column(
             children: [
               _buildHeader(context, provider),
-              _buildTabBar(),
+              KeyedSubtree(key: TourKeys.planTabs, child: _buildTabBar()),
               Expanded(
                 child: TabBarView(
                   controller: _tabController,
                   children: [
                     _TrainTab(
                       selectedDayIndex: _selectedDayIndex,
-                      onDaySelected: (i) => setState(() => _selectedDayIndex = i),
+                      onDaySelected: (i) =>
+                          setState(() => _selectedDayIndex = i),
                       provider: provider,
                     ),
                     _ProgramTab(provider: provider),
@@ -161,7 +135,10 @@ class _RoutinesScreenState extends State<RoutinesScreen>
               // Streak badge
               if (provider.streak > 0)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.orange.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(14),
@@ -219,17 +196,32 @@ class _RoutinesScreenState extends State<RoutinesScreen>
                       curve: Curves.easeInOut,
                       margin: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
-                        color: isActive ? AppColors.primary : Colors.transparent,
+                        color: isActive
+                            ? AppColors.primary
+                            : Colors.transparent,
                         borderRadius: BorderRadius.circular(9),
-                        boxShadow: isActive ? [BoxShadow(color: AppColors.primary.withValues(alpha: 0.35), blurRadius: 10)] : null,
+                        boxShadow: isActive
+                            ? [
+                                BoxShadow(
+                                  color: AppColors.primary.withValues(
+                                    alpha: 0.35,
+                                  ),
+                                  blurRadius: 10,
+                                ),
+                              ]
+                            : null,
                       ),
                       child: Center(
                         child: Text(
                           labels[i],
                           style: TextStyle(
                             fontSize: 13,
-                            fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
-                            color: isActive ? Colors.white : Colors.white.withValues(alpha: 0.40),
+                            fontWeight: isActive
+                                ? FontWeight.w700
+                                : FontWeight.w500,
+                            color: isActive
+                                ? Colors.white
+                                : Colors.white.withValues(alpha: 0.40),
                             letterSpacing: 0.1,
                           ),
                         ),
@@ -251,11 +243,11 @@ class _RoutinesScreenState extends State<RoutinesScreen>
     return Padding(
       padding: const EdgeInsets.only(bottom: 76),
       child: FloatingActionButton(
-      backgroundColor: AppColors.primary,
-      onPressed: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => const CustomRoutineBuilderScreen()),
-      ),
+        backgroundColor: AppColors.primary,
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const CustomRoutineBuilderScreen()),
+        ),
         child: const Icon(CupertinoIcons.add, color: Colors.white, size: 28),
       ),
     );
@@ -287,109 +279,147 @@ class _TrainTab extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(18, 0, 18, 130),
       children: [
-        _DisciplineLevelCard(provider: provider),
+        KeyedSubtree(
+          key: TourKeys.planLevel,
+          child: _DisciplineLevelCard(provider: provider),
+        ),
         const SizedBox(height: 18),
 
         // ── Today ───────────────────────────────────────────────────────
-        _SectionLabel(
-          icon: CupertinoIcons.sun_max_fill,
-          title: l.disciplineTodayPlan,
-          trailing: done >= today.length && today.isNotEmpty
-              ? l.disciplineAllDone
-              : l.disciplineDayProgress(done, today.length),
-          trailingColor: done >= today.length && today.isNotEmpty
-              ? AppColors.success
-              : Colors.white.withValues(alpha: 0.45),
+        KeyedSubtree(
+          key: TourKeys.planToday,
+          child: _SectionLabel(
+            icon: CupertinoIcons.sun_max_fill,
+            title: l.disciplineTodayPlan,
+            trailing: done >= today.length && today.isNotEmpty
+                ? l.disciplineAllDone
+                : l.disciplineDayProgress(done, today.length),
+            trailingColor: done >= today.length && today.isNotEmpty
+                ? AppColors.success
+                : Colors.white.withValues(alpha: 0.45),
+          ),
         ),
         const SizedBox(height: 10),
-        ...today.map((r) => _PlanRow(
-              routine: r,
-              locked: !_freeRoutineIds.contains(r.id) && !provider.isPremium,
-              onToggle: () {
-                if (!_freeRoutineIds.contains(r.id) && !provider.isPremium) {
-                  showPremiumPaywall(context);
-                  return;
-                }
-                HapticFeedback.selectionClick();
-                provider.toggleRoutine(r.id);
-              },
-              onOpen: () {
-                if (!_freeRoutineIds.contains(r.id) && !provider.isPremium) {
-                  showPremiumPaywall(context);
-                  return;
-                }
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ExerciseDetailScreen(routine: r),
+        KeyedSubtree(
+          key: TourKeys.planTodayList,
+          child: Column(
+            children: today
+                .map(
+                  (r) => _PlanRow(
+                    routine: r,
+                    locked:
+                        !_freeRoutineIds.contains(r.id) && !provider.isPremium,
+                    onToggle: () {
+                      if (!_freeRoutineIds.contains(r.id) &&
+                          !provider.isPremium) {
+                        showPremiumPaywall(context);
+                        return;
+                      }
+                      HapticFeedback.selectionClick();
+                      provider.toggleRoutine(r.id);
+                    },
+                    onOpen: () {
+                      if (!_freeRoutineIds.contains(r.id) &&
+                          !provider.isPremium) {
+                        showPremiumPaywall(context);
+                        return;
+                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ExerciseDetailScreen(routine: r),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            )),
+                )
+                .toList(),
+          ),
+        ),
 
         const SizedBox(height: 22),
 
         // ── This week ───────────────────────────────────────────────────
-        _SectionLabel(
-          icon: CupertinoIcons.calendar,
-          title: l.disciplineWeek,
+        KeyedSubtree(
+          key: TourKeys.planWeekGoals,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _SectionLabel(
+                icon: CupertinoIcons.calendar,
+                title: l.disciplineWeek,
+              ),
+              const SizedBox(height: 12),
+              _GoalGroup(
+                children: [
+                  GoalBar(
+                    icon: CupertinoIcons.checkmark_seal_fill,
+                    label: l.goalPerfectDays,
+                    done: provider.perfectDaysInWeek(),
+                    target: kWeeklyPerfectDays,
+                    color: AppColors.primary,
+                  ),
+                  GoalBar(
+                    icon: CupertinoIcons.bolt_fill,
+                    label: l.goalWorkouts,
+                    done: provider.workoutsInWeek(),
+                    target: kWeeklyWorkouts,
+                    color: AppColors.orange,
+                  ),
+                  GoalBar(
+                    icon: CupertinoIcons.arrow_up_right_circle_fill,
+                    label: l.goalMeasurement,
+                    done: provider.measurementsInWeek(),
+                    target: kWeeklyMeasurements,
+                    color: AppColors.cyan,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: 12),
-        _GoalGroup(children: [
-          GoalBar(
-            icon: CupertinoIcons.checkmark_seal_fill,
-            label: l.goalPerfectDays,
-            done: provider.perfectDaysInWeek(),
-            target: kWeeklyPerfectDays,
-            color: AppColors.primary,
-          ),
-          GoalBar(
-            icon: CupertinoIcons.bolt_fill,
-            label: l.goalWorkouts,
-            done: provider.workoutsInWeek(),
-            target: kWeeklyWorkouts,
-            color: AppColors.orange,
-          ),
-          GoalBar(
-            icon: CupertinoIcons.arrow_up_right_circle_fill,
-            label: l.goalMeasurement,
-            done: provider.measurementsInWeek(),
-            target: kWeeklyMeasurements,
-            color: AppColors.cyan,
-          ),
-        ]),
 
         const SizedBox(height: 22),
 
         // ── This month ──────────────────────────────────────────────────
-        _SectionLabel(
-          icon: CupertinoIcons.calendar_circle_fill,
-          title: l.disciplineMonth,
+        KeyedSubtree(
+          key: TourKeys.planMonthGoals,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _SectionLabel(
+                icon: CupertinoIcons.calendar_circle_fill,
+                title: l.disciplineMonth,
+              ),
+              const SizedBox(height: 12),
+              _GoalGroup(
+                children: [
+                  GoalBar(
+                    icon: CupertinoIcons.camera_fill,
+                    label: l.goalPhoto,
+                    done: provider.photosInMonth(),
+                    target: kMonthlyPhotos,
+                    color: AppColors.lime,
+                  ),
+                  GoalBar(
+                    icon: CupertinoIcons.person_crop_rectangle,
+                    label: l.goalPostureCheck,
+                    done: provider.postureChecksInMonth(),
+                    target: kMonthlyPostureChecks,
+                    color: AppColors.pink,
+                  ),
+                  GoalBar(
+                    icon: CupertinoIcons.chart_bar_alt_fill,
+                    label: l.goalMeasurement,
+                    done: provider.measurementsInMonth(),
+                    target: kMonthlyMeasurements,
+                    color: AppColors.sleep,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: 12),
-        _GoalGroup(children: [
-          GoalBar(
-            icon: CupertinoIcons.camera_fill,
-            label: l.goalPhoto,
-            done: provider.photosInMonth(),
-            target: kMonthlyPhotos,
-            color: AppColors.lime,
-          ),
-          GoalBar(
-            icon: CupertinoIcons.person_crop_rectangle,
-            label: l.goalPostureCheck,
-            done: provider.postureChecksInMonth(),
-            target: kMonthlyPostureChecks,
-            color: AppColors.pink,
-          ),
-          GoalBar(
-            icon: CupertinoIcons.chart_bar_alt_fill,
-            label: l.goalMeasurement,
-            done: provider.measurementsInMonth(),
-            target: kMonthlyMeasurements,
-            color: AppColors.sleep,
-          ),
-        ]),
       ],
     );
   }
@@ -401,7 +431,13 @@ class _DisciplineLevelCard extends StatelessWidget {
   const _DisciplineLevelCard({required this.provider});
 
   static const _tierKeys = [
-    'spark', 'steady', 'sharp', 'solid', 'relentless', 'unbroken', 'legend',
+    'spark',
+    'steady',
+    'sharp',
+    'solid',
+    'relentless',
+    'unbroken',
+    'legend',
   ];
 
   @override
@@ -501,13 +537,16 @@ class _DisciplineLevelCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color: tier.color.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(100),
-                    border:
-                        Border.all(color: tier.color.withValues(alpha: 0.28)),
+                    border: Border.all(
+                      color: tier.color.withValues(alpha: 0.28),
+                    ),
                   ),
                   child: Text(
                     isMax ? l.disciplineMaxTier : l.disciplineToNext(toNext),
@@ -662,64 +701,102 @@ class _PlanRow extends StatelessWidget {
                     ),
                   ),
                   child: done
-                      ? const Icon(Icons.check_rounded,
-                          size: 17, color: Colors.white)
+                      ? const Icon(
+                          Icons.check_rounded,
+                          size: 17,
+                          color: Colors.white,
+                        )
                       : null,
                 ),
               ),
               const SizedBox(width: 14),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 14.5,
-                        fontWeight: FontWeight.w700,
-                        color: done
-                            ? Colors.white.withValues(alpha: 0.55)
-                            : Colors.white,
-                        decoration:
-                            done ? TextDecoration.lineThrough : null,
-                        decorationColor: Colors.white.withValues(alpha: 0.4),
+                child: ImageFiltered(
+                  imageFilter: locked
+                      ? ImageFilter.blur(sigmaX: 4.2, sigmaY: 4.2)
+                      : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w700,
+                          color: done
+                              ? Colors.white.withValues(alpha: 0.55)
+                              : Colors.white,
+                          decoration: done ? TextDecoration.lineThrough : null,
+                          decorationColor: Colors.white.withValues(alpha: 0.4),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 3),
-                    Row(
-                      children: [
-                        Container(
-                          width: 6,
-                          height: 6,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: color.withValues(alpha: 0.9),
+                      const SizedBox(height: 3),
+                      Row(
+                        children: [
+                          Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: color.withValues(alpha: 0.9),
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          routine.duration,
-                          style: TextStyle(
-                            fontSize: 11.5,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white.withValues(alpha: 0.42),
+                          const SizedBox(width: 6),
+                          Text(
+                            routine.duration,
+                            style: TextStyle(
+                              fontSize: 11.5,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white.withValues(alpha: 0.42),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              if (locked)
-                Icon(CupertinoIcons.lock_fill,
-                    size: 15, color: Colors.white.withValues(alpha: 0.35))
-              else
-                Icon(CupertinoIcons.chevron_right,
-                    size: 15, color: Colors.white.withValues(alpha: 0.25)),
+              if (locked) ...[
+                const SizedBox(width: 8),
+                _ProBadge(),
+              ] else
+                Icon(
+                  CupertinoIcons.chevron_right,
+                  size: 15,
+                  color: Colors.white.withValues(alpha: 0.25),
+                ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The gold "PRO" tag a blurred, premium-only row wears instead of a padlock.
+class _ProBadge extends StatelessWidget {
+  const _ProBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFD700).withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(100),
+        border: Border.all(
+          color: const Color(0xFFFFD700).withValues(alpha: 0.30),
+        ),
+      ),
+      child: const Text(
+        'PRO',
+        style: TextStyle(
+          fontSize: 9.5,
+          fontWeight: FontWeight.w800,
+          color: Color(0xFFFFD700),
+          letterSpacing: 0.4,
         ),
       ),
     );
@@ -749,22 +826,31 @@ class _ProgramTab extends StatelessWidget {
       }
       currentDay = i + 1;
     }
-    final currentLevel = (currentDay ~/ _daysPerLevel).clamp(0, _totalLevels - 1);
+    final currentLevel = (currentDay ~/ _daysPerLevel).clamp(
+      0,
+      _totalLevels - 1,
+    );
 
     return ListView(
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(18, 0, 18, 130),
       children: [
-        _JourneyHeader(
-          done: completed.length,
-          total: totalDays,
-          currentLevel: currentLevel,
-          completedDays: completed,
+        KeyedSubtree(
+          key: TourKeys.planProgramHeader,
+          child: _JourneyHeader(
+            done: completed.length,
+            total: totalDays,
+            currentLevel: currentLevel,
+            completedDays: completed,
+          ),
         ),
         const SizedBox(height: 20),
-        _SectionLabel(
-          icon: CupertinoIcons.square_stack_3d_up_fill,
-          title: l.disciplineLevels,
+        KeyedSubtree(
+          key: TourKeys.planProgramLevels,
+          child: _SectionLabel(
+            icon: CupertinoIcons.square_stack_3d_up_fill,
+            title: l.disciplineLevels,
+          ),
         ),
         const SizedBox(height: 12),
         for (var i = 0; i < _totalLevels; i++)
@@ -832,10 +918,7 @@ class _JourneyHeader extends StatelessWidget {
                     segments: 35,
                   ),
                   child: Center(
-                    child: Text(
-                      meta.$1,
-                      style: const TextStyle(fontSize: 30),
-                    ),
+                    child: Text(meta.$1, style: const TextStyle(fontSize: 30)),
                   ),
                 ),
               ),
@@ -879,12 +962,15 @@ class _JourneyHeader extends StatelessWidget {
                     const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.warning.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(100),
                         border: Border.all(
-                            color: AppColors.warning.withValues(alpha: 0.28)),
+                          color: AppColors.warning.withValues(alpha: 0.28),
+                        ),
                       ),
                       child: Text(
                         l.daysLeftProgram(total - done),
@@ -905,21 +991,25 @@ class _JourneyHeader extends StatelessWidget {
           Row(
             children: List.generate(_totalLevels, (i) {
               final levelStart = i * _daysPerLevel;
-              final doneInLevel = List.generate(_daysPerLevel, (d) => levelStart + d)
-                  .where(completedDays.contains)
-                  .length;
+              final doneInLevel = List.generate(
+                _daysPerLevel,
+                (d) => levelStart + d,
+              ).where(completedDays.contains).length;
               final ratio = doneInLevel / _daysPerLevel;
               return Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(right: i == _totalLevels - 1 ? 0 : 4),
+                  padding: EdgeInsets.only(
+                    right: i == _totalLevels - 1 ? 0 : 4,
+                  ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(3),
                     child: LinearProgressIndicator(
                       value: ratio,
                       minHeight: 5,
                       backgroundColor: Colors.white.withValues(alpha: 0.07),
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(_levelMeta[i].$2),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        _levelMeta[i].$2,
+                      ),
                     ),
                   ),
                 ),
@@ -982,8 +1072,8 @@ class _LevelCardState extends State<_LevelCard> {
             color: widget.isCurrent
                 ? color.withValues(alpha: 0.45)
                 : locked
-                    ? Colors.white.withValues(alpha: 0.05)
-                    : color.withValues(alpha: 0.16),
+                ? Colors.white.withValues(alpha: 0.05)
+                : color.withValues(alpha: 0.16),
             width: widget.isCurrent ? 1.4 : 1,
           ),
           boxShadow: widget.isCurrent
@@ -992,7 +1082,7 @@ class _LevelCardState extends State<_LevelCard> {
                     color: color.withValues(alpha: 0.16),
                     blurRadius: 24,
                     spreadRadius: -6,
-                  )
+                  ),
                 ]
               : null,
         ),
@@ -1027,11 +1117,12 @@ class _LevelCardState extends State<_LevelCard> {
                       ),
                       child: Center(
                         child: locked
-                            ? Icon(CupertinoIcons.lock_fill,
+                            ? Icon(
+                                CupertinoIcons.lock_fill,
                                 size: 17,
-                                color: Colors.white.withValues(alpha: 0.35))
-                            : Text(emoji,
-                                style: const TextStyle(fontSize: 20)),
+                                color: Colors.white.withValues(alpha: 0.35),
+                              )
+                            : Text(emoji, style: const TextStyle(fontSize: 20)),
                       ),
                     ),
                     const SizedBox(width: 14),
@@ -1080,8 +1171,11 @@ class _LevelCardState extends State<_LevelCard> {
                     ),
                     const SizedBox(width: 10),
                     if (isDone)
-                      const Icon(CupertinoIcons.checkmark_seal_fill,
-                          size: 20, color: AppColors.success)
+                      const Icon(
+                        CupertinoIcons.checkmark_seal_fill,
+                        size: 20,
+                        color: AppColors.success,
+                      )
                     else
                       Text(
                         '$doneCount/$_daysPerLevel',
@@ -1100,9 +1194,7 @@ class _LevelCardState extends State<_LevelCard> {
 
             // ── The week, one dot per day ────────────────────────────────
             if (_expanded && !locked) ...[
-              Divider(
-                  color: Colors.white.withValues(alpha: 0.06),
-                  height: 1),
+              Divider(color: Colors.white.withValues(alpha: 0.06), height: 1),
               Padding(
                 padding: const EdgeInsets.fromLTRB(14, 18, 14, 16),
                 child: Column(
@@ -1136,8 +1228,9 @@ class _LevelCardState extends State<_LevelCard> {
                       GestureDetector(
                         onTap: () {
                           HapticFeedback.mediumImpact();
-                          widget.provider
-                              .markProgramDayComplete(widget.currentDay);
+                          widget.provider.markProgramDayComplete(
+                            widget.currentDay,
+                          );
                         },
                         child: Container(
                           height: 46,
@@ -1207,15 +1300,15 @@ class _DayDot extends StatelessWidget {
             color: done
                 ? color
                 : isToday
-                    ? color.withValues(alpha: 0.16)
-                    : Colors.white.withValues(alpha: 0.04),
+                ? color.withValues(alpha: 0.16)
+                : Colors.white.withValues(alpha: 0.04),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: done
                   ? color
                   : isToday
-                      ? color
-                      : Colors.white.withValues(alpha: 0.08),
+                  ? color
+                  : Colors.white.withValues(alpha: 0.08),
               width: isToday ? 1.6 : 1,
             ),
             boxShadow: isToday || done
@@ -1223,17 +1316,19 @@ class _DayDot extends StatelessWidget {
                     BoxShadow(
                       color: color.withValues(alpha: 0.35),
                       blurRadius: 12,
-                    )
+                    ),
                   ]
                 : null,
           ),
           child: Center(
             child: done
-                ? Icon(Icons.check_rounded,
+                ? Icon(
+                    Icons.check_rounded,
                     size: 17,
                     color: color.computeLuminance() > 0.5
                         ? const Color(0xFF07050F)
-                        : Colors.white)
+                        : Colors.white,
+                  )
                 : Text(
                     '$number',
                     style: TextStyle(
@@ -1241,7 +1336,9 @@ class _DayDot extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                       color: isToday
                           ? color
-                          : Colors.white.withValues(alpha: locked ? 0.28 : 0.55),
+                          : Colors.white.withValues(
+                              alpha: locked ? 0.28 : 0.55,
+                            ),
                     ),
                   ),
           ),
@@ -1286,7 +1383,9 @@ class _NutritionTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final completedCount = _nutritionIds
-        .where((id) => provider.allRoutines.any((r) => r.id == id && r.completed))
+        .where(
+          (id) => provider.allRoutines.any((r) => r.id == id && r.completed),
+        )
         .length;
     final total = _nutritionIds.length;
     final progress = total == 0 ? 0.0 : completedCount / total;
@@ -1296,61 +1395,64 @@ class _NutritionTab extends StatelessWidget {
       slivers: [
         // Header summary
         SliverToBoxAdapter(
-          child: _NutritionHeader(
-            completed: completedCount,
-            total: total,
-            progress: progress,
+          child: KeyedSubtree(
+            key: TourKeys.planNutritionHeader,
+            child: _NutritionHeader(
+              completed: completedCount,
+              total: total,
+              progress: progress,
+            ),
           ),
         ),
         // Nutrition routine cards
         SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, i) {
-              final id = _nutritionIds[i];
-              Routine? routine;
-              try {
-                routine = provider.allRoutines.firstWhere((r) => r.id == id);
-              } catch (_) {
-                return const SizedBox.shrink();
-              }
-              final isFree = _freeRoutineIds.contains(id);
-              final isPremiumLocked = !isFree && !provider.isPremium;
-              return _NutritionCard(
-                routine: routine,
-                isPremiumLocked: isPremiumLocked,
-                onToggle: () {
-                  if (isPremiumLocked) {
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (_) => const PremiumPaywallScreen(),
-                    );
-                  } else {
-                    provider.toggleRoutine(id);
-                  }
-                },
-                onTap: () {
-                  if (isPremiumLocked) {
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (_) => const PremiumPaywallScreen(),
-                    );
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ExerciseDetailScreen(routine: routine!),
-                      ),
-                    );
-                  }
-                },
-              );
-            },
-            childCount: _nutritionIds.length,
-          ),
+          delegate: SliverChildBuilderDelegate((context, i) {
+            final id = _nutritionIds[i];
+            Routine? routine;
+            try {
+              routine = provider.allRoutines.firstWhere((r) => r.id == id);
+            } catch (_) {
+              return const SizedBox.shrink();
+            }
+            final isFree = _freeRoutineIds.contains(id);
+            final isPremiumLocked = !isFree && !provider.isPremium;
+            final card = _NutritionCard(
+              routine: routine,
+              isPremiumLocked: isPremiumLocked,
+              onToggle: () {
+                if (isPremiumLocked) {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (_) => const PremiumPaywallScreen(),
+                  );
+                } else {
+                  provider.toggleRoutine(id);
+                }
+              },
+              onTap: () {
+                if (isPremiumLocked) {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (_) => const PremiumPaywallScreen(),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ExerciseDetailScreen(routine: routine!),
+                    ),
+                  );
+                }
+              },
+            );
+            return i == 0
+                ? KeyedSubtree(key: TourKeys.planNutritionFirst, child: card)
+                : card;
+          }, childCount: _nutritionIds.length),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 120)),
       ],
@@ -1385,7 +1487,9 @@ class _NutritionHeader extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(26),
-        border: Border.all(color: AppColors.nutritionColor.withValues(alpha: 0.3)),
+        border: Border.all(
+          color: AppColors.nutritionColor.withValues(alpha: 0.3),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1421,7 +1525,9 @@ class _NutritionHeader extends StatelessWidget {
             child: LinearProgressIndicator(
               value: progress,
               backgroundColor: Colors.white.withValues(alpha: 0.08),
-              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.nutritionColor),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.nutritionColor,
+              ),
               minHeight: 6,
             ),
           ),
@@ -1474,59 +1580,66 @@ class _NutritionCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: AppColors.nutritionColor.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Center(
-                child: Text(
-                  isPremiumLocked ? '🔒' : routine.icon,
-                  style: const TextStyle(fontSize: 22),
+            ImageFiltered(
+              imageFilter: isPremiumLocked
+                  ? ImageFilter.blur(sigmaX: 3.4, sigmaY: 3.4)
+                  : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: AppColors.nutritionColor.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Center(
+                  child: Text(
+                    routine.icon,
+                    style: const TextStyle(fontSize: 22),
+                  ),
                 ),
               ),
             ),
             const SizedBox(width: 14),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    loc['title'] ?? routine.title,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: isPremiumLocked
-                          ? Colors.white.withValues(alpha: 0.35)
-                          : Colors.white,
+              child: ImageFiltered(
+                imageFilter: isPremiumLocked
+                    ? ImageFilter.blur(sigmaX: 3.4, sigmaY: 3.4)
+                    : ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      loc['title'] ?? routine.title,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: isPremiumLocked
+                            ? Colors.white.withValues(alpha: 0.35)
+                            : Colors.white,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    loc['description'] ?? routine.description,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.white.withValues(alpha: 0.4),
+                    const SizedBox(height: 3),
+                    Text(
+                      loc['description'] ?? routine.description,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.white.withValues(alpha: 0.4),
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             const SizedBox(width: 12),
             if (isPremiumLocked)
               GestureDetector(
-                onTap: onToggle, // onToggle has been mapped to show paywall in page code!
-                child: Icon(
-                  CupertinoIcons.lock_fill,
-                  size: 18,
-                  color: Colors.white.withValues(alpha: 0.25),
-                ),
+                onTap:
+                    onToggle, // onToggle has been mapped to show paywall in page code!
+                child: const _ProBadge(),
               )
             else
               GestureDetector(

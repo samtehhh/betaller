@@ -18,6 +18,7 @@ import 'wellness_tracker_screen.dart';
 import 'recipe_generator_screen.dart';
 import 'progress_screen.dart';
 import '../widgets/journey_steps.dart';
+import '../widgets/tour_keys.dart';
 import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/water_sheet.dart';
@@ -43,7 +44,11 @@ class _GreetingData {
 // ═══════════════════════════════════════════════════════════════════
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  /// Lets MainScreen re-launch the guided walkthrough — it owns the tour
+  /// since a walkthrough needs to switch tabs, which a child screen cannot
+  /// do on its own.
+  final VoidCallback? onOpenTour;
+  const HomeScreen({super.key, this.onOpenTour});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -216,22 +221,29 @@ class _HomeScreenState extends State<HomeScreen>
                               ),
                             ),
                             const SizedBox(width: 14),
-                            _StreakBadge(streak: provider.streak),
+                            KeyedSubtree(
+                              key: TourKeys.homeStreak,
+                              child: _StreakBadge(streak: provider.streak),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 16),
-                        _InlineXpBar(
-                          level: provider.level,
-                          levelTitle: localizedLevelTitle(
-                            l,
-                            provider.levelTitle,
+                        KeyedSubtree(
+                          key: TourKeys.homeXp,
+                          child: _InlineXpBar(
+                            level: provider.level,
+                            levelTitle: localizedLevelTitle(
+                              l,
+                              provider.levelTitle,
+                            ),
+                            totalXP: provider.totalXP,
+                            xpForNextLevel: provider.xpForNextLevel,
+                            progress: provider.levelProgress,
+                            xpToNext:
+                                (provider.xpForNextLevel - provider.totalXP)
+                                    .clamp(0, 999999),
+                            isMaxLevel: provider.level >= 20,
                           ),
-                          totalXP: provider.totalXP,
-                          xpForNextLevel: provider.xpForNextLevel,
-                          progress: provider.levelProgress,
-                          xpToNext: (provider.xpForNextLevel - provider.totalXP)
-                              .clamp(0, 999999),
-                          isMaxLevel: provider.level >= 20,
                         ),
                         const SizedBox(height: 10),
                       ],
@@ -247,99 +259,124 @@ class _HomeScreenState extends State<HomeScreen>
                     // ── 0. GETTING STARTED ────────────────────────────────
                     // Stays until all three steps are behind the user.
                     if (!provider.journeyComplete) ...[
-                      JourneyStrip(completed: provider.journeyProgress),
+                      JourneyStrip(
+                        completed: provider.journeyProgress,
+                        onTap: widget.onOpenTour,
+                      ),
                       const SizedBox(height: _sectionGap),
                     ],
 
                     // ── 1. TODAY'S MISSION ────────────────────────────────
-                    _TodayMissionCard(
-                      routineCompleted: provider.completedRoutineCount,
-                      routineTotal: provider.todayRoutineTotal,
-                      challengeCompleted: completedChallenges,
-                      challengeTotal: challenges.length,
-                      waterCurrent: provider.todayWater,
-                      waterTarget: waterNeed,
-                      allDone: allTodayDone,
-                      animValue: _curve.value,
+                    KeyedSubtree(
+                      key: TourKeys.homeGoals,
+                      child: _TodayMissionCard(
+                        routineCompleted: provider.completedRoutineCount,
+                        routineTotal: provider.todayRoutineTotal,
+                        challengeCompleted: completedChallenges,
+                        challengeTotal: challenges.length,
+                        waterCurrent: provider.todayWater,
+                        waterTarget: waterNeed,
+                        allDone: allTodayDone,
+                        animValue: _curve.value,
+                      ),
                     ),
                     const SizedBox(height: 12),
 
                     // ── 1b. WATER + SLEEP, right under today's goals ──────
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _TrackCard(
-                            icon: CupertinoIcons.drop_fill,
-                            label: l.water,
-                            value: provider.todayWater.toStringAsFixed(1),
-                            target: waterNeed.toStringAsFixed(1),
-                            unit: 'L',
-                            color: AppColors.water,
-                            progress: (provider.todayWater / waterNeed).clamp(
-                              0.0,
-                              1.0,
+                    KeyedSubtree(
+                      key: TourKeys.homeTrack,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: _TrackCard(
+                              icon: CupertinoIcons.drop_fill,
+                              label: l.water,
+                              value: provider.todayWater.toStringAsFixed(1),
+                              target: waterNeed.toStringAsFixed(1),
+                              unit: 'L',
+                              color: AppColors.water,
+                              progress: (provider.todayWater / waterNeed).clamp(
+                                0.0,
+                                1.0,
+                              ),
+                              isUrgent:
+                                  isEvening &&
+                                  provider.todayWater < waterNeed * 0.6,
+                              onTap: provider.isPremium
+                                  ? () => showWaterSheet(
+                                      context,
+                                      provider,
+                                      waterNeed,
+                                    )
+                                  : () => showPremiumPaywall(context),
+                              onAdd: provider.isPremium
+                                  ? () => showWaterSheet(
+                                      context,
+                                      provider,
+                                      waterNeed,
+                                    )
+                                  : () => showPremiumPaywall(context),
                             ),
-                            isUrgent:
-                                isEvening &&
-                                provider.todayWater < waterNeed * 0.6,
-                            onTap: provider.isPremium
-                                ? () => showWaterSheet(
-                                    context,
-                                    provider,
-                                    waterNeed,
-                                  )
-                                : () => showPremiumPaywall(context),
-                            onAdd: provider.isPremium
-                                ? () => showWaterSheet(
-                                    context,
-                                    provider,
-                                    waterNeed,
-                                  )
-                                : () => showPremiumPaywall(context),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _TrackCard(
-                            icon: CupertinoIcons.moon_fill,
-                            label: l.sleepLabel,
-                            value: provider.todaySleep.toStringAsFixed(1),
-                            target: sleepNeed.toStringAsFixed(1),
-                            unit: l.hoursShort,
-                            color: AppColors.sleep,
-                            progress: (provider.todaySleep / sleepNeed).clamp(
-                              0.0,
-                              1.0,
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _TrackCard(
+                              icon: CupertinoIcons.moon_fill,
+                              label: l.sleepLabel,
+                              value: provider.todaySleep.toStringAsFixed(1),
+                              target: sleepNeed.toStringAsFixed(1),
+                              unit: l.hoursShort,
+                              color: AppColors.sleep,
+                              progress: (provider.todaySleep / sleepNeed).clamp(
+                                0.0,
+                                1.0,
+                              ),
+                              isUrgent:
+                                  isEvening &&
+                                  provider.todaySleep < sleepNeed * 0.5,
+                              onTap: provider.isPremium
+                                  ? () => _showSleepSheet(
+                                      context,
+                                      provider,
+                                      sleepNeed,
+                                    )
+                                  : () => showPremiumPaywall(context),
+                              onAdd: provider.isPremium
+                                  ? () => _showSleepSheet(
+                                      context,
+                                      provider,
+                                      sleepNeed,
+                                    )
+                                  : () => showPremiumPaywall(context),
                             ),
-                            isUrgent:
-                                isEvening &&
-                                provider.todaySleep < sleepNeed * 0.5,
-                            onTap: provider.isPremium
-                                ? () => _showSleepSheet(
-                                    context,
-                                    provider,
-                                    sleepNeed,
-                                  )
-                                : () => showPremiumPaywall(context),
-                            onAdd: provider.isPremium
-                                ? () => _showSleepSheet(
-                                    context,
-                                    provider,
-                                    sleepNeed,
-                                  )
-                                : () => showPremiumPaywall(context),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     const SizedBox(height: _sectionGap),
                     const SizedBox(height: 12),
 
                     // ── 1c. WHAT WE WILL NUDGE YOU ABOUT NEXT ─────────────
-                    const NextReminderCard(),
+                    KeyedSubtree(
+                      key: TourKeys.homeReminder,
+                      child: const NextReminderCard(),
+                    ),
                     const SizedBox(height: _sectionGap),
 
-                    // ── 2. HERO HEIGHT CARD ───────────────────────────────
+                    // ── 4. ACTIVE CHALLENGES ──────────────────────────────
+                    KeyedSubtree(
+                      key: TourKeys.homeChallenges,
+                      child: _ChallengesSection(
+                        challenges: challenges,
+                        isEvening: isEvening,
+                        l: l,
+                      ),
+                    ),
+                    const SizedBox(height: _sectionGap),
+
+                    // ── 2. HERO HEIGHT CARD — right above growth, the two
+                    // read as one story: where you are, then how you got
+                    // there ───────────────────────────────────────────────
                     _HeroHeightCard(
                       currentHeight: profile.currentHeight,
                       potential: potential,
@@ -358,25 +395,21 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                     const SizedBox(height: _sectionGap),
 
-                    // ── 4. ACTIVE CHALLENGES ──────────────────────────────
-                    _ChallengesSection(
-                      challenges: challenges,
-                      isEvening: isEvening,
-                      l: l,
-                    ),
-                    const SizedBox(height: _sectionGap),
-
-                    // ── 6. GROWTH STATS ───────────────────────────────────
-                    if (provider.heightRecords.length >= 2) ...[
-                      _GrowthStatsCard(
+                    // ── 6. GROWTH STATS — always here now; with fewer than
+                    // two measurements the card itself shows the empty
+                    // state that invites the first one, rather than the
+                    // whole section disappearing ───────────────────────────
+                    KeyedSubtree(
+                      key: TourKeys.homeGrowth,
+                      child: _GrowthStatsCard(
                         totalGrowth: provider.totalGrowth,
                         lastGrowth: provider.lastGrowth,
                         measurementCount: provider.heightRecords.length,
-                        hasData: true,
+                        hasData: provider.heightRecords.length >= 2,
                         l: l,
                       ),
-                      const SizedBox(height: _sectionGap),
-                    ],
+                    ),
+                    const SizedBox(height: _sectionGap),
 
                     // ── 7. AI ANALYSIS (first time) ───────────────────────
                     if (!provider.analysisCompleted) ...[
@@ -390,7 +423,6 @@ class _HomeScreenState extends State<HomeScreen>
                           Color(0xFF120A30),
                         ],
                         icon: CupertinoIcons.sparkles,
-                        locked: false,
                         onTap: () => Navigator.push(
                           context,
                           CupertinoPageRoute(
@@ -402,7 +434,10 @@ class _HomeScreenState extends State<HomeScreen>
                     ],
 
                     // ── 8. KEŞFET CAROUSEL ────────────────────────────────
-                    const _ExploreRow(),
+                    KeyedSubtree(
+                      key: TourKeys.homeExplore,
+                      child: const _ExploreRow(),
+                    ),
                     const SizedBox(height: _sectionGap),
 
                     // ── AI ANALYSIS UPDATE (after completion) ─────────────
@@ -417,7 +452,6 @@ class _HomeScreenState extends State<HomeScreen>
                           Color(0xFF120A30),
                         ],
                         icon: CupertinoIcons.sparkles,
-                        locked: false,
                         onTap: () => Navigator.push(
                           context,
                           CupertinoPageRoute(
@@ -439,7 +473,6 @@ class _HomeScreenState extends State<HomeScreen>
                         Color(0xFF030E18),
                       ],
                       icon: CupertinoIcons.book_fill,
-                      locked: false,
                       onTap: () => Navigator.push(
                         context,
                         CupertinoPageRoute(
@@ -976,34 +1009,43 @@ class _TodayMissionCard extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    _MissionRow(
-                      icon: CupertinoIcons.checkmark_circle_fill,
-                      iconColor: AppColors.primary,
-                      label: l.routinesLabel,
-                      value:
-                          '$routineCompleted/${routineTotal > 0 ? routineTotal : "—"}',
-                      progress: routineRatio * animValue,
-                      done: routineRatio >= 1,
+                    KeyedSubtree(
+                      key: TourKeys.homeGoalsRoutines,
+                      child: _MissionRow(
+                        icon: CupertinoIcons.checkmark_circle_fill,
+                        iconColor: AppColors.primary,
+                        label: l.routinesLabel,
+                        value:
+                            '$routineCompleted/${routineTotal > 0 ? routineTotal : "—"}',
+                        progress: routineRatio * animValue,
+                        done: routineRatio >= 1,
+                      ),
                     ),
                     const SizedBox(height: 12),
-                    _MissionRow(
-                      icon: CupertinoIcons.bolt_fill,
-                      iconColor: AppColors.warning,
-                      label: l.challengesLabel,
-                      value:
-                          '$challengeCompleted/${challengeTotal > 0 ? challengeTotal : "—"}',
-                      progress: challengeRatio * animValue,
-                      done: challengeRatio >= 1,
+                    KeyedSubtree(
+                      key: TourKeys.homeGoalsChallenges,
+                      child: _MissionRow(
+                        icon: CupertinoIcons.bolt_fill,
+                        iconColor: AppColors.warning,
+                        label: l.challengesLabel,
+                        value:
+                            '$challengeCompleted/${challengeTotal > 0 ? challengeTotal : "—"}',
+                        progress: challengeRatio * animValue,
+                        done: challengeRatio >= 1,
+                      ),
                     ),
                     const SizedBox(height: 12),
-                    _MissionRow(
-                      icon: CupertinoIcons.drop_fill,
-                      iconColor: AppColors.water,
-                      label: l.water,
-                      value:
-                          '${waterCurrent.toStringAsFixed(1)}/${waterTarget.toStringAsFixed(1)}L',
-                      progress: waterRatio * animValue,
-                      done: waterRatio >= 1,
+                    KeyedSubtree(
+                      key: TourKeys.homeGoalsWater,
+                      child: _MissionRow(
+                        icon: CupertinoIcons.drop_fill,
+                        iconColor: AppColors.water,
+                        label: l.water,
+                        value:
+                            '${waterCurrent.toStringAsFixed(1)}/${waterTarget.toStringAsFixed(1)}L',
+                        progress: waterRatio * animValue,
+                        done: waterRatio >= 1,
+                      ),
                     ),
                   ],
                 ),
@@ -1269,80 +1311,92 @@ class _HeroHeightCard extends StatelessWidget {
           ),
           const SizedBox(height: 20),
 
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text(
-                currentHeight.toStringAsFixed(1),
-                style: TextStyle(
-                  fontSize: 78,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  letterSpacing: -4,
-                  height: 1.0,
-                  shadows: [
-                    Shadow(
-                      color: AppColors.primary.withValues(alpha: 0.20),
-                      blurRadius: 30,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 6),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 6),
-                child: Text(
-                  'CM',
+          // A 78pt number plus an optional delta pill can run past the
+          // card's edge on a narrow phone or a locale with a wider suffix —
+          // given whatever room is left and shrunk to fit it, the same way
+          // the equivalent row in the paywall preview protects itself.
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                Text(
+                  currentHeight.toStringAsFixed(1),
                   style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white.withValues(alpha: 0.30),
-                    letterSpacing: 2,
+                    fontSize: 78,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white,
+                    letterSpacing: -4,
+                    height: 1.0,
+                    shadows: [
+                      Shadow(
+                        color: AppColors.primary.withValues(alpha: 0.20),
+                        blurRadius: 30,
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              if (hasDelta) ...[
-                const SizedBox(width: 12),
+                const SizedBox(width: 6),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 5,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.success.withValues(alpha: 0.10),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: AppColors.success.withValues(alpha: 0.20),
-                      ),
-                    ),
-                    child: Text(
-                      '+${delta.toStringAsFixed(1)}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.success,
-                        letterSpacing: -0.3,
-                      ),
+                  child: Text(
+                    'CM',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white.withValues(alpha: 0.30),
+                      letterSpacing: 2,
                     ),
                   ),
                 ),
+                if (hasDelta) ...[
+                  const SizedBox(width: 12),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.success.withValues(alpha: 0.10),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppColors.success.withValues(alpha: 0.20),
+                        ),
+                      ),
+                      child: Text(
+                        '+${delta.toStringAsFixed(1)}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.success,
+                          letterSpacing: -0.3,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ],
-            ],
+            ),
           ),
           const SizedBox(height: 12),
 
           Row(
             children: [
-              Text(
-                '${l.target}: ${potential.toStringAsFixed(1)} cm',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.white.withValues(alpha: 0.38),
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: -0.2,
+              Flexible(
+                child: Text(
+                  '${l.target}: ${potential.toStringAsFixed(1)} cm',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.white.withValues(alpha: 0.38),
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: -0.2,
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -1386,25 +1440,14 @@ class _HeroHeightCard extends StatelessWidget {
                             ).withValues(alpha: 0.20),
                           ),
                         ),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              CupertinoIcons.lock_fill,
-                              size: 11,
-                              color: Color(0xFFFFD700),
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              'PRO',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w800,
-                                color: Color(0xFFFFD700),
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                          ],
+                        child: const Text(
+                          'PRO',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w800,
+                            color: Color(0xFFFFD700),
+                            letterSpacing: 0.5,
+                          ),
                         ),
                       ),
                     ),
@@ -1413,8 +1456,16 @@ class _HeroHeightCard extends StatelessWidget {
           const SizedBox(height: 22),
 
           GlowProgressBar(
+            // Measured against where this person's own tracked growth
+            // started, not a generic child's height — 140 was a stand-in
+            // for "somewhere young" that made the bar read as nearly full
+            // for anyone who already stands close to their potential,
+            // regardless of how much of their own journey is actually
+            // behind them.
             value: (potential > currentHeight + 0.1)
-                ? ((currentHeight - 140) / (potential - 140)).clamp(0.0, 1.0) *
+                ? ((currentHeight - (startHeight ?? 140)) /
+                              (potential - (startHeight ?? 140)))
+                          .clamp(0.0, 1.0) *
                       animValue
                 : animValue,
             gradient: AppColors.gradientGrowth,
@@ -1475,7 +1526,6 @@ class _BannerCard extends StatefulWidget {
   final Color accentColor;
   final List<Color> gradientColors;
   final IconData icon;
-  final bool locked;
   final VoidCallback onTap;
 
   const _BannerCard({
@@ -1485,7 +1535,6 @@ class _BannerCard extends StatefulWidget {
     required this.accentColor,
     required this.gradientColors,
     required this.icon,
-    required this.locked,
     required this.onTap,
   });
 
@@ -1549,15 +1598,6 @@ class _BannerCardState extends State<_BannerCard> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          if (widget.locked)
-                            Padding(
-                              padding: const EdgeInsets.only(right: 4),
-                              child: Icon(
-                                CupertinoIcons.lock_fill,
-                                size: 9,
-                                color: widget.accentColor,
-                              ),
-                            ),
                           Text(
                             widget.label,
                             style: TextStyle(

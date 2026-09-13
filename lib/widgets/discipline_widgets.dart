@@ -68,6 +68,83 @@ double disciplineTierProgress(int streak) {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
+//  The 70-day program — 10 levels of 7 days, shared by the real Program tab
+//  and the paywall's own preview of it, so the sales pitch cannot drift from
+//  what the tab actually shows.
+// ═════════════════════════════════════════════════════════════════════════════
+
+const kProgramTotalLevels = 10;
+const kProgramDaysPerLevel = 7;
+
+/// Level metadata: emoji, colour, intensity badge (non-localizable parts).
+const kProgramLevelMeta = [
+  ('🌱', Color(0xFF4CAF50), '◦◦◦◦◦◦◦◦◦◦'),
+  ('⚡', Color(0xFF8B5CF6), '█◦◦◦◦◦◦◦◦◦'),
+  ('🔥', Color(0xFFFF8A00), '██◦◦◦◦◦◦◦◦'),
+  ('💪', Color(0xFF00E5FF), '███◦◦◦◦◦◦◦'),
+  ('⚔️', Color(0xFFFF4DB8), '████◦◦◦◦◦◦'),
+  ('🏆', Color(0xFFF5C542), '█████◦◦◦◦◦'),
+  ('🌟', Color(0xFF8B5CF6), '██████◦◦◦◦'),
+  ('👑', Color(0xFFFF8A00), '███████◦◦◦'),
+  ('🦅', Color(0xFF00E5FF), '████████◦◦'),
+  ('🚀', Color(0xFFFF4DB8), '██████████'),
+];
+
+String programLevelName(AppLocalizations l, int index) {
+  switch (index) {
+    case 0:
+      return l.levelStarter;
+    case 1:
+      return l.levelNovice;
+    case 2:
+      return l.levelBuilder;
+    case 3:
+      return l.levelGrinder;
+    case 4:
+      return l.levelWarrior;
+    case 5:
+      return l.levelChampion;
+    case 6:
+      return l.levelElite;
+    case 7:
+      return l.levelMaster;
+    case 8:
+      return l.levelLegend;
+    case 9:
+      return l.levelGodTier;
+    default:
+      return 'Level ${index + 1}';
+  }
+}
+
+String programLevelDesc(AppLocalizations l, int index) {
+  switch (index) {
+    case 0:
+      return l.levelDesc0;
+    case 1:
+      return l.levelDesc1;
+    case 2:
+      return l.levelDesc2;
+    case 3:
+      return l.levelDesc3;
+    case 4:
+      return l.levelDesc4;
+    case 5:
+      return l.levelDesc5;
+    case 6:
+      return l.levelDesc6;
+    case 7:
+      return l.levelDesc7;
+    case 8:
+      return l.levelDesc8;
+    case 9:
+      return l.levelDesc9;
+    default:
+      return '';
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
 //  A goal with a bar: used for the week and the month
 // ═════════════════════════════════════════════════════════════════════════════
 

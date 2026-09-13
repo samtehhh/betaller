@@ -869,6 +869,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get analysisComplete => 'Tamamlandı!';
 
   @override
+  String get analysisDataReceivedTitle => 'Verileriniz Alındı';
+
+  @override
+  String get analysisDataReceivedSubtitle => 'Analiz başlıyor...';
+
+  @override
   String get yourScore => 'BeTaller Puanın';
 
   @override
@@ -1158,6 +1164,13 @@ class AppLocalizationsTr extends AppLocalizations {
       'Omuzları açmak öne eğik duruşu düzeltir, görünümde 1-2 cm fark yaratabilir.';
 
   @override
+  String get achieveCommitment => 'Kararlılık';
+
+  @override
+  String get achieveCommitmentDesc =>
+      'Tüm verileri gir ve uygulamayı tamamen keşfet, kullanıma başla';
+
+  @override
   String get achieveFirstDay => 'İlk Adım';
 
   @override
@@ -1390,6 +1403,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get obNext => 'İleri';
+
+  @override
+  String get obSkipAll => 'Tümünü Atla';
 
   @override
   String get currentSuffix => '(mevcut)';
@@ -3381,6 +3397,230 @@ class AppLocalizationsTr extends AppLocalizations {
   String get journeySoon => 'YAKINDA';
 
   @override
+  String get tourHomeStreakTitle => 'Gün Serin';
+
+  @override
+  String get tourHomeStreakDesc =>
+      'Disiplinini bozmadığın sürece artar. Bir günü kaçırırsan sıfırlanır — düşürme!';
+
+  @override
+  String get tourHomeXpTitle => 'Seviyen (LVL)';
+
+  @override
+  String get tourHomeXpDesc =>
+      'Disiplinine bağlı kazandığın XP\'lerle yükselir. Raydan çıkma!';
+
+  @override
+  String get tourHomeGoalsTitle => 'Bugünkü Hedeflerin';
+
+  @override
+  String get tourHomeGoalsDesc =>
+      'Günün rutinlerini, görevlerini ve su hedefini tek bakışta gösterir, hiçbirini gözden kaçırmazsın.';
+
+  @override
+  String get tourHomeTrackTitle => 'Su ve Uyku Takibi';
+
+  @override
+  String get tourHomeTrackDesc =>
+      'Günlük su ve uyku verilerini buradan saniyeler içinde, kolayca girebilirsin.';
+
+  @override
+  String get tourPlanTabsTitle => 'Üç Sekme: Bugün, Disiplin, Beslenme';
+
+  @override
+  String get tourPlanTabsDesc =>
+      'Günlük rutinlerin, haftalık programın ve beslenme planın burada üç sekmede seni bekliyor.';
+
+  @override
+  String get tourPlanLevelTitle => 'Disiplin Seviyen';
+
+  @override
+  String get tourPlanLevelDesc =>
+      'Rutinlerini ne kadar düzenli tamamladığını gösterir. Seviyeni yükselttikçe daha iyi sonuçlar alırsın.';
+
+  @override
+  String get tourPlanTodayTitle => 'Bugünün Planı';
+
+  @override
+  String get tourPlanTodayDesc =>
+      'Günlük rutinlerini buradan işaretleyerek tamamla, serini büyüt.';
+
+  @override
+  String get tourPlanTodayListTitle => 'Bugünün Rutinlerin';
+
+  @override
+  String get tourPlanTodayListDesc =>
+      'Yaptıkça buradan işaretle — detayları için bir rutine dokunup açabilirsin.';
+
+  @override
+  String get tourPlanWeekGoalsTitle => 'Bu Hafta';
+
+  @override
+  String get tourPlanWeekGoalsDesc =>
+      'Bu haftadan istenen tam günler, antrenmanlar ve zorunlu ölçüm burada.';
+
+  @override
+  String get tourPlanMonthGoalsTitle => 'Bu Ay';
+
+  @override
+  String get tourPlanMonthGoalsDesc =>
+      'İlerleme fotoğrafı, postür kontrolü ve bu ayki ölçümler — kaçırmaman gerekenler.';
+
+  @override
+  String get tourProgressHeightTitle => 'Güncel Boyun';
+
+  @override
+  String get tourProgressHeightDesc =>
+      'Şu anki boyunu ve toplam kazancını gösterir. Yeni bir ölçümü buradan ekleyebilirsin.';
+
+  @override
+  String get tourProgressPhotosTitle => 'İlerleme Fotoğrafları';
+
+  @override
+  String get tourProgressPhotosDesc =>
+      'Düzenli çektiğin fotoğraflarla değişimini gözle de takip et.';
+
+  @override
+  String get tourProgressPostureTitle => 'Duruş Analizi';
+
+  @override
+  String get tourProgressPostureDesc =>
+      'Fotoğrafınla duruşunu analiz ettir, gelişmen gereken noktaları öğren.';
+
+  @override
+  String get tourAnalysisScoreTitle => 'BeTaller Skorun';
+
+  @override
+  String get tourAnalysisScoreDesc =>
+      'Genetik, hız, beslenme ve uyku verilerine göre hesaplanan genel performans puanın.';
+
+  @override
+  String get tourAnalysisPredictionTitle => 'Boy Tahminin';
+
+  @override
+  String get tourAnalysisPredictionDesc =>
+      'Ulaşabileceğin tahmini son boyunu ve yıl yıl gidişatını gösterir.';
+
+  @override
+  String get tourAnalysisPeerTitle => 'Akran Karşılaştırması';
+
+  @override
+  String get tourAnalysisPeerDesc =>
+      'Sıralamada nerede olduğunu gör, kendini benzer yaştakilerle kıyasla.';
+
+  @override
+  String get tourHomeGoalsRoutinesTitle => 'Rutinlerin';
+
+  @override
+  String get tourHomeGoalsRoutinesDesc =>
+      'Bugün tamamlaman gereken egzersiz rutinlerinin sayısını burada gör.';
+
+  @override
+  String get tourHomeGoalsChallengesTitle => 'Görevlerin';
+
+  @override
+  String get tourHomeGoalsChallengesDesc =>
+      'Aktif meydan okumalarının ilerlemesini buradan takip et.';
+
+  @override
+  String get tourHomeGoalsWaterTitle => 'Su Hedefin';
+
+  @override
+  String get tourHomeGoalsWaterDesc =>
+      'Günlük su hedefine ne kadar yaklaştığını burada gör.';
+
+  @override
+  String get tourHomeReminderTitle => 'Sıradaki Hatırlatıcın';
+
+  @override
+  String get tourHomeReminderDesc =>
+      'Bir sonraki hatırlatman ne zaman gelecek, buradan gör ve düzenle.';
+
+  @override
+  String get tourHomeChallengesTitle => 'Meydan Okumaların';
+
+  @override
+  String get tourHomeChallengesDesc =>
+      'Aktif meydan okumaları tamamlayarak ekstra XP kazan.';
+
+  @override
+  String get tourHomeGrowthTitle => 'Büyüme Durumun';
+
+  @override
+  String get tourHomeGrowthDesc =>
+      'Toplam ve son ölçümün arasındaki farkı, kaç ölçüm girdiğini burada gör.';
+
+  @override
+  String get tourHomeExploreTitle => 'Keşfet';
+
+  @override
+  String get tourHomeExploreDesc =>
+      'Beslenme rehberleri, büyüme tarifleri ve daha fazlası burada seni bekliyor.';
+
+  @override
+  String get tourPlanProgramHeaderTitle => '70 Günlük Programın';
+
+  @override
+  String get tourPlanProgramHeaderDesc =>
+      'Toplam ilerlemeni, bulunduğun seviyeyi ve günü bu halkada gör.';
+
+  @override
+  String get tourPlanProgramLevelsTitle => 'Seviyeler';
+
+  @override
+  String get tourPlanProgramLevelsDesc =>
+      '10 seviyeden hangisinde olduğunu ve hangilerinin hâlâ kilitli olduğunu gör.';
+
+  @override
+  String get tourPlanNutritionHeaderTitle => 'Beslenme İlerlemen';
+
+  @override
+  String get tourPlanNutritionHeaderDesc =>
+      'Günlük beslenme rutinlerinden kaçını tamamladığını buradan takip et.';
+
+  @override
+  String get tourPlanNutritionFirstTitle => 'Beslenme Rutinleri';
+
+  @override
+  String get tourPlanNutritionFirstDesc =>
+      'Boy uzamana destek olacak beslenme alışkanlıklarını buradan işaretle.';
+
+  @override
+  String get tourProgressChartTitle => 'Büyüme Eğrisi';
+
+  @override
+  String get tourProgressChartDesc =>
+      'Geçmiş ölçümlerini grafikte gör, nereye doğru gittiğini anla.';
+
+  @override
+  String get tourProgressReportTitle => 'Haftalık Rapor';
+
+  @override
+  String get tourProgressReportDesc =>
+      'Haftalık ilerlemeni özetleyen raporunu buradan incele.';
+
+  @override
+  String get tourProgressHistoryTitle => 'Ölçüm Geçmişin';
+
+  @override
+  String get tourProgressHistoryDesc =>
+      'Kaydettiğin tüm boy ölçümlerini zaman çizelgesinde gör.';
+
+  @override
+  String get tourAnalysisRadarTitle => 'Denge Haritan';
+
+  @override
+  String get tourAnalysisRadarDesc =>
+      'Genetik, büyüme hızı, beslenme, uyku ve disiplin dengeni radar grafikte gör, en zayıf halkanı öğren.';
+
+  @override
+  String get tourAnalysisDailyNeedsTitle => 'Günlük İhtiyaçların';
+
+  @override
+  String get tourAnalysisDailyNeedsDesc =>
+      'Boyuna ve kilona özel günlük protein, kalori, uyku ve su ihtiyacını burada gör.';
+
+  @override
   String get journeyDataDoneTitle => 'İlk adım tamam';
 
   @override
@@ -3395,6 +3635,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get journeyProgressLabel => 'Başlangıç';
+
+  @override
+  String get journeyTourDoneTitle => 'BeTaller\'a hoş geldin!';
+
+  @override
+  String get journeyTourDoneSubtitle =>
+      'Üç adımı da tamamladın. Şimdi sıra sende — ilk rutinini tamamlayarak yolculuğuna başla.';
+
+  @override
+  String get journeyViewPlansButton => 'Kullanım için planları gör';
 
   @override
   String get paywallRestoreLabel => 'Satın Alımları Geri Yükle';

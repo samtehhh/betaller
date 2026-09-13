@@ -20,8 +20,8 @@ const int _kGenderPage = 2;
 const int _kWorkoutPage = 6;
 const int _kEthnicityPage = 7;
 const int _kPastHeightsPage = 16;
-const int _kAnalyzingPage = 20;
-const int _kLastQuestion = 19; // last page that shows the Next button
+const int _kAnalyzingPage = 17;
+const int _kLastQuestion = 16; // last page that shows the Next button
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -517,10 +517,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         _buildProteinPage(), // 14
                         _buildCaloriesPage(), // 15
                         _buildOnboardingPastHeightsPage(), // 16
-                        _buildReviewsPage(), // 17
-                        _buildChartPage(), // 18
-                        _buildJourneyPage(), // 19
-                        const SizedBox(), // 20 placeholder for analyzing
+                        const SizedBox(), // 17 placeholder for analyzing
                       ],
                     ),
                   ),
@@ -546,9 +543,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
               // ── Analyzing overlay — shown on top when analyzing ─────────
               if (isAnalyzing)
-                Container(
-                  color: const Color(0xFF0A0812),
-                  child: _AnalyzingPage(onComplete: _onAnalysisComplete),
+                Positioned.fill(
+                  child: Container(
+                    color: const Color(0xFF0A0812),
+                    child: _AnalyzingPage(onComplete: _onAnalysisComplete),
+                  ),
                 ),
             ],
           ),
@@ -1448,6 +1447,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     }
   }
 
+  /// Past heights are optional context, not a required step — skip the
+  /// whole section at once rather than clicking "Atla" through every age.
+  void _obSkipAllAges() {
+    for (final age in _obAges) {
+      _obPastHeightValues.remove(age);
+    }
+    _nextPage();
+  }
+
   Widget _buildObAgeSlot(int age, bool isSelected) {
     final hasSaved = _obPastHeightValues[age] != null;
     return AnimatedOpacity(
@@ -1798,39 +1806,87 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         // Başlık
         Padding(
           padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
-          child: Column(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                l.obPastHeightsTitle,
-                style: const TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  letterSpacing: -1.3,
-                  height: 1.05,
-                ),
-              ),
-              const SizedBox(height: 6),
-              RichText(
-                text: TextSpan(
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white.withValues(alpha: 0.52),
-                    height: 1.45,
-                  ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextSpan(text: l.obPastHeightsSubPart1),
-                    TextSpan(
-                      text: '97%',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: const Color(0xFF22FF88).withValues(alpha: 0.90),
+                    Text(
+                      l.obPastHeightsTitle,
+                      style: const TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        letterSpacing: -1.3,
+                        height: 1.05,
                       ),
                     ),
-                    TextSpan(text: l.obPastHeightsSubPart2),
+                    const SizedBox(height: 6),
+                    RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white.withValues(alpha: 0.52),
+                          height: 1.45,
+                        ),
+                        children: [
+                          TextSpan(text: l.obPastHeightsSubPart1),
+                          TextSpan(
+                            text: '97%',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: const Color(
+                                0xFF22FF88,
+                              ).withValues(alpha: 0.90),
+                            ),
+                          ),
+                          TextSpan(text: l.obPastHeightsSubPart2),
+                        ],
+                      ),
+                    ),
                   ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: GestureDetector(
+                  onTap: _obSkipAllAges,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.06),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.10),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          l.obSkipAll,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white.withValues(alpha: 0.60),
+                          ),
+                        ),
+                        const SizedBox(width: 3),
+                        Icon(
+                          CupertinoIcons.chevron_right,
+                          size: 12,
+                          color: Colors.white.withValues(alpha: 0.60),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -2055,280 +2111,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
-  // PAGE 12 — Social proof "Binlerce Kişi Başardı"
-  // ─────────────────────────────────────────────────────────────────────────────
-
-  Widget _buildReviewsPage() {
-    final l = AppLocalizations.of(context)!;
-    final testimonials = [
-      _Testimonial(
-        name: 'Ertuğ E.',
-        age: 23,
-        emoji: '💪',
-        quote: l.testimonial1,
-        gain: '+2.6 cm',
-        duration: l.testimonialDuration1,
-        verified: true,
-        photoPath: 'assets/testimonials/ertug.jpg',
-      ),
-      _Testimonial(
-        name: 'Ahmet',
-        age: 20,
-        emoji: '🔥',
-        quote: l.testimonial2,
-        gain: '+2.5 cm',
-        duration: l.testimonialDuration2,
-        verified: true,
-        photoPath: 'assets/testimonials/ahmet2.jpg',
-      ),
-      _Testimonial(
-        name: 'Gökdeniz',
-        age: 22,
-        emoji: '🌟',
-        quote: l.testimonial3,
-        gain: '+2.3 cm',
-        duration: l.testimonialDuration3,
-        verified: true,
-        photoPath: 'assets/testimonials/gokdeniz.jpg',
-      ),
-      _Testimonial(
-        name: 'Mert',
-        age: 19,
-        emoji: '📈',
-        quote: l.testimonial4,
-        gain: '+3.3 cm',
-        duration: l.testimonialDuration4,
-        verified: true,
-        photoPath: 'assets/testimonials/mert.jpg',
-      ),
-      _Testimonial(
-        name: 'Aydın',
-        age: 18,
-        emoji: '🎯',
-        quote: l.testimonial5,
-        gain: '+3.1 cm',
-        duration: l.testimonialDuration5,
-        verified: true,
-        photoPath: 'assets/testimonials/aydin.jpg',
-      ),
-    ];
-
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text('🏆', style: TextStyle(fontSize: 44)),
-          const SizedBox(height: 14),
-          Text(
-            l.thousandsSucceeded,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-              letterSpacing: -1.0,
-              height: 1.12,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            l.youCanToo,
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.white.withValues(alpha: 0.50),
-            ),
-          ),
-          const SizedBox(height: 24),
-          ...testimonials.map((t) => _TestimonialCard(t: t)),
-          const SizedBox(height: 20),
-        ],
-      ),
-    );
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // PAGE 13 — Growth chart ("Uzun vadeli sonuçlar")
-  // ─────────────────────────────────────────────────────────────────────────────
-
-  Widget _buildChartPage() {
-    final l = AppLocalizations.of(context)!;
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 28, 24, 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Tag
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-            decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: AppColors.primary.withValues(alpha: 0.30),
-              ),
-            ),
-            child: Text(
-              l.scientificData,
-              style: const TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1.2,
-                color: AppColors.primary,
-              ),
-            ),
-          ),
-          const SizedBox(height: 14),
-          _PageTitle(l.longTermResults),
-          const SizedBox(height: 8),
-          _PageSubtitle(l.longTermResultsSubtitle),
-          const SizedBox(height: 22),
-          // Chart card
-          Container(
-            width: double.infinity,
-            height: 210,
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: const Color(0xFF100D1A),
-              borderRadius: BorderRadius.circular(22),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
-            ),
-            child: Column(
-              children: [
-                Text(
-                  l.yourFinalHeight,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Expanded(
-                  child: CustomPaint(
-                    size: Size.infinite,
-                    painter: _GrowthChartPainter(),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _LegendDot(
-                      color: const Color(0xFFFF6B4A),
-                      label: l.badHabitsLegend,
-                    ),
-                    const SizedBox(width: 22),
-                    _LegendDot(
-                      color: AppColors.primary,
-                      label: l.optimizedLegend,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 18),
-          // Fact cards row
-          Row(
-            children: [
-              Expanded(
-                child: _ChartFactCard(
-                  emoji: '🧬',
-                  pct: l.chartFact1Pct,
-                  desc: l.chartFact1Desc,
-                  color: AppColors.primary,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: _ChartFactCard(
-                  emoji: '😴',
-                  pct: l.chartFact2Pct,
-                  desc: l.chartFact2Desc,
-                  color: AppColors.cyan,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: _ChartFactCard(
-                  emoji: '🦴',
-                  pct: l.chartFact3Pct,
-                  desc: l.chartFact3Desc,
-                  color: const Color(0xFF22C55E),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          // "What being short really costs" hook
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [const Color(0xFF1A0A2E), const Color(0xFF0F0820)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(
-                color: AppColors.primary.withValues(alpha: 0.20),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '\ud83d\udca1  ${l.didYouKnow}',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                ...[
-                  l.didYouKnowFact1,
-                  l.didYouKnowFact2,
-                  l.didYouKnowFact3,
-                ].map(
-                  (fact) => Padding(
-                    padding: const EdgeInsets.only(bottom: 7),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 6,
-                          height: 6,
-                          decoration: const BoxDecoration(
-                            color: AppColors.primary,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            fact,
-                            style: TextStyle(
-                              fontSize: 13.5,
-                              color: Colors.white.withValues(alpha: 0.75),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   // Called by _AnalyzingPage when its animation finishes. The questionnaire is
-  // over, so we save and hand straight over to the journey screen.
+  // over, so we save and hand straight over to the "step one done" screen.
   void _onAnalysisComplete() {
     if (!mounted) return;
     _saveProfile();
@@ -2342,255 +2126,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         pageBuilder: (_, __, ___) => const _WelcomeScreen(),
         transitionsBuilder: (_, anim, __, child) =>
             FadeTransition(opacity: anim, child: child),
-      ),
-    );
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // PAGE 14 — Journey roadmap
-  // ─────────────────────────────────────────────────────────────────────────────
-
-  Widget _buildJourneyPage() {
-    final l = AppLocalizations.of(context)!;
-    final milestones = [
-      _JourneyMilestone(
-        label: l.week1Label,
-        title: l.week1Title,
-        desc: l.week1Desc,
-        icon: '🌱',
-        color: const Color(0xFF22C55E),
-        isActive: false,
-      ),
-      _JourneyMilestone(
-        label: l.month1Label,
-        title: l.month1Title,
-        desc: l.month1Desc,
-        icon: '💪',
-        color: AppColors.cyan,
-        isActive: false,
-      ),
-      _JourneyMilestone(
-        label: l.month3Label,
-        title: l.month3Title,
-        desc: l.month3Desc,
-        icon: '⚡',
-        color: AppColors.primary,
-        isActive: false,
-      ),
-      _JourneyMilestone(
-        label: l.month6Label,
-        title: l.month6Title,
-        desc: l.month6Desc,
-        icon: '🏆',
-        color: const Color(0xFFFFD700),
-        isActive: true,
-      ),
-    ];
-
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 36, 24, 0),
-      child: Column(
-        children: [
-          const Text('✨', style: TextStyle(fontSize: 40)),
-          const SizedBox(height: 16),
-          Text(
-            l.transformJourneyBegins,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-              letterSpacing: -1.2,
-              height: 1.12,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            l.transformJourneySubtitle,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 14.5,
-              color: Colors.white.withValues(alpha: 0.58),
-              height: 1.5,
-            ),
-          ),
-          const SizedBox(height: 32),
-          // Timeline row
-          Row(
-            children: milestones.asMap().entries.map((e) {
-              final i = e.key;
-              final m = e.value;
-              return Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          // Circle
-                          Container(
-                            width: 52,
-                            height: 52,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: m.isActive
-                                  ? m.color
-                                  : m.color.withValues(alpha: 0.15),
-                              border: Border.all(
-                                color: m.color,
-                                width: m.isActive ? 2.5 : 1.5,
-                              ),
-                              boxShadow: m.isActive
-                                  ? [
-                                      BoxShadow(
-                                        color: m.color.withValues(alpha: 0.40),
-                                        blurRadius: 14,
-                                      ),
-                                    ]
-                                  : null,
-                            ),
-                            child: Center(
-                              child: Text(
-                                m.label,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w900,
-                                  color: m.isActive ? Colors.black : m.color,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            m.title,
-                            style: TextStyle(
-                              fontSize: 10.5,
-                              fontWeight: FontWeight.w700,
-                              color: m.isActive
-                                  ? m.color
-                                  : Colors.white.withValues(alpha: 0.50),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (i < milestones.length - 1)
-                      Container(
-                        width: 24,
-                        height: 2,
-                        color: Colors.white.withValues(alpha: 0.15),
-                        margin: const EdgeInsets.only(bottom: 20),
-                      ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
-          const SizedBox(height: 24),
-          // Active milestone detail card
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  const Color(0xFFFFD700).withValues(alpha: 0.10),
-                  const Color(0xFFFFD700).withValues(alpha: 0.04),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: const Color(0xFFFFD700).withValues(alpha: 0.30),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const Text('🏆', style: TextStyle(fontSize: 22)),
-                    const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          l.month6Title,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: const Color(
-                              0xFFFFD700,
-                            ).withValues(alpha: 0.80),
-                          ),
-                        ),
-                        Text(
-                          l.reachYourGoal,
-                          style: const TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 14),
-                Divider(color: Colors.white.withValues(alpha: 0.08)),
-                const SizedBox(height: 10),
-                ...[
-                  l.journeyBullet1,
-                  l.journeyBullet2,
-                  l.journeyBullet3,
-                ].asMap().entries.map(
-                  (e) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 18,
-                          height: 18,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: e.key == 0
-                                ? const Color(0xFF22C55E)
-                                : Colors.white.withValues(alpha: 0.06),
-                            border: Border.all(
-                              color: e.key == 0
-                                  ? Colors.transparent
-                                  : Colors.white.withValues(alpha: 0.15),
-                            ),
-                          ),
-                          child: e.key == 0
-                              ? const Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                  size: 10,
-                                )
-                              : null,
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          e.value,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: e.key == 0
-                                ? Colors.white
-                                : Colors.white.withValues(alpha: 0.45),
-                            fontWeight: e.key == 0
-                                ? FontWeight.w600
-                                : FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-        ],
       ),
     );
   }
@@ -2626,259 +2161,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ),
     );
   }
-}
-
-class _JourneyMilestone {
-  final String label, title, desc, icon;
-  final Color color;
-  final bool isActive;
-  const _JourneyMilestone({
-    required this.label,
-    required this.title,
-    required this.desc,
-    required this.icon,
-    required this.color,
-    required this.isActive,
-  });
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _Testimonial {
-  final String name, emoji, quote, gain, duration;
-  final int age;
-  final bool verified;
-  final String? photoPath;
-  const _Testimonial({
-    required this.name,
-    required this.age,
-    required this.emoji,
-    required this.quote,
-    required this.gain,
-    required this.duration,
-    required this.verified,
-    this.photoPath,
-  });
-}
-
-class _TestimonialCard extends StatelessWidget {
-  final _Testimonial t;
-  const _TestimonialCard({required this.t});
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF161220),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.07)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              // Avatar
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.primary.withValues(alpha: 0.15),
-                  border: Border.all(
-                    color: AppColors.primary.withValues(alpha: 0.25),
-                  ),
-                ),
-                child: ClipOval(
-                  child: t.photoPath != null
-                      ? Image.asset(
-                          t.photoPath!,
-                          fit: BoxFit.cover,
-                          width: 44,
-                          height: 44,
-                          errorBuilder: (context, error, stack) => Center(
-                            child: Text(
-                              t.emoji,
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        )
-                      : Center(
-                          child: Text(
-                            t.emoji,
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${t.name}, ${t.age}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Text(
-                    l.yearsOld,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white.withValues(alpha: 0.40),
-                    ),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              if (t.verified)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF22C55E).withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: const Color(0xFF22C55E).withValues(alpha: 0.30),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.verified,
-                        color: Color(0xFF22C55E),
-                        size: 12,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        l.verifiedLabel,
-                        style: const TextStyle(
-                          color: Color(0xFF22C55E),
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            '"${t.quote}"',
-            style: TextStyle(
-              fontSize: 13.5,
-              color: Colors.white.withValues(alpha: 0.80),
-              height: 1.5,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Divider(color: Colors.white.withValues(alpha: 0.07)),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF22C55E).withValues(alpha: 0.10),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      '↗',
-                      style: TextStyle(
-                        color: Color(0xFF22C55E),
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      t.gain,
-                      style: const TextStyle(
-                        color: Color(0xFF22C55E),
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 10),
-              Icon(
-                CupertinoIcons.clock,
-                size: 13,
-                color: Colors.white.withValues(alpha: 0.35),
-              ),
-              const SizedBox(width: 4),
-              Text(
-                t.duration,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.white.withValues(alpha: 0.40),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ChartFactCard extends StatelessWidget {
-  final String emoji, pct, desc;
-  final Color color;
-  const _ChartFactCard({
-    required this.emoji,
-    required this.pct,
-    required this.desc,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 14),
-    decoration: BoxDecoration(
-      color: color.withValues(alpha: 0.07),
-      borderRadius: BorderRadius.circular(14),
-      border: Border.all(color: color.withValues(alpha: 0.18)),
-    ),
-    child: Column(
-      children: [
-        Text(emoji, style: const TextStyle(fontSize: 22)),
-        const SizedBox(height: 6),
-        Text(
-          pct,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w900,
-            color: color,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          desc,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 10.5,
-            color: Colors.white.withValues(alpha: 0.55),
-            height: 1.4,
-          ),
-        ),
-      ],
-    ),
-  );
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -3695,6 +2977,8 @@ class _PickerBoxState extends State<_PickerBox> {
 // Analyzing Page — fully isolated, runs its own animation timer
 // ═════════════════════════════════════════════════════════════════════════════
 
+enum _AnalyzePhase { received, analyzing, done }
+
 class _AnalyzingPage extends StatefulWidget {
   final VoidCallback onComplete;
   const _AnalyzingPage({required this.onComplete});
@@ -3703,40 +2987,52 @@ class _AnalyzingPage extends StatefulWidget {
   State<_AnalyzingPage> createState() => _AnalyzingPageState();
 }
 
-class _AnalyzingPageState extends State<_AnalyzingPage> {
-  double _progress = 0;
-  int _step = 0;
-  bool _done = false;
+class _AnalyzingPageState extends State<_AnalyzingPage>
+    with TickerProviderStateMixin {
+  _AnalyzePhase _phase = _AnalyzePhase.received;
 
-  static const _stepDurationMs = 900; // ms per step
-  static const _tickMs = 30; // timer tick
+  // Vsync-driven, so the ring around the logo glides in one continuous
+  // sweep. The old version advanced it by hand on a 30ms Future.delayed
+  // loop with a pause between each of the 5 steps — off the display's
+  // own frame clock, which is exactly what made the sweep visibly
+  // "corner" at every step boundary instead of gliding smoothly.
+  late final AnimationController _progressCtrl;
+  late final AnimationController _haloCtrl;
+
+  static const int _totalSteps = 5;
 
   @override
   void initState() {
     super.initState();
-    _runAnimation();
+    _progressCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 4500),
+    );
+    _haloCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2400),
+    )..repeat();
+    _runSequence();
   }
 
-  Future<void> _runAnimation() async {
-    const totalSteps = 5;
-    for (int i = 0; i < totalSteps; i++) {
-      if (!mounted) return;
-      setState(() => _step = i);
-      final start = i / totalSteps;
-      final end = (i + 1) / totalSteps;
-      final ticks = (_stepDurationMs / _tickMs).round();
-      for (int t = 0; t <= ticks; t++) {
-        await Future.delayed(const Duration(milliseconds: _tickMs));
-        if (!mounted) return;
-        setState(() => _progress = start + (end - start) * (t / ticks));
-      }
-      await Future.delayed(const Duration(milliseconds: 120));
-    }
+  @override
+  void dispose() {
+    _progressCtrl.dispose();
+    _haloCtrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> _runSequence() async {
+    // A short "your data has been received" beat before the checklist
+    // starts, so the hand-off from the questionnaire feels acknowledged
+    // rather than an abrupt jump into a spinner.
+    await Future.delayed(const Duration(milliseconds: 950));
     if (!mounted) return;
-    setState(() {
-      _done = true;
-      _progress = 1.0;
-    });
+    setState(() => _phase = _AnalyzePhase.analyzing);
+
+    await _progressCtrl.forward();
+    if (!mounted) return;
+    setState(() => _phase = _AnalyzePhase.done);
     await Future.delayed(const Duration(milliseconds: 800));
     if (mounted) widget.onComplete();
   }
@@ -3775,6 +3071,100 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 460),
+        switchInCurve: Curves.easeOutCubic,
+        switchOutCurve: Curves.easeInCubic,
+        // Force both the outgoing and incoming child into the exact same
+        // full-size box (the default Stack only loosens the constraints,
+        // so a child with no Expanded of its own — the "received" view —
+        // could shrink-wrap to its content and render off-center/cropped
+        // relative to the "analyzing" view crossfading in beside it).
+        layoutBuilder: (currentChild, previousChildren) => Stack(
+          alignment: Alignment.center,
+          fit: StackFit.expand,
+          children: [
+            ...previousChildren,
+            if (currentChild != null) currentChild,
+          ],
+        ),
+        transitionBuilder: (child, anim) => FadeTransition(
+          opacity: anim,
+          child: ScaleTransition(
+            scale: Tween(begin: 0.96, end: 1.0).animate(anim),
+            child: child,
+          ),
+        ),
+        child: _phase == _AnalyzePhase.received
+            ? _buildReceivedView(l)
+            : _buildAnalyzingView(l),
+      ),
+    );
+  }
+
+  // ── Phase 1: a calm confirmation that the questionnaire made it through ──
+  Widget _buildReceivedView(AppLocalizations l) {
+    return Column(
+      key: const ValueKey('received'),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(height: 40),
+        Container(
+          width: 104,
+          height: 104,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [AppColors.lime, AppColors.lime.withValues(alpha: 0.72)],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.lime.withValues(alpha: 0.42),
+                blurRadius: 36,
+                spreadRadius: 4,
+              ),
+            ],
+          ),
+          child: const Icon(
+            Icons.check_rounded,
+            size: 50,
+            color: Color(0xFF06210F),
+          ),
+        ),
+        const SizedBox(height: 30),
+        Text(
+          l.analysisDataReceivedTitle,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 27,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            letterSpacing: -0.8,
+            height: 1.1,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          l.analysisDataReceivedSubtitle,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+            color: Colors.white.withValues(alpha: 0.55),
+            height: 1.4,
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ── Phase 2/3: the checklist, with a ring around the logo standing in ──
+  // for the old numeric progress bar.
+  Widget _buildAnalyzingView(AppLocalizations l) {
     final steps = [
       l.analysisStep1,
       l.analysisStep2,
@@ -3790,239 +3180,219 @@ class _AnalyzingPageState extends State<_AnalyzingPage> {
       CupertinoIcons.checkmark_seal_fill,
     ];
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
-      child: Column(
-        children: [
-          // Title
-          AnimatedDefaultTextStyle(
-            duration: const Duration(milliseconds: 400),
-            style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.w800,
-              color: _done ? AppColors.primary : Colors.white,
-              letterSpacing: -0.8,
-            ),
-            child: Text(_done ? l.analysisComplete : l.analyzing),
-          ),
-          const SizedBox(height: 28),
+    return AnimatedBuilder(
+      key: const ValueKey('analyzing'),
+      animation: Listenable.merge([_progressCtrl, _haloCtrl]),
+      builder: (context, _) {
+        final done = _phase == _AnalyzePhase.done;
+        final progress = _progressCtrl.value;
+        final step = (progress * _totalSteps).floor().clamp(0, _totalSteps - 1);
 
-          // App logo — grayscale → purple glow, edges softly faded
-          SizedBox(
-            width: 200,
-            height: 200,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // ── Animated glow halo behind the logo ──
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.primary.withValues(
-                          alpha: _progress * 0.65,
-                        ),
-                        blurRadius: 30 + _progress * 50,
-                        spreadRadius: _progress * 10,
-                      ),
-                      BoxShadow(
-                        color: AppColors.primary.withValues(
-                          alpha: _progress * 0.25,
-                        ),
-                        blurRadius: 80 + _progress * 40,
-                        spreadRadius: _progress * 4,
-                      ),
-                    ],
-                    gradient: RadialGradient(
-                      colors: [
-                        AppColors.primary.withValues(alpha: _progress * 0.30),
-                        AppColors.primary.withValues(alpha: _progress * 0.08),
-                        Colors.transparent,
-                      ],
-                      stops: const [0.0, 0.5, 1.0],
+        return Column(
+          children: [
+            const SizedBox(height: 12),
+            // Title
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 400),
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.w800,
+                color: done ? AppColors.primary : Colors.white,
+                letterSpacing: -0.8,
+              ),
+              child: Text(done ? l.analysisComplete : l.analyzing),
+            ),
+            const SizedBox(height: 24),
+
+            // App logo, ringed by a progress arc instead of a numeric bar —
+            // the same visual language as the "step one done" hand-off screen.
+            SizedBox(
+              width: 210,
+              height: 210,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CustomPaint(
+                    size: const Size(210, 210),
+                    painter: _CompletionBadgePainter(
+                      sweep: progress,
+                      halo: _haloCtrl.value,
+                      color: AppColors.primary,
                     ),
                   ),
-                ),
-
-                // ── Logo: icon_2.png (proper transparent-bg version) ──
-                ColorFiltered(
-                  colorFilter: ColorFilter.matrix(
-                    _buildSaturationMatrix(_progress),
-                  ),
-                  child: Image.asset(
-                    'assets/icon_2.png',
+                  // ── Glow halo behind the logo ──
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
                     width: 150,
                     height: 150,
-                    fit: BoxFit.contain,
-                    errorBuilder: (_, __, ___) => const Icon(
-                      CupertinoIcons.person_fill,
-                      color: Colors.white,
-                      size: 56,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 28),
-
-          // Progress bar
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'progression',
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.45),
-                  fontSize: 13,
-                ),
-              ),
-              Text(
-                '${(_progress * 100).toInt()}%',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: LinearProgressIndicator(
-              value: _progress,
-              minHeight: 9,
-              backgroundColor: Colors.white.withValues(alpha: 0.10),
-              valueColor: const AlwaysStoppedAnimation<Color>(
-                AppColors.primary,
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-
-          // Step list
-          Expanded(
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: steps.length,
-              itemBuilder: (_, i) {
-                final isDone = i < _step || _done;
-                final isCurrent = i == _step && !_done;
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 350),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 14,
-                    ),
                     decoration: BoxDecoration(
-                      color: isDone
-                          ? AppColors.primary.withValues(alpha: 0.12)
-                          : isCurrent
-                          ? Colors.white.withValues(alpha: 0.05)
-                          : Colors.white.withValues(alpha: 0.025),
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(
-                        color: isCurrent
-                            ? AppColors.primary.withValues(alpha: 0.35)
-                            : Colors.transparent,
+                      shape: BoxShape.circle,
+                      gradient: RadialGradient(
+                        colors: [
+                          AppColors.primary.withValues(alpha: progress * 0.32),
+                          AppColors.primary.withValues(alpha: progress * 0.08),
+                          Colors.transparent,
+                        ],
+                        stops: const [0.0, 0.5, 1.0],
                       ),
                     ),
-                    child: Row(
+                  ),
+                  // ── Logo: icon_2.png (proper transparent-bg version) ──
+                  ColorFiltered(
+                    colorFilter: ColorFilter.matrix(
+                      _buildSaturationMatrix(progress),
+                    ),
+                    child: Image.asset(
+                      'assets/icon_2.png',
+                      width: 128,
+                      height: 128,
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, __, ___) => const Icon(
+                        CupertinoIcons.person_fill,
+                        color: Colors.white,
+                        size: 56,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 26),
+
+            // Step checklist, wrapped in a soft card with a connector line
+            // threading the steps together.
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.035),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.07),
+                  ),
+                ),
+                child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: steps.length,
+                  itemBuilder: (_, i) {
+                    final isDone = i < step || done;
+                    final isCurrent = i == step && !done;
+                    final isLast = i == steps.length - 1;
+                    return Column(
                       children: [
-                        // Icon circle
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 350),
-                          width: 36,
-                          height: 36,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 12,
+                          ),
                           decoration: BoxDecoration(
-                            shape: BoxShape.circle,
                             color: isDone
-                                ? AppColors.primary.withValues(alpha: 0.25)
+                                ? AppColors.primary.withValues(alpha: 0.12)
                                 : isCurrent
-                                ? AppColors.primary.withValues(alpha: 0.15)
-                                : Colors.white.withValues(alpha: 0.06),
-                          ),
-                          child: Center(
-                            child: isDone
-                                ? const Icon(
-                                    CupertinoIcons.checkmark,
-                                    color: AppColors.primary,
-                                    size: 16,
-                                  )
-                                : isCurrent
-                                ? const SizedBox(
-                                    width: 16,
-                                    height: 16,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation(
-                                        AppColors.primary,
-                                      ),
-                                    ),
-                                  )
-                                : Icon(
-                                    stepIcons[i],
-                                    color: Colors.white.withValues(alpha: 0.20),
-                                    size: 16,
-                                  ),
-                          ),
-                        ),
-                        const SizedBox(width: 14),
-                        Expanded(
-                          child: Text(
-                            steps[i],
-                            style: TextStyle(
-                              color: isDone
-                                  ? Colors.white
-                                  : isCurrent
-                                  ? Colors.white.withValues(alpha: 0.90)
-                                  : Colors.white.withValues(alpha: 0.30),
-                              fontSize: 15,
-                              fontWeight: (isDone || isCurrent)
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
+                                ? Colors.white.withValues(alpha: 0.05)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: isCurrent
+                                  ? AppColors.primary.withValues(alpha: 0.35)
+                                  : Colors.transparent,
                             ),
                           ),
-                        ),
-                        if (isDone)
-                          Container(
-                            width: 22,
-                            height: 22,
-                            decoration: BoxDecoration(
-                              color: AppColors.primary,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.primary.withValues(
-                                    alpha: 0.4,
+                          child: Row(
+                            children: [
+                              // Icon circle
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 350),
+                                width: 34,
+                                height: 34,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: isDone
+                                      ? AppColors.primary.withValues(
+                                          alpha: 0.25,
+                                        )
+                                      : isCurrent
+                                      ? AppColors.primary.withValues(
+                                          alpha: 0.15,
+                                        )
+                                      : Colors.white.withValues(alpha: 0.06),
+                                ),
+                                child: Center(
+                                  child: isDone
+                                      ? const Icon(
+                                          CupertinoIcons.checkmark,
+                                          color: AppColors.primary,
+                                          size: 15,
+                                        )
+                                      : isCurrent
+                                      ? const SizedBox(
+                                          width: 15,
+                                          height: 15,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                            valueColor: AlwaysStoppedAnimation(
+                                              AppColors.primary,
+                                            ),
+                                          ),
+                                        )
+                                      : Icon(
+                                          stepIcons[i],
+                                          color: Colors.white.withValues(
+                                            alpha: 0.20,
+                                          ),
+                                          size: 15,
+                                        ),
+                                ),
+                              ),
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: Text(
+                                  steps[i],
+                                  style: TextStyle(
+                                    color: isDone
+                                        ? Colors.white
+                                        : isCurrent
+                                        ? Colors.white.withValues(alpha: 0.90)
+                                        : Colors.white.withValues(alpha: 0.30),
+                                    fontSize: 14.5,
+                                    fontWeight: (isDone || isCurrent)
+                                        ? FontWeight.w600
+                                        : FontWeight.w400,
                                   ),
-                                  blurRadius: 8,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (!isLast)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 2),
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 31),
+                                Container(
+                                  width: 2,
+                                  height: 14,
+                                  color: isDone
+                                      ? AppColors.primary.withValues(
+                                          alpha: 0.45,
+                                        )
+                                      : Colors.white.withValues(alpha: 0.08),
                                 ),
                               ],
                             ),
-                            child: const Icon(
-                              CupertinoIcons.checkmark,
-                              color: Colors.white,
-                              size: 12,
-                            ),
                           ),
                       ],
-                    ),
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      },
     );
   }
 }
@@ -4232,31 +3602,6 @@ class _RawPicker extends StatelessWidget {
       ),
     );
   }
-}
-
-class _LegendDot extends StatelessWidget {
-  final Color color;
-  final String label;
-  const _LegendDot({required this.color, required this.label});
-  @override
-  Widget build(BuildContext context) => Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(
-        width: 10,
-        height: 10,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-      ),
-      const SizedBox(width: 6),
-      Text(
-        label,
-        style: TextStyle(
-          color: Colors.white.withValues(alpha: 0.75),
-          fontSize: 13,
-        ),
-      ),
-    ],
-  );
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -4554,116 +3899,6 @@ class _DialButton extends StatelessWidget {
       ),
     );
   }
-}
-
-// ═════════════════════════════════════════════════════════════════════════════
-// Growth chart painter
-// ═════════════════════════════════════════════════════════════════════════════
-
-class _GrowthChartPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final w = size.width;
-    final h = size.height;
-
-    // Bad habits curve (orange/red)
-    final badPath = Path();
-    badPath.moveTo(0, h * 0.85);
-    badPath.cubicTo(w * 0.3, h * 0.75, w * 0.6, h * 0.50, w, h * 0.40);
-
-    final badFill = Path.from(badPath)
-      ..lineTo(w, h)
-      ..lineTo(0, h)
-      ..close();
-
-    canvas.drawPath(
-      badFill,
-      Paint()
-        ..shader = LinearGradient(
-          colors: [
-            const Color(0xFFFF6B4A).withValues(alpha: 0.3),
-            const Color(0xFFFF6B4A).withValues(alpha: 0.0),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ).createShader(Rect.fromLTWH(0, 0, w, h))
-        ..style = PaintingStyle.fill,
-    );
-
-    canvas.drawPath(
-      badPath,
-      Paint()
-        ..color = const Color(0xFFFF6B4A)
-        ..strokeWidth = 2.5
-        ..style = PaintingStyle.stroke
-        ..strokeCap = StrokeCap.round,
-    );
-
-    // Optimized habits curve (purple)
-    final goodPath = Path();
-    goodPath.moveTo(0, h * 0.85);
-    goodPath.cubicTo(w * 0.25, h * 0.60, w * 0.55, h * 0.25, w, h * 0.05);
-
-    final goodFill = Path.from(goodPath)
-      ..lineTo(w, h)
-      ..lineTo(0, h)
-      ..close();
-
-    canvas.drawPath(
-      goodFill,
-      Paint()
-        ..shader = LinearGradient(
-          colors: [
-            AppColors.primary.withValues(alpha: 0.35),
-            AppColors.primary.withValues(alpha: 0.0),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ).createShader(Rect.fromLTWH(0, 0, w, h))
-        ..style = PaintingStyle.fill,
-    );
-
-    canvas.drawPath(
-      goodPath,
-      Paint()
-        ..color = AppColors.primary
-        ..strokeWidth = 2.5
-        ..style = PaintingStyle.stroke
-        ..strokeCap = StrokeCap.round,
-    );
-
-    // End dots
-    final endDots = <(double, double, Color)>[
-      (w, h * 0.05, AppColors.primary),
-      (w, h * 0.40, const Color(0xFFFF6B4A)),
-    ];
-    for (final dot in endDots) {
-      canvas.drawCircle(
-        Offset(dot.$1, dot.$2),
-        7,
-        Paint()
-          ..color = dot.$3.withValues(alpha: 0.3)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
-      );
-      canvas.drawCircle(Offset(dot.$1, dot.$2), 5, Paint()..color = dot.$3);
-      canvas.drawCircle(
-        Offset(dot.$1, dot.$2),
-        2.5,
-        Paint()..color = Colors.white,
-      );
-    }
-
-    // Start dot
-    canvas.drawCircle(
-      Offset(0, h * 0.85),
-      5,
-      Paint()..color = AppColors.primary,
-    );
-    canvas.drawCircle(Offset(0, h * 0.85), 2.5, Paint()..color = Colors.white);
-  }
-
-  @override
-  bool shouldRepaint(_GrowthChartPainter old) => false;
 }
 
 // Welcome Screen

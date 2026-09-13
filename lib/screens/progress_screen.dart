@@ -11,6 +11,7 @@ import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../widgets/premium_paywall.dart';
+import '../widgets/tour_keys.dart';
 import 'weekly_report_screen.dart';
 import 'posture_analysis_screen.dart';
 import 'progress_photos_screen.dart';
@@ -22,15 +23,22 @@ class ProgressScreen extends StatefulWidget {
   State<ProgressScreen> createState() => ProgressScreenState();
 }
 
-class ProgressScreenState extends State<ProgressScreen> with SingleTickerProviderStateMixin {
+class ProgressScreenState extends State<ProgressScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _chartAnim;
   late Animation<double> _chartCurve;
 
   @override
   void initState() {
     super.initState();
-    _chartAnim = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
-    _chartCurve = CurvedAnimation(parent: _chartAnim, curve: Curves.easeOutCubic);
+    _chartAnim = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _chartCurve = CurvedAnimation(
+      parent: _chartAnim,
+      curve: Curves.easeOutCubic,
+    );
     // İlk açılışta animasyon
     Future.delayed(const Duration(milliseconds: 100), () {
       if (mounted) _chartAnim.forward(from: 0);
@@ -84,8 +92,9 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                           letterSpacing: -1.1,
                           shadows: [
                             Shadow(
-                                color: AppColors.primary.withValues(alpha: 0.25),
-                                blurRadius: 10)
+                              color: AppColors.primary.withValues(alpha: 0.25),
+                              blurRadius: 10,
+                            ),
                           ],
                         ),
                       ),
@@ -99,86 +108,97 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                     // ── Where you stand ───────────────────────────────────
-                    _HeightHero(
-                      current: current,
-                      gained: gained,
-                      records: records,
-                      onAdd: provider.isPremium
-                          ? () => _showAddMeasurementSheet(context, provider)
-                          : () => showPremiumPaywall(context),
-                      locked: !provider.isPremium,
+                    KeyedSubtree(
+                      key: TourKeys.progressHeight,
+                      child: _HeightHero(
+                        current: current,
+                        gained: gained,
+                        records: records,
+                        onAdd: provider.isPremium
+                            ? () => _showAddMeasurementSheet(context, provider)
+                            : () => showPremiumPaywall(context),
+                      ),
                     ),
                     const SizedBox(height: 16),
 
                     // ── The curve, with its numbers underneath ────────────
                     if (records.length >= 2)
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(18, 18, 18, 16),
-                        decoration: BoxDecoration(
-                          color: AppColors.cardFill,
-                          borderRadius: BorderRadius.circular(26),
-                          border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.06)),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SectionHeader(
+                      KeyedSubtree(
+                        key: TourKeys.progressChart,
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(18, 18, 18, 16),
+                          decoration: BoxDecoration(
+                            color: AppColors.cardFill,
+                            borderRadius: BorderRadius.circular(26),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.06),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SectionHeader(
                                 icon: CupertinoIcons.graph_square_fill,
-                                title: l.heightChart),
-                            const SizedBox(height: 18),
-                            SizedBox(
-                              height: 190,
-                              child: AnimatedBuilder(
-                                animation: _chartAnim,
-                                builder: (context, _) => _buildChart(
-                                    context, records, _chartCurve.value),
+                                title: l.heightChart,
                               ),
-                            ),
-                            const SizedBox(height: 16),
-                            Divider(
+                              const SizedBox(height: 18),
+                              SizedBox(
+                                height: 190,
+                                child: AnimatedBuilder(
+                                  animation: _chartAnim,
+                                  builder: (context, _) => _buildChart(
+                                    context,
+                                    records,
+                                    _chartCurve.value,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Divider(
                                 color: Colors.white.withValues(alpha: 0.06),
-                                height: 1),
-                            const SizedBox(height: 14),
-                            Row(
-                              children: [
-                                _StatItem(
-                                  label: l.totalGrowth,
-                                  value:
-                                      '${provider.totalGrowth > 0 ? '+' : ''}${provider.totalGrowth}',
-                                  unit: 'cm',
-                                  color: provider.totalGrowth > 0
-                                      ? AppColors.success
-                                      : AppColors.textSecondary,
-                                ),
-                                Container(
+                                height: 1,
+                              ),
+                              const SizedBox(height: 14),
+                              Row(
+                                children: [
+                                  _StatItem(
+                                    label: l.totalGrowth,
+                                    value:
+                                        '${provider.totalGrowth > 0 ? '+' : ''}${provider.totalGrowth}',
+                                    unit: 'cm',
+                                    color: provider.totalGrowth > 0
+                                        ? AppColors.success
+                                        : AppColors.textSecondary,
+                                  ),
+                                  Container(
                                     width: 1,
                                     height: 32,
-                                    color:
-                                        Colors.white.withValues(alpha: 0.10)),
-                                _StatItem(
-                                  label: l.lastDiff,
-                                  value:
-                                      '${provider.lastGrowth > 0 ? '+' : ''}${provider.lastGrowth}',
-                                  unit: 'cm',
-                                  color: provider.lastGrowth > 0
-                                      ? AppColors.success
-                                      : AppColors.textSecondary,
-                                ),
-                                Container(
+                                    color: Colors.white.withValues(alpha: 0.10),
+                                  ),
+                                  _StatItem(
+                                    label: l.lastDiff,
+                                    value:
+                                        '${provider.lastGrowth > 0 ? '+' : ''}${provider.lastGrowth}',
+                                    unit: 'cm',
+                                    color: provider.lastGrowth > 0
+                                        ? AppColors.success
+                                        : AppColors.textSecondary,
+                                  ),
+                                  Container(
                                     width: 1,
                                     height: 32,
-                                    color:
-                                        Colors.white.withValues(alpha: 0.10)),
-                                _StatItem(
-                                  label: l.measurementCount,
-                                  value: '${records.length}',
-                                  unit: '',
-                                  color: AppColors.primaryLight,
-                                ),
-                              ],
-                            ),
-                          ],
+                                    color: Colors.white.withValues(alpha: 0.10),
+                                  ),
+                                  _StatItem(
+                                    label: l.measurementCount,
+                                    value: '${records.length}',
+                                    unit: '',
+                                    color: AppColors.primaryLight,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     else
@@ -188,13 +208,16 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                           color: AppColors.cardFill,
                           borderRadius: BorderRadius.circular(26),
                           border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.06)),
+                            color: Colors.white.withValues(alpha: 0.06),
+                          ),
                         ),
                         child: Column(
                           children: [
-                            Icon(CupertinoIcons.graph_square,
-                                color: Colors.white.withValues(alpha: 0.25),
-                                size: 34),
+                            Icon(
+                              CupertinoIcons.graph_square,
+                              color: Colors.white.withValues(alpha: 0.25),
+                              size: 34,
+                            ),
                             const SizedBox(height: 12),
                             Text(
                               l.chartMinData,
@@ -226,84 +249,104 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                       title: l.trackingSection,
                     ),
                     const SizedBox(height: 12),
-                    _ToolCard(
-                      color: AppColors.cyan,
-                      icon: CupertinoIcons.photo_fill_on_rectangle_fill,
-                      title: l.progressPhotosTitle,
-                      benefit: l.photosBenefit,
-                      state: provider.progressPhotos.isEmpty
-                          ? l.photosSummaryEmpty
-                          : l.photosSummaryCount(provider.progressPhotos.length),
-                      cta: l.photosCta,
-                      visual: _PhotoStrip(
-                        paths: provider.progressPhotos
-                            .map((p) => p['path'] as String?)
-                            .whereType<String>()
-                            .toList(),
-                      ),
-                      onTap: () => Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (_) => const ProgressPhotosScreen()),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    _ToolCard(
-                      color: AppColors.lime,
-                      icon: Icons.accessibility_new_rounded,
-                      title: l.explorePosture,
-                      benefit: l.postureBenefit,
-                      state: provider.postureAnalyses.isEmpty
-                          ? l.postureSummaryEmpty
-                          : l.postureSummaryScore(
-                              (provider.postureAnalyses.last['totalScore']
-                                          as num?)
-                                      ?.toInt() ??
-                                  0),
-                      cta: l.postureCta,
-                      visual: _PostureDial(
-                        score: provider.postureAnalyses.isEmpty
-                            ? null
-                            : (provider.postureAnalyses.last['totalScore']
-                                    as num?)
-                                ?.toInt(),
-                      ),
-                      onTap: () => Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (_) => const PostureAnalysisScreen()),
+                    KeyedSubtree(
+                      key: TourKeys.progressPhotos,
+                      child: _ToolCard(
+                        color: AppColors.cyan,
+                        icon: CupertinoIcons.photo_fill_on_rectangle_fill,
+                        title: l.progressPhotosTitle,
+                        benefit: l.photosBenefit,
+                        state: provider.progressPhotos.isEmpty
+                            ? l.photosSummaryEmpty
+                            : l.photosSummaryCount(
+                                provider.progressPhotos.length,
+                              ),
+                        cta: l.photosCta,
+                        visual: _PhotoStrip(
+                          paths: provider.progressPhotos
+                              .map((p) => p['path'] as String?)
+                              .whereType<String>()
+                              .toList(),
+                        ),
+                        onTap: () => Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (_) => const ProgressPhotosScreen(),
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 12),
-                    _ToolCard(
-                      color: AppColors.orange,
-                      icon: CupertinoIcons.doc_chart_fill,
-                      title: l.weeklyReportMenu,
-                      benefit: l.reportBenefit,
-                      state: l.toolStateReady,
-                      cta: l.reportCta,
-                      visual: _WeekSpark(provider: provider),
-                      onTap: () => Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (_) => const WeeklyReportScreen()),
+                    KeyedSubtree(
+                      key: TourKeys.progressPosture,
+                      child: _ToolCard(
+                        color: AppColors.lime,
+                        icon: Icons.accessibility_new_rounded,
+                        title: l.explorePosture,
+                        benefit: l.postureBenefit,
+                        state: provider.postureAnalyses.isEmpty
+                            ? l.postureSummaryEmpty
+                            : l.postureSummaryScore(
+                                (provider.postureAnalyses.last['totalScore']
+                                            as num?)
+                                        ?.toInt() ??
+                                    0,
+                              ),
+                        cta: l.postureCta,
+                        visual: _PostureDial(
+                          score: provider.postureAnalyses.isEmpty
+                              ? null
+                              : (provider.postureAnalyses.last['totalScore']
+                                        as num?)
+                                    ?.toInt(),
+                        ),
+                        onTap: () => Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (_) => const PostureAnalysisScreen(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    KeyedSubtree(
+                      key: TourKeys.progressReport,
+                      child: _ToolCard(
+                        color: AppColors.orange,
+                        icon: CupertinoIcons.doc_chart_fill,
+                        title: l.weeklyReportMenu,
+                        benefit: l.reportBenefit,
+                        state: l.toolStateReady,
+                        cta: l.reportCta,
+                        visual: _WeekSpark(provider: provider),
+                        onTap: () => Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (_) => const WeeklyReportScreen(),
+                          ),
+                        ),
                       ),
                     ),
 
                     // ── History as a timeline ─────────────────────────────
                     if (records.isNotEmpty) ...[
                       const SizedBox(height: 22),
-                      SectionHeader(
+                      KeyedSubtree(
+                        key: TourKeys.progressHistory,
+                        child: SectionHeader(
                           icon: CupertinoIcons.clock,
-                          title: l.measurementHistory),
+                          title: l.measurementHistory,
+                        ),
+                      ),
                       const SizedBox(height: 12),
                       ...List.generate(records.length, (i) {
                         final index = records.length - 1 - i;
                         final record = records[index];
                         final diff = index > 0
-                            ? double.parse((record.height -
-                                    records[index - 1].height)
-                                .toStringAsFixed(1))
+                            ? double.parse(
+                                (record.height - records[index - 1].height)
+                                    .toStringAsFixed(1),
+                              )
                             : 0.0;
 
                         DateTime? parsed;
@@ -325,8 +368,11 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                               color: AppColors.error.withValues(alpha: 0.18),
                               borderRadius: BorderRadius.circular(18),
                             ),
-                            child: const Icon(CupertinoIcons.delete,
-                                color: AppColors.error, size: 20),
+                            child: const Icon(
+                              CupertinoIcons.delete,
+                              color: AppColors.error,
+                              size: 20,
+                            ),
                           ),
                           confirmDismiss: (_) async {
                             return await showCupertinoDialog<bool>(
@@ -373,7 +419,11 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
     );
   }
 
-  Widget _buildChart(BuildContext context, List<HeightRecord> records, double animValue) {
+  Widget _buildChart(
+    BuildContext context,
+    List<HeightRecord> records,
+    double animValue,
+  ) {
     final locale = Localizations.localeOf(context).languageCode;
 
     final heights = records.map((r) => r.height).toList();
@@ -390,7 +440,10 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
       final count = records.length;
       // Her noktaya kademeli gecikme: ilk nokta hemen, son nokta en geç
       final stagger = count > 1 ? i / (count - 1) * 0.3 : 0.0;
-      final localAnim = ((animValue - stagger) / (1.0 - stagger)).clamp(0.0, 1.0);
+      final localAnim = ((animValue - stagger) / (1.0 - stagger)).clamp(
+        0.0,
+        1.0,
+      );
       final targetY = e.value.height;
       final animatedY = minY + (targetY - minY) * localAnim;
       return FlSpot(i.toDouble(), animatedY);
@@ -416,10 +469,15 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
               reservedSize: 42,
               interval: range < 3 ? 1 : null,
               getTitlesWidget: (value, meta) {
-                if (value == meta.min || value == meta.max) return const SizedBox();
+                if (value == meta.min || value == meta.max)
+                  return const SizedBox();
                 return Text(
                   value.toStringAsFixed(1),
-                  style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.35), fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.white.withValues(alpha: 0.35),
+                    fontWeight: FontWeight.w500,
+                  ),
                 );
               },
             ),
@@ -430,8 +488,12 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
               reservedSize: 32,
               getTitlesWidget: (value, meta) {
                 final index = value.toInt();
-                if (index < 0 || index >= records.length) return const SizedBox();
-                if (records.length > 5 && index != 0 && index != records.length - 1 && index != records.length ~/ 2) {
+                if (index < 0 || index >= records.length)
+                  return const SizedBox();
+                if (records.length > 5 &&
+                    index != 0 &&
+                    index != records.length - 1 &&
+                    index != records.length ~/ 2) {
                   return const SizedBox();
                 }
                 final date = DateTime.tryParse(records[index].date);
@@ -440,14 +502,22 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     DateFormat('d MMM', locale).format(date),
-                    style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.5), fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.white.withValues(alpha: 0.5),
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 );
               },
             ),
           ),
-          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          topTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
+          rightTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
         ),
         borderData: FlBorderData(show: false),
         minY: minY,
@@ -496,11 +566,17 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
         ],
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
-            tooltipPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            tooltipPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
             tooltipMargin: 16,
             tooltipRoundedRadius: 14,
-            getTooltipColor: (_) => const Color(0xFF2D1B69).withValues(alpha: 0.95),
-            tooltipBorder: BorderSide(color: AppColors.primary.withValues(alpha: 0.3)),
+            getTooltipColor: (_) =>
+                const Color(0xFF2D1B69).withValues(alpha: 0.95),
+            tooltipBorder: BorderSide(
+              color: AppColors.primary.withValues(alpha: 0.3),
+            ),
             getTooltipItems: (touchedSpots) => touchedSpots.map((spot) {
               final index = spot.x.toInt();
               String dateLabel = '';
@@ -512,24 +588,34 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
               }
               return LineTooltipItem(
                 '$dateLabel${spot.y.toStringAsFixed(1)} cm',
-                const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15, height: 1.4),
+                const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 15,
+                  height: 1.4,
+                ),
               );
             }).toList(),
           ),
-          getTouchedSpotIndicator: (barData, spotIndexes) => spotIndexes.map((i) {
-            return TouchedSpotIndicatorData(
-              FlLine(color: const Color(0xFFB57BFF).withValues(alpha: 0.3), strokeWidth: 1, dashArray: [4, 4]),
-              FlDotData(
-                show: true,
-                getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
-                  radius: 6,
-                  color: const Color(0xFFB57BFF),
-                  strokeWidth: 2.5,
-                  strokeColor: Colors.white,
-                ),
-              ),
-            );
-          }).toList(),
+          getTouchedSpotIndicator: (barData, spotIndexes) =>
+              spotIndexes.map((i) {
+                return TouchedSpotIndicatorData(
+                  FlLine(
+                    color: const Color(0xFFB57BFF).withValues(alpha: 0.3),
+                    strokeWidth: 1,
+                    dashArray: [4, 4],
+                  ),
+                  FlDotData(
+                    show: true,
+                    getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
+                      radius: 6,
+                      color: const Color(0xFFB57BFF),
+                      strokeWidth: 2.5,
+                      strokeColor: Colors.white,
+                    ),
+                  ),
+                );
+              }).toList(),
         ),
       ),
     );
@@ -550,27 +636,46 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
       backgroundColor: Colors.transparent,
       builder: (context) => StatefulBuilder(
         builder: (context, setSheetState) => Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
           child: Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               color: AppColors.surfaceDark,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
-              border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.14))),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(32),
+              ),
+              border: Border(
+                top: BorderSide(color: Colors.white.withValues(alpha: 0.14)),
+              ),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 36, height: 4,
-                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.50), borderRadius: BorderRadius.circular(2)),
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.50),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                 ),
                 const SizedBox(height: 24),
-                const Icon(CupertinoIcons.resize_v, color: AppColors.primaryLight, size: 28),
+                const Icon(
+                  CupertinoIcons.resize_v,
+                  color: AppColors.primaryLight,
+                  size: 28,
+                ),
                 const SizedBox(height: 12),
                 Text(
                   l.newMeasurement,
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1),
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                    letterSpacing: -1,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 GestureDetector(
@@ -583,7 +688,10 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                       locale: Localizations.localeOf(context),
                       builder: (context, child) => Theme(
                         data: ThemeData.dark().copyWith(
-                          colorScheme: const ColorScheme.dark(primary: AppColors.primary, surface: AppColors.surfaceDark),
+                          colorScheme: const ColorScheme.dark(
+                            primary: AppColors.primary,
+                            surface: AppColors.surfaceDark,
+                          ),
                         ),
                         child: child!,
                       ),
@@ -593,7 +701,10 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                     }
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.primary.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(10),
@@ -601,14 +712,29 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(CupertinoIcons.calendar, color: AppColors.primary, size: 16),
+                        Icon(
+                          CupertinoIcons.calendar,
+                          color: AppColors.primary,
+                          size: 16,
+                        ),
                         const SizedBox(width: 8),
                         Text(
-                          DateFormat('d MMMM yyyy', Localizations.localeOf(context).languageCode).format(selectedDate),
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.primary),
+                          DateFormat(
+                            'd MMMM yyyy',
+                            Localizations.localeOf(context).languageCode,
+                          ).format(selectedDate),
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.primary,
+                          ),
                         ),
                         const SizedBox(width: 4),
-                        Icon(CupertinoIcons.chevron_down, color: AppColors.primary.withValues(alpha: 0.6), size: 14),
+                        Icon(
+                          CupertinoIcons.chevron_down,
+                          color: AppColors.primary.withValues(alpha: 0.6),
+                          size: 14,
+                        ),
                       ],
                     ),
                   ),
@@ -616,28 +742,48 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                 const SizedBox(height: 24),
                 TextField(
                   controller: controller,
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                    letterSpacing: -1,
+                  ),
                   textAlign: TextAlign.center,
                   cursorColor: AppColors.primary,
                   decoration: InputDecoration(
                     suffixText: 'cm',
-                    suffixStyle: TextStyle(fontSize: 16, color: AppColors.textSecondary),
+                    suffixStyle: TextStyle(
+                      fontSize: 16,
+                      color: AppColors.textSecondary,
+                    ),
                     filled: true,
                     fillColor: Colors.white.withValues(alpha: 0.12),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                      borderSide: BorderSide(
+                        color: Colors.white.withValues(alpha: 0.1),
+                      ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+                      borderSide: BorderSide(
+                        color: Colors.white.withValues(alpha: 0.1),
+                      ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
-                      borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                      borderSide: const BorderSide(
+                        color: AppColors.primary,
+                        width: 1.5,
+                      ),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 16,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -647,17 +793,33 @@ class ProgressScreenState extends State<ProgressScreen> with SingleTickerProvide
                     color: AppColors.primary,
                     borderRadius: BorderRadius.circular(14),
                     onPressed: () {
-                      final height = double.tryParse(controller.text.replaceAll(',', '.'));
+                      final height = double.tryParse(
+                        controller.text.replaceAll(',', '.'),
+                      );
                       if (height != null && height > 50 && height < 250) {
-                        final dateStr = selectedDate.toIso8601String().substring(0, 10);
-                        provider.addHeightRecord(HeightRecord(date: dateStr, height: height));
+                        final dateStr = selectedDate
+                            .toIso8601String()
+                            .substring(0, 10);
+                        provider.addHeightRecord(
+                          HeightRecord(date: dateStr, height: height),
+                        );
                         if (profile != null) {
-                          provider.updateProfile(profile.copyWith(currentHeight: height));
+                          provider.updateProfile(
+                            profile.copyWith(currentHeight: height),
+                          );
                         }
                         Navigator.pop(context);
                       }
                     },
-                    child: Text(l.save, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white, letterSpacing: -0.3)),
+                    child: Text(
+                      l.save,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                        color: Colors.white,
+                        letterSpacing: -0.3,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -678,7 +840,12 @@ class _StatItem extends StatelessWidget {
   final String unit;
   final Color color;
 
-  const _StatItem({required this.label, required this.value, required this.unit, required this.color});
+  const _StatItem({
+    required this.label,
+    required this.value,
+    required this.unit,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -692,23 +859,39 @@ class _StatItem extends StatelessWidget {
             children: [
               Text(
                 value,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: color, letterSpacing: -0.8),
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  color: color,
+                  letterSpacing: -0.8,
+                ),
               ),
               if (unit.isNotEmpty)
                 Text(
                   ' $unit',
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: color.withValues(alpha: 0.6)),
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: color.withValues(alpha: 0.6),
+                  ),
                 ),
             ],
           ),
           const SizedBox(height: 4),
-          Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.72), letterSpacing: -0.1)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              color: Colors.white.withValues(alpha: 0.72),
+              letterSpacing: -0.1,
+            ),
+          ),
         ],
       ),
     );
   }
 }
-
 
 /// One of the tracking tools that live under İlerleme.
 /// A tracking tool, sized like it matters: its own live visual, what it is
@@ -744,10 +927,7 @@ class _ToolCard extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              color.withValues(alpha: 0.11),
-              AppColors.cardFill,
-            ],
+            colors: [color.withValues(alpha: 0.11), AppColors.cardFill],
             stops: const [0.0, 0.62],
           ),
           borderRadius: BorderRadius.circular(26),
@@ -811,8 +991,10 @@ class _ToolCard extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.14),
                     borderRadius: BorderRadius.circular(100),
@@ -873,8 +1055,11 @@ class _PhotoStrip extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: path != null && File(path).existsSync()
             ? Image.file(File(path), fit: BoxFit.cover)
-            : Icon(CupertinoIcons.person_fill,
-                size: 20, color: border.withValues(alpha: 0.35)),
+            : Icon(
+                CupertinoIcons.person_fill,
+                size: 20,
+                color: border.withValues(alpha: 0.35),
+              ),
       );
     }
 
@@ -914,8 +1099,11 @@ class _PostureDial extends StatelessWidget {
       ),
       child: Center(
         child: score == null
-            ? Icon(Icons.accessibility_new_rounded,
-                size: 26, color: AppColors.lime.withValues(alpha: 0.55))
+            ? Icon(
+                Icons.accessibility_new_rounded,
+                size: 26,
+                color: AppColors.lime.withValues(alpha: 0.55),
+              )
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -969,18 +1157,20 @@ class _WeekSpark extends StatelessWidget {
           decoration: BoxDecoration(
             color: future
                 ? Colors.white.withValues(alpha: 0.05)
-                : AppColors.orange
-                    .withValues(alpha: ratio > 0 ? 0.95 : 0.16),
+                : AppColors.orange.withValues(alpha: ratio > 0 ? 0.95 : 0.16),
             borderRadius: BorderRadius.circular(4),
             border: isToday
                 ? Border.all(
-                    color: AppColors.orange.withValues(alpha: 0.8), width: 1)
+                    color: AppColors.orange.withValues(alpha: 0.8),
+                    width: 1,
+                  )
                 : null,
             boxShadow: ratio > 0.05
                 ? [
                     BoxShadow(
-                        color: AppColors.orange.withValues(alpha: 0.35),
-                        blurRadius: 8)
+                      color: AppColors.orange.withValues(alpha: 0.35),
+                      blurRadius: 8,
+                    ),
                   ]
                 : null,
           ),
@@ -1033,14 +1223,12 @@ class _HeightHero extends StatelessWidget {
   final double gained;
   final List<HeightRecord> records;
   final VoidCallback onAdd;
-  final bool locked;
 
   const _HeightHero({
     required this.current,
     required this.gained,
     required this.records,
     required this.onAdd,
-    required this.locked,
   });
 
   @override
@@ -1132,8 +1320,10 @@ class _HeightHero extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: (gained > 0 ? AppColors.success : Colors.white)
                       .withValues(alpha: 0.12),
@@ -1190,11 +1380,7 @@ class _HeightHero extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    locked ? CupertinoIcons.lock_fill : CupertinoIcons.add,
-                    size: 17,
-                    color: Colors.white,
-                  ),
+                  const Icon(CupertinoIcons.add, size: 17, color: Colors.white),
                   const SizedBox(width: 8),
                   Flexible(
                     child: Text(
@@ -1234,7 +1420,8 @@ class _SparklinePainter extends CustomPainter {
     final path = Path();
     for (var i = 0; i < values.length; i++) {
       final x = size.width * (i / (values.length - 1));
-      final y = size.height - ((values[i] - minV) / span) * (size.height - 6) - 3;
+      final y =
+          size.height - ((values[i] - minV) / span) * (size.height - 6) - 3;
       if (i == 0) {
         path.moveTo(x, y);
       } else {
@@ -1325,9 +1512,9 @@ class _TimelineEntry extends StatelessWidget {
                     boxShadow: isFirst
                         ? [
                             BoxShadow(
-                                color:
-                                    AppColors.primary.withValues(alpha: 0.5),
-                                blurRadius: 10)
+                              color: AppColors.primary.withValues(alpha: 0.5),
+                              blurRadius: 10,
+                            ),
                           ]
                         : null,
                   ),
@@ -1352,7 +1539,8 @@ class _TimelineEntry extends StatelessWidget {
                   color: AppColors.cardFill,
                   borderRadius: BorderRadius.circular(18),
                   border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.06)),
+                    color: Colors.white.withValues(alpha: 0.06),
+                  ),
                 ),
                 child: Row(
                   children: [
@@ -1384,7 +1572,9 @@ class _TimelineEntry extends StatelessWidget {
                     if (diff != 0)
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 9, vertical: 4),
+                          horizontal: 9,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: (up ? AppColors.success : AppColors.error)
                               .withValues(alpha: 0.13),
@@ -1406,8 +1596,7 @@ class _TimelineEntry extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 12.5,
                                 fontWeight: FontWeight.w800,
-                                color:
-                                    up ? AppColors.success : AppColors.error,
+                                color: up ? AppColors.success : AppColors.error,
                               ),
                             ),
                           ],

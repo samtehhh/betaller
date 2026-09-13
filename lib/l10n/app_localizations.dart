@@ -1664,6 +1664,18 @@ abstract class AppLocalizations {
   /// **'Completed!'**
   String get analysisComplete;
 
+  /// No description provided for @analysisDataReceivedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Received'**
+  String get analysisDataReceivedTitle;
+
+  /// No description provided for @analysisDataReceivedSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting your analysis...'**
+  String get analysisDataReceivedSubtitle;
+
   /// No description provided for @yourScore.
   ///
   /// In en, this message translates to:
@@ -2156,6 +2168,18 @@ abstract class AppLocalizations {
   /// **'Opening shoulders corrects forward posture, can add 1-2cm in appearance.'**
   String get routineShoulderRollsDesc;
 
+  /// No description provided for @achieveCommitment.
+  ///
+  /// In en, this message translates to:
+  /// **'Commitment'**
+  String get achieveCommitment;
+
+  /// No description provided for @achieveCommitmentDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter all your data, fully explore the app, and start using it'**
+  String get achieveCommitmentDesc;
+
   /// No description provided for @achieveFirstDay.
   ///
   /// In en, this message translates to:
@@ -2605,6 +2629,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next'**
   String get obNext;
+
+  /// No description provided for @obSkipAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip All'**
+  String get obSkipAll;
 
   /// No description provided for @currentSuffix.
   ///
@@ -6224,6 +6254,390 @@ abstract class AppLocalizations {
   /// **'SOON'**
   String get journeySoon;
 
+  /// No description provided for @tourHomeStreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Streak'**
+  String get tourHomeStreakTitle;
+
+  /// No description provided for @tourHomeStreakDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps growing as long as you keep your discipline — miss a day and it resets.'**
+  String get tourHomeStreakDesc;
+
+  /// No description provided for @tourHomeXpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Level'**
+  String get tourHomeXpTitle;
+
+  /// No description provided for @tourHomeXpDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Rises with the XP you earn by staying disciplined. Don\'t fall off track!'**
+  String get tourHomeXpDesc;
+
+  /// No description provided for @tourHomeGoalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Goals'**
+  String get tourHomeGoalsTitle;
+
+  /// No description provided for @tourHomeGoalsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows your day\'s routines, tasks and water goal at a glance, so nothing slips by.'**
+  String get tourHomeGoalsDesc;
+
+  /// No description provided for @tourHomeTrackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Water & Sleep Tracking'**
+  String get tourHomeTrackTitle;
+
+  /// No description provided for @tourHomeTrackDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Log your daily water and sleep right here, in seconds.'**
+  String get tourHomeTrackDesc;
+
+  /// No description provided for @tourPlanTabsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Three Tabs: Today, Discipline, Nutrition'**
+  String get tourPlanTabsTitle;
+
+  /// No description provided for @tourPlanTabsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily routine, your weekly program and your nutrition plan all live here.'**
+  String get tourPlanTabsDesc;
+
+  /// No description provided for @tourPlanLevelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Discipline Level'**
+  String get tourPlanLevelTitle;
+
+  /// No description provided for @tourPlanLevelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows how consistently you complete your routines. Level up for better results.'**
+  String get tourPlanLevelDesc;
+
+  /// No description provided for @tourPlanTodayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Plan'**
+  String get tourPlanTodayTitle;
+
+  /// No description provided for @tourPlanTodayDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Check off your daily routines here to grow your streak.'**
+  String get tourPlanTodayDesc;
+
+  /// No description provided for @tourPlanTodayListTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Routines for Today'**
+  String get tourPlanTodayListTitle;
+
+  /// No description provided for @tourPlanTodayListDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Check each one off as you do it — tap to open a routine for the details.'**
+  String get tourPlanTodayListDesc;
+
+  /// No description provided for @tourPlanWeekGoalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This Week'**
+  String get tourPlanWeekGoalsTitle;
+
+  /// No description provided for @tourPlanWeekGoalsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect days, workouts and the measurement this week asks of you — including the mandatory one.'**
+  String get tourPlanWeekGoalsDesc;
+
+  /// No description provided for @tourPlanMonthGoalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This Month'**
+  String get tourPlanMonthGoalsTitle;
+
+  /// No description provided for @tourPlanMonthGoalsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress photos, a posture check and this month\'s measurements — the ones you shouldn\'t skip.'**
+  String get tourPlanMonthGoalsDesc;
+
+  /// No description provided for @tourProgressHeightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Current Height'**
+  String get tourProgressHeightTitle;
+
+  /// No description provided for @tourProgressHeightDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows your height right now and your total gain. Add a new measurement from here.'**
+  String get tourProgressHeightDesc;
+
+  /// No description provided for @tourProgressPhotosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress Photos'**
+  String get tourProgressPhotosTitle;
+
+  /// No description provided for @tourProgressPhotosDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your transformation visually with photos you take regularly.'**
+  String get tourProgressPhotosDesc;
+
+  /// No description provided for @tourProgressPostureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture Analysis'**
+  String get tourProgressPostureTitle;
+
+  /// No description provided for @tourProgressPostureDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Have your posture analyzed from a photo and learn what to work on.'**
+  String get tourProgressPostureDesc;
+
+  /// No description provided for @tourAnalysisScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your BeTaller Score'**
+  String get tourAnalysisScoreTitle;
+
+  /// No description provided for @tourAnalysisScoreDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your overall performance score, calculated from your genetics, velocity, nutrition and sleep.'**
+  String get tourAnalysisScoreDesc;
+
+  /// No description provided for @tourAnalysisPredictionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Height Prediction'**
+  String get tourAnalysisPredictionTitle;
+
+  /// No description provided for @tourAnalysisPredictionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows your predicted final height and your year-by-year trajectory.'**
+  String get tourAnalysisPredictionDesc;
+
+  /// No description provided for @tourAnalysisPeerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare with Peers'**
+  String get tourAnalysisPeerTitle;
+
+  /// No description provided for @tourAnalysisPeerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See where you rank and compare yourself with others your age.'**
+  String get tourAnalysisPeerDesc;
+
+  /// No description provided for @tourHomeGoalsRoutinesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Routines'**
+  String get tourHomeGoalsRoutinesTitle;
+
+  /// No description provided for @tourHomeGoalsRoutinesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See how many exercise routines you still need to complete today.'**
+  String get tourHomeGoalsRoutinesDesc;
+
+  /// No description provided for @tourHomeGoalsChallengesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Tasks'**
+  String get tourHomeGoalsChallengesTitle;
+
+  /// No description provided for @tourHomeGoalsChallengesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Track the progress of your active challenges right here.'**
+  String get tourHomeGoalsChallengesDesc;
+
+  /// No description provided for @tourHomeGoalsWaterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Water Goal'**
+  String get tourHomeGoalsWaterTitle;
+
+  /// No description provided for @tourHomeGoalsWaterDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See how close you are to your daily water goal.'**
+  String get tourHomeGoalsWaterDesc;
+
+  /// No description provided for @tourHomeReminderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Next Reminder'**
+  String get tourHomeReminderTitle;
+
+  /// No description provided for @tourHomeReminderDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See when your next reminder is coming, and edit it from here.'**
+  String get tourHomeReminderDesc;
+
+  /// No description provided for @tourHomeChallengesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Challenges'**
+  String get tourHomeChallengesTitle;
+
+  /// No description provided for @tourHomeChallengesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete active challenges to earn extra XP.'**
+  String get tourHomeChallengesDesc;
+
+  /// No description provided for @tourHomeGrowthTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Growth Status'**
+  String get tourHomeGrowthTitle;
+
+  /// No description provided for @tourHomeGrowthDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See the gap between your total and latest measurement, and how many you\'ve logged.'**
+  String get tourHomeGrowthDesc;
+
+  /// No description provided for @tourHomeExploreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore'**
+  String get tourHomeExploreTitle;
+
+  /// No description provided for @tourHomeExploreDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition guides, growth recipes and more are waiting for you here.'**
+  String get tourHomeExploreDesc;
+
+  /// No description provided for @tourPlanProgramHeaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your 70-Day Program'**
+  String get tourPlanProgramHeaderTitle;
+
+  /// No description provided for @tourPlanProgramHeaderDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See your overall progress, your current level and day in this ring.'**
+  String get tourPlanProgramHeaderDesc;
+
+  /// No description provided for @tourPlanProgramLevelsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Levels'**
+  String get tourPlanProgramLevelsTitle;
+
+  /// No description provided for @tourPlanProgramLevelsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See which of the 10 levels you\'re on, and which ones are still locked.'**
+  String get tourPlanProgramLevelsDesc;
+
+  /// No description provided for @tourPlanNutritionHeaderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Nutrition Progress'**
+  String get tourPlanNutritionHeaderTitle;
+
+  /// No description provided for @tourPlanNutritionHeaderDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Track how many of your daily nutrition routines you\'ve completed.'**
+  String get tourPlanNutritionHeaderDesc;
+
+  /// No description provided for @tourPlanNutritionFirstTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition Routines'**
+  String get tourPlanNutritionFirstTitle;
+
+  /// No description provided for @tourPlanNutritionFirstDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Check off the nutrition habits that support your growth.'**
+  String get tourPlanNutritionFirstDesc;
+
+  /// No description provided for @tourProgressChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth Curve'**
+  String get tourProgressChartTitle;
+
+  /// No description provided for @tourProgressChartDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See your past measurements on a chart and understand where you\'re headed.'**
+  String get tourProgressChartDesc;
+
+  /// No description provided for @tourProgressReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Report'**
+  String get tourProgressReportTitle;
+
+  /// No description provided for @tourProgressReportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Review the report that summarizes your week\'s progress.'**
+  String get tourProgressReportDesc;
+
+  /// No description provided for @tourProgressHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Measurement History'**
+  String get tourProgressHistoryTitle;
+
+  /// No description provided for @tourProgressHistoryDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See every height measurement you\'ve logged on a timeline.'**
+  String get tourProgressHistoryDesc;
+
+  /// No description provided for @tourAnalysisRadarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Balance Chart'**
+  String get tourAnalysisRadarTitle;
+
+  /// No description provided for @tourAnalysisRadarDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See your genetics, growth speed, nutrition, sleep and discipline balance on a radar chart, and learn your weakest link.'**
+  String get tourAnalysisRadarDesc;
+
+  /// No description provided for @tourAnalysisDailyNeedsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Daily Needs'**
+  String get tourAnalysisDailyNeedsTitle;
+
+  /// No description provided for @tourAnalysisDailyNeedsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See your daily protein, calorie, sleep and water needs, tailored to your height and weight.'**
+  String get tourAnalysisDailyNeedsDesc;
+
   /// No description provided for @journeyDataDoneTitle.
   ///
   /// In en, this message translates to:
@@ -6253,6 +6667,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Getting started'**
   String get journeyProgressLabel;
+
+  /// No description provided for @journeyTourDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to BeTaller!'**
+  String get journeyTourDoneTitle;
+
+  /// No description provided for @journeyTourDoneSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve completed all three steps. Now it\'s your turn — start your journey by completing your first routine.'**
+  String get journeyTourDoneSubtitle;
+
+  /// No description provided for @journeyViewPlansButton.
+  ///
+  /// In en, this message translates to:
+  /// **'See your plans to get started'**
+  String get journeyViewPlansButton;
 
   /// No description provided for @paywallRestoreLabel.
   ///
