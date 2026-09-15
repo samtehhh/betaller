@@ -1,5 +1,6 @@
 import 'dart:async' show unawaited;
 import 'dart:io' show Platform;
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -12,6 +13,11 @@ import 'screens/splash_screen.dart';
 import 'services/notification_service.dart';
 import 'services/purchase_service.dart';
 import 'utils/constants.dart';
+import 'widgets/premium_paywall.dart';
+
+/// Lets the deep-link handler push routes without threading a BuildContext
+/// through main() — the link can arrive before the first frame is built.
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +48,48 @@ void main() async {
   );
 
   unawaited(_initServices(appProvider));
+  unawaited(_initDeepLinks());
+}
+
+/// Handles the `betaller://paywall` link used by the App Store Connect
+/// in-app event ("3 Days - Free Trial"). Custom scheme rather than a
+/// Universal Link since the app has no associated web domain to host an
+/// apple-app-site-association file — Apple accepts either for an event's
+/// deep link.
+Future<void> _initDeepLinks() async {
+  final appLinks = AppLinks();
+
+  Future<void> handle(Uri? uri) async {
+    if (uri == null) return;
+    if (uri.host != 'paywall' && !uri.path.contains('paywall')) return;
+
+    final context = await _waitForNavigatorContext();
+    if (context != null && context.mounted) {
+      unawaited(showPremiumPaywall(context));
+    }
+  }
+
+  try {
+    await handle(await appLinks.getInitialLink());
+  } catch (e) {
+    debugPrint('Initial deep link read failed: $e');
+  }
+
+  appLinks.uriLinkStream.listen(
+    handle,
+    onError: (e) => debugPrint('Deep link stream error: $e'),
+  );
+}
+
+/// The link can arrive before the first frame, so poll briefly for the
+/// navigator to exist rather than assuming a BuildContext is available.
+Future<BuildContext?> _waitForNavigatorContext() async {
+  for (var i = 0; i < 50; i++) {
+    final context = navigatorKey.currentContext;
+    if (context != null) return context;
+    await Future.delayed(const Duration(milliseconds: 100));
+  }
+  return null;
 }
 
 /// Notifications and billing, off the start-up path. Failures are contained:
@@ -76,6 +124,7 @@ class BeTallerApp extends StatelessWidget {
     final provider = context.watch<AppProvider>();
 
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: 'BeTaller',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
