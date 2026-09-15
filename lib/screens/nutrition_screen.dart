@@ -1,8 +1,16 @@
+import 'dart:ui' show ImageFilter;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
+import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/nutrition_data.dart';
+import '../widgets/premium_paywall.dart';
+
+// Free items shown before the rest blurs behind a PRO lock.
+const _freeNutrientCount = 2;
+const _freeSupplementCount = 2;
 
 class NutritionScreen extends StatefulWidget {
   const NutritionScreen({super.key});
@@ -18,13 +26,24 @@ class _NutritionScreenState extends State<NutritionScreen> {
   String _selectedCategory = 'all';
   final Set<int> _expandedNutrients = {};
 
+  void _openPaywall() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => const PremiumPaywallScreen(),
+    );
+  }
+
   static const _sectionIcons = [
     CupertinoIcons.calendar,
     CupertinoIcons.bolt_fill,
     CupertinoIcons.search,
+    Icons.medication_outlined,
   ];
 
-  List<String> _sectionLabels(AppLocalizations l) => [l.sectionMealPlan, l.sectionNutrients, l.sectionFoods];
+  List<String> _sectionLabels(AppLocalizations l) =>
+      [l.sectionMealPlan, l.sectionNutrients, l.sectionFoods, l.sectionSupplements];
 
   Map<String, String> _foodCategories(AppLocalizations l) => {
     'all': l.categoryAll,
@@ -58,6 +77,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final lang = Localizations.localeOf(context).languageCode;
+    final isPremium = context.watch<AppProvider>().isPremium;
     final sectionLabels = _sectionLabels(l);
     final foodCats = _foodCategories(l);
     return Scaffold(
@@ -121,7 +141,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                 padding: const EdgeInsets.all(4),
                 borderRadius: 16,
                 child: Row(
-                  children: List.generate(3, (i) {
+                  children: List.generate(4, (i) {
                     final selected = _selectedSection == i;
                     return Expanded(
                       child: GestureDetector(
@@ -186,21 +206,28 @@ class _NutritionScreenState extends State<NutritionScreen> {
           // ── Section Content ──
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 110),
-            sliver: _buildSectionContent(l, foodCats, lang),
+            sliver: _buildSectionContent(l, foodCats, lang, isPremium),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSectionContent(AppLocalizations l, Map<String, String> foodCats, String lang) {
+  Widget _buildSectionContent(
+    AppLocalizations l,
+    Map<String, String> foodCats,
+    String lang,
+    bool isPremium,
+  ) {
     switch (_selectedSection) {
       case 0:
         return _buildMealPlanSection(l, lang);
       case 1:
-        return _buildNutrientsSection(l, lang);
+        return _buildNutrientsSection(l, lang, isPremium);
       case 2:
         return _buildFoodDatabaseSection(l, foodCats, lang);
+      case 3:
+        return _buildSupplementsSection(l, isPremium);
       default:
         return const SliverToBoxAdapter(child: SizedBox());
     }
@@ -356,17 +383,31 @@ class _NutritionScreenState extends State<NutritionScreen> {
   // SECTION 2: Growth Nutrients
   // ════════════════════════════════════════════════════════════════
 
-  SliverList _buildNutrientsSection(AppLocalizations l, String lang) {
+  SliverList _buildNutrientsSection(
+    AppLocalizations l,
+    String lang,
+    bool isPremium,
+  ) {
     final nutrients = getGrowthNutrients(lang);
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (context, index) => _buildNutrientCard(index, l, nutrients),
+        (context, index) => _buildNutrientCard(
+          index,
+          l,
+          nutrients,
+          locked: !isPremium && index >= _freeNutrientCount,
+        ),
         childCount: nutrients.length,
       ),
     );
   }
 
-  Widget _buildNutrientCard(int index, AppLocalizations l, List<Map<String, dynamic>> nutrients) {
+  Widget _buildNutrientCard(
+    int index,
+    AppLocalizations l,
+    List<Map<String, dynamic>> nutrients, {
+    required bool locked,
+  }) {
     final nutrient = nutrients[index];
     final name = nutrient['name'] as String;
     final icon = nutrient['icon'] as String;
@@ -380,7 +421,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
     final dailyNeed = dailyNeedByAge['14-18'] as String? ??
         dailyNeedByAge.values.first as String;
 
-    return GlassCard(
+    final card = GlassCard(
       margin: const EdgeInsets.only(bottom: 10),
       padding: EdgeInsets.zero,
       child: Column(
@@ -473,6 +514,33 @@ class _NutritionScreenState extends State<NutritionScreen> {
             crossFadeState:
                 isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 250),
+          ),
+        ],
+      ),
+    );
+
+    if (!locked) return card;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Stack(
+        children: [
+          ImageFiltered(
+            imageFilter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+            child: card,
+          ),
+          Positioned.fill(
+            child: GestureDetector(
+              onTap: _openPaywall,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.18),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                alignment: Alignment.center,
+                child: const _ProLockBadge(),
+              ),
+            ),
           ),
         ],
       ),
@@ -809,6 +877,214 @@ class _NutritionScreenState extends State<NutritionScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  // ════════════════════════════════════════════════════════════════
+  // SECTION 4: Supplements
+  // ════════════════════════════════════════════════════════════════
+
+  SliverList _buildSupplementsSection(AppLocalizations l, bool isPremium) {
+    final supplements = [
+      (
+        icon: '☀️',
+        name: l.supplementVitaminDName,
+        dose: l.supplementVitaminDDose,
+        benefit: l.supplementVitaminDBenefit,
+        color: const Color(0xFFF0A0E5),
+      ),
+      (
+        icon: '🥩',
+        name: l.supplementZincName,
+        dose: l.supplementZincDose,
+        benefit: l.supplementZincBenefit,
+        color: const Color(0xFFFFD740),
+      ),
+      (
+        icon: '🌙',
+        name: l.supplementMagnesiumName,
+        dose: l.supplementMagnesiumDose,
+        benefit: l.supplementMagnesiumBenefit,
+        color: const Color(0xFF69F0AE),
+      ),
+      (
+        icon: '🦴',
+        name: l.supplementCalciumName,
+        dose: l.supplementCalciumDose,
+        benefit: l.supplementCalciumBenefit,
+        color: const Color(0xFF40C4FF),
+      ),
+      (
+        icon: '🐟',
+        name: l.supplementOmega3Name,
+        dose: l.supplementOmega3Dose,
+        benefit: l.supplementOmega3Benefit,
+        color: const Color(0xFF64B5F6),
+      ),
+      (
+        icon: '✨',
+        name: l.supplementCollagenName,
+        dose: l.supplementCollagenDose,
+        benefit: l.supplementCollagenBenefit,
+        color: const Color(0xFFB388FF),
+      ),
+    ];
+
+    return SliverList(
+      delegate: SliverChildListDelegate([
+        GlassCard(
+          margin: const EdgeInsets.only(bottom: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          fillColor: AppColors.primaryDark.withValues(alpha: 0.25),
+          child: Row(
+            children: [
+              const Icon(
+                CupertinoIcons.exclamationmark_circle,
+                color: AppColors.primary,
+                size: 18,
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  l.nutritionSupplementsDisclaimer,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: AppColors.textTertiary,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        ...supplements.asMap().entries.map(
+          (e) => _buildSupplementCard(
+            e.value,
+            l,
+            locked: !isPremium && e.key >= _freeSupplementCount,
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Widget _buildSupplementCard(
+    ({String icon, String name, String dose, String benefit, Color color}) s,
+    AppLocalizations l, {
+    required bool locked,
+  }) {
+    final card = GlassCard(
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: s.color.withValues(alpha: 0.18),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            alignment: Alignment.center,
+            child: Text(s.icon, style: const TextStyle(fontSize: 22)),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  s.name,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  l.dailyLabel(s.dose),
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: s.color,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  s.benefit,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: AppColors.textTertiary,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (!locked) return card;
+
+    return Stack(
+      children: [
+        ImageFiltered(
+          imageFilter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+          child: card,
+        ),
+        Positioned.fill(
+          child: GestureDetector(
+            onTap: _openPaywall,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.18),
+                borderRadius: BorderRadius.circular(22),
+              ),
+              alignment: Alignment.center,
+              child: const _ProLockBadge(),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// A small "unlock with PRO" badge shown over blurred, locked content.
+class _ProLockBadge extends StatelessWidget {
+  const _ProLockBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFD700).withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(100),
+        border: Border.all(
+          color: const Color(0xFFFFD700).withValues(alpha: 0.4),
+        ),
+      ),
+      child: const Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(CupertinoIcons.lock_fill, size: 12, color: Color(0xFFFFD700)),
+          SizedBox(width: 6),
+          Text(
+            'PRO',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFFFFD700),
+              letterSpacing: 0.4,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

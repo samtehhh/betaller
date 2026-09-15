@@ -449,13 +449,21 @@ class ProgressScreenState extends State<ProgressScreen>
       return FlSpot(i.toDouble(), animatedY);
     }).toList();
 
+    // A stray large height entry (e.g. a data-entry typo) blows up `range`.
+    // A fixed interval of 1 would then ask fl_chart to draw one grid line per
+    // unit across that whole span — hundreds or thousands of lines — which is
+    // exactly the kind of unbounded synchronous work that freezes the main
+    // thread. Scale the interval so the line count stays bounded regardless
+    // of how large the range gets.
+    final gridInterval = range < 3 ? 0.5 : (range / 6).clamp(1.0, 1000.0);
+
     return LineChart(
       duration: Duration.zero,
       LineChartData(
         gridData: FlGridData(
           show: true,
           drawVerticalLine: false,
-          horizontalInterval: range < 3 ? 0.5 : 1,
+          horizontalInterval: gridInterval,
           getDrawingHorizontalLine: (value) => FlLine(
             color: Colors.white.withValues(alpha: 0.06),
             strokeWidth: 0.5,
@@ -797,6 +805,13 @@ class ProgressScreenState extends State<ProgressScreen>
                         controller.text.replaceAll(',', '.'),
                       );
                       if (height != null && height > 50 && height < 250) {
+                        // Drop focus (and the keyboard/text-selection overlay
+                        // that comes with it) before the save below tears
+                        // down this sheet and rebuilds the growth chart
+                        // behind it in the same frame — doing both at once
+                        // has been observed to corrupt the render tree
+                        // ('_owner != null' assertion) on some devices.
+                        FocusScope.of(context).unfocus();
                         final dateStr = selectedDate
                             .toIso8601String()
                             .substring(0, 10);
@@ -808,7 +823,12 @@ class ProgressScreenState extends State<ProgressScreen>
                             profile.copyWith(currentHeight: height),
                           );
                         }
-                        Navigator.pop(context);
+                        // Let this frame's rebuild (the new chart) settle
+                        // before tearing down the sheet on the next one,
+                        // instead of doing both in the same synchronous pass.
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          if (context.mounted) Navigator.pop(context);
+                        });
                       }
                     },
                     child: Text(

@@ -1136,6 +1136,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Eat arginine-rich foods to stimulate growth hormone secretion.';
 
   @override
+  String get routineDailyCalories => 'Daily Calorie Target';
+
+  @override
+  String get routineDailyCaloriesDesc =>
+      'Hit your daily calorie target — undereating slows growth.';
+
+  @override
   String get routineSleepEnvironment => 'Optimize Sleep Environment';
 
   @override
@@ -1573,6 +1580,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sectionFoods => 'Foods';
+
+  @override
+  String get sectionSupplements => 'Supplements';
 
   @override
   String todaysPlan(String day) {
@@ -2548,6 +2558,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.';
 
   @override
+  String get formDailyCalories =>
+      'Spread your calories across 3-5 meals and don\'t skip breakfast. Prioritize whole foods over empty calories.';
+
+  @override
   String get formQualitySleep =>
       'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.';
 
@@ -2660,6 +2674,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get sciArginineFoods =>
       'L-Arginine stimulates growth hormone secretion';
+
+  @override
+  String get sciDailyCalories =>
+      'A sustained calorie deficit lowers IGF-1 and blunts growth hormone pulses, directly slowing linear growth during adolescence';
 
   @override
   String get sciQualitySleep =>
@@ -2856,6 +2874,98 @@ class AppLocalizationsEn extends AppLocalizations {
       'BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.';
 
   @override
+  String routineProteinAmountDesc(int grams) {
+    return 'Get at least ${grams}g of protein today — calculated from your weight.';
+  }
+
+  @override
+  String routineWaterAmountDesc(String liters) {
+    return 'Drink at least ${liters}L of water today — calculated from your weight.';
+  }
+
+  @override
+  String routineCalorieAmountDesc(int kcal) {
+    return 'Aim for about $kcal kcal today to fuel growth.';
+  }
+
+  @override
+  String routineVitaminDAmountDesc(int iu) {
+    return 'Get $iu IU of Vitamin D today — from sunlight, food, or a supplement.';
+  }
+
+  @override
+  String routineZincAmountDesc(int mg) {
+    return 'Get ${mg}mg of Zinc today to support growth hormone production.';
+  }
+
+  @override
+  String get nutritionSupplementsTitle => 'SUPPLEMENTS';
+
+  @override
+  String get nutritionSupplementsDisclaimer =>
+      'Optional support, not a substitute for food. Talk to a doctor before starting any supplement, especially under 18.';
+
+  @override
+  String get supplementVitaminDName => 'Vitamin D3';
+
+  @override
+  String get supplementVitaminDDose => '3,000 IU';
+
+  @override
+  String get supplementVitaminDBenefit =>
+      'Boosts calcium absorption for bone density and growth plate health';
+
+  @override
+  String get supplementZincName => 'Zinc';
+
+  @override
+  String get supplementZincDose => '8-11mg';
+
+  @override
+  String get supplementZincBenefit =>
+      'A key mineral for growth hormone production';
+
+  @override
+  String get supplementMagnesiumName => 'Magnesium';
+
+  @override
+  String get supplementMagnesiumDose => '300-400mg';
+
+  @override
+  String get supplementMagnesiumBenefit =>
+      'Supports the deep sleep stage where most growth hormone is released';
+
+  @override
+  String get supplementCalciumName => 'Calcium';
+
+  @override
+  String get supplementCalciumDose => '1,000-1,300mg';
+
+  @override
+  String get supplementCalciumBenefit =>
+      'The core building block of bone density and growth plates';
+
+  @override
+  String get supplementOmega3Name => 'Omega-3';
+
+  @override
+  String get supplementOmega3Dose => '1,000mg';
+
+  @override
+  String get supplementOmega3Benefit =>
+      'Reduces inflammation and supports healthy growth plate function';
+
+  @override
+  String get supplementCollagenName => 'Collagen + Vitamin C';
+
+  @override
+  String get supplementCollagenDose => '10g + 500mg';
+
+  @override
+  String get supplementCollagenBenefit =>
+      'Vitamin C helps your body use collagen to build cartilage and bone matrix';
+
+  @override
   String get sciSourcePrefix => 'Source: ';
 
   @override
@@ -2866,6 +2976,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dailyNutritionPlan => 'DAILY NUTRITION PLAN';
+
+  @override
+  String get nutritionGoalsComplete => '🎉 All nutrition goals complete!';
+
+  @override
+  String get nutritionGoalsIncomplete =>
+      'Complete your nutrition goals for optimal growth';
+
+  @override
+  String get postureDetectingAlignment => 'Detecting spinal alignment...';
 
   @override
   String get testimonial1 =>

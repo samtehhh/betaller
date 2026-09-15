@@ -81,6 +81,14 @@ class Calculations {
     return double.parse((weightKg * 1.5).toStringAsFixed(0));
   }
 
+  static int dailyZincNeed(String gender) {
+    return gender == 'male' ? 11 : 8;
+  }
+
+  static int dailyVitaminDNeed() {
+    return 3000;
+  }
+
   // ── Gelişmiş Tahmin Sistemi ─────────────────────────────────────
 
   /// Büyüme hızı (cm/yıl) - son ölçümlere göre

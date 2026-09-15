@@ -305,7 +305,13 @@
   "obPastHeightsSubPart1": "अपनी पिछली लंबाइयाँ दर्ज करके अनुमान की विश्वसनीयता को ",
   "obPastHeightsSubPart2": " तक बढ़ाएं।",
   "obHowTallAtAge": "{age} साल की उम्र में आपकी लंबाई कितनी थी?",
-  "@obHowTallAtAge": {"placeholders": {"age": {"type": "String"}}},
+  "@obHowTallAtAge": {
+    "placeholders": {
+      "age": {
+        "type": "String"
+      }
+    }
+  },
   "obSkip": "छोड़ें",
   "obNext": "आगे",
   "obSkipAll": "सभी छोड़ें",
@@ -321,7 +327,6 @@
   "scoreD": "उच्च क्षमता लेकिन आपको कार्रवाई करनी होगी।",
   "scoreF": "अभी शुरू करें! हर दिन एक छोटा कदम बड़ा फर्क लाता है।",
   "cmPerYear": "cm/वर्ष",
-
   "routineSprintIntervals": "स्प्रिंट इंटरवल ट्रेनिंग",
   "routineSprintIntervalsDesc": "स्प्रिंट इंटरवल ट्रेनिंग उच्च तीव्रता वाले विस्फोटों से महत्वपूर्ण ग्रोथ हार्मोन रिलीज़ को सक्रिय करती है।",
   "routineHiitWorkout": "HIIT वर्कआउट",
@@ -353,7 +358,6 @@
   "routineShoulderRolls": "कंधे खोलने के व्यायाम",
   "routineShoulderRollsDesc": "कंधे खोलने से आगे झुकी मुद्रा ठीक होती है, दिखने में 1-2 सेमी का अंतर हो सकता है।",
   "durationNight": "रात",
-
   "howToDoIt": "कैसे करें",
   "musclesTargeted": "लक्षित मांसपेशियाँ और हड्डियाँ",
   "scientificBasis": "वैज्ञानिक आधार",
@@ -378,7 +382,6 @@
   "difficultyBeginner": "शुरुआती",
   "difficultyIntermediate": "मध्यम",
   "difficultyAdvanced": "उन्नत",
-
   "learnTitle": "सीखें",
   "learnSubtitle": "विकास के लिए वैज्ञानिक ज्ञान",
   "categoryAll": "सभी",
@@ -389,7 +392,6 @@
   "categoryMyths": "मिथक",
   "scientificReferences": "वैज्ञानिक संदर्भ",
   "relatedRoutines": "संबंधित दिनचर्या",
-
   "nutritionTitle": "पोषण",
   "sectionMealPlan": "भोजन योजना",
   "sectionNutrients": "पोषक तत्व",
@@ -411,7 +413,6 @@
   "categoryFruits": "फल",
   "categoryGrains": "अनाज और दालें",
   "categoryNutsSeeds": "मेवे और बीज",
-
   "weeklyReportTitle": "साप्ताहिक रिपोर्ट",
   "overview": "अवलोकन",
   "routinesLabel": "दिनचर्या",
@@ -432,13 +433,11 @@
   "nOfMCompleted": "{n}/{m} पूर्ण",
   "shareYourProgress": "अपनी प्रगति साझा करें",
   "shareComingSoon": "शेयर सुविधा जल्द आ रही है!",
-
   "premiumTest": "Premium (टेस्ट)",
   "premiumActive": "सक्रिय",
   "premiumFree": "निःशुल्क",
   "weeklyReportMenu": "साप्ताहिक रिपोर्ट",
   "weeklyReportMenuSubtitle": "आपकी प्रगति का सारांश",
-
   "unlockGrowthPotential": "अपनी पूरी विकास क्षमता अनलॉक करें",
   "featureGrowthAnalysis": "विकास विश्लेषण और स्कोर",
   "featureHeightPrediction": "ऊँचाई भविष्यवाणी और पूर्वानुमान",
@@ -450,9 +449,7 @@
   "planYearly": "वार्षिक",
   "bestValue": "सबसे अच्छा मूल्य",
   "premiumLabel": "Premium",
-
   "lvl": "स्तर {level}",
-
   "levelBeginner": "शुरुआती",
   "levelStarter": "नया",
   "levelCommitted": "प्रतिबद्ध",
@@ -473,7 +470,6 @@
   "levelImmortal": "अमर",
   "levelTranscendent": "अतीन्द्रिय",
   "levelUltimate": "परम",
-
   "challengeCompleteAllRoutines": "सभी दिनचर्या पूरी करें",
   "challengeCompleteAllRoutinesDesc": "आज हर दिनचर्या पूरी करें",
   "challengeHydrationHero": "हाइड्रेशन हीरो",
@@ -502,16 +498,32 @@
   "tierE": "स्तर E",
   "maxTierReached": "अधिकतम स्तर प्राप्त",
   "nextTierHint": "अगला: {tier} · +{pts} अंक आवश्यक",
-  "@nextTierHint": {"placeholders": {"tier": {"type": "String"}, "pts": {"type": "String"}}},
+  "@nextTierHint": {
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      },
+      "pts": {
+        "type": "String"
+      }
+    }
+  },
   "premiumBadge": "प्रीमियम",
-
   "manageRoutines": "रूटीन प्रबंधित करें",
   "manageRoutinesSubtitle": "दैनिक सूची से रूटीन दिखाएं या छुपाएं",
   "nVisibleOfTotal": "{total} में से {visible} सक्रिय",
-  "@nVisibleOfTotal": {"placeholders": {"visible": {"type": "String"}, "total": {"type": "String"}}},
+  "@nVisibleOfTotal": {
+    "placeholders": {
+      "visible": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "showAll": "सभी दिखाएं",
   "hideAll": "सभी छुपाएं",
-
   "heightAnalysis": "ऊंचाई विश्लेषण",
   "heightVsPopulation": "वैश्विक जनसंख्या में आपकी स्थिति",
   "globalAveragesTable": "उम्र के अनुसार वैश्विक औसत",
@@ -522,7 +534,13 @@
   "yourHeightStanding": "आपकी ऊंचाई की स्थिति",
   "yourHeight": "आप",
   "peerAvg": "{age} उम्र औसत",
-  "@peerAvg": {"placeholders": {"age": {"type": "int"}}},
+  "@peerAvg": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "aboveAvg": "औसत से ऊपर",
   "belowAvg": "औसत से नीचे",
   "whoDataSource": "WHO 2007 वैश्विक संदर्भ",
@@ -534,12 +552,10 @@
   "percentileLabel": "PCT",
   "diffLabel": "अंतर",
   "whoSourceNote": "डेटा स्रोत: WHO 2007 विकास संदर्भ और NCD-RisC वैश्विक अनुमान। प्रतिशतक वैश्विक औसत हैं और देश के अनुसार भिन्न हो सकते हैं।",
-
   "quickPhotos": "फ़ोटो",
   "quickPosture": "पोस्चर",
   "quickWellness": "कल्याण",
   "quickRecipes": "रेसिपी",
-
   "wellnessTitle": "कल्याण ट्रैकर",
   "wellnessHeader": "कल्याण",
   "wellnessSubtitle": "आपकी वृद्धि को प्रभावित करने वाले कारकों को ट्रैक करें",
@@ -574,7 +590,6 @@
   "insightGreat": "इस सप्ताह बढ़िया संतुलन। आपका कल्याण इष्टतम वृद्धि का समर्थन करता है।",
   "insightDefault": "आपका कल्याण सही दिशा में है। गहन विश्लेषण के लिए लॉगिंग जारी रखें।",
   "insightNeedMoreData": "विश्लेषण देखने के लिए कुछ और दिन लॉग करें।",
-
   "progressPhotosTitle": "प्रगति फ़ोटो",
   "progressPhotosHeader": "प्रगति फ़ोटो",
   "progressPhotosSubtitle": "अपनी दृश्य यात्रा को ट्रैक करें",
@@ -586,11 +601,32 @@
   "deletePhotoBody": "यह फ़ोटो आपकी प्रगति टाइमलाइन से हटा दी जाएगी।",
   "timelineTab": "टाइमलाइन",
   "photoLabel": "{count, plural, =1{फ़ोटो} other{फ़ोटो}}",
-  "@photoLabel": {"placeholders": {"count": {"type": "int"}}},
+  "@photoLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "photoGainInDays": "{days} दिनों में {cm} cm",
-  "@photoGainInDays": {"placeholders": {"cm": {"type": "String"}, "days": {"type": "int"}}},
+  "@photoGainInDays": {
+    "placeholders": {
+      "cm": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "dayLabel": "{count, plural, =1{दिन} other{दिन}}",
-  "@dayLabel": {"placeholders": {"count": {"type": "int"}}},
+  "@dayLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "cmGained": "सेमी वृद्धि",
   "firstPhotoMessage": "अपनी दृश्य प्रगति ट्रैक करने के लिए पहली फ़ोटो लें।",
   "takeFirstPhoto": "पहली फ़ोटो लें",
@@ -599,12 +635,10 @@
   "afterLabel": "बाद",
   "yourHeightDialog": "आपकी ऊंचाई",
   "heightDialogMessage": "इस फ़ोटो के लिए अपनी वर्तमान ऊंचाई सेमी में दर्ज करें",
-
   "postureAnalysisTitle": "पोस्चर विश्लेषण",
   "postureCoachHeader": "पोस्चर कोच",
   "postureCoachSubtitle": "AI-संचालित पोस्चर स्कोरिंग",
   "latestScore": "नवीनतम स्कोर",
-  "noData": "कोई डेटा नहीं",
   "latestAnalysis": "नवीनतम विश्लेषण",
   "headPosition": "सिर की स्थिति",
   "progressLabel": "प्रगति",
@@ -625,7 +659,6 @@
   "postureChinTucksDesc": "आगे की सिर की स्थिति को उलटता है — 3×10 दोहराव।",
   "postureDeadbug": "डेडबग",
   "postureDeadbugDesc": "लॉर्डोसिस नियंत्रण के लिए गहरे कोर को मजबूत करता है।",
-
   "recipesTitle": "रेसिपी",
   "recipesHeader": "रेसिपी",
   "recipesSubtitle": "अपनी वृद्धि को पोषित करें",
@@ -645,7 +678,6 @@
   "recipesClose": "बंद करें",
   "recipesAboutTitle": "रेसिपी के बारे में",
   "recipesAboutBody": "आपकी वृद्धि को पोषित करने के लिए चुनी गई रेसिपी। भोजन प्रकार या पोषण लक्ष्य के अनुसार फ़िल्टर करें।",
-
   "animHintSpinalDecomp": "रीढ़ की हड्डी का विसंपीड़न",
   "animHintGravityReversal": "गुरुत्वाकर्षण उलटाव",
   "animHintImpactBones": "हड्डियों पर प्रभाव भार",
@@ -768,9 +800,7 @@
   "catExercise": "व्यायाम",
   "catNutrition": "पोषण",
   "catSleep": "नींद",
-  "catPosture": "पोस्चर"
-,
-
+  "catPosture": "पोस्चर",
   "postureTip1": "Stand sideways (side profile) to the camera.",
   "postureTip2": "Keep ~2 meters distance from the lens.",
   "postureTip3": "Arms relaxed, look straight ahead.",
@@ -778,28 +808,31 @@
   "postureTip5": "Use good lighting and a plain background.",
   "kyphosisLabel": "काइफ़ोसिस (ऊपरी पीठ)",
   "lordosisLabel": "लॉर्डोसिस (निचली पीठ)",
-  "analyzingPosture": "ANALYZING POSTURE"
-,
-
+  "analyzingPosture": "ANALYZING POSTURE",
   "privacyPolicy": "Privacy Policy",
   "termsOfService": "Terms of Service",
   "version": "Version {ver}",
-  "@version": {"placeholders": {"ver": {"type": "String"}}},
+  "@version": {
+    "placeholders": {
+      "ver": {
+        "type": "String"
+      }
+    }
+  },
   "rateApp": "Rate BeTaller",
-  "rateAppSubtitle": "Your review helps us grow!"
-,
-
+  "rateAppSubtitle": "Your review helps us grow!",
   "unitSystem": "Unit System",
   "unitMetric": "Metric (cm, kg)",
-  "unitImperial": "Imperial (ft-in, lbs)"
-,
-
+  "unitImperial": "Imperial (ft-in, lbs)",
   "healthDisclaimer": "Health Disclaimer",
   "healthDisclaimerBody": "BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.",
   "sciSourcePrefix": "Source: ",
   "program": "कार्यक्रम",
   "todaysExercises": "आज के व्यायाम",
   "dailyNutritionPlan": "दैनिक पोषण योजना",
+  "nutritionGoalsComplete": "🎉 सभी पोषण लक्ष्य पूरे हुए!",
+  "nutritionGoalsIncomplete": "बेहतरीन विकास के लिए अपने पोषण लक्ष्य पूरे करें",
+  "postureDetectingAlignment": "रीढ़ की हड्डी का संरेखण पहचाना जा रहा है...",
   "testimonial1": "उम्र की वजह से उम्मीद नहीं थी, लेकिन BeTaller से बढ़ा। आत्मविश्वास कभी इतना नहीं था।",
   "testimonialDuration1": "4 महीने",
   "testimonial2": "सबने कहा अब नहीं बढ़ सकते। BeTaller से सबको चौंका दिया।",
@@ -812,50 +845,113 @@
   "testimonialDuration5": "4 महीने",
   "designedForYou": "आपके लिए बनाया गया",
   "designedForYouDesc": "BeTaller आपकी जेनेटिक सीमा तक पहुंचने के लिए बनाया गया है।",
-  "greetingAllDone": "बहुत बढ़िया! 🎯", "greetingAllDoneSub": "आज के सभी कार्य पूरे हो गए।",
-  "greetingStreak30": "{streak} दिन की लगातार — महान स्तर।", "greetingStreak7": "{streak} दिन की लगातार — जारी रखो।", "greetingStreak3": "{streak} दिन लगातार। ज़्यादातर छोड़ देते हैं। तुमने नहीं छोड़ा।",
-  "greetingMorning": "सुप्रभात। नया दिन, नया मौका।", "greetingAfternoon": "आज लगातार शुरू करने का बढ़िया दिन है।", "greetingEvening": "कार्य पूरे करो, लगातार शुरू करो।",
-  "todayCompleted": "आज पूरा ✓", "todayGoals": "आज के लक्ष्य", "challengesLabel": "चुनौतियाँ", "dailyChallengesLabel": "दैनिक चुनौतियाँ",
-  "expiresTonight": "आज रात समाप्त", "allChallengesCompleted": "सभी पूरी ✓", "challengesLoading": "नई चुनौतियाँ जल्द।", "challengesLoadingTitle": "दैनिक चुनौतियाँ",
-  "behindPace": "पीछे चल रहे हो", "growthTracking": "विकास ट्रैकिंग", "growthEmptyFirst": "पहली ऊँचाई दर्ज करें।", "growthEmptySecond": "ग्राफ के लिए दूसरा माप।",
-  "growthSectionLabel": "विकास", "generalPerformance": "समग्र प्रदर्शन", "exploreLabel": "खोजें",
-  "explorePosture": "पोस्चर विश्लेषण", "explorePostureSub": "पोस्चर विश्लेषण और सुझाव", "explorePhotos": "प्रगति फ़ोटो", "explorePhotosSub": "फ़ोटो से बदलाव ट्रैक करें",
-  "exploreNutrition": "पोषण", "exploreNutritionSub": "प्रोटीन, कैल्शियम और विटामिन गाइड", "exploreHealth": "स्वास्थ्य", "exploreHealthSub": "तनाव, कैफीन और वेलनेस",
-  "exploreRecipes": "ग्रोथ रेसिपी", "exploreRecipesSub": "विकास में मदद करने वाली रेसिपी",
-  "educationLabel": "शिक्षा", "educationTitle": "लंबाई बढ़ने\nका विज्ञान", "educationSubtitle": "विशेषज्ञ सामग्री, शोध और गाइड",
-  "aiAnalysisLabel": "AI विश्लेषण", "peerCompareLabel": "साथियों से तुलना", "peerCompareText": "आप Top {topPct}% में हैं",
-  "notifWaterTitle": "💧 पानी पीना न भूलें!", "notifWaterBody": "लक्ष्य पूरा? एक गिलास और!",
-  "notifMorningTitle": "🌅 सुप्रभात! व्यायाम", "notifMorningBody": "सुबह स्ट्रेचिंग! 10 मिनट।",
-  "notifRoutineTitle": "🔥 रूटीन पूरी करें!", "notifRoutineBody": "दिन खत्म होने से पहले जांचें।",
-  "notifProteinTitle": "🥚 प्रोटीन दिवस!", "notifProteinBody": "मजबूत शुरुआत! हर भोजन में प्रोटीन।",
-  "notifNewWeekTitle": "✨ नया सप्ताह!", "notifNewWeekBody": "रूटीन न छोड़ें। छोटे कदम!",
-  "notifSleepTitle": "😴 सोने का समय!", "notifSleepBody": "ग्रोथ हॉर्मोन 10-2 बजे चरम पर।",
-  "notifPostureTitle": "🧍 पोस्चर!", "notifPostureBody": "पीठ सीधी, कंधे पीछे। 2-3 cm!",
-  "notifVitaminDTitle": "☀️ विटामिन D!", "notifVitaminDBody": "15 मिनट धूप!",
-  "notifMidweekTitle": "✨ आधा सप्ताह!", "notifMidweekBody": "जारी रखो!",
-  "notifScreenTitle": "📵 स्क्रीन बंद!", "notifScreenBody": "सोने से 1 घंटे पहले स्क्रीन से दूर।",
-  "notifJumpTitle": "🦘 कूदने का समय!", "notifJumpBody": "कूद ग्रोथ प्लेट्स उत्तेजित करती है। 3 x 20!",
-  "notifCalciumTitle": "🥛 कैल्शियम!", "notifCalciumBody": "दूध या दही। कैल्शियम ज़रूरी!",
-  "notifPostureCheckTitle": "🧍 पोस्चर!", "notifPostureCheckBody": "फोन पर गर्दन न झुकाएं!",
-  "notifWeekendTitle": "✨ वीकेंड प्रेरणा", "notifWeekendBody": "वीकेंड पर भी रूटीन!",
-  "notifWeeklyProgressTitle": "📊 साप्ताहिक प्रगति", "notifWeeklyProgressBody": "ग्राफ देखें!",
-  "notifMeasureTitle": "📏 साप्ताहिक माप!", "notifMeasureBody": "नापें! सुबह सबसे सटीक।",
-  "notifEarlySleepTitle": "😴 जल्दी सोएं!", "notifEarlySleepBody": "कल सोमवार! कम से कम 8 घंटे।",
-  "notifStreak3Title": "🔥 3 दिन लगातार!", "notifStreak3Body": "शानदार! 7 तक पहुँचो!",
-  "notifStreak7Title": "🏆 1 सप्ताह!", "notifStreak7Body": "अविश्वसनीय! 7 दिन!",
-  "notifStreak14Title": "⭐ 2 सप्ताह!", "notifStreak14Body": "14 दिन अनुशासन!",
-  "notifStreak30Title": "👑 1 महीना!", "notifStreak30Body": "30 दिन! चैंपियन!",
-  "notifStreak60Title": "🌟 60 दिन!", "notifStreak60Body": "60 दिन! अविश्वसनीय।",
-  "notifStreak100Title": "💎 100 दिन! महान!", "notifStreak100Body": "100 दिन! किंवदंती!",
-  "notifStreakRiskTitle": "⚠️ लगातार न खोएं!", "notifStreakRiskBody": "{streak} दिन की लगातार खतरे में!",
-  "paywallStat1": "cm — क्षमता लॉक है", "paywallTitle1": "कितने cm\nबढ़ सकते हो?",
-  "paywallBullet1a": "जेनेटिक सीमा गणना हो चुकी, देखना?", "paywallBullet1b": "जीवनशैली विकास को कैसे प्रभावित करती है?", "paywallBullet1c": "व्यक्तिगत रोडमैप तैयार",
-  "paywallStat2": "कस्टम रूटीन तैयार", "paywallTitle2": "योजना\nतैयार है",
-  "paywallBullet2a": "हर सुबह 8 मिनट", "paywallBullet2b": "नींद, पोषण, पानी — सब ट्रैक", "paywallBullet2c": "हर दिन एक कदम आगे",
-  "paywallStat3": "रियल-टाइम प्रगति ग्राफ", "paywallTitle3": "वृद्धि\nट्रैक करें",
-  "paywallBullet3a": "मासिक माप", "paywallBullet3b": "पोस्चर विश्लेषण से 2 cm", "paywallBullet3c": "प्रगति फ़ोटो — फर्क दिखेगा",
-  "paywallStat4": "दैनिक कार्यक्रम — लेवल अप", "paywallTitle4": "हर दिन\nमजबूत",
-  "paywallBullet4a": "XP, लेवल — आदतें खेल", "paywallBullet4b": "जो सफल हुए वो यहीं से गुज़रे", "paywallBullet4c": "शुरू करें — पहला सप्ताह मुफ्त",
+  "greetingAllDone": "बहुत बढ़िया! 🎯",
+  "greetingAllDoneSub": "आज के सभी कार्य पूरे हो गए।",
+  "greetingStreak30": "{streak} दिन की लगातार — महान स्तर।",
+  "greetingStreak7": "{streak} दिन की लगातार — जारी रखो।",
+  "greetingStreak3": "{streak} दिन लगातार। ज़्यादातर छोड़ देते हैं। तुमने नहीं छोड़ा।",
+  "greetingMorning": "सुप्रभात। नया दिन, नया मौका।",
+  "greetingAfternoon": "आज लगातार शुरू करने का बढ़िया दिन है।",
+  "greetingEvening": "कार्य पूरे करो, लगातार शुरू करो।",
+  "todayCompleted": "आज पूरा ✓",
+  "todayGoals": "आज के लक्ष्य",
+  "challengesLabel": "चुनौतियाँ",
+  "dailyChallengesLabel": "दैनिक चुनौतियाँ",
+  "expiresTonight": "आज रात समाप्त",
+  "allChallengesCompleted": "सभी पूरी ✓",
+  "challengesLoading": "नई चुनौतियाँ जल्द।",
+  "challengesLoadingTitle": "दैनिक चुनौतियाँ",
+  "behindPace": "पीछे चल रहे हो",
+  "growthTracking": "विकास ट्रैकिंग",
+  "growthEmptyFirst": "पहली ऊँचाई दर्ज करें।",
+  "growthEmptySecond": "ग्राफ के लिए दूसरा माप।",
+  "growthSectionLabel": "विकास",
+  "generalPerformance": "समग्र प्रदर्शन",
+  "exploreLabel": "खोजें",
+  "explorePosture": "पोस्चर विश्लेषण",
+  "explorePostureSub": "पोस्चर विश्लेषण और सुझाव",
+  "explorePhotos": "प्रगति फ़ोटो",
+  "explorePhotosSub": "फ़ोटो से बदलाव ट्रैक करें",
+  "exploreNutrition": "पोषण",
+  "exploreNutritionSub": "प्रोटीन, कैल्शियम और विटामिन गाइड",
+  "exploreHealth": "स्वास्थ्य",
+  "exploreHealthSub": "तनाव, कैफीन और वेलनेस",
+  "exploreRecipes": "ग्रोथ रेसिपी",
+  "exploreRecipesSub": "विकास में मदद करने वाली रेसिपी",
+  "educationLabel": "शिक्षा",
+  "educationTitle": "लंबाई बढ़ने\nका विज्ञान",
+  "educationSubtitle": "विशेषज्ञ सामग्री, शोध और गाइड",
+  "aiAnalysisLabel": "AI विश्लेषण",
+  "peerCompareLabel": "साथियों से तुलना",
+  "peerCompareText": "आप Top {topPct}% में हैं",
+  "notifWaterTitle": "💧 पानी पीना न भूलें!",
+  "notifWaterBody": "लक्ष्य पूरा? एक गिलास और!",
+  "notifMorningTitle": "🌅 सुप्रभात! व्यायाम",
+  "notifMorningBody": "सुबह स्ट्रेचिंग! 10 मिनट।",
+  "notifRoutineTitle": "🔥 रूटीन पूरी करें!",
+  "notifRoutineBody": "दिन खत्म होने से पहले जांचें।",
+  "notifProteinTitle": "🥚 प्रोटीन दिवस!",
+  "notifProteinBody": "मजबूत शुरुआत! हर भोजन में प्रोटीन।",
+  "notifNewWeekTitle": "✨ नया सप्ताह!",
+  "notifNewWeekBody": "रूटीन न छोड़ें। छोटे कदम!",
+  "notifSleepTitle": "😴 सोने का समय!",
+  "notifSleepBody": "ग्रोथ हॉर्मोन 10-2 बजे चरम पर।",
+  "notifPostureTitle": "🧍 पोस्चर!",
+  "notifPostureBody": "पीठ सीधी, कंधे पीछे। 2-3 cm!",
+  "notifVitaminDTitle": "☀️ विटामिन D!",
+  "notifVitaminDBody": "15 मिनट धूप!",
+  "notifMidweekTitle": "✨ आधा सप्ताह!",
+  "notifMidweekBody": "जारी रखो!",
+  "notifScreenTitle": "📵 स्क्रीन बंद!",
+  "notifScreenBody": "सोने से 1 घंटे पहले स्क्रीन से दूर।",
+  "notifJumpTitle": "🦘 कूदने का समय!",
+  "notifJumpBody": "कूद ग्रोथ प्लेट्स उत्तेजित करती है। 3 x 20!",
+  "notifCalciumTitle": "🥛 कैल्शियम!",
+  "notifCalciumBody": "दूध या दही। कैल्शियम ज़रूरी!",
+  "notifPostureCheckTitle": "🧍 पोस्चर!",
+  "notifPostureCheckBody": "फोन पर गर्दन न झुकाएं!",
+  "notifWeekendTitle": "✨ वीकेंड प्रेरणा",
+  "notifWeekendBody": "वीकेंड पर भी रूटीन!",
+  "notifWeeklyProgressTitle": "📊 साप्ताहिक प्रगति",
+  "notifWeeklyProgressBody": "ग्राफ देखें!",
+  "notifMeasureTitle": "📏 साप्ताहिक माप!",
+  "notifMeasureBody": "नापें! सुबह सबसे सटीक।",
+  "notifEarlySleepTitle": "😴 जल्दी सोएं!",
+  "notifEarlySleepBody": "कल सोमवार! कम से कम 8 घंटे।",
+  "notifStreak3Title": "🔥 3 दिन लगातार!",
+  "notifStreak3Body": "शानदार! 7 तक पहुँचो!",
+  "notifStreak7Title": "🏆 1 सप्ताह!",
+  "notifStreak7Body": "अविश्वसनीय! 7 दिन!",
+  "notifStreak14Title": "⭐ 2 सप्ताह!",
+  "notifStreak14Body": "14 दिन अनुशासन!",
+  "notifStreak30Title": "👑 1 महीना!",
+  "notifStreak30Body": "30 दिन! चैंपियन!",
+  "notifStreak60Title": "🌟 60 दिन!",
+  "notifStreak60Body": "60 दिन! अविश्वसनीय।",
+  "notifStreak100Title": "💎 100 दिन! महान!",
+  "notifStreak100Body": "100 दिन! किंवदंती!",
+  "notifStreakRiskTitle": "⚠️ लगातार न खोएं!",
+  "notifStreakRiskBody": "{streak} दिन की लगातार खतरे में!",
+  "paywallStat1": "cm — क्षमता लॉक है",
+  "paywallTitle1": "कितने cm\nबढ़ सकते हो?",
+  "paywallBullet1a": "जेनेटिक सीमा गणना हो चुकी, देखना?",
+  "paywallBullet1b": "जीवनशैली विकास को कैसे प्रभावित करती है?",
+  "paywallBullet1c": "व्यक्तिगत रोडमैप तैयार",
+  "paywallStat2": "कस्टम रूटीन तैयार",
+  "paywallTitle2": "योजना\nतैयार है",
+  "paywallBullet2a": "हर सुबह 8 मिनट",
+  "paywallBullet2b": "नींद, पोषण, पानी — सब ट्रैक",
+  "paywallBullet2c": "हर दिन एक कदम आगे",
+  "paywallStat3": "रियल-टाइम प्रगति ग्राफ",
+  "paywallTitle3": "वृद्धि\nट्रैक करें",
+  "paywallBullet3a": "मासिक माप",
+  "paywallBullet3b": "पोस्चर विश्लेषण से 2 cm",
+  "paywallBullet3c": "प्रगति फ़ोटो — फर्क दिखेगा",
+  "paywallStat4": "दैनिक कार्यक्रम — लेवल अप",
+  "paywallTitle4": "हर दिन\nमजबूत",
+  "paywallBullet4a": "XP, लेवल — आदतें खेल",
+  "paywallBullet4b": "जो सफल हुए वो यहीं से गुज़रे",
+  "paywallBullet4c": "शुरू करें — पहला सप्ताह मुफ्त",
   "paywallPromoCode": "क्या आपके पास प्रोमो कोड है?",
   "paywallHeightUnit": "लक्ष्य ऊंचाई",
   "paywallHeightTitle": "तुम कितने सेंटीमीटर और बढ़ सकते हो?",
@@ -961,17 +1057,24 @@
   "journeyTourDoneTitle": "BeTaller में आपका स्वागत है!",
   "journeyTourDoneSubtitle": "तुमने तीनों चरण पूरे कर लिए हैं। अब तुम्हारी बारी है — अपनी पहली रूटीन पूरी करके शुरुआत करो।",
   "journeyViewPlansButton": "शुरू करने के लिए प्लान देखें",
-  "paywallRestore": "कोई खरीदारी नहीं मिली", "paywallRestoreNotFound": "कोई खरीदारी नहीं मिली", "paywallRestoreLabel": "खरीदारी बहाल करें",
-  "paywallYearly": "वार्षिक", "paywallBestValue": "सर्वोत्तम मूल्य", "paywallMonthly": "मासिक", "paywallFreeTrial": "3 दिन मुफ्त",
-  "paywallLoadError": "लोड नहीं हो सका", "paywallCta": "मुफ्त आज़माएं", "paywallCtaAlt": "जारी रखें",
-  "paywallTrialDisclaimer": "3 दिन मुफ्त · ऑटो-रिन्यू · कभी भी रद्द", "paywallYearlyDisclaimer": "वार्षिक ऑटो-रिन्यू · कभी भी रद्द", "paywallTester": "Tester",
-
+  "paywallRestore": "कोई खरीदारी नहीं मिली",
+  "paywallRestoreNotFound": "कोई खरीदारी नहीं मिली",
+  "paywallRestoreLabel": "खरीदारी बहाल करें",
+  "paywallYearly": "वार्षिक",
+  "paywallBestValue": "सर्वोत्तम मूल्य",
+  "paywallMonthly": "मासिक",
+  "paywallFreeTrial": "3 दिन मुफ्त",
+  "paywallLoadError": "लोड नहीं हो सका",
+  "paywallCta": "मुफ्त आज़माएं",
+  "paywallCtaAlt": "जारी रखें",
+  "paywallTrialDisclaimer": "3 दिन मुफ्त · ऑटो-रिन्यू · कभी भी रद्द",
+  "paywallYearlyDisclaimer": "वार्षिक ऑटो-रिन्यू · कभी भी रद्द",
+  "paywallTester": "Tester",
   "levelNovice": "नौसिखिया",
   "levelBuilder": "निर्माता",
   "levelGrinder": "मेहनती",
   "levelWarrior": "योद्धा",
   "levelGodTier": "देव स्तर",
-
   "levelDesc0": "अपनी नींव बनाओ",
   "levelDesc1": "विकास तेज करो",
   "levelDesc2": "प्रशिक्षण तीव्र करो",
@@ -982,45 +1085,50 @@
   "levelDesc7": "अपने शरीर पर काबू",
   "levelDesc8": "किंवदंती अनुशासन",
   "levelDesc9": "अधिकतम क्षमता",
-
   "levelLabel": "स्तर {level}",
-  "@levelLabel": {"placeholders": {"level": {"type": "int"}}},
-
+  "@levelLabel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
   "daysLeftProgram": "कार्यक्रम में {days} दिन बाकी",
-  "@daysLeftProgram": {"placeholders": {"days": {"type": "int"}}},
-
+  "@daysLeftProgram": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "tapLabel": "दबाएं",
-
   "kcalPer100g": "{calories} kcal / 100g",
-  "@kcalPer100g": {"placeholders": {"calories": {"type": "int"}}},
-
+  "@kcalPer100g": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
   "dayShort": "दिन",
-
   "legendShort": "छोटा",
   "legendBelowAvg": "औसत से कम",
   "legendAverage": "औसत",
   "legendTall": "लंबा",
   "legendVeryTall": "बहुत लंबा",
-
   "pctBottom5": "नीचे 5%",
   "pctBottom25": "नीचे 25%",
   "pctMedian": "मध्यिका",
   "pctTop25": "ऊपर 25%",
   "pctTop5": "ऊपर 5%",
-
-  "youLabel": "आप",
-
   "fallingBehind": "पिछड़ रहे हैं",
-
   "readTimeMinutes": "{minutes} मिनट पढ़ें",
   "inThisArticle": "इस लेख में",
   "nextArticle": "अगला लेख",
-
   "purchaseUnavailable": "खरीद पूरी नहीं हो सकी। कृपया फिर से कोशिश करें।",
   "viewPlan": "प्लान देखें",
   "viewPlanSubtitle": "अपनी सदस्यता का विवरण देखें",
   "predictionConfidenceHint": "हर माप जोड़ने पर अनुमान {percent}% तक पहुँचता है",
-
   "paywallSlideHomeTitle": "तुम्हारा दिन, एक स्क्रीन",
   "paywallSlideHomeCaption": "रूटीन, पानी, नींद — तीन रिंग पूरी करनी हैं।",
   "paywallSlideProgressTitle": "हर सेंटीमीटर देखो",
@@ -1035,14 +1143,30 @@
   "paywallSlideRemindersCaption": "समय तय करो, बाकी ऐप संभालेगा।",
   "paywallSlidePostureTitle": "अपनी मुद्रा सुधारो",
   "paywallSlidePostureCaption": "एक फ़ोटो, मापा गया स्कोर, साफ़ रूटीन।",
-
   "paywallTrialHeadline": "{days} दिन मुफ़्त",
-  "@paywallTrialHeadline": {"placeholders": {"days": {"type": "String"}}},
+  "@paywallTrialHeadline": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "paywallTrialThen": "फिर {price} · कभी भी रद्द करें",
-  "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
+  "@paywallTrialThen": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "paywallYearlyBilled": "{price} / साल · कभी भी रद्द करें",
-  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}},
-
+  "@paywallYearlyBilled": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "obBedtimeTitle": "तुम आमतौर पर कितने बजे सोते हो?",
   "obBedtimeSubtitle": "नींद का रिमाइंडर इसी समय के हिसाब से लगेगा।",
   "obWorkoutTimeTitle": "तुम कितने बजे कसरत करते हो?",
@@ -1050,12 +1174,377 @@
   "obMealsTitle": "दिन में कितनी बार खाते हो?",
   "obMealsSubtitle": "समय पर टैप करके अपने हिसाब से बदलो।",
   "obMealsCount": "{count} बार",
-  "@obMealsCount": {"placeholders": {"count": {"type": "String"}}},
+  "@obMealsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "obMealLabel": "भोजन {n}",
-  "@obMealLabel": {"placeholders": {"n": {"type": "String"}}},
+  "@obMealLabel": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "obProteinTitle": "दिन में कितने ग्राम प्रोटीन लेते हो?",
   "obProteinSubtitle": "अंदाज़न बताओ — योजना उसी पर बनेगी।",
   "obCaloriesTitle": "दिन में औसतन कितनी कैलोरी लेते हो?",
   "obCaloriesSubtitle": "अनुमान काफ़ी है, बाद में साथ मिलकर ठीक कर लेंगे।",
-  "obNotSure": "मुझे ठीक से पता नहीं"
+  "obNotSure": "मुझे ठीक से पता नहीं",
+  "disciplineTitle": "अनुशासन",
+  "disciplineProgramTitle": "अनुशासन कार्यक्रम",
+  "disciplineJourneyDay": "{done}/{total} दिन",
+  "@disciplineJourneyDay": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "disciplineCompleteDay": "दिन पूरा करें",
+  "disciplineDayN": "दिन {n}",
+  "@disciplineDayN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "disciplineLevels": "स्तर",
+  "disciplineLevelDone": "पूर्ण",
+  "disciplineLocked": "लॉक्ड",
+  "disciplineTodayIs": "आज",
+  "disciplineToday": "आज",
+  "disciplineTodayPlan": "आज की योजना",
+  "disciplineWeek": "इस सप्ताह",
+  "disciplineMonth": "इस महीने",
+  "disciplineLevel": "अनुशासन स्तर",
+  "disciplineStreakDays": "{days} दिनों की लगातार स्ट्रीक",
+  "@disciplineStreakDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "disciplineToNext": "अगले स्तर तक {days} दिन",
+  "@disciplineToNext": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "disciplineMaxTier": "सर्वोच्च स्तर प्राप्त",
+  "disciplineTierSpark": "स्पार्क",
+  "disciplineTierSteady": "स्थिर",
+  "disciplineTierSharp": "तेज़",
+  "disciplineTierSolid": "मज़बूत",
+  "disciplineTierRelentless": "अथक",
+  "disciplineTierUnbroken": "अटूट",
+  "disciplineTierLegend": "लीजेंड",
+  "goalPerfectDays": "जितने दिन आपने योजना पूरी की",
+  "goalWorkouts": "वर्कआउट सत्र",
+  "goalMeasurement": "ऊंचाई माप",
+  "goalPhoto": "प्रगति फोटो",
+  "goalPostureCheck": "पॉस्चर जांच",
+  "disciplineAllDone": "आज पूर्ण",
+  "disciplineDayProgress": "{done}/{total} पूर्ण",
+  "@disciplineDayProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "trackingSection": "आपके ट्रैकिंग टूल्स",
+  "photosBenefit": "पहले और बाद की फोटो, साथ-साथ। बदलाव पढ़ें नहीं, देखें।",
+  "postureBenefit": "किफोसिस, लॉर्डोसिस और सिर की स्थिति। अच्छा पॉस्चर अकेले 2-3 सेमी के बराबर है।",
+  "reportBenefit": "अपने सप्ताह को दिन-प्रतिदिन स्कोर करें और देखें कि कहां चूक हुई।",
+  "photosCta": "फोटो जोड़ें",
+  "postureCta": "विश्लेषण करें",
+  "reportCta": "रिपोर्ट खोलें",
+  "toolStateReady": "तैयार",
+  "photosSummaryEmpty": "अपनी पहली फोटो जोड़ें",
+  "photosSummaryCount": "{count} फोटो",
+  "@photosSummaryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "postureSummaryEmpty": "अभी तक कोई विश्लेषण नहीं",
+  "postureSummaryScore": "{score}/100 पॉस्चर",
+  "@postureSummaryScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "waterGoalReached": "दैनिक लक्ष्य पूरा हुआ",
+  "waterRemaining": "{amount} L बाकी",
+  "@waterRemaining": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "undo": "पूर्ववत करें",
+  "bodyFactsTitle": "आपका शरीर",
+  "dailyNeedsTitle": "आपके दैनिक लक्ष्य",
+  "growthRemaining": "अभी भी आगे",
+  "growthBreakdown": "ये सेंटीमीटर कहां से आते हैं",
+  "reminderNextLabel": "अगला रिमाइंडर",
+  "reminderManageHint": "अपने रिमाइंडर प्रबंधित करें",
+  "reminderOffCta": "नोटिफिकेशन चालू करें",
+  "stateOn": "चालू",
+  "stateOff": "बंद",
+  "reminderMasterTitle": "नोटिफिकेशन",
+  "reminderActiveCount": "{count} रिमाइंडर चालू",
+  "@reminderActiveCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderBuiltIn": "बिल्ट-इन रिमाइंडर",
+  "reminderYourOwn": "आपके अपने रिमाइंडर",
+  "reminderAdd": "रिमाइंडर जोड़ें",
+  "reminderDays": "दिन",
+  "reminderEveryDay": "हर दिन",
+  "reminderLabelHint": "आपको किस बारे में याद दिलाएं?",
+  "reminderEmptyHint": "अपना खुद का जोड़ें: वर्कआउट, विटामिन, स्ट्रेचिंग, जो भी आपको चाहिए।",
+  "reminderCustom": "रिमाइंडर",
+  "reminderCustomBody": "आपका तय किया समय हो गया है।",
+  "reminderExercise": "व्यायाम",
+  "reminderNutrition": "पोषण",
+  "reminderWater": "पानी",
+  "reminderPosture": "पॉस्चर",
+  "reminderRoutine": "दैनिक रूटीन",
+  "reminderSleep": "नींद",
+  "reminderMeasurement": "ऊंचाई माप",
+  "profileGroupSupport": "सहायता",
+  "profileGroupAccount": "खाता",
+  "profileGroupApp": "ऐप",
+  "profileGroupDanger": "खतरे का क्षेत्र",
+  "profileMemberSince": "{date} से सदस्य",
+  "@profileMemberSince": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "profileYourJourney": "आपकी यात्रा",
+  "profileTotalGrowth": "कुल",
+  "achievementUnlockedTitle": "🏆 उपलब्धि अनलॉक!",
+  "reminderTapHint": "समय और दिन बदलने के लिए किसी एक पर टैप करें",
+  "routineDailyCalories": "दैनिक कैलोरी लक्ष्य",
+  "routineDailyCaloriesDesc": "अपना दैनिक कैलोरी लक्ष्य पूरा करें — कम कैलोरी लेने से विकास धीमा होता है।",
+  "sectionSupplements": "सप्लीमेंट्स",
+  "weeklyScoreLabel": "सप्ताह का स्कोर",
+  "weeklyDailyCompletion": "दिन-प्रतिदिन",
+  "weeklyHabits": "आदतें",
+  "bellCurveCaption": "आपकी उम्र में ऊंचाई कैसे बंटी होती है",
+  "bellShorterThanYou": "आपसे छोटे",
+  "recipeDiffEasy": "आसान",
+  "recipeDiffMedium": "मध्यम",
+  "recipeDiffHard": "कठिन",
+  "recipesFilterType": "प्रकार",
+  "recipesFilterNutrient": "इनमें भरपूर",
+  "recipesGoalVitaminD": "विटामिन डी",
+  "recipesGoalZinc": "ज़िंक",
+  "recipesGoalMagnesium": "मैग्नीशियम",
+  "recipesCountLabel": "{count} रेसिपी",
+  "@recipesCountLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeIngredients": "सामग्री",
+  "recipeSteps": "विधि",
+  "formDailyCalories": "अपनी कैलोरी को 3-5 भोजन में बांटें और नाश्ता न छोड़ें। खाली कैलोरी की बजाय पूर्ण खाद्य पदार्थों को प्राथमिकता दें।",
+  "sciDailyCalories": "लगातार कैलोरी की कमी IGF-1 को कम करती है और ग्रोथ हार्मोन के स्राव को कमज़ोर करती है, जिससे किशोरावस्था में सीधे विकास धीमा हो जाता है",
+  "routineProteinAmountDesc": "आज कम से कम {grams}g प्रोटीन लें — आपके वज़न के अनुसार गणना की गई।",
+  "@routineProteinAmountDesc": {
+    "placeholders": {
+      "grams": {
+        "type": "int"
+      }
+    }
+  },
+  "routineWaterAmountDesc": "आज कम से कम {liters}L पानी पिएं — आपके वज़न के अनुसार गणना की गई।",
+  "@routineWaterAmountDesc": {
+    "placeholders": {
+      "liters": {
+        "type": "String"
+      }
+    }
+  },
+  "routineCalorieAmountDesc": "विकास को बढ़ावा देने के लिए आज लगभग {kcal} कैलोरी का लक्ष्य रखें।",
+  "@routineCalorieAmountDesc": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "routineVitaminDAmountDesc": "आज {iu} IU विटामिन डी लें — धूप, भोजन या सप्लीमेंट से।",
+  "@routineVitaminDAmountDesc": {
+    "placeholders": {
+      "iu": {
+        "type": "int"
+      }
+    }
+  },
+  "routineZincAmountDesc": "ग्रोथ हार्मोन उत्पादन के लिए आज {mg}mg ज़िंक लें।",
+  "@routineZincAmountDesc": {
+    "placeholders": {
+      "mg": {
+        "type": "int"
+      }
+    }
+  },
+  "nutritionSupplementsTitle": "सप्लीमेंट्स",
+  "nutritionSupplementsDisclaimer": "यह एक वैकल्पिक सहायता है, भोजन का विकल्प नहीं। कोई भी सप्लीमेंट शुरू करने से पहले, खासकर 18 साल से कम उम्र में, डॉक्टर से बात करें।",
+  "supplementVitaminDName": "विटामिन D3",
+  "supplementVitaminDDose": "3,000 IU",
+  "supplementVitaminDBenefit": "हड्डियों के घनत्व और ग्रोथ प्लेट की सेहत के लिए कैल्शियम अवशोषण बढ़ाता है",
+  "supplementZincName": "ज़िंक",
+  "supplementZincDose": "8-11mg",
+  "supplementZincBenefit": "ग्रोथ हार्मोन उत्पादन के लिए एक अहम खनिज",
+  "supplementMagnesiumName": "मैग्नीशियम",
+  "supplementMagnesiumDose": "300-400mg",
+  "supplementMagnesiumBenefit": "गहरी नींद के उस चरण को सहारा देता है जहां सबसे ज़्यादा ग्रोथ हार्मोन निकलता है",
+  "supplementCalciumName": "कैल्शियम",
+  "supplementCalciumDose": "1,000-1,300mg",
+  "supplementCalciumBenefit": "हड्डियों के घनत्व और ग्रोथ प्लेट्स की मुख्य नींव",
+  "supplementOmega3Name": "ओमेगा-3",
+  "supplementOmega3Dose": "1,000mg",
+  "supplementOmega3Benefit": "सूजन कम करता है और ग्रोथ प्लेट के सही कामकाज में मदद करता है",
+  "supplementCollagenName": "कोलाजन + विटामिन C",
+  "supplementCollagenDose": "10g + 500mg",
+  "supplementCollagenBenefit": "विटामिन C आपके शरीर को कार्टिलेज और हड्डी की संरचना बनाने में कोलाजन इस्तेमाल करने में मदद करता है",
+  "analysisBalance": "आपका संतुलन",
+  "analysisWeakest": "आपकी सबसे कमज़ोर कड़ी",
+  "analysisPrediction": "ऊंचाई का अनुमान",
+  "analysisComparison": "तुलना",
+  "analysisGrowth": "विकास की स्थिति",
+  "analysisWeakestHint": "यहीं से आप सबसे तेज़ी से अपना स्कोर बढ़ा सकते हैं।",
+  "journeyContinue": "जारी रखें",
+  "introTag1": "अनुमान",
+  "introTag2": "विकास",
+  "introTag3": "ट्रैकिंग",
+  "introTag4": "गेमिफिकेशन",
+  "introTag5": "समुदाय",
+  "introTitle1": "अपनी ऊंचाई की\nसंभावना जानें",
+  "introSubtitle1": "आनुवंशिकी, उम्र और जीवनशैली के आधार पर\nहम आपकी पूरी संभावना की गणना करेंगे।",
+  "introTitle2": "हर दिन एक कदम\nऊंचे बनें",
+  "introSubtitle2": "व्यक्तिगत व्यायाम और पोषण योजनाओं के साथ\nअपनी संभावना को आगे बढ़ाएं।",
+  "introTitle3": "हर सेंटीमीटर\nट्रैक करें",
+  "introSubtitle3": "मासिक मापों के साथ देखें कि\nआपकी असली प्रगति कैसे बढ़ती है।",
+  "introTitle4": "लेवल अप करें,\nइनाम पाएं",
+  "introSubtitle4": "70-दिन के कार्यक्रम पूरे करें,\nXP कमाएं और नए स्तर अनलॉक करें।",
+  "introTitle5": "हज़ारों लोग पहले ही\nऊंचे हो चुके हैं",
+  "introSubtitle5": "उन उपयोगकर्ताओं के समुदाय से जुड़ें\nजिन्होंने अपना लक्ष्य हासिल किया।",
+  "criticalWindow": "महत्वपूर्ण समय-सीमा",
+  "heightPotentialFading": "आपकी ऊंचाई की संभावना",
+  "fadingAway": "के बारे में तथ्य..",
+  "painHookDesc": "हर बीतते दिन के साथ, सही आदतों के बिना सेंटीमीटर हमेशा के लिए खो जाते हैं। लेकिन इसे अभी भी पलटा जा सकता है।",
+  "painGeneticTitle": "जेनेटिक्स ही सब कुछ नहीं है",
+  "painGeneticDesc": "जेनेटिक्स 60% तय करती है — बाकी 40% आप तय करते हैं। BeTaller ठीक उसी 40% के लिए है।",
+  "painGeneticTag": "विश्लेषण",
+  "painSleepTitle": "अपनी नींद की दिनचर्या को बेहतर बनाएं",
+  "painSleepDesc": "हर रात सही नींद ग्रोथ हार्मोन उत्पादन को 70% तक बढ़ा सकती है। BeTaller नींद ट्रैकिंग को ऑटोमैटिक करता है, आपको बस सोना है।",
+  "painSleepTag": "ट्रैकिंग",
+  "painPostureTitle": "पॉस्चर से अभी सेंटीमीटर हासिल करें",
+  "painPostureDesc": "सही पॉस्चर तुरंत 1.5–3 सेमी जोड़ सकता है। BeTaller की दैनिक पॉस्चर रूटीन कुछ हफ्तों में इसे स्थापित कर देती है।",
+  "painPostureTag": "पॉस्चर",
+  "painExerciseTitle": "आपकी कस्टम व्यायाम योजना तैयार है",
+  "painExerciseDesc": "सुबह की स्ट्रेचिंग, हैंगिंग, स्पाइन रूटीन — BeTaller ने इन्हें आपके लिए तैयार और शेड्यूल किया है। बस रोज़ाना 8–12 मिनट।",
+  "painExerciseTag": "रूटीन",
+  "painNutritionTitle": "आपका पोषण सीधे विकास को प्रभावित करता है",
+  "painNutritionDesc": "प्रोटीन, कैल्शियम, विटामिन डी — BeTaller आपको हर दिन याद दिलाता है कि कौन से पोषक तत्व कब लेने हैं।",
+  "painNutritionTag": "पोषण",
+  "painTrackingTitle": "अपनी आंखों से अपना विकास ट्रैक करें",
+  "painTrackingDesc": "मासिक माप, प्रगति फोटो, ग्रोथ चार्ट — हर हासिल किया गया सेंटीमीटर देखें।",
+  "painTrackingTag": "प्रगति",
+  "selectYourGender": "अपना लिंग चुनें",
+  "onboardingPredictSubtitle": "इसका उपयोग आपकी ऊंचाई की संभावना का अनुमान लगाने और आपकी कस्टम योजना बनाने के लिए किया जाएगा।",
+  "other": "अन्य",
+  "whenWereYouBorn": "आपका जन्म कब हुआ था?",
+  "heightAndWeight": "ऊंचाई और वज़न",
+  "parentsHeight": "माता-पिता की ऊंचाई",
+  "weeklyWorkout": "साप्ताहिक वर्कआउट",
+  "workoutsPerWeek": "प्रति सप्ताह वर्कआउट",
+  "whatsYourEthnicity": "आपकी जातीयता क्या है?",
+  "whiteCaucasian": "श्वेत / कॉकेशियन",
+  "blackAfricanAmerican": "अश्वेत / अफ्रीकी-अमेरिकी",
+  "hispanicLatino": "हिस्पैनिक / लातीनी",
+  "asian": "एशियाई",
+  "middleEasternIndigenous": "मध्य पूर्वी / स्वदेशी",
+  "dontWantToAnswer": "मैं जवाब नहीं देना चाहता/चाहती",
+  "footSizeLabel": "जूते का साइज़",
+  "selectYourSize": "अपना साइज़ चुनें",
+  "whatsYourDreamHeight": "आपकी सपनों की ऊंचाई क्या है?",
+  "dreamHeightCalcSubtitle": "आपकी जानकारी के आधार पर, हम इस ऊंचाई को पाने की संभावना की गणना करेंगे।",
+  "dreamHeightLabel": "सपनों की ऊंचाई",
+  "sleepQuestion": "आप हर रात कितने\nघंटे सोते हैं?",
+  "thousandsSucceeded": "हज़ारों लोग\nसफल हो चुके हैं",
+  "youCanToo": "आप भी कर सकते हैं",
+  "yearsOld": "साल के",
+  "verifiedLabel": "सत्यापित",
+  "scientificData": "वैज्ञानिक डेटा",
+  "longTermResults": "BeTaller देता है\nलंबे समय के नतीजे",
+  "longTermResultsSubtitle": "बुरी आदतों की वजह से कई लोग अपनी अधिकतम ऊंचाई तक नहीं पहुंच पाते।",
+  "yourFinalHeight": "आपकी अंतिम ऊंचाई",
+  "badHabitsLegend": "बुरी आदतें",
+  "optimizedLegend": "अनुकूलित",
+  "chartFact1Pct": "30%",
+  "chartFact1Desc": "आदतों से ऊंचाई में\nबदलाव लाया जा सकता है",
+  "chartFact2Pct": "9-10 घं.",
+  "chartFact2Desc": "सही नींद ग्रोथ हार्मोन\nको बढ़ावा देती है",
+  "chartFact3Pct": "3 सेमी",
+  "chartFact3Desc": "पॉस्चर सुधारकर\nहासिल किए जा सकते हैं",
+  "didYouKnow": "क्या आप जानते हैं?",
+  "didYouKnowFact1": "दैनिक आदतें आपकी ऊंचाई के 30% को प्रभावित करती हैं",
+  "didYouKnowFact2": "स्पाइन का दबाव आपकी 1.5-3 सेमी ऊंचाई छीन लेता है",
+  "didYouKnowFact3": "नींद की कमी HGH को 70% तक कम कर देती है",
+  "transformJourneyBegins": "आपकी बदलाव की\nयात्रा अभी शुरू होती है",
+  "transformJourneySubtitle": "एक व्यापक कार्यक्रम जो कदम दर कदम\nआपके स्वस्थ विकास को सहारा देने के लिए बनाया गया है।",
+  "week1Label": "1सप्ताह",
+  "week1Title": "सप्ताह 1",
+  "week1Desc": "रीढ़ का संरेखण बेहतर होता है, पॉस्चर सुधरता है",
+  "month1Label": "1माह",
+  "month1Title": "महीना 1",
+  "month1Desc": "पहले दिखने लायक सेंटीमीटर, नींद की गुणवत्ता बेहतर होती है",
+  "month3Label": "3माह",
+  "month3Title": "महीना 3",
+  "month3Desc": "औसतन +1.5–2.5 सेमी की वृद्धि, मांसपेशियों का विकास",
+  "month6Label": "6माह",
+  "month6Title": "महीना 6",
+  "month6Desc": "अधिकतम संभावना तक पहुंचें, अपनी नई ऊंचाई के साथ जिएं",
+  "reachYourGoal": "अपना लक्ष्य हासिल करें",
+  "journeyBullet1": "अपनी अधिकतम संभावना अनलॉक करें",
+  "journeyBullet2": "अपनी नई ऊंचाई के साथ जीना शुरू करें",
+  "journeyBullet3": "अपनी सफलता की कहानी लिखें",
+  "unlockButton": "सब अनलॉक करें",
+  "dreamHeightOdds": "आपकी सपनों की ऊंचाई की\nसंभावना",
+  "growthCompleteLabel": "विकास\nपूर्ण",
+  "tallerThanPct": "आपकी उम्र के 76.7% लोगों से लंबे"
 }

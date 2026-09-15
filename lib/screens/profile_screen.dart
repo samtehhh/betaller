@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,10 +33,41 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool _notificationsEnabled = false;
 
+  // Dev tools are compiled in whenever kDevTools is true (debug builds, and
+  // release builds built with --dart-define=DEV_TOOLS=true for internal
+  // testing) — but in a non-debug build we don't want them just sitting
+  // visible in the settings list. Holding the wordmark for a full 10s
+  // reveals them for that session; a plain debug build shows them right
+  // away, same as before, since there's nothing to hide from the developer
+  // actively running it.
+  bool _devToolsUnlocked = kDebugMode;
+  Timer? _devToolsHoldTimer;
+
   @override
   void initState() {
     super.initState();
     _loadNotifPref();
+  }
+
+  @override
+  void dispose() {
+    _devToolsHoldTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startDevToolsHold() {
+    if (!kDevTools || _devToolsUnlocked) return;
+    _devToolsHoldTimer?.cancel();
+    _devToolsHoldTimer = Timer(const Duration(seconds: 10), () {
+      if (!mounted) return;
+      HapticFeedback.heavyImpact();
+      setState(() => _devToolsUnlocked = true);
+    });
+  }
+
+  void _cancelDevToolsHold() {
+    _devToolsHoldTimer?.cancel();
+    _devToolsHoldTimer = null;
   }
 
   Future<void> _loadNotifPref() async {
@@ -573,7 +605,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     // Only in a build that asked for it: these two switches
                     // hand out every paid screen, so the release workflow
                     // leaves them out entirely. See lib/utils/dev_tools.dart.
-                    if (kDevTools) ...[
+                    if (kDevTools && _devToolsUnlocked) ...[
                       _GroupLabel('Geliştirici', color: AppColors.warning),
                       _MenuGroup(
                         children: [
@@ -656,10 +688,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           // Long-pressing the wordmark opens the debug tools
                           // in debug builds — kept off the settings list so it
-                          // never shows up in a store screenshot.
+                          // never shows up in a store screenshot. Holding it
+                          // for a full 10s reveals the Geliştirici group in
+                          // any build that has kDevTools compiled in.
                           GestureDetector(
                             onLongPress: kDebugMode
                                 ? () => _showDebugSheet(context, provider)
+                                : null,
+                            onLongPressStart: kDevTools
+                                ? (_) => _startDevToolsHold()
+                                : null,
+                            onLongPressEnd: kDevTools
+                                ? (_) => _cancelDevToolsHold()
+                                : null,
+                            onLongPressCancel: kDevTools
+                                ? _cancelDevToolsHold
                                 : null,
                             child: ShaderMask(
                               shaderCallback: (bounds) => const LinearGradient(

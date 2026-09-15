@@ -18,152 +18,152 @@ class AppLocalizationsIt extends AppLocalizations {
   String get navRoutines => 'Routine';
 
   @override
-  String get disciplineTitle => 'Discipline';
+  String get disciplineTitle => 'Disciplina';
 
   @override
-  String get disciplineProgramTitle => 'Discipline programme';
+  String get disciplineProgramTitle => 'Programma di disciplina';
 
   @override
   String disciplineJourneyDay(int done, int total) {
-    return '$done/$total days';
+    return '$done/$total giorni';
   }
 
   @override
-  String get disciplineCompleteDay => 'Complete the day';
+  String get disciplineCompleteDay => 'Completa la giornata';
 
   @override
   String disciplineDayN(int n) {
-    return 'Day $n';
+    return 'Giorno $n';
   }
 
   @override
-  String get disciplineLevels => 'Levels';
+  String get disciplineLevels => 'Livelli';
 
   @override
-  String get disciplineLevelDone => 'Done';
+  String get disciplineLevelDone => 'Fatto';
 
   @override
-  String get disciplineLocked => 'Locked';
+  String get disciplineLocked => 'Bloccato';
 
   @override
-  String get disciplineTodayIs => 'Today';
+  String get disciplineTodayIs => 'Oggi';
 
   @override
-  String get disciplineToday => 'Today';
+  String get disciplineToday => 'Oggi';
 
   @override
-  String get disciplineTodayPlan => 'Today\'s plan';
+  String get disciplineTodayPlan => 'Piano di oggi';
 
   @override
-  String get disciplineWeek => 'This week';
+  String get disciplineWeek => 'Questa settimana';
 
   @override
-  String get disciplineMonth => 'This month';
+  String get disciplineMonth => 'Questo mese';
 
   @override
-  String get disciplineLevel => 'Discipline level';
+  String get disciplineLevel => 'Livello di disciplina';
 
   @override
   String disciplineStreakDays(int days) {
-    return '$days day streak';
+    return '$days giorni di fila';
   }
 
   @override
   String disciplineToNext(int days) {
-    return '$days days to the next level';
+    return '$days giorni al prossimo livello';
   }
 
   @override
-  String get disciplineMaxTier => 'Top level reached';
+  String get disciplineMaxTier => 'Livello massimo raggiunto';
 
   @override
-  String get disciplineTierSpark => 'Spark';
+  String get disciplineTierSpark => 'Scintilla';
 
   @override
-  String get disciplineTierSteady => 'Steady';
+  String get disciplineTierSteady => 'Costante';
 
   @override
-  String get disciplineTierSharp => 'Sharp';
+  String get disciplineTierSharp => 'Affilato';
 
   @override
-  String get disciplineTierSolid => 'Solid';
+  String get disciplineTierSolid => 'Solido';
 
   @override
-  String get disciplineTierRelentless => 'Relentless';
+  String get disciplineTierRelentless => 'Instancabile';
 
   @override
-  String get disciplineTierUnbroken => 'Unbroken';
+  String get disciplineTierUnbroken => 'Indomabile';
 
   @override
-  String get disciplineTierLegend => 'Legend';
+  String get disciplineTierLegend => 'Leggenda';
 
   @override
-  String get goalPerfectDays => 'Days you finished the plan';
+  String get goalPerfectDays => 'Giorni in cui hai completato il piano';
 
   @override
-  String get goalWorkouts => 'Training sessions';
+  String get goalWorkouts => 'Sessioni di allenamento';
 
   @override
-  String get goalMeasurement => 'Height measurement';
+  String get goalMeasurement => 'Misurazione dell\'altezza';
 
   @override
-  String get goalPhoto => 'Progress photo';
+  String get goalPhoto => 'Foto dei progressi';
 
   @override
-  String get goalPostureCheck => 'Posture check';
+  String get goalPostureCheck => 'Controllo della postura';
 
   @override
-  String get disciplineAllDone => 'Today\'s done';
+  String get disciplineAllDone => 'Giornata completata';
 
   @override
   String disciplineDayProgress(int done, int total) {
-    return '$done/$total done';
+    return '$done/$total completato';
   }
 
   @override
   String get navProgress => 'Progressi';
 
   @override
-  String get trackingSection => 'Your tracking tools';
+  String get trackingSection => 'I tuoi strumenti di monitoraggio';
 
   @override
   String get photosBenefit =>
-      'Before and after, side by side. See the change instead of reading it.';
+      'Prima e dopo, fianco a fianco. Vedi il cambiamento invece di leggerlo.';
 
   @override
   String get postureBenefit =>
-      'Kyphosis, lordosis and head position. Good posture alone is worth 2-3 cm.';
+      'Cifosi, lordosi e posizione della testa. Solo una buona postura vale 2-3 cm.';
 
   @override
   String get reportBenefit =>
-      'Score your week day by day and see where it slipped.';
+      'Valuta la tua settimana giorno per giorno e scopri dove hai perso il ritmo.';
 
   @override
-  String get photosCta => 'Add a photo';
+  String get photosCta => 'Aggiungi una foto';
 
   @override
-  String get postureCta => 'Analyse';
+  String get postureCta => 'Analizza';
 
   @override
-  String get reportCta => 'Open the report';
+  String get reportCta => 'Apri il report';
 
   @override
-  String get toolStateReady => 'Ready';
+  String get toolStateReady => 'Pronto';
 
   @override
-  String get photosSummaryEmpty => 'Add your first photo';
+  String get photosSummaryEmpty => 'Aggiungi la tua prima foto';
 
   @override
   String photosSummaryCount(int count) {
-    return '$count photos';
+    return '$count foto';
   }
 
   @override
-  String get postureSummaryEmpty => 'No analysis yet';
+  String get postureSummaryEmpty => 'Ancora nessuna analisi';
 
   @override
   String postureSummaryScore(int score) {
-    return '$score/100 posture';
+    return '$score/100 postura';
   }
 
   @override
@@ -228,15 +228,15 @@ class AppLocalizationsIt extends AppLocalizations {
   String get waterTracking => 'Monitoraggio Acqua';
 
   @override
-  String get waterGoalReached => 'Daily goal reached';
+  String get waterGoalReached => 'Obiettivo giornaliero raggiunto';
 
   @override
   String waterRemaining(String amount) {
-    return '$amount L to go';
+    return 'Mancano $amount L';
   }
 
   @override
-  String get undo => 'Undo';
+  String get undo => 'Annulla';
 
   @override
   String waterToday(String amount) {
@@ -337,10 +337,10 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get bodyFactsTitle => 'Your body';
+  String get bodyFactsTitle => 'Il tuo corpo';
 
   @override
-  String get dailyNeedsTitle => 'Your daily targets';
+  String get dailyNeedsTitle => 'I tuoi obiettivi giornalieri';
 
   @override
   String bmiHigh(String bmi) {
@@ -421,10 +421,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get growthStatus => 'Stato di Crescita';
 
   @override
-  String get growthRemaining => 'Still ahead of you';
+  String get growthRemaining => 'Ancora davanti a te';
 
   @override
-  String get growthBreakdown => 'Where those centimetres come from';
+  String get growthBreakdown => 'Da dove vengono questi centimetri';
 
   @override
   String get geneticGainLabel => 'Guadagno Genetico';
@@ -593,76 +593,76 @@ class AppLocalizationsIt extends AppLocalizations {
   String get notifications => 'Notifiche';
 
   @override
-  String get reminderNextLabel => 'Next reminder';
+  String get reminderNextLabel => 'Prossimo promemoria';
 
   @override
-  String get reminderManageHint => 'Manage your reminders';
+  String get reminderManageHint => 'Gestisci i tuoi promemoria';
 
   @override
-  String get reminderOffCta => 'Turn notifications on';
+  String get reminderOffCta => 'Attiva le notifiche';
 
   @override
-  String get stateOn => 'On';
+  String get stateOn => 'Attivo';
 
   @override
-  String get stateOff => 'Off';
+  String get stateOff => 'Disattivo';
 
   @override
-  String get reminderMasterTitle => 'Notifications';
+  String get reminderMasterTitle => 'Notifiche';
 
   @override
   String reminderActiveCount(int count) {
-    return '$count reminders on';
+    return '$count promemoria attivi';
   }
 
   @override
-  String get reminderBuiltIn => 'Built-in reminders';
+  String get reminderBuiltIn => 'Promemoria integrati';
 
   @override
-  String get reminderYourOwn => 'Your own reminders';
+  String get reminderYourOwn => 'I tuoi promemoria';
 
   @override
-  String get reminderAdd => 'Add a reminder';
+  String get reminderAdd => 'Aggiungi promemoria';
 
   @override
-  String get reminderDays => 'Days';
+  String get reminderDays => 'Giorni';
 
   @override
-  String get reminderEveryDay => 'Every day';
+  String get reminderEveryDay => 'Ogni giorno';
 
   @override
-  String get reminderLabelHint => 'What should we remind you of?';
+  String get reminderLabelHint => 'Di cosa vuoi che ti ricordiamo?';
 
   @override
   String get reminderEmptyHint =>
-      'Add your own: training, vitamins, stretching, whatever you need.';
+      'Aggiungi il tuo: allenamento, vitamine, stretching, ciò che ti serve.';
 
   @override
-  String get reminderCustom => 'Reminder';
+  String get reminderCustom => 'Promemoria';
 
   @override
-  String get reminderCustomBody => 'The time you set has come.';
+  String get reminderCustomBody => 'È arrivata l\'ora che hai impostato.';
 
   @override
-  String get reminderExercise => 'Exercise';
+  String get reminderExercise => 'Esercizio';
 
   @override
-  String get reminderNutrition => 'Nutrition';
+  String get reminderNutrition => 'Alimentazione';
 
   @override
-  String get reminderWater => 'Water';
+  String get reminderWater => 'Acqua';
 
   @override
-  String get reminderPosture => 'Posture';
+  String get reminderPosture => 'Postura';
 
   @override
-  String get reminderRoutine => 'Daily routine';
+  String get reminderRoutine => 'Routine giornaliera';
 
   @override
-  String get reminderSleep => 'Sleep';
+  String get reminderSleep => 'Sonno';
 
   @override
-  String get reminderMeasurement => 'Height measurement';
+  String get reminderMeasurement => 'Misurazione dell\'altezza';
 
   @override
   String get notificationsOn => 'Promemoria attivi';
@@ -724,7 +724,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get statistics => 'Statistiche';
 
   @override
-  String get profileGroupSupport => 'Support';
+  String get profileGroupSupport => 'Supporto';
 
   @override
   String get profileGroupAccount => 'Account';
@@ -733,18 +733,18 @@ class AppLocalizationsIt extends AppLocalizations {
   String get profileGroupApp => 'App';
 
   @override
-  String get profileGroupDanger => 'Danger zone';
+  String get profileGroupDanger => 'Zona pericolosa';
 
   @override
   String profileMemberSince(String date) {
-    return 'Since $date';
+    return 'Dal $date';
   }
 
   @override
-  String get profileYourJourney => 'Your journey';
+  String get profileYourJourney => 'Il tuo percorso';
 
   @override
-  String get profileTotalGrowth => 'Total';
+  String get profileTotalGrowth => 'Totale';
 
   @override
   String get currentStreak => 'Serie Attuale';
@@ -759,10 +759,11 @@ class AppLocalizationsIt extends AppLocalizations {
   String get achievements => 'Traguardi';
 
   @override
-  String get achievementUnlockedTitle => '🏆 Achievement unlocked!';
+  String get achievementUnlockedTitle => '🏆 Obiettivo sbloccato!';
 
   @override
-  String get reminderTapHint => 'Tap one to change its time and days';
+  String get reminderTapHint =>
+      'Tocca un promemoria per cambiarne ora e giorni';
 
   @override
   String get earned => 'Ottenuto!';
@@ -1141,6 +1142,13 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get routineArginineFoodsDesc =>
       'Mangia alimenti ricchi di arginina per stimolare la secrezione di ormone della crescita.';
+
+  @override
+  String get routineDailyCalories => 'Obiettivo calorico giornaliero';
+
+  @override
+  String get routineDailyCaloriesDesc =>
+      'Raggiungi il tuo obiettivo calorico giornaliero — mangiare troppo poco rallenta la crescita.';
 
   @override
   String get routineSleepEnvironment => 'Ottimizza l\'Ambiente del Sonno';
@@ -1586,6 +1594,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get sectionFoods => 'Alimenti';
 
   @override
+  String get sectionSupplements => 'Integratori';
+
+  @override
   String todaysPlan(String day) {
     return 'Piano di oggi — $day';
   }
@@ -1648,13 +1659,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get weeklyReportTitle => 'Rapporto settimanale';
 
   @override
-  String get weeklyScoreLabel => 'Week score';
+  String get weeklyScoreLabel => 'Punteggio settimanale';
 
   @override
-  String get weeklyDailyCompletion => 'Day by day';
+  String get weeklyDailyCompletion => 'Giorno per giorno';
 
   @override
-  String get weeklyHabits => 'Habits';
+  String get weeklyHabits => 'Abitudini';
 
   @override
   String get overview => 'Panoramica';
@@ -1970,10 +1981,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get yourHeightStanding => 'LA TUA POSIZIONE IN ALTEZZA';
 
   @override
-  String get bellCurveCaption => 'How height is spread at your age';
+  String get bellCurveCaption => 'Come è distribuita l\'altezza alla tua età';
 
   @override
-  String get bellShorterThanYou => 'shorter than you';
+  String get bellShorterThanYou => 'più bassi di te';
 
   @override
   String get yourHeight => 'Tu';
@@ -2329,39 +2340,39 @@ class AppLocalizationsIt extends AppLocalizations {
   String get recipesGoalAll => 'Tutti';
 
   @override
-  String get recipeDiffEasy => 'Easy';
+  String get recipeDiffEasy => 'Facile';
 
   @override
-  String get recipeDiffMedium => 'Medium';
+  String get recipeDiffMedium => 'Media';
 
   @override
-  String get recipeDiffHard => 'Hard';
+  String get recipeDiffHard => 'Difficile';
 
   @override
-  String get recipesFilterType => 'TYPE';
+  String get recipesFilterType => 'TIPO';
 
   @override
-  String get recipesFilterNutrient => 'RICH IN';
+  String get recipesFilterNutrient => 'RICCO DI';
 
   @override
-  String get recipesGoalVitaminD => 'Vitamin D';
+  String get recipesGoalVitaminD => 'Vitamina D';
 
   @override
-  String get recipesGoalZinc => 'Zinc';
+  String get recipesGoalZinc => 'Zinco';
 
   @override
-  String get recipesGoalMagnesium => 'Magnesium';
+  String get recipesGoalMagnesium => 'Magnesio';
 
   @override
   String recipesCountLabel(int count) {
-    return '$count recipes';
+    return '$count ricette';
   }
 
   @override
-  String get recipeIngredients => 'Ingredients';
+  String get recipeIngredients => 'Ingredienti';
 
   @override
-  String get recipeSteps => 'Method';
+  String get recipeSteps => 'Preparazione';
 
   @override
   String get recipesGoalProtein => 'Alto in proteine';
@@ -2569,6 +2580,10 @@ class AppLocalizationsIt extends AppLocalizations {
       'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.';
 
   @override
+  String get formDailyCalories =>
+      'Distribuisci le calorie su 3-5 pasti e non saltare la colazione. Preferisci cibi integrali alle calorie vuote.';
+
+  @override
   String get formQualitySleep =>
       'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.';
 
@@ -2681,6 +2696,10 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get sciArginineFoods =>
       'L-Arginine stimulates growth hormone secretion';
+
+  @override
+  String get sciDailyCalories =>
+      'Un deficit calorico prolungato abbassa l\'IGF-1 e indebolisce i picchi dell\'ormone della crescita, rallentando direttamente la crescita lineare durante l\'adolescenza';
 
   @override
   String get sciQualitySleep =>
@@ -2877,6 +2896,98 @@ class AppLocalizationsIt extends AppLocalizations {
       'BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.';
 
   @override
+  String routineProteinAmountDesc(int grams) {
+    return 'Assumi oggi almeno ${grams}g di proteine — calcolato in base al tuo peso.';
+  }
+
+  @override
+  String routineWaterAmountDesc(String liters) {
+    return 'Bevi oggi almeno ${liters}L di acqua — calcolato in base al tuo peso.';
+  }
+
+  @override
+  String routineCalorieAmountDesc(int kcal) {
+    return 'Punta oggi a circa $kcal kcal per sostenere la crescita.';
+  }
+
+  @override
+  String routineVitaminDAmountDesc(int iu) {
+    return 'Assumi oggi $iu UI di vitamina D — tramite sole, cibo o un integratore.';
+  }
+
+  @override
+  String routineZincAmountDesc(int mg) {
+    return 'Assumi oggi ${mg}mg di zinco per sostenere la produzione dell\'ormone della crescita.';
+  }
+
+  @override
+  String get nutritionSupplementsTitle => 'INTEGRATORI';
+
+  @override
+  String get nutritionSupplementsDisclaimer =>
+      'Un supporto facoltativo, non un sostituto del cibo. Parla con un medico prima di iniziare qualsiasi integratore, soprattutto se sei minorenne.';
+
+  @override
+  String get supplementVitaminDName => 'Vitamina D3';
+
+  @override
+  String get supplementVitaminDDose => '3.000 UI';
+
+  @override
+  String get supplementVitaminDBenefit =>
+      'Migliora l\'assorbimento del calcio per la densità ossea e la salute delle cartilagini di accrescimento';
+
+  @override
+  String get supplementZincName => 'Zinco';
+
+  @override
+  String get supplementZincDose => '8-11mg';
+
+  @override
+  String get supplementZincBenefit =>
+      'Un minerale chiave per la produzione dell\'ormone della crescita';
+
+  @override
+  String get supplementMagnesiumName => 'Magnesio';
+
+  @override
+  String get supplementMagnesiumDose => '300-400mg';
+
+  @override
+  String get supplementMagnesiumBenefit =>
+      'Favorisce la fase di sonno profondo, quando viene rilasciato più ormone della crescita';
+
+  @override
+  String get supplementCalciumName => 'Calcio';
+
+  @override
+  String get supplementCalciumDose => '1.000-1.300mg';
+
+  @override
+  String get supplementCalciumBenefit =>
+      'L\'elemento fondamentale per la densità ossea e le cartilagini di accrescimento';
+
+  @override
+  String get supplementOmega3Name => 'Omega-3';
+
+  @override
+  String get supplementOmega3Dose => '1.000mg';
+
+  @override
+  String get supplementOmega3Benefit =>
+      'Riduce l\'infiammazione e favorisce il corretto funzionamento delle cartilagini di accrescimento';
+
+  @override
+  String get supplementCollagenName => 'Collagene + Vitamina C';
+
+  @override
+  String get supplementCollagenDose => '10g + 500mg';
+
+  @override
+  String get supplementCollagenBenefit =>
+      'La vitamina C aiuta il tuo corpo a usare il collagene per costruire cartilagine e matrice ossea';
+
+  @override
   String get sciSourcePrefix => 'Source: ';
 
   @override
@@ -2887,6 +2998,18 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get dailyNutritionPlan => 'PIANO NUTRIZIONALE GIORNALIERO';
+
+  @override
+  String get nutritionGoalsComplete =>
+      '🎉 Tutti gli obiettivi nutrizionali completati!';
+
+  @override
+  String get nutritionGoalsIncomplete =>
+      'Completa i tuoi obiettivi nutrizionali per una crescita ottimale';
+
+  @override
+  String get postureDetectingAlignment =>
+      'Rilevamento dell\'allineamento della colonna...';
 
   @override
   String get testimonial1 =>
@@ -3003,23 +3126,23 @@ class AppLocalizationsIt extends AppLocalizations {
   String get generalPerformance => 'PRESTAZIONI GENERALI';
 
   @override
-  String get analysisBalance => 'Your balance';
+  String get analysisBalance => 'Il tuo equilibrio';
 
   @override
-  String get analysisWeakest => 'Your weakest link';
+  String get analysisWeakest => 'Il tuo punto debole';
 
   @override
-  String get analysisPrediction => 'Height prediction';
+  String get analysisPrediction => 'Previsione dell\'altezza';
 
   @override
-  String get analysisComparison => 'Comparison';
+  String get analysisComparison => 'Confronto';
 
   @override
-  String get analysisGrowth => 'Growth status';
+  String get analysisGrowth => 'Stato della crescita';
 
   @override
   String get analysisWeakestHint =>
-      'This is the fastest place to raise your score.';
+      'Qui puoi migliorare il tuo punteggio più rapidamente.';
 
   @override
   String get exploreLabel => 'ESPLORA';
@@ -3633,7 +3756,7 @@ class AppLocalizationsIt extends AppLocalizations {
       'Abbiamo i tuoi dati e il tuo potenziale. Ora tocca al tour dell’app.';
 
   @override
-  String get journeyContinue => 'Continue';
+  String get journeyContinue => 'Continua';
 
   @override
   String get journeyEnterApp => 'Entra nell’app';
@@ -3687,320 +3810,327 @@ class AppLocalizationsIt extends AppLocalizations {
   String get paywallTester => 'Tester';
 
   @override
-  String get introTag1 => 'PREDICTION';
+  String get introTag1 => 'PREVISIONE';
 
   @override
-  String get introTag2 => 'GROWTH';
+  String get introTag2 => 'CRESCITA';
 
   @override
-  String get introTag3 => 'TRACKING';
+  String get introTag3 => 'MONITORAGGIO';
 
   @override
   String get introTag4 => 'GAMIFICATION';
 
   @override
-  String get introTag5 => 'COMMUNITY';
+  String get introTag5 => 'COMUNITÀ';
 
   @override
-  String get introTitle1 => 'Discover your\nheight potential';
+  String get introTitle1 => 'Scopri il tuo\npotenziale di altezza';
 
   @override
   String get introSubtitle1 =>
-      'Let us calculate your full potential\nbased on genetics, age, and lifestyle.';
+      'Calcoliamo il tuo pieno potenziale\nin base a genetica, età e stile di vita.';
 
   @override
-  String get introTitle2 => 'One step taller\nevery day';
+  String get introTitle2 => 'Un centimetro in più\nogni giorno';
 
   @override
   String get introSubtitle2 =>
-      'Push your potential with personalized\nexercise and nutrition plans.';
+      'Sfrutta il tuo potenziale con piani\npersonalizzati di esercizio e alimentazione.';
 
   @override
-  String get introTitle3 => 'Track every\ncentimeter';
+  String get introTitle3 => 'Monitora ogni\ncentimetro';
 
   @override
   String get introSubtitle3 =>
-      'See how your real progress\ndevelops with monthly measurements.';
+      'Guarda come si sviluppano i tuoi\nprogressi reali con misurazioni mensili.';
 
   @override
-  String get introTitle4 => 'Level up,\nearn rewards';
+  String get introTitle4 => 'Sali di livello,\nguadagna premi';
 
   @override
   String get introSubtitle4 =>
-      'Complete 70-day programs,\nearn XP, and unlock new levels.';
+      'Completa programmi di 70 giorni,\nguadagna XP e sblocca nuovi livelli.';
 
   @override
-  String get introTitle5 => 'Thousands already\ngrew taller';
+  String get introTitle5 => 'Migliaia sono già\ncresciuti';
 
   @override
   String get introSubtitle5 =>
-      'Join the community of users\nwho reached their goals.';
+      'Unisciti alla community di utenti\nche hanno raggiunto il loro obiettivo.';
 
   @override
-  String get criticalWindow => 'CRITICAL WINDOW';
+  String get criticalWindow => 'FINESTRA CRITICA';
 
   @override
-  String get heightPotentialFading => 'The facts about your';
+  String get heightPotentialFading => 'I fatti sul tuo';
 
   @override
-  String get fadingAway => 'height potential..';
+  String get fadingAway => 'potenziale di altezza..';
 
   @override
   String get painHookDesc =>
-      'Every passing day, centimeters are permanently lost without the right habits. But this can still be reversed.';
+      'Ogni giorno che passa senza le giuste abitudini, si perdono centimetri in modo permanente. Ma si può ancora invertire la rotta.';
 
   @override
-  String get painGeneticTitle => 'Genetics isn\'t everything';
+  String get painGeneticTitle => 'La genetica non è tutto';
 
   @override
   String get painGeneticDesc =>
-      'Genetics determines 60% — but what you do determines the other 40%. BeTaller is here for exactly that 40%.';
+      'La genetica determina il 60% — il restante 40% lo determini tu. BeTaller è qui esattamente per quel 40%.';
 
   @override
-  String get painGeneticTag => 'Analysis';
+  String get painGeneticTag => 'Analisi';
 
   @override
-  String get painSleepTitle => 'Optimize your sleep routine';
+  String get painSleepTitle => 'Ottimizza la tua routine del sonno';
 
   @override
   String get painSleepDesc =>
-      'Proper sleep every night can boost growth hormone production by 70%. BeTaller automates sleep tracking, you just sleep.';
+      'Dormire bene ogni notte può aumentare la produzione dell\'ormone della crescita del 70%. BeTaller automatizza il monitoraggio del sonno, tu devi solo dormire.';
 
   @override
-  String get painSleepTag => 'Tracking';
+  String get painSleepTag => 'Monitoraggio';
 
   @override
-  String get painPostureTitle => 'Gain centimeters now with posture';
+  String get painPostureTitle => 'Guadagna centimetri subito con la postura';
 
   @override
   String get painPostureDesc =>
-      'Correct posture can instantly add 1.5–3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.';
+      'Una postura corretta può aggiungere istantaneamente 1,5-3 cm. La routine posturale quotidiana di BeTaller la stabilizza in poche settimane.';
 
   @override
-  String get painPostureTag => 'Posture';
+  String get painPostureTag => 'Postura';
 
   @override
-  String get painExerciseTitle => 'Your custom exercise plan is ready';
+  String get painExerciseTitle => 'Il tuo piano di esercizi su misura è pronto';
 
   @override
   String get painExerciseDesc =>
-      'Morning stretches, hanging, spine routines — BeTaller prepared and scheduled these for you. Just 8–12 minutes a day.';
+      'Stretching mattutino, sospensioni, esercizi per la colonna — BeTaller li ha preparati e programmati per te. Solo 8-12 minuti al giorno.';
 
   @override
-  String get painExerciseTag => 'Routines';
+  String get painExerciseTag => 'Routine';
 
   @override
-  String get painNutritionTitle => 'Your nutrition directly affects growth';
+  String get painNutritionTitle =>
+      'La tua alimentazione influisce direttamente sulla crescita';
 
   @override
   String get painNutritionDesc =>
-      'Protein, calcium, vitamin D — BeTaller reminds you every day which nutrients to take and when.';
+      'Proteine, calcio, vitamina D — BeTaller ti ricorda ogni giorno quali nutrienti assumere e quando.';
 
   @override
-  String get painNutritionTag => 'Nutrition';
+  String get painNutritionTag => 'Alimentazione';
 
   @override
-  String get painTrackingTitle => 'Track your growth with your own eyes';
+  String get painTrackingTitle => 'Monitora la tua crescita con i tuoi occhi';
 
   @override
   String get painTrackingDesc =>
-      'Monthly measurements, progress photos, growth chart — see every centimeter you gain.';
+      'Misurazioni mensili, foto dei progressi, grafico di crescita — vedi ogni centimetro guadagnato.';
 
   @override
-  String get painTrackingTag => 'Progress';
+  String get painTrackingTag => 'Progressi';
 
   @override
-  String get selectYourGender => 'Select your gender';
+  String get selectYourGender => 'Seleziona il tuo genere';
 
   @override
   String get onboardingPredictSubtitle =>
-      'This will be used to predict your height potential & create your custom plan.';
+      'Verrà usato per prevedere il tuo potenziale di altezza e creare il tuo piano personalizzato.';
 
   @override
-  String get other => 'Other';
+  String get other => 'Altro';
 
   @override
-  String get whenWereYouBorn => 'When were you born?';
+  String get whenWereYouBorn => 'Quando sei nato/a?';
 
   @override
-  String get heightAndWeight => 'Height & weight';
+  String get heightAndWeight => 'Altezza e peso';
 
   @override
-  String get parentsHeight => 'Parents height';
+  String get parentsHeight => 'Altezza dei genitori';
 
   @override
-  String get weeklyWorkout => 'Weekly workout';
+  String get weeklyWorkout => 'Allenamento settimanale';
 
   @override
-  String get workoutsPerWeek => 'Workouts per week';
+  String get workoutsPerWeek => 'Allenamenti a settimana';
 
   @override
-  String get whatsYourEthnicity => 'What\'s your ethnicity?';
+  String get whatsYourEthnicity => 'Qual è la tua etnia?';
 
   @override
-  String get whiteCaucasian => 'White / Caucasian';
+  String get whiteCaucasian => 'Bianco / Caucasico';
 
   @override
-  String get blackAfricanAmerican => 'Black / African American';
+  String get blackAfricanAmerican => 'Nero / Afroamericano';
 
   @override
-  String get hispanicLatino => 'Hispanic / Latino';
+  String get hispanicLatino => 'Ispanico / Latino';
 
   @override
-  String get asian => 'Asian';
+  String get asian => 'Asiatico';
 
   @override
-  String get middleEasternIndigenous => 'Middle Eastern / Indigenous';
+  String get middleEasternIndigenous => 'Medio Oriente / Indigeno';
 
   @override
-  String get dontWantToAnswer => 'I don\'t want to answer';
+  String get dontWantToAnswer => 'Preferisco non rispondere';
 
   @override
-  String get footSizeLabel => 'Foot size';
+  String get footSizeLabel => 'Numero di scarpe';
 
   @override
-  String get selectYourSize => 'Select your size';
+  String get selectYourSize => 'Seleziona la tua taglia';
 
   @override
-  String get whatsYourDreamHeight => 'What\'s your dream height?';
+  String get whatsYourDreamHeight => 'Qual è la tua altezza ideale?';
 
   @override
   String get dreamHeightCalcSubtitle =>
-      'Based on your input, we\'ll calculate the likelihood of achieving this height.';
+      'In base ai tuoi dati, calcoleremo la probabilità di raggiungere questa altezza.';
 
   @override
-  String get dreamHeightLabel => 'Dream height';
+  String get dreamHeightLabel => 'Altezza ideale';
 
   @override
-  String get sleepQuestion => 'How many hours do\nyou sleep each night?';
+  String get sleepQuestion => 'Quante ore dormi\nogni notte?';
 
   @override
-  String get thousandsSucceeded => 'Thousands\nSucceeded';
+  String get thousandsSucceeded => 'Migliaia ce\nl\'hanno già fatta';
 
   @override
-  String get youCanToo => 'You can do it too';
+  String get youCanToo => 'Puoi farcela anche tu';
 
   @override
-  String get yearsOld => 'years old';
+  String get yearsOld => 'anni';
 
   @override
-  String get verifiedLabel => 'Verified';
+  String get verifiedLabel => 'Verificato';
 
   @override
-  String get scientificData => 'SCIENTIFIC DATA';
+  String get scientificData => 'DATI SCIENTIFICI';
 
   @override
-  String get longTermResults => 'BeTaller creates\nlong-term results';
+  String get longTermResults => 'BeTaller crea\nrisultati a lungo termine';
 
   @override
   String get longTermResultsSubtitle =>
-      'Many people don\'t reach their ultimate height due to bad habits.';
+      'Molte persone non raggiungono la loro altezza massima a causa di cattive abitudini.';
 
   @override
-  String get yourFinalHeight => 'Your final height';
+  String get yourFinalHeight => 'La tua altezza finale';
 
   @override
-  String get badHabitsLegend => 'Bad habits';
+  String get badHabitsLegend => 'Cattive abitudini';
 
   @override
-  String get optimizedLegend => 'Optimized';
+  String get optimizedLegend => 'Ottimizzato';
 
   @override
   String get chartFact1Pct => '30%';
 
   @override
-  String get chartFact1Desc => 'Height can be changed\nwith habits';
+  String get chartFact1Desc => 'L\'altezza può cambiare\ncon le abitudini';
 
   @override
   String get chartFact2Pct => '9-10h';
 
   @override
-  String get chartFact2Desc => 'Ideal sleep boosts\ngrowth hormone';
+  String get chartFact2Desc =>
+      'Il sonno ideale aumenta\nl\'ormone della crescita';
 
   @override
   String get chartFact3Pct => '3 cm';
 
   @override
-  String get chartFact3Desc => 'Can be gained with\nposture improvement';
+  String get chartFact3Desc => 'Si possono guadagnare\nmigliorando la postura';
 
   @override
-  String get didYouKnow => 'Did you know?';
+  String get didYouKnow => 'Lo sapevi?';
 
   @override
-  String get didYouKnowFact1 => 'Daily habits affect 30% of your height';
+  String get didYouKnowFact1 =>
+      'Le abitudini quotidiane influenzano il 30% della tua altezza';
 
   @override
-  String get didYouKnowFact2 => 'Spinal compression steals 1.5-3 cm of height';
+  String get didYouKnowFact2 =>
+      'La compressione della colonna ti fa perdere 1,5-3 cm di altezza';
 
   @override
-  String get didYouKnowFact3 => 'Sleep deprivation reduces HGH by 70%';
+  String get didYouKnowFact3 => 'La mancanza di sonno riduce l\'HGH del 70%';
 
   @override
-  String get transformJourneyBegins => 'Your Transformation\nJourney Begins';
+  String get transformJourneyBegins => 'La tua trasformazione\ninizia ora';
 
   @override
   String get transformJourneySubtitle =>
-      'A comprehensive program designed to support\nyour healthy growth, step by step.';
+      'Un programma completo pensato per sostenere\nla tua crescita sana, passo dopo passo.';
 
   @override
-  String get week1Label => '1W';
+  String get week1Label => '1S';
 
   @override
-  String get week1Title => 'Week 1';
+  String get week1Title => 'Settimana 1';
 
   @override
-  String get week1Desc => 'Spine alignment improves, posture gets better';
+  String get week1Desc =>
+      'L\'allineamento della colonna migliora, la postura si corregge';
 
   @override
   String get month1Label => '1M';
 
   @override
-  String get month1Title => 'Month 1';
+  String get month1Title => 'Mese 1';
 
   @override
-  String get month1Desc => 'First visible centimeters, sleep quality improves';
+  String get month1Desc =>
+      'Primi centimetri visibili, migliore qualità del sonno';
 
   @override
   String get month3Label => '3M';
 
   @override
-  String get month3Title => 'Month 3';
+  String get month3Title => 'Mese 3';
 
   @override
-  String get month3Desc => 'Average +1.5–2.5 cm gain, muscle development';
+  String get month3Desc => 'Guadagno medio di +1,5–2,5 cm, sviluppo muscolare';
 
   @override
   String get month6Label => '6M';
 
   @override
-  String get month6Title => 'Month 6';
+  String get month6Title => 'Mese 6';
 
   @override
-  String get month6Desc => 'Reach maximum potential, live with your new height';
+  String get month6Desc =>
+      'Raggiungi il massimo potenziale, vivi con la tua nuova altezza';
 
   @override
-  String get reachYourGoal => 'Reach Your Goal';
+  String get reachYourGoal => 'Raggiungi il tuo obiettivo';
 
   @override
-  String get journeyBullet1 => 'Unlock your maximum potential';
+  String get journeyBullet1 => 'Sblocca il tuo massimo potenziale';
 
   @override
-  String get journeyBullet2 => 'Start living with your new height';
+  String get journeyBullet2 => 'Inizia a vivere con la tua nuova altezza';
 
   @override
-  String get journeyBullet3 => 'Write your success story';
+  String get journeyBullet3 => 'Scrivi la tua storia di successo';
 
   @override
-  String get unlockButton => 'Unlock All';
+  String get unlockButton => 'Sblocca tutto';
 
   @override
-  String get dreamHeightOdds => 'Dream height\nodds';
+  String get dreamHeightOdds => 'Probabilità della tua\naltezza ideale';
 
   @override
-  String get growthCompleteLabel => 'Growth\ncomplete';
+  String get growthCompleteLabel => 'Crescita\ncompletata';
 
   @override
-  String get tallerThanPct => 'Taller than 76.7% of your age';
+  String get tallerThanPct => 'Più alto del 76,7% alla tua età';
 
   @override
   String get levelNovice => 'Novizio';

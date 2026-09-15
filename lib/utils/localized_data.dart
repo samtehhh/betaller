@@ -172,6 +172,12 @@ final Map<String, _R> _routineData = {
     (l) => l.formArginineFoods,
     (l) => l.sciArginineFoods,
   ),
+  'daily_calories': (
+    (l) => l.routineDailyCalories,
+    (l) => l.routineDailyCaloriesDesc,
+    (l) => l.formDailyCalories,
+    (l) => l.sciDailyCalories,
+  ),
   'sleep_environment': (
     (l) => l.routineSleepEnvironment,
     (l) => l.routineSleepEnvironmentDesc,

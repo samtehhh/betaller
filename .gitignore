@@ -47,3 +47,6 @@ pubspec.lock
 
 # Android upload signing — never commit
 android/key.properties
+
+# Local test builds — built on demand, not shipped from source control
+release-builds/

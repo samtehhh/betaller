@@ -302,20 +302,10 @@ class _HomeScreenState extends State<HomeScreen>
                               isUrgent:
                                   isEvening &&
                                   provider.todayWater < waterNeed * 0.6,
-                              onTap: provider.isPremium
-                                  ? () => showWaterSheet(
-                                      context,
-                                      provider,
-                                      waterNeed,
-                                    )
-                                  : () => showPremiumPaywall(context),
-                              onAdd: provider.isPremium
-                                  ? () => showWaterSheet(
-                                      context,
-                                      provider,
-                                      waterNeed,
-                                    )
-                                  : () => showPremiumPaywall(context),
+                              onTap: () =>
+                                  showWaterSheet(context, provider, waterNeed),
+                              onAdd: () =>
+                                  showWaterSheet(context, provider, waterNeed),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -334,20 +324,10 @@ class _HomeScreenState extends State<HomeScreen>
                               isUrgent:
                                   isEvening &&
                                   provider.todaySleep < sleepNeed * 0.5,
-                              onTap: provider.isPremium
-                                  ? () => _showSleepSheet(
-                                      context,
-                                      provider,
-                                      sleepNeed,
-                                    )
-                                  : () => showPremiumPaywall(context),
-                              onAdd: provider.isPremium
-                                  ? () => _showSleepSheet(
-                                      context,
-                                      provider,
-                                      sleepNeed,
-                                    )
-                                  : () => showPremiumPaywall(context),
+                              onTap: () =>
+                                  _showSleepSheet(context, provider, sleepNeed),
+                              onAdd: () =>
+                                  _showSleepSheet(context, provider, sleepNeed),
                             ),
                           ),
                         ],
@@ -406,6 +386,7 @@ class _HomeScreenState extends State<HomeScreen>
                         lastGrowth: provider.lastGrowth,
                         measurementCount: provider.heightRecords.length,
                         hasData: provider.heightRecords.length >= 2,
+                        isPremium: provider.isPremium,
                         l: l,
                       ),
                     ),
@@ -610,6 +591,10 @@ class _HomeScreenState extends State<HomeScreen>
                   borderRadius: BorderRadius.circular(_radiusM),
                   padding: const EdgeInsets.symmetric(vertical: 17),
                   onPressed: () {
+                    if (!provider.isPremium) {
+                      showPremiumPaywall(context);
+                      return;
+                    }
                     provider.updateSleep(selectedHours);
                     Navigator.pop(context);
                   },
@@ -2447,6 +2432,7 @@ class _GrowthStatsCard extends StatelessWidget {
   final double lastGrowth;
   final int measurementCount;
   final bool hasData;
+  final bool isPremium;
   final AppLocalizations l;
 
   const _GrowthStatsCard({
@@ -2454,6 +2440,7 @@ class _GrowthStatsCard extends StatelessWidget {
     required this.lastGrowth,
     required this.measurementCount,
     required this.hasData,
+    required this.isPremium,
     required this.l,
   });
 
@@ -2463,6 +2450,10 @@ class _GrowthStatsCard extends StatelessWidget {
       return GestureDetector(
         onTap: () {
           HapticFeedback.lightImpact();
+          if (!isPremium) {
+            showPremiumPaywall(context);
+            return;
+          }
           Navigator.push(
             context,
             CupertinoPageRoute(builder: (_) => const ProgressScreen()),

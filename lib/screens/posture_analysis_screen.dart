@@ -1202,7 +1202,7 @@ class _AnalyzingOverlayState extends State<_AnalyzingOverlay>
             ),
             const SizedBox(height: 10),
             Text(
-              'Detecting spinal alignment...',
+              AppLocalizations.of(context)!.postureDetectingAlignment,
               style: TextStyle(
                 color: Colors.white.withValues(alpha: 0.6),
                 fontSize: 12,

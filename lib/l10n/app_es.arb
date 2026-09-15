@@ -75,7 +75,7 @@
   "geneticCeilingProgress": "Progreso hacia el techo genético",
   "completionLabel": "COMPLETADO",
   "growthVelocity": "VELOCIDAD DE CRECIMIENTO",
-  "noData": "Sin datos",
+  "noData": "SIN DATOS",
   "growthRate": "Tasa de crecimiento: {rating}",
   "bmi": "IMC",
   "calories": "Calorías",
@@ -305,7 +305,13 @@
   "obPastHeightsSubPart1": "Ingresa tus alturas pasadas para aumentar la confianza de tu predicción a ",
   "obPastHeightsSubPart2": " o más.",
   "obHowTallAtAge": "¿Cuánto medías a los {age} años?",
-  "@obHowTallAtAge": {"placeholders": {"age": {"type": "String"}}},
+  "@obHowTallAtAge": {
+    "placeholders": {
+      "age": {
+        "type": "String"
+      }
+    }
+  },
   "obSkip": "Omitir",
   "obNext": "Siguiente",
   "obSkipAll": "Omitir todo",
@@ -321,7 +327,6 @@
   "scoreD": "Alto potencial pero necesitas pasar a la acción.",
   "scoreF": "¡Empieza ahora! Un pequeño paso cada día hace una gran diferencia.",
   "cmPerYear": "cm/año",
-
   "routineSprintIntervals": "Intervalos de Sprint",
   "routineSprintIntervalsDesc": "El entrenamiento de intervalos de sprint desencadena una liberación significativa de hormona de crecimiento mediante ráfagas de alta intensidad.",
   "routineHiitWorkout": "Entrenamiento HIIT",
@@ -353,7 +358,6 @@
   "routineShoulderRolls": "Rotaciones y Aperturas de Hombros",
   "routineShoulderRollsDesc": "Abrir los hombros corrige la postura hacia adelante y puede añadir 1-2 cm en apariencia.",
   "durationNight": "Noche",
-
   "howToDoIt": "Cómo hacerlo",
   "musclesTargeted": "Músculos y huesos trabajados",
   "scientificBasis": "Base científica",
@@ -378,7 +382,6 @@
   "difficultyBeginner": "Principiante",
   "difficultyIntermediate": "Intermedio",
   "difficultyAdvanced": "Avanzado",
-
   "learnTitle": "Aprender",
   "learnSubtitle": "Conocimiento científico para el crecimiento",
   "categoryAll": "Todos",
@@ -389,7 +392,6 @@
   "categoryMyths": "Mitos",
   "scientificReferences": "Referencias científicas",
   "relatedRoutines": "Rutinas relacionadas",
-
   "nutritionTitle": "Nutrición",
   "sectionMealPlan": "Plan de comidas",
   "sectionNutrients": "Nutrientes",
@@ -411,7 +413,6 @@
   "categoryFruits": "Frutas",
   "categoryGrains": "Cereales y legumbres",
   "categoryNutsSeeds": "Frutos secos y semillas",
-
   "weeklyReportTitle": "Informe semanal",
   "overview": "Resumen",
   "routinesLabel": "Rutinas",
@@ -432,13 +433,11 @@
   "nOfMCompleted": "{n}/{m} completados",
   "shareYourProgress": "Comparte tu progreso",
   "shareComingSoon": "¡Función de compartir próximamente!",
-
   "premiumTest": "Premium (Test)",
   "premiumActive": "Activo",
   "premiumFree": "Gratis",
   "weeklyReportMenu": "Informe semanal",
   "weeklyReportMenuSubtitle": "Tu resumen de progreso",
-
   "unlockGrowthPotential": "Desbloquea todo tu potencial de crecimiento",
   "featureGrowthAnalysis": "Análisis de crecimiento y puntuación",
   "featureHeightPrediction": "Predicción y pronóstico de altura",
@@ -450,9 +449,7 @@
   "planYearly": "Anual",
   "bestValue": "MEJOR OFERTA",
   "premiumLabel": "Premium",
-
   "lvl": "NIV {level}",
-
   "levelBeginner": "Principiante",
   "levelStarter": "Iniciado",
   "levelCommitted": "Comprometido",
@@ -473,7 +470,6 @@
   "levelImmortal": "Inmortal",
   "levelTranscendent": "Trascendente",
   "levelUltimate": "Supremo",
-
   "challengeCompleteAllRoutines": "Completar todas las rutinas",
   "challengeCompleteAllRoutinesDesc": "Terminar cada rutina hoy",
   "challengeHydrationHero": "Héroe de hidratación",
@@ -502,16 +498,32 @@
   "tierE": "NIVEL E",
   "maxTierReached": "NIVEL MÁXIMO ALCANZADO",
   "nextTierHint": "Siguiente: {tier} · +{pts} pts necesarios",
-  "@nextTierHint": {"placeholders": {"tier": {"type": "String"}, "pts": {"type": "String"}}},
+  "@nextTierHint": {
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      },
+      "pts": {
+        "type": "String"
+      }
+    }
+  },
   "premiumBadge": "Premium",
-
   "manageRoutines": "Gestionar rutinas",
   "manageRoutinesSubtitle": "Mostrar u ocultar rutinas de tu lista diaria",
   "nVisibleOfTotal": "{visible} de {total} activas",
-  "@nVisibleOfTotal": {"placeholders": {"visible": {"type": "String"}, "total": {"type": "String"}}},
+  "@nVisibleOfTotal": {
+    "placeholders": {
+      "visible": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "showAll": "Mostrar todo",
   "hideAll": "Ocultar todo",
-
   "heightAnalysis": "Análisis de Altura",
   "heightVsPopulation": "Tu Posición en la Población Mundial",
   "globalAveragesTable": "Promedios Globales por Edad",
@@ -522,7 +534,13 @@
   "yourHeightStanding": "TU POSICIÓN DE ALTURA",
   "yourHeight": "Tú",
   "peerAvg": "Prom. edad {age}",
-  "@peerAvg": {"placeholders": {"age": {"type": "int"}}},
+  "@peerAvg": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
   "aboveAvg": "Sobre prom.",
   "belowAvg": "Bajo prom.",
   "whoDataSource": "Referencia Global OMS 2007",
@@ -534,12 +552,10 @@
   "percentileLabel": "PCT",
   "diffLabel": "DIFE",
   "whoSourceNote": "Fuente: Referencia de crecimiento OMS 2007 y estimaciones mundiales NCD-RisC. Los percentiles son promedios globales y pueden variar según el país.",
-
   "quickPhotos": "Fotos",
   "quickPosture": "Postura",
   "quickWellness": "Bienestar",
   "quickRecipes": "Recetas",
-
   "wellnessTitle": "Seguimiento de Bienestar",
   "wellnessHeader": "BIENESTAR",
   "wellnessSubtitle": "Sigue los factores que afectan tu crecimiento",
@@ -574,7 +590,6 @@
   "insightGreat": "Gran equilibrio esta semana. Tu bienestar apoya un crecimiento óptimo.",
   "insightDefault": "Tu bienestar va por buen camino. Sigue registrando para análisis más profundos.",
   "insightNeedMoreData": "Registra unos días más para ver análisis.",
-
   "progressPhotosTitle": "Fotos de progreso",
   "progressPhotosHeader": "FOTOS DE PROGRESO",
   "progressPhotosSubtitle": "Sigue tu recorrido visual",
@@ -586,11 +601,32 @@
   "deletePhotoBody": "Esta foto se eliminará de tu línea de progreso.",
   "timelineTab": "Línea temporal",
   "photoLabel": "{count, plural, =1{foto} other{fotos}}",
-  "@photoLabel": {"placeholders": {"count": {"type": "int"}}},
+  "@photoLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "photoGainInDays": "{cm} cm en {days} días",
-  "@photoGainInDays": {"placeholders": {"cm": {"type": "String"}, "days": {"type": "int"}}},
+  "@photoGainInDays": {
+    "placeholders": {
+      "cm": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "dayLabel": "{count, plural, =1{día} other{días}}",
-  "@dayLabel": {"placeholders": {"count": {"type": "int"}}},
+  "@dayLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "cmGained": "cm ganados",
   "firstPhotoMessage": "Toma tu primera foto para empezar a seguir tu progreso visual.",
   "takeFirstPhoto": "Primera foto",
@@ -599,12 +635,10 @@
   "afterLabel": "DESPUÉS",
   "yourHeightDialog": "Tu altura",
   "heightDialogMessage": "Introduce tu altura actual en cm para esta foto",
-
   "postureAnalysisTitle": "Análisis postural",
   "postureCoachHeader": "COACH DE POSTURA",
   "postureCoachSubtitle": "Puntuación postural con IA",
   "latestScore": "ÚLTIMA PUNTUACIÓN",
-  "noData": "SIN DATOS",
   "latestAnalysis": "ÚLTIMO ANÁLISIS",
   "headPosition": "Posición de la cabeza",
   "progressLabel": "PROGRESO",
@@ -625,7 +659,6 @@
   "postureChinTucksDesc": "Corrige la postura de cabeza adelantada — 3×10 repeticiones.",
   "postureDeadbug": "Deadbug",
   "postureDeadbugDesc": "Fortalece el core profundo para control de la lordosis.",
-
   "recipesTitle": "Recetas",
   "recipesHeader": "RECETAS",
   "recipesSubtitle": "Alimenta tu crecimiento",
@@ -645,7 +678,6 @@
   "recipesClose": "CERRAR",
   "recipesAboutTitle": "Acerca de las recetas",
   "recipesAboutBody": "Recetas seleccionadas para alimentar tu crecimiento. Filtra por tipo de comida u objetivo nutricional para encontrar la mejor opción.",
-
   "animHintSpinalDecomp": "Descompresión espinal",
   "animHintGravityReversal": "Reversión de gravedad",
   "animHintImpactBones": "Carga de impacto óseo",
@@ -768,9 +800,7 @@
   "catExercise": "Ejercicio",
   "catNutrition": "Nutrición",
   "catSleep": "Sueño",
-  "catPosture": "Postura"
-,
-
+  "catPosture": "Postura",
   "postureTip1": "Stand sideways (side profile) to the camera.",
   "postureTip2": "Keep ~2 meters distance from the lens.",
   "postureTip3": "Arms relaxed, look straight ahead.",
@@ -778,28 +808,31 @@
   "postureTip5": "Use good lighting and a plain background.",
   "kyphosisLabel": "Cifosis (espalda alta)",
   "lordosisLabel": "Lordosis (espalda baja)",
-  "analyzingPosture": "ANALYZING POSTURE"
-,
-
+  "analyzingPosture": "ANALYZING POSTURE",
   "privacyPolicy": "Privacy Policy",
   "termsOfService": "Terms of Service",
   "version": "Version {ver}",
-  "@version": {"placeholders": {"ver": {"type": "String"}}},
+  "@version": {
+    "placeholders": {
+      "ver": {
+        "type": "String"
+      }
+    }
+  },
   "rateApp": "Rate BeTaller",
-  "rateAppSubtitle": "Your review helps us grow!"
-,
-
+  "rateAppSubtitle": "Your review helps us grow!",
   "unitSystem": "Unit System",
   "unitMetric": "Metric (cm, kg)",
-  "unitImperial": "Imperial (ft-in, lbs)"
-,
-
+  "unitImperial": "Imperial (ft-in, lbs)",
   "healthDisclaimer": "Health Disclaimer",
   "healthDisclaimerBody": "BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.",
   "sciSourcePrefix": "Source: ",
   "program": "Programa",
   "todaysExercises": "EJERCICIOS DE HOY",
   "dailyNutritionPlan": "PLAN DE NUTRICIÓN DIARIO",
+  "nutritionGoalsComplete": "🎉 ¡Todos los objetivos nutricionales completados!",
+  "nutritionGoalsIncomplete": "Completa tus objetivos nutricionales para un crecimiento óptimo",
+  "postureDetectingAlignment": "Detectando la alineación de la columna...",
   "testimonial1": "No tenía esperanza por mi edad, pero crecí con BeTaller. Mi confianza nunca fue tan alta.",
   "testimonialDuration1": "4 meses",
   "testimonial2": "Todos decían que ya no podía crecer. Usé BeTaller y sorprendí a todos.",
@@ -812,50 +845,113 @@
   "testimonialDuration5": "4 meses",
   "designedForYou": "Diseñado para ti",
   "designedForYouDesc": "BeTaller fue creado para que alcances tu límite genético. Cada función, para ti.",
-  "greetingAllDone": "¡Gran trabajo! 🎯", "greetingAllDoneSub": "Has completado las tareas de hoy.",
-  "greetingStreak30": "Racha de {streak} días — nivel legendario.", "greetingStreak7": "Racha de {streak} días — sigue así.", "greetingStreak3": "{streak} días seguidos. La mayoría abandona. Tú no.",
-  "greetingMorning": "Buenos días. Un nuevo día, una nueva oportunidad.", "greetingAfternoon": "Hoy es un gran día para empezar tu racha.", "greetingEvening": "Completa tus tareas, inicia tu racha.",
-  "todayCompleted": "Hoy completado ✓", "todayGoals": "Objetivos de hoy", "challengesLabel": "Desafíos", "dailyChallengesLabel": "DESAFÍOS DIARIOS",
-  "expiresTonight": "Expira esta noche", "allChallengesCompleted": "Todos completados ✓", "challengesLoading": "Nuevos desafíos pronto.", "challengesLoadingTitle": "Desafíos diarios",
-  "behindPace": "Vas atrasado", "growthTracking": "Seguimiento de crecimiento", "growthEmptyFirst": "Registra tu primera altura.", "growthEmptySecond": "2ª medición para ver el gráfico.",
-  "growthSectionLabel": "CRECIMIENTO", "generalPerformance": "RENDIMIENTO GENERAL", "exploreLabel": "EXPLORAR",
-  "explorePosture": "Análisis postural", "explorePostureSub": "Análisis y consejos de postura", "explorePhotos": "Fotos de progreso", "explorePhotosSub": "Sigue tu transformación con fotos",
-  "exploreNutrition": "Nutrición", "exploreNutritionSub": "Guía de proteínas, calcio y vitaminas", "exploreHealth": "Seguimiento de salud", "exploreHealthSub": "Seguimiento de estrés, cafeína y bienestar",
-  "exploreRecipes": "Recetas de crecimiento", "exploreRecipesSub": "Recetas que apoyan el crecimiento",
-  "educationLabel": "EDUCACIÓN", "educationTitle": "Ciencia del\ncrecimiento", "educationSubtitle": "Contenido experto, investigación y guías",
-  "aiAnalysisLabel": "ANÁLISIS IA", "peerCompareLabel": "COMPARAR CON PARES", "peerCompareText": "Estás en el Top {topPct}% de tus compañeros",
-  "notifWaterTitle": "💧 ¡No olvides beber agua!", "notifWaterBody": "¿Meta alcanzada? ¡Bebe otro vaso!",
-  "notifMorningTitle": "🌅 ¡Buenos días! Ejercicio", "notifMorningBody": "¡Estiramientos matutinos! 10 min.",
-  "notifRoutineTitle": "🔥 ¡Completa rutinas!", "notifRoutineBody": "Revisa antes de que termine el día.",
-  "notifProteinTitle": "🥚 ¡Día de proteínas!", "notifProteinBody": "¡Semana fuerte! Proteína en cada comida.",
-  "notifNewWeekTitle": "✨ ¡Nueva semana!", "notifNewWeekBody": "No te saltes rutinas. ¡Pequeños pasos!",
-  "notifSleepTitle": "😴 ¡A dormir!", "notifSleepBody": "Hormona del crecimiento máxima entre 22h-2h.",
-  "notifPostureTitle": "🧍 ¡Postura!", "notifPostureBody": "Espalda recta, hombros atrás. ¡2-3 cm!",
-  "notifVitaminDTitle": "☀️ ¡Vitamina D!", "notifVitaminDBody": "¡15 min de sol!",
-  "notifMidweekTitle": "✨ ¡Mitad de semana!", "notifMidweekBody": "¡Sigue adelante!",
-  "notifScreenTitle": "📵 ¡Pantallas apagadas!", "notifScreenBody": "Sin pantallas 1h antes de dormir.",
-  "notifJumpTitle": "🦘 ¡A saltar!", "notifJumpBody": "Saltos estimulan placas de crecimiento. ¡3 x 20!",
-  "notifCalciumTitle": "🥛 ¡Calcio!", "notifCalciumBody": "Leche o yogur. ¡Calcio crítico para huesos!",
-  "notifPostureCheckTitle": "🧍 ¡Postura!", "notifPostureCheckBody": "¡No inclines el cuello!",
-  "notifWeekendTitle": "✨ Motivación fin de semana", "notifWeekendBody": "¡No te saltes rutinas!",
-  "notifWeeklyProgressTitle": "📊 Progreso semanal", "notifWeeklyProgressBody": "¡Revisa tu gráfico!",
-  "notifMeasureTitle": "📏 ¡Medición semanal!", "notifMeasureBody": "¡Mídete! Mañana es más preciso.",
-  "notifEarlySleepTitle": "😴 ¡A dormir temprano!", "notifEarlySleepBody": "¡Mañana es lunes! Al menos 8 horas.",
-  "notifStreak3Title": "🔥 ¡Racha de 3 días!", "notifStreak3Body": "¡Gran inicio! ¡Sigue a 7!",
-  "notifStreak7Title": "🏆 ¡1 semana!", "notifStreak7Body": "¡Increíble! 7 días consecutivos!",
-  "notifStreak14Title": "⭐ ¡2 semanas!", "notifStreak14Body": "¡14 días de disciplina!",
-  "notifStreak30Title": "👑 ¡1 mes!", "notifStreak30Body": "¡30 días! ¡Eres campeón!",
-  "notifStreak60Title": "🌟 ¡60 días!", "notifStreak60Body": "¡60 días! Logro increíble.",
-  "notifStreak100Title": "💎 ¡100 DÍAS! ¡LEGENDARIO!", "notifStreak100Body": "¡100 días! ¡Eres leyenda!",
-  "notifStreakRiskTitle": "⚠️ ¡No pierdas tu racha!", "notifStreakRiskBody": "¡Tu racha de {streak} días está en riesgo!",
-  "paywallStat1": "cm — tu potencial bloqueado", "paywallTitle1": "¿Cuántos cm\npuedes crecer?",
-  "paywallBullet1a": "Tu techo genético calculado, ¿verlo?", "paywallBullet1b": "¿Cómo afecta tu estilo de vida?", "paywallBullet1c": "Tu hoja de ruta personalizada espera",
-  "paywallStat2": "tu rutina personalizada lista", "paywallTitle2": "Tu plan\nestá listo",
-  "paywallBullet2a": "8 min cada mañana — para tu columna", "paywallBullet2b": "Sueño, nutrición, agua — todo controlado", "paywallBullet2c": "Un paso más cada día",
-  "paywallStat3": "gráficos en tiempo real", "paywallTitle3": "Sigue tu\ncrecimiento",
-  "paywallBullet3a": "Mediciones mensuales — ve tu crecimiento", "paywallBullet3b": "2 cm ahora con análisis postural", "paywallBullet3c": "Fotos de progreso — verás la diferencia",
-  "paywallStat4": "programa diario — subiendo", "paywallTitle4": "Más fuerte\ncada día",
-  "paywallBullet4a": "XP, niveles — hábitos = juego", "paywallBullet4b": "Los que llegaron pasaron por aquí", "paywallBullet4c": "Empieza — primera semana gratis",
+  "greetingAllDone": "¡Gran trabajo! 🎯",
+  "greetingAllDoneSub": "Has completado las tareas de hoy.",
+  "greetingStreak30": "Racha de {streak} días — nivel legendario.",
+  "greetingStreak7": "Racha de {streak} días — sigue así.",
+  "greetingStreak3": "{streak} días seguidos. La mayoría abandona. Tú no.",
+  "greetingMorning": "Buenos días. Un nuevo día, una nueva oportunidad.",
+  "greetingAfternoon": "Hoy es un gran día para empezar tu racha.",
+  "greetingEvening": "Completa tus tareas, inicia tu racha.",
+  "todayCompleted": "Hoy completado ✓",
+  "todayGoals": "Objetivos de hoy",
+  "challengesLabel": "Desafíos",
+  "dailyChallengesLabel": "DESAFÍOS DIARIOS",
+  "expiresTonight": "Expira esta noche",
+  "allChallengesCompleted": "Todos completados ✓",
+  "challengesLoading": "Nuevos desafíos pronto.",
+  "challengesLoadingTitle": "Desafíos diarios",
+  "behindPace": "Vas atrasado",
+  "growthTracking": "Seguimiento de crecimiento",
+  "growthEmptyFirst": "Registra tu primera altura.",
+  "growthEmptySecond": "2ª medición para ver el gráfico.",
+  "growthSectionLabel": "CRECIMIENTO",
+  "generalPerformance": "RENDIMIENTO GENERAL",
+  "exploreLabel": "EXPLORAR",
+  "explorePosture": "Análisis postural",
+  "explorePostureSub": "Análisis y consejos de postura",
+  "explorePhotos": "Fotos de progreso",
+  "explorePhotosSub": "Sigue tu transformación con fotos",
+  "exploreNutrition": "Nutrición",
+  "exploreNutritionSub": "Guía de proteínas, calcio y vitaminas",
+  "exploreHealth": "Seguimiento de salud",
+  "exploreHealthSub": "Seguimiento de estrés, cafeína y bienestar",
+  "exploreRecipes": "Recetas de crecimiento",
+  "exploreRecipesSub": "Recetas que apoyan el crecimiento",
+  "educationLabel": "EDUCACIÓN",
+  "educationTitle": "Ciencia del\ncrecimiento",
+  "educationSubtitle": "Contenido experto, investigación y guías",
+  "aiAnalysisLabel": "ANÁLISIS IA",
+  "peerCompareLabel": "COMPARAR CON PARES",
+  "peerCompareText": "Estás en el Top {topPct}% de tus compañeros",
+  "notifWaterTitle": "💧 ¡No olvides beber agua!",
+  "notifWaterBody": "¿Meta alcanzada? ¡Bebe otro vaso!",
+  "notifMorningTitle": "🌅 ¡Buenos días! Ejercicio",
+  "notifMorningBody": "¡Estiramientos matutinos! 10 min.",
+  "notifRoutineTitle": "🔥 ¡Completa rutinas!",
+  "notifRoutineBody": "Revisa antes de que termine el día.",
+  "notifProteinTitle": "🥚 ¡Día de proteínas!",
+  "notifProteinBody": "¡Semana fuerte! Proteína en cada comida.",
+  "notifNewWeekTitle": "✨ ¡Nueva semana!",
+  "notifNewWeekBody": "No te saltes rutinas. ¡Pequeños pasos!",
+  "notifSleepTitle": "😴 ¡A dormir!",
+  "notifSleepBody": "Hormona del crecimiento máxima entre 22h-2h.",
+  "notifPostureTitle": "🧍 ¡Postura!",
+  "notifPostureBody": "Espalda recta, hombros atrás. ¡2-3 cm!",
+  "notifVitaminDTitle": "☀️ ¡Vitamina D!",
+  "notifVitaminDBody": "¡15 min de sol!",
+  "notifMidweekTitle": "✨ ¡Mitad de semana!",
+  "notifMidweekBody": "¡Sigue adelante!",
+  "notifScreenTitle": "📵 ¡Pantallas apagadas!",
+  "notifScreenBody": "Sin pantallas 1h antes de dormir.",
+  "notifJumpTitle": "🦘 ¡A saltar!",
+  "notifJumpBody": "Saltos estimulan placas de crecimiento. ¡3 x 20!",
+  "notifCalciumTitle": "🥛 ¡Calcio!",
+  "notifCalciumBody": "Leche o yogur. ¡Calcio crítico para huesos!",
+  "notifPostureCheckTitle": "🧍 ¡Postura!",
+  "notifPostureCheckBody": "¡No inclines el cuello!",
+  "notifWeekendTitle": "✨ Motivación fin de semana",
+  "notifWeekendBody": "¡No te saltes rutinas!",
+  "notifWeeklyProgressTitle": "📊 Progreso semanal",
+  "notifWeeklyProgressBody": "¡Revisa tu gráfico!",
+  "notifMeasureTitle": "📏 ¡Medición semanal!",
+  "notifMeasureBody": "¡Mídete! Mañana es más preciso.",
+  "notifEarlySleepTitle": "😴 ¡A dormir temprano!",
+  "notifEarlySleepBody": "¡Mañana es lunes! Al menos 8 horas.",
+  "notifStreak3Title": "🔥 ¡Racha de 3 días!",
+  "notifStreak3Body": "¡Gran inicio! ¡Sigue a 7!",
+  "notifStreak7Title": "🏆 ¡1 semana!",
+  "notifStreak7Body": "¡Increíble! 7 días consecutivos!",
+  "notifStreak14Title": "⭐ ¡2 semanas!",
+  "notifStreak14Body": "¡14 días de disciplina!",
+  "notifStreak30Title": "👑 ¡1 mes!",
+  "notifStreak30Body": "¡30 días! ¡Eres campeón!",
+  "notifStreak60Title": "🌟 ¡60 días!",
+  "notifStreak60Body": "¡60 días! Logro increíble.",
+  "notifStreak100Title": "💎 ¡100 DÍAS! ¡LEGENDARIO!",
+  "notifStreak100Body": "¡100 días! ¡Eres leyenda!",
+  "notifStreakRiskTitle": "⚠️ ¡No pierdas tu racha!",
+  "notifStreakRiskBody": "¡Tu racha de {streak} días está en riesgo!",
+  "paywallStat1": "cm — tu potencial bloqueado",
+  "paywallTitle1": "¿Cuántos cm\npuedes crecer?",
+  "paywallBullet1a": "Tu techo genético calculado, ¿verlo?",
+  "paywallBullet1b": "¿Cómo afecta tu estilo de vida?",
+  "paywallBullet1c": "Tu hoja de ruta personalizada espera",
+  "paywallStat2": "tu rutina personalizada lista",
+  "paywallTitle2": "Tu plan\nestá listo",
+  "paywallBullet2a": "8 min cada mañana — para tu columna",
+  "paywallBullet2b": "Sueño, nutrición, agua — todo controlado",
+  "paywallBullet2c": "Un paso más cada día",
+  "paywallStat3": "gráficos en tiempo real",
+  "paywallTitle3": "Sigue tu\ncrecimiento",
+  "paywallBullet3a": "Mediciones mensuales — ve tu crecimiento",
+  "paywallBullet3b": "2 cm ahora con análisis postural",
+  "paywallBullet3c": "Fotos de progreso — verás la diferencia",
+  "paywallStat4": "programa diario — subiendo",
+  "paywallTitle4": "Más fuerte\ncada día",
+  "paywallBullet4a": "XP, niveles — hábitos = juego",
+  "paywallBullet4b": "Los que llegaron pasaron por aquí",
+  "paywallBullet4c": "Empieza — primera semana gratis",
   "paywallPromoCode": "¿Tienes un código promocional?",
   "paywallHeightUnit": "altura objetivo",
   "paywallHeightTitle": "¿Cuántos cm más puedes crecer?",
@@ -961,17 +1057,24 @@
   "journeyTourDoneTitle": "¡Bienvenido a BeTaller!",
   "journeyTourDoneSubtitle": "Has completado los tres pasos. Ahora te toca a ti: empieza tu viaje completando tu primera rutina.",
   "journeyViewPlansButton": "Ver planes para empezar",
-  "paywallRestore": "No se encontró compra anterior", "paywallRestoreNotFound": "No se encontró compra anterior", "paywallRestoreLabel": "Restaurar compras",
-  "paywallYearly": "Anual", "paywallBestValue": "Mejor valor", "paywallMonthly": "Mensual", "paywallFreeTrial": "3 días gratis",
-  "paywallLoadError": "No se pudo cargar, inténtalo de nuevo", "paywallCta": "Prueba gratis", "paywallCtaAlt": "Continuar",
-  "paywallTrialDisclaimer": "3 días gratis · renovación auto · cancela cuando quieras", "paywallYearlyDisclaimer": "Renovación anual auto · cancela cuando quieras", "paywallTester": "Tester",
-
+  "paywallRestore": "No se encontró compra anterior",
+  "paywallRestoreNotFound": "No se encontró compra anterior",
+  "paywallRestoreLabel": "Restaurar compras",
+  "paywallYearly": "Anual",
+  "paywallBestValue": "Mejor valor",
+  "paywallMonthly": "Mensual",
+  "paywallFreeTrial": "3 días gratis",
+  "paywallLoadError": "No se pudo cargar, inténtalo de nuevo",
+  "paywallCta": "Prueba gratis",
+  "paywallCtaAlt": "Continuar",
+  "paywallTrialDisclaimer": "3 días gratis · renovación auto · cancela cuando quieras",
+  "paywallYearlyDisclaimer": "Renovación anual auto · cancela cuando quieras",
+  "paywallTester": "Tester",
   "levelNovice": "Novato",
   "levelBuilder": "Constructor",
   "levelGrinder": "Perseverante",
   "levelWarrior": "Guerrero",
   "levelGodTier": "Dios",
-
   "levelDesc0": "Construye tu base",
   "levelDesc1": "Acelera el crecimiento",
   "levelDesc2": "Intensifica el entrenamiento",
@@ -982,45 +1085,50 @@
   "levelDesc7": "Domina tu cuerpo",
   "levelDesc8": "Disciplina legendaria",
   "levelDesc9": "Potencial máximo",
-
   "levelLabel": "NIVEL {level}",
-  "@levelLabel": {"placeholders": {"level": {"type": "int"}}},
-
+  "@levelLabel": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
   "daysLeftProgram": "{days} días restantes en tu programa",
-  "@daysLeftProgram": {"placeholders": {"days": {"type": "int"}}},
-
+  "@daysLeftProgram": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "tapLabel": "TOCA",
-
   "kcalPer100g": "{calories} kcal / 100g",
-  "@kcalPer100g": {"placeholders": {"calories": {"type": "int"}}},
-
+  "@kcalPer100g": {
+    "placeholders": {
+      "calories": {
+        "type": "int"
+      }
+    }
+  },
   "dayShort": "Día",
-
   "legendShort": "Bajo",
   "legendBelowAvg": "Bajo promedio",
   "legendAverage": "Promedio",
   "legendTall": "Alto",
   "legendVeryTall": "Muy alto",
-
   "pctBottom5": "5% inferior",
   "pctBottom25": "25% inferior",
   "pctMedian": "Mediana",
   "pctTop25": "25% superior",
   "pctTop5": "5% superior",
-
-  "youLabel": "Tú",
-
   "fallingBehind": "Te estás quedando atrás",
-
   "readTimeMinutes": "{minutes} min de lectura",
   "inThisArticle": "En este artículo",
   "nextArticle": "Siguiente artículo",
-
   "purchaseUnavailable": "No se pudo completar la compra. Inténtalo de nuevo.",
   "viewPlan": "Ver plan",
   "viewPlanSubtitle": "Consulta los detalles de tu suscripción",
   "predictionConfidenceHint": "Cada medición añadida lleva la predicción al {percent} %",
-
   "paywallSlideHomeTitle": "Tu día, una pantalla",
   "paywallSlideHomeCaption": "Rutinas, agua, sueño: tres anillos que cerrar.",
   "paywallSlideProgressTitle": "Ve cada centímetro",
@@ -1035,14 +1143,30 @@
   "paywallSlideRemindersCaption": "Pon tus horas, la app hace el resto.",
   "paywallSlidePostureTitle": "Corrige tu postura",
   "paywallSlidePostureCaption": "Una foto, una puntuación medida, una rutina clara.",
-
   "paywallTrialHeadline": "{days} DÍAS GRATIS",
-  "@paywallTrialHeadline": {"placeholders": {"days": {"type": "String"}}},
+  "@paywallTrialHeadline": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
   "paywallTrialThen": "Luego {price} · cancela cuando quieras",
-  "@paywallTrialThen": {"placeholders": {"price": {"type": "String"}}},
+  "@paywallTrialThen": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "paywallYearlyBilled": "{price} / año · cancela cuando quieras",
-  "@paywallYearlyBilled": {"placeholders": {"price": {"type": "String"}}},
-
+  "@paywallYearlyBilled": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "obBedtimeTitle": "¿A qué hora sueles dormir?",
   "obBedtimeSubtitle": "Tu recordatorio de sueño se ajustará a esta hora.",
   "obWorkoutTimeTitle": "¿A qué hora entrenas?",
@@ -1050,12 +1174,377 @@
   "obMealsTitle": "¿Cuántas comidas al día?",
   "obMealsSubtitle": "Toca una hora para ajustarla a tu rutina.",
   "obMealsCount": "{count} comidas",
-  "@obMealsCount": {"placeholders": {"count": {"type": "String"}}},
+  "@obMealsCount": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "obMealLabel": "Comida {n}",
-  "@obMealLabel": {"placeholders": {"n": {"type": "String"}}},
+  "@obMealLabel": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "obProteinTitle": "¿Cuántos gramos de proteína al día?",
   "obProteinSubtitle": "Un valor aproximado basta para armar tu plan.",
   "obCaloriesTitle": "¿Cuántas calorías al día?",
   "obCaloriesSubtitle": "Con una estimación vale; la afinamos después.",
-  "obNotSure": "No estoy seguro"
+  "obNotSure": "No estoy seguro",
+  "disciplineTitle": "Disciplina",
+  "disciplineProgramTitle": "Programa de disciplina",
+  "disciplineJourneyDay": "{done}/{total} días",
+  "@disciplineJourneyDay": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "disciplineCompleteDay": "Completar el día",
+  "disciplineDayN": "Día {n}",
+  "@disciplineDayN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "disciplineLevels": "Niveles",
+  "disciplineLevelDone": "Hecho",
+  "disciplineLocked": "Bloqueado",
+  "disciplineTodayIs": "Hoy",
+  "disciplineToday": "Hoy",
+  "disciplineTodayPlan": "Plan de hoy",
+  "disciplineWeek": "Esta semana",
+  "disciplineMonth": "Este mes",
+  "disciplineLevel": "Nivel de disciplina",
+  "disciplineStreakDays": "{days} días seguidos",
+  "@disciplineStreakDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "disciplineToNext": "{days} días para el siguiente nivel",
+  "@disciplineToNext": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "disciplineMaxTier": "Nivel máximo alcanzado",
+  "disciplineTierSpark": "Chispa",
+  "disciplineTierSteady": "Constante",
+  "disciplineTierSharp": "Afilado",
+  "disciplineTierSolid": "Sólido",
+  "disciplineTierRelentless": "Implacable",
+  "disciplineTierUnbroken": "Inquebrantable",
+  "disciplineTierLegend": "Leyenda",
+  "goalPerfectDays": "Días que completaste el plan",
+  "goalWorkouts": "Entrenamientos",
+  "goalMeasurement": "Medición de altura",
+  "goalPhoto": "Foto de progreso",
+  "goalPostureCheck": "Chequeo de postura",
+  "disciplineAllDone": "Hoy completado",
+  "disciplineDayProgress": "{done}/{total} completado",
+  "@disciplineDayProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "trackingSection": "Tus herramientas de seguimiento",
+  "photosBenefit": "Antes y después, lado a lado. Ve el cambio en lugar de leerlo.",
+  "postureBenefit": "Cifosis, lordosis y posición de la cabeza. Solo una buena postura vale 2-3 cm.",
+  "reportBenefit": "Puntúa tu semana día a día y ve dónde flaqueaste.",
+  "photosCta": "Añadir foto",
+  "postureCta": "Analizar",
+  "reportCta": "Abrir informe",
+  "toolStateReady": "Listo",
+  "photosSummaryEmpty": "Añade tu primera foto",
+  "photosSummaryCount": "{count} fotos",
+  "@photosSummaryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "postureSummaryEmpty": "Aún sin análisis",
+  "postureSummaryScore": "{score}/100 postura",
+  "@postureSummaryScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "waterGoalReached": "Objetivo diario alcanzado",
+  "waterRemaining": "Faltan {amount} L",
+  "@waterRemaining": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "undo": "Deshacer",
+  "bodyFactsTitle": "Tu cuerpo",
+  "dailyNeedsTitle": "Tus objetivos diarios",
+  "growthRemaining": "Todavía por delante",
+  "growthBreakdown": "De dónde vienen esos centímetros",
+  "reminderNextLabel": "Próximo recordatorio",
+  "reminderManageHint": "Gestiona tus recordatorios",
+  "reminderOffCta": "Activar notificaciones",
+  "stateOn": "Activado",
+  "stateOff": "Desactivado",
+  "reminderMasterTitle": "Notificaciones",
+  "reminderActiveCount": "{count} recordatorios activos",
+  "@reminderActiveCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderBuiltIn": "Recordatorios integrados",
+  "reminderYourOwn": "Tus propios recordatorios",
+  "reminderAdd": "Añadir recordatorio",
+  "reminderDays": "Días",
+  "reminderEveryDay": "Todos los días",
+  "reminderLabelHint": "¿De qué quieres que te recordemos?",
+  "reminderEmptyHint": "Añade el tuyo: entrenamiento, vitaminas, estiramientos, lo que necesites.",
+  "reminderCustom": "Recordatorio",
+  "reminderCustomBody": "Ha llegado la hora que fijaste.",
+  "reminderExercise": "Ejercicio",
+  "reminderNutrition": "Nutrición",
+  "reminderWater": "Agua",
+  "reminderPosture": "Postura",
+  "reminderRoutine": "Rutina diaria",
+  "reminderSleep": "Sueño",
+  "reminderMeasurement": "Medición de altura",
+  "profileGroupSupport": "Soporte",
+  "profileGroupAccount": "Cuenta",
+  "profileGroupApp": "App",
+  "profileGroupDanger": "Zona de peligro",
+  "profileMemberSince": "Desde {date}",
+  "@profileMemberSince": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "profileYourJourney": "Tu progreso",
+  "profileTotalGrowth": "Total",
+  "achievementUnlockedTitle": "🏆 ¡Logro desbloqueado!",
+  "reminderTapHint": "Toca uno para cambiar su hora y días",
+  "routineDailyCalories": "Objetivo calórico diario",
+  "routineDailyCaloriesDesc": "Alcanza tu objetivo calórico diario — comer de menos frena el crecimiento.",
+  "sectionSupplements": "Suplementos",
+  "weeklyScoreLabel": "Puntuación semanal",
+  "weeklyDailyCompletion": "Día a día",
+  "weeklyHabits": "Hábitos",
+  "bellCurveCaption": "Cómo se distribuye la altura a tu edad",
+  "bellShorterThanYou": "más bajos que tú",
+  "recipeDiffEasy": "Fácil",
+  "recipeDiffMedium": "Media",
+  "recipeDiffHard": "Difícil",
+  "recipesFilterType": "TIPO",
+  "recipesFilterNutrient": "RICO EN",
+  "recipesGoalVitaminD": "Vitamina D",
+  "recipesGoalZinc": "Zinc",
+  "recipesGoalMagnesium": "Magnesio",
+  "recipesCountLabel": "{count} recetas",
+  "@recipesCountLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeIngredients": "Ingredientes",
+  "recipeSteps": "Preparación",
+  "formDailyCalories": "Reparte tus calorías en 3-5 comidas y no te saltes el desayuno. Prioriza alimentos integrales frente a calorías vacías.",
+  "sciDailyCalories": "Un déficit calórico sostenido reduce el IGF-1 y debilita los pulsos de hormona del crecimiento, ralentizando directamente el crecimiento lineal en la adolescencia",
+  "routineProteinAmountDesc": "Consume hoy al menos {grams}g de proteína — calculado según tu peso.",
+  "@routineProteinAmountDesc": {
+    "placeholders": {
+      "grams": {
+        "type": "int"
+      }
+    }
+  },
+  "routineWaterAmountDesc": "Bebe hoy al menos {liters}L de agua — calculado según tu peso.",
+  "@routineWaterAmountDesc": {
+    "placeholders": {
+      "liters": {
+        "type": "String"
+      }
+    }
+  },
+  "routineCalorieAmountDesc": "Intenta consumir hoy unas {kcal} kcal para impulsar el crecimiento.",
+  "@routineCalorieAmountDesc": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      }
+    }
+  },
+  "routineVitaminDAmountDesc": "Consume hoy {iu} UI de vitamina D — con sol, alimentos o un suplemento.",
+  "@routineVitaminDAmountDesc": {
+    "placeholders": {
+      "iu": {
+        "type": "int"
+      }
+    }
+  },
+  "routineZincAmountDesc": "Consume hoy {mg}mg de zinc para apoyar la producción de hormona del crecimiento.",
+  "@routineZincAmountDesc": {
+    "placeholders": {
+      "mg": {
+        "type": "int"
+      }
+    }
+  },
+  "nutritionSupplementsTitle": "SUPLEMENTOS",
+  "nutritionSupplementsDisclaimer": "Apoyo opcional, no sustituye a la comida. Habla con un médico antes de empezar cualquier suplemento, sobre todo si eres menor de 18 años.",
+  "supplementVitaminDName": "Vitamina D3",
+  "supplementVitaminDDose": "3.000 UI",
+  "supplementVitaminDBenefit": "Mejora la absorción de calcio para la densidad ósea y la salud de las placas de crecimiento",
+  "supplementZincName": "Zinc",
+  "supplementZincDose": "8-11mg",
+  "supplementZincBenefit": "Un mineral clave para la producción de hormona del crecimiento",
+  "supplementMagnesiumName": "Magnesio",
+  "supplementMagnesiumDose": "300-400mg",
+  "supplementMagnesiumBenefit": "Favorece la fase de sueño profundo, cuando se libera la mayor parte de la hormona del crecimiento",
+  "supplementCalciumName": "Calcio",
+  "supplementCalciumDose": "1.000-1.300mg",
+  "supplementCalciumBenefit": "El componente principal de la densidad ósea y las placas de crecimiento",
+  "supplementOmega3Name": "Omega-3",
+  "supplementOmega3Dose": "1.000mg",
+  "supplementOmega3Benefit": "Reduce la inflamación y favorece el buen funcionamiento de las placas de crecimiento",
+  "supplementCollagenName": "Colágeno + Vitamina C",
+  "supplementCollagenDose": "10g + 500mg",
+  "supplementCollagenBenefit": "La vitamina C ayuda a tu cuerpo a usar el colágeno para formar cartílago y matriz ósea",
+  "analysisBalance": "Tu equilibrio",
+  "analysisWeakest": "Tu punto más débil",
+  "analysisPrediction": "Predicción de altura",
+  "analysisComparison": "Comparación",
+  "analysisGrowth": "Estado del crecimiento",
+  "analysisWeakestHint": "Aquí es donde más rápido puedes subir tu puntuación.",
+  "journeyContinue": "Continuar",
+  "introTag1": "PREDICCIÓN",
+  "introTag2": "CRECIMIENTO",
+  "introTag3": "SEGUIMIENTO",
+  "introTag4": "GAMIFICACIÓN",
+  "introTag5": "COMUNIDAD",
+  "introTitle1": "Descubre tu\npotencial de altura",
+  "introSubtitle1": "Calculamos tu potencial completo\nsegún tu genética, edad y estilo de vida.",
+  "introTitle2": "Un centímetro más\ncada día",
+  "introSubtitle2": "Impulsa tu potencial con planes\npersonalizados de ejercicio y nutrición.",
+  "introTitle3": "Sigue cada\ncentímetro",
+  "introSubtitle3": "Ve cómo evoluciona tu progreso real\ncon mediciones mensuales.",
+  "introTitle4": "Sube de nivel,\ngana recompensas",
+  "introSubtitle4": "Completa programas de 70 días,\ngana XP y desbloquea nuevos niveles.",
+  "introTitle5": "Miles ya han\ncrecido",
+  "introSubtitle5": "Únete a la comunidad de usuarios\nque alcanzaron su objetivo.",
+  "criticalWindow": "VENTANA CRÍTICA",
+  "heightPotentialFading": "Los datos sobre tu",
+  "fadingAway": "potencial de altura..",
+  "painHookDesc": "Cada día que pasa sin los hábitos adecuados se pierden centímetros de forma permanente. Pero esto todavía se puede revertir.",
+  "painGeneticTitle": "La genética no lo es todo",
+  "painGeneticDesc": "La genética determina el 60% — el otro 40% lo determinas tú. BeTaller está aquí precisamente para ese 40%.",
+  "painGeneticTag": "Análisis",
+  "painSleepTitle": "Optimiza tu rutina de sueño",
+  "painSleepDesc": "Dormir bien cada noche puede aumentar la producción de hormona del crecimiento un 70%. BeTaller automatiza el seguimiento del sueño, tú solo duerme.",
+  "painSleepTag": "Seguimiento",
+  "painPostureTitle": "Gana centímetros ahora con la postura",
+  "painPostureDesc": "Una postura correcta puede añadir al instante entre 1,5 y 3 cm. La rutina diaria de postura de BeTaller lo consolida en pocas semanas.",
+  "painPostureTag": "Postura",
+  "painExerciseTitle": "Tu plan de ejercicios a medida está listo",
+  "painExerciseDesc": "Estiramientos matutinos, colgarse, rutinas de columna — BeTaller lo preparó y programó por ti. Solo 8–12 minutos al día.",
+  "painExerciseTag": "Rutinas",
+  "painNutritionTitle": "Tu alimentación afecta directamente al crecimiento",
+  "painNutritionDesc": "Proteína, calcio, vitamina D — BeTaller te recuerda cada día qué nutrientes tomar y cuándo.",
+  "painNutritionTag": "Nutrición",
+  "painTrackingTitle": "Sigue tu crecimiento con tus propios ojos",
+  "painTrackingDesc": "Mediciones mensuales, fotos de progreso, gráfico de crecimiento — ve cada centímetro que ganas.",
+  "painTrackingTag": "Progreso",
+  "selectYourGender": "Selecciona tu género",
+  "onboardingPredictSubtitle": "Esto se usará para predecir tu potencial de altura y crear tu plan personalizado.",
+  "other": "Otro",
+  "whenWereYouBorn": "¿Cuándo naciste?",
+  "heightAndWeight": "Altura y peso",
+  "parentsHeight": "Altura de los padres",
+  "weeklyWorkout": "Entrenamiento semanal",
+  "workoutsPerWeek": "Entrenamientos por semana",
+  "whatsYourEthnicity": "¿Cuál es tu origen étnico?",
+  "whiteCaucasian": "Blanco / Caucásico",
+  "blackAfricanAmerican": "Negro / Afroamericano",
+  "hispanicLatino": "Hispano / Latino",
+  "asian": "Asiático",
+  "middleEasternIndigenous": "Oriente Medio / Indígena",
+  "dontWantToAnswer": "Prefiero no responder",
+  "footSizeLabel": "Talla de pie",
+  "selectYourSize": "Selecciona tu talla",
+  "whatsYourDreamHeight": "¿Cuál es tu altura ideal?",
+  "dreamHeightCalcSubtitle": "Según tus datos, calcularemos la probabilidad de alcanzar esa altura.",
+  "dreamHeightLabel": "Altura ideal",
+  "sleepQuestion": "¿Cuántas horas\nduermes cada noche?",
+  "thousandsSucceeded": "Miles ya\nlo lograron",
+  "youCanToo": "Tú también puedes",
+  "yearsOld": "años",
+  "verifiedLabel": "Verificado",
+  "scientificData": "DATOS CIENTÍFICOS",
+  "longTermResults": "BeTaller crea\nresultados a largo plazo",
+  "longTermResultsSubtitle": "Muchas personas no alcanzan su altura máxima por malos hábitos.",
+  "yourFinalHeight": "Tu altura final",
+  "badHabitsLegend": "Malos hábitos",
+  "optimizedLegend": "Optimizado",
+  "chartFact1Pct": "30%",
+  "chartFact1Desc": "La altura puede cambiar\ncon los hábitos",
+  "chartFact2Pct": "9-10h",
+  "chartFact2Desc": "El sueño ideal impulsa la\nhormona del crecimiento",
+  "chartFact3Pct": "3 cm",
+  "chartFact3Desc": "Se pueden ganar mejorando\nla postura",
+  "didYouKnow": "¿Sabías que...?",
+  "didYouKnowFact1": "Los hábitos diarios afectan al 30% de tu altura",
+  "didYouKnowFact2": "La compresión de la columna te roba 1,5-3 cm de altura",
+  "didYouKnowFact3": "La falta de sueño reduce la HGH un 70%",
+  "transformJourneyBegins": "Tu transformación\ncomienza ahora",
+  "transformJourneySubtitle": "Un programa integral diseñado para apoyar\ntu crecimiento saludable, paso a paso.",
+  "week1Label": "1S",
+  "week1Title": "Semana 1",
+  "week1Desc": "Mejora la alineación de la columna, la postura se corrige",
+  "month1Label": "1M",
+  "month1Title": "Mes 1",
+  "month1Desc": "Primeros centímetros visibles, mejora la calidad del sueño",
+  "month3Label": "3M",
+  "month3Title": "Mes 3",
+  "month3Desc": "Ganancia media de +1,5–2,5 cm, desarrollo muscular",
+  "month6Label": "6M",
+  "month6Title": "Mes 6",
+  "month6Desc": "Alcanza tu máximo potencial, vive con tu nueva altura",
+  "reachYourGoal": "Alcanza tu objetivo",
+  "journeyBullet1": "Desbloquea tu máximo potencial",
+  "journeyBullet2": "Empieza a vivir con tu nueva altura",
+  "journeyBullet3": "Escribe tu historia de éxito",
+  "unlockButton": "Desbloquear todo",
+  "dreamHeightOdds": "Probabilidades de tu\naltura ideal",
+  "growthCompleteLabel": "Crecimiento\ncompletado",
+  "tallerThanPct": "Más alto que el 76,7% de tu edad"
 }

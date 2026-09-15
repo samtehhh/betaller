@@ -1136,6 +1136,13 @@ class AppLocalizationsTr extends AppLocalizations {
       'Büyüme hormonu salgısını uyarmak için arjinin açısından zengin gıdalar yiyin.';
 
   @override
+  String get routineDailyCalories => 'Günlük Kalori Hedefi';
+
+  @override
+  String get routineDailyCaloriesDesc =>
+      'Günlük kalori hedefine ulaş — yetersiz kalori büyümeyi yavaşlatır.';
+
+  @override
   String get routineSleepEnvironment => 'Uyku Ortamını Optimize Et';
 
   @override
@@ -1570,6 +1577,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get sectionFoods => 'Yiyecekler';
+
+  @override
+  String get sectionSupplements => 'Takviyeler';
 
   @override
   String todaysPlan(String day) {
@@ -2545,6 +2555,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Fındık, tohumlar, hindi, tavuk, soya fasulyesi ve süt ürünlerini öğünlerine dahil et. Uyku öncesi tüketilmesi en iyisidir.';
 
   @override
+  String get formDailyCalories =>
+      'Kalorini 3-5 öğüne yay ve kahvaltıyı atlama. Boş kalori yerine gerçek besinleri tercih et.';
+
+  @override
   String get formQualitySleep =>
       'Saat 22:00\'ye kadar yat. Odayı karanlık ve serin tut. Öğleden sonra 14:00\'ten sonra kafein tüketmekten kaçın.';
 
@@ -2657,6 +2671,10 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get sciArginineFoods =>
       'L-Arjinin, büyüme hormonu salgılanmasını uyarır';
+
+  @override
+  String get sciDailyCalories =>
+      'Sürekli kalori açığı IGF-1 seviyesini düşürür ve büyüme hormonu atımlarını zayıflatarak ergenlikte doğrusal büyümeyi doğrudan yavaşlatır';
 
   @override
   String get sciQualitySleep =>
@@ -2853,6 +2871,98 @@ class AppLocalizationsTr extends AppLocalizations {
       'BeTaller genel sağlık ve fitness rehberliği sunar. Sonuçlar yaşa, genetiğe ve bireysel faktörlere göre değişir. Bu uygulama tıbbi tavsiye vermez. Egzersizler postür optimizasyonu, omurga sağlığı ve doğal alışkanlıklarla büyüme hormonu desteğine odaklanır. Yeni bir egzersiz veya beslenme programına başlamadan önce bir sağlık uzmanına danışın. Büyüme plakları kapandıktan sonra (genellikle 18-25 yaş) boy değişiklikleri ağırlıklı olarak postür iyileştirmesinden kaynaklanır.';
 
   @override
+  String routineProteinAmountDesc(int grams) {
+    return 'Bugün en az ${grams}g protein al — kilona göre hesaplandı.';
+  }
+
+  @override
+  String routineWaterAmountDesc(String liters) {
+    return 'Bugün en az ${liters}L su iç — kilona göre hesaplandı.';
+  }
+
+  @override
+  String routineCalorieAmountDesc(int kcal) {
+    return 'Büyümeyi desteklemek için bugün yaklaşık $kcal kalori al.';
+  }
+
+  @override
+  String routineVitaminDAmountDesc(int iu) {
+    return 'Bugün $iu IU D Vitamini al — güneş, besin veya takviyeyle.';
+  }
+
+  @override
+  String routineZincAmountDesc(int mg) {
+    return 'Büyüme hormonu üretimi için bugün ${mg}mg Çinko al.';
+  }
+
+  @override
+  String get nutritionSupplementsTitle => 'TAKVİYELER';
+
+  @override
+  String get nutritionSupplementsDisclaimer =>
+      'İsteğe bağlı destektir, besinin yerini tutmaz. Herhangi bir takviyeye başlamadan önce, özellikle 18 yaş altındaysan, bir doktora danış.';
+
+  @override
+  String get supplementVitaminDName => 'D3 Vitamini';
+
+  @override
+  String get supplementVitaminDDose => '3.000 IU';
+
+  @override
+  String get supplementVitaminDBenefit =>
+      'Kemik yoğunluğu ve büyüme plağı sağlığı için kalsiyum emilimini artırır';
+
+  @override
+  String get supplementZincName => 'Çinko';
+
+  @override
+  String get supplementZincDose => '8-11mg';
+
+  @override
+  String get supplementZincBenefit =>
+      'Büyüme hormonu üretimi için kritik bir mineral';
+
+  @override
+  String get supplementMagnesiumName => 'Magnezyum';
+
+  @override
+  String get supplementMagnesiumDose => '300-400mg';
+
+  @override
+  String get supplementMagnesiumBenefit =>
+      'Büyüme hormonunun en çok salgılandığı derin uyku evresini destekler';
+
+  @override
+  String get supplementCalciumName => 'Kalsiyum';
+
+  @override
+  String get supplementCalciumDose => '1.000-1.300mg';
+
+  @override
+  String get supplementCalciumBenefit =>
+      'Kemik yoğunluğu ve büyüme plaklarının temel yapı taşı';
+
+  @override
+  String get supplementOmega3Name => 'Omega-3';
+
+  @override
+  String get supplementOmega3Dose => '1.000mg';
+
+  @override
+  String get supplementOmega3Benefit =>
+      'İltihabı azaltır, büyüme plağı fonksiyonunu destekler';
+
+  @override
+  String get supplementCollagenName => 'Kolajen + C Vitamini';
+
+  @override
+  String get supplementCollagenDose => '10g + 500mg';
+
+  @override
+  String get supplementCollagenBenefit =>
+      'C Vitamini, vücudunun kolajeni kıkırdak ve kemik matrisi oluşturmakta kullanmasına yardımcı olur';
+
+  @override
   String get sciSourcePrefix => 'Kaynak: ';
 
   @override
@@ -2863,6 +2973,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get dailyNutritionPlan => 'GÜNLÜK BESLENME PLANI';
+
+  @override
+  String get nutritionGoalsComplete => '🎉 Tüm beslenme hedefleri tamamlandı!';
+
+  @override
+  String get nutritionGoalsIncomplete =>
+      'En iyi büyüme için beslenme hedeflerini tamamla';
+
+  @override
+  String get postureDetectingAlignment => 'Omurga hizası tespit ediliyor...';
 
   @override
   String get testimonial1 =>

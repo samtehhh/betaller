@@ -679,6 +679,21 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'setsReps': '',
     'difficulty': 'beginner',
   },
+  {
+    'id': 'daily_calories',
+    'title': 'Daily Calorie Target',
+    'description': 'Hit your daily calorie target — undereating slows growth.',
+    'category': 'nutrition',
+    'duration': 'Gün boyu',
+    'icon': '🔥',
+    'musclesTargeted': [],
+    'scientificBasis':
+        'A sustained calorie deficit lowers IGF-1 and blunts growth hormone pulses, directly slowing linear growth during adolescence. (Horm Res Paediatr, 2016)',
+    'formDescription':
+        "Spread your calories across 3-5 meals and don't skip breakfast. Prioritize whole foods over empty calories.",
+    'setsReps': '',
+    'difficulty': 'beginner',
+  },
   // ── Existing Sleep Routines ──
   {
     'id': 'quality_sleep',

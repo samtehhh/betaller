@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../models/routine.dart';
+import '../models/user_profile.dart';
+import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import '../utils/daily_plan.dart';
 import '../widgets/discipline_widgets.dart';
@@ -745,7 +747,7 @@ class _PlanRow extends StatelessWidget {
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            routine.duration,
+                            localizedDuration(l, routine.duration),
                             style: TextStyle(
                               fontSize: 11.5,
                               fontWeight: FontWeight.w500,
@@ -1228,6 +1230,15 @@ class _LevelCardState extends State<_LevelCard> {
                       GestureDetector(
                         onTap: () {
                           HapticFeedback.mediumImpact();
+                          if (!widget.provider.isPremium) {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              builder: (_) => const PremiumPaywallScreen(),
+                            );
+                            return;
+                          }
                           widget.provider.markProgramDayComplete(
                             widget.currentDay,
                           );
@@ -1365,12 +1376,44 @@ class _DayDot extends StatelessWidget {
   }
 }
 
+/// Overrides a nutrition routine's generic description with the user's
+/// personalized daily target, where one can be computed from their profile.
+/// Returns null for routines that don't have a personalized target (in
+/// which case the caller falls back to the static localized description).
+String? _personalizedNutritionDesc(
+  AppLocalizations l,
+  UserProfile? profile,
+  String routineId,
+) {
+  if (profile == null) return null;
+  switch (routineId) {
+    case 'protein':
+      final grams = Calculations.dailyProteinNeed(profile.weight).round();
+      return l.routineProteinAmountDesc(grams);
+    case 'water':
+      final liters = Calculations.dailyWaterNeed(profile.weight);
+      return l.routineWaterAmountDesc(liters.toStringAsFixed(1));
+    case 'daily_calories':
+      final kcal = Calculations.dailyCalorieNeed(profile);
+      return l.routineCalorieAmountDesc(kcal);
+    case 'vitamin_d_sunlight':
+      final iu = Calculations.dailyVitaminDNeed();
+      return l.routineVitaminDAmountDesc(iu);
+    case 'zinc_intake':
+      final mg = Calculations.dailyZincNeed(profile.gender);
+      return l.routineZincAmountDesc(mg);
+    default:
+      return null;
+  }
+}
+
 class _NutritionTab extends StatelessWidget {
   final AppProvider provider;
 
   const _NutritionTab({required this.provider});
 
   static const _nutritionIds = [
+    'daily_calories',
     'protein',
     'calcium_vitamin_d',
     'water',
@@ -1419,6 +1462,7 @@ class _NutritionTab extends StatelessWidget {
             final card = _NutritionCard(
               routine: routine,
               isPremiumLocked: isPremiumLocked,
+              profile: provider.profile,
               onToggle: () {
                 if (isPremiumLocked) {
                   showModalBottomSheet(
@@ -1534,8 +1578,8 @@ class _NutritionHeader extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             progress == 1.0
-                ? '🎉 All nutrition goals complete!'
-                : 'Complete your nutrition goals for optimal growth',
+                ? l.nutritionGoalsComplete
+                : l.nutritionGoalsIncomplete,
             style: TextStyle(
               fontSize: 12,
               color: Colors.white.withValues(alpha: 0.5),
@@ -1550,12 +1594,14 @@ class _NutritionHeader extends StatelessWidget {
 class _NutritionCard extends StatelessWidget {
   final Routine routine;
   final bool isPremiumLocked;
+  final UserProfile? profile;
   final VoidCallback? onToggle;
   final VoidCallback onTap;
 
   const _NutritionCard({
     required this.routine,
     required this.isPremiumLocked,
+    this.profile,
     this.onToggle,
     required this.onTap,
   });
@@ -1564,6 +1610,11 @@ class _NutritionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final loc = localizedRoutine(l, routine.id);
+    final personalizedDesc = _personalizedNutritionDesc(
+      l,
+      profile,
+      routine.id,
+    );
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -1622,7 +1673,9 @@ class _NutritionCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      loc['description'] ?? routine.description,
+                      personalizedDesc ??
+                          loc['description'] ??
+                          routine.description,
                       style: TextStyle(
                         fontSize: 11,
                         color: Colors.white.withValues(alpha: 0.4),

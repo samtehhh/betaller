@@ -2120,6 +2120,18 @@ abstract class AppLocalizations {
   /// **'Eat arginine-rich foods to stimulate growth hormone secretion.'**
   String get routineArginineFoodsDesc;
 
+  /// No description provided for @routineDailyCalories.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Calorie Target'**
+  String get routineDailyCalories;
+
+  /// No description provided for @routineDailyCaloriesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Hit your daily calorie target — undereating slows growth.'**
+  String get routineDailyCaloriesDesc;
+
   /// No description provided for @routineSleepEnvironment.
   ///
   /// In en, this message translates to:
@@ -2935,6 +2947,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Foods'**
   String get sectionFoods;
+
+  /// No description provided for @sectionSupplements.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplements'**
+  String get sectionSupplements;
 
   /// No description provided for @todaysPlan.
   ///
@@ -4724,6 +4742,12 @@ abstract class AppLocalizations {
   /// **'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.'**
   String get formArginineFoods;
 
+  /// No description provided for @formDailyCalories.
+  ///
+  /// In en, this message translates to:
+  /// **'Spread your calories across 3-5 meals and don\'t skip breakfast. Prioritize whole foods over empty calories.'**
+  String get formDailyCalories;
+
   /// No description provided for @formQualitySleep.
   ///
   /// In en, this message translates to:
@@ -4897,6 +4921,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'L-Arginine stimulates growth hormone secretion'**
   String get sciArginineFoods;
+
+  /// No description provided for @sciDailyCalories.
+  ///
+  /// In en, this message translates to:
+  /// **'A sustained calorie deficit lowers IGF-1 and blunts growth hormone pulses, directly slowing linear growth during adolescence'**
+  String get sciDailyCalories;
 
   /// No description provided for @sciQualitySleep.
   ///
@@ -5264,6 +5294,156 @@ abstract class AppLocalizations {
   /// **'BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.'**
   String get healthDisclaimerBody;
 
+  /// No description provided for @routineProteinAmountDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Get at least {grams}g of protein today — calculated from your weight.'**
+  String routineProteinAmountDesc(int grams);
+
+  /// No description provided for @routineWaterAmountDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Drink at least {liters}L of water today — calculated from your weight.'**
+  String routineWaterAmountDesc(String liters);
+
+  /// No description provided for @routineCalorieAmountDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Aim for about {kcal} kcal today to fuel growth.'**
+  String routineCalorieAmountDesc(int kcal);
+
+  /// No description provided for @routineVitaminDAmountDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Get {iu} IU of Vitamin D today — from sunlight, food, or a supplement.'**
+  String routineVitaminDAmountDesc(int iu);
+
+  /// No description provided for @routineZincAmountDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Get {mg}mg of Zinc today to support growth hormone production.'**
+  String routineZincAmountDesc(int mg);
+
+  /// No description provided for @nutritionSupplementsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'SUPPLEMENTS'**
+  String get nutritionSupplementsTitle;
+
+  /// No description provided for @nutritionSupplementsDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional support, not a substitute for food. Talk to a doctor before starting any supplement, especially under 18.'**
+  String get nutritionSupplementsDisclaimer;
+
+  /// No description provided for @supplementVitaminDName.
+  ///
+  /// In en, this message translates to:
+  /// **'Vitamin D3'**
+  String get supplementVitaminDName;
+
+  /// No description provided for @supplementVitaminDDose.
+  ///
+  /// In en, this message translates to:
+  /// **'3,000 IU'**
+  String get supplementVitaminDDose;
+
+  /// No description provided for @supplementVitaminDBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Boosts calcium absorption for bone density and growth plate health'**
+  String get supplementVitaminDBenefit;
+
+  /// No description provided for @supplementZincName.
+  ///
+  /// In en, this message translates to:
+  /// **'Zinc'**
+  String get supplementZincName;
+
+  /// No description provided for @supplementZincDose.
+  ///
+  /// In en, this message translates to:
+  /// **'8-11mg'**
+  String get supplementZincDose;
+
+  /// No description provided for @supplementZincBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'A key mineral for growth hormone production'**
+  String get supplementZincBenefit;
+
+  /// No description provided for @supplementMagnesiumName.
+  ///
+  /// In en, this message translates to:
+  /// **'Magnesium'**
+  String get supplementMagnesiumName;
+
+  /// No description provided for @supplementMagnesiumDose.
+  ///
+  /// In en, this message translates to:
+  /// **'300-400mg'**
+  String get supplementMagnesiumDose;
+
+  /// No description provided for @supplementMagnesiumBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Supports the deep sleep stage where most growth hormone is released'**
+  String get supplementMagnesiumBenefit;
+
+  /// No description provided for @supplementCalciumName.
+  ///
+  /// In en, this message translates to:
+  /// **'Calcium'**
+  String get supplementCalciumName;
+
+  /// No description provided for @supplementCalciumDose.
+  ///
+  /// In en, this message translates to:
+  /// **'1,000-1,300mg'**
+  String get supplementCalciumDose;
+
+  /// No description provided for @supplementCalciumBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'The core building block of bone density and growth plates'**
+  String get supplementCalciumBenefit;
+
+  /// No description provided for @supplementOmega3Name.
+  ///
+  /// In en, this message translates to:
+  /// **'Omega-3'**
+  String get supplementOmega3Name;
+
+  /// No description provided for @supplementOmega3Dose.
+  ///
+  /// In en, this message translates to:
+  /// **'1,000mg'**
+  String get supplementOmega3Dose;
+
+  /// No description provided for @supplementOmega3Benefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduces inflammation and supports healthy growth plate function'**
+  String get supplementOmega3Benefit;
+
+  /// No description provided for @supplementCollagenName.
+  ///
+  /// In en, this message translates to:
+  /// **'Collagen + Vitamin C'**
+  String get supplementCollagenName;
+
+  /// No description provided for @supplementCollagenDose.
+  ///
+  /// In en, this message translates to:
+  /// **'10g + 500mg'**
+  String get supplementCollagenDose;
+
+  /// No description provided for @supplementCollagenBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Vitamin C helps your body use collagen to build cartilage and bone matrix'**
+  String get supplementCollagenBenefit;
+
   /// No description provided for @sciSourcePrefix.
   ///
   /// In en, this message translates to:
@@ -5287,6 +5467,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'DAILY NUTRITION PLAN'**
   String get dailyNutritionPlan;
+
+  /// No description provided for @nutritionGoalsComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 All nutrition goals complete!'**
+  String get nutritionGoalsComplete;
+
+  /// No description provided for @nutritionGoalsIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your nutrition goals for optimal growth'**
+  String get nutritionGoalsIncomplete;
+
+  /// No description provided for @postureDetectingAlignment.
+  ///
+  /// In en, this message translates to:
+  /// **'Detecting spinal alignment...'**
+  String get postureDetectingAlignment;
 
   /// No description provided for @testimonial1.
   ///

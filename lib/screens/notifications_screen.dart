@@ -9,6 +9,7 @@ import '../models/reminder.dart';
 import '../providers/app_provider.dart';
 import '../services/notification_service.dart';
 import '../utils/constants.dart';
+import '../widgets/premium_paywall.dart';
 
 /// Short weekday names, Monday first, in the language the app is showing.
 /// Hardcoding them left Turkish abbreviations on every other locale.
@@ -369,6 +370,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       ),
     );
     if (result == null || !mounted) return;
+    if (!context.read<AppProvider>().isPremium) {
+      showPremiumPaywall(context);
+      return;
+    }
     context.read<AppProvider>().addReminder(result);
     await _reschedule();
   }
