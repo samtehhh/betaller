@@ -39,8 +39,12 @@ class AppProvider extends ChangeNotifier {
   bool _analysisCompleted = false;
   Locale? _locale;
   bool _isPremium = false;
-  bool _useImperial =
-      false; // false = metric (cm/kg), true = imperial (ft-in/lbs)
+  // false = metric (cm/kg), true = imperial (ft-in/lbs). Defaults to
+  // imperial for the US and Canada — everywhere else, including the rest
+  // of the English-speaking world, defaults to metric. loadData() only
+  // overrides this when a value was actually saved before, so an
+  // upgrading user who never touched the setting still gets this default.
+  bool _useImperial = _detectImperialDefault();
 
   // Gamification state
   int _totalXP = 0;
@@ -956,13 +960,56 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Convert cm to display string based on unit preference
+  /// Height/weight are always stored in cm/kg — this is the one place that
+  /// guesses a first-run display unit before the user has ever chosen one.
+  /// Everywhere else in the world (Europe included) reads a height in cm.
+  static bool _detectImperialDefault() {
+    final country = PlatformDispatcher.instance.locale.countryCode;
+    return country == 'US' || country == 'CA';
+  }
+
+  /// Short unit suffix for the current preference — "cm"/"in", used by the
+  /// growth chart, stat cards and anywhere showing a bare height number.
+  String get heightUnit => _useImperial ? 'in' : 'cm';
+
+  /// Short unit suffix for weight — "kg"/"lbs".
+  String get weightUnit => _useImperial ? 'lbs' : 'kg';
+
+  /// A stored cm value, converted to the unit the user reads in. Height is
+  /// always stored in cm regardless of this preference.
+  double heightNumber(double cm) => _useImperial ? cm / 2.54 : cm;
+
+  /// The inverse of [heightNumber] — a value the user typed in their own
+  /// unit, converted back to the cm the app stores.
+  double heightFromInput(double value) => _useImperial ? value * 2.54 : value;
+
+  /// A stored kg value, converted to the unit the user reads in.
+  double weightNumber(double kg) => _useImperial ? kg * 2.20462 : kg;
+
+  /// The inverse of [weightNumber] — a value the user typed in their own
+  /// unit, converted back to the kg the app stores.
+  double weightFromInput(double value) =>
+      _useImperial ? value / 2.20462 : value;
+
+  /// A single height value, formatted for display: "175.0 cm" or "5'11\"".
   String formatHeight(double cm) {
     if (!_useImperial) return '${cm.toStringAsFixed(1)} cm';
     final totalInches = cm / 2.54;
-    final feet = totalInches ~/ 12;
-    final inches = (totalInches % 12).round();
-    return '$feet\'$inches"';
+    var feet = totalInches ~/ 12;
+    var inches = (totalInches % 12).round();
+    // Rounding up can hit 12 (e.g. 182cm → 5'12"), carry into next foot.
+    if (inches == 12) {
+      feet += 1;
+      inches = 0;
+    }
+    return "$feet'$inches\"";
+  }
+
+  /// A height difference (can be negative), e.g. "+2.5 cm" or "+1.0 in".
+  String formatHeightDelta(double deltaCm) {
+    final sign = deltaCm > 0 ? '+' : '';
+    if (!_useImperial) return '$sign${deltaCm.toStringAsFixed(1)} cm';
+    return '$sign${(deltaCm / 2.54).toStringAsFixed(1)} in';
   }
 
   /// Convert kg to display string based on unit preference

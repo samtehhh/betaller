@@ -1,0 +1,12 @@
+{
+  "bg_top": "#EAFBF2",
+  "bg_bottom": "#F1ECFB",
+  "text_color": "#14122A",
+  "brand_accent": "#8B5CF6",
+  "headline": "Büyüme Sürecini Takip Et",
+  "pills": [
+    { "icon": "chart", "icon_color": "#8B5CF6", "label": "Büyüme Grafiği", "sub": "Haftalık takip" },
+    { "icon": "trend", "icon_color": "#00B8D9", "label": "+1.1 cm", "sub": "Bu ay toplam artış" }
+  ],
+  "metric": { "value": "+1.1 cm", "label": "Bu ay toplam artış", "side": "right", "y_frac": 0.20 }
+}

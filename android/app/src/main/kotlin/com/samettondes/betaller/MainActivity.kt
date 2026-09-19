@@ -1,4 +1,4 @@
-package com.glowup.boyuzatma_app
+package com.samettondes.betaller
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -9,7 +9,7 @@
   "currentHeight": "वर्तमान ऊँचाई",
   "target": "लक्ष्य",
   "completed": "{pct}% पूरा",
-  "remaining": "+{cm} सेमी शेष",
+  "remaining": "+{cm} {unit} शेष",
   "updateAnalysis": "विश्लेषण अपडेट करें",
   "analysisSubtitle": "पिछली ऊँचाइयों + आदतों से भविष्यवाणी प्राप्त करें",
   "dailyRoutines": "दैनिक दिनचर्या",
@@ -189,10 +189,10 @@
   "analysisStep3": "पोषण और नींद डेटा प्रोसेस हो रहा है...",
   "analysisStep4": "ऊँचाई भविष्यवाणी तैयार हो रही है...",
   "analysisStep5": "BeTaller स्कोर की गणना हो रही है...",
-  "growthPotential": "+{cm} सेमी विकास क्षमता",
+  "growthPotential": "+{cm} {unit} विकास क्षमता",
   "heightAt21": "21 वर्ष की आयु में",
   "confidenceLevel": "{pct}% विश्वास स्तर",
-  "heightRange": "{min} - {max} सेमी सीमा",
+  "heightRange": "{min} - {max} {unit} सीमा",
   "currentLabel": "वर्तमान",
   "predictedLabel": "अनुमानित",
   "yearlyPredictions": "वार्षिक भविष्यवाणियाँ",
@@ -608,7 +608,7 @@
       }
     }
   },
-  "photoGainInDays": "{days} दिनों में {cm} cm",
+  "photoGainInDays": "{days} दिनों में {cm} {unit}",
   "@photoGainInDays": {
     "placeholders": {
       "cm": {
@@ -616,6 +616,9 @@
       },
       "days": {
         "type": "int"
+      },
+      "unit": {
+        "type": "String"
       }
     }
   },
@@ -627,7 +630,7 @@
       }
     }
   },
-  "cmGained": "सेमी वृद्धि",
+  "cmGained": "{unit} वृद्धि",
   "firstPhotoMessage": "अपनी दृश्य प्रगति ट्रैक करने के लिए पहली फ़ोटो लें।",
   "takeFirstPhoto": "पहली फ़ोटो लें",
   "beforeAfter": "पहले / बाद",

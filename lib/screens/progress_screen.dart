@@ -111,6 +111,7 @@ class ProgressScreenState extends State<ProgressScreen>
                     KeyedSubtree(
                       key: TourKeys.progressHeight,
                       child: _HeightHero(
+                        provider: provider,
                         current: current,
                         gained: gained,
                         records: records,
@@ -148,6 +149,7 @@ class ProgressScreenState extends State<ProgressScreen>
                                   animation: _chartAnim,
                                   builder: (context, _) => _buildChart(
                                     context,
+                                    provider,
                                     records,
                                     _chartCurve.value,
                                   ),
@@ -164,8 +166,8 @@ class ProgressScreenState extends State<ProgressScreen>
                                   _StatItem(
                                     label: l.totalGrowth,
                                     value:
-                                        '${provider.totalGrowth > 0 ? '+' : ''}${provider.totalGrowth}',
-                                    unit: 'cm',
+                                        '${provider.totalGrowth > 0 ? '+' : ''}${provider.heightNumber(provider.totalGrowth).toStringAsFixed(1)}',
+                                    unit: provider.heightUnit,
                                     color: provider.totalGrowth > 0
                                         ? AppColors.success
                                         : AppColors.textSecondary,
@@ -178,8 +180,8 @@ class ProgressScreenState extends State<ProgressScreen>
                                   _StatItem(
                                     label: l.lastDiff,
                                     value:
-                                        '${provider.lastGrowth > 0 ? '+' : ''}${provider.lastGrowth}',
-                                    unit: 'cm',
+                                        '${provider.lastGrowth > 0 ? '+' : ''}${provider.heightNumber(provider.lastGrowth).toStringAsFixed(1)}',
+                                    unit: provider.heightUnit,
                                     color: provider.lastGrowth > 0
                                         ? AppColors.success
                                         : AppColors.textSecondary,
@@ -400,6 +402,7 @@ class ProgressScreenState extends State<ProgressScreen>
                           onDismissed: (_) =>
                               provider.deleteHeightRecord(record.date),
                           child: _TimelineEntry(
+                            provider: provider,
                             date: dateStr,
                             height: record.height,
                             diff: diff,
@@ -421,6 +424,7 @@ class ProgressScreenState extends State<ProgressScreen>
 
   Widget _buildChart(
     BuildContext context,
+    AppProvider provider,
     List<HeightRecord> records,
     double animValue,
   ) {
@@ -477,10 +481,13 @@ class ProgressScreenState extends State<ProgressScreen>
               reservedSize: 42,
               interval: range < 3 ? 1 : null,
               getTitlesWidget: (value, meta) {
-                if (value == meta.min || value == meta.max)
+                if (value == meta.min || value == meta.max) {
                   return const SizedBox();
+                }
                 return Text(
-                  value.toStringAsFixed(1),
+                  provider.useImperial
+                      ? provider.formatHeight(value)
+                      : value.toStringAsFixed(1),
                   style: TextStyle(
                     fontSize: 10,
                     color: Colors.white.withValues(alpha: 0.35),
@@ -496,8 +503,9 @@ class ProgressScreenState extends State<ProgressScreen>
               reservedSize: 32,
               getTitlesWidget: (value, meta) {
                 final index = value.toInt();
-                if (index < 0 || index >= records.length)
+                if (index < 0 || index >= records.length) {
                   return const SizedBox();
+                }
                 if (records.length > 5 &&
                     index != 0 &&
                     index != records.length - 1 &&
@@ -595,7 +603,7 @@ class ProgressScreenState extends State<ProgressScreen>
                 }
               }
               return LineTooltipItem(
-                '$dateLabel${spot.y.toStringAsFixed(1)} cm',
+                '$dateLabel${provider.formatHeight(spot.y)}',
                 const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w800,
@@ -634,7 +642,9 @@ class ProgressScreenState extends State<ProgressScreen>
     final controller = TextEditingController();
     final profile = provider.profile;
     if (profile != null) {
-      controller.text = profile.currentHeight.toStringAsFixed(1);
+      controller.text = provider
+          .heightNumber(profile.currentHeight)
+          .toStringAsFixed(1);
     }
     DateTime selectedDate = DateTime.now();
 
@@ -762,7 +772,7 @@ class ProgressScreenState extends State<ProgressScreen>
                   textAlign: TextAlign.center,
                   cursorColor: AppColors.primary,
                   decoration: InputDecoration(
-                    suffixText: 'cm',
+                    suffixText: provider.heightUnit,
                     suffixStyle: TextStyle(
                       fontSize: 16,
                       color: AppColors.textSecondary,
@@ -801,9 +811,12 @@ class ProgressScreenState extends State<ProgressScreen>
                     color: AppColors.primary,
                     borderRadius: BorderRadius.circular(14),
                     onPressed: () {
-                      final height = double.tryParse(
+                      final typed = double.tryParse(
                         controller.text.replaceAll(',', '.'),
                       );
+                      final height = typed == null
+                          ? null
+                          : provider.heightFromInput(typed);
                       if (height != null && height > 50 && height < 250) {
                         // Drop focus (and the keyboard/text-selection overlay
                         // that comes with it) before the save below tears
@@ -1239,12 +1252,14 @@ class _ScoreRingPainter extends CustomPainter {
 
 /// The hero: current height, what has been gained, and the way to add more.
 class _HeightHero extends StatelessWidget {
+  final AppProvider provider;
   final double current;
   final double gained;
   final List<HeightRecord> records;
   final VoidCallback onAdd;
 
   const _HeightHero({
+    required this.provider,
     required this.current,
     required this.gained,
     required this.records,
@@ -1295,31 +1310,45 @@ class _HeightHero extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 6),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Text(
-                          current.toStringAsFixed(1),
-                          style: const TextStyle(
-                            fontSize: 46,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.white,
-                            letterSpacing: -2.2,
-                            height: 1,
+                    provider.useImperial
+                        // Feet/inches ("5'9"") is one compound string, not a
+                        // number-plus-unit pair, so it gets a single Text
+                        // instead of the split number/unit row metric uses.
+                        ? Text(
+                            provider.formatHeight(current),
+                            style: const TextStyle(
+                              fontSize: 46,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.white,
+                              letterSpacing: -2.2,
+                              height: 1,
+                            ),
+                          )
+                        : Row(
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: [
+                              Text(
+                                current.toStringAsFixed(1),
+                                style: const TextStyle(
+                                  fontSize: 46,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.white,
+                                  letterSpacing: -2.2,
+                                  height: 1,
+                                ),
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                'cm',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white.withValues(alpha: 0.45),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          'cm',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white.withValues(alpha: 0.45),
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -1354,7 +1383,7 @@ class _HeightHero extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  '${gained > 0 ? '+' : ''}$gained cm',
+                  provider.formatHeightDelta(gained),
                   style: TextStyle(
                     fontSize: 11.5,
                     fontWeight: FontWeight.w800,
@@ -1485,6 +1514,7 @@ class _SparklinePainter extends CustomPainter {
 
 /// One measurement on the timeline rail.
 class _TimelineEntry extends StatelessWidget {
+  final AppProvider provider;
   final String date;
   final double height;
   final double diff;
@@ -1492,6 +1522,7 @@ class _TimelineEntry extends StatelessWidget {
   final bool isLast;
 
   const _TimelineEntry({
+    required this.provider,
     required this.date,
     required this.height,
     required this.diff,
@@ -1569,7 +1600,7 @@ class _TimelineEntry extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${height.toStringAsFixed(1)} cm',
+                            provider.formatHeight(height),
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w800,
@@ -1612,7 +1643,7 @@ class _TimelineEntry extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${up ? '+' : ''}${diff.toStringAsFixed(1)}',
+                              provider.formatHeightDelta(diff),
                               style: TextStyle(
                                 fontSize: 12.5,
                                 fontWeight: FontWeight.w800,

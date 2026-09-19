@@ -932,31 +932,8 @@ class _NutritionScreenState extends State<NutritionScreen> {
 
     return SliverList(
       delegate: SliverChildListDelegate([
-        GlassCard(
-          margin: const EdgeInsets.only(bottom: 12),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          fillColor: AppColors.primaryDark.withValues(alpha: 0.25),
-          child: Row(
-            children: [
-              const Icon(
-                CupertinoIcons.exclamationmark_circle,
-                color: AppColors.primary,
-                size: 18,
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  l.nutritionSupplementsDisclaimer,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.textTertiary,
-                    height: 1.4,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+
+
         ...supplements.asMap().entries.map(
           (e) => _buildSupplementCard(
             e.value,

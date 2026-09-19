@@ -80,7 +80,9 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   Future<double?> _askHeight(BuildContext context) async {
     final provider = context.read<AppProvider>();
     final defaultHeight = provider.profile?.currentHeight ?? 170.0;
-    final controller = TextEditingController(text: defaultHeight.toStringAsFixed(1));
+    final controller = TextEditingController(
+      text: provider.heightNumber(defaultHeight).toStringAsFixed(1),
+    );
     final l = AppLocalizations.of(context)!;
 
     return showDialog<double>(
@@ -122,7 +124,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               ),
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                suffixText: 'cm',
+                suffixText: provider.heightUnit,
                 suffixStyle: TextStyle(
                   color: AppColors.primary,
                   fontSize: 16,
@@ -157,7 +159,8 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
           ),
           TextButton(
             onPressed: () {
-              final value = double.tryParse(controller.text.replaceAll(',', '.'));
+              final typed = double.tryParse(controller.text.replaceAll(',', '.'));
+              final value = typed == null ? null : provider.heightFromInput(typed);
               if (value == null || value < 80 || value > 250) {
                 HapticFeedback.heavyImpact();
                 return;
@@ -300,13 +303,13 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildHeaderCard(context, count, daysTracked, cmGained),
+                        _buildHeaderCard(context, provider, count, daysTracked, cmGained),
                         const SizedBox(height: 20),
                         if (!hasPhotos)
                           _buildEmptyState(context)
                         else ...[
                           if (photos.length >= 2) ...[
-                            _buildBeforeAfterCard(context, photos),
+                            _buildBeforeAfterCard(context, provider, photos),
                             const SizedBox(height: 20),
                           ],
                           SectionHeader(
@@ -314,7 +317,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                             title: AppLocalizations.of(context)!.timelineTab,
                           ),
                           const SizedBox(height: 12),
-                          _buildGrid(context, photos),
+                          _buildGrid(context, provider, photos),
                         ],
                       ],
                     ),
@@ -363,7 +366,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   }
 
   // ── Gradient header card ────────────────────────────────────────
-  Widget _buildHeaderCard(BuildContext context, int count, int daysTracked, double cmGained) {
+  Widget _buildHeaderCard(BuildContext context, AppProvider provider, int count, int daysTracked, double cmGained) {
     final l = AppLocalizations.of(context)!;
     return Container(
       width: double.infinity,
@@ -432,9 +435,9 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               _buildStatDivider(),
               _buildHeaderStat(
                 value: cmGained > 0
-                    ? '+${cmGained.toStringAsFixed(1)}'
-                    : cmGained.toStringAsFixed(1),
-                label: l.cmGained,
+                    ? '+${provider.heightNumber(cmGained).toStringAsFixed(1)}'
+                    : provider.heightNumber(cmGained).toStringAsFixed(1),
+                label: l.cmGained(provider.heightUnit),
                 color: cmGained > 0 ? AppColors.lime : Colors.white,
               ),
             ],
@@ -583,7 +586,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   }
 
   // ── Before/After comparison card ────────────────────────────────
-  Widget _buildBeforeAfterCard(BuildContext context, List<Map<String, dynamic>> photos) {
+  Widget _buildBeforeAfterCard(BuildContext context, AppProvider provider, List<Map<String, dynamic>> photos) {
     final l = AppLocalizations.of(context)!;
     final first = photos.first;
     final last = photos.last;
@@ -626,6 +629,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               Expanded(
                 child: _buildComparisonAvatar(
                   context: context,
+                  provider: provider,
                   photo: first,
                   label: l.beforeLabel,
                   color: AppColors.primaryBright,
@@ -656,6 +660,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               Expanded(
                 child: _buildComparisonAvatar(
                   context: context,
+                  provider: provider,
                   photo: last,
                   label: l.afterLabel,
                   color: AppColors.lime,
@@ -693,7 +698,11 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                   ),
                   const SizedBox(width: 6),
                   Text(
-                    l.photoGainInDays('${diff >= 0 ? '+' : ''}${diff.toStringAsFixed(1)}', days),
+                    l.photoGainInDays(
+                      '${diff >= 0 ? '+' : ''}${provider.heightNumber(diff).toStringAsFixed(1)}',
+                      days,
+                      provider.heightUnit,
+                    ),
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w800,
@@ -712,6 +721,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
 
   Widget _buildComparisonAvatar({
     required BuildContext context,
+    required AppProvider provider,
     required Map<String, dynamic> photo,
     required String label,
     required Color color,
@@ -770,7 +780,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
           ),
         ),
         Text(
-          '${height.toStringAsFixed(1)} cm',
+          provider.formatHeight(height),
           style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w700,
@@ -782,7 +792,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   }
 
   // ── Grid of photos ──────────────────────────────────────────────
-  Widget _buildGrid(BuildContext context, List<Map<String, dynamic>> photos) {
+  Widget _buildGrid(BuildContext context, AppProvider provider, List<Map<String, dynamic>> photos) {
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -790,11 +800,11 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
       crossAxisSpacing: 12,
       mainAxisSpacing: 12,
       childAspectRatio: 0.78,
-      children: photos.map((photo) => _buildPhotoTile(context, photo)).toList(),
+      children: photos.map((photo) => _buildPhotoTile(context, provider, photo)).toList(),
     );
   }
 
-  Widget _buildPhotoTile(BuildContext context, Map<String, dynamic> photo) {
+  Widget _buildPhotoTile(BuildContext context, AppProvider provider, Map<String, dynamic> photo) {
     final path = photo['path'] as String;
     final height = (photo['height'] as num?)?.toDouble() ?? 0;
     final date = _formatShortDate(context, photo['date'] as String);
@@ -873,7 +883,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '${height.toStringAsFixed(1)} cm',
+                        provider.formatHeight(height),
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w800,
@@ -945,6 +955,7 @@ class _PhotoViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<AppProvider>();
     final path = photo['path'] as String;
     final height = (photo['height'] as num?)?.toDouble() ?? 0;
     final rawDate = photo['date'] as String;
@@ -1009,7 +1020,7 @@ class _PhotoViewer extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${height.toStringAsFixed(1)} cm',
+                            provider.formatHeight(height),
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w800,

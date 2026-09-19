@@ -9,7 +9,7 @@
   "currentHeight": "Altura Atual",
   "target": "Meta",
   "completed": "{pct}% concluído",
-  "remaining": "+{cm} cm restantes",
+  "remaining": "+{cm} {unit} restantes",
   "updateAnalysis": "Atualizar Análise",
   "analysisSubtitle": "Obtenha previsões a partir de alturas anteriores + hábitos",
   "dailyRoutines": "Rotinas Diárias",
@@ -189,10 +189,10 @@
   "analysisStep3": "Processando dados de nutrição e sono...",
   "analysisStep4": "Gerando previsão de altura...",
   "analysisStep5": "Calculando pontuação BeTaller...",
-  "growthPotential": "+{cm} cm de potencial de crescimento",
+  "growthPotential": "+{cm} {unit} de potencial de crescimento",
   "heightAt21": "aos 21 anos",
   "confidenceLevel": "{pct}% nível de confiança",
-  "heightRange": "Faixa de {min} - {max} cm",
+  "heightRange": "Faixa de {min} - {max} {unit}",
   "currentLabel": "ATUAL",
   "predictedLabel": "PREVISTO",
   "yearlyPredictions": "Previsões Anuais",
@@ -608,7 +608,7 @@
       }
     }
   },
-  "photoGainInDays": "{cm} cm em {days} dias",
+  "photoGainInDays": "{cm} {unit} em {days} dias",
   "@photoGainInDays": {
     "placeholders": {
       "cm": {
@@ -616,6 +616,9 @@
       },
       "days": {
         "type": "int"
+      },
+      "unit": {
+        "type": "String"
       }
     }
   },
@@ -627,7 +630,7 @@
       }
     }
   },
-  "cmGained": "cm ganhos",
+  "cmGained": "{unit} ganhos",
   "firstPhotoMessage": "Tire sua primeira foto para começar a acompanhar seu progresso visual.",
   "takeFirstPhoto": "Primeira foto",
   "beforeAfter": "ANTES / DEPOIS",

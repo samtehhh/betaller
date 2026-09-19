@@ -186,8 +186,8 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String remaining(String cm) {
-    return '+$cm cm restants';
+  String remaining(String cm, String unit) {
+    return '+$cm $unit restants';
   }
 
   @override
@@ -915,8 +915,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get analysisStep5 => 'Calcul du score BeTaller...';
 
   @override
-  String growthPotential(String cm) {
-    return '+$cm cm de potentiel de croissance';
+  String growthPotential(String cm, String unit) {
+    return '+$cm $unit de potentiel de croissance';
   }
 
   @override
@@ -928,8 +928,8 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String heightRange(String min, String max) {
-    return 'Fourchette de $min - $max cm';
+  String heightRange(String min, String max, String unit) {
+    return 'Fourchette de $min - $max $unit';
   }
 
   @override
@@ -2199,8 +2199,8 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String photoGainInDays(String cm, int days) {
-    return '$cm cm en $days jours';
+  String photoGainInDays(String cm, int days, String unit) {
+    return '$cm $unit en $days jours';
   }
 
   @override
@@ -2215,7 +2215,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get cmGained => 'cm gagnés';
+  String cmGained(String unit) {
+    return '$unit gagnés';
+  }
 
   @override
   String get firstPhotoMessage =>

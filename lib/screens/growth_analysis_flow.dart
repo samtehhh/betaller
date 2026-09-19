@@ -33,6 +33,35 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
   PredictionResult? _prediction;
   GlowUpScore? _score;
 
+  /// Imperial: "4'8\""  |  Metric: "142.2"
+  String _fmtForField(double cm, AppProvider provider) {
+    if (!provider.useImperial) return cm.toStringAsFixed(1);
+    final totalIn = cm / 2.54;
+    var ft = totalIn ~/ 12;
+    var inches = (totalIn % 12).round();
+    if (inches == 12) { ft += 1; inches = 0; }
+    return "$ft'$inches\"";
+  }
+
+  /// Parse "4'8\"" or plain inch/cm number → cm (null if invalid).
+  double? _parseField(String text, AppProvider provider) {
+    final t = text.trim();
+    if (t.isEmpty) return null;
+    if (provider.useImperial) {
+      final re = RegExp(r"""^(\d+)'(\d+)["']?\s*$""");
+      final m = re.firstMatch(t);
+      if (m != null) {
+        final ft = int.parse(m.group(1)!);
+        final inches = int.parse(m.group(2)!);
+        return (ft * 12 + inches) * 2.54;
+      }
+      final v = double.tryParse(t.replaceAll(',', '.'));
+      return v == null ? null : v * 2.54; // plain total inches
+    } else {
+      return double.tryParse(t.replaceAll(',', '.'));
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -41,12 +70,14 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
     if (profile != null) {
       // Geçmiş yaşlar için controller'lar oluştur
       for (int age = 10; age <= profile.age; age++) {
+        final saved = provider.pastHeights[age];
         _pastHeightControllers[age] = TextEditingController(
-          text: provider.pastHeights[age]?.toStringAsFixed(1) ?? '',
+          text: saved == null ? '' : _fmtForField(saved, provider),
         );
       }
       // Mevcut yaş otomatik doldur
-      _pastHeightControllers[profile.age]?.text = profile.currentHeight.toStringAsFixed(1);
+      _pastHeightControllers[profile.age]?.text =
+          _fmtForField(profile.currentHeight, provider);
     }
   }
 
@@ -79,11 +110,12 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
     // Geçmiş boyları topla
     final pastHeights = <int, double>{};
     for (final entry in _pastHeightControllers.entries) {
-      final val = double.tryParse(entry.value.text.replaceAll(',', '.'));
+      final val = _parseField(entry.value.text, provider);
       if (val != null && val > 50 && val < 250) {
         pastHeights[entry.key] = val;
       }
     }
+
 
     // Geçmiş boyları HeightRecord'a çevir (tahmin için)
     final records = pastHeights.entries.map((e) {
@@ -294,46 +326,63 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                   Expanded(
                     child: TextField(
                       controller: _pastHeightControllers[age],
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700, letterSpacing: -0.3),
+                      // Imperial needs apostrophe+quote → text keyboard
+                      keyboardType: provider.useImperial
+                          ? TextInputType.text
+                          : const TextInputType.numberWithOptions(decimal: true),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: -0.3,
+                      ),
                       cursorColor: AppColors.primary,
                       readOnly: isCurrentAge,
+                      // Auto-format on submit (imperial only)
+                      onEditingComplete: () {
+                        if (!isCurrentAge && provider.useImperial) {
+                          final ctrl = _pastHeightControllers[age]!;
+                          final cm = _parseField(ctrl.text, provider);
+                          if (cm != null) {
+                            setState(() => ctrl.text = _fmtForField(cm, provider));
+                          }
+                        }
+                        FocusScope.of(context).nextFocus();
+                      },
                       decoration: InputDecoration(
-                        hintText: isCurrentAge ? '${profile.currentHeight.toStringAsFixed(1)} ${l.currentSuffix}' : l.heightHint,
-                        hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.45), fontWeight: FontWeight.w400),
-                        suffixText: 'cm',
-                        suffixStyle: TextStyle(color: Colors.white.withValues(alpha: 0.82), fontWeight: FontWeight.w500),
+                        hintText: isCurrentAge
+                            ? '${_fmtForField(profile.currentHeight, provider)} ${l.currentSuffix}'
+                            : (provider.useImperial ? "e.g. 4'8\"" : l.heightHint),
+                        hintStyle: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.45),
+                          fontWeight: FontWeight.w400,
+                        ),
+                        // Unit is embedded in value for imperial
+                        suffixText: provider.useImperial ? null : provider.heightUnit,
+                        suffixStyle: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.82),
+                          fontWeight: FontWeight.w500,
+                        ),
                         filled: true,
                         fillColor: Colors.white.withValues(alpha: 0.12),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
                       ),
                     ),
                   ),
+
                 ],
               ),
             );
           }),
-          const SizedBox(height: 12),
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Row(
-              children: [
-                Icon(CupertinoIcons.lightbulb, color: AppColors.primary.withValues(alpha: 0.7), size: 18),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    l.pastHeightsTip,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.75), height: 1.4),
-                  ),
-                ),
-              ],
-            ),
-          ),
+
+
         ],
       ),
     );
@@ -482,31 +531,46 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    Text(
-                      _prediction!.finalHeight.toStringAsFixed(1),
-                      style: const TextStyle(
-                        fontSize: 64,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        letterSpacing: -3,
-                        height: 1,
+                provider.useImperial
+                    ? Text(
+                        provider.formatHeight(_prediction!.finalHeight),
+                        style: const TextStyle(
+                          fontSize: 64,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          letterSpacing: -3,
+                          height: 1,
+                        ),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(
+                            _prediction!.finalHeight.toStringAsFixed(1),
+                            style: const TextStyle(
+                              fontSize: 64,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: -3,
+                              height: 1,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            'cm',
+                            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      'cm',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.82)),
-                    ),
-                  ],
-                ),
                 const SizedBox(height: 8),
                 Text(
-                  l.heightRange('${_prediction!.minHeight}', '${_prediction!.maxHeight}'),
+                  l.heightRange(
+                    provider.heightNumber(_prediction!.minHeight).toStringAsFixed(1),
+                    provider.heightNumber(_prediction!.maxHeight).toStringAsFixed(1),
+                    provider.heightUnit,
+                  ),
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.72)),
                 ),
                 const SizedBox(height: 6),
@@ -563,16 +627,19 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _ResultMini(label: l.currentLabel, value: '${profile.currentHeight.toStringAsFixed(1)} cm', color: Colors.white),
+                    _ResultMini(label: l.currentLabel, value: provider.formatHeight(profile.currentHeight), color: Colors.white),
                     const SizedBox(width: 16),
                     Icon(CupertinoIcons.arrow_right, color: AppColors.primary.withValues(alpha: 0.6), size: 18),
                     const SizedBox(width: 16),
-                    _ResultMini(label: l.predictedLabel, value: '${_prediction!.finalHeight.toStringAsFixed(1)} cm', color: AppColors.cyan),
+                    _ResultMini(label: l.predictedLabel, value: provider.formatHeight(_prediction!.finalHeight), color: AppColors.cyan),
                   ],
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  l.growthPotential((_prediction!.finalHeight - profile.currentHeight).toStringAsFixed(1)),
+                  l.growthPotential(
+                    provider.heightNumber(_prediction!.finalHeight - profile.currentHeight).toStringAsFixed(1),
+                    provider.heightUnit,
+                  ),
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.lime, letterSpacing: -0.2),
                 ),
               ],
@@ -663,7 +730,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                           SizedBox(
                             width: 80,
                             child: Text(
-                              '${e.value} cm',
+                              provider.formatHeight(e.value),
                               textAlign: TextAlign.right,
                               style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: AppColors.cyan, letterSpacing: -0.3),
                             ),

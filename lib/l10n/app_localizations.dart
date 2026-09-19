@@ -425,8 +425,8 @@ abstract class AppLocalizations {
   /// No description provided for @remaining.
   ///
   /// In en, this message translates to:
-  /// **'+{cm} cm left'**
-  String remaining(String cm);
+  /// **'+{cm} {unit} left'**
+  String remaining(String cm, String unit);
 
   /// No description provided for @updateAnalysis.
   ///
@@ -1739,8 +1739,8 @@ abstract class AppLocalizations {
   /// No description provided for @growthPotential.
   ///
   /// In en, this message translates to:
-  /// **'+{cm} cm growth potential'**
-  String growthPotential(String cm);
+  /// **'+{cm} {unit} growth potential'**
+  String growthPotential(String cm, String unit);
 
   /// No description provided for @heightAt21.
   ///
@@ -1757,8 +1757,8 @@ abstract class AppLocalizations {
   /// No description provided for @heightRange.
   ///
   /// In en, this message translates to:
-  /// **'{min} - {max} cm range'**
-  String heightRange(String min, String max);
+  /// **'{min} - {max} {unit} range'**
+  String heightRange(String min, String max, String unit);
 
   /// No description provided for @currentLabel.
   ///
@@ -4055,8 +4055,8 @@ abstract class AppLocalizations {
   /// No description provided for @photoGainInDays.
   ///
   /// In en, this message translates to:
-  /// **'{cm} cm in {days} days'**
-  String photoGainInDays(String cm, int days);
+  /// **'{cm} {unit} in {days} days'**
+  String photoGainInDays(String cm, int days, String unit);
 
   /// No description provided for @dayLabel.
   ///
@@ -4067,8 +4067,8 @@ abstract class AppLocalizations {
   /// No description provided for @cmGained.
   ///
   /// In en, this message translates to:
-  /// **'cm gained'**
-  String get cmGained;
+  /// **'{unit} gained'**
+  String cmGained(String unit);
 
   /// No description provided for @firstPhotoMessage.
   ///

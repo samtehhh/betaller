@@ -652,37 +652,50 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                       ),
                                     ),
                                     const SizedBox(height: 8),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.baseline,
-                                      textBaseline: TextBaseline.alphabetic,
-                                      children: [
-                                        Text(
-                                          prediction.finalHeight
-                                              .toStringAsFixed(1),
-                                          style: const TextStyle(
-                                            fontSize: 52,
-                                            fontWeight: FontWeight.w800,
-                                            color: AppColors.cyan,
-                                            letterSpacing: -2,
-                                            height: 1,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          'cm',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            color: AppColors.cyan.withValues(
-                                              alpha: 0.6,
+                                    provider.useImperial
+                                        ? Text(
+                                            provider.formatHeight(
+                                              prediction.finalHeight,
                                             ),
+                                            style: const TextStyle(
+                                              fontSize: 52,
+                                              fontWeight: FontWeight.w800,
+                                              color: AppColors.cyan,
+                                              letterSpacing: -2,
+                                              height: 1,
+                                            ),
+                                          )
+                                        : Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.baseline,
+                                            textBaseline:
+                                                TextBaseline.alphabetic,
+                                            children: [
+                                              Text(
+                                                prediction.finalHeight
+                                                    .toStringAsFixed(1),
+                                                style: const TextStyle(
+                                                  fontSize: 52,
+                                                  fontWeight: FontWeight.w800,
+                                                  color: AppColors.cyan,
+                                                  letterSpacing: -2,
+                                                  height: 1,
+                                                ),
+                                              ),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                'cm',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: AppColors.cyan
+                                                      .withValues(alpha: 0.6),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
                                   ],
                                 ),
                               ),
@@ -752,7 +765,7 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                         SizedBox(
                                           width: 65,
                                           child: Text(
-                                            '${e.value} cm',
+                                            provider.formatHeight(e.value),
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
                                               fontSize: 14,
@@ -767,40 +780,8 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                   );
                                 }),
                               ],
-                              const SizedBox(height: 12),
-                              // Method info
-                              Container(
-                                padding: const EdgeInsets.all(14),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: 0.14),
-                                  borderRadius: BorderRadius.circular(18),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      CupertinoIcons.info_circle,
-                                      color: Colors.white.withValues(
-                                        alpha: 0.72,
-                                      ),
-                                      size: 16,
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Expanded(
-                                      child: Text(
-                                        l.predictionMethod,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.white.withValues(
-                                            alpha: 0.82,
-                                          ),
-                                          height: 1.4,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+
+
                             ],
                           ),
                         ),
@@ -915,7 +896,7 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                                   TextBaseline.alphabetic,
                                               children: [
                                                 Text(
-                                                  '+${totalGain.toStringAsFixed(1)}',
+                                                  '+${provider.heightNumber(totalGain).toStringAsFixed(1)}',
                                                   style: const TextStyle(
                                                     fontSize: 40,
                                                     fontWeight: FontWeight.w900,
@@ -926,7 +907,7 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                                 ),
                                                 const SizedBox(width: 5),
                                                 Text(
-                                                  'cm',
+                                                  provider.heightUnit,
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w700,
@@ -974,7 +955,9 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                               ),
                                               const SizedBox(height: 2),
                                               Text(
-                                                '${prediction.finalHeight.toStringAsFixed(1)} cm',
+                                                provider.formatHeight(
+                                                  prediction.finalHeight,
+                                                ),
                                                 style: const TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w900,
@@ -1090,7 +1073,9 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                               ),
                                               const SizedBox(width: 10),
                                               Text(
-                                                '+${p.$2.toStringAsFixed(1)} cm',
+                                                provider.formatHeightDelta(
+                                                  p.$2,
+                                                ),
                                                 style: TextStyle(
                                                   fontSize: 13.5,
                                                   fontWeight: FontWeight.w800,
@@ -1176,7 +1161,9 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                '${profile.currentHeight.toStringAsFixed(1)} cm',
+                                                provider.formatHeight(
+                                                  profile.currentHeight,
+                                                ),
                                                 style: TextStyle(
                                                   fontSize: 11,
                                                   fontWeight: FontWeight.w700,
@@ -1185,7 +1172,9 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                                 ),
                                               ),
                                               Text(
-                                                '${geneticCeiling.toStringAsFixed(1)} cm',
+                                                provider.formatHeight(
+                                                  geneticCeiling,
+                                                ),
                                                 style: TextStyle(
                                                   fontSize: 11,
                                                   fontWeight: FontWeight.w700,

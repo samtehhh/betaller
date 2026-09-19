@@ -1,0 +1,12 @@
+{
+  "bg_top": "#EAFBF2",
+  "bg_bottom": "#F1ECFB",
+  "text_color": "#14122A",
+  "brand_accent": "#8B5CF6",
+  "headline": "Boy Potansiyelini Keşfet",
+  "pills": [
+    { "icon": "genetics", "icon_color": "#8B5CF6", "label": "Genetik Analiz", "sub": "Anne-baba boyuna göre" },
+    { "icon": "target", "icon_color": "#00B8D9", "label": "Boy Tahmini", "sub": "174.6 cm potansiyel" }
+  ],
+  "metric": { "value": "174.6 cm", "label": "21 yaşında tahmini boy", "side": "right", "y_frac": 0.30 }
+}

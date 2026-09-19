@@ -783,19 +783,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Text(
-                              l.healthDisclaimerBody,
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.white.withValues(alpha: 0.22),
-                                height: 1.5,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
+
+
                         ],
                       ),
                     ),
@@ -1005,16 +994,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final l = AppLocalizations.of(context)!;
     final nameCtrl = TextEditingController(text: profile.name);
     final heightCtrl = TextEditingController(
-      text: profile.currentHeight.toStringAsFixed(1),
+      text: provider.heightNumber(profile.currentHeight).toStringAsFixed(1),
     );
     final weightCtrl = TextEditingController(
-      text: profile.weight.toStringAsFixed(1),
+      text: provider.weightNumber(profile.weight).toStringAsFixed(1),
     );
     final fatherCtrl = TextEditingController(
-      text: profile.fatherHeight.toStringAsFixed(0),
+      text: provider.heightNumber(profile.fatherHeight).toStringAsFixed(1),
     );
     final motherCtrl = TextEditingController(
-      text: profile.motherHeight.toStringAsFixed(0),
+      text: provider.heightNumber(profile.motherHeight).toStringAsFixed(1),
     );
     String gender = profile.gender;
     DateTime birthDate =
@@ -1163,8 +1152,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: child!,
                         ),
                       );
-                      if (picked != null)
+                      if (picked != null) {
                         setSheetState(() => birthDate = picked);
+                      }
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -1206,28 +1196,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: 12),
                   _EditField(
                     controller: heightCtrl,
-                    label: l.heightCm,
+                    label: '${l.heightLabel} (${provider.heightUnit})',
                     icon: CupertinoIcons.resize_v,
                     isNumber: true,
                   ),
                   const SizedBox(height: 12),
                   _EditField(
                     controller: weightCtrl,
-                    label: l.weightKg,
+                    label: '${l.weightLabel} (${provider.weightUnit})',
                     icon: CupertinoIcons.gauge,
                     isNumber: true,
                   ),
                   const SizedBox(height: 12),
                   _EditField(
                     controller: fatherCtrl,
-                    label: l.fatherHeight,
+                    label: '${l.dadLabel} (${provider.heightUnit})',
                     icon: CupertinoIcons.person,
                     isNumber: true,
                   ),
                   const SizedBox(height: 12),
                   _EditField(
                     controller: motherCtrl,
-                    label: l.motherHeight,
+                    label: '${l.motherLabel} (${provider.heightUnit})',
                     icon: CupertinoIcons.person,
                     isNumber: true,
                   ),
@@ -1239,18 +1229,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       borderRadius: BorderRadius.circular(18),
                       onPressed: () {
                         final name = nameCtrl.text.trim();
-                        final height = double.tryParse(
+                        final heightTyped = double.tryParse(
                           heightCtrl.text.replaceAll(',', '.'),
                         );
-                        final weight = double.tryParse(
+                        final weightTyped = double.tryParse(
                           weightCtrl.text.replaceAll(',', '.'),
                         );
-                        final father = double.tryParse(
+                        final fatherTyped = double.tryParse(
                           fatherCtrl.text.replaceAll(',', '.'),
                         );
-                        final mother = double.tryParse(
+                        final motherTyped = double.tryParse(
                           motherCtrl.text.replaceAll(',', '.'),
                         );
+                        final height = heightTyped == null
+                            ? null
+                            : provider.heightFromInput(heightTyped);
+                        final weight = weightTyped == null
+                            ? null
+                            : provider.weightFromInput(weightTyped);
+                        final father = fatherTyped == null
+                            ? null
+                            : provider.heightFromInput(fatherTyped);
+                        final mother = motherTyped == null
+                            ? null
+                            : provider.heightFromInput(motherTyped);
                         if (name.isNotEmpty &&
                             height != null &&
                             weight != null &&
@@ -2102,8 +2104,7 @@ class _IdentityCard extends StatelessWidget {
                           color: AppColors.cyan,
                         ),
                         _Chip(
-                          text:
-                              '${profile.currentHeight.toStringAsFixed(1)} cm',
+                          text: provider.formatHeight(profile.currentHeight),
                           color: AppColors.lime,
                         ),
                       ],

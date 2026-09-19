@@ -122,6 +122,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   void initState() {
     super.initState();
+    // Open the height/weight pickers in whichever unit the app already
+    // defaults to (imperial for the US/Canada, metric everywhere else) —
+    // the user can still flip the toggle on either page.
+    final defaultsToImperial = context.read<AppProvider>().useImperial;
+    _heightImperial = defaultsToImperial;
+    _dreamImperial = defaultsToImperial;
     // Sync ft/in with metric defaults
     _heightFt = _cmToFt(_selectedHeight);
     _heightIn = _cmToIn(_selectedHeight);
@@ -257,10 +263,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final past = <int, double>{};
     for (final e in _obPastHeightValues.entries) {
       final val = e.value;
-      if (val != null && e.key <= _userAge && val > 50 && val < 250)
+      if (val != null && e.key <= _userAge && val > 50 && val < 250) {
         past[e.key] = val;
+      }
     }
     final p = context.read<AppProvider>();
+    // Whichever unit the user actually entered their height/weight in here
+    // becomes the app-wide display preference, so the rest of the app
+    // doesn't revert to a different unit than the one they just used.
+    p.setUseImperial(_heightImperial);
     p.savePastHeights(past);
     p.setProfile(profile);
 
@@ -1799,6 +1810,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
     final currentAge = _obAges[_obCurrentAgeIndex];
     final l = AppLocalizations.of(context)!;
+    final provider = context.watch<AppProvider>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1965,7 +1977,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   _kObMaxH - _kObMinH + 1,
                   (i) => Center(
                     child: Text(
-                      '${_kObMinH + i} cm',
+                      // The wheel still steps through 1cm-wide slots — only
+                      // the label is converted, so none of the index<->cm
+                      // math elsewhere on this page needs to change.
+                      provider.useImperial
+                          ? provider.formatHeight((_kObMinH + i).toDouble())
+                          : '${_kObMinH + i} cm',
                       style: const TextStyle(
                         fontSize: 27,
                         fontWeight: FontWeight.w800,
@@ -3085,10 +3102,7 @@ class _AnalyzingPageState extends State<_AnalyzingPage>
         layoutBuilder: (currentChild, previousChildren) => Stack(
           alignment: Alignment.center,
           fit: StackFit.expand,
-          children: [
-            ...previousChildren,
-            if (currentChild != null) currentChild,
-          ],
+          children: [...previousChildren, ?currentChild],
         ),
         transitionBuilder: (child, anim) => FadeTransition(
           opacity: anim,

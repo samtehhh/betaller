@@ -18,7 +18,7 @@ if (hasReleaseKeystore) {
 }
 
 android {
-    namespace = "com.glowup.boyuzatma_app"
+    namespace = "com.samettondes.betaller"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -33,7 +33,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.glowup.boyuzatma_app"
+        applicationId = "com.samettondes.betaller"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

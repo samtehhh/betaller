@@ -1210,7 +1210,7 @@ class _HomePreview extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      l.remaining('6.1'),
+                      l.remaining('6.1', 'cm'),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(

@@ -1,0 +1,12 @@
+{
+  "bg_top": "#EAFBF2",
+  "bg_bottom": "#F1ECFB",
+  "text_color": "#14122A",
+  "brand_accent": "#8B5CF6",
+  "headline": "Discover Your Height Potential",
+  "pills": [
+    { "icon": "genetics", "icon_color": "#8B5CF6", "label": "Genetic Analysis", "sub": "Based on parent height" },
+    { "icon": "target", "icon_color": "#00B8D9", "label": "Height Prediction", "sub": "174.5 cm potential" }
+  ],
+  "metric": { "value": "174.5 cm", "label": "Predicted height at 21", "side": "right", "y_frac": 0.30 }
+}

@@ -358,6 +358,7 @@ class _HomeScreenState extends State<HomeScreen>
                     // read as one story: where you are, then how you got
                     // there ───────────────────────────────────────────────
                     _HeroHeightCard(
+                      provider: provider,
                       currentHeight: profile.currentHeight,
                       potential: potential,
                       remaining: remaining,
@@ -382,6 +383,7 @@ class _HomeScreenState extends State<HomeScreen>
                     KeyedSubtree(
                       key: TourKeys.homeGrowth,
                       child: _GrowthStatsCard(
+                        provider: provider,
                         totalGrowth: provider.totalGrowth,
                         lastGrowth: provider.lastGrowth,
                         measurementCount: provider.heightRecords.length,
@@ -1182,6 +1184,7 @@ class _MissionRow extends StatelessWidget {
 }
 
 class _HeroHeightCard extends StatelessWidget {
+  final AppProvider provider;
   final double currentHeight;
   final double potential;
   final double remaining;
@@ -1196,6 +1199,7 @@ class _HeroHeightCard extends StatelessWidget {
   final VoidCallback onPremiumTap;
 
   const _HeroHeightCard({
+    required this.provider,
     required this.currentHeight,
     required this.potential,
     required this.remaining,
@@ -1307,35 +1311,57 @@ class _HeroHeightCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
-                Text(
-                  currentHeight.toStringAsFixed(1),
-                  style: TextStyle(
-                    fontSize: 78,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    letterSpacing: -4,
-                    height: 1.0,
-                    shadows: [
-                      Shadow(
-                        color: AppColors.primary.withValues(alpha: 0.20),
-                        blurRadius: 30,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 6),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Text(
-                    'CM',
+                if (provider.useImperial)
+                  // Feet/inches ("5'9"") is one compound string, not a
+                  // number-plus-unit pair, so it skips the separate unit
+                  // label metric uses.
+                  Text(
+                    provider.formatHeight(currentHeight),
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white.withValues(alpha: 0.30),
-                      letterSpacing: 2,
+                      fontSize: 78,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: -4,
+                      height: 1.0,
+                      shadows: [
+                        Shadow(
+                          color: AppColors.primary.withValues(alpha: 0.20),
+                          blurRadius: 30,
+                        ),
+                      ],
+                    ),
+                  )
+                else ...[
+                  Text(
+                    currentHeight.toStringAsFixed(1),
+                    style: TextStyle(
+                      fontSize: 78,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: -4,
+                      height: 1.0,
+                      shadows: [
+                        Shadow(
+                          color: AppColors.primary.withValues(alpha: 0.20),
+                          blurRadius: 30,
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                  const SizedBox(width: 6),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Text(
+                      'CM',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white.withValues(alpha: 0.30),
+                        letterSpacing: 2,
+                      ),
+                    ),
+                  ),
+                ],
                 if (hasDelta) ...[
                   const SizedBox(width: 12),
                   Padding(
@@ -1353,7 +1379,7 @@ class _HeroHeightCard extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        '+${delta.toStringAsFixed(1)}',
+                        '+${provider.heightNumber(delta).toStringAsFixed(1)}',
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w800,
@@ -1373,7 +1399,7 @@ class _HeroHeightCard extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  '${l.target}: ${potential.toStringAsFixed(1)} cm',
+                  '${l.target}: ${provider.formatHeight(potential)}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -1399,7 +1425,10 @@ class _HeroHeightCard extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        l.remaining(remaining.toStringAsFixed(1)),
+                        l.remaining(
+                          provider.heightNumber(remaining).toStringAsFixed(1),
+                          provider.heightUnit,
+                        ),
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -2428,6 +2457,7 @@ class _ExploreHeroCardState extends State<_ExploreHeroCard> {
 // ═══════════════════════════════════════════════════════════════════
 
 class _GrowthStatsCard extends StatelessWidget {
+  final AppProvider provider;
   final double totalGrowth;
   final double lastGrowth;
   final int measurementCount;
@@ -2436,6 +2466,7 @@ class _GrowthStatsCard extends StatelessWidget {
   final AppLocalizations l;
 
   const _GrowthStatsCard({
+    required this.provider,
     required this.totalGrowth,
     required this.lastGrowth,
     required this.measurementCount,
@@ -2547,8 +2578,9 @@ class _GrowthStatsCard extends StatelessWidget {
             children: [
               _GrowthStat(
                 label: l.total,
-                value: '${totalGrowth > 0 ? '+' : ''}$totalGrowth',
-                unit: 'cm',
+                value:
+                    '${totalGrowth > 0 ? '+' : ''}${provider.heightNumber(totalGrowth).toStringAsFixed(1)}',
+                unit: provider.heightUnit,
                 color: totalGrowth > 0 ? AppColors.success : AppColors.error,
               ),
               Container(
@@ -2558,8 +2590,9 @@ class _GrowthStatsCard extends StatelessWidget {
               ),
               _GrowthStat(
                 label: l.last,
-                value: '${lastGrowth > 0 ? '+' : ''}$lastGrowth',
-                unit: 'cm',
+                value:
+                    '${lastGrowth > 0 ? '+' : ''}${provider.heightNumber(lastGrowth).toStringAsFixed(1)}',
+                unit: provider.heightUnit,
                 color: lastGrowth > 0
                     ? AppColors.success
                     : AppColors.textSecondary,

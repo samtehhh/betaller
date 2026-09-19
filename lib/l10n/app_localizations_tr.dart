@@ -185,8 +185,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String remaining(String cm) {
-    return '+$cm cm kaldı';
+  String remaining(String cm, String unit) {
+    return '+$cm $unit kaldı';
   }
 
   @override
@@ -906,8 +906,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get analysisStep5 => 'BeTaller puanı hesaplanıyor...';
 
   @override
-  String growthPotential(String cm) {
-    return '+$cm cm büyüme potansiyeli';
+  String growthPotential(String cm, String unit) {
+    return '+$cm $unit büyüme potansiyeli';
   }
 
   @override
@@ -919,8 +919,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String heightRange(String min, String max) {
-    return '$min - $max cm aralığı';
+  String heightRange(String min, String max, String unit) {
+    return '$min - $max $unit aralığı';
   }
 
   @override
@@ -2170,8 +2170,8 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String photoGainInDays(String cm, int days) {
-    return '$days günde $cm cm';
+  String photoGainInDays(String cm, int days, String unit) {
+    return '$days günde $cm $unit';
   }
 
   @override
@@ -2186,7 +2186,9 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get cmGained => 'cm kazanç';
+  String cmGained(String unit) {
+    return '$unit kazanç';
+  }
 
   @override
   String get firstPhotoMessage =>

@@ -1,0 +1,18 @@
+This is a SCAFFOLD for an App Store screenshot — a clean, deterministic layout showing the exact logo, headline, feature pills, device frame, app screenshot, and floating metric card. Your job is to polish this into a professional, high-end marketing screenshot while keeping the composition identical.
+
+KEEP EXACTLY AS-IS — do not move, resize, reword, or restyle any of these:
+- The "BeTaller" logo mark and wordmark, top-left, and its exact position
+- The headline text (wording, position, size, dark navy colour)
+- The two feature pills (icons, labels, sub-labels, white rounded card style) and their position
+- The app screenshot content shown on the phone screen
+- The floating white metric card (its text and position)
+- The soft mint-to-lavender gradient background — keep it soft and clean, no added glow/noise/texture
+- The overall layout proportions — nothing should shift position or size
+
+ENHANCE AND POLISH ONLY:
+- Replace the flat placeholder device frame with a photorealistic iPhone 15 Pro mockup — realistic brushed-titanium edge, accurate Dynamic Island, subtle screen reflections and a soft ambient shadow beneath the phone. Keep it at the exact same position, size, and crop as the scaffold (the phone must stay fully visible within the canvas, not bleed off any edge).
+- Add a very subtle, soft drop shadow beneath the white pills and the floating metric card to give them a touch of depth (like they're gently lifted off the background) — subtle, not heavy.
+- Slightly refine the overall polish/lighting so it reads as a professional App Store screenshot from a premium health/fitness app — think clean, airy, trustworthy, similar in quality bar to top-tier App Store marketing screenshots.
+- Keep all text crisp and perfectly legible.
+
+Do NOT add: extra decorative elements, glows, particles, gradients on the pills/cards, new icons, watermarks, or any text beyond what's already in the scaffold. Do NOT change the background from a soft flat gradient into anything busier. The result should look like the same screenshot, just rendered at professional production quality instead of a flat mockup.

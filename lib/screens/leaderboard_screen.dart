@@ -80,6 +80,7 @@ class LeaderboardScreen extends StatelessWidget {
               delegate: SliverChildListDelegate([
                 // ── Hero percentile card ──
                 _HeroPercentileCard(
+                  provider: provider,
                   heightCm: height,
                   pct: pct,
                   mean: mean,
@@ -111,6 +112,7 @@ class LeaderboardScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 _ReferenceTable(
+                  provider: provider,
                   age: age,
                   isMale: isMale,
                   userHeight: height,
@@ -119,10 +121,8 @@ class LeaderboardScreen extends StatelessWidget {
                   yearlyPredictions: prediction?.yearlyPredictions ?? {},
                   ethnicity: ethnicity,
                 ),
-                const SizedBox(height: 24),
 
-                // ── Scientific source note ──
-                _SourceNote(),
+
               ]),
             ),
           ),
@@ -170,6 +170,7 @@ class LeaderboardScreen extends StatelessWidget {
 // ─────────────────────────────────────────────────────────────────
 
 class _HeroPercentileCard extends StatelessWidget {
+  final AppProvider provider;
   final double heightCm;
   final double pct;
   final double mean;
@@ -178,6 +179,7 @@ class _HeroPercentileCard extends StatelessWidget {
   final bool isMale;
 
   const _HeroPercentileCard({
+    required this.provider,
     required this.heightCm,
     required this.pct,
     required this.mean,
@@ -191,7 +193,8 @@ class _HeroPercentileCard extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     final diff = heightCm - mean;
     final isAbove = diff >= 0;
-    final diffStr = '${isAbove ? '+' : '-'}${diff.abs().toStringAsFixed(1)} cm';
+    final diffStr =
+        '${isAbove ? '+' : '-'}${provider.heightNumber(diff.abs()).toStringAsFixed(1)} ${provider.heightUnit}';
 
     Color accent;
     String standing;
@@ -247,31 +250,42 @@ class _HeroPercentileCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 6),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Text(
-                          heightCm.toStringAsFixed(1),
-                          style: const TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.white,
-                            letterSpacing: -2,
-                            height: 1,
+                    provider.useImperial
+                        ? Text(
+                            provider.formatHeight(heightCm),
+                            style: const TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.white,
+                              letterSpacing: -2,
+                              height: 1,
+                            ),
+                          )
+                        : Row(
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: [
+                              Text(
+                                heightCm.toStringAsFixed(1),
+                                style: const TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.white,
+                                  letterSpacing: -2,
+                                  height: 1,
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                'cm',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white.withValues(alpha: 0.45),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          'cm',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white.withValues(alpha: 0.45),
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -338,10 +352,13 @@ class _HeroPercentileCard extends StatelessWidget {
               tween: Tween(begin: 0, end: 1),
               duration: const Duration(milliseconds: 900),
               curve: Curves.easeOutCubic,
+              // z-scores are unit-invariant, so scaling all three inputs by
+              // the same factor keeps the curve identical — only the axis
+              // labels painted from them end up in the display unit.
               builder: (context, t, _) => HeightBellCurve(
-                heightCm: heightCm,
-                mean: mean,
-                sd: sd,
+                heightCm: provider.heightNumber(heightCm),
+                mean: provider.heightNumber(mean),
+                sd: provider.heightNumber(sd),
                 percentile: pct,
                 color: accent,
                 progress: t,
@@ -380,7 +397,7 @@ class _HeroPercentileCard extends StatelessWidget {
             children: [
               _StatCol(
                 label: l.yourHeight,
-                value: '${heightCm.toStringAsFixed(1)} cm',
+                value: provider.formatHeight(heightCm),
                 color: Colors.white,
                 icon: CupertinoIcons.person_fill,
               ),
@@ -391,7 +408,7 @@ class _HeroPercentileCard extends StatelessWidget {
               ),
               _StatCol(
                 label: l.peerAvg(age),
-                value: '${mean.toStringAsFixed(1)} cm',
+                value: provider.formatHeight(mean),
                 color: AppColors.textTertiary,
                 icon: CupertinoIcons.group_solid,
               ),
@@ -411,17 +428,8 @@ class _HeroPercentileCard extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 14),
-          Center(
-            child: Text(
-              l.whoDataSource,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 10,
-                color: Colors.white.withValues(alpha: 0.28),
-              ),
-            ),
-          ),
+
+
         ],
       ),
     );
@@ -695,6 +703,7 @@ class _LegendDot extends StatelessWidget {
 // ─────────────────────────────────────────────────────────────────
 
 class _ReferenceTable extends StatelessWidget {
+  final AppProvider provider;
   final int age;
   final bool isMale;
   final double userHeight;
@@ -704,6 +713,7 @@ class _ReferenceTable extends StatelessWidget {
   final String ethnicity;
 
   const _ReferenceTable({
+    required this.provider,
     required this.age,
     required this.isMale,
     required this.userHeight,
@@ -844,7 +854,7 @@ class _ReferenceTable extends StatelessWidget {
                       Expanded(
                         flex: 3,
                         child: Text(
-                          '${m.toStringAsFixed(1)} cm',
+                          provider.formatHeight(m),
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
@@ -859,7 +869,7 @@ class _ReferenceTable extends StatelessWidget {
                         flex: 3,
                         child: rowHeight != null
                             ? Text(
-                                '${rowHeight.toStringAsFixed(1)} cm',
+                                provider.formatHeight(rowHeight),
                                 style: TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w700,
@@ -965,37 +975,4 @@ class _TableHeader extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────
-//  Source note
-// ─────────────────────────────────────────────────────────────────
 
-class _SourceNote extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context)!;
-    return GlassCard(
-      glowColor: Colors.transparent,
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Icon(
-            CupertinoIcons.info_circle,
-            size: 18,
-            color: AppColors.textTertiary,
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              l.whoSourceNote,
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w400,
-                color: AppColors.textTertiary,
-                height: 1.5,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
