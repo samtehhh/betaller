@@ -3799,7 +3799,25 @@ class AppLocalizationsDe extends AppLocalizations {
   String get paywallBestValue => 'Bester Wert';
 
   @override
+  String paywallSavePercent(String percent) {
+    return '$percent% SPAREN';
+  }
+
+  @override
+  String paywallBilledAnnually(String price) {
+    return '$price jährlich abgerechnet';
+  }
+
+  @override
+  String paywallPerWeek(String price) {
+    return '$price/Woche';
+  }
+
+  @override
   String get paywallMonthly => 'Monatlich';
+
+  @override
+  String get paywallWeekly => 'Wöchentlich';
 
   @override
   String get paywallFreeTrial => '3 Tage kostenlos';
@@ -4324,6 +4342,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String paywallTrialHeadline(String days) {
     return '$days TAGE GRATIS';
   }
+
+  @override
+  String paywallUrgencyTrial(String days) {
+    return '$days Tage risikofrei testen, jederzeit kündbar';
+  }
+
+  @override
+  String get paywallUrgencyGeneric => 'Jederzeit kündbar, ohne Verpflichtung';
 
   @override
   String paywallTrialThen(String price) {

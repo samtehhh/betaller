@@ -1065,7 +1065,12 @@
   "paywallRestoreLabel": "खरीदारी बहाल करें",
   "paywallYearly": "वार्षिक",
   "paywallBestValue": "सर्वोत्तम मूल्य",
+  "paywallBilledAnnually": "{price} सालाना बिल किया जाएगा",
+  "paywallPerWeek": "{price}/सप्ताह",
+  "paywallSavePercent": "{percent}% बचाएं",
+  "@paywallSavePercent": {"placeholders": {"percent": {"type": "String"}}},
   "paywallMonthly": "मासिक",
+  "paywallWeekly": "साप्ताहिक",
   "paywallFreeTrial": "3 दिन मुफ्त",
   "paywallLoadError": "लोड नहीं हो सका",
   "paywallCta": "मुफ्त आज़माएं",
@@ -1147,6 +1152,8 @@
   "paywallSlidePostureTitle": "अपनी मुद्रा सुधारो",
   "paywallSlidePostureCaption": "एक फ़ोटो, मापा गया स्कोर, साफ़ रूटीन।",
   "paywallTrialHeadline": "{days} दिन मुफ़्त",
+  "paywallUrgencyTrial": "{days} दिन बिना जोखिम आज़माएं, कभी भी रद्द करें",
+  "paywallUrgencyGeneric": "कभी भी रद्द करें, कोई शर्त नहीं",
   "@paywallTrialHeadline": {
     "placeholders": {
       "days": {

@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -56,6 +58,24 @@ const Duration _kResumeDelay = Duration(seconds: 7);
 /// with what the stores are actually configured to give.
 const int _kAssumedTrialDays = 3;
 
+// ── Debug-only demo prices ───────────────────────────────────────────────
+//
+// Never reach a real user: every use below is gated on [kDebugMode], so a
+// release build always falls through to the real store price or "—" —
+// never a number nobody is actually being charged. These exist purely so
+// the sheet is reviewable on a device before the store products are
+// approved/configured (App Store Connect, RevenueCat), matching the plan
+// names discussed for BeTaller (weekly/monthly/yearly).
+const double _kDemoWeekly = 4.99;
+const double _kDemoMonthly = 11.99;
+const double _kDemoYearly = 49.99;
+const String _kDemoCurrency = 'USD';
+
+String? _demoPrice(double amount) {
+  if (!kDebugMode) return null;
+  return NumberFormat.simpleCurrency(name: _kDemoCurrency).format(amount);
+}
+
 /// One plan as the sheet needs it: what the store charges, and how many days
 /// it gives away first.
 class _PlanOffer {
@@ -63,10 +83,26 @@ class _PlanOffer {
   /// Never a hardcoded stand-in — see the note where this is built.
   final String? price;
 
+  /// The store's raw numeric price, in the store's own currency. Only used to
+  /// compute the yearly-vs-monthly savings percentage and the per-week
+  /// equivalent — never shown directly, since a bare number carries no
+  /// currency and [price] already has one.
+  final double? rawPrice;
+
+  /// ISO 4217 code for [rawPrice], needed to format a derived amount (the
+  /// per-week equivalent) in the store's own currency rather than guessing
+  /// one from the device locale.
+  final String? currencyCode;
+
   /// Free days up front, or null for a plan that starts billing immediately.
   final int? trialDays;
 
-  const _PlanOffer({required this.price, required this.trialDays});
+  const _PlanOffer({
+    required this.price,
+    this.rawPrice,
+    this.currencyCode,
+    required this.trialDays,
+  });
 
   bool get hasTrial => trialDays != null && trialDays! > 0;
 }
@@ -264,24 +300,41 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     final monthly =
         current?.monthly ?? findPkg(PurchaseService.monthlyProductId);
     final annual = current?.annual ?? findPkg(PurchaseService.yearlyProductId);
+    final weekly = current?.weekly ?? findPkg(PurchaseService.weeklyProductId);
     StoreProduct? directMonthly;
     StoreProduct? directAnnual;
-    if (monthly == null || annual == null) {
+    StoreProduct? directWeekly;
+    if (monthly == null || annual == null || weekly == null) {
       for (final p in _directProducts) {
         if (p.identifier == PurchaseService.monthlyProductId) directMonthly = p;
         if (p.identifier == PurchaseService.yearlyProductId) directAnnual = p;
+        if (p.identifier == PurchaseService.weeklyProductId) directWeekly = p;
       }
     }
 
     final monthlyProduct = monthly?.storeProduct ?? directMonthly;
     final annualProduct = annual?.storeProduct ?? directAnnual;
+    final weeklyProduct = weekly?.storeProduct ?? directWeekly;
     final monthlyOffer = _PlanOffer(
-      price: monthlyProduct?.priceString,
+      price: monthlyProduct?.priceString ?? _demoPrice(_kDemoMonthly),
+      rawPrice: monthlyProduct?.price ?? (kDebugMode ? _kDemoMonthly : null),
+      currencyCode:
+          monthlyProduct?.currencyCode ?? (kDebugMode ? _kDemoCurrency : null),
       trialDays: _freeTrialDays(monthlyProduct) ?? _kAssumedTrialDays,
     );
     final annualOffer = _PlanOffer(
-      price: annualProduct?.priceString,
+      price: annualProduct?.priceString ?? _demoPrice(_kDemoYearly),
+      rawPrice: annualProduct?.price ?? (kDebugMode ? _kDemoYearly : null),
+      currencyCode:
+          annualProduct?.currencyCode ?? (kDebugMode ? _kDemoCurrency : null),
       trialDays: _freeTrialDays(annualProduct),
+    );
+    final weeklyOffer = _PlanOffer(
+      price: weeklyProduct?.priceString ?? _demoPrice(_kDemoWeekly),
+      rawPrice: weeklyProduct?.price ?? (kDebugMode ? _kDemoWeekly : null),
+      currencyCode:
+          weeklyProduct?.currencyCode ?? (kDebugMode ? _kDemoCurrency : null),
+      trialDays: _freeTrialDays(weeklyProduct),
     );
 
     return PopScope(
@@ -371,13 +424,20 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
                       bottomPad: bottomPad,
                       monthlyOffer: monthlyOffer,
                       annualOffer: annualOffer,
+                      weeklyOffer: weeklyOffer,
                       onSelectPlan: (i) => setState(() => _selectedPlan = i),
                       onRedeemPromo: _redeemPromoCode,
                       onBuy: () {
-                        final pkg = _selectedPlan == 0 ? monthly : annual;
-                        final direct = _selectedPlan == 0
-                            ? directMonthly
-                            : directAnnual;
+                        final pkg = switch (_selectedPlan) {
+                          0 => monthly,
+                          2 => weekly,
+                          _ => annual,
+                        };
+                        final direct = switch (_selectedPlan) {
+                          0 => directMonthly,
+                          2 => directWeekly,
+                          _ => directAnnual,
+                        };
                         if (pkg != null || direct != null) {
                           _purchase(pkg, product: direct);
                         } else {
@@ -561,7 +621,7 @@ class _Slide extends StatelessWidget {
 //  The purchase sheet — fixed for the life of the screen
 // ═════════════════════════════════════════════════════════════════════════════
 
-class _PurchaseSheet extends StatelessWidget {
+class _PurchaseSheet extends StatefulWidget {
   final Color accent;
   final Color onAccent;
   final bool loading;
@@ -570,6 +630,7 @@ class _PurchaseSheet extends StatelessWidget {
   final double bottomPad;
   final _PlanOffer monthlyOffer;
   final _PlanOffer annualOffer;
+  final _PlanOffer weeklyOffer;
   final ValueChanged<int> onSelectPlan;
   final VoidCallback onBuy;
   final VoidCallback onRedeemPromo;
@@ -583,221 +644,392 @@ class _PurchaseSheet extends StatelessWidget {
     required this.bottomPad,
     required this.monthlyOffer,
     required this.annualOffer,
+    required this.weeklyOffer,
     required this.onSelectPlan,
     required this.onBuy,
     required this.onRedeemPromo,
   });
 
   @override
+  State<_PurchaseSheet> createState() => _PurchaseSheetState();
+}
+
+class _PurchaseSheetState extends State<_PurchaseSheet>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctaPulse = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1400),
+  )..repeat(reverse: true);
+
+  @override
+  void dispose() {
+    _ctaPulse.dispose();
+    super.dispose();
+  }
+
+  /// The offer the sheet is currently pointing at — 0 monthly, 2 weekly,
+  /// anything else (1) annual.
+  _PlanOffer _offerFor(int plan) => switch (plan) {
+    0 => widget.monthlyOffer,
+    2 => widget.weeklyOffer,
+    _ => widget.annualOffer,
+  };
+
+  /// How much cheaper the annual plan is than paying monthly for a year,
+  /// rounded to a whole percent — or null until both raw prices are in.
+  /// Never derived from the formatted price strings: those carry a currency
+  /// symbol and locale-specific grouping, not a number to do math on.
+  int? get _yearlySavePercent {
+    final monthly = widget.monthlyOffer.rawPrice;
+    final annual = widget.annualOffer.rawPrice;
+    if (monthly == null || annual == null || monthly <= 0) return null;
+    final percent = (1 - (annual / 12) / monthly) * 100;
+    if (percent <= 0) return null;
+    return percent.round();
+  }
+
+  /// The yearly plan's true cost divided into a per-week figure, formatted in
+  /// the store's own currency — never the device locale's, which can differ
+  /// from what the store will actually charge. Null until the price and its
+  /// currency code have both loaded.
+  String? get _yearlyPerWeek {
+    final annual = widget.annualOffer.rawPrice;
+    final code = widget.annualOffer.currencyCode;
+    if (annual == null || code == null) return null;
+    try {
+      return NumberFormat.simpleCurrency(name: code).format(annual / 52);
+    } catch (_) {
+      // An unrecognised ISO code from a store we haven't seen before —
+      // fall back to the flat total rather than crash the sheet.
+      return null;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: const Color(0xFF0D0920),
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
-        border: Border(top: BorderSide(color: accent.withValues(alpha: 0.30))),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.55),
-            blurRadius: 34,
-            offset: const Offset(0, -10),
-          ),
-        ],
+    final offer = _offerFor(widget.selectedPlan);
+    final accent = widget.accent;
+    final onAccent = widget.onAccent;
+
+    // The pulse is a nudge, not a nag: off entirely once the user has
+    // committed (purchasing) or the system says to keep motion still.
+    final reduceMotion = MediaQuery.of(context).disableAnimations;
+    final wantsPulse = !reduceMotion && !widget.purchasing && !widget.loading;
+    if (wantsPulse && !_ctaPulse.isAnimating) {
+      _ctaPulse.repeat(reverse: true);
+    } else if (!wantsPulse && _ctaPulse.isAnimating) {
+      _ctaPulse.stop();
+      _ctaPulse.value = 0;
+    }
+
+    // Bounded, not just min-sized: a third plan row plus the risk-reversal
+    // banner below can outgrow a small phone's remaining height once the
+    // tour above has taken its share. Capping the sheet and scrolling its
+    // contents keeps the tour's height stable instead of it being squeezed
+    // out — the carousel keeps auto-advancing underneath untouched.
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.sizeOf(context).height * 0.62,
       ),
-      child: Padding(
-        padding: EdgeInsets.only(top: 18, bottom: math.max(bottomPad, 10)),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // ── The plans ─────────────────────────────────────────────────
-            //
-            // Full-width rows, not two narrow pills. The trial used to be
-            // nine-point grey type under a price — the place offers go to die —
-            // and the moment it was promoted to a badge the pill was too narrow
-            // to spell it: "3 gün ücre…". A row has the width to say it, and
-            // says it in filled accent so it is the loudest thing in the sheet.
-            //
-            // Prices come from the store or not at all. Falling back to a
-            // hardcoded figure showed a Turkish lira amount to every locale
-            // whenever the offering failed to load — the wrong currency and,
-            // after any price change, the wrong number. Both stores treat that
-            // as misleading pricing.
-            if (!loading)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    _PlanRow(
-                      selected: selectedPlan == 1,
-                      label: l.paywallYearly,
-                      price: annualOffer.price,
-                      badgeText: l.paywallBestValue,
-                      badgeFilled: false,
-                      accent: accent,
-                      onTap: () => onSelectPlan(1),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: const Color(0xFF0D0920),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
+          border: Border(
+            top: BorderSide(color: accent.withValues(alpha: 0.30)),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.55),
+              blurRadius: 34,
+              offset: const Offset(0, -10),
+            ),
+          ],
+        ),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            top: 18,
+            bottom: math.max(widget.bottomPad, 10),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // ── Risk-reversal banner ────────────────────────────────────
+              //
+              // The one honest lever a paywall gets to pull: no fake
+              // countdowns, no fabricated "3 people just subscribed" — both
+              // read as dark patterns and both stores reject them on sight.
+              // What's real is the trial length and the cancel-anytime
+              // terms, so that's what gets promoted to a headline instead of
+              // staying buried in a single row's badge.
+              if (!widget.loading)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 10,
                     ),
-                    const SizedBox(height: 10),
-                    _PlanRow(
-                      selected: selectedPlan == 0,
-                      label: l.paywallMonthly,
-                      price: monthlyOffer.price,
-                      badgeText: monthlyOffer.hasTrial
-                          ? l.paywallTrialHeadline('${monthlyOffer.trialDays}')
-                          : null,
-                      badgeFilled: true,
-                      accent: accent,
-                      onTap: () => onSelectPlan(0),
+                    decoration: BoxDecoration(
+                      color: accent.withValues(alpha: 0.14),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: accent.withValues(alpha: 0.30)),
                     ),
-                  ],
-                ),
-              )
-            else
-              SizedBox(
-                height: 106,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: accent,
-                    strokeWidth: 2,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.bolt_rounded, size: 16, color: accent),
+                        const SizedBox(width: 8),
+                        Flexible(
+                          child: Text(
+                            offer.hasTrial
+                                ? l.paywallUrgencyTrial('${offer.trialDays}')
+                                : l.paywallUrgencyGeneric,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
 
-            const SizedBox(height: 12),
-
-            // ── CTA ───────────────────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: GestureDetector(
-                onTap: purchasing ? null : onBuy,
-                child: Container(
-                  height: 56,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [accent, accent.withValues(alpha: 0.65)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                    borderRadius: BorderRadius.circular(17),
-                    boxShadow: [
-                      BoxShadow(
-                        color: accent.withValues(alpha: 0.40),
-                        blurRadius: 22,
-                        offset: const Offset(0, 6),
+              // ── The plans ─────────────────────────────────────────────────
+              //
+              // Full-width rows, not two narrow pills. The trial used to be
+              // nine-point grey type under a price — the place offers go to die —
+              // and the moment it was promoted to a badge the pill was too narrow
+              // to spell it: "3 gün ücre…". A row has the width to say it, and
+              // says it in filled accent so it is the loudest thing in the sheet.
+              //
+              // Prices come from the store or not at all. Falling back to a
+              // hardcoded figure showed a Turkish lira amount to every locale
+              // whenever the offering failed to load — the wrong currency and,
+              // after any price change, the wrong number. Both stores treat that
+              // as misleading pricing.
+              if (!widget.loading)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      _PlanRow(
+                        selected: widget.selectedPlan == 2,
+                        label: l.paywallWeekly,
+                        price: widget.weeklyOffer.price,
+                        badgeText: widget.weeklyOffer.hasTrial
+                            ? l.paywallTrialHeadline(
+                                '${widget.weeklyOffer.trialDays}',
+                              )
+                            : null,
+                        badgeFilled: false,
+                        accent: accent,
+                        onTap: () => widget.onSelectPlan(2),
+                      ),
+                      const SizedBox(height: 10),
+                      _PlanRow(
+                        selected: widget.selectedPlan == 0,
+                        label: l.paywallMonthly,
+                        price: widget.monthlyOffer.price,
+                        badgeText: widget.monthlyOffer.hasTrial
+                            ? l.paywallTrialHeadline(
+                                '${widget.monthlyOffer.trialDays}',
+                              )
+                            : null,
+                        badgeFilled: true,
+                        accent: accent,
+                        onTap: () => widget.onSelectPlan(0),
+                      ),
+                      const SizedBox(height: 10),
+                      _PlanRow(
+                        selected: widget.selectedPlan == 1,
+                        label: l.paywallYearly,
+                        // Led with the per-week equivalent, not the annual
+                        // total: it is the number that reads as small next to
+                        // the weekly/monthly rows above it, and it is honest
+                        // math (rawPrice / 52 in the store's own currency),
+                        // not a fabricated discount. The real total still
+                        // shows, just demoted to the sub-label, so the actual
+                        // renewal amount is never hidden.
+                        price: _yearlyPerWeek != null
+                            ? l.paywallPerWeek(_yearlyPerWeek!)
+                            : widget.annualOffer.price,
+                        subLabel: _yearlyPerWeek != null
+                            ? l.paywallBilledAnnually(
+                                widget.annualOffer.price ?? '—',
+                              )
+                            : null,
+                        badgeText: _yearlySavePercent != null
+                            ? l.paywallSavePercent('$_yearlySavePercent')
+                            : l.paywallBestValue,
+                        badgeFilled: false,
+                        accent: accent,
+                        onTap: () => widget.onSelectPlan(1),
                       ),
                     ],
                   ),
+                )
+              else
+                SizedBox(
+                  height: 106,
                   child: Center(
-                    child: purchasing
-                        ? SizedBox(
-                            width: 22,
-                            height: 22,
-                            child: CircularProgressIndicator(
-                              color: onAccent,
-                              strokeWidth: 2.5,
-                            ),
-                          )
-                        : Text(
-                            (selectedPlan == 0 ? monthlyOffer : annualOffer)
-                                    .hasTrial
-                                ? l.paywallCta
-                                : l.paywallCtaAlt,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w800,
-                              color: onAccent,
-                              letterSpacing: 0.1,
-                            ),
+                    child: CircularProgressIndicator(
+                      color: accent,
+                      strokeWidth: 2,
+                    ),
+                  ),
+                ),
+
+              const SizedBox(height: 12),
+
+              // ── CTA ───────────────────────────────────────────────────────
+              //
+              // A slow, subtle breathing scale — never bigger than 3.5%, never
+              // faster than 1.4s a cycle — draws the eye to the one button that
+              // matters without reading as nagging or broken. Off entirely
+              // under reduced motion, and while a purchase is in flight.
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ScaleTransition(
+                  scale: Tween<double>(begin: 1.0, end: 1.035).animate(
+                    CurvedAnimation(parent: _ctaPulse, curve: Curves.easeInOut),
+                  ),
+                  child: GestureDetector(
+                    onTap: widget.purchasing ? null : widget.onBuy,
+                    child: Container(
+                      height: 58,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [accent, accent.withValues(alpha: 0.65)],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                        borderRadius: BorderRadius.circular(17),
+                        boxShadow: [
+                          BoxShadow(
+                            color: accent.withValues(alpha: 0.45),
+                            blurRadius: 26,
+                            offset: const Offset(0, 6),
                           ),
+                        ],
+                      ),
+                      child: Center(
+                        child: widget.purchasing
+                            ? SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: CircularProgressIndicator(
+                                  color: onAccent,
+                                  strokeWidth: 2.5,
+                                ),
+                              )
+                            : Text(
+                                offer.hasTrial ? l.paywallCta : l.paywallCtaAlt,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w800,
+                                  color: onAccent,
+                                  letterSpacing: 0.1,
+                                ),
+                              ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            const SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                (selectedPlan == 0 ? monthlyOffer : annualOffer).hasTrial
-                    ? l.paywallTrialDisclaimer
-                    : l.paywallYearlyDisclaimer,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.white.withValues(alpha: 0.25),
-                ),
-              ),
-            ),
-            const SizedBox(height: 6),
-            if (Platform.isIOS) ...[
-              GestureDetector(
-                onTap: onRedeemPromo,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  l.paywallPromoCode,
+                  offer.hasTrial
+                      ? l.paywallTrialDisclaimer
+                      : l.paywallYearlyDisclaimer,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white.withValues(alpha: 0.45),
+                    fontSize: 10,
+                    color: Colors.white.withValues(alpha: 0.25),
                   ),
                 ),
               ),
               const SizedBox(height: 6),
-            ],
-            // Wrap, not Row: these two links are required on the purchase
-            // screen, and in German on a 320pt phone they do not fit side by
-            // side. Better a second line than a clipped one.
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Wrap(
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () => launchUrl(
-                      Uri.parse(
-                        'https://samtehhh.github.io/betaller/privacy.html',
-                      ),
-                    ),
-                    child: Text(
-                      l.privacyPolicy,
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.white.withValues(alpha: 0.40),
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.white.withValues(alpha: 0.40),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    '  ·  ',
+              if (Platform.isIOS) ...[
+                GestureDetector(
+                  onTap: widget.onRedeemPromo,
+                  child: Text(
+                    l.paywallPromoCode,
                     style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.white.withValues(alpha: 0.25),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white.withValues(alpha: 0.45),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => launchUrl(
-                      Uri.parse(
-                        'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/',
+                ),
+                const SizedBox(height: 6),
+              ],
+              // Wrap, not Row: these two links are required on the purchase
+              // screen, and in German on a 320pt phone they do not fit side by
+              // side. Better a second line than a clipped one.
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () => launchUrl(
+                        Uri.parse(
+                          'https://samtehhh.github.io/betaller/privacy.html',
+                        ),
+                      ),
+                      child: Text(
+                        l.privacyPolicy,
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.white.withValues(alpha: 0.40),
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.white.withValues(alpha: 0.40),
+                        ),
                       ),
                     ),
-                    child: Text(
-                      l.termsOfService,
+                    Text(
+                      '  ·  ',
                       style: TextStyle(
                         fontSize: 10,
-                        color: Colors.white.withValues(alpha: 0.40),
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.white.withValues(alpha: 0.40),
+                        color: Colors.white.withValues(alpha: 0.25),
                       ),
                     ),
-                  ),
-                ],
+                    GestureDetector(
+                      onTap: () => launchUrl(
+                        Uri.parse(
+                          'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/',
+                        ),
+                      ),
+                      child: Text(
+                        l.termsOfService,
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.white.withValues(alpha: 0.40),
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.white.withValues(alpha: 0.40),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -818,6 +1050,11 @@ class _PlanRow extends StatelessWidget {
   /// Never a hardcoded stand-in — see the note where this is built.
   final String? price;
 
+  /// A smaller line under the label — currently only the yearly row's real
+  /// billed total, shown under its per-week headline price so the actual
+  /// renewal amount is never hidden behind the smaller number.
+  final String? subLabel;
+
   /// Best value, or the free days. Null on a plan with neither.
   final String? badgeText;
 
@@ -832,6 +1069,7 @@ class _PlanRow extends StatelessWidget {
     required this.selected,
     required this.label,
     required this.price,
+    this.subLabel,
     required this.badgeText,
     required this.badgeFilled,
     required this.accent,
@@ -914,17 +1152,39 @@ class _PlanRow extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            Text(
-              price ?? '—',
-              maxLines: 1,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w900,
-                color: selected
-                    ? Colors.white
-                    : Colors.white.withValues(alpha: 0.60),
-                letterSpacing: -0.4,
-              ),
+            Column(
+              // Centered, not end-aligned: the sub-label ("$49.99 billed
+              // annually") almost always runs longer than the headline price
+              // above it, so right-flushing them left the shorter line
+              // hugging the badge while the longer one trailed off to its
+              // left — a ragged, "misaligned" look. Centering stacks them as
+              // one visual unit regardless of which line is wider.
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  price ?? '—',
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w900,
+                    color: selected
+                        ? Colors.white
+                        : Colors.white.withValues(alpha: 0.60),
+                    letterSpacing: -0.4,
+                  ),
+                ),
+                if (subLabel != null)
+                  Text(
+                    subLabel!,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white.withValues(alpha: 0.40),
+                    ),
+                  ),
+              ],
             ),
             if (badgeText != null) ...[
               const SizedBox(width: 8),

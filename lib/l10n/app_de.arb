@@ -1065,7 +1065,12 @@
   "paywallRestoreLabel": "Käufe wiederherstellen",
   "paywallYearly": "Jährlich",
   "paywallBestValue": "Bester Wert",
+  "paywallBilledAnnually": "{price} jährlich abgerechnet",
+  "paywallPerWeek": "{price}/Woche",
+  "paywallSavePercent": "{percent}% SPAREN",
+  "@paywallSavePercent": {"placeholders": {"percent": {"type": "String"}}},
   "paywallMonthly": "Monatlich",
+  "paywallWeekly": "Wöchentlich",
   "paywallFreeTrial": "3 Tage kostenlos",
   "paywallLoadError": "Kauf konnte nicht geladen werden",
   "paywallCta": "Kostenlos testen",
@@ -1147,6 +1152,8 @@
   "paywallSlidePostureTitle": "Haltung korrigieren",
   "paywallSlidePostureCaption": "Ein Foto, ein gemessener Wert, eine klare Routine.",
   "paywallTrialHeadline": "{days} TAGE GRATIS",
+  "paywallUrgencyTrial": "{days} Tage risikofrei testen, jederzeit kündbar",
+  "paywallUrgencyGeneric": "Jederzeit kündbar, ohne Verpflichtung",
   "@paywallTrialHeadline": {
     "placeholders": {
       "days": {

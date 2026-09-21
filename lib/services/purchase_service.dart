@@ -46,6 +46,7 @@ class PurchaseService {
   static const entitlementId = 'Premium';
   static const monthlyProductId = 'betaller.monthly';
   static const yearlyProductId = 'betaller_yearly';
+  static const weeklyProductId = 'betaller.weekly';
 
   bool _initialized = false;
 
@@ -133,6 +134,7 @@ class PurchaseService {
       final products = await Purchases.getProducts([
         monthlyProductId,
         yearlyProductId,
+        weeklyProductId,
       ]);
       debugPrint(
         'PurchaseService.getProducts: ${products.map((p) => p.identifier).toList()}',

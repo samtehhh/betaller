@@ -6902,11 +6902,35 @@ abstract class AppLocalizations {
   /// **'Best value'**
   String get paywallBestValue;
 
+  /// No description provided for @paywallSavePercent.
+  ///
+  /// In en, this message translates to:
+  /// **'SAVE {percent}%'**
+  String paywallSavePercent(String percent);
+
+  /// No description provided for @paywallBilledAnnually.
+  ///
+  /// In en, this message translates to:
+  /// **'{price} billed annually'**
+  String paywallBilledAnnually(String price);
+
+  /// No description provided for @paywallPerWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'{price}/week'**
+  String paywallPerWeek(String price);
+
   /// No description provided for @paywallMonthly.
   ///
   /// In en, this message translates to:
   /// **'Monthly'**
   String get paywallMonthly;
+
+  /// No description provided for @paywallWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get paywallWeekly;
 
   /// No description provided for @paywallFreeTrial.
   ///
@@ -7867,6 +7891,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{days} DAYS FREE'**
   String paywallTrialHeadline(String days);
+
+  /// No description provided for @paywallUrgencyTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Try risk-free for {days} days, cancel anytime'**
+  String paywallUrgencyTrial(String days);
+
+  /// No description provided for @paywallUrgencyGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel anytime, no strings attached'**
+  String get paywallUrgencyGeneric;
 
   /// No description provided for @paywallTrialThen.
   ///

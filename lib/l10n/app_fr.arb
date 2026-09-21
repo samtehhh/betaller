@@ -1065,7 +1065,12 @@
   "paywallRestoreLabel": "Restaurer les achats",
   "paywallYearly": "Annuel",
   "paywallBestValue": "Meilleur rapport",
+  "paywallBilledAnnually": "{price} facturé annuellement",
+  "paywallPerWeek": "{price}/semaine",
+  "paywallSavePercent": "ÉCONOMISEZ {percent}%",
+  "@paywallSavePercent": {"placeholders": {"percent": {"type": "String"}}},
   "paywallMonthly": "Mensuel",
+  "paywallWeekly": "Hebdomadaire",
   "paywallFreeTrial": "3 jours gratuits",
   "paywallLoadError": "Impossible de charger, réessayez",
   "paywallCta": "Essai gratuit",
@@ -1147,6 +1152,8 @@
   "paywallSlidePostureTitle": "Corrige ta posture",
   "paywallSlidePostureCaption": "Une photo, un score mesuré, une routine claire.",
   "paywallTrialHeadline": "{days} JOURS OFFERTS",
+  "paywallUrgencyTrial": "Essayez sans risque pendant {days} jours, annulez à tout moment",
+  "paywallUrgencyGeneric": "Annulez à tout moment, sans engagement",
   "@paywallTrialHeadline": {
     "placeholders": {
       "days": {

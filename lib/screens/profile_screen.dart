@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -35,13 +34,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // Dev tools are compiled in whenever kDevTools is true (debug builds, and
   // release builds built with --dart-define=DEV_TOOLS=true for internal
-  // testing) — but in a non-debug build we don't want them just sitting
-  // visible in the settings list. Holding the wordmark for a full 10s
-  // reveals them for that session; a plain debug build shows them right
-  // away, same as before, since there's nothing to hide from the developer
-  // actively running it.
-  bool _devToolsUnlocked = kDebugMode;
-  Timer? _devToolsHoldTimer;
+  // testing) — but we still don't want them just sitting visible in the
+  // settings list, even for the developer running a debug build: tapping
+  // the wordmark 10 times in quick succession reveals them; 5 more taps
+  // while revealed hides them again. Always starts hidden — there's no
+  // auto-unlock for debug builds anymore, so the same gesture is the one
+  // path in and out everywhere. A tap counter beats a timed hold here: a
+  // hold gives no feedback while it's building up, so a finger that so much
+  // as trembles cancels it with nothing to show for the wait — a tap is
+  // either counted or it isn't, and the haptic on every tap confirms it's
+  // registering in real time.
+  bool _devToolsUnlocked = false;
+  int _devToolsTapCount = 0;
+  Timer? _devToolsTapResetTimer;
 
   @override
   void initState() {
@@ -51,23 +56,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void dispose() {
-    _devToolsHoldTimer?.cancel();
+    _devToolsTapResetTimer?.cancel();
     super.dispose();
   }
 
-  void _startDevToolsHold() {
-    if (!kDevTools || _devToolsUnlocked) return;
-    _devToolsHoldTimer?.cancel();
-    _devToolsHoldTimer = Timer(const Duration(seconds: 10), () {
-      if (!mounted) return;
+  /// One tap on the wordmark. Ten while hidden reveals the dev section;
+  /// 5 while revealed hides it again. Anything slower than the window below
+  /// resets the count instead of slowly creeping up over unrelated taps
+  /// spread across a session.
+  void _onWordmarkTap() {
+    if (!kDevTools) return;
+    final target = _devToolsUnlocked ? 5 : 10;
+    _devToolsTapResetTimer?.cancel();
+    _devToolsTapCount++;
+    if (_devToolsTapCount >= target) {
+      _devToolsTapCount = 0;
       HapticFeedback.heavyImpact();
-      setState(() => _devToolsUnlocked = true);
+      setState(() => _devToolsUnlocked = !_devToolsUnlocked);
+      return;
+    }
+    HapticFeedback.selectionClick();
+    _devToolsTapResetTimer = Timer(const Duration(seconds: 2), () {
+      _devToolsTapCount = 0;
     });
-  }
-
-  void _cancelDevToolsHold() {
-    _devToolsHoldTimer?.cancel();
-    _devToolsHoldTimer = null;
   }
 
   Future<void> _loadNotifPref() async {
@@ -686,24 +697,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Center(
                       child: Column(
                         children: [
-                          // Long-pressing the wordmark opens the debug tools
-                          // in debug builds — kept off the settings list so it
-                          // never shows up in a store screenshot. Holding it
-                          // for a full 10s reveals the Geliştirici group in
-                          // any build that has kDevTools compiled in.
+                          // Ten quick taps on the wordmark reveals the
+                          // Geliştirici group in any build that has
+                          // kDevTools compiled in; 5 more taps while
+                          // revealed hides it again. Kept off the settings
+                          // list otherwise so it never shows up in a store
+                          // screenshot. (This used to be a timed long-press
+                          // to close — dropped for giving no feedback while
+                          // building up, so a slightly unsteady hold
+                          // cancelled it with nothing to show for the wait.
+                          // It also used to open a separate debug sheet on
+                          // long-press, which only duplicated the Premium/
+                          // Demo verisi switches already in the Geliştirici
+                          // group above.)
                           GestureDetector(
-                            onLongPress: kDebugMode
-                                ? () => _showDebugSheet(context, provider)
-                                : null,
-                            onLongPressStart: kDevTools
-                                ? (_) => _startDevToolsHold()
-                                : null,
-                            onLongPressEnd: kDevTools
-                                ? (_) => _cancelDevToolsHold()
-                                : null,
-                            onLongPressCancel: kDevTools
-                                ? _cancelDevToolsHold
-                                : null,
+                            onTap: kDevTools ? _onWordmarkTap : null,
                             child: ShaderMask(
                               shaderCallback: (bounds) => const LinearGradient(
                                 colors: [
@@ -783,8 +791,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ],
                           ),
-
-
                         ],
                       ),
                     ),
@@ -1443,83 +1449,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ── Debug tools ──────────────────────────────────────────────────
-  // Screenshot helpers, reachable only by long-pressing the wordmark in a
-  // debug build. Labels stay untranslated on purpose — this never ships.
-
-  void _showDebugSheet(BuildContext context, AppProvider provider) {
-    if (!kDebugMode) return;
-    HapticFeedback.mediumImpact();
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: AppColors.surfaceDark,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-      ),
-      builder: (sheetContext) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: Container(
-                  width: 36,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.5),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Debug — ekran görüntüsü araçları',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                  letterSpacing: -0.4,
-                ),
-              ),
-              const SizedBox(height: 18),
-              _DebugRow(
-                icon: CupertinoIcons.wand_stars,
-                color: AppColors.lime,
-                label: 'Demo verisi yükle',
-                subtitle:
-                    '46 günlük kullanım: ölçümler, seri, program, XP, günlük',
-                onTap: () async {
-                  Navigator.pop(sheetContext);
-                  await provider.seedDemoData();
-                  if (!context.mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Demo verisi yüklendi')),
-                  );
-                },
-              ),
-              const SizedBox(height: 10),
-              _DebugRow(
-                icon: CupertinoIcons.star_circle_fill,
-                color: AppColors.warning,
-                label: 'Premium',
-                subtitle: provider.isPremium
-                    ? 'Açık — paywall görmek için kapat'
-                    : 'Kapalı — premium ekranlar için aç',
-                trailing: provider.isPremium ? 'ON' : 'OFF',
-                onTap: () {
-                  provider.setPremium(!provider.isPremium);
-                  Navigator.pop(sheetContext);
-                },
               ),
             ],
           ),
@@ -2217,76 +2146,6 @@ class _Chip extends StatelessWidget {
           fontSize: 11,
           fontWeight: FontWeight.w800,
           color: color,
-        ),
-      ),
-    );
-  }
-}
-
-// ── Debug sheet row ───────────────────────────────────────────────
-
-class _DebugRow extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final String label;
-  final String subtitle;
-  final String? trailing;
-  final VoidCallback onTap;
-
-  const _DebugRow({
-    required this.icon,
-    required this.color,
-    required this.label,
-    required this.subtitle,
-    required this.onTap,
-    this.trailing,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.04),
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: color.withValues(alpha: 0.25)),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, size: 22, color: color),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontSize: 12,
-                      height: 1.35,
-                      color: AppColors.textTertiary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (trailing != null) ...[
-              const SizedBox(width: 10),
-              _Chip(text: trailing!, color: color),
-            ],
-          ],
         ),
       ),
     );
