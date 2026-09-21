@@ -1,0 +1,12 @@
+{
+  "bg_top": "#EAFBF2",
+  "bg_bottom": "#F1ECFB",
+  "text_color": "#14122A",
+  "brand_accent": "#8B5CF6",
+  "headline": "Grow With Daily Routines",
+  "pills": [
+    { "icon": "check", "icon_color": "#8B5CF6", "label": "Daily Plan", "sub": "4/7 completed" },
+    { "icon": "flame", "icon_color": "#FF8A00", "label": "11 Day Streak", "sub": "Discipline: Sharp" }
+  ],
+  "metric": { "value": "4/7", "label": "Completed today", "side": "right", "y_frac": 0.18 }
+}

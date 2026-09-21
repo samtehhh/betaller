@@ -3,25 +3,85 @@ workflows:
     name: iOS Build
     max_build_duration: 120
     instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: BeTaller
     environment:
       flutter: stable
       xcode: latest
+      groups:
+        - ios_credentials
+      vars:
+        BUNDLE_ID: com.glowup.boyuzatmaApp.33JY92T594
+        APP_STORE_APP_ID: "6761445065"
     scripts:
+      - name: Initialize keychain
+        script: keychain initialize
+      - name: Fetch signing files
+        script: |
+          echo "$CERTIFICATE_PRIVATE_KEY" | base64 --decode > /tmp/cert_key.pem
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --certificate-key @file:/tmp/cert_key.pem \
+            --create
+      - name: Add certificates to keychain
+        script: keychain add-certificates
+      - name: Apply provisioning profiles
+        script: xcode-project use-profiles
       - name: Get Flutter packages
+        script: flutter packages pub get
+      - name: Pre-build iOS config
+        script: flutter build ios --config-only
+      - name: Install CocoaPods
         script: |
-          flutter packages pub get
-      - name: Build iOS release (no signing)
+          cd ios
+          pod install
+      - name: Pick a build number App Store Connect has not seen
         script: |
-          flutter build ios --release --no-codesign
-      - name: Create unsigned IPA
+          # App Store Connect rejects an upload whose build number was used
+          # before, and it is easy to push a code change and forget to bump it.
+          # Ask the store what the highest number is and go one past it.
+          #
+          # Deliberately non-fatal: if this lookup fails for any reason the
+          # step says so and BUILD_NUMBER stays unset, and the build below
+          # falls back to the number in pubspec.yaml — exactly what happened
+          # before this step existed. It can slow a build down, never break it.
+          LATEST=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID" 2>/dev/null || true)
+          if echo "$LATEST" | grep -Eq '^[0-9]+$'; then
+            NEXT=$((LATEST + 1))
+            echo "BUILD_NUMBER=$NEXT" >> "$CM_ENV"
+            echo "Highest build on TestFlight is $LATEST — this one goes up as $NEXT."
+          else
+            echo "Could not read the latest build number (got: '$LATEST')."
+            echo "Falling back to the version in pubspec.yaml."
+          fi
+      - name: Build IPA
         script: |
-          cd build/ios/iphoneos
-          mkdir -p Payload
-          cp -r Runner.app Payload/
-          zip -r GlowUp.ipa Payload
+          # The developer switches — flip premium on, load the demo history —
+          # unlock every paid screen with a tap, so a build that carries them
+          # is a build that gives the subscription away. They ride along on a
+          # feature branch, where the only audience is TestFlight, and are
+          # left out of anything built from main. Ship from main.
+          if [ "$CM_BRANCH" = "main" ]; then
+            DEV_TOOLS=false
+          else
+            DEV_TOOLS=true
+          fi
+          echo "Building $CM_BRANCH with DEV_TOOLS=$DEV_TOOLS"
+
+          if [ -n "$BUILD_NUMBER" ]; then
+            flutter build ipa --release \
+              --build-number="$BUILD_NUMBER" \
+              --dart-define=DEV_TOOLS=$DEV_TOOLS --verbose
+          else
+            flutter build ipa --release \
+              --dart-define=DEV_TOOLS=$DEV_TOOLS --verbose
+          fi
     artifacts:
-      - build/ios/iphoneos/GlowUp.ipa
+      - build/ios/ipa/*.ipa
     publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
       email:
         recipients:
           - samtehhh@gmail.com

@@ -1,0 +1,12 @@
+{
+  "bg_top": "#EAFBF2",
+  "bg_bottom": "#F1ECFB",
+  "text_color": "#14122A",
+  "brand_accent": "#8B5CF6",
+  "headline": "Günlük Rutinlerle Büyü",
+  "pills": [
+    { "icon": "check", "icon_color": "#8B5CF6", "label": "Günlük Plan", "sub": "6/7 tamamlandı" },
+    { "icon": "flame", "icon_color": "#FF8A00", "label": "11 Gün Seri", "sub": "Disiplin: Keskin" }
+  ],
+  "metric": { "value": "6/7", "label": "Bugün tamamlandı", "side": "right", "y_frac": 0.18 }
+}

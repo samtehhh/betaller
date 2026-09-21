@@ -1,7 +1,7 @@
 name: boyuzatma_app
-description: "GlowUp - Boy Uzatma & Kişisel Gelişim Uygulaması"
+description: "BeTaller - Büyüme Potansiyelini Keşfet"
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.6.0+28
 
 environment:
   sdk: ^3.10.3
@@ -16,14 +16,57 @@ dependencies:
   shared_preferences: ^2.5.3
   fl_chart: ^0.70.2
   intl: ^0.20.2
+  flutter_local_notifications: ^21.0.0
+  timezone: ^0.11.0
+  share_plus: ^12.0.2
+  url_launcher: ^6.3.2
+  flutter_timezone: ^5.0.2
+  image_picker: ^1.1.2
+  path_provider: ^2.1.5
+  purchases_flutter: ^9.16.1
+  purchases_ui_flutter: ^9.16.1
+  in_app_review: ^2.0.11
+  app_links: ^6.4.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
+  remove_alpha_ios: true
+  ios_content_mode: scaleAspectFill
+  adaptive_icon_foreground: "assets/icon.png"
+  adaptive_icon_background: "#0A0A14"
 
 flutter:
+  generate: true
   uses-material-design: true
+
+  assets:
+    - assets/icon.png
+    - assets/icon_2.png
+    - assets/exercises/
+    - assets/testimonials/
+    # The paywall's hero screens are drawn from the app's own widgets now (see
+    # lib/widgets/paywall_previews.dart), so these per-language screenshots are
+    # no longer loaded by anything. Kept only until the new tour has shipped and
+    # been seen in the wild; delete the folders and these lines after that.
+    - assets/paywall/tr/
+    - assets/paywall/en/
+    - assets/paywall/de/
+    - assets/paywall/fr/
+    - assets/paywall/es/
+    - assets/paywall/it/
+    - assets/paywall/pt/
+    - assets/paywall/hi/
+    # Before/after shots for the debug demo-data seeder, and for the paywall's
+    # posture slide — which means they now ship, not just seed.
+    - assets/demo/
 
   fonts:
     - family: Inter

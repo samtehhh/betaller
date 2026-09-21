@@ -1,0 +1,12 @@
+{
+  "bg_top": "#EAFBF2",
+  "bg_bottom": "#F1ECFB",
+  "text_color": "#14122A",
+  "brand_accent": "#8B5CF6",
+  "headline": "Duruşunu Düzelt, Daha Uzun Görün",
+  "pills": [
+    { "icon": "target", "icon_color": "#8B5CF6", "label": "Postür Skoru", "sub": "65/100 puan" },
+    { "icon": "camera", "icon_color": "#FF4DB8", "label": "Öncesi/Sonrası", "sub": "Fotoğraflı takip" }
+  ],
+  "metric": { "value": "65/100", "label": "Postür puanı", "side": "right", "y_frac": 0.24 }
+}

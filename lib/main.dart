@@ -1,18 +1,27 @@
+import 'dart:async' show unawaited;
 import 'dart:io' show Platform;
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'providers/app_provider.dart';
-import 'screens/main_screen.dart';
-import 'screens/onboarding_screen.dart';
+import 'screens/splash_screen.dart';
+import 'services/notification_service.dart';
+import 'services/purchase_service.dart';
 import 'utils/constants.dart';
+import 'widgets/premium_paywall.dart';
+
+/// Lets the deep-link handler push routes without threading a BuildContext
+/// through main() — the link can arrive before the first frame is built.
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDateFormatting('tr', null);
+  await initializeDateFormatting();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -23,27 +32,100 @@ void main() async {
     systemNavigationBarIconBrightness: Brightness.light,
   ));
 
+  // The stored profile decides what the first frame looks like, so this one
+  // has to finish first. Everything else is started after the UI is up —
+  // awaiting the notification and billing SDKs here left the user staring at a
+  // blank screen for as long as they took, and a hang in either one meant the
+  // app never drew at all.
   final appProvider = AppProvider();
   await appProvider.loadData();
 
   runApp(
     ChangeNotifierProvider.value(
       value: appProvider,
-      child: const GlowUpApp(),
+      child: const BeTallerApp(),
     ),
+  );
+
+  unawaited(_initServices(appProvider));
+  unawaited(_initDeepLinks());
+}
+
+/// Handles the `betaller://paywall` link used by the App Store Connect
+/// in-app event ("3 Days - Free Trial"). Custom scheme rather than a
+/// Universal Link since the app has no associated web domain to host an
+/// apple-app-site-association file — Apple accepts either for an event's
+/// deep link.
+Future<void> _initDeepLinks() async {
+  final appLinks = AppLinks();
+
+  Future<void> handle(Uri? uri) async {
+    if (uri == null) return;
+    if (uri.host != 'paywall' && !uri.path.contains('paywall')) return;
+
+    final context = await _waitForNavigatorContext();
+    if (context != null && context.mounted) {
+      unawaited(showPremiumPaywall(context));
+    }
+  }
+
+  try {
+    await handle(await appLinks.getInitialLink());
+  } catch (e) {
+    debugPrint('Initial deep link read failed: $e');
+  }
+
+  appLinks.uriLinkStream.listen(
+    handle,
+    onError: (e) => debugPrint('Deep link stream error: $e'),
   );
 }
 
-class GlowUpApp extends StatelessWidget {
-  const GlowUpApp({super.key});
+/// The link can arrive before the first frame, so poll briefly for the
+/// navigator to exist rather than assuming a BuildContext is available.
+Future<BuildContext?> _waitForNavigatorContext() async {
+  for (var i = 0; i < 50; i++) {
+    final context = navigatorKey.currentContext;
+    if (context != null) return context;
+    await Future.delayed(const Duration(milliseconds: 100));
+  }
+  return null;
+}
+
+/// Notifications and billing, off the start-up path. Failures are contained:
+/// a dead store connection must not take the rest of the app down with it.
+Future<void> _initServices(AppProvider appProvider) async {
+  try {
+    final notifService = NotificationService();
+    await notifService.init();
+    if (await notifService.isEnabled()) {
+      // The user's own reminders, not the old fixed timetable, and in the
+      // language the app is actually running in.
+      final l = lookupAppLocalizations(appProvider.effectiveLocale);
+      await notifService.scheduleReminders(appProvider.reminders, l);
+    }
+  } catch (e) {
+    debugPrint('Notification init failed: $e');
+  }
+
+  try {
+    await PurchaseService().init();
+  } catch (e) {
+    debugPrint('Purchase init failed: $e');
+  }
+}
+
+class BeTallerApp extends StatelessWidget {
+  const BeTallerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // iOS: SF Pro (sistem fontu), Android: Inter (SF Pro klonu)
     final fontFamily = Platform.isIOS ? '.SF Pro Display' : 'Inter';
+    final provider = context.watch<AppProvider>();
 
     return MaterialApp(
-      title: 'GlowUp',
+      navigatorKey: navigatorKey,
+      title: 'BeTaller',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -67,23 +149,39 @@ class GlowUpApp extends StatelessWidget {
         highlightColor: Colors.white10,
       ),
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      locale: const Locale('tr', 'TR'),
+      locale: provider.locale,
       supportedLocales: const [
-        Locale('tr', 'TR'),
-        Locale('en', 'US'),
+        Locale('en'),
+        Locale('tr'),
+        Locale('de'),
+        Locale('fr'),
+        Locale('hi'),
+        Locale('pt'),
+        Locale('es'),
+        Locale('it'),
       ],
-      home: Consumer<AppProvider>(
-        builder: (context, provider, _) {
-          if (provider.profile == null) {
-            return const OnboardingScreen();
+      localeResolutionCallback: (deviceLocale, supported) {
+        // If user has explicitly set a locale, use it
+        if (provider.locale != null) return provider.locale;
+        // Match device locale to supported locales
+        if (deviceLocale != null) {
+          for (final s in supported) {
+            if (s.languageCode == deviceLocale.languageCode) return s;
           }
-          return const MainScreen();
-        },
+        }
+        // Fallback to English
+        return const Locale('en');
+      },
+      builder: (context, child) => ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(overscroll: false),
+        child: child!,
       ),
+      home: const SplashScreen(),
     );
   }
 }

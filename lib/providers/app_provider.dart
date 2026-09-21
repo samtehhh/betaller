@@ -1,18 +1,33 @@
 import 'dart:convert';
+import 'dart:ui' show PlatformDispatcher;
+import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../utils/dev_tools.dart';
 
 import '../models/user_profile.dart';
 import '../models/height_record.dart';
+import '../models/reminder.dart';
+import '../services/notification_service.dart';
 import '../models/routine.dart';
+import '../utils/calculations.dart';
 import '../utils/constants.dart';
+import '../utils/daily_plan.dart';
+import '../utils/height_reference.dart';
+import '../services/purchase_service.dart';
+import '../l10n/app_localizations.dart';
 
 class AppProvider extends ChangeNotifier {
   UserProfile? _profile;
   List<HeightRecord> _heightRecords = [];
   List<Routine> _routines = [];
   List<String> _completedRoutineIds = [];
+  Set<String> _hiddenRoutineIds = {};
   String _lastRoutineDate = '';
   String _lastAllCompletedDate = '';
   int _streak = 0;
@@ -20,23 +35,282 @@ class AppProvider extends ChangeNotifier {
   double _todayWater = 0;
   double _todaySleep = 0;
   String _todayQuote = '';
+  Map<int, double> _pastHeights = {}; // yaş -> boy (geçmiş boylar)
+  bool _analysisCompleted = false;
+  Locale? _locale;
+  bool _isPremium = false;
+  // false = metric (cm/kg), true = imperial (ft-in/lbs). Defaults to
+  // imperial for the US and Canada — everywhere else, including the rest
+  // of the English-speaking world, defaults to metric. loadData() only
+  // overrides this when a value was actually saved before, so an
+  // upgrading user who never touched the setting still gets this default.
+  bool _useImperial = _detectImperialDefault();
+
+  // Gamification state
+  int _totalXP = 0;
+  List<Map<String, dynamic>> _activeChallenges = [];
+  String _lastChallengeDate = '';
+  Map<String, int> _dailyChallengeProgress = {};
+
+  // ── v5 innovation features ──
+  // Progress photos: list of {id, date, path, height}
+  List<Map<String, dynamic>> _progressPhotos = [];
+  // Posture analyses: list of {id, date, path, kyphosisScore, lordosisScore, headPosScore, totalScore}
+  List<Map<String, dynamic>> _postureAnalyses = [];
+  // Custom user-created routines (stored as raw maps)
+  List<Map<String, dynamic>> _customRoutines = [];
+  // Daily caffeine intake (mg) — keyed by date
+  Map<String, int> _caffeineByDate = {};
+  // Daily stress level 1-5 — keyed by date
+  Map<String, int> _stressByDate = {};
+  // Daily mood 1-5 + optional 1-line note — keyed by date
+  Map<String, Map<String, dynamic>> _journalByDate = {};
+  // Program progression: set of completed day indices (0-based)
+  Set<int> _completedProgramDays = {};
 
   UserProfile? get profile => _profile;
   List<HeightRecord> get heightRecords => _heightRecords;
-  List<Routine> get routines => _routines;
+  List<Routine> get routines =>
+      _routines.where((r) => !_hiddenRoutineIds.contains(r.id)).toList();
+  List<Routine> get allRoutines => _routines;
+  Set<String> get hiddenRoutineIds => _hiddenRoutineIds;
+
+  void toggleRoutineVisibility(String id) {
+    if (_hiddenRoutineIds.contains(id)) {
+      _hiddenRoutineIds.remove(id);
+    } else {
+      _hiddenRoutineIds.add(id);
+      // If hiding a completed routine, also remove its completed flag from persistence
+      _completedRoutineIds.remove(id);
+      final r = _routines.firstWhere(
+        (x) => x.id == id,
+        orElse: () => Routine.fromJson(const {
+          'id': '',
+          'title': '',
+          'description': '',
+          'category': '',
+          'duration': '',
+          'icon': '',
+        }),
+      );
+      if (r.id.isNotEmpty) r.completed = false;
+    }
+    _saveData();
+    notifyListeners();
+  }
+
   int get streak => _streak;
   int get bestStreak => _bestStreak;
   double get todayWater => _todayWater;
   double get todaySleep => _todaySleep;
+  Map<int, double> get pastHeights => _pastHeights;
+  bool get analysisCompleted => _analysisCompleted;
   String get todayQuote => _todayQuote;
+  Locale? get locale => _locale;
+  bool get isPremium => _isPremium;
+  bool get hasPaidPremium => _isPremium; // Check if paid to remove ads
+  bool get useImperial => _useImperial;
+
+  // Gamification getters
+  int get totalXP => _totalXP;
+  int get level => _calculateLevel();
+  String get levelTitle =>
+      levelTitles[(_calculateLevel() - 1).clamp(0, levelTitles.length - 1)];
+  int get xpForCurrentLevel =>
+      levelThresholds[(_calculateLevel() - 1).clamp(
+        0,
+        levelThresholds.length - 1,
+      )];
+  int get xpForNextLevel => _calculateLevel() < levelThresholds.length
+      ? levelThresholds[_calculateLevel()]
+      : levelThresholds.last;
+  double get levelProgress {
+    final currentLevelXP = xpForCurrentLevel;
+    final nextLevelXP = xpForNextLevel;
+    if (nextLevelXP == currentLevelXP) return 1.0;
+    return ((_totalXP - currentLevelXP) / (nextLevelXP - currentLevelXP)).clamp(
+      0.0,
+      1.0,
+    );
+  }
+
+  List<Map<String, dynamic>> get activeChallenges => _activeChallenges;
+
+  // ── v5 getters ──
+  List<Map<String, dynamic>> get progressPhotos => _progressPhotos;
+  List<Map<String, dynamic>> get postureAnalyses => _postureAnalyses;
+  List<Map<String, dynamic>> get customRoutines => _customRoutines;
+  int get todayCaffeine => _caffeineByDate[_today] ?? 0;
+  int get todayStress => _stressByDate[_today] ?? 0;
+  Map<String, dynamic>? get todayJournal => _journalByDate[_today];
+
+  Map<String, int> get caffeineByDate => _caffeineByDate;
+  Map<String, int> get stressByDate => _stressByDate;
+  Map<String, Map<String, dynamic>> get journalByDate => _journalByDate;
+  Set<int> get completedProgramDays => _completedProgramDays;
+
+  /// Daily caffeine limit (mg) based on age — teens <100mg, adults <400mg
+  int get caffeineLimit {
+    final age = _profile?.age ?? 18;
+    if (age < 12) return 45;
+    if (age < 18) return 100;
+    return 400;
+  }
+
+  // ── Progress Photos ──
+  void addProgressPhoto(String path, double height) {
+    final photo = {
+      'id': DateTime.now().millisecondsSinceEpoch.toString(),
+      'date': _today,
+      'path': path,
+      'height': height,
+    };
+    _progressPhotos = [..._progressPhotos, photo];
+    _progressPhotos.sort(
+      (a, b) => (a['date'] as String).compareTo(b['date'] as String),
+    );
+    addXP(15);
+    _saveData();
+    notifyListeners();
+  }
+
+  void deleteProgressPhoto(String id) {
+    _progressPhotos = _progressPhotos.where((p) => p['id'] != id).toList();
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Posture Analyses ──
+  void addPostureAnalysis({
+    required String path,
+    required int kyphosisScore,
+    required int lordosisScore,
+    required int headPosScore,
+  }) {
+    final total = ((kyphosisScore + lordosisScore + headPosScore) / 3).round();
+    final analysis = {
+      'id': DateTime.now().millisecondsSinceEpoch.toString(),
+      'date': _today,
+      'path': path,
+      'kyphosisScore': kyphosisScore,
+      'lordosisScore': lordosisScore,
+      'headPosScore': headPosScore,
+      'totalScore': total,
+    };
+    _postureAnalyses = [..._postureAnalyses, analysis];
+    _postureAnalyses.sort(
+      (a, b) => (a['date'] as String).compareTo(b['date'] as String),
+    );
+    addXP(20);
+    _maybeRequestReview();
+    _saveData();
+    notifyListeners();
+  }
+
+  void deletePostureAnalysis(String id) {
+    _postureAnalyses = _postureAnalyses.where((p) => p['id'] != id).toList();
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Custom Routines ──
+  void addCustomRoutine(Map<String, dynamic> routineData) {
+    final id = 'custom_${DateTime.now().millisecondsSinceEpoch}';
+    final r = {...routineData, 'id': id};
+    _customRoutines = [..._customRoutines, r];
+    // Add to live routines list as well
+    _routines = [..._routines, Routine.fromJson(r)];
+    _saveData();
+    notifyListeners();
+  }
+
+  void deleteCustomRoutine(String id) {
+    _customRoutines = _customRoutines.where((r) => r['id'] != id).toList();
+    _routines = _routines.where((r) => r.id != id).toList();
+    _hiddenRoutineIds.remove(id);
+    _completedRoutineIds.remove(id);
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Program Day Progression ──
+  void markProgramDayComplete(int day) {
+    if (_completedProgramDays.contains(day)) return;
+    _completedProgramDays = {..._completedProgramDays, day};
+    addXP(30);
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Caffeine Tracker ──
+  void addCaffeine(int mg) {
+    _caffeineByDate[_today] = (_caffeineByDate[_today] ?? 0) + mg;
+    _saveData();
+    notifyListeners();
+  }
+
+  void resetTodayCaffeine() {
+    _caffeineByDate[_today] = 0;
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Stress Tracker ──
+  void setTodayStress(int level) {
+    _stressByDate[_today] = level.clamp(1, 5);
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Growth Journal ──
+  void setTodayJournal({required int mood, String? note}) {
+    _journalByDate[_today] = {
+      'mood': mood.clamp(1, 5),
+      'note': note ?? '',
+      'date': _today,
+    };
+    addXP(5);
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Real WHO-based height percentile ──
+  /// Returns the user's height percentile (0–100) vs global population
+  /// using WHO 2007 growth reference data embedded in HeightReference.
+  int get peerPercentile {
+    final h = _profile?.currentHeight;
+    final age = _profile?.age;
+    final isMale = (_profile?.gender ?? 'male') == 'male';
+    final ethnicity = _profile?.ethnicity ?? '';
+    if (h == null || age == null) return 50;
+    return HeightReference.percentile(
+      heightCm: h,
+      age: age,
+      isMale: isMale,
+      ethnicity: ethnicity,
+    ).round();
+  }
 
   String get _today => DateTime.now().toIso8601String().substring(0, 10);
 
-  int get completedRoutineCount => _routines.where((r) => r.completed).length;
+  /// The routines the app asks for today: the weekday's training block plus
+  /// the everyday habits. The catalogue holds far more than a day's work.
+  List<Routine> get todayRoutines {
+    final ids = dailyPlanIds();
+    final byId = {for (final r in _routines) r.id: r};
+    return [
+      for (final id in ids)
+        if (byId[id] != null && !_hiddenRoutineIds.contains(id)) byId[id]!,
+    ];
+  }
+
+  int get todayRoutineTotal => todayRoutines.length;
+  int get completedRoutineCount =>
+      todayRoutines.where((r) => r.completed).length;
   double get routineProgress =>
-      _routines.isEmpty ? 0 : completedRoutineCount / _routines.length;
+      todayRoutines.isEmpty ? 0 : completedRoutineCount / todayRoutines.length;
   bool get allRoutinesCompleted =>
-      _routines.isNotEmpty && completedRoutineCount == _routines.length;
+      todayRoutines.isNotEmpty && completedRoutineCount == todayRoutines.length;
 
   double get totalGrowth {
     if (_heightRecords.length < 2) return 0;
@@ -69,10 +343,40 @@ class AppProvider extends ChangeNotifier {
         case 'growth':
           earned = totalGrowth >= (a['value'] as int);
           break;
+        case 'tour':
+          earned = _journeyProgress >= (a['value'] as int);
+          break;
       }
       unlocked.add({...a, 'earned': earned});
     }
     return unlocked;
+  }
+
+  /// Collects achievements earned since the last check so the UI can announce
+  /// them. Marking them here means a badge is celebrated once, not on every
+  /// rebuild.
+  void checkNewAchievements() {
+    final fresh = unlockedAchievements
+        .where(
+          (x) =>
+              x['earned'] == true &&
+              !_announcedAchievements.contains(x['id'] as String),
+        )
+        .toList();
+    if (fresh.isEmpty) return;
+
+    // A first run on an account that already qualifies would fire a burst of
+    // notifications, so the very first pass only records them.
+    final firstPass = _announcedAchievements.isEmpty;
+    _announcedAchievements = {
+      ..._announcedAchievements,
+      ...fresh.map((x) => x['id'] as String),
+    };
+    if (!firstPass) {
+      _pendingAchievementNotices = [..._pendingAchievementNotices, ...fresh];
+    }
+    _saveData();
+    if (!firstPass) notifyListeners();
   }
 
   int get earnedAchievementCount =>
@@ -80,6 +384,7 @@ class AppProvider extends ChangeNotifier {
 
   Future<void> loadData() async {
     final prefs = await SharedPreferences.getInstance();
+    _demoDataActive = prefs.containsKey(_demoBackupKey);
     final data = prefs.getString('glowup_app_data');
 
     if (data != null) {
@@ -100,23 +405,118 @@ class AppProvider extends ChangeNotifier {
       _completedRoutineIds = List<String>.from(
         json['completedRoutineIds'] ?? [],
       );
+      _hiddenRoutineIds = Set<String>.from(json['hiddenRoutineIds'] ?? []);
       _todayWater = (json['todayWater'] ?? 0).toDouble();
       _todaySleep = (json['todaySleep'] ?? 0).toDouble();
+      _analysisCompleted = json['analysisCompleted'] ?? false;
+      _isPremium = json['isPremium'] ?? false;
+      _useImperial = json['useImperial'] ?? false;
+      if (json['pastHeights'] != null) {
+        _pastHeights = (json['pastHeights'] as Map<String, dynamic>).map(
+          (k, v) => MapEntry(int.parse(k), (v as num).toDouble()),
+        );
+      }
 
       final lastWaterDate = json['lastWaterDate'] ?? '';
       final lastSleepDate = json['lastSleepDate'] ?? '';
       if (lastWaterDate != _today) _todayWater = 0;
       if (lastSleepDate != _today) _todaySleep = 0;
+
+      final savedLocale = json['locale'] as String?;
+      if (savedLocale != null && savedLocale.isNotEmpty) {
+        _locale = Locale(savedLocale);
+      }
+
+      // Load gamification data
+      _totalXP = json['totalXP'] ?? 0;
+      _activeChallenges = (json['activeChallenges'] as List? ?? [])
+          .map((e) => Map<String, dynamic>.from(e as Map))
+          .toList();
+      _lastChallengeDate = json['lastChallengeDate'] ?? '';
+      _dailyChallengeProgress =
+          (json['dailyChallengeProgress'] as Map<String, dynamic>? ?? {}).map(
+            (k, v) => MapEntry(k, (v as num).toInt()),
+          );
+
+      // v5 features
+      _progressPhotos = ((json['progressPhotos'] as List?) ?? [])
+          .map((e) => Map<String, dynamic>.from(e as Map))
+          .toList();
+      _postureAnalyses = ((json['postureAnalyses'] as List?) ?? [])
+          .map((e) => Map<String, dynamic>.from(e as Map))
+          .toList();
+      _customRoutines = ((json['customRoutines'] as List?) ?? [])
+          .map((e) => Map<String, dynamic>.from(e as Map))
+          .toList();
+      _caffeineByDate = ((json['caffeineByDate'] as Map?) ?? {}).map(
+        (k, v) => MapEntry(k.toString(), (v as num).toInt()),
+      );
+      _stressByDate = ((json['stressByDate'] as Map?) ?? {}).map(
+        (k, v) => MapEntry(k.toString(), (v as num).toInt()),
+      );
+      _journalByDate = ((json['journalByDate'] as Map?) ?? {}).map(
+        (k, v) => MapEntry(k.toString(), Map<String, dynamic>.from(v as Map)),
+      );
+      _completedProgramDays = Set<int>.from(
+        (json['completedProgramDays'] as List? ?? []).map(
+          (e) => (e as num).toInt(),
+        ),
+      );
+      _reviewShownOnce = json['reviewShownOnce'] ?? false;
+      // Anyone who already answered the questionnaire has step one behind
+      // them, even if they installed before the journey existed.
+      _announcedAchievements = Set<String>.from(
+        (json['announcedAchievements'] as List?) ?? const [],
+      );
+      final storedReminders = (json['reminders'] as List?) ?? [];
+      if (storedReminders.isNotEmpty) {
+        _reminders = storedReminders
+            .map((e) => Reminder.fromJson(Map<String, dynamic>.from(e as Map)))
+            .toList();
+      }
+      _routineHistory = ((json['routineHistory'] as Map?) ?? {}).map(
+        (k, v) => MapEntry(k.toString(), List<String>.from(v as List)),
+      );
+      _journeyProgress =
+          (json['journeyProgress'] as num?)?.toInt() ??
+          (_profile != null ? 1 : 0);
     }
 
     _initRoutines();
     _checkDailyReset();
+    checkNewAchievements();
     _setDailyQuote();
+    _checkAndGenerateChallenges();
     notifyListeners();
+
+    // Sync premium status with RevenueCat entitlement
+    _syncPremiumStatus();
+  }
+
+  Future<void> _syncPremiumStatus() async {
+    // On Android we don't have a valid RevenueCat key, so skip the
+    // entitlement sync — the value stored in SharedPreferences is the
+    // source of truth (e.g. tester bypass sets it to true and it stays).
+    if (!Platform.isIOS) return;
+
+    try {
+      final hasEntitlement = await PurchaseService().checkEntitlement();
+      // Only UPGRADE to premium — never auto-downgrade.
+      // A false result could be a network error, sandbox issue, or
+      // RevenueCat cache miss. Explicit restore is the only way down.
+      if (hasEntitlement && !_isPremium) {
+        _isPremium = true;
+        _saveData();
+        notifyListeners();
+      }
+    } catch (_) {
+      // RevenueCat unreachable — keep whatever is in SharedPreferences.
+    }
   }
 
   void _initRoutines() {
-    _routines = defaultRoutines.map((r) {
+    final allRoutineMaps = [...defaultRoutines, ..._customRoutines];
+    _routines = allRoutineMaps.map((r) {
       final routine = Routine.fromJson(r);
       if (_lastRoutineDate == _today &&
           _completedRoutineIds.contains(routine.id)) {
@@ -159,10 +559,33 @@ class AppProvider extends ChangeNotifier {
       'lastRoutineDate': _lastRoutineDate,
       'lastAllCompletedDate': _lastAllCompletedDate,
       'completedRoutineIds': _completedRoutineIds,
+      'hiddenRoutineIds': _hiddenRoutineIds.toList(),
       'todayWater': _todayWater,
       'todaySleep': _todaySleep,
       'lastWaterDate': _today,
       'lastSleepDate': _today,
+      'analysisCompleted': _analysisCompleted,
+      'pastHeights': _pastHeights.map((k, v) => MapEntry(k.toString(), v)),
+      'isPremium': _isPremium,
+      'useImperial': _useImperial,
+      'locale': _locale?.languageCode ?? '',
+      'totalXP': _totalXP,
+      'activeChallenges': _activeChallenges,
+      'lastChallengeDate': _lastChallengeDate,
+      'dailyChallengeProgress': _dailyChallengeProgress,
+      // v5
+      'progressPhotos': _progressPhotos,
+      'postureAnalyses': _postureAnalyses,
+      'customRoutines': _customRoutines,
+      'caffeineByDate': _caffeineByDate,
+      'stressByDate': _stressByDate,
+      'journalByDate': _journalByDate,
+      'completedProgramDays': _completedProgramDays.toList(),
+      'reviewShownOnce': _reviewShownOnce,
+      'announcedAchievements': _announcedAchievements.toList(),
+      'reminders': _reminders.map((r) => r.toJson()).toList(),
+      'routineHistory': _routineHistory,
+      'journeyProgress': _journeyProgress,
     };
     await prefs.setString('glowup_app_data', jsonEncode(data));
   }
@@ -174,9 +597,30 @@ class AppProvider extends ChangeNotifier {
       _heightRecords.add(
         HeightRecord(date: _today, height: profile.currentHeight),
       );
+      // First time through: the onboarding just asked when this person sleeps,
+      // trains and eats, so the suggested reminders are built around those
+      // hours rather than a generic day. Only on a new profile — after that
+      // the times are the user's to set, and an edit elsewhere must not
+      // silently move reminders they have already adjusted.
+      _applyProfileReminderTimes(profile);
     }
     _saveData();
     notifyListeners();
+  }
+
+  /// Re-times the built-in reminders against the profile's daily rhythm, then
+  /// reschedules whatever is enabled.
+  void _applyProfileReminderTimes(UserProfile profile) {
+    final suggested = remindersForProfile(
+      bedtime: profile.bedtime,
+      workoutTime: profile.workoutTime,
+      mealTimes: profile.mealTimes,
+    );
+    // Custom reminders are the user's own and are left exactly as they are.
+    final custom = _reminders.where((r) => r.isCustom).toList();
+    _reminders = [...suggested, ...custom];
+    // Putting them on the clock needs the user's language, which lives in the
+    // widget tree — the onboarding schedules them the moment it finishes.
   }
 
   void updateProfile(UserProfile profile) {
@@ -189,12 +633,25 @@ class AppProvider extends ChangeNotifier {
     _heightRecords.removeWhere((r) => r.date == record.date);
     _heightRecords.add(record);
     _heightRecords.sort((a, b) => a.date.compareTo(b.date));
+    addXP(xpRewards['height_logged'] ?? 50);
+    updateChallengeProgress('weekly_measure', 1);
+    _maybeRequestReview();
+    // a measurement can unlock both counting and growth badges
+    checkNewAchievements();
     _saveData();
     notifyListeners();
   }
 
   void deleteHeightRecord(String date) {
     _heightRecords.removeWhere((r) => r.date == date);
+    // Adding a measurement syncs the profile's own currentHeight to it (see
+    // the add-measurement sheet); deleting one has to undo that the same
+    // way, or the profile is left pointing at a height that no longer has
+    // a record behind it — showing stale numbers everywhere that reads
+    // currentHeight instead of the height history directly.
+    if (_profile != null && _heightRecords.isNotEmpty) {
+      _profile = _profile!.copyWith(currentHeight: _heightRecords.last.height);
+    }
     _saveData();
     notifyListeners();
   }
@@ -210,6 +667,26 @@ class AppProvider extends ChangeNotifier {
     }
 
     _lastRoutineDate = _today;
+    _recordHistory();
+    checkNewAchievements();
+
+    // Award XP for completing a routine
+    if (routine.completed) {
+      addXP(xpRewards['routine_complete']!);
+      // Running a routine on their own is what closes the journey's last step
+      completeJourneyStep(2);
+      // Track exercise routine completions for challenges
+      if (routine.category == 'exercise') {
+        final exerciseCount = _routines
+            .where((r) => r.category == 'exercise' && r.completed)
+            .length;
+        updateChallengeProgress('daily_exercise_3', exerciseCount);
+      }
+      // Check morning stretch challenge
+      if (routine.id == 'morning_stretch' && DateTime.now().hour < 9) {
+        updateChallengeProgress('daily_stretch', 1);
+      }
+    }
 
     if (allRoutinesCompleted && _lastAllCompletedDate != _today) {
       if (_lastAllCompletedDate.isNotEmpty) {
@@ -231,23 +708,457 @@ class AppProvider extends ChangeNotifier {
       }
       _lastAllCompletedDate = _today;
       if (_streak > _bestStreak) _bestStreak = _streak;
+
+      // Award bonus XP for all routines done + streak bonus
+      addXP(xpRewards['all_routines_done']!);
+      addXP(xpRewards['streak_day']! * _streak);
+      updateChallengeProgress('daily_all_routines', 1);
+      updateChallengeProgress('weekly_streak_7', _streak);
+
+      // Send milestone notification + cancel streak risk
+      final l = lookupAppLocalizations(effectiveLocale);
+      NotificationService().sendStreakNotification(_streak, l);
+      NotificationService().cancelStreakRiskNotification();
+    }
+
+    // Trigger review at key milestones
+    if (_streak == 3 || _streak == 7 || _streak == 14 || _streak == 30) {
+      _maybeRequestReview();
+    }
+
+    // Schedule streak-at-risk if routines not all done yet
+    if (!allRoutinesCompleted && _streak >= 2) {
+      final l = lookupAppLocalizations(effectiveLocale);
+      NotificationService().scheduleStreakRiskNotification(_streak, l);
     }
 
     _saveData();
     notifyListeners();
   }
 
+  // ── App Review ──
+  bool _shouldRequestReview = false;
+  bool _reviewShownOnce =
+      false; // persisted — never show again after first time
+
+  bool get shouldRequestReview => _shouldRequestReview;
+
+  /// Triggers the review dialog — no-op if already shown once this install
+  /// or if another trigger already queued it this session.
+  void _maybeRequestReview() {
+    if (_reviewShownOnce) return;
+    if (_shouldRequestReview) return;
+    _shouldRequestReview = true;
+    notifyListeners();
+  }
+
+  /// Called by MainScreen after showing the dialog.
+  /// Marks as shown-once so it never fires again.
+  void clearReviewFlag() {
+    _shouldRequestReview = false;
+    _reviewShownOnce = true;
+    _saveData();
+  }
+
+  // ── Getting-started journey ────────────────────────────────────────────────
+  // Number of completed steps: data collection, app tour, then daily use.
+  // date -> routine ids finished that day, kept for the last 60 days so the
+  // week and month views have something to count.
+  Map<String, List<String>> _routineHistory = {};
+  Map<String, List<String>> get routineHistory => _routineHistory;
+
+  // Reminders the user can switch on, retime, or write themselves.
+  List<Reminder> _reminders = List<Reminder>.from(kDefaultReminders);
+  List<Reminder> get reminders => List.unmodifiable(_reminders);
+
+  // Achievements already announced, so one is celebrated exactly once.
+  Set<String> _announcedAchievements = {};
+  List<Map<String, dynamic>> _pendingAchievementNotices = [];
+  List<Map<String, dynamic>> get pendingAchievementNotices =>
+      List.unmodifiable(_pendingAchievementNotices);
+  void clearAchievementNotices() => _pendingAchievementNotices = [];
+
+  int _journeyProgress = 0;
+  int get journeyProgress => _journeyProgress;
+  bool get journeyComplete => _journeyProgress >= 3;
+
+  /// Marks [step] (0-based) finished. Steps only ever move forward, and a step
+  /// cannot complete before the ones in front of it.
+  /// Replaces one reminder and saves. The caller re-schedules, since only the
+  /// UI layer holds the localisations the scheduler needs.
+  void updateReminder(Reminder reminder) {
+    final i = _reminders.indexWhere((r) => r.id == reminder.id);
+    if (i == -1) {
+      _reminders = [..._reminders, reminder];
+    } else {
+      _reminders = [..._reminders]..[i] = reminder;
+    }
+    _sortReminders();
+    _saveData();
+    notifyListeners();
+  }
+
+  void addReminder(Reminder reminder) {
+    _reminders = [..._reminders, reminder];
+    _sortReminders();
+    _saveData();
+    notifyListeners();
+  }
+
+  void deleteReminder(String id) {
+    _reminders = _reminders.where((r) => r.id != id).toList();
+    _saveData();
+    notifyListeners();
+  }
+
+  void _sortReminders() {
+    _reminders.sort((a, b) {
+      final at = a.hour * 60 + a.minute;
+      final bt = b.hour * 60 + b.minute;
+      return at.compareTo(bt);
+    });
+  }
+
+  void _recordHistory() {
+    _routineHistory[_today] = List<String>.from(_completedRoutineIds);
+    if (_routineHistory.length > 60) {
+      final keys = _routineHistory.keys.toList()..sort();
+      for (final k in keys.take(_routineHistory.length - 60)) {
+        _routineHistory.remove(k);
+      }
+    }
+  }
+
+  /// How much of [date]'s plan was finished, 0-1.
+  double dayCompletionRatio(DateTime date) {
+    final key =
+        '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+    final plan = dailyPlanIds(date);
+    if (plan.isEmpty) return 0;
+    final ids = key == _today
+        ? _completedRoutineIds
+        : (_routineHistory[key] ?? const <String>[]);
+    return plan.where(ids.contains).length / plan.length;
+  }
+
+  /// Days in [key]'s week where the whole plan was finished.
+  int perfectDaysInWeek([String? key]) {
+    final target = key ?? weekKey();
+    var count = 0;
+    _routineHistory.forEach((date, ids) {
+      final d = DateTime.tryParse(date);
+      if (d == null || weekKey(d) != target) return;
+      final plan = dailyPlanIds(d);
+      if (plan.every(ids.contains)) count++;
+    });
+    return count;
+  }
+
+  /// Training routines finished in [key]'s week.
+  int workoutsInWeek([String? key]) {
+    final target = key ?? weekKey();
+    final exerciseIds = _routines
+        .where((r) => r.category == 'exercise')
+        .map((r) => r.id)
+        .toSet();
+    var count = 0;
+    _routineHistory.forEach((date, ids) {
+      final d = DateTime.tryParse(date);
+      if (d == null || weekKey(d) != target) return;
+      count += ids.where(exerciseIds.contains).length;
+    });
+    return count;
+  }
+
+  int measurementsInWeek([String? key]) {
+    final target = key ?? weekKey();
+    return _heightRecords.where((r) {
+      final d = DateTime.tryParse(r.date);
+      return d != null && weekKey(d) == target;
+    }).length;
+  }
+
+  int measurementsInMonth([String? key]) {
+    final target = key ?? monthKey();
+    return _heightRecords.where((r) {
+      final d = DateTime.tryParse(r.date);
+      return d != null && monthKey(d) == target;
+    }).length;
+  }
+
+  int photosInMonth([String? key]) {
+    final target = key ?? monthKey();
+    return _progressPhotos.where((p) {
+      final d = DateTime.tryParse(p['date'] as String? ?? '');
+      return d != null && monthKey(d) == target;
+    }).length;
+  }
+
+  int postureChecksInMonth([String? key]) {
+    final target = key ?? monthKey();
+    return _postureAnalyses.where((p) {
+      final d = DateTime.tryParse(p['date'] as String? ?? '');
+      return d != null && monthKey(d) == target;
+    }).length;
+  }
+
+  void completeJourneyStep(int step) {
+    if (step != _journeyProgress) return;
+    _journeyProgress = (step + 1).clamp(0, 3);
+    _saveData();
+    notifyListeners();
+  }
+
+  /// Called when the app walkthrough finishes or is skipped. Closes the
+  /// journey's second step and hands out the "Kararlılık" badge right away.
+  ///
+  /// This is meant to be the very first achievement most players ever see —
+  /// [checkNewAchievements]'s passive scan silently swallows whatever is
+  /// already earned the first time it ever runs for an account (so an
+  /// existing user picking up new badge definitions isn't hit with a burst
+  /// of notifications), and for a brand-new player that "first pass" would
+  /// otherwise be this exact moment. Granting it directly here skips that
+  /// guard so the badge actually pops instead of unlocking silently.
+  void completeTour() {
+    completeJourneyStep(1);
+    const id = 'commitment';
+    if (_announcedAchievements.contains(id)) return;
+    _announcedAchievements = {..._announcedAchievements, id};
+    final def = achievementDefinitions.firstWhere((a) => a['id'] == id);
+    _pendingAchievementNotices = [..._pendingAchievementNotices, def];
+    _saveData();
+    notifyListeners();
+  }
+
+  void setPremium(bool value) {
+    _isPremium = value;
+    _saveData();
+    notifyListeners();
+  }
+
+  /// The language the app is actually running in.
+  ///
+  /// A null [_locale] means "follow the device", which the UI does through
+  /// localeResolutionCallback. Background work has no context, so it has to
+  /// resolve the same way instead of defaulting to English.
+  Locale get effectiveLocale {
+    if (_locale != null) return _locale!;
+    const supported = {'en', 'tr', 'de', 'fr', 'hi', 'pt', 'es', 'it'};
+    final device = PlatformDispatcher.instance.locale.languageCode;
+    return Locale(supported.contains(device) ? device : 'en');
+  }
+
+  void setLocale(Locale newLocale) {
+    _locale = newLocale;
+    _saveData();
+    notifyListeners();
+  }
+
+  void setUseImperial(bool value) {
+    _useImperial = value;
+    _saveData();
+    notifyListeners();
+  }
+
+  /// Height/weight are always stored in cm/kg — this is the one place that
+  /// guesses a first-run display unit before the user has ever chosen one.
+  /// Everywhere else in the world (Europe included) reads a height in cm.
+  static bool _detectImperialDefault() {
+    final country = PlatformDispatcher.instance.locale.countryCode;
+    return country == 'US' || country == 'CA';
+  }
+
+  /// Short unit suffix for the current preference — "cm"/"in", used by the
+  /// growth chart, stat cards and anywhere showing a bare height number.
+  String get heightUnit => _useImperial ? 'in' : 'cm';
+
+  /// Short unit suffix for weight — "kg"/"lbs".
+  String get weightUnit => _useImperial ? 'lbs' : 'kg';
+
+  /// A stored cm value, converted to the unit the user reads in. Height is
+  /// always stored in cm regardless of this preference.
+  double heightNumber(double cm) => _useImperial ? cm / 2.54 : cm;
+
+  /// The inverse of [heightNumber] — a value the user typed in their own
+  /// unit, converted back to the cm the app stores.
+  double heightFromInput(double value) => _useImperial ? value * 2.54 : value;
+
+  /// A stored kg value, converted to the unit the user reads in.
+  double weightNumber(double kg) => _useImperial ? kg * 2.20462 : kg;
+
+  /// The inverse of [weightNumber] — a value the user typed in their own
+  /// unit, converted back to the kg the app stores.
+  double weightFromInput(double value) =>
+      _useImperial ? value / 2.20462 : value;
+
+  /// A single height value, formatted for display: "175.0 cm" or "5'11\"".
+  String formatHeight(double cm) {
+    if (!_useImperial) return '${cm.toStringAsFixed(1)} cm';
+    final totalInches = cm / 2.54;
+    var feet = totalInches ~/ 12;
+    var inches = (totalInches % 12).round();
+    // Rounding up can hit 12 (e.g. 182cm → 5'12"), carry into next foot.
+    if (inches == 12) {
+      feet += 1;
+      inches = 0;
+    }
+    return "$feet'$inches\"";
+  }
+
+  /// A height difference (can be negative), e.g. "+2.5 cm" or "+1.0 in".
+  String formatHeightDelta(double deltaCm) {
+    final sign = deltaCm > 0 ? '+' : '';
+    if (!_useImperial) return '$sign${deltaCm.toStringAsFixed(1)} cm';
+    return '$sign${(deltaCm / 2.54).toStringAsFixed(1)} in';
+  }
+
+  /// Convert kg to display string based on unit preference
+  String formatWeight(double kg) {
+    if (!_useImperial) return '${kg.toStringAsFixed(1)} kg';
+    return '${(kg * 2.20462).toStringAsFixed(1)} lbs';
+  }
+
   void addWater(double amount) {
-    _todayWater = double.parse((_todayWater + amount).toStringAsFixed(1));
+    final waterGoal = _profile != null
+        ? Calculations.dailyWaterNeed(_profile!.weight)
+        : 2.5;
+    final wasUnderGoal = _todayWater < waterGoal;
+    _todayWater = double.parse(
+      (_todayWater + amount).clamp(0.0, 99.0).toStringAsFixed(1),
+    );
+    if (wasUnderGoal && _todayWater >= waterGoal) {
+      addXP(xpRewards['water_goal']!);
+      updateChallengeProgress('daily_water', 1);
+      // Track weekly water days via dailyChallengeProgress
+      final weeklyWaterKey = 'weekly_water_days_${_today.substring(0, 7)}';
+      _dailyChallengeProgress[weeklyWaterKey] =
+          (_dailyChallengeProgress[weeklyWaterKey] ?? 0) + 1;
+      updateChallengeProgress(
+        'weekly_water_5',
+        _dailyChallengeProgress[weeklyWaterKey]!,
+      );
+    }
     _saveData();
     notifyListeners();
   }
 
   void updateSleep(double hours) {
+    final wasUnderGoal = _todaySleep < 8.0;
     _todaySleep = hours;
+    if (wasUnderGoal && _todaySleep >= 8.0) {
+      addXP(xpRewards['sleep_goal']!);
+      updateChallengeProgress('daily_sleep_early', hours.round());
+      // Track weekly sleep days
+      final weeklySleepKey = 'weekly_sleep_days_${_today.substring(0, 7)}';
+      _dailyChallengeProgress[weeklySleepKey] =
+          (_dailyChallengeProgress[weeklySleepKey] ?? 0) + 1;
+      updateChallengeProgress(
+        'weekly_sleep_5',
+        _dailyChallengeProgress[weeklySleepKey]!,
+      );
+    }
     _saveData();
     notifyListeners();
   }
+
+  void savePastHeights(Map<int, double> heights) {
+    _pastHeights = heights;
+    _analysisCompleted = true;
+    _saveData();
+    notifyListeners();
+  }
+
+  void resetAnalysis() {
+    _pastHeights = {};
+    _analysisCompleted = false;
+    _saveData();
+    notifyListeners();
+  }
+
+  // ── Gamification Methods ──────────────────────────────────────────
+
+  int _calculateLevel() {
+    for (int i = levelThresholds.length - 1; i >= 0; i--) {
+      if (_totalXP >= levelThresholds[i]) return i + 1;
+    }
+    return 1;
+  }
+
+  void addXP(int amount) {
+    if (amount <= 0) return;
+    _totalXP += amount;
+    _saveData();
+  }
+
+  void _checkAndGenerateChallenges() {
+    if (_lastChallengeDate == _today && _activeChallenges.isNotEmpty) return;
+
+    // Generate new daily challenges (pick 3 random from daily templates)
+    final dailyTemplates = challengeTemplates
+        .where((c) => c['type'] == 'daily')
+        .toList();
+    final rng = Random();
+    final shuffled = List<Map<String, dynamic>>.from(dailyTemplates)
+      ..shuffle(rng);
+    final pickedDaily = shuffled.take(3).toList();
+
+    // Keep active weekly challenges that aren't completed, or generate new ones
+    final existingWeekly = _activeChallenges
+        .where((c) => c['type'] == 'weekly' && c['completed'] != true)
+        .toList();
+
+    if (existingWeekly.isEmpty) {
+      // Pick 2 random weekly challenges
+      final weeklyTemplates = challengeTemplates
+          .where((c) => c['type'] == 'weekly')
+          .toList();
+      final shuffledWeekly = List<Map<String, dynamic>>.from(weeklyTemplates)
+        ..shuffle(rng);
+      final pickedWeekly = shuffledWeekly.take(2).toList();
+      existingWeekly.addAll(
+        pickedWeekly.map((c) => {...c, 'progress': 0, 'completed': false}),
+      );
+    }
+
+    _activeChallenges = [
+      ...pickedDaily.map((c) => {...c, 'progress': 0, 'completed': false}),
+      ...existingWeekly,
+    ];
+
+    _lastChallengeDate = _today;
+    _saveData();
+  }
+
+  void updateChallengeProgress(String challengeId, int progress) {
+    for (int i = 0; i < _activeChallenges.length; i++) {
+      final challenge = _activeChallenges[i];
+      if (challenge['id'] == challengeId && challenge['completed'] != true) {
+        _activeChallenges[i] = {...challenge, 'progress': progress};
+        // Check if target reached
+        final target = challenge['target'] as int;
+        if (progress >= target) {
+          _activeChallenges[i]['completed'] = true;
+          _awardChallengeXP(challengeId);
+        }
+        _saveData();
+        notifyListeners();
+        return;
+      }
+    }
+  }
+
+  void _awardChallengeXP(String challengeId) {
+    for (final challenge in _activeChallenges) {
+      if (challenge['id'] == challengeId) {
+        final reward =
+            challenge['xpReward'] as int? ?? xpRewards['challenge_complete']!;
+        addXP(reward);
+        return;
+      }
+    }
+  }
+
+  // ── Reset ────────────────────────────────────────────────────────
 
   void resetAllData() async {
     _profile = null;
@@ -259,11 +1170,271 @@ class AppProvider extends ChangeNotifier {
     _bestStreak = 0;
     _todayWater = 0;
     _todaySleep = 0;
+    _pastHeights = {};
+    _analysisCompleted = false;
+    _totalXP = 0;
+    _activeChallenges = [];
+    _lastChallengeDate = '';
+    _dailyChallengeProgress = {};
+    _reviewShownOnce = false;
+    _announcedAchievements = {};
+    _pendingAchievementNotices = [];
+    _routineHistory = {};
+    _reminders = List<Reminder>.from(kDefaultReminders);
+    _journeyProgress = 0;
+    // v5 state — without these a reset leaves the old journal, tracker and
+    // program history behind, which reads as a half-wiped account.
+    _progressPhotos = [];
+    _postureAnalyses = [];
+    _customRoutines = [];
+    _caffeineByDate = {};
+    _stressByDate = {};
+    _journalByDate = {};
+    _completedProgramDays = {};
+    _hiddenRoutineIds = {};
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('glowup_app_data');
 
     _initRoutines();
     notifyListeners();
+  }
+
+  // ── Demo data ────────────────────────────────────────────────────
+  // Debug-only. Fills the account with a plausible history so store and
+  // paywall screenshots have something to show instead of empty states.
+
+  String _dateKey(DateTime d) =>
+      '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+
+  /// Rewrites the account as if the app had been used for [days] days:
+  /// height measurements, routine history, streak, program progress, XP,
+  /// wellness logs and challenges. Keeps the profile and premium flag.
+  /// No-op outside debug builds.
+  /// Everything the app owns lives under one key, so the real data can be
+  /// set aside whole and put back when the demo is switched off.
+  static const _dataKey = 'glowup_app_data';
+  static const _demoBackupKey = 'glowup_demo_backup';
+
+  bool _demoDataActive = false;
+
+  /// Whether the demo history is the one currently on screen.
+  bool get demoDataActive => _demoDataActive;
+
+  Future<void> seedDemoData({int days = 46}) async {
+    if (!kDevTools) return;
+
+    // Put the real history somewhere safe first. Guarded, so seeding twice
+    // cannot overwrite the backup with demo data.
+    final prefs = await SharedPreferences.getInstance();
+    if (!prefs.containsKey(_demoBackupKey)) {
+      final real = prefs.getString(_dataKey);
+      if (real != null) await prefs.setString(_demoBackupKey, real);
+    }
+    _demoDataActive = true;
+
+    final today = DateTime.now();
+    final startedAt = today.subtract(Duration(days: days - 1));
+
+    // ── Profile stays, but the join date has to fit the history ──
+    if (_profile != null) {
+      _profile = UserProfile.fromJson({
+        ..._profile!.toJson(),
+        'createdAt': startedAt.toIso8601String(),
+      });
+    }
+
+    // ── Height measurements: ten readings, +1.1 cm over the window ──
+    final endHeight = _profile?.currentHeight ?? 170.0;
+    const cumulativeGain = [0.0, 0.1, 0.3, 0.4, 0.5, 0.6, 0.8, 0.9, 1.0, 1.1];
+    _heightRecords = [
+      for (var i = 0; i < cumulativeGain.length; i++)
+        HeightRecord(
+          date: _dateKey(
+            startedAt.add(
+              Duration(
+                days: ((days - 1) * i / (cumulativeGain.length - 1)).round(),
+              ),
+            ),
+          ),
+          height: double.parse(
+            (endHeight - cumulativeGain.last + cumulativeGain[i])
+                .toStringAsFixed(1),
+          ),
+        ),
+    ];
+
+    // ── Routine history: mostly complete, with a few off days early on ──
+    _routineHistory = {};
+    for (var back = days - 1; back >= 1; back--) {
+      final date = today.subtract(Duration(days: back));
+      final plan = dailyPlanIds(date);
+      // The last ten days run clean so the streak on screen is believable.
+      final double ratio;
+      if (back <= 10) {
+        ratio = 1.0;
+      } else if (back % 11 == 3) {
+        ratio = 0.5;
+      } else if (back % 7 == 5) {
+        ratio = 0.75;
+      } else {
+        ratio = 1.0;
+      }
+      _routineHistory[_dateKey(date)] = plan
+          .take((plan.length * ratio).round())
+          .toList();
+    }
+
+    // ── Today: one item left open, so the ring reads as in progress ──
+    final todayPlan = dailyPlanIds(today);
+    _completedRoutineIds = todayPlan.take(todayPlan.length - 1).toList();
+    _lastRoutineDate = _dateKey(today);
+    _lastAllCompletedDate = _dateKey(today.subtract(const Duration(days: 1)));
+
+    // ── Streak: count the unbroken run of full days ending yesterday ──
+    var streak = 0;
+    for (var back = 1; back < days; back++) {
+      final date = today.subtract(Duration(days: back));
+      final plan = dailyPlanIds(date);
+      final done = _routineHistory[_dateKey(date)] ?? const <String>[];
+      if (plan.isNotEmpty && done.length >= plan.length) {
+        streak++;
+      } else {
+        break;
+      }
+    }
+    _streak = streak;
+    _bestStreak = streak > 21 ? streak : 21;
+
+    // ── 70-day discipline program: everything but today's step ──
+    _completedProgramDays = {for (var i = 0; i < days - 1; i++) i};
+
+    // ── Wellness logs ──
+    _caffeineByDate = {};
+    _stressByDate = {};
+    _journalByDate = {};
+    for (var back = days - 1; back >= 0; back--) {
+      final key = _dateKey(today.subtract(Duration(days: back)));
+      _caffeineByDate[key] = 30 + (back * 17) % 70;
+      _stressByDate[key] = 1 + back % 3;
+      // Note left blank on purpose: a canned sentence would be in the wrong
+      // language the moment the screenshots are taken in another locale.
+      _journalByDate[key] = {'mood': 3 + back % 3, 'note': '', 'date': key};
+    }
+
+    final waterGoal = _profile != null
+        ? Calculations.dailyWaterNeed(_profile!.weight)
+        : 2.5;
+    // Water goal met, sleep just over target: both bars read as done.
+    _todayWater = double.parse(waterGoal.toStringAsFixed(1));
+    _todaySleep = 8.2;
+
+    // ── Level 9 of 20 — earned-looking without maxing the bar out ──
+    _totalXP = 4200;
+
+    _analysisCompleted = true;
+    _journeyProgress = 3;
+    _reviewShownOnce = true;
+
+    // Badges the history already earned are marked as seen, so seeding does
+    // not fire a burst of congratulation notifications.
+    _announcedAchievements = {
+      for (final a in unlockedAchievements)
+        if (a['earned'] == true) a['id'] as String,
+    };
+    _pendingAchievementNotices = [];
+
+    // ── Challenges: fresh set for today, the first two already claimed and
+    // the rest one step short, so the card shows both states at once ──
+    _activeChallenges = [];
+    _lastChallengeDate = '';
+    _dailyChallengeProgress = {};
+    _checkAndGenerateChallenges();
+    _activeChallenges = [
+      for (var i = 0; i < _activeChallenges.length; i++)
+        if (i < 2)
+          {
+            ..._activeChallenges[i],
+            'progress': _activeChallenges[i]['target'],
+            'completed': true,
+          }
+        else
+          {
+            ..._activeChallenges[i],
+            'progress': (_activeChallenges[i]['target'] as int) > 1
+                ? (_activeChallenges[i]['target'] as int) - 1
+                : 0,
+          },
+    ];
+
+    // ── Progress photos: a before/after pair from bundled stand-ins ──
+    await _seedDemoPhotos(startedAt, today);
+
+    _initRoutines();
+    await _saveData();
+    notifyListeners();
+  }
+
+  /// Copies the bundled demo shots into the same folder the camera flow writes
+  /// to, then registers them, so the gallery and the before/after comparison
+  /// have real files to read. Leaves the list untouched if the copy fails.
+  /// Puts the real history back and forgets the demo.
+  ///
+  /// The demo's photo files are left on disk — they are a handful of copies of
+  /// a bundled asset, and the restored record no longer points at them.
+  Future<void> clearDemoData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final backup = prefs.getString(_demoBackupKey);
+    if (backup == null) {
+      _demoDataActive = false;
+      notifyListeners();
+      return;
+    }
+    await prefs.setString(_dataKey, backup);
+    await prefs.remove(_demoBackupKey);
+    _demoDataActive = false;
+    await loadData();
+    notifyListeners();
+  }
+
+  Future<void> _seedDemoPhotos(DateTime startedAt, DateTime today) async {
+    const sources = [
+      ('assets/demo/posture_before.png', 0),
+      ('assets/demo/posture_after.png', 1),
+    ];
+    try {
+      final appDir = await getApplicationDocumentsDirectory();
+      final photosDir = Directory('${appDir.path}/progress_photos');
+      if (!photosDir.existsSync()) photosDir.createSync(recursive: true);
+
+      final first = _heightRecords.isNotEmpty
+          ? _heightRecords.first.height
+          : (_profile?.currentHeight ?? 170.0);
+      final last = _heightRecords.isNotEmpty
+          ? _heightRecords.last.height
+          : (_profile?.currentHeight ?? 170.0);
+
+      final photos = <Map<String, dynamic>>[];
+      for (final (asset, index) in sources) {
+        final bytes = await rootBundle.load(asset);
+        final file = File('${photosDir.path}/demo_$index.jpg');
+        await file.writeAsBytes(
+          bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes),
+          flush: true,
+        );
+        final date = index == 0 ? startedAt : today;
+        photos.add({
+          'id': 'demo_$index',
+          'date': _dateKey(date),
+          'path': file.path,
+          'height': index == 0 ? first : last,
+        });
+      }
+      _progressPhotos = photos;
+    } catch (_) {
+      // Asset missing or storage unavailable — better an empty gallery than
+      // rows pointing at files that are not there.
+      _progressPhotos = [];
+    }
   }
 }

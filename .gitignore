@@ -21,7 +21,6 @@ ios/Pods/
 ios/.symlinks/
 ios/Flutter/Flutter.framework
 ios/Flutter/Flutter.podspec
-ios/Runner.xcworkspace/
 
 # Node (React side)
 node_modules/
@@ -45,3 +44,9 @@ dist-ssr/
 .claude/
 devtools_options.yaml
 pubspec.lock
+
+# Android upload signing — never commit
+android/key.properties
+
+# Local test builds — built on demand, not shipped from source control
+release-builds/

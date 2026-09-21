@@ -1,0 +1,4339 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Hindi (`hi`).
+class AppLocalizationsHi extends AppLocalizations {
+  AppLocalizationsHi([String locale = 'hi']) : super(locale);
+
+  @override
+  String get navHome => 'होम';
+
+  @override
+  String get navAnalysis => 'विश्लेषण';
+
+  @override
+  String get navRoutines => 'दिनचर्या';
+
+  @override
+  String get disciplineTitle => 'अनुशासन';
+
+  @override
+  String get disciplineProgramTitle => 'अनुशासन कार्यक्रम';
+
+  @override
+  String disciplineJourneyDay(int done, int total) {
+    return '$done/$total दिन';
+  }
+
+  @override
+  String get disciplineCompleteDay => 'दिन पूरा करें';
+
+  @override
+  String disciplineDayN(int n) {
+    return 'दिन $n';
+  }
+
+  @override
+  String get disciplineLevels => 'स्तर';
+
+  @override
+  String get disciplineLevelDone => 'पूर्ण';
+
+  @override
+  String get disciplineLocked => 'लॉक्ड';
+
+  @override
+  String get disciplineTodayIs => 'आज';
+
+  @override
+  String get disciplineToday => 'आज';
+
+  @override
+  String get disciplineTodayPlan => 'आज की योजना';
+
+  @override
+  String get disciplineWeek => 'इस सप्ताह';
+
+  @override
+  String get disciplineMonth => 'इस महीने';
+
+  @override
+  String get disciplineLevel => 'अनुशासन स्तर';
+
+  @override
+  String disciplineStreakDays(int days) {
+    return '$days दिनों की लगातार स्ट्रीक';
+  }
+
+  @override
+  String disciplineToNext(int days) {
+    return 'अगले स्तर तक $days दिन';
+  }
+
+  @override
+  String get disciplineMaxTier => 'सर्वोच्च स्तर प्राप्त';
+
+  @override
+  String get disciplineTierSpark => 'स्पार्क';
+
+  @override
+  String get disciplineTierSteady => 'स्थिर';
+
+  @override
+  String get disciplineTierSharp => 'तेज़';
+
+  @override
+  String get disciplineTierSolid => 'मज़बूत';
+
+  @override
+  String get disciplineTierRelentless => 'अथक';
+
+  @override
+  String get disciplineTierUnbroken => 'अटूट';
+
+  @override
+  String get disciplineTierLegend => 'लीजेंड';
+
+  @override
+  String get goalPerfectDays => 'जितने दिन आपने योजना पूरी की';
+
+  @override
+  String get goalWorkouts => 'वर्कआउट सत्र';
+
+  @override
+  String get goalMeasurement => 'ऊंचाई माप';
+
+  @override
+  String get goalPhoto => 'प्रगति फोटो';
+
+  @override
+  String get goalPostureCheck => 'पॉस्चर जांच';
+
+  @override
+  String get disciplineAllDone => 'आज पूर्ण';
+
+  @override
+  String disciplineDayProgress(int done, int total) {
+    return '$done/$total पूर्ण';
+  }
+
+  @override
+  String get navProgress => 'प्रगति';
+
+  @override
+  String get trackingSection => 'आपके ट्रैकिंग टूल्स';
+
+  @override
+  String get photosBenefit =>
+      'पहले और बाद की फोटो, साथ-साथ। बदलाव पढ़ें नहीं, देखें।';
+
+  @override
+  String get postureBenefit =>
+      'किफोसिस, लॉर्डोसिस और सिर की स्थिति। अच्छा पॉस्चर अकेले 2-3 सेमी के बराबर है।';
+
+  @override
+  String get reportBenefit =>
+      'अपने सप्ताह को दिन-प्रतिदिन स्कोर करें और देखें कि कहां चूक हुई।';
+
+  @override
+  String get photosCta => 'फोटो जोड़ें';
+
+  @override
+  String get postureCta => 'विश्लेषण करें';
+
+  @override
+  String get reportCta => 'रिपोर्ट खोलें';
+
+  @override
+  String get toolStateReady => 'तैयार';
+
+  @override
+  String get photosSummaryEmpty => 'अपनी पहली फोटो जोड़ें';
+
+  @override
+  String photosSummaryCount(int count) {
+    return '$count फोटो';
+  }
+
+  @override
+  String get postureSummaryEmpty => 'अभी तक कोई विश्लेषण नहीं';
+
+  @override
+  String postureSummaryScore(int score) {
+    return '$score/100 पॉस्चर';
+  }
+
+  @override
+  String get navProfile => 'प्रोफ़ाइल';
+
+  @override
+  String greeting(String name) {
+    return 'नमस्ते, $name';
+  }
+
+  @override
+  String get currentHeight => 'वर्तमान ऊँचाई';
+
+  @override
+  String get target => 'लक्ष्य';
+
+  @override
+  String completed(String pct) {
+    return '$pct% पूरा';
+  }
+
+  @override
+  String remaining(String cm, String unit) {
+    return '+$cm $unit शेष';
+  }
+
+  @override
+  String get updateAnalysis => 'विश्लेषण अपडेट करें';
+
+  @override
+  String get analysisSubtitle =>
+      'पिछली ऊँचाइयों + आदतों से भविष्यवाणी प्राप्त करें';
+
+  @override
+  String get dailyRoutines => 'दैनिक दिनचर्या';
+
+  @override
+  String get allRoutinesDone => 'सभी दिनचर्या पूरी हो गईं!';
+
+  @override
+  String get water => 'पानी';
+
+  @override
+  String get sleep => 'नींद';
+
+  @override
+  String get growthSummary => 'विकास सारांश';
+
+  @override
+  String get total => 'कुल';
+
+  @override
+  String get last => 'अंतिम';
+
+  @override
+  String get measurement => 'माप';
+
+  @override
+  String get dailyTip => 'आज की सलाह';
+
+  @override
+  String get waterTracking => 'पानी ट्रैकिंग';
+
+  @override
+  String get waterGoalReached => 'दैनिक लक्ष्य पूरा हुआ';
+
+  @override
+  String waterRemaining(String amount) {
+    return '$amount L बाकी';
+  }
+
+  @override
+  String get undo => 'पूर्ववत करें';
+
+  @override
+  String waterToday(String amount) {
+    return 'आज: $amount L';
+  }
+
+  @override
+  String get sleepTracking => 'नींद ट्रैकिंग';
+
+  @override
+  String sleepTarget(String hours) {
+    return 'लक्ष्य: $hours घंटे';
+  }
+
+  @override
+  String get hours => 'घंटे';
+
+  @override
+  String get save => 'सहेजें';
+
+  @override
+  String get cancel => 'रद्द करें';
+
+  @override
+  String get analysis => 'विश्लेषण';
+
+  @override
+  String get betallerScore => 'BeTaller स्कोर';
+
+  @override
+  String get genetic => 'आनुवंशिक';
+
+  @override
+  String get growth => 'विकास';
+
+  @override
+  String get nutrition => 'पोषण';
+
+  @override
+  String get sleepLabel => 'नींद';
+
+  @override
+  String get discipline => 'अनुशासन';
+
+  @override
+  String get improveScore => 'अपना स्कोर बढ़ाएँ';
+
+  @override
+  String gradeProgress(String current, String next) {
+    return '$current → $next';
+  }
+
+  @override
+  String get nutritionCritical => 'पोषण गंभीर!';
+
+  @override
+  String get nutritionStrengthen => 'पोषण मजबूत करें';
+
+  @override
+  String get sleepRecordAdd => 'नींद रिकॉर्ड जोड़ें';
+
+  @override
+  String get sleepPoor => 'खराब नींद शेड्यूल';
+
+  @override
+  String get sleepImprove => 'नींद सुधारें';
+
+  @override
+  String get startToday => 'आज से शुरू करें!';
+
+  @override
+  String routinesRemaining(int count) {
+    return '$count दिनचर्या शेष';
+  }
+
+  @override
+  String get keepStreak => 'लगातार बनाए रखें';
+
+  @override
+  String get addFirstMeasurement => 'पहला माप जोड़ें';
+
+  @override
+  String get addMeasurement => 'माप जोड़ें';
+
+  @override
+  String waterHalfNotReached(String amount) {
+    return 'आपने आज अपने पानी के लक्ष्य का आधा भी पूरा नहीं किया। ${amount}L और पिएँ।';
+  }
+
+  @override
+  String waterAlmostDone(String amount) {
+    return 'पानी के लक्ष्य तक पहुँचने में ${amount}L बाकी। लगभग हो गया!';
+  }
+
+  @override
+  String bmiLow(String bmi) {
+    return 'आपका BMI $bmi है — थोड़ा कम। प्रोटीन और कैलोरी का सेवन बढ़ाएँ।';
+  }
+
+  @override
+  String get bodyFactsTitle => 'आपका शरीर';
+
+  @override
+  String get dailyNeedsTitle => 'आपके दैनिक लक्ष्य';
+
+  @override
+  String bmiHigh(String bmi) {
+    return 'आपका BMI $bmi है — थोड़ा अधिक। स्वस्थ खान-पान पर ध्यान दें।';
+  }
+
+  @override
+  String get nutritionDefault =>
+      'अपना पानी का लक्ष्य पूरा करें और संतुलित पोषण बनाए रखें।';
+
+  @override
+  String sleepNoRecord(String hours) {
+    return 'आज नींद का कोई रिकॉर्ड नहीं। $hours घंटे का लक्ष्य रखें और रिकॉर्ड करें।';
+  }
+
+  @override
+  String sleepInsufficient(String current, String missing) {
+    return 'आपने आज $current घंटे सोए — $missing घंटे कम। जल्दी सोएँ!';
+  }
+
+  @override
+  String sleepAlmost(String hours) {
+    return 'लगभग हो गया। $hours घंटे की नींद ग्रोथ हार्मोन को अधिकतम करेगी।';
+  }
+
+  @override
+  String get sleepGood => 'बढ़िया नींद शेड्यूल! ऐसे ही जारी रखें।';
+
+  @override
+  String noRoutinesDone(int total) {
+    return 'आज कोई दिनचर्या पूरी नहीं हुई। $total में से एक से शुरू करें!';
+  }
+
+  @override
+  String routinesPartial(int done, int total, int left) {
+    return 'आज $done/$total दिनचर्या पूरी। $left और बाकी!';
+  }
+
+  @override
+  String streakBuilding(int needed) {
+    return 'आज बढ़िया काम! लगातार शुरू करने के लिए $needed और दिन।';
+  }
+
+  @override
+  String streakContinue(int days) {
+    return '$days दिन की लगातार श्रृंखला! जारी रखते हुए आपका स्कोर बढ़ता है।';
+  }
+
+  @override
+  String get noMeasurements =>
+      'अभी तक कोई ऊँचाई माप नहीं। सटीक भविष्यवाणी के लिए पहला जोड़ें।';
+
+  @override
+  String fewMeasurements(int count) {
+    return 'विकास की गति जानने के लिए $count और माप जोड़ें।';
+  }
+
+  @override
+  String goodMeasurements(int count) {
+    return 'आपके पास $count माप हैं। 5 तक पहुँचने पर सटीकता काफी बढ़ेगी।';
+  }
+
+  @override
+  String get keepMeasuring =>
+      'माप जोड़ते रहें। हर नया डेटा भविष्यवाणी को बेहतर बनाता है।';
+
+  @override
+  String get heightPrediction => 'ऊँचाई भविष्यवाणी';
+
+  @override
+  String get predictedHeightAt21 => '21 पर अनुमानित ऊँचाई';
+
+  @override
+  String get predictionMethod =>
+      'आनुवंशिक (माता-पिता), विकास गति, BMI और आयु डेटा मिलाकर गणना की गई।';
+
+  @override
+  String get growthStatus => 'विकास स्थिति';
+
+  @override
+  String get growthRemaining => 'अभी भी आगे';
+
+  @override
+  String get growthBreakdown => 'ये सेंटीमीटर कहां से आते हैं';
+
+  @override
+  String get geneticGainLabel => 'आनुवंशिक लाभ';
+
+  @override
+  String get lifestyleLabel => 'जीवनशैली';
+
+  @override
+  String get geneticCeilingLabel => 'अधिकतम';
+
+  @override
+  String get reachableTargetHeight => 'आपकी प्राप्य लक्ष्य ऊंचाई';
+
+  @override
+  String get geneticCeilingProgress => 'आनुवंशिक सीमा की ओर प्रगति';
+
+  @override
+  String get completionLabel => 'पूर्णता';
+
+  @override
+  String get growthVelocity => 'विकास गति';
+
+  @override
+  String get noData => 'कोई डेटा नहीं';
+
+  @override
+  String growthRate(String rating) {
+    return 'विकास दर: $rating';
+  }
+
+  @override
+  String get bmi => 'BMI';
+
+  @override
+  String get calories => 'कैलोरी';
+
+  @override
+  String get kcalDay => 'kcal/दिन';
+
+  @override
+  String get daily => 'दैनिक';
+
+  @override
+  String get protein => 'प्रोटीन';
+
+  @override
+  String get minimum => 'न्यूनतम';
+
+  @override
+  String get age => 'आयु';
+
+  @override
+  String get male => 'पुरुष';
+
+  @override
+  String get female => 'महिला';
+
+  @override
+  String get yearlyPrediction => 'वार्षिक भविष्यवाणी';
+
+  @override
+  String ageYear(int age) {
+    return '$age वर्ष';
+  }
+
+  @override
+  String get progressTitle => 'प्रगति ट्रैकिंग';
+
+  @override
+  String get totalGrowth => 'कुल';
+
+  @override
+  String get lastDiff => 'अंतिम अंतर';
+
+  @override
+  String get measurementCount => 'माप';
+
+  @override
+  String get heightChart => 'ऊँचाई चार्ट';
+
+  @override
+  String get chartMinData => 'चार्ट के लिए कम से कम 2 माप आवश्यक हैं';
+
+  @override
+  String get chartInstruction => 'अपना प्रगति चार्ट देखने के लिए माप जोड़ें!';
+
+  @override
+  String get addMeasurementButton => 'नया माप जोड़ें';
+
+  @override
+  String get measurementHistory => 'माप इतिहास';
+
+  @override
+  String get deleteTitle => 'माप हटाएँ';
+
+  @override
+  String get deleteMessage => 'क्या आप वाकई इस माप को हटाना चाहते हैं?';
+
+  @override
+  String get dismiss => 'रद्द करें';
+
+  @override
+  String get delete => 'हटाएँ';
+
+  @override
+  String get newMeasurement => 'नया ऊँचाई माप';
+
+  @override
+  String get routines => 'दिनचर्या';
+
+  @override
+  String streakDays(int days) {
+    return '$days दिन';
+  }
+
+  @override
+  String get progressStatus => 'प्रगति स्थिति';
+
+  @override
+  String get completedLabel => 'पूरा हुआ!';
+
+  @override
+  String get all => 'सभी';
+
+  @override
+  String get exercise => 'व्यायाम';
+
+  @override
+  String get posture => 'मुद्रा';
+
+  @override
+  String bestStreak(int days) {
+    return 'सर्वश्रेष्ठ: $days दिन';
+  }
+
+  @override
+  String get editProfile => 'प्रोफ़ाइल संपादित करें';
+
+  @override
+  String get editProfileSubtitle => 'ऊँचाई, वज़न, आयु की जानकारी अपडेट करें';
+
+  @override
+  String get name => 'नाम';
+
+  @override
+  String birthDate(String date) {
+    return 'जन्म: $date';
+  }
+
+  @override
+  String get heightCm => 'ऊँचाई (सेमी)';
+
+  @override
+  String get weightKg => 'वज़न (किग्रा)';
+
+  @override
+  String get fatherHeight => 'पिता की ऊँचाई (सेमी)';
+
+  @override
+  String get motherHeight => 'माता की ऊँचाई (सेमी)';
+
+  @override
+  String get notifications => 'सूचनाएँ';
+
+  @override
+  String get reminderNextLabel => 'अगला रिमाइंडर';
+
+  @override
+  String get reminderManageHint => 'अपने रिमाइंडर प्रबंधित करें';
+
+  @override
+  String get reminderOffCta => 'नोटिफिकेशन चालू करें';
+
+  @override
+  String get stateOn => 'चालू';
+
+  @override
+  String get stateOff => 'बंद';
+
+  @override
+  String get reminderMasterTitle => 'नोटिफिकेशन';
+
+  @override
+  String reminderActiveCount(int count) {
+    return '$count रिमाइंडर चालू';
+  }
+
+  @override
+  String get reminderBuiltIn => 'बिल्ट-इन रिमाइंडर';
+
+  @override
+  String get reminderYourOwn => 'आपके अपने रिमाइंडर';
+
+  @override
+  String get reminderAdd => 'रिमाइंडर जोड़ें';
+
+  @override
+  String get reminderDays => 'दिन';
+
+  @override
+  String get reminderEveryDay => 'हर दिन';
+
+  @override
+  String get reminderLabelHint => 'आपको किस बारे में याद दिलाएं?';
+
+  @override
+  String get reminderEmptyHint =>
+      'अपना खुद का जोड़ें: वर्कआउट, विटामिन, स्ट्रेचिंग, जो भी आपको चाहिए।';
+
+  @override
+  String get reminderCustom => 'रिमाइंडर';
+
+  @override
+  String get reminderCustomBody => 'आपका तय किया समय हो गया है।';
+
+  @override
+  String get reminderExercise => 'व्यायाम';
+
+  @override
+  String get reminderNutrition => 'पोषण';
+
+  @override
+  String get reminderWater => 'पानी';
+
+  @override
+  String get reminderPosture => 'पॉस्चर';
+
+  @override
+  String get reminderRoutine => 'दैनिक रूटीन';
+
+  @override
+  String get reminderSleep => 'नींद';
+
+  @override
+  String get reminderMeasurement => 'ऊंचाई माप';
+
+  @override
+  String get notificationsOn => 'रिमाइंडर चालू';
+
+  @override
+  String get notificationsOff => 'रिमाइंडर बंद';
+
+  @override
+  String get premium => 'Premium में अपग्रेड करें';
+
+  @override
+  String get premiumSubtitle => 'सभी सुविधाएँ अनलॉक करें';
+
+  @override
+  String get rateUs => 'हमें रेट करें';
+
+  @override
+  String get rateSubtitle => 'ऐप पसंद आया? हमें 5 स्टार दें!';
+
+  @override
+  String get share => 'ऐप शेयर करें';
+
+  @override
+  String get shareSubtitle => 'अपने दोस्तों को BeTaller के बारे में बताएँ';
+
+  @override
+  String get shareText =>
+      'मैंने BeTaller से अपनी विकास क्षमता जानी! आप भी आज़माएँ: https://apps.apple.com/app/id6761445065';
+
+  @override
+  String get feedback => 'फ़ीडबैक दें';
+
+  @override
+  String get feedbackSubtitle => 'हमसे संपर्क करें';
+
+  @override
+  String get resetData => 'सभी डेटा रीसेट करें';
+
+  @override
+  String get resetSubtitle => 'सभी डेटा हटा दिया जाएगा';
+
+  @override
+  String get resetTitle => 'डेटा रीसेट करें';
+
+  @override
+  String get resetMessage =>
+      'सभी डेटा हटा दिया जाएगा और आप ऑनबोर्डिंग स्क्रीन पर वापस आ जाएँगे। यह पूर्ववत नहीं किया जा सकता!';
+
+  @override
+  String get reset => 'रीसेट';
+
+  @override
+  String get premiumSoon => 'Premium जल्द आ रहा है!';
+
+  @override
+  String get brandingSubtitle => 'अपनी विकास क्षमता जानें';
+
+  @override
+  String get statistics => 'आँकड़े';
+
+  @override
+  String get profileGroupSupport => 'सहायता';
+
+  @override
+  String get profileGroupAccount => 'खाता';
+
+  @override
+  String get profileGroupApp => 'ऐप';
+
+  @override
+  String get profileGroupDanger => 'खतरे का क्षेत्र';
+
+  @override
+  String profileMemberSince(String date) {
+    return '$date से सदस्य';
+  }
+
+  @override
+  String get profileYourJourney => 'आपकी यात्रा';
+
+  @override
+  String get profileTotalGrowth => 'कुल';
+
+  @override
+  String get currentStreak => 'वर्तमान श्रृंखला';
+
+  @override
+  String get bestStreakLabel => 'सर्वश्रेष्ठ श्रृंखला';
+
+  @override
+  String get achievementLabel => 'उपलब्धि';
+
+  @override
+  String get achievements => 'उपलब्धियाँ';
+
+  @override
+  String get achievementUnlockedTitle => '🏆 उपलब्धि अनलॉक!';
+
+  @override
+  String get reminderTapHint => 'समय और दिन बदलने के लिए किसी एक पर टैप करें';
+
+  @override
+  String get earned => 'अर्जित!';
+
+  @override
+  String get notEarned => 'अभी तक अर्जित नहीं';
+
+  @override
+  String get ok => 'ठीक है';
+
+  @override
+  String get language => 'भाषा';
+
+  @override
+  String get languageSubtitle => 'ऐप की भाषा बदलें';
+
+  @override
+  String get onboardingTitle => 'BeTaller';
+
+  @override
+  String get onboardingSubtitle => 'अपनी विकास क्षमता जानें';
+
+  @override
+  String get onboardingMeetYou => 'आइए आपको जानते हैं';
+
+  @override
+  String get onboardingInfoNeeded =>
+      'विश्लेषण के लिए बुनियादी जानकारी आवश्यक है।';
+
+  @override
+  String get gender => 'लिंग';
+
+  @override
+  String get birthDateLabel => 'जन्म तिथि';
+
+  @override
+  String get bodyMeasurements => 'शारीरिक माप';
+
+  @override
+  String get bodyInfo =>
+      'विश्लेषण के लिए आपकी वर्तमान ऊँचाई और वज़न आवश्यक हैं।';
+
+  @override
+  String get geneticData => 'आनुवंशिक डेटा';
+
+  @override
+  String get geneticInfo =>
+      'माता-पिता की ऊँचाई आपकी आनुवंशिक क्षमता निर्धारित करती है।';
+
+  @override
+  String get pastHeights => 'पिछली ऊँचाइयाँ';
+
+  @override
+  String get pastHeightsInfo =>
+      'विभिन्न आयु में याद की गई ऊँचाइयाँ दर्ज करें। खाली छोड़ सकते हैं।';
+
+  @override
+  String get heightHint => 'ऊँचाई दर्ज करें...';
+
+  @override
+  String get ageLabel => 'आयु';
+
+  @override
+  String get habits => 'आपकी आदतें';
+
+  @override
+  String get habitsInfo =>
+      'आपकी जीवनशैली सीधे भविष्यवाणियों को प्रभावित करती है।';
+
+  @override
+  String get weeklyExercise => 'साप्ताहिक व्यायाम';
+
+  @override
+  String get dailySleep => 'दैनिक नींद';
+
+  @override
+  String get nutritionQuality => 'पोषण गुणवत्ता';
+
+  @override
+  String get nutritionDesc => 'प्रोटीन, डेयरी, सब्जियाँ, फल का सेवन';
+
+  @override
+  String get nutritionBad => 'बुरा';
+
+  @override
+  String get nutritionPoor => 'कमज़ोर';
+
+  @override
+  String get nutritionMedium => 'औसत';
+
+  @override
+  String get nutritionGood => 'अच्छा';
+
+  @override
+  String get nutritionGreat => 'बहुत अच्छा';
+
+  @override
+  String get startAnalysis => 'विश्लेषण शुरू करें';
+
+  @override
+  String get continueBtn => 'जारी रखें';
+
+  @override
+  String get analyzeBtn => 'विश्लेषण करें';
+
+  @override
+  String get analyzing => 'विश्लेषण हो रहा है';
+
+  @override
+  String get analysisComplete => 'पूरा हुआ!';
+
+  @override
+  String get analysisDataReceivedTitle => 'डेटा प्राप्त हुआ';
+
+  @override
+  String get analysisDataReceivedSubtitle => 'आपका विश्लेषण शुरू हो रहा है...';
+
+  @override
+  String get yourScore => 'आपका BeTaller स्कोर';
+
+  @override
+  String get letsStart => 'शुरू करें';
+
+  @override
+  String get splashJourneySubtitle => 'तुम्हारी यात्रा शुरू होती है। 🚀';
+
+  @override
+  String get splashPlanSubtitle =>
+      'तुम्हारी व्यक्तिगत योजना तैयार है।\nअपनी ऊंचाई की क्षमता जानने के लिए तैयार हो?';
+
+  @override
+  String get doneBtn => 'हो गया';
+
+  @override
+  String get analysisStep1 => 'आनुवंशिक डेटा का विश्लेषण हो रहा है...';
+
+  @override
+  String get analysisStep2 => 'विकास गति की गणना हो रही है...';
+
+  @override
+  String get analysisStep3 => 'पोषण और नींद डेटा प्रोसेस हो रहा है...';
+
+  @override
+  String get analysisStep4 => 'ऊँचाई भविष्यवाणी तैयार हो रही है...';
+
+  @override
+  String get analysisStep5 => 'BeTaller स्कोर की गणना हो रही है...';
+
+  @override
+  String growthPotential(String cm, String unit) {
+    return '+$cm $unit विकास क्षमता';
+  }
+
+  @override
+  String get heightAt21 => '21 वर्ष की आयु में';
+
+  @override
+  String confidenceLevel(String pct) {
+    return '$pct% विश्वास स्तर';
+  }
+
+  @override
+  String heightRange(String min, String max, String unit) {
+    return '$min - $max $unit सीमा';
+  }
+
+  @override
+  String get currentLabel => 'वर्तमान';
+
+  @override
+  String get predictedLabel => 'अनुमानित';
+
+  @override
+  String get yearlyPredictions => 'वार्षिक भविष्यवाणियाँ';
+
+  @override
+  String get tipMorningMeasure =>
+      'सुबह ऊँचाई मापें - दिन में डिस्क दबाव से ऊँचाई कम होती है। सबसे सटीक माप सुबह होता है।';
+
+  @override
+  String get tipProteinSpread =>
+      'प्रोटीन सेवन को भोजन में बाँटें। एक बार में सब न खाएँ, हर भोजन में प्रोटीन लें।';
+
+  @override
+  String get tipGrowthHormone =>
+      'ग्रोथ हार्मोन नींद के दौरान चरम पर होता है। रात 10 बजे से 2 बजे के बीच सो जाएँ!';
+
+  @override
+  String get tipVitaminD =>
+      'रोज़ 15 मिनट धूप में रहने से विटामिन D का उत्पादन बढ़ता है। विटामिन D कैल्शियम अवशोषण के लिए ज़रूरी है।';
+
+  @override
+  String get tipBarHanging =>
+      'बार पर लटकने से रीढ़ की हड्डी डीकंप्रेस होती है। रोज़ 3x30 सेकंड आज़माएँ।';
+
+  @override
+  String get tipSwimming =>
+      'तैराकी पूरे शरीर की कसरत और ऊँचाई बढ़ाने में सहायक सबसे अच्छा खेल है।';
+
+  @override
+  String get tipStress =>
+      'तनाव ग्रोथ हार्मोन को दबाता है। ध्यान और योग से तनाव कम करें।';
+
+  @override
+  String get routineMorningStretch => 'सुबह की स्ट्रेचिंग';
+
+  @override
+  String get routineMorningStretchDesc =>
+      'उठने के बाद 10 मिनट स्ट्रेचिंग करें। रीढ़ और पैर की मांसपेशियों को खींचें।';
+
+  @override
+  String get routineBarHanging => 'बार पर लटकना';
+
+  @override
+  String get routineBarHangingDesc =>
+      'रीढ़ को फैलाने के लिए पुल-अप बार पर लटकें। 3 सेट x 30 सेकंड।';
+
+  @override
+  String get routineCobraStretch => 'कोबरा स्ट्रेच';
+
+  @override
+  String get routineCobraStretchDesc =>
+      'पेट के बल लेटें और ऊपरी शरीर उठाएँ। रीढ़ खींचें। 3 सेट x 15 सेकंड।';
+
+  @override
+  String get routineJumping => 'कूदने के व्यायाम';
+
+  @override
+  String get routineJumpingDesc =>
+      'रस्सी कूदना या स्क्वाट जंप। ग्रोथ प्लेट्स को उत्तेजित करता है। 3 सेट x 20 बार।';
+
+  @override
+  String get routineSwimming => 'तैराकी या बास्केटबॉल';
+
+  @override
+  String get routineSwimmingDesc =>
+      'ऊँचाई बढ़ाने में सहायक कोई खेल खेलें। कम से कम 30 मिनट।';
+
+  @override
+  String get routineYoga => 'शाम का योग और स्ट्रेचिंग';
+
+  @override
+  String get routineYogaDesc =>
+      'सोने से पहले योग और स्ट्रेचिंग। तनाव मुक्त करें, मांसपेशियों को आराम दें।';
+
+  @override
+  String get routineProtein => 'प्रोटीन सेवन';
+
+  @override
+  String get routineProteinDesc =>
+      'अंडे, चिकन, मछली, डेयरी। रोज़ कम से कम 1.5g/kg प्रोटीन।';
+
+  @override
+  String get routineCalcium => 'कैल्शियम और विटामिन D';
+
+  @override
+  String get routineCalciumDesc =>
+      'दूध, पनीर, दही लें। 15 मिनट धूप लें। हड्डियों के विकास के लिए ज़रूरी।';
+
+  @override
+  String get routineWater => 'पानी पीने का लक्ष्य';
+
+  @override
+  String get routineWaterDesc =>
+      'रोज़ कम से कम 2-3 लीटर पानी पिएँ। चयापचय और विकास के लिए आवश्यक।';
+
+  @override
+  String get routineAvoidJunk => 'जंक फ़ूड से बचें';
+
+  @override
+  String get routineAvoidJunkDesc =>
+      'फास्ट फ़ूड, मीठे पेय और प्रोसेस्ड खाद्य पदार्थों से दूर रहें।';
+
+  @override
+  String get routineSleep => 'गुणवत्ता वाली नींद (8-10 घंटे)';
+
+  @override
+  String get routineSleepDesc =>
+      'ग्रोथ हार्मोन नींद में निकलता है। रात 10 बजे-सुबह 6 बजे सुनहरे घंटे हैं।';
+
+  @override
+  String get routineNoScreen => 'सोने से पहले स्क्रीन ब्रेक';
+
+  @override
+  String get routineNoScreenDesc =>
+      'सोने से 1 घंटे पहले फ़ोन और कंप्यूटर रख दें। मेलाटोनिन उत्पादन को न रोकें।';
+
+  @override
+  String get routinePosture => 'मुद्रा जाँच';
+
+  @override
+  String get routinePostureDesc =>
+      'पीठ सीधी रखें, कंधे पीछे। हर घंटे जाँचें। अच्छी मुद्रा = 2-3 सेमी का अंतर।';
+
+  @override
+  String get routineWallStand => 'दीवार व्यायाम';
+
+  @override
+  String get routineWallStandDesc =>
+      'दीवार से पीठ लगाएँ: एड़ी, कूल्हे, कंधे, सिर दीवार से लगा हो। 5 मिनट रुकें।';
+
+  @override
+  String get routineSprintIntervals => 'स्प्रिंट इंटरवल ट्रेनिंग';
+
+  @override
+  String get routineSprintIntervalsDesc =>
+      'स्प्रिंट इंटरवल ट्रेनिंग उच्च तीव्रता वाले विस्फोटों से महत्वपूर्ण ग्रोथ हार्मोन रिलीज़ को सक्रिय करती है।';
+
+  @override
+  String get routineHiitWorkout => 'HIIT वर्कआउट';
+
+  @override
+  String get routineHiitWorkoutDesc =>
+      'ग्रोथ हार्मोन रिलीज़ को अधिकतम करने के लिए उच्च तीव्रता वाली इंटरवल ट्रेनिंग।';
+
+  @override
+  String get routineSquats => 'बॉडीवेट स्क्वाट्स';
+
+  @override
+  String get routineSquatsDesc =>
+      'बॉडीवेट स्क्वाट्स पैरों और रीढ़ की ग्रोथ प्लेट्स को उत्तेजित करते हैं।';
+
+  @override
+  String get routineDeadliftStretch => 'डेडलिफ्ट स्ट्रेच';
+
+  @override
+  String get routineDeadliftStretchDesc =>
+      'रीढ़ की हड्डी के डीकंप्रेशन और वर्टिब्रल डिस्क स्वास्थ्य के लिए डेडलिफ्ट स्ट्रेच।';
+
+  @override
+  String get routineOverheadPress => 'ओवरहेड प्रेस';
+
+  @override
+  String get routineOverheadPressDesc =>
+      'ओवरहेड प्रेस रीढ़ की हड्डी को खींचता है और मुद्रा की मांसपेशियों को मजबूत करता है।';
+
+  @override
+  String get routineSkippingRope => 'रस्सी कूदना';
+
+  @override
+  String get routineSkippingRopeDesc =>
+      'रस्सी से बार-बार कूदना निचले अंगों की ग्रोथ प्लेट्स को उत्तेजित करता है।';
+
+  @override
+  String get routinePilatesCore => 'पिलाटीज़ कोर';
+
+  @override
+  String get routinePilatesCoreDesc =>
+      'पिलाटीज़ कोर व्यायाम रीढ़ की हड्डी के संरेखण और मुद्रा का समर्थन करते हैं।';
+
+  @override
+  String get routineInversionHang => 'उल्टा लटकना';
+
+  @override
+  String get routineInversionHangDesc =>
+      'उल्टा लटकने से रीढ़ की डिस्क डीकंप्रेस होती हैं, अस्थायी रूप से 1-2 सेमी जोड़ सकता है।';
+
+  @override
+  String get routineZincIntake => 'ज़िंक से भरपूर खाद्य पदार्थ';
+
+  @override
+  String get routineZincIntakeDesc =>
+      'ग्रोथ हार्मोन उत्पादन के लिए दिन भर ज़िंक से भरपूर खाद्य पदार्थ खाएँ।';
+
+  @override
+  String get routineVitaminDSunlight => 'विटामिन D और धूप';
+
+  @override
+  String get routineVitaminDSunlightDesc =>
+      'विटामिन D संश्लेषण और हड्डियों की वृद्धि के लिए कम से कम 15 मिनट सीधी धूप लें।';
+
+  @override
+  String get routineArginineFoods => 'आर्जिनिन से भरपूर खाद्य पदार्थ';
+
+  @override
+  String get routineArginineFoodsDesc =>
+      'ग्रोथ हार्मोन स्राव को उत्तेजित करने के लिए आर्जिनिन से भरपूर खाद्य पदार्थ खाएँ।';
+
+  @override
+  String get routineDailyCalories => 'दैनिक कैलोरी लक्ष्य';
+
+  @override
+  String get routineDailyCaloriesDesc =>
+      'अपना दैनिक कैलोरी लक्ष्य पूरा करें — कम कैलोरी लेने से विकास धीमा होता है।';
+
+  @override
+  String get routineSleepEnvironment => 'नींद का वातावरण सुधारें';
+
+  @override
+  String get routineSleepEnvironmentDesc =>
+      'मेलाटोनिन और ग्रोथ हार्मोन रिलीज़ को अधिकतम करने के लिए अंधेरा और ठंडा सोने का वातावरण बनाएँ।';
+
+  @override
+  String get routinePreSleepRoutine => 'सोने से पहले की दिनचर्या';
+
+  @override
+  String get routinePreSleepRoutineDesc =>
+      'नियमित सोने से पहले की दिनचर्या गहरी नींद की गुणवत्ता को 23% तक बेहतर बनाती है।';
+
+  @override
+  String get routineNeckStretches => 'गर्दन की स्ट्रेचिंग';
+
+  @override
+  String get routineNeckStretchesDesc =>
+      'गर्दन की स्ट्रेचिंग दबाव से राहत देती है और सर्वाइकल संरेखण में सुधार करती है।';
+
+  @override
+  String get routineShoulderRolls => 'कंधे खोलने के व्यायाम';
+
+  @override
+  String get routineShoulderRollsDesc =>
+      'कंधे खोलने से आगे झुकी मुद्रा ठीक होती है, दिखने में 1-2 सेमी का अंतर हो सकता है।';
+
+  @override
+  String get achieveCommitment => 'दृढ़ संकल्प';
+
+  @override
+  String get achieveCommitmentDesc =>
+      'सारा डेटा भरें, ऐप को पूरी तरह से एक्सप्लोर करें और इस्तेमाल शुरू करें';
+
+  @override
+  String get achieveFirstDay => 'पहला कदम';
+
+  @override
+  String get achieveFirstDayDesc => 'अपना पहला दिन पूरा करें';
+
+  @override
+  String get achieveThreeStreak => '3 दिन की श्रृंखला';
+
+  @override
+  String get achieveThreeStreakDesc => 'लगातार 3 दिन दिनचर्या पूरी करें';
+
+  @override
+  String get achieveWeekStreak => '7 दिन की श्रृंखला';
+
+  @override
+  String get achieveWeekStreakDesc => 'लगातार 7 दिन दिनचर्या पूरी करें';
+
+  @override
+  String get achieveTwoWeekStreak => '14 दिन की श्रृंखला';
+
+  @override
+  String get achieveTwoWeekStreakDesc => 'लगातार 14 दिन जारी रखें';
+
+  @override
+  String get achieveMonthStreak => '30 दिन की श्रृंखला';
+
+  @override
+  String get achieveMonthStreakDesc => 'लगातार 30 दिन पूरे करें';
+
+  @override
+  String get achieveTwoMonthStreak => '60 दिन की श्रृंखला';
+
+  @override
+  String get achieveTwoMonthStreakDesc => 'लगातार 60 दिन पूरे करें';
+
+  @override
+  String get achieveHundredStreak => '100 दिन की श्रृंखला';
+
+  @override
+  String get achieveHundredStreakDesc => 'लगातार 100 दिन पूरे करें';
+
+  @override
+  String get achieveFirstMeasure => 'पहला माप';
+
+  @override
+  String get achieveFirstMeasureDesc => 'अपना पहला ऊँचाई माप रिकॉर्ड करें';
+
+  @override
+  String get achieveThreeMeasures => 'ट्रैकर';
+
+  @override
+  String get achieveThreeMeasuresDesc => '3 ऊँचाई माप रिकॉर्ड करें';
+
+  @override
+  String get achieveFiveMeasures => 'नियमित ट्रैकिंग';
+
+  @override
+  String get achieveFiveMeasuresDesc => '5 ऊँचाई माप रिकॉर्ड करें';
+
+  @override
+  String get achieveTenMeasures => 'डेटा शिकारी';
+
+  @override
+  String get achieveTenMeasuresDesc => '10 ऊँचाई माप रिकॉर्ड करें';
+
+  @override
+  String get achieveFirstCm => 'पहला सेंटीमीटर';
+
+  @override
+  String get achieveFirstCmDesc => 'कुल 1 सेमी विकास रिकॉर्ड करें';
+
+  @override
+  String get achieveThreeCm => '3 सेमी विकास';
+
+  @override
+  String get achieveThreeCmDesc => 'कुल 3 सेमी विकास रिकॉर्ड करें';
+
+  @override
+  String get achieveFiveCm => '5 सेमी विकास';
+
+  @override
+  String get achieveFiveCmDesc => 'कुल 5 सेमी विकास रिकॉर्ड करें';
+
+  @override
+  String get achieveTenCm => '10 सेमी विकास';
+
+  @override
+  String get achieveTenCmDesc => 'कुल 10 सेमी विकास रिकॉर्ड करें';
+
+  @override
+  String get quote1 => 'हर दिन कल से बेहतर बनें।';
+
+  @override
+  String get quote2 =>
+      'विकास रातोंरात नहीं होता, लेकिन हर रात आपको करीब लाती है।';
+
+  @override
+  String get quote3 => 'विकास में धैर्य चाहिए, आगे बढ़ते रहें!';
+
+  @override
+  String get quote4 => 'आज जो कदम उठाते हैं वह कल की नींव बनाता है।';
+
+  @override
+  String get quote5 => 'अनुशासन वहाँ शुरू होता है जहाँ प्रेरणा खत्म होती है।';
+
+  @override
+  String get quote6 => 'आपका शरीर आपको धन्यवाद देगा, आगे बढ़ते रहें!';
+
+  @override
+  String get quote7 => 'अपनी क्षमता की सीमा आप खुद तय करते हैं।';
+
+  @override
+  String get quote8 => 'छोटे कदम बड़े बदलाव लाते हैं।';
+
+  @override
+  String get quote9 => 'सबसे अच्छा निवेश खुद में है।';
+
+  @override
+  String get quote10 => 'आप हर दिन अपने लक्ष्य के करीब पहुँच रहे हैं।';
+
+  @override
+  String get quote11 => 'बदलाव कठिन है, लेकिन पछतावा और भी कठिन।';
+
+  @override
+  String get quote12 => 'आपका शरीर एक मंदिर है, इसकी देखभाल करें।';
+
+  @override
+  String get quote13 => 'आपका प्रतिद्वंद्वी कल का आप है। आज उसे हराएँ!';
+
+  @override
+  String get quote14 => 'BeTaller = धैर्य + अनुशासन + विश्वास';
+
+  @override
+  String get quote15 => 'खुद पर विश्वास करें, प्रक्रिया आपको आकार देगी।';
+
+  @override
+  String get quote16 => 'आज नहीं कर सकता मत कहें, कल पछतावा मत करें।';
+
+  @override
+  String get quote17 => 'हर दिन प्रगति दिखाएँ, चाहे सिर्फ 1% ही हो।';
+
+  @override
+  String get quote18 => 'आईना आपकी प्रगति दिखाएगा, धैर्य रखें।';
+
+  @override
+  String get bmiNormal => 'सामान्य';
+
+  @override
+  String get bmiUnderweight => 'कम वज़न';
+
+  @override
+  String get bmiOverweight => 'अधिक वज़न';
+
+  @override
+  String get bmiObese => 'मोटापा';
+
+  @override
+  String get velocityExcellent => 'उत्कृष्ट';
+
+  @override
+  String get velocityNormal => 'सामान्य';
+
+  @override
+  String get velocitySlow => 'धीमा';
+
+  @override
+  String get velocityVeryLow => 'बहुत कम';
+
+  @override
+  String durationMinutes(String min) {
+    return '$min मिनट';
+  }
+
+  @override
+  String get durationAllDay => 'पूरा दिन';
+
+  @override
+  String get durationNight => 'रात';
+
+  @override
+  String durationHours(String hours) {
+    return '$hours घंटे';
+  }
+
+  @override
+  String get onboardingStep1 => 'अपनी व्यक्तिगत जानकारी दर्ज करें';
+
+  @override
+  String get onboardingStep2 => 'अपनी पिछली लंबाई साझा करें';
+
+  @override
+  String get onboardingStep3 => 'अपनी आदतों का मूल्यांकन करें';
+
+  @override
+  String get onboardingStep4 => 'अपनी भविष्यवाणी और स्कोर देखें';
+
+  @override
+  String get hoursShort => 'घंटे';
+
+  @override
+  String get selectLanguage => 'भाषा चुनें';
+
+  @override
+  String get systemLanguage => 'सिस्टम भाषा';
+
+  @override
+  String get emailSubject => 'BeTaller प्रतिक्रिया';
+
+  @override
+  String get pastHeightsTip =>
+      'अज्ञात उम्र को खाली छोड़ सकते हैं। 1-2 पिछली लंबाई दर्ज करना पर्याप्त है।';
+
+  @override
+  String get obPastHeightsTitle => 'पिछली लंबाइयाँ';
+
+  @override
+  String get obPastHeightsSubPart1 =>
+      'अपनी पिछली लंबाइयाँ दर्ज करके अनुमान की विश्वसनीयता को ';
+
+  @override
+  String get obPastHeightsSubPart2 => ' तक बढ़ाएं।';
+
+  @override
+  String obHowTallAtAge(String age) {
+    return '$age साल की उम्र में आपकी लंबाई कितनी थी?';
+  }
+
+  @override
+  String get obSkip => 'छोड़ें';
+
+  @override
+  String get obNext => 'आगे';
+
+  @override
+  String get obSkipAll => 'सभी छोड़ें';
+
+  @override
+  String get currentSuffix => '(वर्तमान)';
+
+  @override
+  String personalizedProtein(String amount) {
+    return 'अंडे, चिकन, मछली, डेयरी। रोजाना कम से कम ${amount}g प्रोटीन लें।';
+  }
+
+  @override
+  String personalizedWater(String amount) {
+    return 'रोजाना कम से कम ${amount}L पानी पिएं। चयापचय और विकास के लिए आवश्यक।';
+  }
+
+  @override
+  String personalizedSleep(String hours) {
+    return 'नींद के दौरान ग्रोथ हार्मोन निकलता है। कम से कम $hours घंटे सोएं। रात 10-सुबह 6 सुनहरे घंटे हैं।';
+  }
+
+  @override
+  String personalizedCalcium(String calories) {
+    return 'दूध, पनीर, दही का सेवन करें। 15 मिनट धूप लें। दैनिक कैलोरी लक्ष्य: $calories kcal।';
+  }
+
+  @override
+  String get scoreS => 'उत्कृष्ट! आप अपनी क्षमता के शिखर पर पहुंच रहे हैं।';
+
+  @override
+  String get scoreA => 'बहुत अच्छा! छोटे सुधार आपको शीर्ष पर ले जा सकते हैं।';
+
+  @override
+  String get scoreB => 'सही रास्ते पर। रूटीन और पोषण पर थोड़ा और ध्यान दें।';
+
+  @override
+  String get scoreC => 'सुधार की गुंजाइश है। नियमित रूटीन फर्क लाएगी।';
+
+  @override
+  String get scoreD => 'उच्च क्षमता लेकिन आपको कार्रवाई करनी होगी।';
+
+  @override
+  String get scoreF => 'अभी शुरू करें! हर दिन एक छोटा कदम बड़ा फर्क लाता है।';
+
+  @override
+  String get cmPerYear => 'cm/वर्ष';
+
+  @override
+  String get howToDoIt => 'कैसे करें';
+
+  @override
+  String get musclesTargeted => 'लक्षित मांसपेशियाँ और हड्डियाँ';
+
+  @override
+  String get scientificBasis => 'वैज्ञानिक आधार';
+
+  @override
+  String setXofY(String current, String total) {
+    return 'सेट $current / $total';
+  }
+
+  @override
+  String restBeforeSet(String set) {
+    return 'सेट $set से पहले आराम';
+  }
+
+  @override
+  String get allSetsComplete => 'सभी सेट पूरे!';
+
+  @override
+  String get setTimer => 'सेट टाइमर';
+
+  @override
+  String get setTracker => 'सेट ट्रैकर';
+
+  @override
+  String get builtInTimer => 'अंतर्निहित टाइमर';
+
+  @override
+  String get markComplete => 'पूरा चिह्नित करें';
+
+  @override
+  String get markIncomplete => 'अधूरा चिह्नित करें';
+
+  @override
+  String get done => 'हो गया';
+
+  @override
+  String get doneExclamation => 'हो गया!';
+
+  @override
+  String get start => 'शुरू';
+
+  @override
+  String get pause => 'रोकें';
+
+  @override
+  String get resetTimer => 'रीसेट';
+
+  @override
+  String get skipRest => 'आराम छोड़ें';
+
+  @override
+  String get restart => 'पुनः आरंभ';
+
+  @override
+  String get perSet => 'प्रति सेट';
+
+  @override
+  String get rest => 'आराम';
+
+  @override
+  String get reps => 'बार';
+
+  @override
+  String get difficultyBeginner => 'शुरुआती';
+
+  @override
+  String get difficultyIntermediate => 'मध्यम';
+
+  @override
+  String get difficultyAdvanced => 'उन्नत';
+
+  @override
+  String get learnTitle => 'सीखें';
+
+  @override
+  String get learnSubtitle => 'विकास के लिए वैज्ञानिक ज्ञान';
+
+  @override
+  String get categoryAll => 'सभी';
+
+  @override
+  String get categoryScience => 'विज्ञान';
+
+  @override
+  String get categoryNutrition => 'पोषण';
+
+  @override
+  String get categoryExercise => 'व्यायाम';
+
+  @override
+  String get categorySleep => 'नींद';
+
+  @override
+  String get categoryMyths => 'मिथक';
+
+  @override
+  String get scientificReferences => 'वैज्ञानिक संदर्भ';
+
+  @override
+  String get relatedRoutines => 'संबंधित दिनचर्या';
+
+  @override
+  String get nutritionTitle => 'पोषण';
+
+  @override
+  String get sectionMealPlan => 'भोजन योजना';
+
+  @override
+  String get sectionNutrients => 'पोषक तत्व';
+
+  @override
+  String get sectionFoods => 'खाद्य पदार्थ';
+
+  @override
+  String get sectionSupplements => 'सप्लीमेंट्स';
+
+  @override
+  String todaysPlan(String day) {
+    return 'आज की योजना — $day';
+  }
+
+  @override
+  String get breakfast => 'नाश्ता';
+
+  @override
+  String get lunch => 'दोपहर का भोजन';
+
+  @override
+  String get dinner => 'रात का भोजन';
+
+  @override
+  String get snacks => 'स्नैक्स';
+
+  @override
+  String get searchFoods => 'खाद्य पदार्थ खोजें...';
+
+  @override
+  String nFoods(String count) {
+    return '$count खाद्य पदार्थ';
+  }
+
+  @override
+  String dailyLabel(String amount) {
+    return 'दैनिक: $amount';
+  }
+
+  @override
+  String get dailyNeedByAge => 'आयु के अनुसार दैनिक आवश्यकता';
+
+  @override
+  String agePrefix(String range) {
+    return 'आयु $range';
+  }
+
+  @override
+  String get topFoodSources => 'शीर्ष खाद्य स्रोत';
+
+  @override
+  String get categoryDairy => 'डेयरी';
+
+  @override
+  String get categoryMeatFish => 'मांस और मछली';
+
+  @override
+  String get categoryVegetables => 'सब्जियाँ';
+
+  @override
+  String get categoryFruits => 'फल';
+
+  @override
+  String get categoryGrains => 'अनाज और दालें';
+
+  @override
+  String get categoryNutsSeeds => 'मेवे और बीज';
+
+  @override
+  String get weeklyReportTitle => 'साप्ताहिक रिपोर्ट';
+
+  @override
+  String get weeklyScoreLabel => 'सप्ताह का स्कोर';
+
+  @override
+  String get weeklyDailyCompletion => 'दिन-प्रतिदिन';
+
+  @override
+  String get weeklyHabits => 'आदतें';
+
+  @override
+  String get overview => 'अवलोकन';
+
+  @override
+  String get routinesLabel => 'दिनचर्या';
+
+  @override
+  String get streakLabel => 'श्रृंखला';
+
+  @override
+  String get heightLabel => 'ऊँचाई';
+
+  @override
+  String get weightLabel => 'वज़न';
+
+  @override
+  String get dadLabel => 'पिता';
+
+  @override
+  String get motherLabel => 'माँ';
+
+  @override
+  String get metricShort => 'मेट्रिक';
+
+  @override
+  String get imperialShort => 'इम्पीरियल';
+
+  @override
+  String get dailyScores => 'दैनिक अंक';
+
+  @override
+  String get waterToday2 => 'आज पानी';
+
+  @override
+  String get sleepToday => 'आज नींद';
+
+  @override
+  String get routineCompletion => 'दिनचर्या पूर्णता';
+
+  @override
+  String get xpAndLevel => 'XP और स्तर';
+
+  @override
+  String xpToNextLevel(String xp) {
+    return 'अगले स्तर तक $xp XP';
+  }
+
+  @override
+  String get activeChallenges => 'सक्रिय चुनौतियाँ';
+
+  @override
+  String nOfMCompleted(String n, String m) {
+    return '$n/$m पूर्ण';
+  }
+
+  @override
+  String get shareYourProgress => 'अपनी प्रगति साझा करें';
+
+  @override
+  String get shareComingSoon => 'शेयर सुविधा जल्द आ रही है!';
+
+  @override
+  String get premiumTest => 'Premium (टेस्ट)';
+
+  @override
+  String get premiumActive => 'सक्रिय';
+
+  @override
+  String get premiumFree => 'निःशुल्क';
+
+  @override
+  String get weeklyReportMenu => 'साप्ताहिक रिपोर्ट';
+
+  @override
+  String get weeklyReportMenuSubtitle => 'आपकी प्रगति का सारांश';
+
+  @override
+  String get unlockGrowthPotential => 'अपनी पूरी विकास क्षमता अनलॉक करें';
+
+  @override
+  String get featureGrowthAnalysis => 'विकास विश्लेषण और स्कोर';
+
+  @override
+  String get featureHeightPrediction => 'ऊँचाई भविष्यवाणी और पूर्वानुमान';
+
+  @override
+  String get featureAllRoutines => 'सभी 14 दैनिक दिनचर्या';
+
+  @override
+  String get featureWaterSleep => 'पानी और नींद ट्रैकिंग';
+
+  @override
+  String get featureProgress => 'प्रगति और माप';
+
+  @override
+  String get featureAchievements => 'उपलब्धियाँ और श्रृंखलाएँ';
+
+  @override
+  String get planMonthly => 'मासिक';
+
+  @override
+  String get planYearly => 'वार्षिक';
+
+  @override
+  String get bestValue => 'सबसे अच्छा मूल्य';
+
+  @override
+  String get premiumLabel => 'Premium';
+
+  @override
+  String lvl(String level) {
+    return 'स्तर $level';
+  }
+
+  @override
+  String get levelBeginner => 'शुरुआती';
+
+  @override
+  String get levelStarter => 'नया';
+
+  @override
+  String get levelCommitted => 'प्रतिबद्ध';
+
+  @override
+  String get levelDedicated => 'समर्पित';
+
+  @override
+  String get levelConsistent => 'निरंतर';
+
+  @override
+  String get levelFocused => 'केंद्रित';
+
+  @override
+  String get levelDetermined => 'दृढ़';
+
+  @override
+  String get levelDisciplined => 'अनुशासित';
+
+  @override
+  String get levelStrong => 'मज़बूत';
+
+  @override
+  String get levelAdvanced => 'उन्नत';
+
+  @override
+  String get levelExpert => 'विशेषज्ञ';
+
+  @override
+  String get levelMaster => 'मास्टर';
+
+  @override
+  String get levelElite => 'विशिष्ट';
+
+  @override
+  String get levelChampion => 'चैंपियन';
+
+  @override
+  String get levelLegend => 'दिग्गज';
+
+  @override
+  String get levelTitan => 'टाइटन';
+
+  @override
+  String get levelMythic => 'पौराणिक';
+
+  @override
+  String get levelImmortal => 'अमर';
+
+  @override
+  String get levelTranscendent => 'अतीन्द्रिय';
+
+  @override
+  String get levelUltimate => 'परम';
+
+  @override
+  String get challengeCompleteAllRoutines => 'सभी दिनचर्या पूरी करें';
+
+  @override
+  String get challengeCompleteAllRoutinesDesc => 'आज हर दिनचर्या पूरी करें';
+
+  @override
+  String get challengeHydrationHero => 'हाइड्रेशन हीरो';
+
+  @override
+  String get challengeHydrationHeroDesc => 'दैनिक पानी का लक्ष्य पूरा करें';
+
+  @override
+  String get challengeEarlySleeper => 'जल्दी सोने वाला';
+
+  @override
+  String get challengeEarlySleeperDesc => '8+ घंटे की नींद रिकॉर्ड करें';
+
+  @override
+  String get challengeExerciseTrio => 'व्यायाम तिकड़ी';
+
+  @override
+  String get challengeExerciseTrioDesc => '3 व्यायाम दिनचर्या पूरी करें';
+
+  @override
+  String get challengeMorningStretch => 'सुबह की स्ट्रेचिंग';
+
+  @override
+  String get challengeMorningStretchDesc =>
+      'सुबह 9 बजे से पहले स्ट्रेचिंग करें';
+
+  @override
+  String get challenge7DayWarrior => '7 दिन का योद्धा';
+
+  @override
+  String get challenge7DayWarriorDesc => 'लगातार 7 दिन सभी दिनचर्या पूरी करें';
+
+  @override
+  String get challengeGrowthTracker => 'विकास ट्रैकर';
+
+  @override
+  String get challengeGrowthTrackerDesc =>
+      'इस हफ़्ते एक ऊँचाई माप रिकॉर्ड करें';
+
+  @override
+  String get challengeHydrationWeek => 'हाइड्रेशन सप्ताह';
+
+  @override
+  String get challengeHydrationWeekDesc =>
+      'इस हफ़्ते 5 दिन पानी का लक्ष्य पूरा करें';
+
+  @override
+  String get challengeFitnessChampion => 'फ़िटनेस चैंपियन';
+
+  @override
+  String get challengeFitnessChampionDesc =>
+      'इस हफ़्ते 15 व्यायाम दिनचर्या पूरी करें';
+
+  @override
+  String get challengeSleepMaster => 'नींद मास्टर';
+
+  @override
+  String get challengeSleepMasterDesc => '5 दिन 8+ घंटे की नींद रिकॉर्ड करें';
+
+  @override
+  String get performanceDashboard => 'प्रदर्शन डैशबोर्ड';
+
+  @override
+  String get tierA => 'स्तर A';
+
+  @override
+  String get tierB => 'स्तर B';
+
+  @override
+  String get tierC => 'स्तर C';
+
+  @override
+  String get tierD => 'स्तर D';
+
+  @override
+  String get tierE => 'स्तर E';
+
+  @override
+  String get maxTierReached => 'अधिकतम स्तर प्राप्त';
+
+  @override
+  String nextTierHint(String tier, String pts) {
+    return 'अगला: $tier · +$pts अंक आवश्यक';
+  }
+
+  @override
+  String get premiumBadge => 'प्रीमियम';
+
+  @override
+  String get manageRoutines => 'रूटीन प्रबंधित करें';
+
+  @override
+  String get manageRoutinesSubtitle => 'दैनिक सूची से रूटीन दिखाएं या छुपाएं';
+
+  @override
+  String nVisibleOfTotal(String visible, String total) {
+    return '$total में से $visible सक्रिय';
+  }
+
+  @override
+  String get showAll => 'सभी दिखाएं';
+
+  @override
+  String get hideAll => 'सभी छुपाएं';
+
+  @override
+  String get heightAnalysis => 'ऊंचाई विश्लेषण';
+
+  @override
+  String get heightVsPopulation => 'वैश्विक जनसंख्या में आपकी स्थिति';
+
+  @override
+  String get globalAveragesTable => 'उम्र के अनुसार वैश्विक औसत';
+
+  @override
+  String get standingTall => 'लंबे कद का';
+
+  @override
+  String get standingAboveAverage => 'औसत से ऊपर';
+
+  @override
+  String get standingBelowAverage => 'औसत से नीचे';
+
+  @override
+  String get standingShort => 'साथियों से कम';
+
+  @override
+  String get yourHeightStanding => 'आपकी ऊंचाई की स्थिति';
+
+  @override
+  String get bellCurveCaption => 'आपकी उम्र में ऊंचाई कैसे बंटी होती है';
+
+  @override
+  String get bellShorterThanYou => 'आपसे छोटे';
+
+  @override
+  String get yourHeight => 'आप';
+
+  @override
+  String peerAvg(int age) {
+    return '$age उम्र औसत';
+  }
+
+  @override
+  String get aboveAvg => 'औसत से ऊपर';
+
+  @override
+  String get belowAvg => 'औसत से नीचे';
+
+  @override
+  String get whoDataSource => 'WHO 2007 वैश्विक संदर्भ';
+
+  @override
+  String get percentileShort5 => '5वां';
+
+  @override
+  String get percentileShort50 => '50वां';
+
+  @override
+  String get percentileShort95 => '95वां';
+
+  @override
+  String get youLabel => 'आप';
+
+  @override
+  String get avgHeightLabel => 'औसत';
+
+  @override
+  String get percentileLabel => 'PCT';
+
+  @override
+  String get diffLabel => 'अंतर';
+
+  @override
+  String get whoSourceNote =>
+      'डेटा स्रोत: WHO 2007 विकास संदर्भ और NCD-RisC वैश्विक अनुमान। प्रतिशतक वैश्विक औसत हैं और देश के अनुसार भिन्न हो सकते हैं।';
+
+  @override
+  String get quickPhotos => 'फ़ोटो';
+
+  @override
+  String get quickPosture => 'पोस्चर';
+
+  @override
+  String get quickWellness => 'कल्याण';
+
+  @override
+  String get quickRecipes => 'रेसिपी';
+
+  @override
+  String get wellnessTitle => 'कल्याण ट्रैकर';
+
+  @override
+  String get wellnessHeader => 'कल्याण';
+
+  @override
+  String get wellnessSubtitle =>
+      'आपकी वृद्धि को प्रभावित करने वाले कारकों को ट्रैक करें';
+
+  @override
+  String get caffeineToday => 'आज की कैफीन';
+
+  @override
+  String get withinLimits => 'स्वस्थ सीमा में';
+
+  @override
+  String get approachingLimit => 'सीमा के करीब';
+
+  @override
+  String get overLimit => 'सीमा से अधिक — HGH को प्रभावित करता है';
+
+  @override
+  String get resetToday => 'आज रीसेट करें';
+
+  @override
+  String get stressToday => 'आज का तनाव';
+
+  @override
+  String get stressVeryCalmLabel => 'बहुत शांत — वृद्धि के लिए आदर्श';
+
+  @override
+  String get stressCalmLabel => 'शांत';
+
+  @override
+  String get stressNeutralLabel => 'तटस्थ';
+
+  @override
+  String get stressStressedLabel => 'तनावग्रस्त';
+
+  @override
+  String get stressVeryStressedLabel =>
+      'बहुत तनावग्रस्त — कोर्टिसोल HGH रोकता है';
+
+  @override
+  String get stressTapToLog => 'आज कैसा महसूस हो रहा है दर्ज करें';
+
+  @override
+  String get todaysJournal => 'आज की डायरी';
+
+  @override
+  String get journalNoNote => '(कोई नोट नहीं)';
+
+  @override
+  String get journalEdit => 'संपादित';
+
+  @override
+  String get journalHowWasToday => 'आज कैसा रहा?';
+
+  @override
+  String get journalSaved => 'डायरी सहेजी गई · +5 XP';
+
+  @override
+  String get journalSaveEntry => 'सहेजें';
+
+  @override
+  String get weeklyInsight => 'साप्ताहिक विश्लेषण';
+
+  @override
+  String get weeklyInsightCaffeine => 'कैफीन';
+
+  @override
+  String get weeklyInsightStress => 'तनाव';
+
+  @override
+  String get weeklyInsightMood => 'मनोदशा';
+
+  @override
+  String get wellnessInfoTitle => 'कल्याण क्यों मायने रखता है';
+
+  @override
+  String get wellnessInfoBody =>
+      'कैफीन गहरी नींद में बाधा डालती है, जब ग्रोथ हार्मोन (HGH) सबसे अधिक निकलता है। दीर्घकालिक तनाव कोर्टिसोल बढ़ाता है, जो सीधे HGH को दबाता है। डायरी रखना वृद्धि सहायक आदतों को बनाए रखने में मदद करता है।';
+
+  @override
+  String get wellnessInfoGotIt => 'समझ गया';
+
+  @override
+  String get insightCaffeineHigh =>
+      'इस सप्ताह कैफीन अधिक है। बेहतर नींद और HGH के लिए कम करें।';
+
+  @override
+  String get insightStressHigh =>
+      'इस सप्ताह तनाव बढ़ा है। श्वास व्यायाम पर विचार करें — कोर्टिसोल वृद्धि रोकता है।';
+
+  @override
+  String get insightMoodLow =>
+      'हाल ही में मनोदशा कम रही है। धूप, नींद और हल्का व्यायाम मदद करता है।';
+
+  @override
+  String get insightGreat =>
+      'इस सप्ताह बढ़िया संतुलन। आपका कल्याण इष्टतम वृद्धि का समर्थन करता है।';
+
+  @override
+  String get insightDefault =>
+      'आपका कल्याण सही दिशा में है। गहन विश्लेषण के लिए लॉगिंग जारी रखें।';
+
+  @override
+  String get insightNeedMoreData =>
+      'विश्लेषण देखने के लिए कुछ और दिन लॉग करें।';
+
+  @override
+  String get progressPhotosTitle => 'प्रगति फ़ोटो';
+
+  @override
+  String get progressPhotosHeader => 'प्रगति फ़ोटो';
+
+  @override
+  String get progressPhotosSubtitle => 'अपनी दृश्य यात्रा को ट्रैक करें';
+
+  @override
+  String get addProgressPhoto => 'फ़ोटो जोड़ें';
+
+  @override
+  String get captureJourney => 'अपनी दृश्य यात्रा कैप्चर करें';
+
+  @override
+  String get takePhoto => 'फ़ोटो लें';
+
+  @override
+  String get chooseFromLibrary => 'गैलरी से चुनें';
+
+  @override
+  String get deletePhotoTitle => 'फ़ोटो हटाएं?';
+
+  @override
+  String get deletePhotoBody =>
+      'यह फ़ोटो आपकी प्रगति टाइमलाइन से हटा दी जाएगी।';
+
+  @override
+  String get timelineTab => 'टाइमलाइन';
+
+  @override
+  String photoLabel(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'फ़ोटो',
+      one: 'फ़ोटो',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String photoGainInDays(String cm, int days, String unit) {
+    return '$days दिनों में $cm $unit';
+  }
+
+  @override
+  String dayLabel(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'दिन',
+      one: 'दिन',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String cmGained(String unit) {
+    return '$unit वृद्धि';
+  }
+
+  @override
+  String get firstPhotoMessage =>
+      'अपनी दृश्य प्रगति ट्रैक करने के लिए पहली फ़ोटो लें।';
+
+  @override
+  String get takeFirstPhoto => 'पहली फ़ोटो लें';
+
+  @override
+  String get beforeAfter => 'पहले / बाद';
+
+  @override
+  String get beforeLabel => 'पहले';
+
+  @override
+  String get afterLabel => 'बाद';
+
+  @override
+  String get yourHeightDialog => 'आपकी ऊंचाई';
+
+  @override
+  String get heightDialogMessage =>
+      'इस फ़ोटो के लिए अपनी वर्तमान ऊंचाई सेमी में दर्ज करें';
+
+  @override
+  String get postureAnalysisTitle => 'पोस्चर विश्लेषण';
+
+  @override
+  String get postureCoachHeader => 'पोस्चर कोच';
+
+  @override
+  String get postureCoachSubtitle => 'AI-संचालित पोस्चर स्कोरिंग';
+
+  @override
+  String get latestScore => 'नवीनतम स्कोर';
+
+  @override
+  String get latestAnalysis => 'नवीनतम विश्लेषण';
+
+  @override
+  String get headPosition => 'सिर की स्थिति';
+
+  @override
+  String get progressLabel => 'प्रगति';
+
+  @override
+  String get choosePhotoSource => 'फ़ोटो स्रोत चुनें';
+
+  @override
+  String get sideProfileHint => 'साइड प्रोफ़ाइल, पूरा शरीर फ़्रेम में';
+
+  @override
+  String get howToTakePhoto => 'फ़ोटो कैसे लें';
+
+  @override
+  String get takePosturePhoto => 'पोस्चर फ़ोटो लें';
+
+  @override
+  String get postureExcellent => 'उत्कृष्ट';
+
+  @override
+  String get postureGood => 'अच्छा';
+
+  @override
+  String get postureNeedsWork => 'सुधार आवश्यक';
+
+  @override
+  String get posturePoor => 'कमज़ोर';
+
+  @override
+  String get recommendedExercises => 'अनुशंसित व्यायाम';
+
+  @override
+  String get postureWallStand => 'दीवार पर खड़े रहें';
+
+  @override
+  String get postureWallStandDesc =>
+      'दैनिक 2 मिनट दीवार से पीठ लगाकर खड़े रहें।';
+
+  @override
+  String get postureChestOpener => 'छाती खोलना';
+
+  @override
+  String get postureChestOpenerDesc =>
+      'तंग पेक्टोरल मांसपेशियों को खोलता है जो कंधों को आगे खींचती हैं।';
+
+  @override
+  String get postureChinTucks => 'ठुड्डी पीछे करना';
+
+  @override
+  String get postureChinTucksDesc =>
+      'आगे की सिर की स्थिति को उलटता है — 3×10 दोहराव।';
+
+  @override
+  String get postureDeadbug => 'डेडबग';
+
+  @override
+  String get postureDeadbugDesc =>
+      'लॉर्डोसिस नियंत्रण के लिए गहरे कोर को मजबूत करता है।';
+
+  @override
+  String get recipesTitle => 'रेसिपी';
+
+  @override
+  String get recipesHeader => 'रेसिपी';
+
+  @override
+  String get recipesSubtitle => 'अपनी वृद्धि को पोषित करें';
+
+  @override
+  String get recipesCategoryAll => 'सभी';
+
+  @override
+  String get recipesCategoryBreakfast => 'नाश्ता';
+
+  @override
+  String get recipesCategoryLunch => 'दोपहर का भोजन';
+
+  @override
+  String get recipesCategoryDinner => 'रात का भोजन';
+
+  @override
+  String get recipesCategorySnack => 'स्नैक';
+
+  @override
+  String get recipesGoalAll => 'सभी';
+
+  @override
+  String get recipeDiffEasy => 'आसान';
+
+  @override
+  String get recipeDiffMedium => 'मध्यम';
+
+  @override
+  String get recipeDiffHard => 'कठिन';
+
+  @override
+  String get recipesFilterType => 'प्रकार';
+
+  @override
+  String get recipesFilterNutrient => 'इनमें भरपूर';
+
+  @override
+  String get recipesGoalVitaminD => 'विटामिन डी';
+
+  @override
+  String get recipesGoalZinc => 'ज़िंक';
+
+  @override
+  String get recipesGoalMagnesium => 'मैग्नीशियम';
+
+  @override
+  String recipesCountLabel(int count) {
+    return '$count रेसिपी';
+  }
+
+  @override
+  String get recipeIngredients => 'सामग्री';
+
+  @override
+  String get recipeSteps => 'विधि';
+
+  @override
+  String get recipesGoalProtein => 'उच्च प्रोटीन';
+
+  @override
+  String get recipesGoalCalcium => 'कैल्शियम';
+
+  @override
+  String get recipesGoalOmega3 => 'ओमेगा-3';
+
+  @override
+  String get recipesGoalIron => 'आयरन';
+
+  @override
+  String get recipesNoMatch => 'इन फ़िल्टर से कोई रेसिपी मेल नहीं खाती';
+
+  @override
+  String get recipesIngredients => 'सामग्री';
+
+  @override
+  String get recipesInstructions => 'निर्देश';
+
+  @override
+  String get recipesClose => 'बंद करें';
+
+  @override
+  String get recipesAboutTitle => 'रेसिपी के बारे में';
+
+  @override
+  String get recipesAboutBody =>
+      'आपकी वृद्धि को पोषित करने के लिए चुनी गई रेसिपी। भोजन प्रकार या पोषण लक्ष्य के अनुसार फ़िल्टर करें।';
+
+  @override
+  String get animHintSpinalDecomp => 'रीढ़ की हड्डी का विसंपीड़न';
+
+  @override
+  String get animHintGravityReversal => 'गुरुत्वाकर्षण उलटाव';
+
+  @override
+  String get animHintImpactBones => 'हड्डियों पर प्रभाव भार';
+
+  @override
+  String get animHintHighImpact => 'उच्च प्रभाव हड्डी भार';
+
+  @override
+  String get animHintMetabolicBurst => 'मेटाबॉलिक बर्स्ट ट्रेनिंग';
+
+  @override
+  String get animHintFullBodyStretch => 'पूर्ण शरीर जागृति स्ट्रेच';
+
+  @override
+  String get animHintSpinalExtension => 'रीढ़ विस्तार';
+
+  @override
+  String get animHintCervicalDecomp => 'सर्वाइकल विसंपीड़न';
+
+  @override
+  String get animHintShoulderMobility => 'कंधे की गतिशीलता';
+
+  @override
+  String get animHintFullBodyMotion => 'पूर्ण शरीर गति';
+
+  @override
+  String get animHintPosteriorChain => 'पोस्टीरियर चेन स्ट्रेच';
+
+  @override
+  String get animHintMuscleGrowth => 'मांसपेशी वृद्धि ईंधन';
+
+  @override
+  String get animHintBoneDensity => 'हड्डी घनत्व सहायता';
+
+  @override
+  String get animHintSpinalDisc => 'स्पाइनल डिस्क हाइड्रेशन';
+
+  @override
+  String get animHintCleanNutrition => 'स्वच्छ पोषण';
+
+  @override
+  String get animHintIgf1 => 'IGF-1 अनुकूलन';
+
+  @override
+  String get animHintHghAmino => 'HGH अमीनो पूर्ववर्ती';
+
+  @override
+  String get animHintCalciumAbsorption => 'कैल्शियम अवशोषण';
+
+  @override
+  String get animHintSpinalAlignment => 'रीढ़ संरेखण';
+
+  @override
+  String get animHintPostureCorrection => 'पोस्चर सुधार';
+
+  @override
+  String get animHintMindBody => 'मन-शरीर संतुलन';
+
+  @override
+  String get animHintCoreStability => 'कोर स्थिरता';
+
+  @override
+  String get animHintLegPower => 'पैर की शक्ति और HGH उछाल';
+
+  @override
+  String get animHintVerticalPower => 'ऊर्ध्वाधर शक्ति';
+
+  @override
+  String get animHintHghSurge => 'HGH उछाल ट्रेनिंग';
+
+  @override
+  String get animHintPeakHgh => 'शिखर HGH रिलीज़ विंडो';
+
+  @override
+  String get animHintMelatonin => 'मेलाटोनिन अनुकूलन';
+
+  @override
+  String get animHintDeepSleep => 'गहरी नींद सेटअप';
+
+  @override
+  String get animHintSleepOpt => 'नींद अनुकूलन';
+
+  @override
+  String get animHintExercise => 'व्यायाम';
+
+  @override
+  String get formMorningStretch =>
+      'Start with neck rolls, then move to full body stretches. Hold each stretch for 20-30 seconds without bouncing.';
+
+  @override
+  String get formBarHanging =>
+      'Grip the bar shoulder-width apart, relax your body completely, let gravity stretch your spine. Avoid swinging.';
+
+  @override
+  String get formCobraStretch =>
+      'Lie face down, place hands under shoulders, slowly push upper body up while keeping hips on the floor. Look upward.';
+
+  @override
+  String get formJumping =>
+      'Perform squat jumps or jump rope. Land softly on the balls of your feet. Rest 30 seconds between sets.';
+
+  @override
+  String get formSwimmingBasketball =>
+      'Choose swimming (freestyle/backstroke) or basketball. Focus on jumping, reaching, and full range of motion.';
+
+  @override
+  String get formEveningYoga =>
+      'Perform gentle poses: cat-cow, child pose, downward dog, forward fold. Breathe deeply and hold each pose 30-60 seconds.';
+
+  @override
+  String get formSprintIntervals =>
+      'Warm up for 5 minutes, then sprint at maximum effort for 30 seconds. Walk or jog for 90 seconds to recover. Repeat.';
+
+  @override
+  String get formHiitWorkout =>
+      'Perform exercises like burpees, mountain climbers, and jump squats at maximum intensity for 45 seconds, rest 15 seconds.';
+
+  @override
+  String get formSquats =>
+      'Stand with feet shoulder-width apart. Lower your body until thighs are parallel to ground. Keep back straight and knees behind toes.';
+
+  @override
+  String get formDeadliftStretch =>
+      'Stand with feet hip-width apart, hinge at hips keeping back flat. Reach toward toes, feel the stretch in hamstrings and back.';
+
+  @override
+  String get formOverheadPress =>
+      'Stand tall, press arms overhead fully extending. Use light weights or bodyweight. Keep core tight and avoid arching back.';
+
+  @override
+  String get formSkippingRope =>
+      'Jump with both feet, landing softly on the balls of your feet. Keep jumps low and consistent. Rest between sets.';
+
+  @override
+  String get formPilatesCore =>
+      'Perform plank, dead bug, bird dog, bridge, and leg raises. Focus on controlled movement and breathing.';
+
+  @override
+  String get formInversionHang =>
+      'Use an inversion table or gravity boots. Start with a slight incline and gradually increase. Keep sessions short.';
+
+  @override
+  String get formProtein =>
+      'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.';
+
+  @override
+  String get formCalciumVitaminD =>
+      'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.';
+
+  @override
+  String get formWater =>
+      'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.';
+
+  @override
+  String get formAvoidJunk =>
+      'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.';
+
+  @override
+  String get formZincIntake =>
+      'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.';
+
+  @override
+  String get formVitaminDSunlight =>
+      'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.';
+
+  @override
+  String get formArginineFoods =>
+      'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.';
+
+  @override
+  String get formDailyCalories =>
+      'अपनी कैलोरी को 3-5 भोजन में बांटें और नाश्ता न छोड़ें। खाली कैलोरी की बजाय पूर्ण खाद्य पदार्थों को प्राथमिकता दें।';
+
+  @override
+  String get formQualitySleep =>
+      'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.';
+
+  @override
+  String get formNoScreen =>
+      'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.';
+
+  @override
+  String get formSleepEnvironment =>
+      'Use blackout curtains, keep room at 18-20°C, remove all light sources. Use a comfortable mattress and pillow.';
+
+  @override
+  String get formPreSleepRoutine =>
+      'Start 30 minutes before bed: dim lights, read a book, do breathing exercises, avoid stimulating activities.';
+
+  @override
+  String get formPostureCheck =>
+      'Stand tall with shoulders back and down. Engage core slightly. Imagine a string pulling you up from the crown of your head.';
+
+  @override
+  String get formWallStand =>
+      'Stand with heels, buttocks, shoulder blades, and head touching the wall. Hold for 5 minutes. Breathe normally.';
+
+  @override
+  String get formNeckStretches =>
+      'Tilt head slowly to each side, forward, and backward. Hold each direction for 30 seconds. Do not force the stretch.';
+
+  @override
+  String get formShoulderRolls =>
+      'Roll shoulders forward 15 times, then backward 15 times. Follow with chest-opening stretches holding for 20 seconds.';
+
+  @override
+  String get sciMorningStretch =>
+      'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention';
+
+  @override
+  String get sciBarHanging =>
+      'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height';
+
+  @override
+  String get sciCobraStretch =>
+      'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting';
+
+  @override
+  String get sciJumping =>
+      'High-impact jumping stimulates growth plates in the legs and triggers growth hormone release';
+
+  @override
+  String get sciSwimmingBasketball =>
+      'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity';
+
+  @override
+  String get sciEveningYoga =>
+      'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery';
+
+  @override
+  String get sciSprintIntervals =>
+      'Sprinting triggers significant growth hormone release';
+
+  @override
+  String get sciHiitWorkout =>
+      'High intensity exercise increases HGH by up to 450%';
+
+  @override
+  String get sciSquats => 'Squats stimulate growth plates in legs and spine';
+
+  @override
+  String get sciDeadliftStretch =>
+      'Spinal decompression promotes vertebral disc health';
+
+  @override
+  String get sciOverheadPress =>
+      'Overhead pressing stretches the spine and strengthens posture muscles';
+
+  @override
+  String get sciSkippingRope =>
+      'Repetitive jumping stimulates growth plates in lower extremities';
+
+  @override
+  String get sciPilatesCore =>
+      'Core strength supports spinal alignment and posture';
+
+  @override
+  String get sciInversionHang =>
+      'Inversion decompresses spinal discs, can temporarily add 1-2cm';
+
+  @override
+  String get sciProtein =>
+      'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts';
+
+  @override
+  String get sciCalciumVitaminD =>
+      'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth';
+
+  @override
+  String get sciWater =>
+      'Hydration is essential for nutrient transport to growth plates and joint cartilage health';
+
+  @override
+  String get sciAvoidJunk =>
+      'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion';
+
+  @override
+  String get sciZincIntake => 'Zinc is essential for growth hormone production';
+
+  @override
+  String get sciVitaminDSunlight =>
+      'Vitamin D is crucial for calcium absorption and bone growth';
+
+  @override
+  String get sciArginineFoods =>
+      'L-Arginine stimulates growth hormone secretion';
+
+  @override
+  String get sciDailyCalories =>
+      'लगातार कैलोरी की कमी IGF-1 को कम करती है और ग्रोथ हार्मोन के स्राव को कमज़ोर करती है, जिससे किशोरावस्था में सीधे विकास धीमा हो जाता है';
+
+  @override
+  String get sciQualitySleep =>
+      '70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM';
+
+  @override
+  String get sciNoScreen =>
+      'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality';
+
+  @override
+  String get sciSleepEnvironment =>
+      'Dark, cool environment maximizes melatonin and growth hormone';
+
+  @override
+  String get sciPreSleepRoutine =>
+      'Consistent pre-sleep routine improves deep sleep quality by 23%';
+
+  @override
+  String get sciPostureCheck =>
+      'Correct posture alignment can immediately add 2-3 cm to apparent height and prevents spinal compression';
+
+  @override
+  String get sciWallStand =>
+      'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day';
+
+  @override
+  String get sciNeckStretches =>
+      'Neck stretches relieve compression and improve cervical alignment';
+
+  @override
+  String get sciShoulderRolls =>
+      'Opening shoulders corrects forward posture, can add 1-2cm appearance';
+
+  @override
+  String get muscleSpine => 'रीढ़';
+
+  @override
+  String get muscleLegs => 'पैर';
+
+  @override
+  String get muscleBack => 'पीठ';
+
+  @override
+  String get muscleShoulders => 'कंधे';
+
+  @override
+  String get muscleArms => 'बाहें';
+
+  @override
+  String get muscleCore => 'कोर';
+
+  @override
+  String get muscleChest => 'छाती';
+
+  @override
+  String get muscleCalves => 'पिंडली';
+
+  @override
+  String get muscleFullBody => 'पूरा शरीर';
+
+  @override
+  String get muscleHips => 'कूल्हे';
+
+  @override
+  String get muscleBones => 'हड्डियां';
+
+  @override
+  String get muscleMuscles => 'मांसपेशियां';
+
+  @override
+  String get muscleNeck => 'गर्दन';
+
+  @override
+  String get muscleUpperSpine => 'ऊपरी रीढ़';
+
+  @override
+  String get muscleUpperBack => 'ऊपरी पीठ';
+
+  @override
+  String get createRoutine => 'रूटीन बनाएं';
+
+  @override
+  String get createRoutineTitle => 'कस्टम रूटीन बनाएं';
+
+  @override
+  String get createRoutineSubtitle => 'अपनी दैनिक दिनचर्या बनाएं';
+
+  @override
+  String get routineIcon => 'आइकन';
+
+  @override
+  String get routineTitleField => 'शीर्षक';
+
+  @override
+  String get routineDescField => 'विवरण';
+
+  @override
+  String get routineDescHint => 'रूटीन का संक्षिप्त सारांश';
+
+  @override
+  String get routineCategoryField => 'श्रेणी';
+
+  @override
+  String get routineDifficultyField => 'कठिनाई';
+
+  @override
+  String get routineDurationField => 'अवधि';
+
+  @override
+  String get routineSetsRepsField => 'सेट x दोहराव';
+
+  @override
+  String get routineFormField => 'निर्देश';
+
+  @override
+  String get routineFormHint => 'वैकल्पिक — यह रूटीन कैसे करें';
+
+  @override
+  String get diffBeginner => 'शुरुआती';
+
+  @override
+  String get diffIntermediate => 'मध्यम';
+
+  @override
+  String get diffAdvanced => 'उन्नत';
+
+  @override
+  String get catExercise => 'व्यायाम';
+
+  @override
+  String get catNutrition => 'पोषण';
+
+  @override
+  String get catSleep => 'नींद';
+
+  @override
+  String get catPosture => 'पोस्चर';
+
+  @override
+  String get postureTip1 => 'Stand sideways (side profile) to the camera.';
+
+  @override
+  String get postureTip2 => 'Keep ~2 meters distance from the lens.';
+
+  @override
+  String get postureTip3 => 'Arms relaxed, look straight ahead.';
+
+  @override
+  String get postureTip4 => 'Wear fitted clothes for accurate scoring.';
+
+  @override
+  String get postureTip5 => 'Use good lighting and a plain background.';
+
+  @override
+  String get kyphosisLabel => 'काइफ़ोसिस (ऊपरी पीठ)';
+
+  @override
+  String get lordosisLabel => 'लॉर्डोसिस (निचली पीठ)';
+
+  @override
+  String get analyzingPosture => 'ANALYZING POSTURE';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get termsOfService => 'Terms of Service';
+
+  @override
+  String version(String ver) {
+    return 'Version $ver';
+  }
+
+  @override
+  String get rateApp => 'Rate BeTaller';
+
+  @override
+  String get rateAppSubtitle => 'Your review helps us grow!';
+
+  @override
+  String get unitSystem => 'Unit System';
+
+  @override
+  String get unitMetric => 'Metric (cm, kg)';
+
+  @override
+  String get unitImperial => 'Imperial (ft-in, lbs)';
+
+  @override
+  String get healthDisclaimer => 'Health Disclaimer';
+
+  @override
+  String get healthDisclaimerBody =>
+      'BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.';
+
+  @override
+  String routineProteinAmountDesc(int grams) {
+    return 'आज कम से कम ${grams}g प्रोटीन लें — आपके वज़न के अनुसार गणना की गई।';
+  }
+
+  @override
+  String routineWaterAmountDesc(String liters) {
+    return 'आज कम से कम ${liters}L पानी पिएं — आपके वज़न के अनुसार गणना की गई।';
+  }
+
+  @override
+  String routineCalorieAmountDesc(int kcal) {
+    return 'विकास को बढ़ावा देने के लिए आज लगभग $kcal कैलोरी का लक्ष्य रखें।';
+  }
+
+  @override
+  String routineVitaminDAmountDesc(int iu) {
+    return 'आज $iu IU विटामिन डी लें — धूप, भोजन या सप्लीमेंट से।';
+  }
+
+  @override
+  String routineZincAmountDesc(int mg) {
+    return 'ग्रोथ हार्मोन उत्पादन के लिए आज ${mg}mg ज़िंक लें।';
+  }
+
+  @override
+  String get nutritionSupplementsTitle => 'सप्लीमेंट्स';
+
+  @override
+  String get nutritionSupplementsDisclaimer =>
+      'यह एक वैकल्पिक सहायता है, भोजन का विकल्प नहीं। कोई भी सप्लीमेंट शुरू करने से पहले, खासकर 18 साल से कम उम्र में, डॉक्टर से बात करें।';
+
+  @override
+  String get supplementVitaminDName => 'विटामिन D3';
+
+  @override
+  String get supplementVitaminDDose => '3,000 IU';
+
+  @override
+  String get supplementVitaminDBenefit =>
+      'हड्डियों के घनत्व और ग्रोथ प्लेट की सेहत के लिए कैल्शियम अवशोषण बढ़ाता है';
+
+  @override
+  String get supplementZincName => 'ज़िंक';
+
+  @override
+  String get supplementZincDose => '8-11mg';
+
+  @override
+  String get supplementZincBenefit =>
+      'ग्रोथ हार्मोन उत्पादन के लिए एक अहम खनिज';
+
+  @override
+  String get supplementMagnesiumName => 'मैग्नीशियम';
+
+  @override
+  String get supplementMagnesiumDose => '300-400mg';
+
+  @override
+  String get supplementMagnesiumBenefit =>
+      'गहरी नींद के उस चरण को सहारा देता है जहां सबसे ज़्यादा ग्रोथ हार्मोन निकलता है';
+
+  @override
+  String get supplementCalciumName => 'कैल्शियम';
+
+  @override
+  String get supplementCalciumDose => '1,000-1,300mg';
+
+  @override
+  String get supplementCalciumBenefit =>
+      'हड्डियों के घनत्व और ग्रोथ प्लेट्स की मुख्य नींव';
+
+  @override
+  String get supplementOmega3Name => 'ओमेगा-3';
+
+  @override
+  String get supplementOmega3Dose => '1,000mg';
+
+  @override
+  String get supplementOmega3Benefit =>
+      'सूजन कम करता है और ग्रोथ प्लेट के सही कामकाज में मदद करता है';
+
+  @override
+  String get supplementCollagenName => 'कोलाजन + विटामिन C';
+
+  @override
+  String get supplementCollagenDose => '10g + 500mg';
+
+  @override
+  String get supplementCollagenBenefit =>
+      'विटामिन C आपके शरीर को कार्टिलेज और हड्डी की संरचना बनाने में कोलाजन इस्तेमाल करने में मदद करता है';
+
+  @override
+  String get sciSourcePrefix => 'Source: ';
+
+  @override
+  String get program => 'कार्यक्रम';
+
+  @override
+  String get todaysExercises => 'आज के व्यायाम';
+
+  @override
+  String get dailyNutritionPlan => 'दैनिक पोषण योजना';
+
+  @override
+  String get nutritionGoalsComplete => '🎉 सभी पोषण लक्ष्य पूरे हुए!';
+
+  @override
+  String get nutritionGoalsIncomplete =>
+      'बेहतरीन विकास के लिए अपने पोषण लक्ष्य पूरे करें';
+
+  @override
+  String get postureDetectingAlignment =>
+      'रीढ़ की हड्डी का संरेखण पहचाना जा रहा है...';
+
+  @override
+  String get testimonial1 =>
+      'उम्र की वजह से उम्मीद नहीं थी, लेकिन BeTaller से बढ़ा। आत्मविश्वास कभी इतना नहीं था।';
+
+  @override
+  String get testimonialDuration1 => '4 महीने';
+
+  @override
+  String get testimonial2 =>
+      'सबने कहा अब नहीं बढ़ सकते। BeTaller से सबको चौंका दिया।';
+
+  @override
+  String get testimonialDuration2 => '3 महीने';
+
+  @override
+  String get testimonial3 =>
+      'रूटीन शुरू करने के बाद लंबाई और पोस्चर दोनों सुधरे।';
+
+  @override
+  String get testimonialDuration3 => '6 महीने';
+
+  @override
+  String get testimonial4 =>
+      'अभी ग्रोथ फेज में हूं और BeTaller का असर अविश्वसनीय है।';
+
+  @override
+  String get testimonialDuration4 => '3 महीने';
+
+  @override
+  String get testimonial5 =>
+      'जल्दी ही असली फर्क महसूस किया। बिल्कुल सिफारिश करता हूं।';
+
+  @override
+  String get testimonialDuration5 => '4 महीने';
+
+  @override
+  String get designedForYou => 'आपके लिए बनाया गया';
+
+  @override
+  String get designedForYouDesc =>
+      'BeTaller आपकी जेनेटिक सीमा तक पहुंचने के लिए बनाया गया है।';
+
+  @override
+  String get greetingAllDone => 'बहुत बढ़िया! 🎯';
+
+  @override
+  String get greetingAllDoneSub => 'आज के सभी कार्य पूरे हो गए।';
+
+  @override
+  String greetingStreak30(int streak) {
+    return '$streak दिन की लगातार — महान स्तर।';
+  }
+
+  @override
+  String greetingStreak7(int streak) {
+    return '$streak दिन की लगातार — जारी रखो।';
+  }
+
+  @override
+  String greetingStreak3(int streak) {
+    return '$streak दिन लगातार। ज़्यादातर छोड़ देते हैं। तुमने नहीं छोड़ा।';
+  }
+
+  @override
+  String get greetingMorning => 'सुप्रभात। नया दिन, नया मौका।';
+
+  @override
+  String get greetingAfternoon => 'आज लगातार शुरू करने का बढ़िया दिन है।';
+
+  @override
+  String get greetingEvening => 'कार्य पूरे करो, लगातार शुरू करो।';
+
+  @override
+  String get todayCompleted => 'आज पूरा ✓';
+
+  @override
+  String get todayGoals => 'आज के लक्ष्य';
+
+  @override
+  String get challengesLabel => 'चुनौतियाँ';
+
+  @override
+  String get dailyChallengesLabel => 'दैनिक चुनौतियाँ';
+
+  @override
+  String get expiresTonight => 'आज रात समाप्त';
+
+  @override
+  String get allChallengesCompleted => 'सभी पूरी ✓';
+
+  @override
+  String get challengesLoading => 'नई चुनौतियाँ जल्द।';
+
+  @override
+  String get challengesLoadingTitle => 'दैनिक चुनौतियाँ';
+
+  @override
+  String get behindPace => 'पीछे चल रहे हो';
+
+  @override
+  String get growthTracking => 'विकास ट्रैकिंग';
+
+  @override
+  String get growthEmptyFirst => 'पहली ऊँचाई दर्ज करें।';
+
+  @override
+  String get growthEmptySecond => 'ग्राफ के लिए दूसरा माप।';
+
+  @override
+  String get growthSectionLabel => 'विकास';
+
+  @override
+  String get generalPerformance => 'समग्र प्रदर्शन';
+
+  @override
+  String get analysisBalance => 'आपका संतुलन';
+
+  @override
+  String get analysisWeakest => 'आपकी सबसे कमज़ोर कड़ी';
+
+  @override
+  String get analysisPrediction => 'ऊंचाई का अनुमान';
+
+  @override
+  String get analysisComparison => 'तुलना';
+
+  @override
+  String get analysisGrowth => 'विकास की स्थिति';
+
+  @override
+  String get analysisWeakestHint =>
+      'यहीं से आप सबसे तेज़ी से अपना स्कोर बढ़ा सकते हैं।';
+
+  @override
+  String get exploreLabel => 'खोजें';
+
+  @override
+  String get explorePosture => 'पोस्चर विश्लेषण';
+
+  @override
+  String get explorePostureSub => 'पोस्चर विश्लेषण और सुझाव';
+
+  @override
+  String get explorePhotos => 'प्रगति फ़ोटो';
+
+  @override
+  String get explorePhotosSub => 'फ़ोटो से बदलाव ट्रैक करें';
+
+  @override
+  String get exploreNutrition => 'पोषण';
+
+  @override
+  String get exploreNutritionSub => 'प्रोटीन, कैल्शियम और विटामिन गाइड';
+
+  @override
+  String get exploreHealth => 'स्वास्थ्य';
+
+  @override
+  String get exploreHealthSub => 'तनाव, कैफीन और वेलनेस';
+
+  @override
+  String get exploreRecipes => 'ग्रोथ रेसिपी';
+
+  @override
+  String get exploreRecipesSub => 'विकास में मदद करने वाली रेसिपी';
+
+  @override
+  String get educationLabel => 'शिक्षा';
+
+  @override
+  String get educationTitle => 'लंबाई बढ़ने\nका विज्ञान';
+
+  @override
+  String get educationSubtitle => 'विशेषज्ञ सामग्री, शोध और गाइड';
+
+  @override
+  String get aiAnalysisLabel => 'AI विश्लेषण';
+
+  @override
+  String get peerCompareLabel => 'साथियों से तुलना';
+
+  @override
+  String peerCompareText(int topPct) {
+    return 'आप Top $topPct% में हैं';
+  }
+
+  @override
+  String get notifWaterTitle => '💧 पानी पीना न भूलें!';
+
+  @override
+  String get notifWaterBody => 'लक्ष्य पूरा? एक गिलास और!';
+
+  @override
+  String get notifMorningTitle => '🌅 सुप्रभात! व्यायाम';
+
+  @override
+  String get notifMorningBody => 'सुबह स्ट्रेचिंग! 10 मिनट।';
+
+  @override
+  String get notifRoutineTitle => '🔥 रूटीन पूरी करें!';
+
+  @override
+  String get notifRoutineBody => 'दिन खत्म होने से पहले जांचें।';
+
+  @override
+  String get notifProteinTitle => '🥚 प्रोटीन दिवस!';
+
+  @override
+  String get notifProteinBody => 'मजबूत शुरुआत! हर भोजन में प्रोटीन।';
+
+  @override
+  String get notifNewWeekTitle => '✨ नया सप्ताह!';
+
+  @override
+  String get notifNewWeekBody => 'रूटीन न छोड़ें। छोटे कदम!';
+
+  @override
+  String get notifSleepTitle => '😴 सोने का समय!';
+
+  @override
+  String get notifSleepBody => 'ग्रोथ हॉर्मोन 10-2 बजे चरम पर।';
+
+  @override
+  String get notifPostureTitle => '🧍 पोस्चर!';
+
+  @override
+  String get notifPostureBody => 'पीठ सीधी, कंधे पीछे। 2-3 cm!';
+
+  @override
+  String get notifVitaminDTitle => '☀️ विटामिन D!';
+
+  @override
+  String get notifVitaminDBody => '15 मिनट धूप!';
+
+  @override
+  String get notifMidweekTitle => '✨ आधा सप्ताह!';
+
+  @override
+  String get notifMidweekBody => 'जारी रखो!';
+
+  @override
+  String get notifScreenTitle => '📵 स्क्रीन बंद!';
+
+  @override
+  String get notifScreenBody => 'सोने से 1 घंटे पहले स्क्रीन से दूर।';
+
+  @override
+  String get notifJumpTitle => '🦘 कूदने का समय!';
+
+  @override
+  String get notifJumpBody => 'कूद ग्रोथ प्लेट्स उत्तेजित करती है। 3 x 20!';
+
+  @override
+  String get notifCalciumTitle => '🥛 कैल्शियम!';
+
+  @override
+  String get notifCalciumBody => 'दूध या दही। कैल्शियम ज़रूरी!';
+
+  @override
+  String get notifPostureCheckTitle => '🧍 पोस्चर!';
+
+  @override
+  String get notifPostureCheckBody => 'फोन पर गर्दन न झुकाएं!';
+
+  @override
+  String get notifWeekendTitle => '✨ वीकेंड प्रेरणा';
+
+  @override
+  String get notifWeekendBody => 'वीकेंड पर भी रूटीन!';
+
+  @override
+  String get notifWeeklyProgressTitle => '📊 साप्ताहिक प्रगति';
+
+  @override
+  String get notifWeeklyProgressBody => 'ग्राफ देखें!';
+
+  @override
+  String get notifMeasureTitle => '📏 साप्ताहिक माप!';
+
+  @override
+  String get notifMeasureBody => 'नापें! सुबह सबसे सटीक।';
+
+  @override
+  String get notifEarlySleepTitle => '😴 जल्दी सोएं!';
+
+  @override
+  String get notifEarlySleepBody => 'कल सोमवार! कम से कम 8 घंटे।';
+
+  @override
+  String get notifStreak3Title => '🔥 3 दिन लगातार!';
+
+  @override
+  String get notifStreak3Body => 'शानदार! 7 तक पहुँचो!';
+
+  @override
+  String get notifStreak7Title => '🏆 1 सप्ताह!';
+
+  @override
+  String get notifStreak7Body => 'अविश्वसनीय! 7 दिन!';
+
+  @override
+  String get notifStreak14Title => '⭐ 2 सप्ताह!';
+
+  @override
+  String get notifStreak14Body => '14 दिन अनुशासन!';
+
+  @override
+  String get notifStreak30Title => '👑 1 महीना!';
+
+  @override
+  String get notifStreak30Body => '30 दिन! चैंपियन!';
+
+  @override
+  String get notifStreak60Title => '🌟 60 दिन!';
+
+  @override
+  String get notifStreak60Body => '60 दिन! अविश्वसनीय।';
+
+  @override
+  String get notifStreak100Title => '💎 100 दिन! महान!';
+
+  @override
+  String get notifStreak100Body => '100 दिन! किंवदंती!';
+
+  @override
+  String get notifStreakRiskTitle => '⚠️ लगातार न खोएं!';
+
+  @override
+  String notifStreakRiskBody(int streak) {
+    return '$streak दिन की लगातार खतरे में!';
+  }
+
+  @override
+  String get paywallStat1 => 'cm — क्षमता लॉक है';
+
+  @override
+  String get paywallTitle1 => 'कितने cm\nबढ़ सकते हो?';
+
+  @override
+  String get paywallBullet1a => 'जेनेटिक सीमा गणना हो चुकी, देखना?';
+
+  @override
+  String get paywallBullet1b => 'जीवनशैली विकास को कैसे प्रभावित करती है?';
+
+  @override
+  String get paywallBullet1c => 'व्यक्तिगत रोडमैप तैयार';
+
+  @override
+  String get paywallStat2 => 'कस्टम रूटीन तैयार';
+
+  @override
+  String get paywallTitle2 => 'योजना\nतैयार है';
+
+  @override
+  String get paywallBullet2a => 'हर सुबह 8 मिनट';
+
+  @override
+  String get paywallBullet2b => 'नींद, पोषण, पानी — सब ट्रैक';
+
+  @override
+  String get paywallBullet2c => 'हर दिन एक कदम आगे';
+
+  @override
+  String get paywallStat3 => 'रियल-टाइम प्रगति ग्राफ';
+
+  @override
+  String get paywallTitle3 => 'वृद्धि\nट्रैक करें';
+
+  @override
+  String get paywallBullet3a => 'मासिक माप';
+
+  @override
+  String get paywallBullet3b => 'पोस्चर विश्लेषण से 2 cm';
+
+  @override
+  String get paywallBullet3c => 'प्रगति फ़ोटो — फर्क दिखेगा';
+
+  @override
+  String get paywallStat4 => 'दैनिक कार्यक्रम — लेवल अप';
+
+  @override
+  String get paywallTitle4 => 'हर दिन\nमजबूत';
+
+  @override
+  String get paywallBullet4a => 'XP, लेवल — आदतें खेल';
+
+  @override
+  String get paywallBullet4b => 'जो सफल हुए वो यहीं से गुज़रे';
+
+  @override
+  String get paywallBullet4c => 'शुरू करें — पहला सप्ताह मुफ्त';
+
+  @override
+  String get paywallRestore => 'कोई खरीदारी नहीं मिली';
+
+  @override
+  String get paywallRestoreNotFound => 'कोई खरीदारी नहीं मिली';
+
+  @override
+  String get paywallPromoCode => 'क्या आपके पास प्रोमो कोड है?';
+
+  @override
+  String get paywallHeightUnit => 'लक्ष्य ऊंचाई';
+
+  @override
+  String get paywallHeightTitle => 'तुम कितने सेंटीमीटर और बढ़ सकते हो?';
+
+  @override
+  String get paywallHeightDesc =>
+      'हम तुम्हारी आनुवंशिकी, जीवनशैली और मुद्रा का एक साथ विश्लेषण करके साल दर साल अनुमान बनाते हैं। कुछ भी तय नहीं है, हर कदम इसे बदलता है।';
+
+  @override
+  String get paywallGrowthUnit => 'इस साल';
+
+  @override
+  String get paywallGrowthTitle => 'हम तुम्हारी बढ़त साथ में देखते हैं';
+
+  @override
+  String get paywallGrowthDesc =>
+      'हर माप तुरंत ग्राफ़ पर आ जाती है। तुम अपनी प्रगति महीने दर महीने, सेंटीमीटर दर सेंटीमीटर देखते हो।';
+
+  @override
+  String get paywallPostureUnit => 'मुद्रा स्कोर';
+
+  @override
+  String get paywallPostureTitle => 'तुम्हारी मुद्रा ही रूटीन की कुंजी है';
+
+  @override
+  String get paywallPostureDesc =>
+      'एक तस्वीर से काइफ़ोसिस, लॉर्डोसिस और सिर की स्थिति मापकर तुम्हारे लिए सुधार रूटीन बनते हैं। सही मुद्रा अकेले 2-3 सेमी का फ़र्क़ ला सकती है।';
+
+  @override
+  String get paywallReportUnit => 'रूटीन पूरे';
+
+  @override
+  String get paywallReportTitle => 'हर हफ़्ते तुम्हारा आकलन करते हैं';
+
+  @override
+  String get paywallReportDesc =>
+      'पानी, नींद, रूटीन और स्ट्रीक एक ही स्क्रीन पर। हर हफ़्ते तुम्हारी मज़बूती और कमियाँ साथ में तय करते हैं।';
+
+  @override
+  String get paywallNutritionUnit => 'भोजन प्रतिदिन';
+
+  @override
+  String get paywallNutritionTitle => 'तुम्हारी पूरी पोषण योजना तैयार है';
+
+  @override
+  String get paywallNutritionDesc =>
+      'नाश्ते से रात के खाने तक, प्रोटीन, कैल्शियम, ज़िंक और विटामिन डी की गणना के साथ पूरा दैनिक प्लान।';
+
+  @override
+  String get paywallScoreUnit => 'BeTaller स्कोर';
+
+  @override
+  String get paywallScoreTitle => 'वह सिस्टम जो तुम्हें आगे बढ़ाता रहता है';
+
+  @override
+  String get paywallScoreDesc =>
+      'आनुवंशिकी, बढ़त, पोषण, नींद और अनुशासन एक ही स्कोर में मिलते हैं। स्कोर गिरते ही दिखता है कि कहाँ सुधार चाहिए।';
+
+  @override
+  String get paywallPhotosUnit => 'दिखने वाला फ़र्क़';
+
+  @override
+  String get paywallPhotosTitle => 'अपने बदलाव को तस्वीरों से साबित करो';
+
+  @override
+  String get paywallPhotosDesc =>
+      'पहले/बाद की तुलना अपने आप बनती है और हर महीने की तस्वीर तुम्हारी टाइमलाइन पर साथ रहती है।';
+
+  @override
+  String get paywallReportStat => '82%';
+
+  @override
+  String get journeyIntroTitle => 'तीन चरणों में शुरू करें';
+
+  @override
+  String get journeyIntroSubtitle =>
+      'हम BeTaller को साथ मिलकर तैयार करते हैं। अगला चरण तुम्हारा इंतज़ार कर रहा है।';
+
+  @override
+  String get journeyStep1Title => 'तुम्हारा डेटा लेना';
+
+  @override
+  String get journeyStep1Desc =>
+      'हम तुम्हारी लंबाई, उम्र और जीवनशैली लेकर तुम्हारी क्षमता निकालते हैं।';
+
+  @override
+  String get journeyStep2Title => 'ऐप का परिचय';
+
+  @override
+  String get journeyStep2Desc =>
+      'हम हर सुविधा दिखाते हैं: वह क्या करती है और उसे कैसे इस्तेमाल करना है।';
+
+  @override
+  String get journeyStep3Title => 'खुद इस्तेमाल';
+
+  @override
+  String get journeyStep3Desc =>
+      'तुम अपनी रोज़ की रूटीन चलाते हो और हम तुम्हारी प्रगति देखते हैं।';
+
+  @override
+  String get journeyNow => 'अभी';
+
+  @override
+  String get journeyDone => 'पूरा';
+
+  @override
+  String get journeySoon => 'जल्द';
+
+  @override
+  String get tourHomeStreakTitle => 'आपकी स्ट्रीक';
+
+  @override
+  String get tourHomeStreakDesc =>
+      'जब तक आप अनुशासन बनाए रखते हैं तब तक बढ़ती रहती है — एक दिन छूटा तो रीसेट हो जाती है।';
+
+  @override
+  String get tourHomeXpTitle => 'आपका लेवल';
+
+  @override
+  String get tourHomeXpDesc =>
+      'अनुशासन बनाए रखने से मिलने वाले XP से बढ़ता है। पटरी से मत उतरिए!';
+
+  @override
+  String get tourHomeGoalsTitle => 'आज के लक्ष्य';
+
+  @override
+  String get tourHomeGoalsDesc =>
+      'आज की रूटीन, कार्य और पानी का लक्ष्य एक नज़र में दिखाता है, कुछ भी छूटता नहीं।';
+
+  @override
+  String get tourHomeTrackTitle => 'पानी और नींद ट्रैकिंग';
+
+  @override
+  String get tourHomeTrackDesc =>
+      'अपना दैनिक पानी और नींद यहीं, कुछ ही सेकंड में दर्ज करें।';
+
+  @override
+  String get tourPlanTabsTitle => 'तीन टैब: आज, डिसिप्लिन, पोषण';
+
+  @override
+  String get tourPlanTabsDesc =>
+      'आपकी दैनिक रूटीन, साप्ताहिक प्रोग्राम और पोषण योजना — सब यहीं हैं।';
+
+  @override
+  String get tourPlanLevelTitle => 'आपका डिसिप्लिन लेवल';
+
+  @override
+  String get tourPlanLevelDesc =>
+      'दिखाता है कि आप कितनी नियमितता से रूटीन पूरी करते हैं। बेहतर नतीजों के लिए लेवल बढ़ाएं।';
+
+  @override
+  String get tourPlanTodayTitle => 'आज का प्लान';
+
+  @override
+  String get tourPlanTodayDesc =>
+      'अपनी स्ट्रीक बढ़ाने के लिए यहाँ रोज़ाना रूटीन पूरी करके चेक करें।';
+
+  @override
+  String get tourPlanTodayListTitle => 'आज की आपकी रूटीन';
+
+  @override
+  String get tourPlanTodayListDesc =>
+      'जैसे-जैसे करें, वैसे-वैसे चेक करें — विवरण के लिए किसी रूटीन पर टैप करें।';
+
+  @override
+  String get tourPlanWeekGoalsTitle => 'इस हफ्ते';
+
+  @override
+  String get tourPlanWeekGoalsDesc =>
+      'परफेक्ट दिन, वर्कआउट और इस हफ्ते का ज़रूरी माप — अनिवार्य वाला भी शामिल।';
+
+  @override
+  String get tourPlanMonthGoalsTitle => 'इस महीने';
+
+  @override
+  String get tourPlanMonthGoalsDesc =>
+      'प्रोग्रेस फ़ोटो, पॉस्चर चेक और इस महीने के माप — जिन्हें छोड़ना नहीं चाहिए।';
+
+  @override
+  String get tourProgressHeightTitle => 'आपकी मौजूदा लंबाई';
+
+  @override
+  String get tourProgressHeightDesc =>
+      'आपकी अभी की लंबाई और कुल बढ़ोतरी दिखाता है। यहाँ से नया माप जोड़ें।';
+
+  @override
+  String get tourProgressPhotosTitle => 'प्रोग्रेस फ़ोटो';
+
+  @override
+  String get tourProgressPhotosDesc =>
+      'नियमित रूप से ली गई फ़ोटो से अपना बदलाव आँखों से देखें।';
+
+  @override
+  String get tourProgressPostureTitle => 'पॉस्चर विश्लेषण';
+
+  @override
+  String get tourProgressPostureDesc =>
+      'फ़ोटो से अपने पॉस्चर का विश्लेषण करवाएं, जानें किस पर काम करना है।';
+
+  @override
+  String get tourAnalysisScoreTitle => 'आपका BeTaller स्कोर';
+
+  @override
+  String get tourAnalysisScoreDesc =>
+      'जेनेटिक्स, गति, पोषण और नींद के आधार पर बना आपका समग्र प्रदर्शन स्कोर।';
+
+  @override
+  String get tourAnalysisPredictionTitle => 'आपकी लंबाई का अनुमान';
+
+  @override
+  String get tourAnalysisPredictionDesc =>
+      'आपकी अनुमानित अंतिम लंबाई और साल-दर-साल का रुझान दिखाता है।';
+
+  @override
+  String get tourAnalysisPeerTitle => 'साथियों से तुलना';
+
+  @override
+  String get tourAnalysisPeerDesc =>
+      'देखें आप रैंकिंग में कहाँ हैं, और अपनी उम्र के लोगों से खुद की तुलना करें।';
+
+  @override
+  String get tourHomeGoalsRoutinesTitle => 'आपकी रूटीन';
+
+  @override
+  String get tourHomeGoalsRoutinesDesc =>
+      'देखें आज आपको कितनी और व्यायाम रूटीन पूरी करनी हैं।';
+
+  @override
+  String get tourHomeGoalsChallengesTitle => 'आपके कार्य';
+
+  @override
+  String get tourHomeGoalsChallengesDesc =>
+      'अपनी सक्रिय चुनौतियों की प्रगति यहीं ट्रैक करें।';
+
+  @override
+  String get tourHomeGoalsWaterTitle => 'आपका पानी लक्ष्य';
+
+  @override
+  String get tourHomeGoalsWaterDesc =>
+      'देखें आप अपने दैनिक पानी लक्ष्य के कितने करीब हैं।';
+
+  @override
+  String get tourHomeReminderTitle => 'आपका अगला रिमाइंडर';
+
+  @override
+  String get tourHomeReminderDesc =>
+      'देखें आपका अगला रिमाइंडर कब आएगा, और यहीं से इसे संपादित करें।';
+
+  @override
+  String get tourHomeChallengesTitle => 'आपकी चुनौतियाँ';
+
+  @override
+  String get tourHomeChallengesDesc =>
+      'अतिरिक्त XP कमाने के लिए सक्रिय चुनौतियाँ पूरी करें।';
+
+  @override
+  String get tourHomeGrowthTitle => 'आपकी ग्रोथ स्थिति';
+
+  @override
+  String get tourHomeGrowthDesc =>
+      'अपने कुल और नवीनतम माप के बीच का अंतर देखें, और आपने कितने माप दर्ज किए हैं।';
+
+  @override
+  String get tourHomeExploreTitle => 'एक्सप्लोर करें';
+
+  @override
+  String get tourHomeExploreDesc =>
+      'पोषण गाइड, ग्रोथ रेसिपी और भी बहुत कुछ यहाँ आपका इंतज़ार कर रहा है।';
+
+  @override
+  String get tourPlanProgramHeaderTitle => 'आपका 70-दिन का प्रोग्राम';
+
+  @override
+  String get tourPlanProgramHeaderDesc =>
+      'इस रिंग में अपनी कुल प्रगति, मौजूदा लेवल और दिन देखें।';
+
+  @override
+  String get tourPlanProgramLevelsTitle => 'लेवल्स';
+
+  @override
+  String get tourPlanProgramLevelsDesc =>
+      'देखें आप 10 में से किस लेवल पर हैं, और कौन-से अभी लॉक हैं।';
+
+  @override
+  String get tourPlanNutritionHeaderTitle => 'आपकी पोषण प्रगति';
+
+  @override
+  String get tourPlanNutritionHeaderDesc =>
+      'ट्रैक करें आपने अपनी दैनिक पोषण रूटीन में से कितनी पूरी कीं।';
+
+  @override
+  String get tourPlanNutritionFirstTitle => 'पोषण रूटीन';
+
+  @override
+  String get tourPlanNutritionFirstDesc =>
+      'अपने विकास में मदद करने वाली पोषण आदतों को यहाँ चेक करें।';
+
+  @override
+  String get tourProgressChartTitle => 'ग्रोथ कर्व';
+
+  @override
+  String get tourProgressChartDesc =>
+      'चार्ट पर अपने पिछले माप देखें और समझें कि आप किस दिशा में जा रहे हैं।';
+
+  @override
+  String get tourProgressReportTitle => 'साप्ताहिक रिपोर्ट';
+
+  @override
+  String get tourProgressReportDesc =>
+      'अपने सप्ताह की प्रगति को संक्षेप में बताने वाली रिपोर्ट देखें।';
+
+  @override
+  String get tourProgressHistoryTitle => 'आपका माप इतिहास';
+
+  @override
+  String get tourProgressHistoryDesc =>
+      'अपनी दर्ज की गई हर लंबाई माप को टाइमलाइन पर देखें।';
+
+  @override
+  String get tourAnalysisRadarTitle => 'आपका बैलेंस चार्ट';
+
+  @override
+  String get tourAnalysisRadarDesc =>
+      'रडार चार्ट पर जेनेटिक्स, विकास गति, पोषण, नींद और अनुशासन का संतुलन देखें, और अपनी सबसे कमज़ोर कड़ी जानें।';
+
+  @override
+  String get tourAnalysisDailyNeedsTitle => 'आपकी दैनिक ज़रूरतें';
+
+  @override
+  String get tourAnalysisDailyNeedsDesc =>
+      'अपनी लंबाई और वज़न के अनुसार दैनिक प्रोटीन, कैलोरी, नींद और पानी की ज़रूरत देखें।';
+
+  @override
+  String get journeyDataDoneTitle => 'पहला चरण पूरा';
+
+  @override
+  String get journeyDataDoneSubtitle =>
+      'तुम्हारा डेटा और क्षमता तैयार है। अब ऐप का परिचय बाकी है।';
+
+  @override
+  String get journeyContinue => 'जारी रखें';
+
+  @override
+  String get journeyEnterApp => 'ऐप में जाएँ';
+
+  @override
+  String get journeyProgressLabel => 'शुरुआत';
+
+  @override
+  String get journeyTourDoneTitle => 'BeTaller में आपका स्वागत है!';
+
+  @override
+  String get journeyTourDoneSubtitle =>
+      'तुमने तीनों चरण पूरे कर लिए हैं। अब तुम्हारी बारी है — अपनी पहली रूटीन पूरी करके शुरुआत करो।';
+
+  @override
+  String get journeyViewPlansButton => 'शुरू करने के लिए प्लान देखें';
+
+  @override
+  String get paywallRestoreLabel => 'खरीदारी बहाल करें';
+
+  @override
+  String get paywallYearly => 'वार्षिक';
+
+  @override
+  String get paywallBestValue => 'सर्वोत्तम मूल्य';
+
+  @override
+  String get paywallMonthly => 'मासिक';
+
+  @override
+  String get paywallFreeTrial => '3 दिन मुफ्त';
+
+  @override
+  String get paywallLoadError => 'लोड नहीं हो सका';
+
+  @override
+  String get paywallCta => 'मुफ्त आज़माएं';
+
+  @override
+  String get paywallCtaAlt => 'जारी रखें';
+
+  @override
+  String get paywallTrialDisclaimer => '3 दिन मुफ्त · ऑटो-रिन्यू · कभी भी रद्द';
+
+  @override
+  String get paywallYearlyDisclaimer => 'वार्षिक ऑटो-रिन्यू · कभी भी रद्द';
+
+  @override
+  String get paywallTester => 'Tester';
+
+  @override
+  String get introTag1 => 'अनुमान';
+
+  @override
+  String get introTag2 => 'विकास';
+
+  @override
+  String get introTag3 => 'ट्रैकिंग';
+
+  @override
+  String get introTag4 => 'गेमिफिकेशन';
+
+  @override
+  String get introTag5 => 'समुदाय';
+
+  @override
+  String get introTitle1 => 'अपनी ऊंचाई की\nसंभावना जानें';
+
+  @override
+  String get introSubtitle1 =>
+      'आनुवंशिकी, उम्र और जीवनशैली के आधार पर\nहम आपकी पूरी संभावना की गणना करेंगे।';
+
+  @override
+  String get introTitle2 => 'हर दिन एक कदम\nऊंचे बनें';
+
+  @override
+  String get introSubtitle2 =>
+      'व्यक्तिगत व्यायाम और पोषण योजनाओं के साथ\nअपनी संभावना को आगे बढ़ाएं।';
+
+  @override
+  String get introTitle3 => 'हर सेंटीमीटर\nट्रैक करें';
+
+  @override
+  String get introSubtitle3 =>
+      'मासिक मापों के साथ देखें कि\nआपकी असली प्रगति कैसे बढ़ती है।';
+
+  @override
+  String get introTitle4 => 'लेवल अप करें,\nइनाम पाएं';
+
+  @override
+  String get introSubtitle4 =>
+      '70-दिन के कार्यक्रम पूरे करें,\nXP कमाएं और नए स्तर अनलॉक करें।';
+
+  @override
+  String get introTitle5 => 'हज़ारों लोग पहले ही\nऊंचे हो चुके हैं';
+
+  @override
+  String get introSubtitle5 =>
+      'उन उपयोगकर्ताओं के समुदाय से जुड़ें\nजिन्होंने अपना लक्ष्य हासिल किया।';
+
+  @override
+  String get criticalWindow => 'महत्वपूर्ण समय-सीमा';
+
+  @override
+  String get heightPotentialFading => 'आपकी ऊंचाई की संभावना';
+
+  @override
+  String get fadingAway => 'के बारे में तथ्य..';
+
+  @override
+  String get painHookDesc =>
+      'हर बीतते दिन के साथ, सही आदतों के बिना सेंटीमीटर हमेशा के लिए खो जाते हैं। लेकिन इसे अभी भी पलटा जा सकता है।';
+
+  @override
+  String get painGeneticTitle => 'जेनेटिक्स ही सब कुछ नहीं है';
+
+  @override
+  String get painGeneticDesc =>
+      'जेनेटिक्स 60% तय करती है — बाकी 40% आप तय करते हैं। BeTaller ठीक उसी 40% के लिए है।';
+
+  @override
+  String get painGeneticTag => 'विश्लेषण';
+
+  @override
+  String get painSleepTitle => 'अपनी नींद की दिनचर्या को बेहतर बनाएं';
+
+  @override
+  String get painSleepDesc =>
+      'हर रात सही नींद ग्रोथ हार्मोन उत्पादन को 70% तक बढ़ा सकती है। BeTaller नींद ट्रैकिंग को ऑटोमैटिक करता है, आपको बस सोना है।';
+
+  @override
+  String get painSleepTag => 'ट्रैकिंग';
+
+  @override
+  String get painPostureTitle => 'पॉस्चर से अभी सेंटीमीटर हासिल करें';
+
+  @override
+  String get painPostureDesc =>
+      'सही पॉस्चर तुरंत 1.5–3 सेमी जोड़ सकता है। BeTaller की दैनिक पॉस्चर रूटीन कुछ हफ्तों में इसे स्थापित कर देती है।';
+
+  @override
+  String get painPostureTag => 'पॉस्चर';
+
+  @override
+  String get painExerciseTitle => 'आपकी कस्टम व्यायाम योजना तैयार है';
+
+  @override
+  String get painExerciseDesc =>
+      'सुबह की स्ट्रेचिंग, हैंगिंग, स्पाइन रूटीन — BeTaller ने इन्हें आपके लिए तैयार और शेड्यूल किया है। बस रोज़ाना 8–12 मिनट।';
+
+  @override
+  String get painExerciseTag => 'रूटीन';
+
+  @override
+  String get painNutritionTitle => 'आपका पोषण सीधे विकास को प्रभावित करता है';
+
+  @override
+  String get painNutritionDesc =>
+      'प्रोटीन, कैल्शियम, विटामिन डी — BeTaller आपको हर दिन याद दिलाता है कि कौन से पोषक तत्व कब लेने हैं।';
+
+  @override
+  String get painNutritionTag => 'पोषण';
+
+  @override
+  String get painTrackingTitle => 'अपनी आंखों से अपना विकास ट्रैक करें';
+
+  @override
+  String get painTrackingDesc =>
+      'मासिक माप, प्रगति फोटो, ग्रोथ चार्ट — हर हासिल किया गया सेंटीमीटर देखें।';
+
+  @override
+  String get painTrackingTag => 'प्रगति';
+
+  @override
+  String get selectYourGender => 'अपना लिंग चुनें';
+
+  @override
+  String get onboardingPredictSubtitle =>
+      'इसका उपयोग आपकी ऊंचाई की संभावना का अनुमान लगाने और आपकी कस्टम योजना बनाने के लिए किया जाएगा।';
+
+  @override
+  String get other => 'अन्य';
+
+  @override
+  String get whenWereYouBorn => 'आपका जन्म कब हुआ था?';
+
+  @override
+  String get heightAndWeight => 'ऊंचाई और वज़न';
+
+  @override
+  String get parentsHeight => 'माता-पिता की ऊंचाई';
+
+  @override
+  String get weeklyWorkout => 'साप्ताहिक वर्कआउट';
+
+  @override
+  String get workoutsPerWeek => 'प्रति सप्ताह वर्कआउट';
+
+  @override
+  String get whatsYourEthnicity => 'आपकी जातीयता क्या है?';
+
+  @override
+  String get whiteCaucasian => 'श्वेत / कॉकेशियन';
+
+  @override
+  String get blackAfricanAmerican => 'अश्वेत / अफ्रीकी-अमेरिकी';
+
+  @override
+  String get hispanicLatino => 'हिस्पैनिक / लातीनी';
+
+  @override
+  String get asian => 'एशियाई';
+
+  @override
+  String get middleEasternIndigenous => 'मध्य पूर्वी / स्वदेशी';
+
+  @override
+  String get dontWantToAnswer => 'मैं जवाब नहीं देना चाहता/चाहती';
+
+  @override
+  String get footSizeLabel => 'जूते का साइज़';
+
+  @override
+  String get selectYourSize => 'अपना साइज़ चुनें';
+
+  @override
+  String get whatsYourDreamHeight => 'आपकी सपनों की ऊंचाई क्या है?';
+
+  @override
+  String get dreamHeightCalcSubtitle =>
+      'आपकी जानकारी के आधार पर, हम इस ऊंचाई को पाने की संभावना की गणना करेंगे।';
+
+  @override
+  String get dreamHeightLabel => 'सपनों की ऊंचाई';
+
+  @override
+  String get sleepQuestion => 'आप हर रात कितने\nघंटे सोते हैं?';
+
+  @override
+  String get thousandsSucceeded => 'हज़ारों लोग\nसफल हो चुके हैं';
+
+  @override
+  String get youCanToo => 'आप भी कर सकते हैं';
+
+  @override
+  String get yearsOld => 'साल के';
+
+  @override
+  String get verifiedLabel => 'सत्यापित';
+
+  @override
+  String get scientificData => 'वैज्ञानिक डेटा';
+
+  @override
+  String get longTermResults => 'BeTaller देता है\nलंबे समय के नतीजे';
+
+  @override
+  String get longTermResultsSubtitle =>
+      'बुरी आदतों की वजह से कई लोग अपनी अधिकतम ऊंचाई तक नहीं पहुंच पाते।';
+
+  @override
+  String get yourFinalHeight => 'आपकी अंतिम ऊंचाई';
+
+  @override
+  String get badHabitsLegend => 'बुरी आदतें';
+
+  @override
+  String get optimizedLegend => 'अनुकूलित';
+
+  @override
+  String get chartFact1Pct => '30%';
+
+  @override
+  String get chartFact1Desc => 'आदतों से ऊंचाई में\nबदलाव लाया जा सकता है';
+
+  @override
+  String get chartFact2Pct => '9-10 घं.';
+
+  @override
+  String get chartFact2Desc => 'सही नींद ग्रोथ हार्मोन\nको बढ़ावा देती है';
+
+  @override
+  String get chartFact3Pct => '3 सेमी';
+
+  @override
+  String get chartFact3Desc => 'पॉस्चर सुधारकर\nहासिल किए जा सकते हैं';
+
+  @override
+  String get didYouKnow => 'क्या आप जानते हैं?';
+
+  @override
+  String get didYouKnowFact1 =>
+      'दैनिक आदतें आपकी ऊंचाई के 30% को प्रभावित करती हैं';
+
+  @override
+  String get didYouKnowFact2 =>
+      'स्पाइन का दबाव आपकी 1.5-3 सेमी ऊंचाई छीन लेता है';
+
+  @override
+  String get didYouKnowFact3 => 'नींद की कमी HGH को 70% तक कम कर देती है';
+
+  @override
+  String get transformJourneyBegins => 'आपकी बदलाव की\nयात्रा अभी शुरू होती है';
+
+  @override
+  String get transformJourneySubtitle =>
+      'एक व्यापक कार्यक्रम जो कदम दर कदम\nआपके स्वस्थ विकास को सहारा देने के लिए बनाया गया है।';
+
+  @override
+  String get week1Label => '1सप्ताह';
+
+  @override
+  String get week1Title => 'सप्ताह 1';
+
+  @override
+  String get week1Desc => 'रीढ़ का संरेखण बेहतर होता है, पॉस्चर सुधरता है';
+
+  @override
+  String get month1Label => '1माह';
+
+  @override
+  String get month1Title => 'महीना 1';
+
+  @override
+  String get month1Desc =>
+      'पहले दिखने लायक सेंटीमीटर, नींद की गुणवत्ता बेहतर होती है';
+
+  @override
+  String get month3Label => '3माह';
+
+  @override
+  String get month3Title => 'महीना 3';
+
+  @override
+  String get month3Desc => 'औसतन +1.5–2.5 सेमी की वृद्धि, मांसपेशियों का विकास';
+
+  @override
+  String get month6Label => '6माह';
+
+  @override
+  String get month6Title => 'महीना 6';
+
+  @override
+  String get month6Desc =>
+      'अधिकतम संभावना तक पहुंचें, अपनी नई ऊंचाई के साथ जिएं';
+
+  @override
+  String get reachYourGoal => 'अपना लक्ष्य हासिल करें';
+
+  @override
+  String get journeyBullet1 => 'अपनी अधिकतम संभावना अनलॉक करें';
+
+  @override
+  String get journeyBullet2 => 'अपनी नई ऊंचाई के साथ जीना शुरू करें';
+
+  @override
+  String get journeyBullet3 => 'अपनी सफलता की कहानी लिखें';
+
+  @override
+  String get unlockButton => 'सब अनलॉक करें';
+
+  @override
+  String get dreamHeightOdds => 'आपकी सपनों की ऊंचाई की\nसंभावना';
+
+  @override
+  String get growthCompleteLabel => 'विकास\nपूर्ण';
+
+  @override
+  String get tallerThanPct => 'आपकी उम्र के 76.7% लोगों से लंबे';
+
+  @override
+  String get levelNovice => 'नौसिखिया';
+
+  @override
+  String get levelBuilder => 'निर्माता';
+
+  @override
+  String get levelGrinder => 'मेहनती';
+
+  @override
+  String get levelWarrior => 'योद्धा';
+
+  @override
+  String get levelGodTier => 'देव स्तर';
+
+  @override
+  String get levelDesc0 => 'अपनी नींव बनाओ';
+
+  @override
+  String get levelDesc1 => 'विकास तेज करो';
+
+  @override
+  String get levelDesc2 => 'प्रशिक्षण तीव्र करो';
+
+  @override
+  String get levelDesc3 => 'अपनी सीमाएं तोड़ो';
+
+  @override
+  String get levelDesc4 => 'बिना दर्द, कोई लाभ नहीं';
+
+  @override
+  String get levelDesc5 => 'चैंपियन मानसिकता';
+
+  @override
+  String get levelDesc6 => 'एलीट प्रदर्शन';
+
+  @override
+  String get levelDesc7 => 'अपने शरीर पर काबू';
+
+  @override
+  String get levelDesc8 => 'किंवदंती अनुशासन';
+
+  @override
+  String get levelDesc9 => 'अधिकतम क्षमता';
+
+  @override
+  String levelLabel(int level) {
+    return 'स्तर $level';
+  }
+
+  @override
+  String daysLeftProgram(int days) {
+    return 'कार्यक्रम में $days दिन बाकी';
+  }
+
+  @override
+  String get tapLabel => 'दबाएं';
+
+  @override
+  String kcalPer100g(int calories) {
+    return '$calories kcal / 100g';
+  }
+
+  @override
+  String get dayShort => 'दिन';
+
+  @override
+  String get legendShort => 'छोटा';
+
+  @override
+  String get legendBelowAvg => 'औसत से कम';
+
+  @override
+  String get legendAverage => 'औसत';
+
+  @override
+  String get legendTall => 'लंबा';
+
+  @override
+  String get legendVeryTall => 'बहुत लंबा';
+
+  @override
+  String get pctBottom5 => 'नीचे 5%';
+
+  @override
+  String get pctBottom25 => 'नीचे 25%';
+
+  @override
+  String get pctMedian => 'मध्यिका';
+
+  @override
+  String get pctTop25 => 'ऊपर 25%';
+
+  @override
+  String get pctTop5 => 'ऊपर 5%';
+
+  @override
+  String get fallingBehind => 'पिछड़ रहे हैं';
+
+  @override
+  String readTimeMinutes(int minutes) {
+    return '$minutes मिनट पढ़ें';
+  }
+
+  @override
+  String get inThisArticle => 'इस लेख में';
+
+  @override
+  String get nextArticle => 'अगला लेख';
+
+  @override
+  String get purchaseUnavailable =>
+      'खरीद पूरी नहीं हो सकी। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get viewPlan => 'प्लान देखें';
+
+  @override
+  String get viewPlanSubtitle => 'अपनी सदस्यता का विवरण देखें';
+
+  @override
+  String predictionConfidenceHint(String percent) {
+    return 'हर माप जोड़ने पर अनुमान $percent% तक पहुँचता है';
+  }
+
+  @override
+  String get paywallSlideHomeTitle => 'तुम्हारा दिन, एक स्क्रीन';
+
+  @override
+  String get paywallSlideHomeCaption =>
+      'रूटीन, पानी, नींद — तीन रिंग पूरी करनी हैं।';
+
+  @override
+  String get paywallSlideProgressTitle => 'हर सेंटीमीटर देखो';
+
+  @override
+  String get paywallSlideProgressCaption => 'हर माप तुरंत ग्राफ़ पर आ जाता है।';
+
+  @override
+  String get paywallSlideAnalysisTitle => 'पाँच मापदंड, एक आकार';
+
+  @override
+  String get paywallSlideAnalysisCaption =>
+      'रडार तुम्हारी सबसे कमज़ोर कड़ी बताता है।';
+
+  @override
+  String get paywallSlidePotentialTitle => 'अपनी संभावना जानो';
+
+  @override
+  String get paywallSlidePotentialCaption =>
+      'देखो तुम अपने हमउम्रों में कहाँ हो।';
+
+  @override
+  String get paywallSlideDisciplineTitle => 'स्ट्रीक मत तोड़ो';
+
+  @override
+  String get paywallSlideDisciplineCaption =>
+      'हर दिन तुम्हारा स्तर ऊपर ले जाता है।';
+
+  @override
+  String get paywallSlideRemindersTitle => 'सही समय पर याद दिलाए';
+
+  @override
+  String get paywallSlideRemindersCaption => 'समय तय करो, बाकी ऐप संभालेगा।';
+
+  @override
+  String get paywallSlidePostureTitle => 'अपनी मुद्रा सुधारो';
+
+  @override
+  String get paywallSlidePostureCaption =>
+      'एक फ़ोटो, मापा गया स्कोर, साफ़ रूटीन।';
+
+  @override
+  String paywallTrialHeadline(String days) {
+    return '$days दिन मुफ़्त';
+  }
+
+  @override
+  String paywallTrialThen(String price) {
+    return 'फिर $price · कभी भी रद्द करें';
+  }
+
+  @override
+  String paywallYearlyBilled(String price) {
+    return '$price / साल · कभी भी रद्द करें';
+  }
+
+  @override
+  String get obBedtimeTitle => 'तुम आमतौर पर कितने बजे सोते हो?';
+
+  @override
+  String get obBedtimeSubtitle => 'नींद का रिमाइंडर इसी समय के हिसाब से लगेगा।';
+
+  @override
+  String get obWorkoutTimeTitle => 'तुम कितने बजे कसरत करते हो?';
+
+  @override
+  String get obWorkoutTimeSubtitle => 'ताकि ट्रेनिंग रिमाइंडर ठीक समय पर आए।';
+
+  @override
+  String get obMealsTitle => 'दिन में कितनी बार खाते हो?';
+
+  @override
+  String get obMealsSubtitle => 'समय पर टैप करके अपने हिसाब से बदलो।';
+
+  @override
+  String obMealsCount(String count) {
+    return '$count बार';
+  }
+
+  @override
+  String obMealLabel(String n) {
+    return 'भोजन $n';
+  }
+
+  @override
+  String get obProteinTitle => 'दिन में कितने ग्राम प्रोटीन लेते हो?';
+
+  @override
+  String get obProteinSubtitle => 'अंदाज़न बताओ — योजना उसी पर बनेगी।';
+
+  @override
+  String get obCaloriesTitle => 'दिन में औसतन कितनी कैलोरी लेते हो?';
+
+  @override
+  String get obCaloriesSubtitle =>
+      'अनुमान काफ़ी है, बाद में साथ मिलकर ठीक कर लेंगे।';
+
+  @override
+  String get obNotSure => 'मुझे ठीक से पता नहीं';
+}

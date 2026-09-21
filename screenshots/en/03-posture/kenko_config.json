@@ -1,0 +1,12 @@
+{
+  "bg_top": "#EAFBF2",
+  "bg_bottom": "#F1ECFB",
+  "text_color": "#14122A",
+  "brand_accent": "#8B5CF6",
+  "headline": "Fix Your Posture, Look Taller",
+  "pills": [
+    { "icon": "target", "icon_color": "#8B5CF6", "label": "Posture Score", "sub": "65/100 points" },
+    { "icon": "camera", "icon_color": "#FF4DB8", "label": "Before/After", "sub": "Photo tracking" }
+  ],
+  "metric": { "value": "65/100", "label": "Posture score", "side": "right", "y_frac": 0.24 }
+}

@@ -1,83 +1,104 @@
+import 'dart:async';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/user_profile.dart';
 import '../providers/app_provider.dart';
+import '../services/notification_service.dart';
 import '../utils/constants.dart';
-import '../utils/calculations.dart';
+import '../utils/dev_tools.dart';
+import '../utils/localized_data.dart';
+import 'notifications_screen.dart';
 import 'onboarding_screen.dart';
+import '../widgets/next_reminder_card.dart';
+import '../widgets/premium_paywall.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  /// Lets MainScreen re-launch the guided walkthrough from here too — a
+  /// dev-only shortcut for testing it without waiting on the journey step
+  /// that normally triggers it (see the "Geliştirici" group below).
+  final VoidCallback? onOpenTour;
+  const ProfileScreen({super.key, this.onOpenTour});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool _notificationsEnabled = false;
+
+  // Dev tools are compiled in whenever kDevTools is true (debug builds, and
+  // release builds built with --dart-define=DEV_TOOLS=true for internal
+  // testing) — but in a non-debug build we don't want them just sitting
+  // visible in the settings list. Holding the wordmark for a full 10s
+  // reveals them for that session; a plain debug build shows them right
+  // away, same as before, since there's nothing to hide from the developer
+  // actively running it.
+  bool _devToolsUnlocked = kDebugMode;
+  Timer? _devToolsHoldTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadNotifPref();
+  }
+
+  @override
+  void dispose() {
+    _devToolsHoldTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startDevToolsHold() {
+    if (!kDevTools || _devToolsUnlocked) return;
+    _devToolsHoldTimer?.cancel();
+    _devToolsHoldTimer = Timer(const Duration(seconds: 10), () {
+      if (!mounted) return;
+      HapticFeedback.heavyImpact();
+      setState(() => _devToolsUnlocked = true);
+    });
+  }
+
+  void _cancelDevToolsHold() {
+    _devToolsHoldTimer?.cancel();
+    _devToolsHoldTimer = null;
+  }
+
+  Future<void> _loadNotifPref() async {
+    final enabled = await NotificationService().isEnabled();
+    if (mounted) setState(() => _notificationsEnabled = enabled);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final profile = provider.profile;
         if (profile == null) return const SizedBox();
 
-        final bmi = Calculations.calculateBMI(profile.currentHeight, profile.weight);
-        final bmiCat = Calculations.bmiCategory(bmi);
         final achievements = provider.unlockedAchievements;
 
         return Scaffold(
           backgroundColor: AppColors.scaffold,
           body: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             slivers: [
               // ── Header ──────────────────────────────
               SliverToBoxAdapter(
                 child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF1E1B4B), Color(0xFF0A0A1A)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                  ),
+                  color: AppColors.scaffold,
                   child: SafeArea(
                     bottom: false,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
-                      child: Column(
-                        children: [
-                          // Avatar
-                          Container(
-                            width: 72,
-                            height: 72,
-                            decoration: BoxDecoration(
-                              gradient: AppColors.gradientPrimary,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.primary.withValues(alpha: 0.3),
-                                  blurRadius: 24,
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Icon(
-                                profile.gender == 'male' ? CupertinoIcons.person_fill : CupertinoIcons.person_fill,
-                                color: Colors.white,
-                                size: 32,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 14),
-                          Text(
-                            profile.name,
-                            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.8),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            '${profile.currentHeight.toStringAsFixed(1)} cm · ${profile.weight.toStringAsFixed(1)} kg',
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white.withValues(alpha: 0.70), letterSpacing: -0.2),
-                          ),
-                        ],
-                      ),
+                    child: const Padding(
+                      padding: EdgeInsets.fromLTRB(20, 12, 20, 16),
+                      child: SizedBox(),
                     ),
                   ),
                 ),
@@ -87,137 +108,687 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
-                    // ── Profile Info ──────────────────
-                    GlassCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SectionHeader(icon: CupertinoIcons.person_circle, title: 'Profil Bilgileri'),
-                          const SizedBox(height: 16),
-                          _ProfileRow(label: 'İsim', value: profile.name),
-                          _ProfileRow(label: 'Yaş', value: '${profile.age} yaşında'),
-                          _ProfileRow(label: 'Cinsiyet', value: profile.gender == 'male' ? 'Erkek' : 'Kadın'),
-                          _ProfileRow(label: 'Boy', value: '${profile.currentHeight.toStringAsFixed(1)} cm'),
-                          _ProfileRow(label: 'Kilo', value: '${profile.weight.toStringAsFixed(1)} kg'),
-                          _ProfileRow(label: 'BMI', value: '${bmi.toStringAsFixed(1)} ($bmiCat)'),
-                          _ProfileRow(label: 'Anne Boyu', value: '${profile.motherHeight.toStringAsFixed(0)} cm'),
-                          _ProfileRow(label: 'Baba Boyu', value: '${profile.fatherHeight.toStringAsFixed(0)} cm', isLast: true),
-                        ],
-                      ),
+                    // ── Who this is ───────────────────
+                    _IdentityCard(
+                      provider: provider,
+                      profile: profile,
+                      onEdit: () =>
+                          _showEditProfileSheet(context, provider, profile),
                     ),
                     const SizedBox(height: 14),
+
+                    // ── Reminders, one tap from the top ───
+                    const NextReminderCard(),
+                    const SizedBox(height: 14),
+
+                    if (!provider.hasPaidPremium)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 14),
+                        child: GestureDetector(
+                          onTap: () => showPremiumPaywall(context),
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(22),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(
+                                    0xFF8B5CF6,
+                                  ).withValues(alpha: 0.3),
+                                  blurRadius: 12,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  CupertinoIcons.sparkles,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        l.premium,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        l.premiumSubtitle,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white.withValues(
+                                            alpha: 0.8,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Icon(
+                                  CupertinoIcons.chevron_right,
+                                  color: Colors.white,
+                                  size: 16,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
 
                     // ── Stats ─────────────────────────
                     GlassCard(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SectionHeader(icon: CupertinoIcons.chart_bar_fill, title: 'İstatistikler'),
+                          SectionHeader(
+                            icon: CupertinoIcons.chart_bar_fill,
+                            title: l.statistics,
+                          ),
                           const SizedBox(height: 16),
                           Row(
                             children: [
-                              _StatBox(icon: CupertinoIcons.flame_fill, label: 'Güncel Seri', value: '${provider.streak}', color: AppColors.orange),
+                              _StatBox(
+                                icon: CupertinoIcons.flame_fill,
+                                label: l.currentStreak,
+                                value: '${provider.streak}',
+                                color: AppColors.orange,
+                              ),
                               const SizedBox(width: 10),
-                              _StatBox(icon: CupertinoIcons.rosette, label: 'En İyi Seri', value: '${provider.bestStreak}', color: AppColors.primary),
+                              _StatBox(
+                                icon: CupertinoIcons.rosette,
+                                label: l.bestStreakLabel,
+                                value: '${provider.bestStreak}',
+                                color: AppColors.primary,
+                              ),
                               const SizedBox(width: 10),
-                              _StatBox(icon: CupertinoIcons.star_fill, label: 'Başarım', value: '${provider.earnedAchievementCount}/${achievements.length}', color: AppColors.warning),
+                              _StatBox(
+                                icon: CupertinoIcons.star_fill,
+                                label: l.achievementLabel,
+                                value:
+                                    '${provider.earnedAchievementCount}/${achievements.length}',
+                                color: AppColors.warning,
+                              ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 18),
 
                     // ── Achievements ──────────────────
-                    GlassCard(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SectionHeader(icon: CupertinoIcons.star_circle_fill, title: 'Başarımlar'),
-                          const SizedBox(height: 16),
-                          GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 5,
-                              crossAxisSpacing: 8,
-                              mainAxisSpacing: 8,
-                              childAspectRatio: 0.8,
+                    if (provider.isPremium)
+                      GlassCard(
+                        padding: const EdgeInsets.fromLTRB(12, 20, 12, 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 8),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: SectionHeader(
+                                      icon: CupertinoIcons.star_circle_fill,
+                                      title: l.achievements,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${provider.earnedAchievementCount}/${achievements.length}',
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w900,
+                                      color: AppColors.warning,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            itemCount: achievements.length,
-                            itemBuilder: (context, index) {
-                              final a = achievements[index];
-                              final earned = a['earned'] == true;
-                              return GestureDetector(
-                                onTap: () => _showAchievementDialog(context, a),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      width: 46,
-                                      height: 46,
-                                      decoration: BoxDecoration(
-                                        color: earned
-                                            ? AppColors.primary.withValues(alpha: 0.15)
-                                            : Colors.white.withValues(alpha: 0.04),
-                                        borderRadius: BorderRadius.circular(14),
-                                        border: earned
-                                            ? Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 1)
-                                            : null,
+                            const SizedBox(height: 12),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(4),
+                                child: LinearProgressIndicator(
+                                  value: achievements.isEmpty
+                                      ? 0
+                                      : provider.earnedAchievementCount /
+                                            achievements.length,
+                                  minHeight: 6,
+                                  backgroundColor: Colors.white.withValues(
+                                    alpha: 0.07,
+                                  ),
+                                  valueColor:
+                                      const AlwaysStoppedAnimation<Color>(
+                                        AppColors.warning,
                                       ),
-                                      child: Center(
-                                        child: Text(
-                                          earned ? a['icon'] : '🔒',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: earned ? null : Colors.grey,
-                                          ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            ...List.generate((achievements.length / 5).ceil(), (
+                              row,
+                            ) {
+                              final start = row * 5;
+                              final end = (start + 5).clamp(
+                                0,
+                                achievements.length,
+                              );
+                              final rowItems = achievements.sublist(start, end);
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  bottom:
+                                      row < (achievements.length / 5).ceil() - 1
+                                      ? 14
+                                      : 0,
+                                ),
+                                child: Row(
+                                  children: rowItems.map((a) {
+                                    final earned = a['earned'] == true;
+                                    final locAch = localizedAchievement(
+                                      l,
+                                      a['id'] as String,
+                                    );
+                                    final localA = {
+                                      ...a,
+                                      'title': locAch['title'] ?? a['title'],
+                                      'description':
+                                          locAch['description'] ??
+                                          a['description'],
+                                    };
+                                    return Expanded(
+                                      child: GestureDetector(
+                                        onTap: () => _showAchievementDialog(
+                                          context,
+                                          localA,
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Container(
+                                              width: 46,
+                                              height: 46,
+                                              decoration: BoxDecoration(
+                                                color: earned
+                                                    ? AppColors.primary
+                                                          .withValues(
+                                                            alpha: 0.15,
+                                                          )
+                                                    : Colors.white.withValues(
+                                                        alpha: 0.14,
+                                                      ),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                border: earned
+                                                    ? Border.all(
+                                                        color: AppColors.primary
+                                                            .withValues(
+                                                              alpha: 0.3,
+                                                            ),
+                                                        width: 1,
+                                                      )
+                                                    : null,
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  earned ? a['icon'] : '🔒',
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: earned
+                                                        ? null
+                                                        : Colors.grey,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              localA['title'],
+                                              style: TextStyle(
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w600,
+                                                color: earned
+                                                    ? Colors.white.withValues(
+                                                        alpha: 0.82,
+                                                      )
+                                                    : AppColors.textTertiary,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
                                         ),
                                       ),
+                                    );
+                                  }).toList(),
+                                ),
+                              );
+                            }),
+                          ],
+                        ),
+                      )
+                    else
+                      PremiumLockedOverlay(
+                        onTap: () => showPremiumPaywall(context),
+                        child: GlassCard(
+                          padding: const EdgeInsets.fromLTRB(12, 20, 12, 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: SectionHeader(
+                                  icon: CupertinoIcons.star_circle_fill,
+                                  title: l.achievements,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              ...List.generate(
+                                (achievements.length / 5).ceil(),
+                                (row) {
+                                  final start = row * 5;
+                                  final end = (start + 5).clamp(
+                                    0,
+                                    achievements.length,
+                                  );
+                                  final rowItems = achievements.sublist(
+                                    start,
+                                    end,
+                                  );
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom:
+                                          row <
+                                              (achievements.length / 5).ceil() -
+                                                  1
+                                          ? 14
+                                          : 0,
                                     ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      a['title'],
-                                      style: TextStyle(
-                                        fontSize: 9,
-                                        fontWeight: FontWeight.w600,
-                                        color: earned ? Colors.white.withValues(alpha: 0.7) : AppColors.textTertiary,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                    child: Row(
+                                      children: rowItems.map((a) {
+                                        return Expanded(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                width: 46,
+                                                height: 46,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white
+                                                      .withValues(alpha: 0.14),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    a['icon'] as String? ??
+                                                        '🏆',
+                                                    style: const TextStyle(
+                                                      fontSize: 20,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                a['title'] as String,
+                                                style: TextStyle(
+                                                  fontSize: 9,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.textTertiary,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }).toList(),
                                     ),
-                                  ],
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    const SizedBox(height: 14),
+
+                    // ── Destek ───────────────────────
+                    _GroupLabel(l.profileGroupSupport),
+                    _MenuGroup(
+                      children: [
+                        _MenuRow(
+                          icon: CupertinoIcons.star_fill,
+                          label: l.rateUs,
+                          subtitle: l.rateSubtitle,
+                          color: AppColors.warning,
+                          onTap: () async {
+                            const url =
+                                'https://apps.apple.com/app/id6761445065?action=write-review';
+                            if (await canLaunchUrl(Uri.parse(url))) {
+                              await launchUrl(
+                                Uri.parse(url),
+                                mode: LaunchMode.externalApplication,
+                              );
+                            }
+                          },
+                        ),
+                        _menuDivider(),
+                        _MenuRow(
+                          icon: CupertinoIcons.share,
+                          label: l.share,
+                          subtitle: l.shareSubtitle,
+                          color: AppColors.cyan,
+                          onTap: () {
+                            SharePlus.instance.share(
+                              ShareParams(text: l.shareText),
+                            );
+                          },
+                        ),
+                        _menuDivider(),
+                        _MenuRow(
+                          icon: CupertinoIcons.mail_solid,
+                          label: l.feedback,
+                          subtitle: l.feedbackSubtitle,
+                          color: AppColors.sleep,
+                          onTap: () async {
+                            final uri = Uri(
+                              scheme: 'mailto',
+                              path: 'contact.betaller@gmail.com',
+                              queryParameters: {'subject': l.emailSubject},
+                            );
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri);
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 18),
+
+                    // ── Hesap ────────────────────────
+                    _GroupLabel(l.profileGroupAccount),
+                    _MenuGroup(
+                      children: [
+                        if (provider.hasPaidPremium) ...[
+                          _MenuRow(
+                            icon: CupertinoIcons.sparkles,
+                            label: l.viewPlan,
+                            subtitle: l.viewPlanSubtitle,
+                            color: const Color(0xFF8B5CF6),
+                            onTap: () => showPremiumPaywall(context),
+                          ),
+                          _menuDivider(),
+                        ],
+                        _MenuRow(
+                          icon: CupertinoIcons.pencil,
+                          label: l.editProfile,
+                          subtitle: l.editProfileSubtitle,
+                          color: AppColors.primary,
+                          onTap: () =>
+                              _showEditProfileSheet(context, provider, profile),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 18),
+
+                    // ── Uygulama ─────────────────────
+                    _GroupLabel(l.profileGroupApp),
+                    _MenuGroup(
+                      children: [
+                        _MenuRow(
+                          icon: CupertinoIcons.globe,
+                          label: l.language,
+                          subtitle: '',
+                          value: _languageName(provider.locale),
+                          color: AppColors.primary,
+                          onTap: () => _showLanguagePicker(context, provider),
+                        ),
+                        _menuDivider(),
+                        _MenuRow(
+                          icon: Icons.straighten_rounded,
+                          label: l.unitSystem,
+                          subtitle: '',
+                          value: provider.useImperial
+                              ? l.unitImperial
+                              : l.unitMetric,
+                          color: AppColors.cyan,
+                          onTap: () =>
+                              provider.setUseImperial(!provider.useImperial),
+                        ),
+                        _menuDivider(),
+                        _MenuRow(
+                          icon: CupertinoIcons.bell_fill,
+                          label: l.notifications,
+                          subtitle: '',
+                          value: _notificationsEnabled ? l.stateOn : l.stateOff,
+                          color: AppColors.orange,
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (_) => const NotificationsScreen(),
+                              ),
+                            );
+                            final enabled = await NotificationService()
+                                .isEnabled();
+                            if (mounted) {
+                              setState(() => _notificationsEnabled = enabled);
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 18),
+
+                    // ── Geliştirici ──────────────────
+                    //
+                    // Only in a build that asked for it: these two switches
+                    // hand out every paid screen, so the release workflow
+                    // leaves them out entirely. See lib/utils/dev_tools.dart.
+                    if (kDevTools && _devToolsUnlocked) ...[
+                      _GroupLabel('Geliştirici', color: AppColors.warning),
+                      _MenuGroup(
+                        children: [
+                          _SwitchRow(
+                            icon: CupertinoIcons.star_circle_fill,
+                            label: 'Premium',
+                            subtitle: provider.isPremium
+                                ? 'Açık — kapatınca paywall geri gelir'
+                                : 'Kapalı — açınca tüm premium ekranlar açılır',
+                            color: AppColors.warning,
+                            value: provider.isPremium,
+                            onChanged: (on) {
+                              HapticFeedback.selectionClick();
+                              provider.setPremium(on);
+                            },
+                          ),
+                          _SwitchRow(
+                            icon: CupertinoIcons.wand_stars,
+                            label: 'Demo verisi',
+                            subtitle: provider.demoDataActive
+                                ? 'Açık — kapatınca kendi verin geri yüklenir'
+                                : '46 günlük geçmiş: ölçüm, seri, XP, günlük',
+                            color: AppColors.lime,
+                            value: provider.demoDataActive,
+                            onChanged: (on) async {
+                              HapticFeedback.selectionClick();
+                              final messenger = ScaffoldMessenger.of(context);
+                              if (on) {
+                                await provider.seedDemoData();
+                              } else {
+                                await provider.clearDemoData();
+                              }
+                              if (!context.mounted) return;
+                              messenger.showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    on
+                                        ? 'Demo verisi yüklendi'
+                                        : 'Kendi verin geri yüklendi',
+                                  ),
+                                  backgroundColor: AppColors.surfaceDark,
                                 ),
                               );
                             },
                           ),
+                          _MenuRow(
+                            icon: CupertinoIcons.sparkles,
+                            label: 'Uygulama turu',
+                            subtitle:
+                                'Rehberli anlatımı — journey adımını beklemeden — şimdi başlat',
+                            color: AppColors.cyan,
+                            onTap: () {
+                              HapticFeedback.selectionClick();
+                              widget.onOpenTour?.call();
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 18),
+                    ],
+
+                    // ── Tehlike ──────────────────────
+                    _GroupLabel(l.profileGroupDanger, color: AppColors.error),
+                    _MenuGroup(
+                      danger: true,
+                      children: [
+                        _MenuRow(
+                          icon: CupertinoIcons.trash,
+                          label: l.resetData,
+                          subtitle: l.resetSubtitle,
+                          color: AppColors.error,
+                          onTap: () => _showResetDialog(context, provider),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 28),
+                    // ── BeTaller Branding ────────────────
+                    Center(
+                      child: Column(
+                        children: [
+                          // Long-pressing the wordmark opens the debug tools
+                          // in debug builds — kept off the settings list so it
+                          // never shows up in a store screenshot. Holding it
+                          // for a full 10s reveals the Geliştirici group in
+                          // any build that has kDevTools compiled in.
+                          GestureDetector(
+                            onLongPress: kDebugMode
+                                ? () => _showDebugSheet(context, provider)
+                                : null,
+                            onLongPressStart: kDevTools
+                                ? (_) => _startDevToolsHold()
+                                : null,
+                            onLongPressEnd: kDevTools
+                                ? (_) => _cancelDevToolsHold()
+                                : null,
+                            onLongPressCancel: kDevTools
+                                ? _cancelDevToolsHold
+                                : null,
+                            child: ShaderMask(
+                              shaderCallback: (bounds) => const LinearGradient(
+                                colors: [
+                                  AppColors.primaryDark,
+                                  AppColors.primary,
+                                  AppColors.primaryLight,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ).createShader(bounds),
+                              child: const Text(
+                                'BeTaller',
+                                style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.white,
+                                  letterSpacing: -1,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            l.brandingSubtitle,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.textTertiary,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          // Privacy + Terms + Rate + Version
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () => launchUrl(
+                                  Uri.parse(
+                                    'https://samtehhh.github.io/betaller/privacy.html',
+                                  ),
+                                  mode: LaunchMode.externalApplication,
+                                ),
+                                child: Text(
+                                  l.privacyPolicy,
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: AppColors.textTertiary,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.textTertiary,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '  ·  ',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: AppColors.textTertiary,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () => launchUrl(
+                                  Uri.parse(
+                                    'https://samtehhh.github.io/betaller/terms.html',
+                                  ),
+                                  mode: LaunchMode.externalApplication,
+                                ),
+                                child: Text(
+                                  l.termsOfService,
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: AppColors.textTertiary,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.textTertiary,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+
                         ],
                       ),
                     ),
-                    const SizedBox(height: 14),
-
-                    // ── Actions ───────────────────────
-                    _ActionButton(
-                      icon: CupertinoIcons.pencil,
-                      label: 'Profili Düzenle',
-                      color: AppColors.primary,
-                      onTap: () => _showEditProfileSheet(context, provider, profile),
-                    ),
-                    const SizedBox(height: 8),
-                    _ActionButton(
-                      icon: CupertinoIcons.info_circle,
-                      label: 'Hakkında',
-                      color: AppColors.primaryLight,
-                      onTap: () => _showAboutDialog(context),
-                    ),
-                    const SizedBox(height: 8),
-                    _ActionButton(
-                      icon: CupertinoIcons.trash,
-                      label: 'Tüm Verileri Sıfırla',
-                      color: AppColors.error,
-                      onTap: () => _showResetDialog(context, provider),
-                    ),
+                    const SizedBox(height: 24),
                   ]),
                 ),
               ),
@@ -228,115 +799,497 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  void _showAchievementDialog(BuildContext context, Map<String, dynamic> achievement) {
+  void _showAchievementDialog(
+    BuildContext context,
+    Map<String, dynamic> achievement,
+  ) {
+    final l = AppLocalizations.of(context)!;
     final earned = achievement['earned'] == true;
+    final type = achievement['type'] as String? ?? '';
+    final Color accent = type == 'streak'
+        ? AppColors.orange
+        : type == 'measures'
+        ? AppColors.cyan
+        : type == 'growth'
+        ? AppColors.lime
+        : AppColors.primary;
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(earned ? achievement['icon'] : '🔒', style: const TextStyle(fontSize: 48)),
-            const SizedBox(height: 14),
-            Text(
-              achievement['title'],
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.5),
+      barrierColor: Colors.black.withValues(alpha: 0.75),
+      builder: (ctx) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.symmetric(horizontal: 28),
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFF12101E),
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(
+              color: (earned ? accent : Colors.white).withValues(alpha: 0.12),
             ),
-            const SizedBox(height: 8),
-            Text(
-              achievement['description'],
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
-            ),
-            const SizedBox(height: 14),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-              decoration: BoxDecoration(
-                color: (earned ? AppColors.success : Colors.grey).withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(10),
+            boxShadow: earned
+                ? [
+                    BoxShadow(
+                      color: accent.withValues(alpha: 0.18),
+                      blurRadius: 40,
+                      spreadRadius: 2,
+                    ),
+                  ]
+                : null,
+          ),
+          padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Icon badge
+              Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  Container(
+                    width: 72,
+                    height: 72,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: (earned ? accent : Colors.white).withValues(
+                        alpha: 0.08,
+                      ),
+                      border: Border.all(
+                        color: (earned ? accent : Colors.white).withValues(
+                          alpha: 0.18,
+                        ),
+                      ),
+                      boxShadow: earned
+                          ? [
+                              BoxShadow(
+                                color: accent.withValues(alpha: 0.25),
+                                blurRadius: 24,
+                              ),
+                            ]
+                          : null,
+                    ),
+                    child: Center(
+                      child: Text(
+                        earned
+                            ? (achievement['icon'] as String? ?? '🏆')
+                            : '🔒',
+                        style: const TextStyle(fontSize: 34),
+                      ),
+                    ),
+                  ),
+                  if (earned)
+                    Container(
+                      width: 22,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: accent,
+                        border: Border.all(
+                          color: const Color(0xFF12101E),
+                          width: 2,
+                        ),
+                      ),
+                      child: const Icon(
+                        CupertinoIcons.checkmark,
+                        color: Colors.white,
+                        size: 11,
+                      ),
+                    ),
+                ],
               ),
-              child: Text(
-                earned ? 'Kazanıldı!' : 'Henüz kazanılmadı',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: earned ? AppColors.success : AppColors.textSecondary,
+              const SizedBox(height: 18),
+              // Title
+              Text(
+                achievement['title'] as String? ?? '',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: -0.3,
                 ),
               ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Tamam', style: TextStyle(color: AppColors.primaryLight)),
+              const SizedBox(height: 8),
+              // Description
+              Text(
+                achievement['description'] as String? ?? '',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13.5,
+                  color: Colors.white.withValues(alpha: 0.48),
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 18),
+              // Status pill
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 7,
+                ),
+                decoration: BoxDecoration(
+                  color: (earned ? accent : Colors.white).withValues(
+                    alpha: 0.08,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: (earned ? accent : Colors.white).withValues(
+                      alpha: 0.18,
+                    ),
+                  ),
+                ),
+                child: Text(
+                  earned ? l.earned : l.notEarned,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: earned
+                        ? accent
+                        : Colors.white.withValues(alpha: 0.35),
+                    letterSpacing: 0.2,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 22),
+              // OK button
+              GestureDetector(
+                onTap: () => Navigator.pop(ctx),
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: earned
+                        ? accent.withValues(alpha: 0.12)
+                        : AppColors.cardFill,
+                    borderRadius: BorderRadius.circular(18),
+                    border: earned
+                        ? Border.all(color: accent.withValues(alpha: 0.35))
+                        : null,
+                  ),
+                  child: Center(
+                    child: Text(
+                      l.ok,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: earned
+                            ? accent
+                            : Colors.white.withValues(alpha: 0.55),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
-  void _showEditProfileSheet(BuildContext context, AppProvider provider, UserProfile profile) {
+  void _showEditProfileSheet(
+    BuildContext context,
+    AppProvider provider,
+    UserProfile profile,
+  ) {
+    final l = AppLocalizations.of(context)!;
     final nameCtrl = TextEditingController(text: profile.name);
-    final heightCtrl = TextEditingController(text: profile.currentHeight.toStringAsFixed(1));
-    final weightCtrl = TextEditingController(text: profile.weight.toStringAsFixed(1));
-    final fatherCtrl = TextEditingController(text: profile.fatherHeight.toStringAsFixed(0));
-    final motherCtrl = TextEditingController(text: profile.motherHeight.toStringAsFixed(0));
+    final heightCtrl = TextEditingController(
+      text: provider.heightNumber(profile.currentHeight).toStringAsFixed(1),
+    );
+    final weightCtrl = TextEditingController(
+      text: provider.weightNumber(profile.weight).toStringAsFixed(1),
+    );
+    final fatherCtrl = TextEditingController(
+      text: provider.heightNumber(profile.fatherHeight).toStringAsFixed(1),
+    );
+    final motherCtrl = TextEditingController(
+      text: provider.heightNumber(profile.motherHeight).toStringAsFixed(1),
+    );
+    String gender = profile.gender;
+    DateTime birthDate =
+        DateTime.tryParse(profile.birthDate) ?? DateTime(2008, 1, 1);
 
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Container(
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: AppColors.surfaceDark,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-            border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.08))),
+      builder: (context) => StatefulBuilder(
+        builder: (context, setSheetState) => Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(width: 36, height: 4, decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(2))),
-                const SizedBox(height: 24),
-                const Text('Profili Düzenle', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -1)),
-                const SizedBox(height: 24),
-                _EditField(controller: nameCtrl, label: 'İsim', icon: CupertinoIcons.person),
-                const SizedBox(height: 12),
-                _EditField(controller: heightCtrl, label: 'Boy (cm)', icon: CupertinoIcons.resize_v, isNumber: true),
-                const SizedBox(height: 12),
-                _EditField(controller: weightCtrl, label: 'Kilo (kg)', icon: CupertinoIcons.gauge, isNumber: true),
-                const SizedBox(height: 12),
-                _EditField(controller: fatherCtrl, label: 'Baba Boyu (cm)', icon: CupertinoIcons.person, isNumber: true),
-                const SizedBox(height: 12),
-                _EditField(controller: motherCtrl, label: 'Anne Boyu (cm)', icon: CupertinoIcons.person, isNumber: true),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: CupertinoButton(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(14),
-                    onPressed: () {
-                      final name = nameCtrl.text.trim();
-                      final height = double.tryParse(heightCtrl.text.replaceAll(',', '.'));
-                      final weight = double.tryParse(weightCtrl.text.replaceAll(',', '.'));
-                      final father = double.tryParse(fatherCtrl.text.replaceAll(',', '.'));
-                      final mother = double.tryParse(motherCtrl.text.replaceAll(',', '.'));
-                      if (name.isNotEmpty && height != null && weight != null && father != null && mother != null) {
-                        provider.updateProfile(profile.copyWith(name: name, currentHeight: height, weight: weight, fatherHeight: father, motherHeight: mother));
-                        Navigator.pop(context);
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: AppColors.surfaceDark,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(32),
+              ),
+              border: Border(
+                top: BorderSide(color: Colors.white.withValues(alpha: 0.14)),
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 36,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.50),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    l.editProfile,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                      letterSpacing: -1,
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  _EditField(
+                    controller: nameCtrl,
+                    label: l.name,
+                    icon: CupertinoIcons.person,
+                  ),
+                  const SizedBox(height: 12),
+                  // Gender selector
+                  Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setSheetState(() => gender = 'male'),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            decoration: BoxDecoration(
+                              color: gender == 'male'
+                                  ? AppColors.primary.withValues(alpha: 0.2)
+                                  : Colors.white.withValues(alpha: 0.10),
+                              borderRadius: BorderRadius.circular(18),
+                              border: Border.all(
+                                color: gender == 'male'
+                                    ? AppColors.primary
+                                    : Colors.white.withValues(alpha: 0.1),
+                                width: gender == 'male' ? 1.5 : 0.5,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                l.male,
+                                style: TextStyle(
+                                  color: gender == 'male'
+                                      ? Colors.white
+                                      : Colors.white.withValues(alpha: 0.82),
+                                  fontSize: 15,
+                                  fontWeight: gender == 'male'
+                                      ? FontWeight.w700
+                                      : FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setSheetState(() => gender = 'female'),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            decoration: BoxDecoration(
+                              color: gender == 'female'
+                                  ? AppColors.primary.withValues(alpha: 0.2)
+                                  : Colors.white.withValues(alpha: 0.10),
+                              borderRadius: BorderRadius.circular(18),
+                              border: Border.all(
+                                color: gender == 'female'
+                                    ? AppColors.primary
+                                    : Colors.white.withValues(alpha: 0.1),
+                                width: gender == 'female' ? 1.5 : 0.5,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                l.female,
+                                style: TextStyle(
+                                  color: gender == 'female'
+                                      ? Colors.white
+                                      : Colors.white.withValues(alpha: 0.82),
+                                  fontSize: 15,
+                                  fontWeight: gender == 'female'
+                                      ? FontWeight.w700
+                                      : FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  // Birth date
+                  GestureDetector(
+                    onTap: () async {
+                      final picked = await showDatePicker(
+                        context: context,
+                        initialDate: birthDate,
+                        firstDate: DateTime(1990),
+                        lastDate: DateTime.now(),
+                        locale: Localizations.localeOf(context),
+                        builder: (context, child) => Theme(
+                          data: ThemeData.dark().copyWith(
+                            colorScheme: const ColorScheme.dark(
+                              primary: AppColors.primary,
+                              surface: AppColors.surfaceDark,
+                            ),
+                          ),
+                          child: child!,
+                        ),
+                      );
+                      if (picked != null) {
+                        setSheetState(() => birthDate = picked);
                       }
                     },
-                    child: const Text('Kaydet', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: Colors.white, letterSpacing: -0.3)),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 16,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            CupertinoIcons.calendar,
+                            color: Colors.white.withValues(alpha: 0.82),
+                            size: 18,
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            l.birthDate(
+                              '${birthDate.day.toString().padLeft(2, '0')}.${birthDate.month.toString().padLeft(2, '0')}.${birthDate.year}',
+                            ),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const Spacer(),
+                          Icon(
+                            CupertinoIcons.chevron_down,
+                            color: Colors.white.withValues(alpha: 0.45),
+                            size: 14,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-              ],
+                  const SizedBox(height: 12),
+                  _EditField(
+                    controller: heightCtrl,
+                    label: '${l.heightLabel} (${provider.heightUnit})',
+                    icon: CupertinoIcons.resize_v,
+                    isNumber: true,
+                  ),
+                  const SizedBox(height: 12),
+                  _EditField(
+                    controller: weightCtrl,
+                    label: '${l.weightLabel} (${provider.weightUnit})',
+                    icon: CupertinoIcons.gauge,
+                    isNumber: true,
+                  ),
+                  const SizedBox(height: 12),
+                  _EditField(
+                    controller: fatherCtrl,
+                    label: '${l.dadLabel} (${provider.heightUnit})',
+                    icon: CupertinoIcons.person,
+                    isNumber: true,
+                  ),
+                  const SizedBox(height: 12),
+                  _EditField(
+                    controller: motherCtrl,
+                    label: '${l.motherLabel} (${provider.heightUnit})',
+                    icon: CupertinoIcons.person,
+                    isNumber: true,
+                  ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: CupertinoButton(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(18),
+                      onPressed: () {
+                        final name = nameCtrl.text.trim();
+                        final heightTyped = double.tryParse(
+                          heightCtrl.text.replaceAll(',', '.'),
+                        );
+                        final weightTyped = double.tryParse(
+                          weightCtrl.text.replaceAll(',', '.'),
+                        );
+                        final fatherTyped = double.tryParse(
+                          fatherCtrl.text.replaceAll(',', '.'),
+                        );
+                        final motherTyped = double.tryParse(
+                          motherCtrl.text.replaceAll(',', '.'),
+                        );
+                        final height = heightTyped == null
+                            ? null
+                            : provider.heightFromInput(heightTyped);
+                        final weight = weightTyped == null
+                            ? null
+                            : provider.weightFromInput(weightTyped);
+                        final father = fatherTyped == null
+                            ? null
+                            : provider.heightFromInput(fatherTyped);
+                        final mother = motherTyped == null
+                            ? null
+                            : provider.heightFromInput(motherTyped);
+                        if (name.isNotEmpty &&
+                            height != null &&
+                            weight != null &&
+                            father != null &&
+                            mother != null) {
+                          final bd = birthDate.toIso8601String().substring(
+                            0,
+                            10,
+                          );
+                          provider.updateProfile(
+                            profile.copyWith(
+                              name: name,
+                              gender: gender,
+                              birthDate: bd,
+                              currentHeight: height,
+                              weight: weight,
+                              fatherHeight: father,
+                              motherHeight: mother,
+                            ),
+                          );
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: Text(
+                        l.save,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          color: Colors.white,
+                          letterSpacing: -0.3,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
             ),
           ),
         ),
@@ -344,84 +1297,370 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  void _showAboutDialog(BuildContext context) {
-    showDialog(
+  String _languageName(Locale? locale) {
+    switch (locale?.languageCode) {
+      case 'tr':
+        return 'Türkçe';
+      case 'en':
+        return 'English';
+      case 'de':
+        return 'Deutsch';
+      case 'fr':
+        return 'Français';
+      case 'hi':
+        return 'हिन्दी';
+      case 'pt':
+        return 'Português';
+      case 'es':
+        return 'Español';
+      case 'it':
+        return 'Italiano';
+      default:
+        return AppLocalizations.of(context)?.systemLanguage ?? 'System';
+    }
+  }
+
+  void _showLanguagePicker(BuildContext context, AppProvider provider) {
+    final l = AppLocalizations.of(context)!;
+    final languages = [
+      {'locale': null, 'name': l.systemLanguage, 'flag': '🌐'},
+      {'locale': const Locale('tr'), 'name': 'Türkçe', 'flag': '🇹🇷'},
+      {'locale': const Locale('en'), 'name': 'English', 'flag': '🇬🇧'},
+      {'locale': const Locale('de'), 'name': 'Deutsch', 'flag': '🇩🇪'},
+      {'locale': const Locale('fr'), 'name': 'Français', 'flag': '🇫🇷'},
+      {'locale': const Locale('es'), 'name': 'Español', 'flag': '🇪🇸'},
+      {'locale': const Locale('it'), 'name': 'Italiano', 'flag': '🇮🇹'},
+      {'locale': const Locale('pt'), 'name': 'Português', 'flag': '🇧🇷'},
+      {'locale': const Locale('hi'), 'name': 'हिन्दी', 'flag': '🇮🇳'},
+    ];
+
+    showModalBottomSheet(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        title: Row(
-          children: [
-            Container(
-              width: 32, height: 32,
-              decoration: BoxDecoration(gradient: AppColors.gradientPrimary, borderRadius: BorderRadius.circular(8)),
-              child: const Icon(CupertinoIcons.arrow_up_circle_fill, color: Colors.white, size: 18),
-            ),
-            const SizedBox(width: 10),
-            const Text('GlowUp', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Boy Uzatma & Kişisel Gelişim',
-              style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Bu uygulama, boy uzama potansiyelinizi en üst düzeye çıkarmanız için tasarlanmıştır. Bilimsel verilere dayalı egzersiz rutinleri, beslenme takibi ve büyüme analizi sunar.',
-              style: TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.5),
-            ),
-            const SizedBox(height: 12),
-            Text('Versiyon: 1.0.0', style: TextStyle(fontSize: 12, color: AppColors.textTertiary)),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Tamam', style: TextStyle(color: AppColors.primaryLight)),
+      isScrollControlled: true,
+      backgroundColor: AppColors.surfaceDark,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+      ),
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.65,
+        minChildSize: 0.4,
+        maxChildSize: 0.85,
+        expand: false,
+        builder: (context, scrollController) => Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 36,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.50),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                l.selectLanguage,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: -0.5,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: ListView(
+                  controller: scrollController,
+                  children: [
+                    ...languages.map((lang) {
+                      final isSelected =
+                          provider.locale?.languageCode ==
+                              (lang['locale'] as Locale?)?.languageCode &&
+                          (lang['locale'] != null || provider.locale == null);
+                      return GestureDetector(
+                        onTap: () {
+                          if (lang['locale'] == null) {
+                            provider.setLocale(
+                              WidgetsBinding.instance.platformDispatcher.locale,
+                            );
+                          } else {
+                            provider.setLocale(lang['locale'] as Locale);
+                          }
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 14,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? AppColors.primary.withValues(alpha: 0.15)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(18),
+                            border: isSelected
+                                ? Border.all(
+                                    color: AppColors.primary.withValues(
+                                      alpha: 0.4,
+                                    ),
+                                  )
+                                : null,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                lang['flag'] as String,
+                                style: const TextStyle(fontSize: 24),
+                              ),
+                              const SizedBox(width: 14),
+                              Text(
+                                lang['name'] as String,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: isSelected
+                                      ? FontWeight.w700
+                                      : FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const Spacer(),
+                              if (isSelected)
+                                const Icon(
+                                  CupertinoIcons.checkmark_circle_fill,
+                                  color: AppColors.primary,
+                                  size: 22,
+                                ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+                    SizedBox(
+                      height: MediaQuery.of(context).padding.bottom + 16,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
+      ),
+    );
+  }
+
+  // ── Debug tools ──────────────────────────────────────────────────
+  // Screenshot helpers, reachable only by long-pressing the wordmark in a
+  // debug build. Labels stay untranslated on purpose — this never ships.
+
+  void _showDebugSheet(BuildContext context, AppProvider provider) {
+    if (!kDebugMode) return;
+    HapticFeedback.mediumImpact();
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.surfaceDark,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+      ),
+      builder: (sheetContext) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.5),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Debug — ekran görüntüsü araçları',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: -0.4,
+                ),
+              ),
+              const SizedBox(height: 18),
+              _DebugRow(
+                icon: CupertinoIcons.wand_stars,
+                color: AppColors.lime,
+                label: 'Demo verisi yükle',
+                subtitle:
+                    '46 günlük kullanım: ölçümler, seri, program, XP, günlük',
+                onTap: () async {
+                  Navigator.pop(sheetContext);
+                  await provider.seedDemoData();
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Demo verisi yüklendi')),
+                  );
+                },
+              ),
+              const SizedBox(height: 10),
+              _DebugRow(
+                icon: CupertinoIcons.star_circle_fill,
+                color: AppColors.warning,
+                label: 'Premium',
+                subtitle: provider.isPremium
+                    ? 'Açık — paywall görmek için kapat'
+                    : 'Kapalı — premium ekranlar için aç',
+                trailing: provider.isPremium ? 'ON' : 'OFF',
+                onTap: () {
+                  provider.setPremium(!provider.isPremium);
+                  Navigator.pop(sheetContext);
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 
   void _showResetDialog(BuildContext context, AppProvider provider) {
+    final l = AppLocalizations.of(context)!;
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: AppColors.surfaceDark,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        title: Row(
-          children: [
-            const Icon(CupertinoIcons.exclamationmark_triangle, color: AppColors.warning, size: 22),
-            const SizedBox(width: 10),
-            const Text('Verileri Sıfırla', style: TextStyle(color: Colors.white)),
-          ],
-        ),
-        content: Text(
-          'Tüm veriler silinecek ve başlangıç ekranına döneceksin. Bu işlem geri alınamaz!',
-          style: TextStyle(fontSize: 14, color: AppColors.textSecondary, height: 1.5),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('İptal', style: TextStyle(color: AppColors.textSecondary)),
+      barrierColor: Colors.black.withValues(alpha: 0.75),
+      builder: (ctx) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.symmetric(horizontal: 28),
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFF12101E),
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(color: AppColors.error.withValues(alpha: 0.20)),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.error.withValues(alpha: 0.12),
+                blurRadius: 40,
+                spreadRadius: 2,
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              provider.resetAllData();
-              Navigator.pop(context);
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (_) => const OnboardingScreen()),
-                (route) => false,
-              );
-            },
-            child: const Text('Sıfırla', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.w600)),
+          padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.error.withValues(alpha: 0.12),
+                  border: Border.all(
+                    color: AppColors.error.withValues(alpha: 0.25),
+                  ),
+                ),
+                child: const Icon(
+                  CupertinoIcons.trash_fill,
+                  color: AppColors.error,
+                  size: 26,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                l.resetTitle,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: -0.3,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                l.resetMessage,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13.5,
+                  color: Colors.white.withValues(alpha: 0.50),
+                  height: 1.55,
+                ),
+              ),
+              const SizedBox(height: 26),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(ctx),
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: AppColors.cardFill,
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        child: Center(
+                          child: Text(
+                            l.cancel,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white.withValues(alpha: 0.65),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        provider.resetAllData();
+                        Navigator.pop(ctx);
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (_) => const OnboardingScreen(),
+                          ),
+                          (route) => false,
+                        );
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: AppColors.error.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(18),
+                          border: Border.all(
+                            color: AppColors.error.withValues(alpha: 0.40),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.error.withValues(alpha: 0.20),
+                              blurRadius: 12,
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            l.reset,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.error,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -429,26 +1668,229 @@ class ProfileScreen extends StatelessWidget {
 
 // ── Sub-widgets ───────────────────────────────────────────────────
 
-class _ProfileRow extends StatelessWidget {
-  final String label;
-  final String value;
-  final bool isLast;
+Widget _menuDivider() => Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 18),
+  child: Divider(height: 1, color: Colors.white.withValues(alpha: 0.10)),
+);
 
-  const _ProfileRow({required this.label, required this.value, this.isLast = false});
+class _MenuRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String subtitle;
+  final Color color;
+  final VoidCallback onTap;
+
+  /// Current setting, shown on the right the way settings screens do.
+  final String? value;
+
+  const _MenuRow({
+    required this.icon,
+    required this.label,
+    required this.subtitle,
+    required this.color,
+    required this.onTap,
+    this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 13, 16, 13),
+        child: Row(
+          children: [
+            Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.13),
+                borderRadius: BorderRadius.circular(13),
+                border: Border.all(color: color.withValues(alpha: 0.22)),
+              ),
+              child: Icon(icon, color: color, size: 18),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      letterSpacing: -0.2,
+                    ),
+                  ),
+                  if (value == null && subtitle.isNotEmpty) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white.withValues(alpha: 0.42),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            if (value != null) ...[
+              const SizedBox(width: 10),
+              Flexible(
+                child: Text(
+                  value!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: color.withValues(alpha: 0.9),
+                  ),
+                ),
+              ),
+            ],
+            const SizedBox(width: 8),
+            Icon(
+              CupertinoIcons.chevron_right,
+              color: Colors.white.withValues(alpha: 0.28),
+              size: 15,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// A titled block of rows.
+/// A settings row that carries a switch instead of a chevron. Shaped like
+/// [_MenuRow] so the developer group does not look bolted on.
+class _SwitchRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String subtitle;
+  final Color color;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  const _SwitchRow({
+    required this.icon,
+    required this.label,
+    required this.subtitle,
+    required this.color,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 13, 16, 13),
+      child: Row(
+        children: [
+          Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.13),
+              borderRadius: BorderRadius.circular(13),
+              border: Border.all(color: color.withValues(alpha: 0.22)),
+            ),
+            child: Icon(icon, color: color, size: 18),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    letterSpacing: -0.2,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    height: 1.35,
+                    color: Colors.white.withValues(alpha: 0.42),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 10),
+          CupertinoSwitch(
+            value: value,
+            activeTrackColor: color,
+            onChanged: onChanged,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MenuGroup extends StatelessWidget {
+  final List<Widget> children;
+  final bool danger;
+  const _MenuGroup({required this.children, this.danger = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: isLast
-          ? null
-          : BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white.withValues(alpha: 0.05)))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.textSecondary, letterSpacing: -0.1)),
-          Text(value, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white, letterSpacing: -0.2)),
-        ],
+      decoration: BoxDecoration(
+        color: AppColors.cardFill,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: danger
+              ? AppColors.error.withValues(alpha: 0.22)
+              : Colors.white.withValues(alpha: 0.06),
+        ),
+      ),
+      child: Column(children: children),
+    );
+  }
+}
+
+class _GroupLabel extends StatelessWidget {
+  final String text;
+  final Color? color;
+  const _GroupLabel(this.text, {this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
+      child: Text(
+        text.toUpperCase(),
+        style: TextStyle(
+          fontSize: 10.5,
+          fontWeight: FontWeight.w900,
+          letterSpacing: 1.4,
+          color: (color ?? Colors.white).withValues(
+            alpha: color == null ? 0.38 : 0.75,
+          ),
+        ),
       ),
     );
   }
@@ -460,7 +1902,12 @@ class _StatBox extends StatelessWidget {
   final String value;
   final Color color;
 
-  const _StatBox({required this.icon, required this.label, required this.value, required this.color});
+  const _StatBox({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -469,45 +1916,33 @@ class _StatBox extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(18),
           border: Border.all(color: color.withValues(alpha: 0.12), width: 0.5),
         ),
         child: Column(
           children: [
             Icon(icon, color: color, size: 20),
             const SizedBox(height: 8),
-            Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: -0.5)),
-            const SizedBox(height: 2),
-            Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.textTertiary, letterSpacing: 0.5), textAlign: TextAlign.center),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Color color;
-  final VoidCallback onTap;
-
-  const _ActionButton({required this.icon, required this.label, required this.color, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: GlassCard(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-        child: Row(
-          children: [
-            Icon(icon, color: color, size: 18),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Text(label, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: color, letterSpacing: -0.3)),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+                letterSpacing: -0.5,
+              ),
             ),
-            Icon(CupertinoIcons.chevron_right, color: color.withValues(alpha: 0.4), size: 16),
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textTertiary,
+                letterSpacing: 0.5,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
@@ -521,24 +1956,338 @@ class _EditField extends StatelessWidget {
   final IconData icon;
   final bool isNumber;
 
-  const _EditField({required this.controller, required this.label, required this.icon, this.isNumber = false});
+  const _EditField({
+    required this.controller,
+    required this.label,
+    required this.icon,
+    this.isNumber = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      keyboardType: isNumber ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.text,
-      style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+      keyboardType: isNumber
+          ? const TextInputType.numberWithOptions(decimal: true)
+          : TextInputType.text,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
       cursorColor: AppColors.primary,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.55)),
+        labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.72)),
         prefixIcon: Icon(icon, color: AppColors.primaryLight, size: 18),
         filled: true,
-        fillColor: Colors.white.withValues(alpha: 0.06),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: AppColors.primary, width: 1.5)),
+        fillColor: Colors.white.withValues(alpha: 0.12),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(18),
+          borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(18),
+          borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(18),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        ),
+      ),
+    );
+  }
+}
+
+/// The person the app is for: who they are, how far along, and one tap to
+/// change any of it.
+class _IdentityCard extends StatelessWidget {
+  final AppProvider provider;
+  final UserProfile profile;
+  final VoidCallback onEdit;
+
+  const _IdentityCard({
+    required this.provider,
+    required this.profile,
+    required this.onEdit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final initial = profile.name.trim().isEmpty
+        ? 'B'
+        : profile.name.trim().characters.first.toUpperCase();
+    final xpRatio = provider.xpForNextLevel == 0
+        ? 0.0
+        : (provider.totalXP / provider.xpForNextLevel).clamp(0.0, 1.0);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 20, 16, 18),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF1A1240), Color(0xFF0C0A1C)],
+        ),
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.22)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withValues(alpha: 0.16),
+            blurRadius: 30,
+            offset: const Offset(0, 10),
+            spreadRadius: -10,
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              // avatar
+              Container(
+                width: 62,
+                height: 62,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [AppColors.primary, AppColors.cyan],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withValues(alpha: 0.40),
+                      blurRadius: 18,
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text(
+                    initial,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      profile.name.trim().isEmpty ? 'BeTaller' : profile.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 6,
+                      runSpacing: 6,
+                      children: [
+                        _Chip(
+                          text: l.ageYear(profile.age),
+                          color: AppColors.primary,
+                        ),
+                        _Chip(
+                          text: profile.gender == 'male' ? l.male : l.female,
+                          color: AppColors.cyan,
+                        ),
+                        _Chip(
+                          text: provider.formatHeight(profile.currentHeight),
+                          color: AppColors.lime,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: onEdit,
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  width: 38,
+                  height: 38,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.07),
+                    borderRadius: BorderRadius.circular(13),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.10),
+                    ),
+                  ),
+                  child: Icon(
+                    CupertinoIcons.pencil,
+                    size: 17,
+                    color: Colors.white.withValues(alpha: 0.75),
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 18),
+
+          // level and the road to the next one
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  gradient: AppColors.gradientCyan,
+                  borderRadius: BorderRadius.circular(9),
+                ),
+                child: Text(
+                  l.lvl('${provider.level}'),
+                  style: const TextStyle(
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  localizedLevelTitle(l, provider.levelTitle),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Text(
+                '${provider.totalXP} XP',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white.withValues(alpha: 0.45),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: xpRatio,
+              minHeight: 7,
+              backgroundColor: Colors.white.withValues(alpha: 0.08),
+              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.cyan),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Chip extends StatelessWidget {
+  final String text;
+  final Color color;
+  const _Chip({required this.text, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.13),
+        borderRadius: BorderRadius.circular(100),
+        border: Border.all(color: color.withValues(alpha: 0.30)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w800,
+          color: color,
+        ),
+      ),
+    );
+  }
+}
+
+// ── Debug sheet row ───────────────────────────────────────────────
+
+class _DebugRow extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String label;
+  final String subtitle;
+  final String? trailing;
+  final VoidCallback onTap;
+
+  const _DebugRow({
+    required this.icon,
+    required this.color,
+    required this.label,
+    required this.subtitle,
+    required this.onTap,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.04),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: color.withValues(alpha: 0.25)),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 22, color: color),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1.35,
+                      color: AppColors.textTertiary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (trailing != null) ...[
+              const SizedBox(width: 10),
+              _Chip(text: trailing!, color: color),
+            ],
+          ],
+        ),
       ),
     );
   }
