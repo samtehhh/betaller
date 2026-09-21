@@ -921,51 +921,55 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                             ),
                                           ],
                                         ),
-                                        const Spacer(),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 12,
-                                            vertical: 9,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.cyan.withValues(
-                                              alpha: 0.11,
+                                        const SizedBox(width: 12),
+                                        Flexible(
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 12,
+                                              vertical: 9,
                                             ),
-                                            borderRadius: BorderRadius.circular(
-                                              16,
-                                            ),
-                                            border: Border.all(
+                                            decoration: BoxDecoration(
                                               color: AppColors.cyan.withValues(
-                                                alpha: 0.28,
+                                                alpha: 0.11,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              border: Border.all(
+                                                color: AppColors.cyan
+                                                    .withValues(alpha: 0.28),
                                               ),
                                             ),
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                l.reachableTargetHeight,
-                                                style: TextStyle(
-                                                  fontSize: 9.5,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white
-                                                      .withValues(alpha: 0.45),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  l.reachableTargetHeight,
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                    fontSize: 9.5,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Colors.white
+                                                        .withValues(
+                                                          alpha: 0.45,
+                                                        ),
+                                                  ),
                                                 ),
-                                              ),
-                                              const SizedBox(height: 2),
-                                              Text(
-                                                provider.formatHeight(
-                                                  prediction.finalHeight,
+                                                const SizedBox(height: 2),
+                                                Text(
+                                                  provider.formatHeight(
+                                                    prediction.finalHeight,
+                                                  ),
+                                                  style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w900,
+                                                    color: AppColors.cyan,
+                                                    letterSpacing: -0.4,
+                                                  ),
                                                 ),
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w900,
-                                                  color: AppColors.cyan,
-                                                  letterSpacing: -0.4,
-                                                ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -1216,15 +1220,17 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                               ),
                                             ),
                                             const SizedBox(width: 6),
-                                            Text(
-                                              '${velocity.toStringAsFixed(1)} ${l.cmPerYear}  •  ${l.growthRate(localizedVelocityRating(l, Calculations.growthVelocityRating(velocity, profile.age, profile.gender)))}',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w700,
-                                                color: _velocityColor(
-                                                  velocity,
-                                                  profile.age,
-                                                  profile.gender,
+                                            Flexible(
+                                              child: Text(
+                                                '${velocity.toStringAsFixed(1)} ${l.cmPerYear}  •  ${l.growthRate(localizedVelocityRating(l, Calculations.growthVelocityRating(velocity, profile.age, profile.gender)))}',
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: _velocityColor(
+                                                    velocity,
+                                                    profile.age,
+                                                    profile.gender,
+                                                  ),
                                                 ),
                                               ),
                                             ),
