@@ -10,15 +10,18 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../models/user_profile.dart';
 import '../providers/app_provider.dart';
+import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import 'main_screen.dart';
 import '../services/notification_service.dart';
 import '../widgets/journey_steps.dart';
+import '../widgets/premium_paywall.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
 const int _kGenderPage = 2;
 const int _kWorkoutPage = 6;
 const int _kEthnicityPage = 7;
+const int _kMealsPage = 13; // last of the "when does your day happen" pages
 const int _kPastHeightsPage = 16;
 const int _kAnalyzingPage = 17;
 const int _kLastQuestion = 16; // last page that shows the Next button
@@ -165,6 +168,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   void _nextPage() {
     FocusScope.of(context).unfocus();
     final page = _currentPage;
+    // Bedtime, workout time and meals are answered: the user has just told us
+    // when to remind them, so this is where asking makes sense. Reminders used
+    // to start switched off behind a toggle few people ever found, and the
+    // times collected here scheduled nothing anyone received.
+    if (page == _kMealsPage) {
+      unawaited(
+        NotificationService().setEnabled(true, AppLocalizations.of(context)!),
+      );
+    }
     if (page >= _kLastQuestion) {
       // Pre-compute profile & predictions before showing analyzing page
       _computeAnalysisResults();
@@ -4000,8 +4012,19 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
     super.dispose();
   }
 
-  void _enter() {
+  Future<void> _enter() async {
     HapticFeedback.mediumImpact();
+    // The user has just handed over their data and been told their potential
+    // is worked out: the moment they want the plan most. The paywall used to
+    // wait behind the app tour and a third journey screen, and next to nobody
+    // got that far.
+    if (context.read<AppProvider>().takeDailyPaywallSlot()) {
+      await showPremiumPaywall(
+        context,
+        closeDelay: const Duration(seconds: 3),
+      );
+      if (!mounted) return;
+    }
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 500),
@@ -4157,7 +4180,15 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                           ),
                         ),
 
-                        const SizedBox(height: 32),
+                        const SizedBox(height: 24),
+
+                        // ── What the questionnaire worked out ───────────
+                        FadeTransition(
+                          opacity: _headOpacity,
+                          child: const _PredictionResultCard(),
+                        ),
+
+                        const SizedBox(height: 20),
 
                         // ── The journey, with step one ticking off ───────
                         Container(
@@ -4222,6 +4253,140 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                   ),
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The questionnaire's payoff, shown before the paywall asks for anything: the
+/// predicted adult height, where the user stands among people their age, and
+/// roughly how much growth the estimate leaves. The paywall used to arrive
+/// after a screen that only said "we worked out your potential".
+class _PredictionResultCard extends StatelessWidget {
+  const _PredictionResultCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final p = context.watch<AppProvider>();
+    final profile = p.profile;
+    if (profile == null) return const SizedBox.shrink();
+
+    final prediction = Calculations.predictFinalHeight(
+      profile,
+      p.heightRecords,
+    );
+    final percentile = Calculations.calculatePercentile(
+      profile.currentHeight,
+      profile.age,
+      profile.gender,
+    );
+    final growthLeft = prediction.finalHeight - profile.currentHeight;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: AppColors.lime.withValues(alpha: 0.35)),
+      ),
+      child: Column(
+        children: [
+          Text(
+            l.resultCardTitle,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: Colors.white.withValues(alpha: 0.7),
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            p.formatHeight(prediction.finalHeight),
+            style: const TextStyle(
+              fontSize: 44,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: -1.2,
+              height: 1.1,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            l.resultRange(
+              p.formatHeight(prediction.minHeight),
+              p.formatHeight(prediction.maxHeight),
+            ),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12.5,
+              color: Colors.white.withValues(alpha: 0.5),
+            ),
+          ),
+          const SizedBox(height: 14),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              _ResultChip(
+                icon: Icons.bar_chart_rounded,
+                text: l.resultPercentile('$percentile'),
+              ),
+              if (growthLeft >= 0.5)
+                _ResultChip(
+                  icon: Icons.trending_up_rounded,
+                  text: l.resultGrowthLeft(p.formatHeightDelta(growthLeft)),
+                ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            l.resultFootnote,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 10.5,
+              height: 1.4,
+              color: Colors.white.withValues(alpha: 0.38),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ResultChip extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  const _ResultChip({required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 7),
+      decoration: BoxDecoration(
+        color: AppColors.lime.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: AppColors.lime),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
             ),
           ),
         ],

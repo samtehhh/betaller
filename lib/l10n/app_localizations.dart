@@ -4127,7 +4127,7 @@ abstract class AppLocalizations {
   /// No description provided for @postureCoachSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'AI-powered posture scoring'**
+  /// **'Self-check with your side photo'**
   String get postureCoachSubtitle;
 
   /// No description provided for @latestScore.
@@ -5813,7 +5813,7 @@ abstract class AppLocalizations {
   /// No description provided for @aiAnalysisLabel.
   ///
   /// In en, this message translates to:
-  /// **'AI ANALYSIS'**
+  /// **'GROWTH ANALYSIS'**
   String get aiAnalysisLabel;
 
   /// No description provided for @peerCompareLabel.
@@ -6968,6 +6968,162 @@ abstract class AppLocalizations {
   /// **'Auto-renews yearly · cancel anytime'**
   String get paywallYearlyDisclaimer;
 
+  /// No description provided for @paywallTrialThenWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days free, then {price}/week · cancel anytime'**
+  String paywallTrialThenWeekly(String days, String price);
+
+  /// No description provided for @paywallTrialThenMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days free, then {price}/month · cancel anytime'**
+  String paywallTrialThenMonthly(String days, String price);
+
+  /// No description provided for @paywallTrialThenYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days free, then {price}/year · cancel anytime'**
+  String paywallTrialThenYearly(String days, String price);
+
+  /// No description provided for @paywallRenewsWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-renews weekly · cancel anytime'**
+  String get paywallRenewsWeekly;
+
+  /// No description provided for @paywallRenewsMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-renews monthly · cancel anytime'**
+  String get paywallRenewsMonthly;
+
+  /// No description provided for @resultCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your predicted adult height'**
+  String get resultCardTitle;
+
+  /// No description provided for @resultRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Likely range: {min} – {max}'**
+  String resultRange(String min, String max);
+
+  /// No description provided for @resultPercentile.
+  ///
+  /// In en, this message translates to:
+  /// **'Taller than {percent}% of people your age'**
+  String resultPercentile(String percent);
+
+  /// No description provided for @resultGrowthLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated growth left: {amount}'**
+  String resultGrowthLeft(String amount);
+
+  /// No description provided for @resultFootnote.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate based on your parents\' heights and growth-chart data. Not medical advice.'**
+  String get resultFootnote;
+
+  /// No description provided for @postureCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick posture check'**
+  String get postureCheckTitle;
+
+  /// No description provided for @postureCheckIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with your heels, hips and shoulder blades against a wall, then answer three questions. Your score comes from your answers; the photo is kept for before-and-after comparison.'**
+  String get postureCheckIntro;
+
+  /// No description provided for @postureQHead.
+  ///
+  /// In en, this message translates to:
+  /// **'Does the back of your head touch the wall without lifting your chin?'**
+  String get postureQHead;
+
+  /// No description provided for @postureQHeadA1.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, easily'**
+  String get postureQHeadA1;
+
+  /// No description provided for @postureQHeadA2.
+  ///
+  /// In en, this message translates to:
+  /// **'Only if I push it back'**
+  String get postureQHeadA2;
+
+  /// No description provided for @postureQHeadA3.
+  ///
+  /// In en, this message translates to:
+  /// **'No, there\'s a gap'**
+  String get postureQHeadA3;
+
+  /// No description provided for @postureQShoulders.
+  ///
+  /// In en, this message translates to:
+  /// **'In your side photo, where are your shoulders compared with your ears?'**
+  String get postureQShoulders;
+
+  /// No description provided for @postureQShouldersA1.
+  ///
+  /// In en, this message translates to:
+  /// **'In line with my ears'**
+  String get postureQShouldersA1;
+
+  /// No description provided for @postureQShouldersA2.
+  ///
+  /// In en, this message translates to:
+  /// **'A little in front'**
+  String get postureQShouldersA2;
+
+  /// No description provided for @postureQShouldersA3.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearly rounded forward'**
+  String get postureQShouldersA3;
+
+  /// No description provided for @postureQLowerBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Slide a hand behind your lower back. How much space is there?'**
+  String get postureQLowerBack;
+
+  /// No description provided for @postureQLowerBackA1.
+  ///
+  /// In en, this message translates to:
+  /// **'A flat hand just fits'**
+  String get postureQLowerBackA1;
+
+  /// No description provided for @postureQLowerBackA2.
+  ///
+  /// In en, this message translates to:
+  /// **'No space at all'**
+  String get postureQLowerBackA2;
+
+  /// No description provided for @postureQLowerBackA3.
+  ///
+  /// In en, this message translates to:
+  /// **'A fist fits'**
+  String get postureQLowerBackA3;
+
+  /// No description provided for @postureCheckSave.
+  ///
+  /// In en, this message translates to:
+  /// **'See my score'**
+  String get postureCheckSave;
+
+  /// No description provided for @postureCheckNote.
+  ///
+  /// In en, this message translates to:
+  /// **'A self-check, not a medical assessment.'**
+  String get postureCheckNote;
+
   /// No description provided for @paywallTester.
   ///
   /// In en, this message translates to:
@@ -7883,7 +8039,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallSlidePostureCaption.
   ///
   /// In en, this message translates to:
-  /// **'One photo, a measured score, a clear routine.'**
+  /// **'A side photo, a quick self-check, a clear routine.'**
   String get paywallSlidePostureCaption;
 
   /// No description provided for @paywallTrialHeadline.

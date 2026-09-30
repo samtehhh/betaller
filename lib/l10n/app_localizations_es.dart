@@ -2238,7 +2238,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get postureCoachHeader => 'COACH DE POSTURA';
 
   @override
-  String get postureCoachSubtitle => 'Puntuación postural con IA';
+  String get postureCoachSubtitle => 'Autoevaluación con tu foto de perfil';
 
   @override
   String get latestScore => 'ÚLTIMA PUNTUACIÓN';
@@ -3183,7 +3183,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get educationSubtitle => 'Contenido experto, investigación y guías';
 
   @override
-  String get aiAnalysisLabel => 'ANÁLISIS IA';
+  String get aiAnalysisLabel => 'ANÁLISIS DE CRECIMIENTO';
 
   @override
   String get peerCompareLabel => 'COMPARAR CON PARES';
@@ -3820,6 +3820,104 @@ class AppLocalizationsEs extends AppLocalizations {
       'Renovación anual auto · cancela cuando quieras';
 
   @override
+  String paywallTrialThenWeekly(String days, String price) {
+    return '$days días gratis, luego $price/semana · cancela cuando quieras';
+  }
+
+  @override
+  String paywallTrialThenMonthly(String days, String price) {
+    return '$days días gratis, luego $price/mes · cancela cuando quieras';
+  }
+
+  @override
+  String paywallTrialThenYearly(String days, String price) {
+    return '$days días gratis, luego $price/año · cancela cuando quieras';
+  }
+
+  @override
+  String get paywallRenewsWeekly =>
+      'Renovación semanal auto · cancela cuando quieras';
+
+  @override
+  String get paywallRenewsMonthly =>
+      'Renovación mensual auto · cancela cuando quieras';
+
+  @override
+  String get resultCardTitle => 'Tu estatura adulta estimada';
+
+  @override
+  String resultRange(String min, String max) {
+    return 'Rango probable: $min – $max';
+  }
+
+  @override
+  String resultPercentile(String percent) {
+    return 'Superas al $percent % de las personas de tu edad';
+  }
+
+  @override
+  String resultGrowthLeft(String amount) {
+    return 'Crecimiento restante estimado: $amount';
+  }
+
+  @override
+  String get resultFootnote =>
+      'Estimación basada en la estatura de tus padres y en curvas de crecimiento. No es consejo médico.';
+
+  @override
+  String get postureCheckTitle => 'Revisión rápida de postura';
+
+  @override
+  String get postureCheckIntro =>
+      'Ponte con los talones, la cadera y los omóplatos contra una pared y responde tres preguntas. Tu puntuación sale de tus respuestas; la foto se guarda para comparar el antes y el después.';
+
+  @override
+  String get postureQHead =>
+      '¿La parte de atrás de tu cabeza toca la pared sin levantar la barbilla?';
+
+  @override
+  String get postureQHeadA1 => 'Sí, sin esfuerzo';
+
+  @override
+  String get postureQHeadA2 => 'Solo si la empujo hacia atrás';
+
+  @override
+  String get postureQHeadA3 => 'No, queda un espacio';
+
+  @override
+  String get postureQShoulders =>
+      'En tu foto de perfil, ¿dónde están tus hombros respecto a tus orejas?';
+
+  @override
+  String get postureQShouldersA1 => 'Alineados con mis orejas';
+
+  @override
+  String get postureQShouldersA2 => 'Un poco adelantados';
+
+  @override
+  String get postureQShouldersA3 => 'Claramente curvados hacia delante';
+
+  @override
+  String get postureQLowerBack =>
+      'Pasa una mano por detrás de la zona lumbar. ¿Cuánto espacio queda?';
+
+  @override
+  String get postureQLowerBackA1 => 'Cabe justo una mano plana';
+
+  @override
+  String get postureQLowerBackA2 => 'Nada de espacio';
+
+  @override
+  String get postureQLowerBackA3 => 'Cabe un puño';
+
+  @override
+  String get postureCheckSave => 'Ver mi puntuación';
+
+  @override
+  String get postureCheckNote =>
+      'Una autoevaluación, no una valoración médica.';
+
+  @override
   String get paywallTester => 'Tester';
 
   @override
@@ -4316,7 +4414,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get paywallSlidePostureCaption =>
-      'Una foto, una puntuación medida, una rutina clara.';
+      'Una foto de perfil, una autoevaluación rápida, una rutina clara.';
 
   @override
   String paywallTrialHeadline(String days) {

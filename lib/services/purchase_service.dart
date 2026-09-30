@@ -48,6 +48,34 @@ class PurchaseService {
   static const yearlyProductId = 'betaller_yearly';
   static const weeklyProductId = 'betaller.weekly';
 
+  static const _ownProductIds = {
+    monthlyProductId,
+    yearlyProductId,
+    weeklyProductId,
+  };
+
+  /// Whether [info] unlocks premium.
+  ///
+  /// The entitlement is the rule; an active subscription to one of our own
+  /// products is the backstop. A product the dashboard never attached to the
+  /// entitlement — betaller.weekly shipped that way — otherwise charges the
+  /// user and then reports the purchase as failed. Play reports ids as
+  /// `product:base-plan`, hence the split.
+  static bool hasPremium(CustomerInfo info) {
+    if (info.entitlements.all[entitlementId]?.isActive ?? false) return true;
+    return info.activeSubscriptions.any(
+      (id) => _ownProductIds.contains(id.split(':').first),
+    );
+  }
+
+  /// Whether [info] positively says premium has run out: the entitlement was
+  /// active once and is not now. Absence says nothing — a fresh install, a
+  /// promo, or a cache miss all look the same — so only this may downgrade.
+  static bool hasLapsed(CustomerInfo info) {
+    final e = info.entitlements.all[entitlementId];
+    return e != null && !e.isActive && !hasPremium(info);
+  }
+
   bool _initialized = false;
 
   /// True once the SDK is live. Everything below returns an inert answer when
@@ -98,11 +126,52 @@ class PurchaseService {
   Future<bool> isPremium() async {
     if (!_initialized) return false;
     try {
-      final info = await Purchases.getCustomerInfo();
-      return info.entitlements.all[entitlementId]?.isActive ?? false;
+      return hasPremium(await Purchases.getCustomerInfo());
     } catch (e) {
       debugPrint('PurchaseService.isPremium error: $e');
       return false;
+    }
+  }
+
+  /// The customer as RevenueCat last saw them, or null when the SDK is off or
+  /// unreachable — never a guess, so callers can tell "no" from "don't know".
+  Future<CustomerInfo?> customerInfo() async {
+    if (!_initialized) return null;
+    try {
+      return await Purchases.getCustomerInfo();
+    } catch (e) {
+      debugPrint('PurchaseService.customerInfo error: $e');
+      return null;
+    }
+  }
+
+  /// Which of [productIds] may still be offered their free trial.
+  ///
+  /// StoreKit hands every product its introductory offer whether or not this
+  /// Apple ID already used it, so the paywall would promise "3 days free" to
+  /// someone about to be charged on day one. Missing ids mean "unknown": the
+  /// check failed or the platform cannot answer, and the store's own offer
+  /// stands.
+  Future<Map<String, bool>> trialEligibility(List<String> productIds) async {
+    if (!_initialized) return const {};
+    try {
+      final result = await Purchases.checkTrialOrIntroductoryPriceEligibility(
+        productIds,
+      );
+      return {
+        for (final e in result.entries)
+          if (e.value.status ==
+              IntroEligibilityStatus.introEligibilityStatusEligible)
+            e.key: true
+          else if (e.value.status ==
+                  IntroEligibilityStatus.introEligibilityStatusIneligible ||
+              e.value.status ==
+                  IntroEligibilityStatus.introEligibilityStatusNoIntroOfferExists)
+            e.key: false,
+      };
+    } catch (e) {
+      debugPrint('PurchaseService.trialEligibility error: $e');
+      return const {};
     }
   }
 
@@ -164,8 +233,7 @@ class PurchaseService {
     try {
       await attempt();
       final info = await Purchases.getCustomerInfo();
-      final active = info.entitlements.all[entitlementId]?.isActive ?? false;
-      return active ? PurchaseOutcome.success : PurchaseOutcome.failed;
+      return hasPremium(info) ? PurchaseOutcome.success : PurchaseOutcome.failed;
     } on PlatformException catch (e) {
       final code = PurchasesErrorHelper.getErrorCode(e);
       if (code == PurchasesErrorCode.purchaseCancelledError) {
@@ -184,8 +252,7 @@ class PurchaseService {
   Future<bool> restore() async {
     if (!_initialized) return false;
     try {
-      final info = await Purchases.restorePurchases();
-      return info.entitlements.all[entitlementId]?.isActive ?? false;
+      return hasPremium(await Purchases.restorePurchases());
     } catch (e) {
       debugPrint('PurchaseService.restore error: $e');
       return false;
@@ -207,8 +274,7 @@ class PurchaseService {
   Future<bool> checkEntitlement() async {
     if (!_initialized) return false;
     try {
-      final customerInfo = await Purchases.getCustomerInfo();
-      return customerInfo.entitlements.active.containsKey(entitlementId);
+      return hasPremium(await Purchases.getCustomerInfo());
     } catch (e) {
       debugPrint('PurchaseService.checkEntitlement error: $e');
       return false;

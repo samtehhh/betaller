@@ -2249,7 +2249,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get postureCoachHeader => 'COACH POSTURE';
 
   @override
-  String get postureCoachSubtitle => 'Évaluation posturale par IA';
+  String get postureCoachSubtitle => 'Auto-test avec ta photo de profil';
 
   @override
   String get latestScore => 'DERNIER SCORE';
@@ -3195,7 +3195,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get educationSubtitle => 'Contenus experts, recherches et guides';
 
   @override
-  String get aiAnalysisLabel => 'ANALYSE IA';
+  String get aiAnalysisLabel => 'ANALYSE DE CROISSANCE';
 
   @override
   String get peerCompareLabel => 'COMPARER AVEC VOS PAIRS';
@@ -3847,6 +3847,103 @@ class AppLocalizationsFr extends AppLocalizations {
       'Renouvellement annuel auto · annulation à tout moment';
 
   @override
+  String paywallTrialThenWeekly(String days, String price) {
+    return '$days jours gratuits, puis $price/semaine · annulation à tout moment';
+  }
+
+  @override
+  String paywallTrialThenMonthly(String days, String price) {
+    return '$days jours gratuits, puis $price/mois · annulation à tout moment';
+  }
+
+  @override
+  String paywallTrialThenYearly(String days, String price) {
+    return '$days jours gratuits, puis $price/an · annulation à tout moment';
+  }
+
+  @override
+  String get paywallRenewsWeekly =>
+      'Renouvellement hebdomadaire auto · annulation à tout moment';
+
+  @override
+  String get paywallRenewsMonthly =>
+      'Renouvellement mensuel auto · annulation à tout moment';
+
+  @override
+  String get resultCardTitle => 'Ta taille adulte estimée';
+
+  @override
+  String resultRange(String min, String max) {
+    return 'Fourchette probable : $min – $max';
+  }
+
+  @override
+  String resultPercentile(String percent) {
+    return 'Tu dépasses $percent % des personnes de ton âge';
+  }
+
+  @override
+  String resultGrowthLeft(String amount) {
+    return 'Croissance restante estimée : $amount';
+  }
+
+  @override
+  String get resultFootnote =>
+      'Estimation basée sur la taille de tes parents et des courbes de croissance. Ce n\'est pas un avis médical.';
+
+  @override
+  String get postureCheckTitle => 'Test de posture rapide';
+
+  @override
+  String get postureCheckIntro =>
+      'Place-toi dos au mur, talons, fesses et omoplates contre le mur, puis réponds à trois questions. Ton score vient de tes réponses ; la photo est gardée pour comparer avant et après.';
+
+  @override
+  String get postureQHead =>
+      'L\'arrière de ta tête touche-t-il le mur sans lever le menton ?';
+
+  @override
+  String get postureQHeadA1 => 'Oui, facilement';
+
+  @override
+  String get postureQHeadA2 => 'Seulement en forçant';
+
+  @override
+  String get postureQHeadA3 => 'Non, il reste un espace';
+
+  @override
+  String get postureQShoulders =>
+      'Sur ta photo de profil, où sont tes épaules par rapport à tes oreilles ?';
+
+  @override
+  String get postureQShouldersA1 => 'Alignées avec mes oreilles';
+
+  @override
+  String get postureQShouldersA2 => 'Un peu en avant';
+
+  @override
+  String get postureQShouldersA3 => 'Nettement enroulées vers l\'avant';
+
+  @override
+  String get postureQLowerBack =>
+      'Glisse une main derrière le bas de ton dos. Combien d\'espace reste-t-il ?';
+
+  @override
+  String get postureQLowerBackA1 => 'Une main à plat passe tout juste';
+
+  @override
+  String get postureQLowerBackA2 => 'Aucun espace';
+
+  @override
+  String get postureQLowerBackA3 => 'Un poing passe';
+
+  @override
+  String get postureCheckSave => 'Voir mon score';
+
+  @override
+  String get postureCheckNote => 'Un auto-test, pas un examen médical.';
+
+  @override
   String get paywallTester => 'Testeur';
 
   @override
@@ -4346,7 +4443,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get paywallSlidePostureCaption =>
-      'Une photo, un score mesuré, une routine claire.';
+      'Une photo de profil, un auto-test rapide, une routine claire.';
 
   @override
   String paywallTrialHeadline(String days) {

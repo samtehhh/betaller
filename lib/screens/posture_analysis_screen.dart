@@ -190,33 +190,32 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
     await File(picked.path).copy(path);
 
     if (!context.mounted) return;
-    _showAnalyzingModal(context, path);
+    _showSelfCheck(context, path);
   }
 
-  void _showAnalyzingModal(BuildContext context, String path) {
-    showDialog(
+  /// Three wall-test questions produce the score; the photo is kept for
+  /// before-and-after comparison. Closing the sheet keeps nothing.
+  Future<void> _showSelfCheck(BuildContext context, String path) async {
+    final answers = await showModalBottomSheet<_PostureAnswers>(
       context: context,
-      barrierDismissible: false,
-      barrierColor: Colors.black.withValues(alpha: 0.92),
-      builder: (ctx) => _AnalyzingOverlay(
-        imagePath: path,
-        onComplete: () {
-          final provider = Provider.of<AppProvider>(context, listen: false);
-          final rng = math.Random();
-          final kyphosis = 50 + rng.nextInt(46); // 50-95
-          final lordosis = 50 + rng.nextInt(46);
-          final headPos = 50 + rng.nextInt(46);
-          provider.addPostureAnalysis(
-            path: path,
-            kyphosisScore: kyphosis,
-            lordosisScore: lordosis,
-            headPosScore: headPos,
-          );
-          Navigator.of(ctx).pop();
-          HapticFeedback.heavyImpact();
-        },
-      ),
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => _PostureSelfCheckSheet(imagePath: path),
     );
+    if (answers == null) {
+      try {
+        await File(path).delete();
+      } catch (_) {}
+      return;
+    }
+    if (!context.mounted) return;
+    context.read<AppProvider>().addPostureAnalysis(
+      path: path,
+      kyphosisScore: answers.shoulders,
+      lordosisScore: answers.lowerBack,
+      headPosScore: answers.head,
+    );
+    HapticFeedback.heavyImpact();
   }
 
   // ── Build ────────────────────────────────────────────────────
@@ -1026,232 +1025,264 @@ class _HistoryLinePainter extends CustomPainter {
   }
 }
 
-// ── Analyzing overlay modal ───────────────────────────────────
-class _AnalyzingOverlay extends StatefulWidget {
-  final String imagePath;
-  final VoidCallback onComplete;
+// ── Posture self-check sheet ─────────────────────────────────
+//
+// The score comes from the user's own answers to three wall-test questions.
+// It used to be three random numbers presented as a photo analysis; the photo
+// is still kept, beside the questions and for before-and-after comparison.
 
-  const _AnalyzingOverlay({
-    required this.imagePath,
-    required this.onComplete,
-  });
-
-  @override
-  State<_AnalyzingOverlay> createState() => _AnalyzingOverlayState();
+/// Head position, shoulders and lower back, each scored from one answer.
+class _PostureAnswers {
+  final int head;
+  final int shoulders;
+  final int lowerBack;
+  const _PostureAnswers(this.head, this.shoulders, this.lowerBack);
 }
 
-class _AnalyzingOverlayState extends State<_AnalyzingOverlay>
-    with TickerProviderStateMixin {
-  late final AnimationController _scanController;
-  late final AnimationController _dotsController;
+class _PostureSelfCheckSheet extends StatefulWidget {
+  final String imagePath;
+  const _PostureSelfCheckSheet({required this.imagePath});
 
   @override
-  void initState() {
-    super.initState();
-    _scanController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1400),
-    )..repeat(reverse: true);
-    _dotsController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    )..repeat();
+  State<_PostureSelfCheckSheet> createState() => _PostureSelfCheckSheetState();
+}
 
-    Future.delayed(const Duration(milliseconds: 2500), () {
-      if (!mounted) return;
-      widget.onComplete();
-    });
-  }
+class _PostureSelfCheckSheetState extends State<_PostureSelfCheckSheet> {
+  // Score per answer, in the order the options are shown.
+  static const _headScores = [90, 65, 40];
+  static const _shoulderScores = [90, 65, 40];
+  // Flat hand = neutral curve; no space = flattened; fist = increased curve.
+  static const _lowerBackScores = [90, 70, 50];
 
-  @override
-  void dispose() {
-    _scanController.dispose();
-    _dotsController.dispose();
-    super.dispose();
-  }
+  int? _head;
+  int? _shoulders;
+  int? _lowerBack;
+
+  bool get _complete =>
+      _head != null && _shoulders != null && _lowerBack != null;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Photo with scanning line
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Stack(
+    final l = AppLocalizations.of(context)!;
+    final media = MediaQuery.of(context);
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: media.size.height * 0.92),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: AppColors.surfaceDark,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        ),
+        child: SafeArea(
+          top: false,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Center(
+                  child: Container(
+                    width: 38,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AspectRatio(
-                      aspectRatio: 3 / 4,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(14),
                       child: Image.file(
                         File(widget.imagePath),
+                        width: 92,
+                        height: 122,
                         fit: BoxFit.cover,
+                        errorBuilder: (_, _, _) =>
+                            const SizedBox(width: 92, height: 122),
                       ),
                     ),
-                    // Dark gradient overlay
-                    Positioned.fill(
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.black.withValues(alpha: 0.2),
-                              Colors.black.withValues(alpha: 0.5),
-                            ],
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l.postureCheckTitle,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.white,
+                              letterSpacing: -0.4,
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    // Scanning line
-                    AnimatedBuilder(
-                      animation: _scanController,
-                      builder: (context, _) {
-                        return Positioned.fill(
-                          child: LayoutBuilder(
-                            builder: (context, constraints) {
-                              final h = constraints.maxHeight;
-                              final y = h * _scanController.value;
-                              return Stack(
-                                children: [
-                                  Positioned(
-                                    top: y - 20,
-                                    left: 0,
-                                    right: 0,
-                                    height: 40,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: [
-                                            AppColors.primary
-                                                .withValues(alpha: 0),
-                                            AppColors.primary
-                                                .withValues(alpha: 0.35),
-                                            AppColors.primary
-                                                .withValues(alpha: 0),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: y,
-                                    left: 0,
-                                    right: 0,
-                                    height: 2,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: AppColors.lime,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: AppColors.lime
-                                                .withValues(alpha: 0.8),
-                                            blurRadius: 12,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
+                          const SizedBox(height: 6),
+                          Text(
+                            l.postureCheckIntro,
+                            style: TextStyle(
+                              fontSize: 12.5,
+                              height: 1.4,
+                              color: Colors.white.withValues(alpha: 0.6),
+                            ),
                           ),
-                        );
-                      },
-                    ),
-                    // Corner brackets
-                    Positioned.fill(
-                      child: CustomPaint(
-                        painter: _CornerBracketsPainter(),
+                        ],
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
-            const SizedBox(height: 32),
-            // ANALYZING text with dots
-            AnimatedBuilder(
-              animation: _dotsController,
-              builder: (context, _) {
-                final dotCount =
-                    ((_dotsController.value * 4).floor() % 4).clamp(0, 3);
-                final dots = '.' * dotCount;
-                return Text(
-                  '${AppLocalizations.of(context)!.analyzingPosture}$dots',
+                const SizedBox(height: 18),
+                _Question(
+                  question: l.postureQHead,
+                  options: [
+                    l.postureQHeadA1,
+                    l.postureQHeadA2,
+                    l.postureQHeadA3,
+                  ],
+                  selected: _head,
+                  onSelect: (i) => setState(() => _head = i),
+                ),
+                _Question(
+                  question: l.postureQShoulders,
+                  options: [
+                    l.postureQShouldersA1,
+                    l.postureQShouldersA2,
+                    l.postureQShouldersA3,
+                  ],
+                  selected: _shoulders,
+                  onSelect: (i) => setState(() => _shoulders = i),
+                ),
+                _Question(
+                  question: l.postureQLowerBack,
+                  options: [
+                    l.postureQLowerBackA1,
+                    l.postureQLowerBackA2,
+                    l.postureQLowerBackA3,
+                  ],
+                  selected: _lowerBack,
+                  onSelect: (i) => setState(() => _lowerBack = i),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  l.postureCheckNote,
                   style: TextStyle(
-                    color: AppColors.primary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 2.0,
-                    shadows: [
-                      Shadow(
-                        color: AppColors.primary.withValues(alpha: 0.6),
-                        blurRadius: 14,
-                      ),
-                    ],
+                    fontSize: 11,
+                    color: Colors.white.withValues(alpha: 0.4),
                   ),
-                );
-              },
+                ),
+                const SizedBox(height: 14),
+                SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: FilledButton(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      disabledBackgroundColor: Colors.white.withValues(
+                        alpha: 0.08,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    onPressed: _complete
+                        ? () => Navigator.of(context).pop(
+                            _PostureAnswers(
+                              _headScores[_head!],
+                              _shoulderScores[_shoulders!],
+                              _lowerBackScores[_lowerBack!],
+                            ),
+                          )
+                        : null,
+                    child: Text(
+                      l.postureCheckSave,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
-            Text(
-              AppLocalizations.of(context)!.postureDetectingAlignment,
-              style: TextStyle(
-                color: Colors.white.withValues(alpha: 0.6),
-                fontSize: 12,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _CornerBracketsPainter extends CustomPainter {
+class _Question extends StatelessWidget {
+  final String question;
+  final List<String> options;
+  final int? selected;
+  final ValueChanged<int> onSelect;
+
+  const _Question({
+    required this.question,
+    required this.options,
+    required this.selected,
+    required this.onSelect,
+  });
+
   @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = AppColors.primary
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3
-      ..strokeCap = StrokeCap.round;
-    const len = 24.0;
-    const pad = 14.0;
-
-    // Top-left
-    canvas.drawLine(
-        const Offset(pad, pad + len), const Offset(pad, pad), paint);
-    canvas.drawLine(
-        const Offset(pad, pad), const Offset(pad + len, pad), paint);
-
-    // Top-right
-    canvas.drawLine(Offset(size.width - pad - len, pad),
-        Offset(size.width - pad, pad), paint);
-    canvas.drawLine(Offset(size.width - pad, pad),
-        Offset(size.width - pad, pad + len), paint);
-
-    // Bottom-left
-    canvas.drawLine(Offset(pad, size.height - pad - len),
-        Offset(pad, size.height - pad), paint);
-    canvas.drawLine(Offset(pad, size.height - pad),
-        Offset(pad + len, size.height - pad), paint);
-
-    // Bottom-right
-    canvas.drawLine(Offset(size.width - pad - len, size.height - pad),
-        Offset(size.width - pad, size.height - pad), paint);
-    canvas.drawLine(Offset(size.width - pad, size.height - pad - len),
-        Offset(size.width - pad, size.height - pad), paint);
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            question,
+            style: const TextStyle(
+              fontSize: 14.5,
+              height: 1.35,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 8),
+          for (var i = 0; i < options.length; i++)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: GestureDetector(
+                onTap: () {
+                  HapticFeedback.selectionClick();
+                  onSelect(i);
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 11,
+                  ),
+                  decoration: BoxDecoration(
+                    color: selected == i
+                        ? AppColors.primary.withValues(alpha: 0.16)
+                        : Colors.white.withValues(alpha: 0.04),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: selected == i
+                          ? AppColors.primary.withValues(alpha: 0.7)
+                          : Colors.white.withValues(alpha: 0.08),
+                    ),
+                  ),
+                  child: Text(
+                    options[i],
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: selected == i
+                          ? Colors.white
+                          : Colors.white.withValues(alpha: 0.7),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
   }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

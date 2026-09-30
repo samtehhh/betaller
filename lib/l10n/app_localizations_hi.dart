@@ -2225,7 +2225,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get postureCoachHeader => 'पोस्चर कोच';
 
   @override
-  String get postureCoachSubtitle => 'AI-संचालित पोस्चर स्कोरिंग';
+  String get postureCoachSubtitle => 'साइड फ़ोटो के साथ स्व-जाँच';
 
   @override
   String get latestScore => 'नवीनतम स्कोर';
@@ -3168,7 +3168,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get educationSubtitle => 'विशेषज्ञ सामग्री, शोध और गाइड';
 
   @override
-  String get aiAnalysisLabel => 'AI विश्लेषण';
+  String get aiAnalysisLabel => 'ग्रोथ विश्लेषण';
 
   @override
   String get peerCompareLabel => 'साथियों से तुलना';
@@ -3802,6 +3802,101 @@ class AppLocalizationsHi extends AppLocalizations {
   String get paywallYearlyDisclaimer => 'वार्षिक ऑटो-रिन्यू · कभी भी रद्द';
 
   @override
+  String paywallTrialThenWeekly(String days, String price) {
+    return '$days दिन मुफ्त, फिर $price/सप्ताह · कभी भी रद्द';
+  }
+
+  @override
+  String paywallTrialThenMonthly(String days, String price) {
+    return '$days दिन मुफ्त, फिर $price/माह · कभी भी रद्द';
+  }
+
+  @override
+  String paywallTrialThenYearly(String days, String price) {
+    return '$days दिन मुफ्त, फिर $price/वर्ष · कभी भी रद्द';
+  }
+
+  @override
+  String get paywallRenewsWeekly => 'साप्ताहिक ऑटो-रिन्यू · कभी भी रद्द';
+
+  @override
+  String get paywallRenewsMonthly => 'मासिक ऑटो-रिन्यू · कभी भी रद्द';
+
+  @override
+  String get resultCardTitle => 'आपकी अनुमानित वयस्क लंबाई';
+
+  @override
+  String resultRange(String min, String max) {
+    return 'संभावित दायरा: $min – $max';
+  }
+
+  @override
+  String resultPercentile(String percent) {
+    return 'अपनी उम्र के $percent% लोगों से आपकी लंबाई ज़्यादा है';
+  }
+
+  @override
+  String resultGrowthLeft(String amount) {
+    return 'अनुमानित बची हुई बढ़त: $amount';
+  }
+
+  @override
+  String get resultFootnote =>
+      'आपके माता-पिता की लंबाई और ग्रोथ-चार्ट डेटा पर आधारित अनुमान। यह चिकित्सा सलाह नहीं है।';
+
+  @override
+  String get postureCheckTitle => 'त्वरित पोस्चर जाँच';
+
+  @override
+  String get postureCheckIntro =>
+      'एड़ियाँ, कूल्हे और कंधे की हड्डियाँ दीवार से लगाकर खड़े हों और तीन सवालों के जवाब दें। आपका स्कोर आपके जवाबों से बनता है; फ़ोटो पहले-और-बाद की तुलना के लिए सेव रहती है।';
+
+  @override
+  String get postureQHead =>
+      'क्या ठुड्डी उठाए बिना आपके सिर का पिछला हिस्सा दीवार को छूता है?';
+
+  @override
+  String get postureQHeadA1 => 'हाँ, आसानी से';
+
+  @override
+  String get postureQHeadA2 => 'सिर्फ़ ज़ोर से पीछे करने पर';
+
+  @override
+  String get postureQHeadA3 => 'नहीं, बीच में जगह रहती है';
+
+  @override
+  String get postureQShoulders =>
+      'साइड फ़ोटो में आपके कंधे कानों के मुकाबले कहाँ हैं?';
+
+  @override
+  String get postureQShouldersA1 => 'कानों की सीध में';
+
+  @override
+  String get postureQShouldersA2 => 'थोड़ा आगे';
+
+  @override
+  String get postureQShouldersA3 => 'साफ़ तौर पर आगे की ओर झुके हुए';
+
+  @override
+  String get postureQLowerBack =>
+      'अपना हाथ कमर के निचले हिस्से के पीछे डालें। कितनी जगह है?';
+
+  @override
+  String get postureQLowerBackA1 => 'बस एक सीधा हाथ जाता है';
+
+  @override
+  String get postureQLowerBackA2 => 'बिल्कुल जगह नहीं';
+
+  @override
+  String get postureQLowerBackA3 => 'मुट्ठी चली जाती है';
+
+  @override
+  String get postureCheckSave => 'मेरा स्कोर देखें';
+
+  @override
+  String get postureCheckNote => 'यह एक स्व-जाँच है, चिकित्सीय जाँच नहीं।';
+
+  @override
   String get paywallTester => 'Tester';
 
   @override
@@ -4294,7 +4389,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get paywallSlidePostureCaption =>
-      'एक फ़ोटो, मापा गया स्कोर, साफ़ रूटीन।';
+      'एक साइड फ़ोटो, एक त्वरित स्व-जाँच, एक साफ़ रूटीन।';
 
   @override
   String paywallTrialHeadline(String days) {

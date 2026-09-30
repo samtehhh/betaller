@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
+import 'package:purchases_flutter/purchases_flutter.dart' show CustomerInfo;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/dev_tools.dart';
@@ -463,6 +464,7 @@ class AppProvider extends ChangeNotifier {
         ),
       );
       _reviewShownOnce = json['reviewShownOnce'] ?? false;
+      _lastAutoPaywallDate = json['lastAutoPaywallDate'] as String?;
       // Anyone who already answered the questionnaire has step one behind
       // them, even if they installed before the journey existed.
       _announcedAchievements = Set<String>.from(
@@ -488,30 +490,38 @@ class AppProvider extends ChangeNotifier {
     _setDailyQuote();
     _checkAndGenerateChallenges();
     notifyListeners();
-
-    // Sync premium status with RevenueCat entitlement
-    _syncPremiumStatus();
+    // Premium is synced from main() once the billing SDK is up. Asking here
+    // ran before Purchases.configure, so the answer was always "no" and a
+    // paying user on a new install never got their subscription back.
   }
 
-  Future<void> _syncPremiumStatus() async {
+  /// Brings the stored premium flag in line with RevenueCat. Call after
+  /// [PurchaseService.init]; before it the SDK answers nothing.
+  Future<void> syncPremiumStatus() async {
     // On Android we don't have a valid RevenueCat key, so skip the
     // entitlement sync — the value stored in SharedPreferences is the
     // source of truth (e.g. tester bypass sets it to true and it stays).
     if (!Platform.isIOS) return;
 
-    try {
-      final hasEntitlement = await PurchaseService().checkEntitlement();
-      // Only UPGRADE to premium — never auto-downgrade.
-      // A false result could be a network error, sandbox issue, or
-      // RevenueCat cache miss. Explicit restore is the only way down.
-      if (hasEntitlement && !_isPremium) {
-        _isPremium = true;
-        _saveData();
-        notifyListeners();
-      }
-    } catch (_) {
-      // RevenueCat unreachable — keep whatever is in SharedPreferences.
-    }
+    final info = await PurchaseService().customerInfo();
+    // Unreachable — keep whatever is in SharedPreferences.
+    if (info != null) applyCustomerInfo(info);
+  }
+
+  /// Upgrades on any sign of premium; downgrades only when RevenueCat says the
+  /// entitlement existed and has run out. A missing entitlement proves
+  /// nothing (network, sandbox, cache miss), but an expired one does — and
+  /// without this a trial cancelled on day two stayed premium for good.
+  void applyCustomerInfo(CustomerInfo info) {
+    final next = PurchaseService.hasPremium(info)
+        ? true
+        : PurchaseService.hasLapsed(info)
+        ? false
+        : _isPremium;
+    if (next == _isPremium) return;
+    _isPremium = next;
+    _saveData();
+    notifyListeners();
   }
 
   void _initRoutines() {
@@ -582,6 +592,7 @@ class AppProvider extends ChangeNotifier {
       'journalByDate': _journalByDate,
       'completedProgramDays': _completedProgramDays.toList(),
       'reviewShownOnce': _reviewShownOnce,
+      'lastAutoPaywallDate': _lastAutoPaywallDate,
       'announcedAchievements': _announcedAchievements.toList(),
       'reminders': _reminders.map((r) => r.toJson()).toList(),
       'routineHistory': _routineHistory,
@@ -734,6 +745,20 @@ class AppProvider extends ChangeNotifier {
 
     _saveData();
     notifyListeners();
+  }
+
+  // ── Paywall the app opens by itself ──
+  // At most once a calendar day, for a user who is not premium. Only the tap
+  // on a locked feature used to open it, so most people never saw a price.
+  String? _lastAutoPaywallDate;
+
+  /// True — and the day marked as used — if the app may open the paywall on
+  /// its own today.
+  bool takeDailyPaywallSlot() {
+    if (_isPremium || _lastAutoPaywallDate == _today) return false;
+    _lastAutoPaywallDate = _today;
+    _saveData();
+    return true;
   }
 
   // ── App Review ──

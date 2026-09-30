@@ -2242,7 +2242,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get postureCoachHeader => 'HALTUNGSCOACH';
 
   @override
-  String get postureCoachSubtitle => 'KI-gestützte Haltungsbewertung';
+  String get postureCoachSubtitle => 'Selbsttest mit deinem Seitenfoto';
 
   @override
   String get latestScore => 'LETZTER WERT';
@@ -3187,7 +3187,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get educationSubtitle => 'Experten-Inhalte, Forschung und Leitfäden';
 
   @override
-  String get aiAnalysisLabel => 'KI-ANALYSE';
+  String get aiAnalysisLabel => 'WACHSTUMSANALYSE';
 
   @override
   String get peerCompareLabel => 'MIT GLEICHALTRIGEN VERGLEICHEN';
@@ -3840,6 +3840,104 @@ class AppLocalizationsDe extends AppLocalizations {
       'Jährliche auto Verlängerung · jederzeit kündbar';
 
   @override
+  String paywallTrialThenWeekly(String days, String price) {
+    return '$days Tage kostenlos, dann $price/Woche · jederzeit kündbar';
+  }
+
+  @override
+  String paywallTrialThenMonthly(String days, String price) {
+    return '$days Tage kostenlos, dann $price/Monat · jederzeit kündbar';
+  }
+
+  @override
+  String paywallTrialThenYearly(String days, String price) {
+    return '$days Tage kostenlos, dann $price/Jahr · jederzeit kündbar';
+  }
+
+  @override
+  String get paywallRenewsWeekly =>
+      'Wöchentliche auto Verlängerung · jederzeit kündbar';
+
+  @override
+  String get paywallRenewsMonthly =>
+      'Monatliche auto Verlängerung · jederzeit kündbar';
+
+  @override
+  String get resultCardTitle => 'Deine voraussichtliche Erwachsenengröße';
+
+  @override
+  String resultRange(String min, String max) {
+    return 'Wahrscheinlicher Bereich: $min – $max';
+  }
+
+  @override
+  String resultPercentile(String percent) {
+    return 'Größer als $percent % der Gleichaltrigen';
+  }
+
+  @override
+  String resultGrowthLeft(String amount) {
+    return 'Geschätztes restliches Wachstum: $amount';
+  }
+
+  @override
+  String get resultFootnote =>
+      'Schätzung anhand der Größe deiner Eltern und von Wachstumskurven. Keine medizinische Beratung.';
+
+  @override
+  String get postureCheckTitle => 'Schneller Haltungscheck';
+
+  @override
+  String get postureCheckIntro =>
+      'Stell dich mit Fersen, Hüfte und Schulterblättern an eine Wand und beantworte drei Fragen. Dein Wert ergibt sich aus deinen Antworten; das Foto wird für den Vorher-nachher-Vergleich gespeichert.';
+
+  @override
+  String get postureQHead =>
+      'Berührt dein Hinterkopf die Wand, ohne dass du das Kinn anhebst?';
+
+  @override
+  String get postureQHeadA1 => 'Ja, ganz leicht';
+
+  @override
+  String get postureQHeadA2 => 'Nur wenn ich ihn nach hinten drücke';
+
+  @override
+  String get postureQHeadA3 => 'Nein, da ist ein Abstand';
+
+  @override
+  String get postureQShoulders =>
+      'Wo sind auf deinem Seitenfoto deine Schultern im Vergleich zu den Ohren?';
+
+  @override
+  String get postureQShouldersA1 => 'Auf einer Linie mit den Ohren';
+
+  @override
+  String get postureQShouldersA2 => 'Etwas davor';
+
+  @override
+  String get postureQShouldersA3 => 'Deutlich nach vorn gerundet';
+
+  @override
+  String get postureQLowerBack =>
+      'Schieb eine Hand hinter deinen unteren Rücken. Wie viel Platz ist da?';
+
+  @override
+  String get postureQLowerBackA1 => 'Eine flache Hand passt gerade so';
+
+  @override
+  String get postureQLowerBackA2 => 'Gar kein Platz';
+
+  @override
+  String get postureQLowerBackA3 => 'Eine Faust passt hinein';
+
+  @override
+  String get postureCheckSave => 'Meinen Wert zeigen';
+
+  @override
+  String get postureCheckNote =>
+      'Ein Selbsttest, keine medizinische Untersuchung.';
+
+  @override
   String get paywallTester => 'Tester';
 
   @override
@@ -4336,7 +4434,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get paywallSlidePostureCaption =>
-      'Ein Foto, ein gemessener Wert, eine klare Routine.';
+      'Ein Seitenfoto, ein kurzer Selbsttest, eine klare Routine.';
 
   @override
   String paywallTrialHeadline(String days) {

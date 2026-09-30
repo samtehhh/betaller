@@ -18,13 +18,20 @@ import '../utils/constants.dart';
 import 'paywall_previews.dart';
 import 'phone_mockup.dart';
 
-Future<bool?> showPremiumPaywall(BuildContext context) async {
+/// Opens the paywall. [closeDelay] holds the close button back for a moment,
+/// for the placements the app opens on its own (end of onboarding, first
+/// launch of the day) — long enough to read the offer, not a trap: the button
+/// always arrives.
+Future<bool?> showPremiumPaywall(
+  BuildContext context, {
+  Duration closeDelay = Duration.zero,
+}) async {
   if (!context.mounted) return false;
   return Navigator.push<bool>(
     context,
     CupertinoPageRoute(
       fullscreenDialog: true,
-      builder: (_) => const PremiumPaywallScreen(),
+      builder: (_) => PremiumPaywallScreen(closeDelay: closeDelay),
     ),
   );
 }
@@ -130,7 +137,12 @@ int? _freeTrialDays(StoreProduct? product) {
 
 class PremiumPaywallScreen extends StatefulWidget {
   final bool dismissible;
-  const PremiumPaywallScreen({super.key, this.dismissible = true});
+  final Duration closeDelay;
+  const PremiumPaywallScreen({
+    super.key,
+    this.dismissible = true,
+    this.closeDelay = Duration.zero,
+  });
   @override
   State<PremiumPaywallScreen> createState() => _PremiumPaywallScreenState();
 }
@@ -138,9 +150,20 @@ class PremiumPaywallScreen extends StatefulWidget {
 class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
   Offerings? _offerings;
   List<StoreProduct> _directProducts = [];
+
+  /// Product id -> may this Apple ID still take the free trial. Missing means
+  /// unknown, and the store's own offer stands.
+  Map<String, bool> _trialEligible = const {};
   bool _loading = true;
   bool _purchasing = false;
+
+  /// 0 monthly, 1 yearly, 2 weekly. Settled by [_defaultPlan] once the store
+  /// answers, unless the user has already tapped a plan themselves.
   int _selectedPlan = 1;
+  bool _userPicked = false;
+
+  late bool _closeVisible = widget.closeDelay == Duration.zero;
+  Timer? _closeTimer;
 
   /// Index into the endless page list; the slide shown is this modulo the
   /// number of previews.
@@ -157,12 +180,18 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     super.initState();
     _startAutoAdvance();
     _loadOfferings();
+    if (!_closeVisible) {
+      _closeTimer = Timer(widget.closeDelay, () {
+        if (mounted) setState(() => _closeVisible = true);
+      });
+    }
   }
 
   @override
   void dispose() {
     _advance?.cancel();
     _resume?.cancel();
+    _closeTimer?.cancel();
     _pageCtrl.dispose();
     super.dispose();
   }
@@ -197,15 +226,57 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
   }
 
   Future<void> _loadOfferings() async {
-    final o = await PurchaseService().getOfferings();
-    final direct = await PurchaseService().getProducts();
+    final service = PurchaseService();
+    final o = await service.getOfferings();
+    final direct = await service.getProducts();
+    final eligible = await service.trialEligibility(const [
+      PurchaseService.yearlyProductId,
+      PurchaseService.monthlyProductId,
+      PurchaseService.weeklyProductId,
+    ]);
     if (mounted) {
       setState(() {
         _offerings = o;
         _directProducts = direct;
+        _trialEligible = eligible;
         _loading = false;
+        if (!_userPicked) _selectedPlan = _defaultPlan();
       });
     }
+  }
+
+  /// [id] as the store sells it, from the offering or the direct fetch.
+  StoreProduct? _storeProduct(String id) {
+    for (final p in _offerings?.current?.availablePackages ?? const []) {
+      if (p.storeProduct.identifier == id) return p.storeProduct;
+    }
+    for (final p in _directProducts) {
+      if (p.identifier == id) return p;
+    }
+    return null;
+  }
+
+  /// Free days this user can actually get on [product]: the store's offer,
+  /// unless RevenueCat says this Apple ID has already used it.
+  int? _trialFor(StoreProduct? product) {
+    if (product == null) return null;
+    if (_trialEligible[product.identifier] == false) return null;
+    return _freeTrialDays(product);
+  }
+
+  /// The plan the sheet opens on: the first one that starts with a free trial
+  /// this user can still get — yearly, then monthly, then weekly — else
+  /// yearly. Opening on a plan that bills on day one hid the only trial behind
+  /// a tap, and a trial is what an app nobody has heard of has to sell.
+  int _defaultPlan() {
+    for (final (plan, id) in const [
+      (1, PurchaseService.yearlyProductId),
+      (0, PurchaseService.monthlyProductId),
+      (2, PurchaseService.weeklyProductId),
+    ]) {
+      if ((_trialFor(_storeProduct(id)) ?? 0) > 0) return plan;
+    }
+    return 1;
   }
 
   Future<void> _purchase(Package? pkg, {StoreProduct? product}) async {
@@ -320,25 +391,30 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
       rawPrice: monthlyProduct?.price ?? (kDebugMode ? _kDemoMonthly : null),
       currencyCode:
           monthlyProduct?.currencyCode ?? (kDebugMode ? _kDemoCurrency : null),
-      trialDays: _freeTrialDays(monthlyProduct) ?? _kAssumedTrialDays,
+      // On iOS a loaded product is the authority, eligibility included. The
+      // assumed trial only covers the window before it loads, and Android,
+      // whose trial the plugin does not surface as an introductory price.
+      trialDays: Platform.isIOS && monthlyProduct != null
+          ? _trialFor(monthlyProduct)
+          : _freeTrialDays(monthlyProduct) ?? _kAssumedTrialDays,
     );
     final annualOffer = _PlanOffer(
       price: annualProduct?.priceString ?? _demoPrice(_kDemoYearly),
       rawPrice: annualProduct?.price ?? (kDebugMode ? _kDemoYearly : null),
       currencyCode:
           annualProduct?.currencyCode ?? (kDebugMode ? _kDemoCurrency : null),
-      trialDays: _freeTrialDays(annualProduct),
+      trialDays: _trialFor(annualProduct),
     );
     final weeklyOffer = _PlanOffer(
       price: weeklyProduct?.priceString ?? _demoPrice(_kDemoWeekly),
       rawPrice: weeklyProduct?.price ?? (kDebugMode ? _kDemoWeekly : null),
       currencyCode:
           weeklyProduct?.currencyCode ?? (kDebugMode ? _kDemoCurrency : null),
-      trialDays: _freeTrialDays(weeklyProduct),
+      trialDays: _trialFor(weeklyProduct),
     );
 
     return PopScope(
-      canPop: widget.dismissible,
+      canPop: widget.dismissible && _closeVisible,
       child: Scaffold(
         backgroundColor: const Color(0xFF07050F),
         body: TweenAnimationBuilder<Color?>(
@@ -425,7 +501,10 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
                       monthlyOffer: monthlyOffer,
                       annualOffer: annualOffer,
                       weeklyOffer: weeklyOffer,
-                      onSelectPlan: (i) => setState(() => _selectedPlan = i),
+                      onSelectPlan: (i) => setState(() {
+                        _selectedPlan = i;
+                        _userPicked = true;
+                      }),
                       onRedeemPromo: _redeemPromoCode,
                       onBuy: () {
                         final pkg = switch (_selectedPlan) {
@@ -462,21 +541,28 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       if (widget.dismissible)
-                        GestureDetector(
-                          onTap: () => Navigator.pop(context, false),
-                          child: Container(
-                            padding: const EdgeInsets.all(9),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white.withValues(alpha: 0.10),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.10),
+                        IgnorePointer(
+                          ignoring: !_closeVisible,
+                          child: AnimatedOpacity(
+                            opacity: _closeVisible ? 1 : 0,
+                            duration: const Duration(milliseconds: 400),
+                            child: GestureDetector(
+                              onTap: () => Navigator.pop(context, false),
+                              child: Container(
+                                padding: const EdgeInsets.all(9),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white.withValues(alpha: 0.10),
+                                  border: Border.all(
+                                    color: Colors.white.withValues(alpha: 0.10),
+                                  ),
+                                ),
+                                child: const Icon(
+                                  CupertinoIcons.xmark,
+                                  size: 15,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                            child: const Icon(
-                              CupertinoIcons.xmark,
-                              size: 15,
-                              color: Colors.white,
                             ),
                           ),
                         )
@@ -703,6 +789,29 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
       // fall back to the flat total rather than crash the sheet.
       return null;
     }
+  }
+
+  /// What the tap commits to, for the plan actually selected: the trial and
+  /// the price it turns into, or how often it renews. The old line promised
+  /// "renews yearly" under the weekly and monthly plans too, and never named
+  /// the price after the trial — the disclosure App Review reads first.
+  String _disclaimer(AppLocalizations l, _PlanOffer offer) {
+    final days = '${offer.trialDays ?? 0}';
+    final price = offer.price ?? '—';
+    return switch (widget.selectedPlan) {
+      0 =>
+        offer.hasTrial
+            ? l.paywallTrialThenMonthly(days, price)
+            : l.paywallRenewsMonthly,
+      2 =>
+        offer.hasTrial
+            ? l.paywallTrialThenWeekly(days, price)
+            : l.paywallRenewsWeekly,
+      _ =>
+        offer.hasTrial
+            ? l.paywallTrialThenYearly(days, price)
+            : l.paywallYearlyDisclaimer,
+    };
   }
 
   @override
@@ -952,9 +1061,7 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  offer.hasTrial
-                      ? l.paywallTrialDisclaimer
-                      : l.paywallYearlyDisclaimer,
+                  _disclaimer(l, offer),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 10,

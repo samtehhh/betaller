@@ -65,6 +65,9 @@ Future<void> _initDeepLinks() async {
 
     final context = await _waitForNavigatorContext();
     if (context != null && context.mounted) {
+      // The link was tapped on purpose, so it always opens; it just uses up
+      // today's automatic showing so the two never stack.
+      context.read<AppProvider>().takeDailyPaywallSlot();
       unawaited(showPremiumPaywall(context));
     }
   }
@@ -109,7 +112,13 @@ Future<void> _initServices(AppProvider appProvider) async {
   }
 
   try {
-    await PurchaseService().init();
+    final purchases = PurchaseService();
+    await purchases.init();
+    // Only now can RevenueCat answer. The listener also catches purchases
+    // that complete later: a renewal, a code redeemed in the App Store, or a
+    // transaction the backend refused once and accepts on the SDK's retry.
+    purchases.addCustomerInfoListener(appProvider.applyCustomerInfo);
+    await appProvider.syncPremiumStatus();
   } catch (e) {
     debugPrint('Purchase init failed: $e');
   }

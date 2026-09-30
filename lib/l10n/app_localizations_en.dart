@@ -2223,7 +2223,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get postureCoachHeader => 'POSTURE COACH';
 
   @override
-  String get postureCoachSubtitle => 'AI-powered posture scoring';
+  String get postureCoachSubtitle => 'Self-check with your side photo';
 
   @override
   String get latestScore => 'LATEST SCORE';
@@ -3166,7 +3166,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get educationSubtitle => 'Expert content, research and guides';
 
   @override
-  String get aiAnalysisLabel => 'AI ANALYSIS';
+  String get aiAnalysisLabel => 'GROWTH ANALYSIS';
 
   @override
   String get peerCompareLabel => 'COMPARE WITH PEERS';
@@ -3827,6 +3827,101 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paywallYearlyDisclaimer => 'Auto-renews yearly · cancel anytime';
 
   @override
+  String paywallTrialThenWeekly(String days, String price) {
+    return '$days days free, then $price/week · cancel anytime';
+  }
+
+  @override
+  String paywallTrialThenMonthly(String days, String price) {
+    return '$days days free, then $price/month · cancel anytime';
+  }
+
+  @override
+  String paywallTrialThenYearly(String days, String price) {
+    return '$days days free, then $price/year · cancel anytime';
+  }
+
+  @override
+  String get paywallRenewsWeekly => 'Auto-renews weekly · cancel anytime';
+
+  @override
+  String get paywallRenewsMonthly => 'Auto-renews monthly · cancel anytime';
+
+  @override
+  String get resultCardTitle => 'Your predicted adult height';
+
+  @override
+  String resultRange(String min, String max) {
+    return 'Likely range: $min – $max';
+  }
+
+  @override
+  String resultPercentile(String percent) {
+    return 'Taller than $percent% of people your age';
+  }
+
+  @override
+  String resultGrowthLeft(String amount) {
+    return 'Estimated growth left: $amount';
+  }
+
+  @override
+  String get resultFootnote =>
+      'Estimate based on your parents\' heights and growth-chart data. Not medical advice.';
+
+  @override
+  String get postureCheckTitle => 'Quick posture check';
+
+  @override
+  String get postureCheckIntro =>
+      'Stand with your heels, hips and shoulder blades against a wall, then answer three questions. Your score comes from your answers; the photo is kept for before-and-after comparison.';
+
+  @override
+  String get postureQHead =>
+      'Does the back of your head touch the wall without lifting your chin?';
+
+  @override
+  String get postureQHeadA1 => 'Yes, easily';
+
+  @override
+  String get postureQHeadA2 => 'Only if I push it back';
+
+  @override
+  String get postureQHeadA3 => 'No, there\'s a gap';
+
+  @override
+  String get postureQShoulders =>
+      'In your side photo, where are your shoulders compared with your ears?';
+
+  @override
+  String get postureQShouldersA1 => 'In line with my ears';
+
+  @override
+  String get postureQShouldersA2 => 'A little in front';
+
+  @override
+  String get postureQShouldersA3 => 'Clearly rounded forward';
+
+  @override
+  String get postureQLowerBack =>
+      'Slide a hand behind your lower back. How much space is there?';
+
+  @override
+  String get postureQLowerBackA1 => 'A flat hand just fits';
+
+  @override
+  String get postureQLowerBackA2 => 'No space at all';
+
+  @override
+  String get postureQLowerBackA3 => 'A fist fits';
+
+  @override
+  String get postureCheckSave => 'See my score';
+
+  @override
+  String get postureCheckNote => 'A self-check, not a medical assessment.';
+
+  @override
   String get paywallTester => 'Tester';
 
   @override
@@ -4316,7 +4411,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get paywallSlidePostureCaption =>
-      'One photo, a measured score, a clear routine.';
+      'A side photo, a quick self-check, a clear routine.';
 
   @override
   String paywallTrialHeadline(String days) {

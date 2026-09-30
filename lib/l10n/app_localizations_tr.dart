@@ -2220,7 +2220,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get postureCoachHeader => 'POSTÜR KOÇU';
 
   @override
-  String get postureCoachSubtitle => 'Yapay zeka destekli postür puanlaması';
+  String get postureCoachSubtitle =>
+      'Yan fotoğrafınla duruş öz-değerlendirmesi';
 
   @override
   String get latestScore => 'SON PUAN';
@@ -3161,7 +3162,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get educationSubtitle => 'Uzman içerikler, araştırmalar ve rehberler';
 
   @override
-  String get aiAnalysisLabel => 'AI ANALİZ';
+  String get aiAnalysisLabel => 'BÜYÜME ANALİZİ';
 
   @override
   String get peerCompareLabel => 'AKRANLARLA KARŞILAŞTIR';
@@ -3819,6 +3820,104 @@ class AppLocalizationsTr extends AppLocalizations {
       'Yıllık otomatik yenilenir · istediğin zaman iptal et';
 
   @override
+  String paywallTrialThenWeekly(String days, String price) {
+    return '$days gün ücretsiz, sonra $price/hafta · istediğin zaman iptal et';
+  }
+
+  @override
+  String paywallTrialThenMonthly(String days, String price) {
+    return '$days gün ücretsiz, sonra $price/ay · istediğin zaman iptal et';
+  }
+
+  @override
+  String paywallTrialThenYearly(String days, String price) {
+    return '$days gün ücretsiz, sonra $price/yıl · istediğin zaman iptal et';
+  }
+
+  @override
+  String get paywallRenewsWeekly =>
+      'Haftalık otomatik yenilenir · istediğin zaman iptal et';
+
+  @override
+  String get paywallRenewsMonthly =>
+      'Aylık otomatik yenilenir · istediğin zaman iptal et';
+
+  @override
+  String get resultCardTitle => 'Tahmini yetişkin boyun';
+
+  @override
+  String resultRange(String min, String max) {
+    return 'Olası aralık: $min – $max';
+  }
+
+  @override
+  String resultPercentile(String percent) {
+    return 'Yaşıtlarına göre yüzdelik dilimin: $percent';
+  }
+
+  @override
+  String resultGrowthLeft(String amount) {
+    return 'Tahmini kalan büyüme: $amount';
+  }
+
+  @override
+  String get resultFootnote =>
+      'Anne ve babanın boyuna ve büyüme eğrisi verilerine dayalı bir tahmindir. Tıbbi tavsiye değildir.';
+
+  @override
+  String get postureCheckTitle => 'Hızlı duruş kontrolü';
+
+  @override
+  String get postureCheckIntro =>
+      'Topukların, kalçan ve kürek kemiklerin duvara değecek şekilde dur ve üç soruyu cevapla. Puanın cevaplarından hesaplanır; fotoğraf önce-sonra karşılaştırması için saklanır.';
+
+  @override
+  String get postureQHead =>
+      'Çeneni kaldırmadan başının arkası duvara değiyor mu?';
+
+  @override
+  String get postureQHeadA1 => 'Evet, rahatça';
+
+  @override
+  String get postureQHeadA2 => 'Ancak geriye zorlarsam';
+
+  @override
+  String get postureQHeadA3 => 'Hayır, arada boşluk var';
+
+  @override
+  String get postureQShoulders =>
+      'Yan fotoğrafında omuzların kulaklarına göre nerede?';
+
+  @override
+  String get postureQShouldersA1 => 'Kulaklarımla aynı hizada';
+
+  @override
+  String get postureQShouldersA2 => 'Biraz önde';
+
+  @override
+  String get postureQShouldersA3 => 'Belirgin şekilde öne kapanık';
+
+  @override
+  String get postureQLowerBack =>
+      'Elini belinin arkasına kaydır. Ne kadar boşluk var?';
+
+  @override
+  String get postureQLowerBackA1 => 'Düz bir el ancak sığıyor';
+
+  @override
+  String get postureQLowerBackA2 => 'Hiç boşluk yok';
+
+  @override
+  String get postureQLowerBackA3 => 'Yumruk sığıyor';
+
+  @override
+  String get postureCheckSave => 'Puanımı gör';
+
+  @override
+  String get postureCheckNote =>
+      'Bu bir öz-değerlendirmedir, tıbbi değerlendirme değildir.';
+
+  @override
   String get paywallTester => 'Tester';
 
   @override
@@ -4306,7 +4405,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get paywallSlidePostureCaption =>
-      'Tek fotoğraf, ölçülmüş puan, net rutin.';
+      'Yan fotoğraf, kısa bir öz-kontrol, net bir rutin.';
 
   @override
   String paywallTrialHeadline(String days) {

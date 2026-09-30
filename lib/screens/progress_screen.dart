@@ -10,7 +10,6 @@ import '../l10n/app_localizations.dart';
 import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
-import '../widgets/premium_paywall.dart';
 import '../widgets/tour_keys.dart';
 import 'weekly_report_screen.dart';
 import 'posture_analysis_screen.dart';
@@ -115,9 +114,13 @@ class ProgressScreenState extends State<ProgressScreen>
                         current: current,
                         gained: gained,
                         records: records,
-                        onAdd: provider.isPremium
-                            ? () => _showAddMeasurementSheet(context, provider)
-                            : () => showPremiumPaywall(context),
+                        // Logging a height is the habit the whole app is
+                        // built on, and every entry sharpens the prediction.
+                        // Behind the paywall it kept free users from ever
+                        // forming it, and from reaching the rating prompt
+                        // that the first measurement triggers.
+                        onAdd: () =>
+                            _showAddMeasurementSheet(context, provider),
                       ),
                     ),
                     const SizedBox(height: 16),

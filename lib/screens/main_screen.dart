@@ -12,6 +12,7 @@ import '../services/notification_service.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
 import '../widgets/feature_tour.dart';
+import '../widgets/premium_paywall.dart';
 import 'analysis_screen.dart';
 import 'routines_screen.dart';
 import 'progress_screen.dart';
@@ -52,12 +53,26 @@ class _MainScreenState extends State<MainScreen> {
     // it never fires again after the first time.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<AppProvider>();
-      if (provider.journeyProgress != 1) return;
+      if (provider.journeyProgress != 1) {
+        _maybeOpenDailyPaywall();
+        return;
+      }
       Future.delayed(const Duration(seconds: 3), () {
         if (!mounted) return;
         if (context.read<AppProvider>().journeyProgress != 1) return;
         _startTour();
       });
+    });
+  }
+
+  /// The first launch of the day, for someone who is not premium, opens the
+  /// offer once after the home screen has landed. Not during the first-run
+  /// tour: that session already saw it at the end of onboarding.
+  void _maybeOpenDailyPaywall() {
+    Future.delayed(const Duration(milliseconds: 1200), () {
+      if (!mounted || _tourActive) return;
+      if (!context.read<AppProvider>().takeDailyPaywallSlot()) return;
+      showPremiumPaywall(context, closeDelay: const Duration(seconds: 2));
     });
   }
 
