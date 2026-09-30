@@ -65,14 +65,24 @@ workflows:
           fi
           echo "Building $CM_BRANCH with DEV_TOOLS=$DEV_TOOLS"
 
+          # The export options come from `xcode-project use-profiles`, which
+          # names the profile Codemagic installed. Left to itself, flutter
+          # looks for profiles where Xcode 16+ keeps them, finds none, and
+          # falls back to an ExportOptions.plist that cannot export.
           if [ -n "$BUILD_NUMBER" ]; then
             flutter build ipa --release \
               --build-number="$BUILD_NUMBER" \
+              --export-options-plist=/Users/builder/export_options.plist \
               --dart-define=DEV_TOOLS=$DEV_TOOLS --verbose
           else
             flutter build ipa --release \
+              --export-options-plist=/Users/builder/export_options.plist \
               --dart-define=DEV_TOOLS=$DEV_TOOLS --verbose
           fi
+
+          # flutter exits 0 when only the export fails, and the build then
+          # "finishes" with nothing to publish. No .ipa, no success.
+          ls build/ios/ipa/*.ipa
     artifacts:
       - build/ios/ipa/*.ipa
     publishing:
