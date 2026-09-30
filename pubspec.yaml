@@ -51,19 +51,9 @@ flutter:
     - assets/icon.png
     - assets/icon_2.png
     - assets/exercises/
-    - assets/testimonials/
-    # The paywall's hero screens are drawn from the app's own widgets now (see
-    # lib/widgets/paywall_previews.dart), so these per-language screenshots are
-    # no longer loaded by anything. Kept only until the new tour has shipped and
-    # been seen in the wild; delete the folders and these lines after that.
-    - assets/paywall/tr/
-    - assets/paywall/en/
-    - assets/paywall/de/
-    - assets/paywall/fr/
-    - assets/paywall/es/
-    - assets/paywall/it/
-    - assets/paywall/pt/
-    - assets/paywall/hi/
+    # assets/testimonials/ and assets/paywall/<lang>/ are no longer bundled:
+    # nothing loads them (the paywall tour draws the app's own widgets), and
+    # they added ~5 MB, including photos of real people, to every download.
     # Before/after shots for the debug demo-data seeder, and for the paywall's
     # posture slide — which means they now ship, not just seed.
     - assets/demo/
