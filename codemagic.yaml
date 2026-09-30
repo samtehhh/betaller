@@ -8,23 +8,20 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
+      # Signing comes from the team's code signing identities: the
+      # distribution certificate uploaded there plus an App Store profile
+      # for this bundle id. The old step created a certificate from
+      # CERTIFICATE_PRIVATE_KEY; once that certificate was revoked, every
+      # build failed, because the team already holds its three certificates.
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.glowup.boyuzatmaApp.33JY92T594
       groups:
         - ios_credentials
       vars:
         BUNDLE_ID: com.glowup.boyuzatmaApp.33JY92T594
         APP_STORE_APP_ID: "6761445065"
     scripts:
-      - name: Initialize keychain
-        script: keychain initialize
-      - name: Fetch signing files
-        script: |
-          echo "$CERTIFICATE_PRIVATE_KEY" | base64 --decode > /tmp/cert_key.pem
-          app-store-connect fetch-signing-files "$BUNDLE_ID" \
-            --type IOS_APP_STORE \
-            --certificate-key @file:/tmp/cert_key.pem \
-            --create
-      - name: Add certificates to keychain
-        script: keychain add-certificates
       - name: Apply provisioning profiles
         script: xcode-project use-profiles
       - name: Get Flutter packages
