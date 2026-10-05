@@ -74,8 +74,8 @@ const int _kAssumedTrialDays = 3;
 // approved/configured (App Store Connect, RevenueCat), matching the plan
 // names discussed for BeTaller (weekly/monthly/yearly).
 const double _kDemoWeekly = 4.99;
-const double _kDemoMonthly = 11.99;
-const double _kDemoYearly = 49.99;
+const double _kDemoMonthly = 9.99;
+const double _kDemoYearly = 39.99;
 const String _kDemoCurrency = 'USD';
 
 String? _demoPrice(double amount) {
@@ -774,22 +774,10 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
     return percent.round();
   }
 
-  /// The yearly plan's true cost divided into a per-week figure, formatted in
-  /// the store's own currency — never the device locale's, which can differ
-  /// from what the store will actually charge. Null until the price and its
-  /// currency code have both loaded.
-  String? get _yearlyPerWeek {
-    final annual = widget.annualOffer.rawPrice;
-    final code = widget.annualOffer.currencyCode;
-    if (annual == null || code == null) return null;
-    try {
-      return NumberFormat.simpleCurrency(name: code).format(annual / 52);
-    } catch (_) {
-      // An unrecognised ISO code from a store we haven't seen before —
-      // fall back to the flat total rather than crash the sheet.
-      return null;
-    }
-  }
+  /// The store's price with its billing period ("$39.99/year"), or a dash
+  /// until the offering loads.
+  String _billed(String? price, String Function(String) perPeriod) =>
+      price == null ? '—' : perPeriod(price);
 
   /// What the tap commits to, for the plan actually selected: the trial and
   /// the price it turns into, or how often it renews. The old line promised
@@ -832,9 +820,9 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
       _ctaPulse.value = 0;
     }
 
-    // Bounded, not just min-sized: a third plan row plus the risk-reversal
-    // banner below can outgrow a small phone's remaining height once the
-    // tour above has taken its share. Capping the sheet and scrolling its
+    // Bounded, not just min-sized: three plan rows plus the terms below can
+    // outgrow a small phone's remaining height once the tour above has
+    // taken its share. Capping the sheet and scrolling its
     // contents keeps the tour's height stable instead of it being squeezed
     // out — the carousel keeps auto-advancing underneath untouched.
     return ConstrainedBox(
@@ -865,59 +853,16 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // ── Risk-reversal banner ────────────────────────────────────
-              //
-              // The one honest lever a paywall gets to pull: no fake
-              // countdowns, no fabricated "3 people just subscribed" — both
-              // read as dark patterns and both stores reject them on sight.
-              // What's real is the trial length and the cancel-anytime
-              // terms, so that's what gets promoted to a headline instead of
-              // staying buried in a single row's badge.
-              if (!widget.loading)
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: accent.withValues(alpha: 0.14),
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: accent.withValues(alpha: 0.30)),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.bolt_rounded, size: 16, color: accent),
-                        const SizedBox(width: 8),
-                        Flexible(
-                          child: Text(
-                            offer.hasTrial
-                                ? l.paywallUrgencyTrial('${offer.trialDays}')
-                                : l.paywallUrgencyGeneric,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 12.5,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
               // ── The plans ─────────────────────────────────────────────────
               //
-              // Full-width rows, not two narrow pills. The trial used to be
-              // nine-point grey type under a price — the place offers go to die —
-              // and the moment it was promoted to a badge the pill was too narrow
-              // to spell it: "3 gün ücre…". A row has the width to say it, and
-              // says it in filled accent so it is the loudest thing in the sheet.
+              // App Review rule (3.1.2(c), rejected on 1.6.3): the amount the
+              // user is billed must be the most clear and conspicuous pricing
+              // element. Trials, savings and any calculated figure ("$0.77 a
+              // week") have to sit below it in size, colour and position. So
+              // each row leads with its billed price and period, the trial and
+              // savings ride along as small tinted badges, and nothing about
+              // the trial is promoted above the plans — the 1.6.3 build lost
+              // review over a per-week headline and a trial banner up here.
               //
               // Prices come from the store or not at all. Falling back to a
               // hardcoded figure showed a Turkish lira amount to every locale
@@ -932,13 +877,12 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
                       _PlanRow(
                         selected: widget.selectedPlan == 2,
                         label: l.paywallWeekly,
-                        price: widget.weeklyOffer.price,
+                        price: _billed(widget.weeklyOffer.price, l.paywallPerWeek),
                         badgeText: widget.weeklyOffer.hasTrial
                             ? l.paywallTrialHeadline(
                                 '${widget.weeklyOffer.trialDays}',
                               )
                             : null,
-                        badgeFilled: false,
                         accent: accent,
                         onTap: () => widget.onSelectPlan(2),
                       ),
@@ -946,13 +890,15 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
                       _PlanRow(
                         selected: widget.selectedPlan == 0,
                         label: l.paywallMonthly,
-                        price: widget.monthlyOffer.price,
+                        price: _billed(
+                          widget.monthlyOffer.price,
+                          l.paywallPerMonth,
+                        ),
                         badgeText: widget.monthlyOffer.hasTrial
                             ? l.paywallTrialHeadline(
                                 '${widget.monthlyOffer.trialDays}',
                               )
                             : null,
-                        badgeFilled: true,
                         accent: accent,
                         onTap: () => widget.onSelectPlan(0),
                       ),
@@ -960,25 +906,13 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
                       _PlanRow(
                         selected: widget.selectedPlan == 1,
                         label: l.paywallYearly,
-                        // Led with the per-week equivalent, not the annual
-                        // total: it is the number that reads as small next to
-                        // the weekly/monthly rows above it, and it is honest
-                        // math (rawPrice / 52 in the store's own currency),
-                        // not a fabricated discount. The real total still
-                        // shows, just demoted to the sub-label, so the actual
-                        // renewal amount is never hidden.
-                        price: _yearlyPerWeek != null
-                            ? l.paywallPerWeek(_yearlyPerWeek!)
-                            : widget.annualOffer.price,
-                        subLabel: _yearlyPerWeek != null
-                            ? l.paywallBilledAnnually(
-                                widget.annualOffer.price ?? '—',
-                              )
-                            : null,
+                        price: _billed(
+                          widget.annualOffer.price,
+                          l.paywallPerYear,
+                        ),
                         badgeText: _yearlySavePercent != null
                             ? l.paywallSavePercent('$_yearlySavePercent')
                             : l.paywallBestValue,
-                        badgeFilled: false,
                         accent: accent,
                         onTap: () => widget.onSelectPlan(1),
                       ),
@@ -1039,8 +973,12 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
                                   strokeWidth: 2.5,
                                 ),
                               )
+                            // "Continue", never "Try Free": an 18pt trial
+                            // promise on the button outranks the billed
+                            // price in the rows above, which is what 3.1.2(c)
+                            // forbids. The trial terms sit right under it.
                             : Text(
-                                offer.hasTrial ? l.paywallCta : l.paywallCtaAlt,
+                                l.paywallCtaAlt,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -1058,14 +996,18 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
 
               const SizedBox(height: 10),
 
+              // What the tap commits to. Readable, not fine print: at 10pt and
+              // 25% white this was the faintest text on the sheet, yet it is
+              // the only place the price after the trial is spelled out.
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   _disclaimer(l, offer),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.white.withValues(alpha: 0.25),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white.withValues(alpha: 0.72),
                   ),
                 ),
               ),
@@ -1147,27 +1089,20 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
 //  Plan row
 // ═════════════════════════════════════════════════════════════════════════════
 
-/// One plan, full width: what it is called, what it costs, and the one thing
-/// worth shouting about it.
+/// One plan, full width: what it is called, what it is billed, and one small
+/// note about it.
 class _PlanRow extends StatelessWidget {
   final bool selected;
   final String label;
 
-  /// The store's own price string, or null when the offering has not loaded.
-  /// Never a hardcoded stand-in — see the note where this is built.
-  final String? price;
+  /// The billed amount with its period ("$39.99/year"), built from the
+  /// store's own price string — never a hardcoded stand-in, see the note
+  /// where this is built. The largest pricing text in the row by design.
+  final String price;
 
-  /// A smaller line under the label — currently only the yearly row's real
-  /// billed total, shown under its per-week headline price so the actual
-  /// renewal amount is never hidden behind the smaller number.
-  final String? subLabel;
-
-  /// Best value, or the free days. Null on a plan with neither.
+  /// Best value, savings, or the free days. Null on a plan with none. Always
+  /// a small tinted label: anything louder competes with [price].
   final String? badgeText;
-
-  /// Filled badges read as an offer, tinted ones as a label. The free trial
-  /// gets the filled one — it is the thing this sheet is selling.
-  final bool badgeFilled;
 
   final Color accent;
   final VoidCallback onTap;
@@ -1176,16 +1111,14 @@ class _PlanRow extends StatelessWidget {
     required this.selected,
     required this.label,
     required this.price,
-    this.subLabel,
     required this.badgeText,
-    required this.badgeFilled,
     required this.accent,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    // Bright accents (green, amber, cyan) need dark text on a filled badge.
+    // Bright accents (green, amber, cyan) need dark text on the filled radio.
     final onAccent = accent.computeLuminance() > 0.5
         ? const Color(0xFF07050F)
         : Colors.white;
@@ -1244,95 +1177,68 @@ class _PlanRow extends StatelessWidget {
             // shorten — a clipped "₺399,…" is worse than no price at all, and
             // both stores treat a misstated price as grounds for rejection — so
             // the plan's name is the only thing here that may ellipsize.
-            Flexible(
-              child: Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: selected
-                      ? Colors.white
-                      : Colors.white.withValues(alpha: 0.60),
-                ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Column(
-              // Centered, not end-aligned: the sub-label ("$49.99 billed
-              // annually") almost always runs longer than the headline price
-              // above it, so right-flushing them left the shorter line
-              // hugging the badge while the longer one trailed off to its
-              // left — a ragged, "misaligned" look. Centering stacks them as
-              // one visual unit regardless of which line is wider.
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  price ?? '—',
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w900,
-                    color: selected
-                        ? Colors.white
-                        : Colors.white.withValues(alpha: 0.60),
-                    letterSpacing: -0.4,
-                  ),
-                ),
-                if (subLabel != null)
+            // The plan's name with its badge stacked underneath, not beside
+            // it: side by side, "3 TAGE GRATIS" plus "11,99 €/Monat" left a
+            // 320pt phone no room for "Monatlich" at all.
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
                   Text(
-                    subLabel!,
-                    maxLines: 1,
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white.withValues(alpha: 0.40),
-                    ),
-                  ),
-              ],
-            ),
-            if (badgeText != null) ...[
-              const SizedBox(width: 8),
-              // Capped only as a last resort, for a translation long enough to
-              // crowd out the price on the narrowest phone.
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 132),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 7,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: badgeFilled
-                        ? accent
-                        : accent.withValues(alpha: 0.18),
-                    borderRadius: BorderRadius.circular(7),
-                    boxShadow: badgeFilled
-                        ? [
-                            BoxShadow(
-                              color: accent.withValues(alpha: 0.45),
-                              blurRadius: 12,
-                              spreadRadius: -2,
-                            ),
-                          ]
-                        : null,
-                  ),
-                  child: Text(
-                    badgeText!,
+                    label,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 9.5,
-                      fontWeight: FontWeight.w900,
-                      color: badgeFilled ? onAccent : accent,
-                      letterSpacing: 0.3,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: selected
+                          ? Colors.white
+                          : Colors.white.withValues(alpha: 0.60),
                     ),
                   ),
-                ),
+                  if (badgeText != null) ...[
+                    const SizedBox(height: 4),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: accent.withValues(alpha: 0.14),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        badgeText!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 9,
+                          fontWeight: FontWeight.w800,
+                          color: accent.withValues(alpha: 0.90),
+                          letterSpacing: 0.3,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
               ),
-            ],
+            ),
+            const SizedBox(width: 8),
+            // The billed price sits last, right-aligned, at the largest size
+            // on the sheet's pricing — the "most clear and conspicuous" spot.
+            Text(
+              price,
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w900,
+                color: selected
+                    ? Colors.white
+                    : Colors.white.withValues(alpha: 0.80),
+                letterSpacing: -0.3,
+              ),
+            ),
           ],
         ),
       ),

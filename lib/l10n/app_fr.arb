@@ -1065,15 +1065,15 @@
   "paywallRestoreLabel": "Restaurer les achats",
   "paywallYearly": "Annuel",
   "paywallBestValue": "Meilleur rapport",
-  "paywallBilledAnnually": "{price} facturé annuellement",
   "paywallPerWeek": "{price}/semaine",
+  "paywallPerMonth": "{price}/mois",
+  "paywallPerYear": "{price}/an",
   "paywallSavePercent": "ÉCONOMISEZ {percent}%",
   "@paywallSavePercent": {"placeholders": {"percent": {"type": "String"}}},
   "paywallMonthly": "Mensuel",
   "paywallWeekly": "Hebdomadaire",
   "paywallFreeTrial": "3 jours gratuits",
   "paywallLoadError": "Impossible de charger, réessayez",
-  "paywallCta": "Essai gratuit",
   "paywallCtaAlt": "Continuer",
   "paywallTrialDisclaimer": "3 jours gratuits · renouvellement auto · annulation à tout moment",
   "paywallYearlyDisclaimer": "Renouvellement annuel auto · annulation à tout moment",
@@ -1178,8 +1178,6 @@
   "paywallSlidePostureTitle": "Corrige ta posture",
   "paywallSlidePostureCaption": "Une photo de profil, un auto-test rapide, une routine claire.",
   "paywallTrialHeadline": "{days} JOURS OFFERTS",
-  "paywallUrgencyTrial": "Essayez sans risque pendant {days} jours, annulez à tout moment",
-  "paywallUrgencyGeneric": "Annulez à tout moment, sans engagement",
   "@paywallTrialHeadline": {
     "placeholders": {
       "days": {
