@@ -121,7 +121,7 @@ class _Scene extends StatelessWidget {
     final cx = w * 0.40;
     // Both figures share today's width: the potential self is the same
     // person, only taller.
-    final bodyWidth = (ground - nowHead) * 0.36;
+    final bodyWidth = (ground - nowHead) * 0.27;
 
     final gap = finalPotential - current;
     final labelX = cx + bodyWidth * 0.62 + 10;
@@ -366,9 +366,11 @@ class _RulerPainter extends CustomPainter {
       old.dream != dream;
 }
 
-/// A standing figure, front view, drawn as one smooth outline through a set
-/// of body landmarks (shoulders, arms held a little away, waist, hips, two
-/// legs). Proportions differ for the female figure.
+/// A standing figure, front view, filled like a photo silhouette: short
+/// hair, broad shoulders and a V-shaped torso for the male figure; long hair,
+/// narrower shoulders, waist and hips for the female one. Arms hang a little
+/// away from the body, legs slightly apart. Each outline is a closed
+/// Catmull-Rom curve through body landmarks, mirrored left to right.
 class _BodyPainter extends CustomPainter {
   final double cx;
   final double ground;
@@ -388,107 +390,79 @@ class _BodyPainter extends CustomPainter {
     required this.glow,
   });
 
-  /// Right half of the outline on a unit box: x from the centre line (0) to
-  /// the edge (1 = half the body width), y from the top of the head (0) to
-  /// the soles (1).
-  List<Offset> get _half => female
-      ? const [
-          Offset(0.17, 0.140), // neck
-          Offset(0.20, 0.168),
-          Offset(0.62, 0.190), // shoulder
-          Offset(0.80, 0.215),
-          Offset(0.86, 0.300), // upper arm
-          Offset(0.90, 0.400), // elbow
-          Offset(0.96, 0.505), // wrist
-          Offset(0.94, 0.545), // hand
-          Offset(0.80, 0.540),
-          Offset(0.76, 0.430),
-          Offset(0.66, 0.300), // armpit
-          Offset(0.52, 0.375), // waist
-          Offset(0.70, 0.470), // hip
-          Offset(0.66, 0.560),
-          Offset(0.50, 0.720), // knee
-          Offset(0.38, 0.930), // ankle
-          Offset(0.46, 0.985), // foot
-          Offset(0.30, 1.000),
-          Offset(0.10, 0.990),
-          Offset(0.10, 0.720),
-          Offset(0.05, 0.520), // crotch
-        ]
-      : const [
-          Offset(0.19, 0.135), // neck
-          Offset(0.22, 0.165),
-          Offset(0.72, 0.185), // shoulder
-          Offset(0.92, 0.215),
-          Offset(0.97, 0.300), // upper arm
-          Offset(0.99, 0.400), // elbow
-          Offset(1.00, 0.500), // wrist
-          Offset(0.97, 0.540), // hand
-          Offset(0.83, 0.535),
-          Offset(0.82, 0.420),
-          Offset(0.74, 0.300), // armpit
-          Offset(0.64, 0.400), // waist
-          Offset(0.66, 0.480), // hip
-          Offset(0.62, 0.560),
-          Offset(0.52, 0.720), // knee
-          Offset(0.42, 0.930), // ankle
-          Offset(0.50, 0.985), // foot
-          Offset(0.32, 1.000),
-          Offset(0.10, 0.990),
-          Offset(0.10, 0.720),
-          Offset(0.05, 0.510), // crotch
-        ];
+  // Right half of each outline on a unit box: x from the centre line (0)
+  // outwards, y from the top of the head (0) to the soles (1).
+  static const _maleBody = [
+    Offset(0.11, 0.118), Offset(0.14, 0.142), Offset(0.32, 0.160),
+    Offset(0.58, 0.172), Offset(0.80, 0.188), Offset(0.91, 0.218),
+    Offset(0.94, 0.262), Offset(0.93, 0.322), Offset(0.94, 0.392),
+    Offset(0.95, 0.452), Offset(0.96, 0.505), Offset(0.97, 0.542),
+    Offset(0.93, 0.572), Offset(0.87, 0.562), Offset(0.85, 0.507),
+    Offset(0.83, 0.442), Offset(0.80, 0.362), Offset(0.77, 0.292),
+    Offset(0.74, 0.258), Offset(0.71, 0.302), Offset(0.65, 0.362),
+    Offset(0.59, 0.420), Offset(0.61, 0.470), Offset(0.59, 0.540),
+    Offset(0.54, 0.622), Offset(0.49, 0.702), Offset(0.48, 0.762),
+    Offset(0.45, 0.862), Offset(0.39, 0.945), Offset(0.43, 0.985),
+    Offset(0.34, 1.000), Offset(0.21, 0.998), Offset(0.20, 0.960),
+    Offset(0.18, 0.880), Offset(0.17, 0.780), Offset(0.15, 0.700),
+    Offset(0.12, 0.600), Offset(0.04, 0.522),
+  ];
+  static const _maleHead = [
+    Offset(0.00, 0.000), Offset(0.09, 0.003), Offset(0.155, 0.022),
+    Offset(0.17, 0.052), Offset(0.165, 0.080), Offset(0.13, 0.104),
+    Offset(0.07, 0.117), Offset(0.00, 0.121),
+  ];
+  static const _femaleBody = [
+    Offset(0.11, 0.122), Offset(0.32, 0.166), Offset(0.56, 0.180),
+    Offset(0.72, 0.198), Offset(0.79, 0.232), Offset(0.80, 0.302),
+    Offset(0.81, 0.382), Offset(0.83, 0.452), Offset(0.86, 0.507),
+    Offset(0.87, 0.542), Offset(0.82, 0.564), Offset(0.76, 0.537),
+    Offset(0.73, 0.472), Offset(0.69, 0.392), Offset(0.65, 0.302),
+    Offset(0.61, 0.258), Offset(0.57, 0.312), Offset(0.50, 0.382),
+    Offset(0.58, 0.452), Offset(0.63, 0.502), Offset(0.61, 0.582),
+    Offset(0.54, 0.682), Offset(0.50, 0.782), Offset(0.43, 0.902),
+    Offset(0.37, 0.955), Offset(0.41, 0.990), Offset(0.29, 1.000),
+    Offset(0.20, 0.990), Offset(0.20, 0.940), Offset(0.18, 0.850),
+    Offset(0.17, 0.760), Offset(0.15, 0.682), Offset(0.10, 0.582),
+    Offset(0.03, 0.517),
+  ];
+  static const _femaleHead = [
+    Offset(0.00, 0.000), Offset(0.11, 0.005), Offset(0.18, 0.032),
+    Offset(0.20, 0.078), Offset(0.22, 0.138), Offset(0.25, 0.196),
+    Offset(0.22, 0.228), Offset(0.10, 0.222), Offset(0.00, 0.215),
+  ];
+
+  /// A closed Catmull-Rom spline through [pts], as cubic Béziers.
+  static Path _spline(List<Offset> pts) {
+    final path = Path()..moveTo(pts[0].dx, pts[0].dy);
+    final n = pts.length;
+    for (var i = 0; i < n; i++) {
+      final p0 = pts[(i - 1 + n) % n];
+      final p1 = pts[i];
+      final p2 = pts[(i + 1) % n];
+      final p3 = pts[(i + 2) % n];
+      final c1 = p1 + (p2 - p0) / 6;
+      final c2 = p2 - (p3 - p1) / 6;
+      path.cubicTo(c1.dx, c1.dy, c2.dx, c2.dy, p2.dx, p2.dy);
+    }
+    return path..close();
+  }
 
   Path _body(double head) {
     final hgt = ground - head;
-    final half = width / 2;
-    Offset at(Offset u, double side) =>
-        Offset(cx + side * u.dx * half, head + u.dy * hgt);
-
-    final right = [for (final u in _half) at(u, 1)];
-    final left = [for (final u in _half.reversed) at(u, -1)];
-    final pts = [...right, ...left];
-
-    // A smooth closed curve through the landmarks: quadratic segments that
-    // pass through the midpoints, using each landmark as the control point.
-    final path = Path();
-    Offset mid(Offset a, Offset b) => Offset((a.dx + b.dx) / 2, (a.dy + b.dy) / 2);
-    final first = mid(pts.last, pts.first);
-    path.moveTo(first.dx, first.dy);
-    for (var i = 0; i < pts.length; i++) {
-      final p = pts[i];
-      final next = pts[(i + 1) % pts.length];
-      final m = mid(p, next);
-      path.quadraticBezierTo(p.dx, p.dy, m.dx, m.dy);
-    }
-    path.close();
-
-    // Head (and hair for the female figure), merged into one outline so
-    // the glowing contour has no seams inside it.
-    final headH = hgt * 0.125;
-    var shape = Path.combine(
-      PathOperation.union,
-      path,
-      Path()
-        ..addOval(Rect.fromCenter(
-          center: Offset(cx, head + headH / 2),
-          width: headH * (female ? 0.80 : 0.82),
-          height: headH,
-        )),
-    );
-    if (female) {
-      shape = Path.combine(
-        PathOperation.union,
-        shape,
-        Path()
-          ..addRRect(RRect.fromRectAndRadius(
-            Rect.fromLTWH(cx - headH * 0.46, head + headH * 0.25,
-                headH * 0.92, headH * 0.95),
-            Radius.circular(headH * 0.35),
-          )),
-      );
-    }
-    return shape;
+    // Shoulder half-width about an eighth of the height.
+    final half = width / 2 * (female ? 1.12 : 1.0);
+    List<Offset> mirror(List<Offset> right, [double sx = 1]) => [
+          for (final u in right)
+            Offset(cx + u.dx * half * sx, head + u.dy * hgt),
+          for (final u in right.reversed)
+            if (u.dx > 0) Offset(cx - u.dx * half * sx, head + u.dy * hgt),
+        ];
+    final body = _spline(mirror(female ? _femaleBody : _maleBody));
+    // Head points are drawn on the same box but a head is about three
+    // eighths of the shoulder width, so they are widened here.
+    final headPath = _spline(mirror(female ? _femaleHead : _maleHead, 2.15));
+    return Path.combine(PathOperation.union, body, headPath);
   }
 
   @override
