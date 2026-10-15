@@ -377,7 +377,7 @@ abstract class AppLocalizations {
   /// No description provided for @photosSummaryCount.
   ///
   /// In en, this message translates to:
-  /// **'{count} photos'**
+  /// **'{count, plural, =1{{count} photo} other{{count} photos}}'**
   String photosSummaryCount(int count);
 
   /// No description provided for @postureSummaryEmpty.
@@ -1067,7 +1067,7 @@ abstract class AppLocalizations {
   /// No description provided for @bestStreak.
   ///
   /// In en, this message translates to:
-  /// **'Best: {days} days'**
+  /// **'Best: {days, plural, =1{{days} day} other{{days} days}}'**
   String bestStreak(int days);
 
   /// No description provided for @editProfile.
@@ -7829,7 +7829,7 @@ abstract class AppLocalizations {
   /// No description provided for @daysLeftProgram.
   ///
   /// In en, this message translates to:
-  /// **'{days} days left in your program'**
+  /// **'{days, plural, =1{{days} day left} other{{days} days left}} in your program'**
   String daysLeftProgram(int days);
 
   /// No description provided for @tapLabel.
@@ -8621,7 +8621,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBConsistency.
   ///
   /// In en, this message translates to:
-  /// **'Streak {streak} days, {active} of {days} days with half the plan done'**
+  /// **'Streak {streak, plural, =1{{streak} day} other{{streak} days}}, {active} of {days} days with half the plan done'**
   String anBConsistency(int streak, int active, int days);
 
   /// No description provided for @anBConsistencyNone.
@@ -8633,7 +8633,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBSleep.
   ///
   /// In en, this message translates to:
-  /// **'{hours} h a night on average, target {target} h, {days} nights logged'**
+  /// **'{hours} h a night on average, target {target} h, {days, plural, =1{{days} night} other{{days} nights}} logged'**
   String anBSleep(String hours, String target, int days);
 
   /// No description provided for @anBSleepNone.
@@ -8645,7 +8645,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBHydration.
   ///
   /// In en, this message translates to:
-  /// **'{litres} L a day on average, target {target} L, {days} days logged'**
+  /// **'{litres} L a day on average, target {target} L, {days, plural, =1{{days} day} other{{days} days}} logged'**
   String anBHydration(String litres, String target, int days);
 
   /// No description provided for @anBHydrationNone.
@@ -8669,7 +8669,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBPosture.
   ///
   /// In en, this message translates to:
-  /// **'Wall self-check {raw}/90, {days} days ago'**
+  /// **'Wall self-check {raw}/90, {days, plural, =1{{days} day} other{{days} days}} ago'**
   String anBPosture(int raw, int days);
 
   /// No description provided for @anBPostureToday.
@@ -8687,7 +8687,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBMeasuring.
   ///
   /// In en, this message translates to:
-  /// **'Last measured {days} days ago'**
+  /// **'Last measured {days, plural, =1{{days} day} other{{days} days}} ago'**
   String anBMeasuring(int days);
 
   /// No description provided for @anBMeasuringToday.
@@ -8807,7 +8807,7 @@ abstract class AppLocalizations {
   /// No description provided for @anAGrowthWait.
   ///
   /// In en, this message translates to:
-  /// **'Measure again in {days} days'**
+  /// **'Measure again in {days, plural, =1{{days} day} other{{days} days}}'**
   String anAGrowthWait(int days);
 
   /// No description provided for @anAGrowth.
@@ -9053,13 +9053,13 @@ abstract class AppLocalizations {
   /// No description provided for @pgCompareMeaningGrew.
   ///
   /// In en, this message translates to:
-  /// **'{delta} between these two photos, taken {days, plural, =1{1 day} other{{days} days}} apart.'**
+  /// **'{delta} between these two photos, taken {days, plural, =1{{days} day} other{{days} days}} apart.'**
   String pgCompareMeaningGrew(String delta, int days);
 
   /// No description provided for @pgCompareMeaningSame.
   ///
   /// In en, this message translates to:
-  /// **'Same height, {days, plural, =1{1 day} other{{days} days}} apart. Posture and shape change first, height follows over months.'**
+  /// **'Same height, {days, plural, =1{{days} day} other{{days} days}} apart. Posture and shape change first, height follows over months.'**
   String pgCompareMeaningSame(int days);
 
   /// No description provided for @pgModeSlider.
@@ -9851,7 +9851,7 @@ abstract class AppLocalizations {
   /// No description provided for @plNextLevelIn.
   ///
   /// In en, this message translates to:
-  /// **'{days} days to level {level}'**
+  /// **'{days, plural, =1{{days} day} other{{days} days}} to level {level}'**
   String plNextLevelIn(int days, int level);
 
   /// No description provided for @plProgramFinished.

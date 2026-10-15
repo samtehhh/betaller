@@ -559,7 +559,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String bestStreak(int days) {
-    return 'Migliore: $days giorni';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days giorni',
+      one: '$days giorno',
+    );
+    return 'Migliore: $_temp0';
   }
 
   @override
@@ -4306,7 +4312,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String daysLeftProgram(int days) {
-    return '$days giorni rimasti nel programma';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days giorni rimasti',
+      one: '$days giorno rimasto',
+    );
+    return '$_temp0 nel programma';
   }
 
   @override
@@ -4782,7 +4794,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String anBConsistency(int streak, int active, int days) {
-    return 'Serie di $streak giorni, $active giorni su $days con metà piano fatto';
+    String _temp0 = intl.Intl.pluralLogic(
+      streak,
+      locale: localeName,
+      other: '$streak giorni',
+      one: '$streak giorno',
+    );
+    return 'Serie di $_temp0, $active giorni su $days con metà piano fatto';
   }
 
   @override
@@ -4791,7 +4809,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String anBSleep(String hours, String target, int days) {
-    return '$hours h a notte in media, obiettivo $target h, $days notti registrate';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days notti registrate',
+      one: '$days notte registrata',
+    );
+    return '$hours h a notte in media, obiettivo $target h, $_temp0';
   }
 
   @override
@@ -4799,7 +4823,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String anBHydration(String litres, String target, int days) {
-    return '$litres L al giorno in media, obiettivo $target L, $days giorni registrati';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days giorni registrati',
+      one: '$days giorno registrato',
+    );
+    return '$litres L al giorno in media, obiettivo $target L, $_temp0';
   }
 
   @override
@@ -4817,7 +4847,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String anBPosture(int raw, int days) {
-    return 'Autotest al muro $raw/90, $days giorni fa';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days giorni',
+      one: '$days giorno',
+    );
+    return 'Autotest al muro $raw/90, $_temp0 fa';
   }
 
   @override
@@ -4830,7 +4866,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String anBMeasuring(int days) {
-    return 'Ultima misura $days giorni fa';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days giorni',
+      one: '$days giorno',
+    );
+    return 'Ultima misura $_temp0 fa';
   }
 
   @override
@@ -4902,7 +4944,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String anAGrowthWait(int days) {
-    return 'Rimisurati tra $days giorni';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days giorni',
+      one: '$days giorno',
+    );
+    return 'Rimisurati tra $_temp0';
   }
 
   @override
@@ -5046,7 +5094,7 @@ class AppLocalizationsIt extends AppLocalizations {
       days,
       locale: localeName,
       other: '$days giorni',
-      one: '1 giorno',
+      one: '$days giorno',
     );
     return '$delta tra queste due foto, scattate a $_temp0 di distanza.';
   }
@@ -5057,7 +5105,7 @@ class AppLocalizationsIt extends AppLocalizations {
       days,
       locale: localeName,
       other: '$days giorni',
-      one: '1 giorno',
+      one: '$days giorno',
     );
     return 'Stessa altezza, a $_temp0 di distanza. Postura e forma cambiano prima, l\'altezza segue nei mesi.';
   }
@@ -5563,7 +5611,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String plNextLevelIn(int days, int level) {
-    return '$days giorni al livello $level';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days giorni',
+      one: '$days giorno',
+    );
+    return '$_temp0 al livello $level';
   }
 
   @override
