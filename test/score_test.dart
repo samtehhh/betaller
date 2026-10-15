@@ -113,6 +113,21 @@ void main() {
     expect(f.score, 50);
   });
 
+  test('training on the rest day counts as a planned day, never 7 of 6', () {
+    // _now is a Wednesday, so three days back is the plan's rest Sunday.
+    final s = BetallerScore.compute(
+      _inputs(
+        history: {
+          _k(3): ['squats'],
+        },
+      ),
+    );
+    final f = s.factor(ScoreFactor.training);
+    expect(f.facts['done'], 1);
+    expect(f.facts['planned'], 6);
+    expect(f.facts['done'] as int, lessThanOrEqualTo(f.facts['planned'] as int));
+  });
+
   test('days before the account existed are not held against anyone', () {
     final s = BetallerScore.compute(
       _inputs(

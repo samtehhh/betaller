@@ -247,16 +247,20 @@ class BetallerScore {
       );
     }
 
+    bool rest(DateTime d) =>
+        i.weeklyPlan.days[d.weekday - 1].kind == PlanDayKind.rest;
+
+    // A rest day someone trains on becomes a training day they chose, so it
+    // counts on both sides: "7 of 6 planned days" read like a bug.
     for (final d in _pastDays(i)) {
-      if (i.weeklyPlan.days[d.weekday - 1].kind != PlanDayKind.rest) planned++;
-      if (trained(d)) done++;
+      final t = trained(d);
+      if (!rest(d) || t) planned++;
+      if (t) done++;
     }
     final today = _day(i.now);
     if (trained(today)) {
       done++;
-      if (i.weeklyPlan.days[today.weekday - 1].kind != PlanDayKind.rest) {
-        planned++;
-      }
+      planned++;
     }
     if (planned == 0 && done == 0) {
       return const FactorResult(ScoreFactor.training, null);
