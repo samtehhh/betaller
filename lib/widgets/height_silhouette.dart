@@ -421,19 +421,10 @@ class _BodyPainter extends CustomPainter {
     Offset(0.20, 0.960), Offset(0.18, 0.880), Offset(0.17, 0.780),
     Offset(0.15, 0.700), Offset(0.12, 0.600), Offset(0.04, 0.522),
   ];
-  // Short modern cut, drawn whole rather than mirrored: volume swept up
-  // and to one side on top, shorter at the temples, the ears below.
-  // x runs left to right around the centre line; y from the top of the
-  // hair (0) down.
-  static const _maleHeadFull = [
-    Offset(0.000, 0.140), Offset(0.070, 0.137), Offset(0.120, 0.129), Offset(0.152, 0.117),
-    Offset(0.168, 0.107), Offset(0.180, 0.095), Offset(0.176, 0.084), Offset(0.163, 0.078),
-    Offset(0.172, 0.066), Offset(0.184, 0.050), Offset(0.180, 0.034), Offset(0.168, 0.022),
-    Offset(0.145, 0.010), Offset(0.112, 0.002), Offset(0.075, 0.000), Offset(0.040, 0.003),
-    Offset(0.010, 0.002), Offset(-0.030, 0.006), Offset(-0.075, 0.012), Offset(-0.115, 0.018),
-    Offset(-0.148, 0.028), Offset(-0.166, 0.044), Offset(-0.170, 0.062), Offset(-0.163, 0.076),
-    Offset(-0.176, 0.084), Offset(-0.180, 0.095), Offset(-0.168, 0.107), Offset(-0.152, 0.117),
-    Offset(-0.120, 0.129), Offset(-0.068, 0.137),
+  static const _maleHead = [
+    Offset(0.00, 0.000), Offset(0.09, 0.003), Offset(0.155, 0.022),
+    Offset(0.17, 0.052), Offset(0.165, 0.080), Offset(0.13, 0.104),
+    Offset(0.07, 0.117), Offset(0.00, 0.121),
   ];
   static const _femaleBody = [
     Offset(0.11, 0.122), Offset(0.32, 0.166), Offset(0.57, 0.180),
@@ -497,12 +488,7 @@ class _BodyPainter extends CustomPainter {
     final body = _spline(mirror(female ? _femaleBody : _maleBody));
     // Head points are drawn on the same box but a head is about three
     // eighths of the shoulder width, so they are widened here.
-    final headPath = female
-        ? _spline(mirror(_femaleHead, 2.15))
-        : _spline([
-            for (final u in _maleHeadFull)
-              Offset(cx + u.dx * half * 2.15, head + u.dy * hgt),
-          ]);
+    final headPath = _spline(mirror(female ? _femaleHead : _maleHead, 2.15));
     return Path.combine(PathOperation.union, body, headPath);
   }
 
