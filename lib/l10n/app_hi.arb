@@ -1938,5 +1938,12 @@
   "plFoodSardines": "सार्डिन",
   "plFoodAlmonds": "बादाम",
   "plFoodKefir": "केफ़िर",
-  "plFoodPumpkinSeeds": "कद्दू के बीज"
+  "plFoodPumpkinSeeds": "कद्दू के बीज",
+  "wtCoffee": "कॉफ़ी",
+  "wtTea": "चाय",
+  "wtCola": "कोला",
+  "wtEnergyDrink": "एनर्जी",
+  "crCustomBadge": "अपनी",
+  "crNameHint": "जैसे: सुबह का पावर स्ट्रेच",
+  "crDoseHint": "जैसे: 3x10 बार या 3x30 सेकंड"
 }

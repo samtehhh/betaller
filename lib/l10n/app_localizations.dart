@@ -10285,6 +10285,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pumpkin seeds'**
   String get plFoodPumpkinSeeds;
+
+  /// No description provided for @wtCoffee.
+  ///
+  /// In en, this message translates to:
+  /// **'Coffee'**
+  String get wtCoffee;
+
+  /// No description provided for @wtTea.
+  ///
+  /// In en, this message translates to:
+  /// **'Tea'**
+  String get wtTea;
+
+  /// No description provided for @wtCola.
+  ///
+  /// In en, this message translates to:
+  /// **'Cola'**
+  String get wtCola;
+
+  /// No description provided for @wtEnergyDrink.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy'**
+  String get wtEnergyDrink;
+
+  /// No description provided for @crCustomBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get crCustomBadge;
+
+  /// No description provided for @crNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Morning Power Stretch'**
+  String get crNameHint;
+
+  /// No description provided for @crDoseHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 3x10 reps or 3x30 seconds'**
+  String get crDoseHint;
 }
 
 class _AppLocalizationsDelegate

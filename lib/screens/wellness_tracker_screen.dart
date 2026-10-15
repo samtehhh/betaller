@@ -23,11 +23,18 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
     with TickerProviderStateMixin {
   // ── Caffeine sources (emoji + label + mg per serving) ──
   static const List<Map<String, Object>> _caffeineSources = [
-    {'emoji': '☕', 'name': 'Coffee', 'mg': 95},
-    {'emoji': '🍵', 'name': 'Tea', 'mg': 40},
-    {'emoji': '🥤', 'name': 'Cola', 'mg': 35},
-    {'emoji': '⚡', 'name': 'Energy', 'mg': 80},
+    {'emoji': '☕', 'name': 'coffee', 'mg': 95},
+    {'emoji': '🍵', 'name': 'tea', 'mg': 40},
+    {'emoji': '🥤', 'name': 'cola', 'mg': 35},
+    {'emoji': '⚡', 'name': 'energy', 'mg': 80},
   ];
+
+  static String _caffeineLabel(AppLocalizations l, String id) => switch (id) {
+        'coffee' => l.wtCoffee,
+        'tea' => l.wtTea,
+        'cola' => l.wtCola,
+        _ => l.wtEnergyDrink,
+      };
 
   // Stress emoji levels (index 0 = level 1)
   static const List<String> _stressEmojis = ['😌', '😊', '😐', '😟', '😰'];
@@ -484,7 +491,9 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                 Expanded(
                   child: _CaffeineChip(
                     emoji: _caffeineSources[i]['emoji'] as String,
-                    label: _caffeineSources[i]['name'] as String,
+                    label: _caffeineLabel(
+                        AppLocalizations.of(context)!,
+                        _caffeineSources[i]['name'] as String),
                     mg: _caffeineSources[i]['mg'] as int,
                     onTap: () {
                       if (!_checkPremium(context)) return;

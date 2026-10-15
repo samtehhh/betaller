@@ -1949,5 +1949,12 @@
   "plFoodSardines": "Sardines",
   "plFoodAlmonds": "Almonds",
   "plFoodKefir": "Kefir",
-  "plFoodPumpkinSeeds": "Pumpkin seeds"
+  "plFoodPumpkinSeeds": "Pumpkin seeds",
+  "wtCoffee": "Coffee",
+  "wtTea": "Tea",
+  "wtCola": "Cola",
+  "wtEnergyDrink": "Energy",
+  "crCustomBadge": "Custom",
+  "crNameHint": "e.g. Morning Power Stretch",
+  "crDoseHint": "e.g. 3x10 reps or 3x30 seconds"
 }

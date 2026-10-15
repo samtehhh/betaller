@@ -1789,5 +1789,12 @@
   "plFoodSardines": "Sardalya",
   "plFoodAlmonds": "Badem",
   "plFoodKefir": "Kefir",
-  "plFoodPumpkinSeeds": "Kabak çekirdeği"
+  "plFoodPumpkinSeeds": "Kabak çekirdeği",
+  "wtCoffee": "Kahve",
+  "wtTea": "Çay",
+  "wtCola": "Kola",
+  "wtEnergyDrink": "Enerji",
+  "crCustomBadge": "Özel",
+  "crNameHint": "Örn. Sabah Enerji Esnemesi",
+  "crDoseHint": "Örn. 3x10 tekrar ya da 3x30 saniye"
 }

@@ -1938,5 +1938,12 @@
   "plFoodSardines": "Sardines",
   "plFoodAlmonds": "Amandes",
   "plFoodKefir": "Kéfir",
-  "plFoodPumpkinSeeds": "Graines de courge"
+  "plFoodPumpkinSeeds": "Graines de courge",
+  "wtCoffee": "Café",
+  "wtTea": "Thé",
+  "wtCola": "Cola",
+  "wtEnergyDrink": "Énergie",
+  "crCustomBadge": "Perso",
+  "crNameHint": "ex. Étirements énergie du matin",
+  "crDoseHint": "ex. 3x10 répétitions ou 3x30 secondes"
 }

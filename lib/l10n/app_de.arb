@@ -1938,5 +1938,12 @@
   "plFoodSardines": "Sardinen",
   "plFoodAlmonds": "Mandeln",
   "plFoodKefir": "Kefir",
-  "plFoodPumpkinSeeds": "Kürbiskerne"
+  "plFoodPumpkinSeeds": "Kürbiskerne",
+  "wtCoffee": "Kaffee",
+  "wtTea": "Tee",
+  "wtCola": "Cola",
+  "wtEnergyDrink": "Energy",
+  "crCustomBadge": "Eigene",
+  "crNameHint": "z. B. Power-Dehnen am Morgen",
+  "crDoseHint": "z. B. 3x10 Wdh. oder 3x30 Sekunden"
 }

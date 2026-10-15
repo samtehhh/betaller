@@ -5,6 +5,7 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/haptics.dart';
+import '../utils/text_case.dart';
 
 /// Custom Routine Builder — lets users create their own routines.
 class CustomRoutineBuilderScreen extends StatefulWidget {
@@ -193,9 +194,9 @@ class _CustomRoutineBuilderScreenState
                   border: Border.all(
                       color: AppColors.primary.withValues(alpha: 0.35)),
                 ),
-                child: const Text(
-                  'CUSTOM',
-                  style: TextStyle(
+                child: Text(
+                  l.crCustomBadge.upperIn(context),
+                  style: const TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w800,
                     color: AppColors.primary,
@@ -294,7 +295,7 @@ class _CustomRoutineBuilderScreenState
             ),
             cursorColor: AppColors.primary,
             onChanged: (_) => setState(() {}),
-            decoration: _inputDecoration('e.g. Morning Power Stretch'),
+            decoration: _inputDecoration(AppLocalizations.of(context)!.crNameHint),
           ),
         ],
       ),
@@ -604,7 +605,7 @@ class _CustomRoutineBuilderScreenState
               fontWeight: FontWeight.w600,
             ),
             cursorColor: AppColors.primary,
-            decoration: _inputDecoration('e.g. 3x10 reps or 3x30 seconds'),
+            decoration: _inputDecoration(AppLocalizations.of(context)!.crDoseHint),
           ),
         ],
       ),

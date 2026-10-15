@@ -1938,5 +1938,12 @@
   "plFoodSardines": "Sardinhas",
   "plFoodAlmonds": "Amêndoas",
   "plFoodKefir": "Kefir",
-  "plFoodPumpkinSeeds": "Sementes de abóbora"
+  "plFoodPumpkinSeeds": "Sementes de abóbora",
+  "wtCoffee": "Café",
+  "wtTea": "Chá",
+  "wtCola": "Refri",
+  "wtEnergyDrink": "Energético",
+  "crCustomBadge": "Própria",
+  "crNameHint": "ex.: Alongamento energético da manhã",
+  "crDoseHint": "ex.: 3x10 repetições ou 3x30 segundos"
 }

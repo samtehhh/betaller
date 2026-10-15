@@ -5765,4 +5765,25 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get plFoodPumpkinSeeds => 'कद्दू के बीज';
+
+  @override
+  String get wtCoffee => 'कॉफ़ी';
+
+  @override
+  String get wtTea => 'चाय';
+
+  @override
+  String get wtCola => 'कोला';
+
+  @override
+  String get wtEnergyDrink => 'एनर्जी';
+
+  @override
+  String get crCustomBadge => 'अपनी';
+
+  @override
+  String get crNameHint => 'जैसे: सुबह का पावर स्ट्रेच';
+
+  @override
+  String get crDoseHint => 'जैसे: 3x10 बार या 3x30 सेकंड';
 }

@@ -1938,5 +1938,12 @@
   "plFoodSardines": "Sardine",
   "plFoodAlmonds": "Mandorle",
   "plFoodKefir": "Kefir",
-  "plFoodPumpkinSeeds": "Semi di zucca"
+  "plFoodPumpkinSeeds": "Semi di zucca",
+  "wtCoffee": "Caffè",
+  "wtTea": "Tè",
+  "wtCola": "Cola",
+  "wtEnergyDrink": "Energy",
+  "crCustomBadge": "Personale",
+  "crNameHint": "es. Stretching energetico del mattino",
+  "crDoseHint": "es. 3x10 ripetizioni o 3x30 secondi"
 }

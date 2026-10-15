@@ -5852,4 +5852,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get plFoodPumpkinSeeds => 'Pumpkin seeds';
+
+  @override
+  String get wtCoffee => 'Coffee';
+
+  @override
+  String get wtTea => 'Tea';
+
+  @override
+  String get wtCola => 'Cola';
+
+  @override
+  String get wtEnergyDrink => 'Energy';
+
+  @override
+  String get crCustomBadge => 'Custom';
+
+  @override
+  String get crNameHint => 'e.g. Morning Power Stretch';
+
+  @override
+  String get crDoseHint => 'e.g. 3x10 reps or 3x30 seconds';
 }

@@ -5781,4 +5781,25 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get plFoodPumpkinSeeds => 'Kabak çekirdeği';
+
+  @override
+  String get wtCoffee => 'Kahve';
+
+  @override
+  String get wtTea => 'Çay';
+
+  @override
+  String get wtCola => 'Kola';
+
+  @override
+  String get wtEnergyDrink => 'Enerji';
+
+  @override
+  String get crCustomBadge => 'Özel';
+
+  @override
+  String get crNameHint => 'Örn. Sabah Enerji Esnemesi';
+
+  @override
+  String get crDoseHint => 'Örn. 3x10 tekrar ya da 3x30 saniye';
 }

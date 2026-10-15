@@ -1938,5 +1938,12 @@
   "plFoodSardines": "Sardinas",
   "plFoodAlmonds": "Almendras",
   "plFoodKefir": "Kéfir",
-  "plFoodPumpkinSeeds": "Pipas de calabaza"
+  "plFoodPumpkinSeeds": "Pipas de calabaza",
+  "wtCoffee": "Café",
+  "wtTea": "Té",
+  "wtCola": "Cola",
+  "wtEnergyDrink": "Energética",
+  "crCustomBadge": "Propia",
+  "crNameHint": "p. ej. Estiramiento energético matutino",
+  "crDoseHint": "p. ej. 3x10 repeticiones o 3x30 segundos"
 }
