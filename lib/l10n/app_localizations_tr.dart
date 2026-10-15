@@ -132,7 +132,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get postureBenefit =>
-      'Kifoz, lordoz ve baş pozisyonu. Doğru duruş tek başına 2-3 cm fark yaratır.';
+      'Baş, omuzlar ve bel. Dik durmak gerçek boyunun 2-3 cm\'ye kadar daha fazlasını gösterir.';
 
   @override
   String get reportBenefit => 'Haftanı gün gün puanla, nerede aksadığını gör.';
@@ -3436,7 +3436,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get paywallPostureDesc =>
-      'Tek fotoğraftan kifoz, lordoz ve baş pozisyonunu ölçüp sana özel düzeltme rutinleri veriyoruz. Doğru duruş tek başına 2-3 cm fark yaratabilir.';
+      'Baş, omuz ve belin için 3 soruluk hızlı bir kontrol ve her birini düzeltecek egzersizler.';
 
   @override
   String get paywallReportUnit => 'rutin tamamlama';

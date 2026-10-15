@@ -132,7 +132,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get postureBenefit =>
-      'Cyphose, lordose et position de la tête. Une bonne posture vaut à elle seule 2-3 cm.';
+      'Tête, épaules et bas du dos. Se tenir droit montre jusqu\'à 2-3 cm de plus de ta vraie taille.';
 
   @override
   String get reportBenefit =>
@@ -3476,7 +3476,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get paywallPostureDesc =>
-      'Une seule photo mesure cyphose, lordose et position de la tête, et tu reçois des routines de correction sur mesure. Une bonne posture vaut 2 à 3 cm.';
+      'Un test rapide en 3 questions sur ta tête, tes épaules et ton bas du dos, avec les exercices précis pour corriger chacun.';
 
   @override
   String get paywallReportUnit => 'routines terminées';

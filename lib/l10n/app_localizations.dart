@@ -335,7 +335,7 @@ abstract class AppLocalizations {
   /// No description provided for @postureBenefit.
   ///
   /// In en, this message translates to:
-  /// **'Kyphosis, lordosis and head position. Good posture alone is worth 2-3 cm.'**
+  /// **'Head, shoulders and lower back. Standing tall shows up to 2-3 cm more of your real height.'**
   String get postureBenefit;
 
   /// No description provided for @reportBenefit.
@@ -6305,7 +6305,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallPostureDesc.
   ///
   /// In en, this message translates to:
-  /// **'One photo measures kyphosis, lordosis and head position, and you get correction routines built for you. Good posture alone can be worth 2-3 cm.'**
+  /// **'A quick 3-question check of your head, shoulders and lower back, with the exact exercises to fix each one.'**
   String get paywallPostureDesc;
 
   /// No description provided for @paywallReportUnit.

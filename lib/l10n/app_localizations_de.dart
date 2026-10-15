@@ -132,7 +132,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get postureBenefit =>
-      'Kyphose, Lordose und Kopfhaltung. Allein eine gute Haltung ist 2-3 cm wert.';
+      'Kopf, Schultern und unterer Rücken. Aufrecht stehen zeigt bis zu 2-3 cm mehr deiner echten Größe.';
 
   @override
   String get reportBenefit =>
@@ -3471,7 +3471,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get paywallPostureDesc =>
-      'Ein Foto misst Kyphose, Lordose und Kopfposition, dazu bekommst du passende Korrekturroutinen. Gute Haltung allein bringt 2-3 cm.';
+      'Ein kurzer Check mit 3 Fragen zu Kopf, Schultern und unterem Rücken, mit den passenden Übungen für jeden Bereich.';
 
   @override
   String get paywallReportUnit => 'Routinen erledigt';

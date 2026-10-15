@@ -132,7 +132,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get postureBenefit =>
-      'Kyphosis, lordosis and head position. Good posture alone is worth 2-3 cm.';
+      'Head, shoulders and lower back. Standing tall shows up to 2-3 cm more of your real height.';
 
   @override
   String get reportBenefit =>
@@ -3457,7 +3457,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get paywallPostureDesc =>
-      'One photo measures kyphosis, lordosis and head position, and you get correction routines built for you. Good posture alone can be worth 2-3 cm.';
+      'A quick 3-question check of your head, shoulders and lower back, with the exact exercises to fix each one.';
 
   @override
   String get paywallReportUnit => 'routines completed';

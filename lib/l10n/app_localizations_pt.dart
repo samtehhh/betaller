@@ -132,7 +132,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get postureBenefit =>
-      'Cifose, lordose e posição da cabeça. Só uma boa postura vale 2-3 cm.';
+      'Cabeça, ombros e lombar. Ficar ereto mostra até 2-3 cm a mais da sua altura real.';
 
   @override
   String get reportBenefit =>
@@ -3450,7 +3450,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get paywallPostureDesc =>
-      'Uma foto mede cifose, lordose e posição da cabeça, e você recebe rotinas de correção feitas para você. Boa postura já vale 2-3 cm.';
+      'Uma checagem rápida de 3 perguntas sobre cabeça, ombros e lombar, com os exercícios certos para corrigir cada um.';
 
   @override
   String get paywallReportUnit => 'rotinas concluídas';

@@ -132,7 +132,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get postureBenefit =>
-      'किफोसिस, लॉर्डोसिस और सिर की स्थिति। अच्छा पॉस्चर अकेले 2-3 सेमी के बराबर है।';
+      'सिर, कंधे और कमर। सीधे खड़े होने से तुम्हारी असली लंबाई 2-3 cm तक ज़्यादा दिखती है।';
 
   @override
   String get reportBenefit =>
@@ -3421,7 +3421,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get paywallPostureDesc =>
-      'एक तस्वीर से काइफ़ोसिस, लॉर्डोसिस और सिर की स्थिति मापकर तुम्हारे लिए सुधार रूटीन बनते हैं। सही मुद्रा अकेले 2-3 सेमी का फ़र्क़ ला सकती है।';
+      'सिर, कंधे और कमर की 3 सवालों वाली तेज़ जाँच, और हर एक को ठीक करने वाली सही एक्सरसाइज़।';
 
   @override
   String get paywallReportUnit => 'रूटीन पूरे';
