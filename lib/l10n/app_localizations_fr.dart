@@ -4526,4 +4526,63 @@ class AppLocalizationsFr extends AppLocalizations {
   String chartDream(String height) {
     return 'Ton objectif $height';
   }
+
+  @override
+  String get targetsTitle => 'Aujourd\'hui, pour toi';
+
+  @override
+  String get targetsSubtitle =>
+      'Calculé selon ton âge, ton poids et ton entraînement.';
+
+  @override
+  String get targetProtein => 'Protéines';
+
+  @override
+  String get targetCalcium => 'Calcium';
+
+  @override
+  String get targetVitaminD => 'Vitamine D';
+
+  @override
+  String get targetWater => 'Eau';
+
+  @override
+  String get targetSleep => 'Sommeil';
+
+  @override
+  String get targetMove => 'Entraînement';
+
+  @override
+  String targetPerMeal(String g) {
+    return '$g g par repas';
+  }
+
+  @override
+  String get unitHours => 'h';
+
+  @override
+  String get unitMinutes => 'min';
+
+  @override
+  String get planStrength => 'Force';
+
+  @override
+  String get planJump => 'Sauts & sprints';
+
+  @override
+  String get planMobility => 'Étirements';
+
+  @override
+  String get planSport => 'Sport';
+
+  @override
+  String get planPosture => 'Posture';
+
+  @override
+  String get planRest => 'Repos';
+
+  @override
+  String planWeekTitle(int days) {
+    return 'Ta semaine : $days jours d\'entraînement';
+  }
 }

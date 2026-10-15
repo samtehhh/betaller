@@ -10,6 +10,7 @@ import '../providers/app_provider.dart';
 import '../models/routine.dart';
 import '../models/user_profile.dart';
 import '../utils/calculations.dart';
+import '../utils/daily_targets.dart';
 import '../utils/constants.dart';
 import '../utils/daily_plan.dart';
 import '../widgets/discipline_widgets.dart';
@@ -1386,9 +1387,10 @@ String? _personalizedNutritionDesc(
   String routineId,
 ) {
   if (profile == null) return null;
+  final t = DailyTargets.forProfile(profile);
   switch (routineId) {
     case 'protein':
-      final grams = Calculations.dailyProteinNeed(profile.weight).round();
+      final grams = t.proteinG;
       return l.routineProteinAmountDesc(grams);
     case 'water':
       final liters = Calculations.dailyWaterNeed(profile.weight);
@@ -1397,10 +1399,10 @@ String? _personalizedNutritionDesc(
       final kcal = Calculations.dailyCalorieNeed(profile);
       return l.routineCalorieAmountDesc(kcal);
     case 'vitamin_d_sunlight':
-      final iu = Calculations.dailyVitaminDNeed();
+      final iu = t.vitaminDIu;
       return l.routineVitaminDAmountDesc(iu);
     case 'zinc_intake':
-      final mg = Calculations.dailyZincNeed(profile.gender);
+      final mg = t.zincMg;
       return l.routineZincAmountDesc(mg);
     default:
       return null;

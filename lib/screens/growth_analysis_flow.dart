@@ -533,7 +533,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                 const SizedBox(height: 16),
                 provider.useImperial
                     ? Text(
-                        provider.formatHeight(_prediction!.finalHeight),
+                        provider.formatHeight(provider.potentialHeight),
                         style: const TextStyle(
                           fontSize: 64,
                           fontWeight: FontWeight.w800,
@@ -548,7 +548,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                         textBaseline: TextBaseline.alphabetic,
                         children: [
                           Text(
-                            _prediction!.finalHeight.toStringAsFixed(1),
+                            provider.potentialHeight.toStringAsFixed(1),
                             style: const TextStyle(
                               fontSize: 64,
                               fontWeight: FontWeight.w800,
@@ -631,13 +631,13 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                     const SizedBox(width: 16),
                     Icon(CupertinoIcons.arrow_right, color: AppColors.primary.withValues(alpha: 0.6), size: 18),
                     const SizedBox(width: 16),
-                    _ResultMini(label: l.predictedLabel, value: provider.formatHeight(_prediction!.finalHeight), color: AppColors.cyan),
+                    _ResultMini(label: l.predictedLabel, value: provider.formatHeight(provider.potentialHeight), color: AppColors.cyan),
                   ],
                 ),
                 const SizedBox(height: 8),
                 Text(
                   l.growthPotential(
-                    provider.heightNumber(_prediction!.finalHeight - profile.currentHeight).toStringAsFixed(1),
+                    provider.heightNumber(provider.potentialHeight - profile.currentHeight).toStringAsFixed(1),
                     provider.heightUnit,
                   ),
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.lime, letterSpacing: -0.2),
@@ -720,7 +720,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(3),
                               child: LinearProgressIndicator(
-                                value: (e.value / _prediction!.finalHeight).clamp(0.0, 1.0),
+                                value: (e.value / provider.potentialHeight).clamp(0.0, 1.0),
                                 minHeight: 8,
                                 backgroundColor: Colors.white.withValues(alpha: 0.12),
                                 valueColor: AlwaysStoppedAnimation(AppColors.cyan),

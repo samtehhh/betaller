@@ -4295,7 +4295,8 @@ class _PredictionResultCard extends StatelessWidget {
       profile.age,
       profile.gender,
     );
-    final growthLeft = prediction.finalHeight - profile.currentHeight;
+    final potential = p.potentialHeight;
+    final growthLeft = potential - profile.currentHeight;
 
     return Container(
       width: double.infinity,
@@ -4318,7 +4319,7 @@ class _PredictionResultCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            p.formatHeight(prediction.finalHeight),
+            p.formatHeight(potential),
             style: const TextStyle(
               fontSize: 44,
               fontWeight: FontWeight.w900,

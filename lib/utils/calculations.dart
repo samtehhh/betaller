@@ -85,9 +85,9 @@ class Calculations {
     return gender == 'male' ? 11 : 8;
   }
 
-  static int dailyVitaminDNeed() {
-    return 3000;
-  }
+  /// Prefer DailyTargets.forProfile, which scales this by age.
+  static int dailyVitaminDNeed([int age = 18]) =>
+      age <= 13 ? 1000 : (age <= 17 ? 2000 : 3000);
 
   // ── Gelişmiş Tahmin Sistemi ─────────────────────────────────────
 

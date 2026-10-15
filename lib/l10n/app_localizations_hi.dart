@@ -4470,4 +4470,62 @@ class AppLocalizationsHi extends AppLocalizations {
   String chartDream(String height) {
     return 'आपका लक्ष्य $height';
   }
+
+  @override
+  String get targetsTitle => 'आज, आपके लिए';
+
+  @override
+  String get targetsSubtitle => 'आपकी उम्र, वज़न और ट्रेनिंग के आधार पर।';
+
+  @override
+  String get targetProtein => 'प्रोटीन';
+
+  @override
+  String get targetCalcium => 'कैल्शियम';
+
+  @override
+  String get targetVitaminD => 'विटामिन D';
+
+  @override
+  String get targetWater => 'पानी';
+
+  @override
+  String get targetSleep => 'नींद';
+
+  @override
+  String get targetMove => 'ट्रेनिंग';
+
+  @override
+  String targetPerMeal(String g) {
+    return 'हर भोजन में $g g';
+  }
+
+  @override
+  String get unitHours => 'घं';
+
+  @override
+  String get unitMinutes => 'मिनट';
+
+  @override
+  String get planStrength => 'ताकत';
+
+  @override
+  String get planJump => 'जंप और स्प्रिंट';
+
+  @override
+  String get planMobility => 'स्ट्रेचिंग';
+
+  @override
+  String get planSport => 'खेल';
+
+  @override
+  String get planPosture => 'पोस्चर';
+
+  @override
+  String get planRest => 'आराम';
+
+  @override
+  String planWeekTitle(int days) {
+    return 'आपका हफ्ता: $days ट्रेनिंग दिन';
+  }
 }

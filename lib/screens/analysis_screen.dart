@@ -655,7 +655,7 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                     provider.useImperial
                                         ? Text(
                                             provider.formatHeight(
-                                              prediction.finalHeight,
+                                              provider.potentialHeight,
                                             ),
                                             style: const TextStyle(
                                               fontSize: 52,
@@ -674,7 +674,7 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                                 TextBaseline.alphabetic,
                                             children: [
                                               Text(
-                                                prediction.finalHeight
+                                                provider.potentialHeight
                                                     .toStringAsFixed(1),
                                                 style: const TextStyle(
                                                   fontSize: 52,
@@ -716,7 +716,7 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                   e,
                                 ) {
                                   final heightDelta =
-                                      prediction.finalHeight -
+                                      provider.potentialHeight -
                                       profile.currentHeight;
                                   final progress = heightDelta.abs() > 0.01
                                       ? ((e.value - profile.currentHeight) /
@@ -828,7 +828,7 @@ class AnalysisScreenState extends State<AnalysisScreen>
                             Builder(
                               builder: (_) {
                                 final totalGain =
-                                    prediction.finalHeight -
+                                    provider.potentialHeight -
                                     profile.currentHeight;
                                 final geneticGain = prediction.geneticGain;
                                 final lifestyleGain = prediction.lifestyleGain;
@@ -959,7 +959,7 @@ class AnalysisScreenState extends State<AnalysisScreen>
                                                 const SizedBox(height: 2),
                                                 Text(
                                                   provider.formatHeight(
-                                                    prediction.finalHeight,
+                                                    provider.potentialHeight,
                                                   ),
                                                   style: const TextStyle(
                                                     fontSize: 16,

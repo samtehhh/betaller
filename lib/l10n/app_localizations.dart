@@ -8167,6 +8167,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your goal {height}'**
   String chartDream(String height);
+
+  /// No description provided for @targetsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today, for you'**
+  String get targetsTitle;
+
+  /// No description provided for @targetsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Worked out from your age, weight and training.'**
+  String get targetsSubtitle;
+
+  /// No description provided for @targetProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein'**
+  String get targetProtein;
+
+  /// No description provided for @targetCalcium.
+  ///
+  /// In en, this message translates to:
+  /// **'Calcium'**
+  String get targetCalcium;
+
+  /// No description provided for @targetVitaminD.
+  ///
+  /// In en, this message translates to:
+  /// **'Vitamin D'**
+  String get targetVitaminD;
+
+  /// No description provided for @targetWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Water'**
+  String get targetWater;
+
+  /// No description provided for @targetSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep'**
+  String get targetSleep;
+
+  /// No description provided for @targetMove.
+  ///
+  /// In en, this message translates to:
+  /// **'Training'**
+  String get targetMove;
+
+  /// No description provided for @targetPerMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'{g} g per meal'**
+  String targetPerMeal(String g);
+
+  /// No description provided for @unitHours.
+  ///
+  /// In en, this message translates to:
+  /// **'h'**
+  String get unitHours;
+
+  /// No description provided for @unitMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'min'**
+  String get unitMinutes;
+
+  /// No description provided for @planStrength.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength'**
+  String get planStrength;
+
+  /// No description provided for @planJump.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumps & sprints'**
+  String get planJump;
+
+  /// No description provided for @planMobility.
+  ///
+  /// In en, this message translates to:
+  /// **'Stretching'**
+  String get planMobility;
+
+  /// No description provided for @planSport.
+  ///
+  /// In en, this message translates to:
+  /// **'Sport'**
+  String get planSport;
+
+  /// No description provided for @planPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture'**
+  String get planPosture;
+
+  /// No description provided for @planRest.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest'**
+  String get planRest;
+
+  /// No description provided for @planWeekTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your week: {days} training days'**
+  String planWeekTitle(int days);
 }
 
 class _AppLocalizationsDelegate

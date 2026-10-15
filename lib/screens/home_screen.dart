@@ -17,6 +17,7 @@ import 'nutrition_screen.dart';
 import 'wellness_tracker_screen.dart';
 import 'recipe_generator_screen.dart';
 import 'progress_screen.dart';
+import '../widgets/today_targets_card.dart';
 import '../widgets/journey_steps.dart';
 import '../widgets/tour_keys.dart';
 import '../widgets/next_reminder_card.dart';
@@ -138,11 +139,8 @@ class _HomeScreenState extends State<HomeScreen>
         final profile = provider.profile;
         if (profile == null) return const SizedBox();
 
-        final prediction = Calculations.predictFinalHeight(
-          profile,
-          provider.heightRecords,
-        );
-        final potential = prediction.finalHeight;
+        // One potential for the whole app; it never drops.
+        final potential = provider.potentialHeight;
         final remaining = (potential - profile.currentHeight).clamp(0.0, 100.0);
         final waterNeed = Calculations.dailyWaterNeed(profile.weight);
         final sleepNeed = Calculations.dailySleepNeed(profile.age);
@@ -374,6 +372,10 @@ class _HomeScreenState extends State<HomeScreen>
                       l: l,
                       onPremiumTap: () => showPremiumPaywall(context),
                     ),
+                    const SizedBox(height: _sectionGap),
+
+                    // ── Today's numbers and this week's training ─────────
+                    TodayTargetsCard(provider: provider),
                     const SizedBox(height: _sectionGap),
 
                     // ── 6. GROWTH STATS — always here now; with fewer than

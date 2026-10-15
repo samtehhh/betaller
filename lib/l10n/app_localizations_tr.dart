@@ -4489,4 +4489,63 @@ class AppLocalizationsTr extends AppLocalizations {
   String chartDream(String height) {
     return 'Hedefin $height';
   }
+
+  @override
+  String get targetsTitle => 'Bugün senin için';
+
+  @override
+  String get targetsSubtitle =>
+      'Yaşına, kilona ve antrenmanına göre hesaplandı.';
+
+  @override
+  String get targetProtein => 'Protein';
+
+  @override
+  String get targetCalcium => 'Kalsiyum';
+
+  @override
+  String get targetVitaminD => 'D vitamini';
+
+  @override
+  String get targetWater => 'Su';
+
+  @override
+  String get targetSleep => 'Uyku';
+
+  @override
+  String get targetMove => 'Antrenman';
+
+  @override
+  String targetPerMeal(String g) {
+    return 'Öğün başına $g g';
+  }
+
+  @override
+  String get unitHours => 'sa';
+
+  @override
+  String get unitMinutes => 'dk';
+
+  @override
+  String get planStrength => 'Güç';
+
+  @override
+  String get planJump => 'Zıplama & sprint';
+
+  @override
+  String get planMobility => 'Esneme';
+
+  @override
+  String get planSport => 'Spor';
+
+  @override
+  String get planPosture => 'Duruş';
+
+  @override
+  String get planRest => 'Dinlenme';
+
+  @override
+  String planWeekTitle(int days) {
+    return 'Bu haftan: $days antrenman günü';
+  }
 }
