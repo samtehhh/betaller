@@ -8407,6 +8407,678 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tip'**
   String get guideTip;
+
+  /// No description provided for @plWorkoutMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'{moves} moves · {minutes} min'**
+  String plWorkoutMeta(int moves, int minutes);
+
+  /// No description provided for @plDoneCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total} done'**
+  String plDoneCount(int done, int total);
+
+  /// No description provided for @plStartWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Start workout'**
+  String get plStartWorkout;
+
+  /// No description provided for @plContinueWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue workout'**
+  String get plContinueWorkout;
+
+  /// No description provided for @plWorkoutDoneToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s workout is done'**
+  String get plWorkoutDoneToday;
+
+  /// No description provided for @plTraining.
+  ///
+  /// In en, this message translates to:
+  /// **'Training'**
+  String get plTraining;
+
+  /// No description provided for @plHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily habits'**
+  String get plHabits;
+
+  /// No description provided for @plRestDayNote.
+  ///
+  /// In en, this message translates to:
+  /// **'An easy day: a short yoga flow keeps you loose for tomorrow.'**
+  String get plRestDayNote;
+
+  /// No description provided for @plDoseReps.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets} x {reps} reps'**
+  String plDoseReps(int sets, int reps);
+
+  /// No description provided for @plDoseSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets} x {seconds} s'**
+  String plDoseSeconds(int sets, int seconds);
+
+  /// No description provided for @plDoseSecondsSide.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets} x {seconds} s each side'**
+  String plDoseSecondsSide(int sets, int seconds);
+
+  /// No description provided for @plDoseMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String plDoseMinutes(int minutes);
+
+  /// No description provided for @plHabitProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'{grams} g across your meals'**
+  String plHabitProtein(int grams);
+
+  /// No description provided for @plHabitWater.
+  ///
+  /// In en, this message translates to:
+  /// **'{liters} L through the day'**
+  String plHabitWater(String liters);
+
+  /// No description provided for @plHabitSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h tonight'**
+  String plHabitSleep(String hours);
+
+  /// No description provided for @plYourRoutines.
+  ///
+  /// In en, this message translates to:
+  /// **'Your routines'**
+  String get plYourRoutines;
+
+  /// No description provided for @plNewRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'New routine'**
+  String get plNewRoutine;
+
+  /// No description provided for @plCustomEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Build a routine of your own and tick it off here every day.'**
+  String get plCustomEmpty;
+
+  /// No description provided for @plDeleteRoutineQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete \"{name}\"?'**
+  String plDeleteRoutineQ(String name);
+
+  /// No description provided for @plHoldToDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Press and hold a routine to delete it.'**
+  String get plHoldToDelete;
+
+  /// No description provided for @plSetOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Set {current} of {total}'**
+  String plSetOf(int current, int total);
+
+  /// No description provided for @plRest.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest'**
+  String get plRest;
+
+  /// No description provided for @plStartSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Start set'**
+  String get plStartSet;
+
+  /// No description provided for @plSetDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Set done'**
+  String get plSetDone;
+
+  /// No description provided for @plSkipRest.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip rest'**
+  String get plSkipRest;
+
+  /// No description provided for @plNextMove.
+  ///
+  /// In en, this message translates to:
+  /// **'Next move'**
+  String get plNextMove;
+
+  /// No description provided for @plSkipMove.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get plSkipMove;
+
+  /// No description provided for @plUpNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Up next: {name}'**
+  String plUpNext(String name);
+
+  /// No description provided for @plLastMove.
+  ///
+  /// In en, this message translates to:
+  /// **'Last move'**
+  String get plLastMove;
+
+  /// No description provided for @plWorkoutComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout complete'**
+  String get plWorkoutComplete;
+
+  /// No description provided for @plWorkoutSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{moves} moves in about {minutes} min. Every session counts.'**
+  String plWorkoutSummary(int moves, int minutes);
+
+  /// No description provided for @plEachSide.
+  ///
+  /// In en, this message translates to:
+  /// **'Each side'**
+  String get plEachSide;
+
+  /// No description provided for @plMoveDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Move done'**
+  String get plMoveDone;
+
+  /// No description provided for @plRepsBig.
+  ///
+  /// In en, this message translates to:
+  /// **'{reps} reps'**
+  String plRepsBig(int reps);
+
+  /// No description provided for @plSessionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Go at your own pace and tap done when you finish.'**
+  String get plSessionHint;
+
+  /// No description provided for @plProgramDayOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} of {total}'**
+  String plProgramDayOf(int day, int total);
+
+  /// No description provided for @plTodayStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s step'**
+  String get plTodayStep;
+
+  /// No description provided for @plTickToComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Tick every move to complete the day'**
+  String get plTickToComplete;
+
+  /// No description provided for @plNextDayTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} opens tomorrow. Rest is part of growing.'**
+  String plNextDayTomorrow(int day);
+
+  /// No description provided for @plNextLevelIn.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days to level {level}'**
+  String plNextLevelIn(int days, int level);
+
+  /// No description provided for @plProgramFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'All 70 days done. You finished the program.'**
+  String get plProgramFinished;
+
+  /// No description provided for @plDayCompleteToast.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} complete'**
+  String plDayCompleteToast(int day);
+
+  /// No description provided for @plLevelWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This level\'s week'**
+  String get plLevelWeek;
+
+  /// No description provided for @plProgressionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How it gets harder'**
+  String get plProgressionTitle;
+
+  /// No description provided for @plNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get plNow;
+
+  /// No description provided for @plLevelN.
+  ///
+  /// In en, this message translates to:
+  /// **'Lv {n}'**
+  String plLevelN(int n);
+
+  /// No description provided for @plUnlockProgram.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock the 70-day program'**
+  String get plUnlockProgram;
+
+  /// No description provided for @plProgramPitch.
+  ///
+  /// In en, this message translates to:
+  /// **'10 levels, one a week. Each one adds seconds to your holds, reps to your jumps and a set when you are ready.'**
+  String get plProgramPitch;
+
+  /// No description provided for @plDayLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish day {day} first'**
+  String plDayLocked(int day);
+
+  /// No description provided for @plCurrentDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day}'**
+  String plCurrentDay(int day);
+
+  /// No description provided for @plTodaysTargets.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s targets'**
+  String get plTodaysTargets;
+
+  /// No description provided for @plTargetsBasis.
+  ///
+  /// In en, this message translates to:
+  /// **'Worked out from your age, weight and training'**
+  String get plTargetsBasis;
+
+  /// No description provided for @plProteinSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'{meals} meals x {grams} g'**
+  String plProteinSplit(int meals, int grams);
+
+  /// No description provided for @plZinc.
+  ///
+  /// In en, this message translates to:
+  /// **'Zinc'**
+  String get plZinc;
+
+  /// No description provided for @plMagnesium.
+  ///
+  /// In en, this message translates to:
+  /// **'Magnesium'**
+  String get plMagnesium;
+
+  /// No description provided for @plEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy'**
+  String get plEnergy;
+
+  /// No description provided for @plChecklist.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s checklist'**
+  String get plChecklist;
+
+  /// No description provided for @plCheckProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein {grams} g'**
+  String plCheckProtein(int grams);
+
+  /// No description provided for @plCheckCalcium.
+  ///
+  /// In en, this message translates to:
+  /// **'Calcium {mg} mg'**
+  String plCheckCalcium(String mg);
+
+  /// No description provided for @plCheckVitaminD.
+  ///
+  /// In en, this message translates to:
+  /// **'Vitamin D {iu} IU'**
+  String plCheckVitaminD(String iu);
+
+  /// No description provided for @plCheckWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Water {liters} L'**
+  String plCheckWater(String liters);
+
+  /// No description provided for @plFromMeals.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} from ticked meals'**
+  String plFromMeals(String amount);
+
+  /// No description provided for @plVitaminDNote.
+  ///
+  /// In en, this message translates to:
+  /// **'15 min of midday sun on arms and face, or a supplement your doctor okays'**
+  String get plVitaminDNote;
+
+  /// No description provided for @plWaterLogged.
+  ///
+  /// In en, this message translates to:
+  /// **'{liters} L logged so far'**
+  String plWaterLogged(String liters);
+
+  /// No description provided for @plMealPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Your meal plan'**
+  String get plMealPlan;
+
+  /// No description provided for @plMealPlanSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Real foods, real grams, sized to your targets'**
+  String get plMealPlanSub;
+
+  /// No description provided for @plSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Snack'**
+  String get plSnack;
+
+  /// No description provided for @plMealSum.
+  ///
+  /// In en, this message translates to:
+  /// **'{protein} g protein · {calcium} mg calcium · {kcal} kcal'**
+  String plMealSum(int protein, String calcium, String kcal);
+
+  /// No description provided for @plMealGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'goal {grams} g'**
+  String plMealGoal(int grams);
+
+  /// No description provided for @plMarkEaten.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as eaten'**
+  String get plMarkEaten;
+
+  /// No description provided for @plEaten.
+  ///
+  /// In en, this message translates to:
+  /// **'Eaten'**
+  String get plEaten;
+
+  /// No description provided for @plPlanTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Day total'**
+  String get plPlanTotal;
+
+  /// No description provided for @plFillEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'These meals give about {planKcal} of your {kcal} kcal. Fill the rest with fruit, vegetables, bread or rice.'**
+  String plFillEnergy(String planKcal, String kcal);
+
+  /// No description provided for @plWeeklyMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly menu'**
+  String get plWeeklyMenu;
+
+  /// No description provided for @plWeeklyMenuSub.
+  ///
+  /// In en, this message translates to:
+  /// **'A different plate every day, the same targets'**
+  String get plWeeklyMenuSub;
+
+  /// No description provided for @plUnlockMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock the full weekly menu'**
+  String get plUnlockMenu;
+
+  /// No description provided for @plRecipes.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipes'**
+  String get plRecipes;
+
+  /// No description provided for @plRecipesSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick high-protein dishes'**
+  String get plRecipesSub;
+
+  /// No description provided for @plNutritionGuide.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition guide'**
+  String get plNutritionGuide;
+
+  /// No description provided for @plNutritionGuideSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrients, foods and supplements'**
+  String get plNutritionGuideSub;
+
+  /// No description provided for @plPieces.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} pcs'**
+  String plPieces(int n);
+
+  /// No description provided for @plFoodOats.
+  ///
+  /// In en, this message translates to:
+  /// **'Oats'**
+  String get plFoodOats;
+
+  /// No description provided for @plFoodMilk.
+  ///
+  /// In en, this message translates to:
+  /// **'Milk'**
+  String get plFoodMilk;
+
+  /// No description provided for @plFoodBanana.
+  ///
+  /// In en, this message translates to:
+  /// **'Banana'**
+  String get plFoodBanana;
+
+  /// No description provided for @plFoodWalnuts.
+  ///
+  /// In en, this message translates to:
+  /// **'Walnuts'**
+  String get plFoodWalnuts;
+
+  /// No description provided for @plFoodGreekYogurt.
+  ///
+  /// In en, this message translates to:
+  /// **'Greek yogurt'**
+  String get plFoodGreekYogurt;
+
+  /// No description provided for @plFoodYogurt.
+  ///
+  /// In en, this message translates to:
+  /// **'Yogurt'**
+  String get plFoodYogurt;
+
+  /// No description provided for @plFoodEggs.
+  ///
+  /// In en, this message translates to:
+  /// **'Eggs'**
+  String get plFoodEggs;
+
+  /// No description provided for @plFoodBread.
+  ///
+  /// In en, this message translates to:
+  /// **'Wholegrain bread'**
+  String get plFoodBread;
+
+  /// No description provided for @plFoodWhiteCheese.
+  ///
+  /// In en, this message translates to:
+  /// **'Feta cheese'**
+  String get plFoodWhiteCheese;
+
+  /// No description provided for @plFoodHardCheese.
+  ///
+  /// In en, this message translates to:
+  /// **'Cheddar'**
+  String get plFoodHardCheese;
+
+  /// No description provided for @plFoodSalad.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomato and cucumber salad'**
+  String get plFoodSalad;
+
+  /// No description provided for @plFoodOrange.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange'**
+  String get plFoodOrange;
+
+  /// No description provided for @plFoodPeanutButter.
+  ///
+  /// In en, this message translates to:
+  /// **'Peanut butter'**
+  String get plFoodPeanutButter;
+
+  /// No description provided for @plFoodSpinach.
+  ///
+  /// In en, this message translates to:
+  /// **'Spinach'**
+  String get plFoodSpinach;
+
+  /// No description provided for @plFoodCottageCheese.
+  ///
+  /// In en, this message translates to:
+  /// **'Cottage cheese'**
+  String get plFoodCottageCheese;
+
+  /// No description provided for @plFoodChicken.
+  ///
+  /// In en, this message translates to:
+  /// **'Chicken breast'**
+  String get plFoodChicken;
+
+  /// No description provided for @plFoodBulgur.
+  ///
+  /// In en, this message translates to:
+  /// **'Bulgur'**
+  String get plFoodBulgur;
+
+  /// No description provided for @plFoodAyran.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayran (yogurt drink)'**
+  String get plFoodAyran;
+
+  /// No description provided for @plFoodTuna.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuna (canned)'**
+  String get plFoodTuna;
+
+  /// No description provided for @plFoodPasta.
+  ///
+  /// In en, this message translates to:
+  /// **'Pasta'**
+  String get plFoodPasta;
+
+  /// No description provided for @plFoodBeef.
+  ///
+  /// In en, this message translates to:
+  /// **'Lean beef'**
+  String get plFoodBeef;
+
+  /// No description provided for @plFoodRice.
+  ///
+  /// In en, this message translates to:
+  /// **'Rice'**
+  String get plFoodRice;
+
+  /// No description provided for @plFoodChickpeas.
+  ///
+  /// In en, this message translates to:
+  /// **'Chickpeas'**
+  String get plFoodChickpeas;
+
+  /// No description provided for @plFoodSalmon.
+  ///
+  /// In en, this message translates to:
+  /// **'Salmon'**
+  String get plFoodSalmon;
+
+  /// No description provided for @plFoodBroccoli.
+  ///
+  /// In en, this message translates to:
+  /// **'Broccoli'**
+  String get plFoodBroccoli;
+
+  /// No description provided for @plFoodPotato.
+  ///
+  /// In en, this message translates to:
+  /// **'Potatoes'**
+  String get plFoodPotato;
+
+  /// No description provided for @plFoodLentils.
+  ///
+  /// In en, this message translates to:
+  /// **'Lentils'**
+  String get plFoodLentils;
+
+  /// No description provided for @plFoodSardines.
+  ///
+  /// In en, this message translates to:
+  /// **'Sardines'**
+  String get plFoodSardines;
+
+  /// No description provided for @plFoodAlmonds.
+  ///
+  /// In en, this message translates to:
+  /// **'Almonds'**
+  String get plFoodAlmonds;
+
+  /// No description provided for @plFoodKefir.
+  ///
+  /// In en, this message translates to:
+  /// **'Kefir'**
+  String get plFoodKefir;
+
+  /// No description provided for @plFoodPumpkinSeeds.
+  ///
+  /// In en, this message translates to:
+  /// **'Pumpkin seeds'**
+  String get plFoodPumpkinSeeds;
 }
 
 class _AppLocalizationsDelegate

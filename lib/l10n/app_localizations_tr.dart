@@ -4637,4 +4637,409 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get guideTip => 'İpucu';
+
+  @override
+  String plWorkoutMeta(int moves, int minutes) {
+    return '$moves hareket · $minutes dk';
+  }
+
+  @override
+  String plDoneCount(int done, int total) {
+    return '$done/$total tamam';
+  }
+
+  @override
+  String get plStartWorkout => 'Antrenmana başla';
+
+  @override
+  String get plContinueWorkout => 'Antrenmana devam et';
+
+  @override
+  String get plWorkoutDoneToday => 'Bugünkü antrenman tamam';
+
+  @override
+  String get plTraining => 'Antrenman';
+
+  @override
+  String get plHabits => 'Günlük alışkanlıklar';
+
+  @override
+  String get plRestDayNote =>
+      'Hafif gün: kısa bir yoga akışı yarına esnek kalmanı sağlar.';
+
+  @override
+  String plDoseReps(int sets, int reps) {
+    return '$sets x $reps tekrar';
+  }
+
+  @override
+  String plDoseSeconds(int sets, int seconds) {
+    return '$sets x $seconds sn';
+  }
+
+  @override
+  String plDoseSecondsSide(int sets, int seconds) {
+    return '$sets x $seconds sn her taraf';
+  }
+
+  @override
+  String plDoseMinutes(int minutes) {
+    return '$minutes dk';
+  }
+
+  @override
+  String plHabitProtein(int grams) {
+    return '$grams g, öğünlerine bölünmüş';
+  }
+
+  @override
+  String plHabitWater(String liters) {
+    return 'Gün boyunca $liters L';
+  }
+
+  @override
+  String plHabitSleep(String hours) {
+    return 'Bu gece $hours saat';
+  }
+
+  @override
+  String get plYourRoutines => 'Rutinlerin';
+
+  @override
+  String get plNewRoutine => 'Yeni rutin';
+
+  @override
+  String get plCustomEmpty =>
+      'Kendi rutinini oluştur, her gün buradan işaretle.';
+
+  @override
+  String plDeleteRoutineQ(String name) {
+    return '\"$name\" silinsin mi?';
+  }
+
+  @override
+  String get plHoldToDelete => 'Silmek için rutine basılı tut.';
+
+  @override
+  String plSetOf(int current, int total) {
+    return 'Set $current/$total';
+  }
+
+  @override
+  String get plRest => 'Dinlen';
+
+  @override
+  String get plStartSet => 'Seti başlat';
+
+  @override
+  String get plSetDone => 'Set bitti';
+
+  @override
+  String get plSkipRest => 'Dinlenmeyi geç';
+
+  @override
+  String get plNextMove => 'Sonraki hareket';
+
+  @override
+  String get plSkipMove => 'Geç';
+
+  @override
+  String plUpNext(String name) {
+    return 'Sırada: $name';
+  }
+
+  @override
+  String get plLastMove => 'Son hareket';
+
+  @override
+  String get plWorkoutComplete => 'Antrenman tamamlandı';
+
+  @override
+  String plWorkoutSummary(int moves, int minutes) {
+    return 'Yaklaşık $minutes dakikada $moves hareket. Her antrenman sayılır.';
+  }
+
+  @override
+  String get plEachSide => 'Her iki taraf';
+
+  @override
+  String get plMoveDone => 'Hareket tamam';
+
+  @override
+  String plRepsBig(int reps) {
+    return '$reps tekrar';
+  }
+
+  @override
+  String get plSessionHint => 'Kendi temponda yap, bitince tamama dokun.';
+
+  @override
+  String plProgramDayOf(int day, int total) {
+    return 'Gün $day/$total';
+  }
+
+  @override
+  String get plTodayStep => 'Bugünkü adım';
+
+  @override
+  String get plTickToComplete => 'Günü tamamlamak için her hareketi işaretle';
+
+  @override
+  String plNextDayTomorrow(int day) {
+    return '$day. gün yarın açılıyor. Dinlenmek de büyümenin parçası.';
+  }
+
+  @override
+  String plNextLevelIn(int days, int level) {
+    return 'Seviye $level için $days gün';
+  }
+
+  @override
+  String get plProgramFinished => '70 günün hepsi tamam. Programı bitirdin.';
+
+  @override
+  String plDayCompleteToast(int day) {
+    return '$day. gün tamamlandı';
+  }
+
+  @override
+  String get plLevelWeek => 'Bu seviyenin haftası';
+
+  @override
+  String get plProgressionTitle => 'Nasıl zorlaşıyor';
+
+  @override
+  String get plNow => 'Şimdi';
+
+  @override
+  String plLevelN(int n) {
+    return 'Sv $n';
+  }
+
+  @override
+  String get plUnlockProgram => '70 günlük programın kilidini aç';
+
+  @override
+  String get plProgramPitch =>
+      'Haftada bir olmak üzere 10 seviye. Her biri tutuşlarına saniye, sıçramalarına tekrar, hazır olduğunda da bir set ekler.';
+
+  @override
+  String plDayLocked(int day) {
+    return 'Önce $day. günü bitir';
+  }
+
+  @override
+  String plCurrentDay(int day) {
+    return 'Gün $day';
+  }
+
+  @override
+  String get plTodaysTargets => 'Bugünkü hedeflerin';
+
+  @override
+  String get plTargetsBasis => 'Yaşına, kilona ve antrenmanına göre hesaplandı';
+
+  @override
+  String plProteinSplit(int meals, int grams) {
+    return '$meals öğün x $grams g';
+  }
+
+  @override
+  String get plZinc => 'Çinko';
+
+  @override
+  String get plMagnesium => 'Magnezyum';
+
+  @override
+  String get plEnergy => 'Enerji';
+
+  @override
+  String get plChecklist => 'Bugünün listesi';
+
+  @override
+  String plCheckProtein(int grams) {
+    return 'Protein $grams g';
+  }
+
+  @override
+  String plCheckCalcium(String mg) {
+    return 'Kalsiyum $mg mg';
+  }
+
+  @override
+  String plCheckVitaminD(String iu) {
+    return 'D vitamini $iu IU';
+  }
+
+  @override
+  String plCheckWater(String liters) {
+    return 'Su $liters L';
+  }
+
+  @override
+  String plFromMeals(String amount) {
+    return 'İşaretlenen öğünlerden $amount';
+  }
+
+  @override
+  String get plVitaminDNote =>
+      'Öğle güneşinde kollar ve yüz açık 15 dk, ya da doktorunun onayladığı bir takviye';
+
+  @override
+  String plWaterLogged(String liters) {
+    return 'Şu ana kadar $liters L';
+  }
+
+  @override
+  String get plMealPlan => 'Öğün planın';
+
+  @override
+  String get plMealPlanSub =>
+      'Gerçek yiyecekler, gerçek gramlar, hedeflerine göre';
+
+  @override
+  String get plSnack => 'Ara öğün';
+
+  @override
+  String plMealSum(int protein, String calcium, String kcal) {
+    return '$protein g protein · $calcium mg kalsiyum · $kcal kcal';
+  }
+
+  @override
+  String plMealGoal(int grams) {
+    return 'hedef $grams g';
+  }
+
+  @override
+  String get plMarkEaten => 'Yedim olarak işaretle';
+
+  @override
+  String get plEaten => 'Yendi';
+
+  @override
+  String get plPlanTotal => 'Günlük toplam';
+
+  @override
+  String plFillEnergy(String planKcal, String kcal) {
+    return 'Bu öğünler $kcal kcal ihtiyacının yaklaşık $planKcal kısmını karşılar. Kalanını meyve, sebze, ekmek ya da pilavla tamamla.';
+  }
+
+  @override
+  String get plWeeklyMenu => 'Haftalık menü';
+
+  @override
+  String get plWeeklyMenuSub => 'Her gün farklı bir tabak, aynı hedefler';
+
+  @override
+  String get plUnlockMenu => 'Tüm haftalık menünün kilidini aç';
+
+  @override
+  String get plRecipes => 'Tarifler';
+
+  @override
+  String get plRecipesSub => 'Hızlı, proteini yüksek yemekler';
+
+  @override
+  String get plNutritionGuide => 'Beslenme rehberi';
+
+  @override
+  String get plNutritionGuideSub => 'Besinler, yiyecekler, takviyeler';
+
+  @override
+  String plPieces(int n) {
+    return '$n adet';
+  }
+
+  @override
+  String get plFoodOats => 'Yulaf ezmesi';
+
+  @override
+  String get plFoodMilk => 'Süt';
+
+  @override
+  String get plFoodBanana => 'Muz';
+
+  @override
+  String get plFoodWalnuts => 'Ceviz';
+
+  @override
+  String get plFoodGreekYogurt => 'Süzme yoğurt';
+
+  @override
+  String get plFoodYogurt => 'Yoğurt';
+
+  @override
+  String get plFoodEggs => 'Yumurta';
+
+  @override
+  String get plFoodBread => 'Tam buğday ekmeği';
+
+  @override
+  String get plFoodWhiteCheese => 'Beyaz peynir';
+
+  @override
+  String get plFoodHardCheese => 'Kaşar peyniri';
+
+  @override
+  String get plFoodSalad => 'Domates salatalık salatası';
+
+  @override
+  String get plFoodOrange => 'Portakal';
+
+  @override
+  String get plFoodPeanutButter => 'Fıstık ezmesi';
+
+  @override
+  String get plFoodSpinach => 'Ispanak';
+
+  @override
+  String get plFoodCottageCheese => 'Lor peyniri';
+
+  @override
+  String get plFoodChicken => 'Tavuk göğsü';
+
+  @override
+  String get plFoodBulgur => 'Bulgur pilavı';
+
+  @override
+  String get plFoodAyran => 'Ayran';
+
+  @override
+  String get plFoodTuna => 'Ton balığı (konserve)';
+
+  @override
+  String get plFoodPasta => 'Makarna';
+
+  @override
+  String get plFoodBeef => 'Yağsız kıyma (köfte)';
+
+  @override
+  String get plFoodRice => 'Pirinç pilavı';
+
+  @override
+  String get plFoodChickpeas => 'Nohut';
+
+  @override
+  String get plFoodSalmon => 'Somon';
+
+  @override
+  String get plFoodBroccoli => 'Brokoli';
+
+  @override
+  String get plFoodPotato => 'Haşlanmış patates';
+
+  @override
+  String get plFoodLentils => 'Mercimek';
+
+  @override
+  String get plFoodSardines => 'Sardalya';
+
+  @override
+  String get plFoodAlmonds => 'Badem';
+
+  @override
+  String get plFoodKefir => 'Kefir';
+
+  @override
+  String get plFoodPumpkinSeeds => 'Kabak çekirdeği';
 }
