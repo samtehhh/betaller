@@ -6,6 +6,10 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/nutrition_data.dart';
+import '../utils/daily_targets.dart';
+import '../utils/haptics.dart';
+import '../utils/meal_plan.dart';
+import '../widgets/meal_plan_view.dart';
 import '../widgets/premium_paywall.dart';
 
 // Free items shown before the rest blurs behind a PRO lock.
@@ -27,12 +31,8 @@ class _NutritionScreenState extends State<NutritionScreen> {
   final Set<int> _expandedNutrients = {};
 
   void _openPaywall() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => const PremiumPaywallScreen(),
-    );
+    Haptics.tap();
+    showPremiumPaywall(context);
   }
 
   static const _sectionIcons = [
@@ -53,18 +53,6 @@ class _NutritionScreenState extends State<NutritionScreen> {
     'fruit': l.categoryFruits,
     'grain': l.categoryGrains,
     'nuts': l.categoryNutsSeeds,
-  };
-
-  static const _nutrientChipColors = <String, Color>{
-    'Calcium': Color(0xFF40C4FF),
-    'Protein': Color(0xFFFF9100),
-    'Zinc': Color(0xFFFFD740),
-    'Vitamin D': Color(0xFFF0A0E5),
-    'Iron': Color(0xFFFF5252),
-    'Magnesium': Color(0xFF69F0AE),
-    'Phosphorus': Color(0xFF8C9EFF),
-    'Vitamin A': Color(0xFFFF4DB8),
-    'L-Arginine': Color(0xFFB388FF),
   };
 
   @override
@@ -145,7 +133,10 @@ class _NutritionScreenState extends State<NutritionScreen> {
                     final selected = _selectedSection == i;
                     return Expanded(
                       child: GestureDetector(
-                        onTap: () => setState(() => _selectedSection = i),
+                        onTap: () {
+                          if (_selectedSection != i) Haptics.select();
+                          setState(() => _selectedSection = i);
+                        },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 250),
                           curve: Curves.easeOut,
@@ -238,144 +229,49 @@ class _NutritionScreenState extends State<NutritionScreen> {
   // ════════════════════════════════════════════════════════════════
 
   SliverList _buildMealPlanSection(AppLocalizations l, String lang) {
-    final dayIndex = DateTime.now().weekday - 1; // 0=Mon ... 6=Sun
-    final plans = getMealPlanSuggestions(lang);
-    final today = plans[dayIndex % plans.length];
-    final dayName = today['day'] as String;
-    final breakfast = today['breakfast'] as Map<String, dynamic>;
-    final lunch = today['lunch'] as Map<String, dynamic>;
-    final dinner = today['dinner'] as Map<String, dynamic>;
-    final snacks = today['snacks'] as List<dynamic>;
-
+    // The same personal plan as My Plan > Nutrition: real foods and grams
+    // sized to this user's protein and calcium targets.
+    final provider = context.watch<AppProvider>();
+    final profile = provider.profile;
+    if (profile == null) {
+      return SliverList(delegate: SliverChildListDelegate(const []));
+    }
+    final targets = DailyTargets.forProfile(
+      profile,
+      weeklyWorkout: provider.weeklyWorkout,
+      meals: profile.mealTimes.length,
+      trainingDay: provider.weeklyPlan.today.kind != PlanDayKind.rest,
+    );
+    final menu = buildDayMenu(
+      targets,
+      profile.mealTimes,
+      variant: DateTime.now().weekday - 1,
+    );
+    final checks = provider.todayNutritionChecks;
     return SliverList(
       delegate: SliverChildListDelegate([
-        // Day header
-        GlassCard(
-          margin: const EdgeInsets.only(bottom: 12),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-          fillColor: AppColors.primaryDark.withValues(alpha: 0.25),
-          child: Row(
-            children: [
-              const Icon(CupertinoIcons.calendar_today, color: AppColors.primary, size: 20),
-              const SizedBox(width: 10),
-              Text(
-                l.todaysPlan(dayName),
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.textPrimary,
-                ),
-              ),
-            ],
-          ),
+        NutritionTargetsHeader(
+          targets: targets,
+          meals: profile.mealTimes.length.clamp(2, 6),
         ),
-
-        _buildMealCard(l.breakfast, '🌅', breakfast, lang: lang),
-        _buildMealCard(l.lunch, '☀️', lunch, lang: lang),
-        _buildMealCard(l.dinner, '🌙', dinner, lang: lang),
-
-        // Snacks header
-        Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8),
-          child: SectionHeader(
-            icon: CupertinoIcons.heart_fill,
-            title: l.snacks,
-            iconColor: AppColors.orange,
-          ),
-        ),
-
-        ...snacks.map((s) {
-          final snack = s as Map<String, dynamic>;
-          return _buildMealCard(
-            snack['name'] as String,
-            '🍎',
-            snack,
-            compact: true,
-            lang: lang,
-          );
-        }),
-      ]),
-    );
-  }
-
-  Widget _buildMealCard(
-    String label,
-    String emoji,
-    Map<String, dynamic> meal, {
-    bool compact = false,
-    String lang = 'en',
-  }) {
-    final name = meal['name'] as String;
-    final desc = meal['description'] as String;
-    final nutrients = (meal['keyNutrients'] as List<dynamic>).cast<String>();
-
-    return GlassCard(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (!compact) ...[
-            Row(
-              children: [
-                Text(emoji, style: const TextStyle(fontSize: 18)),
-                const SizedBox(width: 8),
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textTertiary,
-                    letterSpacing: 1,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-          ],
-          Text(
-            name,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            desc,
-            style: TextStyle(
-              fontSize: 13,
-              color: AppColors.textTertiary,
-              height: 1.4,
-            ),
+        const SizedBox(height: 12),
+        for (var i = 0; i < menu.meals.length; i++) ...[
+          MealCard(
+            meal: menu.meals[i],
+            eaten: checks.contains('meal$i'),
+            onToggleEaten: () {
+              if (checks.contains('meal$i')) {
+                Haptics.select();
+              } else {
+                Haptics.success();
+              }
+              provider.toggleNutritionCheck('meal$i');
+            },
           ),
           const SizedBox(height: 10),
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: nutrients.map((n) {
-              final color = _nutrientChipColors[n] ?? AppColors.primary;
-              return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: color.withValues(alpha: 0.3)),
-                ),
-                child: Text(
-                  localizeNutrientKey(n, lang),
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: color,
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
         ],
-      ),
+        DayTotalCard(menu: menu, targets: targets),
+      ]),
     );
   }
 
