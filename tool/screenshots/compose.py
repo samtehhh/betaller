@@ -32,6 +32,8 @@ TEXT_TOP = {"iphone": 170, "ipad": 150}
 # Share of the top safe area (the status bar's place) trimmed off the capture,
 # so the frame does not open on an empty band where no status bar is drawn.
 SAFE_TRIM = 0.65
+# Extra points around a breakout crop, per focus widget.
+BREAKOUT_PAD_PT = {"PotentialChart": 16}
 
 
 def single(shot, breakout=None):
@@ -136,9 +138,11 @@ def breakout(canvas, dev, meta, name, max_w):
     if not rect:
         print(f"  ! no focus rect for {name}", file=sys.stderr)
         return
+    # A chart paints its axis labels outside its own box, so it gets a margin.
+    pad = int(BREAKOUT_PAD_PT.get(name, 0) * meta["dpr"])
     x0, y0, x1, y1 = [int(round(v)) for v in rect]
-    y0 = max(y0, 0)
-    y1 = min(y1, dev.raw.height)
+    x0, x1 = max(x0 - pad, 0), min(x1 + pad, dev.raw.width)
+    y0, y1 = max(y0 - pad, 0), min(y1 + pad, dev.raw.height)
     crop = dev.raw.convert("RGB").crop((x0, y0, x1, y1))
     on_device_w = (x1 - x0) * dev.k
     scale = min(1.16, max_w / on_device_w)
