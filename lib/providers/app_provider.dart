@@ -18,7 +18,9 @@ import '../services/notification_service.dart';
 import '../models/routine.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
+import '../utils/betaller_score.dart';
 import '../utils/daily_plan.dart';
+import '../utils/daily_targets.dart';
 import '../utils/height_reference.dart';
 import '../services/purchase_service.dart';
 import '../l10n/app_localizations.dart';
@@ -77,6 +79,15 @@ class AppProvider extends ChangeNotifier {
   Map<String, Map<String, dynamic>> _journalByDate = {};
   // Program progression: set of completed day indices (0-based)
   Set<int> _completedProgramDays = {};
+
+  // yyyy-MM-dd -> hours slept / litres drunk, kept for 35 days so the score
+  // can average a week. todaySleep and todayWater stay the live values.
+  Map<String, double> _sleepLog = {};
+  Map<String, double> _waterLog = {};
+
+  // Monday's yyyy-MM-dd -> the BeTaller Score last seen that week, kept for
+  // 12 weeks, so the analysis can say how this week compares.
+  Map<String, int> _scoreHistory = {};
 
   UserProfile? get profile => _profile;
   List<HeightRecord> get heightRecords => _heightRecords;
@@ -346,6 +357,114 @@ class AppProvider extends ChangeNotifier {
     addXP(5);
     _saveData();
     notifyListeners();
+  }
+
+  // ── BeTaller Score ──
+
+  /// Logged sleep by day. A night logged before this log existed still
+  /// counts for today.
+  Map<String, double> get sleepLog => {
+    if (_todaySleep > 0) _today: _todaySleep,
+    ..._sleepLog,
+  };
+
+  Map<String, double> get waterLog => {
+    if (_todayWater > 0) _today: _todayWater,
+    ..._waterLog,
+  };
+
+  Map<String, int> get scoreHistory => Map.unmodifiable(_scoreHistory);
+
+  /// The score saved for last week, or null in the first week.
+  int? get lastWeekScore => _scoreHistory[
+      weekKey(DateTime.now().subtract(const Duration(days: 7)))];
+
+  /// Today's targets for this user, or null before onboarding.
+  DailyTargets? get dailyTargets => _profile == null
+      ? null
+      : DailyTargets.forProfile(
+          _profile!,
+          weeklyWorkout: _onboardingAnswers['weeklyWorkout'] as String? ?? '',
+        );
+
+  /// The BeTaller Score from everything logged so far, or null before
+  /// onboarding.
+  BetallerScore? get betallerScore {
+    final p = _profile;
+    if (p == null) return null;
+    final targets = dailyTargets!;
+    return BetallerScore.compute(
+      ScoreInputs(
+        now: DateTime.now(),
+        accountCreated: p.createdAt,
+        age: p.age,
+        gender: p.gender,
+        latestHeight: latestHeight,
+        potentialHeight: potentialHeight,
+        records: _heightRecords,
+        routineHistory: _routineHistory,
+        completedToday: _lastRoutineDate == _today
+            ? _completedRoutineIds
+            : const [],
+        trainingIds: {
+          for (final r in _routines)
+            if (r.category == 'exercise') r.id,
+        },
+        nutritionIds: {
+          for (final r in _routines)
+            if (r.category == 'nutrition' && r.id != 'water') r.id,
+        },
+        weeklyPlan: WeeklyPlan.forAnswers(
+          weeklyWorkout: _onboardingAnswers['weeklyWorkout'] as String? ?? '',
+          age: p.age,
+        ),
+        streak: _streak,
+        sleepLog: sleepLog,
+        waterLog: waterLog,
+        sleepTarget: targets.sleepH,
+        waterTarget: targets.waterL,
+        postureChecks: _postureAnalyses,
+      ),
+    );
+  }
+
+  /// Keeps [total] as this week's score. Saves without notifying: it is
+  /// called from the screen that shows the score.
+  void recordScoreSnapshot(int total) {
+    final week = weekKey();
+    if (_scoreHistory[week] == total) return;
+    _scoreHistory = {..._scoreHistory, week: total};
+    if (_scoreHistory.length > 12) {
+      final keys = _scoreHistory.keys.toList()..sort();
+      for (final k in keys.take(_scoreHistory.length - 12)) {
+        _scoreHistory.remove(k);
+      }
+    }
+    _saveData();
+  }
+
+  /// Height on the potential path at each future age up to 21, read off
+  /// [potentialCurve] so every screen shows the same projection.
+  Map<int, double> get potentialByAge {
+    final p = _profile;
+    if (p == null || p.age >= 21) return const {};
+    final curve = potentialCurve;
+    if (curve.isEmpty) return const {};
+    return {
+      for (var a = p.age + 1; a <= 21; a++)
+        a: double.parse(
+          curve[((a - p.age) * 12).clamp(0, curve.length - 1)].value
+              .toStringAsFixed(1),
+        ),
+    };
+  }
+
+  void _trimLog<T>(Map<String, T> log) {
+    if (log.length <= 35) return;
+    final keys = log.keys.toList()..sort();
+    for (final k in keys.take(log.length - 35)) {
+      log.remove(k);
+    }
   }
 
   // ── Real WHO-based height percentile ──
@@ -641,6 +760,16 @@ class AppProvider extends ChangeNotifier {
         ),
         <String, List<String>>{},
       );
+      Map<String, double> doubleMap(String k) => _safe(
+        k,
+        () => ((json[k] as Map?) ?? const {}).map(
+          (key, v) => MapEntry(key.toString(), (v as num).toDouble()),
+        ),
+        <String, double>{},
+      );
+      _sleepLog = doubleMap('sleepLog');
+      _waterLog = doubleMap('waterLog');
+      _scoreHistory = intMap('scoreHistory');
       _potentialAnchor = json['potentialAnchor'] is num
           ? (json['potentialAnchor'] as num).toDouble()
           : null;
@@ -783,6 +912,9 @@ class AppProvider extends ChangeNotifier {
       'journeyProgress': _journeyProgress,
       'potentialAnchor': _potentialAnchor,
       'onboardingAnswers': _onboardingAnswers,
+      'sleepLog': _sleepLog,
+      'waterLog': _waterLog,
+      'scoreHistory': _scoreHistory,
     };
     // Start from what was stored, so keys this build does not write survive.
     final out = <String, dynamic>{
@@ -1285,6 +1417,8 @@ class AppProvider extends ChangeNotifier {
     _todayWater = double.parse(
       (_todayWater + amount).clamp(0.0, 99.0).toStringAsFixed(1),
     );
+    _waterLog[_today] = _todayWater;
+    _trimLog(_waterLog);
     if (wasUnderGoal && _todayWater >= waterGoal) {
       addXP(xpRewards['water_goal']!);
       updateChallengeProgress('daily_water', 1);
@@ -1304,6 +1438,8 @@ class AppProvider extends ChangeNotifier {
   void updateSleep(double hours) {
     final wasUnderGoal = _todaySleep < 8.0;
     _todaySleep = hours;
+    _sleepLog[_today] = hours;
+    _trimLog(_sleepLog);
     if (wasUnderGoal && _todaySleep >= 8.0) {
       addXP(xpRewards['sleep_goal']!);
       updateChallengeProgress('daily_sleep_early', hours.round());
@@ -1454,6 +1590,9 @@ class AppProvider extends ChangeNotifier {
 
     _potentialAnchor = null;
     _onboardingAnswers = {};
+    _sleepLog = {};
+    _waterLog = {};
+    _scoreHistory = {};
     _rawBlob = {};
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('glowup_app_data');
@@ -1590,6 +1729,16 @@ class AppProvider extends ChangeNotifier {
     // Water goal met, sleep just over target: both bars read as done.
     _todayWater = double.parse(waterGoal.toStringAsFixed(1));
     _todaySleep = 8.2;
+    // Two weeks of logs behind today's, a little under target on some days.
+    _sleepLog = {};
+    _waterLog = {};
+    for (var back = 13; back >= 0; back--) {
+      final key = _dateKey(today.subtract(Duration(days: back)));
+      _sleepLog[key] = back == 0 ? 8.2 : 7.0 + (back * 7) % 15 / 10;
+      _waterLog[key] = back == 0
+          ? _todayWater
+          : double.parse((waterGoal * (0.7 + (back * 3) % 4 / 10)).toStringAsFixed(1));
+    }
 
     // ── Level 9 of 20 — earned-looking without maxing the bar out ──
     _totalXP = 4200;

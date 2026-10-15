@@ -121,6 +121,11 @@ class Calculations {
     return _averageGrowthVelocity(age, gender) * 0.95;
   }
 
+  /// Typical growth speed (cm a year) at [age], from the same table the
+  /// prediction uses.
+  static double expectedGrowthVelocity(int age, String gender) =>
+      _averageGrowthVelocity(age, gender);
+
   static double _averageGrowthVelocity(int age, String gender) {
     if (gender == 'male') {
       if (age <= 10) return 5.5;
