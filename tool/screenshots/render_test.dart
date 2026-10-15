@@ -5,7 +5,10 @@
 //
 //   SHOT_OUT      folder the raw captures go to (raw/<device>/<locale>/)
 //   SHOT_LOCALES  comma list, default all eight app languages
-//   SHOT_DEVICES  comma list of iphone,ipad
+//   SHOT_DEVICES  comma list of iphone, ipad, duo-outer, duo-inner (screens
+//                 and headline layers) and header, search (headline layers
+//                 only; those creatives reuse the iphone screens). Names
+//                 without a slot here, such as iphone63, are skipped.
 //   SHOT_ONLY     comma list of shot names, default all
 //   SHOT_TALL     "true" renders each screen 3000 pt tall, for picking crops
 //
@@ -54,7 +57,7 @@ const _devicesArg = String.fromEnvironment(
 const _onlyArg = String.fromEnvironment('SHOT_ONLY');
 const _tall = bool.fromEnvironment('SHOT_TALL');
 
-/// The two store slots. Logical size, scale and the safe area the real
+/// The store slots. Logical size, scale and the safe area the real
 /// device reserves, so SafeArea lays the app out exactly as it would there.
 class _Device {
   final String name;
@@ -70,6 +73,18 @@ const _devices = {
   'iphone': _Device('iphone', Size(440, 956), 3, 62, 34),
   // iPad Pro 13" (M4): 1032x1376 pt @2x = 2064x2752.
   'ipad': _Device('ipad', Size(1032, 1376), 2, 24, 20),
+  // iPhone Duo, the two displays of the foldable. The store slots are
+  // 1398x2034 (outer) and 2007x2853 (inner); the screens are rendered at
+  // those displays' own logical size so the layout is the app's, not a
+  // stretched phone, and compose.py frames them below the headline.
+  'duo-outer': _Device('duo-outer', Size(466, 678), 3, 44, 20),
+  'duo-inner': _Device('duo-inner', Size(669, 951), 3, 24, 20),
+};
+
+/// Screens the duo sets use (compose.py's frame plan); the rest are skipped.
+const _duoShots = {
+  'home', 'progress', 'today', 'analysis', 'program', 'nutrition', 'photos',
+  'posture',
 };
 
 // ── Fonts ──────────────────────────────────────────────────────────────────
@@ -367,9 +382,16 @@ final _shots = <_Shot>[
   // Scrolled so the hero sits under the status bar area and the cards
   // below it end above the tab bar instead of peeking out under it.
   _Shot('home', (c, d) async {
-    if (d.name == 'iphone') await c.revealAt('_PotentialHero', d.top + 6);
+    if (d.name == 'iphone' || d.name == 'duo-outer') {
+      await c.revealAt('_PotentialHero', d.top + 6);
+    }
   }, focus: ['_PotentialHero']),
-  _Shot('progress', (c, d) async => c.tab(2), focus: ['PotentialChart']),
+  _Shot('progress', (c, d) async {
+    await c.tab(2);
+    // The outer duo display is short: unscrolled, the chart runs under the
+    // tab bar. Scrolled up, it sits whole above it.
+    if (d.name == 'duo-outer') await c.revealAt('PotentialChart', d.top + 190);
+  }, focus: ['PotentialChart']),
   _Shot('today', (c, d) async {
     await c.tab(1);
     await c.subTab(0);
@@ -476,13 +498,30 @@ Map<String, dynamic> _focusRects(WidgetTester t, _Device d, List<String> names) 
 
 class _TextSpec {
   final double width, headMax, headMin, sub, gap;
-  const _TextSpec(this.width, this.headMax, this.headMin, this.sub, this.gap);
+
+  /// Headline lines to fit before shrinking the size; past [headMin] the
+  /// text may still wrap.
+  final int lines;
+  const _TextSpec(this.width, this.headMax, this.headMin, this.sub, this.gap,
+      [this.lines = 2]);
 }
 
 const _textSpecs = {
   'iphone': _TextSpec(1030, 128, 84, 52, 34),
   'ipad': _TextSpec(1610, 150, 104, 62, 40),
+  'duo-outer': _TextSpec(1090, 112, 76, 46, 28),
+  'duo-inner': _TextSpec(1560, 146, 100, 60, 38),
+  // The 21:9 product page header: the box stays inside the centre half of
+  // the 3840 px canvas, the part every crop keeps.
+  'header': _TextSpec(1720, 150, 108, 60, 30),
+  // The 3:2 search result image, 3840 px wide: one line, so the three
+  // screens below keep the same size in every language.
+  'search': _TextSpec(3300, 196, 136, 80, 40, 1),
 };
+
+/// The creatives with one headline each, read from copy.json's entry of
+/// the same name instead of the frame list.
+const _creatives = {'header', 'search'};
 
 /// Upper case that knows Turkish: i -> İ and ı -> I, never the plain
 /// toUpperCase (which turns "takip" into "TAKIP"). The brand keeps its casing.
@@ -555,9 +594,15 @@ void _textTests(List<String> devices, List<String> locales) {
   final copy = jsonDecode(File('tool/screenshots/copy.json').readAsStringSync())
       as Map<String, dynamic>;
   final mode = copy['headlineCase'] as String? ?? 'sentence';
-  final frames = (copy['frames'] as List).cast<Map<String, dynamic>>();
+  final allFrames = (copy['frames'] as List).cast<Map<String, dynamic>>();
   for (final dn in devices) {
-    final spec = _textSpecs[dn]!;
+    final spec = _textSpecs[dn];
+    if (spec == null) continue;
+    final frames = _creatives.contains(dn)
+        ? [
+            {'slug': dn, ...(copy[dn] as Map<String, dynamic>)}
+          ]
+        : allFrames;
     for (final lang in locales) {
       testWidgets('text $dn $lang', (t) async {
         t.view.physicalSize = Size(spec.width + 80, 1400);
@@ -572,7 +617,7 @@ void _textTests(List<String> devices, List<String> locales) {
           final sub = keep(pair[1] as String);
           var size = spec.headMax;
           while (size > spec.headMin &&
-              !_fits(head, _headStyle(size, lang), spec.width, 2)) {
+              !_fits(head, _headStyle(size, lang), spec.width, spec.lines)) {
             size -= 2;
           }
           final hs = _headStyle(size, lang);
@@ -687,10 +732,12 @@ void main() {
   if (textOnly) return;
 
   for (final dn in devices) {
-    final d = _devices[dn]!;
+    final d = _devices[dn];
+    if (d == null) continue;
     for (final lang in locales) {
       for (final shot in _shots) {
         if (only.isNotEmpty && !only.contains(shot.name)) continue;
+        if (dn.startsWith('duo-') && !_duoShots.contains(shot.name)) continue;
         testWidgets('$dn $lang ${shot.name}', (t) async {
           debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
           final size = _tall ? Size(d.size.width, 3000) : d.size;
