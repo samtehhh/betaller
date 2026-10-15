@@ -4637,4 +4637,354 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get guideTip => 'İpucu';
+
+  @override
+  String get anSubtitle => 'Skorun, onu ne yükseltir ve nereye gidiyorsun';
+
+  @override
+  String get anScoreLabel => 'BeTaller Skoru';
+
+  @override
+  String get anTierStarting => 'Başlangıç';
+
+  @override
+  String get anTierBuilding => 'Gelişiyor';
+
+  @override
+  String get anTierRising => 'Yükseliyor';
+
+  @override
+  String get anTierStrong => 'Güçlü';
+
+  @override
+  String get anTierPeak => 'Zirve';
+
+  @override
+  String anTrendUp(int n) {
+    return 'Geçen haftaya göre +$n';
+  }
+
+  @override
+  String anTrendDown(int n) {
+    return 'Geçen haftaya göre -$n';
+  }
+
+  @override
+  String get anTrendFlat => 'Geçen haftayla aynı';
+
+  @override
+  String get anTrendFirst => 'Haftalık eğilimin gelecek hafta başlar';
+
+  @override
+  String anNextTier(int n, String tier) {
+    return '$tier seviyesine $n puan';
+  }
+
+  @override
+  String get anTopTier => 'En üst seviye. Orada kal';
+
+  @override
+  String anCoverage(int n, int total) {
+    return '$total sinyalin $n tanesine dayanıyor';
+  }
+
+  @override
+  String get anNoScoreTitle => 'Henüz yeterli veri yok';
+
+  @override
+  String get anNoScoreBody =>
+      'Bugün uykunu, biraz su ya da bir antrenman kaydet, ilk skorun görünsün.';
+
+  @override
+  String get anFastestWin => 'En hızlı kazanç';
+
+  @override
+  String get anBreakdownTitle => 'Skorunu oluşturanlar';
+
+  @override
+  String get anBreakdownHint =>
+      'Her sinyal kendi verinden 0 ile 100 arasında puanlanır. Yüzde, ne kadar etkilediğini gösterir.';
+
+  @override
+  String anWeight(int n) {
+    return '%$n';
+  }
+
+  @override
+  String get anNoData => 'Henüz veri yok';
+
+  @override
+  String get anNotCounted => 'Sayılmıyor';
+
+  @override
+  String get anFTraining => 'Antrenman';
+
+  @override
+  String get anFConsistency => 'Süreklilik';
+
+  @override
+  String get anFSleep => 'Uyku';
+
+  @override
+  String get anFHydration => 'Su';
+
+  @override
+  String get anFNutrition => 'Beslenme';
+
+  @override
+  String get anFPosture => 'Duruş';
+
+  @override
+  String get anFMeasuring => 'Ölçüm';
+
+  @override
+  String get anFGrowth => 'Büyüme hızı';
+
+  @override
+  String get anFHeadroom => 'Büyüme payı';
+
+  @override
+  String anBTraining(int done, int planned) {
+    return 'Son 7 günde planlanan $planned antrenman gününün $done tanesi';
+  }
+
+  @override
+  String get anBTrainingNone =>
+      'Antrenman yaptığın günleri haftalık planınla karşılaştırır.';
+
+  @override
+  String anBConsistency(int streak, int active, int days) {
+    return '$streak günlük seri, $days günün $active tanesinde planın yarısı tamam';
+  }
+
+  @override
+  String get anBConsistencyNone =>
+      'Serini ve planının en az yarısını bitirdiğin günleri sayar.';
+
+  @override
+  String anBSleep(String hours, String target, int days) {
+    return 'Gecede ortalama $hours sa, hedef $target sa, $days gece kaydı';
+  }
+
+  @override
+  String get anBSleepNone => 'Son 7 günde uyku kaydı yok.';
+
+  @override
+  String anBHydration(String litres, String target, int days) {
+    return 'Günde ortalama $litres L, hedef $target L, $days gün kaydı';
+  }
+
+  @override
+  String get anBHydrationNone => 'Son 7 günde su kaydı yok.';
+
+  @override
+  String anBNutrition(int done, int planned) {
+    return 'Son 7 günde $planned beslenme alışkanlığının $done tanesi tamam';
+  }
+
+  @override
+  String get anBNutritionNone =>
+      'Planındaki protein, kalsiyum, çinko ve D vitamini alışkanlıklarını sayar.';
+
+  @override
+  String anBPosture(int raw, int days) {
+    return 'Duvar öz kontrolü $raw/90, $days gün önce';
+  }
+
+  @override
+  String anBPostureToday(int raw) {
+    return 'Duvar öz kontrolü $raw/90, bugün';
+  }
+
+  @override
+  String get anBPostureNone => 'Henüz duruş öz kontrolü yok.';
+
+  @override
+  String anBMeasuring(int days) {
+    return 'Son ölçüm $days gün önce';
+  }
+
+  @override
+  String get anBMeasuringToday => 'Bugün ölçüldü';
+
+  @override
+  String get anBMeasuringNone => 'Henüz ölçüm yok.';
+
+  @override
+  String anBGrowth(String v, String e) {
+    return 'Yılda $v cm, yaşına göre tipik $e cm';
+  }
+
+  @override
+  String get anBGrowthNone => 'Arasında en az 30 gün olan iki ölçüm gerekiyor.';
+
+  @override
+  String get anBGrowthAdult =>
+      'Büyüme plakları genelde 21 yaşında kapanır, bu yüzden büyüme hızı sana sayılmıyor.';
+
+  @override
+  String anBHeadroom(String cm) {
+    return 'Bugün ile potansiyelin arasında $cm';
+  }
+
+  @override
+  String get anATraining => 'Bugünkü antrenmana başla';
+
+  @override
+  String get anAConsistency => 'Bugünkü planın yarısını bitir';
+
+  @override
+  String get anASleepLog => 'Dün geceki uykunu kaydet';
+
+  @override
+  String anASleep(String target) {
+    return 'Bu gece $target saat uyu';
+  }
+
+  @override
+  String get anAHydrationLog => 'Bir bardak su kaydet';
+
+  @override
+  String anAHydration(String left) {
+    return 'Bugün $left L daha iç';
+  }
+
+  @override
+  String get anAHydrationDone => 'Bugünkü hedef tamam. Yarın da aynısı';
+
+  @override
+  String get anANutrition => 'Bugünkü beslenme alışkanlıklarını işaretle';
+
+  @override
+  String get anAPostureFirst => '1 dakikalık duruş öz kontrolü yap';
+
+  @override
+  String get anAPostureRedo => 'Duruş öz kontrolünü yenile';
+
+  @override
+  String get anAPostureKeep => 'Günlük duruş rutinini sürdür';
+
+  @override
+  String get anAMeasure => 'Boyunu şimdi ölç';
+
+  @override
+  String get anAMeasureKeep => 'Gelecek hafta tekrar ölç';
+
+  @override
+  String anAGrowthWait(int days) {
+    return '$days gün sonra tekrar ölç';
+  }
+
+  @override
+  String get anAGrowth => 'Takip için 2 haftada bir ölç';
+
+  @override
+  String get anAHeadroom => 'Potansiyelini gör';
+
+  @override
+  String get anPotentialTitle => 'Potansiyelin';
+
+  @override
+  String get anPotentialLabel => 'Tahmini yetişkin boyu';
+
+  @override
+  String anPotentialToGo(String cm) {
+    return '+$cm kaldı';
+  }
+
+  @override
+  String get anPotentialReached => 'Tahmini boyuna ulaştın';
+
+  @override
+  String get anPotentialNote =>
+      'Uygulamanın her yerinde aynı sayı. Sadece yukarı gider.';
+
+  @override
+  String anDreamLine(String h) {
+    return 'Hedefin: $h';
+  }
+
+  @override
+  String get anSourcesTitle => 'Santimetreler nereden geliyor';
+
+  @override
+  String get anSourcesGenes => 'Genler ve yaş';
+
+  @override
+  String get anSourcesHabits => 'Uyku, beslenme, antrenman';
+
+  @override
+  String get anSourcesPosture => 'Duruş';
+
+  @override
+  String get anPctTitle => 'Yaşına göre boyun';
+
+  @override
+  String anPctValue(int p) {
+    return 'Yaşıtlarının %$p kadarı senden kısa';
+  }
+
+  @override
+  String get anPctBasis => 'WHO 2007 büyüme referansı, aynı yaş ve cinsiyet';
+
+  @override
+  String get anPctMore => 'Tam karşılaştırma';
+
+  @override
+  String get anNeedsBasis => 'Yaşın, kilon ve antrenmanına göre hesaplandı';
+
+  @override
+  String get anCalcium => 'Kalsiyum';
+
+  @override
+  String get anVitaminD => 'D vitamini';
+
+  @override
+  String get anMovement => 'Hareket';
+
+  @override
+  String get anUnitMin => 'dk';
+
+  @override
+  String get anUnitHours => 'sa';
+
+  @override
+  String get anPerDay => 'günde';
+
+  @override
+  String get anPerNight => 'gecede';
+
+  @override
+  String get anUnlockScoreTitle => 'BeTaller Skorunun tamamı';
+
+  @override
+  String get anUnlockScoreBody =>
+      'Skor, arkasındaki dokuz sinyal ve sıradaki adım.';
+
+  @override
+  String get anUnlockSourcesTitle => 'Santimetrelerin nereden geldiğini gör';
+
+  @override
+  String get anUnlockNeedsTitle => 'Sana göre hesaplanmış günlük ihtiyaçların';
+
+  @override
+  String get anUnlockCta => 'Kilidi aç';
+
+  @override
+  String get anFlowResultTitle => 'Grafiğine kaydedildi';
+
+  @override
+  String get anFlowResultBody =>
+      'Geçmiş boyların artık ölçümlerin ve potansiyelinle aynı eğride.';
+
+  @override
+  String get anFlowOpenAnalysis => 'Analizini aç';
+
+  @override
+  String anTopPct(int p) {
+    return 'İLK %$p';
+  }
+
+  @override
+  String get anNeedsTitle => 'Günlük ihtiyaçların';
 }

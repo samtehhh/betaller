@@ -4664,4 +4664,358 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get guideTip => 'Tipp';
+
+  @override
+  String get anSubtitle => 'Dein Score, was ihn bewegt und wohin du wächst';
+
+  @override
+  String get anScoreLabel => 'BeTaller Score';
+
+  @override
+  String get anTierStarting => 'Start';
+
+  @override
+  String get anTierBuilding => 'Aufbau';
+
+  @override
+  String get anTierRising => 'Aufsteigend';
+
+  @override
+  String get anTierStrong => 'Stark';
+
+  @override
+  String get anTierPeak => 'Gipfel';
+
+  @override
+  String anTrendUp(int n) {
+    return '+$n zur Vorwoche';
+  }
+
+  @override
+  String anTrendDown(int n) {
+    return '-$n zur Vorwoche';
+  }
+
+  @override
+  String get anTrendFlat => 'Wie letzte Woche';
+
+  @override
+  String get anTrendFirst => 'Dein Wochentrend startet nächste Woche';
+
+  @override
+  String anNextTier(int n, String tier) {
+    return 'Noch $n Punkte bis $tier';
+  }
+
+  @override
+  String get anTopTier => 'Höchste Stufe. Bleib dran';
+
+  @override
+  String anCoverage(int n, int total) {
+    return 'Basiert auf $n von $total Signalen';
+  }
+
+  @override
+  String get anNoScoreTitle => 'Noch nicht genug Daten';
+
+  @override
+  String get anNoScoreBody =>
+      'Trag heute Schlaf, etwas Wasser oder ein Training ein, dann erscheint dein erster Score.';
+
+  @override
+  String get anFastestWin => 'Schnellster Gewinn';
+
+  @override
+  String get anBreakdownTitle => 'Woraus dein Score besteht';
+
+  @override
+  String get anBreakdownHint =>
+      'Jedes Signal bekommt 0 bis 100 Punkte aus deinen eigenen Daten. Der Prozentwert zeigt, wie stark es zählt.';
+
+  @override
+  String anWeight(int n) {
+    return '$n %';
+  }
+
+  @override
+  String get anNoData => 'Noch keine Daten';
+
+  @override
+  String get anNotCounted => 'Zählt nicht';
+
+  @override
+  String get anFTraining => 'Training';
+
+  @override
+  String get anFConsistency => 'Beständigkeit';
+
+  @override
+  String get anFSleep => 'Schlaf';
+
+  @override
+  String get anFHydration => 'Trinken';
+
+  @override
+  String get anFNutrition => 'Ernährung';
+
+  @override
+  String get anFPosture => 'Haltung';
+
+  @override
+  String get anFMeasuring => 'Messen';
+
+  @override
+  String get anFGrowth => 'Wachstumstempo';
+
+  @override
+  String get anFHeadroom => 'Wachstumsspielraum';
+
+  @override
+  String anBTraining(int done, int planned) {
+    return '$done von $planned geplanten Trainingstagen in den letzten 7 Tagen';
+  }
+
+  @override
+  String get anBTrainingNone =>
+      'Zählt deine Trainingstage gegen deinen Wochenplan.';
+
+  @override
+  String anBConsistency(int streak, int active, int days) {
+    return 'Serie $streak Tage, an $active von $days Tagen den halben Plan geschafft';
+  }
+
+  @override
+  String get anBConsistencyNone =>
+      'Zählt deine Serie und die Tage, an denen du mindestens den halben Plan schaffst.';
+
+  @override
+  String anBSleep(String hours, String target, int days) {
+    return 'Im Schnitt $hours Std. pro Nacht, Ziel $target Std., $days Nächte eingetragen';
+  }
+
+  @override
+  String get anBSleepNone => 'Kein Schlaf in den letzten 7 Tagen eingetragen.';
+
+  @override
+  String anBHydration(String litres, String target, int days) {
+    return 'Im Schnitt $litres L pro Tag, Ziel $target L, $days Tage eingetragen';
+  }
+
+  @override
+  String get anBHydrationNone =>
+      'Kein Wasser in den letzten 7 Tagen eingetragen.';
+
+  @override
+  String anBNutrition(int done, int planned) {
+    return '$done von $planned Ernährungsgewohnheiten in den letzten 7 Tagen erledigt';
+  }
+
+  @override
+  String get anBNutritionNone =>
+      'Zählt die Protein-, Kalzium-, Zink- und Vitamin-D-Gewohnheiten in deinem Plan.';
+
+  @override
+  String anBPosture(int raw, int days) {
+    return 'Wand-Selbsttest $raw/90, vor $days Tagen';
+  }
+
+  @override
+  String anBPostureToday(int raw) {
+    return 'Wand-Selbsttest $raw/90, heute';
+  }
+
+  @override
+  String get anBPostureNone => 'Noch kein Haltungs-Selbsttest.';
+
+  @override
+  String anBMeasuring(int days) {
+    return 'Zuletzt vor $days Tagen gemessen';
+  }
+
+  @override
+  String get anBMeasuringToday => 'Heute gemessen';
+
+  @override
+  String get anBMeasuringNone => 'Noch keine Messung.';
+
+  @override
+  String anBGrowth(String v, String e) {
+    return '$v cm pro Jahr, typisch in deinem Alter $e cm';
+  }
+
+  @override
+  String get anBGrowthNone =>
+      'Braucht zwei Messungen mit mindestens 30 Tagen Abstand.';
+
+  @override
+  String get anBGrowthAdult =>
+      'Wachstumsfugen schließen sich meist bis 21, deshalb zählt das Wachstumstempo bei dir nicht.';
+
+  @override
+  String anBHeadroom(String cm) {
+    return '$cm zwischen heute und deinem Potenzial';
+  }
+
+  @override
+  String get anATraining => 'Starte das heutige Training';
+
+  @override
+  String get anAConsistency => 'Schaff heute den halben Plan';
+
+  @override
+  String get anASleepLog => 'Trag den Schlaf der letzten Nacht ein';
+
+  @override
+  String anASleep(String target) {
+    return 'Schlaf heute Nacht $target Std.';
+  }
+
+  @override
+  String get anAHydrationLog => 'Trag ein Glas Wasser ein';
+
+  @override
+  String anAHydration(String left) {
+    return 'Trink heute noch $left L';
+  }
+
+  @override
+  String get anAHydrationDone => 'Ziel heute erreicht. Morgen wieder';
+
+  @override
+  String get anANutrition => 'Hak die heutigen Ernährungsgewohnheiten ab';
+
+  @override
+  String get anAPostureFirst => 'Mach den 1-Minuten-Haltungstest';
+
+  @override
+  String get anAPostureRedo => 'Wiederhole den Haltungstest';
+
+  @override
+  String get anAPostureKeep => 'Bleib bei der täglichen Haltungsroutine';
+
+  @override
+  String get anAMeasure => 'Miss jetzt deine Größe';
+
+  @override
+  String get anAMeasureKeep => 'Miss nächste Woche wieder';
+
+  @override
+  String anAGrowthWait(int days) {
+    return 'Miss in $days Tagen wieder';
+  }
+
+  @override
+  String get anAGrowth => 'Miss alle 2 Wochen, um es zu verfolgen';
+
+  @override
+  String get anAHeadroom => 'Sieh dein Potenzial';
+
+  @override
+  String get anPotentialTitle => 'Dein Potenzial';
+
+  @override
+  String get anPotentialLabel => 'Voraussichtliche Erwachsenengröße';
+
+  @override
+  String anPotentialToGo(String cm) {
+    return 'noch +$cm';
+  }
+
+  @override
+  String get anPotentialReached =>
+      'Du hast deine voraussichtliche Größe erreicht';
+
+  @override
+  String get anPotentialNote =>
+      'Überall in der App dieselbe Zahl. Sie geht nur nach oben.';
+
+  @override
+  String anDreamLine(String h) {
+    return 'Dein Ziel: $h';
+  }
+
+  @override
+  String get anSourcesTitle => 'Woher die Zentimeter kommen';
+
+  @override
+  String get anSourcesGenes => 'Gene und Alter';
+
+  @override
+  String get anSourcesHabits => 'Schlaf, Essen, Training';
+
+  @override
+  String get anSourcesPosture => 'Haltung';
+
+  @override
+  String get anPctTitle => 'Größe für dein Alter';
+
+  @override
+  String anPctValue(int p) {
+    return 'Größer als $p % in deinem Alter';
+  }
+
+  @override
+  String get anPctBasis =>
+      'WHO-Wachstumsreferenz 2007, gleiches Alter und Geschlecht';
+
+  @override
+  String get anPctMore => 'Ganzer Vergleich';
+
+  @override
+  String get anNeedsBasis => 'Aus deinem Alter, Gewicht und Training berechnet';
+
+  @override
+  String get anCalcium => 'Kalzium';
+
+  @override
+  String get anVitaminD => 'Vitamin D';
+
+  @override
+  String get anMovement => 'Bewegung';
+
+  @override
+  String get anUnitMin => 'Min.';
+
+  @override
+  String get anUnitHours => 'Std.';
+
+  @override
+  String get anPerDay => 'pro Tag';
+
+  @override
+  String get anPerNight => 'pro Nacht';
+
+  @override
+  String get anUnlockScoreTitle => 'Dein ganzer BeTaller Score';
+
+  @override
+  String get anUnlockScoreBody =>
+      'Der Score, alle neun Signale dahinter und was du als Nächstes tust.';
+
+  @override
+  String get anUnlockSourcesTitle => 'Sieh, woher deine Zentimeter kommen';
+
+  @override
+  String get anUnlockNeedsTitle => 'Dein Tagesbedarf, für dich berechnet';
+
+  @override
+  String get anUnlockCta => 'Freischalten';
+
+  @override
+  String get anFlowResultTitle => 'In deinem Diagramm gespeichert';
+
+  @override
+  String get anFlowResultBody =>
+      'Deine früheren Größen liegen jetzt auf derselben Kurve wie deine Messungen und dein Potenzial.';
+
+  @override
+  String get anFlowOpenAnalysis => 'Öffne deine Analyse';
+
+  @override
+  String anTopPct(int p) {
+    return 'TOP $p %';
+  }
+
+  @override
+  String get anNeedsTitle => 'Dein Tagesbedarf';
 }

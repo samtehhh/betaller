@@ -4617,4 +4617,356 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get guideTip => 'सुझाव';
+
+  @override
+  String get anSubtitle =>
+      'तुम्हारा स्कोर, उसे क्या बढ़ाता है, और तुम किस ओर जा रहे हो';
+
+  @override
+  String get anScoreLabel => 'BeTaller स्कोर';
+
+  @override
+  String get anTierStarting => 'शुरुआत';
+
+  @override
+  String get anTierBuilding => 'बन रहा है';
+
+  @override
+  String get anTierRising => 'ऊपर जा रहा है';
+
+  @override
+  String get anTierStrong => 'मज़बूत';
+
+  @override
+  String get anTierPeak => 'शिखर';
+
+  @override
+  String anTrendUp(int n) {
+    return 'पिछले हफ़्ते से +$n';
+  }
+
+  @override
+  String anTrendDown(int n) {
+    return 'पिछले हफ़्ते से -$n';
+  }
+
+  @override
+  String get anTrendFlat => 'पिछले हफ़्ते जितना';
+
+  @override
+  String get anTrendFirst => 'तुम्हारा साप्ताहिक ट्रेंड अगले हफ़्ते शुरू होगा';
+
+  @override
+  String anNextTier(int n, String tier) {
+    return '$tier तक $n अंक';
+  }
+
+  @override
+  String get anTopTier => 'सबसे ऊँचा स्तर। इसे बनाए रखो';
+
+  @override
+  String anCoverage(int n, int total) {
+    return '$total में से $n संकेतों पर आधारित';
+  }
+
+  @override
+  String get anNoScoreTitle => 'अभी पर्याप्त डेटा नहीं है';
+
+  @override
+  String get anNoScoreBody =>
+      'आज अपनी नींद, थोड़ा पानी या एक वर्कआउट दर्ज करो, तुम्हारा पहला स्कोर दिखेगा।';
+
+  @override
+  String get anFastestWin => 'सबसे तेज़ फ़ायदा';
+
+  @override
+  String get anBreakdownTitle => 'तुम्हारा स्कोर किससे बनता है';
+
+  @override
+  String get anBreakdownHint =>
+      'हर संकेत को तुम्हारे अपने डेटा से 0 से 100 तक अंक मिलते हैं। प्रतिशत बताता है कि वह कितना गिना जाता है।';
+
+  @override
+  String anWeight(int n) {
+    return '$n%';
+  }
+
+  @override
+  String get anNoData => 'अभी कोई डेटा नहीं';
+
+  @override
+  String get anNotCounted => 'गिना नहीं जाता';
+
+  @override
+  String get anFTraining => 'ट्रेनिंग';
+
+  @override
+  String get anFConsistency => 'नियमितता';
+
+  @override
+  String get anFSleep => 'नींद';
+
+  @override
+  String get anFHydration => 'पानी';
+
+  @override
+  String get anFNutrition => 'पोषण';
+
+  @override
+  String get anFPosture => 'पोस्चर';
+
+  @override
+  String get anFMeasuring => 'माप';
+
+  @override
+  String get anFGrowth => 'बढ़ने की रफ़्तार';
+
+  @override
+  String get anFHeadroom => 'बढ़ने की गुंजाइश';
+
+  @override
+  String anBTraining(int done, int planned) {
+    return 'पिछले 7 दिनों में $planned तय ट्रेनिंग दिनों में से $done';
+  }
+
+  @override
+  String get anBTrainingNone =>
+      'तुम्हारे ट्रेनिंग वाले दिनों को साप्ताहिक प्लान से मिलाता है।';
+
+  @override
+  String anBConsistency(int streak, int active, int days) {
+    return '$streak दिन की स्ट्रीक, $days में से $active दिन आधा प्लान पूरा';
+  }
+
+  @override
+  String get anBConsistencyNone =>
+      'तुम्हारी स्ट्रीक और वे दिन गिनता है जब तुम कम से कम आधा प्लान पूरा करते हो।';
+
+  @override
+  String anBSleep(String hours, String target, int days) {
+    return 'औसतन $hours घंटे प्रति रात, लक्ष्य $target घंटे, $days रातें दर्ज';
+  }
+
+  @override
+  String get anBSleepNone => 'पिछले 7 दिनों में कोई नींद दर्ज नहीं।';
+
+  @override
+  String anBHydration(String litres, String target, int days) {
+    return 'औसतन $litres L प्रति दिन, लक्ष्य $target L, $days दिन दर्ज';
+  }
+
+  @override
+  String get anBHydrationNone => 'पिछले 7 दिनों में कोई पानी दर्ज नहीं।';
+
+  @override
+  String anBNutrition(int done, int planned) {
+    return 'पिछले 7 दिनों में $planned पोषण आदतों में से $done पूरी';
+  }
+
+  @override
+  String get anBNutritionNone =>
+      'तुम्हारे प्लान की प्रोटीन, कैल्शियम, ज़िंक और विटामिन D आदतें गिनता है।';
+
+  @override
+  String anBPosture(int raw, int days) {
+    return 'दीवार सेल्फ़-चेक $raw/90, $days दिन पहले';
+  }
+
+  @override
+  String anBPostureToday(int raw) {
+    return 'दीवार सेल्फ़-चेक $raw/90, आज';
+  }
+
+  @override
+  String get anBPostureNone => 'अभी कोई पोस्चर सेल्फ़-चेक नहीं।';
+
+  @override
+  String anBMeasuring(int days) {
+    return 'आख़िरी माप $days दिन पहले';
+  }
+
+  @override
+  String get anBMeasuringToday => 'आज मापा गया';
+
+  @override
+  String get anBMeasuringNone => 'अभी कोई माप नहीं।';
+
+  @override
+  String anBGrowth(String v, String e) {
+    return 'साल में $v cm, तुम्हारी उम्र में आम $e cm';
+  }
+
+  @override
+  String get anBGrowthNone => 'कम से कम 30 दिन के अंतर पर दो माप चाहिए।';
+
+  @override
+  String get anBGrowthAdult =>
+      'ग्रोथ प्लेट आमतौर पर 21 तक बंद हो जाती हैं, इसलिए तुम्हारे लिए बढ़ने की रफ़्तार नहीं गिनी जाती।';
+
+  @override
+  String anBHeadroom(String cm) {
+    return 'आज और तुम्हारी संभावित लंबाई के बीच $cm';
+  }
+
+  @override
+  String get anATraining => 'आज की ट्रेनिंग शुरू करो';
+
+  @override
+  String get anAConsistency => 'आज का आधा प्लान पूरा करो';
+
+  @override
+  String get anASleepLog => 'कल रात की नींद दर्ज करो';
+
+  @override
+  String anASleep(String target) {
+    return 'आज रात $target घंटे सोओ';
+  }
+
+  @override
+  String get anAHydrationLog => 'एक गिलास पानी दर्ज करो';
+
+  @override
+  String anAHydration(String left) {
+    return 'आज $left L और पियो';
+  }
+
+  @override
+  String get anAHydrationDone => 'आज का लक्ष्य पूरा। कल भी ऐसे ही';
+
+  @override
+  String get anANutrition => 'आज की पोषण आदतें पूरी करो';
+
+  @override
+  String get anAPostureFirst => '1 मिनट का पोस्चर सेल्फ़-चेक करो';
+
+  @override
+  String get anAPostureRedo => 'पोस्चर सेल्फ़-चेक दोबारा करो';
+
+  @override
+  String get anAPostureKeep => 'रोज़ की पोस्चर रूटीन जारी रखो';
+
+  @override
+  String get anAMeasure => 'अभी अपनी लंबाई मापो';
+
+  @override
+  String get anAMeasureKeep => 'अगले हफ़्ते फिर मापो';
+
+  @override
+  String anAGrowthWait(int days) {
+    return '$days दिन बाद फिर मापो';
+  }
+
+  @override
+  String get anAGrowth => 'इसे ट्रैक करने के लिए हर 2 हफ़्ते में मापो';
+
+  @override
+  String get anAHeadroom => 'अपनी संभावित लंबाई देखो';
+
+  @override
+  String get anPotentialTitle => 'तुम्हारी संभावित लंबाई';
+
+  @override
+  String get anPotentialLabel => 'अनुमानित वयस्क लंबाई';
+
+  @override
+  String anPotentialToGo(String cm) {
+    return '+$cm बाकी';
+  }
+
+  @override
+  String get anPotentialReached => 'तुम अपनी अनुमानित लंबाई तक पहुँच गए';
+
+  @override
+  String get anPotentialNote =>
+      'पूरे ऐप में यही एक संख्या। यह सिर्फ़ ऊपर जाती है।';
+
+  @override
+  String anDreamLine(String h) {
+    return 'तुम्हारा लक्ष्य: $h';
+  }
+
+  @override
+  String get anSourcesTitle => 'ये सेंटीमीटर कहाँ से आते हैं';
+
+  @override
+  String get anSourcesGenes => 'जीन और उम्र';
+
+  @override
+  String get anSourcesHabits => 'नींद, खाना, ट्रेनिंग';
+
+  @override
+  String get anSourcesPosture => 'पोस्चर';
+
+  @override
+  String get anPctTitle => 'तुम्हारी उम्र के हिसाब से लंबाई';
+
+  @override
+  String anPctValue(int p) {
+    return 'अपनी उम्र के $p% लोगों से लंबे';
+  }
+
+  @override
+  String get anPctBasis => 'WHO 2007 ग्रोथ संदर्भ, समान उम्र और लिंग';
+
+  @override
+  String get anPctMore => 'पूरी तुलना';
+
+  @override
+  String get anNeedsBasis => 'तुम्हारी उम्र, वज़न और ट्रेनिंग से निकाला गया';
+
+  @override
+  String get anCalcium => 'कैल्शियम';
+
+  @override
+  String get anVitaminD => 'विटामिन D';
+
+  @override
+  String get anMovement => 'गतिविधि';
+
+  @override
+  String get anUnitMin => 'मिनट';
+
+  @override
+  String get anUnitHours => 'घंटे';
+
+  @override
+  String get anPerDay => 'प्रति दिन';
+
+  @override
+  String get anPerNight => 'प्रति रात';
+
+  @override
+  String get anUnlockScoreTitle => 'तुम्हारा पूरा BeTaller स्कोर';
+
+  @override
+  String get anUnlockScoreBody =>
+      'स्कोर, उसके पीछे के नौ संकेत और आगे क्या करना है।';
+
+  @override
+  String get anUnlockSourcesTitle => 'देखो तुम्हारे सेंटीमीटर कहाँ से आते हैं';
+
+  @override
+  String get anUnlockNeedsTitle =>
+      'तुम्हारी रोज़ की ज़रूरतें, तुम्हारे लिए निकाली गईं';
+
+  @override
+  String get anUnlockCta => 'अनलॉक करो';
+
+  @override
+  String get anFlowResultTitle => 'तुम्हारे चार्ट में सेव हो गया';
+
+  @override
+  String get anFlowResultBody =>
+      'तुम्हारी पुरानी लंबाइयाँ अब तुम्हारे माप और संभावित लंबाई वाली उसी कर्व पर हैं।';
+
+  @override
+  String get anFlowOpenAnalysis => 'अपना विश्लेषण खोलो';
+
+  @override
+  String anTopPct(int p) {
+    return 'टॉप $p%';
+  }
+
+  @override
+  String get anNeedsTitle => 'तुम्हारी रोज़ की ज़रूरतें';
 }
