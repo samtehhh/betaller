@@ -383,105 +383,195 @@ class AppProvider extends ChangeNotifier {
   int get earnedAchievementCount =>
       unlockedAchievements.where((a) => a['earned'] == true).length;
 
+  /// The schema this build writes. Bump it, and add a step to [_migrate],
+  /// whenever the stored shape changes. Old builds ignore the field.
+  static const int schemaVersion = 3;
+
+  /// Everything last read from or written to the blob, including keys this
+  /// build does not know. Saving starts from it, so a field an older or
+  /// newer build wrote is carried along instead of silently dropped.
+  Map<String, dynamic> _rawBlob = {};
+
+  /// Runs [read], or logs and falls back. One unreadable field must cost
+  /// that field, never the whole launch: loadData runs before runApp, so a
+  /// throw here is an app that never opens and a user who reinstalls.
+  T _safe<T>(String field, T Function() read, T fallback) {
+    try {
+      return read();
+    } catch (e) {
+      debugPrint('AppProvider.loadData: skipped unreadable "$field": $e');
+      return fallback;
+    }
+  }
+
   Future<void> loadData() async {
     final prefs = await SharedPreferences.getInstance();
     _demoDataActive = prefs.containsKey(_demoBackupKey);
     final data = prefs.getString('glowup_app_data');
 
+    Map<String, dynamic>? decoded;
     if (data != null) {
-      final json = jsonDecode(data) as Map<String, dynamic>;
+      try {
+        decoded = Map<String, dynamic>.from(jsonDecode(data) as Map);
+      } catch (e) {
+        // Keep the unreadable original before anything can overwrite it.
+        debugPrint('AppProvider.loadData: blob unreadable, backed up: $e');
+        if (!prefs.containsKey('glowup_app_data_corrupt')) {
+          await prefs.setString('glowup_app_data_corrupt', data);
+        }
+      }
+    }
+
+    if (decoded != null) {
+      final sv = decoded['schemaVersion'];
+      final stored = sv is num ? sv.toInt() : 2;
+      if (stored < schemaVersion) {
+        // One untouched copy of what the previous version left behind.
+        final backupKey = 'glowup_app_data_backup_v$stored';
+        if (!prefs.containsKey(backupKey)) {
+          await prefs.setString(backupKey, data!);
+        }
+      }
+      final json = await _migrate(decoded);
+      _rawBlob = json;
 
       if (json['profile'] != null) {
-        _profile = UserProfile.fromJson(json['profile']);
-      }
-
-      _heightRecords = (json['heightRecords'] as List? ?? [])
-          .map((e) => HeightRecord.fromJson(e as Map<String, dynamic>))
-          .toList();
-
-      _streak = json['streak'] ?? 0;
-      _bestStreak = json['bestStreak'] ?? 0;
-      _lastRoutineDate = json['lastRoutineDate'] ?? '';
-      _lastAllCompletedDate = json['lastAllCompletedDate'] ?? '';
-      _completedRoutineIds = List<String>.from(
-        json['completedRoutineIds'] ?? [],
-      );
-      _hiddenRoutineIds = Set<String>.from(json['hiddenRoutineIds'] ?? []);
-      _todayWater = (json['todayWater'] ?? 0).toDouble();
-      _todaySleep = (json['todaySleep'] ?? 0).toDouble();
-      _analysisCompleted = json['analysisCompleted'] ?? false;
-      _isPremium = json['isPremium'] ?? false;
-      _useImperial = json['useImperial'] ?? false;
-      if (json['pastHeights'] != null) {
-        _pastHeights = (json['pastHeights'] as Map<String, dynamic>).map(
-          (k, v) => MapEntry(int.parse(k), (v as num).toDouble()),
+        _profile = _safe(
+          'profile',
+          () => UserProfile.fromJson(
+            Map<String, dynamic>.from(json['profile'] as Map),
+          ),
+          null,
         );
       }
 
-      final lastWaterDate = json['lastWaterDate'] ?? '';
-      final lastSleepDate = json['lastSleepDate'] ?? '';
-      if (lastWaterDate != _today) _todayWater = 0;
-      if (lastSleepDate != _today) _todaySleep = 0;
+      // Record by record: one bad entry drops that entry, not the history.
+      _heightRecords = (json['heightRecords'] as List? ?? const [])
+          .map(
+            (e) => _safe<HeightRecord?>(
+              'heightRecord',
+              () => HeightRecord.fromJson(Map<String, dynamic>.from(e as Map)),
+              null,
+            ),
+          )
+          .whereType<HeightRecord>()
+          .toList();
 
-      final savedLocale = json['locale'] as String?;
-      if (savedLocale != null && savedLocale.isNotEmpty) {
-        _locale = Locale(savedLocale);
+      int asInt(Object? v, [int d = 0]) => v is num ? v.toInt() : d;
+      double asDouble(Object? v) => v is num ? v.toDouble() : 0;
+      String asStr(Object? v) => v is String ? v : '';
+      bool asBool(Object? v) => v is bool ? v : false;
+      List<Map<String, dynamic>> maps(String k) => _safe(
+        k,
+        () => [
+          for (final e in (json[k] as List? ?? const []))
+            if (e is Map) Map<String, dynamic>.from(e),
+        ],
+        <Map<String, dynamic>>[],
+      );
+      Map<String, int> intMap(String k) => _safe(
+        k,
+        () => ((json[k] as Map?) ?? const {}).map(
+          (key, v) => MapEntry(key.toString(), (v as num).toInt()),
+        ),
+        <String, int>{},
+      );
+
+      _streak = asInt(json['streak']);
+      _bestStreak = asInt(json['bestStreak']);
+      _lastRoutineDate = asStr(json['lastRoutineDate']);
+      _lastAllCompletedDate = asStr(json['lastAllCompletedDate']);
+      _completedRoutineIds = _safe(
+        'completedRoutineIds',
+        () => List<String>.from(json['completedRoutineIds'] ?? const []),
+        <String>[],
+      );
+      _hiddenRoutineIds = _safe(
+        'hiddenRoutineIds',
+        () => Set<String>.from(json['hiddenRoutineIds'] ?? const []),
+        <String>{},
+      );
+      _todayWater = asDouble(json['todayWater']);
+      _todaySleep = asDouble(json['todaySleep']);
+      _analysisCompleted = asBool(json['analysisCompleted']);
+      _isPremium = asBool(json['isPremium']);
+      _useImperial = asBool(json['useImperial']);
+      if (json['pastHeights'] != null) {
+        _pastHeights = _safe(
+          'pastHeights',
+          () => (json['pastHeights'] as Map).map(
+            (k, v) => MapEntry(int.parse(k.toString()), (v as num).toDouble()),
+          ),
+          _pastHeights,
+        );
       }
+
+      if (asStr(json['lastWaterDate']) != _today) _todayWater = 0;
+      if (asStr(json['lastSleepDate']) != _today) _todaySleep = 0;
+
+      final savedLocale = asStr(json['locale']);
+      if (savedLocale.isNotEmpty) _locale = Locale(savedLocale);
 
       // Load gamification data
-      _totalXP = json['totalXP'] ?? 0;
-      _activeChallenges = (json['activeChallenges'] as List? ?? [])
-          .map((e) => Map<String, dynamic>.from(e as Map))
-          .toList();
-      _lastChallengeDate = json['lastChallengeDate'] ?? '';
-      _dailyChallengeProgress =
-          (json['dailyChallengeProgress'] as Map<String, dynamic>? ?? {}).map(
-            (k, v) => MapEntry(k, (v as num).toInt()),
-          );
+      _totalXP = asInt(json['totalXP']);
+      _activeChallenges = maps('activeChallenges');
+      _lastChallengeDate = asStr(json['lastChallengeDate']);
+      _dailyChallengeProgress = intMap('dailyChallengeProgress');
 
       // v5 features
-      _progressPhotos = ((json['progressPhotos'] as List?) ?? [])
-          .map((e) => Map<String, dynamic>.from(e as Map))
-          .toList();
-      _postureAnalyses = ((json['postureAnalyses'] as List?) ?? [])
-          .map((e) => Map<String, dynamic>.from(e as Map))
-          .toList();
-      _customRoutines = ((json['customRoutines'] as List?) ?? [])
-          .map((e) => Map<String, dynamic>.from(e as Map))
-          .toList();
-      _caffeineByDate = ((json['caffeineByDate'] as Map?) ?? {}).map(
-        (k, v) => MapEntry(k.toString(), (v as num).toInt()),
-      );
-      _stressByDate = ((json['stressByDate'] as Map?) ?? {}).map(
-        (k, v) => MapEntry(k.toString(), (v as num).toInt()),
-      );
-      _journalByDate = ((json['journalByDate'] as Map?) ?? {}).map(
-        (k, v) => MapEntry(k.toString(), Map<String, dynamic>.from(v as Map)),
-      );
-      _completedProgramDays = Set<int>.from(
-        (json['completedProgramDays'] as List? ?? []).map(
-          (e) => (e as num).toInt(),
+      _progressPhotos = _withLivePaths(maps('progressPhotos'));
+      _postureAnalyses = _withLivePaths(maps('postureAnalyses'));
+      _customRoutines = maps('customRoutines');
+      _caffeineByDate = intMap('caffeineByDate');
+      _stressByDate = intMap('stressByDate');
+      _journalByDate = _safe(
+        'journalByDate',
+        () => ((json['journalByDate'] as Map?) ?? const {}).map(
+          (k, v) => MapEntry(k.toString(), Map<String, dynamic>.from(v as Map)),
         ),
+        <String, Map<String, dynamic>>{},
       );
-      _reviewShownOnce = json['reviewShownOnce'] ?? false;
-      _lastAutoPaywallDate = json['lastAutoPaywallDate'] as String?;
+      _completedProgramDays = _safe(
+        'completedProgramDays',
+        () => Set<int>.from(
+          (json['completedProgramDays'] as List? ?? const []).map(
+            (e) => (e as num).toInt(),
+          ),
+        ),
+        <int>{},
+      );
+      _reviewShownOnce = asBool(json['reviewShownOnce']);
+      _lastAutoPaywallDate = json['lastAutoPaywallDate'] is String
+          ? json['lastAutoPaywallDate'] as String
+          : null;
       // Anyone who already answered the questionnaire has step one behind
       // them, even if they installed before the journey existed.
-      _announcedAchievements = Set<String>.from(
-        (json['announcedAchievements'] as List?) ?? const [],
+      _announcedAchievements = _safe(
+        'announcedAchievements',
+        () => Set<String>.from(
+          (json['announcedAchievements'] as List?) ?? const [],
+        ),
+        <String>{},
       );
-      final storedReminders = (json['reminders'] as List?) ?? [];
-      if (storedReminders.isNotEmpty) {
-        _reminders = storedReminders
-            .map((e) => Reminder.fromJson(Map<String, dynamic>.from(e as Map)))
-            .toList();
-      }
-      _routineHistory = ((json['routineHistory'] as Map?) ?? {}).map(
-        (k, v) => MapEntry(k.toString(), List<String>.from(v as List)),
+      final storedReminders = maps('reminders')
+          .map(
+            (e) =>
+                _safe<Reminder?>('reminder', () => Reminder.fromJson(e), null),
+          )
+          .whereType<Reminder>()
+          .toList();
+      if (storedReminders.isNotEmpty) _reminders = storedReminders;
+      _routineHistory = _safe(
+        'routineHistory',
+        () => ((json['routineHistory'] as Map?) ?? const {}).map(
+          (k, v) => MapEntry(k.toString(), List<String>.from(v as List)),
+        ),
+        <String, List<String>>{},
       );
-      _journeyProgress =
-          (json['journeyProgress'] as num?)?.toInt() ??
-          (_profile != null ? 1 : 0);
+      _journeyProgress = asInt(
+        json['journeyProgress'],
+        _profile != null ? 1 : 0,
+      );
     }
 
     _initRoutines();
@@ -526,14 +616,22 @@ class AppProvider extends ChangeNotifier {
 
   void _initRoutines() {
     final allRoutineMaps = [...defaultRoutines, ..._customRoutines];
-    _routines = allRoutineMaps.map((r) {
-      final routine = Routine.fromJson(r);
-      if (_lastRoutineDate == _today &&
-          _completedRoutineIds.contains(routine.id)) {
-        routine.completed = true;
-      }
-      return routine;
-    }).toList();
+    _routines = allRoutineMaps
+        .where(
+          (r) => _safe('routine', () {
+            Routine.fromJson(r);
+            return true;
+          }, false),
+        )
+        .map((r) {
+          final routine = Routine.fromJson(r);
+          if (_lastRoutineDate == _today &&
+              _completedRoutineIds.contains(routine.id)) {
+            routine.completed = true;
+          }
+          return routine;
+        })
+        .toList();
   }
 
   void _checkDailyReset() {
@@ -598,7 +696,53 @@ class AppProvider extends ChangeNotifier {
       'routineHistory': _routineHistory,
       'journeyProgress': _journeyProgress,
     };
-    await prefs.setString('glowup_app_data', jsonEncode(data));
+    // Start from what was stored, so keys this build does not write survive.
+    final out = <String, dynamic>{
+      ..._rawBlob,
+      ...data,
+      'schemaVersion': schemaVersion,
+    };
+    _rawBlob = out;
+    await prefs.setString('glowup_app_data', jsonEncode(out));
+  }
+
+  /// Brings an older blob up to [schemaVersion]. Only ever adds: no field is
+  /// renamed or removed, so a user who goes back to an older build still
+  /// finds everything. Must stay idempotent.
+  Future<Map<String, dynamic>> _migrate(Map<String, dynamic> json) async {
+    try {
+      _docsPath = (await getApplicationDocumentsDirectory()).path;
+    } catch (_) {
+      _docsPath = null; // tests, or a platform without the plugin
+    }
+    return Map<String, dynamic>.from(json);
+  }
+
+  /// The app's Documents folder for this launch. iOS may move the app's
+  /// container on update or restore, so stored absolute paths go stale while
+  /// the files themselves are still there.
+  String? _docsPath;
+
+  /// "progress_photos/photo_1.jpg" from an absolute path under Documents.
+  static String? relFromAbsolute(String path) {
+    final i = path.indexOf('/Documents/');
+    return i == -1 ? null : path.substring(i + '/Documents/'.length);
+  }
+
+  /// Re-points photo records at this launch's Documents folder, keeping the
+  /// relative path alongside so it survives the next container move.
+  List<Map<String, dynamic>> _withLivePaths(List<Map<String, dynamic>> items) {
+    final docs = _docsPath;
+    if (docs == null) return items;
+    for (final m in items) {
+      final rel =
+          m['relPath'] as String? ??
+          relFromAbsolute(m['path'] as String? ?? '');
+      if (rel == null) continue;
+      m['relPath'] = rel;
+      m['path'] = '$docs/$rel';
+    }
+    return items;
   }
 
   void setProfile(UserProfile profile) {
@@ -1218,6 +1362,7 @@ class AppProvider extends ChangeNotifier {
     _completedProgramDays = {};
     _hiddenRoutineIds = {};
 
+    _rawBlob = {};
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('glowup_app_data');
 
