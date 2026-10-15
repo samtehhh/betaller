@@ -121,7 +121,7 @@ class _Scene extends StatelessWidget {
     final cx = w * 0.40;
     // Both figures share today's width: the potential self is the same
     // person, only taller.
-    final bodyWidth = (ground - nowHead) * 0.27;
+    final bodyWidth = (ground - nowHead) * 0.29;
 
     final gap = finalPotential - current;
     final labelX = cx + bodyWidth * 0.62 + 10;
@@ -393,19 +393,19 @@ class _BodyPainter extends CustomPainter {
   // Right half of each outline on a unit box: x from the centre line (0)
   // outwards, y from the top of the head (0) to the soles (1).
   static const _maleBody = [
-    Offset(0.11, 0.118), Offset(0.14, 0.142), Offset(0.32, 0.160),
-    Offset(0.58, 0.172), Offset(0.80, 0.188), Offset(0.91, 0.218),
-    Offset(0.94, 0.262), Offset(0.93, 0.322), Offset(0.94, 0.392),
-    Offset(0.95, 0.452), Offset(0.96, 0.505), Offset(0.97, 0.542),
-    Offset(0.93, 0.572), Offset(0.87, 0.562), Offset(0.85, 0.507),
-    Offset(0.83, 0.442), Offset(0.80, 0.362), Offset(0.77, 0.292),
-    Offset(0.74, 0.258), Offset(0.71, 0.302), Offset(0.65, 0.362),
-    Offset(0.59, 0.420), Offset(0.61, 0.470), Offset(0.59, 0.540),
-    Offset(0.54, 0.622), Offset(0.49, 0.702), Offset(0.48, 0.762),
-    Offset(0.45, 0.862), Offset(0.39, 0.945), Offset(0.43, 0.985),
-    Offset(0.34, 1.000), Offset(0.21, 0.998), Offset(0.20, 0.960),
-    Offset(0.18, 0.880), Offset(0.17, 0.780), Offset(0.15, 0.700),
-    Offset(0.12, 0.600), Offset(0.04, 0.522),
+    Offset(0.11, 0.118), Offset(0.15, 0.142), Offset(0.34, 0.160),
+    Offset(0.60, 0.172), Offset(0.82, 0.188), Offset(0.94, 0.214),
+    Offset(1.00, 0.262), Offset(1.02, 0.330), Offset(1.02, 0.400),
+    Offset(1.01, 0.458), Offset(1.00, 0.508), Offset(1.00, 0.546),
+    Offset(0.95, 0.580), Offset(0.85, 0.572), Offset(0.81, 0.518),
+    Offset(0.79, 0.458), Offset(0.76, 0.398), Offset(0.73, 0.332),
+    Offset(0.70, 0.282), Offset(0.67, 0.262), Offset(0.65, 0.302),
+    Offset(0.61, 0.362), Offset(0.58, 0.420), Offset(0.61, 0.470),
+    Offset(0.60, 0.540), Offset(0.56, 0.622), Offset(0.51, 0.702),
+    Offset(0.50, 0.762), Offset(0.47, 0.862), Offset(0.40, 0.945),
+    Offset(0.44, 0.985), Offset(0.35, 1.000), Offset(0.21, 0.998),
+    Offset(0.20, 0.960), Offset(0.18, 0.880), Offset(0.17, 0.780),
+    Offset(0.15, 0.700), Offset(0.12, 0.600), Offset(0.04, 0.522),
   ];
   static const _maleHead = [
     Offset(0.00, 0.000), Offset(0.09, 0.003), Offset(0.155, 0.022),
@@ -413,15 +413,15 @@ class _BodyPainter extends CustomPainter {
     Offset(0.07, 0.117), Offset(0.00, 0.121),
   ];
   static const _femaleBody = [
-    Offset(0.11, 0.122), Offset(0.32, 0.166), Offset(0.56, 0.180),
-    Offset(0.72, 0.198), Offset(0.79, 0.232), Offset(0.80, 0.302),
-    Offset(0.81, 0.382), Offset(0.83, 0.452), Offset(0.86, 0.507),
-    Offset(0.87, 0.542), Offset(0.82, 0.564), Offset(0.76, 0.537),
-    Offset(0.73, 0.472), Offset(0.69, 0.392), Offset(0.65, 0.302),
-    Offset(0.61, 0.258), Offset(0.57, 0.312), Offset(0.50, 0.382),
-    Offset(0.58, 0.452), Offset(0.63, 0.502), Offset(0.61, 0.582),
-    Offset(0.54, 0.682), Offset(0.50, 0.782), Offset(0.43, 0.902),
-    Offset(0.37, 0.955), Offset(0.41, 0.990), Offset(0.29, 1.000),
+    Offset(0.11, 0.122), Offset(0.32, 0.166), Offset(0.57, 0.180),
+    Offset(0.74, 0.198), Offset(0.84, 0.232), Offset(0.87, 0.300),
+    Offset(0.88, 0.380), Offset(0.89, 0.450), Offset(0.91, 0.505),
+    Offset(0.91, 0.545), Offset(0.85, 0.572), Offset(0.77, 0.548),
+    Offset(0.73, 0.482), Offset(0.69, 0.400), Offset(0.65, 0.320),
+    Offset(0.61, 0.262), Offset(0.57, 0.312), Offset(0.51, 0.382),
+    Offset(0.59, 0.452), Offset(0.64, 0.502), Offset(0.62, 0.582),
+    Offset(0.55, 0.682), Offset(0.51, 0.782), Offset(0.44, 0.902),
+    Offset(0.38, 0.955), Offset(0.42, 0.990), Offset(0.30, 1.000),
     Offset(0.20, 0.990), Offset(0.20, 0.940), Offset(0.18, 0.850),
     Offset(0.17, 0.760), Offset(0.15, 0.682), Offset(0.10, 0.582),
     Offset(0.03, 0.517),
