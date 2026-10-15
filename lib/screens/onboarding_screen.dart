@@ -307,6 +307,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       NotificationService().scheduleReminders(
         p.reminders,
         AppLocalizations.of(context)!,
+        context: p.reminderContext,
       ),
     );
   }

@@ -1607,5 +1607,19 @@
   "planPreviewTitle": "Dein Plan ist fertig",
   "planPreviewTraining": "{days} Trainingstage pro Woche, aufs Wachstum ausgelegt",
   "planPreviewProtein": "{grams} g Protein am Tag, auf deine Mahlzeiten verteilt",
-  "planPreviewSleep": "{hours} Stunden Schlaf, mit Schlafenszeit-Erinnerung"
+  "planPreviewSleep": "{hours} Stunden Schlaf, mit Schlafenszeit-Erinnerung",
+  "nTrainTitle": "Heute: {plan} · {minutes} Min",
+  "nRestTitle": "Heute ist Ruhetag",
+  "nRestBody": "Zehn Minuten Dehnen reichen. Erholung gehört zum Plan.",
+  "nProteinTitle": "Dein Proteinziel heute: {grams} g",
+  "nProteinBody": "Etwa {grams} g pro Mahlzeit: Eier, Joghurt, Hähnchen, Linsen.",
+  "nWaterTitle": "Wasserziel: {liters} L",
+  "nWaterBody": "Ein Glas jetzt, und du bleibst heute im Plan.",
+  "nSleepTitle": "Zeit, runterzufahren",
+  "nSleepBody": "Dein Ziel: {hours} Stunden. Bildschirm weg, Licht runter.",
+  "nMeasureBody": "Dein Potenzial: {potential}. Miss morgens und sieh, wie sich dein Diagramm bewegt.",
+  "nTrialDay1Title": "Dein Plan wartet",
+  "nTrialDay1Body": "Heute: {plan}, {minutes} Min. Trag deine Größe ein, damit dein Diagramm startet.",
+  "nTrialEndTitle": "Dein Gratis-Test endet morgen",
+  "nTrialEndBody": "Danach geht es für {price} weiter. Plan und Fortschritt bleiben so oder so gespeichert."
 }

@@ -4546,4 +4546,63 @@ class AppLocalizationsHi extends AppLocalizations {
   String planPreviewSleep(String hours) {
     return '$hours घंटे नींद, सोने के रिमाइंडर के साथ';
   }
+
+  @override
+  String nTrainTitle(String plan, int minutes) {
+    return 'आज: $plan · $minutes मिनट';
+  }
+
+  @override
+  String get nRestTitle => 'आज आराम का दिन';
+
+  @override
+  String get nRestBody =>
+      'दस मिनट स्ट्रेचिंग काफी है। रिकवरी भी प्लान का हिस्सा है।';
+
+  @override
+  String nProteinTitle(int grams) {
+    return 'आज का प्रोटीन लक्ष्य: $grams g';
+  }
+
+  @override
+  String nProteinBody(int grams) {
+    return 'हर भोजन में लगभग $grams g: अंडे, दही, चिकन, दाल।';
+  }
+
+  @override
+  String nWaterTitle(String liters) {
+    return 'पानी का लक्ष्य: $liters L';
+  }
+
+  @override
+  String get nWaterBody => 'अभी एक गिलास पिएँ, आज के लक्ष्य पर बने रहें।';
+
+  @override
+  String get nSleepTitle => 'सोने का समय';
+
+  @override
+  String nSleepBody(String hours) {
+    return 'आपका लक्ष्य $hours घंटे है। स्क्रीन बंद, रोशनी कम।';
+  }
+
+  @override
+  String nMeasureBody(String potential) {
+    return 'आपकी संभावित लंबाई: $potential। सुबह मापें और चार्ट बढ़ता देखें।';
+  }
+
+  @override
+  String get nTrialDay1Title => 'आपका प्लान इंतज़ार कर रहा है';
+
+  @override
+  String nTrialDay1Body(String plan, int minutes) {
+    return 'आज: $plan, $minutes मिनट। अपनी लंबाई दर्ज करें ताकि चार्ट शुरू हो।';
+  }
+
+  @override
+  String get nTrialEndTitle => 'आपका फ्री ट्रायल कल खत्म होगा';
+
+  @override
+  String nTrialEndBody(String price) {
+    return 'इसके बाद $price पर जारी रहेगा। आपका प्लान और प्रगति दोनों सेव रहेंगे।';
+  }
 }

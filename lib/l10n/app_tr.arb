@@ -1458,5 +1458,19 @@
   "planPreviewTitle": "Planın hazır",
   "planPreviewTraining": "Haftada {days} gün, büyümeye göre antrenman",
   "planPreviewProtein": "Günde {grams} g protein, öğünlerine bölünmüş",
-  "planPreviewSleep": "{hours} saat uyku, yatma saati hatırlatmasıyla"
+  "planPreviewSleep": "{hours} saat uyku, yatma saati hatırlatmasıyla",
+  "nTrainTitle": "Bugün: {plan} · {minutes} dk",
+  "nRestTitle": "Bugün dinlenme günü",
+  "nRestBody": "10 dakika esneme yeter. Toparlanmak da planın parçası.",
+  "nProteinTitle": "Bugünkü protein hedefin: {grams} g",
+  "nProteinBody": "Öğün başına yaklaşık {grams} g: yumurta, yoğurt, tavuk, mercimek.",
+  "nWaterTitle": "Su hedefin: {liters} L",
+  "nWaterBody": "Şimdi bir bardak iç, bugünün hedefinde kal.",
+  "nSleepTitle": "Yatma vakti",
+  "nSleepBody": "Hedefin {hours} saat uyku. Ekranı bırak, ışığı kıs.",
+  "nMeasureBody": "Potansiyelin: {potential}. Sabah ölç, grafiğin ilerlesin.",
+  "nTrialDay1Title": "Planın seni bekliyor",
+  "nTrialDay1Body": "Bugün: {plan}, {minutes} dk. Boyunu gir, grafiğin başlasın.",
+  "nTrialEndTitle": "Ücretsiz denemen yarın bitiyor",
+  "nTrialEndBody": "Sonra {price} ile devam eder. Planın ve ilerlemen her durumda kayıtlı kalır."
 }

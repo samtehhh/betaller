@@ -1607,5 +1607,19 @@
   "planPreviewTitle": "Il tuo piano è pronto",
   "planPreviewTraining": "{days} giorni di allenamento a settimana, pensati per crescere",
   "planPreviewProtein": "{grams} g di proteine al giorno, divisi nei pasti",
-  "planPreviewSleep": "{hours} ore di sonno, con promemoria per andare a letto"
+  "planPreviewSleep": "{hours} ore di sonno, con promemoria per andare a letto",
+  "nTrainTitle": "Oggi: {plan} · {minutes} min",
+  "nRestTitle": "Oggi giorno di riposo",
+  "nRestBody": "Bastano dieci minuti di stretching. Il recupero fa parte del piano.",
+  "nProteinTitle": "Obiettivo proteine di oggi: {grams} g",
+  "nProteinBody": "Circa {grams} g a pasto: uova, yogurt, pollo, lenticchie.",
+  "nWaterTitle": "Obiettivo acqua: {liters} L",
+  "nWaterBody": "Un bicchiere adesso e resti in linea con oggi.",
+  "nSleepTitle": "È ora di andare a letto",
+  "nSleepBody": "Obiettivo: {hours} ore. Schermi spenti, luci basse.",
+  "nMeasureBody": "Il tuo potenziale: {potential}. Misurati al mattino e guarda il grafico avanzare.",
+  "nTrialDay1Title": "Il tuo piano ti aspetta",
+  "nTrialDay1Body": "Oggi: {plan}, {minutes} min. Registra l'altezza per far partire il grafico.",
+  "nTrialEndTitle": "La tua prova gratuita finisce domani",
+  "nTrialEndBody": "Poi continua a {price}. Piano e progressi restano comunque salvati."
 }

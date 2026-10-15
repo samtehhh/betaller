@@ -4572,4 +4572,63 @@ class AppLocalizationsEn extends AppLocalizations {
   String planPreviewSleep(String hours) {
     return '$hours hours of sleep, with a bedtime reminder';
   }
+
+  @override
+  String nTrainTitle(String plan, int minutes) {
+    return 'Today: $plan · $minutes min';
+  }
+
+  @override
+  String get nRestTitle => 'Rest day today';
+
+  @override
+  String get nRestBody =>
+      'Ten minutes of stretching is enough. Recovery is part of the plan.';
+
+  @override
+  String nProteinTitle(int grams) {
+    return 'Today\'s protein goal: $grams g';
+  }
+
+  @override
+  String nProteinBody(int grams) {
+    return 'About $grams g per meal: eggs, yogurt, chicken, lentils.';
+  }
+
+  @override
+  String nWaterTitle(String liters) {
+    return 'Water goal: $liters L';
+  }
+
+  @override
+  String get nWaterBody => 'One glass now keeps you on track for today.';
+
+  @override
+  String get nSleepTitle => 'Time to wind down';
+
+  @override
+  String nSleepBody(String hours) {
+    return 'Your goal is $hours hours. Screens off, lights low.';
+  }
+
+  @override
+  String nMeasureBody(String potential) {
+    return 'Your potential: $potential. Measure in the morning and watch your chart move.';
+  }
+
+  @override
+  String get nTrialDay1Title => 'Your plan is waiting';
+
+  @override
+  String nTrialDay1Body(String plan, int minutes) {
+    return 'Today: $plan, $minutes min. Log your height so your chart starts.';
+  }
+
+  @override
+  String get nTrialEndTitle => 'Your free trial ends tomorrow';
+
+  @override
+  String nTrialEndBody(String price) {
+    return 'Then it continues at $price. Your plan and progress stay saved either way.';
+  }
 }

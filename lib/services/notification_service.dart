@@ -4,8 +4,28 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz_data;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:flutter/foundation.dart';
+
 import '../l10n/app_localizations.dart';
 import '../models/reminder.dart';
+import '../models/user_profile.dart';
+import '../utils/daily_targets.dart';
+import '../utils/localized_data.dart';
+
+/// What the reminders can say about this particular user. Built by the
+/// caller from the provider, so the copy carries real numbers ("81 g of
+/// protein today", "Strength, 30 min") instead of the same line every day.
+class ReminderContext {
+  final UserProfile profile;
+  final String weeklyWorkout;
+  final String potential; // already formatted in the user's unit
+
+  const ReminderContext({
+    required this.profile,
+    required this.weeklyWorkout,
+    required this.potential,
+  });
+}
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._();
@@ -39,7 +59,26 @@ class NotificationService {
 
     await _plugin.initialize(
       settings: const InitializationSettings(android: androidSettings, iOS: iosSettings),
+      // A tap opens the screen the notification is about, not just the app.
+      onDidReceiveNotificationResponse: (r) => tappedPayload.value = r.payload,
     );
+    final launch = await _plugin.getNotificationAppLaunchDetails();
+    if (launch?.didNotificationLaunchApp ?? false) {
+      tappedPayload.value = launch!.notificationResponse?.payload;
+    }
+  }
+
+  /// The payload of the notification the user last tapped ("tab:1"), for
+  /// the main screen to act on.
+  static final ValueNotifier<String?> tappedPayload = ValueNotifier(null);
+
+  /// Ids 5000-5999 belong to the user's reminders; trial and streak notices
+  /// use their own ranges and survive a reminder reschedule.
+  Future<void> _cancelReminderIds() async {
+    final pending = await _plugin.pendingNotificationRequests();
+    for (final p in pending) {
+      if (p.id >= 5000 && p.id < 6000) await _plugin.cancel(id: p.id);
+    }
   }
 
   Future<bool> requestPermission() async {
@@ -68,9 +107,10 @@ class NotificationService {
   /// can be rescheduled without leaving its old firings behind.
   Future<void> scheduleReminders(
     List<Reminder> reminders,
-    AppLocalizations l,
-  ) async {
-    await cancelAll();
+    AppLocalizations l, {
+    ReminderContext? context,
+  }) async {
+    await _cancelReminderIds();
     if (!await isEnabled()) return;
 
     for (var i = 0; i < reminders.length; i++) {
@@ -79,6 +119,26 @@ class NotificationService {
 
       final copy = _copyFor(r, l);
       final base = 5000 + i * 10;
+
+      // With a profile, daily reminders become seven weekly ones, each
+      // saying what that weekday actually holds.
+      if (r.isDaily && context != null && _personal(r.category)) {
+        for (var day = DateTime.monday; day <= DateTime.sunday; day++) {
+          final c = _personalCopy(r.category, day, context, l);
+          _scheduleWeekly(
+            id: base + day,
+            weekday: day,
+            hour: r.hour,
+            minute: r.minute,
+            title: c.$1,
+            body: c.$2,
+            channel: r.category,
+            channelName: copy.$1,
+            payload: _payloadFor(r.category),
+          );
+        }
+        continue;
+      }
 
       if (r.isDaily) {
         _scheduleDaily(
@@ -89,6 +149,7 @@ class NotificationService {
           body: copy.$2,
           channel: r.category,
           channelName: copy.$1,
+          payload: _payloadFor(r.category),
         );
       } else {
         for (final day in r.weekdays) {
@@ -98,13 +159,129 @@ class NotificationService {
             hour: r.hour,
             minute: r.minute,
             title: copy.$1,
-            body: copy.$2,
+            body: r.category == 'measurement' && context != null
+                ? l.nMeasureBody(context.potential)
+                : copy.$2,
             channel: r.category,
             channelName: copy.$1,
+            payload: _payloadFor(r.category),
           );
         }
       }
     }
+  }
+
+  static bool _personal(String category) => const {
+        'exercise',
+        'nutrition',
+        'water',
+        'sleep',
+      }.contains(category);
+
+  static String _payloadFor(String category) => switch (category) {
+        'exercise' || 'routine' || 'posture' => 'tab:1',
+        'measurement' => 'tab:2',
+        _ => 'tab:0',
+      };
+
+  (String, String) _personalCopy(
+    String category,
+    int weekday,
+    ReminderContext c,
+    AppLocalizations l,
+  ) {
+    final plan = WeeklyPlan.forAnswers(
+      weeklyWorkout: c.weeklyWorkout,
+      age: c.profile.age,
+    );
+    final day = plan.days[weekday - 1];
+    final t = DailyTargets.forProfile(
+      c.profile,
+      weeklyWorkout: c.weeklyWorkout,
+      meals: c.profile.mealTimes.length,
+      trainingDay: day.kind != PlanDayKind.rest,
+    );
+    switch (category) {
+      case 'exercise':
+        if (day.kind == PlanDayKind.rest) return (l.nRestTitle, l.nRestBody);
+        final names = day.routineIds
+            .take(3)
+            .map((id) => localizedRoutine(l, id)['title'] ?? id)
+            .join(', ');
+        return (
+          l.nTrainTitle(planKindLabel(l, day.kind), day.minutes),
+          names,
+        );
+      case 'nutrition':
+        return (
+          l.nProteinTitle(t.proteinG),
+          l.nProteinBody(t.proteinPerMealG),
+        );
+      case 'water':
+        return (
+          l.nWaterTitle(t.waterL.toStringAsFixed(1)),
+          l.nWaterBody,
+        );
+      default: // sleep
+        return (
+          l.nSleepTitle,
+          l.nSleepBody(t.sleepH.toStringAsFixed(t.sleepH % 1 == 0 ? 0 : 1)),
+        );
+    }
+  }
+
+  // ── Free trial ─────────────────────────────────────────────────
+
+  /// Two honest notices for a running free trial: the next day's plan, so
+  /// the first full day gets used, and a heads-up the day before it turns
+  /// paid. Telling people before they are charged costs a few
+  /// cancellations and saves refunds and one-star reviews.
+  Future<void> scheduleTrialNotices({
+    required DateTime started,
+    required DateTime expires,
+    required String priceAfter,
+    required AppLocalizations l,
+    ReminderContext? context,
+  }) async {
+    if (!await isEnabled()) return;
+    await cancelTrialNotices();
+    final now = DateTime.now();
+    final day1 = started.add(const Duration(hours: 20));
+    if (day1.isAfter(now) && context != null) {
+      final plan = WeeklyPlan.forAnswers(
+        weeklyWorkout: context.weeklyWorkout,
+        age: context.profile.age,
+      );
+      final d = plan.days[day1.weekday - 1];
+      final body = l.nTrialDay1Body(planKindLabel(l, d.kind), d.minutes);
+      _plugin.zonedSchedule(
+        id: 7001,
+        title: l.nTrialDay1Title,
+        body: body,
+        scheduledDate: tz.TZDateTime.from(day1, tz.local),
+        notificationDetails: _notifDetails('trial', l.nTrialDay1Title, body),
+        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        payload: 'tab:1',
+      );
+    }
+    final heads = expires.subtract(const Duration(hours: 24));
+    if (heads.isAfter(now)) {
+      final body = l.nTrialEndBody(priceAfter);
+      _plugin.zonedSchedule(
+        id: 7002,
+        title: l.nTrialEndTitle,
+        body: body,
+        scheduledDate: tz.TZDateTime.from(heads, tz.local),
+        notificationDetails: _notifDetails('trial', l.nTrialEndTitle, body),
+        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        payload: 'tab:2',
+      );
+    }
+  }
+
+  Future<void> cancelTrialNotices() async {
+    await _plugin.cancel(id: 7001);
+    await _plugin.cancel(id: 7002);
   }
 
   /// Title and body for a reminder. Custom ones speak in the user's own words.
@@ -140,6 +317,7 @@ class NotificationService {
     required String body,
     required String channel,
     required String channelName,
+    String? payload,
   }) {
     final now = tz.TZDateTime.now(tz.local);
     var scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
@@ -155,6 +333,7 @@ class NotificationService {
       notificationDetails: _notifDetails(channel, channelName, body),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.time,
+      payload: payload,
     );
   }
 
@@ -167,6 +346,7 @@ class NotificationService {
     required String body,
     required String channel,
     required String channelName,
+    String? payload,
   }) {
     final now = tz.TZDateTime.now(tz.local);
     var scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
@@ -182,6 +362,7 @@ class NotificationService {
       notificationDetails: _notifDetails(channel, channelName, body),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
+      payload: payload,
     );
   }
 

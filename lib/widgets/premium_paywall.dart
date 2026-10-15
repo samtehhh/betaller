@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../l10n/app_localizations.dart';
+import '../services/notification_service.dart';
 import '../providers/app_provider.dart';
 import '../services/purchase_service.dart';
 import '../utils/constants.dart';
@@ -279,7 +280,12 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     return 1;
   }
 
-  Future<void> _purchase(Package? pkg, {StoreProduct? product}) async {
+  Future<void> _purchase(
+    Package? pkg, {
+    StoreProduct? product,
+    _PlanOffer? offer,
+    String? billed,
+  }) async {
     if (_purchasing) return;
     HapticFeedback.mediumImpact();
     setState(() => _purchasing = true);
@@ -293,7 +299,20 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     setState(() => _purchasing = false);
     switch (outcome) {
       case PurchaseOutcome.success:
-        context.read<AppProvider>().setPremium(true);
+        final provider = context.read<AppProvider>();
+        provider.setPremium(true);
+        if (offer != null && offer.hasTrial && billed != null) {
+          final now = DateTime.now();
+          unawaited(
+            NotificationService().scheduleTrialNotices(
+              started: now,
+              expires: now.add(Duration(days: offer.trialDays ?? 3)),
+              priceAfter: billed,
+              l: AppLocalizations.of(context)!,
+              context: provider.reminderContext,
+            ),
+          );
+        }
         if (widget.dismissible) Navigator.pop(context, true);
       case PurchaseOutcome.cancelled:
         // The user closed the store sheet on purpose. Telling them the
@@ -517,8 +536,25 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
                           2 => directWeekly,
                           _ => directAnnual,
                         };
+                        final offer = switch (_selectedPlan) {
+                          0 => monthlyOffer,
+                          2 => weeklyOffer,
+                          _ => annualOffer,
+                        };
+                        final billed = offer.price == null
+                            ? null
+                            : switch (_selectedPlan) {
+                                0 => l.paywallPerMonth(offer.price!),
+                                2 => l.paywallPerWeek(offer.price!),
+                                _ => l.paywallPerYear(offer.price!),
+                              };
                         if (pkg != null || direct != null) {
-                          _purchase(pkg, product: direct);
+                          _purchase(
+                            pkg,
+                            product: direct,
+                            offer: offer,
+                            billed: billed,
+                          );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(

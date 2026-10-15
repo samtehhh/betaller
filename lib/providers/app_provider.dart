@@ -168,6 +168,15 @@ class AppProvider extends ChangeNotifier {
     if (_potentialAnchor == null || v > _potentialAnchor!) _potentialAnchor = v;
   }
 
+  /// Personal facts for reminder copy, or null before onboarding.
+  ReminderContext? get reminderContext => _profile == null
+      ? null
+      : ReminderContext(
+          profile: _profile!,
+          weeklyWorkout: _onboardingAnswers['weeklyWorkout'] as String? ?? '',
+          potential: formatHeight(potentialHeight),
+        );
+
   void setOnboardingAnswers(Map<String, dynamic> answers) {
     _onboardingAnswers = {..._onboardingAnswers, ...answers};
     _saveData();
@@ -674,6 +683,12 @@ class AppProvider extends ChangeNotifier {
   /// nothing (network, sandbox, cache miss), but an expired one does — and
   /// without this a trial cancelled on day two stayed premium for good.
   void applyCustomerInfo(CustomerInfo info) {
+    // A trial whose renewal was switched off will not be charged, so the
+    // "your trial ends tomorrow, then it costs X" notice no longer applies.
+    final e = info.entitlements.all[PurchaseService.entitlementId];
+    if (e != null && e.isActive && !e.willRenew) {
+      NotificationService().cancelTrialNotices();
+    }
     final next = PurchaseService.hasPremium(info)
         ? true
         : PurchaseService.hasLapsed(info)

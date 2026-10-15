@@ -97,15 +97,6 @@ class TodayTargetsCard extends StatelessWidget {
   }
 }
 
-String planKindLabel(AppLocalizations l, PlanDayKind k) => switch (k) {
-      PlanDayKind.strength => l.planStrength,
-      PlanDayKind.jump => l.planJump,
-      PlanDayKind.mobility => l.planMobility,
-      PlanDayKind.sport => l.planSport,
-      PlanDayKind.posture => l.planPosture,
-      PlanDayKind.rest => l.planRest,
-    };
-
 IconData planKindIcon(PlanDayKind k) => switch (k) {
       PlanDayKind.strength => Icons.fitness_center_rounded,
       PlanDayKind.jump => Icons.directions_run_rounded,

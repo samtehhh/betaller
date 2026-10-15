@@ -53,8 +53,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   Future<void> _reschedule() async {
     final l = AppLocalizations.of(context)!;
-    final reminders = context.read<AppProvider>().reminders;
-    await NotificationService().scheduleReminders(reminders, l);
+    final provider = context.read<AppProvider>();
+    await NotificationService().scheduleReminders(
+      provider.reminders,
+      l,
+      context: provider.reminderContext,
+    );
   }
 
   Future<void> _setMaster(bool value) async {

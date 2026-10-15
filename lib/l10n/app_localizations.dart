@@ -8299,6 +8299,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{hours} hours of sleep, with a bedtime reminder'**
   String planPreviewSleep(String hours);
+
+  /// No description provided for @nTrainTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today: {plan} · {minutes} min'**
+  String nTrainTitle(String plan, int minutes);
+
+  /// No description provided for @nRestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest day today'**
+  String get nRestTitle;
+
+  /// No description provided for @nRestBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Ten minutes of stretching is enough. Recovery is part of the plan.'**
+  String get nRestBody;
+
+  /// No description provided for @nProteinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s protein goal: {grams} g'**
+  String nProteinTitle(int grams);
+
+  /// No description provided for @nProteinBody.
+  ///
+  /// In en, this message translates to:
+  /// **'About {grams} g per meal: eggs, yogurt, chicken, lentils.'**
+  String nProteinBody(int grams);
+
+  /// No description provided for @nWaterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Water goal: {liters} L'**
+  String nWaterTitle(String liters);
+
+  /// No description provided for @nWaterBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One glass now keeps you on track for today.'**
+  String get nWaterBody;
+
+  /// No description provided for @nSleepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to wind down'**
+  String get nSleepTitle;
+
+  /// No description provided for @nSleepBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your goal is {hours} hours. Screens off, lights low.'**
+  String nSleepBody(String hours);
+
+  /// No description provided for @nMeasureBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your potential: {potential}. Measure in the morning and watch your chart move.'**
+  String nMeasureBody(String potential);
+
+  /// No description provided for @nTrialDay1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan is waiting'**
+  String get nTrialDay1Title;
+
+  /// No description provided for @nTrialDay1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Today: {plan}, {minutes} min. Log your height so your chart starts.'**
+  String nTrialDay1Body(String plan, int minutes);
+
+  /// No description provided for @nTrialEndTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your free trial ends tomorrow'**
+  String get nTrialEndTitle;
+
+  /// No description provided for @nTrialEndBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Then it continues at {price}. Your plan and progress stay saved either way.'**
+  String nTrialEndBody(String price);
 }
 
 class _AppLocalizationsDelegate

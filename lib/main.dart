@@ -105,7 +105,11 @@ Future<void> _initServices(AppProvider appProvider) async {
       // The user's own reminders, not the old fixed timetable, and in the
       // language the app is actually running in.
       final l = lookupAppLocalizations(appProvider.effectiveLocale);
-      await notifService.scheduleReminders(appProvider.reminders, l);
+      await notifService.scheduleReminders(
+        appProvider.reminders,
+        l,
+        context: appProvider.reminderContext,
+      );
     }
   } catch (e) {
     debugPrint('Notification init failed: $e');

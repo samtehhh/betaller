@@ -1607,5 +1607,19 @@
   "planPreviewTitle": "आपका प्लान तैयार है",
   "planPreviewTraining": "हफ्ते में {days} दिन ट्रेनिंग, ग्रोथ के लिए",
   "planPreviewProtein": "रोज़ {grams} g प्रोटीन, भोजन में बाँटकर",
-  "planPreviewSleep": "{hours} घंटे नींद, सोने के रिमाइंडर के साथ"
+  "planPreviewSleep": "{hours} घंटे नींद, सोने के रिमाइंडर के साथ",
+  "nTrainTitle": "आज: {plan} · {minutes} मिनट",
+  "nRestTitle": "आज आराम का दिन",
+  "nRestBody": "दस मिनट स्ट्रेचिंग काफी है। रिकवरी भी प्लान का हिस्सा है।",
+  "nProteinTitle": "आज का प्रोटीन लक्ष्य: {grams} g",
+  "nProteinBody": "हर भोजन में लगभग {grams} g: अंडे, दही, चिकन, दाल।",
+  "nWaterTitle": "पानी का लक्ष्य: {liters} L",
+  "nWaterBody": "अभी एक गिलास पिएँ, आज के लक्ष्य पर बने रहें।",
+  "nSleepTitle": "सोने का समय",
+  "nSleepBody": "आपका लक्ष्य {hours} घंटे है। स्क्रीन बंद, रोशनी कम।",
+  "nMeasureBody": "आपकी संभावित लंबाई: {potential}। सुबह मापें और चार्ट बढ़ता देखें।",
+  "nTrialDay1Title": "आपका प्लान इंतज़ार कर रहा है",
+  "nTrialDay1Body": "आज: {plan}, {minutes} मिनट। अपनी लंबाई दर्ज करें ताकि चार्ट शुरू हो।",
+  "nTrialEndTitle": "आपका फ्री ट्रायल कल खत्म होगा",
+  "nTrialEndBody": "इसके बाद {price} पर जारी रहेगा। आपका प्लान और प्रगति दोनों सेव रहेंगे।"
 }

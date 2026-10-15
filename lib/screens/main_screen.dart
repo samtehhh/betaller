@@ -47,6 +47,9 @@ class _MainScreenState extends State<MainScreen> {
       ProfileScreen(onOpenTour: _startTour),
     ];
 
+    NotificationService.tappedPayload.addListener(_openFromNotification);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _openFromNotification());
+
     // Once onboarding is behind them and the tour hasn't run yet, give the
     // home screen a beat to land, then spotlight the app's own features one
     // by one. Finishing or skipping it always closes this journey step, so
@@ -63,6 +66,23 @@ class _MainScreenState extends State<MainScreen> {
         _startTour();
       });
     });
+  }
+
+  /// A tapped reminder lands on the tab it is about ("tab:1" is the plan).
+  void _openFromNotification() {
+    final payload = NotificationService.tappedPayload.value;
+    if (payload == null || !mounted) return;
+    NotificationService.tappedPayload.value = null;
+    final tab = int.tryParse(payload.replaceFirst('tab:', ''));
+    if (tab != null && tab >= 0 && tab < _screens.length && !_tourActive) {
+      setState(() => _currentIndex = tab);
+    }
+  }
+
+  @override
+  void dispose() {
+    NotificationService.tappedPayload.removeListener(_openFromNotification);
+    super.dispose();
   }
 
   /// The first launch of the day, for someone who is not premium, opens the

@@ -4566,4 +4566,63 @@ class AppLocalizationsTr extends AppLocalizations {
   String planPreviewSleep(String hours) {
     return '$hours saat uyku, yatma saati hatırlatmasıyla';
   }
+
+  @override
+  String nTrainTitle(String plan, int minutes) {
+    return 'Bugün: $plan · $minutes dk';
+  }
+
+  @override
+  String get nRestTitle => 'Bugün dinlenme günü';
+
+  @override
+  String get nRestBody =>
+      '10 dakika esneme yeter. Toparlanmak da planın parçası.';
+
+  @override
+  String nProteinTitle(int grams) {
+    return 'Bugünkü protein hedefin: $grams g';
+  }
+
+  @override
+  String nProteinBody(int grams) {
+    return 'Öğün başına yaklaşık $grams g: yumurta, yoğurt, tavuk, mercimek.';
+  }
+
+  @override
+  String nWaterTitle(String liters) {
+    return 'Su hedefin: $liters L';
+  }
+
+  @override
+  String get nWaterBody => 'Şimdi bir bardak iç, bugünün hedefinde kal.';
+
+  @override
+  String get nSleepTitle => 'Yatma vakti';
+
+  @override
+  String nSleepBody(String hours) {
+    return 'Hedefin $hours saat uyku. Ekranı bırak, ışığı kıs.';
+  }
+
+  @override
+  String nMeasureBody(String potential) {
+    return 'Potansiyelin: $potential. Sabah ölç, grafiğin ilerlesin.';
+  }
+
+  @override
+  String get nTrialDay1Title => 'Planın seni bekliyor';
+
+  @override
+  String nTrialDay1Body(String plan, int minutes) {
+    return 'Bugün: $plan, $minutes dk. Boyunu gir, grafiğin başlasın.';
+  }
+
+  @override
+  String get nTrialEndTitle => 'Ücretsiz denemen yarın bitiyor';
+
+  @override
+  String nTrialEndBody(String price) {
+    return 'Sonra $price ile devam eder. Planın ve ilerlemen her durumda kayıtlı kalır.';
+  }
 }

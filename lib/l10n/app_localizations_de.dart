@@ -4593,4 +4593,63 @@ class AppLocalizationsDe extends AppLocalizations {
   String planPreviewSleep(String hours) {
     return '$hours Stunden Schlaf, mit Schlafenszeit-Erinnerung';
   }
+
+  @override
+  String nTrainTitle(String plan, int minutes) {
+    return 'Heute: $plan · $minutes Min';
+  }
+
+  @override
+  String get nRestTitle => 'Heute ist Ruhetag';
+
+  @override
+  String get nRestBody =>
+      'Zehn Minuten Dehnen reichen. Erholung gehört zum Plan.';
+
+  @override
+  String nProteinTitle(int grams) {
+    return 'Dein Proteinziel heute: $grams g';
+  }
+
+  @override
+  String nProteinBody(int grams) {
+    return 'Etwa $grams g pro Mahlzeit: Eier, Joghurt, Hähnchen, Linsen.';
+  }
+
+  @override
+  String nWaterTitle(String liters) {
+    return 'Wasserziel: $liters L';
+  }
+
+  @override
+  String get nWaterBody => 'Ein Glas jetzt, und du bleibst heute im Plan.';
+
+  @override
+  String get nSleepTitle => 'Zeit, runterzufahren';
+
+  @override
+  String nSleepBody(String hours) {
+    return 'Dein Ziel: $hours Stunden. Bildschirm weg, Licht runter.';
+  }
+
+  @override
+  String nMeasureBody(String potential) {
+    return 'Dein Potenzial: $potential. Miss morgens und sieh, wie sich dein Diagramm bewegt.';
+  }
+
+  @override
+  String get nTrialDay1Title => 'Dein Plan wartet';
+
+  @override
+  String nTrialDay1Body(String plan, int minutes) {
+    return 'Heute: $plan, $minutes Min. Trag deine Größe ein, damit dein Diagramm startet.';
+  }
+
+  @override
+  String get nTrialEndTitle => 'Dein Gratis-Test endet morgen';
+
+  @override
+  String nTrialEndBody(String price) {
+    return 'Danach geht es für $price weiter. Plan und Fortschritt bleiben so oder so gespeichert.';
+  }
 }

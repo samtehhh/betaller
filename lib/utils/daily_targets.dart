@@ -1,3 +1,4 @@
+import '../l10n/app_localizations.dart';
 import '../models/user_profile.dart';
 import 'calculations.dart';
 
@@ -140,3 +141,12 @@ class WeeklyPlan {
     ]);
   }
 }
+
+String planKindLabel(AppLocalizations l, PlanDayKind k) => switch (k) {
+      PlanDayKind.strength => l.planStrength,
+      PlanDayKind.jump => l.planJump,
+      PlanDayKind.mobility => l.planMobility,
+      PlanDayKind.sport => l.planSport,
+      PlanDayKind.posture => l.planPosture,
+      PlanDayKind.rest => l.planRest,
+    };
