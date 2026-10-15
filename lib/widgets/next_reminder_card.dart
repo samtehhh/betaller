@@ -128,7 +128,7 @@ class _NextReminderCardState extends State<NextReminderCard> {
                 children: [
                   Text(
                     next == null
-                        ? l.reminderMasterTitle
+                        ? l.reminderMasterTitle.upperIn(context)
                         : l.reminderNextLabel.upperIn(context),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -144,7 +144,7 @@ class _NextReminderCardState extends State<NextReminderCard> {
                     next == null
                         ? l.reminderOffCta
                         : '${_title(l, next.reminder)} · ${next.reminder.timeLabel}',
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 15.5,
@@ -157,7 +157,7 @@ class _NextReminderCardState extends State<NextReminderCard> {
                     const SizedBox(height: 3),
                     Text(
                       l.reminderManageHint,
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 12,

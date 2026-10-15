@@ -708,7 +708,7 @@ class _TodayHero extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       l.plWorkoutMeta(moves.length, minutes),
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 13,
@@ -780,13 +780,18 @@ class _Chip extends StatelessWidget {
         borderRadius: BorderRadius.circular(100),
         border: Border.all(color: color.withValues(alpha: 0.28)),
       ),
-      child: Text(
-        text,
-        maxLines: 1,
-        style: TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w800,
-          color: color,
+      // Shrinks to fit rather than clipping "4 jours avant le niveau 8"
+      // mid-word on a 320 pt phone.
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          text,
+          maxLines: 1,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w800,
+            color: color,
+          ),
         ),
       ),
     );

@@ -623,15 +623,21 @@ class _CompareCardState extends State<_CompareCard> {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(
-                    l.pgTransformationTitle,
-                    maxLines: 2,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: -0.6,
-                      color: Colors.white,
-                      height: 1.15,
+                  // One line that shrinks: "Tu transformación" broke inside
+                  // the word next to the mode toggle on a 320 pt phone.
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      l.pgTransformationTitle,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: -0.6,
+                        color: Colors.white,
+                        height: 1.15,
+                      ),
                     ),
                   ),
                 ),
@@ -1491,18 +1497,22 @@ class _TimelineHeader extends StatelessWidget {
                   ),
                   const SizedBox(width: 5),
                   Flexible(
-                    child: Text(
-                      isDue
-                          ? l.pgPhotoDueNow
-                          : l.pgNextPhotoOn(_shortDate(context, due)),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: isDue
-                            ? AppColors.lime
-                            : Colors.white.withValues(alpha: 0.7),
+                    // The date is the point of this pill, so it shrinks
+                    // instead of losing "29 oct." to an ellipsis.
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        isDue
+                            ? l.pgPhotoDueNow
+                            : l.pgNextPhotoOn(_shortDate(context, due)),
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: isDue
+                              ? AppColors.lime
+                              : Colors.white.withValues(alpha: 0.7),
+                        ),
                       ),
                     ),
                   ),

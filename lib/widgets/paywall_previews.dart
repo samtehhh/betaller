@@ -1270,7 +1270,9 @@ class _TrackCard extends StatelessWidget {
             children: [
               Icon(icon, color: color, size: 16),
               const SizedBox(width: 6),
-              Flexible(
+              // Expanded, not Flexible beside a Spacer: the two split the
+              // free width in half and cut "Wasser" / "Sommeil" short.
+              Expanded(
                 child: Text(
                   label,
                   maxLines: 1,
@@ -1283,7 +1285,7 @@ class _TrackCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(width: 6),
               Container(
                 width: 26,
                 height: 26,
@@ -1366,14 +1368,17 @@ class _MiniGoal extends StatelessWidget {
             Icon(icon, size: 12, color: c),
             const SizedBox(width: 6),
             Expanded(
-              child: Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white.withValues(alpha: 0.70),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white.withValues(alpha: 0.70),
+                  ),
                 ),
               ),
             ),

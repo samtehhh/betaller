@@ -545,11 +545,13 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                 fontWeight: FontWeight.w800,
                 color: Colors.white,
                 letterSpacing: -0.3,
+                height: 1.15,
               ),
-              maxLines: 1,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
           ),
+          const SizedBox(width: 8),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
@@ -623,7 +625,8 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // Status badge
-              Container(
+              Flexible(
+                child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.black.withValues(alpha: 0.30),
@@ -648,7 +651,8 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                       size: 14,
                     ),
                     const SizedBox(width: 6),
-                    Text(
+                    Flexible(
+                      child: Text(
                       _allSetsComplete
                           ? l.allSetsComplete.upperIn(context)
                           : _isResting
@@ -666,10 +670,15 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                                 : catColor,
                         letterSpacing: 1,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     ),
                   ],
                 ),
               ),
+              ),
+              const SizedBox(width: 8),
               // Set counter
               Text(
                 _allSetsComplete
@@ -737,8 +746,11 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
             final pulse = _isRunning ? 1.0 + (_pulseController.value * 0.03) : 1.0;
             return Transform.scale(scale: pulse, child: child);
           },
-          child: Text(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
             value,
+            maxLines: 1,
             style: TextStyle(
               fontSize: 84,
               fontWeight: FontWeight.w900,
@@ -753,10 +765,12 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
               ],
             ),
           ),
+          ),
         ),
         const SizedBox(height: 4),
         Text(
           label,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w700,

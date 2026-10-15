@@ -342,7 +342,7 @@ class _Eyebrow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text.upperIn(context),
-      maxLines: 1,
+      maxLines: 2,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontSize: 11,
@@ -631,7 +631,7 @@ class _HeroStat extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             label,
-            maxLines: 2,
+            maxLines: 3,
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -686,7 +686,7 @@ class _DaysCard extends StatelessWidget {
                       Flexible(
                         child: Text(
                           l.pgBestDay(bestDayName!),
-                          maxLines: 1,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,
@@ -1061,7 +1061,7 @@ class _HabitTile extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             label,
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: 12,

@@ -146,7 +146,7 @@ class PlanSectionLabel extends StatelessWidget {
           Expanded(
             child: Text(
               title.upperIn(context),
-              maxLines: 1,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 11.5,

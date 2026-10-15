@@ -1296,7 +1296,7 @@ class _PercentileCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     '${l.bmi} ${bmi.toStringAsFixed(1)} · ${localizedBmiCategory(l, Calculations.bmiCategory(bmi))}',
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 12.5,

@@ -1224,16 +1224,21 @@ class _PlanRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    label,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: selected
-                          ? Colors.white
-                          : Colors.white.withValues(alpha: 0.60),
+                  // Shrinks rather than ellipsizes: "Hebdomad…" or
+                  // "Settimana…" hid which plan the row was.
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      label,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: selected
+                            ? Colors.white
+                            : Colors.white.withValues(alpha: 0.60),
+                      ),
                     ),
                   ),
                   if (badgeText != null) ...[

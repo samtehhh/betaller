@@ -314,13 +314,17 @@ class SectionHeader extends StatelessWidget {
       children: [
         Icon(icon, color: iconColor ?? AppColors.primary, size: 20),
         const SizedBox(width: 8),
-        Text(
-          title.upperIn(context),
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
-            color: AppColors.textSecondary,
-            letterSpacing: 1.2,
+        // Long headers ("BEANSPRUCHTE MUSKELN & KNOCHEN") wrap instead of
+        // running off the card on a narrow phone.
+        Flexible(
+          child: Text(
+            title.upperIn(context),
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textSecondary,
+              letterSpacing: 1.2,
+            ),
           ),
         ),
       ],
