@@ -393,17 +393,31 @@ class _BodyPainter extends CustomPainter {
   // Right half of each outline on a unit box: x from the centre line (0)
   // outwards, y from the top of the head (0) to the soles (1).
   static const _maleBody = [
+    // neck, trapezius, shoulder
     Offset(0.11, 0.118), Offset(0.15, 0.142), Offset(0.34, 0.160),
-    Offset(0.60, 0.172), Offset(0.82, 0.188), Offset(0.94, 0.214),
-    Offset(1.00, 0.262), Offset(1.02, 0.330), Offset(1.02, 0.400),
-    Offset(1.01, 0.458), Offset(1.00, 0.508), Offset(1.00, 0.546),
-    Offset(0.95, 0.580), Offset(0.85, 0.572), Offset(0.81, 0.518),
-    Offset(0.79, 0.458), Offset(0.76, 0.398), Offset(0.73, 0.332),
-    Offset(0.70, 0.282), Offset(0.67, 0.262), Offset(0.65, 0.302),
-    Offset(0.61, 0.362), Offset(0.58, 0.420), Offset(0.61, 0.470),
-    Offset(0.60, 0.540), Offset(0.56, 0.622), Offset(0.51, 0.702),
-    Offset(0.50, 0.762), Offset(0.47, 0.862), Offset(0.40, 0.945),
-    Offset(0.44, 0.985), Offset(0.35, 1.000), Offset(0.21, 0.998),
+    Offset(0.60, 0.172), Offset(0.82, 0.188),
+    // deltoid, upper arm, above the elbow
+    Offset(0.98, 0.212), Offset(1.07, 0.250), Offset(1.08, 0.298),
+    Offset(1.06, 0.345),
+    // elbow, forearm bulge, wrist
+    Offset(1.07, 0.392), Offset(1.075, 0.425), Offset(1.05, 0.465),
+    Offset(1.00, 0.505), Offset(0.99, 0.520),
+    // hand: little-finger side, fingertips, thumb
+    Offset(1.02, 0.542), Offset(1.04, 0.575), Offset(1.02, 0.608),
+    Offset(0.97, 0.620), Offset(0.92, 0.610), Offset(0.89, 0.588),
+    Offset(0.85, 0.574), Offset(0.84, 0.556), Offset(0.88, 0.532),
+    // inner wrist, forearm, inner elbow, biceps, armpit
+    Offset(0.88, 0.505), Offset(0.86, 0.462), Offset(0.84, 0.430),
+    Offset(0.85, 0.395), Offset(0.83, 0.345), Offset(0.80, 0.298),
+    Offset(0.74, 0.262),
+    // lat, waist, hip
+    Offset(0.66, 0.290), Offset(0.60, 0.350), Offset(0.55, 0.420),
+    Offset(0.61, 0.470), Offset(0.60, 0.540),
+    // outer leg, knee, calf, ankle, foot
+    Offset(0.56, 0.622), Offset(0.51, 0.702), Offset(0.50, 0.762),
+    Offset(0.47, 0.862), Offset(0.40, 0.945), Offset(0.44, 0.985),
+    Offset(0.35, 1.000), Offset(0.21, 0.998),
+    // inner leg up to the crotch
     Offset(0.20, 0.960), Offset(0.18, 0.880), Offset(0.17, 0.780),
     Offset(0.15, 0.700), Offset(0.12, 0.600), Offset(0.04, 0.522),
   ];
@@ -414,12 +428,25 @@ class _BodyPainter extends CustomPainter {
   ];
   static const _femaleBody = [
     Offset(0.11, 0.122), Offset(0.32, 0.166), Offset(0.57, 0.180),
-    Offset(0.74, 0.198), Offset(0.84, 0.232), Offset(0.87, 0.300),
-    Offset(0.88, 0.380), Offset(0.89, 0.450), Offset(0.91, 0.505),
-    Offset(0.91, 0.545), Offset(0.85, 0.572), Offset(0.77, 0.548),
-    Offset(0.73, 0.482), Offset(0.69, 0.400), Offset(0.65, 0.320),
-    Offset(0.61, 0.262), Offset(0.57, 0.312), Offset(0.51, 0.382),
-    Offset(0.59, 0.452), Offset(0.64, 0.502), Offset(0.62, 0.582),
+    Offset(0.74, 0.198),
+    // shoulder cap, upper arm, above the elbow
+    Offset(0.84, 0.226), Offset(0.88, 0.268), Offset(0.89, 0.312),
+    Offset(0.88, 0.355),
+    // elbow, forearm, wrist
+    Offset(0.89, 0.398), Offset(0.90, 0.432), Offset(0.90, 0.470),
+    Offset(0.89, 0.508), Offset(0.88, 0.522),
+    // hand
+    Offset(0.91, 0.544), Offset(0.925, 0.574), Offset(0.905, 0.605),
+    Offset(0.86, 0.615), Offset(0.815, 0.604), Offset(0.79, 0.584),
+    Offset(0.755, 0.572), Offset(0.745, 0.554), Offset(0.78, 0.532),
+    // inner wrist, forearm, inner elbow, upper arm, armpit
+    Offset(0.78, 0.508), Offset(0.76, 0.468), Offset(0.74, 0.435),
+    Offset(0.74, 0.400), Offset(0.72, 0.350), Offset(0.69, 0.300),
+    Offset(0.64, 0.262),
+    // waist, hip
+    Offset(0.57, 0.298), Offset(0.49, 0.382), Offset(0.59, 0.452),
+    Offset(0.64, 0.502), Offset(0.62, 0.582),
+    // legs
     Offset(0.55, 0.682), Offset(0.51, 0.782), Offset(0.44, 0.902),
     Offset(0.38, 0.955), Offset(0.42, 0.990), Offset(0.30, 1.000),
     Offset(0.20, 0.990), Offset(0.20, 0.940), Offset(0.18, 0.850),
