@@ -1,9 +1,15 @@
+import 'exercise_guides.dart';
 import '../l10n/app_localizations.dart';
 
 /// Returns localized routine title/description/form/science by routine ID
 Map<String, String> localizedRoutine(AppLocalizations l, String id) {
   final t = _routineData[id];
   if (t == null) {
+    final v3 = kNewMoveText[id];
+    if (v3 != null) {
+      final row = v3[l.localeName.split('_').first] ?? v3['en']!;
+      return {'title': row[0], 'description': row[1], 'form': '', 'science': ''};
+    }
     return {'title': id, 'description': '', 'form': '', 'science': ''};
   }
   return {

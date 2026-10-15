@@ -18,6 +18,7 @@ import '../utils/localized_data.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/tour_keys.dart';
 import 'exercise_detail_screen.dart';
+import '../widgets/exercise_media.dart';
 import 'custom_routine_builder_screen.dart';
 
 // ── Free routine IDs (no paywall) ─────────────────────────────────
@@ -706,7 +707,22 @@ class _PlanRow extends StatelessWidget {
                       : null,
                 ),
               ),
-              const SizedBox(width: 14),
+              const SizedBox(width: 12),
+              // A still from the move's clip, so the list shows what each
+              // item looks like before it is opened.
+              if (ExerciseMedia.hasClip(routine.id)) ...[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    ExerciseMedia.posterFor(routine.id),
+                    width: 44,
+                    height: 56,
+                    fit: BoxFit.cover,
+                    cacheWidth: 132,
+                  ),
+                ),
+                const SizedBox(width: 12),
+              ],
               Expanded(
                 child: ImageFiltered(
                   imageFilter: locked

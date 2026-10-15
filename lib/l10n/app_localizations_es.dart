@@ -4637,4 +4637,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get trophyContinue => 'Seguir';
+
+  @override
+  String get guideSteps => 'Paso a paso';
+
+  @override
+  String get guideMistakes => 'Errores comunes';
+
+  @override
+  String get guideTip => 'Consejo';
 }

@@ -4633,4 +4633,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get trophyContinue => 'Continuar';
+
+  @override
+  String get guideSteps => 'Passo a passo';
+
+  @override
+  String get guideMistakes => 'Erros comuns';
+
+  @override
+  String get guideTip => 'Dica';
 }

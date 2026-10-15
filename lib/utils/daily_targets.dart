@@ -115,12 +115,12 @@ class WeeklyPlan {
   int get trainingDays => days.where((d) => d.kind != PlanDayKind.rest).length;
 
   factory WeeklyPlan.forAnswers({String weeklyWorkout = '', int age = 16}) {
-    const strength = ['squats', 'deadlift_stretch', 'pilates_core'];
-    const jump = ['jumping', 'skipping_rope', 'sprint_intervals'];
-    const mobility = ['morning_stretch', 'cobra_stretch', 'evening_yoga'];
+    const strength = ['squats', 'glute_bridge', 'plank', 'deadlift_stretch'];
+    const jump = ['jumping', 'skipping_rope', 'calf_raise', 'sprint_intervals'];
+    const mobility = ['cat_cow', 'cobra_stretch', 'hip_flexor_stretch', 'evening_yoga'];
     const posture = ['wall_stand', 'neck_stretches', 'shoulder_rolls'];
     const sport = ['swimming_basketball'];
-    const hang = ['bar_hanging'];
+    const hang = ['dead_hang_active'];
 
     final light = weeklyWorkout != '3-5' && weeklyWorkout != '6+';
     final heavy = weeklyWorkout == '6+';

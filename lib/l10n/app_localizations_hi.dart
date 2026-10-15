@@ -4608,4 +4608,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get trophyContinue => 'आगे बढ़ें';
+
+  @override
+  String get guideSteps => 'स्टेप बाय स्टेप';
+
+  @override
+  String get guideMistakes => 'आम गलतियाँ';
+
+  @override
+  String get guideTip => 'सुझाव';
 }

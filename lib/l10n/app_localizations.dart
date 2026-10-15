@@ -8389,6 +8389,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Keep going'**
   String get trophyContinue;
+
+  /// No description provided for @guideSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'Step by step'**
+  String get guideSteps;
+
+  /// No description provided for @guideMistakes.
+  ///
+  /// In en, this message translates to:
+  /// **'Common mistakes'**
+  String get guideMistakes;
+
+  /// No description provided for @guideTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip'**
+  String get guideTip;
 }
 
 class _AppLocalizationsDelegate

@@ -1622,5 +1622,8 @@
   "nTrialDay1Body": "आज: {plan}, {minutes} मिनट। अपनी लंबाई दर्ज करें ताकि चार्ट शुरू हो।",
   "nTrialEndTitle": "आपका फ्री ट्रायल कल खत्म होगा",
   "nTrialEndBody": "इसके बाद {price} पर जारी रहेगा। आपका प्लान और प्रगति दोनों सेव रहेंगे।",
-  "trophyContinue": "आगे बढ़ें"
+  "trophyContinue": "आगे बढ़ें",
+  "guideSteps": "स्टेप बाय स्टेप",
+  "guideMistakes": "आम गलतियाँ",
+  "guideTip": "सुझाव"
 }

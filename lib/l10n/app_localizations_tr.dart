@@ -4628,4 +4628,13 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get trophyContinue => 'Devam';
+
+  @override
+  String get guideSteps => 'Adım adım';
+
+  @override
+  String get guideMistakes => 'Sık yapılan hatalar';
+
+  @override
+  String get guideTip => 'İpucu';
 }

@@ -1622,5 +1622,8 @@
   "nTrialDay1Body": "Aujourd'hui : {plan}, {minutes} min. Note ta taille pour lancer ta courbe.",
   "nTrialEndTitle": "Ton essai gratuit se termine demain",
   "nTrialEndBody": "Ensuite, il continue à {price}. Ton plan et tes progrès restent enregistrés.",
-  "trophyContinue": "On continue"
+  "trophyContinue": "On continue",
+  "guideSteps": "Étape par étape",
+  "guideMistakes": "Erreurs fréquentes",
+  "guideTip": "Astuce"
 }

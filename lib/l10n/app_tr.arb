@@ -1473,5 +1473,8 @@
   "nTrialDay1Body": "Bugün: {plan}, {minutes} dk. Boyunu gir, grafiğin başlasın.",
   "nTrialEndTitle": "Ücretsiz denemen yarın bitiyor",
   "nTrialEndBody": "Sonra {price} ile devam eder. Planın ve ilerlemen her durumda kayıtlı kalır.",
-  "trophyContinue": "Devam"
+  "trophyContinue": "Devam",
+  "guideSteps": "Adım adım",
+  "guideMistakes": "Sık yapılan hatalar",
+  "guideTip": "İpucu"
 }

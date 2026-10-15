@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../utils/exercise_guides.dart';
+import '../widgets/exercise_media.dart';
 import '../l10n/app_localizations.dart';
 import '../models/routine.dart';
 import '../providers/app_provider.dart';
@@ -329,6 +331,10 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
     final displayDesc = localized['description'] ?? routine.description;
     final displayForm = localized['form']?.isNotEmpty == true ? localized['form']! : routine.formDescription;
     final displayScience = localized['science']?.isNotEmpty == true ? localized['science']! : routine.scientificBasis;
+    final guide = exerciseGuide(
+      routine.id,
+      Localizations.localeOf(context).languageCode,
+    );
 
     return Scaffold(
       backgroundColor: AppColors.scaffold,
@@ -355,6 +361,16 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                     else
                       _buildSimpleHero(routine, catColor, displayDesc),
 
+                    // ── How it looks ──
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+                      child: ExerciseMedia(
+                        routineId: routine.id,
+                        color: catColor,
+                        height: 300,
+                      ),
+                    ),
+
                     // ── Details ──
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
@@ -364,8 +380,63 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                           if (!_useFallbackTimer || (widget.routine.timerSeconds != null && widget.routine.timerSeconds! > 0))
                             _buildShortDescription(displayDesc),
 
+                          // Step by step, with the usual mistakes and a tip.
+                          if (guide != null) ...[
+                            _buildSection(
+                              icon: CupertinoIcons.list_number,
+                              title: l.guideSteps,
+                              iconColor: AppColors.primary,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  for (var i = 0; i < guide.steps.length; i++)
+                                    _GuideStep(index: i + 1, text: guide.steps[i]),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            _buildSection(
+                              icon: CupertinoIcons.exclamationmark_triangle_fill,
+                              title: l.guideMistakes,
+                              iconColor: AppColors.warning,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  for (final m in guide.mistakes)
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 8),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Icon(Icons.close_rounded, size: 16, color: AppColors.warning),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: Text(
+                                              m,
+                                              style: TextStyle(fontSize: 14, height: 1.45, color: Colors.white.withValues(alpha: 0.85)),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            _buildSection(
+                              icon: CupertinoIcons.lightbulb_fill,
+                              title: l.guideTip,
+                              iconColor: AppColors.lime,
+                              child: Text(
+                                guide.tip,
+                                style: TextStyle(fontSize: 14, height: 1.5, color: Colors.white.withValues(alpha: 0.85)),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                          ],
+
                           // Form description
-                          if (displayForm.isNotEmpty)
+                          if (displayForm.isNotEmpty && guide == null)
                             _buildSection(
                               icon: CupertinoIcons.text_badge_checkmark,
                               title: l.howToDoIt,
@@ -380,7 +451,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                                 ),
                               ),
                             ),
-                          if (displayForm.isNotEmpty) const SizedBox(height: 12),
+                          if (displayForm.isNotEmpty && guide == null) const SizedBox(height: 12),
 
                           // Muscles
                           if (routine.musclesTargeted.isNotEmpty)
@@ -1121,4 +1192,42 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
     );
   }
 
+}
+
+class _GuideStep extends StatelessWidget {
+  final int index;
+  final String text;
+  const _GuideStep({required this.index, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 24,
+            height: 24,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.22),
+              shape: BoxShape.circle,
+            ),
+            child: Text(
+              '$index',
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800, color: Colors.white),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 14.5, height: 1.45, color: Colors.white.withValues(alpha: 0.9)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
