@@ -5388,4 +5388,411 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get pgHabitsToday => 'Registrado hoje';
+
+  @override
+  String plWorkoutMeta(int moves, int minutes) {
+    return '$moves exercícios · $minutes min';
+  }
+
+  @override
+  String plDoneCount(int done, int total) {
+    return '$done/$total feitos';
+  }
+
+  @override
+  String get plStartWorkout => 'Começar treino';
+
+  @override
+  String get plContinueWorkout => 'Continuar treino';
+
+  @override
+  String get plWorkoutDoneToday => 'Treino de hoje feito';
+
+  @override
+  String get plTraining => 'Treino';
+
+  @override
+  String get plHabits => 'Hábitos diários';
+
+  @override
+  String get plRestDayNote =>
+      'Dia leve: um flow curto de yoga te deixa solto para amanhã.';
+
+  @override
+  String plDoseReps(int sets, int reps) {
+    return '$sets x $reps repetições';
+  }
+
+  @override
+  String plDoseSeconds(int sets, int seconds) {
+    return '$sets x $seconds s';
+  }
+
+  @override
+  String plDoseSecondsSide(int sets, int seconds) {
+    return '$sets x $seconds s cada lado';
+  }
+
+  @override
+  String plDoseMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String plHabitProtein(int grams) {
+    return '$grams g divididos nas refeições';
+  }
+
+  @override
+  String plHabitWater(String liters) {
+    return '$liters L ao longo do dia';
+  }
+
+  @override
+  String plHabitSleep(String hours) {
+    return '$hours h esta noite';
+  }
+
+  @override
+  String get plYourRoutines => 'Suas rotinas';
+
+  @override
+  String get plNewRoutine => 'Nova rotina';
+
+  @override
+  String get plCustomEmpty => 'Crie sua própria rotina e marque aqui todo dia.';
+
+  @override
+  String plDeleteRoutineQ(String name) {
+    return 'Excluir \"$name\"?';
+  }
+
+  @override
+  String get plHoldToDelete => 'Segure uma rotina para excluí-la.';
+
+  @override
+  String plSetOf(int current, int total) {
+    return 'Série $current de $total';
+  }
+
+  @override
+  String get plRest => 'Descanso';
+
+  @override
+  String get plStartSet => 'Começar série';
+
+  @override
+  String get plSetDone => 'Série feita';
+
+  @override
+  String get plSkipRest => 'Pular descanso';
+
+  @override
+  String get plNextMove => 'Próximo exercício';
+
+  @override
+  String get plSkipMove => 'Pular';
+
+  @override
+  String plUpNext(String name) {
+    return 'A seguir: $name';
+  }
+
+  @override
+  String get plLastMove => 'Último exercício';
+
+  @override
+  String get plWorkoutComplete => 'Treino concluído';
+
+  @override
+  String plWorkoutSummary(int moves, int minutes) {
+    return '$moves exercícios em cerca de $minutes min. Cada treino conta.';
+  }
+
+  @override
+  String get plEachSide => 'Cada lado';
+
+  @override
+  String get plMoveDone => 'Exercício feito';
+
+  @override
+  String plRepsBig(int reps) {
+    return '$reps repetições';
+  }
+
+  @override
+  String get plSessionHint =>
+      'Vá no seu ritmo e toque em feito quando terminar.';
+
+  @override
+  String plProgramDayOf(int day, int total) {
+    return 'Dia $day de $total';
+  }
+
+  @override
+  String get plTodayStep => 'O passo de hoje';
+
+  @override
+  String get plTickToComplete => 'Marque cada exercício para concluir o dia';
+
+  @override
+  String plNextDayTomorrow(int day) {
+    return 'O dia $day abre amanhã. Descansar também faz parte de crescer.';
+  }
+
+  @override
+  String plNextLevelIn(int days, int level) {
+    return '$days dias para o nível $level';
+  }
+
+  @override
+  String get plProgramFinished =>
+      'Os 70 dias feitos. Você terminou o programa.';
+
+  @override
+  String plDayCompleteToast(int day) {
+    return 'Dia $day concluído';
+  }
+
+  @override
+  String get plLevelWeek => 'A semana deste nível';
+
+  @override
+  String get plProgressionTitle => 'Como fica mais difícil';
+
+  @override
+  String get plNow => 'Agora';
+
+  @override
+  String plLevelN(int n) {
+    return 'Nv $n';
+  }
+
+  @override
+  String get plUnlockProgram => 'Desbloquear o programa de 70 dias';
+
+  @override
+  String get plProgramPitch =>
+      '10 níveis, um por semana. Cada um soma segundos às sustentações, repetições aos saltos e uma série quando você estiver pronto.';
+
+  @override
+  String plDayLocked(int day) {
+    return 'Termine o dia $day primeiro';
+  }
+
+  @override
+  String plCurrentDay(int day) {
+    return 'Dia $day';
+  }
+
+  @override
+  String get plTodaysTargets => 'Suas metas de hoje';
+
+  @override
+  String get plTargetsBasis => 'Calculadas pela sua idade, peso e treino';
+
+  @override
+  String plProteinSplit(int meals, int grams) {
+    return '$meals refeições x $grams g';
+  }
+
+  @override
+  String get plZinc => 'Zinco';
+
+  @override
+  String get plMagnesium => 'Magnésio';
+
+  @override
+  String get plEnergy => 'Energia';
+
+  @override
+  String get plChecklist => 'Sua lista de hoje';
+
+  @override
+  String plCheckProtein(int grams) {
+    return 'Proteína $grams g';
+  }
+
+  @override
+  String plCheckCalcium(String mg) {
+    return 'Cálcio $mg mg';
+  }
+
+  @override
+  String plCheckVitaminD(String iu) {
+    return 'Vitamina D $iu UI';
+  }
+
+  @override
+  String plCheckWater(String liters) {
+    return 'Água $liters L';
+  }
+
+  @override
+  String plFromMeals(String amount) {
+    return '$amount das refeições marcadas';
+  }
+
+  @override
+  String get plVitaminDNote =>
+      '15 min de sol do meio-dia nos braços e rosto, ou um suplemento aprovado pelo seu médico';
+
+  @override
+  String plWaterLogged(String liters) {
+    return '$liters L registrados até agora';
+  }
+
+  @override
+  String get plMealPlan => 'Seu plano de refeições';
+
+  @override
+  String get plMealPlanSub =>
+      'Comida de verdade, gramas de verdade, ajustados às suas metas';
+
+  @override
+  String get plSnack => 'Lanche';
+
+  @override
+  String plMealSum(int protein, String calcium, String kcal) {
+    return '$protein g proteína · $calcium mg cálcio · $kcal kcal';
+  }
+
+  @override
+  String plMealGoal(int grams) {
+    return 'meta $grams g';
+  }
+
+  @override
+  String get plMarkEaten => 'Marcar como comido';
+
+  @override
+  String get plEaten => 'Comido';
+
+  @override
+  String get plPlanTotal => 'Total do dia';
+
+  @override
+  String plFillEnergy(String planKcal, String kcal) {
+    return 'Essas refeições dão cerca de $planKcal das suas $kcal kcal. Complete com frutas, legumes, pão ou arroz.';
+  }
+
+  @override
+  String get plWeeklyMenu => 'Cardápio da semana';
+
+  @override
+  String get plWeeklyMenuSub =>
+      'Um prato diferente a cada dia, as mesmas metas';
+
+  @override
+  String get plUnlockMenu => 'Desbloquear o cardápio completo da semana';
+
+  @override
+  String get plRecipes => 'Receitas';
+
+  @override
+  String get plRecipesSub => 'Pratos rápidos ricos em proteína';
+
+  @override
+  String get plNutritionGuide => 'Guia de nutrição';
+
+  @override
+  String get plNutritionGuideSub => 'Nutrientes, alimentos, suplementos';
+
+  @override
+  String plPieces(int n) {
+    return '$n un.';
+  }
+
+  @override
+  String get plFoodOats => 'Aveia';
+
+  @override
+  String get plFoodMilk => 'Leite';
+
+  @override
+  String get plFoodBanana => 'Banana';
+
+  @override
+  String get plFoodWalnuts => 'Nozes';
+
+  @override
+  String get plFoodGreekYogurt => 'Iogurte grego';
+
+  @override
+  String get plFoodYogurt => 'Iogurte natural';
+
+  @override
+  String get plFoodEggs => 'Ovos';
+
+  @override
+  String get plFoodBread => 'Pão integral';
+
+  @override
+  String get plFoodWhiteCheese => 'Queijo feta';
+
+  @override
+  String get plFoodHardCheese => 'Queijo curado';
+
+  @override
+  String get plFoodSalad => 'Salada de tomate e pepino';
+
+  @override
+  String get plFoodOrange => 'Laranja';
+
+  @override
+  String get plFoodPeanutButter => 'Pasta de amendoim';
+
+  @override
+  String get plFoodSpinach => 'Espinafre';
+
+  @override
+  String get plFoodCottageCheese => 'Queijo cottage';
+
+  @override
+  String get plFoodChicken => 'Peito de frango';
+
+  @override
+  String get plFoodBulgur => 'Triguilho';
+
+  @override
+  String get plFoodAyran => 'Ayran (bebida de iogurte)';
+
+  @override
+  String get plFoodTuna => 'Atum em lata';
+
+  @override
+  String get plFoodPasta => 'Macarrão';
+
+  @override
+  String get plFoodBeef => 'Carne magra';
+
+  @override
+  String get plFoodRice => 'Arroz';
+
+  @override
+  String get plFoodChickpeas => 'Grão-de-bico';
+
+  @override
+  String get plFoodSalmon => 'Salmão';
+
+  @override
+  String get plFoodBroccoli => 'Brócolis';
+
+  @override
+  String get plFoodPotato => 'Batatas';
+
+  @override
+  String get plFoodLentils => 'Lentilhas';
+
+  @override
+  String get plFoodSardines => 'Sardinhas';
+
+  @override
+  String get plFoodAlmonds => 'Amêndoas';
+
+  @override
+  String get plFoodKefir => 'Kefir';
+
+  @override
+  String get plFoodPumpkinSeeds => 'Sementes de abóbora';
 }

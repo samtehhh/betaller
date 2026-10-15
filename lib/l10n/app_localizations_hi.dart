@@ -5360,4 +5360,409 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get pgHabitsToday => 'आज दर्ज';
+
+  @override
+  String plWorkoutMeta(int moves, int minutes) {
+    return '$moves एक्सरसाइज़ · $minutes मिनट';
+  }
+
+  @override
+  String plDoneCount(int done, int total) {
+    return '$done/$total पूरे';
+  }
+
+  @override
+  String get plStartWorkout => 'वर्कआउट शुरू करो';
+
+  @override
+  String get plContinueWorkout => 'वर्कआउट जारी रखो';
+
+  @override
+  String get plWorkoutDoneToday => 'आज का वर्कआउट पूरा';
+
+  @override
+  String get plTraining => 'ट्रेनिंग';
+
+  @override
+  String get plHabits => 'रोज़ की आदतें';
+
+  @override
+  String get plRestDayNote =>
+      'हल्का दिन: छोटा सा योगा फ़्लो तुम्हें कल के लिए लचीला रखता है।';
+
+  @override
+  String plDoseReps(int sets, int reps) {
+    return '$sets x $reps रेप्स';
+  }
+
+  @override
+  String plDoseSeconds(int sets, int seconds) {
+    return '$sets x $seconds सेकंड';
+  }
+
+  @override
+  String plDoseSecondsSide(int sets, int seconds) {
+    return '$sets x $seconds सेकंड हर तरफ़';
+  }
+
+  @override
+  String plDoseMinutes(int minutes) {
+    return '$minutes मिनट';
+  }
+
+  @override
+  String plHabitProtein(int grams) {
+    return '$grams g, सारे खानों में बाँटकर';
+  }
+
+  @override
+  String plHabitWater(String liters) {
+    return 'दिन भर में $liters L';
+  }
+
+  @override
+  String plHabitSleep(String hours) {
+    return 'आज रात $hours घंटे';
+  }
+
+  @override
+  String get plYourRoutines => 'तुम्हारे रूटीन';
+
+  @override
+  String get plNewRoutine => 'नया रूटीन';
+
+  @override
+  String get plCustomEmpty => 'अपना खुद का रूटीन बनाओ और रोज़ यहाँ टिक करो।';
+
+  @override
+  String plDeleteRoutineQ(String name) {
+    return '\"$name\" हटाएँ?';
+  }
+
+  @override
+  String get plHoldToDelete => 'हटाने के लिए रूटीन को दबाकर रखो।';
+
+  @override
+  String plSetOf(int current, int total) {
+    return 'सेट $current / $total';
+  }
+
+  @override
+  String get plRest => 'आराम';
+
+  @override
+  String get plStartSet => 'सेट शुरू करो';
+
+  @override
+  String get plSetDone => 'सेट पूरा';
+
+  @override
+  String get plSkipRest => 'आराम छोड़ो';
+
+  @override
+  String get plNextMove => 'अगली एक्सरसाइज़';
+
+  @override
+  String get plSkipMove => 'छोड़ो';
+
+  @override
+  String plUpNext(String name) {
+    return 'अगला: $name';
+  }
+
+  @override
+  String get plLastMove => 'आख़िरी एक्सरसाइज़';
+
+  @override
+  String get plWorkoutComplete => 'वर्कआउट पूरा';
+
+  @override
+  String plWorkoutSummary(int moves, int minutes) {
+    return 'करीब $minutes मिनट में $moves एक्सरसाइज़। हर सेशन मायने रखता है।';
+  }
+
+  @override
+  String get plEachSide => 'दोनों तरफ़';
+
+  @override
+  String get plMoveDone => 'एक्सरसाइज़ पूरी';
+
+  @override
+  String plRepsBig(int reps) {
+    return '$reps रेप्स';
+  }
+
+  @override
+  String get plSessionHint => 'अपनी रफ़्तार से करो, खत्म होने पर पूरा दबाओ।';
+
+  @override
+  String plProgramDayOf(int day, int total) {
+    return 'दिन $day / $total';
+  }
+
+  @override
+  String get plTodayStep => 'आज का कदम';
+
+  @override
+  String get plTickToComplete => 'दिन पूरा करने के लिए हर एक्सरसाइज़ टिक करो';
+
+  @override
+  String plNextDayTomorrow(int day) {
+    return 'दिन $day कल खुलेगा। आराम भी बढ़ने का हिस्सा है।';
+  }
+
+  @override
+  String plNextLevelIn(int days, int level) {
+    return 'लेवल $level तक $days दिन';
+  }
+
+  @override
+  String get plProgramFinished =>
+      'सारे 70 दिन पूरे। तुमने प्रोग्राम खत्म कर लिया।';
+
+  @override
+  String plDayCompleteToast(int day) {
+    return 'दिन $day पूरा';
+  }
+
+  @override
+  String get plLevelWeek => 'इस लेवल का हफ़्ता';
+
+  @override
+  String get plProgressionTitle => 'यह कैसे कठिन होता है';
+
+  @override
+  String get plNow => 'अभी';
+
+  @override
+  String plLevelN(int n) {
+    return 'लेवल $n';
+  }
+
+  @override
+  String get plUnlockProgram => '70 दिन का प्रोग्राम अनलॉक करो';
+
+  @override
+  String get plProgramPitch =>
+      '10 लेवल, हर हफ़्ते एक। हर लेवल होल्ड में सेकंड, जंप में रेप्स और तैयार होने पर एक सेट जोड़ता है।';
+
+  @override
+  String plDayLocked(int day) {
+    return 'पहले दिन $day पूरा करो';
+  }
+
+  @override
+  String plCurrentDay(int day) {
+    return 'दिन $day';
+  }
+
+  @override
+  String get plTodaysTargets => 'आज के तुम्हारे लक्ष्य';
+
+  @override
+  String get plTargetsBasis => 'तुम्हारी उम्र, वज़न और ट्रेनिंग से निकाले गए';
+
+  @override
+  String plProteinSplit(int meals, int grams) {
+    return '$meals खाने x $grams g';
+  }
+
+  @override
+  String get plZinc => 'जिंक';
+
+  @override
+  String get plMagnesium => 'मैग्नीशियम';
+
+  @override
+  String get plEnergy => 'ऊर्जा';
+
+  @override
+  String get plChecklist => 'आज की चेकलिस्ट';
+
+  @override
+  String plCheckProtein(int grams) {
+    return 'प्रोटीन $grams g';
+  }
+
+  @override
+  String plCheckCalcium(String mg) {
+    return 'कैल्शियम $mg mg';
+  }
+
+  @override
+  String plCheckVitaminD(String iu) {
+    return 'विटामिन D $iu IU';
+  }
+
+  @override
+  String plCheckWater(String liters) {
+    return 'पानी $liters L';
+  }
+
+  @override
+  String plFromMeals(String amount) {
+    return 'टिक किए खानों से $amount';
+  }
+
+  @override
+  String get plVitaminDNote =>
+      'दोपहर की 15 मिनट धूप बाँहों और चेहरे पर, या डॉक्टर की बताई सप्लीमेंट';
+
+  @override
+  String plWaterLogged(String liters) {
+    return 'अब तक $liters L दर्ज';
+  }
+
+  @override
+  String get plMealPlan => 'तुम्हारा मील प्लान';
+
+  @override
+  String get plMealPlanSub =>
+      'असली खाना, असली ग्राम, तुम्हारे लक्ष्यों के हिसाब से';
+
+  @override
+  String get plSnack => 'स्नैक';
+
+  @override
+  String plMealSum(int protein, String calcium, String kcal) {
+    return '$protein g प्रोटीन · $calcium mg कैल्शियम · $kcal kcal';
+  }
+
+  @override
+  String plMealGoal(int grams) {
+    return 'लक्ष्य $grams g';
+  }
+
+  @override
+  String get plMarkEaten => 'खा लिया मार्क करो';
+
+  @override
+  String get plEaten => 'खा लिया';
+
+  @override
+  String get plPlanTotal => 'दिन का कुल';
+
+  @override
+  String plFillEnergy(String planKcal, String kcal) {
+    return 'ये खाने तुम्हारी $kcal kcal में से करीब $planKcal देते हैं। बाकी फल, सब्ज़ी, रोटी या चावल से पूरा करो।';
+  }
+
+  @override
+  String get plWeeklyMenu => 'हफ़्ते का मेन्यू';
+
+  @override
+  String get plWeeklyMenuSub => 'हर दिन अलग थाली, वही लक्ष्य';
+
+  @override
+  String get plUnlockMenu => 'पूरा हफ़्ते का मेन्यू अनलॉक करो';
+
+  @override
+  String get plRecipes => 'रेसिपी';
+
+  @override
+  String get plRecipesSub => 'जल्दी बनने वाले हाई प्रोटीन खाने';
+
+  @override
+  String get plNutritionGuide => 'न्यूट्रिशन गाइड';
+
+  @override
+  String get plNutritionGuideSub => 'पोषक तत्व, खाने, सप्लीमेंट';
+
+  @override
+  String plPieces(int n) {
+    return '$n नग';
+  }
+
+  @override
+  String get plFoodOats => 'ओट्स';
+
+  @override
+  String get plFoodMilk => 'दूध';
+
+  @override
+  String get plFoodBanana => 'केला';
+
+  @override
+  String get plFoodWalnuts => 'अखरोट';
+
+  @override
+  String get plFoodGreekYogurt => 'ग्रीक योगर्ट';
+
+  @override
+  String get plFoodYogurt => 'दही';
+
+  @override
+  String get plFoodEggs => 'अंडे';
+
+  @override
+  String get plFoodBread => 'होल व्हीट ब्रेड';
+
+  @override
+  String get plFoodWhiteCheese => 'फ़ेटा चीज़';
+
+  @override
+  String get plFoodHardCheese => 'चेडर चीज़';
+
+  @override
+  String get plFoodSalad => 'टमाटर खीरा सलाद';
+
+  @override
+  String get plFoodOrange => 'संतरा';
+
+  @override
+  String get plFoodPeanutButter => 'पीनट बटर';
+
+  @override
+  String get plFoodSpinach => 'पालक';
+
+  @override
+  String get plFoodCottageCheese => 'कॉटेज चीज़';
+
+  @override
+  String get plFoodChicken => 'चिकन ब्रेस्ट';
+
+  @override
+  String get plFoodBulgur => 'दलिया';
+
+  @override
+  String get plFoodAyran => 'छाछ';
+
+  @override
+  String get plFoodTuna => 'टूना (डिब्बाबंद)';
+
+  @override
+  String get plFoodPasta => 'पास्ता';
+
+  @override
+  String get plFoodBeef => 'लीन मीट';
+
+  @override
+  String get plFoodRice => 'चावल';
+
+  @override
+  String get plFoodChickpeas => 'छोले';
+
+  @override
+  String get plFoodSalmon => 'सैल्मन';
+
+  @override
+  String get plFoodBroccoli => 'ब्रोकली';
+
+  @override
+  String get plFoodPotato => 'आलू';
+
+  @override
+  String get plFoodLentils => 'दाल';
+
+  @override
+  String get plFoodSardines => 'सार्डिन';
+
+  @override
+  String get plFoodAlmonds => 'बादाम';
+
+  @override
+  String get plFoodKefir => 'केफ़िर';
+
+  @override
+  String get plFoodPumpkinSeeds => 'कद्दू के बीज';
 }

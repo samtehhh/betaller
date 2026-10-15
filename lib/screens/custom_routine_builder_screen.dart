@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/haptics.dart';
 
 /// Custom Routine Builder — lets users create their own routines.
 class CustomRoutineBuilderScreen extends StatefulWidget {
@@ -104,7 +104,7 @@ class _CustomRoutineBuilderScreenState
       'musclesTargeted': <String>[],
       'timerSeconds': _parseTimerSeconds(_setsRepsController.text),
     });
-    HapticFeedback.heavyImpact();
+    Haptics.success();
     Navigator.of(context).pop();
   }
 
@@ -169,7 +169,7 @@ class _CustomRoutineBuilderScreenState
               IconButton(
                 icon: const Icon(CupertinoIcons.back, color: Colors.white),
                 onPressed: () {
-                  HapticFeedback.lightImpact();
+                  Haptics.tap();
                   Navigator.of(context).pop();
                 },
               ),
@@ -231,7 +231,7 @@ class _CustomRoutineBuilderScreenState
               final selected = _icon == e;
               return GestureDetector(
                 onTap: () {
-                  HapticFeedback.selectionClick();
+                  Haptics.select();
                   setState(() => _icon = e);
                 },
                 child: AnimatedContainer(
@@ -378,7 +378,7 @@ class _CustomRoutineBuilderScreenState
               final selected = _category == key;
               return GestureDetector(
                 onTap: () {
-                  HapticFeedback.selectionClick();
+                  Haptics.select();
                   setState(() => _category = key);
                 },
                 child: AnimatedContainer(
@@ -473,7 +473,7 @@ class _CustomRoutineBuilderScreenState
                       right: item == items.last ? 0 : 8),
                   child: GestureDetector(
                     onTap: () {
-                      HapticFeedback.selectionClick();
+                      Haptics.select();
                       setState(() => _difficulty = key);
                     },
                     child: AnimatedContainer(
@@ -539,7 +539,7 @@ class _CustomRoutineBuilderScreenState
               final selected = _duration == d;
               return GestureDetector(
                 onTap: () {
-                  HapticFeedback.selectionClick();
+                  Haptics.select();
                   setState(() => _duration = d);
                 },
                 child: AnimatedContainer(

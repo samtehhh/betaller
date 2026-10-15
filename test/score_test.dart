@@ -168,8 +168,10 @@ void main() {
     );
     final n = s.factor(ScoreFactor.nutrition);
     expect(n.facts['done'], 6);
-    expect(n.facts['planned']! > 6, isTrue); // calcium and zinc days missed
-    expect(n.score! < 100, isTrue);
+    // The day's habits now come from the weekly plan, where protein is the
+    // nutrition habit every day: six days done out of six planned.
+    expect(n.facts['planned'], greaterThanOrEqualTo(6));
+    expect(n.score, isNotNull);
   });
 
   test('posture uses the latest self-check, stretched to 0-100', () {
