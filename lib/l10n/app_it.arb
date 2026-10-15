@@ -599,7 +599,7 @@
   "chooseFromLibrary": "Scegli dalla galleria",
   "deletePhotoTitle": "Eliminare la foto?",
   "deletePhotoBody": "Questa foto sarà rimossa dalla tua timeline di progresso.",
-  "timelineTab": "Timeline",
+  "timelineTab": "Cronologia",
   "photoLabel": "{count, plural, =1{foto} other{foto}}",
   "@photoLabel": {
     "placeholders": {
@@ -812,9 +812,9 @@
   "kyphosisLabel": "Cifosi (schiena alta)",
   "lordosisLabel": "Lordosi (schiena bassa)",
   "analyzingPosture": "ANALYZING POSTURE",
-  "privacyPolicy": "Privacy Policy",
-  "termsOfService": "Terms of Service",
-  "version": "Version {ver}",
+  "privacyPolicy": "Informativa sulla privacy",
+  "termsOfService": "Termini di servizio",
+  "version": "Versione {ver}",
   "@version": {
     "placeholders": {
       "ver": {
@@ -824,9 +824,9 @@
   },
   "rateApp": "Rate BeTaller",
   "rateAppSubtitle": "Your review helps us grow!",
-  "unitSystem": "Unit System",
-  "unitMetric": "Metric (cm, kg)",
-  "unitImperial": "Imperial (ft-in, lbs)",
+  "unitSystem": "Sistema di misura",
+  "unitMetric": "Metrico (cm, kg)",
+  "unitImperial": "Imperiale (ft-in, lbs)",
   "healthDisclaimer": "Health Disclaimer",
   "healthDisclaimerBody": "BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.",
   "sciSourcePrefix": "Source: ",
@@ -1283,7 +1283,7 @@
   "disciplineTierRelentless": "Instancabile",
   "disciplineTierUnbroken": "Indomabile",
   "disciplineTierLegend": "Leggenda",
-  "goalPerfectDays": "Giorni in cui hai completato il piano",
+  "goalPerfectDays": "Giorni con il piano completo",
   "goalWorkouts": "Sessioni di allenamento",
   "goalMeasurement": "Misurazione dell'altezza",
   "goalPhoto": "Foto dei progressi",

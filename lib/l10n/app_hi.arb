@@ -812,9 +812,9 @@
   "kyphosisLabel": "काइफ़ोसिस (ऊपरी पीठ)",
   "lordosisLabel": "लॉर्डोसिस (निचली पीठ)",
   "analyzingPosture": "ANALYZING POSTURE",
-  "privacyPolicy": "Privacy Policy",
-  "termsOfService": "Terms of Service",
-  "version": "Version {ver}",
+  "privacyPolicy": "गोपनीयता नीति",
+  "termsOfService": "सेवा की शर्तें",
+  "version": "संस्करण {ver}",
   "@version": {
     "placeholders": {
       "ver": {
@@ -824,9 +824,9 @@
   },
   "rateApp": "Rate BeTaller",
   "rateAppSubtitle": "Your review helps us grow!",
-  "unitSystem": "Unit System",
-  "unitMetric": "Metric (cm, kg)",
-  "unitImperial": "Imperial (ft-in, lbs)",
+  "unitSystem": "माप प्रणाली",
+  "unitMetric": "मीट्रिक (cm, kg)",
+  "unitImperial": "इंपीरियल (ft-in, lbs)",
   "healthDisclaimer": "Health Disclaimer",
   "healthDisclaimerBody": "BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.",
   "sciSourcePrefix": "Source: ",

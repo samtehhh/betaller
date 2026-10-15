@@ -1781,7 +1781,7 @@ abstract class AppLocalizations {
   /// No description provided for @tipMorningMeasure.
   ///
   /// In en, this message translates to:
-  /// **'Measure height in the morning - disc pressure causes height loss during the day. Most accurate measurement is in the morning.'**
+  /// **'Measure your height in the morning. Pressure on your discs makes you a little shorter during the day, so the morning reading is the most accurate.'**
   String get tipMorningMeasure;
 
   /// No description provided for @tipProteinSpread.

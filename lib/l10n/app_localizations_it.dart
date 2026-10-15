@@ -98,7 +98,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get disciplineTierLegend => 'Leggenda';
 
   @override
-  String get goalPerfectDays => 'Giorni in cui hai completato il piano';
+  String get goalPerfectDays => 'Giorni con il piano completo';
 
   @override
   String get goalWorkouts => 'Sessioni di allenamento';
@@ -2180,7 +2180,7 @@ class AppLocalizationsIt extends AppLocalizations {
       'Questa foto sarà rimossa dalla tua timeline di progresso.';
 
   @override
-  String get timelineTab => 'Timeline';
+  String get timelineTab => 'Cronologia';
 
   @override
   String photoLabel(int count) {
@@ -2867,14 +2867,14 @@ class AppLocalizationsIt extends AppLocalizations {
   String get analyzingPosture => 'ANALYZING POSTURE';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'Informativa sulla privacy';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'Termini di servizio';
 
   @override
   String version(String ver) {
-    return 'Version $ver';
+    return 'Versione $ver';
   }
 
   @override
@@ -2884,13 +2884,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get rateAppSubtitle => 'Your review helps us grow!';
 
   @override
-  String get unitSystem => 'Unit System';
+  String get unitSystem => 'Sistema di misura';
 
   @override
-  String get unitMetric => 'Metric (cm, kg)';
+  String get unitMetric => 'Metrico (cm, kg)';
 
   @override
-  String get unitImperial => 'Imperial (ft-in, lbs)';
+  String get unitImperial => 'Imperiale (ft-in, lbs)';
 
   @override
   String get healthDisclaimer => 'Health Disclaimer';

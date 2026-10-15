@@ -2860,14 +2860,14 @@ class AppLocalizationsEs extends AppLocalizations {
   String get analyzingPosture => 'ANALYZING POSTURE';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'Política de privacidad';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'Términos del servicio';
 
   @override
   String version(String ver) {
-    return 'Version $ver';
+    return 'Versión $ver';
   }
 
   @override
@@ -2877,10 +2877,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get rateAppSubtitle => 'Your review helps us grow!';
 
   @override
-  String get unitSystem => 'Unit System';
+  String get unitSystem => 'Sistema de unidades';
 
   @override
-  String get unitMetric => 'Metric (cm, kg)';
+  String get unitMetric => 'Métrico (cm, kg)';
 
   @override
   String get unitImperial => 'Imperial (ft-in, lbs)';

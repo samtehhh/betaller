@@ -2845,14 +2845,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String get analyzingPosture => 'ANALYZING POSTURE';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'गोपनीयता नीति';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'सेवा की शर्तें';
 
   @override
   String version(String ver) {
-    return 'Version $ver';
+    return 'संस्करण $ver';
   }
 
   @override
@@ -2862,13 +2862,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get rateAppSubtitle => 'Your review helps us grow!';
 
   @override
-  String get unitSystem => 'Unit System';
+  String get unitSystem => 'माप प्रणाली';
 
   @override
-  String get unitMetric => 'Metric (cm, kg)';
+  String get unitMetric => 'मीट्रिक (cm, kg)';
 
   @override
-  String get unitImperial => 'Imperial (ft-in, lbs)';
+  String get unitImperial => 'इंपीरियल (ft-in, lbs)';
 
   @override
   String get healthDisclaimer => 'Health Disclaimer';

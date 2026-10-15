@@ -98,7 +98,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get disciplineTierLegend => 'Legende';
 
   @override
-  String get goalPerfectDays => 'Tage, an denen du den Plan erfüllt hast';
+  String get goalPerfectDays => 'Tage mit erfülltem Plan';
 
   @override
   String get goalWorkouts => 'Trainingseinheiten';
@@ -2864,10 +2864,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get analyzingPosture => 'ANALYZING POSTURE';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'Datenschutzerklärung';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'Nutzungsbedingungen';
 
   @override
   String version(String ver) {
@@ -2881,10 +2881,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get rateAppSubtitle => 'Your review helps us grow!';
 
   @override
-  String get unitSystem => 'Unit System';
+  String get unitSystem => 'Einheitensystem';
 
   @override
-  String get unitMetric => 'Metric (cm, kg)';
+  String get unitMetric => 'Metrisch (cm, kg)';
 
   @override
   String get unitImperial => 'Imperial (ft-in, lbs)';

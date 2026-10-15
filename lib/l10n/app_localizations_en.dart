@@ -934,7 +934,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tipMorningMeasure =>
-      'Measure height in the morning - disc pressure causes height loss during the day. Most accurate measurement is in the morning.';
+      'Measure your height in the morning. Pressure on your discs makes you a little shorter during the day, so the morning reading is the most accurate.';
 
   @override
   String get tipProteinSpread =>

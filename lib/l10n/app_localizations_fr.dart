@@ -282,7 +282,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get discipline => 'Discipline';
 
   @override
-  String get improveScore => 'Améliorez votre score';
+  String get improveScore => 'Améliore ton score';
 
   @override
   String gradeProgress(String current, String next) {
@@ -313,7 +313,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get keepStreak => 'Maintenez la série';
+  String get keepStreak => 'Garde ta série';
 
   @override
   String get addFirstMeasurement => 'Ajouter la première mesure';
@@ -349,7 +349,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get nutritionDefault =>
-      'Atteignez votre objectif d\'eau et maintenez une nutrition équilibrée.';
+      'Atteins ton objectif d\'eau et garde une alimentation équilibrée.';
 
   @override
   String sleepNoRecord(String hours) {
@@ -386,7 +386,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String streakContinue(int days) {
-    return 'Série de $days jours ! Votre score augmente en continuant.';
+    return 'Série de $days jours ! Ton score augmente si tu continues.';
   }
 
   @override
@@ -510,7 +510,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get chartInstruction =>
-      'Ajoutez des mesures pour voir votre graphique de progression !';
+      'Ajoute des mesures pour voir ta courbe de progression !';
 
   @override
   String get addMeasurementButton => 'AJOUTER UNE MESURE';
@@ -522,8 +522,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get deleteTitle => 'Supprimer la mesure';
 
   @override
-  String get deleteMessage =>
-      'Êtes-vous sûr de vouloir supprimer cette mesure ?';
+  String get deleteMessage => 'Tu es sûr de vouloir supprimer cette mesure ?';
 
   @override
   String get dismiss => 'Annuler';
@@ -677,26 +676,26 @@ class AppLocalizationsFr extends AppLocalizations {
   String get premiumSubtitle => 'Débloquer toutes les fonctionnalités';
 
   @override
-  String get rateUs => 'Notez-nous';
+  String get rateUs => 'Note-nous';
 
   @override
-  String get rateSubtitle => 'Vous aimez l\'appli ? Donnez-nous 5 étoiles !';
+  String get rateSubtitle => 'Tu aimes l\'appli ? Donne-nous 5 étoiles !';
 
   @override
   String get share => 'Partager l\'appli';
 
   @override
-  String get shareSubtitle => 'Parlez de BeTaller à vos amis';
+  String get shareSubtitle => 'Parle de BeTaller à tes amis';
 
   @override
   String get shareText =>
-      'J\'ai découvert mon potentiel de croissance avec BeTaller ! Essayez aussi : https://apps.apple.com/app/id6761445065';
+      'J\'ai découvert mon potentiel de croissance avec BeTaller ! Essaie aussi : https://apps.apple.com/app/id6761445065';
 
   @override
   String get feedback => 'Donner un avis';
 
   @override
-  String get feedbackSubtitle => 'Contactez-nous';
+  String get feedbackSubtitle => 'Contacte-nous';
 
   @override
   String get resetData => 'Réinitialiser toutes les données';
@@ -709,7 +708,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get resetMessage =>
-      'Toutes les données seront supprimées et vous reviendrez à l\'écran d\'accueil. Cette action est irréversible !';
+      'Toutes les données seront supprimées et tu reviendras à l\'écran d\'accueil. Cette action est irréversible !';
 
   @override
   String get reset => 'Réinitialiser';
@@ -718,7 +717,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get premiumSoon => 'Premium bientôt disponible !';
 
   @override
-  String get brandingSubtitle => 'Découvrez votre potentiel de croissance';
+  String get brandingSubtitle => 'Découvre ton potentiel de croissance';
 
   @override
   String get statistics => 'Statistiques';
@@ -784,7 +783,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get onboardingTitle => 'BeTaller';
 
   @override
-  String get onboardingSubtitle => 'Découvrez votre potentiel de croissance';
+  String get onboardingSubtitle => 'Découvre ton potentiel de croissance';
 
   @override
   String get onboardingMeetYou => 'Faisons connaissance';
@@ -818,16 +817,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pastHeightsInfo =>
-      'Entrez les tailles dont vous vous souvenez à différents âges. Vous pouvez laisser des cases vides.';
+      'Entre les tailles dont tu te souviens à différents âges. Tu peux laisser des cases vides.';
 
   @override
-  String get heightHint => 'Entrez la taille...';
+  String get heightHint => 'Entre ta taille...';
 
   @override
   String get ageLabel => 'âge';
 
   @override
-  String get habits => 'Vos habitudes';
+  String get habits => 'Tes habitudes';
 
   @override
   String get habitsInfo =>
@@ -947,11 +946,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tipProteinSpread =>
-      'Répartissez les protéines sur tous les repas. Ne mangez pas tout d\'un coup, prenez des protéines à chaque repas.';
+      'Répartis les protéines sur tous tes repas. Ne mange pas tout d\'un coup, prends des protéines à chaque repas.';
 
   @override
   String get tipGrowthHormone =>
-      'L\'hormone de croissance atteint son pic pendant le sommeil. Soyez endormi entre 22h et 2h !';
+      'L\'hormone de croissance atteint son pic pendant le sommeil. Sois endormi entre 22 h et 2 h !';
 
   @override
   String get tipVitaminD =>
@@ -959,7 +958,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tipBarHanging =>
-      'La suspension à la barre décompresse la colonne vertébrale. Essayez 3x30 secondes par jour.';
+      'La suspension à la barre décompresse la colonne vertébrale. Essaie 3x30 secondes par jour.';
 
   @override
   String get tipSwimming =>
@@ -967,28 +966,28 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tipStress =>
-      'Le stress inhibe l\'hormone de croissance. Réduisez le stress avec la méditation et le yoga.';
+      'Le stress freine l\'hormone de croissance. Réduis-le avec la méditation et le yoga.';
 
   @override
   String get routineMorningStretch => 'Étirements matinaux';
 
   @override
   String get routineMorningStretchDesc =>
-      'Faites 10 minutes d\'étirements au réveil. Étirez la colonne vertébrale et les muscles des jambes.';
+      'Fais 10 minutes d\'étirements au réveil. Étire ta colonne et les muscles de tes jambes.';
 
   @override
   String get routineBarHanging => 'Suspension à la barre';
 
   @override
   String get routineBarHangingDesc =>
-      'Suspendez-vous à une barre de traction pour étendre la colonne vertébrale. 3 séries x 30 secondes.';
+      'Suspends-toi à une barre de traction pour étirer ta colonne. 3 séries x 30 secondes.';
 
   @override
   String get routineCobraStretch => 'Étirement du cobra';
 
   @override
   String get routineCobraStretchDesc =>
-      'Allongez-vous face au sol et soulevez le haut du corps. Étirez la colonne vertébrale. 3 séries x 15 secondes.';
+      'Allonge-toi sur le ventre et soulève le haut du corps. Étire ta colonne. 3 séries x 15 secondes.';
 
   @override
   String get routineJumping => 'Exercices de saut';
@@ -1002,14 +1001,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get routineSwimmingDesc =>
-      'Pratiquez un sport qui favorise la croissance. Au moins 30 minutes.';
+      'Pratique un sport qui favorise la croissance. Au moins 30 minutes.';
 
   @override
   String get routineYoga => 'Yoga et étirements du soir';
 
   @override
   String get routineYogaDesc =>
-      'Routine de yoga et d\'étirements avant le coucher. Relâchez le stress, détendez les muscles.';
+      'Routine de yoga et d\'étirements avant le coucher. Relâche le stress, détends tes muscles.';
 
   @override
   String get routineProtein => 'Apport en protéines';
@@ -1023,21 +1022,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get routineCalciumDesc =>
-      'Consommez du lait, du fromage, du yaourt. Exposez-vous au soleil 15 min. Essentiel pour le développement osseux.';
+      'Consomme du lait, du fromage, du yaourt. Expose-toi au soleil 15 min. Essentiel pour le développement osseux.';
 
   @override
   String get routineWater => 'Objectif d\'hydratation';
 
   @override
   String get routineWaterDesc =>
-      'Buvez au moins 2 à 3 litres d\'eau par jour. Essentiel pour le métabolisme et la croissance.';
+      'Bois au moins 2 à 3 litres d\'eau par jour. Essentiel pour le métabolisme et la croissance.';
 
   @override
   String get routineAvoidJunk => 'Éviter la malbouffe';
 
   @override
   String get routineAvoidJunkDesc =>
-      'Évitez le fast-food, les boissons sucrées et les aliments transformés.';
+      'Évite le fast-food, les boissons sucrées et les aliments transformés.';
 
   @override
   String get routineSleep => 'Sommeil de qualité (8-10h)';
@@ -1051,21 +1050,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get routineNoScreenDesc =>
-      'Rangez téléphone et ordinateur 1 heure avant le coucher. Ne bloquez pas la production de mélatonine.';
+      'Range ton téléphone et ton ordinateur 1 heure avant le coucher. Ne bloque pas la production de mélatonine.';
 
   @override
   String get routinePosture => 'Vérification de la posture';
 
   @override
   String get routinePostureDesc =>
-      'Gardez le dos droit, les épaules en arrière. Vérifiez toutes les heures. Une bonne posture = 2-3 cm de différence.';
+      'Garde le dos droit, les épaules en arrière. Vérifie toutes les heures. Une bonne posture = 2-3 cm de différence.';
 
   @override
   String get routineWallStand => 'Exercice contre le mur';
 
   @override
   String get routineWallStandDesc =>
-      'Adossez-vous au mur : talons, hanches, épaules et tête contre le mur. Tenez 5 min.';
+      'Adosse-toi au mur : talons, hanches, épaules et tête contre le mur. Tiens 5 min.';
 
   @override
   String get routineSprintIntervals => 'Intervalles de Sprint';
@@ -1128,21 +1127,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get routineZincIntakeDesc =>
-      'Consommez des aliments riches en zinc tout au long de la journée pour la production d\'hormone de croissance.';
+      'Consomme des aliments riches en zinc tout au long de la journée pour la production d\'hormone de croissance.';
 
   @override
   String get routineVitaminDSunlight => 'Vitamine D et Soleil';
 
   @override
   String get routineVitaminDSunlightDesc =>
-      'Exposez-vous au moins 15 minutes au soleil direct pour la synthèse de vitamine D et la croissance osseuse.';
+      'Expose-toi au moins 15 minutes au soleil direct pour la synthèse de vitamine D et la croissance osseuse.';
 
   @override
   String get routineArginineFoods => 'Aliments Riches en Arginine';
 
   @override
   String get routineArginineFoodsDesc =>
-      'Mangez des aliments riches en arginine pour stimuler la sécrétion d\'hormone de croissance.';
+      'Mange des aliments riches en arginine pour stimuler la sécrétion d\'hormone de croissance.';
 
   @override
   String get routineDailyCalories => 'Objectif calorique quotidien';
@@ -1156,7 +1155,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get routineSleepEnvironmentDesc =>
-      'Créez un environnement de sommeil sombre et frais pour maximiser la libération de mélatonine et d\'hormone de croissance.';
+      'Crée une chambre sombre et fraîche pour maximiser la libération de mélatonine et d\'hormone de croissance.';
 
   @override
   String get routinePreSleepRoutine => 'Routine Pré-Sommeil';
@@ -1190,117 +1189,115 @@ class AppLocalizationsFr extends AppLocalizations {
   String get achieveFirstDay => 'Premier pas';
 
   @override
-  String get achieveFirstDayDesc => 'Terminez votre premier jour';
+  String get achieveFirstDayDesc => 'Termine ton premier jour';
 
   @override
   String get achieveThreeStreak => 'Série de 3 jours';
 
   @override
-  String get achieveThreeStreakDesc =>
-      'Complétez les routines 3 jours de suite';
+  String get achieveThreeStreakDesc => 'Complète tes routines 3 jours de suite';
 
   @override
   String get achieveWeekStreak => 'Série de 7 jours';
 
   @override
-  String get achieveWeekStreakDesc => 'Complétez les routines 7 jours de suite';
+  String get achieveWeekStreakDesc => 'Complète tes routines 7 jours de suite';
 
   @override
   String get achieveTwoWeekStreak => 'Série de 14 jours';
 
   @override
-  String get achieveTwoWeekStreakDesc =>
-      'Continuez pendant 14 jours consécutifs';
+  String get achieveTwoWeekStreakDesc => 'Continue pendant 14 jours d\'affilée';
 
   @override
   String get achieveMonthStreak => 'Série de 30 jours';
 
   @override
-  String get achieveMonthStreakDesc => 'Complétez 30 jours de suite';
+  String get achieveMonthStreakDesc => 'Complète 30 jours de suite';
 
   @override
   String get achieveTwoMonthStreak => 'Série de 60 jours';
 
   @override
-  String get achieveTwoMonthStreakDesc => 'Complétez 60 jours de suite';
+  String get achieveTwoMonthStreakDesc => 'Complète 60 jours de suite';
 
   @override
   String get achieveHundredStreak => 'Série de 100 jours';
 
   @override
-  String get achieveHundredStreakDesc => 'Complétez 100 jours de suite';
+  String get achieveHundredStreakDesc => 'Complète 100 jours de suite';
 
   @override
   String get achieveFirstMeasure => 'Première mesure';
 
   @override
   String get achieveFirstMeasureDesc =>
-      'Enregistrez votre première mesure de taille';
+      'Enregistre ta première mesure de taille';
 
   @override
   String get achieveThreeMeasures => 'Suivi régulier';
 
   @override
-  String get achieveThreeMeasuresDesc => 'Enregistrez 3 mesures de taille';
+  String get achieveThreeMeasuresDesc => 'Enregistre 3 mesures de taille';
 
   @override
   String get achieveFiveMeasures => 'Suivi assidu';
 
   @override
-  String get achieveFiveMeasuresDesc => 'Enregistrez 5 mesures de taille';
+  String get achieveFiveMeasuresDesc => 'Enregistre 5 mesures de taille';
 
   @override
   String get achieveTenMeasures => 'Chasseur de données';
 
   @override
-  String get achieveTenMeasuresDesc => 'Enregistrez 10 mesures de taille';
+  String get achieveTenMeasuresDesc => 'Enregistre 10 mesures de taille';
 
   @override
   String get achieveFirstCm => 'Premier centimètre';
 
   @override
-  String get achieveFirstCmDesc => 'Enregistrez 1 cm de croissance totale';
+  String get achieveFirstCmDesc => 'Enregistre 1 cm de croissance au total';
 
   @override
   String get achieveThreeCm => '3 cm de croissance';
 
   @override
-  String get achieveThreeCmDesc => 'Enregistrez 3 cm de croissance totale';
+  String get achieveThreeCmDesc => 'Enregistre 3 cm de croissance au total';
 
   @override
   String get achieveFiveCm => '5 cm de croissance';
 
   @override
-  String get achieveFiveCmDesc => 'Enregistrez 5 cm de croissance totale';
+  String get achieveFiveCmDesc => 'Enregistre 5 cm de croissance au total';
 
   @override
   String get achieveTenCm => '10 cm de croissance';
 
   @override
-  String get achieveTenCmDesc => 'Enregistrez 10 cm de croissance totale';
+  String get achieveTenCmDesc => 'Enregistre 10 cm de croissance au total';
 
   @override
-  String get quote1 => 'Soyez meilleur qu\'hier, chaque jour.';
+  String get quote1 => 'Sois meilleur qu\'hier, chaque jour.';
 
   @override
   String get quote2 =>
-      'La croissance ne se fait pas en une nuit, mais chaque nuit vous en rapproche.';
+      'La croissance ne se fait pas en une nuit, mais chaque nuit t\'en rapproche.';
 
   @override
-  String get quote3 => 'La croissance demande de la patience, continuez !';
+  String get quote3 => 'La croissance demande de la patience, continue !';
 
   @override
   String get quote4 =>
-      'Le pas que vous faites aujourd\'hui construit les fondations de demain.';
+      'Le pas que tu fais aujourd\'hui construit les fondations de demain.';
 
   @override
   String get quote5 => 'La discipline commence là où la motivation s\'arrête.';
 
   @override
-  String get quote6 => 'Votre corps vous remerciera, continuez !';
+  String get quote6 => 'Ton corps te remerciera, continue !';
 
   @override
-  String get quote7 => 'C\'est vous qui fixez les limites de votre potentiel.';
+  String get quote7 => 'C\'est toi qui fixes les limites de ton potentiel.';
 
   @override
   String get quote8 => 'Les petits pas créent de grands changements.';
@@ -1309,35 +1306,33 @@ class AppLocalizationsFr extends AppLocalizations {
   String get quote9 => 'Le meilleur investissement, c\'est en soi-même.';
 
   @override
-  String get quote10 => 'Vous vous rapprochez de votre objectif chaque jour.';
+  String get quote10 => 'Tu te rapproches de ton objectif chaque jour.';
 
   @override
   String get quote11 =>
       'Le changement est difficile, mais le regret l\'est encore plus.';
 
   @override
-  String get quote12 => 'Votre corps est un temple, prenez-en soin.';
+  String get quote12 => 'Ton corps est un temple, prends-en soin.';
 
   @override
-  String get quote13 =>
-      'Votre rival, c\'est le vous d\'hier. Dépassez-le aujourd\'hui !';
+  String get quote13 => 'Ton rival, c\'est toi hier. Dépasse-le aujourd\'hui !';
 
   @override
   String get quote14 => 'BeTaller = Patience + Discipline + Conviction';
 
   @override
-  String get quote15 => 'Croyez en vous, le processus vous façonnera.';
+  String get quote15 => 'Crois en toi, le processus te façonnera.';
 
   @override
   String get quote16 =>
-      'Ne dites pas je ne peux pas aujourd\'hui, ne regrettez pas demain.';
+      'Ne dis pas « je ne peux pas » aujourd\'hui, et tu n\'auras rien à regretter demain.';
 
   @override
-  String get quote17 =>
-      'Montrez des progrès chaque jour, même si ce n\'est que 1%.';
+  String get quote17 => 'Progresse chaque jour, même si ce n\'est que de 1 %.';
 
   @override
-  String get quote18 => 'Le miroir montrera vos progrès, soyez patient.';
+  String get quote18 => 'Le miroir montrera tes progrès, sois patient.';
 
   @override
   String get bmiNormal => 'Normal';
@@ -2053,7 +2048,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get wellnessSubtitle =>
-      'Suivez les facteurs qui affectent votre croissance';
+      'Suis les facteurs qui influencent ta croissance';
 
   @override
   String get caffeineToday => 'Caféine aujourd\'hui';
@@ -2090,7 +2085,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'Très stressé, le cortisol bloque l\'HGH';
 
   @override
-  String get stressTapToLog => 'Appuyez pour enregistrer votre humeur';
+  String get stressTapToLog => 'Touche pour noter ton humeur du jour';
 
   @override
   String get todaysJournal => 'Journal du jour';
@@ -2134,7 +2129,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get insightCaffeineHigh =>
-      'Votre consommation de caféine est élevée cette semaine. Essayez de réduire pour un meilleur sommeil et HGH.';
+      'Ta consommation de caféine est élevée cette semaine. Essaie de réduire pour mieux dormir et pour l\'HGH.';
 
   @override
   String get insightStressHigh =>
@@ -2146,15 +2141,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get insightGreat =>
-      'Excellent équilibre cette semaine. Votre bien-être soutient une croissance optimale.';
+      'Excellent équilibre cette semaine. Ton bien-être soutient une croissance optimale.';
 
   @override
   String get insightDefault =>
-      'Votre bien-être est en bonne voie. Continuez à enregistrer pour des analyses plus profondes.';
+      'Ton bien-être est sur la bonne voie. Continue à noter pour des analyses plus fines.';
 
   @override
   String get insightNeedMoreData =>
-      'Enregistrez pendant quelques jours de plus pour voir les analyses.';
+      'Note encore quelques jours pour voir les analyses.';
 
   @override
   String get progressPhotosTitle => 'Photos de progrès';
@@ -2182,7 +2177,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get deletePhotoBody =>
-      'Cette photo sera retirée de votre chronologie de progrès.';
+      'Cette photo sera retirée de ta chronologie de progression.';
 
   @override
   String get timelineTab => 'Chronologie';
@@ -2236,11 +2231,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get afterLabel => 'APRÈS';
 
   @override
-  String get yourHeightDialog => 'Votre taille';
+  String get yourHeightDialog => 'Ta taille';
 
   @override
   String get heightDialogMessage =>
-      'Entrez votre taille actuelle en cm pour cette photo';
+      'Entre ta taille actuelle en cm pour cette photo';
 
   @override
   String get postureAnalysisTitle => 'Analyse posturale';
@@ -2295,7 +2290,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get postureWallStandDesc =>
-      'Tenez-vous dos au mur pendant 2 minutes par jour.';
+      'Tiens-toi dos au mur pendant 2 minutes par jour.';
 
   @override
   String get postureChestOpener => 'Ouverture du thorax';
@@ -2325,7 +2320,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get recipesHeader => 'RECETTES';
 
   @override
-  String get recipesSubtitle => 'Alimentez votre croissance';
+  String get recipesSubtitle => 'Nourris ta croissance';
 
   @override
   String get recipesCategoryAll => 'Toutes';
@@ -2409,7 +2404,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get recipesAboutBody =>
-      'Des recettes sélectionnées pour alimenter votre croissance. Filtrez par type de repas ou objectif nutritionnel pour trouver le match parfait.';
+      'Des recettes sélectionnées pour nourrir ta croissance. Filtre par type de repas ou objectif nutritionnel pour trouver celle qui colle à ton plan.';
 
   @override
   String get animHintSpinalDecomp => 'Décompression vertébrale';
@@ -2871,10 +2866,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get analyzingPosture => 'ANALYZING POSTURE';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'Politique de confidentialité';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'Conditions d\'utilisation';
 
   @override
   String version(String ver) {
@@ -2888,13 +2883,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get rateAppSubtitle => 'Your review helps us grow!';
 
   @override
-  String get unitSystem => 'Unit System';
+  String get unitSystem => 'Système d\'unités';
 
   @override
-  String get unitMetric => 'Metric (cm, kg)';
+  String get unitMetric => 'Métrique (cm, kg)';
 
   @override
-  String get unitImperial => 'Imperial (ft-in, lbs)';
+  String get unitImperial => 'Impérial (ft-in, lbs)';
 
   @override
   String get healthDisclaimer => 'Health Disclaimer';
@@ -3055,7 +3050,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get testimonialDuration5 => '4 mois';
 
   @override
-  String get designedForYou => 'Conçu pour vous';
+  String get designedForYou => 'Conçu pour toi';
 
   @override
   String get designedForYouDesc =>
@@ -3065,7 +3060,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get greetingAllDone => 'Excellent ! 🎯';
 
   @override
-  String get greetingAllDoneSub => 'Vous avez terminé les tâches du jour.';
+  String get greetingAllDoneSub => 'Tu as terminé les tâches du jour.';
 
   @override
   String greetingStreak30(int streak) {
@@ -3079,7 +3074,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String greetingStreak3(int streak) {
-    return '$streak jours d\'affilée. La plupart abandonnent. Pas vous.';
+    return '$streak jours d\'affilée. La plupart abandonnent. Pas toi.';
   }
 
   @override
@@ -3088,10 +3083,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get greetingAfternoon =>
-      'Aujourd\'hui est parfait pour commencer votre série.';
+      'Aujourd\'hui est parfait pour commencer ta série.';
 
   @override
-  String get greetingEvening => 'Terminez vos tâches, commencez votre série.';
+  String get greetingEvening => 'Termine tes tâches, commence ta série.';
 
   @override
   String get todayCompleted => 'Aujourd\'hui terminé ✓';
@@ -3124,7 +3119,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get growthTracking => 'Suivi de croissance';
 
   @override
-  String get growthEmptyFirst => 'Enregistrez votre première taille.';
+  String get growthEmptyFirst =>
+      'Enregistre ta première taille pour commencer le suivi.';
 
   @override
   String get growthEmptySecond => '2e mesure pour voir le graphique.';
@@ -3200,18 +3196,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aiAnalysisLabel => 'ANALYSE DE CROISSANCE';
 
   @override
-  String get peerCompareLabel => 'COMPARER AVEC VOS PAIRS';
+  String get peerCompareLabel => 'COMPARER AVEC TES PAIRS';
 
   @override
   String peerCompareText(int topPct) {
-    return 'Vous êtes dans le Top $topPct% de vos pairs';
+    return 'Tu es dans le Top $topPct% de tes pairs';
   }
 
   @override
-  String get notifWaterTitle => '💧 N\'oubliez pas de boire !';
+  String get notifWaterTitle => '💧 N\'oublie pas de boire !';
 
   @override
-  String get notifWaterBody => 'Objectif atteint ? Buvez encore un verre !';
+  String get notifWaterBody => 'Objectif atteint ? Bois encore un verre !';
 
   @override
   String get notifMorningTitle => '🌅 Bonjour ! Exercice';
@@ -3221,11 +3217,11 @@ class AppLocalizationsFr extends AppLocalizations {
       'Étirements matinaux ! 10 minutes pour colonne et jambes.';
 
   @override
-  String get notifRoutineTitle => '🔥 Complétez vos routines !';
+  String get notifRoutineTitle => '🔥 Complète tes routines !';
 
   @override
   String get notifRoutineBody =>
-      'Vérifiez avant fin de journée. Série = discipline !';
+      'Vérifie tes routines avant la fin de la journée. Série = discipline !';
 
   @override
   String get notifProteinTitle => '🥚 Jour protéines !';
@@ -3245,7 +3241,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get notifSleepBody =>
-      'Hormone de croissance maximale entre 22h-2h. Posez le téléphone !';
+      'L\'hormone de croissance est au max entre 22 h et 2 h. Pose ton téléphone !';
 
   @override
   String get notifPostureTitle => '🧍 Posture !';
@@ -3313,7 +3309,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get notifMeasureTitle => '📏 Mesure hebdo !';
 
   @override
-  String get notifMeasureBody => 'Mesurez-vous ! Le matin est le plus précis.';
+  String get notifMeasureBody =>
+      'Mesure-toi et note ta taille ! Le matin, c\'est le plus précis.';
 
   @override
   String get notifEarlySleepTitle => '😴 Couchez-vous tôt !';
@@ -3326,7 +3323,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get notifStreak3Title => '🔥 Série de 3 jours !';
 
   @override
-  String get notifStreak3Body => 'Super début ! 3 jours. Continuez vers 7 !';
+  String get notifStreak3Body =>
+      'Super début ! 3 jours d\'affilée. Continue jusqu\'à 7 !';
 
   @override
   String get notifStreak7Title => '🏆 1 semaine !';
@@ -3339,13 +3337,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get notifStreak14Body =>
-      '14 jours de discipline ! Votre corps change.';
+      '14 jours de discipline ! Ton corps commence à changer.';
 
   @override
   String get notifStreak30Title => '👑 1 mois !';
 
   @override
-  String get notifStreak30Body => '30 jours ! Vous êtes champion !';
+  String get notifStreak30Body => '30 jours ! Tu es un champion !';
 
   @override
   String get notifStreak60Title => '🌟 60 jours !';
@@ -3357,14 +3355,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get notifStreak100Title => '💎 100 JOURS ! LÉGENDAIRE !';
 
   @override
-  String get notifStreak100Body => '100 jours ! Vous êtes une légende.';
+  String get notifStreak100Body =>
+      '100 jours d\'affilée ! Tu es devenu une légende.';
 
   @override
-  String get notifStreakRiskTitle => '⚠️ Ne perdez pas votre série !';
+  String get notifStreakRiskTitle => '⚠️ Ne perds pas ta série !';
 
   @override
   String notifStreakRiskBody(int streak) {
-    return 'Votre série de $streak jours est en danger !';
+    return 'Ta série de $streak jours est en danger ! Complète tes routines.';
   }
 
   @override
@@ -3435,7 +3434,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get paywallRestoreNotFound => 'Aucun achat trouvé';
 
   @override
-  String get paywallPromoCode => 'Vous avez un code promo ?';
+  String get paywallPromoCode => 'Tu as un code promo ?';
 
   @override
   String get paywallHeightUnit => 'taille visée';
@@ -3809,7 +3808,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String paywallSavePercent(String percent) {
-    return 'ÉCONOMISEZ $percent%';
+    return 'ÉCONOMISE $percent%';
   }
 
   @override
@@ -3837,7 +3836,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get paywallFreeTrial => '3 jours gratuits';
 
   @override
-  String get paywallLoadError => 'Impossible de charger, réessayez';
+  String get paywallLoadError => 'Impossible de charger les offres, réessaie';
 
   @override
   String get paywallCtaAlt => 'Continuer';
@@ -5786,7 +5785,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get plFoodSpinach => 'Épinards';
 
   @override
-  String get plFoodCottageCheese => 'Cottage cheese';
+  String get plFoodCottageCheese => 'Fromage cottage';
 
   @override
   String get plFoodChicken => 'Blanc de poulet';

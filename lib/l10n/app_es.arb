@@ -812,9 +812,9 @@
   "kyphosisLabel": "Cifosis (espalda alta)",
   "lordosisLabel": "Lordosis (espalda baja)",
   "analyzingPosture": "ANALYZING POSTURE",
-  "privacyPolicy": "Privacy Policy",
-  "termsOfService": "Terms of Service",
-  "version": "Version {ver}",
+  "privacyPolicy": "Política de privacidad",
+  "termsOfService": "Términos del servicio",
+  "version": "Versión {ver}",
   "@version": {
     "placeholders": {
       "ver": {
@@ -824,8 +824,8 @@
   },
   "rateApp": "Rate BeTaller",
   "rateAppSubtitle": "Your review helps us grow!",
-  "unitSystem": "Unit System",
-  "unitMetric": "Metric (cm, kg)",
+  "unitSystem": "Sistema de unidades",
+  "unitMetric": "Métrico (cm, kg)",
   "unitImperial": "Imperial (ft-in, lbs)",
   "healthDisclaimer": "Health Disclaimer",
   "healthDisclaimerBody": "BeTaller provides general wellness and fitness guidance. Results vary based on age, genetics, and individual factors. This app does not provide medical advice. Exercises focus on posture optimization, spinal health, and growth hormone support through natural habits. Consult a healthcare professional before starting any new exercise or nutrition program. Height changes after growth plate closure (typically 18-25) are primarily from posture improvement.",
