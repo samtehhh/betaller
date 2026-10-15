@@ -4637,4 +4637,386 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get guideTip => 'İpucu';
+
+  @override
+  String get pgUnlockPro => 'Pro ile aç';
+
+  @override
+  String get pgPhotosLockedTitle => 'Değişimini gör';
+
+  @override
+  String get pgPhotosLockedBody =>
+      'İki haftada bir boyunla birlikte fotoğraf kaydet, istediğin ikisini kaydırıcıyla karşılaştır.';
+
+  @override
+  String get pgTransformationTitle => 'Değişimin';
+
+  @override
+  String get pgHeightChange => 'boy farkı';
+
+  @override
+  String get pgDaysApart => 'gün arayla';
+
+  @override
+  String pgCompareMeaningGrew(String delta, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days gün',
+    );
+    return 'Bu iki fotoğraf arasında $delta, aralarında $_temp0 var.';
+  }
+
+  @override
+  String pgCompareMeaningSame(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days gün',
+    );
+    return 'Aynı boy, aralarında $_temp0 var. Önce duruş ve vücut değişir, boy aylar içinde gelir.';
+  }
+
+  @override
+  String get pgModeSlider => 'Kaydırıcı';
+
+  @override
+  String get pgModeSideBySide => 'Yan yana';
+
+  @override
+  String get pgDragToReveal => 'Karşılaştırmak için kaydır';
+
+  @override
+  String get pgOnePhotoTitle => 'Önce fotoğrafın kaydedildi';
+
+  @override
+  String pgOnePhotoBody(String date) {
+    return 'İlk karşılaştırmanı görmek için bir sonrakini $date tarihinde aynı pozda çek.';
+  }
+
+  @override
+  String get pgEmptyTitle => 'Değişimini başlat';
+
+  @override
+  String get pgEmptyBody =>
+      'İki haftada bir, aynı pozda, aynı yerde, üzerinde boyunla bir fotoğraf. Birkaç ay sonra 1. gün ile bugün arasında kaydırarak karşılaştırırsın.';
+
+  @override
+  String get pgTakeFirstPhoto => 'İlk fotoğrafını çek';
+
+  @override
+  String get pgPhotoDueNow => 'Yeni fotoğraf zamanı';
+
+  @override
+  String pgNextPhotoOn(String date) {
+    return 'Sonraki fotoğraf $date';
+  }
+
+  @override
+  String pgDayN(int n) {
+    return '$n. gün';
+  }
+
+  @override
+  String get pgNewPhoto => 'Yeni fotoğraf';
+
+  @override
+  String get pgGuideTitle => 'Her seferinde aynı poz';
+
+  @override
+  String get pgGuideSubtitle =>
+      'Fotoğraflar ancak aynı şekilde çekilirse iyi karşılaştırılır.';
+
+  @override
+  String get pgGuideGhost =>
+      'Son fotoğrafın soluk olarak görünüyor. Kendini ona hizala.';
+
+  @override
+  String get pgGuideStep1 => '2 m uzakta dur, telefon göğüs hizasında';
+
+  @override
+  String get pgGuideStep2 => 'Kameraya dön, ayaklar bitişik, kollar serbest';
+
+  @override
+  String get pgGuideStep3 => 'Aynı yer, aynı ışık, vücudu saran kıyafet';
+
+  @override
+  String get pgGuideDistance => '2 m';
+
+  @override
+  String get pgChestHeight => 'göğüs hizası';
+
+  @override
+  String get pgTakePhoto => 'Fotoğraf çek';
+
+  @override
+  String get pgFromGallery => 'Galeriden seç';
+
+  @override
+  String get pgChoosePhoto => 'Bir fotoğraf seç';
+
+  @override
+  String get pgPostureTitle => 'Duruş kontrolü';
+
+  @override
+  String get pgPostureLockedTitle => 'Zayıf noktalarını bul';
+
+  @override
+  String get pgPostureLockedBody =>
+      'Başını, omuzlarını ve belini puanla, her biri için iki egzersiz al, puanını hafta hafta izle.';
+
+  @override
+  String get pgAreaHead => 'Baş';
+
+  @override
+  String get pgAreaShoulders => 'Omuzlar';
+
+  @override
+  String get pgAreaLowerBack => 'Bel';
+
+  @override
+  String get pgHeadMeaning0 =>
+      'Başın tam omuzlarının üzerinde. Günlük kısa bir sıfırlamayla orada tut.';
+
+  @override
+  String get pgHeadMeaning1 =>
+      'Gevşediğinde başın öne kayıyor. Uzun telefon kullanımında çok yaygın ve çabuk düzelir.';
+
+  @override
+  String get pgHeadMeaning2 =>
+      'Başın omuzlarının önünde duruyor. Önce bunu düzelt: her fotoğrafta seni daha kısa gösteriyor.';
+
+  @override
+  String get pgShouldersMeaning0 =>
+      'Omuzların kulaklarınla aynı hizada. Sırtının üst kısmı işini yapıyor.';
+
+  @override
+  String get pgShouldersMeaning1 =>
+      'Omuzların biraz önde. Gergin göğüs kasları onları içe çekiyor; göğsü açmak geri getirir.';
+
+  @override
+  String get pgShouldersMeaning2 =>
+      'Omuzların yuvarlak. Sırtının üst kısmı öne kıvrılıyor ve duruşundan boy götürüyor.';
+
+  @override
+  String get pgLowerBackMeaning0 =>
+      'Doğal bir eğri. Kalçan ve karın kasların omurganı olması gereken yerde tutuyor.';
+
+  @override
+  String get pgLowerBackMeaning1 =>
+      'Belin düz. Hafif geriye esneme ve hareketlilik doğal eğriyi geri getirir.';
+
+  @override
+  String get pgLowerBackMeaning2 =>
+      'Belinde belirgin bir çukur var. Gergin kalça kasları leğeni öne yatırıyor; esnetmek ve güçlü karın kasları dengeler.';
+
+  @override
+  String get pgLegacyMeaning =>
+      'Bu sorular yokken eski bir sürümle kaydedildi. Bu bölge için öneri almak üzere kontrolü yeniden yap.';
+
+  @override
+  String get pgHowItWorks => 'Kontrol nasıl çalışır';
+
+  @override
+  String get pgYourPosture => 'Duruşun';
+
+  @override
+  String pgCheckedOn(String date) {
+    return '$date kontrolü';
+  }
+
+  @override
+  String get pgOutOf100 => '100 üzerinden';
+
+  @override
+  String get pgAllAreasGood => 'Üç bölge de iyi görünüyor. Böyle kalsın.';
+
+  @override
+  String pgStartWith(String area) {
+    return 'Önce buradan başla: $area';
+  }
+
+  @override
+  String pgVsLastCheck(String delta) {
+    return 'Son kontrole göre $delta';
+  }
+
+  @override
+  String get pgStatusGood => 'İyi';
+
+  @override
+  String get pgStatusFair => 'Daha iyi olabilir';
+
+  @override
+  String get pgStatusFix => 'Önce bunu düzelt';
+
+  @override
+  String get pgKeepItWith => 'Korumak için';
+
+  @override
+  String get pgFixItWith => 'Düzeltmek için';
+
+  @override
+  String get pgRetakeNow => 'Haftalık kontrol zamanı';
+
+  @override
+  String pgRetakeIn(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Sonraki kontrol $n gün sonra',
+      one: 'Sonraki kontrol yarın',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get pgRetakeBodyDue =>
+      'Aynı duvar, aynı üç soru. Haftalık kontroller egzersizlerin işe yarayıp yaramadığını gösterir.';
+
+  @override
+  String pgRetakeBodyWait(String date) {
+    return '$date tarihine kadar yukarıdaki egzersizleri yap, sonra işe yaradı mı görmek için kontrolü tekrarla.';
+  }
+
+  @override
+  String get pgRetakeCheck => 'Kontrolü tekrarla';
+
+  @override
+  String get pgRetakeAnyway => 'Şimdi tekrarla';
+
+  @override
+  String get pgHistoryTitle => 'Puanların';
+
+  @override
+  String pgSinceFirst(String delta) {
+    return 'İlkinden bu yana $delta';
+  }
+
+  @override
+  String get pgHistoryOne =>
+      'Bu ilk kontrolün. 7 gün sonra tekrarla, gidişatın burada başlasın.';
+
+  @override
+  String get pgPostureIntroTitle => 'Ne kadar dik duruyorsun?';
+
+  @override
+  String get pgPostureIntroBody =>
+      'Duvara yaslanıp üç soru, yaklaşık bir dakika. Bir puan ve her zayıf nokta için iki egzersiz alırsın.';
+
+  @override
+  String get pgPostureStep1 =>
+      'Topukların, kalçan ve kürek kemiklerin duvara değecek şekilde dur.';
+
+  @override
+  String get pgPostureStep2 =>
+      'Sonra geriye bakabilmek için tüm vücudun kadrajda olacak şekilde yandan fotoğraf çek.';
+
+  @override
+  String get pgPostureStep3 =>
+      'Üç soruyu dürüstçe yanıtla. Puanın senin cevaplarından gelir.';
+
+  @override
+  String get pgPostureStep4 => 'Haftada bir, günün aynı saatinde tekrarla.';
+
+  @override
+  String get pgStartCheck => 'Duruş kontrolünü başlat';
+
+  @override
+  String pgWeekRange(String start, String end) {
+    return '$start - $end';
+  }
+
+  @override
+  String get pgGradeGreat => 'Şampiyon bir hafta';
+
+  @override
+  String get pgGradeGood => 'Sağlam bir hafta';
+
+  @override
+  String get pgGradeOk => 'Isınıyorsun';
+
+  @override
+  String get pgGradeStart => 'Yeni bir başlangıç';
+
+  @override
+  String get pgTopWeek => 'Zirve hafta';
+
+  @override
+  String pgVsLastWeek(String delta) {
+    return 'Geçen haftaya göre $delta';
+  }
+
+  @override
+  String get pgDaysCompleted => 'planın tamamlandığı gün';
+
+  @override
+  String get pgDayStreak => 'günlük seri';
+
+  @override
+  String pgBestDay(String day) {
+    return 'En iyi: $day';
+  }
+
+  @override
+  String get pgNextWeekFocus => 'Gelecek haftanın odağı';
+
+  @override
+  String pgFocusPlan(int n, int done) {
+    return 'Planının tamamını $n gün bitir. Bu hafta $done gün bitirdin.';
+  }
+
+  @override
+  String pgFocusWorkouts(int n, int done) {
+    return '$n antrenman yap. Bu hafta $done yaptın.';
+  }
+
+  @override
+  String get pgFocusMeasure =>
+      'Boyunu bir kez ölç: sabah, çıplak ayak, aynı yerde. Gerçek değişimi böyle görürsün.';
+
+  @override
+  String pgFocusKeepDay(String day) {
+    return 'Tüm hedefler tamam. Şimdi $day gününü de tam yap.';
+  }
+
+  @override
+  String get pgFocusKeep =>
+      'Tüm hedefler tamam, her gün dolu. Aynı plan, aynı ritim.';
+
+  @override
+  String get pgHeightThisWeek => 'Bu haftaki boy';
+
+  @override
+  String pgHeightNow(String height) {
+    return 'Şu an $height';
+  }
+
+  @override
+  String get pgNoMeasurementWeek => 'Bu hafta henüz ölçüm yok';
+
+  @override
+  String get pgFirstMeasurement => 'İlk ölçümün';
+
+  @override
+  String pgStartedAt(String height) {
+    return 'Başlangıç $height';
+  }
+
+  @override
+  String pgPotentialAt(String height) {
+    return 'Potansiyel $height';
+  }
+
+  @override
+  String pgToPotential(String cm) {
+    return 'Tahmini potansiyeline $cm kaldı.';
+  }
+
+  @override
+  String get pgPotentialReached =>
+      'Tahmini potansiyelindesin. Duruş çalışması görünen boyuna hâlâ katkı sağlar.';
+
+  @override
+  String get pgHabitsToday => 'Bugün kaydedilenler';
 }

@@ -1,0 +1,610 @@
+{
+  "pgUnlockPro": {
+    "en": "Unlock with Pro", "tr": "Pro ile aç", "de": "Mit Pro freischalten", "fr": "Débloquer avec Pro",
+    "es": "Desbloquear con Pro", "it": "Sblocca con Pro", "pt": "Desbloquear com o Pro", "hi": "Pro से अनलॉक करें"
+  },
+
+  "pgPhotosLockedTitle": {
+    "en": "See your transformation", "tr": "Değişimini gör", "de": "Sieh deine Veränderung", "fr": "Vois ta transformation",
+    "es": "Mira tu transformación", "it": "Guarda la tua trasformazione", "pt": "Veja sua transformação", "hi": "अपना बदलाव देखें"
+  },
+  "pgPhotosLockedBody": {
+    "en": "Save a photo with your height every two weeks and compare any two with a slider.",
+    "tr": "İki haftada bir boyunla birlikte fotoğraf kaydet, istediğin ikisini kaydırıcıyla karşılaştır.",
+    "de": "Speichere alle zwei Wochen ein Foto mit deiner Größe und vergleiche zwei beliebige mit dem Schieberegler.",
+    "fr": "Enregistre une photo avec ta taille toutes les deux semaines et compare-en deux avec un curseur.",
+    "es": "Guarda una foto con tu altura cada dos semanas y compara dos cualesquiera con un deslizador.",
+    "it": "Salva una foto con la tua altezza ogni due settimane e confronta due foto qualsiasi con un cursore.",
+    "pt": "Salve uma foto com sua altura a cada duas semanas e compare duas delas com um controle deslizante.",
+    "hi": "हर दो हफ़्ते अपनी लंबाई के साथ एक फ़ोटो सेव करें और किन्हीं दो को स्लाइडर से तुलना करें।"
+  },
+  "pgTransformationTitle": {
+    "en": "Your transformation", "tr": "Değişimin", "de": "Deine Veränderung", "fr": "Ta transformation",
+    "es": "Tu transformación", "it": "La tua trasformazione", "pt": "Sua transformação", "hi": "आपका बदलाव"
+  },
+  "pgHeightChange": {
+    "en": "height change", "tr": "boy farkı", "de": "Unterschied", "fr": "écart de taille",
+    "es": "cambio de altura", "it": "differenza di altezza", "pt": "diferença de altura", "hi": "लंबाई में बदलाव"
+  },
+  "pgDaysApart": {
+    "en": "days apart", "tr": "gün arayla", "de": "Tage dazwischen", "fr": "jours d'écart",
+    "es": "días de diferencia", "it": "giorni di distanza", "pt": "dias de diferença", "hi": "दिनों का अंतर"
+  },
+  "pgCompareMeaningGrew": {
+    "en": "{delta} between these two photos, taken {days, plural, =1{1 day} other{{days} days}} apart.",
+    "tr": "Bu iki fotoğraf arasında {delta}, aralarında {days, plural, other{{days} gün}} var.",
+    "de": "{delta} zwischen diesen beiden Fotos, {days, plural, =1{1 Tag} other{{days} Tage}} auseinander.",
+    "fr": "{delta} entre ces deux photos, prises à {days, plural, =1{1 jour} other{{days} jours}} d'écart.",
+    "es": "{delta} entre estas dos fotos, tomadas con {days, plural, =1{1 día} other{{days} días}} de diferencia.",
+    "it": "{delta} tra queste due foto, scattate a {days, plural, =1{1 giorno} other{{days} giorni}} di distanza.",
+    "pt": "{delta} entre estas duas fotos, tiradas com {days, plural, =1{1 dia} other{{days} dias}} de diferença.",
+    "hi": "इन दो फ़ोटो के बीच {delta}, {days, plural, other{{days} दिन}} के अंतर पर।",
+    "_types": {"days": "int"}
+  },
+  "pgCompareMeaningSame": {
+    "en": "Same height, {days, plural, =1{1 day} other{{days} days}} apart. Posture and shape change first, height follows over months.",
+    "tr": "Aynı boy, aralarında {days, plural, other{{days} gün}} var. Önce duruş ve vücut değişir, boy aylar içinde gelir.",
+    "de": "Gleiche Größe, {days, plural, =1{1 Tag} other{{days} Tage}} auseinander. Haltung und Form ändern sich zuerst, die Größe folgt über Monate.",
+    "fr": "Même taille, à {days, plural, =1{1 jour} other{{days} jours}} d'écart. La posture et la silhouette changent d'abord, la taille suit sur des mois.",
+    "es": "Misma altura, con {days, plural, =1{1 día} other{{days} días}} de diferencia. La postura y la forma cambian primero, la altura llega en meses.",
+    "it": "Stessa altezza, a {days, plural, =1{1 giorno} other{{days} giorni}} di distanza. Postura e forma cambiano prima, l'altezza segue nei mesi.",
+    "pt": "Mesma altura, com {days, plural, =1{1 dia} other{{days} dias}} de diferença. Postura e forma mudam primeiro, a altura vem ao longo dos meses.",
+    "hi": "वही लंबाई, {days, plural, other{{days} दिन}} के अंतर पर। पहले पोस्चर और शरीर बदलता है, लंबाई महीनों में आती है।",
+    "_types": {"days": "int"}
+  },
+  "pgModeSlider": {
+    "en": "Slider", "tr": "Kaydırıcı", "de": "Schieberegler", "fr": "Curseur",
+    "es": "Deslizador", "it": "Cursore", "pt": "Deslizador", "hi": "स्लाइडर"
+  },
+  "pgModeSideBySide": {
+    "en": "Side by side", "tr": "Yan yana", "de": "Nebeneinander", "fr": "Côte à côte",
+    "es": "Lado a lado", "it": "Affiancate", "pt": "Lado a lado", "hi": "साथ-साथ"
+  },
+  "pgDragToReveal": {
+    "en": "Drag to compare", "tr": "Karşılaştırmak için kaydır", "de": "Zum Vergleichen ziehen", "fr": "Fais glisser pour comparer",
+    "es": "Desliza para comparar", "it": "Trascina per confrontare", "pt": "Arraste para comparar", "hi": "तुलना के लिए खींचें"
+  },
+  "pgOnePhotoTitle": {
+    "en": "Your before photo is saved", "tr": "Önce fotoğrafın kaydedildi", "de": "Dein Vorher-Foto ist gespeichert", "fr": "Ta photo avant est enregistrée",
+    "es": "Tu foto del antes está guardada", "it": "La tua foto prima è salvata", "pt": "Sua foto do antes está salva", "hi": "आपकी पहले वाली फ़ोटो सेव है"
+  },
+  "pgOnePhotoBody": {
+    "en": "Take the next one on {date} in the same pose to see your first comparison.",
+    "tr": "İlk karşılaştırmanı görmek için bir sonrakini {date} tarihinde aynı pozda çek.",
+    "de": "Mach das nächste am {date} in derselben Pose, dann siehst du deinen ersten Vergleich.",
+    "fr": "Prends la suivante le {date} dans la même pose pour voir ta première comparaison.",
+    "es": "Toma la siguiente el {date} en la misma pose para ver tu primera comparación.",
+    "it": "Scatta la prossima il {date} nella stessa posa per vedere il tuo primo confronto.",
+    "pt": "Tire a próxima em {date} na mesma pose para ver sua primeira comparação.",
+    "hi": "पहली तुलना देखने के लिए अगली फ़ोटो {date} को उसी पोज़ में लें।"
+  },
+  "pgEmptyTitle": {
+    "en": "Start your transformation", "tr": "Değişimini başlat", "de": "Starte deine Veränderung", "fr": "Commence ta transformation",
+    "es": "Empieza tu transformación", "it": "Inizia la tua trasformazione", "pt": "Comece sua transformação", "hi": "अपना बदलाव शुरू करें"
+  },
+  "pgEmptyBody": {
+    "en": "One photo every two weeks, same pose, same spot, with your height on it. In a few months you can slide between day 1 and today.",
+    "tr": "İki haftada bir, aynı pozda, aynı yerde, üzerinde boyunla bir fotoğraf. Birkaç ay sonra 1. gün ile bugün arasında kaydırarak karşılaştırırsın.",
+    "de": "Alle zwei Wochen ein Foto, gleiche Pose, gleicher Ort, mit deiner Größe. In ein paar Monaten schiebst du zwischen Tag 1 und heute hin und her.",
+    "fr": "Une photo toutes les deux semaines, même pose, même endroit, avec ta taille. Dans quelques mois, tu passeras du jour 1 à aujourd'hui d'un glissement.",
+    "es": "Una foto cada dos semanas, misma pose, mismo sitio, con tu altura. En unos meses podrás deslizar entre el día 1 y hoy.",
+    "it": "Una foto ogni due settimane, stessa posa, stesso posto, con la tua altezza. Tra qualche mese potrai scorrere tra il giorno 1 e oggi.",
+    "pt": "Uma foto a cada duas semanas, mesma pose, mesmo lugar, com sua altura. Em alguns meses você desliza entre o dia 1 e hoje.",
+    "hi": "हर दो हफ़्ते एक फ़ोटो, वही पोज़, वही जगह, साथ में आपकी लंबाई। कुछ महीनों में आप दिन 1 और आज के बीच स्लाइड कर पाएंगे।"
+  },
+  "pgTakeFirstPhoto": {
+    "en": "Take your first photo", "tr": "İlk fotoğrafını çek", "de": "Mach dein erstes Foto", "fr": "Prends ta première photo",
+    "es": "Toma tu primera foto", "it": "Scatta la tua prima foto", "pt": "Tire sua primeira foto", "hi": "पहली फ़ोटो लें"
+  },
+  "pgPhotoDueNow": {
+    "en": "New photo due", "tr": "Yeni fotoğraf zamanı", "de": "Neues Foto fällig", "fr": "Nouvelle photo à prendre",
+    "es": "Toca foto nueva", "it": "È ora di una nuova foto", "pt": "Hora de uma foto nova", "hi": "नई फ़ोटो का समय"
+  },
+  "pgNextPhotoOn": {
+    "en": "Next photo {date}", "tr": "Sonraki fotoğraf {date}", "de": "Nächstes Foto {date}", "fr": "Prochaine photo {date}",
+    "es": "Próxima foto {date}", "it": "Prossima foto {date}", "pt": "Próxima foto {date}", "hi": "अगली फ़ोटो {date}"
+  },
+  "pgDayN": {
+    "en": "Day {n}", "tr": "{n}. gün", "de": "Tag {n}", "fr": "Jour {n}",
+    "es": "Día {n}", "it": "Giorno {n}", "pt": "Dia {n}", "hi": "दिन {n}",
+    "_types": {"n": "int"}
+  },
+  "pgNewPhoto": {
+    "en": "New photo", "tr": "Yeni fotoğraf", "de": "Neues Foto", "fr": "Nouvelle photo",
+    "es": "Nueva foto", "it": "Nuova foto", "pt": "Nova foto", "hi": "नई फ़ोटो"
+  },
+  "pgGuideTitle": {
+    "en": "Same pose, every time", "tr": "Her seferinde aynı poz", "de": "Jedes Mal die gleiche Pose", "fr": "La même pose, à chaque fois",
+    "es": "La misma pose, siempre", "it": "Stessa posa, ogni volta", "pt": "A mesma pose, sempre", "hi": "हर बार वही पोज़"
+  },
+  "pgGuideSubtitle": {
+    "en": "Photos only compare well when they are taken the same way.",
+    "tr": "Fotoğraflar ancak aynı şekilde çekilirse iyi karşılaştırılır.",
+    "de": "Fotos lassen sich nur gut vergleichen, wenn sie gleich aufgenommen sind.",
+    "fr": "Les photos ne se comparent bien que si elles sont prises de la même façon.",
+    "es": "Las fotos solo se comparan bien si se toman de la misma forma.",
+    "it": "Le foto si confrontano bene solo se scattate nello stesso modo.",
+    "pt": "As fotos só se comparam bem quando são tiradas do mesmo jeito.",
+    "hi": "फ़ोटो की तुलना तभी ठीक होती है जब वे एक ही तरह से ली जाएं।"
+  },
+  "pgGuideGhost": {
+    "en": "Your last photo is shown faintly. Line yourself up with it.",
+    "tr": "Son fotoğrafın soluk olarak görünüyor. Kendini ona hizala.",
+    "de": "Dein letztes Foto ist blass zu sehen. Richte dich daran aus.",
+    "fr": "Ta dernière photo apparaît en transparence. Aligne-toi dessus.",
+    "es": "Tu última foto se ve en transparencia. Alinéate con ella.",
+    "it": "La tua ultima foto si vede in trasparenza. Allineati a quella.",
+    "pt": "Sua última foto aparece clarinha. Alinhe-se com ela.",
+    "hi": "आपकी पिछली फ़ोटो हल्की दिख रही है। खुद को उसके साथ मिलाएं।"
+  },
+  "pgGuideStep1": {
+    "en": "Stand 2 m away, phone at chest height", "tr": "2 m uzakta dur, telefon göğüs hizasında", "de": "2 m Abstand, Handy auf Brusthöhe", "fr": "Tiens-toi à 2 m, téléphone à hauteur de poitrine",
+    "es": "Ponte a 2 m, móvil a la altura del pecho", "it": "Stai a 2 m, telefono all'altezza del petto", "pt": "Fique a 2 m, celular na altura do peito", "hi": "2 मीटर दूर खड़े हों, फ़ोन सीने की ऊंचाई पर"
+  },
+  "pgGuideStep2": {
+    "en": "Face the camera, feet together, arms relaxed", "tr": "Kameraya dön, ayaklar bitişik, kollar serbest", "de": "Zur Kamera schauen, Füße zusammen, Arme locker", "fr": "Face à l'objectif, pieds joints, bras relâchés",
+    "es": "De frente a la cámara, pies juntos, brazos relajados", "it": "Di fronte alla fotocamera, piedi uniti, braccia rilassate", "pt": "De frente para a câmera, pés juntos, braços soltos", "hi": "कैमरे की ओर मुंह, पैर साथ, बाहें ढीली"
+  },
+  "pgGuideStep3": {
+    "en": "Same spot, same light, fitted clothes", "tr": "Aynı yer, aynı ışık, vücudu saran kıyafet", "de": "Gleicher Ort, gleiches Licht, enge Kleidung", "fr": "Même endroit, même lumière, vêtements près du corps",
+    "es": "Mismo sitio, misma luz, ropa ajustada", "it": "Stesso posto, stessa luce, abiti aderenti", "pt": "Mesmo lugar, mesma luz, roupa justa", "hi": "वही जगह, वही रोशनी, फ़िट कपड़े"
+  },
+  "pgGuideDistance": {
+    "en": "2 m", "tr": "2 m", "de": "2 m", "fr": "2 m", "es": "2 m", "it": "2 m", "pt": "2 m", "hi": "2 मी"
+  },
+  "pgChestHeight": {
+    "en": "chest height", "tr": "göğüs hizası", "de": "Brusthöhe", "fr": "hauteur de poitrine",
+    "es": "altura del pecho", "it": "altezza del petto", "pt": "altura do peito", "hi": "सीने की ऊंचाई"
+  },
+  "pgTakePhoto": {
+    "en": "Take photo", "tr": "Fotoğraf çek", "de": "Foto aufnehmen", "fr": "Prendre la photo",
+    "es": "Tomar foto", "it": "Scatta foto", "pt": "Tirar foto", "hi": "फ़ोटो लें"
+  },
+  "pgFromGallery": {
+    "en": "Choose from gallery", "tr": "Galeriden seç", "de": "Aus der Galerie wählen", "fr": "Choisir dans la galerie",
+    "es": "Elegir de la galería", "it": "Scegli dalla galleria", "pt": "Escolher da galeria", "hi": "गैलरी से चुनें"
+  },
+  "pgChoosePhoto": {
+    "en": "Choose a photo", "tr": "Bir fotoğraf seç", "de": "Wähle ein Foto", "fr": "Choisis une photo",
+    "es": "Elige una foto", "it": "Scegli una foto", "pt": "Escolha uma foto", "hi": "एक फ़ोटो चुनें"
+  },
+
+  "pgPostureTitle": {
+    "en": "Posture check", "tr": "Duruş kontrolü", "de": "Haltungscheck", "fr": "Bilan de posture",
+    "es": "Revisión de postura", "it": "Controllo postura", "pt": "Checagem de postura", "hi": "पोस्चर जांच"
+  },
+  "pgPostureLockedTitle": {
+    "en": "Find your weak spots", "tr": "Zayıf noktalarını bul", "de": "Finde deine Schwachstellen", "fr": "Trouve tes points faibles",
+    "es": "Encuentra tus puntos débiles", "it": "Trova i tuoi punti deboli", "pt": "Descubra seus pontos fracos", "hi": "अपनी कमज़ोर जगहें पहचानें"
+  },
+  "pgPostureLockedBody": {
+    "en": "Score your head, shoulders and lower back, get two exercises for each, and see your score week by week.",
+    "tr": "Başını, omuzlarını ve belini puanla, her biri için iki egzersiz al, puanını hafta hafta izle.",
+    "de": "Bewerte Kopf, Schultern und unteren Rücken, bekomm zwei Übungen für jeden Bereich und verfolge deinen Wert Woche für Woche.",
+    "fr": "Note ta tête, tes épaules et ton bas du dos, reçois deux exercices pour chaque zone et suis ton score semaine après semaine.",
+    "es": "Puntúa tu cabeza, hombros y zona lumbar, recibe dos ejercicios para cada uno y sigue tu puntuación semana a semana.",
+    "it": "Valuta testa, spalle e zona lombare, ricevi due esercizi per ognuna e segui il punteggio settimana dopo settimana.",
+    "pt": "Avalie cabeça, ombros e lombar, receba dois exercícios para cada um e acompanhe sua pontuação semana a semana.",
+    "hi": "सिर, कंधे और कमर के निचले हिस्से को स्कोर करें, हर एक के लिए दो एक्सरसाइज़ पाएं और हफ़्ते दर हफ़्ते स्कोर देखें।"
+  },
+  "pgAreaHead": {
+    "en": "Head", "tr": "Baş", "de": "Kopf", "fr": "Tête", "es": "Cabeza", "it": "Testa", "pt": "Cabeça", "hi": "सिर"
+  },
+  "pgAreaShoulders": {
+    "en": "Shoulders", "tr": "Omuzlar", "de": "Schultern", "fr": "Épaules", "es": "Hombros", "it": "Spalle", "pt": "Ombros", "hi": "कंधे"
+  },
+  "pgAreaLowerBack": {
+    "en": "Lower back", "tr": "Bel", "de": "Unterer Rücken", "fr": "Bas du dos", "es": "Zona lumbar", "it": "Zona lombare", "pt": "Lombar", "hi": "कमर"
+  },
+  "pgHeadMeaning0": {
+    "en": "Your head sits right over your shoulders. Keep it there with a short daily reset.",
+    "tr": "Başın tam omuzlarının üzerinde. Günlük kısa bir sıfırlamayla orada tut.",
+    "de": "Dein Kopf sitzt genau über den Schultern. Halte ihn dort mit einem kurzen täglichen Reset.",
+    "fr": "Ta tête est bien au-dessus de tes épaules. Garde-la là avec un petit rappel chaque jour.",
+    "es": "Tu cabeza está justo sobre tus hombros. Mantenla ahí con un breve ajuste diario.",
+    "it": "La testa è proprio sopra le spalle. Tienila lì con un breve richiamo ogni giorno.",
+    "pt": "Sua cabeça está bem em cima dos ombros. Mantenha assim com um ajuste rápido por dia.",
+    "hi": "आपका सिर ठीक कंधों के ऊपर है। रोज़ थोड़ी सी प्रैक्टिस से इसे वहीं रखें।"
+  },
+  "pgHeadMeaning1": {
+    "en": "Your head drifts forward when you relax. Very common with long phone time, and quick to improve.",
+    "tr": "Gevşediğinde başın öne kayıyor. Uzun telefon kullanımında çok yaygın ve çabuk düzelir.",
+    "de": "Dein Kopf wandert nach vorn, wenn du locker lässt. Sehr häufig bei viel Handyzeit und schnell zu verbessern.",
+    "fr": "Ta tête part vers l'avant quand tu te relâches. Très courant avec beaucoup d'écran, et vite corrigé.",
+    "es": "Tu cabeza se va hacia delante cuando te relajas. Muy común con mucho móvil, y mejora rápido.",
+    "it": "La testa scivola in avanti quando ti rilassi. Molto comune con tanto telefono, e migliora in fretta.",
+    "pt": "Sua cabeça vai para a frente quando você relaxa. Muito comum com muito tempo de celular, e melhora rápido.",
+    "hi": "आराम की हालत में आपका सिर आगे खिसक जाता है। ज़्यादा फ़ोन चलाने में यह आम है और जल्दी सुधरता है।"
+  },
+  "pgHeadMeaning2": {
+    "en": "Your head sits in front of your shoulders. Fix this first: it makes you look shorter in every photo.",
+    "tr": "Başın omuzlarının önünde duruyor. Önce bunu düzelt: her fotoğrafta seni daha kısa gösteriyor.",
+    "de": "Dein Kopf sitzt vor den Schultern. Pack das zuerst an: Es lässt dich auf jedem Foto kleiner wirken.",
+    "fr": "Ta tête est en avant de tes épaules. Corrige ça en premier : ça te fait paraître plus petit sur chaque photo.",
+    "es": "Tu cabeza está por delante de los hombros. Corrige esto primero: te hace ver más bajo en cada foto.",
+    "it": "La testa sta davanti alle spalle. Correggi questo per primo: ti fa sembrare più basso in ogni foto.",
+    "pt": "Sua cabeça fica à frente dos ombros. Corrija isso primeiro: faz você parecer mais baixo em toda foto.",
+    "hi": "आपका सिर कंधों से आगे रहता है। पहले इसे सुधारें: इससे आप हर फ़ोटो में छोटे दिखते हैं।"
+  },
+  "pgShouldersMeaning0": {
+    "en": "Shoulders in line with your ears. Your upper back is doing its job.",
+    "tr": "Omuzların kulaklarınla aynı hizada. Sırtının üst kısmı işini yapıyor.",
+    "de": "Schultern auf einer Linie mit den Ohren. Dein oberer Rücken macht seinen Job.",
+    "fr": "Épaules alignées avec tes oreilles. Ton haut du dos fait son travail.",
+    "es": "Hombros alineados con las orejas. Tu espalda alta hace su trabajo.",
+    "it": "Spalle in linea con le orecchie. La parte alta della schiena fa il suo lavoro.",
+    "pt": "Ombros alinhados com as orelhas. A parte alta das costas está fazendo o trabalho dela.",
+    "hi": "कंधे कानों की सीध में हैं। आपकी ऊपरी पीठ अपना काम कर रही है।"
+  },
+  "pgShouldersMeaning1": {
+    "en": "Shoulders slightly forward. A tight chest pulls them in; opening it up brings them back.",
+    "tr": "Omuzların biraz önde. Gergin göğüs kasları onları içe çekiyor; göğsü açmak geri getirir.",
+    "de": "Schultern leicht nach vorn. Eine verspannte Brust zieht sie nach innen; sie zu öffnen bringt sie zurück.",
+    "fr": "Épaules un peu en avant. Une poitrine raide les tire vers l'intérieur ; l'ouvrir les ramène en place.",
+    "es": "Hombros un poco adelantados. Un pecho tenso tira de ellos; abrirlo los devuelve atrás.",
+    "it": "Spalle un po' in avanti. Un petto rigido le tira dentro; aprirlo le riporta indietro.",
+    "pt": "Ombros um pouco para a frente. O peito tenso puxa eles para dentro; abrir o peito traz de volta.",
+    "hi": "कंधे थोड़े आगे हैं। जकड़ी छाती उन्हें अंदर खींचती है; छाती खोलने से वे वापस आते हैं।"
+  },
+  "pgShouldersMeaning2": {
+    "en": "Rounded shoulders. Your upper back curves forward, which takes height off how you stand.",
+    "tr": "Omuzların yuvarlak. Sırtının üst kısmı öne kıvrılıyor ve duruşundan boy götürüyor.",
+    "de": "Runde Schultern. Dein oberer Rücken krümmt sich nach vorn und nimmt deiner Haltung Größe.",
+    "fr": "Épaules enroulées. Ton haut du dos se courbe vers l'avant, ce qui te fait perdre de la hauteur debout.",
+    "es": "Hombros redondeados. Tu espalda alta se curva hacia delante y te quita altura al estar de pie.",
+    "it": "Spalle arrotondate. La parte alta della schiena si curva in avanti e ti toglie altezza in piedi.",
+    "pt": "Ombros curvados. A parte alta das costas se curva para a frente e tira altura da sua postura.",
+    "hi": "कंधे गोल हैं। ऊपरी पीठ आगे झुकती है, जिससे खड़े होने पर लंबाई कम दिखती है।"
+  },
+  "pgLowerBackMeaning0": {
+    "en": "A neutral curve. Your hips and core hold your spine where it should be.",
+    "tr": "Doğal bir eğri. Kalçan ve karın kasların omurganı olması gereken yerde tutuyor.",
+    "de": "Eine neutrale Kurve. Hüfte und Rumpf halten deine Wirbelsäule, wo sie hingehört.",
+    "fr": "Une courbe neutre. Tes hanches et tes abdos tiennent ta colonne là où il faut.",
+    "es": "Una curva neutra. Tu cadera y tu core sostienen la columna donde debe estar.",
+    "it": "Una curva neutra. Fianchi e core tengono la colonna dove deve stare.",
+    "pt": "Uma curva neutra. Quadril e abdômen seguram sua coluna onde ela deve ficar.",
+    "hi": "प्राकृतिक घुमाव। आपके कूल्हे और कोर रीढ़ को सही जगह पर रखते हैं।"
+  },
+  "pgLowerBackMeaning1": {
+    "en": "A flat lower back. Gentle extension and mobility bring the natural curve back.",
+    "tr": "Belin düz. Hafif geriye esneme ve hareketlilik doğal eğriyi geri getirir.",
+    "de": "Ein flacher unterer Rücken. Sanfte Streckung und Mobilität bringen die natürliche Kurve zurück.",
+    "fr": "Un bas du dos plat. Un peu d'extension et de mobilité ramènent la courbe naturelle.",
+    "es": "Zona lumbar plana. Extensión suave y movilidad devuelven la curva natural.",
+    "it": "Zona lombare piatta. Estensione leggera e mobilità riportano la curva naturale.",
+    "pt": "Lombar reta. Extensão leve e mobilidade trazem de volta a curva natural.",
+    "hi": "कमर सपाट है। हल्का पीछे झुकना और मोबिलिटी प्राकृतिक घुमाव वापस लाते हैं।"
+  },
+  "pgLowerBackMeaning2": {
+    "en": "A strong arch. Tight hip flexors tip your pelvis forward; stretching them and a stronger core level it out.",
+    "tr": "Belinde belirgin bir çukur var. Gergin kalça kasları leğeni öne yatırıyor; esnetmek ve güçlü karın kasları dengeler.",
+    "de": "Ein starkes Hohlkreuz. Verkürzte Hüftbeuger kippen dein Becken nach vorn; Dehnen und ein stärkerer Rumpf gleichen das aus.",
+    "fr": "Une forte cambrure. Des fléchisseurs de hanche raides basculent ton bassin vers l'avant ; les étirer et renforcer tes abdos rééquilibre.",
+    "es": "Un arco marcado. Los flexores de cadera tensos inclinan la pelvis hacia delante; estirarlos y un core más fuerte lo equilibran.",
+    "it": "Un arco accentuato. I flessori dell'anca rigidi inclinano il bacino in avanti; allungarli e un core più forte lo riequilibrano.",
+    "pt": "Um arco forte. Os flexores do quadril tensos inclinam a pelve para a frente; alongar e fortalecer o abdômen equilibra.",
+    "hi": "कमर में ज़्यादा घुमाव है। जकड़े हिप फ़्लेक्सर्स पेल्विस को आगे झुकाते हैं; उन्हें स्ट्रेच करना और मज़बूत कोर इसे संतुलित करता है।"
+  },
+  "pgLegacyMeaning": {
+    "en": "Saved by an older version without these questions. Retake the check for advice on this area.",
+    "tr": "Bu sorular yokken eski bir sürümle kaydedildi. Bu bölge için öneri almak üzere kontrolü yeniden yap.",
+    "de": "Mit einer älteren Version ohne diese Fragen gespeichert. Mach den Check neu, um Tipps für diesen Bereich zu bekommen.",
+    "fr": "Enregistré par une ancienne version sans ces questions. Refais le bilan pour un conseil sur cette zone.",
+    "es": "Guardado con una versión antigua sin estas preguntas. Repite la revisión para recibir consejos de esta zona.",
+    "it": "Salvato da una versione precedente senza queste domande. Rifai il controllo per un consiglio su questa zona.",
+    "pt": "Salvo por uma versão antiga sem estas perguntas. Refaça a checagem para receber dicas desta área.",
+    "hi": "इन सवालों से पहले वाले वर्ज़न में सेव हुआ। इस हिस्से की सलाह के लिए जांच दोबारा करें।"
+  },
+  "pgHowItWorks": {
+    "en": "How the check works", "tr": "Kontrol nasıl çalışır", "de": "So funktioniert der Check", "fr": "Comment marche le bilan",
+    "es": "Cómo funciona la revisión", "it": "Come funziona il controllo", "pt": "Como a checagem funciona", "hi": "जांच कैसे होती है"
+  },
+  "pgYourPosture": {
+    "en": "Your posture", "tr": "Duruşun", "de": "Deine Haltung", "fr": "Ta posture",
+    "es": "Tu postura", "it": "La tua postura", "pt": "Sua postura", "hi": "आपका पोस्चर"
+  },
+  "pgCheckedOn": {
+    "en": "Checked {date}", "tr": "{date} kontrolü", "de": "Geprüft am {date}", "fr": "Fait le {date}",
+    "es": "Hecha el {date}", "it": "Fatto il {date}", "pt": "Feita em {date}", "hi": "{date} को जांचा"
+  },
+  "pgOutOf100": {
+    "en": "out of 100", "tr": "100 üzerinden", "de": "von 100", "fr": "sur 100",
+    "es": "de 100", "it": "su 100", "pt": "de 100", "hi": "100 में से"
+  },
+  "pgAllAreasGood": {
+    "en": "All three areas look good. Keep them that way.",
+    "tr": "Üç bölge de iyi görünüyor. Böyle kalsın.",
+    "de": "Alle drei Bereiche sehen gut aus. Halte sie so.",
+    "fr": "Les trois zones sont bonnes. Garde-les comme ça.",
+    "es": "Las tres zonas se ven bien. Mantenlas así.",
+    "it": "Tutte e tre le zone vanno bene. Mantienile così.",
+    "pt": "As três áreas estão boas. Mantenha assim.",
+    "hi": "तीनों हिस्से अच्छे हैं। इन्हें ऐसा ही रखें।"
+  },
+  "pgStartWith": {
+    "en": "Start here: {area}", "tr": "Önce buradan başla: {area}", "de": "Fang hier an: {area}", "fr": "Commence par : {area}",
+    "es": "Empieza por: {area}", "it": "Parti da qui: {area}", "pt": "Comece por: {area}", "hi": "यहां से शुरू करें: {area}"
+  },
+  "pgVsLastCheck": {
+    "en": "{delta} vs last check", "tr": "Son kontrole göre {delta}", "de": "{delta} zum letzten Check", "fr": "{delta} depuis le dernier bilan",
+    "es": "{delta} vs. la anterior", "it": "{delta} rispetto all'ultimo", "pt": "{delta} vs. a última", "hi": "पिछली जांच से {delta}"
+  },
+  "pgStatusGood": {
+    "en": "Good", "tr": "İyi", "de": "Gut", "fr": "Bien", "es": "Bien", "it": "Bene", "pt": "Bom", "hi": "अच्छा"
+  },
+  "pgStatusFair": {
+    "en": "Could be better", "tr": "Daha iyi olabilir", "de": "Geht besser", "fr": "Peut mieux faire",
+    "es": "Puede mejorar", "it": "Può migliorare", "pt": "Pode melhorar", "hi": "बेहतर हो सकता है"
+  },
+  "pgStatusFix": {
+    "en": "Fix first", "tr": "Önce bunu düzelt", "de": "Zuerst angehen", "fr": "À corriger d'abord",
+    "es": "Corrige primero", "it": "Da correggere prima", "pt": "Corrija primeiro", "hi": "पहले सुधारें"
+  },
+  "pgKeepItWith": {
+    "en": "Keep it with", "tr": "Korumak için", "de": "So bleibt es", "fr": "Pour garder ça",
+    "es": "Para mantenerlo", "it": "Per mantenerla", "pt": "Para manter", "hi": "बनाए रखने के लिए"
+  },
+  "pgFixItWith": {
+    "en": "Fix it with", "tr": "Düzeltmek için", "de": "So behebst du es", "fr": "Pour corriger",
+    "es": "Para corregirlo", "it": "Per correggerla", "pt": "Para corrigir", "hi": "सुधारने के लिए"
+  },
+  "pgRetakeNow": {
+    "en": "Time for your weekly check", "tr": "Haftalık kontrol zamanı", "de": "Zeit für deinen Wochencheck", "fr": "C'est l'heure de ton bilan de la semaine",
+    "es": "Toca tu revisión semanal", "it": "È ora del controllo settimanale", "pt": "Hora da checagem semanal", "hi": "साप्ताहिक जांच का समय"
+  },
+  "pgRetakeIn": {
+    "en": "{n, plural, =1{Next check tomorrow} other{Next check in {n} days}}",
+    "tr": "{n, plural, =1{Sonraki kontrol yarın} other{Sonraki kontrol {n} gün sonra}}",
+    "de": "{n, plural, =1{Nächster Check morgen} other{Nächster Check in {n} Tagen}}",
+    "fr": "{n, plural, =1{Prochain bilan demain} other{Prochain bilan dans {n} jours}}",
+    "es": "{n, plural, =1{Próxima revisión mañana} other{Próxima revisión en {n} días}}",
+    "it": "{n, plural, =1{Prossimo controllo domani} other{Prossimo controllo tra {n} giorni}}",
+    "pt": "{n, plural, =1{Próxima checagem amanhã} other{Próxima checagem em {n} dias}}",
+    "hi": "{n, plural, =1{अगली जांच कल} other{अगली जांच {n} दिन में}}",
+    "_types": {"n": "int"}
+  },
+  "pgRetakeBodyDue": {
+    "en": "Same wall, same three questions. Weekly checks show whether the exercises are working.",
+    "tr": "Aynı duvar, aynı üç soru. Haftalık kontroller egzersizlerin işe yarayıp yaramadığını gösterir.",
+    "de": "Gleiche Wand, gleiche drei Fragen. Wöchentliche Checks zeigen, ob die Übungen wirken.",
+    "fr": "Même mur, mêmes trois questions. Un bilan par semaine montre si les exercices marchent.",
+    "es": "Misma pared, mismas tres preguntas. La revisión semanal muestra si los ejercicios funcionan.",
+    "it": "Stesso muro, stesse tre domande. I controlli settimanali mostrano se gli esercizi funzionano.",
+    "pt": "Mesma parede, mesmas três perguntas. A checagem semanal mostra se os exercícios estão funcionando.",
+    "hi": "वही दीवार, वही तीन सवाल। हर हफ़्ते की जांच बताती है कि एक्सरसाइज़ काम कर रही हैं या नहीं।"
+  },
+  "pgRetakeBodyWait": {
+    "en": "Do the exercises above until {date}, then retake the check to see if they worked.",
+    "tr": "{date} tarihine kadar yukarıdaki egzersizleri yap, sonra işe yaradı mı görmek için kontrolü tekrarla.",
+    "de": "Mach die Übungen oben bis {date}, dann wiederhole den Check und sieh, ob sie gewirkt haben.",
+    "fr": "Fais les exercices ci-dessus jusqu'au {date}, puis refais le bilan pour voir s'ils ont marché.",
+    "es": "Haz los ejercicios de arriba hasta el {date} y luego repite la revisión para ver si funcionaron.",
+    "it": "Fai gli esercizi qui sopra fino a {date}, poi rifai il controllo per vedere se hanno funzionato.",
+    "pt": "Faça os exercícios acima até {date} e depois refaça a checagem para ver se funcionaram.",
+    "hi": "{date} तक ऊपर की एक्सरसाइज़ करें, फिर जांच दोबारा करके देखें कि असर हुआ या नहीं।"
+  },
+  "pgRetakeCheck": {
+    "en": "Retake check", "tr": "Kontrolü tekrarla", "de": "Check wiederholen", "fr": "Refaire le bilan",
+    "es": "Repetir revisión", "it": "Rifai il controllo", "pt": "Refazer checagem", "hi": "जांच दोबारा करें"
+  },
+  "pgRetakeAnyway": {
+    "en": "Retake now", "tr": "Şimdi tekrarla", "de": "Jetzt wiederholen", "fr": "Refaire maintenant",
+    "es": "Repetir ahora", "it": "Rifai ora", "pt": "Refazer agora", "hi": "अभी दोबारा करें"
+  },
+  "pgHistoryTitle": {
+    "en": "Your scores", "tr": "Puanların", "de": "Deine Werte", "fr": "Tes scores",
+    "es": "Tus puntuaciones", "it": "I tuoi punteggi", "pt": "Suas pontuações", "hi": "आपके स्कोर"
+  },
+  "pgSinceFirst": {
+    "en": "{delta} since first", "tr": "İlkinden bu yana {delta}", "de": "{delta} seit dem ersten", "fr": "{delta} depuis le premier",
+    "es": "{delta} desde la primera", "it": "{delta} dal primo", "pt": "{delta} desde a primeira", "hi": "पहली से {delta}"
+  },
+  "pgHistoryOne": {
+    "en": "This is your first check. Retake it in 7 days and your trend starts here.",
+    "tr": "Bu ilk kontrolün. 7 gün sonra tekrarla, gidişatın burada başlasın.",
+    "de": "Das ist dein erster Check. Wiederhole ihn in 7 Tagen, dann beginnt hier dein Verlauf.",
+    "fr": "C'est ton premier bilan. Refais-le dans 7 jours et ta courbe commence ici.",
+    "es": "Es tu primera revisión. Repítela en 7 días y aquí empieza tu evolución.",
+    "it": "È il tuo primo controllo. Rifallo tra 7 giorni e qui inizia il tuo andamento.",
+    "pt": "Esta é sua primeira checagem. Refaça em 7 dias e sua evolução começa aqui.",
+    "hi": "यह आपकी पहली जांच है। 7 दिन बाद दोबारा करें, आपका ट्रेंड यहीं से शुरू होगा।"
+  },
+  "pgPostureIntroTitle": {
+    "en": "How straight do you stand?", "tr": "Ne kadar dik duruyorsun?", "de": "Wie aufrecht stehst du?", "fr": "Tu te tiens droit à quel point ?",
+    "es": "¿Qué tan recto te pones de pie?", "it": "Quanto stai dritto?", "pt": "O quanto você fica reto?", "hi": "आप कितने सीधे खड़े होते हैं?"
+  },
+  "pgPostureIntroBody": {
+    "en": "Three questions against a wall, about one minute. You get a score and the two exercises that fix each weak spot.",
+    "tr": "Duvara yaslanıp üç soru, yaklaşık bir dakika. Bir puan ve her zayıf nokta için iki egzersiz alırsın.",
+    "de": "Drei Fragen an der Wand, etwa eine Minute. Du bekommst einen Wert und zwei Übungen für jede Schwachstelle.",
+    "fr": "Trois questions contre un mur, environ une minute. Tu obtiens un score et deux exercices pour chaque point faible.",
+    "es": "Tres preguntas contra una pared, un minuto más o menos. Recibes una puntuación y dos ejercicios para cada punto débil.",
+    "it": "Tre domande contro un muro, circa un minuto. Ottieni un punteggio e due esercizi per ogni punto debole.",
+    "pt": "Três perguntas encostado na parede, cerca de um minuto. Você recebe uma pontuação e dois exercícios para cada ponto fraco.",
+    "hi": "दीवार के सहारे तीन सवाल, करीब एक मिनट। आपको एक स्कोर और हर कमज़ोर जगह के लिए दो एक्सरसाइज़ मिलेंगी।"
+  },
+  "pgPostureStep1": {
+    "en": "Stand with heels, hips and shoulder blades against a wall.",
+    "tr": "Topukların, kalçan ve kürek kemiklerin duvara değecek şekilde dur.",
+    "de": "Stell dich mit Fersen, Po und Schulterblättern an eine Wand.",
+    "fr": "Mets-toi contre un mur, talons, fesses et omoplates collés.",
+    "es": "Ponte con talones, cadera y omóplatos contra una pared.",
+    "it": "Mettiti con talloni, glutei e scapole contro un muro.",
+    "pt": "Fique com calcanhares, quadril e escápulas encostados na parede.",
+    "hi": "एड़ियां, कूल्हे और कंधे की हड्डियां दीवार से लगाकर खड़े हों।"
+  },
+  "pgPostureStep2": {
+    "en": "Take a side photo, full body in frame, so you can look back later.",
+    "tr": "Sonra geriye bakabilmek için tüm vücudun kadrajda olacak şekilde yandan fotoğraf çek.",
+    "de": "Mach ein Foto von der Seite, ganzer Körper im Bild, zum späteren Vergleichen.",
+    "fr": "Prends une photo de profil, corps entier dans le cadre, pour pouvoir comparer plus tard.",
+    "es": "Hazte una foto de lado, cuerpo entero en el encuadre, para poder comparar después.",
+    "it": "Scatta una foto di lato, corpo intero nell'inquadratura, per poterla rivedere dopo.",
+    "pt": "Tire uma foto de lado, corpo inteiro no quadro, para comparar depois.",
+    "hi": "बाद में देखने के लिए साइड से पूरी बॉडी वाली फ़ोटो लें।"
+  },
+  "pgPostureStep3": {
+    "en": "Answer three questions honestly. Your score comes from your answers.",
+    "tr": "Üç soruyu dürüstçe yanıtla. Puanın senin cevaplarından gelir.",
+    "de": "Beantworte drei Fragen ehrlich. Dein Wert kommt aus deinen Antworten.",
+    "fr": "Réponds honnêtement à trois questions. Ton score vient de tes réponses.",
+    "es": "Responde tres preguntas con sinceridad. Tu puntuación sale de tus respuestas.",
+    "it": "Rispondi sinceramente a tre domande. Il punteggio viene dalle tue risposte.",
+    "pt": "Responda três perguntas com sinceridade. Sua pontuação vem das suas respostas.",
+    "hi": "तीन सवालों के ईमानदारी से जवाब दें। स्कोर आपके जवाबों से बनता है।"
+  },
+  "pgPostureStep4": {
+    "en": "Retake it once a week, at the same time of day.",
+    "tr": "Haftada bir, günün aynı saatinde tekrarla.",
+    "de": "Wiederhole ihn einmal pro Woche, zur gleichen Tageszeit.",
+    "fr": "Refais-le une fois par semaine, au même moment de la journée.",
+    "es": "Repítela una vez por semana, a la misma hora del día.",
+    "it": "Rifallo una volta a settimana, alla stessa ora del giorno.",
+    "pt": "Refaça uma vez por semana, no mesmo horário do dia.",
+    "hi": "हफ़्ते में एक बार, दिन के एक ही समय पर दोबारा करें।"
+  },
+  "pgStartCheck": {
+    "en": "Start posture check", "tr": "Duruş kontrolünü başlat", "de": "Haltungscheck starten", "fr": "Commencer le bilan",
+    "es": "Empezar la revisión", "it": "Inizia il controllo", "pt": "Começar checagem", "hi": "पोस्चर जांच शुरू करें"
+  },
+
+  "pgWeekRange": {
+    "en": "{start} to {end}", "tr": "{start} - {end}", "de": "{start} bis {end}", "fr": "Du {start} au {end}",
+    "es": "Del {start} al {end}", "it": "Dal {start} al {end}", "pt": "De {start} a {end}", "hi": "{start} से {end}"
+  },
+  "pgGradeGreat": {
+    "en": "Champion week", "tr": "Şampiyon bir hafta", "de": "Meisterwoche", "fr": "Semaine de champion",
+    "es": "Semana de campeón", "it": "Settimana da campione", "pt": "Semana de campeão", "hi": "चैंपियन वाला हफ़्ता"
+  },
+  "pgGradeGood": {
+    "en": "Solid week", "tr": "Sağlam bir hafta", "de": "Starke Woche", "fr": "Bonne semaine",
+    "es": "Semana sólida", "it": "Settimana solida", "pt": "Semana sólida", "hi": "बढ़िया हफ़्ता"
+  },
+  "pgGradeOk": {
+    "en": "Getting going", "tr": "Isınıyorsun", "de": "Es kommt in Gang", "fr": "Ça démarre",
+    "es": "Arrancando", "it": "Si parte", "pt": "Pegando ritmo", "hi": "शुरुआत हो रही है"
+  },
+  "pgGradeStart": {
+    "en": "A fresh start", "tr": "Yeni bir başlangıç", "de": "Ein neuer Anfang", "fr": "Un nouveau départ",
+    "es": "Un nuevo comienzo", "it": "Un nuovo inizio", "pt": "Um novo começo", "hi": "नई शुरुआत"
+  },
+  "pgTopWeek": {
+    "en": "Top week", "tr": "Zirve hafta", "de": "Top-Woche", "fr": "Top semaine",
+    "es": "Semana top", "it": "Settimana top", "pt": "Semana top", "hi": "टॉप हफ़्ता"
+  },
+  "pgVsLastWeek": {
+    "en": "{delta} vs last week", "tr": "Geçen haftaya göre {delta}", "de": "{delta} zur Vorwoche", "fr": "{delta} par rapport à la semaine dernière",
+    "es": "{delta} vs. la semana pasada", "it": "{delta} rispetto alla scorsa settimana", "pt": "{delta} vs. semana passada", "hi": "पिछले हफ़्ते से {delta}"
+  },
+  "pgDaysCompleted": {
+    "en": "days with the full plan", "tr": "planın tamamlandığı gün", "de": "Tage mit vollem Plan", "fr": "jours avec le plan complet",
+    "es": "días con el plan completo", "it": "giorni con il piano completo", "pt": "dias com o plano completo", "hi": "पूरी योजना वाले दिन"
+  },
+  "pgDayStreak": {
+    "en": "day streak", "tr": "günlük seri", "de": "Tage in Folge", "fr": "jours de suite",
+    "es": "días seguidos", "it": "giorni di fila", "pt": "dias seguidos", "hi": "दिन लगातार"
+  },
+  "pgBestDay": {
+    "en": "Best: {day}", "tr": "En iyi: {day}", "de": "Bester: {day}", "fr": "Meilleur : {day}",
+    "es": "Mejor: {day}", "it": "Migliore: {day}", "pt": "Melhor: {day}", "hi": "सबसे अच्छा: {day}"
+  },
+  "pgNextWeekFocus": {
+    "en": "Next week focus", "tr": "Gelecek haftanın odağı", "de": "Fokus nächste Woche", "fr": "Objectif de la semaine prochaine",
+    "es": "Foco de la próxima semana", "it": "Obiettivo della prossima settimana", "pt": "Foco da próxima semana", "hi": "अगले हफ़्ते का फ़ोकस"
+  },
+  "pgFocusPlan": {
+    "en": "Finish your whole plan on {n} days. This week you did it on {done}.",
+    "tr": "Planının tamamını {n} gün bitir. Bu hafta {done} gün bitirdin.",
+    "de": "Schaff deinen ganzen Plan an {n} Tagen. Diese Woche waren es {done}.",
+    "fr": "Termine tout ton plan {n} jours. Cette semaine, tu l'as fait {done} fois.",
+    "es": "Completa todo tu plan {n} días. Esta semana lo hiciste {done}.",
+    "it": "Completa tutto il piano per {n} giorni. Questa settimana ci sei riuscito {done} volte.",
+    "pt": "Complete o plano inteiro em {n} dias. Nesta semana foram {done}.",
+    "hi": "{n} दिन पूरी योजना पूरी करें। इस हफ़्ते आपने {done} दिन की।",
+    "_types": {"n": "int", "done": "int"}
+  },
+  "pgFocusWorkouts": {
+    "en": "Fit in {n} training sessions. This week you did {done}.",
+    "tr": "{n} antrenman yap. Bu hafta {done} yaptın.",
+    "de": "Bau {n} Trainingseinheiten ein. Diese Woche waren es {done}.",
+    "fr": "Cale {n} séances d'entraînement. Cette semaine, tu en as fait {done}.",
+    "es": "Haz {n} sesiones de entrenamiento. Esta semana hiciste {done}.",
+    "it": "Inserisci {n} allenamenti. Questa settimana ne hai fatti {done}.",
+    "pt": "Encaixe {n} treinos. Nesta semana você fez {done}.",
+    "hi": "{n} ट्रेनिंग सेशन करें। इस हफ़्ते आपने {done} किए।",
+    "_types": {"n": "int", "done": "int"}
+  },
+  "pgFocusMeasure": {
+    "en": "Measure your height once, in the morning, barefoot, same spot. That is how you see real change.",
+    "tr": "Boyunu bir kez ölç: sabah, çıplak ayak, aynı yerde. Gerçek değişimi böyle görürsün.",
+    "de": "Miss deine Größe einmal: morgens, barfuß, am selben Ort. So siehst du echte Veränderung.",
+    "fr": "Mesure ta taille une fois, le matin, pieds nus, au même endroit. C'est comme ça que tu verras le vrai changement.",
+    "es": "Mide tu altura una vez, por la mañana, descalzo, en el mismo sitio. Así ves el cambio real.",
+    "it": "Misura la tua altezza una volta, al mattino, scalzo, nello stesso posto. Così vedi il vero cambiamento.",
+    "pt": "Meça sua altura uma vez, de manhã, descalço, no mesmo lugar. É assim que você vê a mudança real.",
+    "hi": "एक बार लंबाई नापें: सुबह, नंगे पैर, उसी जगह। असली बदलाव ऐसे ही दिखता है।"
+  },
+  "pgFocusKeepDay": {
+    "en": "Every goal met. Now make {day} a full day too.",
+    "tr": "Tüm hedefler tamam. Şimdi {day} gününü de tam yap.",
+    "de": "Alle Ziele erreicht. Jetzt mach auch {day} zu einem vollen Tag.",
+    "fr": "Tous les objectifs sont atteints. Maintenant, fais aussi de {day} une journée complète.",
+    "es": "Todas las metas cumplidas. Ahora haz que el {day} también sea un día completo.",
+    "it": "Tutti gli obiettivi raggiunti. Ora rendi completo anche {day}.",
+    "pt": "Todas as metas batidas. Agora faça de {day} um dia completo também.",
+    "hi": "सारे लक्ष्य पूरे। अब {day} को भी पूरा दिन बनाएं।"
+  },
+  "pgFocusKeep": {
+    "en": "Every goal met and every day full. Same plan, same rhythm.",
+    "tr": "Tüm hedefler tamam, her gün dolu. Aynı plan, aynı ritim.",
+    "de": "Alle Ziele erreicht, jeder Tag voll. Gleicher Plan, gleicher Rhythmus.",
+    "fr": "Tous les objectifs atteints, chaque jour complet. Même plan, même rythme.",
+    "es": "Todas las metas cumplidas y cada día completo. Mismo plan, mismo ritmo.",
+    "it": "Tutti gli obiettivi raggiunti e ogni giorno completo. Stesso piano, stesso ritmo.",
+    "pt": "Todas as metas batidas e todo dia completo. Mesmo plano, mesmo ritmo.",
+    "hi": "सारे लक्ष्य पूरे और हर दिन पूरा। वही योजना, वही रफ़्तार।"
+  },
+  "pgHeightThisWeek": {
+    "en": "Height this week", "tr": "Bu haftaki boy", "de": "Größe diese Woche", "fr": "Taille cette semaine",
+    "es": "Altura esta semana", "it": "Altezza questa settimana", "pt": "Altura nesta semana", "hi": "इस हफ़्ते की लंबाई"
+  },
+  "pgHeightNow": {
+    "en": "Now {height}", "tr": "Şu an {height}", "de": "Jetzt {height}", "fr": "Maintenant {height}",
+    "es": "Ahora {height}", "it": "Ora {height}", "pt": "Agora {height}", "hi": "अभी {height}"
+  },
+  "pgNoMeasurementWeek": {
+    "en": "No measurement this week yet", "tr": "Bu hafta henüz ölçüm yok", "de": "Diese Woche noch nicht gemessen", "fr": "Pas encore de mesure cette semaine",
+    "es": "Aún sin medición esta semana", "it": "Nessuna misura ancora questa settimana", "pt": "Nenhuma medida nesta semana ainda", "hi": "इस हफ़्ते अभी कोई माप नहीं"
+  },
+  "pgFirstMeasurement": {
+    "en": "Your first measurement", "tr": "İlk ölçümün", "de": "Deine erste Messung", "fr": "Ta première mesure",
+    "es": "Tu primera medición", "it": "La tua prima misura", "pt": "Sua primeira medida", "hi": "आपका पहला माप"
+  },
+  "pgStartedAt": {
+    "en": "Start {height}", "tr": "Başlangıç {height}", "de": "Start {height}", "fr": "Départ {height}",
+    "es": "Inicio {height}", "it": "Inizio {height}", "pt": "Início {height}", "hi": "शुरुआत {height}"
+  },
+  "pgPotentialAt": {
+    "en": "Potential {height}", "tr": "Potansiyel {height}", "de": "Potenzial {height}", "fr": "Potentiel {height}",
+    "es": "Potencial {height}", "it": "Potenziale {height}", "pt": "Potencial {height}", "hi": "संभावना {height}"
+  },
+  "pgToPotential": {
+    "en": "{cm} left to your predicted potential.", "tr": "Tahmini potansiyeline {cm} kaldı.", "de": "Noch {cm} bis zu deinem geschätzten Potenzial.", "fr": "Encore {cm} jusqu'à ton potentiel estimé.",
+    "es": "Te quedan {cm} para tu potencial estimado.", "it": "Mancano {cm} al tuo potenziale stimato.", "pt": "Faltam {cm} para seu potencial estimado.", "hi": "अनुमानित संभावना तक {cm} बाकी।"
+  },
+  "pgPotentialReached": {
+    "en": "You are at your predicted potential. Posture work can still add what you show.",
+    "tr": "Tahmini potansiyelindesin. Duruş çalışması görünen boyuna hâlâ katkı sağlar.",
+    "de": "Du bist bei deinem geschätzten Potenzial. Haltungsarbeit kann trotzdem noch zeigen, was in dir steckt.",
+    "fr": "Tu es à ton potentiel estimé. Le travail de posture peut encore ajouter à ce que tu montres.",
+    "es": "Estás en tu potencial estimado. El trabajo de postura aún puede sumar a lo que muestras.",
+    "it": "Sei al tuo potenziale stimato. Il lavoro sulla postura può ancora aggiungere a ciò che mostri.",
+    "pt": "Você está no seu potencial estimado. O trabalho de postura ainda pode somar ao que você mostra.",
+    "hi": "आप अपनी अनुमानित संभावना पर हैं। पोस्चर पर काम अब भी दिखने वाली लंबाई बढ़ा सकता है।"
+  },
+  "pgHabitsToday": {
+    "en": "Logged today", "tr": "Bugün kaydedilenler", "de": "Heute eingetragen", "fr": "Noté aujourd'hui",
+    "es": "Registrado hoy", "it": "Registrato oggi", "pt": "Registrado hoje", "hi": "आज दर्ज"
+  }
+}
