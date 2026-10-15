@@ -9013,6 +9013,606 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your daily needs'**
   String get anNeedsTitle;
+
+  /// No description provided for @pgUnlockPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with Pro'**
+  String get pgUnlockPro;
+
+  /// No description provided for @pgPhotosLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See your transformation'**
+  String get pgPhotosLockedTitle;
+
+  /// No description provided for @pgPhotosLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Save a photo with your height every two weeks and compare any two with a slider.'**
+  String get pgPhotosLockedBody;
+
+  /// No description provided for @pgTransformationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your transformation'**
+  String get pgTransformationTitle;
+
+  /// No description provided for @pgHeightChange.
+  ///
+  /// In en, this message translates to:
+  /// **'height change'**
+  String get pgHeightChange;
+
+  /// No description provided for @pgDaysApart.
+  ///
+  /// In en, this message translates to:
+  /// **'days apart'**
+  String get pgDaysApart;
+
+  /// No description provided for @pgCompareMeaningGrew.
+  ///
+  /// In en, this message translates to:
+  /// **'{delta} between these two photos, taken {days, plural, =1{1 day} other{{days} days}} apart.'**
+  String pgCompareMeaningGrew(String delta, int days);
+
+  /// No description provided for @pgCompareMeaningSame.
+  ///
+  /// In en, this message translates to:
+  /// **'Same height, {days, plural, =1{1 day} other{{days} days}} apart. Posture and shape change first, height follows over months.'**
+  String pgCompareMeaningSame(int days);
+
+  /// No description provided for @pgModeSlider.
+  ///
+  /// In en, this message translates to:
+  /// **'Slider'**
+  String get pgModeSlider;
+
+  /// No description provided for @pgModeSideBySide.
+  ///
+  /// In en, this message translates to:
+  /// **'Side by side'**
+  String get pgModeSideBySide;
+
+  /// No description provided for @pgDragToReveal.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag to compare'**
+  String get pgDragToReveal;
+
+  /// No description provided for @pgOnePhotoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your before photo is saved'**
+  String get pgOnePhotoTitle;
+
+  /// No description provided for @pgOnePhotoBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Take the next one on {date} in the same pose to see your first comparison.'**
+  String pgOnePhotoBody(String date);
+
+  /// No description provided for @pgEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your transformation'**
+  String get pgEmptyTitle;
+
+  /// No description provided for @pgEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One photo every two weeks, same pose, same spot, with your height on it. In a few months you can slide between day 1 and today.'**
+  String get pgEmptyBody;
+
+  /// No description provided for @pgTakeFirstPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take your first photo'**
+  String get pgTakeFirstPhoto;
+
+  /// No description provided for @pgPhotoDueNow.
+  ///
+  /// In en, this message translates to:
+  /// **'New photo due'**
+  String get pgPhotoDueNow;
+
+  /// No description provided for @pgNextPhotoOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Next photo {date}'**
+  String pgNextPhotoOn(String date);
+
+  /// No description provided for @pgDayN.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {n}'**
+  String pgDayN(int n);
+
+  /// No description provided for @pgNewPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'New photo'**
+  String get pgNewPhoto;
+
+  /// No description provided for @pgGuideTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Same pose, every time'**
+  String get pgGuideTitle;
+
+  /// No description provided for @pgGuideSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos only compare well when they are taken the same way.'**
+  String get pgGuideSubtitle;
+
+  /// No description provided for @pgGuideGhost.
+  ///
+  /// In en, this message translates to:
+  /// **'Your last photo is shown faintly. Line yourself up with it.'**
+  String get pgGuideGhost;
+
+  /// No description provided for @pgGuideStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand 2 m away, phone at chest height'**
+  String get pgGuideStep1;
+
+  /// No description provided for @pgGuideStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Face the camera, feet together, arms relaxed'**
+  String get pgGuideStep2;
+
+  /// No description provided for @pgGuideStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Same spot, same light, fitted clothes'**
+  String get pgGuideStep3;
+
+  /// No description provided for @pgGuideDistance.
+  ///
+  /// In en, this message translates to:
+  /// **'2 m'**
+  String get pgGuideDistance;
+
+  /// No description provided for @pgChestHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'chest height'**
+  String get pgChestHeight;
+
+  /// No description provided for @pgTakePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take photo'**
+  String get pgTakePhoto;
+
+  /// No description provided for @pgFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from gallery'**
+  String get pgFromGallery;
+
+  /// No description provided for @pgChoosePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a photo'**
+  String get pgChoosePhoto;
+
+  /// No description provided for @pgPostureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture check'**
+  String get pgPostureTitle;
+
+  /// No description provided for @pgPostureLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find your weak spots'**
+  String get pgPostureLockedTitle;
+
+  /// No description provided for @pgPostureLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Score your head, shoulders and lower back, get two exercises for each, and see your score week by week.'**
+  String get pgPostureLockedBody;
+
+  /// No description provided for @pgAreaHead.
+  ///
+  /// In en, this message translates to:
+  /// **'Head'**
+  String get pgAreaHead;
+
+  /// No description provided for @pgAreaShoulders.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders'**
+  String get pgAreaShoulders;
+
+  /// No description provided for @pgAreaLowerBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower back'**
+  String get pgAreaLowerBack;
+
+  /// No description provided for @pgHeadMeaning0.
+  ///
+  /// In en, this message translates to:
+  /// **'Your head sits right over your shoulders. Keep it there with a short daily reset.'**
+  String get pgHeadMeaning0;
+
+  /// No description provided for @pgHeadMeaning1.
+  ///
+  /// In en, this message translates to:
+  /// **'Your head drifts forward when you relax. Very common with long phone time, and quick to improve.'**
+  String get pgHeadMeaning1;
+
+  /// No description provided for @pgHeadMeaning2.
+  ///
+  /// In en, this message translates to:
+  /// **'Your head sits in front of your shoulders. Fix this first: it makes you look shorter in every photo.'**
+  String get pgHeadMeaning2;
+
+  /// No description provided for @pgShouldersMeaning0.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders in line with your ears. Your upper back is doing its job.'**
+  String get pgShouldersMeaning0;
+
+  /// No description provided for @pgShouldersMeaning1.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders slightly forward. A tight chest pulls them in; opening it up brings them back.'**
+  String get pgShouldersMeaning1;
+
+  /// No description provided for @pgShouldersMeaning2.
+  ///
+  /// In en, this message translates to:
+  /// **'Rounded shoulders. Your upper back curves forward, which takes height off how you stand.'**
+  String get pgShouldersMeaning2;
+
+  /// No description provided for @pgLowerBackMeaning0.
+  ///
+  /// In en, this message translates to:
+  /// **'A neutral curve. Your hips and core hold your spine where it should be.'**
+  String get pgLowerBackMeaning0;
+
+  /// No description provided for @pgLowerBackMeaning1.
+  ///
+  /// In en, this message translates to:
+  /// **'A flat lower back. Gentle extension and mobility bring the natural curve back.'**
+  String get pgLowerBackMeaning1;
+
+  /// No description provided for @pgLowerBackMeaning2.
+  ///
+  /// In en, this message translates to:
+  /// **'A strong arch. Tight hip flexors tip your pelvis forward; stretching them and a stronger core level it out.'**
+  String get pgLowerBackMeaning2;
+
+  /// No description provided for @pgLegacyMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved by an older version without these questions. Retake the check for advice on this area.'**
+  String get pgLegacyMeaning;
+
+  /// No description provided for @pgHowItWorks.
+  ///
+  /// In en, this message translates to:
+  /// **'How the check works'**
+  String get pgHowItWorks;
+
+  /// No description provided for @pgYourPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Your posture'**
+  String get pgYourPosture;
+
+  /// No description provided for @pgCheckedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked {date}'**
+  String pgCheckedOn(String date);
+
+  /// No description provided for @pgOutOf100.
+  ///
+  /// In en, this message translates to:
+  /// **'out of 100'**
+  String get pgOutOf100;
+
+  /// No description provided for @pgAllAreasGood.
+  ///
+  /// In en, this message translates to:
+  /// **'All three areas look good. Keep them that way.'**
+  String get pgAllAreasGood;
+
+  /// No description provided for @pgStartWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Start here: {area}'**
+  String pgStartWith(String area);
+
+  /// No description provided for @pgVsLastCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'{delta} vs last check'**
+  String pgVsLastCheck(String delta);
+
+  /// No description provided for @pgStatusGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get pgStatusGood;
+
+  /// No description provided for @pgStatusFair.
+  ///
+  /// In en, this message translates to:
+  /// **'Could be better'**
+  String get pgStatusFair;
+
+  /// No description provided for @pgStatusFix.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix first'**
+  String get pgStatusFix;
+
+  /// No description provided for @pgKeepItWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it with'**
+  String get pgKeepItWith;
+
+  /// No description provided for @pgFixItWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix it with'**
+  String get pgFixItWith;
+
+  /// No description provided for @pgRetakeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Time for your weekly check'**
+  String get pgRetakeNow;
+
+  /// No description provided for @pgRetakeIn.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{Next check tomorrow} other{Next check in {n} days}}'**
+  String pgRetakeIn(int n);
+
+  /// No description provided for @pgRetakeBodyDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Same wall, same three questions. Weekly checks show whether the exercises are working.'**
+  String get pgRetakeBodyDue;
+
+  /// No description provided for @pgRetakeBodyWait.
+  ///
+  /// In en, this message translates to:
+  /// **'Do the exercises above until {date}, then retake the check to see if they worked.'**
+  String pgRetakeBodyWait(String date);
+
+  /// No description provided for @pgRetakeCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake check'**
+  String get pgRetakeCheck;
+
+  /// No description provided for @pgRetakeAnyway.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake now'**
+  String get pgRetakeAnyway;
+
+  /// No description provided for @pgHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your scores'**
+  String get pgHistoryTitle;
+
+  /// No description provided for @pgSinceFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'{delta} since first'**
+  String pgSinceFirst(String delta);
+
+  /// No description provided for @pgHistoryOne.
+  ///
+  /// In en, this message translates to:
+  /// **'This is your first check. Retake it in 7 days and your trend starts here.'**
+  String get pgHistoryOne;
+
+  /// No description provided for @pgPostureIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How straight do you stand?'**
+  String get pgPostureIntroTitle;
+
+  /// No description provided for @pgPostureIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Three questions against a wall, about one minute. You get a score and the two exercises that fix each weak spot.'**
+  String get pgPostureIntroBody;
+
+  /// No description provided for @pgPostureStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with heels, hips and shoulder blades against a wall.'**
+  String get pgPostureStep1;
+
+  /// No description provided for @pgPostureStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a side photo, full body in frame, so you can look back later.'**
+  String get pgPostureStep2;
+
+  /// No description provided for @pgPostureStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer three questions honestly. Your score comes from your answers.'**
+  String get pgPostureStep3;
+
+  /// No description provided for @pgPostureStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake it once a week, at the same time of day.'**
+  String get pgPostureStep4;
+
+  /// No description provided for @pgStartCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Start posture check'**
+  String get pgStartCheck;
+
+  /// No description provided for @pgWeekRange.
+  ///
+  /// In en, this message translates to:
+  /// **'{start} to {end}'**
+  String pgWeekRange(String start, String end);
+
+  /// No description provided for @pgGradeGreat.
+  ///
+  /// In en, this message translates to:
+  /// **'Champion week'**
+  String get pgGradeGreat;
+
+  /// No description provided for @pgGradeGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Solid week'**
+  String get pgGradeGood;
+
+  /// No description provided for @pgGradeOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting going'**
+  String get pgGradeOk;
+
+  /// No description provided for @pgGradeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'A fresh start'**
+  String get pgGradeStart;
+
+  /// No description provided for @pgTopWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Top week'**
+  String get pgTopWeek;
+
+  /// No description provided for @pgVsLastWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'{delta} vs last week'**
+  String pgVsLastWeek(String delta);
+
+  /// No description provided for @pgDaysCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'days with the full plan'**
+  String get pgDaysCompleted;
+
+  /// No description provided for @pgDayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'day streak'**
+  String get pgDayStreak;
+
+  /// No description provided for @pgBestDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Best: {day}'**
+  String pgBestDay(String day);
+
+  /// No description provided for @pgNextWeekFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Next week focus'**
+  String get pgNextWeekFocus;
+
+  /// No description provided for @pgFocusPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish your whole plan on {n} days. This week you did it on {done}.'**
+  String pgFocusPlan(int n, int done);
+
+  /// No description provided for @pgFocusWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Fit in {n} training sessions. This week you did {done}.'**
+  String pgFocusWorkouts(int n, int done);
+
+  /// No description provided for @pgFocusMeasure.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure your height once, in the morning, barefoot, same spot. That is how you see real change.'**
+  String get pgFocusMeasure;
+
+  /// No description provided for @pgFocusKeepDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Every goal met. Now make {day} a full day too.'**
+  String pgFocusKeepDay(String day);
+
+  /// No description provided for @pgFocusKeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Every goal met and every day full. Same plan, same rhythm.'**
+  String get pgFocusKeep;
+
+  /// No description provided for @pgHeightThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Height this week'**
+  String get pgHeightThisWeek;
+
+  /// No description provided for @pgHeightNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Now {height}'**
+  String pgHeightNow(String height);
+
+  /// No description provided for @pgNoMeasurementWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'No measurement this week yet'**
+  String get pgNoMeasurementWeek;
+
+  /// No description provided for @pgFirstMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first measurement'**
+  String get pgFirstMeasurement;
+
+  /// No description provided for @pgStartedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Start {height}'**
+  String pgStartedAt(String height);
+
+  /// No description provided for @pgPotentialAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Potential {height}'**
+  String pgPotentialAt(String height);
+
+  /// No description provided for @pgToPotential.
+  ///
+  /// In en, this message translates to:
+  /// **'{cm} left to your predicted potential.'**
+  String pgToPotential(String cm);
+
+  /// No description provided for @pgPotentialReached.
+  ///
+  /// In en, this message translates to:
+  /// **'You are at your predicted potential. Posture work can still add what you show.'**
+  String get pgPotentialReached;
+
+  /// No description provided for @pgHabitsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Logged today'**
+  String get pgHabitsToday;
 }
 
 class _AppLocalizationsDelegate

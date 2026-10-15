@@ -5035,4 +5035,391 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get anNeedsTitle => 'Tes besoins du jour';
+
+  @override
+  String get pgUnlockPro => 'Débloquer avec Pro';
+
+  @override
+  String get pgPhotosLockedTitle => 'Vois ta transformation';
+
+  @override
+  String get pgPhotosLockedBody =>
+      'Enregistre une photo avec ta taille toutes les deux semaines et compare-en deux avec un curseur.';
+
+  @override
+  String get pgTransformationTitle => 'Ta transformation';
+
+  @override
+  String get pgHeightChange => 'écart de taille';
+
+  @override
+  String get pgDaysApart => 'jours d\'écart';
+
+  @override
+  String pgCompareMeaningGrew(String delta, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours',
+      one: '1 jour',
+    );
+    return '$delta entre ces deux photos, prises à $_temp0 d\'écart.';
+  }
+
+  @override
+  String pgCompareMeaningSame(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours',
+      one: '1 jour',
+    );
+    return 'Même taille, à $_temp0 d\'écart. La posture et la silhouette changent d\'abord, la taille suit sur des mois.';
+  }
+
+  @override
+  String get pgModeSlider => 'Curseur';
+
+  @override
+  String get pgModeSideBySide => 'Côte à côte';
+
+  @override
+  String get pgDragToReveal => 'Fais glisser pour comparer';
+
+  @override
+  String get pgOnePhotoTitle => 'Ta photo avant est enregistrée';
+
+  @override
+  String pgOnePhotoBody(String date) {
+    return 'Prends la suivante le $date dans la même pose pour voir ta première comparaison.';
+  }
+
+  @override
+  String get pgEmptyTitle => 'Commence ta transformation';
+
+  @override
+  String get pgEmptyBody =>
+      'Une photo toutes les deux semaines, même pose, même endroit, avec ta taille. Dans quelques mois, tu passeras du jour 1 à aujourd\'hui d\'un glissement.';
+
+  @override
+  String get pgTakeFirstPhoto => 'Prends ta première photo';
+
+  @override
+  String get pgPhotoDueNow => 'Nouvelle photo à prendre';
+
+  @override
+  String pgNextPhotoOn(String date) {
+    return 'Prochaine photo $date';
+  }
+
+  @override
+  String pgDayN(int n) {
+    return 'Jour $n';
+  }
+
+  @override
+  String get pgNewPhoto => 'Nouvelle photo';
+
+  @override
+  String get pgGuideTitle => 'La même pose, à chaque fois';
+
+  @override
+  String get pgGuideSubtitle =>
+      'Les photos ne se comparent bien que si elles sont prises de la même façon.';
+
+  @override
+  String get pgGuideGhost =>
+      'Ta dernière photo apparaît en transparence. Aligne-toi dessus.';
+
+  @override
+  String get pgGuideStep1 => 'Tiens-toi à 2 m, téléphone à hauteur de poitrine';
+
+  @override
+  String get pgGuideStep2 => 'Face à l\'objectif, pieds joints, bras relâchés';
+
+  @override
+  String get pgGuideStep3 =>
+      'Même endroit, même lumière, vêtements près du corps';
+
+  @override
+  String get pgGuideDistance => '2 m';
+
+  @override
+  String get pgChestHeight => 'hauteur de poitrine';
+
+  @override
+  String get pgTakePhoto => 'Prendre la photo';
+
+  @override
+  String get pgFromGallery => 'Choisir dans la galerie';
+
+  @override
+  String get pgChoosePhoto => 'Choisis une photo';
+
+  @override
+  String get pgPostureTitle => 'Bilan de posture';
+
+  @override
+  String get pgPostureLockedTitle => 'Trouve tes points faibles';
+
+  @override
+  String get pgPostureLockedBody =>
+      'Note ta tête, tes épaules et ton bas du dos, reçois deux exercices pour chaque zone et suis ton score semaine après semaine.';
+
+  @override
+  String get pgAreaHead => 'Tête';
+
+  @override
+  String get pgAreaShoulders => 'Épaules';
+
+  @override
+  String get pgAreaLowerBack => 'Bas du dos';
+
+  @override
+  String get pgHeadMeaning0 =>
+      'Ta tête est bien au-dessus de tes épaules. Garde-la là avec un petit rappel chaque jour.';
+
+  @override
+  String get pgHeadMeaning1 =>
+      'Ta tête part vers l\'avant quand tu te relâches. Très courant avec beaucoup d\'écran, et vite corrigé.';
+
+  @override
+  String get pgHeadMeaning2 =>
+      'Ta tête est en avant de tes épaules. Corrige ça en premier : ça te fait paraître plus petit sur chaque photo.';
+
+  @override
+  String get pgShouldersMeaning0 =>
+      'Épaules alignées avec tes oreilles. Ton haut du dos fait son travail.';
+
+  @override
+  String get pgShouldersMeaning1 =>
+      'Épaules un peu en avant. Une poitrine raide les tire vers l\'intérieur ; l\'ouvrir les ramène en place.';
+
+  @override
+  String get pgShouldersMeaning2 =>
+      'Épaules enroulées. Ton haut du dos se courbe vers l\'avant, ce qui te fait perdre de la hauteur debout.';
+
+  @override
+  String get pgLowerBackMeaning0 =>
+      'Une courbe neutre. Tes hanches et tes abdos tiennent ta colonne là où il faut.';
+
+  @override
+  String get pgLowerBackMeaning1 =>
+      'Un bas du dos plat. Un peu d\'extension et de mobilité ramènent la courbe naturelle.';
+
+  @override
+  String get pgLowerBackMeaning2 =>
+      'Une forte cambrure. Des fléchisseurs de hanche raides basculent ton bassin vers l\'avant ; les étirer et renforcer tes abdos rééquilibre.';
+
+  @override
+  String get pgLegacyMeaning =>
+      'Enregistré par une ancienne version sans ces questions. Refais le bilan pour un conseil sur cette zone.';
+
+  @override
+  String get pgHowItWorks => 'Comment marche le bilan';
+
+  @override
+  String get pgYourPosture => 'Ta posture';
+
+  @override
+  String pgCheckedOn(String date) {
+    return 'Fait le $date';
+  }
+
+  @override
+  String get pgOutOf100 => 'sur 100';
+
+  @override
+  String get pgAllAreasGood =>
+      'Les trois zones sont bonnes. Garde-les comme ça.';
+
+  @override
+  String pgStartWith(String area) {
+    return 'Commence par : $area';
+  }
+
+  @override
+  String pgVsLastCheck(String delta) {
+    return '$delta depuis le dernier bilan';
+  }
+
+  @override
+  String get pgStatusGood => 'Bien';
+
+  @override
+  String get pgStatusFair => 'Peut mieux faire';
+
+  @override
+  String get pgStatusFix => 'À corriger d\'abord';
+
+  @override
+  String get pgKeepItWith => 'Pour garder ça';
+
+  @override
+  String get pgFixItWith => 'Pour corriger';
+
+  @override
+  String get pgRetakeNow => 'C\'est l\'heure de ton bilan de la semaine';
+
+  @override
+  String pgRetakeIn(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Prochain bilan dans $n jours',
+      one: 'Prochain bilan demain',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get pgRetakeBodyDue =>
+      'Même mur, mêmes trois questions. Un bilan par semaine montre si les exercices marchent.';
+
+  @override
+  String pgRetakeBodyWait(String date) {
+    return 'Fais les exercices ci-dessus jusqu\'au $date, puis refais le bilan pour voir s\'ils ont marché.';
+  }
+
+  @override
+  String get pgRetakeCheck => 'Refaire le bilan';
+
+  @override
+  String get pgRetakeAnyway => 'Refaire maintenant';
+
+  @override
+  String get pgHistoryTitle => 'Tes scores';
+
+  @override
+  String pgSinceFirst(String delta) {
+    return '$delta depuis le premier';
+  }
+
+  @override
+  String get pgHistoryOne =>
+      'C\'est ton premier bilan. Refais-le dans 7 jours et ta courbe commence ici.';
+
+  @override
+  String get pgPostureIntroTitle => 'Tu te tiens droit à quel point ?';
+
+  @override
+  String get pgPostureIntroBody =>
+      'Trois questions contre un mur, environ une minute. Tu obtiens un score et deux exercices pour chaque point faible.';
+
+  @override
+  String get pgPostureStep1 =>
+      'Mets-toi contre un mur, talons, fesses et omoplates collés.';
+
+  @override
+  String get pgPostureStep2 =>
+      'Prends une photo de profil, corps entier dans le cadre, pour pouvoir comparer plus tard.';
+
+  @override
+  String get pgPostureStep3 =>
+      'Réponds honnêtement à trois questions. Ton score vient de tes réponses.';
+
+  @override
+  String get pgPostureStep4 =>
+      'Refais-le une fois par semaine, au même moment de la journée.';
+
+  @override
+  String get pgStartCheck => 'Commencer le bilan';
+
+  @override
+  String pgWeekRange(String start, String end) {
+    return 'Du $start au $end';
+  }
+
+  @override
+  String get pgGradeGreat => 'Semaine de champion';
+
+  @override
+  String get pgGradeGood => 'Bonne semaine';
+
+  @override
+  String get pgGradeOk => 'Ça démarre';
+
+  @override
+  String get pgGradeStart => 'Un nouveau départ';
+
+  @override
+  String get pgTopWeek => 'Top semaine';
+
+  @override
+  String pgVsLastWeek(String delta) {
+    return '$delta par rapport à la semaine dernière';
+  }
+
+  @override
+  String get pgDaysCompleted => 'jours avec le plan complet';
+
+  @override
+  String get pgDayStreak => 'jours de suite';
+
+  @override
+  String pgBestDay(String day) {
+    return 'Meilleur : $day';
+  }
+
+  @override
+  String get pgNextWeekFocus => 'Objectif de la semaine prochaine';
+
+  @override
+  String pgFocusPlan(int n, int done) {
+    return 'Termine tout ton plan $n jours. Cette semaine, tu l\'as fait $done fois.';
+  }
+
+  @override
+  String pgFocusWorkouts(int n, int done) {
+    return 'Cale $n séances d\'entraînement. Cette semaine, tu en as fait $done.';
+  }
+
+  @override
+  String get pgFocusMeasure =>
+      'Mesure ta taille une fois, le matin, pieds nus, au même endroit. C\'est comme ça que tu verras le vrai changement.';
+
+  @override
+  String pgFocusKeepDay(String day) {
+    return 'Tous les objectifs sont atteints. Maintenant, fais aussi de $day une journée complète.';
+  }
+
+  @override
+  String get pgFocusKeep =>
+      'Tous les objectifs atteints, chaque jour complet. Même plan, même rythme.';
+
+  @override
+  String get pgHeightThisWeek => 'Taille cette semaine';
+
+  @override
+  String pgHeightNow(String height) {
+    return 'Maintenant $height';
+  }
+
+  @override
+  String get pgNoMeasurementWeek => 'Pas encore de mesure cette semaine';
+
+  @override
+  String get pgFirstMeasurement => 'Ta première mesure';
+
+  @override
+  String pgStartedAt(String height) {
+    return 'Départ $height';
+  }
+
+  @override
+  String pgPotentialAt(String height) {
+    return 'Potentiel $height';
+  }
+
+  @override
+  String pgToPotential(String cm) {
+    return 'Encore $cm jusqu\'à ton potentiel estimé.';
+  }
+
+  @override
+  String get pgPotentialReached =>
+      'Tu es à ton potentiel estimé. Le travail de posture peut encore ajouter à ce que tu montres.';
+
+  @override
+  String get pgHabitsToday => 'Noté aujourd\'hui';
 }

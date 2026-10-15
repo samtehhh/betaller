@@ -5002,4 +5002,390 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get anNeedsTitle => 'Suas necessidades diárias';
+
+  @override
+  String get pgUnlockPro => 'Desbloquear com o Pro';
+
+  @override
+  String get pgPhotosLockedTitle => 'Veja sua transformação';
+
+  @override
+  String get pgPhotosLockedBody =>
+      'Salve uma foto com sua altura a cada duas semanas e compare duas delas com um controle deslizante.';
+
+  @override
+  String get pgTransformationTitle => 'Sua transformação';
+
+  @override
+  String get pgHeightChange => 'diferença de altura';
+
+  @override
+  String get pgDaysApart => 'dias de diferença';
+
+  @override
+  String pgCompareMeaningGrew(String delta, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days dias',
+      one: '1 dia',
+    );
+    return '$delta entre estas duas fotos, tiradas com $_temp0 de diferença.';
+  }
+
+  @override
+  String pgCompareMeaningSame(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days dias',
+      one: '1 dia',
+    );
+    return 'Mesma altura, com $_temp0 de diferença. Postura e forma mudam primeiro, a altura vem ao longo dos meses.';
+  }
+
+  @override
+  String get pgModeSlider => 'Deslizador';
+
+  @override
+  String get pgModeSideBySide => 'Lado a lado';
+
+  @override
+  String get pgDragToReveal => 'Arraste para comparar';
+
+  @override
+  String get pgOnePhotoTitle => 'Sua foto do antes está salva';
+
+  @override
+  String pgOnePhotoBody(String date) {
+    return 'Tire a próxima em $date na mesma pose para ver sua primeira comparação.';
+  }
+
+  @override
+  String get pgEmptyTitle => 'Comece sua transformação';
+
+  @override
+  String get pgEmptyBody =>
+      'Uma foto a cada duas semanas, mesma pose, mesmo lugar, com sua altura. Em alguns meses você desliza entre o dia 1 e hoje.';
+
+  @override
+  String get pgTakeFirstPhoto => 'Tire sua primeira foto';
+
+  @override
+  String get pgPhotoDueNow => 'Hora de uma foto nova';
+
+  @override
+  String pgNextPhotoOn(String date) {
+    return 'Próxima foto $date';
+  }
+
+  @override
+  String pgDayN(int n) {
+    return 'Dia $n';
+  }
+
+  @override
+  String get pgNewPhoto => 'Nova foto';
+
+  @override
+  String get pgGuideTitle => 'A mesma pose, sempre';
+
+  @override
+  String get pgGuideSubtitle =>
+      'As fotos só se comparam bem quando são tiradas do mesmo jeito.';
+
+  @override
+  String get pgGuideGhost =>
+      'Sua última foto aparece clarinha. Alinhe-se com ela.';
+
+  @override
+  String get pgGuideStep1 => 'Fique a 2 m, celular na altura do peito';
+
+  @override
+  String get pgGuideStep2 =>
+      'De frente para a câmera, pés juntos, braços soltos';
+
+  @override
+  String get pgGuideStep3 => 'Mesmo lugar, mesma luz, roupa justa';
+
+  @override
+  String get pgGuideDistance => '2 m';
+
+  @override
+  String get pgChestHeight => 'altura do peito';
+
+  @override
+  String get pgTakePhoto => 'Tirar foto';
+
+  @override
+  String get pgFromGallery => 'Escolher da galeria';
+
+  @override
+  String get pgChoosePhoto => 'Escolha uma foto';
+
+  @override
+  String get pgPostureTitle => 'Checagem de postura';
+
+  @override
+  String get pgPostureLockedTitle => 'Descubra seus pontos fracos';
+
+  @override
+  String get pgPostureLockedBody =>
+      'Avalie cabeça, ombros e lombar, receba dois exercícios para cada um e acompanhe sua pontuação semana a semana.';
+
+  @override
+  String get pgAreaHead => 'Cabeça';
+
+  @override
+  String get pgAreaShoulders => 'Ombros';
+
+  @override
+  String get pgAreaLowerBack => 'Lombar';
+
+  @override
+  String get pgHeadMeaning0 =>
+      'Sua cabeça está bem em cima dos ombros. Mantenha assim com um ajuste rápido por dia.';
+
+  @override
+  String get pgHeadMeaning1 =>
+      'Sua cabeça vai para a frente quando você relaxa. Muito comum com muito tempo de celular, e melhora rápido.';
+
+  @override
+  String get pgHeadMeaning2 =>
+      'Sua cabeça fica à frente dos ombros. Corrija isso primeiro: faz você parecer mais baixo em toda foto.';
+
+  @override
+  String get pgShouldersMeaning0 =>
+      'Ombros alinhados com as orelhas. A parte alta das costas está fazendo o trabalho dela.';
+
+  @override
+  String get pgShouldersMeaning1 =>
+      'Ombros um pouco para a frente. O peito tenso puxa eles para dentro; abrir o peito traz de volta.';
+
+  @override
+  String get pgShouldersMeaning2 =>
+      'Ombros curvados. A parte alta das costas se curva para a frente e tira altura da sua postura.';
+
+  @override
+  String get pgLowerBackMeaning0 =>
+      'Uma curva neutra. Quadril e abdômen seguram sua coluna onde ela deve ficar.';
+
+  @override
+  String get pgLowerBackMeaning1 =>
+      'Lombar reta. Extensão leve e mobilidade trazem de volta a curva natural.';
+
+  @override
+  String get pgLowerBackMeaning2 =>
+      'Um arco forte. Os flexores do quadril tensos inclinam a pelve para a frente; alongar e fortalecer o abdômen equilibra.';
+
+  @override
+  String get pgLegacyMeaning =>
+      'Salvo por uma versão antiga sem estas perguntas. Refaça a checagem para receber dicas desta área.';
+
+  @override
+  String get pgHowItWorks => 'Como a checagem funciona';
+
+  @override
+  String get pgYourPosture => 'Sua postura';
+
+  @override
+  String pgCheckedOn(String date) {
+    return 'Feita em $date';
+  }
+
+  @override
+  String get pgOutOf100 => 'de 100';
+
+  @override
+  String get pgAllAreasGood => 'As três áreas estão boas. Mantenha assim.';
+
+  @override
+  String pgStartWith(String area) {
+    return 'Comece por: $area';
+  }
+
+  @override
+  String pgVsLastCheck(String delta) {
+    return '$delta vs. a última';
+  }
+
+  @override
+  String get pgStatusGood => 'Bom';
+
+  @override
+  String get pgStatusFair => 'Pode melhorar';
+
+  @override
+  String get pgStatusFix => 'Corrija primeiro';
+
+  @override
+  String get pgKeepItWith => 'Para manter';
+
+  @override
+  String get pgFixItWith => 'Para corrigir';
+
+  @override
+  String get pgRetakeNow => 'Hora da checagem semanal';
+
+  @override
+  String pgRetakeIn(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Próxima checagem em $n dias',
+      one: 'Próxima checagem amanhã',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get pgRetakeBodyDue =>
+      'Mesma parede, mesmas três perguntas. A checagem semanal mostra se os exercícios estão funcionando.';
+
+  @override
+  String pgRetakeBodyWait(String date) {
+    return 'Faça os exercícios acima até $date e depois refaça a checagem para ver se funcionaram.';
+  }
+
+  @override
+  String get pgRetakeCheck => 'Refazer checagem';
+
+  @override
+  String get pgRetakeAnyway => 'Refazer agora';
+
+  @override
+  String get pgHistoryTitle => 'Suas pontuações';
+
+  @override
+  String pgSinceFirst(String delta) {
+    return '$delta desde a primeira';
+  }
+
+  @override
+  String get pgHistoryOne =>
+      'Esta é sua primeira checagem. Refaça em 7 dias e sua evolução começa aqui.';
+
+  @override
+  String get pgPostureIntroTitle => 'O quanto você fica reto?';
+
+  @override
+  String get pgPostureIntroBody =>
+      'Três perguntas encostado na parede, cerca de um minuto. Você recebe uma pontuação e dois exercícios para cada ponto fraco.';
+
+  @override
+  String get pgPostureStep1 =>
+      'Fique com calcanhares, quadril e escápulas encostados na parede.';
+
+  @override
+  String get pgPostureStep2 =>
+      'Tire uma foto de lado, corpo inteiro no quadro, para comparar depois.';
+
+  @override
+  String get pgPostureStep3 =>
+      'Responda três perguntas com sinceridade. Sua pontuação vem das suas respostas.';
+
+  @override
+  String get pgPostureStep4 =>
+      'Refaça uma vez por semana, no mesmo horário do dia.';
+
+  @override
+  String get pgStartCheck => 'Começar checagem';
+
+  @override
+  String pgWeekRange(String start, String end) {
+    return 'De $start a $end';
+  }
+
+  @override
+  String get pgGradeGreat => 'Semana de campeão';
+
+  @override
+  String get pgGradeGood => 'Semana sólida';
+
+  @override
+  String get pgGradeOk => 'Pegando ritmo';
+
+  @override
+  String get pgGradeStart => 'Um novo começo';
+
+  @override
+  String get pgTopWeek => 'Semana top';
+
+  @override
+  String pgVsLastWeek(String delta) {
+    return '$delta vs. semana passada';
+  }
+
+  @override
+  String get pgDaysCompleted => 'dias com o plano completo';
+
+  @override
+  String get pgDayStreak => 'dias seguidos';
+
+  @override
+  String pgBestDay(String day) {
+    return 'Melhor: $day';
+  }
+
+  @override
+  String get pgNextWeekFocus => 'Foco da próxima semana';
+
+  @override
+  String pgFocusPlan(int n, int done) {
+    return 'Complete o plano inteiro em $n dias. Nesta semana foram $done.';
+  }
+
+  @override
+  String pgFocusWorkouts(int n, int done) {
+    return 'Encaixe $n treinos. Nesta semana você fez $done.';
+  }
+
+  @override
+  String get pgFocusMeasure =>
+      'Meça sua altura uma vez, de manhã, descalço, no mesmo lugar. É assim que você vê a mudança real.';
+
+  @override
+  String pgFocusKeepDay(String day) {
+    return 'Todas as metas batidas. Agora faça de $day um dia completo também.';
+  }
+
+  @override
+  String get pgFocusKeep =>
+      'Todas as metas batidas e todo dia completo. Mesmo plano, mesmo ritmo.';
+
+  @override
+  String get pgHeightThisWeek => 'Altura nesta semana';
+
+  @override
+  String pgHeightNow(String height) {
+    return 'Agora $height';
+  }
+
+  @override
+  String get pgNoMeasurementWeek => 'Nenhuma medida nesta semana ainda';
+
+  @override
+  String get pgFirstMeasurement => 'Sua primeira medida';
+
+  @override
+  String pgStartedAt(String height) {
+    return 'Início $height';
+  }
+
+  @override
+  String pgPotentialAt(String height) {
+    return 'Potencial $height';
+  }
+
+  @override
+  String pgToPotential(String cm) {
+    return 'Faltam $cm para seu potencial estimado.';
+  }
+
+  @override
+  String get pgPotentialReached =>
+      'Você está no seu potencial estimado. O trabalho de postura ainda pode somar ao que você mostra.';
+
+  @override
+  String get pgHabitsToday => 'Registrado hoje';
 }
