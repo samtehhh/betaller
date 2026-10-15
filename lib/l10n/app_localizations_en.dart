@@ -1140,7 +1140,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get routineDailyCaloriesDesc =>
-      'Hit your daily calorie target — undereating slows growth.';
+      'Hit your daily calorie target. Undereating slows growth.';
 
   @override
   String get routineSleepEnvironment => 'Optimize Sleep Environment';
@@ -2041,7 +2041,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get approachingLimit => 'Approaching limit';
 
   @override
-  String get overLimit => 'Over limit — affects HGH';
+  String get overLimit => 'Over limit, affects HGH';
 
   @override
   String get resetToday => 'Reset today';
@@ -2050,7 +2050,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stressToday => 'Stress Today';
 
   @override
-  String get stressVeryCalmLabel => 'Very calm — optimal for growth';
+  String get stressVeryCalmLabel => 'Very calm, optimal for growth';
 
   @override
   String get stressCalmLabel => 'Calm';
@@ -2062,7 +2062,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stressStressedLabel => 'Stressed';
 
   @override
-  String get stressVeryStressedLabel => 'Very stressed — cortisol blocks HGH';
+  String get stressVeryStressedLabel => 'Very stressed, cortisol blocks HGH';
 
   @override
   String get stressTapToLog => 'Tap to log how you feel today';
@@ -2113,7 +2113,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get insightStressHigh =>
-      'Stress is elevated this week. Consider breathing exercises — cortisol blocks growth.';
+      'Stress is elevated this week. Try some breathing exercises: cortisol blocks growth.';
 
   @override
   String get insightMoodLow =>
@@ -2795,7 +2795,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get routineFormField => 'Form & Instructions';
 
   @override
-  String get routineFormHint => 'Optional — how to perform this routine';
+  String get routineFormHint => 'Optional: how to perform this routine';
 
   @override
   String get diffBeginner => 'Beginner';
@@ -3029,7 +3029,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get designedForYouDesc =>
-      'BeTaller was built specifically for you to reach your genetic limit — and even surpass it. Every feature, for you.';
+      'BeTaller was built specifically for you to reach your genetic limit, and even surpass it. Every feature, for you.';
 
   @override
   String get greetingAllDone => 'Great job! 🎯';
@@ -3039,12 +3039,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String greetingStreak30(int streak) {
-    return '$streak day streak — legendary level.';
+    return '$streak day streak. Legendary level.';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return '$streak day streak — keep it up.';
+    return '$streak day streak. Keep it up.';
   }
 
   @override
@@ -3532,7 +3532,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tourHomeStreakDesc =>
-      'Keeps growing as long as you keep your discipline — miss a day and it resets.';
+      'Keeps growing as long as you keep your discipline. Miss a day and it resets.';
 
   @override
   String get tourHomeXpTitle => 'Your Level';
@@ -3581,21 +3581,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tourPlanTodayListDesc =>
-      'Check each one off as you do it — tap to open a routine for the details.';
+      'Check each one off as you do it. Tap a routine to open its details.';
 
   @override
   String get tourPlanWeekGoalsTitle => 'This Week';
 
   @override
   String get tourPlanWeekGoalsDesc =>
-      'Perfect days, workouts and the measurement this week asks of you — including the mandatory one.';
+      'Perfect days, workouts and the measurement this week asks of you, including the mandatory one.';
 
   @override
   String get tourPlanMonthGoalsTitle => 'This Month';
 
   @override
   String get tourPlanMonthGoalsDesc =>
-      'Progress photos, a posture check and this month\'s measurements — the ones you shouldn\'t skip.';
+      'Progress photos, a posture check and this month\'s measurements: the ones you shouldn\'t skip.';
 
   @override
   String get tourProgressHeightTitle => 'Your Current Height';
@@ -3772,7 +3772,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get journeyTourDoneSubtitle =>
-      'You\'ve completed all three steps. Now it\'s your turn — start your journey by completing your first routine.';
+      'You\'ve completed all three steps. Now it\'s your turn: start your journey by completing your first routine.';
 
   @override
   String get journeyViewPlansButton => 'See your plans to get started';
@@ -3854,7 +3854,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String resultRange(String min, String max) {
-    return 'Likely range: $min – $max';
+    return 'Likely range: $min to $max';
   }
 
   @override
@@ -3994,7 +3994,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get painGeneticDesc =>
-      'Genetics determines 60% — but what you do determines the other 40%. BeTaller is here for exactly that 40%.';
+      'Genetics determines 60%, but what you do determines the other 40%. BeTaller is here for exactly that 40%.';
 
   @override
   String get painGeneticTag => 'Analysis';
@@ -4014,7 +4014,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get painPostureDesc =>
-      'Correct posture can instantly add 1.5–3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.';
+      'Correct posture can instantly add 1.5-3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.';
 
   @override
   String get painPostureTag => 'Posture';
@@ -4024,7 +4024,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get painExerciseDesc =>
-      'Morning stretches, hanging, spine routines — BeTaller prepared and scheduled these for you. Just 8–12 minutes a day.';
+      'Morning stretches, hanging, spine routines: BeTaller prepared and scheduled these for you. Just 8-12 minutes a day.';
 
   @override
   String get painExerciseTag => 'Routines';
@@ -4034,7 +4034,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get painNutritionDesc =>
-      'Protein, calcium, vitamin D — BeTaller reminds you every day which nutrients to take and when.';
+      'Protein, calcium, vitamin D: BeTaller reminds you every day which nutrients to take and when.';
 
   @override
   String get painNutritionTag => 'Nutrition';
@@ -4044,7 +4044,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get painTrackingDesc =>
-      'Monthly measurements, progress photos, growth chart — see every centimeter you gain.';
+      'Monthly measurements, progress photos, growth chart: see every centimeter you gain.';
 
   @override
   String get painTrackingTag => 'Progress';
@@ -4372,7 +4372,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get paywallSlideHomeCaption =>
-      'Routines, water, sleep — three rings to close.';
+      'Routines, water, sleep: three rings to close.';
 
   @override
   String get paywallSlideProgressTitle => 'See every centimetre';
@@ -4465,7 +4465,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get obProteinSubtitle =>
-      'A rough figure is enough — we build your plan around it.';
+      'A rough figure is enough. We build your plan around it.';
 
   @override
   String get obCaloriesTitle => 'How many calories a day, on average?';

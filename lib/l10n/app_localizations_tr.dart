@@ -934,7 +934,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tipMorningMeasure =>
-      'Boyunuzu sabah ölçün - gün içinde diskler üzerindeki basınç boy kaybına neden olur. En doğru ölçüm sabah yapılır.';
+      'Boyunu sabah ölç. Gün içinde disklere binen basınç boyu biraz kısaltır, en doğru ölçüm sabah yapılır.';
 
   @override
   String get tipProteinSpread =>
@@ -1140,7 +1140,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get routineDailyCaloriesDesc =>
-      'Günlük kalori hedefine ulaş — yetersiz kalori büyümeyi yavaşlatır.';
+      'Günlük kalori hedefine ulaş. Yetersiz kalori büyümeyi yavaşlatır.';
 
   @override
   String get routineSleepEnvironment => 'Uyku Ortamını Optimize Et';
@@ -2037,7 +2037,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get approachingLimit => 'Limite yaklaşıyor';
 
   @override
-  String get overLimit => 'Limit aşıldı — HGH\'yi etkiler';
+  String get overLimit => 'Limit aşıldı, HGH\'yi etkiler';
 
   @override
   String get resetToday => 'Bugünü sıfırla';
@@ -2046,7 +2046,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get stressToday => 'Bugünkü Stres';
 
   @override
-  String get stressVeryCalmLabel => 'Çok sakin — büyüme için ideal';
+  String get stressVeryCalmLabel => 'Çok sakin, büyüme için ideal';
 
   @override
   String get stressCalmLabel => 'Sakin';
@@ -2059,7 +2059,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get stressVeryStressedLabel =>
-      'Çok stresli — kortizol HGH\'yi engeller';
+      'Çok stresli, kortizol HGH\'yi engeller';
 
   @override
   String get stressTapToLog => 'Bugün nasıl hissettiğini kaydet';
@@ -2110,7 +2110,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get insightStressHigh =>
-      'Bu hafta stres seviyeniz yüksek. Nefes egzersizlerini düşünün — kortizol büyümeyi engeller.';
+      'Bu hafta stres seviyen yüksek. Nefes egzersizlerini dene: kortizol büyümeyi engeller.';
 
   @override
   String get insightMoodLow =>
@@ -2793,7 +2793,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get routineFormField => 'Yapılışı ve Talimatlar';
 
   @override
-  String get routineFormHint => 'İsteğe bağlı — rutinin nasıl yapılacağı';
+  String get routineFormHint => 'İsteğe bağlı: rutinin nasıl yapılacağı';
 
   @override
   String get diffBeginner => 'Başlangıç';
@@ -3027,7 +3027,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get designedForYouDesc =>
-      'BeTaller, genetik limitine ulaşman — hatta onu aşman — için sana özel kuruldu. Her özellik, sen için.';
+      'BeTaller, genetik limitine ulaşman, hatta onu aşman için sana özel kuruldu. Her özellik, senin için.';
 
   @override
   String get greetingAllDone => 'Harika iş! 🎯';
@@ -3037,12 +3037,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String greetingStreak30(int streak) {
-    return '$streak günlük seri — efsane seviyedesin.';
+    return '$streak günlük seri. Efsane seviyedesin.';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return '$streak günlük seri — yoluna devam et.';
+    return '$streak günlük seri. Yoluna devam et.';
   }
 
   @override
@@ -3524,7 +3524,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tourHomeStreakDesc =>
-      'Disiplinini bozmadığın sürece artar. Bir günü kaçırırsan sıfırlanır — düşürme!';
+      'Disiplinini bozmadığın sürece artar. Bir günü kaçırırsan sıfırlanır, düşürme!';
 
   @override
   String get tourHomeXpTitle => 'Seviyen (LVL)';
@@ -3573,7 +3573,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tourPlanTodayListDesc =>
-      'Yaptıkça buradan işaretle — detayları için bir rutine dokunup açabilirsin.';
+      'Yaptıkça buradan işaretle. Detaylar için bir rutine dokunup açabilirsin.';
 
   @override
   String get tourPlanWeekGoalsTitle => 'Bu Hafta';
@@ -3587,7 +3587,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tourPlanMonthGoalsDesc =>
-      'İlerleme fotoğrafı, postür kontrolü ve bu ayki ölçümler — kaçırmaman gerekenler.';
+      'İlerleme fotoğrafı, postür kontrolü ve bu ayki ölçümler: kaçırmaman gerekenler.';
 
   @override
   String get tourProgressHeightTitle => 'Güncel Boyun';
@@ -3764,7 +3764,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get journeyTourDoneSubtitle =>
-      'Üç adımı da tamamladın. Şimdi sıra sende — ilk rutinini tamamlayarak yolculuğuna başla.';
+      'Üç adımı da tamamladın. Şimdi sıra sende: ilk rutinini tamamlayarak yolculuğuna başla.';
 
   @override
   String get journeyViewPlansButton => 'Kullanım için planları gör';
@@ -3849,7 +3849,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String resultRange(String min, String max) {
-    return 'Olası aralık: $min – $max';
+    return 'Olası aralık: $min ile $max arası';
   }
 
   @override
@@ -3990,7 +3990,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get painGeneticDesc =>
-      'Genetiğin %60\'ını belirliyor — ama yaptıkların geri kalan %40\'ı belirliyor. BeTaller tam da bu %40 için burada.';
+      'Genetik %60\'ı belirliyor, ama geri kalan %40\'ı yaptıkların belirliyor. BeTaller tam da bu %40 için burada.';
 
   @override
   String get painGeneticTag => 'Analiz';
@@ -4010,7 +4010,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get painPostureDesc =>
-      'Doğru duruş sana anında 1.5–3 cm katabilir. BeTaller\'ın günlük postür rutini bunu birkaç haftada yerleştirir.';
+      'Doğru duruş sana anında 1,5-3 cm katabilir. BeTaller\'ın günlük postür rutini bunu birkaç haftada yerleştirir.';
 
   @override
   String get painPostureTag => 'Postür';
@@ -4020,7 +4020,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get painExerciseDesc =>
-      'Sabah germe, asılma, omurga rutinleri — BeTaller bunları senin için hazırladı ve planladı. Her gün 8–12 dakika yeter.';
+      'Sabah esnemesi, asılma, omurga rutinleri: BeTaller bunları senin için hazırladı ve planladı. Her gün 8-12 dakika yeter.';
 
   @override
   String get painExerciseTag => 'Rutinler';
@@ -4030,7 +4030,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get painNutritionDesc =>
-      'Protein, kalsiyum, D vitamini — BeTaller hangi besinleri ne zaman almanı gerektiğini her gün hatırlatır.';
+      'Protein, kalsiyum, D vitamini: BeTaller hangi besinleri ne zaman alman gerektiğini her gün hatırlatır.';
 
   @override
   String get painNutritionTag => 'Beslenme';
@@ -4040,7 +4040,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get painTrackingDesc =>
-      'Aylık ölçüm, ilerleme fotoğrafları, büyüme grafiği — kazandığın her santimi gör.';
+      'Aylık ölçüm, ilerleme fotoğrafları, büyüme grafiği: kazandığın her santimi gör.';
 
   @override
   String get painTrackingTag => 'İlerleme';
@@ -4368,7 +4368,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get paywallSlideHomeCaption =>
-      'Rutin, su, uyku — kapatman gereken üç halka.';
+      'Rutin, su, uyku: kapatman gereken üç halka.';
 
   @override
   String get paywallSlideProgressTitle => 'Her santimi gör';
@@ -4459,7 +4459,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get obProteinSubtitle =>
-      'Yaklaşık bir değer yeter — planını buna göre kuruyoruz.';
+      'Yaklaşık bir değer yeter. Planını buna göre kuruyoruz.';
 
   @override
   String get obCaloriesTitle => 'Günde ortalama kaç kalori alırsın?';

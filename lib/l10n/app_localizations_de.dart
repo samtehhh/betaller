@@ -634,7 +634,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get reminderEmptyHint =>
-      'Füge deine eigene hinzu: Training, Vitamine, Dehnen — was du brauchst.';
+      'Füge deine eigene hinzu: Training, Vitamine, Dehnen, was du brauchst.';
 
   @override
   String get reminderCustom => 'Erinnerung';
@@ -940,7 +940,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tipMorningMeasure =>
-      'Miss deine Größe morgens – der Bandscheibendruck verursacht Größenverlust im Tagesverlauf. Die genaueste Messung ist morgens.';
+      'Miss deine Größe morgens. Der Druck auf die Bandscheiben macht dich im Lauf des Tages etwas kleiner, morgens misst du am genauesten.';
 
   @override
   String get tipProteinSpread =>
@@ -1146,7 +1146,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get routineDailyCaloriesDesc =>
-      'Erreiche dein tägliches Kalorienziel — zu wenig Kalorien bremsen das Wachstum.';
+      'Erreiche dein tägliches Kalorienziel. Zu wenig Kalorien bremsen das Wachstum.';
 
   @override
   String get routineSleepEnvironment => 'Schlafumgebung optimieren';
@@ -2059,7 +2059,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get approachingLimit => 'Limit wird erreicht';
 
   @override
-  String get overLimit => 'Über dem Limit — beeinflusst HGH';
+  String get overLimit => 'Über dem Limit, beeinflusst HGH';
 
   @override
   String get resetToday => 'Heute zurücksetzen';
@@ -2068,7 +2068,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get stressToday => 'Stress heute';
 
   @override
-  String get stressVeryCalmLabel => 'Sehr ruhig — optimal für Wachstum';
+  String get stressVeryCalmLabel => 'Sehr ruhig, optimal für Wachstum';
 
   @override
   String get stressCalmLabel => 'Ruhig';
@@ -2081,7 +2081,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get stressVeryStressedLabel =>
-      'Sehr gestresst — Cortisol blockiert HGH';
+      'Sehr gestresst, Cortisol blockiert HGH';
 
   @override
   String get stressTapToLog => 'Tippe, um dein Befinden zu erfassen';
@@ -2132,7 +2132,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get insightStressHigh =>
-      'Stress ist diese Woche erhöht. Denke an Atemübungen — Cortisol blockiert Wachstum.';
+      'Dein Stress ist diese Woche erhöht. Probier Atemübungen: Cortisol blockiert das Wachstum.';
 
   @override
   String get insightMoodLow =>
@@ -2552,31 +2552,31 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get formProtein =>
-      'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.';
+      'Verteil dein Protein auf 3-4 Mahlzeiten. Iss Eier, Hähnchen, Fisch, Milchprodukte und Hülsenfrüchte.';
 
   @override
   String get formCalciumVitaminD =>
-      'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.';
+      'Nimm täglich 3 Portionen Milchprodukte zu dir und geh 15 Minuten in die Sonne, damit dein Körper Vitamin D bildet.';
 
   @override
   String get formWater =>
-      'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.';
+      'Trink über den Tag verteilt regelmäßig Wasser. Hab eine Flasche dabei und stell dir stündliche Erinnerungen.';
 
   @override
   String get formAvoidJunk =>
-      'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.';
+      'Ersetz Fast Food durch frische, unverarbeitete Lebensmittel. Tausch süße Getränke gegen Wasser. Lies die Etiketten und meide stark verarbeitete Zutaten.';
 
   @override
   String get formZincIntake =>
-      'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.';
+      'Bau rotes Fleisch, Kürbiskerne, Kichererbsen, Cashews und Austern in deine Ernährung ein. Ziel: 8-11 mg pro Tag.';
 
   @override
   String get formVitaminDSunlight =>
-      'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.';
+      'Halte Arme und Gesicht 15 Minuten in direkte Sonne, am besten vor Mittag. Für diese kurze Zeit brauchst du keine Sonnencreme.';
 
   @override
   String get formArginineFoods =>
-      'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.';
+      'Bau Nüsse, Samen, Pute, Hähnchen, Soja und Milchprodukte in deine Mahlzeiten ein. Am besten vor dem Schlafengehen.';
 
   @override
   String get formDailyCalories =>
@@ -2584,15 +2584,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get formQualitySleep =>
-      'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.';
+      'Geh bis 22 Uhr ins Bett. Halte das Zimmer dunkel und kühl. Nach 14 Uhr kein Koffein mehr.';
 
   @override
   String get formNoScreen =>
-      'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.';
+      'Stell dir einen Wecker 1 Stunde vor dem Schlafengehen. Leg alle Bildschirme weg. Lies stattdessen ein Buch oder dehn dich sanft.';
 
   @override
   String get formSleepEnvironment =>
-      'Use blackout curtains, keep room at 18-20°C, remove all light sources. Use a comfortable mattress and pillow.';
+      'Nutze Verdunklungsvorhänge, halte das Zimmer bei 18-20 °C und schalte alle Lichtquellen aus. Schlaf auf einer bequemen Matratze und einem guten Kissen.';
 
   @override
   String get formPreSleepRoutine =>
@@ -2616,85 +2616,87 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get sciMorningStretch =>
-      'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention';
+      'Dehnen am Morgen entlastet die Bandscheiben, die sich über Nacht mit Flüssigkeit gefüllt haben, und hilft dir, deine Größe über den Tag zu halten';
 
   @override
   String get sciBarHanging =>
-      'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height';
+      'Hängen entlastet die Bandscheiben, weil die Schwerkraft die Wirbelsäule streckt, und kann dich vorübergehend größer machen';
 
   @override
   String get sciCobraStretch =>
-      'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting';
+      'Die Kobra streckt die Wirbelsäule und öffnet die Brust. Das wirkt dem Druck vom vielen Sitzen entgegen';
 
   @override
   String get sciJumping =>
-      'High-impact jumping stimulates growth plates in the legs and triggers growth hormone release';
+      'Springen mit Aufprall belastet die Wachstumsfugen in den Beinen und regt die Ausschüttung von Wachstumshormon an';
 
   @override
   String get sciSwimmingBasketball =>
-      'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity';
+      'Schwimmen und Basketball verbinden Strecken, Springen und Greifen mit dem ganzen Körper und regen die Wachstumsfugen an';
 
   @override
   String get sciEveningYoga =>
-      'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery';
+      'Yoga am Abend senkt Cortisol, das Wachstumshormon bremst, und dehnt die Muskeln für die Erholung in der Nacht';
 
   @override
   String get sciSprintIntervals =>
-      'Sprinting triggers significant growth hormone release';
+      'Sprints lösen eine deutliche Ausschüttung von Wachstumshormon aus';
 
   @override
   String get sciHiitWorkout =>
-      'High intensity exercise increases HGH by up to 450%';
+      'Intensives Training kann das Wachstumshormon um bis zu 450 % steigern';
 
   @override
-  String get sciSquats => 'Squats stimulate growth plates in legs and spine';
+  String get sciSquats =>
+      'Kniebeugen belasten die Wachstumsfugen in Beinen und Wirbelsäule';
 
   @override
   String get sciDeadliftStretch =>
-      'Spinal decompression promotes vertebral disc health';
+      'Die Entlastung der Wirbelsäule fördert gesunde Bandscheiben';
 
   @override
   String get sciOverheadPress =>
-      'Overhead pressing stretches the spine and strengthens posture muscles';
+      'Drücken über Kopf streckt die Wirbelsäule und stärkt deine Haltemuskeln';
 
   @override
   String get sciSkippingRope =>
-      'Repetitive jumping stimulates growth plates in lower extremities';
+      'Wiederholtes Springen belastet die Wachstumsfugen in den Beinen';
 
   @override
   String get sciPilatesCore =>
-      'Core strength supports spinal alignment and posture';
+      'Eine starke Körpermitte stützt die Ausrichtung der Wirbelsäule und deine Haltung';
 
   @override
   String get sciInversionHang =>
-      'Inversion decompresses spinal discs, can temporarily add 1-2cm';
+      'Kopfüber hängen entlastet die Bandscheiben und kann vorübergehend 1-2 cm bringen';
 
   @override
   String get sciProtein =>
-      'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts';
+      'Protein liefert Aminosäuren, die Knochen und Muskeln zum Wachsen brauchen, besonders in Wachstumsschüben';
 
   @override
   String get sciCalciumVitaminD =>
-      'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth';
+      'Kalzium und Vitamin D sind die wichtigsten Bausteine für dichte Knochen und das Längenwachstum';
 
   @override
   String get sciWater =>
-      'Hydration is essential for nutrient transport to growth plates and joint cartilage health';
+      'Genug Flüssigkeit bringt Nährstoffe zu den Wachstumsfugen und hält den Gelenkknorpel gesund';
 
   @override
   String get sciAvoidJunk =>
-      'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion';
+      'Stark verarbeitetes Essen und Zucker fördern Entzündungen und Insulinspitzen, die die Ausschüttung von Wachstumshormon bremsen';
 
   @override
-  String get sciZincIntake => 'Zinc is essential for growth hormone production';
+  String get sciZincIntake =>
+      'Zink ist wichtig für die Bildung von Wachstumshormon';
 
   @override
   String get sciVitaminDSunlight =>
-      'Vitamin D is crucial for calcium absorption and bone growth';
+      'Vitamin D ist entscheidend dafür, dass dein Körper Kalzium aufnimmt und die Knochen wachsen';
 
   @override
   String get sciArginineFoods =>
-      'L-Arginine stimulates growth hormone secretion';
+      'L-Arginin regt die Ausschüttung von Wachstumshormon an';
 
   @override
   String get sciDailyCalories =>
@@ -2702,35 +2704,35 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get sciQualitySleep =>
-      '70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM';
+      '70-80 % des täglichen Wachstumshormons werden im Tiefschlaf ausgeschüttet, vor allem zwischen 22 und 2 Uhr';
 
   @override
   String get sciNoScreen =>
-      'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality';
+      'Blaues Licht von Bildschirmen bremst die Bildung von Melatonin. Du schläfst später ein und dein Tiefschlaf wird schlechter';
 
   @override
   String get sciSleepEnvironment =>
-      'Dark, cool environment maximizes melatonin and growth hormone';
+      'Ein dunkles, kühles Zimmer fördert Melatonin und Wachstumshormon';
 
   @override
   String get sciPreSleepRoutine =>
-      'Consistent pre-sleep routine improves deep sleep quality by 23%';
+      'Eine feste Abendroutine verbessert die Qualität des Tiefschlafs um 23 %';
 
   @override
   String get sciPostureCheck =>
-      'Correct posture alignment can immediately add 2-3 cm to apparent height and prevents spinal compression';
+      'Eine aufrechte Haltung lässt dich sofort 2-3 cm größer wirken und schützt die Wirbelsäule vor Druck';
 
   @override
   String get sciWallStand =>
-      'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day';
+      'Das Stehen an der Wand trainiert das Muskelgedächtnis deiner Haltung, damit die Wirbelsäule den ganzen Tag gut ausgerichtet bleibt';
 
   @override
   String get sciNeckStretches =>
-      'Neck stretches relieve compression and improve cervical alignment';
+      'Nackendehnungen lösen Druck und verbessern die Ausrichtung der Halswirbelsäule';
 
   @override
   String get sciShoulderRolls =>
-      'Opening shoulders corrects forward posture, can add 1-2cm appearance';
+      'Offene Schultern korrigieren eine nach vorn gebeugte Haltung und können dich 1-2 cm größer wirken lassen';
 
   @override
   String get muscleSpine => 'Wirbelsäule';
@@ -2814,7 +2816,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get routineFormField => 'Anleitung';
 
   @override
-  String get routineFormHint => 'Optional — wie die Routine durchgeführt wird';
+  String get routineFormHint => 'Optional: wie die Routine durchgeführt wird';
 
   @override
   String get diffBeginner => 'Anfänger';
@@ -3059,12 +3061,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String greetingStreak30(int streak) {
-    return '$streak Tage Serie — legendäres Level.';
+    return '$streak Tage Serie. Legendäres Level.';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return '$streak Tage Serie — weiter so.';
+    return '$streak Tage Serie. Weiter so.';
   }
 
   @override
@@ -3544,7 +3546,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tourHomeStreakDesc =>
-      'Wächst, solange du diszipliniert bleibst — verpasst du einen Tag, setzt sie sich zurück.';
+      'Wächst, solange du diszipliniert bleibst. Verpasst du einen Tag, setzt sie sich zurück.';
 
   @override
   String get tourHomeXpTitle => 'Dein Level';
@@ -3593,21 +3595,21 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tourPlanTodayListDesc =>
-      'Hake jede ab, sobald du sie erledigst — tippe für Details auf eine Routine.';
+      'Hake jede ab, sobald du sie erledigst. Tipp auf eine Routine für die Details.';
 
   @override
   String get tourPlanWeekGoalsTitle => 'Diese Woche';
 
   @override
   String get tourPlanWeekGoalsDesc =>
-      'Perfekte Tage, Trainings und die diese Woche fällige Messung — auch die Pflichtmessung.';
+      'Perfekte Tage, Trainings und die diese Woche fällige Messung, auch die Pflichtmessung.';
 
   @override
   String get tourPlanMonthGoalsTitle => 'Dieser Monat';
 
   @override
   String get tourPlanMonthGoalsDesc =>
-      'Fortschrittsfoto, Haltungscheck und die Messungen dieses Monats — die du nicht auslassen solltest.';
+      'Fortschrittsfoto, Haltungscheck und die Messungen dieses Monats: die, die du nicht auslassen solltest.';
 
   @override
   String get tourProgressHeightTitle => 'Deine aktuelle Größe';
@@ -3784,7 +3786,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get journeyTourDoneSubtitle =>
-      'Du hast alle drei Schritte abgeschlossen. Jetzt bist du dran — starte deine Reise mit deiner ersten Routine.';
+      'Du hast alle drei Schritte abgeschlossen. Jetzt bist du dran: starte deine Reise mit deiner ersten Routine.';
 
   @override
   String get journeyViewPlansButton => 'Pläne zum Starten ansehen';
@@ -3869,7 +3871,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String resultRange(String min, String max) {
-    return 'Wahrscheinlicher Bereich: $min – $max';
+    return 'Wahrscheinlicher Bereich: $min bis $max';
   }
 
   @override
@@ -4010,7 +4012,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get painGeneticDesc =>
-      'Genetik bestimmt 60 % — die restlichen 40 % bestimmst du. Genau für diese 40 % ist BeTaller da.';
+      'Die Genetik bestimmt 60 %, die restlichen 40 % bestimmst du. Genau für diese 40 % ist BeTaller da.';
 
   @override
   String get painGeneticTag => 'Analyse';
@@ -4030,7 +4032,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get painPostureDesc =>
-      'Richtige Haltung kann sofort 1,5–3 cm hinzufügen. Die tägliche Haltungsroutine von BeTaller etabliert das in wenigen Wochen.';
+      'Richtige Haltung kann sofort 1,5-3 cm bringen. Die tägliche Haltungsroutine von BeTaller verankert das in wenigen Wochen.';
 
   @override
   String get painPostureTag => 'Haltung';
@@ -4040,7 +4042,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get painExerciseDesc =>
-      'Morgendliches Dehnen, Hängen, Wirbelsäulen-Übungen — BeTaller hat das für dich vorbereitet und geplant. Nur 8–12 Minuten am Tag.';
+      'Dehnen am Morgen, Hängen, Übungen für die Wirbelsäule: BeTaller hat das für dich vorbereitet und geplant. Nur 8-12 Minuten am Tag.';
 
   @override
   String get painExerciseTag => 'Routinen';
@@ -4051,7 +4053,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get painNutritionDesc =>
-      'Protein, Kalzium, Vitamin D — BeTaller erinnert dich jeden Tag daran, welche Nährstoffe du wann brauchst.';
+      'Protein, Kalzium, Vitamin D: BeTaller erinnert dich jeden Tag daran, welche Nährstoffe du wann brauchst.';
 
   @override
   String get painNutritionTag => 'Ernährung';
@@ -4061,7 +4063,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get painTrackingDesc =>
-      'Monatliche Messungen, Fortschrittsfotos, Wachstumskurve — sieh jeden gewonnenen Zentimeter.';
+      'Monatliche Messungen, Fortschrittsfotos, Wachstumskurve: sieh jeden gewonnenen Zentimeter.';
 
   @override
   String get painTrackingTag => 'Fortschritt';
@@ -4395,7 +4397,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get paywallSlideHomeCaption =>
-      'Routinen, Wasser, Schlaf — drei Ringe zum Schließen.';
+      'Routinen, Wasser, Schlaf: drei Ringe zum Schließen.';
 
   @override
   String get paywallSlideProgressTitle => 'Jeden Zentimeter sehen';
@@ -4429,7 +4431,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get paywallSlideRemindersCaption =>
-      'Zeiten setzen — den Rest macht die App.';
+      'Zeiten setzen, den Rest macht die App.';
 
   @override
   String get paywallSlidePostureTitle => 'Haltung korrigieren';
@@ -4487,7 +4489,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get obProteinSubtitle =>
-      'Ein grober Wert reicht — wir bauen den Plan darauf.';
+      'Ein grober Wert reicht. Wir bauen den Plan darauf.';
 
   @override
   String get obCaloriesTitle => 'Wie viele Kalorien am Tag?';

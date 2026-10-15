@@ -2129,7 +2129,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineDailyCaloriesDesc.
   ///
   /// In en, this message translates to:
-  /// **'Hit your daily calorie target — undereating slows growth.'**
+  /// **'Hit your daily calorie target. Undereating slows growth.'**
   String get routineDailyCaloriesDesc;
 
   /// No description provided for @routineSleepEnvironment.
@@ -3821,7 +3821,7 @@ abstract class AppLocalizations {
   /// No description provided for @overLimit.
   ///
   /// In en, this message translates to:
-  /// **'Over limit — affects HGH'**
+  /// **'Over limit, affects HGH'**
   String get overLimit;
 
   /// No description provided for @resetToday.
@@ -3839,7 +3839,7 @@ abstract class AppLocalizations {
   /// No description provided for @stressVeryCalmLabel.
   ///
   /// In en, this message translates to:
-  /// **'Very calm — optimal for growth'**
+  /// **'Very calm, optimal for growth'**
   String get stressVeryCalmLabel;
 
   /// No description provided for @stressCalmLabel.
@@ -3863,7 +3863,7 @@ abstract class AppLocalizations {
   /// No description provided for @stressVeryStressedLabel.
   ///
   /// In en, this message translates to:
-  /// **'Very stressed — cortisol blocks HGH'**
+  /// **'Very stressed, cortisol blocks HGH'**
   String get stressVeryStressedLabel;
 
   /// No description provided for @stressTapToLog.
@@ -3959,7 +3959,7 @@ abstract class AppLocalizations {
   /// No description provided for @insightStressHigh.
   ///
   /// In en, this message translates to:
-  /// **'Stress is elevated this week. Consider breathing exercises — cortisol blocks growth.'**
+  /// **'Stress is elevated this week. Try some breathing exercises: cortisol blocks growth.'**
   String get insightStressHigh;
 
   /// No description provided for @insightMoodLow.
@@ -5141,7 +5141,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineFormHint.
   ///
   /// In en, this message translates to:
-  /// **'Optional — how to perform this routine'**
+  /// **'Optional: how to perform this routine'**
   String get routineFormHint;
 
   /// No description provided for @diffBeginner.
@@ -5555,7 +5555,7 @@ abstract class AppLocalizations {
   /// No description provided for @designedForYouDesc.
   ///
   /// In en, this message translates to:
-  /// **'BeTaller was built specifically for you to reach your genetic limit — and even surpass it. Every feature, for you.'**
+  /// **'BeTaller was built specifically for you to reach your genetic limit, and even surpass it. Every feature, for you.'**
   String get designedForYouDesc;
 
   /// No description provided for @greetingAllDone.
@@ -5573,13 +5573,13 @@ abstract class AppLocalizations {
   /// No description provided for @greetingStreak30.
   ///
   /// In en, this message translates to:
-  /// **'{streak} day streak — legendary level.'**
+  /// **'{streak} day streak. Legendary level.'**
   String greetingStreak30(int streak);
 
   /// No description provided for @greetingStreak7.
   ///
   /// In en, this message translates to:
-  /// **'{streak} day streak — keep it up.'**
+  /// **'{streak} day streak. Keep it up.'**
   String greetingStreak7(int streak);
 
   /// No description provided for @greetingStreak3.
@@ -6461,7 +6461,7 @@ abstract class AppLocalizations {
   /// No description provided for @tourHomeStreakDesc.
   ///
   /// In en, this message translates to:
-  /// **'Keeps growing as long as you keep your discipline — miss a day and it resets.'**
+  /// **'Keeps growing as long as you keep your discipline. Miss a day and it resets.'**
   String get tourHomeStreakDesc;
 
   /// No description provided for @tourHomeXpTitle.
@@ -6545,7 +6545,7 @@ abstract class AppLocalizations {
   /// No description provided for @tourPlanTodayListDesc.
   ///
   /// In en, this message translates to:
-  /// **'Check each one off as you do it — tap to open a routine for the details.'**
+  /// **'Check each one off as you do it. Tap a routine to open its details.'**
   String get tourPlanTodayListDesc;
 
   /// No description provided for @tourPlanWeekGoalsTitle.
@@ -6557,7 +6557,7 @@ abstract class AppLocalizations {
   /// No description provided for @tourPlanWeekGoalsDesc.
   ///
   /// In en, this message translates to:
-  /// **'Perfect days, workouts and the measurement this week asks of you — including the mandatory one.'**
+  /// **'Perfect days, workouts and the measurement this week asks of you, including the mandatory one.'**
   String get tourPlanWeekGoalsDesc;
 
   /// No description provided for @tourPlanMonthGoalsTitle.
@@ -6569,7 +6569,7 @@ abstract class AppLocalizations {
   /// No description provided for @tourPlanMonthGoalsDesc.
   ///
   /// In en, this message translates to:
-  /// **'Progress photos, a posture check and this month\'s measurements — the ones you shouldn\'t skip.'**
+  /// **'Progress photos, a posture check and this month\'s measurements: the ones you shouldn\'t skip.'**
   String get tourPlanMonthGoalsDesc;
 
   /// No description provided for @tourProgressHeightTitle.
@@ -6875,7 +6875,7 @@ abstract class AppLocalizations {
   /// No description provided for @journeyTourDoneSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'You\'ve completed all three steps. Now it\'s your turn — start your journey by completing your first routine.'**
+  /// **'You\'ve completed all three steps. Now it\'s your turn: start your journey by completing your first routine.'**
   String get journeyTourDoneSubtitle;
 
   /// No description provided for @journeyViewPlansButton.
@@ -7007,7 +7007,7 @@ abstract class AppLocalizations {
   /// No description provided for @resultRange.
   ///
   /// In en, this message translates to:
-  /// **'Likely range: {min} – {max}'**
+  /// **'Likely range: {min} to {max}'**
   String resultRange(String min, String max);
 
   /// No description provided for @resultPercentile.
@@ -7253,7 +7253,7 @@ abstract class AppLocalizations {
   /// No description provided for @painGeneticDesc.
   ///
   /// In en, this message translates to:
-  /// **'Genetics determines 60% — but what you do determines the other 40%. BeTaller is here for exactly that 40%.'**
+  /// **'Genetics determines 60%, but what you do determines the other 40%. BeTaller is here for exactly that 40%.'**
   String get painGeneticDesc;
 
   /// No description provided for @painGeneticTag.
@@ -7289,7 +7289,7 @@ abstract class AppLocalizations {
   /// No description provided for @painPostureDesc.
   ///
   /// In en, this message translates to:
-  /// **'Correct posture can instantly add 1.5–3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.'**
+  /// **'Correct posture can instantly add 1.5-3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.'**
   String get painPostureDesc;
 
   /// No description provided for @painPostureTag.
@@ -7307,7 +7307,7 @@ abstract class AppLocalizations {
   /// No description provided for @painExerciseDesc.
   ///
   /// In en, this message translates to:
-  /// **'Morning stretches, hanging, spine routines — BeTaller prepared and scheduled these for you. Just 8–12 minutes a day.'**
+  /// **'Morning stretches, hanging, spine routines: BeTaller prepared and scheduled these for you. Just 8-12 minutes a day.'**
   String get painExerciseDesc;
 
   /// No description provided for @painExerciseTag.
@@ -7325,7 +7325,7 @@ abstract class AppLocalizations {
   /// No description provided for @painNutritionDesc.
   ///
   /// In en, this message translates to:
-  /// **'Protein, calcium, vitamin D — BeTaller reminds you every day which nutrients to take and when.'**
+  /// **'Protein, calcium, vitamin D: BeTaller reminds you every day which nutrients to take and when.'**
   String get painNutritionDesc;
 
   /// No description provided for @painNutritionTag.
@@ -7343,7 +7343,7 @@ abstract class AppLocalizations {
   /// No description provided for @painTrackingDesc.
   ///
   /// In en, this message translates to:
-  /// **'Monthly measurements, progress photos, growth chart — see every centimeter you gain.'**
+  /// **'Monthly measurements, progress photos, growth chart: see every centimeter you gain.'**
   String get painTrackingDesc;
 
   /// No description provided for @painTrackingTag.
@@ -7967,7 +7967,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallSlideHomeCaption.
   ///
   /// In en, this message translates to:
-  /// **'Routines, water, sleep — three rings to close.'**
+  /// **'Routines, water, sleep: three rings to close.'**
   String get paywallSlideHomeCaption;
 
   /// No description provided for @paywallSlideProgressTitle.
@@ -8117,7 +8117,7 @@ abstract class AppLocalizations {
   /// No description provided for @obProteinSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'A rough figure is enough — we build your plan around it.'**
+  /// **'A rough figure is enough. We build your plan around it.'**
   String get obProteinSubtitle;
 
   /// No description provided for @obCaloriesTitle.
