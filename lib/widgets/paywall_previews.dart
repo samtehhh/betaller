@@ -1451,12 +1451,13 @@ class _ProgressPreview extends StatelessWidget {
 
   static const _points = <double>[168.1, 169.4, 170.2, 171.6, 172.5, 174.2];
 
-  /// One demo record per point, dated backwards from today so the chart
-  /// always reads as a recent, live-looking history.
+  /// One demo record per point, dated backwards from today. Spread over a
+  /// year: +6.1 cm is a believable growth year for a teen, and it was shown
+  /// as 45 days, which no one grows and every reader can tell.
   static final _dates = List.generate(
     _points.length,
     (i) =>
-        DateTime.now().subtract(Duration(days: (_points.length - 1 - i) * 9)),
+        DateTime.now().subtract(Duration(days: (_points.length - 1 - i) * 73)),
   );
 
   @override
