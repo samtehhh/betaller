@@ -4605,4 +4605,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String nTrialEndBody(String price) {
     return 'इसके बाद $price पर जारी रहेगा। आपका प्लान और प्रगति दोनों सेव रहेंगे।';
   }
+
+  @override
+  String get trophyContinue => 'आगे बढ़ें';
 }

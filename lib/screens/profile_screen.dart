@@ -242,245 +242,157 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 18),
 
                     // ── Achievements ──────────────────
-                    if (provider.isPremium)
-                      GlassCard(
-                        padding: const EdgeInsets.fromLTRB(12, 20, 12, 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8, right: 8),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: SectionHeader(
-                                      icon: CupertinoIcons.star_circle_fill,
-                                      title: l.achievements,
-                                    ),
+                    // The trophy cabinet is free: earned badges are the
+                    // reward for coming back, and a reward you have to pay
+                    // to look at is not one.
+                    GlassCard(
+                      padding: const EdgeInsets.fromLTRB(12, 20, 12, 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8, right: 8),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: SectionHeader(
+                                    icon: CupertinoIcons.star_circle_fill,
+                                    title: l.achievements,
                                   ),
-                                  Text(
-                                    '${provider.earnedAchievementCount}/${achievements.length}',
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w900,
-                                      color: AppColors.warning,
-                                    ),
+                                ),
+                                Text(
+                                  '${provider.earnedAchievementCount}/${achievements.length}',
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w900,
+                                    color: AppColors.warning,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 12),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(4),
-                                child: LinearProgressIndicator(
-                                  value: achievements.isEmpty
-                                      ? 0
-                                      : provider.earnedAchievementCount /
-                                            achievements.length,
-                                  minHeight: 6,
-                                  backgroundColor: Colors.white.withValues(
-                                    alpha: 0.07,
-                                  ),
-                                  valueColor:
-                                      const AlwaysStoppedAnimation<Color>(
-                                        AppColors.warning,
-                                      ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            ...List.generate((achievements.length / 5).ceil(), (
-                              row,
-                            ) {
-                              final start = row * 5;
-                              final end = (start + 5).clamp(
-                                0,
-                                achievements.length,
-                              );
-                              final rowItems = achievements.sublist(start, end);
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                  bottom:
-                                      row < (achievements.length / 5).ceil() - 1
-                                      ? 14
-                                      : 0,
-                                ),
-                                child: Row(
-                                  children: rowItems.map((a) {
-                                    final earned = a['earned'] == true;
-                                    final locAch = localizedAchievement(
-                                      l,
-                                      a['id'] as String,
-                                    );
-                                    final localA = {
-                                      ...a,
-                                      'title': locAch['title'] ?? a['title'],
-                                      'description':
-                                          locAch['description'] ??
-                                          a['description'],
-                                    };
-                                    return Expanded(
-                                      child: GestureDetector(
-                                        onTap: () => _showAchievementDialog(
-                                          context,
-                                          localA,
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              width: 46,
-                                              height: 46,
-                                              decoration: BoxDecoration(
-                                                color: earned
-                                                    ? AppColors.primary
-                                                          .withValues(
-                                                            alpha: 0.15,
-                                                          )
-                                                    : Colors.white.withValues(
-                                                        alpha: 0.14,
-                                                      ),
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                border: earned
-                                                    ? Border.all(
-                                                        color: AppColors.primary
-                                                            .withValues(
-                                                              alpha: 0.3,
-                                                            ),
-                                                        width: 1,
-                                                      )
-                                                    : null,
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  earned ? a['icon'] : '🔒',
-                                                  style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: earned
-                                                        ? null
-                                                        : Colors.grey,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              localA['title'],
-                                              style: TextStyle(
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.w600,
-                                                color: earned
-                                                    ? Colors.white.withValues(
-                                                        alpha: 0.82,
-                                                      )
-                                                    : AppColors.textTertiary,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
-                              );
-                            }),
-                          ],
-                        ),
-                      )
-                    else
-                      PremiumLockedOverlay(
-                        onTap: () => showPremiumPaywall(context),
-                        child: GlassCard(
-                          padding: const EdgeInsets.fromLTRB(12, 20, 12, 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8),
-                                child: SectionHeader(
-                                  icon: CupertinoIcons.star_circle_fill,
-                                  title: l.achievements,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              ...List.generate(
-                                (achievements.length / 5).ceil(),
-                                (row) {
-                                  final start = row * 5;
-                                  final end = (start + 5).clamp(
-                                    0,
-                                    achievements.length,
-                                  );
-                                  final rowItems = achievements.sublist(
-                                    start,
-                                    end,
-                                  );
-                                  return Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom:
-                                          row <
-                                              (achievements.length / 5).ceil() -
-                                                  1
-                                          ? 14
-                                          : 0,
-                                    ),
-                                    child: Row(
-                                      children: rowItems.map((a) {
-                                        return Expanded(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Container(
-                                                width: 46,
-                                                height: 46,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white
-                                                      .withValues(alpha: 0.14),
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    a['icon'] as String? ??
-                                                        '🏆',
-                                                    style: const TextStyle(
-                                                      fontSize: 20,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 4),
-                                              Text(
-                                                a['title'] as String,
-                                                style: TextStyle(
-                                                  fontSize: 9,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppColors.textTertiary,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
                           ),
-                        ),
+                          const SizedBox(height: 12),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: LinearProgressIndicator(
+                                value: achievements.isEmpty
+                                    ? 0
+                                    : provider.earnedAchievementCount /
+                                          achievements.length,
+                                minHeight: 6,
+                                backgroundColor: Colors.white.withValues(
+                                  alpha: 0.07,
+                                ),
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                  AppColors.warning,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          ...List.generate((achievements.length / 5).ceil(), (
+                            row,
+                          ) {
+                            final start = row * 5;
+                            final end = (start + 5).clamp(
+                              0,
+                              achievements.length,
+                            );
+                            final rowItems = achievements.sublist(start, end);
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                bottom:
+                                    row < (achievements.length / 5).ceil() - 1
+                                    ? 14
+                                    : 0,
+                              ),
+                              child: Row(
+                                children: rowItems.map((a) {
+                                  final earned = a['earned'] == true;
+                                  final locAch = localizedAchievement(
+                                    l,
+                                    a['id'] as String,
+                                  );
+                                  final localA = {
+                                    ...a,
+                                    'title': locAch['title'] ?? a['title'],
+                                    'description':
+                                        locAch['description'] ??
+                                        a['description'],
+                                  };
+                                  return Expanded(
+                                    child: GestureDetector(
+                                      onTap: () => _showAchievementDialog(
+                                        context,
+                                        localA,
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            width: 46,
+                                            height: 46,
+                                            decoration: BoxDecoration(
+                                              color: earned
+                                                  ? AppColors.primary
+                                                        .withValues(alpha: 0.15)
+                                                  : Colors.white.withValues(
+                                                      alpha: 0.14,
+                                                    ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              border: earned
+                                                  ? Border.all(
+                                                      color: AppColors.primary
+                                                          .withValues(
+                                                            alpha: 0.3,
+                                                          ),
+                                                      width: 1,
+                                                    )
+                                                  : null,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                earned ? a['icon'] : '🔒',
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: earned
+                                                      ? null
+                                                      : Colors.grey,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            localA['title'],
+                                            style: TextStyle(
+                                              fontSize: 9,
+                                              fontWeight: FontWeight.w600,
+                                              color: earned
+                                                  ? Colors.white.withValues(
+                                                      alpha: 0.82,
+                                                    )
+                                                  : AppColors.textTertiary,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            );
+                          }),
+                        ],
                       ),
+                    ),
+
                     const SizedBox(height: 14),
 
                     // ── Destek ───────────────────────

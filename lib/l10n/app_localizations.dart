@@ -8383,6 +8383,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Then it continues at {price}. Your plan and progress stay saved either way.'**
   String nTrialEndBody(String price);
+
+  /// No description provided for @trophyContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep going'**
+  String get trophyContinue;
 }
 
 class _AppLocalizationsDelegate

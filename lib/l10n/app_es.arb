@@ -1621,5 +1621,6 @@
   "nTrialDay1Title": "Tu plan te espera",
   "nTrialDay1Body": "Hoy: {plan}, {minutes} min. Registra tu altura y empieza tu gráfica.",
   "nTrialEndTitle": "Tu prueba gratis termina mañana",
-  "nTrialEndBody": "Después continúa a {price}. Tu plan y tu progreso quedan guardados igualmente."
+  "nTrialEndBody": "Después continúa a {price}. Tu plan y tu progreso quedan guardados igualmente.",
+  "trophyContinue": "Seguir"
 }

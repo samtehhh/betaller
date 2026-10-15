@@ -9,6 +9,7 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/localized_data.dart';
 import '../services/notification_service.dart';
+import '../widgets/trophy_celebration.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
 import '../widgets/feature_tour.dart';
@@ -131,6 +132,15 @@ class _MainScreenState extends State<MainScreen> {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         for (final a in notices) {
           final copy = localizedAchievement(l, a['id'] as String? ?? '');
+          if (mounted && !_tourActive) {
+            await showTrophyCelebration(
+              context,
+              icon: a['icon'] as String? ?? '🏆',
+              title: copy['title'] ?? '',
+              subtitle: copy['desc'] ?? copy['description'] ?? '',
+              buttonLabel: l.trophyContinue,
+            );
+          }
           await NotificationService().sendAchievementNotification(
             l.achievementUnlockedTitle,
             copy['title'] ?? '',

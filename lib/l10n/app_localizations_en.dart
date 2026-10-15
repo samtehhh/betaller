@@ -4631,4 +4631,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String nTrialEndBody(String price) {
     return 'Then it continues at $price. Your plan and progress stay saved either way.';
   }
+
+  @override
+  String get trophyContinue => 'Keep going';
 }

@@ -1472,5 +1472,6 @@
   "nTrialDay1Title": "Planın seni bekliyor",
   "nTrialDay1Body": "Bugün: {plan}, {minutes} dk. Boyunu gir, grafiğin başlasın.",
   "nTrialEndTitle": "Ücretsiz denemen yarın bitiyor",
-  "nTrialEndBody": "Sonra {price} ile devam eder. Planın ve ilerlemen her durumda kayıtlı kalır."
+  "nTrialEndBody": "Sonra {price} ile devam eder. Planın ve ilerlemen her durumda kayıtlı kalır.",
+  "trophyContinue": "Devam"
 }

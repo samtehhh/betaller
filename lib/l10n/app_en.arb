@@ -1556,5 +1556,6 @@
   "@nTrialDay1Body": {"placeholders": {"plan": {"type": "String"}, "minutes": {"type": "int"}}},
   "nTrialEndTitle": "Your free trial ends tomorrow",
   "nTrialEndBody": "Then it continues at {price}. Your plan and progress stay saved either way.",
-  "@nTrialEndBody": {"placeholders": {"price": {"type": "String"}}}
+  "@nTrialEndBody": {"placeholders": {"price": {"type": "String"}}},
+  "trophyContinue": "Keep going"
 }

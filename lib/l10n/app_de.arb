@@ -1621,5 +1621,6 @@
   "nTrialDay1Title": "Dein Plan wartet",
   "nTrialDay1Body": "Heute: {plan}, {minutes} Min. Trag deine Größe ein, damit dein Diagramm startet.",
   "nTrialEndTitle": "Dein Gratis-Test endet morgen",
-  "nTrialEndBody": "Danach geht es für {price} weiter. Plan und Fortschritt bleiben so oder so gespeichert."
+  "nTrialEndBody": "Danach geht es für {price} weiter. Plan und Fortschritt bleiben so oder so gespeichert.",
+  "trophyContinue": "Weiter so"
 }

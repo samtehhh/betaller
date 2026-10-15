@@ -4641,4 +4641,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String nTrialEndBody(String price) {
     return 'Poi continua a $price. Piano e progressi restano comunque salvati.';
   }
+
+  @override
+  String get trophyContinue => 'Avanti';
 }
