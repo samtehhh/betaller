@@ -377,7 +377,7 @@ abstract class AppLocalizations {
   /// No description provided for @photosSummaryCount.
   ///
   /// In en, this message translates to:
-  /// **'{count} photos'**
+  /// **'{count, plural, =1{{count} photo} other{{count} photos}}'**
   String photosSummaryCount(int count);
 
   /// No description provided for @postureSummaryEmpty.
@@ -1067,7 +1067,7 @@ abstract class AppLocalizations {
   /// No description provided for @bestStreak.
   ///
   /// In en, this message translates to:
-  /// **'Best: {days} days'**
+  /// **'Best: {days, plural, =1{{days} day} other{{days} days}}'**
   String bestStreak(int days);
 
   /// No description provided for @editProfile.
@@ -1781,7 +1781,7 @@ abstract class AppLocalizations {
   /// No description provided for @tipMorningMeasure.
   ///
   /// In en, this message translates to:
-  /// **'Measure height in the morning - disc pressure causes height loss during the day. Most accurate measurement is in the morning.'**
+  /// **'Measure your height in the morning. Pressure on your discs makes you a little shorter during the day, so the morning reading is the most accurate.'**
   String get tipMorningMeasure;
 
   /// No description provided for @tipProteinSpread.
@@ -2129,7 +2129,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineDailyCaloriesDesc.
   ///
   /// In en, this message translates to:
-  /// **'Hit your daily calorie target — undereating slows growth.'**
+  /// **'Hit your daily calorie target. Undereating slows growth.'**
   String get routineDailyCaloriesDesc;
 
   /// No description provided for @routineSleepEnvironment.
@@ -3821,7 +3821,7 @@ abstract class AppLocalizations {
   /// No description provided for @overLimit.
   ///
   /// In en, this message translates to:
-  /// **'Over limit — affects HGH'**
+  /// **'Over limit, affects HGH'**
   String get overLimit;
 
   /// No description provided for @resetToday.
@@ -3839,7 +3839,7 @@ abstract class AppLocalizations {
   /// No description provided for @stressVeryCalmLabel.
   ///
   /// In en, this message translates to:
-  /// **'Very calm — optimal for growth'**
+  /// **'Very calm, optimal for growth'**
   String get stressVeryCalmLabel;
 
   /// No description provided for @stressCalmLabel.
@@ -3863,7 +3863,7 @@ abstract class AppLocalizations {
   /// No description provided for @stressVeryStressedLabel.
   ///
   /// In en, this message translates to:
-  /// **'Very stressed — cortisol blocks HGH'**
+  /// **'Very stressed, cortisol blocks HGH'**
   String get stressVeryStressedLabel;
 
   /// No description provided for @stressTapToLog.
@@ -3959,7 +3959,7 @@ abstract class AppLocalizations {
   /// No description provided for @insightStressHigh.
   ///
   /// In en, this message translates to:
-  /// **'Stress is elevated this week. Consider breathing exercises — cortisol blocks growth.'**
+  /// **'Stress is elevated this week. Try some breathing exercises: cortisol blocks growth.'**
   String get insightStressHigh;
 
   /// No description provided for @insightMoodLow.
@@ -5141,7 +5141,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineFormHint.
   ///
   /// In en, this message translates to:
-  /// **'Optional — how to perform this routine'**
+  /// **'Optional: how to perform this routine'**
   String get routineFormHint;
 
   /// No description provided for @diffBeginner.
@@ -5555,7 +5555,7 @@ abstract class AppLocalizations {
   /// No description provided for @designedForYouDesc.
   ///
   /// In en, this message translates to:
-  /// **'BeTaller was built specifically for you to reach your genetic limit — and even surpass it. Every feature, for you.'**
+  /// **'BeTaller was built specifically for you to reach your genetic limit, and even surpass it. Every feature, for you.'**
   String get designedForYouDesc;
 
   /// No description provided for @greetingAllDone.
@@ -5573,13 +5573,13 @@ abstract class AppLocalizations {
   /// No description provided for @greetingStreak30.
   ///
   /// In en, this message translates to:
-  /// **'{streak} day streak, legendary level.'**
+  /// **'{streak} day streak. Legendary level.'**
   String greetingStreak30(int streak);
 
   /// No description provided for @greetingStreak7.
   ///
   /// In en, this message translates to:
-  /// **'{streak} day streak, keep it up.'**
+  /// **'{streak} day streak. Keep it up.'**
   String greetingStreak7(int streak);
 
   /// No description provided for @greetingStreak3.
@@ -6461,7 +6461,7 @@ abstract class AppLocalizations {
   /// No description provided for @tourHomeStreakDesc.
   ///
   /// In en, this message translates to:
-  /// **'Keeps growing as long as you keep your discipline — miss a day and it resets.'**
+  /// **'Keeps growing as long as you keep your discipline. Miss a day and it resets.'**
   String get tourHomeStreakDesc;
 
   /// No description provided for @tourHomeXpTitle.
@@ -6545,7 +6545,7 @@ abstract class AppLocalizations {
   /// No description provided for @tourPlanTodayListDesc.
   ///
   /// In en, this message translates to:
-  /// **'Check each one off as you do it — tap to open a routine for the details.'**
+  /// **'Check each one off as you do it. Tap a routine to open its details.'**
   String get tourPlanTodayListDesc;
 
   /// No description provided for @tourPlanWeekGoalsTitle.
@@ -6557,7 +6557,7 @@ abstract class AppLocalizations {
   /// No description provided for @tourPlanWeekGoalsDesc.
   ///
   /// In en, this message translates to:
-  /// **'Perfect days, workouts and the measurement this week asks of you — including the mandatory one.'**
+  /// **'Perfect days, workouts and the measurement this week asks of you, including the mandatory one.'**
   String get tourPlanWeekGoalsDesc;
 
   /// No description provided for @tourPlanMonthGoalsTitle.
@@ -6569,7 +6569,7 @@ abstract class AppLocalizations {
   /// No description provided for @tourPlanMonthGoalsDesc.
   ///
   /// In en, this message translates to:
-  /// **'Progress photos, a posture check and this month\'s measurements — the ones you shouldn\'t skip.'**
+  /// **'Progress photos, a posture check and this month\'s measurements: the ones you shouldn\'t skip.'**
   String get tourPlanMonthGoalsDesc;
 
   /// No description provided for @tourProgressHeightTitle.
@@ -6875,7 +6875,7 @@ abstract class AppLocalizations {
   /// No description provided for @journeyTourDoneSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'You\'ve completed all three steps. Now it\'s your turn — start your journey by completing your first routine.'**
+  /// **'You\'ve completed all three steps. Now it\'s your turn: start your journey by completing your first routine.'**
   String get journeyTourDoneSubtitle;
 
   /// No description provided for @journeyViewPlansButton.
@@ -7007,7 +7007,7 @@ abstract class AppLocalizations {
   /// No description provided for @resultRange.
   ///
   /// In en, this message translates to:
-  /// **'Likely range: {min} – {max}'**
+  /// **'Likely range: {min} to {max}'**
   String resultRange(String min, String max);
 
   /// No description provided for @resultPercentile.
@@ -7253,7 +7253,7 @@ abstract class AppLocalizations {
   /// No description provided for @painGeneticDesc.
   ///
   /// In en, this message translates to:
-  /// **'Genetics determines 60% — but what you do determines the other 40%. BeTaller is here for exactly that 40%.'**
+  /// **'Genetics determines 60%, but what you do determines the other 40%. BeTaller is here for exactly that 40%.'**
   String get painGeneticDesc;
 
   /// No description provided for @painGeneticTag.
@@ -7289,7 +7289,7 @@ abstract class AppLocalizations {
   /// No description provided for @painPostureDesc.
   ///
   /// In en, this message translates to:
-  /// **'Correct posture can instantly add 1.5–3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.'**
+  /// **'Correct posture can instantly add 1.5-3 cm. BeTaller\'s daily posture routine establishes this in a few weeks.'**
   String get painPostureDesc;
 
   /// No description provided for @painPostureTag.
@@ -7307,7 +7307,7 @@ abstract class AppLocalizations {
   /// No description provided for @painExerciseDesc.
   ///
   /// In en, this message translates to:
-  /// **'Morning stretches, hanging, spine routines — BeTaller prepared and scheduled these for you. Just 8–12 minutes a day.'**
+  /// **'Morning stretches, hanging, spine routines: BeTaller prepared and scheduled these for you. Just 8-12 minutes a day.'**
   String get painExerciseDesc;
 
   /// No description provided for @painExerciseTag.
@@ -7325,7 +7325,7 @@ abstract class AppLocalizations {
   /// No description provided for @painNutritionDesc.
   ///
   /// In en, this message translates to:
-  /// **'Protein, calcium, vitamin D — BeTaller reminds you every day which nutrients to take and when.'**
+  /// **'Protein, calcium, vitamin D: BeTaller reminds you every day which nutrients to take and when.'**
   String get painNutritionDesc;
 
   /// No description provided for @painNutritionTag.
@@ -7343,7 +7343,7 @@ abstract class AppLocalizations {
   /// No description provided for @painTrackingDesc.
   ///
   /// In en, this message translates to:
-  /// **'Monthly measurements, progress photos, growth chart — see every centimeter you gain.'**
+  /// **'Monthly measurements, progress photos, growth chart: see every centimeter you gain.'**
   String get painTrackingDesc;
 
   /// No description provided for @painTrackingTag.
@@ -7829,7 +7829,7 @@ abstract class AppLocalizations {
   /// No description provided for @daysLeftProgram.
   ///
   /// In en, this message translates to:
-  /// **'{days} days left in your program'**
+  /// **'{days, plural, =1{{days} day left} other{{days} days left}} in your program'**
   String daysLeftProgram(int days);
 
   /// No description provided for @tapLabel.
@@ -7967,7 +7967,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallSlideHomeCaption.
   ///
   /// In en, this message translates to:
-  /// **'Routines, water, sleep — three rings to close.'**
+  /// **'Routines, water, sleep: three rings to close.'**
   String get paywallSlideHomeCaption;
 
   /// No description provided for @paywallSlideProgressTitle.
@@ -8117,7 +8117,7 @@ abstract class AppLocalizations {
   /// No description provided for @obProteinSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'A rough figure is enough — we build your plan around it.'**
+  /// **'A rough figure is enough. We build your plan around it.'**
   String get obProteinSubtitle;
 
   /// No description provided for @obCaloriesTitle.
@@ -8621,7 +8621,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBConsistency.
   ///
   /// In en, this message translates to:
-  /// **'Streak {streak} days, {active} of {days} days with half the plan done'**
+  /// **'Streak {streak, plural, =1{{streak} day} other{{streak} days}}, {active} of {days} days with half the plan done'**
   String anBConsistency(int streak, int active, int days);
 
   /// No description provided for @anBConsistencyNone.
@@ -8633,7 +8633,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBSleep.
   ///
   /// In en, this message translates to:
-  /// **'{hours} h a night on average, target {target} h, {days} nights logged'**
+  /// **'{hours} h a night on average, target {target} h, {days, plural, =1{{days} night} other{{days} nights}} logged'**
   String anBSleep(String hours, String target, int days);
 
   /// No description provided for @anBSleepNone.
@@ -8645,7 +8645,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBHydration.
   ///
   /// In en, this message translates to:
-  /// **'{litres} L a day on average, target {target} L, {days} days logged'**
+  /// **'{litres} L a day on average, target {target} L, {days, plural, =1{{days} day} other{{days} days}} logged'**
   String anBHydration(String litres, String target, int days);
 
   /// No description provided for @anBHydrationNone.
@@ -8669,7 +8669,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBPosture.
   ///
   /// In en, this message translates to:
-  /// **'Wall self-check {raw}/90, {days} days ago'**
+  /// **'Wall self-check {raw}/90, {days, plural, =1{{days} day} other{{days} days}} ago'**
   String anBPosture(int raw, int days);
 
   /// No description provided for @anBPostureToday.
@@ -8687,7 +8687,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBMeasuring.
   ///
   /// In en, this message translates to:
-  /// **'Last measured {days} days ago'**
+  /// **'Last measured {days, plural, =1{{days} day} other{{days} days}} ago'**
   String anBMeasuring(int days);
 
   /// No description provided for @anBMeasuringToday.
@@ -8807,7 +8807,7 @@ abstract class AppLocalizations {
   /// No description provided for @anAGrowthWait.
   ///
   /// In en, this message translates to:
-  /// **'Measure again in {days} days'**
+  /// **'Measure again in {days, plural, =1{{days} day} other{{days} days}}'**
   String anAGrowthWait(int days);
 
   /// No description provided for @anAGrowth.
@@ -9053,13 +9053,13 @@ abstract class AppLocalizations {
   /// No description provided for @pgCompareMeaningGrew.
   ///
   /// In en, this message translates to:
-  /// **'{delta} between these two photos, taken {days, plural, =1{1 day} other{{days} days}} apart.'**
+  /// **'{delta} between these two photos, taken {days, plural, =1{{days} day} other{{days} days}} apart.'**
   String pgCompareMeaningGrew(String delta, int days);
 
   /// No description provided for @pgCompareMeaningSame.
   ///
   /// In en, this message translates to:
-  /// **'Same height, {days, plural, =1{1 day} other{{days} days}} apart. Posture and shape change first, height follows over months.'**
+  /// **'Same height, {days, plural, =1{{days} day} other{{days} days}} apart. Posture and shape change first, height follows over months.'**
   String pgCompareMeaningSame(int days);
 
   /// No description provided for @pgModeSlider.
@@ -9851,7 +9851,7 @@ abstract class AppLocalizations {
   /// No description provided for @plNextLevelIn.
   ///
   /// In en, this message translates to:
-  /// **'{days} days to level {level}'**
+  /// **'{days, plural, =1{{days} day} other{{days} days}} to level {level}'**
   String plNextLevelIn(int days, int level);
 
   /// No description provided for @plProgramFinished.
@@ -10285,6 +10285,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pumpkin seeds'**
   String get plFoodPumpkinSeeds;
+
+  /// No description provided for @wtCoffee.
+  ///
+  /// In en, this message translates to:
+  /// **'Coffee'**
+  String get wtCoffee;
+
+  /// No description provided for @wtTea.
+  ///
+  /// In en, this message translates to:
+  /// **'Tea'**
+  String get wtTea;
+
+  /// No description provided for @wtCola.
+  ///
+  /// In en, this message translates to:
+  /// **'Cola'**
+  String get wtCola;
+
+  /// No description provided for @wtEnergyDrink.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy'**
+  String get wtEnergyDrink;
+
+  /// No description provided for @crCustomBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get crCustomBadge;
+
+  /// No description provided for @crNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Morning Power Stretch'**
+  String get crNameHint;
+
+  /// No description provided for @crDoseHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 3x10 reps or 3x30 seconds'**
+  String get crDoseHint;
 }
 
 class _AppLocalizationsDelegate

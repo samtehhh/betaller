@@ -98,7 +98,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get disciplineTierLegend => 'Lenda';
 
   @override
-  String get goalPerfectDays => 'Dias em que completaste o plano';
+  String get goalPerfectDays => 'Dias com o plano completo';
 
   @override
   String get goalWorkouts => 'Treinos';
@@ -124,11 +124,11 @@ class AppLocalizationsPt extends AppLocalizations {
   String get navProgress => 'Progresso';
 
   @override
-  String get trackingSection => 'As tuas ferramentas de acompanhamento';
+  String get trackingSection => 'Suas ferramentas de acompanhamento';
 
   @override
   String get photosBenefit =>
-      'Antes e depois, lado a lado. Vê a mudança em vez de a ler.';
+      'Antes e depois, lado a lado. Veja a mudança em vez de ler sobre ela.';
 
   @override
   String get postureBenefit =>
@@ -136,7 +136,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get reportBenefit =>
-      'Avalia a tua semana dia a dia e vê onde falhaste.';
+      'Avalie sua semana dia a dia e veja onde ela escorregou.';
 
   @override
   String get photosCta => 'Adicionar foto';
@@ -151,11 +151,17 @@ class AppLocalizationsPt extends AppLocalizations {
   String get toolStateReady => 'Pronto';
 
   @override
-  String get photosSummaryEmpty => 'Adiciona a tua primeira foto';
+  String get photosSummaryEmpty => 'Adicione sua primeira foto';
 
   @override
   String photosSummaryCount(int count) {
-    return '$count fotos';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count fotos',
+      one: '$count foto',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -559,7 +565,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String bestStreak(int days) {
-    return 'Melhor: $days dias';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days dias',
+      one: '$days dia',
+    );
+    return 'Melhor: $_temp0';
   }
 
   @override
@@ -596,7 +608,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get reminderNextLabel => 'Próximo lembrete';
 
   @override
-  String get reminderManageHint => 'Gere os teus lembretes';
+  String get reminderManageHint => 'Gerencie seus lembretes';
 
   @override
   String get reminderOffCta => 'Ativar notificações';
@@ -619,7 +631,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get reminderBuiltIn => 'Lembretes integrados';
 
   @override
-  String get reminderYourOwn => 'Os teus próprios lembretes';
+  String get reminderYourOwn => 'Seus próprios lembretes';
 
   @override
   String get reminderAdd => 'Adicionar lembrete';
@@ -631,17 +643,17 @@ class AppLocalizationsPt extends AppLocalizations {
   String get reminderEveryDay => 'Todos os dias';
 
   @override
-  String get reminderLabelHint => 'Do que queres que te lembremos?';
+  String get reminderLabelHint => 'Do que você quer ser lembrado?';
 
   @override
   String get reminderEmptyHint =>
-      'Adiciona o teu: treino, vitaminas, alongamentos, o que precisares.';
+      'Adicione os seus: treino, vitaminas, alongamento, o que você precisar.';
 
   @override
   String get reminderCustom => 'Lembrete';
 
   @override
-  String get reminderCustomBody => 'Chegou a hora que definiste.';
+  String get reminderCustomBody => 'Chegou a hora que você definiu.';
 
   @override
   String get reminderExercise => 'Exercício';
@@ -762,7 +774,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get achievementUnlockedTitle => '🏆 Conquista desbloqueada!';
 
   @override
-  String get reminderTapHint => 'Toca num lembrete para mudar a hora e os dias';
+  String get reminderTapHint =>
+      'Toque em um lembrete para mudar o horário e os dias';
 
   @override
   String get earned => 'Conquistado!';
@@ -940,7 +953,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get tipMorningMeasure =>
-      'Meça a altura de manhã - a pressão nos discos causa perda de altura durante o dia. A medição mais precisa é pela manhã.';
+      'Meça sua altura de manhã. A pressão nos discos faz você perder um pouco de altura ao longo do dia, então a medida mais precisa é a da manhã.';
 
   @override
   String get tipProteinSpread =>
@@ -1079,7 +1092,7 @@ class AppLocalizationsPt extends AppLocalizations {
       'Treino intervalado de alta intensidade para maximizar a liberação de hormônio do crescimento.';
 
   @override
-  String get routineSquats => 'Agachamentos com Peso Corporal';
+  String get routineSquats => 'Agachamento livre';
 
   @override
   String get routineSquatsDesc =>
@@ -1146,7 +1159,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get routineDailyCaloriesDesc =>
-      'Atinge a tua meta calórica diária — comer pouco de mais trava o crescimento.';
+      'Bata sua meta diária de calorias. Comer de menos atrasa o crescimento.';
 
   @override
   String get routineSleepEnvironment => 'Otimizar o Ambiente de Sono';
@@ -1976,10 +1989,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get yourHeightStanding => 'SUA POSIÇÃO DE ALTURA';
 
   @override
-  String get bellCurveCaption => 'Como a altura se distribui na tua idade';
+  String get bellCurveCaption => 'Como a altura se distribui na sua idade';
 
   @override
-  String get bellShorterThanYou => 'mais baixos do que tu';
+  String get bellShorterThanYou => 'mais baixos que você';
 
   @override
   String get yourHeight => 'Você';
@@ -2054,7 +2067,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get approachingLimit => 'Aproximando-se do limite';
 
   @override
-  String get overLimit => 'Acima do limite — afeta o HGH';
+  String get overLimit => 'Acima do limite, afeta o HGH';
 
   @override
   String get resetToday => 'Reiniciar hoje';
@@ -2063,7 +2076,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get stressToday => 'Estresse hoje';
 
   @override
-  String get stressVeryCalmLabel => 'Muito calmo — ótimo para crescimento';
+  String get stressVeryCalmLabel => 'Muito calmo, ótimo para o crescimento';
 
   @override
   String get stressCalmLabel => 'Calmo';
@@ -2076,7 +2089,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get stressVeryStressedLabel =>
-      'Muito estressado — cortisol bloqueia HGH';
+      'Muito estressado, o cortisol bloqueia o HGH';
 
   @override
   String get stressTapToLog => 'Toque para registrar como você se sente';
@@ -2127,7 +2140,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get insightStressHigh =>
-      'O estresse está elevado esta semana. Considere exercícios de respiração — cortisol bloqueia o crescimento.';
+      'Seu estresse está alto esta semana. Experimente exercícios de respiração: o cortisol bloqueia o crescimento.';
 
   @override
   String get insightMoodLow =>
@@ -2548,47 +2561,47 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get formProtein =>
-      'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.';
+      'Distribua a proteína em 3-4 refeições. Inclua ovos, frango, peixe, laticínios e leguminosas.';
 
   @override
   String get formCalciumVitaminD =>
-      'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.';
+      'Consuma 3 porções de laticínios por dia e pegue 15 minutos de sol para seu corpo produzir vitamina D.';
 
   @override
   String get formWater =>
-      'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.';
+      'Beba água com regularidade ao longo do dia. Leve uma garrafa com você e coloque lembretes de hora em hora.';
 
   @override
   String get formAvoidJunk =>
-      'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.';
+      'Troque o fast food por alimentos naturais. Substitua bebidas açucaradas por água. Leia os rótulos e evite ingredientes processados.';
 
   @override
   String get formZincIntake =>
-      'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.';
+      'Inclua carne vermelha, sementes de abóbora, grão-de-bico, castanha-de-caju e ostras na sua dieta. A meta é 8-11 mg por dia.';
 
   @override
   String get formVitaminDSunlight =>
-      'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.';
+      'Exponha braços e rosto ao sol direto por 15 minutos, de preferência antes do meio-dia. Para esse tempo curto, não precisa de protetor solar.';
 
   @override
   String get formArginineFoods =>
-      'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.';
+      'Inclua castanhas, sementes, peru, frango, soja e laticínios nas suas refeições. O ideal é antes de dormir.';
 
   @override
   String get formDailyCalories =>
-      'Distribui as tuas calorias por 3-5 refeições e não saltes o pequeno-almoço. Prefere alimentos integrais a calorias vazias.';
+      'Distribua suas calorias em 3-5 refeições e não pule o café da manhã. Prefira alimentos naturais a calorias vazias.';
 
   @override
   String get formQualitySleep =>
-      'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.';
+      'Vá para a cama até as 22h. Deixe o quarto escuro e fresco. Nada de cafeína depois das 14h.';
 
   @override
   String get formNoScreen =>
-      'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.';
+      'Coloque um alarme 1 hora antes de dormir. Guarde todas as telas. Leia um livro ou faça alongamentos leves no lugar.';
 
   @override
   String get formSleepEnvironment =>
-      'Use blackout curtains, keep room at 18-20°C, remove all light sources. Use a comfortable mattress and pillow.';
+      'Use cortinas blackout, mantenha o quarto entre 18 e 20 °C e apague todas as luzes. Durma em um colchão e um travesseiro confortáveis.';
 
   @override
   String get formPreSleepRoutine =>
@@ -2612,121 +2625,123 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get sciMorningStretch =>
-      'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention';
+      'Alongar de manhã descomprime os discos da coluna, que se reidratam durante a noite, e ajuda você a manter sua altura ao longo do dia';
 
   @override
   String get sciBarHanging =>
-      'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height';
+      'Ficar pendurado descomprime os discos da coluna porque a gravidade alonga a coluna, e pode dar um pouco de altura temporária';
 
   @override
   String get sciCobraStretch =>
-      'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting';
+      'A cobra alonga a coluna e abre o peito, compensando a compressão de ficar muito tempo sentado';
 
   @override
   String get sciJumping =>
-      'High-impact jumping stimulates growth plates in the legs and triggers growth hormone release';
+      'Saltos de impacto estimulam as placas de crescimento das pernas e a liberação do hormônio do crescimento';
 
   @override
   String get sciSwimmingBasketball =>
-      'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity';
+      'Natação e basquete juntam alongar, saltar e alcançar com o corpo todo, o que estimula as placas de crescimento';
 
   @override
   String get sciEveningYoga =>
-      'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery';
+      'A ioga à noite reduz o cortisol, que freia o hormônio do crescimento, e alonga os músculos para a recuperação noturna';
 
   @override
   String get sciSprintIntervals =>
-      'Sprinting triggers significant growth hormone release';
+      'Os tiros de corrida provocam uma liberação forte de hormônio do crescimento';
 
   @override
   String get sciHiitWorkout =>
-      'High intensity exercise increases HGH by up to 450%';
+      'O exercício de alta intensidade pode aumentar o hormônio do crescimento em até 450%';
 
   @override
-  String get sciSquats => 'Squats stimulate growth plates in legs and spine';
+  String get sciSquats =>
+      'O agachamento estimula as placas de crescimento das pernas e da coluna';
 
   @override
   String get sciDeadliftStretch =>
-      'Spinal decompression promotes vertebral disc health';
+      'Descomprimir a coluna favorece a saúde dos discos vertebrais';
 
   @override
   String get sciOverheadPress =>
-      'Overhead pressing stretches the spine and strengthens posture muscles';
+      'Empurrar acima da cabeça alonga a coluna e fortalece os músculos da postura';
 
   @override
   String get sciSkippingRope =>
-      'Repetitive jumping stimulates growth plates in lower extremities';
+      'Saltos repetidos estimulam as placas de crescimento das pernas';
 
   @override
   String get sciPilatesCore =>
-      'Core strength supports spinal alignment and posture';
+      'Um core forte sustenta o alinhamento da coluna e sua postura';
 
   @override
   String get sciInversionHang =>
-      'Inversion decompresses spinal discs, can temporarily add 1-2cm';
+      'A inversão descomprime os discos da coluna e pode somar 1-2 cm temporariamente';
 
   @override
   String get sciProtein =>
-      'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts';
+      'A proteína fornece os aminoácidos que ossos e músculos precisam para crescer, principalmente nos estirões';
 
   @override
   String get sciCalciumVitaminD =>
-      'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth';
+      'Cálcio e vitamina D são a base da densidade óssea e do crescimento dos ossos em comprimento';
 
   @override
   String get sciWater =>
-      'Hydration is essential for nutrient transport to growth plates and joint cartilage health';
+      'Se hidratar bem leva nutrientes às placas de crescimento e mantém saudável a cartilagem das articulações';
 
   @override
   String get sciAvoidJunk =>
-      'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion';
+      'Ultraprocessados e açúcar causam inflamação e picos de insulina que freiam a secreção do hormônio do crescimento';
 
   @override
-  String get sciZincIntake => 'Zinc is essential for growth hormone production';
+  String get sciZincIntake =>
+      'O zinco é essencial para a produção do hormônio do crescimento';
 
   @override
   String get sciVitaminDSunlight =>
-      'Vitamin D is crucial for calcium absorption and bone growth';
+      'A vitamina D é essencial para absorver o cálcio e para o crescimento dos ossos';
 
   @override
   String get sciArginineFoods =>
-      'L-Arginine stimulates growth hormone secretion';
+      'A L-arginina estimula a secreção do hormônio do crescimento';
 
   @override
   String get sciDailyCalories =>
-      'Um défice calórico prolongado reduz o IGF-1 e enfraquece os picos de hormona do crescimento, o que atrasa diretamente o crescimento linear na adolescência';
+      'Um déficit calórico prolongado reduz o IGF-1 e enfraquece os picos do hormônio do crescimento, o que atrasa diretamente o crescimento linear na adolescência';
 
   @override
   String get sciQualitySleep =>
-      '70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM';
+      '70-80% do hormônio do crescimento do dia é liberado no sono profundo, principalmente entre 22h e 2h';
 
   @override
   String get sciNoScreen =>
-      'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality';
+      'A luz azul das telas freia a melatonina, atrasa a hora de pegar no sono e piora o sono profundo';
 
   @override
   String get sciSleepEnvironment =>
-      'Dark, cool environment maximizes melatonin and growth hormone';
+      'Um quarto escuro e fresco favorece a melatonina e o hormônio do crescimento';
 
   @override
   String get sciPreSleepRoutine =>
-      'Consistent pre-sleep routine improves deep sleep quality by 23%';
+      'Uma rotina constante antes de dormir melhora a qualidade do sono profundo em 23%';
 
   @override
   String get sciPostureCheck =>
-      'Correct posture alignment can immediately add 2-3 cm to apparent height and prevents spinal compression';
+      'Uma boa postura pode fazer você parecer 2-3 cm mais alto na hora e evita a compressão da coluna';
 
   @override
   String get sciWallStand =>
-      'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day';
+      'Ficar encostado na parede treina a memória muscular da sua postura para manter a coluna alinhada o dia todo';
 
   @override
   String get sciNeckStretches =>
-      'Neck stretches relieve compression and improve cervical alignment';
+      'Os alongamentos de pescoço aliviam a compressão e melhoram o alinhamento cervical';
 
   @override
   String get sciShoulderRolls =>
-      'Opening shoulders corrects forward posture, can add 1-2cm appearance';
+      'Abrir os ombros corrige a postura curvada para frente e pode fazer você parecer 1-2 cm mais alto';
 
   @override
   String get muscleSpine => 'Coluna';
@@ -2810,7 +2825,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get routineFormField => 'Instruções';
 
   @override
-  String get routineFormHint => 'Opcional — como realizar esta rotina';
+  String get routineFormHint => 'Opcional: como fazer esta rotina';
 
   @override
   String get diffBeginner => 'Iniciante';
@@ -2858,14 +2873,14 @@ class AppLocalizationsPt extends AppLocalizations {
   String get analyzingPosture => 'ANALYZING POSTURE';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'Política de Privacidade';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'Termos de Serviço';
 
   @override
   String version(String ver) {
-    return 'Version $ver';
+    return 'Versão $ver';
   }
 
   @override
@@ -2875,10 +2890,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get rateAppSubtitle => 'Your review helps us grow!';
 
   @override
-  String get unitSystem => 'Unit System';
+  String get unitSystem => 'Sistema de unidades';
 
   @override
-  String get unitMetric => 'Metric (cm, kg)';
+  String get unitMetric => 'Métrico (cm, kg)';
 
   @override
   String get unitImperial => 'Imperial (ft-in, lbs)';
@@ -2940,7 +2955,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get supplementZincBenefit =>
-      'Um mineral essencial para a produção de hormona do crescimento';
+      'Um mineral essencial para a produção do hormônio do crescimento';
 
   @override
   String get supplementMagnesiumName => 'Magnésio';
@@ -2950,7 +2965,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get supplementMagnesiumBenefit =>
-      'Apoia a fase de sono profundo, quando mais hormona do crescimento é libertada';
+      'Ajuda na fase de sono profundo, quando a maior parte do hormônio do crescimento é liberada';
 
   @override
   String get supplementCalciumName => 'Cálcio';
@@ -2980,7 +2995,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get supplementCollagenBenefit =>
-      'A vitamina C ajuda o teu corpo a usar o colagénio para formar cartilagem e matriz óssea';
+      'A vitamina C ajuda seu corpo a usar o colágeno para formar cartilagem e matriz óssea';
 
   @override
   String get sciSourcePrefix => 'Source: ';
@@ -3056,12 +3071,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String greetingStreak30(int streak) {
-    return 'Sequência de $streak dias, nível lendário.';
+    return 'Sequência de $streak dias. Nível lendário.';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return 'Sequência de $streak dias, continue.';
+    return 'Sequência de $streak dias. Continue assim.';
   }
 
   @override
@@ -3121,10 +3136,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get generalPerformance => 'DESEMPENHO GERAL';
 
   @override
-  String get analysisBalance => 'O teu equilíbrio';
+  String get analysisBalance => 'Seu equilíbrio';
 
   @override
-  String get analysisWeakest => 'O teu ponto mais fraco';
+  String get analysisWeakest => 'Seu ponto mais fraco';
 
   @override
   String get analysisPrediction => 'Previsão de altura';
@@ -3137,7 +3152,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get analysisWeakestHint =>
-      'Aqui é onde consegues subir a pontuação mais depressa.';
+      'É aqui que você sobe a pontuação mais rápido.';
 
   @override
   String get exploreLabel => 'EXPLORAR';
@@ -3522,14 +3537,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get tourHomeStreakDesc =>
-      'Cresce enquanto mantém a sua disciplina — perca um dia e ela reinicia.';
+      'Cresce enquanto você mantém a disciplina. Perca um dia e ela zera.';
 
   @override
   String get tourHomeXpTitle => 'O Seu Nível';
 
   @override
   String get tourHomeXpDesc =>
-      'Sobe com o XP que ganha ao manter a disciplina. Não saia dos trilhos!';
+      'Sobe com o XP que você ganha mantendo a disciplina. Não saia dos trilhos!';
 
   @override
   String get tourHomeGoalsTitle => 'Metas de Hoje';
@@ -3543,7 +3558,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get tourHomeTrackDesc =>
-      'Registe a sua água e sono diários aqui mesmo, em segundos.';
+      'Registre sua água e seu sono do dia aqui mesmo, em segundos.';
 
   @override
   String get tourPlanTabsTitle =>
@@ -3572,7 +3587,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get tourPlanTodayListDesc =>
-      'Marque cada uma à medida que a faz — toque numa rotina para ver os detalhes.';
+      'Marque cada uma conforme for fazendo. Toque em uma rotina para ver os detalhes.';
 
   @override
   String get tourPlanWeekGoalsTitle => 'Esta Semana';
@@ -3586,7 +3601,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get tourPlanMonthGoalsDesc =>
-      'Foto de progresso, verificação de postura e as medições deste mês — as que não deve saltar.';
+      'Foto de progresso, checagem de postura e as medições deste mês: as que você não deve pular.';
 
   @override
   String get tourProgressHeightTitle => 'A Sua Altura Atual';
@@ -3670,7 +3685,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get tourHomeGrowthDesc =>
-      'Veja a diferença entre a sua medição total e a mais recente, e quantas já registou.';
+      'Veja a diferença entre sua medição total e a mais recente, e quantas você já registrou.';
 
   @override
   String get tourHomeExploreTitle => 'Explorar';
@@ -3726,7 +3741,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get tourProgressHistoryDesc =>
-      'Veja todas as medições de altura registadas numa linha do tempo.';
+      'Veja todas as medições de altura que você registrou em uma linha do tempo.';
 
   @override
   String get tourAnalysisRadarTitle => 'O Seu Gráfico de Equilíbrio';
@@ -3763,7 +3778,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get journeyTourDoneSubtitle =>
-      'Você concluiu as três etapas. Agora é a sua vez — comece sua jornada completando sua primeira rotina.';
+      'Você concluiu as três etapas. Agora é a sua vez: comece sua jornada completando sua primeira rotina.';
 
   @override
   String get journeyViewPlansButton => 'Ver planos para começar';
@@ -3848,7 +3863,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String resultRange(String min, String max) {
-    return 'Faixa provável: $min – $max';
+    return 'Faixa provável: de $min a $max';
   }
 
   @override
@@ -3974,7 +3989,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get criticalWindow => 'JANELA CRÍTICA';
 
   @override
-  String get heightPotentialFading => 'Os factos sobre o teu';
+  String get heightPotentialFading => 'Os fatos sobre o seu';
 
   @override
   String get fadingAway => 'potencial de altura..';
@@ -3988,23 +4003,23 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get painGeneticDesc =>
-      'A genética determina 60% — os outros 40% dependem de ti. O BeTaller existe exatamente para esses 40%.';
+      'A genética determina 60%, os outros 40% dependem de você. O BeTaller existe exatamente para esses 40%.';
 
   @override
   String get painGeneticTag => 'Análise';
 
   @override
-  String get painSleepTitle => 'Otimiza a tua rotina de sono';
+  String get painSleepTitle => 'Otimize sua rotina de sono';
 
   @override
   String get painSleepDesc =>
-      'Dormir bem todas as noites pode aumentar a produção de hormona do crescimento em 70%. O BeTaller automatiza o acompanhamento do sono, tu só tens de dormir.';
+      'Dormir bem todas as noites pode aumentar a produção do hormônio do crescimento em 70%. O BeTaller automatiza o acompanhamento do sono, você só precisa dormir.';
 
   @override
   String get painSleepTag => 'Acompanhamento';
 
   @override
-  String get painPostureTitle => 'Ganha centímetros já com a postura';
+  String get painPostureTitle => 'Ganhe centímetros já com a postura';
 
   @override
   String get painPostureDesc =>
@@ -4015,49 +4030,49 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get painExerciseTitle =>
-      'O teu plano de exercícios personalizado está pronto';
+      'Seu plano de exercícios personalizado está pronto';
 
   @override
   String get painExerciseDesc =>
-      'Alongamentos matinais, suspensão, rotinas para a coluna — o BeTaller preparou e agendou isto por ti. Só 8-12 minutos por dia.';
+      'Alongamentos matinais, suspensão, rotinas para a coluna: o BeTaller preparou e programou tudo para você. Só 8-12 minutos por dia.';
 
   @override
   String get painExerciseTag => 'Rotinas';
 
   @override
   String get painNutritionTitle =>
-      'A tua alimentação afeta diretamente o crescimento';
+      'Sua alimentação afeta diretamente o crescimento';
 
   @override
   String get painNutritionDesc =>
-      'Proteína, cálcio, vitamina D — o BeTaller lembra-te todos os dias de que nutrientes tomar e quando.';
+      'Proteína, cálcio, vitamina D: o BeTaller lembra você todos os dias de quais nutrientes tomar e quando.';
 
   @override
   String get painNutritionTag => 'Nutrição';
 
   @override
   String get painTrackingTitle =>
-      'Acompanha o teu crescimento com os teus próprios olhos';
+      'Acompanhe seu crescimento com os próprios olhos';
 
   @override
   String get painTrackingDesc =>
-      'Medições mensais, fotos de progresso, gráfico de crescimento — vê cada centímetro ganho.';
+      'Medições mensais, fotos de progresso, gráfico de crescimento: veja cada centímetro ganho.';
 
   @override
   String get painTrackingTag => 'Progresso';
 
   @override
-  String get selectYourGender => 'Seleciona o teu género';
+  String get selectYourGender => 'Selecione seu gênero';
 
   @override
   String get onboardingPredictSubtitle =>
-      'Isto será usado para prever o teu potencial de altura e criar o teu plano personalizado.';
+      'Isso será usado para prever seu potencial de altura e criar seu plano personalizado.';
 
   @override
   String get other => 'Outro';
 
   @override
-  String get whenWereYouBorn => 'Quando nasceste?';
+  String get whenWereYouBorn => 'Quando você nasceu?';
 
   @override
   String get heightAndWeight => 'Altura e peso';
@@ -4072,7 +4087,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get workoutsPerWeek => 'Treinos por semana';
 
   @override
-  String get whatsYourEthnicity => 'Qual é a tua etnia?';
+  String get whatsYourEthnicity => 'Qual é a sua etnia?';
 
   @override
   String get whiteCaucasian => 'Branco / Caucasiano';
@@ -4096,14 +4111,14 @@ class AppLocalizationsPt extends AppLocalizations {
   String get footSizeLabel => 'Número de calçado';
 
   @override
-  String get selectYourSize => 'Seleciona o teu número';
+  String get selectYourSize => 'Selecione seu número';
 
   @override
-  String get whatsYourDreamHeight => 'Qual é a tua altura ideal?';
+  String get whatsYourDreamHeight => 'Qual é a sua altura dos sonhos?';
 
   @override
   String get dreamHeightCalcSubtitle =>
-      'Com base nos teus dados, vamos calcular a probabilidade de alcançares essa altura.';
+      'Com base nos seus dados, vamos calcular a chance de você alcançar essa altura.';
 
   @override
   String get dreamHeightLabel => 'Altura ideal';
@@ -4298,7 +4313,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String daysLeftProgram(int days) {
-    return '$days dias restantes no programa';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'Faltam $days dias',
+      one: 'Falta $days dia',
+    );
+    return '$_temp0 no programa';
   }
 
   @override
@@ -4372,14 +4393,14 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get paywallSlideHomeTitle => 'O teu dia, num ecrã';
+  String get paywallSlideHomeTitle => 'Seu dia, em uma tela';
 
   @override
   String get paywallSlideHomeCaption =>
       'Rotinas, água, sono: três anéis para fechar.';
 
   @override
-  String get paywallSlideProgressTitle => 'Vê cada centímetro';
+  String get paywallSlideProgressTitle => 'Veja cada centímetro';
 
   @override
   String get paywallSlideProgressCaption => 'Cada medição entra logo na curva.';
@@ -4389,14 +4410,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get paywallSlideAnalysisCaption =>
-      'O radar aponta o teu elo mais fraco.';
+      'O radar aponta seu ponto mais fraco.';
 
   @override
-  String get paywallSlidePotentialTitle => 'Conhece o teu potencial';
+  String get paywallSlidePotentialTitle => 'Conheça seu potencial';
 
   @override
   String get paywallSlidePotentialCaption =>
-      'Vê onde estás entre os da tua idade.';
+      'Veja onde você está entre os da sua idade.';
 
   @override
   String get paywallSlideDisciplineTitle => 'Não quebres a sequência';
@@ -4409,10 +4430,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get paywallSlideRemindersCaption =>
-      'Define os horários, a app trata do resto.';
+      'Defina os horários, o app cuida do resto.';
 
   @override
-  String get paywallSlidePostureTitle => 'Corrige a tua postura';
+  String get paywallSlidePostureTitle => 'Corrija sua postura';
 
   @override
   String get paywallSlidePostureCaption =>
@@ -4437,7 +4458,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get obBedtimeTitle => 'A que horas costumas dormir?';
 
   @override
-  String get obBedtimeSubtitle => 'O teu lembrete de sono seguirá esta hora.';
+  String get obBedtimeSubtitle =>
+      'Seu lembrete de sono vai seguir este horário.';
 
   @override
   String get obWorkoutTimeTitle => 'A que horas treinas?';
@@ -4449,7 +4471,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get obMealsTitle => 'Quantas refeições por dia?';
 
   @override
-  String get obMealsSubtitle => 'Toca numa hora para a ajustares à tua rotina.';
+  String get obMealsSubtitle =>
+      'Toque em um horário para ajustar à sua rotina.';
 
   @override
   String obMealsCount(String count) {
@@ -4767,7 +4790,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String anBConsistency(int streak, int active, int days) {
-    return 'Sequência de $streak dias, $active de $days dias com metade do plano feito';
+    String _temp0 = intl.Intl.pluralLogic(
+      streak,
+      locale: localeName,
+      other: '$streak dias',
+      one: '$streak dia',
+    );
+    return 'Sequência de $_temp0, $active de $days dias com metade do plano feito';
   }
 
   @override
@@ -4776,7 +4805,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String anBSleep(String hours, String target, int days) {
-    return '$hours h por noite em média, meta $target h, $days noites registradas';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days noites registradas',
+      one: '$days noite registrada',
+    );
+    return '$hours h por noite em média, meta $target h, $_temp0';
   }
 
   @override
@@ -4784,7 +4819,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String anBHydration(String litres, String target, int days) {
-    return '$litres L por dia em média, meta $target L, $days dias registrados';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days dias registrados',
+      one: '$days dia registrado',
+    );
+    return '$litres L por dia em média, meta $target L, $_temp0';
   }
 
   @override
@@ -4801,7 +4842,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String anBPosture(int raw, int days) {
-    return 'Autoteste na parede $raw/90, há $days dias';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days dias',
+      one: '$days dia',
+    );
+    return 'Autoteste na parede $raw/90, há $_temp0';
   }
 
   @override
@@ -4814,7 +4861,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String anBMeasuring(int days) {
-    return 'Última medição há $days dias';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days dias',
+      one: '$days dia',
+    );
+    return 'Última medição há $_temp0';
   }
 
   @override
@@ -4886,7 +4939,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String anAGrowthWait(int days) {
-    return 'Meça de novo em $days dias';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days dias',
+      one: '$days dia',
+    );
+    return 'Meça de novo em $_temp0';
   }
 
   @override
@@ -5028,7 +5087,7 @@ class AppLocalizationsPt extends AppLocalizations {
       days,
       locale: localeName,
       other: '$days dias',
-      one: '1 dia',
+      one: '$days dia',
     );
     return '$delta entre estas duas fotos, tiradas com $_temp0 de diferença.';
   }
@@ -5039,7 +5098,7 @@ class AppLocalizationsPt extends AppLocalizations {
       days,
       locale: localeName,
       other: '$days dias',
-      one: '1 dia',
+      one: '$days dia',
     );
     return 'Mesma altura, com $_temp0 de diferença. Postura e forma mudam primeiro, a altura vem ao longo dos meses.';
   }
@@ -5542,7 +5601,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String plNextLevelIn(int days, int level) {
-    return '$days dias para o nível $level';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days dias',
+      one: '$days dia',
+    );
+    return '$_temp0 para o nível $level';
   }
 
   @override
@@ -5795,4 +5860,25 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get plFoodPumpkinSeeds => 'Sementes de abóbora';
+
+  @override
+  String get wtCoffee => 'Café';
+
+  @override
+  String get wtTea => 'Chá';
+
+  @override
+  String get wtCola => 'Refri';
+
+  @override
+  String get wtEnergyDrink => 'Energético';
+
+  @override
+  String get crCustomBadge => 'Própria';
+
+  @override
+  String get crNameHint => 'ex.: Alongamento energético da manhã';
+
+  @override
+  String get crDoseHint => 'ex.: 3x10 repetições ou 3x30 segundos';
 }

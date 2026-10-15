@@ -156,14 +156,19 @@ class _Tile extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 2),
-          Text(
-            label,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: color.withValues(alpha: 0.9),
+          // Shrinks a long label ("Entraînement", "Vitamina D") on a 320 pt
+          // phone instead of cutting it to "Entraîne...".
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: AlignmentDirectional.centerStart,
+            child: Text(
+              label,
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: color.withValues(alpha: 0.9),
+              ),
             ),
           ),
           if (note != null)

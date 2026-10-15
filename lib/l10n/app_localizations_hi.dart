@@ -65,7 +65,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String disciplineStreakDays(int days) {
-    return '$days दिनों की लगातार स्ट्रीक';
+    return '$days दिन की स्ट्रीक';
   }
 
   @override
@@ -937,7 +937,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get tipMorningMeasure =>
-      'सुबह ऊँचाई मापें - दिन में डिस्क दबाव से ऊँचाई कम होती है। सबसे सटीक माप सुबह होता है।';
+      'सुबह लंबाई मापो। दिन भर डिस्क पर दबाव से लंबाई थोड़ी कम हो जाती है, इसलिए सबसे सटीक माप सुबह का होता है।';
 
   @override
   String get tipProteinSpread =>
@@ -1143,7 +1143,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get routineDailyCaloriesDesc =>
-      'अपना दैनिक कैलोरी लक्ष्य पूरा करें — कम कैलोरी लेने से विकास धीमा होता है।';
+      'अपना रोज़ का कैलोरी लक्ष्य पूरा करो। कम खाने से ग्रोथ धीमी होती है।';
 
   @override
   String get routineSleepEnvironment => 'नींद का वातावरण सुधारें';
@@ -2041,7 +2041,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get approachingLimit => 'सीमा के करीब';
 
   @override
-  String get overLimit => 'सीमा से अधिक — HGH को प्रभावित करता है';
+  String get overLimit => 'सीमा से ज़्यादा, HGH पर असर डालता है';
 
   @override
   String get resetToday => 'आज रीसेट करें';
@@ -2050,7 +2050,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get stressToday => 'आज का तनाव';
 
   @override
-  String get stressVeryCalmLabel => 'बहुत शांत — वृद्धि के लिए आदर्श';
+  String get stressVeryCalmLabel => 'बहुत शांत, ग्रोथ के लिए सबसे अच्छा';
 
   @override
   String get stressCalmLabel => 'शांत';
@@ -2062,8 +2062,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get stressStressedLabel => 'तनावग्रस्त';
 
   @override
-  String get stressVeryStressedLabel =>
-      'बहुत तनावग्रस्त — कोर्टिसोल HGH रोकता है';
+  String get stressVeryStressedLabel => 'बहुत तनाव, कोर्टिसोल HGH को रोकता है';
 
   @override
   String get stressTapToLog => 'आज कैसा महसूस हो रहा है दर्ज करें';
@@ -2114,7 +2113,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get insightStressHigh =>
-      'इस सप्ताह तनाव बढ़ा है। श्वास व्यायाम पर विचार करें — कोर्टिसोल वृद्धि रोकता है।';
+      'इस हफ़्ते तुम्हारा तनाव ज़्यादा है। साँस वाली एक्सरसाइज़ करके देखो: कोर्टिसोल ग्रोथ को रोकता है।';
 
   @override
   String get insightMoodLow =>
@@ -2535,31 +2534,31 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get formProtein =>
-      'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.';
+      'प्रोटीन को 3-4 भोजन में बाँटो। अंडे, चिकन, मछली, दूध से बनी चीज़ें और दालें खाओ।';
 
   @override
   String get formCalciumVitaminD =>
-      'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.';
+      'रोज़ दूध से बनी चीज़ों की 3 सर्विंग लो और 15 मिनट धूप में रहो ताकि शरीर विटामिन डी बना सके।';
 
   @override
   String get formWater =>
-      'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.';
+      'पूरे दिन थोड़ा-थोड़ा पानी पीते रहो। साथ में पानी की बोतल रखो और हर घंटे का रिमाइंडर लगाओ।';
 
   @override
   String get formAvoidJunk =>
-      'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.';
+      'फ़ास्ट फ़ूड की जगह घर का सादा खाना खाओ। मीठे ड्रिंक्स की जगह पानी पियो। लेबल पढ़ो और प्रोसेस्ड चीज़ों से बचो।';
 
   @override
   String get formZincIntake =>
-      'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.';
+      'अपने खाने में रेड मीट, कद्दू के बीज, चना, काजू और सीप शामिल करो। रोज़ 8-11 mg का लक्ष्य रखो।';
 
   @override
   String get formVitaminDSunlight =>
-      'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.';
+      'बाँहों और चेहरे पर 15 मिनट सीधी धूप लगने दो, बेहतर है दोपहर से पहले। इतने कम समय के लिए सनस्क्रीन की ज़रूरत नहीं।';
 
   @override
   String get formArginineFoods =>
-      'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.';
+      'अपने भोजन में मेवे, बीज, टर्की, चिकन, सोयाबीन और दूध से बनी चीज़ें शामिल करो। सोने से पहले लेना सबसे अच्छा है।';
 
   @override
   String get formDailyCalories =>
@@ -2567,15 +2566,15 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get formQualitySleep =>
-      'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.';
+      'रात 10 बजे तक सो जाओ। कमरे को अंधेरा और ठंडा रखो। दोपहर 2 बजे के बाद कैफ़ीन मत लो।';
 
   @override
   String get formNoScreen =>
-      'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.';
+      'सोने से 1 घंटा पहले का अलार्म लगाओ। सारी स्क्रीन दूर रख दो। उसकी जगह किताब पढ़ो या हल्की स्ट्रेचिंग करो।';
 
   @override
   String get formSleepEnvironment =>
-      'Use blackout curtains, keep room at 18-20°C, remove all light sources. Use a comfortable mattress and pillow.';
+      'ब्लैकआउट पर्दे लगाओ, कमरे को 18-20 °C पर रखो और हर रोशनी बंद करो। आरामदायक गद्दे और तकिये पर सोओ।';
 
   @override
   String get formPreSleepRoutine =>
@@ -2599,85 +2598,86 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get sciMorningStretch =>
-      'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention';
+      'सुबह की स्ट्रेचिंग रीढ़ की उन डिस्क का दबाव कम करती है जो रात में फिर से भर जाती हैं, जिससे दिन भर तुम्हारी लंबाई बनी रहती है';
 
   @override
   String get sciBarHanging =>
-      'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height';
+      'लटकने से गुरुत्वाकर्षण रीढ़ को खींचता है और डिस्क का दबाव कम होता है, जिससे कुछ समय के लिए लंबाई बढ़ सकती है';
 
   @override
   String get sciCobraStretch =>
-      'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting';
+      'कोबरा स्ट्रेच रीढ़ को खींचता है और छाती खोलता है, जिससे लंबे समय तक बैठने का दबाव कम होता है';
 
   @override
   String get sciJumping =>
-      'High-impact jumping stimulates growth plates in the legs and triggers growth hormone release';
+      'ज़ोरदार कूद पैरों की ग्रोथ प्लेट्स को सक्रिय करती है और ग्रोथ हॉर्मोन निकलने में मदद करती है';
 
   @override
   String get sciSwimmingBasketball =>
-      'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity';
+      'तैराकी और बास्केटबॉल में पूरे शरीर से खिंचना, कूदना और पहुँचना होता है, जो ग्रोथ प्लेट्स को सक्रिय करता है';
 
   @override
   String get sciEveningYoga =>
-      'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery';
+      'शाम का योग कोर्टिसोल घटाता है, जो ग्रोथ हॉर्मोन को रोकता है, और रात की रिकवरी के लिए मांसपेशियों को खींचता है';
 
   @override
   String get sciSprintIntervals =>
-      'Sprinting triggers significant growth hormone release';
+      'तेज़ दौड़ से ग्रोथ हॉर्मोन काफ़ी ज़्यादा निकलता है';
 
   @override
   String get sciHiitWorkout =>
-      'High intensity exercise increases HGH by up to 450%';
+      'तेज़ और ज़ोरदार एक्सरसाइज़ ग्रोथ हॉर्मोन को 450% तक बढ़ा सकती है';
 
   @override
-  String get sciSquats => 'Squats stimulate growth plates in legs and spine';
+  String get sciSquats =>
+      'स्क्वॉट्स पैरों और रीढ़ की ग्रोथ प्लेट्स को सक्रिय करते हैं';
 
   @override
   String get sciDeadliftStretch =>
-      'Spinal decompression promotes vertebral disc health';
+      'रीढ़ का दबाव कम करने से डिस्क स्वस्थ रहती हैं';
 
   @override
   String get sciOverheadPress =>
-      'Overhead pressing stretches the spine and strengthens posture muscles';
+      'सिर के ऊपर धक्का देने से रीढ़ खिंचती है और पोस्चर की मांसपेशियाँ मज़बूत होती हैं';
 
   @override
   String get sciSkippingRope =>
-      'Repetitive jumping stimulates growth plates in lower extremities';
+      'बार-बार कूदने से पैरों की ग्रोथ प्लेट्स सक्रिय होती हैं';
 
   @override
   String get sciPilatesCore =>
-      'Core strength supports spinal alignment and posture';
+      'मज़बूत कोर रीढ़ को सीधा रखने और तुम्हारे पोस्चर को सहारा देता है';
 
   @override
   String get sciInversionHang =>
-      'Inversion decompresses spinal discs, can temporarily add 1-2cm';
+      'उल्टा लटकने से रीढ़ की डिस्क का दबाव कम होता है और कुछ समय के लिए 1-2 cm बढ़ सकते हैं';
 
   @override
   String get sciProtein =>
-      'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts';
+      'प्रोटीन वो अमीनो एसिड देता है जिनकी हड्डियों और मांसपेशियों को बढ़ने के लिए ज़रूरत होती है, ख़ासकर तेज़ ग्रोथ के समय';
 
   @override
   String get sciCalciumVitaminD =>
-      'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth';
+      'कैल्शियम और विटामिन डी हड्डियों की मज़बूती और लंबाई में बढ़ने की बुनियाद हैं';
 
   @override
   String get sciWater =>
-      'Hydration is essential for nutrient transport to growth plates and joint cartilage health';
+      'अच्छा हाइड्रेशन ग्रोथ प्लेट्स तक पोषक तत्व पहुँचाता है और जोड़ों के कार्टिलेज को स्वस्थ रखता है';
 
   @override
   String get sciAvoidJunk =>
-      'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion';
+      'प्रोसेस्ड खाना और चीनी सूजन और इंसुलिन के उछाल लाते हैं, जो ग्रोथ हॉर्मोन को कम करते हैं';
 
   @override
-  String get sciZincIntake => 'Zinc is essential for growth hormone production';
+  String get sciZincIntake => 'ग्रोथ हॉर्मोन बनने के लिए ज़िंक ज़रूरी है';
 
   @override
   String get sciVitaminDSunlight =>
-      'Vitamin D is crucial for calcium absorption and bone growth';
+      'कैल्शियम सोखने और हड्डियों के बढ़ने के लिए विटामिन डी बहुत ज़रूरी है';
 
   @override
   String get sciArginineFoods =>
-      'L-Arginine stimulates growth hormone secretion';
+      'एल-आर्जिनिन ग्रोथ हॉर्मोन निकलने में मदद करता है';
 
   @override
   String get sciDailyCalories =>
@@ -2685,35 +2685,35 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get sciQualitySleep =>
-      '70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM';
+      'दिन का 70-80% ग्रोथ हॉर्मोन गहरी नींद में निकलता है, ख़ासकर रात 10 से 2 बजे के बीच';
 
   @override
   String get sciNoScreen =>
-      'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality';
+      'स्क्रीन की नीली रोशनी मेलाटोनिन कम करती है, जिससे नींद देर से आती है और गहरी नींद कमज़ोर होती है';
 
   @override
   String get sciSleepEnvironment =>
-      'Dark, cool environment maximizes melatonin and growth hormone';
+      'अंधेरा और ठंडा कमरा मेलाटोनिन और ग्रोथ हॉर्मोन को बढ़ाता है';
 
   @override
   String get sciPreSleepRoutine =>
-      'Consistent pre-sleep routine improves deep sleep quality by 23%';
+      'सोने से पहले की नियमित दिनचर्या गहरी नींद की क्वालिटी 23% तक बेहतर करती है';
 
   @override
   String get sciPostureCheck =>
-      'Correct posture alignment can immediately add 2-3 cm to apparent height and prevents spinal compression';
+      'सही पोस्चर से तुम तुरंत 2-3 cm लंबे दिख सकते हो और रीढ़ पर दबाव नहीं पड़ता';
 
   @override
   String get sciWallStand =>
-      'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day';
+      'दीवार से सटकर खड़े होने से पोस्चर की मसल मेमोरी बनती है, जिससे पूरे दिन रीढ़ सीधी रहती है';
 
   @override
   String get sciNeckStretches =>
-      'Neck stretches relieve compression and improve cervical alignment';
+      'गर्दन की स्ट्रेचिंग दबाव कम करती है और गर्दन की रीढ़ को सीधा रखती है';
 
   @override
   String get sciShoulderRolls =>
-      'Opening shoulders corrects forward posture, can add 1-2cm appearance';
+      'कंधे खोलने से आगे झुका पोस्चर ठीक होता है और तुम 1-2 cm लंबे दिख सकते हो';
 
   @override
   String get muscleSpine => 'रीढ़';
@@ -2797,7 +2797,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get routineFormField => 'निर्देश';
 
   @override
-  String get routineFormHint => 'वैकल्पिक — यह रूटीन कैसे करें';
+  String get routineFormHint => 'वैकल्पिक: यह रूटीन कैसे करें';
 
   @override
   String get diffBeginner => 'शुरुआती';
@@ -2845,14 +2845,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String get analyzingPosture => 'ANALYZING POSTURE';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'गोपनीयता नीति';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'सेवा की शर्तें';
 
   @override
   String version(String ver) {
-    return 'Version $ver';
+    return 'संस्करण $ver';
   }
 
   @override
@@ -2862,13 +2862,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get rateAppSubtitle => 'Your review helps us grow!';
 
   @override
-  String get unitSystem => 'Unit System';
+  String get unitSystem => 'माप प्रणाली';
 
   @override
-  String get unitMetric => 'Metric (cm, kg)';
+  String get unitMetric => 'मीट्रिक (cm, kg)';
 
   @override
-  String get unitImperial => 'Imperial (ft-in, lbs)';
+  String get unitImperial => 'इंपीरियल (ft-in, lbs)';
 
   @override
   String get healthDisclaimer => 'Health Disclaimer';
@@ -3032,7 +3032,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get designedForYouDesc =>
-      'BeTaller आपकी जेनेटिक सीमा तक पहुंचने के लिए बनाया गया है।';
+      'BeTaller तुम्हारी जेनेटिक सीमा तक पहुँचने में मदद के लिए बनाया गया है।';
 
   @override
   String get greetingAllDone => 'बहुत बढ़िया! 🎯';
@@ -3042,12 +3042,12 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String greetingStreak30(int streak) {
-    return '$streak दिन की लगातार, महान स्तर।';
+    return '$streak दिन की स्ट्रीक। महान स्तर।';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return '$streak दिन की लगातार, जारी रखो।';
+    return '$streak दिन की स्ट्रीक। ऐसे ही जारी रखो।';
   }
 
   @override
@@ -3508,7 +3508,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get tourHomeStreakDesc =>
-      'जब तक आप अनुशासन बनाए रखते हैं तब तक बढ़ती रहती है — एक दिन छूटा तो रीसेट हो जाती है।';
+      'जब तक तुम अनुशासन बनाए रखते हो, यह बढ़ती रहती है। एक दिन छूटा तो रीसेट हो जाती है।';
 
   @override
   String get tourHomeXpTitle => 'आपका लेवल';
@@ -3536,7 +3536,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get tourPlanTabsDesc =>
-      'आपकी दैनिक रूटीन, साप्ताहिक प्रोग्राम और पोषण योजना — सब यहीं हैं।';
+      'तुम्हारी रोज़ की रूटीन, साप्ताहिक प्रोग्राम और पोषण योजना, सब यहीं हैं।';
 
   @override
   String get tourPlanLevelTitle => 'आपका डिसिप्लिन लेवल';
@@ -3557,21 +3557,21 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get tourPlanTodayListDesc =>
-      'जैसे-जैसे करें, वैसे-वैसे चेक करें — विवरण के लिए किसी रूटीन पर टैप करें।';
+      'जैसे-जैसे करो, वैसे-वैसे चेक करो। विवरण के लिए किसी रूटीन पर टैप करो।';
 
   @override
   String get tourPlanWeekGoalsTitle => 'इस हफ्ते';
 
   @override
   String get tourPlanWeekGoalsDesc =>
-      'परफेक्ट दिन, वर्कआउट और इस हफ्ते का ज़रूरी माप — अनिवार्य वाला भी शामिल।';
+      'परफेक्ट दिन, वर्कआउट और इस हफ़्ते का ज़रूरी माप, अनिवार्य वाला भी शामिल।';
 
   @override
   String get tourPlanMonthGoalsTitle => 'इस महीने';
 
   @override
   String get tourPlanMonthGoalsDesc =>
-      'प्रोग्रेस फ़ोटो, पॉस्चर चेक और इस महीने के माप — जिन्हें छोड़ना नहीं चाहिए।';
+      'प्रोग्रेस फ़ोटो, पॉस्चर चेक और इस महीने के माप: जिन्हें छोड़ना नहीं चाहिए।';
 
   @override
   String get tourProgressHeightTitle => 'आपकी मौजूदा लंबाई';
@@ -3748,7 +3748,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get journeyTourDoneSubtitle =>
-      'तुमने तीनों चरण पूरे कर लिए हैं। अब तुम्हारी बारी है — अपनी पहली रूटीन पूरी करके शुरुआत करो।';
+      'तुमने तीनों चरण पूरे कर लिए हैं। अब तुम्हारी बारी है: अपनी पहली रूटीन पूरी करके शुरुआत करो।';
 
   @override
   String get journeyViewPlansButton => 'शुरू करने के लिए प्लान देखें';
@@ -3829,7 +3829,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String resultRange(String min, String max) {
-    return 'संभावित दायरा: $min – $max';
+    return 'संभावित दायरा: $min से $max';
   }
 
   @override
@@ -3969,7 +3969,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get painGeneticDesc =>
-      'जेनेटिक्स 60% तय करती है — बाकी 40% आप तय करते हैं। BeTaller ठीक उसी 40% के लिए है।';
+      'जेनेटिक्स 60% तय करती है, बाकी 40% तुम तय करते हो। BeTaller ठीक उसी 40% के लिए है।';
 
   @override
   String get painGeneticTag => 'विश्लेषण';
@@ -3989,7 +3989,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get painPostureDesc =>
-      'सही पॉस्चर तुरंत 1.5–3 सेमी जोड़ सकता है। BeTaller की दैनिक पॉस्चर रूटीन कुछ हफ्तों में इसे स्थापित कर देती है।';
+      'सही पॉस्चर तुरंत 1.5-3 सेमी जोड़ सकता है। BeTaller की रोज़ की पॉस्चर रूटीन कुछ हफ़्तों में इसे आदत बना देती है।';
 
   @override
   String get painPostureTag => 'पॉस्चर';
@@ -3999,7 +3999,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get painExerciseDesc =>
-      'सुबह की स्ट्रेचिंग, हैंगिंग, स्पाइन रूटीन — BeTaller ने इन्हें आपके लिए तैयार और शेड्यूल किया है। बस रोज़ाना 8–12 मिनट।';
+      'सुबह की स्ट्रेचिंग, हैंगिंग, स्पाइन रूटीन: BeTaller ने इन्हें तुम्हारे लिए तैयार और शेड्यूल किया है। बस रोज़ 8-12 मिनट।';
 
   @override
   String get painExerciseTag => 'रूटीन';
@@ -4009,7 +4009,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get painNutritionDesc =>
-      'प्रोटीन, कैल्शियम, विटामिन डी — BeTaller आपको हर दिन याद दिलाता है कि कौन से पोषक तत्व कब लेने हैं।';
+      'प्रोटीन, कैल्शियम, विटामिन डी: BeTaller तुम्हें हर दिन याद दिलाता है कि कौन से पोषक तत्व कब लेने हैं।';
 
   @override
   String get painNutritionTag => 'पोषण';
@@ -4019,7 +4019,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get painTrackingDesc =>
-      'मासिक माप, प्रगति फोटो, ग्रोथ चार्ट — हर हासिल किया गया सेंटीमीटर देखें।';
+      'मासिक माप, प्रगति फ़ोटो, ग्रोथ चार्ट: हर हासिल किया गया सेंटीमीटर देखो।';
 
   @override
   String get painTrackingTag => 'प्रगति';
@@ -4351,7 +4351,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get paywallSlideHomeCaption =>
-      'रूटीन, पानी, नींद — तीन रिंग पूरी करनी हैं।';
+      'रूटीन, पानी, नींद: तीन रिंग पूरी करनी हैं।';
 
   @override
   String get paywallSlideProgressTitle => 'हर सेंटीमीटर देखो';
@@ -4440,7 +4440,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get obProteinTitle => 'दिन में कितने ग्राम प्रोटीन लेते हो?';
 
   @override
-  String get obProteinSubtitle => 'अंदाज़न बताओ — योजना उसी पर बनेगी।';
+  String get obProteinSubtitle => 'अंदाज़न बताओ, योजना उसी पर बनेगी।';
 
   @override
   String get obCaloriesTitle => 'दिन में औसतन कितनी कैलोरी लेते हो?';
@@ -5765,4 +5765,25 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get plFoodPumpkinSeeds => 'कद्दू के बीज';
+
+  @override
+  String get wtCoffee => 'कॉफ़ी';
+
+  @override
+  String get wtTea => 'चाय';
+
+  @override
+  String get wtCola => 'कोला';
+
+  @override
+  String get wtEnergyDrink => 'एनर्जी';
+
+  @override
+  String get crCustomBadge => 'अपनी';
+
+  @override
+  String get crNameHint => 'जैसे: सुबह का पावर स्ट्रेच';
+
+  @override
+  String get crDoseHint => 'जैसे: 3x10 बार या 3x30 सेकंड';
 }

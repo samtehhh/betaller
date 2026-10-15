@@ -14,6 +14,7 @@ import '../utils/constants.dart';
 import '../utils/haptics.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/progress_locked_preview.dart';
+import '../utils/text_case.dart';
 
 /// How often the app suggests a new photo. Two weeks is long enough for a
 /// visible change in posture and short enough to keep the habit.
@@ -487,7 +488,7 @@ class _Label extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text.toUpperCase(),
+      text.upperIn(context),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
@@ -622,15 +623,21 @@ class _CompareCardState extends State<_CompareCard> {
             child: Row(
               children: [
                 Expanded(
-                  child: Text(
-                    l.pgTransformationTitle,
-                    maxLines: 2,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: -0.6,
-                      color: Colors.white,
-                      height: 1.15,
+                  // One line that shrinks: "Tu transformación" broke inside
+                  // the word next to the mode toggle on a 320 pt phone.
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      l.pgTransformationTitle,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: -0.6,
+                        color: Colors.white,
+                        height: 1.15,
+                      ),
                     ),
                   ),
                 ),
@@ -1490,18 +1497,22 @@ class _TimelineHeader extends StatelessWidget {
                   ),
                   const SizedBox(width: 5),
                   Flexible(
-                    child: Text(
-                      isDue
-                          ? l.pgPhotoDueNow
-                          : l.pgNextPhotoOn(_shortDate(context, due)),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: isDue
-                            ? AppColors.lime
-                            : Colors.white.withValues(alpha: 0.7),
+                    // The date is the point of this pill, so it shrinks
+                    // instead of losing "29 oct." to an ellipsis.
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        isDue
+                            ? l.pgPhotoDueNow
+                            : l.pgNextPhotoOn(_shortDate(context, due)),
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: isDue
+                              ? AppColors.lime
+                              : Colors.white.withValues(alpha: 0.7),
+                        ),
                       ),
                     ),
                   ),

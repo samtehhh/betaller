@@ -15,6 +15,7 @@ import '../widgets/tour_keys.dart';
 import 'weekly_report_screen.dart';
 import 'posture_analysis_screen.dart';
 import 'progress_photos_screen.dart';
+import '../utils/text_case.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -786,9 +787,10 @@ class _ToolCard extends StatelessWidget {
                           Flexible(
                             child: Text(
                               title,
-                              maxLines: 1,
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
+                                height: 1.15,
                                 fontSize: 17,
                                 fontWeight: FontWeight.w900,
                                 color: Colors.white,
@@ -818,26 +820,33 @@ class _ToolCard extends StatelessWidget {
             const SizedBox(height: 14),
             Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.14),
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(color: color.withValues(alpha: 0.30)),
-                  ),
-                  child: Text(
-                    state,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w800,
-                      color: color,
+                Expanded(
+                  child: Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: color.withValues(alpha: 0.14),
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: color.withValues(alpha: 0.30)),
+                    ),
+                    child: Text(
+                      state,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                        color: color,
+                      ),
                     ),
                   ),
+                  ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 10),
                 Text(
                   cta,
                   style: TextStyle(
@@ -1094,7 +1103,7 @@ class _HeightHero extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      l.currentHeight.toUpperCase(),
+                      l.currentHeight.upperIn(context),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -1227,15 +1236,17 @@ class _HeightHero extends StatelessWidget {
                   const Icon(CupertinoIcons.add, size: 17, color: Colors.white),
                   const SizedBox(width: 8),
                   Flexible(
-                    child: Text(
-                      l.addMeasurementButton,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 14.5,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        letterSpacing: 0.4,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        l.addMeasurementButton,
+                        maxLines: 1,
+                        style: const TextStyle(
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          letterSpacing: 0.4,
+                        ),
                       ),
                     ),
                   ),

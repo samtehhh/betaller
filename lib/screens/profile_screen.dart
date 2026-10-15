@@ -18,6 +18,7 @@ import 'wellness_tracker_screen.dart';
 import 'onboarding_screen.dart';
 import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
+import '../utils/text_case.dart';
 
 class ProfileScreen extends StatefulWidget {
   /// Lets MainScreen re-launch the guided walkthrough from here too — a
@@ -1738,7 +1739,7 @@ class _GroupLabel extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
       child: Text(
-        text.toUpperCase(),
+        text.upperIn(context),
         style: TextStyle(
           fontSize: 10.5,
           fontWeight: FontWeight.w900,
@@ -1873,7 +1874,7 @@ class _IdentityCard extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     final initial = profile.name.trim().isEmpty
         ? 'B'
-        : profile.name.trim().characters.first.toUpperCase();
+        : profile.name.trim().characters.first.upperIn(context);
     final xpRatio = provider.xpForNextLevel == 0
         ? 0.0
         : (provider.totalXP / provider.xpForNextLevel).clamp(0.0, 1.0);

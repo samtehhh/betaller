@@ -155,7 +155,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String photosSummaryCount(int count) {
-    return '$count photos';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count photos',
+      one: '$count photo',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -282,7 +288,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get discipline => 'Discipline';
 
   @override
-  String get improveScore => 'Améliorez votre score';
+  String get improveScore => 'Améliore ton score';
 
   @override
   String gradeProgress(String current, String next) {
@@ -313,7 +319,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get keepStreak => 'Maintenez la série';
+  String get keepStreak => 'Garde ta série';
 
   @override
   String get addFirstMeasurement => 'Ajouter la première mesure';
@@ -349,7 +355,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get nutritionDefault =>
-      'Atteignez votre objectif d\'eau et maintenez une nutrition équilibrée.';
+      'Atteins ton objectif d\'eau et garde une alimentation équilibrée.';
 
   @override
   String sleepNoRecord(String hours) {
@@ -386,7 +392,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String streakContinue(int days) {
-    return 'Série de $days jours ! Votre score augmente en continuant.';
+    return 'Série de $days jours ! Ton score augmente si tu continues.';
   }
 
   @override
@@ -510,7 +516,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get chartInstruction =>
-      'Ajoutez des mesures pour voir votre graphique de progression !';
+      'Ajoute des mesures pour voir ta courbe de progression !';
 
   @override
   String get addMeasurementButton => 'AJOUTER UNE MESURE';
@@ -522,8 +528,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get deleteTitle => 'Supprimer la mesure';
 
   @override
-  String get deleteMessage =>
-      'Êtes-vous sûr de vouloir supprimer cette mesure ?';
+  String get deleteMessage => 'Tu es sûr de vouloir supprimer cette mesure ?';
 
   @override
   String get dismiss => 'Annuler';
@@ -559,7 +564,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String bestStreak(int days) {
-    return 'Record : $days jours';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours',
+      one: '$days jour',
+    );
+    return 'Record : $_temp0';
   }
 
   @override
@@ -677,26 +688,26 @@ class AppLocalizationsFr extends AppLocalizations {
   String get premiumSubtitle => 'Débloquer toutes les fonctionnalités';
 
   @override
-  String get rateUs => 'Notez-nous';
+  String get rateUs => 'Note-nous';
 
   @override
-  String get rateSubtitle => 'Vous aimez l\'appli ? Donnez-nous 5 étoiles !';
+  String get rateSubtitle => 'Tu aimes l\'appli ? Donne-nous 5 étoiles !';
 
   @override
   String get share => 'Partager l\'appli';
 
   @override
-  String get shareSubtitle => 'Parlez de BeTaller à vos amis';
+  String get shareSubtitle => 'Parle de BeTaller à tes amis';
 
   @override
   String get shareText =>
-      'J\'ai découvert mon potentiel de croissance avec BeTaller ! Essayez aussi : https://apps.apple.com/app/id6761445065';
+      'J\'ai découvert mon potentiel de croissance avec BeTaller ! Essaie aussi : https://apps.apple.com/app/id6761445065';
 
   @override
   String get feedback => 'Donner un avis';
 
   @override
-  String get feedbackSubtitle => 'Contactez-nous';
+  String get feedbackSubtitle => 'Contacte-nous';
 
   @override
   String get resetData => 'Réinitialiser toutes les données';
@@ -709,7 +720,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get resetMessage =>
-      'Toutes les données seront supprimées et vous reviendrez à l\'écran d\'accueil. Cette action est irréversible !';
+      'Toutes les données seront supprimées et tu reviendras à l\'écran d\'accueil. Cette action est irréversible !';
 
   @override
   String get reset => 'Réinitialiser';
@@ -718,7 +729,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get premiumSoon => 'Premium bientôt disponible !';
 
   @override
-  String get brandingSubtitle => 'Découvrez votre potentiel de croissance';
+  String get brandingSubtitle => 'Découvre ton potentiel de croissance';
 
   @override
   String get statistics => 'Statistiques';
@@ -784,7 +795,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get onboardingTitle => 'BeTaller';
 
   @override
-  String get onboardingSubtitle => 'Découvrez votre potentiel de croissance';
+  String get onboardingSubtitle => 'Découvre ton potentiel de croissance';
 
   @override
   String get onboardingMeetYou => 'Faisons connaissance';
@@ -818,16 +829,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pastHeightsInfo =>
-      'Entrez les tailles dont vous vous souvenez à différents âges. Vous pouvez laisser des cases vides.';
+      'Entre les tailles dont tu te souviens à différents âges. Tu peux laisser des cases vides.';
 
   @override
-  String get heightHint => 'Entrez la taille...';
+  String get heightHint => 'Entre ta taille...';
 
   @override
   String get ageLabel => 'âge';
 
   @override
-  String get habits => 'Vos habitudes';
+  String get habits => 'Tes habitudes';
 
   @override
   String get habitsInfo =>
@@ -943,15 +954,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tipMorningMeasure =>
-      'Mesurez-vous le matin — la pression sur les disques réduit la taille au cours de la journée. La mesure la plus précise est le matin.';
+      'Mesure-toi le matin. La pression sur les disques te fait perdre un peu de taille au fil de la journée, la mesure la plus précise est celle du matin.';
 
   @override
   String get tipProteinSpread =>
-      'Répartissez les protéines sur tous les repas. Ne mangez pas tout d\'un coup, prenez des protéines à chaque repas.';
+      'Répartis les protéines sur tous tes repas. Ne mange pas tout d\'un coup, prends des protéines à chaque repas.';
 
   @override
   String get tipGrowthHormone =>
-      'L\'hormone de croissance atteint son pic pendant le sommeil. Soyez endormi entre 22h et 2h !';
+      'L\'hormone de croissance atteint son pic pendant le sommeil. Sois endormi entre 22 h et 2 h !';
 
   @override
   String get tipVitaminD =>
@@ -959,7 +970,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tipBarHanging =>
-      'La suspension à la barre décompresse la colonne vertébrale. Essayez 3x30 secondes par jour.';
+      'La suspension à la barre décompresse la colonne vertébrale. Essaie 3x30 secondes par jour.';
 
   @override
   String get tipSwimming =>
@@ -967,28 +978,28 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tipStress =>
-      'Le stress inhibe l\'hormone de croissance. Réduisez le stress avec la méditation et le yoga.';
+      'Le stress freine l\'hormone de croissance. Réduis-le avec la méditation et le yoga.';
 
   @override
   String get routineMorningStretch => 'Étirements matinaux';
 
   @override
   String get routineMorningStretchDesc =>
-      'Faites 10 minutes d\'étirements au réveil. Étirez la colonne vertébrale et les muscles des jambes.';
+      'Fais 10 minutes d\'étirements au réveil. Étire ta colonne et les muscles de tes jambes.';
 
   @override
   String get routineBarHanging => 'Suspension à la barre';
 
   @override
   String get routineBarHangingDesc =>
-      'Suspendez-vous à une barre de traction pour étendre la colonne vertébrale. 3 séries x 30 secondes.';
+      'Suspends-toi à une barre de traction pour étirer ta colonne. 3 séries x 30 secondes.';
 
   @override
   String get routineCobraStretch => 'Étirement du cobra';
 
   @override
   String get routineCobraStretchDesc =>
-      'Allongez-vous face au sol et soulevez le haut du corps. Étirez la colonne vertébrale. 3 séries x 15 secondes.';
+      'Allonge-toi sur le ventre et soulève le haut du corps. Étire ta colonne. 3 séries x 15 secondes.';
 
   @override
   String get routineJumping => 'Exercices de saut';
@@ -1002,14 +1013,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get routineSwimmingDesc =>
-      'Pratiquez un sport qui favorise la croissance. Au moins 30 minutes.';
+      'Pratique un sport qui favorise la croissance. Au moins 30 minutes.';
 
   @override
   String get routineYoga => 'Yoga et étirements du soir';
 
   @override
   String get routineYogaDesc =>
-      'Routine de yoga et d\'étirements avant le coucher. Relâchez le stress, détendez les muscles.';
+      'Routine de yoga et d\'étirements avant le coucher. Relâche le stress, détends tes muscles.';
 
   @override
   String get routineProtein => 'Apport en protéines';
@@ -1023,21 +1034,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get routineCalciumDesc =>
-      'Consommez du lait, du fromage, du yaourt. Exposez-vous au soleil 15 min. Essentiel pour le développement osseux.';
+      'Consomme du lait, du fromage, du yaourt. Expose-toi au soleil 15 min. Essentiel pour le développement osseux.';
 
   @override
   String get routineWater => 'Objectif d\'hydratation';
 
   @override
   String get routineWaterDesc =>
-      'Buvez au moins 2 à 3 litres d\'eau par jour. Essentiel pour le métabolisme et la croissance.';
+      'Bois au moins 2 à 3 litres d\'eau par jour. Essentiel pour le métabolisme et la croissance.';
 
   @override
   String get routineAvoidJunk => 'Éviter la malbouffe';
 
   @override
   String get routineAvoidJunkDesc =>
-      'Évitez le fast-food, les boissons sucrées et les aliments transformés.';
+      'Évite le fast-food, les boissons sucrées et les aliments transformés.';
 
   @override
   String get routineSleep => 'Sommeil de qualité (8-10h)';
@@ -1051,21 +1062,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get routineNoScreenDesc =>
-      'Rangez téléphone et ordinateur 1 heure avant le coucher. Ne bloquez pas la production de mélatonine.';
+      'Range ton téléphone et ton ordinateur 1 heure avant le coucher. Ne bloque pas la production de mélatonine.';
 
   @override
   String get routinePosture => 'Vérification de la posture';
 
   @override
   String get routinePostureDesc =>
-      'Gardez le dos droit, les épaules en arrière. Vérifiez toutes les heures. Une bonne posture = 2-3 cm de différence.';
+      'Garde le dos droit, les épaules en arrière. Vérifie toutes les heures. Une bonne posture = 2-3 cm de différence.';
 
   @override
   String get routineWallStand => 'Exercice contre le mur';
 
   @override
   String get routineWallStandDesc =>
-      'Adossez-vous au mur : talons, hanches, épaules et tête contre le mur. Tenez 5 min.';
+      'Adosse-toi au mur : talons, hanches, épaules et tête contre le mur. Tiens 5 min.';
 
   @override
   String get routineSprintIntervals => 'Intervalles de Sprint';
@@ -1128,35 +1139,35 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get routineZincIntakeDesc =>
-      'Consommez des aliments riches en zinc tout au long de la journée pour la production d\'hormone de croissance.';
+      'Consomme des aliments riches en zinc tout au long de la journée pour la production d\'hormone de croissance.';
 
   @override
   String get routineVitaminDSunlight => 'Vitamine D et Soleil';
 
   @override
   String get routineVitaminDSunlightDesc =>
-      'Exposez-vous au moins 15 minutes au soleil direct pour la synthèse de vitamine D et la croissance osseuse.';
+      'Expose-toi au moins 15 minutes au soleil direct pour la synthèse de vitamine D et la croissance osseuse.';
 
   @override
   String get routineArginineFoods => 'Aliments Riches en Arginine';
 
   @override
   String get routineArginineFoodsDesc =>
-      'Mangez des aliments riches en arginine pour stimuler la sécrétion d\'hormone de croissance.';
+      'Mange des aliments riches en arginine pour stimuler la sécrétion d\'hormone de croissance.';
 
   @override
   String get routineDailyCalories => 'Objectif calorique quotidien';
 
   @override
   String get routineDailyCaloriesDesc =>
-      'Atteins ton objectif calorique quotidien — manger trop peu ralentit la croissance.';
+      'Atteins ton objectif calorique quotidien. Manger trop peu ralentit la croissance.';
 
   @override
   String get routineSleepEnvironment => 'Optimiser l\'Environnement de Sommeil';
 
   @override
   String get routineSleepEnvironmentDesc =>
-      'Créez un environnement de sommeil sombre et frais pour maximiser la libération de mélatonine et d\'hormone de croissance.';
+      'Crée une chambre sombre et fraîche pour maximiser la libération de mélatonine et d\'hormone de croissance.';
 
   @override
   String get routinePreSleepRoutine => 'Routine Pré-Sommeil';
@@ -1190,117 +1201,115 @@ class AppLocalizationsFr extends AppLocalizations {
   String get achieveFirstDay => 'Premier pas';
 
   @override
-  String get achieveFirstDayDesc => 'Terminez votre premier jour';
+  String get achieveFirstDayDesc => 'Termine ton premier jour';
 
   @override
   String get achieveThreeStreak => 'Série de 3 jours';
 
   @override
-  String get achieveThreeStreakDesc =>
-      'Complétez les routines 3 jours de suite';
+  String get achieveThreeStreakDesc => 'Complète tes routines 3 jours de suite';
 
   @override
   String get achieveWeekStreak => 'Série de 7 jours';
 
   @override
-  String get achieveWeekStreakDesc => 'Complétez les routines 7 jours de suite';
+  String get achieveWeekStreakDesc => 'Complète tes routines 7 jours de suite';
 
   @override
   String get achieveTwoWeekStreak => 'Série de 14 jours';
 
   @override
-  String get achieveTwoWeekStreakDesc =>
-      'Continuez pendant 14 jours consécutifs';
+  String get achieveTwoWeekStreakDesc => 'Continue pendant 14 jours d\'affilée';
 
   @override
   String get achieveMonthStreak => 'Série de 30 jours';
 
   @override
-  String get achieveMonthStreakDesc => 'Complétez 30 jours de suite';
+  String get achieveMonthStreakDesc => 'Complète 30 jours de suite';
 
   @override
   String get achieveTwoMonthStreak => 'Série de 60 jours';
 
   @override
-  String get achieveTwoMonthStreakDesc => 'Complétez 60 jours de suite';
+  String get achieveTwoMonthStreakDesc => 'Complète 60 jours de suite';
 
   @override
   String get achieveHundredStreak => 'Série de 100 jours';
 
   @override
-  String get achieveHundredStreakDesc => 'Complétez 100 jours de suite';
+  String get achieveHundredStreakDesc => 'Complète 100 jours de suite';
 
   @override
   String get achieveFirstMeasure => 'Première mesure';
 
   @override
   String get achieveFirstMeasureDesc =>
-      'Enregistrez votre première mesure de taille';
+      'Enregistre ta première mesure de taille';
 
   @override
   String get achieveThreeMeasures => 'Suivi régulier';
 
   @override
-  String get achieveThreeMeasuresDesc => 'Enregistrez 3 mesures de taille';
+  String get achieveThreeMeasuresDesc => 'Enregistre 3 mesures de taille';
 
   @override
   String get achieveFiveMeasures => 'Suivi assidu';
 
   @override
-  String get achieveFiveMeasuresDesc => 'Enregistrez 5 mesures de taille';
+  String get achieveFiveMeasuresDesc => 'Enregistre 5 mesures de taille';
 
   @override
   String get achieveTenMeasures => 'Chasseur de données';
 
   @override
-  String get achieveTenMeasuresDesc => 'Enregistrez 10 mesures de taille';
+  String get achieveTenMeasuresDesc => 'Enregistre 10 mesures de taille';
 
   @override
   String get achieveFirstCm => 'Premier centimètre';
 
   @override
-  String get achieveFirstCmDesc => 'Enregistrez 1 cm de croissance totale';
+  String get achieveFirstCmDesc => 'Enregistre 1 cm de croissance au total';
 
   @override
   String get achieveThreeCm => '3 cm de croissance';
 
   @override
-  String get achieveThreeCmDesc => 'Enregistrez 3 cm de croissance totale';
+  String get achieveThreeCmDesc => 'Enregistre 3 cm de croissance au total';
 
   @override
   String get achieveFiveCm => '5 cm de croissance';
 
   @override
-  String get achieveFiveCmDesc => 'Enregistrez 5 cm de croissance totale';
+  String get achieveFiveCmDesc => 'Enregistre 5 cm de croissance au total';
 
   @override
   String get achieveTenCm => '10 cm de croissance';
 
   @override
-  String get achieveTenCmDesc => 'Enregistrez 10 cm de croissance totale';
+  String get achieveTenCmDesc => 'Enregistre 10 cm de croissance au total';
 
   @override
-  String get quote1 => 'Soyez meilleur qu\'hier, chaque jour.';
+  String get quote1 => 'Sois meilleur qu\'hier, chaque jour.';
 
   @override
   String get quote2 =>
-      'La croissance ne se fait pas en une nuit, mais chaque nuit vous en rapproche.';
+      'La croissance ne se fait pas en une nuit, mais chaque nuit t\'en rapproche.';
 
   @override
-  String get quote3 => 'La croissance demande de la patience, continuez !';
+  String get quote3 => 'La croissance demande de la patience, continue !';
 
   @override
   String get quote4 =>
-      'Le pas que vous faites aujourd\'hui construit les fondations de demain.';
+      'Le pas que tu fais aujourd\'hui construit les fondations de demain.';
 
   @override
   String get quote5 => 'La discipline commence là où la motivation s\'arrête.';
 
   @override
-  String get quote6 => 'Votre corps vous remerciera, continuez !';
+  String get quote6 => 'Ton corps te remerciera, continue !';
 
   @override
-  String get quote7 => 'C\'est vous qui fixez les limites de votre potentiel.';
+  String get quote7 => 'C\'est toi qui fixes les limites de ton potentiel.';
 
   @override
   String get quote8 => 'Les petits pas créent de grands changements.';
@@ -1309,35 +1318,33 @@ class AppLocalizationsFr extends AppLocalizations {
   String get quote9 => 'Le meilleur investissement, c\'est en soi-même.';
 
   @override
-  String get quote10 => 'Vous vous rapprochez de votre objectif chaque jour.';
+  String get quote10 => 'Tu te rapproches de ton objectif chaque jour.';
 
   @override
   String get quote11 =>
       'Le changement est difficile, mais le regret l\'est encore plus.';
 
   @override
-  String get quote12 => 'Votre corps est un temple, prenez-en soin.';
+  String get quote12 => 'Ton corps est un temple, prends-en soin.';
 
   @override
-  String get quote13 =>
-      'Votre rival, c\'est le vous d\'hier. Dépassez-le aujourd\'hui !';
+  String get quote13 => 'Ton rival, c\'est toi hier. Dépasse-le aujourd\'hui !';
 
   @override
   String get quote14 => 'BeTaller = Patience + Discipline + Conviction';
 
   @override
-  String get quote15 => 'Croyez en vous, le processus vous façonnera.';
+  String get quote15 => 'Crois en toi, le processus te façonnera.';
 
   @override
   String get quote16 =>
-      'Ne dites pas je ne peux pas aujourd\'hui, ne regrettez pas demain.';
+      'Ne dis pas « je ne peux pas » aujourd\'hui, et tu n\'auras rien à regretter demain.';
 
   @override
-  String get quote17 =>
-      'Montrez des progrès chaque jour, même si ce n\'est que 1%.';
+  String get quote17 => 'Progresse chaque jour, même si ce n\'est que de 1 %.';
 
   @override
-  String get quote18 => 'Le miroir montrera vos progrès, soyez patient.';
+  String get quote18 => 'Le miroir montrera tes progrès, sois patient.';
 
   @override
   String get bmiNormal => 'Normal';
@@ -2053,7 +2060,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get wellnessSubtitle =>
-      'Suivez les facteurs qui affectent votre croissance';
+      'Suis les facteurs qui influencent ta croissance';
 
   @override
   String get caffeineToday => 'Caféine aujourd\'hui';
@@ -2065,7 +2072,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get approachingLimit => 'Proche de la limite';
 
   @override
-  String get overLimit => 'Limite dépassée — affecte l\'HGH';
+  String get overLimit => 'Limite dépassée, affecte l\'HGH';
 
   @override
   String get resetToday => 'Réinitialiser aujourd\'hui';
@@ -2074,7 +2081,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get stressToday => 'Stress aujourd\'hui';
 
   @override
-  String get stressVeryCalmLabel => 'Très calme — optimal pour la croissance';
+  String get stressVeryCalmLabel => 'Très calme, idéal pour la croissance';
 
   @override
   String get stressCalmLabel => 'Calme';
@@ -2087,10 +2094,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get stressVeryStressedLabel =>
-      'Très stressé — le cortisol bloque l\'HGH';
+      'Très stressé, le cortisol bloque l\'HGH';
 
   @override
-  String get stressTapToLog => 'Appuyez pour enregistrer votre humeur';
+  String get stressTapToLog => 'Touche pour noter ton humeur du jour';
 
   @override
   String get todaysJournal => 'Journal du jour';
@@ -2134,11 +2141,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get insightCaffeineHigh =>
-      'Votre consommation de caféine est élevée cette semaine. Essayez de réduire pour un meilleur sommeil et HGH.';
+      'Ta consommation de caféine est élevée cette semaine. Essaie de réduire pour mieux dormir et pour l\'HGH.';
 
   @override
   String get insightStressHigh =>
-      'Le stress est élevé cette semaine. Pensez à des exercices de respiration — le cortisol bloque la croissance.';
+      'Ton stress est élevé cette semaine. Essaie des exercices de respiration : le cortisol bloque la croissance.';
 
   @override
   String get insightMoodLow =>
@@ -2146,15 +2153,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get insightGreat =>
-      'Excellent équilibre cette semaine. Votre bien-être soutient une croissance optimale.';
+      'Excellent équilibre cette semaine. Ton bien-être soutient une croissance optimale.';
 
   @override
   String get insightDefault =>
-      'Votre bien-être est en bonne voie. Continuez à enregistrer pour des analyses plus profondes.';
+      'Ton bien-être est sur la bonne voie. Continue à noter pour des analyses plus fines.';
 
   @override
   String get insightNeedMoreData =>
-      'Enregistrez pendant quelques jours de plus pour voir les analyses.';
+      'Note encore quelques jours pour voir les analyses.';
 
   @override
   String get progressPhotosTitle => 'Photos de progrès';
@@ -2182,7 +2189,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get deletePhotoBody =>
-      'Cette photo sera retirée de votre chronologie de progrès.';
+      'Cette photo sera retirée de ta chronologie de progression.';
 
   @override
   String get timelineTab => 'Chronologie';
@@ -2236,11 +2243,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get afterLabel => 'APRÈS';
 
   @override
-  String get yourHeightDialog => 'Votre taille';
+  String get yourHeightDialog => 'Ta taille';
 
   @override
   String get heightDialogMessage =>
-      'Entrez votre taille actuelle en cm pour cette photo';
+      'Entre ta taille actuelle en cm pour cette photo';
 
   @override
   String get postureAnalysisTitle => 'Analyse posturale';
@@ -2295,7 +2302,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get postureWallStandDesc =>
-      'Tenez-vous dos au mur pendant 2 minutes par jour.';
+      'Tiens-toi dos au mur pendant 2 minutes par jour.';
 
   @override
   String get postureChestOpener => 'Ouverture du thorax';
@@ -2325,7 +2332,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get recipesHeader => 'RECETTES';
 
   @override
-  String get recipesSubtitle => 'Alimentez votre croissance';
+  String get recipesSubtitle => 'Nourris ta croissance';
 
   @override
   String get recipesCategoryAll => 'Toutes';
@@ -2409,7 +2416,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get recipesAboutBody =>
-      'Des recettes sélectionnées pour alimenter votre croissance. Filtrez par type de repas ou objectif nutritionnel pour trouver le match parfait.';
+      'Des recettes sélectionnées pour nourrir ta croissance. Filtre par type de repas ou objectif nutritionnel pour trouver celle qui colle à ton plan.';
 
   @override
   String get animHintSpinalDecomp => 'Décompression vertébrale';
@@ -2559,31 +2566,31 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get formProtein =>
-      'Spread protein intake across 3-4 meals. Include eggs, chicken, fish, dairy, and legumes.';
+      'Répartis tes protéines sur 3-4 repas. Mange des œufs, du poulet, du poisson, des produits laitiers et des légumineuses.';
 
   @override
   String get formCalciumVitaminD =>
-      'Consume 3 servings of dairy daily and get 15 minutes of sunlight for natural Vitamin D synthesis.';
+      'Prends 3 portions de produits laitiers par jour et expose-toi 15 minutes au soleil pour que ton corps fabrique de la vitamine D.';
 
   @override
   String get formWater =>
-      'Drink water consistently throughout the day. Carry a water bottle and set hourly reminders.';
+      'Bois de l\'eau régulièrement tout au long de la journée. Garde une gourde avec toi et mets des rappels toutes les heures.';
 
   @override
   String get formAvoidJunk =>
-      'Replace fast food with whole foods. Swap sugary drinks for water. Read labels and avoid processed ingredients.';
+      'Remplace le fast-food par des aliments bruts. Échange les boissons sucrées contre de l\'eau. Lis les étiquettes et évite les ingrédients transformés.';
 
   @override
   String get formZincIntake =>
-      'Include red meat, pumpkin seeds, chickpeas, cashews, and oysters in your diet. Aim for 8-11mg daily.';
+      'Ajoute de la viande rouge, des graines de courge, des pois chiches, des noix de cajou et des huîtres à tes repas. Vise 8-11 mg par jour.';
 
   @override
   String get formVitaminDSunlight =>
-      'Expose arms and face to direct sunlight for 15 minutes, preferably before noon. No sunscreen needed for this duration.';
+      'Expose tes bras et ton visage au soleil direct pendant 15 minutes, de préférence avant midi. Pas besoin de crème solaire pour une durée aussi courte.';
 
   @override
   String get formArginineFoods =>
-      'Include nuts, seeds, turkey, chicken, soybeans, and dairy in your meals. Best consumed before sleep.';
+      'Ajoute des noix, des graines, de la dinde, du poulet, du soja et des produits laitiers à tes repas. Idéal avant de dormir.';
 
   @override
   String get formDailyCalories =>
@@ -2591,15 +2598,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get formQualitySleep =>
-      'Go to bed by 10 PM. Keep the room dark and cool. Avoid caffeine after 2 PM.';
+      'Couche-toi avant 22 h. Garde la chambre sombre et fraîche. Plus de caféine après 14 h.';
 
   @override
   String get formNoScreen =>
-      'Set an alarm 1 hour before bedtime. Put all screens away. Read a book or do gentle stretching instead.';
+      'Mets une alarme 1 heure avant le coucher. Range tous les écrans. Lis un livre ou fais des étirements doux à la place.';
 
   @override
   String get formSleepEnvironment =>
-      'Use blackout curtains, keep room at 18-20°C, remove all light sources. Use a comfortable mattress and pillow.';
+      'Utilise des rideaux occultants, garde la chambre entre 18 et 20 °C et éteins toutes les sources de lumière. Dors sur un matelas et un oreiller confortables.';
 
   @override
   String get formPreSleepRoutine =>
@@ -2623,85 +2630,87 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get sciMorningStretch =>
-      'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention';
+      'Les étirements du matin soulagent les disques de la colonne, réhydratés pendant la nuit, et t\'aident à garder ta taille au fil de la journée';
 
   @override
   String get sciBarHanging =>
-      'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height';
+      'La suspension soulage les disques vertébraux grâce à la gravité qui étire la colonne, ce qui peut te faire gagner un peu de taille temporairement';
 
   @override
   String get sciCobraStretch =>
-      'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting';
+      'Le cobra étire la colonne et ouvre la poitrine, ce qui compense la compression due à la position assise';
 
   @override
   String get sciJumping =>
-      'High-impact jumping stimulates growth plates in the legs and triggers growth hormone release';
+      'Les sauts avec impact sollicitent les cartilages de croissance des jambes et stimulent la libération d\'hormone de croissance';
 
   @override
   String get sciSwimmingBasketball =>
-      'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity';
+      'La natation et le basket font travailler tout le corps en extension, en saut et en allonge, ce qui sollicite les cartilages de croissance';
 
   @override
   String get sciEveningYoga =>
-      'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery';
+      'Le yoga du soir réduit le cortisol, qui freine l\'hormone de croissance, et étire les muscles pour la récupération de la nuit';
 
   @override
   String get sciSprintIntervals =>
-      'Sprinting triggers significant growth hormone release';
+      'Le sprint provoque une forte libération d\'hormone de croissance';
 
   @override
   String get sciHiitWorkout =>
-      'High intensity exercise increases HGH by up to 450%';
+      'L\'exercice intense peut augmenter l\'hormone de croissance jusqu\'à 450 %';
 
   @override
-  String get sciSquats => 'Squats stimulate growth plates in legs and spine';
+  String get sciSquats =>
+      'Les squats sollicitent les cartilages de croissance des jambes et de la colonne';
 
   @override
   String get sciDeadliftStretch =>
-      'Spinal decompression promotes vertebral disc health';
+      'Soulager la colonne favorise la santé des disques vertébraux';
 
   @override
   String get sciOverheadPress =>
-      'Overhead pressing stretches the spine and strengthens posture muscles';
+      'Pousser au-dessus de la tête étire la colonne et renforce les muscles de la posture';
 
   @override
   String get sciSkippingRope =>
-      'Repetitive jumping stimulates growth plates in lower extremities';
+      'Les sauts répétés sollicitent les cartilages de croissance des jambes';
 
   @override
   String get sciPilatesCore =>
-      'Core strength supports spinal alignment and posture';
+      'Une sangle abdominale solide soutient l\'alignement de la colonne et ta posture';
 
   @override
   String get sciInversionHang =>
-      'Inversion decompresses spinal discs, can temporarily add 1-2cm';
+      'L\'inversion soulage les disques vertébraux et peut ajouter 1-2 cm temporairement';
 
   @override
   String get sciProtein =>
-      'Protein provides amino acids essential for bone and muscle growth, especially during growth spurts';
+      'Les protéines apportent les acides aminés dont tes os et tes muscles ont besoin pour grandir, surtout pendant les poussées de croissance';
 
   @override
   String get sciCalciumVitaminD =>
-      'Calcium and Vitamin D are the primary building blocks for bone density and linear bone growth';
+      'Le calcium et la vitamine D sont les bases de la densité osseuse et de la croissance des os en longueur';
 
   @override
   String get sciWater =>
-      'Hydration is essential for nutrient transport to growth plates and joint cartilage health';
+      'Bien t\'hydrater transporte les nutriments vers les cartilages de croissance et garde le cartilage des articulations en bonne santé';
 
   @override
   String get sciAvoidJunk =>
-      'Processed foods and sugar cause inflammation and insulin spikes that suppress growth hormone secretion';
+      'Les aliments transformés et le sucre provoquent de l\'inflammation et des pics d\'insuline qui freinent la sécrétion d\'hormone de croissance';
 
   @override
-  String get sciZincIntake => 'Zinc is essential for growth hormone production';
+  String get sciZincIntake =>
+      'Le zinc est essentiel à la production d\'hormone de croissance';
 
   @override
   String get sciVitaminDSunlight =>
-      'Vitamin D is crucial for calcium absorption and bone growth';
+      'La vitamine D est indispensable pour absorber le calcium et faire grandir les os';
 
   @override
   String get sciArginineFoods =>
-      'L-Arginine stimulates growth hormone secretion';
+      'La L-arginine stimule la sécrétion d\'hormone de croissance';
 
   @override
   String get sciDailyCalories =>
@@ -2709,35 +2718,35 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get sciQualitySleep =>
-      '70-80% of daily growth hormone is released during deep sleep stages, especially between 10 PM and 2 AM';
+      '70-80 % de l\'hormone de croissance de la journée est libérée pendant le sommeil profond, surtout entre 22 h et 2 h';
 
   @override
   String get sciNoScreen =>
-      'Blue light from screens suppresses melatonin production, delaying sleep onset and reducing deep sleep quality';
+      'La lumière bleue des écrans freine la production de mélatonine, retarde l\'endormissement et réduit la qualité du sommeil profond';
 
   @override
   String get sciSleepEnvironment =>
-      'Dark, cool environment maximizes melatonin and growth hormone';
+      'Une chambre sombre et fraîche favorise la mélatonine et l\'hormone de croissance';
 
   @override
   String get sciPreSleepRoutine =>
-      'Consistent pre-sleep routine improves deep sleep quality by 23%';
+      'Une routine régulière avant le coucher améliore la qualité du sommeil profond de 23 %';
 
   @override
   String get sciPostureCheck =>
-      'Correct posture alignment can immediately add 2-3 cm to apparent height and prevents spinal compression';
+      'Une bonne posture peut te faire paraître 2-3 cm plus grand tout de suite et évite la compression de la colonne';
 
   @override
   String get sciWallStand =>
-      'Wall stands train postural muscle memory, helping maintain proper spinal alignment throughout the day';
+      'Se tenir contre le mur entraîne la mémoire musculaire de ta posture pour garder la colonne bien alignée toute la journée';
 
   @override
   String get sciNeckStretches =>
-      'Neck stretches relieve compression and improve cervical alignment';
+      'Les étirements du cou soulagent la compression et améliorent l\'alignement cervical';
 
   @override
   String get sciShoulderRolls =>
-      'Opening shoulders corrects forward posture, can add 1-2cm appearance';
+      'Ouvrir les épaules corrige une posture penchée en avant et peut te faire paraître 1-2 cm plus grand';
 
   @override
   String get muscleSpine => 'Colonne vertébrale';
@@ -2821,7 +2830,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get routineFormField => 'Instructions';
 
   @override
-  String get routineFormHint => 'Optionnel — comment effectuer cette routine';
+  String get routineFormHint => 'Facultatif : comment faire cette routine';
 
   @override
   String get diffBeginner => 'Débutant';
@@ -2869,10 +2878,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get analyzingPosture => 'ANALYZING POSTURE';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get privacyPolicy => 'Politique de confidentialité';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get termsOfService => 'Conditions d\'utilisation';
 
   @override
   String version(String ver) {
@@ -2886,13 +2895,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get rateAppSubtitle => 'Your review helps us grow!';
 
   @override
-  String get unitSystem => 'Unit System';
+  String get unitSystem => 'Système d\'unités';
 
   @override
-  String get unitMetric => 'Metric (cm, kg)';
+  String get unitMetric => 'Métrique (cm, kg)';
 
   @override
-  String get unitImperial => 'Imperial (ft-in, lbs)';
+  String get unitImperial => 'Impérial (ft-in, lbs)';
 
   @override
   String get healthDisclaimer => 'Health Disclaimer';
@@ -3053,31 +3062,31 @@ class AppLocalizationsFr extends AppLocalizations {
   String get testimonialDuration5 => '4 mois';
 
   @override
-  String get designedForYou => 'Conçu pour vous';
+  String get designedForYou => 'Conçu pour toi';
 
   @override
   String get designedForYouDesc =>
-      'BeTaller a été conçu spécialement pour vous aider à atteindre votre potentiel génétique.';
+      'BeTaller a été conçu spécialement pour t\'aider à atteindre ton potentiel génétique.';
 
   @override
   String get greetingAllDone => 'Excellent ! 🎯';
 
   @override
-  String get greetingAllDoneSub => 'Vous avez terminé les tâches du jour.';
+  String get greetingAllDoneSub => 'Tu as terminé les tâches du jour.';
 
   @override
   String greetingStreak30(int streak) {
-    return 'Série de $streak jours, niveau légendaire.';
+    return 'Série de $streak jours. Niveau légendaire.';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return 'Série de $streak jours, continuez.';
+    return 'Série de $streak jours. Continue comme ça.';
   }
 
   @override
   String greetingStreak3(int streak) {
-    return '$streak jours d\'affilée. La plupart abandonnent. Pas vous.';
+    return '$streak jours d\'affilée. La plupart abandonnent. Pas toi.';
   }
 
   @override
@@ -3086,10 +3095,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get greetingAfternoon =>
-      'Aujourd\'hui est parfait pour commencer votre série.';
+      'Aujourd\'hui est parfait pour commencer ta série.';
 
   @override
-  String get greetingEvening => 'Terminez vos tâches, commencez votre série.';
+  String get greetingEvening => 'Termine tes tâches, commence ta série.';
 
   @override
   String get todayCompleted => 'Aujourd\'hui terminé ✓';
@@ -3122,7 +3131,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get growthTracking => 'Suivi de croissance';
 
   @override
-  String get growthEmptyFirst => 'Enregistrez votre première taille.';
+  String get growthEmptyFirst =>
+      'Enregistre ta première taille pour commencer le suivi.';
 
   @override
   String get growthEmptySecond => '2e mesure pour voir le graphique.';
@@ -3198,18 +3208,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aiAnalysisLabel => 'ANALYSE DE CROISSANCE';
 
   @override
-  String get peerCompareLabel => 'COMPARER AVEC VOS PAIRS';
+  String get peerCompareLabel => 'COMPARER AVEC TES PAIRS';
 
   @override
   String peerCompareText(int topPct) {
-    return 'Vous êtes dans le Top $topPct% de vos pairs';
+    return 'Tu es dans le Top $topPct% de tes pairs';
   }
 
   @override
-  String get notifWaterTitle => '💧 N\'oubliez pas de boire !';
+  String get notifWaterTitle => '💧 N\'oublie pas de boire !';
 
   @override
-  String get notifWaterBody => 'Objectif atteint ? Buvez encore un verre !';
+  String get notifWaterBody => 'Objectif atteint ? Bois encore un verre !';
 
   @override
   String get notifMorningTitle => '🌅 Bonjour ! Exercice';
@@ -3219,11 +3229,11 @@ class AppLocalizationsFr extends AppLocalizations {
       'Étirements matinaux ! 10 minutes pour colonne et jambes.';
 
   @override
-  String get notifRoutineTitle => '🔥 Complétez vos routines !';
+  String get notifRoutineTitle => '🔥 Complète tes routines !';
 
   @override
   String get notifRoutineBody =>
-      'Vérifiez avant fin de journée. Série = discipline !';
+      'Vérifie tes routines avant la fin de la journée. Série = discipline !';
 
   @override
   String get notifProteinTitle => '🥚 Jour protéines !';
@@ -3243,7 +3253,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get notifSleepBody =>
-      'Hormone de croissance maximale entre 22h-2h. Posez le téléphone !';
+      'L\'hormone de croissance est au max entre 22 h et 2 h. Pose ton téléphone !';
 
   @override
   String get notifPostureTitle => '🧍 Posture !';
@@ -3311,7 +3321,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get notifMeasureTitle => '📏 Mesure hebdo !';
 
   @override
-  String get notifMeasureBody => 'Mesurez-vous ! Le matin est le plus précis.';
+  String get notifMeasureBody =>
+      'Mesure-toi et note ta taille ! Le matin, c\'est le plus précis.';
 
   @override
   String get notifEarlySleepTitle => '😴 Couchez-vous tôt !';
@@ -3324,7 +3335,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get notifStreak3Title => '🔥 Série de 3 jours !';
 
   @override
-  String get notifStreak3Body => 'Super début ! 3 jours. Continuez vers 7 !';
+  String get notifStreak3Body =>
+      'Super début ! 3 jours d\'affilée. Continue jusqu\'à 7 !';
 
   @override
   String get notifStreak7Title => '🏆 1 semaine !';
@@ -3337,13 +3349,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get notifStreak14Body =>
-      '14 jours de discipline ! Votre corps change.';
+      '14 jours de discipline ! Ton corps commence à changer.';
 
   @override
   String get notifStreak30Title => '👑 1 mois !';
 
   @override
-  String get notifStreak30Body => '30 jours ! Vous êtes champion !';
+  String get notifStreak30Body => '30 jours ! Tu es un champion !';
 
   @override
   String get notifStreak60Title => '🌟 60 jours !';
@@ -3355,14 +3367,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get notifStreak100Title => '💎 100 JOURS ! LÉGENDAIRE !';
 
   @override
-  String get notifStreak100Body => '100 jours ! Vous êtes une légende.';
+  String get notifStreak100Body =>
+      '100 jours d\'affilée ! Tu es devenu une légende.';
 
   @override
-  String get notifStreakRiskTitle => '⚠️ Ne perdez pas votre série !';
+  String get notifStreakRiskTitle => '⚠️ Ne perds pas ta série !';
 
   @override
   String notifStreakRiskBody(int streak) {
-    return 'Votre série de $streak jours est en danger !';
+    return 'Ta série de $streak jours est en danger ! Complète tes routines.';
   }
 
   @override
@@ -3433,7 +3446,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get paywallRestoreNotFound => 'Aucun achat trouvé';
 
   @override
-  String get paywallPromoCode => 'Vous avez un code promo ?';
+  String get paywallPromoCode => 'Tu as un code promo ?';
 
   @override
   String get paywallHeightUnit => 'taille visée';
@@ -3550,7 +3563,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tourHomeStreakDesc =>
-      'Augmente tant que tu gardes ta discipline — rate un jour et elle repart à zéro.';
+      'Augmente tant que tu gardes ta discipline. Rate un jour et elle repart à zéro.';
 
   @override
   String get tourHomeXpTitle => 'Ton Niveau';
@@ -3600,7 +3613,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tourPlanTodayListDesc =>
-      'Coche chacune au fur et à mesure — touche une routine pour voir les détails.';
+      'Coche chacune au fur et à mesure. Touche une routine pour voir les détails.';
 
   @override
   String get tourPlanWeekGoalsTitle => 'Cette Semaine';
@@ -3614,7 +3627,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tourPlanMonthGoalsDesc =>
-      'Photo de progression, contrôle de posture et les mesures de ce mois — celles à ne pas manquer.';
+      'Photo de progression, contrôle de posture et les mesures de ce mois : celles à ne pas manquer.';
 
   @override
   String get tourProgressHeightTitle => 'Ta Taille Actuelle';
@@ -3791,7 +3804,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get journeyTourDoneSubtitle =>
-      'Tu as terminé les trois étapes. À toi de jouer maintenant — commence ton parcours en complétant ta première routine.';
+      'Tu as terminé les trois étapes. À toi de jouer : commence ton parcours en complétant ta première routine.';
 
   @override
   String get journeyViewPlansButton => 'Voir les plans pour commencer';
@@ -3807,7 +3820,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String paywallSavePercent(String percent) {
-    return 'ÉCONOMISEZ $percent%';
+    return 'ÉCONOMISE $percent%';
   }
 
   @override
@@ -3835,7 +3848,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get paywallFreeTrial => '3 jours gratuits';
 
   @override
-  String get paywallLoadError => 'Impossible de charger, réessayez';
+  String get paywallLoadError => 'Impossible de charger les offres, réessaie';
 
   @override
   String get paywallCtaAlt => 'Continuer';
@@ -3876,7 +3889,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String resultRange(String min, String max) {
-    return 'Fourchette probable : $min – $max';
+    return 'Fourchette probable : de $min à $max';
   }
 
   @override
@@ -4016,7 +4029,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get painGeneticDesc =>
-      'La génétique détermine 60 % — les 40 % restants, c\'est toi qui les détermines. BeTaller est là exactement pour ces 40 %.';
+      'La génétique détermine 60 %, les 40 % restants, c\'est toi qui les détermines. BeTaller est là exactement pour ces 40 %.';
 
   @override
   String get painGeneticTag => 'Analyse';
@@ -4047,7 +4060,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get painExerciseDesc =>
-      'Étirements du matin, suspension, exercices pour la colonne — BeTaller a tout préparé et planifié pour toi. Seulement 8 à 12 minutes par jour.';
+      'Étirements du matin, suspension, exercices pour la colonne : BeTaller a tout préparé et planifié pour toi. Seulement 8 à 12 minutes par jour.';
 
   @override
   String get painExerciseTag => 'Routines';
@@ -4058,7 +4071,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get painNutritionDesc =>
-      'Protéines, calcium, vitamine D — BeTaller te rappelle chaque jour quels nutriments prendre et quand.';
+      'Protéines, calcium, vitamine D : BeTaller te rappelle chaque jour quels nutriments prendre et quand.';
 
   @override
   String get painNutritionTag => 'Nutrition';
@@ -4068,7 +4081,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get painTrackingDesc =>
-      'Mesures mensuelles, photos de progression, courbe de croissance — vois chaque centimètre gagné.';
+      'Mesures mensuelles, photos de progression, courbe de croissance : vois chaque centimètre gagné.';
 
   @override
   String get painTrackingTag => 'Progression';
@@ -4325,7 +4338,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String daysLeftProgram(int days) {
-    return '$days jours restants dans ton programme';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours restants',
+      one: '$days jour restant',
+    );
+    return '$_temp0 dans ton programme';
   }
 
   @override
@@ -4403,7 +4422,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get paywallSlideHomeCaption =>
-      'Routines, eau, sommeil — trois cercles à fermer.';
+      'Routines, eau, sommeil : trois cercles à fermer.';
 
   @override
   String get paywallSlideProgressTitle => 'Vois chaque centimètre';
@@ -4800,7 +4819,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String anBConsistency(int streak, int active, int days) {
-    return 'Série de $streak jours, $active jours sur $days avec la moitié du plan faite';
+    String _temp0 = intl.Intl.pluralLogic(
+      streak,
+      locale: localeName,
+      other: '$streak jours',
+      one: '$streak jour',
+    );
+    return 'Série de $_temp0, $active jours sur $days avec la moitié du plan faite';
   }
 
   @override
@@ -4809,7 +4834,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String anBSleep(String hours, String target, int days) {
-    return '$hours h par nuit en moyenne, objectif $target h, $days nuits notées';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days nuits notées',
+      one: '$days nuit notée',
+    );
+    return '$hours h par nuit en moyenne, objectif $target h, $_temp0';
   }
 
   @override
@@ -4817,7 +4848,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String anBHydration(String litres, String target, int days) {
-    return '$litres L par jour en moyenne, objectif $target L, $days jours notés';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours notés',
+      one: '$days jour noté',
+    );
+    return '$litres L par jour en moyenne, objectif $target L, $_temp0';
   }
 
   @override
@@ -4834,7 +4871,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String anBPosture(int raw, int days) {
-    return 'Auto-test au mur $raw/90, il y a $days jours';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours',
+      one: '$days jour',
+    );
+    return 'Auto-test au mur $raw/90, il y a $_temp0';
   }
 
   @override
@@ -4847,7 +4890,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String anBMeasuring(int days) {
-    return 'Dernière mesure il y a $days jours';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours',
+      one: '$days jour',
+    );
+    return 'Dernière mesure il y a $_temp0';
   }
 
   @override
@@ -4919,7 +4968,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String anAGrowthWait(int days) {
-    return 'Remesure-toi dans $days jours';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours',
+      one: '$days jour',
+    );
+    return 'Remesure-toi dans $_temp0';
   }
 
   @override
@@ -5061,7 +5116,7 @@ class AppLocalizationsFr extends AppLocalizations {
       days,
       locale: localeName,
       other: '$days jours',
-      one: '1 jour',
+      one: '$days jour',
     );
     return '$delta entre ces deux photos, prises à $_temp0 d\'écart.';
   }
@@ -5072,7 +5127,7 @@ class AppLocalizationsFr extends AppLocalizations {
       days,
       locale: localeName,
       other: '$days jours',
-      one: '1 jour',
+      one: '$days jour',
     );
     return 'Même taille, à $_temp0 d\'écart. La posture et la silhouette changent d\'abord, la taille suit sur des mois.';
   }
@@ -5579,7 +5634,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String plNextLevelIn(int days, int level) {
-    return '$days jours avant le niveau $level';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours',
+      one: '$days jour',
+    );
+    return '$_temp0 avant le niveau $level';
   }
 
   @override
@@ -5784,7 +5845,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get plFoodSpinach => 'Épinards';
 
   @override
-  String get plFoodCottageCheese => 'Cottage cheese';
+  String get plFoodCottageCheese => 'Fromage cottage';
 
   @override
   String get plFoodChicken => 'Blanc de poulet';
@@ -5833,4 +5894,25 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get plFoodPumpkinSeeds => 'Graines de courge';
+
+  @override
+  String get wtCoffee => 'Café';
+
+  @override
+  String get wtTea => 'Thé';
+
+  @override
+  String get wtCola => 'Cola';
+
+  @override
+  String get wtEnergyDrink => 'Énergie';
+
+  @override
+  String get crCustomBadge => 'Perso';
+
+  @override
+  String get crNameHint => 'ex. Étirements énergie du matin';
+
+  @override
+  String get crDoseHint => 'ex. 3x10 répétitions ou 3x30 secondes';
 }

@@ -20,6 +20,7 @@ import '../widgets/tour_keys.dart';
 import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/water_sheet.dart';
+import '../utils/text_case.dart';
 
 // ── Design Tokens (reference AppColors for consistency) ───────────
 const double _radiusXL = 30.0;
@@ -1316,16 +1317,25 @@ class _TrackCard extends StatelessWidget {
               children: [
                 Icon(icon, color: displayColor, size: 18),
                 const SizedBox(width: 7),
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: displayColor,
-                    letterSpacing: -0.1,
+                // Shrinks instead of cutting "Wasser" / "Sommeil" on a
+                // 320 pt phone, where the card is barely wider than its icons.
+                Expanded(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      label,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: displayColor,
+                        letterSpacing: -0.1,
+                      ),
+                    ),
                   ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 6),
                 GestureDetector(
                   onTap: onAdd,
                   child: Container(
@@ -1474,16 +1484,20 @@ class _ChallengesSection extends StatelessWidget {
           padding: const EdgeInsets.only(left: 4),
           child: Row(
             children: [
-              Text(
-                l.dailyChallengesLabel,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white.withValues(alpha: 0.30),
-                  letterSpacing: 2.5,
+              Expanded(
+                child: Text(
+                  l.dailyChallengesLabel,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white.withValues(alpha: 0.30),
+                    letterSpacing: 2.5,
+                  ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(width: 8),
               if (isEvening && incomplete.isNotEmpty)
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -2069,7 +2083,7 @@ class _DailyTipCard extends StatelessWidget {
               const Text('💡', style: TextStyle(fontSize: 18)),
               const SizedBox(width: 8),
               Text(
-                l.dailyTip.toUpperCase(),
+                l.dailyTip.upperIn(context),
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,

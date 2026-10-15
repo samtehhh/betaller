@@ -10,6 +10,7 @@ import '../models/routine.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/localized_data.dart';
+import '../utils/text_case.dart';
 
 
 /// Parsed set/rep info from setsReps string.
@@ -544,11 +545,13 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                 fontWeight: FontWeight.w800,
                 color: Colors.white,
                 letterSpacing: -0.3,
+                height: 1.15,
               ),
-              maxLines: 1,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
           ),
+          const SizedBox(width: 8),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
@@ -557,7 +560,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
               border: Border.all(color: diffColor.withValues(alpha: 0.4)),
             ),
             child: Text(
-              _difficultyLabel(widget.routine.difficulty, l).toUpperCase(),
+              _difficultyLabel(widget.routine.difficulty, l).upperIn(context),
               style: TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w800,
@@ -622,7 +625,8 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // Status badge
-              Container(
+              Flexible(
+                child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.black.withValues(alpha: 0.30),
@@ -647,14 +651,15 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                       size: 14,
                     ),
                     const SizedBox(width: 6),
-                    Text(
+                    Flexible(
+                      child: Text(
                       _allSetsComplete
-                          ? l.allSetsComplete.toUpperCase()
+                          ? l.allSetsComplete.upperIn(context)
                           : _isResting
-                              ? l.rest.toUpperCase()
+                              ? l.rest.upperIn(context)
                               : isTimed
-                                  ? l.setTimer.toUpperCase()
-                                  : l.setTracker.toUpperCase(),
+                                  ? l.setTimer.upperIn(context)
+                                  : l.setTracker.upperIn(context),
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w800,
@@ -665,10 +670,15 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                                 : catColor,
                         letterSpacing: 1,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     ),
                   ],
                 ),
               ),
+              ),
+              const SizedBox(width: 8),
               // Set counter
               Text(
                 _allSetsComplete
@@ -692,19 +702,19 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
           else if (_isResting)
             _buildBigNumber(
               value: _formatTime(_remainingSeconds),
-              label: l.restBeforeSet('${_currentSet + 1}').toUpperCase(),
+              label: l.restBeforeSet('${_currentSet + 1}').upperIn(context),
               color: AppColors.orange,
             )
           else if (isTimed)
             _buildBigNumber(
               value: _formatTime(_remainingSeconds),
-              label: l.perSet.toUpperCase(),
+              label: l.perSet.upperIn(context),
               color: catColor,
             )
           else
             _buildBigNumber(
               value: '${_perSetReps ?? 0}',
-              label: l.reps.toUpperCase(),
+              label: l.reps.upperIn(context),
               color: catColor,
             ),
 
@@ -736,8 +746,11 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
             final pulse = _isRunning ? 1.0 + (_pulseController.value * 0.03) : 1.0;
             return Transform.scale(scale: pulse, child: child);
           },
-          child: Text(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
             value,
+            maxLines: 1,
             style: TextStyle(
               fontSize: 84,
               fontWeight: FontWeight.w900,
@@ -752,10 +765,12 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
               ],
             ),
           ),
+          ),
         ),
         const SizedBox(height: 4),
         Text(
           label,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w700,
@@ -792,7 +807,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
         ),
         const SizedBox(height: 12),
         Text(
-          l.allSetsComplete.toUpperCase(),
+          l.allSetsComplete.upperIn(context),
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w900,
@@ -839,7 +854,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
     if (_isResting) {
       return _bigActionButton(
         icon: CupertinoIcons.forward_fill,
-        label: l.skipRest.toUpperCase(),
+        label: l.skipRest.upperIn(context),
         color: AppColors.orange,
         onTap: () {
           HapticFeedback.mediumImpact();
@@ -869,7 +884,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
             flex: 3,
             child: _bigActionButton(
               icon: _isRunning ? CupertinoIcons.pause_fill : CupertinoIcons.play_fill,
-              label: (_isRunning ? l.pause : l.start).toUpperCase(),
+              label: (_isRunning ? l.pause : l.start).upperIn(context),
               color: catColor,
               onTap: _isRunning ? _pauseTimer : _startTimer,
             ),
@@ -881,7 +896,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
     // Rep-based
     return _bigActionButton(
       icon: CupertinoIcons.checkmark_alt,
-      label: l.done.toUpperCase(),
+      label: l.done.upperIn(context),
       color: AppColors.success,
       onTap: _markRepSetDone,
     );
@@ -890,7 +905,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
   Widget _buildResetButton(AppLocalizations l) {
     return _bigActionButton(
       icon: CupertinoIcons.arrow_counterclockwise,
-      label: l.restart.toUpperCase(),
+      label: l.restart.upperIn(context),
       color: Colors.white.withValues(alpha: 0.65),
       onTap: _resetAllSets,
     );
@@ -1006,7 +1021,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                 Icon(CupertinoIcons.timer, color: catColor, size: 14),
                 const SizedBox(width: 6),
                 Text(
-                  l.builtInTimer.toUpperCase(),
+                  l.builtInTimer.upperIn(context),
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w800,
@@ -1020,7 +1035,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
           const SizedBox(height: 16),
           _buildBigNumber(
             value: _formatTime(_remainingSeconds),
-            label: isComplete ? l.doneExclamation.toUpperCase() : '${(totalSeconds / 60).round()} MIN',
+            label: isComplete ? l.doneExclamation.upperIn(context) : '${(totalSeconds / 60).round()} MIN',
             color: isComplete ? AppColors.success : catColor,
           ),
           const SizedBox(height: 18),
@@ -1039,7 +1054,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
                 flex: 3,
                 child: _bigActionButton(
                   icon: _isRunning ? CupertinoIcons.pause_fill : CupertinoIcons.play_fill,
-                  label: (_isRunning ? l.pause : l.start).toUpperCase(),
+                  label: (_isRunning ? l.pause : l.start).upperIn(context),
                   color: catColor,
                   onTap: _isRunning ? _pauseTimer : _startTimer,
                 ),

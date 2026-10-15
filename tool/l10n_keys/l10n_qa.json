@@ -1,0 +1,9 @@
+{
+  "wtCoffee": {"en": "Coffee", "tr": "Kahve", "de": "Kaffee", "fr": "Café", "es": "Café", "it": "Caffè", "pt": "Café", "hi": "कॉफ़ी"},
+  "wtTea": {"en": "Tea", "tr": "Çay", "de": "Tee", "fr": "Thé", "es": "Té", "it": "Tè", "pt": "Chá", "hi": "चाय"},
+  "wtCola": {"en": "Cola", "tr": "Kola", "de": "Cola", "fr": "Cola", "es": "Cola", "it": "Cola", "pt": "Refri", "hi": "कोला"},
+  "wtEnergyDrink": {"en": "Energy", "tr": "Enerji", "de": "Energy", "fr": "Énergie", "es": "Energética", "it": "Energy", "pt": "Energético", "hi": "एनर्जी"},
+  "crCustomBadge": {"en": "Custom", "tr": "Özel", "de": "Eigene", "fr": "Perso", "es": "Propia", "it": "Personale", "pt": "Própria", "hi": "अपनी"},
+  "crNameHint": {"en": "e.g. Morning Power Stretch", "tr": "Örn. Sabah Enerji Esnemesi", "de": "z. B. Power-Dehnen am Morgen", "fr": "ex. Étirements énergie du matin", "es": "p. ej. Estiramiento energético matutino", "it": "es. Stretching energetico del mattino", "pt": "ex.: Alongamento energético da manhã", "hi": "जैसे: सुबह का पावर स्ट्रेच"},
+  "crDoseHint": {"en": "e.g. 3x10 reps or 3x30 seconds", "tr": "Örn. 3x10 tekrar ya da 3x30 saniye", "de": "z. B. 3x10 Wdh. oder 3x30 Sekunden", "fr": "ex. 3x10 répétitions ou 3x30 secondes", "es": "p. ej. 3x10 repeticiones o 3x30 segundos", "it": "es. 3x10 ripetizioni o 3x30 secondi", "pt": "ex.: 3x10 repetições ou 3x30 segundos", "hi": "जैसे: 3x10 बार या 3x30 सेकंड"}
+}

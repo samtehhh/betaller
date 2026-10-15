@@ -347,7 +347,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get nutritionDefault =>
-      'Su hedefinizi tamamlayın ve dengeli beslenmeyi sürdürün.';
+      'Su hedefini tamamla ve dengeli beslenmeyi sürdür.';
 
   @override
   String sleepNoRecord(String hours) {
@@ -507,8 +507,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chartMinData => 'Grafik için en az 2 ölçüm gerekli';
 
   @override
-  String get chartInstruction =>
-      'İlerleme grafiğinizi görmek için ölçüm ekleyin!';
+  String get chartInstruction => 'İlerleme grafiğini görmek için ölçüm ekle!';
 
   @override
   String get addMeasurementButton => 'YENİ ÖLÇÜM EKLE';
@@ -520,7 +519,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get deleteTitle => 'Ölçümü Sil';
 
   @override
-  String get deleteMessage => 'Bu ölçümü silmek istediğinizden emin misiniz?';
+  String get deleteMessage => 'Bu ölçümü silmek istediğine emin misin?';
 
   @override
   String get dismiss => 'İptal';
@@ -673,10 +672,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get premiumSubtitle => 'Tüm özelliklerin kilidini aç';
 
   @override
-  String get rateUs => 'Bizi Değerlendirin';
+  String get rateUs => 'Bizi Değerlendir';
 
   @override
-  String get rateSubtitle => 'Uygulamayı beğendiniz mi? 5 yıldız verin!';
+  String get rateSubtitle => 'Uygulamayı beğendin mi? 5 yıldız ver!';
 
   @override
   String get share => 'Uygulamayı Paylaş';
@@ -705,7 +704,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get resetMessage =>
-      'Tüm veriler silinecek ve giriş ekranına döneceksiniz. Bu işlem geri alınamaz!';
+      'Tüm veriler silinecek ve giriş ekranına döneceksin. Bu işlem geri alınamaz!';
 
   @override
   String get reset => 'Sıfırla';
@@ -812,10 +811,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get pastHeightsInfo =>
-      'Farklı yaşlarda hatırladığınız boyları girin. Boş bırakabilirsiniz.';
+      'Farklı yaşlarda hatırladığın boyları gir. Boş bırakabilirsin.';
 
   @override
-  String get heightHint => 'Boy girin...';
+  String get heightHint => 'Boy gir...';
 
   @override
   String get ageLabel => 'yaş';
@@ -869,7 +868,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get analysisComplete => 'Tamamlandı!';
 
   @override
-  String get analysisDataReceivedTitle => 'Verileriniz Alındı';
+  String get analysisDataReceivedTitle => 'Verilerin Alındı';
 
   @override
   String get analysisDataReceivedSubtitle => 'Analiz başlıyor...';
@@ -934,15 +933,15 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tipMorningMeasure =>
-      'Boyunuzu sabah ölçün - gün içinde diskler üzerindeki basınç boy kaybına neden olur. En doğru ölçüm sabah yapılır.';
+      'Boyunu sabah ölç. Gün içinde disklere binen basınç boyu biraz kısaltır, en doğru ölçüm sabah yapılır.';
 
   @override
   String get tipProteinSpread =>
-      'Protein alımını öğünlere yayın. Hepsini bir seferde yemeyin, her öğünde protein tüketin.';
+      'Protein alımını öğünlere yay. Hepsini bir seferde yeme, her öğünde protein al.';
 
   @override
   String get tipGrowthHormone =>
-      'Büyüme hormonu uyku sırasında zirve yapar. Gece 22:00-02:00 arası uykuda olun!';
+      'Büyüme hormonu uyku sırasında zirve yapar. Gece 22:00-02:00 arası uykuda ol!';
 
   @override
   String get tipVitaminD =>
@@ -950,7 +949,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tipBarHanging =>
-      'Barfiks çubuğunda asılmak omurgayı açar. Günde 3x30 saniye deneyin.';
+      'Barfiks çubuğunda asılmak omurgayı açar. Günde 3x30 saniye dene.';
 
   @override
   String get tipSwimming =>
@@ -958,49 +957,49 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tipStress =>
-      'Stres büyüme hormonunu baskılar. Meditasyon ve yoga ile stresi azaltın.';
+      'Stres büyüme hormonunu baskılar. Meditasyon ve yoga ile stresini azalt.';
 
   @override
   String get routineMorningStretch => 'Sabah Esneme';
 
   @override
   String get routineMorningStretchDesc =>
-      'Uyanır uyanmaz 10 dakika esneme yapın. Omurga ve bacak kaslarını esnetin.';
+      'Uyanır uyanmaz 10 dakika esneme yap. Omurga ve bacak kaslarını esnet.';
 
   @override
   String get routineBarHanging => 'Barfiks Çubuğunda Asılma';
 
   @override
   String get routineBarHangingDesc =>
-      'Barfiks çubuğunda asılarak omurgayı uzatın. 3 set x 30 saniye.';
+      'Barfiks çubuğunda asılarak omurganı uzat. 3 set x 30 saniye.';
 
   @override
   String get routineCobraStretch => 'Kobra Esneme';
 
   @override
   String get routineCobraStretchDesc =>
-      'Yüzüstü yatın ve üst vücudu kaldırın. Omurgayı esnetin. 3 set x 15 saniye.';
+      'Yüzüstü yat ve üst gövdeni kaldır. Omurganı esnet. 3 set x 15 saniye.';
 
   @override
   String get routineJumping => 'Zıplama Egzersizleri';
 
   @override
   String get routineJumpingDesc =>
-      'İp atlama veya squat jump yapın. Büyüme plaklarını uyarır. 3 set x 20 tekrar.';
+      'İp atla ya da squat jump yap. Büyüme plaklarını uyarır. 3 set x 20 tekrar.';
 
   @override
   String get routineSwimming => 'Yüzme veya Basketbol';
 
   @override
   String get routineSwimmingDesc =>
-      'Boy uzamayı destekleyen bir spor yapın. En az 30 dakika.';
+      'Boy uzamayı destekleyen bir spor yap. En az 30 dakika.';
 
   @override
   String get routineYoga => 'Akşam Yoga ve Esneme';
 
   @override
   String get routineYogaDesc =>
-      'Yatmadan önce yoga ve esneme rutini. Stresi atın, kasları gevşetin.';
+      'Yatmadan önce yoga ve esneme rutini. Stresi at, kaslarını gevşet.';
 
   @override
   String get routineProtein => 'Protein Alımı';
@@ -1014,21 +1013,21 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get routineCalciumDesc =>
-      'Süt, peynir, yoğurt tüketin. 15 dk güneşlenin. Kemik gelişimi için kritik.';
+      'Süt, peynir, yoğurt tüket. 15 dk güneşlen. Kemik gelişimi için kritik.';
 
   @override
   String get routineWater => 'Su İçme Hedefi';
 
   @override
   String get routineWaterDesc =>
-      'Günde en az 2-3 litre su için. Metabolizma ve büyüme için şart.';
+      'Günde en az 2-3 litre su iç. Metabolizma ve büyüme için şart.';
 
   @override
-  String get routineAvoidJunk => 'Abur Cuburdan Kaçının';
+  String get routineAvoidJunk => 'Abur Cuburdan Uzak Dur';
 
   @override
   String get routineAvoidJunkDesc =>
-      'Fast food, şekerli içecekler ve işlenmiş gıdalardan uzak durun.';
+      'Fast food, şekerli içecekler ve işlenmiş gıdalardan uzak dur.';
 
   @override
   String get routineSleep => 'Kaliteli Uyku (8-10 saat)';
@@ -1042,21 +1041,21 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get routineNoScreenDesc =>
-      'Yatmadan 1 saat önce telefon ve bilgisayarı bırakın. Melatonin üretimini engellemeyin.';
+      'Yatmadan 1 saat önce telefonu ve bilgisayarı bırak. Melatonin üretimini engelleme.';
 
   @override
   String get routinePosture => 'Duruş Kontrolü';
 
   @override
   String get routinePostureDesc =>
-      'Sırtınızı dik, omuzlarınızı geriye doğru tutun. Her saat kontrol edin. İyi duruş = 2-3 cm fark.';
+      'Sırtını dik, omuzlarını geride tut. Her saat kontrol et. İyi duruş = 2-3 cm fark.';
 
   @override
   String get routineWallStand => 'Duvara Yaslanma Egzersizi';
 
   @override
   String get routineWallStandDesc =>
-      'Sırtınızı duvara yaslayın: topuklar, kalça, omuzlar, baş duvara değsin. 5 dk tutun.';
+      'Sırtını duvara yasla: topuklar, kalça, omuzlar ve baş duvara değsin. 5 dk tut.';
 
   @override
   String get routineSprintIntervals => 'Sprint Aralıkları';
@@ -1119,35 +1118,35 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get routineZincIntakeDesc =>
-      'Büyüme hormonu üretimi için gün boyunca çinko açısından zengin gıdalar tüketin.';
+      'Büyüme hormonu üretimi için gün boyunca çinko açısından zengin gıdalar tüket.';
 
   @override
   String get routineVitaminDSunlight => 'D Vitamini ve Güneş Işığı';
 
   @override
   String get routineVitaminDSunlightDesc =>
-      'D vitamini sentezi ve kemik büyümesi için en az 15 dakika doğrudan güneş ışığı alın.';
+      'D vitamini sentezi ve kemik büyümesi için en az 15 dakika doğrudan güneş ışığı al.';
 
   @override
   String get routineArginineFoods => 'Arjinin Açısından Zengin Gıdalar';
 
   @override
   String get routineArginineFoodsDesc =>
-      'Büyüme hormonu salgısını uyarmak için arjinin açısından zengin gıdalar yiyin.';
+      'Büyüme hormonu salgısını uyarmak için arjinin açısından zengin gıdalar ye.';
 
   @override
   String get routineDailyCalories => 'Günlük Kalori Hedefi';
 
   @override
   String get routineDailyCaloriesDesc =>
-      'Günlük kalori hedefine ulaş — yetersiz kalori büyümeyi yavaşlatır.';
+      'Günlük kalori hedefine ulaş. Yetersiz kalori büyümeyi yavaşlatır.';
 
   @override
   String get routineSleepEnvironment => 'Uyku Ortamını Optimize Et';
 
   @override
   String get routineSleepEnvironmentDesc =>
-      'Melatonin ve büyüme hormonu salgısını en üst düzeye çıkarmak için karanlık, serin bir uyku ortamı oluşturun.';
+      'Melatonin ve büyüme hormonu salgısını en üst düzeye çıkarmak için karanlık, serin bir uyku ortamı oluştur.';
 
   @override
   String get routinePreSleepRoutine => 'Uyku Öncesi Gevşeme';
@@ -1320,7 +1319,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get quote17 => 'Her gün ilerleme göster, %1 bile olsa.';
 
   @override
-  String get quote18 => 'Ayna ilerlemenizi gösterecek, sabırlı olun.';
+  String get quote18 => 'Ayna ilerlemeni gösterecek, sabırlı ol.';
 
   @override
   String get bmiNormal => 'Normal';
@@ -1378,7 +1377,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get hoursShort => 'sa';
 
   @override
-  String get selectLanguage => 'Dil Seçin';
+  String get selectLanguage => 'Dil Seç';
 
   @override
   String get systemLanguage => 'Sistem Dili';
@@ -1944,7 +1943,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get globalAveragesTable => 'Yaşa Göre Küresel Ortalamalar';
 
   @override
-  String get standingTall => 'Boyun Yüksek';
+  String get standingTall => 'Dimdik Duruş';
 
   @override
   String get standingAboveAverage => 'Ortalamanın Üstünde';
@@ -2025,7 +2024,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get wellnessHeader => 'SAĞLIK';
 
   @override
-  String get wellnessSubtitle => 'Büyümenizi etkileyen faktörleri takip edin';
+  String get wellnessSubtitle => 'Büyümeni etkileyen faktörleri takip et';
 
   @override
   String get caffeineToday => 'Bugünkü Kafein';
@@ -2037,7 +2036,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get approachingLimit => 'Limite yaklaşıyor';
 
   @override
-  String get overLimit => 'Limit aşıldı — HGH\'yi etkiler';
+  String get overLimit => 'Limit aşıldı, HGH\'yi etkiler';
 
   @override
   String get resetToday => 'Bugünü sıfırla';
@@ -2046,7 +2045,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get stressToday => 'Bugünkü Stres';
 
   @override
-  String get stressVeryCalmLabel => 'Çok sakin — büyüme için ideal';
+  String get stressVeryCalmLabel => 'Çok sakin, büyüme için ideal';
 
   @override
   String get stressCalmLabel => 'Sakin';
@@ -2059,7 +2058,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get stressVeryStressedLabel =>
-      'Çok stresli — kortizol HGH\'yi engeller';
+      'Çok stresli, kortizol HGH\'yi engeller';
 
   @override
   String get stressTapToLog => 'Bugün nasıl hissettiğini kaydet';
@@ -2106,26 +2105,26 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get insightCaffeineHigh =>
-      'Bu hafta kafein tüketiminiz yüksek. Daha iyi uyku ve HGH için azaltmayı deneyin.';
+      'Bu hafta kafein tüketimin yüksek. Daha iyi uyku ve HGH için azaltmayı dene.';
 
   @override
   String get insightStressHigh =>
-      'Bu hafta stres seviyeniz yüksek. Nefes egzersizlerini düşünün — kortizol büyümeyi engeller.';
+      'Bu hafta stres seviyen yüksek. Nefes egzersizlerini dene: kortizol büyümeyi engeller.';
 
   @override
   String get insightMoodLow =>
-      'Son günlerde ruh haliniz düşük. Güneş ışığı, uyku ve hafif egzersiz faydalı olur.';
+      'Son günlerde ruh halin düşük. Güneş ışığı, uyku ve hafif egzersiz iyi gelir.';
 
   @override
   String get insightGreat =>
-      'Bu hafta harika bir denge! Sağlığınız büyümenizi destekliyor.';
+      'Bu hafta harika bir denge! Sağlığın büyümeni destekliyor.';
 
   @override
   String get insightDefault =>
-      'Sağlığınız iyi yolda. Daha derin analizler için kayıt tutmaya devam edin.';
+      'Sağlığın iyi yolda. Daha derin analizler için kayıt tutmaya devam et.';
 
   @override
-  String get insightNeedMoreData => 'Analiz için birkaç gün daha kayıt yapın.';
+  String get insightNeedMoreData => 'Analiz için birkaç gün daha kayıt yap.';
 
   @override
   String get progressPhotosTitle => 'İlerleme Fotoğrafları';
@@ -2207,11 +2206,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get afterLabel => 'SONRA';
 
   @override
-  String get yourHeightDialog => 'Boyunuz';
+  String get yourHeightDialog => 'Boyun';
 
   @override
   String get heightDialogMessage =>
-      'Bu fotoğraf için güncel boyunuzu cm olarak girin';
+      'Bu fotoğraf için güncel boyunu cm olarak gir';
 
   @override
   String get postureAnalysisTitle => 'Postür Analizi';
@@ -2267,7 +2266,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get postureWallStandDesc =>
-      'Sırtınızı duvara dayayarak günde 2 dakika durun.';
+      'Sırtını duvara dayayarak günde 2 dakika dur.';
 
   @override
   String get postureChestOpener => 'Göğüs Açıcı';
@@ -2297,7 +2296,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get recipesHeader => 'TARİFLER';
 
   @override
-  String get recipesSubtitle => 'Büyümenizi besleyin';
+  String get recipesSubtitle => 'Büyümeni besle';
 
   @override
   String get recipesCategoryAll => 'Tümü';
@@ -2381,7 +2380,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get recipesAboutBody =>
-      'Büyümenizi desteklemek için özenle seçilmiş tarifler. Öğün türü veya besin hedefine göre filtreleyerek planınıza en uygun tarifi bulun.';
+      'Büyümeni desteklemek için özenle seçilmiş tarifler. Öğün türüne veya besin hedefine göre filtreleyerek planına en uygun tarifi bul.';
 
   @override
   String get animHintSpinalDecomp => 'Omurga dekompresyonu';
@@ -2793,7 +2792,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get routineFormField => 'Yapılışı ve Talimatlar';
 
   @override
-  String get routineFormHint => 'İsteğe bağlı — rutinin nasıl yapılacağı';
+  String get routineFormHint => 'İsteğe bağlı: rutinin nasıl yapılacağı';
 
   @override
   String get diffBeginner => 'Başlangıç';
@@ -3027,7 +3026,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get designedForYouDesc =>
-      'BeTaller, genetik limitine ulaşman — hatta onu aşman — için sana özel kuruldu. Her özellik, sen için.';
+      'BeTaller, genetik limitine ulaşman, hatta onu aşman için sana özel kuruldu. Her özellik, senin için.';
 
   @override
   String get greetingAllDone => 'Harika iş! 🎯';
@@ -3037,12 +3036,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String greetingStreak30(int streak) {
-    return '$streak günlük seri, efsane seviyedesin.';
+    return '$streak günlük seri. Efsane seviyedesin.';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return '$streak günlük seri, yoluna devam et.';
+    return '$streak günlük seri. Yoluna devam et.';
   }
 
   @override
@@ -3169,7 +3168,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String peerCompareText(int topPct) {
-    return 'Akranlarının Top $topPct%\'ündesin';
+    return 'Akranlarının en üst %$topPct dilimindesin';
   }
 
   @override
@@ -3524,7 +3523,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tourHomeStreakDesc =>
-      'Disiplinini bozmadığın sürece artar. Bir günü kaçırırsan sıfırlanır — düşürme!';
+      'Disiplinini bozmadığın sürece artar. Bir günü kaçırırsan sıfırlanır, düşürme!';
 
   @override
   String get tourHomeXpTitle => 'Seviyen (LVL)';
@@ -3569,11 +3568,11 @@ class AppLocalizationsTr extends AppLocalizations {
       'Günlük rutinlerini buradan işaretleyerek tamamla, serini büyüt.';
 
   @override
-  String get tourPlanTodayListTitle => 'Bugünün Rutinlerin';
+  String get tourPlanTodayListTitle => 'Bugünkü Rutinlerin';
 
   @override
   String get tourPlanTodayListDesc =>
-      'Yaptıkça buradan işaretle — detayları için bir rutine dokunup açabilirsin.';
+      'Yaptıkça buradan işaretle. Detaylar için bir rutine dokunup açabilirsin.';
 
   @override
   String get tourPlanWeekGoalsTitle => 'Bu Hafta';
@@ -3587,7 +3586,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tourPlanMonthGoalsDesc =>
-      'İlerleme fotoğrafı, postür kontrolü ve bu ayki ölçümler — kaçırmaman gerekenler.';
+      'İlerleme fotoğrafı, postür kontrolü ve bu ayki ölçümler: kaçırmaman gerekenler.';
 
   @override
   String get tourProgressHeightTitle => 'Güncel Boyun';
@@ -3764,7 +3763,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get journeyTourDoneSubtitle =>
-      'Üç adımı da tamamladın. Şimdi sıra sende — ilk rutinini tamamlayarak yolculuğuna başla.';
+      'Üç adımı da tamamladın. Şimdi sıra sende: ilk rutinini tamamlayarak yolculuğuna başla.';
 
   @override
   String get journeyViewPlansButton => 'Kullanım için planları gör';
@@ -3849,7 +3848,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String resultRange(String min, String max) {
-    return 'Olası aralık: $min – $max';
+    return 'Olası aralık: $min ile $max arası';
   }
 
   @override
@@ -3990,7 +3989,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get painGeneticDesc =>
-      'Genetiğin %60\'ını belirliyor — ama yaptıkların geri kalan %40\'ı belirliyor. BeTaller tam da bu %40 için burada.';
+      'Genetik %60\'ı belirliyor, ama geri kalan %40\'ı yaptıkların belirliyor. BeTaller tam da bu %40 için burada.';
 
   @override
   String get painGeneticTag => 'Analiz';
@@ -4010,7 +4009,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get painPostureDesc =>
-      'Doğru duruş sana anında 1.5–3 cm katabilir. BeTaller\'ın günlük postür rutini bunu birkaç haftada yerleştirir.';
+      'Doğru duruş sana anında 1,5-3 cm katabilir. BeTaller\'ın günlük postür rutini bunu birkaç haftada yerleştirir.';
 
   @override
   String get painPostureTag => 'Postür';
@@ -4020,7 +4019,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get painExerciseDesc =>
-      'Sabah germe, asılma, omurga rutinleri — BeTaller bunları senin için hazırladı ve planladı. Her gün 8–12 dakika yeter.';
+      'Sabah esnemesi, asılma, omurga rutinleri: BeTaller bunları senin için hazırladı ve planladı. Her gün 8-12 dakika yeter.';
 
   @override
   String get painExerciseTag => 'Rutinler';
@@ -4030,7 +4029,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get painNutritionDesc =>
-      'Protein, kalsiyum, D vitamini — BeTaller hangi besinleri ne zaman almanı gerektiğini her gün hatırlatır.';
+      'Protein, kalsiyum, D vitamini: BeTaller hangi besinleri ne zaman alman gerektiğini her gün hatırlatır.';
 
   @override
   String get painNutritionTag => 'Beslenme';
@@ -4040,7 +4039,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get painTrackingDesc =>
-      'Aylık ölçüm, ilerleme fotoğrafları, büyüme grafiği — kazandığın her santimi gör.';
+      'Aylık ölçüm, ilerleme fotoğrafları, büyüme grafiği: kazandığın her santimi gör.';
 
   @override
   String get painTrackingTag => 'İlerleme';
@@ -4368,7 +4367,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get paywallSlideHomeCaption =>
-      'Rutin, su, uyku — kapatman gereken üç halka.';
+      'Rutin, su, uyku: kapatman gereken üç halka.';
 
   @override
   String get paywallSlideProgressTitle => 'Her santimi gör';
@@ -4459,7 +4458,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get obProteinSubtitle =>
-      'Yaklaşık bir değer yeter — planını buna göre kuruyoruz.';
+      'Yaklaşık bir değer yeter. Planını buna göre kuruyoruz.';
 
   @override
   String get obCaloriesTitle => 'Günde ortalama kaç kalori alırsın?';
@@ -5782,4 +5781,25 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get plFoodPumpkinSeeds => 'Kabak çekirdeği';
+
+  @override
+  String get wtCoffee => 'Kahve';
+
+  @override
+  String get wtTea => 'Çay';
+
+  @override
+  String get wtCola => 'Kola';
+
+  @override
+  String get wtEnergyDrink => 'Enerji';
+
+  @override
+  String get crCustomBadge => 'Özel';
+
+  @override
+  String get crNameHint => 'Örn. Sabah Enerji Esnemesi';
+
+  @override
+  String get crDoseHint => 'Örn. 3x10 tekrar ya da 3x30 saniye';
 }

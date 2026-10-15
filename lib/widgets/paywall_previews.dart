@@ -10,6 +10,7 @@ import '../utils/constants.dart';
 import 'discipline_widgets.dart';
 import 'height_bell_curve.dart';
 import 'radar_chart.dart';
+import '../utils/text_case.dart';
 
 // ═════════════════════════════════════════════════════════════════════════════
 //  Paywall hero screens
@@ -256,7 +257,7 @@ class _CardHead extends StatelessWidget {
         const SizedBox(width: 7),
         Expanded(
           child: Text(
-            label.toUpperCase(),
+            label.upperIn(context),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -593,7 +594,7 @@ class _ProgramLevelRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    l.levelLabel(levelIndex + 1).toUpperCase(),
+                    l.levelLabel(levelIndex + 1).upperIn(context),
                     style: TextStyle(
                       fontSize: 9,
                       fontWeight: FontWeight.w800,
@@ -1074,7 +1075,7 @@ class _HomePreview extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      l.heightLabel.toUpperCase(),
+                      l.heightLabel.upperIn(context),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -1269,7 +1270,9 @@ class _TrackCard extends StatelessWidget {
             children: [
               Icon(icon, color: color, size: 16),
               const SizedBox(width: 6),
-              Flexible(
+              // Expanded, not Flexible beside a Spacer: the two split the
+              // free width in half and cut "Wasser" / "Sommeil" short.
+              Expanded(
                 child: Text(
                   label,
                   maxLines: 1,
@@ -1282,7 +1285,7 @@ class _TrackCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(width: 6),
               Container(
                 width: 26,
                 height: 26,
@@ -1365,14 +1368,17 @@ class _MiniGoal extends StatelessWidget {
             Icon(icon, size: 12, color: c),
             const SizedBox(width: 6),
             Expanded(
-              child: Text(
-                label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white.withValues(alpha: 0.70),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white.withValues(alpha: 0.70),
+                  ),
                 ),
               ),
             ),
@@ -1500,7 +1506,7 @@ class _ProgressPreview extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l.currentHeight.toUpperCase(),
+                          l.currentHeight.upperIn(context),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -2959,7 +2965,7 @@ class _DisciplinePreview extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l.disciplineProgramTitle.toUpperCase(),
+                          l.disciplineProgramTitle.upperIn(context),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -3488,7 +3494,7 @@ class _PhotoFrame extends StatelessWidget {
         ),
         const SizedBox(height: 7),
         Text(
-          label.toUpperCase(),
+          label.upperIn(context),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(

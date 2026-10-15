@@ -13,6 +13,7 @@ import '../utils/daily_plan.dart';
 import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
 import '../widgets/discipline_widgets.dart';
+import '../utils/text_case.dart';
 
 /// The week as a recap: every day scored against the plan that day asked for,
 /// the goals from the Discipline tab, the height against the potential, and
@@ -340,8 +341,8 @@ class _Eyebrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text.toUpperCase(),
-      maxLines: 1,
+      text.upperIn(context),
+      maxLines: 2,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontSize: 11,
@@ -630,7 +631,7 @@ class _HeroStat extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             label,
-            maxLines: 2,
+            maxLines: 3,
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -685,7 +686,7 @@ class _DaysCard extends StatelessWidget {
                       Flexible(
                         child: Text(
                           l.pgBestDay(bestDayName!),
-                          maxLines: 1,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 12,
@@ -1060,7 +1061,7 @@ class _HabitTile extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             label,
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: 12,

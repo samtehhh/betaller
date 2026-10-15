@@ -7,6 +7,7 @@ import '../providers/app_provider.dart';
 import '../data/recipes.dart';
 import '../utils/constants.dart';
 import '../widgets/premium_paywall.dart';
+import '../utils/text_case.dart';
 
 // ── Recipe database ────────────────────────────────────────────
 class RecipeGeneratorScreen extends StatefulWidget {
@@ -615,7 +616,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
         border: Border.all(color: color.withValues(alpha: 0.4)),
       ),
       child: Text(
-        _categoryLabel(AppLocalizations.of(context)!, category).toUpperCase(),
+        _categoryLabel(AppLocalizations.of(context)!, category).upperIn(context),
         style: TextStyle(
           fontSize: 9,
           fontWeight: FontWeight.w800,
@@ -635,7 +636,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
         border: Border.all(color: color.withValues(alpha: 0.4)),
       ),
       child: Text(
-        _difficultyLabel(AppLocalizations.of(context)!, diff).toUpperCase(),
+        _difficultyLabel(AppLocalizations.of(context)!, diff).upperIn(context),
         style: TextStyle(
           fontSize: 9,
           fontWeight: FontWeight.w800,
@@ -911,7 +912,7 @@ class _RecipeGeneratorScreenState extends State<RecipeGeneratorScreen> {
         ),
         const SizedBox(height: 2),
         Text(
-          label.toUpperCase(),
+          label.upperIn(context),
           style: TextStyle(
             color: AppColors.textTertiary,
             fontSize: 9,

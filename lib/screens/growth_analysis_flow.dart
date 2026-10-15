@@ -7,6 +7,7 @@ import '../providers/app_provider.dart';
 import '../services/notification_service.dart';
 import '../utils/constants.dart';
 import '../utils/haptics.dart';
+import '../utils/text_case.dart';
 import '../widgets/height_silhouette.dart';
 import '../widgets/potential_chart.dart';
 
@@ -421,9 +422,7 @@ class _GrowthAnalysisFlowState extends State<GrowthAnalysisFlow> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  Localizations.localeOf(context).languageCode == 'tr'
-                      ? l.anPotentialLabel.replaceAll('i', 'İ').toUpperCase()
-                      : l.anPotentialLabel.toUpperCase(),
+                  l.anPotentialLabel.upperIn(context),
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w700,

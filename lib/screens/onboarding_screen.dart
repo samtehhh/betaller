@@ -19,6 +19,7 @@ import '../utils/daily_targets.dart';
 import '../utils/haptics.dart';
 import '../widgets/height_silhouette.dart';
 import '../widgets/premium_paywall.dart';
+import '../utils/text_case.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
 const int _kGenderPage = 2;
@@ -645,7 +646,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 ),
               ),
               child: Text(
-                l.journeyProgressLabel.toUpperCase(),
+                l.journeyProgressLabel.upperIn(context),
                 style: const TextStyle(
                   fontSize: 9.5,
                   fontWeight: FontWeight.w900,
@@ -3739,8 +3740,11 @@ class _CircularSleepDialState extends State<_CircularSleepDial>
 
     return LayoutBuilder(
       builder: (ctx, constraints) {
+        // The dial shares the height with the 24 pt gap and the 56 pt
+        // +/- buttons below it; sizing it to the full height overflowed the
+        // page on a 320 x 568 phone.
         final size = math
-            .min(constraints.maxWidth, constraints.maxHeight)
+            .min(constraints.maxWidth, constraints.maxHeight - 24 - 56)
             .clamp(0.0, 290.0);
         final box = Size(size, size);
 

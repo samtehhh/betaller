@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'text_case.dart';
 
 // ── Premium Dark Theme Design Tokens ──────────────────────────────
 
@@ -246,7 +247,7 @@ class CyberMetricCard extends StatelessWidget {
         children: [
           if (leading != null) ...[leading!, const SizedBox(height: 8)],
           Text(
-            label.toUpperCase(),
+            label.upperIn(context),
             style: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w700,
@@ -313,13 +314,17 @@ class SectionHeader extends StatelessWidget {
       children: [
         Icon(icon, color: iconColor ?? AppColors.primary, size: 20),
         const SizedBox(width: 8),
-        Text(
-          title.toUpperCase(),
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
-            color: AppColors.textSecondary,
-            letterSpacing: 1.2,
+        // Long headers ("BEANSPRUCHTE MUSKELN & KNOCHEN") wrap instead of
+        // running off the card on a narrow phone.
+        Flexible(
+          child: Text(
+            title.upperIn(context),
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: AppColors.textSecondary,
+              letterSpacing: 1.2,
+            ),
           ),
         ),
       ],
