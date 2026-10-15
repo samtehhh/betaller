@@ -3037,12 +3037,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String greetingStreak30(int streak) {
-    return '$streak günlük seri — efsane seviyedesin.';
+    return '$streak günlük seri, efsane seviyedesin.';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return '$streak günlük seri — yoluna devam et.';
+    return '$streak günlük seri, yoluna devam et.';
   }
 
   @override

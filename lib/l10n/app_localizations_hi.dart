@@ -3042,12 +3042,12 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String greetingStreak30(int streak) {
-    return '$streak दिन की लगातार — महान स्तर।';
+    return '$streak दिन की लगातार, महान स्तर।';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return '$streak दिन की लगातार — जारी रखो।';
+    return '$streak दिन की लगातार, जारी रखो।';
   }
 
   @override

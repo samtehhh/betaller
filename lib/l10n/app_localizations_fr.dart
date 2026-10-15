@@ -3067,12 +3067,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String greetingStreak30(int streak) {
-    return 'Série de $streak jours — niveau légendaire.';
+    return 'Série de $streak jours, niveau légendaire.';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return 'Série de $streak jours — continuez.';
+    return 'Série de $streak jours, continuez.';
   }
 
   @override

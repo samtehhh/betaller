@@ -3056,12 +3056,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String greetingStreak30(int streak) {
-    return 'Sequência de $streak dias — nível lendário.';
+    return 'Sequência de $streak dias, nível lendário.';
   }
 
   @override
   String greetingStreak7(int streak) {
-    return 'Sequência de $streak dias — continue.';
+    return 'Sequência de $streak dias, continue.';
   }
 
   @override

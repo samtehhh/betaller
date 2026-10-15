@@ -5573,13 +5573,13 @@ abstract class AppLocalizations {
   /// No description provided for @greetingStreak30.
   ///
   /// In en, this message translates to:
-  /// **'{streak} day streak — legendary level.'**
+  /// **'{streak} day streak, legendary level.'**
   String greetingStreak30(int streak);
 
   /// No description provided for @greetingStreak7.
   ///
   /// In en, this message translates to:
-  /// **'{streak} day streak — keep it up.'**
+  /// **'{streak} day streak, keep it up.'**
   String greetingStreak7(int streak);
 
   /// No description provided for @greetingStreak3.
