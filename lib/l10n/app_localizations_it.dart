@@ -1031,7 +1031,7 @@ class AppLocalizationsIt extends AppLocalizations {
       'Consuma latte, formaggio, yogurt. Prendi il sole 15 min. Essenziale per lo sviluppo osseo.';
 
   @override
-  String get routineWater => 'Obiettivo Assunzione Acqua';
+  String get routineWater => 'Obiettivo acqua';
 
   @override
   String get routineWaterDesc =>

@@ -65,7 +65,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String disciplineStreakDays(int days) {
-    return '$days दिनों की लगातार स्ट्रीक';
+    return '$days दिन की स्ट्रीक';
   }
 
   @override

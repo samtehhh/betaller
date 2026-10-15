@@ -1092,7 +1092,7 @@ class AppLocalizationsPt extends AppLocalizations {
       'Treino intervalado de alta intensidade para maximizar a liberação de hormônio do crescimento.';
 
   @override
-  String get routineSquats => 'Agachamentos com Peso Corporal';
+  String get routineSquats => 'Agachamento livre';
 
   @override
   String get routineSquatsDesc =>

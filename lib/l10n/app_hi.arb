@@ -1259,7 +1259,7 @@
   "disciplineWeek": "इस सप्ताह",
   "disciplineMonth": "इस महीने",
   "disciplineLevel": "अनुशासन स्तर",
-  "disciplineStreakDays": "{days} दिनों की लगातार स्ट्रीक",
+  "disciplineStreakDays": "{days} दिन की स्ट्रीक",
   "@disciplineStreakDays": {
     "placeholders": {
       "days": {
