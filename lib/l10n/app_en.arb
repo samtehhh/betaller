@@ -1527,5 +1527,12 @@
   "planPosture": "Posture",
   "planRest": "Rest",
   "planWeekTitle": "Your week: {days} training days",
-  "@planWeekTitle": {"placeholders": {"days": {"type": "int"}}}
+  "@planWeekTitle": {"placeholders": {"days": {"type": "int"}}},
+  "planPreviewTitle": "Your plan is ready",
+  "planPreviewTraining": "{days} training days a week, built for growth",
+  "@planPreviewTraining": {"placeholders": {"days": {"type": "int"}}},
+  "planPreviewProtein": "{grams} g protein a day, split across your meals",
+  "@planPreviewProtein": {"placeholders": {"grams": {"type": "int"}}},
+  "planPreviewSleep": "{hours} hours of sleep, with a bedtime reminder",
+  "@planPreviewSleep": {"placeholders": {"hours": {"type": "String"}}}
 }

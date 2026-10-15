@@ -308,25 +308,19 @@ class _TrainTab extends StatelessWidget {
           child: Column(
             children: today
                 .map(
+                  // Today's plan is free, all of it. A streak needs every
+                  // item done, and with half of them locked a free user could
+                  // never start one, so the daily habit the app is built on
+                  // was out of reach. Premium is the program, the analysis,
+                  // the extra routines and the trackers around it.
                   (r) => _PlanRow(
                     routine: r,
-                    locked:
-                        !_freeRoutineIds.contains(r.id) && !provider.isPremium,
+                    locked: false,
                     onToggle: () {
-                      if (!_freeRoutineIds.contains(r.id) &&
-                          !provider.isPremium) {
-                        showPremiumPaywall(context);
-                        return;
-                      }
                       HapticFeedback.selectionClick();
                       provider.toggleRoutine(r.id);
                     },
                     onOpen: () {
-                      if (!_freeRoutineIds.contains(r.id) &&
-                          !provider.isPremium) {
-                        showPremiumPaywall(context);
-                        return;
-                      }
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -1459,7 +1453,8 @@ class _NutritionTab extends StatelessWidget {
             } catch (_) {
               return const SizedBox.shrink();
             }
-            final isFree = _freeRoutineIds.contains(id);
+            final isFree = _freeRoutineIds.contains(id) ||
+                provider.todayRoutines.any((r) => r.id == id);
             final isPremiumLocked = !isFree && !provider.isPremium;
             final card = _NutritionCard(
               routine: routine,

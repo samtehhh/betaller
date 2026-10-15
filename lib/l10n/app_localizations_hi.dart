@@ -4528,4 +4528,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String planWeekTitle(int days) {
     return 'आपका हफ्ता: $days ट्रेनिंग दिन';
   }
+
+  @override
+  String get planPreviewTitle => 'आपका प्लान तैयार है';
+
+  @override
+  String planPreviewTraining(int days) {
+    return 'हफ्ते में $days दिन ट्रेनिंग, ग्रोथ के लिए';
+  }
+
+  @override
+  String planPreviewProtein(int grams) {
+    return 'रोज़ $grams g प्रोटीन, भोजन में बाँटकर';
+  }
+
+  @override
+  String planPreviewSleep(String hours) {
+    return '$hours घंटे नींद, सोने के रिमाइंडर के साथ';
+  }
 }

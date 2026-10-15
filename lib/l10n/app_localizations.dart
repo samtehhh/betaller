@@ -8275,6 +8275,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your week: {days} training days'**
   String planWeekTitle(int days);
+
+  /// No description provided for @planPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan is ready'**
+  String get planPreviewTitle;
+
+  /// No description provided for @planPreviewTraining.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} training days a week, built for growth'**
+  String planPreviewTraining(int days);
+
+  /// No description provided for @planPreviewProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'{grams} g protein a day, split across your meals'**
+  String planPreviewProtein(int grams);
+
+  /// No description provided for @planPreviewSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} hours of sleep, with a bedtime reminder'**
+  String planPreviewSleep(String hours);
 }
 
 class _AppLocalizationsDelegate

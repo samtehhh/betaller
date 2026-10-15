@@ -4564,4 +4564,22 @@ class AppLocalizationsIt extends AppLocalizations {
   String planWeekTitle(int days) {
     return 'La tua settimana: $days giorni di allenamento';
   }
+
+  @override
+  String get planPreviewTitle => 'Il tuo piano è pronto';
+
+  @override
+  String planPreviewTraining(int days) {
+    return '$days giorni di allenamento a settimana, pensati per crescere';
+  }
+
+  @override
+  String planPreviewProtein(int grams) {
+    return '$grams g di proteine al giorno, divisi nei pasti';
+  }
+
+  @override
+  String planPreviewSleep(String hours) {
+    return '$hours ore di sonno, con promemoria per andare a letto';
+  }
 }

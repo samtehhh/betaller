@@ -15,6 +15,8 @@ import '../utils/constants.dart';
 import 'main_screen.dart';
 import '../services/notification_service.dart';
 import '../widgets/journey_steps.dart';
+import '../utils/daily_targets.dart';
+import '../widgets/height_silhouette.dart';
 import '../widgets/premium_paywall.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
@@ -4318,14 +4320,25 @@ class _PredictionResultCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            p.formatHeight(potential),
-            style: const TextStyle(
-              fontSize: 44,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-              letterSpacing: -1.2,
-              height: 1.1,
+          // Counts up from today's height: the number arrives as a reveal.
+          TweenAnimationBuilder<double>(
+            tween: Tween(
+              begin: MediaQuery.of(context).disableAnimations
+                  ? potential
+                  : profile.currentHeight,
+              end: potential,
+            ),
+            duration: const Duration(milliseconds: 1600),
+            curve: Curves.easeOutCubic,
+            builder: (context, v, _) => Text(
+              p.formatHeight(v),
+              style: const TextStyle(
+                fontSize: 44,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+                letterSpacing: -1.2,
+                height: 1.1,
+              ),
             ),
           ),
           const SizedBox(height: 2),
@@ -4339,6 +4352,14 @@ class _PredictionResultCard extends StatelessWidget {
               fontSize: 12.5,
               color: Colors.white.withValues(alpha: 0.5),
             ),
+          ),
+          const SizedBox(height: 16),
+          HeightSilhouette(
+            current: profile.currentHeight,
+            potential: potential,
+            dream: p.dreamHeight,
+            format: p.formatHeight,
+            height: 190,
           ),
           const SizedBox(height: 14),
           Wrap(
@@ -4357,6 +4378,8 @@ class _PredictionResultCard extends StatelessWidget {
                 ),
             ],
           ),
+          const SizedBox(height: 16),
+          _PlanPreview(profile: profile, answers: p.onboardingAnswers),
           const SizedBox(height: 12),
           Text(
             l.resultFootnote,
@@ -4367,6 +4390,75 @@ class _PredictionResultCard extends StatelessWidget {
               color: Colors.white.withValues(alpha: 0.38),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// "Your plan is ready": three concrete lines built from the answers just
+/// given, so the paywall that follows is selling something the user has
+/// already seen is theirs.
+class _PlanPreview extends StatelessWidget {
+  final UserProfile profile;
+  final Map<String, dynamic> answers;
+  const _PlanPreview({required this.profile, required this.answers});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final workout = answers['weeklyWorkout'] as String? ?? '';
+    final t = DailyTargets.forProfile(
+      profile,
+      weeklyWorkout: workout,
+      meals: profile.mealTimes.length,
+    );
+    final plan = WeeklyPlan.forAnswers(weeklyWorkout: workout, age: profile.age);
+    final sleep = t.sleepH.toStringAsFixed(t.sleepH % 1 == 0 ? 0 : 1);
+    final lines = [
+      (Icons.fitness_center_rounded, l.planPreviewTraining(plan.trainingDays)),
+      (Icons.restaurant_rounded, l.planPreviewProtein(t.proteinG)),
+      (Icons.bedtime_rounded, l.planPreviewSleep(sleep)),
+    ];
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+      decoration: BoxDecoration(
+        color: AppColors.lime.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l.planPreviewTitle,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w900,
+              color: AppColors.lime,
+            ),
+          ),
+          const SizedBox(height: 8),
+          for (final (icon, text) in lines)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Row(
+                children: [
+                  Icon(icon, size: 16, color: Colors.white.withValues(alpha: 0.8)),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      text,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );

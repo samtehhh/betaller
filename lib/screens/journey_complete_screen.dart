@@ -101,7 +101,12 @@ class _JourneyCompleteScreenState extends State<JourneyCompleteScreen>
 
   Future<void> _viewPlans() async {
     HapticFeedback.mediumImpact();
-    await showPremiumPaywall(context);
+    // The onboarding already showed the paywall today. A second one minutes
+    // later, as the only way out of this screen, reads as a nag.
+    final provider = context.read<AppProvider>();
+    if (!provider.isPremium && provider.takeDailyPaywallSlot()) {
+      await showPremiumPaywall(context);
+    }
     if (!mounted) return;
     Navigator.of(context).pop();
   }

@@ -1454,5 +1454,9 @@
   "planSport": "Spor",
   "planPosture": "Duruş",
   "planRest": "Dinlenme",
-  "planWeekTitle": "Bu haftan: {days} antrenman günü"
+  "planWeekTitle": "Bu haftan: {days} antrenman günü",
+  "planPreviewTitle": "Planın hazır",
+  "planPreviewTraining": "Haftada {days} gün, büyümeye göre antrenman",
+  "planPreviewProtein": "Günde {grams} g protein, öğünlerine bölünmüş",
+  "planPreviewSleep": "{hours} saat uyku, yatma saati hatırlatmasıyla"
 }

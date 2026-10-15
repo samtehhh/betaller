@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
-import 'premium_paywall.dart';
 
 /// The water sheet: a glass that fills as you log, quick amounts that stay put
 /// so several sips can be added in a row, and an undo for the last one.
@@ -56,11 +55,9 @@ class _WaterSheetState extends State<_WaterSheet>
     super.dispose();
   }
 
+  // Logging water is free: it is part of the daily loop, and a habit the
+  // app counts toward streaks and challenges cannot sit behind the paywall.
   void _add(double amount) {
-    if (!context.read<AppProvider>().isPremium) {
-      showPremiumPaywall(context);
-      return;
-    }
     HapticFeedback.lightImpact();
     context.read<AppProvider>().addWater(amount);
     setState(() => _added.add(amount));

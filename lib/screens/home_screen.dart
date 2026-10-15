@@ -594,11 +594,8 @@ class _HomeScreenState extends State<HomeScreen>
                   color: AppColors.sleep,
                   borderRadius: BorderRadius.circular(_radiusM),
                   padding: const EdgeInsets.symmetric(vertical: 17),
+                  // Free, like water: part of the daily loop.
                   onPressed: () {
-                    if (!provider.isPremium) {
-                      showPremiumPaywall(context);
-                      return;
-                    }
                     provider.updateSleep(selectedHours);
                     Navigator.pop(context);
                   },

@@ -4548,4 +4548,22 @@ class AppLocalizationsTr extends AppLocalizations {
   String planWeekTitle(int days) {
     return 'Bu haftan: $days antrenman günü';
   }
+
+  @override
+  String get planPreviewTitle => 'Planın hazır';
+
+  @override
+  String planPreviewTraining(int days) {
+    return 'Haftada $days gün, büyümeye göre antrenman';
+  }
+
+  @override
+  String planPreviewProtein(int grams) {
+    return 'Günde $grams g protein, öğünlerine bölünmüş';
+  }
+
+  @override
+  String planPreviewSleep(String hours) {
+    return '$hours saat uyku, yatma saati hatırlatmasıyla';
+  }
 }

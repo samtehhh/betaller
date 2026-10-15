@@ -1603,5 +1603,9 @@
   "planSport": "खेल",
   "planPosture": "पोस्चर",
   "planRest": "आराम",
-  "planWeekTitle": "आपका हफ्ता: {days} ट्रेनिंग दिन"
+  "planWeekTitle": "आपका हफ्ता: {days} ट्रेनिंग दिन",
+  "planPreviewTitle": "आपका प्लान तैयार है",
+  "planPreviewTraining": "हफ्ते में {days} दिन ट्रेनिंग, ग्रोथ के लिए",
+  "planPreviewProtein": "रोज़ {grams} g प्रोटीन, भोजन में बाँटकर",
+  "planPreviewSleep": "{hours} घंटे नींद, सोने के रिमाइंडर के साथ"
 }

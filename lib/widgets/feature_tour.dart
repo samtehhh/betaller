@@ -39,7 +39,31 @@ class TourStep {
 ///
 /// [goToProgramTab] and [goToNutritionTab] switch My Plan's own in-screen
 /// tabs; the walkthrough only controls the bottom-nav tab on its own.
+/// The steps the first-run tour actually shows. Thirty-two spotlights after
+/// a paywall was a second onboarding nobody finished; five that point at the
+/// daily loop (streak, today's goals, the plan, the chart, the potential)
+/// are the ones that make day two happen.
+final _essentialTourTargets = {
+  TourKeys.homeStreak,
+  TourKeys.homeGoals,
+  TourKeys.planTodayList,
+  TourKeys.progressChart,
+  TourKeys.analysisPrediction,
+};
+
 List<TourStep> tourStepsFor(
+  AppLocalizations l, {
+  required VoidCallback goToTrainTab,
+  required VoidCallback goToProgramTab,
+  required VoidCallback goToNutritionTab,
+}) => _allTourSteps(
+  l,
+  goToTrainTab: goToTrainTab,
+  goToProgramTab: goToProgramTab,
+  goToNutritionTab: goToNutritionTab,
+).where((s) => _essentialTourTargets.contains(s.target)).toList();
+
+List<TourStep> _allTourSteps(
   AppLocalizations l, {
   required VoidCallback goToTrainTab,
   required VoidCallback goToProgramTab,

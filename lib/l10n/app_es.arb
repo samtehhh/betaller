@@ -1603,5 +1603,9 @@
   "planSport": "Deporte",
   "planPosture": "Postura",
   "planRest": "Descanso",
-  "planWeekTitle": "Tu semana: {days} días de entreno"
+  "planWeekTitle": "Tu semana: {days} días de entreno",
+  "planPreviewTitle": "Tu plan está listo",
+  "planPreviewTraining": "{days} días de entreno a la semana, pensados para crecer",
+  "planPreviewProtein": "{grams} g de proteína al día, repartidos en tus comidas",
+  "planPreviewSleep": "{hours} horas de sueño, con recordatorio para dormir"
 }
