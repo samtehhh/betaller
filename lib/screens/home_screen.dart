@@ -20,6 +20,7 @@ import '../widgets/tour_keys.dart';
 import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/water_sheet.dart';
+import '../utils/text_case.dart';
 
 // ── Design Tokens (reference AppColors for consistency) ───────────
 const double _radiusXL = 30.0;
@@ -2069,7 +2070,7 @@ class _DailyTipCard extends StatelessWidget {
               const Text('💡', style: TextStyle(fontSize: 18)),
               const SizedBox(width: 8),
               Text(
-                l.dailyTip.toUpperCase(),
+                l.dailyTip.upperIn(context),
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w700,

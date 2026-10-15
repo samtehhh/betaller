@@ -24,6 +24,7 @@ import 'exercise_detail_screen.dart';
 import 'nutrition_screen.dart';
 import 'recipe_generator_screen.dart';
 import 'workout_player_screen.dart';
+import '../utils/text_case.dart';
 
 /// My Plan: today's plan (free for everyone), the 70-day program (premium)
 /// and nutrition built around the user's own daily targets.
@@ -682,7 +683,7 @@ class _TodayHero extends StatelessWidget {
                   children: [
                     Text(
                       (DateFormat.EEEE(locale).format(DateTime.now()))
-                          .toUpperCase(),
+                          .upperIn(context),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

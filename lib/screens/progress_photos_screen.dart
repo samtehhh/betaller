@@ -14,6 +14,7 @@ import '../utils/constants.dart';
 import '../utils/haptics.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/progress_locked_preview.dart';
+import '../utils/text_case.dart';
 
 /// How often the app suggests a new photo. Two weeks is long enough for a
 /// visible change in posture and short enough to keep the habit.
@@ -487,7 +488,7 @@ class _Label extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text.toUpperCase(),
+      text.upperIn(context),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(

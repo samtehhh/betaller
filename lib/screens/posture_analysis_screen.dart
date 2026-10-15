@@ -18,6 +18,7 @@ import '../widgets/photo_source_sheet.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/progress_locked_preview.dart';
 import 'exercise_detail_screen.dart';
+import '../utils/text_case.dart';
 
 /// Days between two checks. Posture work needs about a week to show.
 const int _kRetakeDays = 7;
@@ -295,7 +296,7 @@ class _Eyebrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text.toUpperCase(),
+      text.upperIn(context),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(

@@ -10,6 +10,7 @@ import '../providers/app_provider.dart';
 import '../services/notification_service.dart';
 import '../utils/constants.dart';
 import '../widgets/premium_paywall.dart';
+import '../utils/text_case.dart';
 
 /// Short weekday names, Monday first, in the language the app is showing.
 /// Hardcoding them left Turkish abbreviations on every other locale.
@@ -410,7 +411,7 @@ class _GroupLabel extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
       child: Text(
-        text.toUpperCase(),
+        text.upperIn(context),
         style: TextStyle(
           fontSize: 10.5,
           fontWeight: FontWeight.w900,
@@ -672,7 +673,7 @@ class _ReminderEditorState extends State<_ReminderEditor> {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              l.reminderDays.toUpperCase(),
+              l.reminderDays.upperIn(context),
               style: TextStyle(
                 fontSize: 10.5,
                 fontWeight: FontWeight.w900,

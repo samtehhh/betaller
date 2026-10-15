@@ -11,6 +11,7 @@ import '../utils/localized_data.dart';
 import '../utils/meal_plan.dart';
 import 'exercise_media.dart';
 import 'premium_paywall.dart';
+import '../utils/text_case.dart';
 
 // ═════════════════════════════════════════════════════════════════════════
 //  Labels
@@ -144,7 +145,7 @@ class PlanSectionLabel extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: Text(
-              title.toUpperCase(),
+              title.upperIn(context),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

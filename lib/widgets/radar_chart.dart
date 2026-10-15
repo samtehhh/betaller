@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../utils/text_case.dart';
+
 /// One axis of the radar: what it measures, how it scores, and its colour.
 class RadarAxis {
   final String label;
@@ -42,6 +44,7 @@ class RadarChart extends StatelessWidget {
               progress: progress,
               gridColor: gridColor,
               textDirection: Directionality.of(context),
+              languageCode: Localizations.localeOf(context).languageCode,
             ),
           ),
         );
@@ -55,12 +58,14 @@ class _RadarPainter extends CustomPainter {
   final double progress;
   final Color gridColor;
   final TextDirection textDirection;
+  final String languageCode;
 
   const _RadarPainter({
     required this.axes,
     required this.progress,
     required this.gridColor,
     required this.textDirection,
+    required this.languageCode,
   });
 
   @override
@@ -163,7 +168,7 @@ class _RadarPainter extends CustomPainter {
       final painter = TextPainter(
         text: TextSpan(children: [
           TextSpan(
-            text: axis.label.toUpperCase(),
+            text: upperFor(axis.label, languageCode),
             style: TextStyle(
               fontSize: 9,
               fontWeight: FontWeight.w800,

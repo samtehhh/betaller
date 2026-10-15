@@ -8,6 +8,7 @@ import '../providers/app_provider.dart';
 import '../screens/notifications_screen.dart';
 import '../services/notification_service.dart';
 import '../utils/constants.dart';
+import '../utils/text_case.dart';
 
 /// What the app will nudge the user about next, and the way into changing it.
 ///
@@ -128,7 +129,7 @@ class _NextReminderCardState extends State<NextReminderCard> {
                   Text(
                     next == null
                         ? l.reminderMasterTitle
-                        : l.reminderNextLabel.toUpperCase(),
+                        : l.reminderNextLabel.upperIn(context),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

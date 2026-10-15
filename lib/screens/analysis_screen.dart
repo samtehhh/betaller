@@ -13,6 +13,7 @@ import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
+import '../utils/text_case.dart';
 import '../widgets/height_silhouette.dart';
 import '../widgets/potential_chart.dart';
 import '../widgets/premium_paywall.dart';
@@ -292,10 +293,7 @@ BoxDecoration _card({Color? glow}) => BoxDecoration(
 );
 
 /// Upper case that keeps the Turkish dotted capital I.
-String _up(BuildContext context, String s) =>
-    Localizations.localeOf(context).languageCode == 'tr'
-    ? s.replaceAll('i', 'İ').toUpperCase()
-    : s.toUpperCase();
+String _up(BuildContext context, String s) => s.upperIn(context);
 
 TextStyle _label() => TextStyle(
   fontSize: 11,

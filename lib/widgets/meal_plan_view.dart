@@ -7,6 +7,7 @@ import '../utils/constants.dart';
 import '../utils/daily_targets.dart';
 import '../utils/meal_plan.dart';
 import 'plan_widgets.dart';
+import '../utils/text_case.dart';
 
 String _fmt(BuildContext context, num v) => NumberFormat.decimalPattern(
   Localizations.localeOf(context).languageCode,
@@ -97,7 +98,7 @@ class NutritionTargetsHeader extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      l.targetProtein.toUpperCase(),
+                      l.targetProtein.upperIn(context),
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w800,

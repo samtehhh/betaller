@@ -8,6 +8,7 @@ import '../utils/haptics.dart';
 import '../utils/constants.dart';
 import '../widgets/height_bell_curve.dart';
 import '../utils/height_reference.dart';
+import '../utils/text_case.dart';
 
 // ─────────────────────────────────────────────────────────────────
 //  Leaderboard Screen — Real WHO/NCD-RisC Height Analysis
@@ -233,7 +234,7 @@ class _HeroPercentileCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      l.yourHeightStanding.toUpperCase(),
+                      l.yourHeightStanding.upperIn(context),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

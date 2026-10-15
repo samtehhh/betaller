@@ -15,6 +15,7 @@ import '../widgets/tour_keys.dart';
 import 'weekly_report_screen.dart';
 import 'posture_analysis_screen.dart';
 import 'progress_photos_screen.dart';
+import '../utils/text_case.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -1094,7 +1095,7 @@ class _HeightHero extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      l.currentHeight.toUpperCase(),
+                      l.currentHeight.upperIn(context),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

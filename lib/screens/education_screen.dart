@@ -10,6 +10,7 @@ import '../utils/education_data.dart';
 import '../utils/localized_data.dart';
 import 'exercise_detail_screen.dart';
 import '../widgets/premium_paywall.dart';
+import '../utils/text_case.dart';
 
 // ── Category theming ─────────────────────────────────────────────
 
@@ -992,7 +993,7 @@ class _TableOfContents extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            label.toUpperCase(),
+            label.upperIn(context),
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,
@@ -1252,7 +1253,7 @@ class _ReferencesCard extends StatelessWidget {
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      title.toUpperCase(),
+                      title.upperIn(context),
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
@@ -1457,7 +1458,7 @@ class _NextArticleCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        label.toUpperCase(),
+                        label.upperIn(context),
                         style: TextStyle(
                           fontSize: 10.5,
                           fontWeight: FontWeight.w700,

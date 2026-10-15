@@ -10,6 +10,7 @@ import '../utils/constants.dart';
 import 'discipline_widgets.dart';
 import 'height_bell_curve.dart';
 import 'radar_chart.dart';
+import '../utils/text_case.dart';
 
 // ═════════════════════════════════════════════════════════════════════════════
 //  Paywall hero screens
@@ -256,7 +257,7 @@ class _CardHead extends StatelessWidget {
         const SizedBox(width: 7),
         Expanded(
           child: Text(
-            label.toUpperCase(),
+            label.upperIn(context),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -593,7 +594,7 @@ class _ProgramLevelRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    l.levelLabel(levelIndex + 1).toUpperCase(),
+                    l.levelLabel(levelIndex + 1).upperIn(context),
                     style: TextStyle(
                       fontSize: 9,
                       fontWeight: FontWeight.w800,
@@ -1074,7 +1075,7 @@ class _HomePreview extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      l.heightLabel.toUpperCase(),
+                      l.heightLabel.upperIn(context),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -1500,7 +1501,7 @@ class _ProgressPreview extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l.currentHeight.toUpperCase(),
+                          l.currentHeight.upperIn(context),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -2959,7 +2960,7 @@ class _DisciplinePreview extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l.disciplineProgramTitle.toUpperCase(),
+                          l.disciplineProgramTitle.upperIn(context),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -3488,7 +3489,7 @@ class _PhotoFrame extends StatelessWidget {
         ),
         const SizedBox(height: 7),
         Text(
-          label.toUpperCase(),
+          label.upperIn(context),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(

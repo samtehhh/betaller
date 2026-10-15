@@ -19,6 +19,7 @@ import '../utils/daily_targets.dart';
 import '../utils/haptics.dart';
 import '../widgets/height_silhouette.dart';
 import '../widgets/premium_paywall.dart';
+import '../utils/text_case.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
 const int _kGenderPage = 2;
@@ -645,7 +646,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 ),
               ),
               child: Text(
-                l.journeyProgressLabel.toUpperCase(),
+                l.journeyProgressLabel.upperIn(context),
                 style: const TextStyle(
                   fontSize: 9.5,
                   fontWeight: FontWeight.w900,

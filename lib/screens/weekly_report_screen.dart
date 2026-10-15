@@ -13,6 +13,7 @@ import '../utils/daily_plan.dart';
 import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
 import '../widgets/discipline_widgets.dart';
+import '../utils/text_case.dart';
 
 /// The week as a recap: every day scored against the plan that day asked for,
 /// the goals from the Discipline tab, the height against the potential, and
@@ -340,7 +341,7 @@ class _Eyebrow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text.toUpperCase(),
+      text.upperIn(context),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
