@@ -19,6 +19,7 @@ import '../models/routine.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import '../utils/daily_plan.dart';
+import '../utils/daily_targets.dart';
 import '../utils/height_reference.dart';
 import '../services/purchase_service.dart';
 import '../l10n/app_localizations.dart';
@@ -77,6 +78,14 @@ class AppProvider extends ChangeNotifier {
   Map<String, Map<String, dynamic>> _journalByDate = {};
   // Program progression: set of completed day indices (0-based)
   Set<int> _completedProgramDays = {};
+  // Moves ticked inside program days not yet completed: day index (as a
+  // string) -> routine ids. Emptied for a day once it is completed.
+  Map<String, List<String>> _programMoveChecks = {};
+  // The date (yyyy-MM-dd) the last program day was completed: one a day.
+  String _lastProgramDayDate = '';
+  // Nutrition checklist: date (yyyy-MM-dd) -> ticked keys ('protein',
+  // 'calcium', 'vitaminD', 'water', 'meal0'..'meal5').
+  Map<String, List<String>> _nutritionChecks = {};
 
   UserProfile? get profile => _profile;
   List<HeightRecord> get heightRecords => _heightRecords;
@@ -307,11 +316,122 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ── Weekly plan ──
+  /// The onboarding answer the plan is built for: '0-2', '3-5', '6+' or ''.
+  String get weeklyWorkout =>
+      _onboardingAnswers['weeklyWorkout'] as String? ?? '';
+
+  /// This user's week, the single source for today's training block and
+  /// the 70-day program.
+  WeeklyPlan get weeklyPlan => WeeklyPlan.forAnswers(
+        weeklyWorkout: weeklyWorkout,
+        age: _profile?.age ?? 16,
+      );
+
+  List<String> _planIds([DateTime? date]) =>
+      dailyPlanIds(date, weeklyWorkout);
+
   // ── Program Day Progression ──
-  void markProgramDayComplete(int day) {
+  /// The day the program is on: the first one not completed (0..70).
+  int get currentProgramDay => firstOpenProgramDay(_completedProgramDays);
+
+  /// Whether a program day was already completed today. The program moves
+  /// one day per calendar day, so 70 taps in a row cannot finish it.
+  bool get programDayDoneToday => _lastProgramDayDate == _today;
+
+  /// Moves ticked so far in program [day].
+  Set<String> programChecksFor(int day) =>
+      Set<String>.from(_programMoveChecks['$day'] ?? const <String>[]);
+
+  void toggleProgramMove(int day, String routineId) {
     if (_completedProgramDays.contains(day)) return;
+    final ticked = programChecksFor(day);
+    if (!ticked.remove(routineId)) ticked.add(routineId);
+    _programMoveChecks = {..._programMoveChecks, '$day': ticked.toList()};
+    _saveData();
+    notifyListeners();
+  }
+
+  /// Ticks [routineId] in program [day] without un-ticking it.
+  void checkProgramMove(int day, String routineId) {
+    if (programChecksFor(day).contains(routineId)) return;
+    toggleProgramMove(day, routineId);
+  }
+
+  /// Day [day] can be completed when it is the current one, every move in
+  /// it is ticked and no other program day was completed today.
+  bool canCompleteProgramDay(int day) {
+    if (day != currentProgramDay || day >= kProgramDays) return false;
+    if (programDayDoneToday) return false;
+    final moves = weeklyPlan.programDay(day).moves;
+    final ticked = programChecksFor(day);
+    return moves.every((m) => ticked.contains(m.routineId));
+  }
+
+  /// Completes program [day] if [canCompleteProgramDay] allows it. Returns
+  /// whether it did.
+  bool markProgramDayComplete(int day) {
+    if (_completedProgramDays.contains(day)) return false;
+    if (!canCompleteProgramDay(day)) return false;
     _completedProgramDays = {..._completedProgramDays, day};
+    _programMoveChecks = {..._programMoveChecks}..remove('$day');
+    _lastProgramDayDate = _today;
     addXP(30);
+    _saveData();
+    notifyListeners();
+    return true;
+  }
+
+  // ── Nutrition checklist ──
+  static const _nutritionRoutineFor = {
+    'protein': 'protein',
+    'water': 'water',
+    'calcium': 'calcium_vitamin_d',
+    'vitaminD': 'vitamin_d_sunlight',
+  };
+
+  /// What was ticked on the nutrition checklist today.
+  Set<String> get todayNutritionChecks =>
+      Set<String>.from(_nutritionChecks[_today] ?? const <String>[]);
+
+  Map<String, List<String>> get nutritionChecks => _nutritionChecks;
+
+  /// Whether checklist item [key] is done today: ticked here, or its
+  /// matching habit in today's plan was ticked there.
+  bool nutritionCheckDone(String key) {
+    if (todayNutritionChecks.contains(key)) return true;
+    final rid = _nutritionRoutineFor[key];
+    if (rid == null) return false;
+    return todayRoutines.any((r) => r.id == rid && r.completed);
+  }
+
+  /// Ticks or unticks checklist item [key] for today, keeping the matching
+  /// habit in today's plan (protein, water) in step with it.
+  void toggleNutritionCheck(String key) {
+    final wasDone = nutritionCheckDone(key);
+    final ticked = todayNutritionChecks;
+    if (wasDone) {
+      ticked.remove(key);
+    } else {
+      ticked.add(key);
+    }
+    final next = {..._nutritionChecks, _today: ticked.toList()};
+    // Keep two months, which is all any screen looks back over.
+    if (next.length > 60) {
+      final keys = next.keys.toList()..sort();
+      for (final k in keys.take(next.length - 60)) {
+        next.remove(k);
+      }
+    }
+    _nutritionChecks = next;
+    final rid = _nutritionRoutineFor[key];
+    final habit = rid == null
+        ? null
+        : todayRoutines.where((r) => r.id == rid).firstOrNull;
+    if (habit != null && habit.completed == wasDone) {
+      toggleRoutine(habit.id); // saves and notifies
+      return;
+    }
     _saveData();
     notifyListeners();
   }
@@ -370,7 +490,7 @@ class AppProvider extends ChangeNotifier {
   /// The routines the app asks for today: the weekday's training block plus
   /// the everyday habits. The catalogue holds far more than a day's work.
   List<Routine> get todayRoutines {
-    final ids = dailyPlanIds();
+    final ids = _planIds();
     final byId = {for (final r in _routines) r.id: r};
     return [
       for (final id in ids)
@@ -613,6 +733,16 @@ class AppProvider extends ChangeNotifier {
         ),
         <int>{},
       );
+      Map<String, List<String>> listMap(String k) => _safe(
+        k,
+        () => ((json[k] as Map?) ?? const {}).map(
+          (key, v) => MapEntry(key.toString(), List<String>.from(v as List)),
+        ),
+        <String, List<String>>{},
+      );
+      _programMoveChecks = listMap('programMoveChecks');
+      _lastProgramDayDate = asStr(json['lastProgramDayDate']);
+      _nutritionChecks = listMap('nutritionChecks');
       _reviewShownOnce = asBool(json['reviewShownOnce']);
       _lastAutoPaywallDate = json['lastAutoPaywallDate'] is String
           ? json['lastAutoPaywallDate'] as String
@@ -775,6 +905,9 @@ class AppProvider extends ChangeNotifier {
       'stressByDate': _stressByDate,
       'journalByDate': _journalByDate,
       'completedProgramDays': _completedProgramDays.toList(),
+      'programMoveChecks': _programMoveChecks,
+      'lastProgramDayDate': _lastProgramDayDate,
+      'nutritionChecks': _nutritionChecks,
       'reviewShownOnce': _reviewShownOnce,
       'lastAutoPaywallDate': _lastAutoPaywallDate,
       'announcedAchievements': _announcedAchievements.toList(),
@@ -1092,7 +1225,7 @@ class AppProvider extends ChangeNotifier {
   double dayCompletionRatio(DateTime date) {
     final key =
         '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-    final plan = dailyPlanIds(date);
+    final plan = _planIds(date);
     if (plan.isEmpty) return 0;
     final ids = key == _today
         ? _completedRoutineIds
@@ -1107,7 +1240,7 @@ class AppProvider extends ChangeNotifier {
     _routineHistory.forEach((date, ids) {
       final d = DateTime.tryParse(date);
       if (d == null || weekKey(d) != target) return;
-      final plan = dailyPlanIds(d);
+      final plan = _planIds(d);
       if (plan.every(ids.contains)) count++;
     });
     return count;
@@ -1450,6 +1583,9 @@ class AppProvider extends ChangeNotifier {
     _stressByDate = {};
     _journalByDate = {};
     _completedProgramDays = {};
+    _programMoveChecks = {};
+    _lastProgramDayDate = '';
+    _nutritionChecks = {};
     _hiddenRoutineIds = {};
 
     _potentialAnchor = null;
@@ -1530,7 +1666,7 @@ class AppProvider extends ChangeNotifier {
     _routineHistory = {};
     for (var back = days - 1; back >= 1; back--) {
       final date = today.subtract(Duration(days: back));
-      final plan = dailyPlanIds(date);
+      final plan = _planIds(date);
       // The last ten days run clean so the streak on screen is believable.
       final double ratio;
       if (back <= 10) {
@@ -1548,7 +1684,7 @@ class AppProvider extends ChangeNotifier {
     }
 
     // ── Today: one item left open, so the ring reads as in progress ──
-    final todayPlan = dailyPlanIds(today);
+    final todayPlan = _planIds(today);
     _completedRoutineIds = todayPlan.take(todayPlan.length - 1).toList();
     _lastRoutineDate = _dateKey(today);
     _lastAllCompletedDate = _dateKey(today.subtract(const Duration(days: 1)));
@@ -1557,7 +1693,7 @@ class AppProvider extends ChangeNotifier {
     var streak = 0;
     for (var back = 1; back < days; back++) {
       final date = today.subtract(Duration(days: back));
-      final plan = dailyPlanIds(date);
+      final plan = _planIds(date);
       final done = _routineHistory[_dateKey(date)] ?? const <String>[];
       if (plan.isNotEmpty && done.length >= plan.length) {
         streak++;

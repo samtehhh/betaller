@@ -5,7 +5,10 @@
 /// every day, which is what progress and streaks are measured against.
 library;
 
-/// Training block per weekday, Monday first.
+import 'daily_targets.dart';
+
+/// The training block per weekday before v3, Monday first. Kept for code
+/// that still reads it; the plan itself now comes from [WeeklyPlan].
 const List<List<String>> kWeekdayRoutineIds = [
   ['morning_stretch', 'bar_hanging', 'jumping', 'posture_check'],
   ['cobra_stretch', 'evening_yoga', 'water', 'quality_sleep'],
@@ -24,12 +27,17 @@ const List<String> kDailyCoreRoutineIds = [
   'posture_check',
 ];
 
-/// The routines expected today, in a stable order and without duplicates.
-List<String> dailyPlanIds([DateTime? date]) {
+/// The routines expected on [date] (today by default): that weekday's
+/// training block from [WeeklyPlan], then the everyday habits, in a stable
+/// order and without duplicates. [weeklyWorkout] is the onboarding answer
+/// the plan is built for.
+List<String> dailyPlanIds([DateTime? date, String weeklyWorkout = '']) {
   final day = date ?? DateTime.now();
-  final weekday = kWeekdayRoutineIds[(day.weekday - 1) % 7];
+  final block = WeeklyPlan.forAnswers(weeklyWorkout: weeklyWorkout)
+      .days[(day.weekday - 1) % 7]
+      .routineIds;
   final ids = <String>[];
-  for (final id in [...weekday, ...kDailyCoreRoutineIds]) {
+  for (final id in [...block, ...kDailyCoreRoutineIds]) {
     if (!ids.contains(id)) ids.add(id);
   }
   return ids;
