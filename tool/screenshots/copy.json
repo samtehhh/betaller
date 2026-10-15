@@ -1,6 +1,27 @@
 {
   "_note": "Headline (line 1, max ~5 words) and subline (max ~7 words) per frame and locale. No em dashes, no 'AI', no promised centimetres. headlineCase: 'sentence' keeps the text as written; 'upper' upper-cases it with Turkish dotted/dotless i handled and the brand name left as BeTaller.",
   "headlineCase": "sentence",
+  "_creatives": "header: the 21:9 product page header, one idea for a first-time visitor, headline max ~5 words. search: the 3:2 search result image, states what the app does. Both follow Apple's creative asset rules: no prices, URLs, awards or other-platform names.",
+  "header": {
+    "en": ["Reach your height potential", "Workouts, sleep and nutrition in one daily plan."],
+    "tr": ["Boy potansiyeline ulaş", "Egzersiz, uyku ve beslenme tek günlük planda."],
+    "de": ["Erreiche dein Größenpotenzial", "Training, Schlaf und Ernährung in einem Tagesplan."],
+    "fr": ["Atteins ta taille potentielle", "Sport, sommeil et nutrition dans un plan du jour."],
+    "es": ["Alcanza tu altura potencial", "Ejercicio, sueño y nutrición en un plan diario."],
+    "it": ["Raggiungi la tua altezza potenziale", "Allenamento, sonno e nutrizione in un piano al giorno."],
+    "pt": ["Alcance sua altura potencial", "Treino, sono e nutrição em um plano diário."],
+    "hi": ["अपनी लंबाई की क्षमता तक पहुंचें", "व्यायाम, नींद और पोषण, एक रोज़ के प्लान में।"]
+  },
+  "search": {
+    "en": ["Your height potential, charted", "See your potential, track every measurement, follow a daily plan."],
+    "tr": ["Boy potansiyelin, grafikte", "Potansiyelini gör, her ölçümü izle, günlük planı uygula."],
+    "de": ["Dein Größenpotenzial im Verlauf", "Sieh dein Potenzial, verfolge jede Messung, folge dem Tagesplan."],
+    "fr": ["Ta taille potentielle, en courbe", "Vois ton potentiel, suis chaque mesure et ton plan du jour."],
+    "es": ["Tu altura potencial, en gráfica", "Ve tu potencial, sigue cada medida y tu plan diario."],
+    "it": ["La tua altezza potenziale, in grafico", "Scopri il potenziale, segui ogni misura e il piano del giorno."],
+    "pt": ["Sua altura potencial no gráfico", "Veja seu potencial, acompanhe cada medida e siga o plano diário."],
+    "hi": ["आपकी लंबाई की क्षमता, ग्राफ़ पर", "अपनी क्षमता देखें, हर माप ट्रैक करें, रोज़ का प्लान अपनाएं।"]
+  },
   "frames": [
     {
       "slug": "01-potential",
