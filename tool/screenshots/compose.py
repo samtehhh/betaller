@@ -51,6 +51,8 @@ GAP = {"iphone": 70, "ipad": 80, "duo-outer": 60, "duo-inner": 76}
 BOTTOM = {"iphone": 70, "ipad": 60, "duo-outer": 60, "duo-inner": 70}
 # Largest share of the canvas width a single screen may take.
 SINGLE_W = {"iphone": 0.74, "ipad": 0.76, "duo-outer": 0.74, "duo-inner": 0.76}
+# Screen width of a big() frame, as a share of the canvas width.
+BIG_W = {"iphone": 0.88, "ipad": 0.84, "duo-outer": 0.86, "duo-inner": 0.84}
 # Share of the top safe area (the status bar's place) trimmed off the capture,
 # so the frame does not open on an empty band where no status bar is drawn.
 SAFE_TRIM = 0.65
@@ -68,25 +70,36 @@ def duo(back, front):
     return {"kind": "duo", "back": back, "front": front}
 
 
+def big(shot, breakout=None):
+    """One phone much wider than [single] allows, running off the bottom
+    edge: the top of the screen at a size that stays readable in the store's
+    small thumbnails."""
+    return {"kind": "big", "shot": shot, "breakout": breakout}
+
+
 # The frame plan. First three are the search-result trio. The duo sets
 # take the iPad plan (one screen per frame): their displays are wide in
 # proportion, and two phones side by side would leave each one tiny.
 PLAN_FROM = {"duo-outer": "ipad", "duo-inner": "ipad"}
 FRAMES = [
-    ("01-potential", {"iphone": single("home", "_PotentialHero"),
+    ("01-potential", {"iphone": big("home", "_PotentialHero"),
                       "ipad": single("home", "_PotentialHero")}),
-    ("02-chart", {"iphone": single("progress", "PotentialChart"),
+    ("02-day", {"iphone": big("day"),
+                "ipad": single("day", "_ProgramDayCard")}),
+    ("03-targets", {"iphone": big("nutrition", "NutritionTargetsHeader"),
+                    "ipad": single("nutrition", "NutritionTargetsHeader")}),
+    ("04-chart", {"iphone": big("progress", "PotentialChart"),
                   "ipad": single("progress", "PotentialChart")}),
-    ("03-plan", {"iphone": duo("today", "player"),
+    ("05-plan", {"iphone": duo("today", "player"),
                  "ipad": single("today", "_TodayHero")}),
-    ("04-score", {"iphone": single("analysis", "_ScoreHero"),
+    ("06-score", {"iphone": big("analysis", "_ScoreHero"),
                   "ipad": single("analysis", "_ScoreHero")}),
-    ("05-program", {"iphone": single("program", "_JourneyHeader"),
+    ("07-program", {"iphone": big("program", "_JourneyHeader"),
                     "ipad": single("program", "_JourneyHeader")}),
-    ("06-nutrition", {"iphone": duo("nutrition", "meals"),
-                      "ipad": single("nutrition")}),
-    ("07-photos", {"iphone": single("photos"), "ipad": single("photos")}),
-    ("08-posture", {"iphone": duo("weekly", "posture"),
+    ("08-meals", {"iphone": duo("nutrition", "meals"),
+                  "ipad": single("meals", "MealCard")}),
+    ("09-photos", {"iphone": single("photos"), "ipad": single("photos")}),
+    ("10-posture", {"iphone": duo("weekly", "posture"),
                     "ipad": single("posture", "_ScoreCard")}),
 ]
 
@@ -271,6 +284,15 @@ def compose(out, device, locale, slug, plan):
         dev.paste(canvas, x, y)
         if plan.get("breakout"):
             breakout(canvas, dev, meta, plan["breakout"], W * 0.86)
+    elif plan["kind"] == "big":
+        raw, meta = load_raw(out, device, locale, plan["shot"])
+        dev = Device(device, raw, int(W * BIG_W[device]))
+        x = (W - dev.size[0]) // 2
+        y = text_bottom + gap
+        glow(canvas, (W // 2, y + (H - y) // 2), int(W * 0.62), LIME, 34)
+        dev.paste(canvas, x, y)
+        if plan.get("breakout"):
+            breakout(canvas, dev, meta, plan["breakout"], W * 0.96)
     else:
         back_raw, _ = load_raw(out, device, locale, plan["back"])
         front_raw, _ = load_raw(out, device, locale, plan["front"])

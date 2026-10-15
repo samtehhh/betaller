@@ -35,7 +35,29 @@
       "hi": ["देखें आप कितने लंबे हो सकते हैं", "आपकी उम्र और माता-पिता की लंबाई से अनुमान।"]
     },
     {
-      "slug": "02-chart",
+      "slug": "02-day",
+      "en": ["Your daily plan, ready", "Every move with sets, reps and a video."],
+      "tr": ["Günlük planın hazır", "Her hareket set, tekrar ve videosuyla."],
+      "de": ["Dein Tagesplan steht", "Jede Übung mit Sätzen, Wiederholungen und Video."],
+      "fr": ["Ton plan du jour est prêt", "Chaque exercice avec séries, répétitions et vidéo."],
+      "es": ["Tu plan diario, listo", "Cada ejercicio con series, repeticiones y vídeo."],
+      "it": ["Il tuo piano del giorno è pronto", "Ogni esercizio con serie, ripetizioni e video."],
+      "pt": ["Seu plano do dia está pronto", "Cada exercício com séries, repetições e vídeo."],
+      "hi": ["आपका आज का प्लान तैयार", "हर एक्सरसाइज़ सेट, रेप्स और वीडियो के साथ।"]
+    },
+    {
+      "slug": "03-targets",
+      "en": ["Your targets, down to the gram", "Protein, calcium, vitamin D and water, sized to you."],
+      "tr": ["Hedeflerin, gramı gramına", "Protein, kalsiyum, D vitamini ve su, sana göre."],
+      "de": ["Deine Ziele, aufs Gramm genau", "Protein, Kalzium, Vitamin D und Wasser, für dich berechnet."],
+      "fr": ["Tes objectifs, au gramme près", "Protéines, calcium, vitamine D et eau, calculés pour toi."],
+      "es": ["Tus metas, al gramo", "Proteína, calcio, vitamina D y agua, a tu medida."],
+      "it": ["I tuoi obiettivi, al grammo", "Proteine, calcio, vitamina D e acqua, calcolati per te."],
+      "pt": ["Suas metas, grama por grama", "Proteína, cálcio, vitamina D e água, calculados para você."],
+      "hi": ["आपके लक्ष्य, ग्राम तक सटीक", "प्रोटीन, कैल्शियम, विटामिन D और पानी, आपके हिसाब से।"]
+    },
+    {
+      "slug": "04-chart",
       "en": ["Watch your height rise", "Every measurement, charted toward your potential."],
       "tr": ["Boyunun yükselişini izle", "Her ölçüm, potansiyeline uzanan grafikte."],
       "de": ["Sieh deine Größe wachsen", "Jede Messung im Verlauf zu deinem Potenzial."],
@@ -46,7 +68,7 @@
       "hi": ["अपनी लंबाई बढ़ते देखें", "हर माप, आपकी क्षमता की ओर ग्राफ़ पर।"]
     },
     {
-      "slug": "03-plan",
+      "slug": "05-plan",
       "en": ["Train with today’s plan", "Short guided workouts with exercise videos."],
       "tr": ["Bugünün planıyla antrenman yap", "Egzersiz videolu kısa, rehberli antrenmanlar."],
       "de": ["Trainiere mit deinem Tagesplan", "Kurze, geführte Workouts mit Übungsvideos."],
@@ -57,7 +79,7 @@
       "hi": ["आज के प्लान से ट्रेनिंग करें", "एक्सरसाइज़ वीडियो के साथ छोटे गाइडेड वर्कआउट।"]
     },
     {
-      "slug": "04-score",
+      "slug": "06-score",
       "en": ["Know your BeTaller Score", "Your daily habits, scored out of 100."],
       "tr": ["BeTaller Puanını öğren", "Günlük alışkanlıkların 100 üzerinden puanlanır."],
       "de": ["Kenne deine BeTaller-Punktzahl", "Deine Gewohnheiten, bewertet von 0 bis 100."],
@@ -68,7 +90,7 @@
       "hi": ["अपना BeTaller स्कोर जानें", "आपकी रोज़ की आदतें, 100 में से स्कोर।"]
     },
     {
-      "slug": "05-program",
+      "slug": "07-program",
       "en": ["Build the habit in 70 days", "Ten levels, one short step a day."],
       "tr": ["70 günde alışkanlığını kur", "On seviye, her gün kısa bir adım."],
       "de": ["Bau in 70 Tagen Routine auf", "Zehn Level, jeden Tag ein kurzer Schritt."],
@@ -79,18 +101,18 @@
       "hi": ["70 दिनों में आदत बनाएं", "दस लेवल, हर दिन एक छोटा कदम।"]
     },
     {
-      "slug": "06-nutrition",
-      "en": ["Hit your nutrition targets", "Protein and calcium goals with a meal plan."],
-      "tr": ["Beslenme hedeflerini tuttur", "Protein, kalsiyum hedefleri ve yemek planı."],
-      "de": ["Erreiche deine Nährstoffziele", "Protein- und Kalziumziele mit Essensplan."],
-      "fr": ["Atteins tes objectifs nutrition", "Protéines, calcium et un plan de repas."],
-      "es": ["Cumple tus metas de nutrición", "Proteína, calcio y un plan de comidas."],
-      "it": ["Raggiungi i tuoi obiettivi nutrizionali", "Proteine, calcio e un piano pasti."],
-      "pt": ["Bata suas metas de nutrição", "Proteína, cálcio e um plano de refeições."],
-      "hi": ["अपने पोषण लक्ष्य पूरे करें", "प्रोटीन, कैल्शियम के लक्ष्य और मील प्लान।"]
+      "slug": "08-meals",
+      "en": ["A meal plan sized to you", "Real foods and grams for every meal."],
+      "tr": ["Sana göre yemek planı", "Her öğün için gerçek yiyecekler ve gramlar."],
+      "de": ["Ein Essensplan nach Maß", "Echte Lebensmittel und Gramm für jede Mahlzeit."],
+      "fr": ["Un plan de repas sur mesure", "De vrais aliments et grammes pour chaque repas."],
+      "es": ["Un plan de comidas para ti", "Alimentos reales y gramos para cada comida."],
+      "it": ["Un piano pasti su misura", "Cibi veri e grammi per ogni pasto."],
+      "pt": ["Um plano de refeições sob medida", "Alimentos reais e gramas para cada refeição."],
+      "hi": ["आपके हिसाब से मील प्लान", "हर मील के लिए असली खाना और ग्राम।"]
     },
     {
-      "slug": "07-photos",
+      "slug": "09-photos",
       "en": ["See the change side by side", "Drag to compare your before and after."],
       "tr": ["Değişimi yan yana gör", "Öncesi ve sonrasını kaydırarak karşılaştır."],
       "de": ["Sieh den Unterschied direkt", "Zieh, um Vorher und Nachher zu vergleichen."],
@@ -101,7 +123,7 @@
       "hi": ["पहले और बाद का फ़र्क देखें", "पहले और बाद की तुलना के लिए खींचें।"]
     },
     {
-      "slug": "08-posture",
+      "slug": "10-posture",
       "en": ["Check your posture weekly", "A quick self-check, then your weekly report."],
       "tr": ["Duruşunu her hafta kontrol et", "Hızlı bir öz kontrol ve haftalık raporun."],
       "de": ["Prüf jede Woche deine Haltung", "Ein kurzer Selbstcheck und dein Wochenbericht."],

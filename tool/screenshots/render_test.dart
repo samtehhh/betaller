@@ -83,8 +83,8 @@ const _devices = {
 
 /// Screens the duo sets use (compose.py's frame plan); the rest are skipped.
 const _duoShots = {
-  'home', 'progress', 'today', 'analysis', 'program', 'nutrition', 'photos',
-  'posture',
+  'home', 'progress', 'today', 'analysis', 'program', 'day', 'nutrition',
+  'meals', 'photos', 'posture',
 };
 
 // ── Fonts ──────────────────────────────────────────────────────────────────
@@ -408,6 +408,12 @@ final _shots = <_Shot>[
     await c.tab(1);
     await c.subTab(1);
   }, focus: ['_JourneyHeader', '_LevelWeek']),
+  // Today's step on the Discipline tab, scrolled up under the tabs.
+  _Shot('day', (c, d) async {
+    await c.tab(1);
+    await c.subTab(1);
+    await c.revealAt('_ProgramDayCard', d.top + 150);
+  }, focus: ['_ProgramDayCard']),
   _Shot('nutrition', (c, d) async {
     await c.tab(1);
     await c.subTab(2);
