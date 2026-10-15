@@ -121,6 +121,11 @@ class Calculations {
     return _averageGrowthVelocity(age, gender) * 0.95;
   }
 
+  /// Typical growth speed (cm a year) at [age], from the same table the
+  /// prediction uses.
+  static double expectedGrowthVelocity(int age, String gender) =>
+      _averageGrowthVelocity(age, gender);
+
   static double _averageGrowthVelocity(int age, String gender) {
     if (gender == 'male') {
       if (age <= 10) return 5.5;
@@ -513,103 +518,6 @@ class Calculations {
       'pessimistic': double.parse(pessimistic.toStringAsFixed(1)),
     };
   }
-
-  // ── GlowUp Skor Sistemi ────────────────────────────────────────
-
-  static GlowUpScore calculateGlowUpScore({
-    required UserProfile profile,
-    required List<HeightRecord> records,
-    required double routineProgress,
-    required double waterProgress,
-    required double sleepHours,
-    required int streak,
-  }) {
-    // 1. Genetik Skor (0-100)
-    final geneticPotential = geneticPotentialHeight(profile);
-    final geneticProgress = geneticPotential > 0
-        ? (profile.currentHeight / geneticPotential * 100).clamp(0, 100)
-        : 50.0;
-    // Genetik potansiyele yakınlık skoru
-    final geneticScore = (geneticProgress * 0.6 + 40).clamp(0, 100).round();
-
-    // 2. Büyüme Hızı Skoru (0-100)
-    int velocityScore = 50;
-    final velocity = growthVelocity(records);
-    if (velocity != null) {
-      final avgV = _averageGrowthVelocity(profile.age, profile.gender);
-      if (avgV > 0) {
-        final ratio = velocity / avgV;
-        velocityScore = (ratio * 70 + 15).clamp(0, 100).round();
-      }
-    }
-
-    // 3. Beslenme Skoru (0-100)
-    final bmi = calculateBMI(profile.currentHeight, profile.weight);
-    int nutritionScore = 50;
-    if (bmi >= 18.5 && bmi < 25) {
-      nutritionScore = 90;
-    } else if (bmi >= 17 && bmi < 27)
-      nutritionScore = 70;
-    else if (bmi >= 15 && bmi < 30)
-      nutritionScore = 50;
-    else
-      nutritionScore = 30;
-    // Su takibi bonusu
-    nutritionScore = ((nutritionScore * 0.7) + (waterProgress.clamp(0, 1) * 30))
-        .round();
-
-    // 4. Uyku Skoru (0-100)
-    final sleepNeed = dailySleepNeed(profile.age);
-    final sleepRatio = sleepHours > 0
-        ? (sleepHours / sleepNeed).clamp(0, 1.2)
-        : 0.0;
-    final sleepScore = (sleepRatio * 85 + 5).clamp(0, 100).round();
-
-    // 5. Disiplin Skoru (0-100)
-    final disciplineScore = math.min(
-      100,
-      (routineProgress * 60 + streak * 2 + 10).round(),
-    );
-
-    // Toplam GlowUp Skoru (ağırlıklı ortalama)
-    final totalScore =
-        (geneticScore * 0.25 +
-                velocityScore * 0.25 +
-                nutritionScore * 0.20 +
-                sleepScore * 0.15 +
-                disciplineScore * 0.15)
-            .round()
-            .clamp(0, 100);
-
-    return GlowUpScore(
-      total: totalScore,
-      genetic: geneticScore,
-      velocity: velocityScore,
-      nutrition: nutritionScore,
-      sleep: sleepScore,
-      discipline: disciplineScore,
-      grade: _scoreToGrade(totalScore),
-      summary: _scoreSummary(totalScore),
-    );
-  }
-
-  static String _scoreToGrade(int score) {
-    if (score >= 90) return 'S';
-    if (score >= 80) return 'A';
-    if (score >= 70) return 'B';
-    if (score >= 60) return 'C';
-    if (score >= 50) return 'D';
-    return 'F';
-  }
-
-  static String _scoreSummary(int score) {
-    if (score >= 90) return 'score_s';
-    if (score >= 80) return 'score_a';
-    if (score >= 70) return 'score_b';
-    if (score >= 60) return 'score_c';
-    if (score >= 50) return 'score_d';
-    return 'score_f';
-  }
 }
 
 // ── Veri Modelleri ────────────────────────────────────────────────
@@ -638,27 +546,5 @@ class PredictionResult {
     this.geneticGain = 0.0,
     this.lifestyleGain = 0.0,
     this.postureGain = 0.0,
-  });
-}
-
-class GlowUpScore {
-  final int total;
-  final int genetic;
-  final int velocity;
-  final int nutrition;
-  final int sleep;
-  final int discipline;
-  final String grade;
-  final String summary;
-
-  GlowUpScore({
-    required this.total,
-    required this.genetic,
-    required this.velocity,
-    required this.nutrition,
-    required this.sleep,
-    required this.discipline,
-    required this.grade,
-    required this.summary,
   });
 }

@@ -1,20 +1,28 @@
 import 'dart:math' as math;
+import 'dart:ui' show ImageFilter;
 
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
-import '../utils/constants.dart';
+import '../services/notification_service.dart';
+import '../utils/betaller_score.dart';
 import '../utils/calculations.dart';
+import '../utils/constants.dart';
+import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
-import 'leaderboard_screen.dart';
-import '../widgets/peer_rank_card.dart';
-import '../widgets/radar_chart.dart';
+import '../widgets/height_silhouette.dart';
+import '../widgets/potential_chart.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/tour_keys.dart';
+import '../widgets/water_sheet.dart';
+import 'leaderboard_screen.dart';
+import 'posture_analysis_screen.dart';
 
+/// The Analysis tab: the BeTaller Score and the nine signals behind it, the
+/// one potential the whole app shows, height for age, and the day's targets.
 class AnalysisScreen extends StatefulWidget {
   const AnalysisScreen({super.key});
 
@@ -24,30 +32,92 @@ class AnalysisScreen extends StatefulWidget {
 
 class AnalysisScreenState extends State<AnalysisScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _barAnim;
-  late Animation<double> _barCurve;
+  late final AnimationController _ring = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1200),
+  );
+  late final Animation<double> _ringCurve = CurvedAnimation(
+    parent: _ring,
+    curve: Curves.easeOutCubic,
+  );
+  final _potentialKey = GlobalKey();
+  int? _recorded;
 
   @override
   void initState() {
     super.initState();
-    _barAnim = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    );
-    _barCurve = CurvedAnimation(parent: _barAnim, curve: Curves.easeOutCubic);
+    // The tab is built at launch behind the home screen, so this first run
+    // is silent; opening the tab replays it.
     Future.delayed(const Duration(milliseconds: 200), () {
-      if (mounted) _barAnim.forward(from: 0);
+      if (!mounted) return;
+      if (MediaQuery.of(context).disableAnimations) {
+        _ring.value = 1;
+      } else {
+        _ring.forward(from: 0);
+      }
     });
   }
 
+  /// Called by MainScreen when the tab is opened: count the score up again
+  /// and mark the moment it lands.
   void replayAnimation() {
-    _barAnim.forward(from: 0);
+    if (!mounted) return;
+    if (MediaQuery.of(context).disableAnimations) {
+      _ring.value = 1;
+      return;
+    }
+    _ring.forward(from: 0).then((_) {
+      if (mounted && context.read<AppProvider>().isPremium) Haptics.impact();
+    });
   }
 
   @override
   void dispose() {
-    _barAnim.dispose();
+    _ring.dispose();
     super.dispose();
+  }
+
+  void _goToTab(int tab) =>
+      NotificationService.tappedPayload.value = 'tab:$tab';
+
+  void _act(ScoreFactor f, AppProvider provider) {
+    Haptics.tap();
+    switch (f) {
+      case ScoreFactor.training:
+      case ScoreFactor.consistency:
+      case ScoreFactor.nutrition:
+        _goToTab(1);
+      case ScoreFactor.sleep:
+        _goToTab(0);
+      case ScoreFactor.hydration:
+        showWaterSheet(context, provider, provider.dailyTargets!.waterL);
+      case ScoreFactor.posture:
+        final p = provider.betallerScore?.factor(ScoreFactor.posture);
+        if (p != null &&
+            (p.score ?? 0) >= 80 &&
+            (p.facts['daysAgo'] ?? 99) < 30) {
+          _goToTab(1);
+        } else {
+          Navigator.push(
+            context,
+            CupertinoPageRoute(builder: (_) => const PostureAnalysisScreen()),
+          );
+        }
+      case ScoreFactor.measuring:
+      case ScoreFactor.growth:
+        _goToTab(2);
+      case ScoreFactor.headroom:
+        final ctx = _potentialKey.currentContext;
+        if (ctx != null) {
+          Scrollable.ensureVisible(
+            ctx,
+            duration: MediaQuery.of(context).disableAnimations
+                ? Duration.zero
+                : const Duration(milliseconds: 500),
+            curve: Curves.easeOutCubic,
+          );
+        }
+    }
   }
 
   @override
@@ -57,38 +127,39 @@ class AnalysisScreenState extends State<AnalysisScreen>
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final profile = provider.profile;
-        if (profile == null) return const SizedBox();
+        final score = provider.betallerScore;
+        if (profile == null || score == null) return const SizedBox();
 
-        final bmi = Calculations.calculateBMI(
-          profile.currentHeight,
-          profile.weight,
-        );
-        final bmiCat = localizedBmiCategory(l, Calculations.bmiCategory(bmi));
-        final bmiCol = Calculations.bmiColor(bmi);
+        final total = score.total;
+        if (total != null && _recorded != total) {
+          _recorded = total;
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => provider.recordScoreSnapshot(total),
+          );
+        }
 
-        final waterNeed = Calculations.dailyWaterNeed(profile.weight);
-        final sleepNeed = Calculations.dailySleepNeed(profile.age);
-        final calorieNeed = Calculations.dailyCalorieNeed(profile);
-        final proteinNeed = Calculations.dailyProteinNeed(profile.weight);
-        final velocity = Calculations.growthVelocity(provider.heightRecords);
-
-        final glowScore = Calculations.calculateGlowUpScore(
-          profile: profile,
-          records: provider.heightRecords,
-          routineProgress: provider.routineProgress,
-          waterProgress: waterNeed > 0 ? provider.todayWater / waterNeed : 0,
-          sleepHours: provider.todaySleep,
-          streak: provider.streak,
-        );
-
-        // Lifestyle compliance: average of discipline + sleep + nutrition (all 0-100 → 0.0-1.0)
-        final lifestyleCompliance =
-            (glowScore.discipline + glowScore.sleep + glowScore.nutrition) /
-            300.0;
-        final prediction = Calculations.predictFinalHeight(
-          profile,
-          provider.heightRecords,
-          lifestyleScore: lifestyleCompliance,
+        final scoreBlock = Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            KeyedSubtree(
+              key: TourKeys.analysisScore,
+              child: _ScoreHero(
+                score: score,
+                lastWeek: provider.lastWeekScore,
+                ring: _ringCurve,
+                onAct: (f) => _act(f, provider),
+              ),
+            ),
+            const SizedBox(height: 26),
+            KeyedSubtree(
+              key: TourKeys.analysisRadar,
+              child: _Breakdown(
+                score: score,
+                provider: provider,
+                onAct: (f) => _act(f, provider),
+              ),
+            ),
+          ],
         );
 
         return Scaffold(
@@ -97,1260 +168,100 @@ class AnalysisScreenState extends State<AnalysisScreen>
             physics: const ClampingScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(
-                child: Container(
-                  color: AppColors.scaffold,
-                  child: SafeArea(
-                    bottom: false,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(22, 12, 22, 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l.analysis.toUpperCase(),
-                            style: TextStyle(
-                              fontSize: 36,
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.primary,
-                              letterSpacing: 2.0,
-                              shadows: [
-                                Shadow(
-                                  color: AppColors.primary.withValues(
-                                    alpha: 0.35,
-                                  ),
-                                  blurRadius: 14,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            l.performanceDashboard,
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white.withValues(alpha: 0.45),
-                              letterSpacing: 2.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 110),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate([
-                    // ── GlowUp Score Hero Card ────────────
-                    _buildPremiumGate(
-                      isPremium: provider.isPremium,
-                      context: context,
-                      borderRadius: 32,
-                      child: GlassCard(
-                        borderRadius: 32,
-                        glowColor: _tierColor(
-                          glowScore.total,
-                        ).withValues(alpha: 0.18),
-                        borderColor: _tierColor(
-                          glowScore.total,
-                        ).withValues(alpha: 0.30),
-                        padding: const EdgeInsets.all(24),
-                        child: Column(
-                          children: [
-                            // ── The score itself: tier, ring, hint ──
-                            KeyedSubtree(
-                              key: TourKeys.analysisScore,
-                              child: Column(
-                                children: [
-                                  // ── Header row ──
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              l.generalPerformance,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.white.withValues(
-                                                  alpha: 0.40,
-                                                ),
-                                                letterSpacing: 2.5,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              l.betallerScore,
-                                              maxLines: 2,
-                                              style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w800,
-                                                color: Colors.white,
-                                                letterSpacing: -0.5,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(width: 12),
-                                      // Tier badge
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 14,
-                                          vertical: 8,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: _tierColor(
-                                            glowScore.total,
-                                          ).withValues(alpha: 0.18),
-                                          borderRadius: BorderRadius.circular(
-                                            18,
-                                          ),
-                                          border: Border.all(
-                                            color: _tierColor(
-                                              glowScore.total,
-                                            ).withValues(alpha: 0.45),
-                                          ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: _tierColor(
-                                                glowScore.total,
-                                              ).withValues(alpha: 0.25),
-                                              blurRadius: 12,
-                                            ),
-                                          ],
-                                        ),
-                                        child: Text(
-                                          _tierLabel(glowScore.total, l),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w900,
-                                            color: _tierColor(glowScore.total),
-                                            letterSpacing: 1.5,
-                                            shadows: [
-                                              Shadow(
-                                                color: _tierColor(
-                                                  glowScore.total,
-                                                ).withValues(alpha: 0.5),
-                                                blurRadius: 10,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 28),
-                                  // ── Big score + ring ──
-                                  AnimatedBuilder(
-                                    animation: _barAnim,
-                                    builder: (context, _) {
-                                      final a = _barCurve.value;
-                                      return SizedBox(
-                                        height: 180,
-                                        width: 180,
-                                        child: CustomPaint(
-                                          painter: _ScoreRingPainter(
-                                            progress:
-                                                (glowScore.total / 100) * a,
-                                            color: _tierColor(glowScore.total),
-                                          ),
-                                          child: Center(
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(
-                                                  '${(glowScore.total * a).round()}',
-                                                  style: TextStyle(
-                                                    fontSize: 72,
-                                                    fontWeight: FontWeight.w800,
-                                                    color: Colors.white,
-                                                    letterSpacing: -3,
-                                                    height: 1,
-                                                    shadows: [
-                                                      Shadow(
-                                                        color:
-                                                            _tierColor(
-                                                              glowScore.total,
-                                                            ).withValues(
-                                                              alpha: 0.45,
-                                                            ),
-                                                        blurRadius: 14,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Text(
-                                                  '/ 100',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.white
-                                                        .withValues(
-                                                          alpha: 0.50,
-                                                        ),
-                                                    letterSpacing: 0.5,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                  const SizedBox(height: 12),
-                                  // ── Next tier hint ──
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 14,
-                                      vertical: 8,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withValues(
-                                        alpha: 0.06,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                        color: Colors.white.withValues(
-                                          alpha: 0.08,
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      _nextTierHint(glowScore.total, l),
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white.withValues(
-                                          alpha: 0.65,
-                                        ),
-                                        letterSpacing: 0.3,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Text(
-                                    localizedScoreSummary(l, glowScore.summary),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white.withValues(
-                                        alpha: 0.88,
-                                      ),
-                                      height: 1.4,
-                                      letterSpacing: -0.1,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 28),
-                            // ── The shape of the five metrics ──
-                            KeyedSubtree(
-                              key: TourKeys.analysisRadar,
-                              child: Column(
-                                children: [
-                                  Divider(
-                                    color: Colors.white.withValues(alpha: 0.07),
-                                    height: 1,
-                                  ),
-                                  const SizedBox(height: 18),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        CupertinoIcons.hexagon_fill,
-                                        size: 14,
-                                        color: AppColors.primary,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        l.analysisBalance.toUpperCase(),
-                                        style: TextStyle(
-                                          fontSize: 10.5,
-                                          fontWeight: FontWeight.w800,
-                                          letterSpacing: 1.3,
-                                          color: Colors.white.withValues(
-                                            alpha: 0.45,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 6),
-                                  AnimatedBuilder(
-                                    animation: _barAnim,
-                                    builder: (context, _) => SizedBox(
-                                      height: 250,
-                                      child: Center(
-                                        child: RadarChart(
-                                          progress: _barCurve.value,
-                                          axes: [
-                                            RadarAxis(
-                                              label: l.genetic,
-                                              value: glowScore.genetic,
-                                              color: AppColors.primary,
-                                            ),
-                                            RadarAxis(
-                                              label: l.growth,
-                                              value: glowScore.velocity,
-                                              color: AppColors.lime,
-                                            ),
-                                            RadarAxis(
-                                              label: l.nutrition,
-                                              value: glowScore.nutrition,
-                                              color: AppColors.orange,
-                                            ),
-                                            RadarAxis(
-                                              label: l.sleepLabel,
-                                              value: glowScore.sleep,
-                                              color: AppColors.sleep,
-                                            ),
-                                            RadarAxis(
-                                              label: l.discipline,
-                                              value: glowScore.discipline,
-                                              color: AppColors.warning,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  _WeakestLink(score: glowScore, l: l),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-
-                    // ── İyileştirme Önerileri ────────────
-                    if (_getImprovements(glowScore, provider, l).isNotEmpty &&
-                        provider.isPremium) ...[
-                      GlassCard(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(
-                                  CupertinoIcons.arrow_up_right_circle_fill,
-                                  color: AppColors.lime,
-                                  size: 20,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  l.improveScore,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    letterSpacing: -0.3,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.lime.withValues(
-                                      alpha: 0.15,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    l.gradeProgress(
-                                      glowScore.grade,
-                                      _nextGrade(glowScore.grade),
-                                    ),
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w800,
-                                      color: AppColors.lime,
-                                      letterSpacing: 0.5,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 16),
-                            ..._getImprovements(glowScore, provider, l).map(
-                              (tip) => Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Container(
-                                  padding: const EdgeInsets.all(14),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        (tip['color'] as Color).withValues(
-                                          alpha: 0.14,
-                                        ),
-                                        (tip['color'] as Color).withValues(
-                                          alpha: 0.03,
-                                        ),
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    borderRadius: BorderRadius.circular(26),
-                                    border: Border.all(
-                                      color: (tip['color'] as Color).withValues(
-                                        alpha: 0.18,
-                                      ),
-                                      width: 0.5,
-                                    ),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 36,
-                                        height: 36,
-                                        decoration: BoxDecoration(
-                                          color: (tip['color'] as Color)
-                                              .withValues(alpha: 0.20),
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            tip['icon'] as String,
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 12),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              tip['title'] as String,
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700,
-                                                color: tip['color'] as Color,
-                                                letterSpacing: -0.2,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 2),
-                                            Text(
-                                              tip['desc'] as String,
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white.withValues(
-                                                  alpha: 0.78,
-                                                ),
-                                                height: 1.35,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 4,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: (tip['color'] as Color)
-                                              .withValues(alpha: 0.15),
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          '+${tip['points']}',
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w800,
-                                            color: tip['color'] as Color,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                    ],
-
-                    // ── Boy Tahmini Hero Card ─────────────
-                    SectionHeader(
-                      icon: CupertinoIcons.arrow_up_right_circle_fill,
-                      title: l.analysisPrediction,
-                      iconColor: AppColors.cyan,
-                    ),
-                    const SizedBox(height: 12),
-                    KeyedSubtree(
-                      key: TourKeys.analysisPrediction,
-                      child: _buildPremiumGate(
-                        isPremium: provider.isPremium,
-                        context: context,
-                        child: GlassCard(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(
-                                    CupertinoIcons.sparkles,
-                                    color: AppColors.cyan,
-                                    size: 20,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    l.heightPrediction,
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      letterSpacing: -0.5,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              // Final height prediction
-                              Center(
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      l.predictedHeightAt21,
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white.withValues(
-                                          alpha: 0.75,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    provider.useImperial
-                                        ? Text(
-                                            provider.formatHeight(
-                                              provider.potentialHeight,
-                                            ),
-                                            style: const TextStyle(
-                                              fontSize: 52,
-                                              fontWeight: FontWeight.w800,
-                                              color: AppColors.cyan,
-                                              letterSpacing: -2,
-                                              height: 1,
-                                            ),
-                                          )
-                                        : Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.baseline,
-                                            textBaseline:
-                                                TextBaseline.alphabetic,
-                                            children: [
-                                              Text(
-                                                provider.potentialHeight
-                                                    .toStringAsFixed(1),
-                                                style: const TextStyle(
-                                                  fontSize: 52,
-                                                  fontWeight: FontWeight.w800,
-                                                  color: AppColors.cyan,
-                                                  letterSpacing: -2,
-                                                  height: 1,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 4),
-                                              Text(
-                                                'cm',
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: AppColors.cyan
-                                                      .withValues(alpha: 0.6),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-                              // Year-by-year predictions
-                              if (prediction.yearlyPredictions.isNotEmpty) ...[
-                                Text(
-                                  l.yearlyPrediction,
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white.withValues(alpha: 0.82),
-                                    letterSpacing: 1.2,
-                                  ),
-                                ),
-                                const SizedBox(height: 12),
-                                ...prediction.yearlyPredictions.entries.map((
-                                  e,
-                                ) {
-                                  final heightDelta =
-                                      provider.potentialHeight -
-                                      profile.currentHeight;
-                                  final progress = heightDelta.abs() > 0.01
-                                      ? ((e.value - profile.currentHeight) /
-                                                heightDelta)
-                                            .clamp(0.0, 1.0)
-                                      : 1.0;
-                                  return Padding(
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 74,
-                                          child: Text(
-                                            l.ageYear(e.key),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white.withValues(
-                                                alpha: 0.82,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                              3,
-                                            ),
-                                            child: LinearProgressIndicator(
-                                              value: progress,
-                                              minHeight: 6,
-                                              backgroundColor: Colors.white
-                                                  .withValues(alpha: 0.12),
-                                              valueColor:
-                                                  AlwaysStoppedAnimation(
-                                                    AppColors.cyan.withValues(
-                                                      alpha:
-                                                          0.6 + progress * 0.4,
-                                                    ),
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 65,
-                                          child: Text(
-                                            provider.formatHeight(e.value),
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w700,
-                                              color: AppColors.cyan,
-                                              letterSpacing: -0.3,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }),
-                              ],
-
-
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-
-                    // ── Peer rank, right under the prediction ──
-                    SectionHeader(
-                      icon: CupertinoIcons.person_2_fill,
-                      title: l.analysisComparison,
-                      iconColor: AppColors.warning,
-                    ),
-                    const SizedBox(height: 12),
-                    KeyedSubtree(
-                      key: TourKeys.analysisPeer,
-                      child: PeerRankCard(
-                        percentile: provider.peerPercentile.toDouble(),
-                        onTap: () => Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (_) => const LeaderboardScreen(),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-
-                    // ── Growth Status + Velocity ──────────
-                    SectionHeader(
-                      icon: CupertinoIcons.chart_bar_alt_fill,
-                      title: l.analysisGrowth,
-                      iconColor: AppColors.lime,
-                    ),
-                    const SizedBox(height: 12),
-                    _buildPremiumGate(
-                      isPremium: provider.isPremium,
-                      context: context,
-                      child: GlassCard(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // the section header above already names this card
-                            Builder(
-                              builder: (_) {
-                                final totalGain =
-                                    provider.potentialHeight -
-                                    profile.currentHeight;
-                                final geneticGain = prediction.geneticGain;
-                                final lifestyleGain = prediction.lifestyleGain;
-                                final postureGain = prediction.postureGain;
-                                final geneticCeiling =
-                                    prediction.geneticEstimate;
-                                final towardCeiling =
-                                    geneticCeiling > profile.currentHeight
-                                    ? (profile.currentHeight / geneticCeiling)
-                                          .clamp(0.0, 1.0)
-                                    : 1.0;
-
-                                final parts = <(String, double, Color)>[
-                                  (
-                                    l.geneticGainLabel,
-                                    geneticGain,
-                                    AppColors.primary,
-                                  ),
-                                  (
-                                    l.lifestyleLabel,
-                                    lifestyleGain,
-                                    AppColors.cyan,
-                                  ),
-                                  (
-                                    l.quickPosture,
-                                    postureGain,
-                                    AppColors.orange,
-                                  ),
-                                ].where((p) => p.$2 > 0.05).toList();
-                                // the three sources can add up past the net gain,
-                                // so shares are of their own sum, not of the total
-                                final partsSum = parts.fold<double>(
-                                  0,
-                                  (sum, p) => sum + p.$2,
-                                );
-
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // ── What is still on the table ──────────
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              l.growthRemaining.toUpperCase(),
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w800,
-                                                letterSpacing: 1.3,
-                                                color: Colors.white.withValues(
-                                                  alpha: 0.40,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 6),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.baseline,
-                                              textBaseline:
-                                                  TextBaseline.alphabetic,
-                                              children: [
-                                                Text(
-                                                  '+${provider.heightNumber(totalGain).toStringAsFixed(1)}',
-                                                  style: const TextStyle(
-                                                    fontSize: 40,
-                                                    fontWeight: FontWeight.w900,
-                                                    color: AppColors.lime,
-                                                    letterSpacing: -2,
-                                                    height: 1,
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 5),
-                                                Text(
-                                                  provider.heightUnit,
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.white
-                                                        .withValues(
-                                                          alpha: 0.45,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(width: 12),
-                                        Flexible(
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 12,
-                                              vertical: 9,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: AppColors.cyan.withValues(
-                                                alpha: 0.11,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                              border: Border.all(
-                                                color: AppColors.cyan
-                                                    .withValues(alpha: 0.28),
-                                              ),
-                                            ),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(
-                                                  l.reachableTargetHeight,
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                    fontSize: 9.5,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.white
-                                                        .withValues(
-                                                          alpha: 0.45,
-                                                        ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 2),
-                                                Text(
-                                                  provider.formatHeight(
-                                                    provider.potentialHeight,
-                                                  ),
-                                                  style: const TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w900,
-                                                    color: AppColors.cyan,
-                                                    letterSpacing: -0.4,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-
-                                    const SizedBox(height: 20),
-
-                                    // ── One bar, split by source ────────────
-                                    Text(
-                                      l.growthBreakdown,
-                                      style: TextStyle(
-                                        fontSize: 11.5,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white.withValues(
-                                          alpha: 0.45,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    if (parts.isNotEmpty) ...[
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(6),
-                                        child: SizedBox(
-                                          height: 12,
-                                          child: Row(
-                                            children: [
-                                              for (
-                                                var i = 0;
-                                                i < parts.length;
-                                                i++
-                                              )
-                                                Expanded(
-                                                  flex: (parts[i].$2 * 100)
-                                                      .round(),
-                                                  child: Container(
-                                                    margin: EdgeInsets.only(
-                                                      right:
-                                                          i == parts.length - 1
-                                                          ? 0
-                                                          : 2,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      gradient: LinearGradient(
-                                                        colors: [
-                                                          parts[i].$3,
-                                                          parts[i].$3
-                                                              .withValues(
-                                                                alpha: 0.65,
-                                                              ),
-                                                        ],
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            6,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 14),
-                                      ...parts.map(
-                                        (p) => Padding(
-                                          padding: const EdgeInsets.only(
-                                            bottom: 9,
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 9,
-                                                height: 9,
-                                                decoration: BoxDecoration(
-                                                  color: p.$3,
-                                                  borderRadius:
-                                                      BorderRadius.circular(3),
-                                                ),
-                                              ),
-                                              const SizedBox(width: 9),
-                                              Expanded(
-                                                child: Text(
-                                                  p.$1,
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.white
-                                                        .withValues(
-                                                          alpha: 0.72,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                '${partsSum <= 0 ? 0 : (p.$2 / partsSum * 100).round()}%',
-                                                style: TextStyle(
-                                                  fontSize: 11.5,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white
-                                                      .withValues(alpha: 0.35),
-                                                ),
-                                              ),
-                                              const SizedBox(width: 10),
-                                              Text(
-                                                provider.formatHeightDelta(
-                                                  p.$2,
-                                                ),
-                                                style: TextStyle(
-                                                  fontSize: 13.5,
-                                                  fontWeight: FontWeight.w800,
-                                                  color: p.$3,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-
-                                    const SizedBox(height: 8),
-
-                                    // ── The walk toward the genetic ceiling ──
-                                    Container(
-                                      padding: const EdgeInsets.fromLTRB(
-                                        14,
-                                        13,
-                                        14,
-                                        14,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white.withValues(
-                                          alpha: 0.035,
-                                        ),
-                                        borderRadius: BorderRadius.circular(18),
-                                        border: Border.all(
-                                          color: Colors.white.withValues(
-                                            alpha: 0.06,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  l.geneticCeilingProgress,
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontSize: 11.5,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.white
-                                                        .withValues(
-                                                          alpha: 0.45,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                '%${(towardCeiling * 100).floor()}',
-                                                style: const TextStyle(
-                                                  fontSize: 12.5,
-                                                  fontWeight: FontWeight.w900,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 9),
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                              5,
-                                            ),
-                                            child: LinearProgressIndicator(
-                                              value: towardCeiling,
-                                              minHeight: 8,
-                                              backgroundColor: Colors.white
-                                                  .withValues(alpha: 0.08),
-                                              valueColor:
-                                                  const AlwaysStoppedAnimation<
-                                                    Color
-                                                  >(AppColors.primary),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                provider.formatHeight(
-                                                  profile.currentHeight,
-                                                ),
-                                                style: TextStyle(
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white
-                                                      .withValues(alpha: 0.55),
-                                                ),
-                                              ),
-                                              Text(
-                                                provider.formatHeight(
-                                                  geneticCeiling,
-                                                ),
-                                                style: TextStyle(
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: AppColors.primary
-                                                      .withValues(alpha: 0.85),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    if (velocity != null) ...[
-                                      const SizedBox(height: 12),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 14,
-                                          vertical: 8,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: _velocityColor(
-                                            velocity,
-                                            profile.age,
-                                            profile.gender,
-                                          ).withValues(alpha: 0.10),
-                                          borderRadius: BorderRadius.circular(
-                                            10,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              CupertinoIcons.arrow_up_right,
-                                              size: 13,
-                                              color: _velocityColor(
-                                                velocity,
-                                                profile.age,
-                                                profile.gender,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 6),
-                                            Flexible(
-                                              child: Text(
-                                                '${velocity.toStringAsFixed(1)} ${l.cmPerYear}  •  ${l.growthRate(localizedVelocityRating(l, Calculations.growthVelocityRating(velocity, profile.age, profile.gender)))}',
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: _velocityColor(
-                                                    velocity,
-                                                    profile.age,
-                                                    profile.gender,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ],
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-
-                    // ── Daily targets ─────────────────────
-                    KeyedSubtree(
-                      key: TourKeys.analysisDailyNeeds,
-                      child: SectionHeader(
-                        icon: CupertinoIcons.checkmark_seal_fill,
-                        title: l.dailyNeedsTitle,
-                        iconColor: AppColors.lime,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    _buildPremiumGate(
-                      isPremium: provider.isPremium,
-                      context: context,
-                      borderRadius: 26,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: _ScoreCard(
-                              icon: CupertinoIcons.bolt_fill,
-                              title: l.protein,
-                              value: '${proteinNeed.toStringAsFixed(0)}g',
-                              subtitle: l.daily,
-                              color: AppColors.lime,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _ScoreCard(
-                              icon: CupertinoIcons.flame_fill,
-                              title: l.calories,
-                              value: '$calorieNeed',
-                              subtitle: l.kcalDay,
-                              color: AppColors.orange,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    _buildPremiumGate(
-                      isPremium: provider.isPremium,
-                      context: context,
-                      borderRadius: 26,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: _ScoreCard(
-                              icon: CupertinoIcons.moon_fill,
-                              title: l.sleepLabel,
-                              value:
-                                  '${sleepNeed.toStringAsFixed(0)}${l.hoursShort}',
-                              subtitle: l.minimum,
-                              color: AppColors.sleep,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _ScoreCard(
-                              icon: CupertinoIcons.drop_fill,
-                              title: l.water,
-                              value: '${waterNeed.toStringAsFixed(1)}L',
-                              subtitle: l.daily,
-                              color: AppColors.water,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 22),
-
-                    // ── Body facts ────────────────────────
-                    SectionHeader(
-                      icon: CupertinoIcons.person_crop_circle_fill,
-                      title: l.bodyFactsTitle,
-                      iconColor: AppColors.pink,
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
+                child: SafeArea(
+                  bottom: false,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 14, 20, 14),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: _ScoreCard(
-                            icon: CupertinoIcons.heart_fill,
-                            title: l.bmi,
-                            value: bmi.toStringAsFixed(1),
-                            subtitle: bmiCat,
-                            color: bmiCol,
+                        Text(
+                          l.analysis,
+                          style: const TextStyle(
+                            fontSize: 34,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                            letterSpacing: -1,
+                            height: 1.05,
                           ),
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: _ScoreCard(
-                            icon: CupertinoIcons.person_fill,
-                            title: l.age,
-                            value: '${profile.age}',
-                            subtitle: profile.gender == 'male'
-                                ? l.male
-                                : l.female,
-                            color: AppColors.pink,
+                        const SizedBox(height: 6),
+                        Text(
+                          l.anSubtitle,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white.withValues(alpha: 0.55),
+                            height: 1.35,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 100),
+                  ),
+                ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(16, 4, 16, 120),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                    // ── 1. The score and what builds it ──
+                    if (provider.isPremium)
+                      scoreBlock
+                    else
+                      _LockedPreview(
+                        maxHeight: 600,
+                        title: l.anUnlockScoreTitle,
+                        body: l.anUnlockScoreBody,
+                        child: scoreBlock,
+                      ),
+                    const SizedBox(height: 30),
+
+                    // ── 2. The one potential ──
+                    SectionHeader(
+                      icon: CupertinoIcons.arrow_up_right_circle_fill,
+                      title: _up(context, l.anPotentialTitle),
+                      iconColor: AppColors.lime,
+                    ),
+                    const SizedBox(height: 12),
+                    KeyedSubtree(
+                      key: TourKeys.analysisPrediction,
+                      child: Container(
+                        key: _potentialKey,
+                        child: _PotentialCard(provider: provider),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    KeyedSubtree(
+                      key: TourKeys.analysisPeer,
+                      child: _PercentileCard(provider: provider),
+                    ),
+                    const SizedBox(height: 30),
+
+                    // ── 3. Daily needs ──
+                    KeyedSubtree(
+                      key: TourKeys.analysisDailyNeeds,
+                      child: SectionHeader(
+                        icon: CupertinoIcons.checkmark_seal_fill,
+                        title: _up(context, l.anNeedsTitle),
+                        iconColor: AppColors.orange,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      l.anNeedsBasis,
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        color: Colors.white.withValues(alpha: 0.45),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    if (provider.isPremium)
+                      _DailyNeeds(provider: provider)
+                    else
+                      _LockedPreview(
+                        title: l.anUnlockNeedsTitle,
+                        child: _DailyNeeds(provider: provider),
+                      ),
                   ]),
                 ),
               ),
@@ -1360,227 +271,1351 @@ class AnalysisScreenState extends State<AnalysisScreen>
       },
     );
   }
+}
 
-  Widget _buildPremiumGate({
-    required bool isPremium,
-    required BuildContext context,
-    required Widget child,
-    double borderRadius = 22,
-  }) {
-    if (isPremium) return child;
-    return PremiumLockedOverlay(
-      onTap: () => showPremiumPaywall(context),
-      borderRadius: borderRadius,
-      child: child,
-    );
-  }
+// ── Look and feel shared by the cards ────────────────────────────────
 
-  // ── Tier helpers (score-based: 0-20 E, 21-40 D, 41-60 C, 61-80 B, 81-100 A) ──
+BoxDecoration _card({Color? glow}) => BoxDecoration(
+  color: AppColors.cardFill,
+  borderRadius: BorderRadius.circular(24),
+  border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+  boxShadow: glow == null
+      ? null
+      : [
+          BoxShadow(
+            color: glow.withValues(alpha: 0.18),
+            blurRadius: 40,
+            spreadRadius: -12,
+            offset: const Offset(0, 14),
+          ),
+        ],
+);
 
-  String _tierLabel(int score, AppLocalizations l) {
-    if (score >= 81) return l.tierA;
-    if (score >= 61) return l.tierB;
-    if (score >= 41) return l.tierC;
-    if (score >= 21) return l.tierD;
-    return l.tierE;
-  }
+/// Upper case that keeps the Turkish dotted capital I.
+String _up(BuildContext context, String s) =>
+    Localizations.localeOf(context).languageCode == 'tr'
+    ? s.replaceAll('i', 'İ').toUpperCase()
+    : s.toUpperCase();
 
-  Color _tierColor(int score) {
-    if (score >= 81) return const Color(0xFF22FF88); // neon green
-    if (score >= 61) return const Color(0xFF8B5CF6); // purple
-    if (score >= 41) return const Color(0xFFFF8A00); // orange
-    if (score >= 21) return const Color(0xFF6366F1); // blue-purple
-    return const Color(0xFF94A3B8); // gray
-  }
+TextStyle _label() => TextStyle(
+  fontSize: 11,
+  fontWeight: FontWeight.w700,
+  letterSpacing: 1.3,
+  color: Colors.white.withValues(alpha: 0.45),
+);
 
-  String _nextTierHint(int score, AppLocalizations l) {
-    if (score >= 81) return '${l.tierA} · ${l.maxTierReached}';
-    if (score >= 61) {
-      final pts = 81 - score;
-      return l.nextTierHint(l.tierA, '$pts');
-    }
-    if (score >= 41) {
-      final pts = 61 - score;
-      return l.nextTierHint(l.tierB, '$pts');
-    }
-    if (score >= 21) {
-      final pts = 41 - score;
-      return l.nextTierHint(l.tierC, '$pts');
-    }
-    final pts = 21 - score;
-    return l.nextTierHint(l.tierD, '$pts');
-  }
+String _tierName(AppLocalizations l, ScoreTier t) => switch (t) {
+  ScoreTier.starting => l.anTierStarting,
+  ScoreTier.building => l.anTierBuilding,
+  ScoreTier.rising => l.anTierRising,
+  ScoreTier.strong => l.anTierStrong,
+  ScoreTier.peak => l.anTierPeak,
+};
 
-  String _nextGrade(String grade) {
-    switch (grade) {
-      case 'F':
-        return 'D';
-      case 'D':
-        return 'C';
-      case 'C':
-        return 'B';
-      case 'B':
-        return 'A';
-      case 'A':
-        return 'S';
-      default:
-        return 'S';
-    }
-  }
+Color _tierColor(ScoreTier? t) => switch (t) {
+  null || ScoreTier.starting => const Color(0xFF94A3B8),
+  ScoreTier.building => AppColors.primaryLight,
+  ScoreTier.rising || ScoreTier.strong => AppColors.lime,
+  ScoreTier.peak => AppColors.warning,
+};
 
-  List<Map<String, dynamic>> _getImprovements(
-    GlowUpScore score,
-    AppProvider provider,
-    AppLocalizations l,
-  ) {
-    final tips = <Map<String, dynamic>>[];
-    final profile = provider.profile!;
-    final waterNeed = Calculations.dailyWaterNeed(profile.weight);
-    final sleepNeed = Calculations.dailySleepNeed(profile.age);
-    final bmi = Calculations.calculateBMI(
-      profile.currentHeight,
-      profile.weight,
-    );
-    final completed = provider.completedRoutineCount;
-    final total = provider.todayRoutineTotal;
-    final remaining = total - completed;
+Color _factorColor(ScoreFactor f) => switch (f) {
+  ScoreFactor.training => AppColors.primaryLight,
+  ScoreFactor.consistency => AppColors.warning,
+  ScoreFactor.sleep => AppColors.sleepColor,
+  ScoreFactor.hydration => AppColors.cyan,
+  ScoreFactor.nutrition => AppColors.orange,
+  ScoreFactor.posture => AppColors.postureColor,
+  ScoreFactor.measuring => AppColors.primary,
+  ScoreFactor.growth || ScoreFactor.headroom => AppColors.lime,
+};
 
-    // ── Beslenme — gerçek veriye göre ──
-    String nutritionDesc;
-    if (provider.todayWater < waterNeed * 0.5) {
-      final kalan = (waterNeed - provider.todayWater).toStringAsFixed(1);
-      nutritionDesc = l.waterHalfNotReached(kalan);
-    } else if (provider.todayWater < waterNeed) {
-      final kalan = (waterNeed - provider.todayWater).toStringAsFixed(1);
-      nutritionDesc = l.waterAlmostDone(kalan);
-    } else if (bmi < 18.5) {
-      nutritionDesc = l.bmiLow(bmi.toStringAsFixed(1));
-    } else if (bmi > 25) {
-      nutritionDesc = l.bmiHigh(bmi.toStringAsFixed(1));
-    } else {
-      nutritionDesc = l.nutritionDefault;
-    }
+IconData _factorIcon(ScoreFactor f) => switch (f) {
+  ScoreFactor.training => CupertinoIcons.bolt_fill,
+  ScoreFactor.consistency => CupertinoIcons.flame_fill,
+  ScoreFactor.sleep => CupertinoIcons.moon_fill,
+  ScoreFactor.hydration => CupertinoIcons.drop_fill,
+  ScoreFactor.nutrition => CupertinoIcons.leaf_arrow_circlepath,
+  ScoreFactor.posture => CupertinoIcons.person_fill,
+  ScoreFactor.measuring => CupertinoIcons.resize_v,
+  ScoreFactor.growth => CupertinoIcons.arrow_up_right,
+  ScoreFactor.headroom => CupertinoIcons.arrow_up_to_line,
+};
 
-    // ── Uyku — gerçek veriye göre ──
-    String sleepDesc;
-    if (provider.todaySleep == 0) {
-      sleepDesc = l.sleepNoRecord(sleepNeed.toStringAsFixed(0));
-    } else if (provider.todaySleep < sleepNeed - 1) {
-      final eksik = (sleepNeed - provider.todaySleep).toStringAsFixed(1);
-      sleepDesc = l.sleepInsufficient(
-        provider.todaySleep.toStringAsFixed(1),
-        eksik,
+String _factorName(AppLocalizations l, ScoreFactor f) => switch (f) {
+  ScoreFactor.training => l.anFTraining,
+  ScoreFactor.consistency => l.anFConsistency,
+  ScoreFactor.sleep => l.anFSleep,
+  ScoreFactor.hydration => l.anFHydration,
+  ScoreFactor.nutrition => l.anFNutrition,
+  ScoreFactor.posture => l.anFPosture,
+  ScoreFactor.measuring => l.anFMeasuring,
+  ScoreFactor.growth => l.anFGrowth,
+  ScoreFactor.headroom => l.anFHeadroom,
+};
+
+String _num(num v, [int digits = 1]) {
+  final s = v.toStringAsFixed(digits);
+  return s.endsWith('.0') ? s.substring(0, s.length - 2) : s;
+}
+
+/// What a signal is based on, in words.
+String _basedOn(AppLocalizations l, FactorResult r, AppProvider p) {
+  final f = r.facts;
+  int i(String k) => (f[k] ?? 0).toInt();
+  if (!r.counted) return l.anBGrowthAdult;
+  switch (r.factor) {
+    case ScoreFactor.training:
+      return r.hasData
+          ? l.anBTraining(i('done'), i('planned'))
+          : l.anBTrainingNone;
+    case ScoreFactor.consistency:
+      return r.hasData
+          ? l.anBConsistency(i('streak'), i('active'), i('days'))
+          : l.anBConsistencyNone;
+    case ScoreFactor.sleep:
+      return r.hasData
+          ? l.anBSleep(_num(f['avg']!), _num(f['target']!), i('days'))
+          : l.anBSleepNone;
+    case ScoreFactor.hydration:
+      return r.hasData
+          ? l.anBHydration(_num(f['avg']!), _num(f['target']!), i('days'))
+          : l.anBHydrationNone;
+    case ScoreFactor.nutrition:
+      return r.hasData
+          ? l.anBNutrition(i('done'), i('planned'))
+          : l.anBNutritionNone;
+    case ScoreFactor.posture:
+      if (!r.hasData) return l.anBPostureNone;
+      return i('daysAgo') == 0
+          ? l.anBPostureToday(i('raw'))
+          : l.anBPosture(i('raw'), i('daysAgo'));
+    case ScoreFactor.measuring:
+      if (!r.hasData) return l.anBMeasuringNone;
+      return i('daysAgo') == 0
+          ? l.anBMeasuringToday
+          : l.anBMeasuring(i('daysAgo'));
+    case ScoreFactor.growth:
+      return r.hasData
+          ? l.anBGrowth(_num(f['velocity']!), _num(f['expected']!))
+          : l.anBGrowthNone;
+    case ScoreFactor.headroom:
+      return l.anBHeadroom(
+        p.formatHeightDelta(f['cm']!.toDouble()).replaceFirst('+', ''),
       );
-    } else if (provider.todaySleep < sleepNeed) {
-      sleepDesc = l.sleepAlmost(sleepNeed.toStringAsFixed(0));
-    } else {
-      sleepDesc = l.sleepGood;
-    }
-
-    // ── Disiplin — gerçek veriye göre ──
-    String disciplineDesc;
-    if (completed == 0) {
-      disciplineDesc = l.noRoutinesDone(total);
-    } else if (remaining > 0) {
-      disciplineDesc = l.routinesPartial(completed, total, remaining);
-    } else if (provider.streak < 3) {
-      disciplineDesc = l.streakBuilding(3 - provider.streak);
-    } else {
-      disciplineDesc = l.streakContinue(provider.streak);
-    }
-
-    // ── Boy Ölçümü — gerçek veriye göre ──
-    String velocityDesc;
-    if (provider.heightRecords.isEmpty) {
-      velocityDesc = l.noMeasurements;
-    } else if (provider.heightRecords.length < 3) {
-      final kalan = 3 - provider.heightRecords.length;
-      velocityDesc = l.fewMeasurements(kalan);
-    } else if (provider.heightRecords.length < 5) {
-      velocityDesc = l.goodMeasurements(provider.heightRecords.length);
-    } else {
-      velocityDesc = l.keepMeasuring;
-    }
-
-    final categories = [
-      {
-        'key': 'nutrition',
-        'score': score.nutrition,
-        'color': AppColors.orange,
-        'icon': '🥗',
-        'title': score.nutrition < 50
-            ? l.nutritionCritical
-            : l.nutritionStrengthen,
-        'desc': nutritionDesc,
-        'points': ((90 - score.nutrition) * 0.20).round(),
-      },
-      {
-        'key': 'sleep',
-        'score': score.sleep,
-        'color': AppColors.sleep,
-        'icon': '😴',
-        'title': provider.todaySleep == 0
-            ? l.sleepRecordAdd
-            : score.sleep < 50
-            ? l.sleepPoor
-            : l.sleepImprove,
-        'desc': sleepDesc,
-        'points': ((90 - score.sleep) * 0.15).round(),
-      },
-      {
-        'key': 'discipline',
-        'score': score.discipline,
-        'color': AppColors.lime,
-        'icon': '🔥',
-        'title': completed == 0
-            ? l.startToday
-            : remaining > 0
-            ? l.routinesRemaining(remaining)
-            : l.keepStreak,
-        'desc': disciplineDesc,
-        'points': ((90 - score.discipline) * 0.15).round(),
-      },
-      {
-        'key': 'velocity',
-        'score': score.velocity,
-        'color': AppColors.cyan,
-        'icon': '📏',
-        'title': provider.heightRecords.isEmpty
-            ? l.addFirstMeasurement
-            : l.addMeasurement,
-        'desc': velocityDesc,
-        'points': ((90 - score.velocity) * 0.25).round(),
-      },
-    ];
-
-    // En düşük skordan başla, max 3 öneri
-    categories.sort((a, b) => (a['score'] as int).compareTo(b['score'] as int));
-    for (final cat in categories) {
-      if ((cat['score'] as int) < 80 && (cat['points'] as int) > 0) {
-        tips.add(cat);
-      }
-      if (tips.length >= 3) break;
-    }
-
-    return tips;
-  }
-
-  Color _velocityColor(double velocity, int age, String gender) {
-    final rating = Calculations.growthVelocityRating(velocity, age, gender);
-    switch (rating) {
-      case 'excellent':
-        return AppColors.lime;
-      case 'normal':
-        return AppColors.cyan;
-      case 'slow':
-        return AppColors.warning;
-      default:
-        return AppColors.error;
-    }
   }
 }
 
-// ── Score Ring Painter ────────────────────────────────────────────
+/// The one concrete thing that raises a signal, or null when there is none.
+String? _action(AppLocalizations l, FactorResult r, AppProvider p) {
+  final f = r.facts;
+  if (!r.counted) return null;
+  switch (r.factor) {
+    case ScoreFactor.training:
+      return l.anATraining;
+    case ScoreFactor.consistency:
+      return l.anAConsistency;
+    case ScoreFactor.sleep:
+      return r.hasData
+          ? l.anASleep(_num(p.dailyTargets!.sleepH))
+          : l.anASleepLog;
+    case ScoreFactor.hydration:
+      if (!r.hasData) return l.anAHydrationLog;
+      final left = (f['target']! - (f['today'] ?? 0)).toDouble();
+      return left <= 0.05 ? l.anAHydrationDone : l.anAHydration(_num(left));
+    case ScoreFactor.nutrition:
+      return l.anANutrition;
+    case ScoreFactor.posture:
+      if (!r.hasData) return l.anAPostureFirst;
+      return (r.score! >= 80 && (f['daysAgo'] ?? 99) < 30)
+          ? l.anAPostureKeep
+          : l.anAPostureRedo;
+    case ScoreFactor.measuring:
+      return (f['daysAgo'] ?? 99) <= 7 ? l.anAMeasureKeep : l.anAMeasure;
+    case ScoreFactor.growth:
+      if (r.hasData) return l.anAGrowth;
+      final wait = (f['wait'] ?? 0).toInt();
+      return wait > 0 ? l.anAGrowthWait(wait) : l.anAMeasure;
+    case ScoreFactor.headroom:
+      return l.anAHeadroom;
+  }
+}
+
+// ── 1. Hero: ring, tier, trend ───────────────────────────────────────
+
+class _ScoreHero extends StatelessWidget {
+  final BetallerScore score;
+  final int? lastWeek;
+  final Animation<double> ring;
+  final ValueChanged<ScoreFactor> onAct;
+
+  const _ScoreHero({
+    required this.score,
+    required this.lastWeek,
+    required this.ring,
+    required this.onAct,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final provider = context.read<AppProvider>();
+    final total = score.total;
+    final tier = score.tier;
+    final color = _tierColor(tier);
+    final win = score.fastestWin;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      decoration: _card(),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  _up(context, l.anScoreLabel),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: _label(),
+                ),
+              ),
+              if (tier != null)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.14),
+                    borderRadius: BorderRadius.circular(999),
+                    border: Border.all(color: color.withValues(alpha: 0.4)),
+                  ),
+                  child: Text(
+                    _tierName(l, tier),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w800,
+                      color: color,
+                      letterSpacing: 0.2,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          AnimatedBuilder(
+            animation: ring,
+            builder: (context, _) {
+              final t = ring.value;
+              return SizedBox(
+                width: 188,
+                height: 188,
+                child: CustomPaint(
+                  painter: _ScoreRingPainter(
+                    progress: total == null ? 0 : total / 100 * t,
+                    color: color,
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          total == null ? '--' : '${(total * t).round()}',
+                          style: const TextStyle(
+                            fontSize: 66,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                            letterSpacing: -2.5,
+                            height: 1,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '/ 100',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white.withValues(alpha: 0.4),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 16),
+          if (total == null) ...[
+            Text(
+              l.anNoScoreTitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+                letterSpacing: -0.3,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              l.anNoScoreBody,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 13.5,
+                height: 1.4,
+                color: Colors.white.withValues(alpha: 0.6),
+              ),
+            ),
+          ] else ...[
+            _TrendChip(total: total, lastWeek: lastWeek),
+            const SizedBox(height: 10),
+            Text(
+              BetallerScore.nextTierAt(total) == null
+                  ? l.anTopTier
+                  : l.anNextTier(
+                      BetallerScore.nextTierAt(total)! - total,
+                      _tierName(
+                        l,
+                        BetallerScore.tierFor(BetallerScore.nextTierAt(total)!),
+                      ),
+                    ),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
+            ),
+          ],
+          const SizedBox(height: 4),
+          Text(
+            l.anCoverage(score.signalsWithData, score.signalsCounted),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.white.withValues(alpha: 0.42),
+            ),
+          ),
+          if (win != null) ...[
+            const SizedBox(height: 18),
+            _FastestWin(
+              result: win,
+              action: _action(l, win, provider),
+              onTap: () => onAct(win.factor),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _TrendChip extends StatelessWidget {
+  final int total;
+  final int? lastWeek;
+  const _TrendChip({required this.total, required this.lastWeek});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final delta = lastWeek == null ? null : total - lastWeek!;
+    final (IconData? icon, Color color, String text) = switch (delta) {
+      null => (null, Colors.white.withValues(alpha: 0.55), l.anTrendFirst),
+      0 => (
+        CupertinoIcons.minus,
+        Colors.white.withValues(alpha: 0.7),
+        l.anTrendFlat,
+      ),
+      > 0 => (CupertinoIcons.arrow_up, AppColors.lime, l.anTrendUp(delta)),
+      _ => (CupertinoIcons.arrow_down, AppColors.orange, l.anTrendDown(-delta)),
+    };
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (icon != null) ...[
+            Icon(icon, size: 13, color: color),
+            const SizedBox(width: 5),
+          ],
+          Flexible(
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FastestWin extends StatelessWidget {
+  final FactorResult result;
+  final String? action;
+  final VoidCallback onTap;
+  const _FastestWin({
+    required this.result,
+    required this.action,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final color = _factorColor(result.factor);
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(14, 12, 12, 12),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: color.withValues(alpha: 0.25)),
+        ),
+        child: Row(
+          children: [
+            Icon(_factorIcon(result.factor), size: 18, color: color),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${l.anFastestWin} · ${_factorName(l, result.factor)}',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 11.5,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
+                  ),
+                  if (action != null) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      action!,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        letterSpacing: -0.2,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            Icon(
+              CupertinoIcons.chevron_right,
+              size: 16,
+              color: Colors.white.withValues(alpha: 0.5),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── 1b. The nine signals ─────────────────────────────────────────────
+
+class _Breakdown extends StatelessWidget {
+  final BetallerScore score;
+  final AppProvider provider;
+  final ValueChanged<ScoreFactor> onAct;
+  const _Breakdown({
+    required this.score,
+    required this.provider,
+    required this.onAct,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SectionHeader(
+          icon: CupertinoIcons.square_stack_3d_up_fill,
+          title: _up(context, l.anBreakdownTitle),
+          iconColor: AppColors.primaryLight,
+        ),
+        const SizedBox(height: 6),
+        Text(
+          l.anBreakdownHint,
+          style: TextStyle(
+            fontSize: 12.5,
+            height: 1.4,
+            color: Colors.white.withValues(alpha: 0.45),
+          ),
+        ),
+        const SizedBox(height: 12),
+        for (final f in score.factors) ...[
+          _FactorTile(
+            result: f,
+            basedOn: _basedOn(l, f, provider),
+            action: _action(l, f, provider),
+            onTap: () => onAct(f.factor),
+          ),
+          const SizedBox(height: 10),
+        ],
+      ],
+    );
+  }
+}
+
+class _FactorTile extends StatelessWidget {
+  final FactorResult result;
+  final String basedOn;
+  final String? action;
+  final VoidCallback onTap;
+
+  const _FactorTile({
+    required this.result,
+    required this.basedOn,
+    required this.action,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final color = _factorColor(result.factor);
+    final muted = !result.counted || !result.hasData;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.03),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 34,
+                height: 34,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: muted ? 0.08 : 0.16),
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                child: Icon(
+                  _factorIcon(result.factor),
+                  size: 16,
+                  color: muted ? color.withValues(alpha: 0.55) : color,
+                ),
+              ),
+              const SizedBox(width: 11),
+              Expanded(
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 8,
+                  runSpacing: 2,
+                  children: [
+                    Text(
+                      _factorName(l, result.factor),
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        letterSpacing: -0.3,
+                      ),
+                    ),
+                    Text(
+                      result.counted
+                          ? l.anWeight(result.weight)
+                          : l.anNotCounted,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white.withValues(alpha: 0.38),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 8),
+              if (result.hasData)
+                Text(
+                  '${result.score}',
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white,
+                    letterSpacing: -0.8,
+                    height: 1,
+                  ),
+                )
+              else
+                Text(
+                  result.counted ? l.anNoData : '',
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white.withValues(alpha: 0.4),
+                  ),
+                ),
+            ],
+          ),
+          if (result.counted) ...[
+            const SizedBox(height: 10),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(3),
+              child: LinearProgressIndicator(
+                value: (result.score ?? 0) / 100,
+                minHeight: 4,
+                backgroundColor: Colors.white.withValues(alpha: 0.07),
+                valueColor: AlwaysStoppedAnimation(color),
+              ),
+            ),
+          ],
+          const SizedBox(height: 9),
+          Text(
+            basedOn,
+            style: TextStyle(
+              fontSize: 12.5,
+              height: 1.35,
+              color: Colors.white.withValues(alpha: 0.55),
+            ),
+          ),
+          if (action != null) ...[
+            const SizedBox(height: 10),
+            GestureDetector(
+              onTap: onTap,
+              behavior: HitTestBehavior.opaque,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        action!,
+                        style: TextStyle(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w800,
+                          color: color,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(CupertinoIcons.chevron_right, size: 12, color: color),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+// ── 2. Potential ─────────────────────────────────────────────────────
+
+class _PotentialCard extends StatelessWidget {
+  final AppProvider provider;
+  const _PotentialCard({required this.provider});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final potential = provider.potentialHeight;
+    final latest = provider.latestHeight;
+    final toGo = math.max(0.0, potential - latest);
+    final dream = provider.dreamHeight;
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
+      decoration: _card(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_up(context, l.anPotentialLabel), style: _label()),
+          const SizedBox(height: 8),
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 12,
+            runSpacing: 8,
+            children: [
+              _HeightNumber(provider: provider, cm: potential),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.lime.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Text(
+                  toGo < 0.05
+                      ? l.anPotentialReached
+                      : l.anPotentialToGo(
+                          provider
+                              .formatHeightDelta(toGo)
+                              .replaceFirst('+', ''),
+                        ),
+                  style: const TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.lime,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if (dream != null) ...[
+            const SizedBox(height: 6),
+            Text(
+              l.anDreamLine(provider.formatHeight(dream)),
+              style: TextStyle(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w600,
+                color: Colors.white.withValues(alpha: 0.55),
+              ),
+            ),
+          ],
+          const SizedBox(height: 18),
+          PotentialChart(provider: provider, height: 190),
+          const SizedBox(height: 14),
+          HeightSilhouette(
+            current: latest,
+            potential: potential,
+            dream: dream,
+            format: provider.formatHeight,
+            height: 180,
+          ),
+          const SizedBox(height: 10),
+          Text(
+            l.anPotentialNote,
+            style: TextStyle(
+              fontSize: 12,
+              height: 1.35,
+              color: Colors.white.withValues(alpha: 0.42),
+            ),
+          ),
+          if (toGo >= 0.05) ...[
+            const SizedBox(height: 16),
+            Divider(color: Colors.white.withValues(alpha: 0.06), height: 1),
+            const SizedBox(height: 16),
+            provider.isPremium
+                ? _Sources(provider: provider, toGo: toGo)
+                : _LockedPreview(
+                    title: l.anUnlockSourcesTitle,
+                    compact: true,
+                    child: _Sources(provider: provider, toGo: toGo),
+                  ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _HeightNumber extends StatelessWidget {
+  final AppProvider provider;
+  final double cm;
+  const _HeightNumber({required this.provider, required this.cm});
+
+  @override
+  Widget build(BuildContext context) {
+    const big = TextStyle(
+      fontSize: 42,
+      fontWeight: FontWeight.w900,
+      color: AppColors.lime,
+      letterSpacing: -1.6,
+      height: 1,
+    );
+    if (provider.useImperial) {
+      return FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: Alignment.centerLeft,
+        child: Text(provider.formatHeight(cm), style: big),
+      );
+    }
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      alignment: Alignment.centerLeft,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.baseline,
+        textBaseline: TextBaseline.alphabetic,
+        children: [
+          Text(cm.toStringAsFixed(1), style: big),
+          const SizedBox(width: 4),
+          Text(
+            'cm',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              color: Colors.white.withValues(alpha: 0.45),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The gap to the potential, split the way the prediction model splits it.
+/// Scaled to the gap on screen, so the parts always add up to it.
+class _Sources extends StatelessWidget {
+  final AppProvider provider;
+  final double toGo;
+  const _Sources({required this.provider, required this.toGo});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final p = provider.prediction;
+    if (p == null) return const SizedBox.shrink();
+    final genes = p.geneticGain;
+    final posture = math.min(p.postureGain, p.lifestyleGain);
+    final habits = math.max(0.0, p.lifestyleGain - posture);
+    final sum = genes + habits + posture;
+    final k = sum <= 0 ? 0.0 : toGo / sum;
+    final parts = [
+      (l.anSourcesGenes, genes * k, AppColors.primaryLight),
+      (l.anSourcesHabits, habits * k, AppColors.lime),
+      (l.anSourcesPosture, posture * k, AppColors.postureColor),
+    ].where((e) => e.$2 >= 0.05).toList();
+    if (parts.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(_up(context, l.anSourcesTitle), style: _label()),
+        const SizedBox(height: 12),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(5),
+          child: SizedBox(
+            height: 10,
+            child: Row(
+              children: [
+                for (var i = 0; i < parts.length; i++)
+                  Expanded(
+                    flex: math.max(1, (parts[i].$2 * 100).round()),
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        right: i == parts.length - 1 ? 0 : 2,
+                      ),
+                      color: parts[i].$3,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        for (final e in parts)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 7),
+            child: Row(
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: e.$3,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                const SizedBox(width: 9),
+                Expanded(
+                  child: Text(
+                    e.$1,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white.withValues(alpha: 0.75),
+                    ),
+                  ),
+                ),
+                Text(
+                  provider.formatHeightDelta(e.$2),
+                  style: TextStyle(
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w800,
+                    color: e.$3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// Where the user stands among people of their age and sex. Real reference
+/// data, the same number the full comparison screen shows.
+class _PercentileCard extends StatelessWidget {
+  final AppProvider provider;
+  const _PercentileCard({required this.provider});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final profile = provider.profile!;
+    final pct = provider.peerPercentile.clamp(1, 99);
+    final bmi = Calculations.calculateBMI(
+      provider.latestHeight,
+      profile.weight,
+    );
+
+    return GestureDetector(
+      onTap: () {
+        Haptics.tap();
+        Navigator.push(
+          context,
+          CupertinoPageRoute(builder: (_) => const LeaderboardScreen()),
+        );
+      },
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(18, 18, 18, 16),
+        decoration: _card(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(_up(context, l.anPctTitle), style: _label()),
+                      const SizedBox(height: 8),
+                      Text(
+                        l.anPctValue(pct),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                          letterSpacing: -0.4,
+                          height: 1.25,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  '$pct',
+                  style: const TextStyle(
+                    fontSize: 38,
+                    fontWeight: FontWeight.w900,
+                    color: AppColors.primaryLight,
+                    letterSpacing: -1.5,
+                    height: 1,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            LayoutBuilder(
+              builder: (context, c) => SizedBox(
+                height: 14,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      top: 5,
+                      child: Container(
+                        height: 4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.white.withValues(alpha: 0.08),
+                              AppColors.primaryLight.withValues(alpha: 0.5),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: (c.maxWidth - 14) * pct / 100,
+                      top: 0,
+                      child: Container(
+                        width: 14,
+                        height: 14,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryLight,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppColors.cardFill,
+                            width: 3,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              l.anPctBasis,
+              style: TextStyle(
+                fontSize: 11.5,
+                color: Colors.white.withValues(alpha: 0.42),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Divider(color: Colors.white.withValues(alpha: 0.06), height: 1),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '${l.bmi} ${bmi.toStringAsFixed(1)} · ${localizedBmiCategory(l, Calculations.bmiCategory(bmi))}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white.withValues(alpha: 0.6),
+                    ),
+                  ),
+                ),
+                Text(
+                  l.anPctMore,
+                  style: const TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.primaryLight,
+                  ),
+                ),
+                const SizedBox(width: 2),
+                const Icon(
+                  CupertinoIcons.chevron_right,
+                  size: 12,
+                  color: AppColors.primaryLight,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── 3. Daily needs ───────────────────────────────────────────────────
+
+class _DailyNeeds extends StatelessWidget {
+  final AppProvider provider;
+  const _DailyNeeds({required this.provider});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final t = provider.dailyTargets!;
+    final tiles = [
+      (l.protein, '${t.proteinG}', 'g', l.anPerDay, AppColors.orange),
+      (l.calories, '${t.kcal}', 'kcal', l.anPerDay, AppColors.orange),
+      (l.water, _num(t.waterL), 'L', l.anPerDay, AppColors.cyan),
+      (
+        l.sleepLabel,
+        _num(t.sleepH),
+        l.anUnitHours,
+        l.anPerNight,
+        AppColors.sleepColor,
+      ),
+      (l.anCalcium, '${t.calciumMg}', 'mg', l.anPerDay, AppColors.orange),
+      (l.anVitaminD, '${t.vitaminDIu}', 'IU', l.anPerDay, AppColors.orange),
+    ];
+    return LayoutBuilder(
+      builder: (context, c) {
+        const gap = 10.0;
+        final w = (c.maxWidth - gap) / 2;
+        return Wrap(
+          spacing: gap,
+          runSpacing: gap,
+          children: [
+            for (final e in tiles)
+              Container(
+                width: w,
+                padding: const EdgeInsets.fromLTRB(14, 14, 14, 13),
+                decoration: BoxDecoration(
+                  color: AppColors.cardFill,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.06),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      e.$1,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: e.$5,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(
+                            e.$2,
+                            style: const TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.white,
+                              letterSpacing: -1,
+                              height: 1,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            e.$3,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white.withValues(alpha: 0.45),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      e.$4,
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        color: Colors.white.withValues(alpha: 0.42),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+// ── Locked: the real thing, blurred, with one way in ─────────────────
+
+class _LockedPreview extends StatelessWidget {
+  final Widget child;
+  final String title;
+  final String? body;
+
+  /// Taller content is cut to this height and fades out.
+  final double? maxHeight;
+  final bool compact;
+
+  const _LockedPreview({
+    required this.child,
+    required this.title,
+    this.body,
+    this.maxHeight,
+    this.compact = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    void unlock() {
+      Haptics.tap();
+      showPremiumPaywall(context);
+    }
+
+    Widget preview = IgnorePointer(child: ExcludeSemantics(child: child));
+    if (maxHeight != null) {
+      preview = SizedBox(
+        height: maxHeight,
+        child: ClipRect(
+          child: OverflowBox(
+            alignment: Alignment.topCenter,
+            minHeight: 0,
+            maxHeight: double.infinity,
+            child: preview,
+          ),
+        ),
+      );
+    }
+
+    return GestureDetector(
+      onTap: unlock,
+      behavior: HitTestBehavior.opaque,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(compact ? 16 : 24),
+        child: Stack(
+          children: [
+            preview,
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        AppColors.scaffold.withValues(alpha: 0.25),
+                        AppColors.scaffold.withValues(alpha: 0.55),
+                        AppColors.scaffold.withValues(
+                          alpha: maxHeight == null ? 0.55 : 0.95,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned.fill(
+              child: Align(
+                alignment: maxHeight == null
+                    ? Alignment.center
+                    : const Alignment(0, -0.35),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: compact
+                      ? Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                title,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 13.5,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            _UnlockButton(label: l.anUnlockCta, onTap: unlock),
+                          ],
+                        )
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              CupertinoIcons.lock_fill,
+                              size: 22,
+                              color: AppColors.warning,
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              title,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.w900,
+                                color: Colors.white,
+                                letterSpacing: -0.5,
+                              ),
+                            ),
+                            if (body != null) ...[
+                              const SizedBox(height: 6),
+                              Text(
+                                body!,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 13.5,
+                                  height: 1.4,
+                                  color: Colors.white.withValues(alpha: 0.7),
+                                ),
+                              ),
+                            ],
+                            const SizedBox(height: 14),
+                            _UnlockButton(label: l.anUnlockCta, onTap: unlock),
+                          ],
+                        ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _UnlockButton extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+  const _UnlockButton({required this.label, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 11),
+        decoration: BoxDecoration(
+          color: AppColors.warning,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              CupertinoIcons.lock_open_fill,
+              size: 15,
+              color: Color(0xFF1A1405),
+            ),
+            const SizedBox(width: 7),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 14.5,
+                fontWeight: FontWeight.w800,
+                color: Color(0xFF1A1405),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── Score ring ───────────────────────────────────────────────────────
 
 class _ScoreRingPainter extends CustomPainter {
   final double progress;
@@ -1592,220 +1627,50 @@ class _ScoreRingPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width / 2 - 10;
+    final rect = Rect.fromCircle(center: center, radius: radius);
 
-    // Background ring
-    final bgPaint = Paint()
-      ..color = color.withValues(alpha: 0.1)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 10
-      ..strokeCap = StrokeCap.round;
-    canvas.drawCircle(center, radius, bgPaint);
+    canvas.drawCircle(
+      center,
+      radius,
+      Paint()
+        ..color = Colors.white.withValues(alpha: 0.07)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 12,
+    );
+    if (progress <= 0) return;
 
-    // Progress ring
-    final fgPaint = Paint()
-      ..shader = SweepGradient(
-        startAngle: -math.pi / 2,
-        endAngle: 3 * math.pi / 2,
-        colors: [color.withValues(alpha: 0.6), color],
-      ).createShader(Rect.fromCircle(center: center, radius: radius))
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 10
-      ..strokeCap = StrokeCap.round;
-
+    final sweep = 2 * math.pi * progress;
+    // The one glow on the screen: under the arc.
     canvas.drawArc(
-      Rect.fromCircle(center: center, radius: radius),
+      rect,
       -math.pi / 2,
-      2 * math.pi * progress,
+      sweep,
       false,
-      fgPaint,
+      Paint()
+        ..color = color.withValues(alpha: 0.35)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 12
+        ..strokeCap = StrokeCap.round
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
     );
-
-    // Glow dot at end
-    final angle = -math.pi / 2 + 2 * math.pi * progress;
-    final dotX = center.dx + radius * math.cos(angle);
-    final dotY = center.dy + radius * math.sin(angle);
-    final glowPaint = Paint()
-      ..color = color
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
-    canvas.drawCircle(Offset(dotX, dotY), 5, glowPaint);
-    canvas.drawCircle(Offset(dotX, dotY), 4, Paint()..color = Colors.white);
+    canvas.drawArc(
+      rect,
+      -math.pi / 2,
+      sweep,
+      false,
+      Paint()
+        ..shader = SweepGradient(
+          endAngle: 2 * math.pi * progress.clamp(0.01, 1.0),
+          colors: [color.withValues(alpha: 0.55), color],
+          transform: const GradientRotation(-math.pi / 2),
+        ).createShader(rect)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 12
+        ..strokeCap = StrokeCap.round,
+    );
   }
 
   @override
-  bool shouldRepaint(covariant _ScoreRingPainter oldDelegate) =>
-      oldDelegate.progress != progress || oldDelegate.color != color;
-}
-
-class _ScoreCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String value;
-  final String subtitle;
-  final Color color;
-
-  const _ScoreCard({
-    required this.icon,
-    required this.title,
-    required this.value,
-    required this.subtitle,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            color.withValues(alpha: 0.18),
-            color.withValues(alpha: 0.04),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(26),
-        border: Border.all(color: color.withValues(alpha: 0.20), width: 0.5),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icon, color: color, size: 16),
-              const SizedBox(width: 6),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white.withValues(alpha: 0.88),
-                  letterSpacing: -0.1,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w800,
-              color: color,
-              letterSpacing: -1,
-              shadows: [
-                Shadow(color: color.withValues(alpha: 0.25), blurRadius: 8),
-              ],
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: Colors.white.withValues(alpha: 0.82),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Points at the lowest of the five metrics: the one place where effort moves
-/// the total score fastest.
-class _WeakestLink extends StatelessWidget {
-  final GlowUpScore score;
-  final AppLocalizations l;
-  const _WeakestLink({required this.score, required this.l});
-
-  @override
-  Widget build(BuildContext context) {
-    final entries = <(String, int, Color, IconData)>[
-      (l.genetic, score.genetic, AppColors.primary, CupertinoIcons.wand_stars),
-      (l.growth, score.velocity, AppColors.lime, CupertinoIcons.arrow_up_right),
-      (
-        l.nutrition,
-        score.nutrition,
-        AppColors.orange,
-        CupertinoIcons.leaf_arrow_circlepath,
-      ),
-      (l.sleepLabel, score.sleep, AppColors.sleep, CupertinoIcons.moon_fill),
-      (
-        l.discipline,
-        score.discipline,
-        AppColors.warning,
-        CupertinoIcons.flame_fill,
-      ),
-    ];
-    entries.sort((a, b) => a.$2.compareTo(b.$2));
-    final weakest = entries.first;
-
-    return Container(
-      padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
-      decoration: BoxDecoration(
-        color: weakest.$3.withValues(alpha: 0.09),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: weakest.$3.withValues(alpha: 0.28)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: weakest.$3.withValues(alpha: 0.16),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Icon(weakest.$4, size: 19, color: weakest.$3),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Flexible(
-                      child: Text(
-                        '${l.analysisWeakest}: ${weakest.$1}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                          letterSpacing: -0.2,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      '${weakest.$2}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w900,
-                        color: weakest.$3,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  l.analysisWeakestHint,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    height: 1.35,
-                    color: Colors.white.withValues(alpha: 0.52),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  bool shouldRepaint(covariant _ScoreRingPainter old) =>
+      old.progress != progress || old.color != color;
 }

@@ -1,0 +1,460 @@
+{
+  "anSubtitle": {
+    "en": "Your score, what moves it, and where you're headed",
+    "tr": "Skorun, onu ne yükseltir ve nereye gidiyorsun",
+    "de": "Dein Score, was ihn bewegt und wohin du wächst",
+    "fr": "Ton score, ce qui le fait bouger et où tu vas",
+    "es": "Tu puntuación, qué la mueve y hacia dónde vas",
+    "it": "Il tuo punteggio, cosa lo muove e dove stai andando",
+    "pt": "Sua pontuação, o que a move e para onde você vai",
+    "hi": "तुम्हारा स्कोर, उसे क्या बढ़ाता है, और तुम किस ओर जा रहे हो"
+  },
+  "anScoreLabel": {
+    "en": "BeTaller Score",
+    "tr": "BeTaller Skoru",
+    "de": "BeTaller Score",
+    "fr": "Score BeTaller",
+    "es": "Puntuación BeTaller",
+    "it": "Punteggio BeTaller",
+    "pt": "Pontuação BeTaller",
+    "hi": "BeTaller स्कोर"
+  },
+  "anTierStarting": {"en": "Starting", "tr": "Başlangıç", "de": "Start", "fr": "Départ", "es": "Inicio", "it": "Inizio", "pt": "Início", "hi": "शुरुआत"},
+  "anTierBuilding": {"en": "Building", "tr": "Gelişiyor", "de": "Aufbau", "fr": "En progrès", "es": "Construyendo", "it": "In crescita", "pt": "Construindo", "hi": "बन रहा है"},
+  "anTierRising": {"en": "Rising", "tr": "Yükseliyor", "de": "Aufsteigend", "fr": "En hausse", "es": "Subiendo", "it": "In ascesa", "pt": "Subindo", "hi": "ऊपर जा रहा है"},
+  "anTierStrong": {"en": "Strong", "tr": "Güçlü", "de": "Stark", "fr": "Solide", "es": "Fuerte", "it": "Forte", "pt": "Forte", "hi": "मज़बूत"},
+  "anTierPeak": {"en": "Peak", "tr": "Zirve", "de": "Gipfel", "fr": "Sommet", "es": "Cima", "it": "Vetta", "pt": "Topo", "hi": "शिखर"},
+  "anTrendUp": {
+    "en": "+{n} vs last week", "tr": "Geçen haftaya göre +{n}", "de": "+{n} zur Vorwoche", "fr": "+{n} vs semaine dernière",
+    "es": "+{n} vs la semana pasada", "it": "+{n} rispetto alla scorsa settimana", "pt": "+{n} vs semana passada", "hi": "पिछले हफ़्ते से +{n}",
+    "_types": {"n": "int"}
+  },
+  "anTrendDown": {
+    "en": "-{n} vs last week", "tr": "Geçen haftaya göre -{n}", "de": "-{n} zur Vorwoche", "fr": "-{n} vs semaine dernière",
+    "es": "-{n} vs la semana pasada", "it": "-{n} rispetto alla scorsa settimana", "pt": "-{n} vs semana passada", "hi": "पिछले हफ़्ते से -{n}",
+    "_types": {"n": "int"}
+  },
+  "anTrendFlat": {
+    "en": "Same as last week", "tr": "Geçen haftayla aynı", "de": "Wie letzte Woche", "fr": "Comme la semaine dernière",
+    "es": "Igual que la semana pasada", "it": "Come la scorsa settimana", "pt": "Igual à semana passada", "hi": "पिछले हफ़्ते जितना"
+  },
+  "anTrendFirst": {
+    "en": "Your weekly trend starts next week", "tr": "Haftalık eğilimin gelecek hafta başlar", "de": "Dein Wochentrend startet nächste Woche", "fr": "Ta tendance démarre la semaine prochaine",
+    "es": "Tu tendencia semanal empieza la próxima semana", "it": "Il tuo trend settimanale parte la prossima settimana", "pt": "Sua tendência semanal começa na próxima semana", "hi": "तुम्हारा साप्ताहिक ट्रेंड अगले हफ़्ते शुरू होगा"
+  },
+  "anNextTier": {
+    "en": "{n} points to {tier}", "tr": "{tier} seviyesine {n} puan", "de": "Noch {n} Punkte bis {tier}", "fr": "{n} points avant {tier}",
+    "es": "{n} puntos para {tier}", "it": "{n} punti a {tier}", "pt": "{n} pontos para {tier}", "hi": "{tier} तक {n} अंक",
+    "_types": {"n": "int"}
+  },
+  "anTopTier": {
+    "en": "Top tier. Keep it there", "tr": "En üst seviye. Orada kal", "de": "Höchste Stufe. Bleib dran", "fr": "Niveau max. Garde le cap",
+    "es": "Nivel máximo. Mantenlo", "it": "Livello massimo. Restaci", "pt": "Nível máximo. Mantenha", "hi": "सबसे ऊँचा स्तर। इसे बनाए रखो"
+  },
+  "anCoverage": {
+    "en": "Based on {n} of {total} signals", "tr": "{total} sinyalin {n} tanesine dayanıyor", "de": "Basiert auf {n} von {total} Signalen", "fr": "Basé sur {n} signaux sur {total}",
+    "es": "Basado en {n} de {total} señales", "it": "Basato su {n} segnali su {total}", "pt": "Baseado em {n} de {total} sinais", "hi": "{total} में से {n} संकेतों पर आधारित",
+    "_types": {"n": "int", "total": "int"}
+  },
+  "anNoScoreTitle": {
+    "en": "Not enough data yet", "tr": "Henüz yeterli veri yok", "de": "Noch nicht genug Daten", "fr": "Pas encore assez de données",
+    "es": "Aún no hay suficientes datos", "it": "Dati ancora insufficienti", "pt": "Ainda não há dados suficientes", "hi": "अभी पर्याप्त डेटा नहीं है"
+  },
+  "anNoScoreBody": {
+    "en": "Log your sleep, some water or one workout today and your first score appears.",
+    "tr": "Bugün uykunu, biraz su ya da bir antrenman kaydet, ilk skorun görünsün.",
+    "de": "Trag heute Schlaf, etwas Wasser oder ein Training ein, dann erscheint dein erster Score.",
+    "fr": "Note ton sommeil, un peu d'eau ou un entraînement aujourd'hui et ton premier score apparaît.",
+    "es": "Registra hoy tu sueño, algo de agua o un entrenamiento y aparecerá tu primera puntuación.",
+    "it": "Registra oggi il sonno, un po' d'acqua o un allenamento e comparirà il tuo primo punteggio.",
+    "pt": "Registre hoje seu sono, um pouco de água ou um treino e sua primeira pontuação aparece.",
+    "hi": "आज अपनी नींद, थोड़ा पानी या एक वर्कआउट दर्ज करो, तुम्हारा पहला स्कोर दिखेगा।"
+  },
+  "anFastestWin": {
+    "en": "Fastest win", "tr": "En hızlı kazanç", "de": "Schnellster Gewinn", "fr": "Gain le plus rapide",
+    "es": "Mejora más rápida", "it": "Vittoria più rapida", "pt": "Ganho mais rápido", "hi": "सबसे तेज़ फ़ायदा"
+  },
+  "anBreakdownTitle": {
+    "en": "What builds your score", "tr": "Skorunu oluşturanlar", "de": "Woraus dein Score besteht", "fr": "Ce qui compose ton score",
+    "es": "Qué forma tu puntuación", "it": "Cosa forma il tuo punteggio", "pt": "O que forma sua pontuação", "hi": "तुम्हारा स्कोर किससे बनता है"
+  },
+  "anBreakdownHint": {
+    "en": "Each signal is scored 0 to 100 from your own data. The percentage is how much it counts.",
+    "tr": "Her sinyal kendi verinden 0 ile 100 arasında puanlanır. Yüzde, ne kadar etkilediğini gösterir.",
+    "de": "Jedes Signal bekommt 0 bis 100 Punkte aus deinen eigenen Daten. Der Prozentwert zeigt, wie stark es zählt.",
+    "fr": "Chaque signal est noté de 0 à 100 à partir de tes données. Le pourcentage indique son poids.",
+    "es": "Cada señal se puntúa de 0 a 100 con tus propios datos. El porcentaje es cuánto cuenta.",
+    "it": "Ogni segnale vale da 0 a 100 in base ai tuoi dati. La percentuale è quanto conta.",
+    "pt": "Cada sinal vale de 0 a 100 com base nos seus dados. A porcentagem é o quanto ele conta.",
+    "hi": "हर संकेत को तुम्हारे अपने डेटा से 0 से 100 तक अंक मिलते हैं। प्रतिशत बताता है कि वह कितना गिना जाता है।"
+  },
+  "anWeight": {
+    "en": "{n}%", "tr": "%{n}", "de": "{n} %", "fr": "{n} %", "es": "{n} %", "it": "{n}%", "pt": "{n}%", "hi": "{n}%",
+    "_types": {"n": "int"}
+  },
+  "anNoData": {
+    "en": "No data yet", "tr": "Henüz veri yok", "de": "Noch keine Daten", "fr": "Pas encore de données",
+    "es": "Aún sin datos", "it": "Ancora nessun dato", "pt": "Ainda sem dados", "hi": "अभी कोई डेटा नहीं"
+  },
+  "anNotCounted": {
+    "en": "Not counted", "tr": "Sayılmıyor", "de": "Zählt nicht", "fr": "Non compté",
+    "es": "No cuenta", "it": "Non conteggiato", "pt": "Não conta", "hi": "गिना नहीं जाता"
+  },
+  "anFTraining": {"en": "Training", "tr": "Antrenman", "de": "Training", "fr": "Entraînement", "es": "Entrenamiento", "it": "Allenamento", "pt": "Treino", "hi": "ट्रेनिंग"},
+  "anFConsistency": {"en": "Consistency", "tr": "Süreklilik", "de": "Beständigkeit", "fr": "Régularité", "es": "Constancia", "it": "Costanza", "pt": "Constância", "hi": "नियमितता"},
+  "anFSleep": {"en": "Sleep", "tr": "Uyku", "de": "Schlaf", "fr": "Sommeil", "es": "Sueño", "it": "Sonno", "pt": "Sono", "hi": "नींद"},
+  "anFHydration": {"en": "Hydration", "tr": "Su", "de": "Trinken", "fr": "Hydratation", "es": "Hidratación", "it": "Idratazione", "pt": "Hidratação", "hi": "पानी"},
+  "anFNutrition": {"en": "Nutrition", "tr": "Beslenme", "de": "Ernährung", "fr": "Nutrition", "es": "Nutrición", "it": "Alimentazione", "pt": "Nutrição", "hi": "पोषण"},
+  "anFPosture": {"en": "Posture", "tr": "Duruş", "de": "Haltung", "fr": "Posture", "es": "Postura", "it": "Postura", "pt": "Postura", "hi": "पोस्चर"},
+  "anFMeasuring": {"en": "Measuring", "tr": "Ölçüm", "de": "Messen", "fr": "Mesure", "es": "Medición", "it": "Misurazione", "pt": "Medição", "hi": "माप"},
+  "anFGrowth": {"en": "Growth speed", "tr": "Büyüme hızı", "de": "Wachstumstempo", "fr": "Vitesse de croissance", "es": "Velocidad de crecimiento", "it": "Velocità di crescita", "pt": "Velocidade de crescimento", "hi": "बढ़ने की रफ़्तार"},
+  "anFHeadroom": {"en": "Room to grow", "tr": "Büyüme payı", "de": "Wachstumsspielraum", "fr": "Marge de croissance", "es": "Margen de crecimiento", "it": "Margine di crescita", "pt": "Margem de crescimento", "hi": "बढ़ने की गुंजाइश"},
+  "anBTraining": {
+    "en": "{done} of {planned} planned training days in the last 7 days",
+    "tr": "Son 7 günde planlanan {planned} antrenman gününün {done} tanesi",
+    "de": "{done} von {planned} geplanten Trainingstagen in den letzten 7 Tagen",
+    "fr": "{done} jours d'entraînement sur {planned} prévus ces 7 derniers jours",
+    "es": "{done} de {planned} días de entrenamiento previstos en los últimos 7 días",
+    "it": "{done} giorni di allenamento su {planned} previsti negli ultimi 7 giorni",
+    "pt": "{done} de {planned} dias de treino planejados nos últimos 7 dias",
+    "hi": "पिछले 7 दिनों में {planned} तय ट्रेनिंग दिनों में से {done}",
+    "_types": {"done": "int", "planned": "int"}
+  },
+  "anBTrainingNone": {
+    "en": "Counts the days you train against your weekly plan.",
+    "tr": "Antrenman yaptığın günleri haftalık planınla karşılaştırır.",
+    "de": "Zählt deine Trainingstage gegen deinen Wochenplan.",
+    "fr": "Compte tes jours d'entraînement par rapport à ton plan de la semaine.",
+    "es": "Cuenta los días que entrenas frente a tu plan semanal.",
+    "it": "Conta i giorni in cui ti alleni rispetto al piano settimanale.",
+    "pt": "Conta os dias em que você treina em relação ao seu plano semanal.",
+    "hi": "तुम्हारे ट्रेनिंग वाले दिनों को साप्ताहिक प्लान से मिलाता है।"
+  },
+  "anBConsistency": {
+    "en": "Streak {streak} days, {active} of {days} days with half the plan done",
+    "tr": "{streak} günlük seri, {days} günün {active} tanesinde planın yarısı tamam",
+    "de": "Serie {streak} Tage, an {active} von {days} Tagen den halben Plan geschafft",
+    "fr": "Série de {streak} jours, {active} jours sur {days} avec la moitié du plan faite",
+    "es": "Racha de {streak} días, {active} de {days} días con medio plan hecho",
+    "it": "Serie di {streak} giorni, {active} giorni su {days} con metà piano fatto",
+    "pt": "Sequência de {streak} dias, {active} de {days} dias com metade do plano feito",
+    "hi": "{streak} दिन की स्ट्रीक, {days} में से {active} दिन आधा प्लान पूरा",
+    "_types": {"streak": "int", "active": "int", "days": "int"}
+  },
+  "anBConsistencyNone": {
+    "en": "Counts your streak and the days you finish at least half of your plan.",
+    "tr": "Serini ve planının en az yarısını bitirdiğin günleri sayar.",
+    "de": "Zählt deine Serie und die Tage, an denen du mindestens den halben Plan schaffst.",
+    "fr": "Compte ta série et les jours où tu fais au moins la moitié du plan.",
+    "es": "Cuenta tu racha y los días en que completas al menos la mitad del plan.",
+    "it": "Conta la tua serie e i giorni in cui completi almeno metà del piano.",
+    "pt": "Conta sua sequência e os dias em que você faz pelo menos metade do plano.",
+    "hi": "तुम्हारी स्ट्रीक और वे दिन गिनता है जब तुम कम से कम आधा प्लान पूरा करते हो।"
+  },
+  "anBSleep": {
+    "en": "{hours} h a night on average, target {target} h, {days} nights logged",
+    "tr": "Gecede ortalama {hours} sa, hedef {target} sa, {days} gece kaydı",
+    "de": "Im Schnitt {hours} Std. pro Nacht, Ziel {target} Std., {days} Nächte eingetragen",
+    "fr": "{hours} h par nuit en moyenne, objectif {target} h, {days} nuits notées",
+    "es": "{hours} h por noche de media, objetivo {target} h, {days} noches registradas",
+    "it": "{hours} h a notte in media, obiettivo {target} h, {days} notti registrate",
+    "pt": "{hours} h por noite em média, meta {target} h, {days} noites registradas",
+    "hi": "औसतन {hours} घंटे प्रति रात, लक्ष्य {target} घंटे, {days} रातें दर्ज",
+    "_types": {"days": "int"}
+  },
+  "anBSleepNone": {
+    "en": "No sleep logged in the last 7 days.", "tr": "Son 7 günde uyku kaydı yok.", "de": "Kein Schlaf in den letzten 7 Tagen eingetragen.", "fr": "Aucun sommeil noté ces 7 derniers jours.",
+    "es": "Sin sueño registrado en los últimos 7 días.", "it": "Nessun sonno registrato negli ultimi 7 giorni.", "pt": "Nenhum sono registrado nos últimos 7 dias.", "hi": "पिछले 7 दिनों में कोई नींद दर्ज नहीं।"
+  },
+  "anBHydration": {
+    "en": "{litres} L a day on average, target {target} L, {days} days logged",
+    "tr": "Günde ortalama {litres} L, hedef {target} L, {days} gün kaydı",
+    "de": "Im Schnitt {litres} L pro Tag, Ziel {target} L, {days} Tage eingetragen",
+    "fr": "{litres} L par jour en moyenne, objectif {target} L, {days} jours notés",
+    "es": "{litres} L al día de media, objetivo {target} L, {days} días registrados",
+    "it": "{litres} L al giorno in media, obiettivo {target} L, {days} giorni registrati",
+    "pt": "{litres} L por dia em média, meta {target} L, {days} dias registrados",
+    "hi": "औसतन {litres} L प्रति दिन, लक्ष्य {target} L, {days} दिन दर्ज",
+    "_types": {"days": "int"}
+  },
+  "anBHydrationNone": {
+    "en": "No water logged in the last 7 days.", "tr": "Son 7 günde su kaydı yok.", "de": "Kein Wasser in den letzten 7 Tagen eingetragen.", "fr": "Aucune eau notée ces 7 derniers jours.",
+    "es": "Sin agua registrada en los últimos 7 días.", "it": "Nessuna acqua registrata negli ultimi 7 giorni.", "pt": "Nenhuma água registrada nos últimos 7 dias.", "hi": "पिछले 7 दिनों में कोई पानी दर्ज नहीं।"
+  },
+  "anBNutrition": {
+    "en": "{done} of {planned} nutrition habits done in the last 7 days",
+    "tr": "Son 7 günde {planned} beslenme alışkanlığının {done} tanesi tamam",
+    "de": "{done} von {planned} Ernährungsgewohnheiten in den letzten 7 Tagen erledigt",
+    "fr": "{done} habitudes alimentaires sur {planned} faites ces 7 derniers jours",
+    "es": "{done} de {planned} hábitos de nutrición hechos en los últimos 7 días",
+    "it": "{done} abitudini alimentari su {planned} fatte negli ultimi 7 giorni",
+    "pt": "{done} de {planned} hábitos de nutrição feitos nos últimos 7 dias",
+    "hi": "पिछले 7 दिनों में {planned} पोषण आदतों में से {done} पूरी",
+    "_types": {"done": "int", "planned": "int"}
+  },
+  "anBNutritionNone": {
+    "en": "Counts the protein, calcium, zinc and vitamin D habits in your plan.",
+    "tr": "Planındaki protein, kalsiyum, çinko ve D vitamini alışkanlıklarını sayar.",
+    "de": "Zählt die Protein-, Kalzium-, Zink- und Vitamin-D-Gewohnheiten in deinem Plan.",
+    "fr": "Compte les habitudes protéines, calcium, zinc et vitamine D de ton plan.",
+    "es": "Cuenta los hábitos de proteína, calcio, zinc y vitamina D de tu plan.",
+    "it": "Conta le abitudini di proteine, calcio, zinco e vitamina D del tuo piano.",
+    "pt": "Conta os hábitos de proteína, cálcio, zinco e vitamina D do seu plano.",
+    "hi": "तुम्हारे प्लान की प्रोटीन, कैल्शियम, ज़िंक और विटामिन D आदतें गिनता है।"
+  },
+  "anBPosture": {
+    "en": "Wall self-check {raw}/90, {days} days ago",
+    "tr": "Duvar öz kontrolü {raw}/90, {days} gün önce",
+    "de": "Wand-Selbsttest {raw}/90, vor {days} Tagen",
+    "fr": "Auto-test au mur {raw}/90, il y a {days} jours",
+    "es": "Autotest de pared {raw}/90, hace {days} días",
+    "it": "Autotest al muro {raw}/90, {days} giorni fa",
+    "pt": "Autoteste na parede {raw}/90, há {days} dias",
+    "hi": "दीवार सेल्फ़-चेक {raw}/90, {days} दिन पहले",
+    "_types": {"raw": "int", "days": "int"}
+  },
+  "anBPostureToday": {
+    "en": "Wall self-check {raw}/90, today", "tr": "Duvar öz kontrolü {raw}/90, bugün", "de": "Wand-Selbsttest {raw}/90, heute", "fr": "Auto-test au mur {raw}/90, aujourd'hui",
+    "es": "Autotest de pared {raw}/90, hoy", "it": "Autotest al muro {raw}/90, oggi", "pt": "Autoteste na parede {raw}/90, hoje", "hi": "दीवार सेल्फ़-चेक {raw}/90, आज",
+    "_types": {"raw": "int"}
+  },
+  "anBPostureNone": {
+    "en": "No posture self-check yet.", "tr": "Henüz duruş öz kontrolü yok.", "de": "Noch kein Haltungs-Selbsttest.", "fr": "Pas encore d'auto-test de posture.",
+    "es": "Aún no hay autotest de postura.", "it": "Ancora nessun autotest della postura.", "pt": "Ainda não há autoteste de postura.", "hi": "अभी कोई पोस्चर सेल्फ़-चेक नहीं।"
+  },
+  "anBMeasuring": {
+    "en": "Last measured {days} days ago", "tr": "Son ölçüm {days} gün önce", "de": "Zuletzt vor {days} Tagen gemessen", "fr": "Dernière mesure il y a {days} jours",
+    "es": "Última medición hace {days} días", "it": "Ultima misura {days} giorni fa", "pt": "Última medição há {days} dias", "hi": "आख़िरी माप {days} दिन पहले",
+    "_types": {"days": "int"}
+  },
+  "anBMeasuringToday": {
+    "en": "Measured today", "tr": "Bugün ölçüldü", "de": "Heute gemessen", "fr": "Mesuré aujourd'hui",
+    "es": "Medido hoy", "it": "Misurato oggi", "pt": "Medido hoje", "hi": "आज मापा गया"
+  },
+  "anBMeasuringNone": {
+    "en": "No measurement yet.", "tr": "Henüz ölçüm yok.", "de": "Noch keine Messung.", "fr": "Pas encore de mesure.",
+    "es": "Aún sin mediciones.", "it": "Ancora nessuna misura.", "pt": "Ainda sem medições.", "hi": "अभी कोई माप नहीं।"
+  },
+  "anBGrowth": {
+    "en": "{v} cm a year, typical at your age {e} cm",
+    "tr": "Yılda {v} cm, yaşına göre tipik {e} cm",
+    "de": "{v} cm pro Jahr, typisch in deinem Alter {e} cm",
+    "fr": "{v} cm par an, typique à ton âge {e} cm",
+    "es": "{v} cm al año, lo típico a tu edad {e} cm",
+    "it": "{v} cm all'anno, tipico alla tua età {e} cm",
+    "pt": "{v} cm por ano, típico na sua idade {e} cm",
+    "hi": "साल में {v} cm, तुम्हारी उम्र में आम {e} cm"
+  },
+  "anBGrowthNone": {
+    "en": "Needs two measurements at least 30 days apart.",
+    "tr": "Arasında en az 30 gün olan iki ölçüm gerekiyor.",
+    "de": "Braucht zwei Messungen mit mindestens 30 Tagen Abstand.",
+    "fr": "Il faut deux mesures espacées d'au moins 30 jours.",
+    "es": "Necesita dos mediciones separadas al menos 30 días.",
+    "it": "Servono due misure ad almeno 30 giorni di distanza.",
+    "pt": "Precisa de duas medições com pelo menos 30 dias de intervalo.",
+    "hi": "कम से कम 30 दिन के अंतर पर दो माप चाहिए।"
+  },
+  "anBGrowthAdult": {
+    "en": "Growth plates usually close by 21, so growth speed does not count for you.",
+    "tr": "Büyüme plakları genelde 21 yaşında kapanır, bu yüzden büyüme hızı sana sayılmıyor.",
+    "de": "Wachstumsfugen schließen sich meist bis 21, deshalb zählt das Wachstumstempo bei dir nicht.",
+    "fr": "Les cartilages de croissance se ferment souvent vers 21 ans, donc la vitesse de croissance ne compte pas pour toi.",
+    "es": "Los cartílagos de crecimiento suelen cerrarse a los 21, así que la velocidad de crecimiento no cuenta para ti.",
+    "it": "Le cartilagini di crescita di solito si chiudono entro i 21 anni, quindi la velocità di crescita non conta per te.",
+    "pt": "As placas de crescimento costumam fechar até os 21, então a velocidade de crescimento não conta para você.",
+    "hi": "ग्रोथ प्लेट आमतौर पर 21 तक बंद हो जाती हैं, इसलिए तुम्हारे लिए बढ़ने की रफ़्तार नहीं गिनी जाती।"
+  },
+  "anBHeadroom": {
+    "en": "{cm} between today and your potential",
+    "tr": "Bugün ile potansiyelin arasında {cm}",
+    "de": "{cm} zwischen heute und deinem Potenzial",
+    "fr": "{cm} entre aujourd'hui et ton potentiel",
+    "es": "{cm} entre hoy y tu potencial",
+    "it": "{cm} tra oggi e il tuo potenziale",
+    "pt": "{cm} entre hoje e o seu potencial",
+    "hi": "आज और तुम्हारी संभावित लंबाई के बीच {cm}"
+  },
+  "anATraining": {
+    "en": "Start today's training", "tr": "Bugünkü antrenmana başla", "de": "Starte das heutige Training", "fr": "Lance l'entraînement du jour",
+    "es": "Empieza el entrenamiento de hoy", "it": "Inizia l'allenamento di oggi", "pt": "Comece o treino de hoje", "hi": "आज की ट्रेनिंग शुरू करो"
+  },
+  "anAConsistency": {
+    "en": "Finish half of today's plan", "tr": "Bugünkü planın yarısını bitir", "de": "Schaff heute den halben Plan", "fr": "Termine la moitié du plan du jour",
+    "es": "Completa la mitad del plan de hoy", "it": "Completa metà del piano di oggi", "pt": "Termine metade do plano de hoje", "hi": "आज का आधा प्लान पूरा करो"
+  },
+  "anASleepLog": {
+    "en": "Log last night's sleep", "tr": "Dün geceki uykunu kaydet", "de": "Trag den Schlaf der letzten Nacht ein", "fr": "Note ta nuit dernière",
+    "es": "Registra el sueño de anoche", "it": "Registra il sonno di stanotte", "pt": "Registre o sono da noite passada", "hi": "कल रात की नींद दर्ज करो"
+  },
+  "anASleep": {
+    "en": "Sleep {target} h tonight", "tr": "Bu gece {target} saat uyu", "de": "Schlaf heute Nacht {target} Std.", "fr": "Dors {target} h cette nuit",
+    "es": "Duerme {target} h esta noche", "it": "Dormi {target} h stanotte", "pt": "Durma {target} h esta noite", "hi": "आज रात {target} घंटे सोओ"
+  },
+  "anAHydrationLog": {
+    "en": "Log a glass of water", "tr": "Bir bardak su kaydet", "de": "Trag ein Glas Wasser ein", "fr": "Note un verre d'eau",
+    "es": "Registra un vaso de agua", "it": "Registra un bicchiere d'acqua", "pt": "Registre um copo de água", "hi": "एक गिलास पानी दर्ज करो"
+  },
+  "anAHydration": {
+    "en": "Drink {left} L more today", "tr": "Bugün {left} L daha iç", "de": "Trink heute noch {left} L", "fr": "Bois encore {left} L aujourd'hui",
+    "es": "Bebe {left} L más hoy", "it": "Bevi altri {left} L oggi", "pt": "Beba mais {left} L hoje", "hi": "आज {left} L और पियो"
+  },
+  "anAHydrationDone": {
+    "en": "Target hit today. Same again tomorrow", "tr": "Bugünkü hedef tamam. Yarın da aynısı", "de": "Ziel heute erreicht. Morgen wieder", "fr": "Objectif atteint. Pareil demain",
+    "es": "Objetivo cumplido hoy. Mañana igual", "it": "Obiettivo raggiunto. Domani di nuovo", "pt": "Meta batida hoje. Amanhã de novo", "hi": "आज का लक्ष्य पूरा। कल भी ऐसे ही"
+  },
+  "anANutrition": {
+    "en": "Tick off today's nutrition habits", "tr": "Bugünkü beslenme alışkanlıklarını işaretle", "de": "Hak die heutigen Ernährungsgewohnheiten ab", "fr": "Coche les habitudes alimentaires du jour",
+    "es": "Marca los hábitos de nutrición de hoy", "it": "Spunta le abitudini alimentari di oggi", "pt": "Marque os hábitos de nutrição de hoje", "hi": "आज की पोषण आदतें पूरी करो"
+  },
+  "anAPostureFirst": {
+    "en": "Do a 1 minute posture self-check", "tr": "1 dakikalık duruş öz kontrolü yap", "de": "Mach den 1-Minuten-Haltungstest", "fr": "Fais l'auto-test de posture en 1 minute",
+    "es": "Haz el autotest de postura de 1 minuto", "it": "Fai l'autotest della postura da 1 minuto", "pt": "Faça o autoteste de postura de 1 minuto", "hi": "1 मिनट का पोस्चर सेल्फ़-चेक करो"
+  },
+  "anAPostureRedo": {
+    "en": "Redo your posture self-check", "tr": "Duruş öz kontrolünü yenile", "de": "Wiederhole den Haltungstest", "fr": "Refais ton auto-test de posture",
+    "es": "Repite tu autotest de postura", "it": "Rifai l'autotest della postura", "pt": "Refaça seu autoteste de postura", "hi": "पोस्चर सेल्फ़-चेक दोबारा करो"
+  },
+  "anAPostureKeep": {
+    "en": "Keep the daily posture routine", "tr": "Günlük duruş rutinini sürdür", "de": "Bleib bei der täglichen Haltungsroutine", "fr": "Garde la routine posture quotidienne",
+    "es": "Mantén la rutina diaria de postura", "it": "Mantieni la routine quotidiana di postura", "pt": "Mantenha a rotina diária de postura", "hi": "रोज़ की पोस्चर रूटीन जारी रखो"
+  },
+  "anAMeasure": {
+    "en": "Measure your height now", "tr": "Boyunu şimdi ölç", "de": "Miss jetzt deine Größe", "fr": "Mesure ta taille maintenant",
+    "es": "Mide tu altura ahora", "it": "Misura la tua altezza ora", "pt": "Meça sua altura agora", "hi": "अभी अपनी लंबाई मापो"
+  },
+  "anAMeasureKeep": {
+    "en": "Measure again next week", "tr": "Gelecek hafta tekrar ölç", "de": "Miss nächste Woche wieder", "fr": "Remesure-toi la semaine prochaine",
+    "es": "Vuelve a medirte la próxima semana", "it": "Rimisurati la prossima settimana", "pt": "Meça de novo na próxima semana", "hi": "अगले हफ़्ते फिर मापो"
+  },
+  "anAGrowthWait": {
+    "en": "Measure again in {days} days", "tr": "{days} gün sonra tekrar ölç", "de": "Miss in {days} Tagen wieder", "fr": "Remesure-toi dans {days} jours",
+    "es": "Vuelve a medirte en {days} días", "it": "Rimisurati tra {days} giorni", "pt": "Meça de novo em {days} dias", "hi": "{days} दिन बाद फिर मापो",
+    "_types": {"days": "int"}
+  },
+  "anAGrowth": {
+    "en": "Measure every 2 weeks to track it", "tr": "Takip için 2 haftada bir ölç", "de": "Miss alle 2 Wochen, um es zu verfolgen", "fr": "Mesure-toi toutes les 2 semaines pour le suivre",
+    "es": "Mídete cada 2 semanas para seguirlo", "it": "Misurati ogni 2 settimane per seguirla", "pt": "Meça a cada 2 semanas para acompanhar", "hi": "इसे ट्रैक करने के लिए हर 2 हफ़्ते में मापो"
+  },
+  "anAHeadroom": {
+    "en": "See your potential", "tr": "Potansiyelini gör", "de": "Sieh dein Potenzial", "fr": "Vois ton potentiel",
+    "es": "Mira tu potencial", "it": "Guarda il tuo potenziale", "pt": "Veja seu potencial", "hi": "अपनी संभावित लंबाई देखो"
+  },
+  "anPotentialTitle": {
+    "en": "Your potential", "tr": "Potansiyelin", "de": "Dein Potenzial", "fr": "Ton potentiel",
+    "es": "Tu potencial", "it": "Il tuo potenziale", "pt": "Seu potencial", "hi": "तुम्हारी संभावित लंबाई"
+  },
+  "anPotentialLabel": {
+    "en": "Predicted adult height", "tr": "Tahmini yetişkin boyu", "de": "Voraussichtliche Erwachsenengröße", "fr": "Taille adulte prévue",
+    "es": "Altura adulta prevista", "it": "Altezza adulta prevista", "pt": "Altura adulta prevista", "hi": "अनुमानित वयस्क लंबाई"
+  },
+  "anPotentialToGo": {
+    "en": "+{cm} to go", "tr": "+{cm} kaldı", "de": "noch +{cm}", "fr": "encore +{cm}",
+    "es": "faltan +{cm}", "it": "mancano +{cm}", "pt": "faltam +{cm}", "hi": "+{cm} बाकी"
+  },
+  "anPotentialReached": {
+    "en": "You're at your predicted height", "tr": "Tahmini boyuna ulaştın", "de": "Du hast deine voraussichtliche Größe erreicht", "fr": "Tu as atteint ta taille prévue",
+    "es": "Ya estás en tu altura prevista", "it": "Hai raggiunto la tua altezza prevista", "pt": "Você chegou à sua altura prevista", "hi": "तुम अपनी अनुमानित लंबाई तक पहुँच गए"
+  },
+  "anPotentialNote": {
+    "en": "The same number everywhere in the app. It only ever moves up.",
+    "tr": "Uygulamanın her yerinde aynı sayı. Sadece yukarı gider.",
+    "de": "Überall in der App dieselbe Zahl. Sie geht nur nach oben.",
+    "fr": "Le même chiffre partout dans l'app. Il ne fait que monter.",
+    "es": "El mismo número en toda la app. Solo puede subir.",
+    "it": "Lo stesso numero in tutta l'app. Può solo salire.",
+    "pt": "O mesmo número em todo o app. Ele só sobe.",
+    "hi": "पूरे ऐप में यही एक संख्या। यह सिर्फ़ ऊपर जाती है।"
+  },
+  "anDreamLine": {
+    "en": "Your goal: {h}", "tr": "Hedefin: {h}", "de": "Dein Ziel: {h}", "fr": "Ton objectif : {h}",
+    "es": "Tu meta: {h}", "it": "Il tuo obiettivo: {h}", "pt": "Sua meta: {h}", "hi": "तुम्हारा लक्ष्य: {h}"
+  },
+  "anSourcesTitle": {
+    "en": "Where the centimetres come from", "tr": "Santimetreler nereden geliyor", "de": "Woher die Zentimeter kommen", "fr": "D'où viennent les centimètres",
+    "es": "De dónde salen los centímetros", "it": "Da dove arrivano i centimetri", "pt": "De onde vêm os centímetros", "hi": "ये सेंटीमीटर कहाँ से आते हैं"
+  },
+  "anSourcesGenes": {"en": "Genes and age", "tr": "Genler ve yaş", "de": "Gene und Alter", "fr": "Gènes et âge", "es": "Genes y edad", "it": "Geni ed età", "pt": "Genes e idade", "hi": "जीन और उम्र"},
+  "anSourcesHabits": {"en": "Sleep, food, training", "tr": "Uyku, beslenme, antrenman", "de": "Schlaf, Essen, Training", "fr": "Sommeil, alimentation, sport", "es": "Sueño, comida, entrenamiento", "it": "Sonno, cibo, allenamento", "pt": "Sono, comida, treino", "hi": "नींद, खाना, ट्रेनिंग"},
+  "anSourcesPosture": {"en": "Posture", "tr": "Duruş", "de": "Haltung", "fr": "Posture", "es": "Postura", "it": "Postura", "pt": "Postura", "hi": "पोस्चर"},
+  "anPctTitle": {
+    "en": "Height for your age", "tr": "Yaşına göre boyun", "de": "Größe für dein Alter", "fr": "Taille pour ton âge",
+    "es": "Altura para tu edad", "it": "Altezza per la tua età", "pt": "Altura para a sua idade", "hi": "तुम्हारी उम्र के हिसाब से लंबाई"
+  },
+  "anPctValue": {
+    "en": "Taller than {p}% of people your age", "tr": "Yaşıtlarının %{p} kadarı senden kısa", "de": "Größer als {p} % in deinem Alter", "fr": "Plus grand que {p} % des gens de ton âge",
+    "es": "Más alto que el {p} % de la gente de tu edad", "it": "Più alto del {p}% delle persone della tua età", "pt": "Mais alto que {p}% das pessoas da sua idade", "hi": "अपनी उम्र के {p}% लोगों से लंबे",
+    "_types": {"p": "int"}
+  },
+  "anPctBasis": {
+    "en": "WHO 2007 growth reference, same age and sex", "tr": "WHO 2007 büyüme referansı, aynı yaş ve cinsiyet", "de": "WHO-Wachstumsreferenz 2007, gleiches Alter und Geschlecht", "fr": "Référence de croissance OMS 2007, même âge et sexe",
+    "es": "Referencia de crecimiento OMS 2007, misma edad y sexo", "it": "Riferimento di crescita OMS 2007, stessa età e sesso", "pt": "Referência de crescimento OMS 2007, mesma idade e sexo", "hi": "WHO 2007 ग्रोथ संदर्भ, समान उम्र और लिंग"
+  },
+  "anPctMore": {
+    "en": "Full comparison", "tr": "Tam karşılaştırma", "de": "Ganzer Vergleich", "fr": "Comparaison complète",
+    "es": "Comparación completa", "it": "Confronto completo", "pt": "Comparação completa", "hi": "पूरी तुलना"
+  },
+  "anNeedsBasis": {
+    "en": "Worked out from your age, weight and training", "tr": "Yaşın, kilon ve antrenmanına göre hesaplandı", "de": "Aus deinem Alter, Gewicht und Training berechnet", "fr": "Calculé selon ton âge, ton poids et ton entraînement",
+    "es": "Calculado con tu edad, peso y entrenamiento", "it": "Calcolato su età, peso e allenamento", "pt": "Calculado pela sua idade, peso e treino", "hi": "तुम्हारी उम्र, वज़न और ट्रेनिंग से निकाला गया"
+  },
+  "anCalcium": {"en": "Calcium", "tr": "Kalsiyum", "de": "Kalzium", "fr": "Calcium", "es": "Calcio", "it": "Calcio", "pt": "Cálcio", "hi": "कैल्शियम"},
+  "anVitaminD": {"en": "Vitamin D", "tr": "D vitamini", "de": "Vitamin D", "fr": "Vitamine D", "es": "Vitamina D", "it": "Vitamina D", "pt": "Vitamina D", "hi": "विटामिन D"},
+  "anMovement": {"en": "Movement", "tr": "Hareket", "de": "Bewegung", "fr": "Activité", "es": "Movimiento", "it": "Movimento", "pt": "Movimento", "hi": "गतिविधि"},
+  "anUnitMin": {"en": "min", "tr": "dk", "de": "Min.", "fr": "min", "es": "min", "it": "min", "pt": "min", "hi": "मिनट"},
+  "anUnitHours": {"en": "h", "tr": "sa", "de": "Std.", "fr": "h", "es": "h", "it": "h", "pt": "h", "hi": "घंटे"},
+  "anPerDay": {"en": "a day", "tr": "günde", "de": "pro Tag", "fr": "par jour", "es": "al día", "it": "al giorno", "pt": "por dia", "hi": "प्रति दिन"},
+  "anPerNight": {"en": "a night", "tr": "gecede", "de": "pro Nacht", "fr": "par nuit", "es": "por noche", "it": "a notte", "pt": "por noite", "hi": "प्रति रात"},
+  "anUnlockScoreTitle": {
+    "en": "Your full BeTaller Score", "tr": "BeTaller Skorunun tamamı", "de": "Dein ganzer BeTaller Score", "fr": "Ton score BeTaller complet",
+    "es": "Tu puntuación BeTaller completa", "it": "Il tuo punteggio BeTaller completo", "pt": "Sua pontuação BeTaller completa", "hi": "तुम्हारा पूरा BeTaller स्कोर"
+  },
+  "anUnlockScoreBody": {
+    "en": "The score, all nine signals behind it and what to do next.",
+    "tr": "Skor, arkasındaki dokuz sinyal ve sıradaki adım.",
+    "de": "Der Score, alle neun Signale dahinter und was du als Nächstes tust.",
+    "fr": "Le score, les neuf signaux derrière et quoi faire ensuite.",
+    "es": "La puntuación, las nueve señales detrás y qué hacer después.",
+    "it": "Il punteggio, i nove segnali dietro e cosa fare dopo.",
+    "pt": "A pontuação, os nove sinais por trás e o que fazer em seguida.",
+    "hi": "स्कोर, उसके पीछे के नौ संकेत और आगे क्या करना है।"
+  },
+  "anUnlockSourcesTitle": {
+    "en": "See where your centimetres come from", "tr": "Santimetrelerin nereden geldiğini gör", "de": "Sieh, woher deine Zentimeter kommen", "fr": "Vois d'où viennent tes centimètres",
+    "es": "Mira de dónde salen tus centímetros", "it": "Guarda da dove arrivano i tuoi centimetri", "pt": "Veja de onde vêm seus centímetros", "hi": "देखो तुम्हारे सेंटीमीटर कहाँ से आते हैं"
+  },
+  "anUnlockNeedsTitle": {
+    "en": "Your daily needs, worked out for you", "tr": "Sana göre hesaplanmış günlük ihtiyaçların", "de": "Dein Tagesbedarf, für dich berechnet", "fr": "Tes besoins du jour, calculés pour toi",
+    "es": "Tus necesidades diarias, calculadas para ti", "it": "I tuoi fabbisogni giornalieri, calcolati per te", "pt": "Suas necessidades diárias, calculadas para você", "hi": "तुम्हारी रोज़ की ज़रूरतें, तुम्हारे लिए निकाली गईं"
+  },
+  "anUnlockCta": {
+    "en": "Unlock", "tr": "Kilidi aç", "de": "Freischalten", "fr": "Débloquer",
+    "es": "Desbloquear", "it": "Sblocca", "pt": "Desbloquear", "hi": "अनलॉक करो"
+  },
+  "anFlowResultTitle": {
+    "en": "Saved to your chart", "tr": "Grafiğine kaydedildi", "de": "In deinem Diagramm gespeichert", "fr": "Enregistré sur ton graphique",
+    "es": "Guardado en tu gráfico", "it": "Salvato nel tuo grafico", "pt": "Salvo no seu gráfico", "hi": "तुम्हारे चार्ट में सेव हो गया"
+  },
+  "anFlowResultBody": {
+    "en": "Your past heights now sit on the same curve as your measurements and your potential.",
+    "tr": "Geçmiş boyların artık ölçümlerin ve potansiyelinle aynı eğride.",
+    "de": "Deine früheren Größen liegen jetzt auf derselben Kurve wie deine Messungen und dein Potenzial.",
+    "fr": "Tes tailles passées sont maintenant sur la même courbe que tes mesures et ton potentiel.",
+    "es": "Tus alturas pasadas ya están en la misma curva que tus mediciones y tu potencial.",
+    "it": "Le tue altezze passate ora sono sulla stessa curva delle misure e del potenziale.",
+    "pt": "Suas alturas passadas agora estão na mesma curva das suas medições e do seu potencial.",
+    "hi": "तुम्हारी पुरानी लंबाइयाँ अब तुम्हारे माप और संभावित लंबाई वाली उसी कर्व पर हैं।"
+  },
+  "anFlowOpenAnalysis": {
+    "en": "Open your analysis", "tr": "Analizini aç", "de": "Öffne deine Analyse", "fr": "Ouvre ton analyse",
+    "es": "Abre tu análisis", "it": "Apri la tua analisi", "pt": "Abra sua análise", "hi": "अपना विश्लेषण खोलो"
+  },
+  "anTopPct": {
+    "en": "TOP {p}%", "tr": "İLK %{p}", "de": "TOP {p} %", "fr": "TOP {p} %", "es": "TOP {p} %", "it": "TOP {p}%", "pt": "TOP {p}%", "hi": "टॉप {p}%",
+    "_types": {"p": "int"}
+  },
+  "anNeedsTitle": {
+    "en": "Your daily needs", "tr": "Günlük ihtiyaçların", "de": "Dein Tagesbedarf", "fr": "Tes besoins du jour",
+    "es": "Tus necesidades diarias", "it": "I tuoi fabbisogni giornalieri", "pt": "Suas necessidades diárias", "hi": "तुम्हारी रोज़ की ज़रूरतें"
+  }
+}

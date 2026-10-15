@@ -8419,6 +8419,600 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{cm} still ahead of you'**
   String homeHeroGap(String cm);
+
+  /// No description provided for @anSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your score, what moves it, and where you\'re headed'**
+  String get anSubtitle;
+
+  /// No description provided for @anScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'BeTaller Score'**
+  String get anScoreLabel;
+
+  /// No description provided for @anTierStarting.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting'**
+  String get anTierStarting;
+
+  /// No description provided for @anTierBuilding.
+  ///
+  /// In en, this message translates to:
+  /// **'Building'**
+  String get anTierBuilding;
+
+  /// No description provided for @anTierRising.
+  ///
+  /// In en, this message translates to:
+  /// **'Rising'**
+  String get anTierRising;
+
+  /// No description provided for @anTierStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get anTierStrong;
+
+  /// No description provided for @anTierPeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Peak'**
+  String get anTierPeak;
+
+  /// No description provided for @anTrendUp.
+  ///
+  /// In en, this message translates to:
+  /// **'+{n} vs last week'**
+  String anTrendUp(int n);
+
+  /// No description provided for @anTrendDown.
+  ///
+  /// In en, this message translates to:
+  /// **'-{n} vs last week'**
+  String anTrendDown(int n);
+
+  /// No description provided for @anTrendFlat.
+  ///
+  /// In en, this message translates to:
+  /// **'Same as last week'**
+  String get anTrendFlat;
+
+  /// No description provided for @anTrendFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weekly trend starts next week'**
+  String get anTrendFirst;
+
+  /// No description provided for @anNextTier.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} points to {tier}'**
+  String anNextTier(int n, String tier);
+
+  /// No description provided for @anTopTier.
+  ///
+  /// In en, this message translates to:
+  /// **'Top tier. Keep it there'**
+  String get anTopTier;
+
+  /// No description provided for @anCoverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on {n} of {total} signals'**
+  String anCoverage(int n, int total);
+
+  /// No description provided for @anNoScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough data yet'**
+  String get anNoScoreTitle;
+
+  /// No description provided for @anNoScoreBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Log your sleep, some water or one workout today and your first score appears.'**
+  String get anNoScoreBody;
+
+  /// No description provided for @anFastestWin.
+  ///
+  /// In en, this message translates to:
+  /// **'Fastest win'**
+  String get anFastestWin;
+
+  /// No description provided for @anBreakdownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What builds your score'**
+  String get anBreakdownTitle;
+
+  /// No description provided for @anBreakdownHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Each signal is scored 0 to 100 from your own data. The percentage is how much it counts.'**
+  String get anBreakdownHint;
+
+  /// No description provided for @anWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'{n}%'**
+  String anWeight(int n);
+
+  /// No description provided for @anNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No data yet'**
+  String get anNoData;
+
+  /// No description provided for @anNotCounted.
+  ///
+  /// In en, this message translates to:
+  /// **'Not counted'**
+  String get anNotCounted;
+
+  /// No description provided for @anFTraining.
+  ///
+  /// In en, this message translates to:
+  /// **'Training'**
+  String get anFTraining;
+
+  /// No description provided for @anFConsistency.
+  ///
+  /// In en, this message translates to:
+  /// **'Consistency'**
+  String get anFConsistency;
+
+  /// No description provided for @anFSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep'**
+  String get anFSleep;
+
+  /// No description provided for @anFHydration.
+  ///
+  /// In en, this message translates to:
+  /// **'Hydration'**
+  String get anFHydration;
+
+  /// No description provided for @anFNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition'**
+  String get anFNutrition;
+
+  /// No description provided for @anFPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture'**
+  String get anFPosture;
+
+  /// No description provided for @anFMeasuring.
+  ///
+  /// In en, this message translates to:
+  /// **'Measuring'**
+  String get anFMeasuring;
+
+  /// No description provided for @anFGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth speed'**
+  String get anFGrowth;
+
+  /// No description provided for @anFHeadroom.
+  ///
+  /// In en, this message translates to:
+  /// **'Room to grow'**
+  String get anFHeadroom;
+
+  /// No description provided for @anBTraining.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {planned} planned training days in the last 7 days'**
+  String anBTraining(int done, int planned);
+
+  /// No description provided for @anBTrainingNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts the days you train against your weekly plan.'**
+  String get anBTrainingNone;
+
+  /// No description provided for @anBConsistency.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak {streak} days, {active} of {days} days with half the plan done'**
+  String anBConsistency(int streak, int active, int days);
+
+  /// No description provided for @anBConsistencyNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts your streak and the days you finish at least half of your plan.'**
+  String get anBConsistencyNone;
+
+  /// No description provided for @anBSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h a night on average, target {target} h, {days} nights logged'**
+  String anBSleep(String hours, String target, int days);
+
+  /// No description provided for @anBSleepNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No sleep logged in the last 7 days.'**
+  String get anBSleepNone;
+
+  /// No description provided for @anBHydration.
+  ///
+  /// In en, this message translates to:
+  /// **'{litres} L a day on average, target {target} L, {days} days logged'**
+  String anBHydration(String litres, String target, int days);
+
+  /// No description provided for @anBHydrationNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No water logged in the last 7 days.'**
+  String get anBHydrationNone;
+
+  /// No description provided for @anBNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {planned} nutrition habits done in the last 7 days'**
+  String anBNutrition(int done, int planned);
+
+  /// No description provided for @anBNutritionNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts the protein, calcium, zinc and vitamin D habits in your plan.'**
+  String get anBNutritionNone;
+
+  /// No description provided for @anBPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Wall self-check {raw}/90, {days} days ago'**
+  String anBPosture(int raw, int days);
+
+  /// No description provided for @anBPostureToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wall self-check {raw}/90, today'**
+  String anBPostureToday(int raw);
+
+  /// No description provided for @anBPostureNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No posture self-check yet.'**
+  String get anBPostureNone;
+
+  /// No description provided for @anBMeasuring.
+  ///
+  /// In en, this message translates to:
+  /// **'Last measured {days} days ago'**
+  String anBMeasuring(int days);
+
+  /// No description provided for @anBMeasuringToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Measured today'**
+  String get anBMeasuringToday;
+
+  /// No description provided for @anBMeasuringNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No measurement yet.'**
+  String get anBMeasuringNone;
+
+  /// No description provided for @anBGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'{v} cm a year, typical at your age {e} cm'**
+  String anBGrowth(String v, String e);
+
+  /// No description provided for @anBGrowthNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs two measurements at least 30 days apart.'**
+  String get anBGrowthNone;
+
+  /// No description provided for @anBGrowthAdult.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth plates usually close by 21, so growth speed does not count for you.'**
+  String get anBGrowthAdult;
+
+  /// No description provided for @anBHeadroom.
+  ///
+  /// In en, this message translates to:
+  /// **'{cm} between today and your potential'**
+  String anBHeadroom(String cm);
+
+  /// No description provided for @anATraining.
+  ///
+  /// In en, this message translates to:
+  /// **'Start today\'s training'**
+  String get anATraining;
+
+  /// No description provided for @anAConsistency.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish half of today\'s plan'**
+  String get anAConsistency;
+
+  /// No description provided for @anASleepLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Log last night\'s sleep'**
+  String get anASleepLog;
+
+  /// No description provided for @anASleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep {target} h tonight'**
+  String anASleep(String target);
+
+  /// No description provided for @anAHydrationLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Log a glass of water'**
+  String get anAHydrationLog;
+
+  /// No description provided for @anAHydration.
+  ///
+  /// In en, this message translates to:
+  /// **'Drink {left} L more today'**
+  String anAHydration(String left);
+
+  /// No description provided for @anAHydrationDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Target hit today. Same again tomorrow'**
+  String get anAHydrationDone;
+
+  /// No description provided for @anANutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Tick off today\'s nutrition habits'**
+  String get anANutrition;
+
+  /// No description provided for @anAPostureFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Do a 1 minute posture self-check'**
+  String get anAPostureFirst;
+
+  /// No description provided for @anAPostureRedo.
+  ///
+  /// In en, this message translates to:
+  /// **'Redo your posture self-check'**
+  String get anAPostureRedo;
+
+  /// No description provided for @anAPostureKeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the daily posture routine'**
+  String get anAPostureKeep;
+
+  /// No description provided for @anAMeasure.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure your height now'**
+  String get anAMeasure;
+
+  /// No description provided for @anAMeasureKeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure again next week'**
+  String get anAMeasureKeep;
+
+  /// No description provided for @anAGrowthWait.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure again in {days} days'**
+  String anAGrowthWait(int days);
+
+  /// No description provided for @anAGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure every 2 weeks to track it'**
+  String get anAGrowth;
+
+  /// No description provided for @anAHeadroom.
+  ///
+  /// In en, this message translates to:
+  /// **'See your potential'**
+  String get anAHeadroom;
+
+  /// No description provided for @anPotentialTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your potential'**
+  String get anPotentialTitle;
+
+  /// No description provided for @anPotentialLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Predicted adult height'**
+  String get anPotentialLabel;
+
+  /// No description provided for @anPotentialToGo.
+  ///
+  /// In en, this message translates to:
+  /// **'+{cm} to go'**
+  String anPotentialToGo(String cm);
+
+  /// No description provided for @anPotentialReached.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re at your predicted height'**
+  String get anPotentialReached;
+
+  /// No description provided for @anPotentialNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The same number everywhere in the app. It only ever moves up.'**
+  String get anPotentialNote;
+
+  /// No description provided for @anDreamLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Your goal: {h}'**
+  String anDreamLine(String h);
+
+  /// No description provided for @anSourcesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where the centimetres come from'**
+  String get anSourcesTitle;
+
+  /// No description provided for @anSourcesGenes.
+  ///
+  /// In en, this message translates to:
+  /// **'Genes and age'**
+  String get anSourcesGenes;
+
+  /// No description provided for @anSourcesHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep, food, training'**
+  String get anSourcesHabits;
+
+  /// No description provided for @anSourcesPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture'**
+  String get anSourcesPosture;
+
+  /// No description provided for @anPctTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Height for your age'**
+  String get anPctTitle;
+
+  /// No description provided for @anPctValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Taller than {p}% of people your age'**
+  String anPctValue(int p);
+
+  /// No description provided for @anPctBasis.
+  ///
+  /// In en, this message translates to:
+  /// **'WHO 2007 growth reference, same age and sex'**
+  String get anPctBasis;
+
+  /// No description provided for @anPctMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Full comparison'**
+  String get anPctMore;
+
+  /// No description provided for @anNeedsBasis.
+  ///
+  /// In en, this message translates to:
+  /// **'Worked out from your age, weight and training'**
+  String get anNeedsBasis;
+
+  /// No description provided for @anCalcium.
+  ///
+  /// In en, this message translates to:
+  /// **'Calcium'**
+  String get anCalcium;
+
+  /// No description provided for @anVitaminD.
+  ///
+  /// In en, this message translates to:
+  /// **'Vitamin D'**
+  String get anVitaminD;
+
+  /// No description provided for @anMovement.
+  ///
+  /// In en, this message translates to:
+  /// **'Movement'**
+  String get anMovement;
+
+  /// No description provided for @anUnitMin.
+  ///
+  /// In en, this message translates to:
+  /// **'min'**
+  String get anUnitMin;
+
+  /// No description provided for @anUnitHours.
+  ///
+  /// In en, this message translates to:
+  /// **'h'**
+  String get anUnitHours;
+
+  /// No description provided for @anPerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'a day'**
+  String get anPerDay;
+
+  /// No description provided for @anPerNight.
+  ///
+  /// In en, this message translates to:
+  /// **'a night'**
+  String get anPerNight;
+
+  /// No description provided for @anUnlockScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your full BeTaller Score'**
+  String get anUnlockScoreTitle;
+
+  /// No description provided for @anUnlockScoreBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The score, all nine signals behind it and what to do next.'**
+  String get anUnlockScoreBody;
+
+  /// No description provided for @anUnlockSourcesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See where your centimetres come from'**
+  String get anUnlockSourcesTitle;
+
+  /// No description provided for @anUnlockNeedsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily needs, worked out for you'**
+  String get anUnlockNeedsTitle;
+
+  /// No description provided for @anUnlockCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get anUnlockCta;
+
+  /// No description provided for @anFlowResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved to your chart'**
+  String get anFlowResultTitle;
+
+  /// No description provided for @anFlowResultBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your past heights now sit on the same curve as your measurements and your potential.'**
+  String get anFlowResultBody;
+
+  /// No description provided for @anFlowOpenAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Open your analysis'**
+  String get anFlowOpenAnalysis;
+
+  /// No description provided for @anTopPct.
+  ///
+  /// In en, this message translates to:
+  /// **'TOP {p}%'**
+  String anTopPct(int p);
+
+  /// No description provided for @anNeedsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily needs'**
+  String get anNeedsTitle;
 }
 
 class _AppLocalizationsDelegate

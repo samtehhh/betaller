@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../models/height_record.dart';
 import '../providers/app_provider.dart';
-import '../utils/calculations.dart';
+import '../utils/haptics.dart';
 import '../utils/constants.dart';
 import '../widgets/height_bell_curve.dart';
 import '../utils/height_reference.dart';
@@ -26,7 +25,7 @@ class LeaderboardScreen extends StatelessWidget {
 
     final age = provider.profile?.age ?? 18;
     final isMale = (provider.profile?.gender ?? 'male') == 'male';
-    final height = provider.profile?.currentHeight ?? 170.0;
+    final height = provider.latestHeight;
     final ethnicity = provider.profile?.ethnicity ?? '';
 
     final mean = HeightReference.getMean(age, isMale, ethnicity: ethnicity);
@@ -63,10 +62,6 @@ class LeaderboardScreen extends StatelessWidget {
         });
       }),
     ];
-
-    final prediction = provider.profile != null
-        ? Calculations.predictFinalHeight(provider.profile!, mergedRecords)
-        : null;
 
     return Scaffold(
       backgroundColor: AppColors.scaffold,
@@ -118,11 +113,10 @@ class LeaderboardScreen extends StatelessWidget {
                   userHeight: height,
                   records: mergedRecords,
                   pastHeights: provider.pastHeights,
-                  yearlyPredictions: prediction?.yearlyPredictions ?? {},
+                  // The potential path every other screen shows, not a second model.
+                  yearlyPredictions: provider.potentialByAge,
                   ethnicity: ethnicity,
                 ),
-
-
               ]),
             ),
           ),
@@ -138,7 +132,7 @@ class LeaderboardScreen extends StatelessWidget {
       leading: IconButton(
         icon: const Icon(CupertinoIcons.back, color: Colors.white),
         onPressed: () {
-          HapticFeedback.lightImpact();
+          Haptics.tap();
           Navigator.pop(context);
         },
       ),
@@ -293,7 +287,7 @@ class _HeroPercentileCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    'TOP ${(100 - pct).clamp(1, 99).toStringAsFixed(0)}%',
+                    l.anTopPct((100 - pct).round().clamp(1, 99)),
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w900,
@@ -427,9 +421,6 @@ class _HeroPercentileCard extends StatelessWidget {
               ),
             ],
           ),
-
-
-
         ],
       ),
     );
@@ -975,4 +966,3 @@ class _TableHeader extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────
-
