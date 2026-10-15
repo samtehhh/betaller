@@ -37,6 +37,7 @@ import 'package:boyuzatma_app/screens/weekly_report_screen.dart';
 import 'package:boyuzatma_app/screens/workout_player_screen.dart';
 import 'package:boyuzatma_app/utils/constants.dart';
 import 'package:boyuzatma_app/utils/daily_targets.dart';
+import 'package:boyuzatma_app/utils/text_case.dart';
 
 const _out = String.fromEnvironment(
   'SHOT_OUT',
@@ -392,7 +393,7 @@ final _shots = <_Shot>[
   _Shot('meals', (c, d) async {
     await c.tab(1);
     await c.subTab(2);
-    await c.revealAt('MealCard', d.top + 150);
+    await c.revealAt('MealCard', d.top + 200);
   }, focus: ['MealCard']),
   _Shot('photos', (c, d) async => c.push(const ProgressPhotosScreen())),
   _Shot('posture', (c, d) async => c.push(const PostureAnalysisScreen()),
@@ -488,13 +489,9 @@ const _textSpecs = {
 String _headlineCase(String s, String lang, String mode) {
   if (mode != 'upper') return s;
   const brand = 'BeTaller';
-  return s.split(brand).map((part) {
-    var x = part;
-    if (lang == 'tr' || lang == 'az') {
-      x = x.replaceAll('i', 'İ').replaceAll('ı', 'I');
-    }
-    return x.toUpperCase();
-  }).join(brand);
+  // The app's own helper (lib/utils/text_case.dart), so the frames and the
+  // app case Turkish the same way.
+  return s.split(brand).map((part) => upperFor(part, lang)).join(brand);
 }
 
 /// Tight tracking suits Inter; Devanagari joins its letters along the

@@ -221,7 +221,7 @@ def compose(out, device, locale, slug, plan):
         front_raw, _ = load_raw(out, device, locale, plan["front"])
         drop = 230
         avail = H - (text_bottom + gap) - bottom_margin - drop
-        sw = min(int(W * 0.60), Device.width_for_height(device, back_raw, avail))
+        sw = min(int(W * 0.66), Device.width_for_height(device, back_raw, avail))
         back = Device(device, back_raw, sw)
         front = Device(device, front_raw, sw)
         margin = int(W * 0.045)
