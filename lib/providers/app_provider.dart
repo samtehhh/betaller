@@ -19,6 +19,7 @@ import '../models/routine.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import '../utils/daily_plan.dart';
+import '../utils/haptics.dart';
 import '../utils/height_reference.dart';
 import '../services/purchase_service.dart';
 import '../l10n/app_localizations.dart';
@@ -874,6 +875,7 @@ class AppProvider extends ChangeNotifier {
   }
 
   void addHeightRecord(HeightRecord record) {
+    Haptics.success();
     _heightRecords.removeWhere((r) => r.date == record.date);
     _heightRecords.add(record);
     _heightRecords.sort((a, b) => a.date.compareTo(b.date));
@@ -904,6 +906,14 @@ class AppProvider extends ChangeNotifier {
   void toggleRoutine(String id) {
     final routine = _routines.firstWhere((r) => r.id == id);
     routine.completed = !routine.completed;
+    if (routine.completed) {
+      // The last item of the day gets the bigger moment.
+      final dayDone = todayRoutines.isNotEmpty &&
+          todayRoutines.every((r) => r.completed);
+      dayDone ? Haptics.celebrate() : Haptics.success();
+    } else {
+      Haptics.select();
+    }
 
     if (routine.completed) {
       if (!_completedRoutineIds.contains(id)) _completedRoutineIds.add(id);

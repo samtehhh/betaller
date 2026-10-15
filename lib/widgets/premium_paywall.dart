@@ -13,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../l10n/app_localizations.dart';
 import '../services/notification_service.dart';
+import '../utils/haptics.dart';
 import '../providers/app_provider.dart';
 import '../services/purchase_service.dart';
 import '../utils/constants.dart';
@@ -300,6 +301,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     switch (outcome) {
       case PurchaseOutcome.success:
         final provider = context.read<AppProvider>();
+        Haptics.celebrate();
         provider.setPremium(true);
         if (offer != null && offer.hasTrial && billed != null) {
           final now = DateTime.now();
@@ -521,6 +523,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
                       annualOffer: annualOffer,
                       weeklyOffer: weeklyOffer,
                       onSelectPlan: (i) => setState(() {
+                        if (i != _selectedPlan) Haptics.select();
                         _selectedPlan = i;
                         _userPicked = true;
                       }),

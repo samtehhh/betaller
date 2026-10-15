@@ -9,6 +9,7 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/localized_data.dart';
 import '../services/notification_service.dart';
+import '../utils/haptics.dart';
 import '../widgets/trophy_celebration.dart';
 import '../l10n/app_localizations.dart';
 import 'home_screen.dart';
@@ -191,6 +192,7 @@ class _MainScreenState extends State<MainScreen> {
         onSelect: _tourActive
             ? (_) {}
             : (i) {
+                if (i != _currentIndex) Haptics.select();
                 setState(() => _currentIndex = i);
                 if (i == 2) _progressKey.currentState?.replayAnimation();
                 if (i == 3) _analysisKey.currentState?.replayAnimation();

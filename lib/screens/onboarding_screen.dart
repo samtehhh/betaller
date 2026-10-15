@@ -16,6 +16,7 @@ import 'main_screen.dart';
 import '../services/notification_service.dart';
 import '../widgets/journey_steps.dart';
 import '../utils/daily_targets.dart';
+import '../utils/haptics.dart';
 import '../widgets/height_silhouette.dart';
 import '../widgets/premium_paywall.dart';
 
@@ -1977,6 +1978,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 magnification: 1.12,
                 squeeze: 1.15,
                 onSelectedItemChanged: (index) {
+                  Haptics.select();
                   _obPastHeightValues[currentAge] = (_kObMinH + index)
                       .toDouble();
                 },
@@ -4010,6 +4012,10 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
     );
     _ctrl.forward();
 
+    // The potential reveal lands as the count-up finishes.
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      if (mounted) Haptics.impact();
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       final provider = context.read<AppProvider>();

@@ -14,6 +14,7 @@ import '../utils/constants.dart';
 import '../utils/dev_tools.dart';
 import '../utils/localized_data.dart';
 import 'notifications_screen.dart';
+import 'wellness_tracker_screen.dart';
 import 'onboarding_screen.dart';
 import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
@@ -518,6 +519,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               setState(() => _notificationsEnabled = enabled);
                             }
                           },
+                        ),
+                        _menuDivider(),
+                        _MenuRow(
+                          icon: CupertinoIcons.heart_fill,
+                          label: l.exploreHealth,
+                          subtitle: '',
+                          value: '',
+                          color: AppColors.pink,
+                          onTap: () => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (_) => const WellnessTrackerScreen(),
+                            ),
+                          ),
                         ),
                       ],
                     ),
