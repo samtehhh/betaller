@@ -1,0 +1,94 @@
+{
+  "_note": "Headline (line 1, max ~5 words) and subline (max ~7 words) per frame and locale. No em dashes, no 'AI', no promised centimetres. headlineCase: 'sentence' keeps the text as written; 'upper' upper-cases it with Turkish dotted/dotless i handled and the brand name left as BeTaller.",
+  "headlineCase": "sentence",
+  "frames": [
+    {
+      "slug": "01-potential",
+      "en": ["See how tall you can get", "Estimated from your age and parents’ heights."],
+      "tr": ["Ne kadar uzayabileceğini gör", "Yaşına ve anne babanın boyuna göre tahmin."],
+      "de": ["Sieh, wie groß du werden kannst", "Geschätzt aus deinem Alter und deinen Eltern."],
+      "fr": ["Découvre ta taille potentielle", "Estimée d’après ton âge et tes parents."],
+      "es": ["Descubre cuánto puedes crecer", "Una estimación según tu edad y tus padres."],
+      "it": ["Scopri quanto puoi crescere", "Stima basata sulla tua età e sui genitori."],
+      "pt": ["Veja quanto você pode crescer", "Estimativa pela sua idade e altura dos pais."],
+      "hi": ["देखें आप कितने लंबे हो सकते हैं", "आपकी उम्र और माता-पिता की लंबाई से अनुमान।"]
+    },
+    {
+      "slug": "02-chart",
+      "en": ["Watch your height rise", "Every measurement, charted toward your potential."],
+      "tr": ["Boyunun yükselişini izle", "Her ölçüm, potansiyeline uzanan grafikte."],
+      "de": ["Sieh deine Größe wachsen", "Jede Messung im Verlauf zu deinem Potenzial."],
+      "fr": ["Regarde ta taille grimper", "Chaque mesure tracée vers ton potentiel."],
+      "es": ["Mira cómo sube tu altura", "Cada medida, en camino a tu potencial."],
+      "it": ["Guarda la tua altezza salire", "Ogni misura tracciata verso il tuo potenziale."],
+      "pt": ["Veja sua altura subir", "Cada medida no gráfico rumo ao seu potencial."],
+      "hi": ["अपनी लंबाई बढ़ते देखें", "हर माप, आपकी क्षमता की ओर ग्राफ़ पर।"]
+    },
+    {
+      "slug": "03-plan",
+      "en": ["Train with today’s plan", "Short guided workouts with exercise videos."],
+      "tr": ["Bugünün planıyla antrenman yap", "Egzersiz videolu kısa, rehberli antrenmanlar."],
+      "de": ["Trainiere mit deinem Tagesplan", "Kurze, geführte Workouts mit Übungsvideos."],
+      "fr": ["Entraîne-toi avec ton plan du jour", "Des séances courtes et guidées, en vidéo."],
+      "es": ["Entrena con tu plan de hoy", "Rutinas cortas y guiadas con vídeos."],
+      "it": ["Allenati con il piano di oggi", "Allenamenti brevi e guidati, con video."],
+      "pt": ["Treine com o plano do dia", "Treinos curtos e guiados, com vídeos."],
+      "hi": ["आज के प्लान से ट्रेनिंग करें", "एक्सरसाइज़ वीडियो के साथ छोटे गाइडेड वर्कआउट।"]
+    },
+    {
+      "slug": "04-score",
+      "en": ["Know your BeTaller Score", "Your daily habits, scored out of 100."],
+      "tr": ["BeTaller Puanını öğren", "Günlük alışkanlıkların 100 üzerinden puanlanır."],
+      "de": ["Kenne deine BeTaller-Punktzahl", "Deine Gewohnheiten, bewertet von 0 bis 100."],
+      "fr": ["Découvre ton score BeTaller", "Tes habitudes du jour, notées sur 100."],
+      "es": ["Conoce tu Puntuación BeTaller", "Tus hábitos diarios, puntuados sobre 100."],
+      "it": ["Scopri il tuo Punteggio BeTaller", "Le tue abitudini quotidiane, con un voto su 100."],
+      "pt": ["Conheça sua Pontuação BeTaller", "Seus hábitos diários, com nota de 0 a 100."],
+      "hi": ["अपना BeTaller स्कोर जानें", "आपकी रोज़ की आदतें, 100 में से स्कोर।"]
+    },
+    {
+      "slug": "05-program",
+      "en": ["Build the habit in 70 days", "Ten levels, one short step a day."],
+      "tr": ["70 günde alışkanlığını kur", "On seviye, her gün kısa bir adım."],
+      "de": ["Bau in 70 Tagen Routine auf", "Zehn Level, jeden Tag ein kurzer Schritt."],
+      "fr": ["Prends l’habitude en 70 jours", "Dix niveaux, une courte étape par jour."],
+      "es": ["Crea el hábito en 70 días", "Diez niveles, un paso corto al día."],
+      "it": ["Crea l’abitudine in 70 giorni", "Dieci livelli, un piccolo passo al giorno."],
+      "pt": ["Crie o hábito em 70 dias", "Dez níveis, um passo curto por dia."],
+      "hi": ["70 दिनों में आदत बनाएं", "दस लेवल, हर दिन एक छोटा कदम।"]
+    },
+    {
+      "slug": "06-nutrition",
+      "en": ["Hit your nutrition targets", "Protein and calcium goals with a meal plan."],
+      "tr": ["Beslenme hedeflerini tuttur", "Protein, kalsiyum hedefleri ve yemek planı."],
+      "de": ["Erreiche deine Nährstoffziele", "Protein- und Kalziumziele mit Essensplan."],
+      "fr": ["Atteins tes objectifs nutrition", "Protéines, calcium et un plan de repas."],
+      "es": ["Cumple tus metas de nutrición", "Proteína, calcio y un plan de comidas."],
+      "it": ["Raggiungi i tuoi obiettivi nutrizionali", "Proteine, calcio e un piano pasti."],
+      "pt": ["Bata suas metas de nutrição", "Proteína, cálcio e um plano de refeições."],
+      "hi": ["अपने पोषण लक्ष्य पूरे करें", "प्रोटीन, कैल्शियम के लक्ष्य और मील प्लान।"]
+    },
+    {
+      "slug": "07-photos",
+      "en": ["See the change side by side", "Drag to compare your before and after."],
+      "tr": ["Değişimi yan yana gör", "Öncesi ve sonrasını kaydırarak karşılaştır."],
+      "de": ["Sieh den Unterschied direkt", "Zieh, um Vorher und Nachher zu vergleichen."],
+      "fr": ["Vois le changement côte à côte", "Fais glisser pour comparer avant et après."],
+      "es": ["Mira el cambio lado a lado", "Desliza para comparar el antes y el después."],
+      "it": ["Guarda il cambiamento a confronto", "Trascina per confrontare prima e dopo."],
+      "pt": ["Veja a mudança lado a lado", "Arraste para comparar o antes e o depois."],
+      "hi": ["पहले और बाद का फ़र्क देखें", "पहले और बाद की तुलना के लिए खींचें।"]
+    },
+    {
+      "slug": "08-posture",
+      "en": ["Check your posture weekly", "A quick self-check, then your weekly report."],
+      "tr": ["Duruşunu her hafta kontrol et", "Hızlı bir öz kontrol ve haftalık raporun."],
+      "de": ["Prüf jede Woche deine Haltung", "Ein kurzer Selbstcheck und dein Wochenbericht."],
+      "fr": ["Vérifie ta posture chaque semaine", "Un auto-test rapide et ton bilan hebdo."],
+      "es": ["Revisa tu postura cada semana", "Un autotest rápido y tu informe semanal."],
+      "it": ["Controlla la postura ogni settimana", "Un rapido autotest e il report settimanale."],
+      "pt": ["Confira sua postura toda semana", "Um autoteste rápido e seu relatório semanal."],
+      "hi": ["हर हफ़्ते अपना पॉस्चर जांचें", "एक छोटा सेल्फ-चेक और आपकी साप्ताहिक रिपोर्ट।"]
+    }
+  ]
+}
