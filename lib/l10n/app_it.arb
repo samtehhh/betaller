@@ -1625,5 +1625,7 @@
   "trophyContinue": "Avanti",
   "guideSteps": "Passo dopo passo",
   "guideMistakes": "Errori comuni",
-  "guideTip": "Consiglio"
+  "guideTip": "Consiglio",
+  "homeHeroTitle": "La tua altezza e il tuo potenziale",
+  "homeHeroGap": "Hai ancora {cm} davanti"
 }

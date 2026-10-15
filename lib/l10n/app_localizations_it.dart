@@ -4653,4 +4653,12 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get guideTip => 'Consiglio';
+
+  @override
+  String get homeHeroTitle => 'La tua altezza e il tuo potenziale';
+
+  @override
+  String homeHeroGap(String cm) {
+    return 'Hai ancora $cm davanti';
+  }
 }

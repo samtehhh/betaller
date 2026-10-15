@@ -11,10 +11,10 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
 import '../utils/localized_data.dart';
-import 'growth_analysis_flow.dart';
 import 'education_screen.dart';
 import 'progress_screen.dart';
 import '../widgets/today_targets_card.dart';
+import '../widgets/height_silhouette.dart';
 import '../widgets/journey_steps.dart';
 import '../widgets/tour_keys.dart';
 import '../widgets/next_reminder_card.dart';
@@ -135,10 +135,6 @@ class _HomeScreenState extends State<HomeScreen>
       builder: (context, provider, _) {
         final profile = provider.profile;
         if (profile == null) return const SizedBox();
-
-        // One potential for the whole app; it never drops.
-        final potential = provider.potentialHeight;
-        final remaining = (potential - profile.currentHeight).clamp(0.0, 100.0);
         final waterNeed = Calculations.dailyWaterNeed(profile.weight);
         final sleepNeed = Calculations.dailySleepNeed(profile.age);
 
@@ -261,6 +257,12 @@ class _HomeScreenState extends State<HomeScreen>
                       const SizedBox(height: _sectionGap),
                     ],
 
+                    // ── 1. WHERE YOU ARE, WHERE YOU ARE GOING ─────────────
+                    // The first thing on Home is the height story: today
+                    // next to the potential, drawn as two figures.
+                    _PotentialHero(provider: provider, l: l),
+                    const SizedBox(height: _sectionGap),
+
                     // ── 1. TODAY'S MISSION ────────────────────────────────
                     KeyedSubtree(
                       key: TourKeys.homeGoals,
@@ -331,11 +333,8 @@ class _HomeScreenState extends State<HomeScreen>
                     const SizedBox(height: _sectionGap),
                     const SizedBox(height: 12),
 
-                    // ── 1c. WHAT WE WILL NUDGE YOU ABOUT NEXT ─────────────
-                    KeyedSubtree(
-                      key: TourKeys.homeReminder,
-                      child: const NextReminderCard(),
-                    ),
+                    // ── Today's numbers and this week's training ─────────
+                    TodayTargetsCard(provider: provider),
                     const SizedBox(height: _sectionGap),
 
                     // ── 4. ACTIVE CHALLENGES ──────────────────────────────
@@ -347,32 +346,6 @@ class _HomeScreenState extends State<HomeScreen>
                         l: l,
                       ),
                     ),
-                    const SizedBox(height: _sectionGap),
-
-                    // ── 2. HERO HEIGHT CARD — right above growth, the two
-                    // read as one story: where you are, then how you got
-                    // there ───────────────────────────────────────────────
-                    _HeroHeightCard(
-                      provider: provider,
-                      currentHeight: profile.currentHeight,
-                      potential: potential,
-                      remaining: remaining,
-                      isPremium: provider.isPremium,
-                      routineProgress: provider.routineProgress,
-                      completedCount: provider.completedRoutineCount,
-                      totalCount: provider.todayRoutineTotal,
-                      allDone: provider.allRoutinesCompleted,
-                      animValue: _curve.value,
-                      startHeight: provider.heightRecords.length >= 2
-                          ? provider.heightRecords.first.height
-                          : null,
-                      l: l,
-                      onPremiumTap: () => showPremiumPaywall(context),
-                    ),
-                    const SizedBox(height: _sectionGap),
-
-                    // ── Today's numbers and this week's training ─────────
-                    TodayTargetsCard(provider: provider),
                     const SizedBox(height: _sectionGap),
 
                     // ── 6. GROWTH STATS — always here now; with fewer than
@@ -393,57 +366,12 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                     const SizedBox(height: _sectionGap),
 
-                    // ── 7. AI ANALYSIS (first time) ───────────────────────
-                    if (!provider.analysisCompleted) ...[
-                      _BannerCard(
-                        label: l.aiAnalysisLabel,
-                        title: l.startAnalysis,
-                        subtitle: l.analysisSubtitle,
-                        accentColor: AppColors.primary,
-                        gradientColors: const [
-                          Color(0xFF2A1668),
-                          Color(0xFF120A30),
-                        ],
-                        icon: CupertinoIcons.sparkles,
-                        onTap: () => Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (_) => const GrowthAnalysisFlow(),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: _sectionGap),
-                    ],
-
-                    // The Explore row is gone: nutrition and recipes live in
-                    // My Plan > Nutrition, the wellness log in Profile. Home
-                    // is today's plan and the height story, nothing else.
+                    // ── 1c. WHAT WE WILL NUDGE YOU ABOUT NEXT ─────────────
                     KeyedSubtree(
-                      key: TourKeys.homeExplore,
-                      child: const SizedBox.shrink(),
+                      key: TourKeys.homeReminder,
+                      child: const NextReminderCard(),
                     ),
-
-                    // ── AI ANALYSIS UPDATE (after completion) ─────────────
-                    if (provider.analysisCompleted) ...[
-                      _BannerCard(
-                        label: l.aiAnalysisLabel,
-                        title: l.updateAnalysis,
-                        subtitle: l.analysisSubtitle,
-                        accentColor: AppColors.primary,
-                        gradientColors: const [
-                          Color(0xFF2A1668),
-                          Color(0xFF120A30),
-                        ],
-                        icon: CupertinoIcons.sparkles,
-                        onTap: () => Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (_) => const GrowthAnalysisFlow(),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: _sectionGap),
-                    ],
+                    const SizedBox(height: _sectionGap),
 
                     // ── 9. EDUCATION BANNER ───────────────────────────────
                     _BannerCard(
@@ -1176,352 +1104,6 @@ class _MissionRow extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _HeroHeightCard extends StatelessWidget {
-  final AppProvider provider;
-  final double currentHeight;
-  final double potential;
-  final double remaining;
-  final bool isPremium;
-  final double routineProgress;
-  final int completedCount;
-  final int totalCount;
-  final bool allDone;
-  final double animValue;
-  final double? startHeight;
-  final AppLocalizations l;
-  final VoidCallback onPremiumTap;
-
-  const _HeroHeightCard({
-    required this.provider,
-    required this.currentHeight,
-    required this.potential,
-    required this.remaining,
-    required this.isPremium,
-    required this.routineProgress,
-    required this.completedCount,
-    required this.totalCount,
-    required this.allDone,
-    required this.animValue,
-    required this.startHeight,
-    required this.l,
-    required this.onPremiumTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final delta = startHeight != null
-        ? double.parse((currentHeight - startHeight!).toStringAsFixed(1))
-        : null;
-    final hasDelta = delta != null && delta > 0.05;
-
-    return Container(
-      padding: const EdgeInsets.all(26),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF18103A), Color(0xFF0A0720)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(_radiusXL),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.18),
-            blurRadius: 40,
-            offset: const Offset(0, 12),
-            spreadRadius: -8,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                l.heightLabel.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.primary.withValues(alpha: 0.70),
-                  letterSpacing: 3.0,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 5,
-                ),
-                decoration: BoxDecoration(
-                  color: (allDone ? AppColors.success : AppColors.primary)
-                      .withValues(alpha: 0.10),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: (allDone ? AppColors.success : AppColors.primary)
-                        .withValues(alpha: 0.22),
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      allDone
-                          ? CupertinoIcons.checkmark_circle_fill
-                          : CupertinoIcons.circle,
-                      size: 12,
-                      color: allDone
-                          ? AppColors.success
-                          : AppColors.primaryLight,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      '$completedCount/$totalCount',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                        color: allDone
-                            ? AppColors.success
-                            : AppColors.primaryLight,
-                        letterSpacing: -0.3,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-
-          // A 78pt number plus an optional delta pill can run past the
-          // card's edge on a narrow phone or a locale with a wider suffix —
-          // given whatever room is left and shrunk to fit it, the same way
-          // the equivalent row in the paywall preview protects itself.
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                if (provider.useImperial)
-                  // Feet/inches ("5'9"") is one compound string, not a
-                  // number-plus-unit pair, so it skips the separate unit
-                  // label metric uses.
-                  Text(
-                    provider.formatHeight(currentHeight),
-                    style: TextStyle(
-                      fontSize: 78,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                      letterSpacing: -4,
-                      height: 1.0,
-                      shadows: [
-                        Shadow(
-                          color: AppColors.primary.withValues(alpha: 0.20),
-                          blurRadius: 30,
-                        ),
-                      ],
-                    ),
-                  )
-                else ...[
-                  Text(
-                    currentHeight.toStringAsFixed(1),
-                    style: TextStyle(
-                      fontSize: 78,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                      letterSpacing: -4,
-                      height: 1.0,
-                      shadows: [
-                        Shadow(
-                          color: AppColors.primary.withValues(alpha: 0.20),
-                          blurRadius: 30,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 6),
-                    child: Text(
-                      'CM',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white.withValues(alpha: 0.30),
-                        letterSpacing: 2,
-                      ),
-                    ),
-                  ),
-                ],
-                if (hasDelta) ...[
-                  const SizedBox(width: 12),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 6),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.success.withValues(alpha: 0.10),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: AppColors.success.withValues(alpha: 0.20),
-                        ),
-                      ),
-                      child: Text(
-                        '+${provider.heightNumber(delta).toStringAsFixed(1)}',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.success,
-                          letterSpacing: -0.3,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          Row(
-            children: [
-              Flexible(
-                child: Text(
-                  '${l.target}: ${provider.formatHeight(potential)}',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.white.withValues(alpha: 0.38),
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: -0.2,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              isPremium
-                  ? Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.10),
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: AppColors.primary.withValues(alpha: 0.22),
-                        ),
-                      ),
-                      child: Text(
-                        l.remaining(
-                          provider.heightNumber(remaining).toStringAsFixed(1),
-                          provider.heightUnit,
-                        ),
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.primaryLight,
-                        ),
-                      ),
-                    )
-                  : GestureDetector(
-                      onTap: onPremiumTap,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color(
-                            0xFFFFD700,
-                          ).withValues(alpha: 0.08),
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: const Color(
-                              0xFFFFD700,
-                            ).withValues(alpha: 0.20),
-                          ),
-                        ),
-                        child: const Text(
-                          'PRO',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w800,
-                            color: Color(0xFFFFD700),
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ),
-                    ),
-            ],
-          ),
-          const SizedBox(height: 22),
-
-          GlowProgressBar(
-            // Measured against where this person's own tracked growth
-            // started, not a generic child's height — 140 was a stand-in
-            // for "somewhere young" that made the bar read as nearly full
-            // for anyone who already stands close to their potential,
-            // regardless of how much of their own journey is actually
-            // behind them.
-            value: (potential > currentHeight + 0.1)
-                ? ((currentHeight - (startHeight ?? 140)) /
-                              (potential - (startHeight ?? 140)))
-                          .clamp(0.0, 1.0) *
-                      animValue
-                : animValue,
-            gradient: AppColors.gradientGrowth,
-            glowColor: AppColors.primary,
-            height: 6,
-          ),
-          const SizedBox(height: 16),
-
-          Row(
-            children: [
-              Text(
-                l.dailyRoutines,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white.withValues(alpha: 0.40),
-                  letterSpacing: -0.1,
-                ),
-              ),
-              const Spacer(),
-              Text(
-                allDone
-                    ? l.allRoutinesDone
-                    : '${(routineProgress * 100 * animValue).toInt()}%',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: allDone ? AppColors.success : AppColors.primaryLight,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          GlowProgressBar(
-            value: routineProgress * animValue,
-            gradient: allDone
-                ? const LinearGradient(
-                    colors: [AppColors.success, AppColors.lime],
-                  )
-                : AppColors.gradientPrimary,
-            glowColor: allDone ? AppColors.success : AppColors.primary,
-            height: 4,
-          ),
-        ],
-      ),
     );
   }
 }
@@ -2576,6 +2158,71 @@ class _GrowthStat extends StatelessWidget {
               color: Colors.white.withValues(alpha: 0.30),
               letterSpacing: 1.0,
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Height now, potential, the distance between them, and the two figures.
+class _PotentialHero extends StatelessWidget {
+  final AppProvider provider;
+  final AppLocalizations l;
+  const _PotentialHero({required this.provider, required this.l});
+
+  @override
+  Widget build(BuildContext context) {
+    final now = provider.latestHeight;
+    final pot = provider.potentialHeight;
+    final gap = pot - now;
+    return Container(
+      padding: const EdgeInsets.fromLTRB(22, 22, 22, 14),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(28),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF1C1240), Color(0xFF0C0A16)],
+        ),
+        border: Border.all(color: AppColors.lime.withValues(alpha: 0.18)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l.homeHeroTitle,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w800,
+              color: Colors.white.withValues(alpha: 0.7),
+            ),
+          ),
+          if (gap >= 0.5) ...[
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: AppColors.lime.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Text(
+                l.homeHeroGap(provider.formatHeightDelta(gap)),
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.lime,
+                ),
+              ),
+            ),
+          ],
+          const SizedBox(height: 6),
+          HeightSilhouette(
+            current: now,
+            potential: pot,
+            dream: provider.dreamHeight,
+            format: provider.formatHeight,
+            height: 200,
           ),
         ],
       ),

@@ -1,0 +1,4 @@
+{
+ "homeHeroTitle": {"en": "Your height and your potential", "tr": "Boyun ve potansiyelin", "de": "Deine Größe und dein Potenzial", "fr": "Ta taille et ton potentiel", "es": "Tu altura y tu potencial", "it": "La tua altezza e il tuo potenziale", "pt": "Sua altura e seu potencial", "hi": "आपकी लंबाई और संभावना"},
+ "homeHeroGap": {"en": "{cm} still ahead of you", "tr": "Önünde {cm} var", "de": "{cm} liegen noch vor dir", "fr": "Encore {cm} devant toi", "es": "Aún tienes {cm} por delante", "it": "Hai ancora {cm} davanti", "pt": "Ainda há {cm} pela frente", "hi": "अभी {cm} बाकी है"}
+}

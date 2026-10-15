@@ -8407,6 +8407,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tip'**
   String get guideTip;
+
+  /// No description provided for @homeHeroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your height and your potential'**
+  String get homeHeroTitle;
+
+  /// No description provided for @homeHeroGap.
+  ///
+  /// In en, this message translates to:
+  /// **'{cm} still ahead of you'**
+  String homeHeroGap(String cm);
 }
 
 class _AppLocalizationsDelegate

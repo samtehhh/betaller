@@ -4637,4 +4637,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get guideTip => 'İpucu';
+
+  @override
+  String get homeHeroTitle => 'Boyun ve potansiyelin';
+
+  @override
+  String homeHeroGap(String cm) {
+    return 'Önünde $cm var';
+  }
 }

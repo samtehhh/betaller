@@ -1560,5 +1560,8 @@
   "trophyContinue": "Keep going",
   "guideSteps": "Step by step",
   "guideMistakes": "Common mistakes",
-  "guideTip": "Tip"
+  "guideTip": "Tip",
+  "homeHeroTitle": "Your height and your potential",
+  "homeHeroGap": "{cm} still ahead of you",
+  "@homeHeroGap": {"placeholders": {"cm": {"type": "String"}}}
 }

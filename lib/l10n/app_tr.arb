@@ -1476,5 +1476,7 @@
   "trophyContinue": "Devam",
   "guideSteps": "Adım adım",
   "guideMistakes": "Sık yapılan hatalar",
-  "guideTip": "İpucu"
+  "guideTip": "İpucu",
+  "homeHeroTitle": "Boyun ve potansiyelin",
+  "homeHeroGap": "Önünde {cm} var"
 }

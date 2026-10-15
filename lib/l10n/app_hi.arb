@@ -1625,5 +1625,7 @@
   "trophyContinue": "आगे बढ़ें",
   "guideSteps": "स्टेप बाय स्टेप",
   "guideMistakes": "आम गलतियाँ",
-  "guideTip": "सुझाव"
+  "guideTip": "सुझाव",
+  "homeHeroTitle": "आपकी लंबाई और संभावना",
+  "homeHeroGap": "अभी {cm} बाकी है"
 }

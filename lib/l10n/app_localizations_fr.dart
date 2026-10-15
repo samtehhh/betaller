@@ -4675,4 +4675,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get guideTip => 'Astuce';
+
+  @override
+  String get homeHeroTitle => 'Ta taille et ton potentiel';
+
+  @override
+  String homeHeroGap(String cm) {
+    return 'Encore $cm devant toi';
+  }
 }

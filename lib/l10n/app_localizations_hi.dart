@@ -4617,4 +4617,12 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get guideTip => 'सुझाव';
+
+  @override
+  String get homeHeroTitle => 'आपकी लंबाई और संभावना';
+
+  @override
+  String homeHeroGap(String cm) {
+    return 'अभी $cm बाकी है';
+  }
 }
