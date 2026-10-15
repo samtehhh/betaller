@@ -4451,4 +4451,23 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get obNotSure => 'मुझे ठीक से पता नहीं';
+
+  @override
+  String get silNow => 'अभी';
+
+  @override
+  String get silPotential => 'संभावित';
+
+  @override
+  String get chartMeasured => 'आपके माप';
+
+  @override
+  String chartPotential(String height) {
+    return 'संभावित $height';
+  }
+
+  @override
+  String chartDream(String height) {
+    return 'आपका लक्ष्य $height';
+  }
 }

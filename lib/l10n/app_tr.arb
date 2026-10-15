@@ -1431,5 +1431,10 @@
   "obProteinSubtitle": "Yaklaşık bir değer yeter — planını buna göre kuruyoruz.",
   "obCaloriesTitle": "Günde ortalama kaç kalori alırsın?",
   "obCaloriesSubtitle": "Tahmini söylemen yeterli, sonra birlikte netleştiririz.",
-  "obNotSure": "Emin değilim"
+  "obNotSure": "Emin değilim",
+  "silNow": "ŞİMDİ",
+  "silPotential": "POTANSİYEL",
+  "chartMeasured": "Ölçümlerin",
+  "chartPotential": "Potansiyel {height}",
+  "chartDream": "Hedefin {height}"
 }

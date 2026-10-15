@@ -8137,6 +8137,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I\'m not sure'**
   String get obNotSure;
+
+  /// No description provided for @silNow.
+  ///
+  /// In en, this message translates to:
+  /// **'NOW'**
+  String get silNow;
+
+  /// No description provided for @silPotential.
+  ///
+  /// In en, this message translates to:
+  /// **'POTENTIAL'**
+  String get silPotential;
+
+  /// No description provided for @chartMeasured.
+  ///
+  /// In en, this message translates to:
+  /// **'Your measurements'**
+  String get chartMeasured;
+
+  /// No description provided for @chartPotential.
+  ///
+  /// In en, this message translates to:
+  /// **'Potential {height}'**
+  String chartPotential(String height);
+
+  /// No description provided for @chartDream.
+  ///
+  /// In en, this message translates to:
+  /// **'Your goal {height}'**
+  String chartDream(String height);
 }
 
 class _AppLocalizationsDelegate

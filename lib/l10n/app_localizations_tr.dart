@@ -4470,4 +4470,23 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get obNotSure => 'Emin değilim';
+
+  @override
+  String get silNow => 'ŞİMDİ';
+
+  @override
+  String get silPotential => 'POTANSİYEL';
+
+  @override
+  String get chartMeasured => 'Ölçümlerin';
+
+  @override
+  String chartPotential(String height) {
+    return 'Potansiyel $height';
+  }
+
+  @override
+  String chartDream(String height) {
+    return 'Hedefin $height';
+  }
 }

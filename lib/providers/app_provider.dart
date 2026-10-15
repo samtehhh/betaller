@@ -40,6 +40,15 @@ class AppProvider extends ChangeNotifier {
   bool _analysisCompleted = false;
   Locale? _locale;
   bool _isPremium = false;
+
+  /// The highest predicted adult height this user has been shown. The one
+  /// number every screen shows as "potential"; it only ever moves up.
+  double? _potentialAnchor;
+
+  /// Answers from the onboarding the profile model has no field for:
+  /// dreamHeight (cm), weeklyWorkout ('0-2' | '3-5' | '6+'), sleepHours,
+  /// footSize. Kept as a map so a new question never needs a schema change.
+  Map<String, dynamic> _onboardingAnswers = {};
   // false = metric (cm/kg), true = imperial (ft-in/lbs). Defaults to
   // imperial for the US and Canada — everywhere else, including the rest
   // of the English-speaking world, defaults to metric. loadData() only
@@ -109,6 +118,61 @@ class AppProvider extends ChangeNotifier {
   String get todayQuote => _todayQuote;
   Locale? get locale => _locale;
   bool get isPremium => _isPremium;
+
+  Map<String, dynamic> get onboardingAnswers => _onboardingAnswers;
+
+  /// The height the user told us they want, in cm, or null.
+  double? get dreamHeight {
+    final v = _onboardingAnswers['dreamHeight'];
+    return v is num && v > 100 ? v.toDouble() : null;
+  }
+
+  /// Latest measured height, falling back to the profile.
+  double get latestHeight => _heightRecords.isNotEmpty
+      ? _heightRecords.last.height
+      : (_profile?.currentHeight ?? 0);
+
+  /// Today's model prediction, uncapped. Screens should show [potentialHeight].
+  PredictionResult? get prediction => _profile == null
+      ? null
+      : Calculations.predictFinalHeight(_profile!, _heightRecords);
+
+  /// The predicted adult height shown everywhere. Never below the latest
+  /// measurement and never below what the user has already been shown: an
+  /// evening measurement half a centimetre short must not take a
+  /// centimetre off their future.
+  double get potentialHeight {
+    final p = prediction;
+    if (p == null) return latestHeight;
+    return [
+      p.finalHeight,
+      _potentialAnchor ?? 0.0,
+      latestHeight,
+    ].reduce(max);
+  }
+
+  /// Month-by-month path from today's height up to [potentialHeight].
+  List<MapEntry<DateTime, double>> get potentialCurve =>
+      _profile == null
+          ? const []
+          : Calculations.projectPotential(
+              from: DateTime.now(),
+              startHeight: latestHeight,
+              potential: potentialHeight,
+              age: _profile!.age,
+            );
+
+  void _raisePotentialAnchor() {
+    if (_profile == null) return;
+    final v = potentialHeight;
+    if (_potentialAnchor == null || v > _potentialAnchor!) _potentialAnchor = v;
+  }
+
+  void setOnboardingAnswers(Map<String, dynamic> answers) {
+    _onboardingAnswers = {..._onboardingAnswers, ...answers};
+    _saveData();
+    notifyListeners();
+  }
   bool get hasPaidPremium => _isPremium; // Check if paid to remove ads
   bool get useImperial => _useImperial;
 
@@ -568,12 +632,19 @@ class AppProvider extends ChangeNotifier {
         ),
         <String, List<String>>{},
       );
+      _potentialAnchor = json['potentialAnchor'] is num
+          ? (json['potentialAnchor'] as num).toDouble()
+          : null;
+      _onboardingAnswers = json['onboardingAnswers'] is Map
+          ? Map<String, dynamic>.from(json['onboardingAnswers'] as Map)
+          : {};
       _journeyProgress = asInt(
         json['journeyProgress'],
         _profile != null ? 1 : 0,
       );
     }
 
+    _raisePotentialAnchor();
     _initRoutines();
     _checkDailyReset();
     checkNewAchievements();
@@ -695,6 +766,8 @@ class AppProvider extends ChangeNotifier {
       'reminders': _reminders.map((r) => r.toJson()).toList(),
       'routineHistory': _routineHistory,
       'journeyProgress': _journeyProgress,
+      'potentialAnchor': _potentialAnchor,
+      'onboardingAnswers': _onboardingAnswers,
     };
     // Start from what was stored, so keys this build does not write survive.
     final out = <String, dynamic>{
@@ -759,6 +832,7 @@ class AppProvider extends ChangeNotifier {
       // silently move reminders they have already adjusted.
       _applyProfileReminderTimes(profile);
     }
+    _raisePotentialAnchor();
     _saveData();
     notifyListeners();
   }
@@ -793,6 +867,7 @@ class AppProvider extends ChangeNotifier {
     _maybeRequestReview();
     // a measurement can unlock both counting and growth badges
     checkNewAchievements();
+    _raisePotentialAnchor();
     _saveData();
     notifyListeners();
   }
@@ -1362,6 +1437,8 @@ class AppProvider extends ChangeNotifier {
     _completedProgramDays = {};
     _hiddenRoutineIds = {};
 
+    _potentialAnchor = null;
+    _onboardingAnswers = {};
     _rawBlob = {};
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('glowup_app_data');

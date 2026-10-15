@@ -3,13 +3,14 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 
 import '../l10n/app_localizations.dart';
 import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../widgets/height_silhouette.dart';
+import '../widgets/potential_chart.dart';
 import '../widgets/tour_keys.dart';
 import 'weekly_report_screen.dart';
 import 'posture_analysis_screen.dart';
@@ -126,7 +127,10 @@ class ProgressScreenState extends State<ProgressScreen>
                     const SizedBox(height: 16),
 
                     // ── The curve, with its numbers underneath ────────────
-                    if (records.length >= 2)
+                    // From the first measurement: one point plus the path
+                    // ahead is already worth looking at. It used to wait
+                    // for a second entry, so day one showed nothing.
+                    if (records.isNotEmpty)
                       KeyedSubtree(
                         key: TourKeys.progressChart,
                         child: Container(
@@ -146,17 +150,20 @@ class ProgressScreenState extends State<ProgressScreen>
                                 title: l.heightChart,
                               ),
                               const SizedBox(height: 18),
-                              SizedBox(
-                                height: 190,
-                                child: AnimatedBuilder(
-                                  animation: _chartAnim,
-                                  builder: (context, _) => _buildChart(
-                                    context,
-                                    provider,
-                                    records,
-                                    _chartCurve.value,
-                                  ),
+                              AnimatedBuilder(
+                                animation: _chartAnim,
+                                builder: (context, _) => PotentialChart(
+                                  provider: provider,
+                                  reveal: _chartCurve.value,
                                 ),
+                              ),
+                              const SizedBox(height: 18),
+                              HeightSilhouette(
+                                current: provider.latestHeight,
+                                potential: provider.potentialHeight,
+                                dream: provider.dreamHeight,
+                                format: provider.formatHeight,
+                                height: 200,
                               ),
                               const SizedBox(height: 16),
                               Divider(
@@ -422,221 +429,6 @@ class ProgressScreenState extends State<ProgressScreen>
           ),
         );
       },
-    );
-  }
-
-  Widget _buildChart(
-    BuildContext context,
-    AppProvider provider,
-    List<HeightRecord> records,
-    double animValue,
-  ) {
-    final locale = Localizations.localeOf(context).languageCode;
-
-    final heights = records.map((r) => r.height).toList();
-    final minH = heights.reduce((a, b) => a < b ? a : b);
-    final maxH = heights.reduce((a, b) => a > b ? a : b);
-    final range = maxH - minH;
-    final minY = minH - (range < 2 ? 2 : range * 0.3);
-    final maxY = maxH + (range < 2 ? 2 : range * 0.3);
-
-    // Noktalar grafiğin tam dibinden (minY) gerçek konumlarına yükseliyor
-    // Her nokta kademeli gecikmeyle çıkıyor (soldan sağa dalga efekti)
-    final spots = records.asMap().entries.map((e) {
-      final i = e.key;
-      final count = records.length;
-      // Her noktaya kademeli gecikme: ilk nokta hemen, son nokta en geç
-      final stagger = count > 1 ? i / (count - 1) * 0.3 : 0.0;
-      final localAnim = ((animValue - stagger) / (1.0 - stagger)).clamp(
-        0.0,
-        1.0,
-      );
-      final targetY = e.value.height;
-      final animatedY = minY + (targetY - minY) * localAnim;
-      return FlSpot(i.toDouble(), animatedY);
-    }).toList();
-
-    // A stray large height entry (e.g. a data-entry typo) blows up `range`.
-    // A fixed interval of 1 would then ask fl_chart to draw one grid line per
-    // unit across that whole span — hundreds or thousands of lines — which is
-    // exactly the kind of unbounded synchronous work that freezes the main
-    // thread. Scale the interval so the line count stays bounded regardless
-    // of how large the range gets.
-    final gridInterval = range < 3 ? 0.5 : (range / 6).clamp(1.0, 1000.0);
-
-    return LineChart(
-      duration: Duration.zero,
-      LineChartData(
-        gridData: FlGridData(
-          show: true,
-          drawVerticalLine: false,
-          horizontalInterval: gridInterval,
-          getDrawingHorizontalLine: (value) => FlLine(
-            color: Colors.white.withValues(alpha: 0.06),
-            strokeWidth: 0.5,
-            dashArray: [6, 4],
-          ),
-        ),
-        titlesData: FlTitlesData(
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              reservedSize: 42,
-              interval: range < 3 ? 1 : null,
-              getTitlesWidget: (value, meta) {
-                if (value == meta.min || value == meta.max) {
-                  return const SizedBox();
-                }
-                return Text(
-                  provider.useImperial
-                      ? provider.formatHeight(value)
-                      : value.toStringAsFixed(1),
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.white.withValues(alpha: 0.35),
-                    fontWeight: FontWeight.w500,
-                  ),
-                );
-              },
-            ),
-          ),
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              reservedSize: 32,
-              getTitlesWidget: (value, meta) {
-                final index = value.toInt();
-                if (index < 0 || index >= records.length) {
-                  return const SizedBox();
-                }
-                if (records.length > 5 &&
-                    index != 0 &&
-                    index != records.length - 1 &&
-                    index != records.length ~/ 2) {
-                  return const SizedBox();
-                }
-                final date = DateTime.tryParse(records[index].date);
-                if (date == null) return const SizedBox();
-                return Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    DateFormat('d MMM', locale).format(date),
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.white.withValues(alpha: 0.5),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-          topTitles: const AxisTitles(
-            sideTitles: SideTitles(showTitles: false),
-          ),
-          rightTitles: const AxisTitles(
-            sideTitles: SideTitles(showTitles: false),
-          ),
-        ),
-        borderData: FlBorderData(show: false),
-        minY: minY,
-        maxY: maxY,
-        lineBarsData: [
-          LineChartBarData(
-            spots: spots,
-            isCurved: true,
-            curveSmoothness: 0.35,
-            gradient: const LinearGradient(
-              colors: [Color(0xFF9C6ADE), Color(0xFFB57BFF), Color(0xFFCE93D8)],
-            ),
-            barWidth: 3,
-            isStrokeCapRound: true,
-            shadow: Shadow(
-              color: AppColors.primary.withValues(alpha: 0.4 * animValue),
-              blurRadius: 16 * animValue,
-              offset: const Offset(0, 6),
-            ),
-            dotData: FlDotData(
-              show: true,
-              getDotPainter: (spot, percent, barData, index) {
-                final isLast = index == spots.length - 1;
-                return FlDotCirclePainter(
-                  radius: isLast ? 5.5 : 3.5,
-                  color: isLast ? const Color(0xFFCE93D8) : AppColors.scaffold,
-                  strokeWidth: isLast ? 3 : 2,
-                  strokeColor: isLast ? Colors.white : const Color(0xFFB57BFF),
-                );
-              },
-            ),
-            belowBarData: BarAreaData(
-              show: true,
-              gradient: LinearGradient(
-                colors: [
-                  const Color(0xFFB57BFF).withValues(alpha: 0.20 * animValue),
-                  AppColors.primary.withValues(alpha: 0.06 * animValue),
-                  AppColors.primary.withValues(alpha: 0.0),
-                ],
-                stops: const [0.0, 0.6, 1.0],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-          ),
-        ],
-        lineTouchData: LineTouchData(
-          touchTooltipData: LineTouchTooltipData(
-            tooltipPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
-            ),
-            tooltipMargin: 16,
-            tooltipRoundedRadius: 14,
-            getTooltipColor: (_) =>
-                const Color(0xFF2D1B69).withValues(alpha: 0.95),
-            tooltipBorder: BorderSide(
-              color: AppColors.primary.withValues(alpha: 0.3),
-            ),
-            getTooltipItems: (touchedSpots) => touchedSpots.map((spot) {
-              final index = spot.x.toInt();
-              String dateLabel = '';
-              if (index >= 0 && index < records.length) {
-                final date = DateTime.tryParse(records[index].date);
-                if (date != null) {
-                  dateLabel = '${DateFormat('d MMMM', locale).format(date)}\n';
-                }
-              }
-              return LineTooltipItem(
-                '$dateLabel${provider.formatHeight(spot.y)}',
-                const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 15,
-                  height: 1.4,
-                ),
-              );
-            }).toList(),
-          ),
-          getTouchedSpotIndicator: (barData, spotIndexes) =>
-              spotIndexes.map((i) {
-                return TouchedSpotIndicatorData(
-                  FlLine(
-                    color: const Color(0xFFB57BFF).withValues(alpha: 0.3),
-                    strokeWidth: 1,
-                    dashArray: [4, 4],
-                  ),
-                  FlDotData(
-                    show: true,
-                    getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
-                      radius: 6,
-                      color: const Color(0xFFB57BFF),
-                      strokeWidth: 2.5,
-                      strokeColor: Colors.white,
-                    ),
-                  ),
-                );
-              }).toList(),
-        ),
-      ),
     );
   }
 

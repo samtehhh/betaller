@@ -177,14 +177,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         NotificationService().setEnabled(true, AppLocalizations.of(context)!),
       );
     }
-    if (page >= _kLastQuestion) {
+    // Past heights start at age 10, so a 9- or 10-year-old has none to give.
+    // That page then rendered blank with its button hidden: no way forward.
+    if (page == _kPastHeightsPage - 1) _initObPastHeights();
+    final skipPastHeights =
+        page == _kPastHeightsPage - 1 && _obAges.isEmpty;
+    if (page >= _kLastQuestion || skipPastHeights) {
       // Pre-compute profile & predictions before showing analyzing page
       _computeAnalysisResults();
       setState(() => _currentPage = _kAnalyzingPage);
       _pageController.jumpToPage(_kAnalyzingPage);
     } else {
-      // Geçmiş boylar sayfasına girerken picker'ı hazırla
-      if (page == _kPastHeightsPage - 1) _initObPastHeights();
       setState(() => _currentPage = page + 1);
       _pageController.animateToPage(
         page + 1,
@@ -285,6 +288,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     // doesn't revert to a different unit than the one they just used.
     p.setUseImperial(_heightImperial);
     p.savePastHeights(past);
+    // These were asked and then thrown away. The dream height drives the
+    // goal line on the chart; workouts and sleep size the weekly plan.
+    p.setOnboardingAnswers({
+      'dreamHeight': _dreamHeightCm,
+      'weeklyWorkout': _weeklyWorkout,
+      'sleepHours': _sleepHours,
+      'footSize': _footSize,
+    });
     p.setProfile(profile);
 
     // setProfile has just re-timed the reminders around the hours the user

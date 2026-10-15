@@ -139,6 +139,32 @@ class Calculations {
     }
   }
 
+  /// The path from [startHeight] today up to [potential], one point a month.
+  ///
+  /// Growing users (under 21) reach it at 21 on an ease-out curve: most of
+  /// what is left comes early, the way growth actually slows. Adults get the
+  /// posture-and-spine gain over twelve weeks. Every point is at least the
+  /// one before it, so the line never dips.
+  static List<MapEntry<DateTime, double>> projectPotential({
+    required DateTime from,
+    required double startHeight,
+    required double potential,
+    required int age,
+  }) {
+    final target = potential < startHeight ? startHeight : potential;
+    final months = age < 21 ? ((21 - age) * 12).clamp(6, 96) : 3;
+    final out = <MapEntry<DateTime, double>>[];
+    var last = startHeight;
+    for (var m = 0; m <= months; m++) {
+      final t = m / months;
+      final eased = 1 - math.pow(1 - t, 2.2).toDouble();
+      final h = startHeight + (target - startHeight) * eased;
+      last = h > last ? h : last;
+      out.add(MapEntry(DateTime(from.year, from.month + m, from.day), last));
+    }
+    return out;
+  }
+
   /// Unified boy tahmini — tek formül, tutarlı sonuç
   ///
   /// Genetik pay: yaşa bağlı %60-70 (genç → daha az ağırlık, olgun → daha fazla)

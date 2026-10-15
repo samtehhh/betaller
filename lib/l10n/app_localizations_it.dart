@@ -4487,4 +4487,23 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get obNotSure => 'Non ne sono sicuro';
+
+  @override
+  String get silNow => 'ORA';
+
+  @override
+  String get silPotential => 'POTENZIALE';
+
+  @override
+  String get chartMeasured => 'Le tue misure';
+
+  @override
+  String chartPotential(String height) {
+    return 'Potenziale $height';
+  }
+
+  @override
+  String chartDream(String height) {
+    return 'Il tuo obiettivo $height';
+  }
 }

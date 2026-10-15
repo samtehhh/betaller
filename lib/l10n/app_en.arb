@@ -1500,5 +1500,12 @@
   "obProteinSubtitle": "A rough figure is enough — we build your plan around it.",
   "obCaloriesTitle": "How many calories a day, on average?",
   "obCaloriesSubtitle": "An estimate will do; we can sharpen it together later.",
-  "obNotSure": "I'm not sure"
+  "obNotSure": "I'm not sure",
+  "silNow": "NOW",
+  "silPotential": "POTENTIAL",
+  "chartMeasured": "Your measurements",
+  "chartPotential": "Potential {height}",
+  "@chartPotential": {"placeholders": {"height": {"type": "String"}}},
+  "chartDream": "Your goal {height}",
+  "@chartDream": {"placeholders": {"height": {"type": "String"}}}
 }

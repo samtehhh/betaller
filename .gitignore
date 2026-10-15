@@ -50,3 +50,6 @@ android/key.properties
 
 # Local test builds — built on demand, not shipped from source control
 release-builds/
+
+# local render harness for design checks
+test/_render/

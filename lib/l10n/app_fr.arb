@@ -1580,5 +1580,10 @@
   "unlockButton": "Tout débloquer",
   "dreamHeightOdds": "Chances d'atteindre ta\ntaille de rêve",
   "growthCompleteLabel": "Croissance\nterminée",
-  "tallerThanPct": "Plus grand que 76,7 % à ton âge"
+  "tallerThanPct": "Plus grand que 76,7 % à ton âge",
+  "silNow": "MAINTENANT",
+  "silPotential": "POTENTIEL",
+  "chartMeasured": "Tes mesures",
+  "chartPotential": "Potentiel {height}",
+  "chartDream": "Ton objectif {height}"
 }

@@ -1580,5 +1580,10 @@
   "unlockButton": "Sblocca tutto",
   "dreamHeightOdds": "Probabilità della tua\naltezza ideale",
   "growthCompleteLabel": "Crescita\ncompletata",
-  "tallerThanPct": "Più alto del 76,7% alla tua età"
+  "tallerThanPct": "Più alto del 76,7% alla tua età",
+  "silNow": "ORA",
+  "silPotential": "POTENZIALE",
+  "chartMeasured": "Le tue misure",
+  "chartPotential": "Potenziale {height}",
+  "chartDream": "Il tuo obiettivo {height}"
 }

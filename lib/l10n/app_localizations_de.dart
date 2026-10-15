@@ -4498,4 +4498,23 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get obNotSure => 'Ich bin unsicher';
+
+  @override
+  String get silNow => 'JETZT';
+
+  @override
+  String get silPotential => 'POTENZIAL';
+
+  @override
+  String get chartMeasured => 'Deine Messungen';
+
+  @override
+  String chartPotential(String height) {
+    return 'Potenzial $height';
+  }
+
+  @override
+  String chartDream(String height) {
+    return 'Dein Ziel $height';
+  }
 }

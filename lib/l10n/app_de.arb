@@ -1580,5 +1580,10 @@
   "unlockButton": "Alles freischalten",
   "dreamHeightOdds": "Chancen auf deine\nWunschgröße",
   "growthCompleteLabel": "Wachstum\nabgeschlossen",
-  "tallerThanPct": "Größer als 76,7 % in deinem Alter"
+  "tallerThanPct": "Größer als 76,7 % in deinem Alter",
+  "silNow": "JETZT",
+  "silPotential": "POTENZIAL",
+  "chartMeasured": "Deine Messungen",
+  "chartPotential": "Potenzial {height}",
+  "chartDream": "Dein Ziel {height}"
 }

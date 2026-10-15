@@ -1580,5 +1580,10 @@
   "unlockButton": "सब अनलॉक करें",
   "dreamHeightOdds": "आपकी सपनों की ऊंचाई की\nसंभावना",
   "growthCompleteLabel": "विकास\nपूर्ण",
-  "tallerThanPct": "आपकी उम्र के 76.7% लोगों से लंबे"
+  "tallerThanPct": "आपकी उम्र के 76.7% लोगों से लंबे",
+  "silNow": "अभी",
+  "silPotential": "संभावित",
+  "chartMeasured": "आपके माप",
+  "chartPotential": "संभावित {height}",
+  "chartDream": "आपका लक्ष्य {height}"
 }
