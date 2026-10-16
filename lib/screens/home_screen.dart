@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen>
       builder: (context, provider, _) {
         final profile = provider.profile;
         if (profile == null) return const SizedBox();
-        final waterNeed = Calculations.dailyWaterNeed(profile.weight);
+        final waterNeed = provider.waterGoal;
         final sleepNeed = Calculations.dailySleepNeed(profile.age);
 
         final hour = DateTime.now().hour;

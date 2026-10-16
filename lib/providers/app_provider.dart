@@ -575,6 +575,10 @@ class AppProvider extends ChangeNotifier {
           weeklyWorkout: _onboardingAnswers['weeklyWorkout'] as String? ?? '',
         );
 
+  /// Today's water goal in litres, the one number every screen shows:
+  /// home, the plan, nutrition and the water sheet.
+  double get waterGoal => dailyTargets?.waterL ?? 2.5;
+
   /// The BeTaller Score from everything logged so far, or null before
   /// onboarding.
   BetallerScore? get betallerScore {
@@ -1931,9 +1935,7 @@ class AppProvider extends ChangeNotifier {
   }
 
   void addWater(double amount) {
-    final waterGoal = _profile != null
-        ? Calculations.dailyWaterNeed(_profile!.weight)
-        : 2.5;
+    final waterGoal = this.waterGoal;
     final wasUnderGoal = _todayWater < waterGoal;
     _todayWater = double.parse(
       (_todayWater + amount).clamp(0.0, 99.0).toStringAsFixed(1),
@@ -2252,9 +2254,7 @@ class AppProvider extends ChangeNotifier {
       _journalByDate[key] = {'mood': 3 + back % 3, 'note': '', 'date': key};
     }
 
-    final waterGoal = _profile != null
-        ? Calculations.dailyWaterNeed(_profile!.weight)
-        : 2.5;
+    final waterGoal = this.waterGoal;
     // Water goal met, sleep just over target: both bars read as done.
     _todayWater = double.parse(waterGoal.toStringAsFixed(1));
     _todaySleep = 8.2;
