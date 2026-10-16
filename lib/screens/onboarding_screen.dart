@@ -22,6 +22,9 @@ import '../utils/haptics.dart';
 import '../widgets/height_silhouette.dart';
 import '../utils/text_case.dart';
 import '../utils/num_format.dart';
+import '../utils/exercise_guides.dart';
+import '../utils/localized_data.dart';
+import '../widgets/plan_widgets.dart';
 
 // ─── The flow ─────────────────────────────────────────────────────────────────
 //
@@ -136,6 +139,21 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // evening.
   int _bedHour = 23, _bedMin = 0;
   int _workoutHour = 18, _workoutMin = 0;
+
+  /// "I don't know": the wheels stand aside and a suggested time is used, so
+  /// the profile still gets a real time and nothing downstream has to cope
+  /// with a missing one. The flags are kept in the answers, so the app can
+  /// say "suggested" wherever it shows that time.
+  bool _bedtimeUnknown = false;
+  bool _workoutTimeUnknown = false;
+
+  /// Bumped when a suggestion is put on the wheels, so they rebuild on it.
+  int _bedWheelsRev = 0;
+  int _workoutWheelsRev = 0;
+
+  /// The training time used when there is no set one: late afternoon, after
+  /// school or work for most people.
+  static const _kDefaultWorkout = (18, 0);
 
   /// One entry per meal: how many, and when. Defaults to three, spread the way
   /// most days go.
@@ -293,6 +311,54 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
+  /// A bedtime that gives the sleep this age needs before a 07:00 wake-up,
+  /// on the nearest quarter hour.
+  (int, int) get _suggestedBedtime {
+    final need = (Calculations.dailySleepNeed(_userAge) * 60).round();
+    var minutes = 7 * 60 - need;
+    minutes = ((minutes / 15).round() * 15) % (24 * 60);
+    return (minutes ~/ 60, minutes % 60);
+  }
+
+  /// The times the profile is saved with: the wheels, or the suggestion when
+  /// the user did not know. Read when used, so a birth date changed on the
+  /// way back still moves the suggested bedtime.
+  String get _bedtime => _bedtimeUnknown
+      ? _clock(_suggestedBedtime.$1, _suggestedBedtime.$2)
+      : _clock(_bedHour, _bedMin);
+  String get _workoutTime => _workoutTimeUnknown
+      ? _clock(_kDefaultWorkout.$1, _kDefaultWorkout.$2)
+      : _clock(_workoutHour, _workoutMin);
+
+  void _setBedtimeUnknown(bool unknown) {
+    if (unknown == _bedtimeUnknown) return;
+    Haptics.select();
+    setState(() {
+      _bedtimeUnknown = unknown;
+      if (unknown) {
+        // The dimmed wheels show the time that will be used, and pick up
+        // from it if the user starts turning them after all.
+        final (h, m) = _suggestedBedtime;
+        _bedHour = h;
+        _bedMin = m;
+        _bedWheelsRev++;
+      }
+    });
+  }
+
+  void _setWorkoutTimeUnknown(bool unknown) {
+    if (unknown == _workoutTimeUnknown) return;
+    Haptics.select();
+    setState(() {
+      _workoutTimeUnknown = unknown;
+      if (unknown) {
+        _workoutHour = _kDefaultWorkout.$1;
+        _workoutMin = _kDefaultWorkout.$2;
+        _workoutWheelsRev++;
+      }
+    });
+  }
+
   /// The profile as answered so far. The reminders and "Built for you" pages
   /// use it to show real numbers before anything is saved.
   UserProfile _draftProfile() => UserProfile(
@@ -304,8 +370,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     fatherHeight: _selectedFatherHeight.toDouble(),
     motherHeight: _selectedMotherHeight.toDouble(),
     ethnicity: _ethnicity,
-    bedtime: _clock(_bedHour, _bedMin),
-    workoutTime: _clock(_workoutHour, _workoutMin),
+    bedtime: _bedtime,
+    workoutTime: _workoutTime,
     mealTimes: _mealTimes,
     dailyProtein: _proteinUnknown ? 0 : _dailyProtein,
     dailyCalories: _caloriesUnknown ? 0 : _dailyCalories,
@@ -395,6 +461,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       'triedApps': _triedApps,
       'blockers': List<String>.of(_blockers),
       'firstWhenTaller': _firstWhenTaller,
+      // The saved bedtime and training time are then suggestions, not the
+      // user's own answer.
+      'bedtimeUnknown': _bedtimeUnknown,
+      'workoutTimeUnknown': _workoutTimeUnknown,
     });
     p.setProfile(profile);
 
@@ -815,7 +885,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   /// One honest screen in answer to "tried other apps?". No numbers, no
-  /// users, no reviews: only what the app actually does differently.
+  /// users, no reviews: only what the app actually does differently, shown
+  /// rather than told. A muted card stands for the number other apps stop
+  /// at; under it, a day of BeTaller ticks itself off with the real moves.
   Widget _buildTriedAppsAnswerPage() {
     final l = AppLocalizations.of(context)!;
     final (title, body) = switch (_triedApps) {
@@ -823,23 +895,68 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       'still' => (l.obTriedStillTitle, l.obTriedStillBody),
       _ => (l.obTriedFirstTitle, l.obTriedFirstBody),
     };
-    return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 22, 24, 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _QuestionHeader(
-            icon: CupertinoIcons.checkmark_seal_fill,
-            accent: AppColors.lime,
-            title: title,
-            subtitle: body,
-          ),
-          const SizedBox(height: 24),
-          _TickOffCard(
-            title: l.obTriedCardTitle,
-            items: [l.obTriedItem1, l.obTriedItem2, l.obTriedItem3],
-          ),
-        ],
+    // Soft lower edge: on a small phone the plan scrolls under the button
+    // instead of being cut through a row.
+    return _FadeBottom(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // No icon chip: the plan below is this page's picture, and the
+            // room keeps the whole of it on screen on a large phone.
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+                letterSpacing: -1.0,
+                height: 1.12,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              body,
+              style: TextStyle(
+                fontSize: 14.5,
+                height: 1.42,
+                color: Colors.white.withValues(alpha: 0.50),
+              ),
+            ),
+            const SizedBox(height: 18),
+            _MostAppsCard(
+              label: l.obTriedMostApps,
+              caption: l.obTriedThatsIt,
+              // An example of the kind of number, in the unit this phone uses.
+              // It is nobody's prediction, so it carries no label claiming one.
+              value: _heightImperial ? "5'11\"" : '180',
+              unit: _heightImperial ? '' : 'cm',
+            ),
+            const SizedBox(height: 10),
+            _PlanShowcase(l: l),
+            const SizedBox(height: 12),
+            _FeatureChips(
+              items: [
+                (
+                  CupertinoIcons.play_rectangle_fill,
+                  AppColors.primaryLight,
+                  l.obTriedFeatVideo,
+                ),
+                (
+                  CupertinoIcons.bell_fill,
+                  AppColors.primaryLight,
+                  l.obTriedFeatReminders,
+                ),
+                (
+                  CupertinoIcons.flame_fill,
+                  AppColors.warning,
+                  l.obTriedFeatStreaks,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1024,8 +1141,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     // Exactly the times the reminders will be set to once the profile is
     // saved (AppProvider.setProfile applies the same function).
     final planned = remindersForProfile(
-      bedtime: _clock(_bedHour, _bedMin),
-      workoutTime: _clock(_workoutHour, _workoutMin),
+      bedtime: _bedtime,
+      workoutTime: _workoutTime,
       mealTimes: _mealTimes,
     );
     String at(String category) {
@@ -1040,7 +1157,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         icon: CupertinoIcons.bolt_fill,
         color: AppColors.warning,
         title: l.obNotifWorkout,
-        detail: l.obNotifWorkoutDetail(_clock(_workoutHour, _workoutMin)),
+        // A time the user did not give reads as a suggestion, not as their
+        // answer said back to them.
+        suggested: _workoutTimeUnknown,
+        detail: _workoutTimeUnknown
+            ? l.obNotifWorkoutDetailSuggested(_workoutTime)
+            : l.obNotifWorkoutDetail(_workoutTime),
       ),
       if (meals.isNotEmpty)
         _ReminderLine(
@@ -1062,7 +1184,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         icon: CupertinoIcons.moon_stars_fill,
         color: AppColors.sleep,
         title: l.obNotifSleep,
-        detail: l.obNotifSleepDetail(_clock(_bedHour, _bedMin)),
+        suggested: _bedtimeUnknown,
+        detail: _bedtimeUnknown
+            ? l.obNotifSleepDetailSuggested(_bedtime)
+            : l.obNotifSleepDetail(_bedtime),
       ),
     ]..sort((a, b) => a.time.compareTo(b.time));
 
@@ -1153,7 +1278,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   Padding(
                     padding: const EdgeInsets.fromLTRB(4, 10, 4, 0),
                     child: Text(
-                      l.obNotifSubtitle,
+                      _bedtimeUnknown || _workoutTimeUnknown
+                          ? l.obNotifSubtitleSuggested
+                          : l.obNotifSubtitle,
                       style: TextStyle(
                         fontSize: 12.5,
                         height: 1.4,
@@ -2231,14 +2358,19 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       subtitle: l.obBedtimeSubtitle,
       icon: CupertinoIcons.moon_stars_fill,
       accent: AppColors.sleep,
-      child: _TimeWheels(
+      child: _UnknownableTimeWheels(
         hour: _bedHour,
         minute: _bedMin,
+        rev: _bedWheelsRev,
         accent: AppColors.sleep,
+        unknown: _bedtimeUnknown,
+        unknownLabel: l.obBedtimeUnknown,
+        unknownHint: l.obBedtimeUnknownHint(_bedtime),
         onChanged: (h, m) => setState(() {
           _bedHour = h;
           _bedMin = m;
         }),
+        onUnknownChanged: _setBedtimeUnknown,
       ),
     );
   }
@@ -2250,14 +2382,19 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       subtitle: l.obWorkoutTimeSubtitle,
       icon: CupertinoIcons.bolt_fill,
       accent: AppColors.warning,
-      child: _TimeWheels(
+      child: _UnknownableTimeWheels(
         hour: _workoutHour,
         minute: _workoutMin,
+        rev: _workoutWheelsRev,
         accent: AppColors.warning,
+        unknown: _workoutTimeUnknown,
+        unknownLabel: l.obWorkoutTimeUnknown,
+        unknownHint: l.obWorkoutTimeUnknownHint(_workoutTime),
         onChanged: (h, m) => setState(() {
           _workoutHour = h;
           _workoutMin = m;
         }),
+        onUnknownChanged: _setWorkoutTimeUnknown,
       ),
     );
   }
@@ -3189,90 +3326,467 @@ class _Pill extends StatelessWidget {
   }
 }
 
-/// What a BeTaller day looks like, ticked off: each line lands in turn, so
-/// the screen shows a plan getting done rather than describing one.
-class _TickOffCard extends StatelessWidget {
-  final String title;
-  final List<String> items;
-  const _TickOffCard({required this.title, required this.items});
+/// What other apps stop at: a height and nothing to do with it. Muted on
+/// purpose, so the plan under it is the one thing on the page that glows.
+class _MostAppsCard extends StatelessWidget {
+  final String label;
+  final String caption;
+  final String value;
+  final String unit;
+  const _MostAppsCard({
+    required this.label,
+    required this.caption,
+    required this.value,
+    required this.unit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(16, 12, 18, 12),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.025),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 34,
+            height: 34,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(11),
+            ),
+            child: Icon(
+              CupertinoIcons.device_phone_portrait,
+              size: 17,
+              color: Colors.white.withValues(alpha: 0.35),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label.upperIn(context),
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1.0,
+                    color: Colors.white.withValues(alpha: 0.38),
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  caption,
+                  style: TextStyle(
+                    fontSize: 13.5,
+                    height: 1.25,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white.withValues(alpha: 0.45),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: value,
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: -1.2,
+                    height: 1,
+                    color: Colors.white.withValues(alpha: 0.30),
+                  ),
+                ),
+                if (unit.isNotEmpty)
+                  TextSpan(
+                    text: ' $unit',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white.withValues(alpha: 0.22),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// A day of BeTaller in miniature: three real moves with their stills, the
+/// protein target and lights out, ticked off one after another so the screen
+/// shows a plan getting done rather than describing one. The page's single
+/// glowing element.
+class _PlanShowcase extends StatelessWidget {
+  final AppLocalizations l;
+  const _PlanShowcase({required this.l});
+
+  /// Moves from the real library, each with a bundled still. The doses are
+  /// the library's own.
+  static const moves = ['dead_hang_active', 'squats', 'plank'];
+
+  String _dose(String id) {
+    final row = kNewMoveText[id];
+    if (row != null) {
+      return (row[l.localeName.split('_').first] ?? row['en']!)[2];
+    }
+    // Squats live in the older table, whose dose is English only.
+    return '3 x 20';
+  }
 
   @override
   Widget build(BuildContext context) {
     final still = MediaQuery.of(context).disableAnimations;
+    final rows = <(Widget thumb, String title, String subtitle)>[
+      for (final id in moves)
+        (
+          _PosterThumb(routineId: id),
+          localizedRoutine(l, id)['title']!,
+          _dose(id),
+        ),
+      (
+        const _IconThumb(
+          icon: CupertinoIcons.flame_fill,
+          color: AppColors.orange,
+        ),
+        l.obTriedItem2,
+        l.obTriedProteinSub,
+      ),
+      (
+        const _IconThumb(
+          icon: CupertinoIcons.moon_fill,
+          color: AppColors.sleepColor,
+        ),
+        l.obTriedItem3,
+        l.obTriedSleepSub,
+      ),
+    ];
+
+    // When each tick lands, as a share of the whole run.
+    double doneAt(double t, int i) =>
+        ((t - (0.12 + i * 0.16)) / 0.12).clamp(0.0, 1.0);
+
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+      padding: const EdgeInsets.fromLTRB(14, 14, 14, 8),
       decoration: BoxDecoration(
         color: AppColors.cardFill,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.lime.withValues(alpha: 0.30)),
+        border: Border.all(color: AppColors.lime.withValues(alpha: 0.35)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.lime.withValues(alpha: 0.12),
+            blurRadius: 30,
+            spreadRadius: -8,
+          ),
+        ],
       ),
       child: TweenAnimationBuilder<double>(
         tween: Tween(begin: still ? 1 : 0, end: 1),
-        duration: const Duration(milliseconds: 1400),
-        builder: (context, t, _) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title.upperIn(context),
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1.0,
-                color: Colors.white.withValues(alpha: 0.5),
+        duration: const Duration(milliseconds: 2600),
+        builder: (context, t, _) {
+          final done = [for (var i = 0; i < rows.length; i++) doneAt(t, i)];
+          final count = done.where((d) => d >= 1).length;
+          final progress = done.fold<double>(0, (a, b) => a + b) / rows.length;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: Row(
+                  children: [
+                    const Icon(
+                      CupertinoIcons.arrow_up_circle_fill,
+                      size: 15,
+                      color: AppColors.lime,
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        l.obTriedPlanLabel.upperIn(context),
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 1.0,
+                          color: AppColors.lime,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '$count/${rows.length}',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 9),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(3),
+                child: SizedBox(
+                  height: 4,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: ColoredBox(
+                          color: Colors.white.withValues(alpha: 0.07),
+                        ),
+                      ),
+                      FractionallySizedBox(
+                        widthFactor: progress,
+                        heightFactor: 1,
+                        child: const ColoredBox(color: AppColors.lime),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 6),
+              for (var i = 0; i < rows.length; i++)
+                _ShowcaseRow(
+                  thumb: rows[i].$1,
+                  title: rows[i].$2,
+                  subtitle: rows[i].$3,
+                  done: done[i],
+                  divider: i > 0,
+                ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// Fades the last few points of a scrolling page into the background, so
+/// content running under the buttons below ends softly.
+class _FadeBottom extends StatelessWidget {
+  final Widget child;
+  const _FadeBottom({required this.child});
+
+  @override
+  Widget build(BuildContext context) => ShaderMask(
+    blendMode: BlendMode.dstIn,
+    shaderCallback: (r) => LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: const [Colors.white, Colors.white, Colors.transparent],
+      stops: [0, r.height <= 0 ? 1 : 1 - 24 / r.height, 1],
+    ).createShader(r),
+    child: child,
+  );
+}
+
+/// A plan item with no still: its icon on a tile of its colour.
+class _IconThumb extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  const _IconThumb({required this.icon, required this.color});
+
+  @override
+  Widget build(BuildContext context) => Container(
+    width: 42,
+    height: 42,
+    decoration: BoxDecoration(
+      color: color.withValues(alpha: 0.14),
+      borderRadius: BorderRadius.circular(14),
+    ),
+    child: Icon(icon, size: 18, color: color),
+  );
+}
+
+/// A move's still, upright like the plan's own thumbnails, with a small play
+/// mark: every move in the app comes with a video.
+class _PosterThumb extends StatelessWidget {
+  final String routineId;
+  const _PosterThumb({required this.routineId});
+
+  @override
+  Widget build(BuildContext context) => SizedBox(
+    width: 42,
+    height: 52,
+    child: Stack(
+      children: [
+        MoveThumb(routineId: routineId, width: 42, height: 52),
+        Positioned(
+          right: 3,
+          bottom: 3,
+          child: Container(
+            width: 16,
+            height: 16,
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.55),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              CupertinoIcons.play_fill,
+              size: 8,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+/// One line of the miniature plan; [done] runs from open (0) to ticked (1).
+class _ShowcaseRow extends StatelessWidget {
+  final Widget thumb;
+  final String title;
+  final String subtitle;
+  final double done;
+  final bool divider;
+  const _ShowcaseRow({
+    required this.thumb,
+    required this.title,
+    required this.subtitle,
+    required this.done,
+    required this.divider,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final pop = 0.8 + 0.2 * Curves.easeOutBack.transform(done);
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      decoration: BoxDecoration(
+        border: divider
+            ? Border(
+                top: BorderSide(color: Colors.white.withValues(alpha: 0.05)),
+              )
+            : null,
+      ),
+      child: Row(
+        children: [
+          thumb,
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 14.5,
+                    height: 1.25,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontSize: 12,
+                    height: 1.3,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white.withValues(alpha: 0.45),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 10),
+          Transform.scale(
+            scale: done == 0 ? 1 : pop,
+            child: Container(
+              width: 26,
+              height: 26,
+              decoration: BoxDecoration(
+                color: Color.lerp(Colors.transparent, AppColors.lime, done),
+                borderRadius: BorderRadius.circular(9),
+                border: Border.all(
+                  color: Color.lerp(
+                    Colors.white.withValues(alpha: 0.22),
+                    AppColors.lime,
+                    done,
+                  )!,
+                  width: 1.6,
+                ),
+              ),
+              child: Opacity(
+                opacity: done,
+                child: const Icon(
+                  Icons.check_rounded,
+                  size: 17,
+                  color: Color(0xFF07050F),
+                ),
               ),
             ),
-            const SizedBox(height: 12),
-            for (var i = 0; i < items.length; i++)
-              Builder(
-                builder: (context) {
-                  final start = 0.15 + i * 0.25;
-                  final done = ((t - start) / 0.2).clamp(0.0, 1.0);
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 26,
-                          height: 26,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.lerp(
-                              Colors.white.withValues(alpha: 0.06),
-                              AppColors.lime,
-                              done,
-                            ),
-                          ),
-                          child: Opacity(
-                            opacity: done,
-                            child: const Icon(
-                              Icons.check_rounded,
-                              size: 16,
-                              color: Color(0xFF06210F),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            items[i],
-                            style: TextStyle(
-                              fontSize: 14.5,
-                              height: 1.3,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white.withValues(
-                                alpha: 0.55 + 0.45 * done,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Three things the app does, each on its own small tile.
+class _FeatureChips extends StatelessWidget {
+  final List<(IconData, Color, String)> items;
+  const _FeatureChips({required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (var i = 0; i < items.length; i++) ...[
+            if (i > 0) const SizedBox(width: 8),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(8, 12, 8, 11),
+                decoration: BoxDecoration(
+                  color: AppColors.cardFill,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.06),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: items[i].$2.withValues(alpha: 0.13),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(items[i].$1, size: 15, color: items[i].$2),
                     ),
-                  );
-                },
+                    const SizedBox(height: 8),
+                    Text(
+                      items[i].$3,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        height: 1.25,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white.withValues(alpha: 0.75),
+                      ),
+                    ),
+                  ],
+                ),
               ),
+            ),
           ],
-        ),
+        ],
       ),
     );
   }
@@ -3428,12 +3942,17 @@ class _ReminderLine extends StatelessWidget {
   final Color color;
   final String title;
   final String detail;
+
+  /// The time is a suggestion, because the user did not know theirs: it is
+  /// marked as approximate rather than shown as their answer.
+  final bool suggested;
   const _ReminderLine({
     required this.time,
     required this.icon,
     required this.color,
     required this.title,
     required this.detail,
+    this.suggested = false,
   });
 
   @override
@@ -3472,12 +3991,14 @@ class _ReminderLine extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      time,
-                      style: const TextStyle(
+                      suggested ? '≈ $time' : time,
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w900,
                         letterSpacing: -0.3,
-                        color: Colors.white,
+                        color: suggested
+                            ? Colors.white.withValues(alpha: 0.6)
+                            : Colors.white,
                       ),
                     ),
                   ],
@@ -3856,11 +4377,16 @@ class _TimeWheels extends StatelessWidget {
   final Color accent;
   final void Function(int hour, int minute) onChanged;
 
+  /// A new value puts fresh wheels on [hour] and [minute]: how a time set
+  /// from outside (a suggestion) reaches wheels that keep their own scroll.
+  final int rev;
+
   const _TimeWheels({
     required this.hour,
     required this.minute,
     required this.accent,
     required this.onChanged,
+    this.rev = 0,
   });
 
   @override
@@ -3873,7 +4399,7 @@ class _TimeWheels extends StatelessWidget {
       children: [
         Expanded(
           child: _PickerBox(
-            key: ValueKey('hour-$accent'),
+            key: ValueKey('hour-$accent-$rev'),
             accent: accent,
             initialItem: hour.clamp(0, 23),
             items: List.generate(24, (i) => i.toString().padLeft(2, '0')),
@@ -3883,13 +4409,153 @@ class _TimeWheels extends StatelessWidget {
         const SizedBox(width: 12),
         Expanded(
           child: _PickerBox(
-            key: ValueKey('minute-$accent'),
+            key: ValueKey('minute-$accent-$rev'),
             accent: accent,
             initialItem: (minute ~/ 5).clamp(0, minutes.length - 1),
             items: minutes,
             onChanged: (i) => onChanged(hour, i * 5),
           ),
         ),
+      ],
+    );
+  }
+}
+
+/// Time wheels with an honest way out, for a time that has no fixed answer.
+///
+/// Picking "I don't know" dims the wheels onto the suggested time and lets
+/// them ignore scrolling; touching them again hands the choice back to the
+/// wheels. The page owns the haptic, so both ways in feel the same.
+class _UnknownableTimeWheels extends StatelessWidget {
+  final int hour;
+  final int minute;
+  final int rev;
+  final Color accent;
+  final bool unknown;
+  final String unknownLabel;
+
+  /// What happens instead, shown under the label while it is picked.
+  final String unknownHint;
+  final void Function(int hour, int minute) onChanged;
+  final ValueChanged<bool> onUnknownChanged;
+
+  const _UnknownableTimeWheels({
+    required this.hour,
+    required this.minute,
+    required this.rev,
+    required this.accent,
+    required this.unknown,
+    required this.unknownLabel,
+    required this.unknownHint,
+    required this.onChanged,
+    required this.onUnknownChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final speed = MediaQuery.of(context).disableAnimations
+        ? Duration.zero
+        : const Duration(milliseconds: 220);
+    return Column(
+      children: [
+        Expanded(
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: AnimatedOpacity(
+                  duration: speed,
+                  opacity: unknown ? 0.3 : 1,
+                  child: IgnorePointer(
+                    ignoring: unknown,
+                    child: _TimeWheels(
+                      hour: hour,
+                      minute: minute,
+                      rev: rev,
+                      accent: accent,
+                      onChanged: onChanged,
+                    ),
+                  ),
+                ),
+              ),
+              if (unknown)
+                Positioned.fill(
+                  child: Listener(
+                    key: const ValueKey('time-wheels-wake'),
+                    behavior: HitTestBehavior.opaque,
+                    onPointerDown: (_) => onUnknownChanged(false),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 14),
+        GestureDetector(
+          key: const ValueKey('time-unknown-chip'),
+          onTap: () => onUnknownChanged(!unknown),
+          child: AnimatedContainer(
+            duration: speed,
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(14, 12, 16, 12),
+            decoration: BoxDecoration(
+              color: unknown
+                  ? accent.withValues(alpha: 0.16)
+                  : Colors.white.withValues(alpha: 0.04),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: unknown
+                    ? accent.withValues(alpha: 0.7)
+                    : Colors.white.withValues(alpha: 0.08),
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _RadioDot(selected: unknown, accent: accent),
+                const SizedBox(width: 11),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: Text(
+                          unknownLabel,
+                          style: TextStyle(
+                            fontSize: 14.5,
+                            height: 1.25,
+                            fontWeight: FontWeight.w700,
+                            color: unknown
+                                ? Colors.white
+                                : Colors.white.withValues(alpha: 0.7),
+                          ),
+                        ),
+                      ),
+                      AnimatedSize(
+                        duration: speed,
+                        curve: Curves.easeOutCubic,
+                        alignment: Alignment.topLeft,
+                        child: unknown
+                            ? Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: Text(
+                                  unknownHint,
+                                  style: TextStyle(
+                                    fontSize: 12.5,
+                                    height: 1.35,
+                                    color: Colors.white.withValues(alpha: 0.6),
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(width: double.infinity),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
       ],
     );
   }

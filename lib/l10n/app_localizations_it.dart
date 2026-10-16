@@ -6383,4 +6383,58 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get plFinishWorkout => 'Termina';
+
+  @override
+  String get obTriedMostApps => 'Quasi tutte le app';
+
+  @override
+  String get obTriedThatsIt => 'Un numero, e basta.';
+
+  @override
+  String get obTriedPlanLabel => 'La tua giornata con BeTaller';
+
+  @override
+  String get obTriedProteinSub => 'Diviso tra i tuoi pasti';
+
+  @override
+  String get obTriedSleepSub => 'Un promemoria prima di dormire';
+
+  @override
+  String get obTriedFeatVideo => 'Esercizi con video';
+
+  @override
+  String get obTriedFeatReminders => 'Promemoria ai tuoi orari';
+
+  @override
+  String get obTriedFeatStreaks => 'Serie e livelli';
+
+  @override
+  String get obBedtimeUnknown => 'Non lo so, varia';
+
+  @override
+  String obBedtimeUnknownHint(String time) {
+    return 'Ti suggeriamo le $time, in base al sonno che ti serve alla tua età. Puoi cambiarlo quando vuoi.';
+  }
+
+  @override
+  String get obWorkoutTimeUnknown => 'Non lo so, non ho un orario fisso';
+
+  @override
+  String obWorkoutTimeUnknownHint(String time) {
+    return 'Per ora usiamo le $time. Puoi cambiarlo quando vuoi.';
+  }
+
+  @override
+  String obNotifSleepDetailSuggested(String time) {
+    return 'Suggerimento: a letto verso le $time. Cambialo quando vuoi.';
+  }
+
+  @override
+  String obNotifWorkoutDetailSuggested(String time) {
+    return 'Suggerimento: allenamento verso le $time. Cambialo quando vuoi.';
+  }
+
+  @override
+  String get obNotifSubtitleSuggested =>
+      'In base ai tuoi orari, con un suggerimento dove non lo sapevi. Puoi cambiarli quando vuoi.';
 }

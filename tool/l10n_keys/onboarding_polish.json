@@ -1,0 +1,152 @@
+{
+  "obTriedMostApps": {
+    "en": "Most apps",
+    "tr": "Çoğu uygulama",
+    "de": "Die meisten Apps",
+    "fr": "La plupart des apps",
+    "es": "La mayoría de apps",
+    "it": "Quasi tutte le app",
+    "pt": "A maioria dos apps",
+    "hi": "ज़्यादातर ऐप"
+  },
+  "obTriedThatsIt": {
+    "en": "A number, and that's it.",
+    "tr": "Bir sayı, o kadar.",
+    "de": "Eine Zahl, und das war's.",
+    "fr": "Un chiffre, et c'est tout.",
+    "es": "Un número, y ya está.",
+    "it": "Un numero, e basta.",
+    "pt": "Um número, e só.",
+    "hi": "एक नंबर, बस इतना ही।"
+  },
+  "obTriedPlanLabel": {
+    "en": "Your day on BeTaller",
+    "tr": "BeTaller'la bir günün",
+    "de": "Dein Tag mit BeTaller",
+    "fr": "Ta journée avec BeTaller",
+    "es": "Tu día con BeTaller",
+    "it": "La tua giornata con BeTaller",
+    "pt": "Seu dia no BeTaller",
+    "hi": "BeTaller के साथ तुम्हारा दिन"
+  },
+  "obTriedProteinSub": {
+    "en": "Split across your meals",
+    "tr": "Öğünlerine bölünmüş",
+    "de": "Auf deine Mahlzeiten verteilt",
+    "fr": "Réparti sur tes repas",
+    "es": "Repartido entre tus comidas",
+    "it": "Diviso tra i tuoi pasti",
+    "pt": "Dividido entre suas refeições",
+    "hi": "तुम्हारे खानों में बँटा हुआ"
+  },
+  "obTriedSleepSub": {
+    "en": "A reminder before bed",
+    "tr": "Yatmadan önce bir hatırlatma",
+    "de": "Eine Erinnerung vor dem Schlafen",
+    "fr": "Un rappel avant de dormir",
+    "es": "Un recordatorio antes de dormir",
+    "it": "Un promemoria prima di dormire",
+    "pt": "Um lembrete antes de dormir",
+    "hi": "सोने से पहले एक रिमाइंडर"
+  },
+  "obTriedFeatVideo": {
+    "en": "Video-guided moves",
+    "tr": "Videolu hareketler",
+    "de": "Übungen mit Video",
+    "fr": "Exercices en vidéo",
+    "es": "Ejercicios con vídeo",
+    "it": "Esercizi con video",
+    "pt": "Exercícios com vídeo",
+    "hi": "वीडियो के साथ एक्सरसाइज़"
+  },
+  "obTriedFeatReminders": {
+    "en": "Reminders at your times",
+    "tr": "Senin saatlerinde hatırlatma",
+    "de": "Erinnerungen zu deinen Zeiten",
+    "fr": "Rappels à tes horaires",
+    "es": "Recordatorios a tus horas",
+    "it": "Promemoria ai tuoi orari",
+    "pt": "Lembretes nos seus horários",
+    "hi": "तुम्हारे समय पर रिमाइंडर"
+  },
+  "obTriedFeatStreaks": {
+    "en": "Streaks and levels",
+    "tr": "Seriler ve seviyeler",
+    "de": "Serien und Level",
+    "fr": "Séries et niveaux",
+    "es": "Rachas y niveles",
+    "it": "Serie e livelli",
+    "pt": "Sequências e níveis",
+    "hi": "स्ट्रीक और लेवल"
+  },
+  "obBedtimeUnknown": {
+    "en": "I don't know, it varies",
+    "tr": "Bilmiyorum, belirsiz",
+    "de": "Weiß ich nicht, ist unterschiedlich",
+    "fr": "Je ne sais pas, ça varie",
+    "es": "No lo sé, varía",
+    "it": "Non lo so, varia",
+    "pt": "Não sei, varia",
+    "hi": "पता नहीं, बदलता रहता है"
+  },
+  "obBedtimeUnknownHint": {
+    "en": "We'll suggest {time}, from the sleep you need at your age. You can change it anytime.",
+    "tr": "Yaşına göre gereken uykuya bakarak {time} öneriyoruz. İstediğin zaman değiştirebilirsin.",
+    "de": "Wir schlagen {time} vor, passend zum Schlaf, den du in deinem Alter brauchst. Du kannst es jederzeit ändern.",
+    "fr": "On te propose {time}, selon le sommeil dont tu as besoin à ton âge. Tu peux changer quand tu veux.",
+    "es": "Te sugerimos las {time}, según el sueño que necesitas a tu edad. Puedes cambiarlo cuando quieras.",
+    "it": "Ti suggeriamo le {time}, in base al sonno che ti serve alla tua età. Puoi cambiarlo quando vuoi.",
+    "pt": "Sugerimos {time}, pelo sono que você precisa na sua idade. Você pode mudar quando quiser.",
+    "hi": "तुम्हारी उम्र में ज़रूरी नींद के हिसाब से हम {time} सुझाते हैं। इसे कभी भी बदल सकते हो।"
+  },
+  "obWorkoutTimeUnknown": {
+    "en": "I don't know, I don't have a set time",
+    "tr": "Bilmiyorum, belirli bir saatim yok",
+    "de": "Weiß ich nicht, ich habe keine feste Zeit",
+    "fr": "Je ne sais pas, je n'ai pas d'heure fixe",
+    "es": "No lo sé, no tengo una hora fija",
+    "it": "Non lo so, non ho un orario fisso",
+    "pt": "Não sei, não tenho um horário fixo",
+    "hi": "पता नहीं, मेरा कोई तय समय नहीं है"
+  },
+  "obWorkoutTimeUnknownHint": {
+    "en": "We'll use {time} for now. You can change it anytime.",
+    "tr": "Şimdilik {time} kullanacağız. İstediğin zaman değiştirebilirsin.",
+    "de": "Wir nehmen erst mal {time}. Du kannst es jederzeit ändern.",
+    "fr": "On part sur {time} pour l'instant. Tu peux changer quand tu veux.",
+    "es": "Por ahora usaremos las {time}. Puedes cambiarlo cuando quieras.",
+    "it": "Per ora usiamo le {time}. Puoi cambiarlo quando vuoi.",
+    "pt": "Por enquanto vamos usar {time}. Você pode mudar quando quiser.",
+    "hi": "अभी के लिए हम {time} रखेंगे। इसे कभी भी बदल सकते हो।"
+  },
+  "obNotifSleepDetailSuggested": {
+    "en": "Suggested: bedtime around {time}. Change it anytime.",
+    "tr": "Öneri: yatış saati {time} civarı. İstediğin zaman değiştir.",
+    "de": "Vorschlag: Schlafenszeit gegen {time}. Jederzeit änderbar.",
+    "fr": "Suggestion : coucher vers {time}. Modifiable à tout moment.",
+    "es": "Sugerencia: acostarte hacia las {time}. Cámbialo cuando quieras.",
+    "it": "Suggerimento: a letto verso le {time}. Cambialo quando vuoi.",
+    "pt": "Sugestão: dormir por volta das {time}. Mude quando quiser.",
+    "hi": "सुझाव: लगभग {time} बजे सोना। इसे कभी भी बदल सकते हो।"
+  },
+  "obNotifWorkoutDetailSuggested": {
+    "en": "Suggested: training around {time}. Change it anytime.",
+    "tr": "Öneri: antrenman {time} civarı. İstediğin zaman değiştir.",
+    "de": "Vorschlag: Training gegen {time}. Jederzeit änderbar.",
+    "fr": "Suggestion : entraînement vers {time}. Modifiable à tout moment.",
+    "es": "Sugerencia: entrenar hacia las {time}. Cámbialo cuando quieras.",
+    "it": "Suggerimento: allenamento verso le {time}. Cambialo quando vuoi.",
+    "pt": "Sugestão: treinar por volta das {time}. Mude quando quiser.",
+    "hi": "सुझाव: लगभग {time} बजे वर्कआउट। इसे कभी भी बदल सकते हो।"
+  },
+  "obNotifSubtitleSuggested": {
+    "en": "Set to the times you gave us, with a suggestion where you weren't sure. You can change them anytime.",
+    "tr": "Verdiğin saatlere göre ayarlı, emin olmadığın yerde bir öneriyle. İstediğin zaman değiştirebilirsin.",
+    "de": "Nach deinen Zeiten, mit einem Vorschlag, wo du unsicher warst. Du kannst sie jederzeit ändern.",
+    "fr": "Réglés sur tes horaires, avec une suggestion là où tu ne savais pas. Tu peux les changer quand tu veux.",
+    "es": "Según las horas que nos diste, con una sugerencia donde no lo sabías. Puedes cambiarlas cuando quieras.",
+    "it": "In base ai tuoi orari, con un suggerimento dove non lo sapevi. Puoi cambiarli quando vuoi.",
+    "pt": "Nos horários que você deu, com uma sugestão onde você não sabia. Você pode mudar quando quiser.",
+    "hi": "तुम्हारे बताए समय के हिसाब से, और जहाँ तुम्हें पता नहीं था वहाँ एक सुझाव। इन्हें कभी भी बदल सकते हो।"
+  }
+}

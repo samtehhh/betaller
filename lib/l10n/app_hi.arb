@@ -2090,5 +2090,20 @@
   "ftPhotosLockedTitle": "इन दोनों की तुलना करो",
   "ftPhotosLockedBody": "तुम्हारी मुफ़्त तुलना इस्तेमाल हो गई। Pro के साथ किन्हीं भी दो फ़ोटो के बीच स्लाइड करो।",
   "ftArticleFreeLine": "तुम्हारा पहला आर्टिकल मुफ़्त है। जो चाहो वो चुनो।",
-  "plFinishWorkout": "ख़त्म करें"
+  "plFinishWorkout": "ख़त्म करें",
+  "obTriedMostApps": "ज़्यादातर ऐप",
+  "obTriedThatsIt": "एक नंबर, बस इतना ही।",
+  "obTriedPlanLabel": "BeTaller के साथ तुम्हारा दिन",
+  "obTriedProteinSub": "तुम्हारे खानों में बँटा हुआ",
+  "obTriedSleepSub": "सोने से पहले एक रिमाइंडर",
+  "obTriedFeatVideo": "वीडियो के साथ एक्सरसाइज़",
+  "obTriedFeatReminders": "तुम्हारे समय पर रिमाइंडर",
+  "obTriedFeatStreaks": "स्ट्रीक और लेवल",
+  "obBedtimeUnknown": "पता नहीं, बदलता रहता है",
+  "obBedtimeUnknownHint": "तुम्हारी उम्र में ज़रूरी नींद के हिसाब से हम {time} सुझाते हैं। इसे कभी भी बदल सकते हो।",
+  "obWorkoutTimeUnknown": "पता नहीं, मेरा कोई तय समय नहीं है",
+  "obWorkoutTimeUnknownHint": "अभी के लिए हम {time} रखेंगे। इसे कभी भी बदल सकते हो।",
+  "obNotifSleepDetailSuggested": "सुझाव: लगभग {time} बजे सोना। इसे कभी भी बदल सकते हो।",
+  "obNotifWorkoutDetailSuggested": "सुझाव: लगभग {time} बजे वर्कआउट। इसे कभी भी बदल सकते हो।",
+  "obNotifSubtitleSuggested": "तुम्हारे बताए समय के हिसाब से, और जहाँ तुम्हें पता नहीं था वहाँ एक सुझाव। इन्हें कभी भी बदल सकते हो।"
 }

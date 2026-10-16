@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -11,6 +12,7 @@ import 'package:boyuzatma_app/l10n/app_localizations.dart';
 import 'package:boyuzatma_app/providers/app_provider.dart';
 import 'package:boyuzatma_app/screens/main_screen.dart';
 import 'package:boyuzatma_app/screens/onboarding_screen.dart';
+import 'package:boyuzatma_app/widgets/plan_widgets.dart';
 import 'package:boyuzatma_app/widgets/premium_paywall.dart';
 
 /// The phones the onboarding has to survive on: the smallest one still sold
@@ -78,6 +80,7 @@ Future<void> walkOnboarding(
   WidgetTester t,
   AppLocalizations l, {
   Future<void> Function(String page)? onPage,
+  String? triedAnswer,
 }) async {
   Future<void> settle() async {
     for (var i = 0; i < 4; i++) {
@@ -115,7 +118,7 @@ Future<void> walkOnboarding(
   await tapText(l.continueBtn);
 
   await page('triedApps');
-  await tapText(l.obTriedStopped);
+  await tapText(triedAnswer ?? l.obTriedStopped);
   await tapText(l.continueBtn);
   await page('triedAppsAnswer');
   await t.pump(const Duration(milliseconds: 1500));
@@ -311,4 +314,250 @@ void main() {
       });
     }
   }
+
+  group('"I don\'t know" for bedtime and training time', () {
+    /// Selection haptics sent to the platform while [body] runs.
+    Future<int> selectionClicks(Future<void> Function() body) async {
+      var n = 0;
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      messenger.setMockMethodCallHandler(SystemChannels.platform, (c) async {
+        if (c.method == 'HapticFeedback.vibrate' &&
+            c.arguments == 'HapticFeedbackType.selectionClick') {
+          n++;
+        }
+        return null;
+      });
+      try {
+        await body();
+      } finally {
+        messenger.setMockMethodCallHandler(SystemChannels.platform, null);
+      }
+      return n;
+    }
+
+    testWidgets('both unknown: the suggestion is saved and flagged', (t) async {
+      t.view.physicalSize = const Size(440, 956);
+      t.view.devicePixelRatio = 1;
+      addTearDown(t.view.reset);
+      await loadInter();
+      final p = AppProvider();
+      await t.pumpWidget(onboardingApp(p, 'tr'));
+      final l = lookupAppLocalizations(const Locale('tr'));
+      final errors = <FlutterErrorDetails>[];
+      final previous = FlutterError.onError;
+      FlutterError.onError = errors.add;
+      // The default birth date makes the user 17: 8.5 hours of sleep before
+      // a 07:00 wake-up is 22:30.
+      try {
+        await walkOnboarding(
+          t,
+          l,
+          onPage: (name) async {
+            if (name == 'bedtime') {
+              final clicks = await selectionClicks(() async {
+                await t.tap(find.text(l.obBedtimeUnknown));
+                await t.pump(const Duration(milliseconds: 300));
+              });
+              expect(clicks, greaterThanOrEqualTo(1));
+              expect(
+                find.text(l.obBedtimeUnknownHint('22:30')),
+                findsOneWidget,
+              );
+              // The wheels are dimmed and stand on the suggestion.
+              final fade = t.widget<AnimatedOpacity>(
+                find
+                    .ancestor(
+                      of: find.byType(CupertinoPicker).first,
+                      matching: find.byType(AnimatedOpacity),
+                    )
+                    .first,
+              );
+              expect(fade.opacity, lessThan(1));
+            }
+            if (name == 'workoutTime') {
+              await t.tap(find.text(l.obWorkoutTimeUnknown));
+              await t.pump(const Duration(milliseconds: 300));
+              expect(
+                find.text(l.obWorkoutTimeUnknownHint('18:00')),
+                findsOneWidget,
+              );
+            }
+            if (name == 'notifications') {
+              // Both times read as suggestions, not as the user's answers.
+              expect(
+                find.text(l.obNotifSleepDetailSuggested('22:30')),
+                findsOneWidget,
+              );
+              expect(
+                find.text(l.obNotifWorkoutDetailSuggested('18:00')),
+                findsOneWidget,
+              );
+              expect(find.text('≈ 21:30'), findsOneWidget);
+              expect(find.text('≈ 17:30'), findsOneWidget);
+              expect(find.text(l.obNotifSubtitleSuggested), findsOneWidget);
+            }
+          },
+        );
+        expect(errors, isEmpty, reason: errors.join('\n'));
+      } finally {
+        FlutterError.onError = previous;
+      }
+      expect(p.profile!.bedtime, '22:30');
+      expect(p.profile!.workoutTime, '18:00');
+      expect(p.onboardingAnswers['bedtimeUnknown'], true);
+      expect(p.onboardingAnswers['workoutTimeUnknown'], true);
+
+      await t.pumpWidget(const SizedBox());
+      for (var i = 0; i < 10; i++) {
+        await t.pump(const Duration(seconds: 1));
+      }
+    });
+
+    testWidgets('touching the dimmed wheels hands the time back to them', (
+      t,
+    ) async {
+      t.view.physicalSize = const Size(375, 667);
+      t.view.devicePixelRatio = 1;
+      addTearDown(t.view.reset);
+      await loadInter();
+      final p = AppProvider();
+      await t.pumpWidget(onboardingApp(p, 'de'));
+      final l = lookupAppLocalizations(const Locale('de'));
+
+      Future<void> unknownThenWheels(String label) async {
+        await t.tap(find.text(label));
+        await t.pump(const Duration(milliseconds: 300));
+        final wake = find.byKey(const ValueKey('time-wheels-wake'));
+        expect(wake, findsOneWidget);
+        final clicks = await selectionClicks(() async {
+          await t.tap(wake);
+          await t.pump(const Duration(milliseconds: 300));
+        });
+        expect(clicks, greaterThanOrEqualTo(1));
+        expect(wake, findsNothing);
+        // and the wheels turn again, later than the suggestion.
+        await t.drag(find.byType(CupertinoPicker).first, const Offset(0, -100));
+        for (var i = 0; i < 10; i++) {
+          await t.pump(const Duration(milliseconds: 200));
+        }
+      }
+
+      await walkOnboarding(
+        t,
+        l,
+        onPage: (name) async {
+          if (name == 'bedtime') await unknownThenWheels(l.obBedtimeUnknown);
+          if (name == 'workoutTime') {
+            await unknownThenWheels(l.obWorkoutTimeUnknown);
+          }
+          if (name == 'notifications') {
+            expect(find.textContaining('≈'), findsNothing);
+            expect(find.text(l.obNotifSubtitle), findsOneWidget);
+          }
+        },
+      );
+      expect(p.onboardingAnswers['bedtimeUnknown'], false);
+      expect(p.onboardingAnswers['workoutTimeUnknown'], false);
+      // The wheels moved on from the suggestions they were showing.
+      expect(p.profile!.bedtime, isNot('22:30'));
+      expect(p.profile!.bedtime, matches(RegExp(r'^(23|0\d):30$')));
+      expect(p.profile!.workoutTime, isNot('18:00'));
+      expect(p.profile!.workoutTime, matches(RegExp(r'^(19|2\d):00$')));
+
+      await t.pumpWidget(const SizedBox());
+      for (var i = 0; i < 10; i++) {
+        await t.pump(const Duration(seconds: 1));
+      }
+    });
+  });
+
+  group('the "tried other apps" answer page', () {
+    Future<void> toAnswerPage(
+      WidgetTester t,
+      AppLocalizations l,
+      String answer,
+    ) async {
+      Future<void> tapText(String text) async {
+        final f = find.text(text).last;
+        await t.ensureVisible(f);
+        await t.pump();
+        await t.tap(f);
+        for (var i = 0; i < 4; i++) {
+          await t.pump(const Duration(milliseconds: 150));
+        }
+      }
+
+      await tapText(l.letsStart);
+      for (var i = 0; i < 3; i++) {
+        await tapText(l.continueBtn);
+      }
+      await tapText(l.obWhyConfidence);
+      await tapText(l.continueBtn);
+      await tapText(answer);
+      await tapText(l.continueBtn);
+    }
+
+    for (final lang in ['tr', 'de']) {
+      for (final size in kOnboardingSizes.entries) {
+        testWidgets('builds in $lang at ${size.key} with no overflow', (
+          t,
+        ) async {
+          t.view.physicalSize = size.value;
+          t.view.devicePixelRatio = 1;
+          addTearDown(t.view.reset);
+          await loadInter();
+          final l = lookupAppLocalizations(Locale(lang));
+          for (final answer in [
+            (l.obTriedStopped, l.obTriedStoppedTitle),
+            (l.obTriedStill, l.obTriedStillTitle),
+            (l.obTriedFirst, l.obTriedFirstTitle),
+          ]) {
+            final errors = <FlutterErrorDetails>[];
+            final previous = FlutterError.onError;
+            FlutterError.onError = errors.add;
+            try {
+              await t.pumpWidget(const SizedBox());
+              await t.pumpWidget(onboardingApp(AppProvider(), lang));
+              await toAnswerPage(t, l, answer.$1);
+              expect(find.text(answer.$2), findsOneWidget);
+              // Three real moves with their stills, then protein and sleep.
+              expect(find.byType(MoveThumb), findsNWidgets(3));
+              expect(find.text(l.obTriedItem2), findsOneWidget);
+              expect(find.text(l.obTriedItem3), findsOneWidget);
+              expect(find.text(l.obTriedFeatStreaks), findsOneWidget);
+              // The ticks land one after another, then all five are done.
+              expect(find.text('5/5'), findsNothing);
+              await t.pump(const Duration(milliseconds: 3000));
+              expect(find.text('5/5'), findsOneWidget);
+              expect(
+                errors,
+                isEmpty,
+                reason: errors.map((e) => e.exceptionAsString()).join('\n'),
+              );
+            } finally {
+              FlutterError.onError = previous;
+            }
+          }
+          await t.pumpWidget(const SizedBox());
+        });
+      }
+    }
+
+    testWidgets('reduced motion shows the plan ticked off at once', (t) async {
+      t.view.physicalSize = const Size(440, 956);
+      t.view.devicePixelRatio = 1;
+      addTearDown(t.view.reset);
+      t.platformDispatcher.accessibilityFeaturesTestValue =
+          const FakeAccessibilityFeatures(disableAnimations: true);
+      addTearDown(t.platformDispatcher.clearAccessibilityFeaturesTestValue);
+      await loadInter();
+      final l = lookupAppLocalizations(const Locale('tr'));
+      await t.pumpWidget(onboardingApp(AppProvider(), 'tr'));
+      await toAnswerPage(t, l, l.obTriedFirst);
+      expect(find.text('Başlamak için iyi bir yer'), findsOneWidget);
+      expect(find.text('5/5'), findsOneWidget);
+      await t.pumpWidget(const SizedBox());
+    });
+  });
 }

@@ -2090,5 +2090,20 @@
   "ftPhotosLockedTitle": "Compare estas duas",
   "ftPhotosLockedBody": "Você já usou sua comparação grátis. Com o Pro, deslize entre duas fotos quaisquer.",
   "ftArticleFreeLine": "Seu primeiro artigo é grátis. Escolha o que quiser.",
-  "plFinishWorkout": "Finalizar"
+  "plFinishWorkout": "Finalizar",
+  "obTriedMostApps": "A maioria dos apps",
+  "obTriedThatsIt": "Um número, e só.",
+  "obTriedPlanLabel": "Seu dia no BeTaller",
+  "obTriedProteinSub": "Dividido entre suas refeições",
+  "obTriedSleepSub": "Um lembrete antes de dormir",
+  "obTriedFeatVideo": "Exercícios com vídeo",
+  "obTriedFeatReminders": "Lembretes nos seus horários",
+  "obTriedFeatStreaks": "Sequências e níveis",
+  "obBedtimeUnknown": "Não sei, varia",
+  "obBedtimeUnknownHint": "Sugerimos {time}, pelo sono que você precisa na sua idade. Você pode mudar quando quiser.",
+  "obWorkoutTimeUnknown": "Não sei, não tenho um horário fixo",
+  "obWorkoutTimeUnknownHint": "Por enquanto vamos usar {time}. Você pode mudar quando quiser.",
+  "obNotifSleepDetailSuggested": "Sugestão: dormir por volta das {time}. Mude quando quiser.",
+  "obNotifWorkoutDetailSuggested": "Sugestão: treinar por volta das {time}. Mude quando quiser.",
+  "obNotifSubtitleSuggested": "Nos horários que você deu, com uma sugestão onde você não sabia. Você pode mudar quando quiser."
 }

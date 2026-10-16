@@ -2090,5 +2090,20 @@
   "ftPhotosLockedTitle": "Compare ces deux photos",
   "ftPhotosLockedBody": "Ta comparaison gratuite est utilisée. Avec Pro, fais glisser entre deux photos au choix.",
   "ftArticleFreeLine": "Ton premier article est gratuit. Choisis celui que tu veux.",
-  "plFinishWorkout": "Terminer"
+  "plFinishWorkout": "Terminer",
+  "obTriedMostApps": "La plupart des apps",
+  "obTriedThatsIt": "Un chiffre, et c'est tout.",
+  "obTriedPlanLabel": "Ta journée avec BeTaller",
+  "obTriedProteinSub": "Réparti sur tes repas",
+  "obTriedSleepSub": "Un rappel avant de dormir",
+  "obTriedFeatVideo": "Exercices en vidéo",
+  "obTriedFeatReminders": "Rappels à tes horaires",
+  "obTriedFeatStreaks": "Séries et niveaux",
+  "obBedtimeUnknown": "Je ne sais pas, ça varie",
+  "obBedtimeUnknownHint": "On te propose {time}, selon le sommeil dont tu as besoin à ton âge. Tu peux changer quand tu veux.",
+  "obWorkoutTimeUnknown": "Je ne sais pas, je n'ai pas d'heure fixe",
+  "obWorkoutTimeUnknownHint": "On part sur {time} pour l'instant. Tu peux changer quand tu veux.",
+  "obNotifSleepDetailSuggested": "Suggestion : coucher vers {time}. Modifiable à tout moment.",
+  "obNotifWorkoutDetailSuggested": "Suggestion : entraînement vers {time}. Modifiable à tout moment.",
+  "obNotifSubtitleSuggested": "Réglés sur tes horaires, avec une suggestion là où tu ne savais pas. Tu peux les changer quand tu veux."
 }

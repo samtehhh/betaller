@@ -11197,6 +11197,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Finish'**
   String get plFinishWorkout;
+
+  /// No description provided for @obTriedMostApps.
+  ///
+  /// In en, this message translates to:
+  /// **'Most apps'**
+  String get obTriedMostApps;
+
+  /// No description provided for @obTriedThatsIt.
+  ///
+  /// In en, this message translates to:
+  /// **'A number, and that\'s it.'**
+  String get obTriedThatsIt;
+
+  /// No description provided for @obTriedPlanLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day on BeTaller'**
+  String get obTriedPlanLabel;
+
+  /// No description provided for @obTriedProteinSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Split across your meals'**
+  String get obTriedProteinSub;
+
+  /// No description provided for @obTriedSleepSub.
+  ///
+  /// In en, this message translates to:
+  /// **'A reminder before bed'**
+  String get obTriedSleepSub;
+
+  /// No description provided for @obTriedFeatVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Video-guided moves'**
+  String get obTriedFeatVideo;
+
+  /// No description provided for @obTriedFeatReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders at your times'**
+  String get obTriedFeatReminders;
+
+  /// No description provided for @obTriedFeatStreaks.
+  ///
+  /// In en, this message translates to:
+  /// **'Streaks and levels'**
+  String get obTriedFeatStreaks;
+
+  /// No description provided for @obBedtimeUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'I don\'t know, it varies'**
+  String get obBedtimeUnknown;
+
+  /// No description provided for @obBedtimeUnknownHint.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll suggest {time}, from the sleep you need at your age. You can change it anytime.'**
+  String obBedtimeUnknownHint(String time);
+
+  /// No description provided for @obWorkoutTimeUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'I don\'t know, I don\'t have a set time'**
+  String get obWorkoutTimeUnknown;
+
+  /// No description provided for @obWorkoutTimeUnknownHint.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll use {time} for now. You can change it anytime.'**
+  String obWorkoutTimeUnknownHint(String time);
+
+  /// No description provided for @obNotifSleepDetailSuggested.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested: bedtime around {time}. Change it anytime.'**
+  String obNotifSleepDetailSuggested(String time);
+
+  /// No description provided for @obNotifWorkoutDetailSuggested.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested: training around {time}. Change it anytime.'**
+  String obNotifWorkoutDetailSuggested(String time);
+
+  /// No description provided for @obNotifSubtitleSuggested.
+  ///
+  /// In en, this message translates to:
+  /// **'Set to the times you gave us, with a suggestion where you weren\'t sure. You can change them anytime.'**
+  String get obNotifSubtitleSuggested;
 }
 
 class _AppLocalizationsDelegate
