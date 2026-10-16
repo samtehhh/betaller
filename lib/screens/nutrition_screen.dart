@@ -243,7 +243,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
       profile,
       weeklyWorkout: provider.weeklyWorkout,
       meals: profile.mealTimes.length,
-      trainingDay: provider.weeklyPlan.today.kind != PlanDayKind.rest,
+      trainingDay: provider.todayPlanDay.kind != PlanDayKind.rest,
     );
     final menu = buildDayMenu(
       targets,

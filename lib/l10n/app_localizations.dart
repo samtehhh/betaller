@@ -11191,6 +11191,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your first article is free. Pick the one you want.'**
   String get ftArticleFreeLine;
+
+  /// No description provided for @plFinishWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get plFinishWorkout;
 }
 
 class _AppLocalizationsDelegate

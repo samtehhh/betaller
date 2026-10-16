@@ -6367,4 +6367,7 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get ftArticleFreeLine =>
       'Seu primeiro artigo é grátis. Escolha o que quiser.';
+
+  @override
+  String get plFinishWorkout => 'Finalizar';
 }

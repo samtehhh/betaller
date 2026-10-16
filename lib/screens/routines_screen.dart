@@ -246,7 +246,7 @@ DailyTargets _targetsOf(AppProvider p) {
     profile,
     weeklyWorkout: p.weeklyWorkout,
     meals: profile.mealTimes.length,
-    trainingDay: p.weeklyPlan.today.kind != PlanDayKind.rest,
+    trainingDay: p.todayPlanDay.kind != PlanDayKind.rest,
   );
 }
 
@@ -381,10 +381,12 @@ class _TodayTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    // Today is the program's day: the same moves and doses the Discipline
+    // tab shows, so there is one workout a day, not two.
     final plan = provider.weeklyPlan;
-    final day = plan.today;
     final level = currentProgramLevel(provider.completedProgramDays);
-    final doses = {for (final m in day.movesAt(level)) m.routineId: m};
+    final day = provider.todayPlanDay;
+    final doses = {for (final m in provider.todayMoves) m.routineId: m};
     final today = provider.todayRoutines;
     final training = today.where((r) => doses.containsKey(r.id)).toList();
     final habits = today.where((r) => !doses.containsKey(r.id)).toList();
@@ -440,6 +442,10 @@ class _TodayTab extends StatelessWidget {
             minutes: minutes,
             trainingDone: training.where((r) => r.completed).length,
             onStart: moves.isEmpty ? null : startWorkout,
+            onCompleteDay:
+                provider.canCompleteProgramDay(provider.currentProgramDay)
+                    ? () => completeProgramDay(context, provider)
+                    : null,
           ),
         ),
         const SizedBox(height: 20),
@@ -603,6 +609,10 @@ class _TodayHero extends StatelessWidget {
   final int trainingDone;
   final VoidCallback? onStart;
 
+  /// Set when every move of today's program day is ticked and the day can
+  /// be completed; the hero's button then completes it.
+  final VoidCallback? onCompleteDay;
+
   const _TodayHero({
     required this.provider,
     required this.day,
@@ -610,6 +620,7 @@ class _TodayHero extends StatelessWidget {
     required this.minutes,
     required this.trainingDone,
     required this.onStart,
+    this.onCompleteDay,
   });
 
   static const _tierKeys = [
@@ -760,24 +771,32 @@ class _TodayHero extends StatelessWidget {
           const SizedBox(height: 16),
           SizedBox(
             width: double.infinity,
-            child: PlanButton(
-              label: startLabel,
-              icon: allMovesDone
-                  ? CupertinoIcons.checkmark_seal_fill
-                  : workoutLocked
-                  ? CupertinoIcons.lock_fill
-                  : CupertinoIcons.play_fill,
-              color: allMovesDone ? AppColors.success : AppColors.primary,
-              outlined: allMovesDone,
-              badge: allMovesDone
-                  ? null
-                  : FreeChip.forFeature(
-                      context,
-                      FreeFeature.workout,
-                      onFill: true,
-                    ),
-              onTap: onStart,
-            ),
+            child: allMovesDone && onCompleteDay != null
+                ? PlanButton(
+                    label: l.disciplineCompleteDay,
+                    icon: CupertinoIcons.checkmark_seal_fill,
+                    color: AppColors.success,
+                    onTap: onCompleteDay,
+                  )
+                : PlanButton(
+                    label: startLabel,
+                    icon: allMovesDone
+                        ? CupertinoIcons.checkmark_seal_fill
+                        : workoutLocked
+                        ? CupertinoIcons.lock_fill
+                        : CupertinoIcons.play_fill,
+                    color: allMovesDone ? AppColors.success : AppColors.primary,
+                    outlined: allMovesDone,
+                    badge: allMovesDone
+                        ? null
+                        : FreeChip.forFeature(
+                            context,
+                            FreeFeature.workout,
+                            onFill: true,
+                          ),
+                    // Everything done: nothing left to start.
+                    onTap: allMovesDone ? null : onStart,
+                  ),
           ),
         ],
       ),
@@ -1273,6 +1292,10 @@ class _ProgramDayCard extends StatelessWidget {
         Haptics.success();
       }
       provider.toggleProgramMove(day.index, id);
+      // Keep today's plan in step with the program day.
+      final r = provider.todayRoutines.where((x) => x.id == id).firstOrNull;
+      final ticked = provider.programChecksFor(day.index).contains(id);
+      if (r != null && r.completed != ticked) provider.toggleRoutine(id);
     }
 
     void start() {
@@ -1299,22 +1322,7 @@ class _ProgramDayCard extends StatelessWidget {
       );
     }
 
-    void complete() {
-      if (!guardFree(context, FreeFeature.program)) return;
-      if (provider.markProgramDayComplete(day.index)) {
-        Haptics.celebrate();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: AppColors.surfaceDark,
-            content: Text(
-              l.plDayCompleteToast(day.index + 1),
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
-          ),
-        );
-      }
-    }
+    void complete() => completeProgramDay(context, provider);
 
     return PlanCard(
       padding: const EdgeInsets.fromLTRB(6, 14, 14, 16),
@@ -2018,4 +2026,26 @@ class _LinkTile extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Completes today's program day, with the free-tier gate, the celebration
+/// and the toast. Shared by the Discipline card, the Today hero and the
+/// workout player's finish screen. Returns whether the day was completed.
+bool completeProgramDay(BuildContext context, AppProvider provider) {
+  final l = AppLocalizations.of(context)!;
+  final day = provider.currentProgramDay;
+  if (!guardFree(context, FreeFeature.program)) return false;
+  if (!provider.markProgramDayComplete(day)) return false;
+  Haptics.celebrate();
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: AppColors.surfaceDark,
+      content: Text(
+        l.plDayCompleteToast(day + 1),
+        style: const TextStyle(fontWeight: FontWeight.w700),
+      ),
+    ),
+  );
+  return true;
 }

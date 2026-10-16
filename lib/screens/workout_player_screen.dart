@@ -13,6 +13,7 @@ import '../utils/haptics.dart';
 import '../widgets/exercise_media.dart';
 import '../widgets/free_tier_widgets.dart';
 import '../widgets/plan_widgets.dart';
+import 'routines_screen.dart' show completeProgramDay;
 
 enum _Phase { ready, work, rest, moveDone, locked, finished }
 
@@ -267,6 +268,23 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
           if (_preview) ...[
             FreeChip(label: l.ftPreviewTag),
             const SizedBox(width: 8),
+          ],
+          // At least one move done: the workout can end here, with its
+          // summary, instead of only being abandoned with the close button.
+          if (!_preview && _done.isNotEmpty) ...[
+            TextButton(
+              onPressed: _finish,
+              style: TextButton.styleFrom(
+                foregroundColor: widget.color,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                minimumSize: const Size(0, 32),
+              ),
+              child: Text(
+                l.plFinishWorkout,
+                style: const TextStyle(fontWeight: FontWeight.w800),
+              ),
+            ),
+            const SizedBox(width: 4),
           ],
           Text(
             '${_index + 1}/${widget.moves.length}',
@@ -757,11 +775,39 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
             ),
           ],
           const Spacer(),
+          // Every move of today's program day is ticked: close the day right
+          // here instead of sending the user back to look for the button.
+          if (context
+              .watch<AppProvider>()
+              .canCompleteProgramDay(
+                context.read<AppProvider>().currentProgramDay,
+              )) ...[
+            SizedBox(
+              width: double.infinity,
+              child: PlanButton(
+                label: l.disciplineCompleteDay,
+                icon: CupertinoIcons.checkmark_seal_fill,
+                color: AppColors.success,
+                onTap: () {
+                  if (completeProgramDay(
+                    context,
+                    context.read<AppProvider>(),
+                  )) {
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
           SizedBox(
             width: double.infinity,
             child: PlanButton(
               label: l.done,
               color: widget.color,
+              outlined: context.watch<AppProvider>().canCompleteProgramDay(
+                    context.read<AppProvider>().currentProgramDay,
+                  ),
               onTap: () {
                 Haptics.tap();
                 Navigator.pop(context);

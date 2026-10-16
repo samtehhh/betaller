@@ -6268,4 +6268,7 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get ftArticleFreeLine =>
       'तुम्हारा पहला आर्टिकल मुफ़्त है। जो चाहो वो चुनो।';
+
+  @override
+  String get plFinishWorkout => 'ख़त्म करें';
 }

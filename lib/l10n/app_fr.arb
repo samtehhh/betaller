@@ -2089,5 +2089,6 @@
   "ftReportLockedBody": "Chaque jour noté selon ton plan, tes objectifs, ta taille et un objectif pour la semaine prochaine.",
   "ftPhotosLockedTitle": "Compare ces deux photos",
   "ftPhotosLockedBody": "Ta comparaison gratuite est utilisée. Avec Pro, fais glisser entre deux photos au choix.",
-  "ftArticleFreeLine": "Ton premier article est gratuit. Choisis celui que tu veux."
+  "ftArticleFreeLine": "Ton premier article est gratuit. Choisis celui que tu veux.",
+  "plFinishWorkout": "Terminer"
 }

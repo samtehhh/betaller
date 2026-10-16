@@ -52,7 +52,11 @@ class TodayTargetsCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 14),
-          TodayTargetsGrid(profile: profile, weeklyWorkout: workout),
+          TodayTargetsGrid(
+            profile: profile,
+            weeklyWorkout: workout,
+            today: provider.todayPlanDay,
+          ),
           const SizedBox(height: 16),
           WeeklyPlanStrip(plan: plan),
         ],
@@ -67,18 +71,23 @@ class TodayTargetsCard extends StatelessWidget {
 class TodayTargetsGrid extends StatelessWidget {
   final UserProfile profile;
   final String weeklyWorkout;
+
+  /// Today's plan day, when the caller knows it (the app passes the
+  /// program's day). Without it the weekday's day of the week is used.
+  final PlanDay? today;
   const TodayTargetsGrid({
     super.key,
     required this.profile,
     this.weeklyWorkout = '',
+    this.today,
   });
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final plan =
-        WeeklyPlan.forAnswers(weeklyWorkout: weeklyWorkout, age: profile.age);
-    final today = plan.today;
+    final today = this.today ??
+        WeeklyPlan.forAnswers(weeklyWorkout: weeklyWorkout, age: profile.age)
+            .today;
     final t = DailyTargets.forProfile(
       profile,
       weeklyWorkout: weeklyWorkout,

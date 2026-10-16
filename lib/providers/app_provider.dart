@@ -406,8 +406,54 @@ class AppProvider extends ChangeNotifier {
         age: _profile?.age ?? 16,
       );
 
-  List<String> _planIds([DateTime? date]) =>
-      dailyPlanIds(date, weeklyWorkout);
+  /// Today's plan ids. Today follows the 70-day program, so the Today tab
+  /// and the Discipline tab are one workout; other dates keep the weekday
+  /// week they were planned with.
+  List<String> _planIds([DateTime? date]) {
+    if (date != null && _dateKey(date) != _today) {
+      return dailyPlanIds(date, weeklyWorkout);
+    }
+    if (_todayOnWeekdayPlan) return dailyPlanIds(null, weeklyWorkout);
+    final ids = <String>[];
+    for (final id in [...todayPlanDay.routineIds, ...kDailyCoreRoutineIds]) {
+      if (!ids.contains(id)) ids.add(id);
+    }
+    return ids;
+  }
+
+  /// Someone who already ticked today's weekday plan (the plan before today
+  /// followed the program, e.g. on the day they update) keeps that plan for
+  /// the rest of today, so no tick disappears.
+  bool get _todayOnWeekdayPlan {
+    if (_lastRoutineDate != _today) return false;
+    final weekday = weeklyPlan.today.routineIds;
+    final program = weeklyPlan.programDay(todayProgramDay).template.routineIds;
+    return _completedRoutineIds.any(
+          (id) => weekday.contains(id) && !program.contains(id),
+        ) &&
+        !_completedRoutineIds.any(
+          (id) => program.contains(id) && !weekday.contains(id),
+        );
+  }
+
+  /// The program day today is about: the one finished today, otherwise the
+  /// first one still open.
+  int get todayProgramDay {
+    final open = currentProgramDay;
+    final day = programDayDoneToday ? open - 1 : open;
+    return day.clamp(0, kProgramDays - 1);
+  }
+
+  /// Today's plan day: the program day's template, or the weekday's day on
+  /// the one day [_todayOnWeekdayPlan] keeps it.
+  PlanDay get todayPlanDay => _todayOnWeekdayPlan
+      ? weeklyPlan.today
+      : weeklyPlan.programDay(todayProgramDay).template;
+
+  /// The moves and doses of today's workout, matching [todayPlanDay].
+  List<MoveDose> get todayMoves => _todayOnWeekdayPlan
+      ? weeklyPlan.today.movesAt(currentProgramLevel(_completedProgramDays))
+      : weeklyPlan.programDay(todayProgramDay).moves;
 
   // ── Program Day Progression ──
   /// The day the program is on: the first one not completed (0..70).
@@ -428,6 +474,26 @@ class AppProvider extends ChangeNotifier {
     _programMoveChecks = {..._programMoveChecks, '$day': ticked.toList()};
     _saveData();
     notifyListeners();
+  }
+
+  /// Sets [routineId] ticked or not in today's open program day, if that
+  /// day has the move. Edits the map only: no save, no notify, no callback
+  /// into [toggleRoutine], so the two never loop.
+  void _syncProgramMove(String routineId, bool done) {
+    final day = currentProgramDay;
+    if (day >= kProgramDays ||
+        programDayDoneToday ||
+        _completedProgramDays.contains(day)) {
+      return;
+    }
+    if (!weeklyPlan.programDay(day).moves.any((m) => m.routineId == routineId)) {
+      return;
+    }
+    final ticked = programChecksFor(day);
+    final changed = done ? ticked.add(routineId) : ticked.remove(routineId);
+    if (changed) {
+      _programMoveChecks = {..._programMoveChecks, '$day': ticked.toList()};
+    }
   }
 
   /// Ticks [routineId] in program [day] without un-ticking it.
@@ -573,6 +639,8 @@ class AppProvider extends ChangeNotifier {
       : DailyTargets.forProfile(
           _profile!,
           weeklyWorkout: _onboardingAnswers['weeklyWorkout'] as String? ?? '',
+          meals: _profile!.mealTimes.length,
+          trainingDay: todayPlanDay.kind != PlanDayKind.rest,
         );
 
   /// Today's water goal in litres, the one number every screen shows:
@@ -1312,6 +1380,9 @@ class AppProvider extends ChangeNotifier {
     } else {
       _completedRoutineIds.remove(id);
     }
+    // The same move in today's program day counts there too, so "Complete
+    // the day" opens whichever tab the moves were done from.
+    _syncProgramMove(id, routine.completed);
 
     _lastRoutineDate = _today;
     _recordHistory();
@@ -2217,6 +2288,10 @@ class AppProvider extends ChangeNotifier {
           .toList();
     }
 
+    // ── 70-day discipline program: everything but today's step. Set before
+    // today's plan, which follows the program day. ──
+    _completedProgramDays = {for (var i = 0; i < days - 1; i++) i};
+
     // ── Today: one item left open, so the ring reads as in progress ──
     final todayPlan = _planIds(today);
     _completedRoutineIds = todayPlan.take(todayPlan.length - 1).toList();
@@ -2237,9 +2312,6 @@ class AppProvider extends ChangeNotifier {
     }
     _streak = streak;
     _bestStreak = streak > 21 ? streak : 21;
-
-    // ── 70-day discipline program: everything but today's step ──
-    _completedProgramDays = {for (var i = 0; i < days - 1; i++) i};
 
     // ── Wellness logs ──
     _caffeineByDate = {};
