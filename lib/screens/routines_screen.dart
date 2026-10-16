@@ -1771,32 +1771,29 @@ class _NutritionTab extends StatelessWidget {
         ],
         DayTotalCard(menu: menu, targets: t),
         const SizedBox(height: 20),
-        PlanSectionLabel(
-          icon: CupertinoIcons.calendar,
-          title: l.plWeeklyMenu,
-          color: AppColors.orange,
-        ),
-        const SizedBox(height: 4),
-        Padding(
-          padding: const EdgeInsets.only(left: 25),
-          child: Text(
-            l.plWeeklyMenuSub,
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white.withValues(alpha: 0.5),
+        // The weekly menu is Premium only: free users see today's meals
+        // above and nothing of the rest of the week.
+        if (provider.isPremium) ...[
+          PlanSectionLabel(
+            icon: CupertinoIcons.calendar,
+            title: l.plWeeklyMenu,
+            color: AppColors.orange,
+          ),
+          const SizedBox(height: 4),
+          Padding(
+            padding: const EdgeInsets.only(left: 25),
+            child: Text(
+              l.plWeeklyMenuSub,
+              style: TextStyle(
+                fontSize: 12.5,
+                color: Colors.white.withValues(alpha: 0.5),
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 10),
-        // The whole week is part of the free first day, then a preview.
-        if (nutritionOpen)
-          WeekMenuView(week: week)
-        else
-          LockedPreview(
-            title: l.plUnlockMenu,
-            child: WeekMenuView(week: week.take(3).toList()),
-          ),
-        const SizedBox(height: 20),
+          const SizedBox(height: 10),
+          WeekMenuView(week: week),
+          const SizedBox(height: 20),
+        ],
         _LinkTile(
           icon: CupertinoIcons.book_fill,
           color: AppColors.orange,
