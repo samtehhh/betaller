@@ -5817,4 +5817,206 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get paywallLifetimeDisclaimer =>
       'Tek seferlik ödeme · abonelik yok, yenilenmez';
+
+  @override
+  String get obWhyTitle => 'Neden daha uzun olmak istiyorsun?';
+
+  @override
+  String get obWhySubtitle =>
+      'Uyanların hepsini seç. Planın senin sebebinle başlar.';
+
+  @override
+  String get obWhyConfidence => 'Kendime daha çok güvenmek';
+
+  @override
+  String get obWhyImpression => 'Daha güçlü bir ilk izlenim bırakmak';
+
+  @override
+  String get obWhySports => 'Sporda daha iyi olmak';
+
+  @override
+  String get obWhyClothes => 'Kıyafetlerimin daha iyi durması';
+
+  @override
+  String get obWhyPhotos => 'Fotoğraflarda daha iyi çıkmak';
+
+  @override
+  String get obWhyPotential => 'Sadece potansiyelimi öğrenmek';
+
+  @override
+  String get obTriedTitle => 'Daha önce başka boy uygulaması denedin mi?';
+
+  @override
+  String get obTriedSubtitle =>
+      'Yanlış cevap yok. Burada neyin farklı olduğunu göstermemize yardım ediyor.';
+
+  @override
+  String get obTriedStopped => 'Evet, ama bıraktım';
+
+  @override
+  String get obTriedStill => 'Evet, hâlâ kullanıyorum';
+
+  @override
+  String get obTriedFirst => 'Hayır, bu ilki';
+
+  @override
+  String get obTriedStoppedTitle => 'Tek başına bir sayı seni ileri taşımaz';
+
+  @override
+  String get obTriedStoppedBody =>
+      'Çoğu uygulama sana bir sayı verir. BeTaller onu her gün işaretleyebileceğin bir plana çevirir, hatırlatmalar da senin saatlerinde gelir.';
+
+  @override
+  String get obTriedStillTitle => 'İşine yarayanı bırakma';
+
+  @override
+  String get obTriedStillBody =>
+      'BeTaller günlük kısmı ekler: kendi cevaplarından kurulan, adım adım işaretleyebileceğin bir plan.';
+
+  @override
+  String get obTriedFirstTitle => 'Başlamak için iyi bir yer';
+
+  @override
+  String get obTriedFirstBody =>
+      'Burada sadece bir sayı almayacaksın. BeTaller cevaplarını her gün işaretleyebileceğin bir plana çevirir.';
+
+  @override
+  String get obTriedCardTitle => 'Her gün işaretleyeceklerin';
+
+  @override
+  String get obTriedItem1 => 'Haftana göre seçilmiş kısa bir antrenman';
+
+  @override
+  String get obTriedItem2 => 'Protein hedefin';
+
+  @override
+  String get obTriedItem3 => 'Zamanında uyku';
+
+  @override
+  String get obBlockTitle => 'Seni ne engelliyor?';
+
+  @override
+  String get obBlockSubtitle =>
+      'Uyanların hepsini seç. Planın bunlara göre şekillenir.';
+
+  @override
+  String get obBlockForget => 'Unutuyorum';
+
+  @override
+  String get obBlockTime => 'Yeterince vaktim yok';
+
+  @override
+  String get obBlockExercises => 'Hangi egzersizleri yapacağımı bilmiyorum';
+
+  @override
+  String get obBlockMotivation => 'Motivasyonumu kaybediyorum';
+
+  @override
+  String get obBlockBedtime => 'Geç yatıyorum';
+
+  @override
+  String get obBlockMeals => 'Öğün atlıyorum';
+
+  @override
+  String get obFirstTitle => 'Uzadığında ilk ne yapacaksın?';
+
+  @override
+  String get obFirstSubtitle => 'Gözünün önüne getir. Hedefin bu.';
+
+  @override
+  String get obFirstWardrobe => 'Gardırobumu yenilemek';
+
+  @override
+  String get obFirstMuscle => 'Kas yapmak';
+
+  @override
+  String get obFirstPhotos => 'Daha çok fotoğraf paylaşmak';
+
+  @override
+  String get obFirstTeam => 'Bir takımın seçmelerine katılmak';
+
+  @override
+  String get obFirstFeelGood => 'Özel bir şey yok, sadece iyi hissetmek';
+
+  @override
+  String get obBuiltChip => 'Sana özel';
+
+  @override
+  String get obBuiltTitle => 'Planın, tamamen sana göre';
+
+  @override
+  String get obBuiltReason => 'Sebebin';
+
+  @override
+  String get obBuiltGoal => 'Hedef';
+
+  @override
+  String get obBuiltWhen => 'Oraya vardığında';
+
+  @override
+  String get obBuiltBlockers => 'Engellerin ve çözümleri';
+
+  @override
+  String get obFixForget => 'Seçtiğin saatlerde hatırlatmalar';
+
+  @override
+  String get obFixTime => 'Kısa seanslar, çoğu 15 dakika civarı';
+
+  @override
+  String get obFixExercises => 'Videolu hareketler, adım adım';
+
+  @override
+  String get obFixMotivation => 'Seni devam ettiren seriler ve seviyeler';
+
+  @override
+  String get obFixBedtime => 'Uyku hedefi ve yatma saati hatırlatması';
+
+  @override
+  String get obFixMeals => 'Protein hedefi ve öğün planı';
+
+  @override
+  String get obNotifTitle => 'BeTaller sana tam zamanında hatırlatır';
+
+  @override
+  String get obNotifSubtitle =>
+      'Verdiğin saatlere göre ayarlı. İstediğin zaman değiştirebilirsin.';
+
+  @override
+  String get obNotifWorkout => 'Antrenman';
+
+  @override
+  String obNotifWorkoutDetail(String time) {
+    return '$time antrenmanından 30 dk önce';
+  }
+
+  @override
+  String get obNotifMeal => 'Öğün ve protein';
+
+  @override
+  String obNotifMealDetail(String time) {
+    return 'Saat $time öğününde';
+  }
+
+  @override
+  String get obNotifWater => 'Su';
+
+  @override
+  String get obNotifWaterDetail => 'Öğleden sonra su molası';
+
+  @override
+  String get obNotifSleep => 'Uykuya hazırlan';
+
+  @override
+  String obNotifSleepDetail(String time) {
+    return '$time yatış saatinden bir saat önce';
+  }
+
+  @override
+  String get obNotifAllow => 'Hatırlatmaları aç';
+
+  @override
+  String get obNotifNotNow => 'Şimdi değil';
+
+  @override
+  String get obNotifNow => 'şimdi';
 }

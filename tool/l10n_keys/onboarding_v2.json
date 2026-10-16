@@ -1,0 +1,632 @@
+{
+  "obWhyTitle": {
+    "en": "Why do you want to be taller?",
+    "tr": "Neden daha uzun olmak istiyorsun?",
+    "de": "Warum willst du größer sein?",
+    "fr": "Pourquoi veux-tu gagner des centimètres ?",
+    "es": "¿Por qué quieres ganar altura?",
+    "it": "Perché vuoi crescere in altezza?",
+    "pt": "Por que você quer ganhar altura?",
+    "hi": "तुम्हें लंबाई क्यों बढ़ानी है?"
+  },
+  "obWhySubtitle": {
+    "en": "Pick all that apply. Your plan starts with your reason.",
+    "tr": "Uyanların hepsini seç. Planın senin sebebinle başlar.",
+    "de": "Wähle alles, was passt. Dein Plan beginnt mit deinem Grund.",
+    "fr": "Choisis tout ce qui te correspond. Ton plan part de ta raison.",
+    "es": "Elige todo lo que encaje contigo. Tu plan empieza por tu motivo.",
+    "it": "Scegli tutto ciò che vale per te. Il tuo piano parte dal tuo motivo.",
+    "pt": "Escolha tudo o que combina com você. Seu plano começa pelo seu motivo.",
+    "hi": "जो भी सही लगे, सब चुनो। प्लान इसी से शुरू होगा।"
+  },
+  "obWhyConfidence": {
+    "en": "Feel more confident",
+    "tr": "Kendime daha çok güvenmek",
+    "de": "Selbstbewusster werden",
+    "fr": "Avoir plus confiance en moi",
+    "es": "Tener más confianza en mí",
+    "it": "Avere più fiducia in me",
+    "pt": "Ter mais confiança em mim",
+    "hi": "खुद पर ज़्यादा भरोसा"
+  },
+  "obWhyImpression": {
+    "en": "Make a stronger first impression",
+    "tr": "Daha güçlü bir ilk izlenim bırakmak",
+    "de": "Einen stärkeren ersten Eindruck machen",
+    "fr": "Faire une meilleure première impression",
+    "es": "Causar una mejor primera impresión",
+    "it": "Fare una prima impressione migliore",
+    "pt": "Causar uma primeira impressão melhor",
+    "hi": "पहली मुलाकात में बेहतर असर छोड़ना"
+  },
+  "obWhySports": {
+    "en": "Do better in sports",
+    "tr": "Sporda daha iyi olmak",
+    "de": "Besser im Sport werden",
+    "fr": "Progresser en sport",
+    "es": "Rendir mejor en el deporte",
+    "it": "Andare meglio nello sport",
+    "pt": "Ir melhor nos esportes",
+    "hi": "खेल में बेहतर करना"
+  },
+  "obWhyClothes": {
+    "en": "Clothes fit better",
+    "tr": "Kıyafetlerimin daha iyi durması",
+    "de": "Kleidung, die besser sitzt",
+    "fr": "Que mes vêtements tombent mieux",
+    "es": "Que la ropa me quede mejor",
+    "it": "Vestiti che cadono meglio",
+    "pt": "A roupa cair melhor",
+    "hi": "कपड़े बेहतर फिट हों"
+  },
+  "obWhyPhotos": {
+    "en": "Look better in photos",
+    "tr": "Fotoğraflarda daha iyi çıkmak",
+    "de": "Auf Fotos besser aussehen",
+    "fr": "Mieux rendre en photo",
+    "es": "Salir mejor en las fotos",
+    "it": "Venire meglio in foto",
+    "pt": "Sair melhor nas fotos",
+    "hi": "फ़ोटो में बेहतर दिखना"
+  },
+  "obWhyPotential": {
+    "en": "Just want to know my potential",
+    "tr": "Sadece potansiyelimi öğrenmek",
+    "de": "Einfach mein Potenzial kennen",
+    "fr": "Juste connaître mon potentiel",
+    "es": "Solo quiero saber mi potencial",
+    "it": "Voglio solo conoscere il mio potenziale",
+    "pt": "Só quero saber meu potencial",
+    "hi": "बस अपनी पोटेंशियल जानना"
+  },
+  "obTriedTitle": {
+    "en": "Have you tried other height apps?",
+    "tr": "Daha önce başka boy uygulaması denedin mi?",
+    "de": "Hast du schon andere Größen-Apps ausprobiert?",
+    "fr": "As-tu déjà essayé d'autres applis de taille ?",
+    "es": "¿Has probado otras apps de altura?",
+    "it": "Hai già provato altre app per l'altezza?",
+    "pt": "Você já testou outros apps de altura?",
+    "hi": "क्या तुमने पहले कोई और हाइट ऐप आज़माया है?"
+  },
+  "obTriedSubtitle": {
+    "en": "No wrong answer. It helps us show you what's different here.",
+    "tr": "Yanlış cevap yok. Burada neyin farklı olduğunu göstermemize yardım ediyor.",
+    "de": "Es gibt keine falsche Antwort. So zeigen wir dir, was hier anders ist.",
+    "fr": "Pas de mauvaise réponse. Ça nous aide à te montrer ce qui change ici.",
+    "es": "No hay respuesta incorrecta. Nos ayuda a mostrarte qué cambia aquí.",
+    "it": "Non c'è una risposta sbagliata. Ci aiuta a mostrarti cosa cambia qui.",
+    "pt": "Não tem resposta errada. Isso ajuda a mostrar o que muda aqui.",
+    "hi": "कोई जवाब गलत नहीं है। इससे हम तुम्हें दिखा पाएँगे कि यहाँ क्या अलग है।"
+  },
+  "obTriedStopped": {
+    "en": "Yes, but I stopped",
+    "tr": "Evet, ama bıraktım",
+    "de": "Ja, aber ich hab aufgehört",
+    "fr": "Oui, mais j'ai arrêté",
+    "es": "Sí, pero lo dejé",
+    "it": "Sì, ma ho smesso",
+    "pt": "Sim, mas parei",
+    "hi": "हाँ, पर छोड़ दिया"
+  },
+  "obTriedStill": {
+    "en": "Yes, I still use one",
+    "tr": "Evet, hâlâ kullanıyorum",
+    "de": "Ja, ich nutze noch eine",
+    "fr": "Oui, j'en utilise encore une",
+    "es": "Sí, todavía uso una",
+    "it": "Sì, ne uso ancora una",
+    "pt": "Sim, ainda uso um",
+    "hi": "हाँ, एक अभी भी इस्तेमाल में है"
+  },
+  "obTriedFirst": {
+    "en": "No, this is my first",
+    "tr": "Hayır, bu ilki",
+    "de": "Nein, das ist meine erste",
+    "fr": "Non, c'est la première",
+    "es": "No, esta es la primera",
+    "it": "No, è la prima",
+    "pt": "Não, este é o primeiro",
+    "hi": "नहीं, यह मेरा पहला है"
+  },
+  "obTriedStoppedTitle": {
+    "en": "A number alone won't keep you going",
+    "tr": "Tek başına bir sayı seni ileri taşımaz",
+    "de": "Eine Zahl allein bringt dich nicht weiter",
+    "fr": "Un chiffre seul ne te fait pas avancer",
+    "es": "Un número solo no te hace avanzar",
+    "it": "Un numero da solo non ti fa andare avanti",
+    "pt": "Só um número não te faz avançar",
+    "hi": "सिर्फ़ एक नंबर से तुम आगे नहीं बढ़ते"
+  },
+  "obTriedStoppedBody": {
+    "en": "Most apps give you a number. BeTaller turns it into a daily plan you can tick off, with reminders at your own times.",
+    "tr": "Çoğu uygulama sana bir sayı verir. BeTaller onu her gün işaretleyebileceğin bir plana çevirir, hatırlatmalar da senin saatlerinde gelir.",
+    "de": "Die meisten Apps geben dir eine Zahl. BeTaller macht daraus einen Tagesplan zum Abhaken, mit Erinnerungen zu deinen Zeiten.",
+    "fr": "La plupart des applis te donnent un chiffre. BeTaller en fait un plan quotidien à cocher, avec des rappels à tes heures.",
+    "es": "La mayoría de las apps te dan un número. BeTaller lo convierte en un plan diario para ir marcando, con recordatorios a tus horas.",
+    "it": "Quasi tutte le app ti danno un numero. BeTaller lo trasforma in un piano giornaliero da spuntare, con promemoria ai tuoi orari.",
+    "pt": "A maioria dos apps te dá um número. O BeTaller transforma isso num plano diário pra você ir marcando, com lembretes nos seus horários.",
+    "hi": "ज़्यादातर ऐप तुम्हें बस एक नंबर देते हैं। BeTaller उसे रोज़ का प्लान बनाता है जिसे तुम टिक कर सको, और रिमाइंडर तुम्हारे समय पर आते हैं।"
+  },
+  "obTriedStillTitle": {
+    "en": "Keep what works for you",
+    "tr": "İşine yarayanı bırakma",
+    "de": "Behalte, was für dich funktioniert",
+    "fr": "Garde ce qui marche pour toi",
+    "es": "Quédate con lo que te funciona",
+    "it": "Tieni quello che funziona per te",
+    "pt": "Fique com o que funciona pra você",
+    "hi": "जो काम आ रहा है, उसे रखो"
+  },
+  "obTriedStillBody": {
+    "en": "BeTaller adds the daily part: a plan built from your own answers that you can tick off, one step at a time.",
+    "tr": "BeTaller günlük kısmı ekler: kendi cevaplarından kurulan, adım adım işaretleyebileceğin bir plan.",
+    "de": "BeTaller ergänzt den täglichen Teil: einen Plan aus deinen eigenen Antworten, den du Schritt für Schritt abhakst.",
+    "fr": "BeTaller ajoute le côté quotidien : un plan construit à partir de tes réponses, à cocher étape par étape.",
+    "es": "BeTaller añade la parte diaria: un plan hecho con tus propias respuestas para ir marcando paso a paso.",
+    "it": "BeTaller aggiunge la parte quotidiana: un piano costruito sulle tue risposte, da spuntare un passo alla volta.",
+    "pt": "O BeTaller adiciona a parte do dia a dia: um plano feito com as suas respostas pra você marcar passo a passo.",
+    "hi": "BeTaller रोज़ का हिस्सा जोड़ता है: तुम्हारे अपने जवाबों से बना प्लान, जिसे तुम एक-एक कदम टिक कर सको।"
+  },
+  "obTriedFirstTitle": {
+    "en": "Good place to start",
+    "tr": "Başlamak için iyi bir yer",
+    "de": "Ein guter Startpunkt",
+    "fr": "Un bon point de départ",
+    "es": "Buen lugar para empezar",
+    "it": "Un buon punto di partenza",
+    "pt": "Um bom lugar pra começar",
+    "hi": "शुरुआत के लिए सही जगह"
+  },
+  "obTriedFirstBody": {
+    "en": "You won't just get a number here. BeTaller turns your answers into a daily plan you can tick off.",
+    "tr": "Burada sadece bir sayı almayacaksın. BeTaller cevaplarını her gün işaretleyebileceğin bir plana çevirir.",
+    "de": "Hier bekommst du nicht nur eine Zahl. BeTaller macht aus deinen Antworten einen Tagesplan zum Abhaken.",
+    "fr": "Ici, tu n'auras pas juste un chiffre. BeTaller transforme tes réponses en un plan quotidien à cocher.",
+    "es": "Aquí no vas a recibir solo un número. BeTaller convierte tus respuestas en un plan diario para ir marcando.",
+    "it": "Qui non avrai solo un numero. BeTaller trasforma le tue risposte in un piano giornaliero da spuntare.",
+    "pt": "Aqui você não vai receber só um número. O BeTaller transforma suas respostas num plano diário pra ir marcando.",
+    "hi": "यहाँ तुम्हें सिर्फ़ एक नंबर नहीं मिलेगा। BeTaller तुम्हारे जवाबों को रोज़ के प्लान में बदलता है जिसे तुम टिक कर सको।"
+  },
+  "obTriedCardTitle": {
+    "en": "What you tick off each day",
+    "tr": "Her gün işaretleyeceklerin",
+    "de": "Das hakst du jeden Tag ab",
+    "fr": "Ce que tu coches chaque jour",
+    "es": "Lo que marcas cada día",
+    "it": "Cosa spunti ogni giorno",
+    "pt": "O que você marca todo dia",
+    "hi": "हर दिन तुम ये टिक करोगे"
+  },
+  "obTriedItem1": {
+    "en": "A short workout picked for your week",
+    "tr": "Haftana göre seçilmiş kısa bir antrenman",
+    "de": "Ein kurzes Training, passend zu deiner Woche",
+    "fr": "Une séance courte, choisie pour ta semaine",
+    "es": "Un entreno corto, elegido para tu semana",
+    "it": "Un allenamento breve, scelto per la tua settimana",
+    "pt": "Um treino curto, escolhido pra sua semana",
+    "hi": "तुम्हारे हफ़्ते के हिसाब से एक छोटा वर्कआउट"
+  },
+  "obTriedItem2": {
+    "en": "Your protein target",
+    "tr": "Protein hedefin",
+    "de": "Dein Proteinziel",
+    "fr": "Ton objectif de protéines",
+    "es": "Tu objetivo de proteína",
+    "it": "Il tuo obiettivo di proteine",
+    "pt": "Sua meta de proteína",
+    "hi": "तुम्हारा प्रोटीन टारगेट"
+  },
+  "obTriedItem3": {
+    "en": "Lights out on time",
+    "tr": "Zamanında uyku",
+    "de": "Pünktlich schlafen",
+    "fr": "Au lit à l'heure",
+    "es": "A dormir a tu hora",
+    "it": "A letto in orario",
+    "pt": "Dormir na hora certa",
+    "hi": "समय पर सोना"
+  },
+  "obBlockTitle": {
+    "en": "What gets in the way?",
+    "tr": "Seni ne engelliyor?",
+    "de": "Was hält dich auf?",
+    "fr": "Qu'est-ce qui te freine ?",
+    "es": "¿Qué te frena?",
+    "it": "Cosa ti frena?",
+    "pt": "O que te atrapalha?",
+    "hi": "तुम्हें क्या रोकता है?"
+  },
+  "obBlockSubtitle": {
+    "en": "Pick all that apply. Your plan works around them.",
+    "tr": "Uyanların hepsini seç. Planın bunlara göre şekillenir.",
+    "de": "Wähle alles, was passt. Dein Plan richtet sich danach.",
+    "fr": "Choisis tout ce qui te correspond. Ton plan en tient compte.",
+    "es": "Elige todo lo que encaje. Tu plan se adapta a ello.",
+    "it": "Scegli tutto ciò che vale per te. Il tuo piano ne tiene conto.",
+    "pt": "Escolha tudo o que vale pra você. Seu plano se adapta a isso.",
+    "hi": "जो भी सही लगे, सब चुनो। तुम्हारा प्लान इन्हीं के हिसाब से बनेगा।"
+  },
+  "obBlockForget": {
+    "en": "I forget",
+    "tr": "Unutuyorum",
+    "de": "Ich vergesse es",
+    "fr": "J'oublie",
+    "es": "Se me olvida",
+    "it": "Me ne dimentico",
+    "pt": "Eu esqueço",
+    "hi": "याद नहीं रहता"
+  },
+  "obBlockTime": {
+    "en": "Not enough time",
+    "tr": "Yeterince vaktim yok",
+    "de": "Zu wenig Zeit",
+    "fr": "Pas assez de temps",
+    "es": "No tengo tiempo",
+    "it": "Poco tempo",
+    "pt": "Falta tempo",
+    "hi": "समय कम पड़ता है"
+  },
+  "obBlockExercises": {
+    "en": "I don't know which exercises",
+    "tr": "Hangi egzersizleri yapacağımı bilmiyorum",
+    "de": "Ich weiß nicht, welche Übungen",
+    "fr": "Je ne sais pas quels exercices faire",
+    "es": "No sé qué ejercicios hacer",
+    "it": "Non so quali esercizi fare",
+    "pt": "Não sei quais exercícios fazer",
+    "hi": "पता नहीं कौन-सी एक्सरसाइज़ करूँ"
+  },
+  "obBlockMotivation": {
+    "en": "I lose motivation",
+    "tr": "Motivasyonumu kaybediyorum",
+    "de": "Mir fehlt die Motivation",
+    "fr": "Je perds ma motivation",
+    "es": "Pierdo la motivación",
+    "it": "Perdo la motivazione",
+    "pt": "Perco a motivação",
+    "hi": "मोटिवेशन चला जाता है"
+  },
+  "obBlockBedtime": {
+    "en": "I go to bed late",
+    "tr": "Geç yatıyorum",
+    "de": "Ich gehe spät schlafen",
+    "fr": "Je me couche tard",
+    "es": "Me acuesto tarde",
+    "it": "Vado a letto tardi",
+    "pt": "Durmo tarde",
+    "hi": "रात को देर से सोना"
+  },
+  "obBlockMeals": {
+    "en": "I skip meals",
+    "tr": "Öğün atlıyorum",
+    "de": "Ich lasse Mahlzeiten aus",
+    "fr": "Je saute des repas",
+    "es": "Me salto comidas",
+    "it": "Salto i pasti",
+    "pt": "Pulo refeições",
+    "hi": "खाना छूट जाता है"
+  },
+  "obFirstTitle": {
+    "en": "First thing you'll do when you're taller?",
+    "tr": "Uzadığında ilk ne yapacaksın?",
+    "de": "Was machst du als Erstes, wenn du größer bist?",
+    "fr": "Avec quelques centimètres de plus, tu fais quoi en premier ?",
+    "es": "¿Qué es lo primero que harás cuando ganes altura?",
+    "it": "Con qualche centimetro in più, cosa fai per prima cosa?",
+    "pt": "Qual a primeira coisa que você vai fazer quando ganhar altura?",
+    "hi": "लंबाई बढ़ने पर सबसे पहले क्या करोगे?"
+  },
+  "obFirstSubtitle": {
+    "en": "Picture it. That's what you're working toward.",
+    "tr": "Gözünün önüne getir. Hedefin bu.",
+    "de": "Stell es dir vor. Darauf arbeitest du hin.",
+    "fr": "Imagine-le. C'est vers ça que tu avances.",
+    "es": "Imagínalo. Hacia eso vas.",
+    "it": "Immaginalo. È verso questo che stai andando.",
+    "pt": "Imagine. É pra isso que você está se esforçando.",
+    "hi": "सोचकर देखो। यही तुम्हारा लक्ष्य है।"
+  },
+  "obFirstWardrobe": {
+    "en": "Refresh my wardrobe",
+    "tr": "Gardırobumu yenilemek",
+    "de": "Neue Klamotten kaufen",
+    "fr": "Renouveler ma garde-robe",
+    "es": "Renovar mi armario",
+    "it": "Rinnovare il guardaroba",
+    "pt": "Renovar o guarda-roupa",
+    "hi": "नए कपड़े लेना"
+  },
+  "obFirstMuscle": {
+    "en": "Build muscle",
+    "tr": "Kas yapmak",
+    "de": "Muskeln aufbauen",
+    "fr": "Prendre du muscle",
+    "es": "Ganar músculo",
+    "it": "Mettere su muscoli",
+    "pt": "Ganhar músculo",
+    "hi": "मसल्स बनाना"
+  },
+  "obFirstPhotos": {
+    "en": "Post more photos",
+    "tr": "Daha çok fotoğraf paylaşmak",
+    "de": "Mehr Fotos posten",
+    "fr": "Poster plus de photos",
+    "es": "Subir más fotos",
+    "it": "Postare più foto",
+    "pt": "Postar mais fotos",
+    "hi": "ज़्यादा फ़ोटो पोस्ट करना"
+  },
+  "obFirstTeam": {
+    "en": "Try out for a team",
+    "tr": "Bir takımın seçmelerine katılmak",
+    "de": "Probetraining bei einem Team machen",
+    "fr": "Tenter ma chance dans une équipe",
+    "es": "Probar suerte en un equipo",
+    "it": "Fare un provino per una squadra",
+    "pt": "Fazer teste pra um time",
+    "hi": "किसी टीम का ट्रायल देना"
+  },
+  "obFirstFeelGood": {
+    "en": "Nothing special, just feel good",
+    "tr": "Özel bir şey yok, sadece iyi hissetmek",
+    "de": "Nichts Besonderes, einfach gut fühlen",
+    "fr": "Rien de spécial, juste me sentir bien",
+    "es": "Nada especial, solo sentirme bien",
+    "it": "Niente di speciale, solo sentirmi bene",
+    "pt": "Nada de especial, só me sentir bem",
+    "hi": "कुछ खास नहीं, बस अच्छा महसूस करना"
+  },
+  "obBuiltChip": {
+    "en": "Built for you",
+    "tr": "Sana özel",
+    "de": "Für dich gebaut",
+    "fr": "Fait pour toi",
+    "es": "Hecho para ti",
+    "it": "Fatto per te",
+    "pt": "Feito pra você",
+    "hi": "तुम्हारे लिए बना"
+  },
+  "obBuiltTitle": {
+    "en": "Your plan, built around you",
+    "tr": "Planın, tamamen sana göre",
+    "de": "Dein Plan, ganz auf dich zugeschnitten",
+    "fr": "Ton plan, construit autour de toi",
+    "es": "Tu plan, hecho a tu medida",
+    "it": "Il tuo piano, costruito su di te",
+    "pt": "Seu plano, feito sob medida",
+    "hi": "तुम्हारा प्लान, बिल्कुल तुम्हारे हिसाब से"
+  },
+  "obBuiltReason": {
+    "en": "Your reason",
+    "tr": "Sebebin",
+    "de": "Dein Grund",
+    "fr": "Ta raison",
+    "es": "Tu motivo",
+    "it": "Il tuo motivo",
+    "pt": "Seu motivo",
+    "hi": "तुम्हारी वजह"
+  },
+  "obBuiltGoal": {
+    "en": "Goal",
+    "tr": "Hedef",
+    "de": "Ziel",
+    "fr": "Objectif",
+    "es": "Meta",
+    "it": "Obiettivo",
+    "pt": "Meta",
+    "hi": "लक्ष्य"
+  },
+  "obBuiltWhen": {
+    "en": "When you get there",
+    "tr": "Oraya vardığında",
+    "de": "Wenn du da bist",
+    "fr": "Quand tu y seras",
+    "es": "Cuando llegues",
+    "it": "Quando ci arrivi",
+    "pt": "Quando chegar lá",
+    "hi": "वहाँ पहुँचकर"
+  },
+  "obBuiltBlockers": {
+    "en": "What gets in the way, handled",
+    "tr": "Engellerin ve çözümleri",
+    "de": "Was dich aufhält, und unsere Antwort",
+    "fr": "Ce qui te freine, et notre réponse",
+    "es": "Lo que te frena, resuelto",
+    "it": "Cosa ti frena, e come lo risolviamo",
+    "pt": "O que te atrapalha, resolvido",
+    "hi": "तुम्हारी रुकावटें, और उनका हल"
+  },
+  "obFixForget": {
+    "en": "Reminders at the times you chose",
+    "tr": "Seçtiğin saatlerde hatırlatmalar",
+    "de": "Erinnerungen zu deinen Zeiten",
+    "fr": "Des rappels aux heures que tu as choisies",
+    "es": "Recordatorios a las horas que elegiste",
+    "it": "Promemoria agli orari che hai scelto",
+    "pt": "Lembretes nos horários que você escolheu",
+    "hi": "तुम्हारे चुने समय पर रिमाइंडर"
+  },
+  "obFixTime": {
+    "en": "Short sessions, most around 15 minutes",
+    "tr": "Kısa seanslar, çoğu 15 dakika civarı",
+    "de": "Kurze Einheiten, meist um die 15 Minuten",
+    "fr": "Des séances courtes, souvent 15 minutes environ",
+    "es": "Sesiones cortas, la mayoría de unos 15 minutos",
+    "it": "Sessioni brevi, quasi tutte di circa 15 minuti",
+    "pt": "Sessões curtas, a maioria com uns 15 minutos",
+    "hi": "छोटे सेशन, ज़्यादातर करीब 15 मिनट के"
+  },
+  "obFixExercises": {
+    "en": "Video-guided moves, step by step",
+    "tr": "Videolu hareketler, adım adım",
+    "de": "Übungen mit Video, Schritt für Schritt",
+    "fr": "Des mouvements guidés en vidéo, pas à pas",
+    "es": "Ejercicios guiados con vídeo, paso a paso",
+    "it": "Esercizi guidati da video, passo dopo passo",
+    "pt": "Exercícios guiados por vídeo, passo a passo",
+    "hi": "वीडियो के साथ एक्सरसाइज़, कदम-दर-कदम"
+  },
+  "obFixMotivation": {
+    "en": "Streaks and levels that keep you going",
+    "tr": "Seni devam ettiren seriler ve seviyeler",
+    "de": "Streaks und Level, die dich dranbleiben lassen",
+    "fr": "Des séries et des niveaux pour garder le rythme",
+    "es": "Rachas y niveles que te mantienen en marcha",
+    "it": "Serie e livelli che ti tengono in movimento",
+    "pt": "Sequências e níveis pra você não parar",
+    "hi": "स्ट्रीक और लेवल जो तुम्हें चलते रखें"
+  },
+  "obFixBedtime": {
+    "en": "A sleep target and a bedtime reminder",
+    "tr": "Uyku hedefi ve yatma saati hatırlatması",
+    "de": "Ein Schlafziel und eine Erinnerung vor dem Schlafen",
+    "fr": "Un objectif de sommeil et un rappel avant le coucher",
+    "es": "Un objetivo de sueño y un aviso antes de dormir",
+    "it": "Un obiettivo di sonno e un promemoria prima di dormire",
+    "pt": "Uma meta de sono e um lembrete antes de dormir",
+    "hi": "नींद का टारगेट और सोने से पहले रिमाइंडर"
+  },
+  "obFixMeals": {
+    "en": "A protein target and a meal plan",
+    "tr": "Protein hedefi ve öğün planı",
+    "de": "Ein Proteinziel und ein Essensplan",
+    "fr": "Un objectif de protéines et un plan de repas",
+    "es": "Un objetivo de proteína y un plan de comidas",
+    "it": "Un obiettivo di proteine e un piano dei pasti",
+    "pt": "Uma meta de proteína e um plano de refeições",
+    "hi": "प्रोटीन टारगेट और मील प्लान"
+  },
+  "obNotifTitle": {
+    "en": "BeTaller reminds you when it matters",
+    "tr": "BeTaller sana tam zamanında hatırlatır",
+    "de": "BeTaller erinnert dich, wenn es zählt",
+    "fr": "BeTaller te le rappelle au bon moment",
+    "es": "BeTaller te avisa cuando importa",
+    "it": "BeTaller ti avvisa quando conta",
+    "pt": "O BeTaller te lembra na hora que importa",
+    "hi": "BeTaller तुम्हें सही समय पर याद दिलाता है"
+  },
+  "obNotifSubtitle": {
+    "en": "Set to the times you gave us. You can change them any time.",
+    "tr": "Verdiğin saatlere göre ayarlı. İstediğin zaman değiştirebilirsin.",
+    "de": "Nach den Zeiten, die du angegeben hast. Du kannst sie jederzeit ändern.",
+    "fr": "Réglés sur les heures que tu nous as données. Tu peux les changer à tout moment.",
+    "es": "Con las horas que nos diste. Puedes cambiarlas cuando quieras.",
+    "it": "Sugli orari che ci hai dato. Puoi cambiarli quando vuoi.",
+    "pt": "Nos horários que você informou. Dá pra mudar quando quiser.",
+    "hi": "तुम्हारे बताए समय के हिसाब से। इन्हें कभी भी बदल सकते हो।"
+  },
+  "obNotifWorkout": {
+    "en": "Workout",
+    "tr": "Antrenman",
+    "de": "Training",
+    "fr": "Entraînement",
+    "es": "Entreno",
+    "it": "Allenamento",
+    "pt": "Treino",
+    "hi": "वर्कआउट"
+  },
+  "obNotifWorkoutDetail": {
+    "en": "30 min before your {time} session",
+    "tr": "{time} antrenmanından 30 dk önce",
+    "de": "30 Min. vor deinem Training um {time}",
+    "fr": "30 min avant ta séance de {time}",
+    "es": "30 min antes de tu entreno de las {time}",
+    "it": "30 min prima dell'allenamento delle {time}",
+    "pt": "30 min antes do seu treino das {time}",
+    "hi": "{time} के वर्कआउट से 30 मिनट पहले"
+  },
+  "obNotifMeal": {
+    "en": "Meal and protein",
+    "tr": "Öğün ve protein",
+    "de": "Essen und Protein",
+    "fr": "Repas et protéines",
+    "es": "Comida y proteína",
+    "it": "Pasto e proteine",
+    "pt": "Refeição e proteína",
+    "hi": "खाना और प्रोटीन"
+  },
+  "obNotifMealDetail": {
+    "en": "At your {time} meal",
+    "tr": "Saat {time} öğününde",
+    "de": "Zu deiner Mahlzeit um {time}",
+    "fr": "À ton repas de {time}",
+    "es": "En tu comida de las {time}",
+    "it": "Al pasto delle {time}",
+    "pt": "Na sua refeição das {time}",
+    "hi": "{time} के खाने के समय"
+  },
+  "obNotifWater": {
+    "en": "Water",
+    "tr": "Su",
+    "de": "Wasser",
+    "fr": "Eau",
+    "es": "Agua",
+    "it": "Acqua",
+    "pt": "Água",
+    "hi": "पानी"
+  },
+  "obNotifWaterDetail": {
+    "en": "A water break in the afternoon",
+    "tr": "Öğleden sonra su molası",
+    "de": "Eine Trinkpause am Nachmittag",
+    "fr": "Une pause eau l'après-midi",
+    "es": "Una pausa para beber por la tarde",
+    "it": "Una pausa acqua nel pomeriggio",
+    "pt": "Uma pausa pra água à tarde",
+    "hi": "दोपहर में पानी का ब्रेक"
+  },
+  "obNotifSleep": {
+    "en": "Wind down",
+    "tr": "Uykuya hazırlan",
+    "de": "Runterkommen",
+    "fr": "Place au calme",
+    "es": "Prepárate para dormir",
+    "it": "Preparati a dormire",
+    "pt": "Hora de desacelerar",
+    "hi": "सोने की तैयारी"
+  },
+  "obNotifSleepDetail": {
+    "en": "An hour before your {time} bedtime",
+    "tr": "{time} yatış saatinden bir saat önce",
+    "de": "Eine Stunde vor deiner Schlafenszeit um {time}",
+    "fr": "Une heure avant ton coucher à {time}",
+    "es": "Una hora antes de acostarte a las {time}",
+    "it": "Un'ora prima di andare a letto alle {time}",
+    "pt": "Uma hora antes de dormir, às {time}",
+    "hi": "{time} पर सोने से एक घंटा पहले"
+  },
+  "obNotifAllow": {
+    "en": "Turn on reminders",
+    "tr": "Hatırlatmaları aç",
+    "de": "Erinnerungen aktivieren",
+    "fr": "Activer les rappels",
+    "es": "Activar recordatorios",
+    "it": "Attiva i promemoria",
+    "pt": "Ativar lembretes",
+    "hi": "रिमाइंडर चालू करो"
+  },
+  "obNotifNotNow": {
+    "en": "Not now",
+    "tr": "Şimdi değil",
+    "de": "Jetzt nicht",
+    "fr": "Pas maintenant",
+    "es": "Ahora no",
+    "it": "Non ora",
+    "pt": "Agora não",
+    "hi": "अभी नहीं"
+  },
+  "obNotifNow": {
+    "en": "now",
+    "tr": "şimdi",
+    "de": "jetzt",
+    "fr": "maintenant",
+    "es": "ahora",
+    "it": "ora",
+    "pt": "agora",
+    "hi": "अभी"
+  }
+}

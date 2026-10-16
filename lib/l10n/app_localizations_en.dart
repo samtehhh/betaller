@@ -5888,4 +5888,207 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get paywallLifetimeDisclaimer =>
       'One-time payment · no subscription, nothing renews';
+
+  @override
+  String get obWhyTitle => 'Why do you want to be taller?';
+
+  @override
+  String get obWhySubtitle =>
+      'Pick all that apply. Your plan starts with your reason.';
+
+  @override
+  String get obWhyConfidence => 'Feel more confident';
+
+  @override
+  String get obWhyImpression => 'Make a stronger first impression';
+
+  @override
+  String get obWhySports => 'Do better in sports';
+
+  @override
+  String get obWhyClothes => 'Clothes fit better';
+
+  @override
+  String get obWhyPhotos => 'Look better in photos';
+
+  @override
+  String get obWhyPotential => 'Just want to know my potential';
+
+  @override
+  String get obTriedTitle => 'Have you tried other height apps?';
+
+  @override
+  String get obTriedSubtitle =>
+      'No wrong answer. It helps us show you what\'s different here.';
+
+  @override
+  String get obTriedStopped => 'Yes, but I stopped';
+
+  @override
+  String get obTriedStill => 'Yes, I still use one';
+
+  @override
+  String get obTriedFirst => 'No, this is my first';
+
+  @override
+  String get obTriedStoppedTitle => 'A number alone won\'t keep you going';
+
+  @override
+  String get obTriedStoppedBody =>
+      'Most apps give you a number. BeTaller turns it into a daily plan you can tick off, with reminders at your own times.';
+
+  @override
+  String get obTriedStillTitle => 'Keep what works for you';
+
+  @override
+  String get obTriedStillBody =>
+      'BeTaller adds the daily part: a plan built from your own answers that you can tick off, one step at a time.';
+
+  @override
+  String get obTriedFirstTitle => 'Good place to start';
+
+  @override
+  String get obTriedFirstBody =>
+      'You won\'t just get a number here. BeTaller turns your answers into a daily plan you can tick off.';
+
+  @override
+  String get obTriedCardTitle => 'What you tick off each day';
+
+  @override
+  String get obTriedItem1 => 'A short workout picked for your week';
+
+  @override
+  String get obTriedItem2 => 'Your protein target';
+
+  @override
+  String get obTriedItem3 => 'Lights out on time';
+
+  @override
+  String get obBlockTitle => 'What gets in the way?';
+
+  @override
+  String get obBlockSubtitle =>
+      'Pick all that apply. Your plan works around them.';
+
+  @override
+  String get obBlockForget => 'I forget';
+
+  @override
+  String get obBlockTime => 'Not enough time';
+
+  @override
+  String get obBlockExercises => 'I don\'t know which exercises';
+
+  @override
+  String get obBlockMotivation => 'I lose motivation';
+
+  @override
+  String get obBlockBedtime => 'I go to bed late';
+
+  @override
+  String get obBlockMeals => 'I skip meals';
+
+  @override
+  String get obFirstTitle => 'First thing you\'ll do when you\'re taller?';
+
+  @override
+  String get obFirstSubtitle =>
+      'Picture it. That\'s what you\'re working toward.';
+
+  @override
+  String get obFirstWardrobe => 'Refresh my wardrobe';
+
+  @override
+  String get obFirstMuscle => 'Build muscle';
+
+  @override
+  String get obFirstPhotos => 'Post more photos';
+
+  @override
+  String get obFirstTeam => 'Try out for a team';
+
+  @override
+  String get obFirstFeelGood => 'Nothing special, just feel good';
+
+  @override
+  String get obBuiltChip => 'Built for you';
+
+  @override
+  String get obBuiltTitle => 'Your plan, built around you';
+
+  @override
+  String get obBuiltReason => 'Your reason';
+
+  @override
+  String get obBuiltGoal => 'Goal';
+
+  @override
+  String get obBuiltWhen => 'When you get there';
+
+  @override
+  String get obBuiltBlockers => 'What gets in the way, handled';
+
+  @override
+  String get obFixForget => 'Reminders at the times you chose';
+
+  @override
+  String get obFixTime => 'Short sessions, most around 15 minutes';
+
+  @override
+  String get obFixExercises => 'Video-guided moves, step by step';
+
+  @override
+  String get obFixMotivation => 'Streaks and levels that keep you going';
+
+  @override
+  String get obFixBedtime => 'A sleep target and a bedtime reminder';
+
+  @override
+  String get obFixMeals => 'A protein target and a meal plan';
+
+  @override
+  String get obNotifTitle => 'BeTaller reminds you when it matters';
+
+  @override
+  String get obNotifSubtitle =>
+      'Set to the times you gave us. You can change them any time.';
+
+  @override
+  String get obNotifWorkout => 'Workout';
+
+  @override
+  String obNotifWorkoutDetail(String time) {
+    return '30 min before your $time session';
+  }
+
+  @override
+  String get obNotifMeal => 'Meal and protein';
+
+  @override
+  String obNotifMealDetail(String time) {
+    return 'At your $time meal';
+  }
+
+  @override
+  String get obNotifWater => 'Water';
+
+  @override
+  String get obNotifWaterDetail => 'A water break in the afternoon';
+
+  @override
+  String get obNotifSleep => 'Wind down';
+
+  @override
+  String obNotifSleepDetail(String time) {
+    return 'An hour before your $time bedtime';
+  }
+
+  @override
+  String get obNotifAllow => 'Turn on reminders';
+
+  @override
+  String get obNotifNotNow => 'Not now';
+
+  @override
+  String get obNotifNow => 'now';
 }

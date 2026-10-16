@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +27,10 @@ class HeightSilhouette extends StatelessWidget {
   /// Which figure to draw; read from the profile when not given.
   final bool? female;
 
+  /// The tag over the taller figure. "Potential" unless the taller figure is
+  /// something else, such as the goal the user picked in the onboarding.
+  final String? potentialLabel;
+
   const HeightSilhouette({
     super.key,
     required this.current,
@@ -34,6 +40,7 @@ class HeightSilhouette extends StatelessWidget {
     this.height = 220,
     this.animate = true,
     this.female,
+    this.potentialLabel,
   });
 
   @override
@@ -69,7 +76,7 @@ class HeightSilhouette extends StatelessWidget {
             format: format,
             gapText: gapText,
             nowLabel: l.silNow,
-            potentialLabel: l.silPotential,
+            potentialLabel: potentialLabel ?? l.silPotential,
           ),
         ),
       ),
@@ -125,6 +132,7 @@ class _Scene extends StatelessWidget {
     final bodyWidth = (ground - nowHead) * 0.29;
 
     final gap = finalPotential - current;
+    final potTagTop = (potHead - 38).clamp(0.0, h - 40);
     final labelX = cx + bodyWidth * 0.62 + 10;
 
     return Stack(
@@ -161,7 +169,7 @@ class _Scene extends StatelessWidget {
         Positioned(
           left: labelX,
           right: 0,
-          top: (potHead - 38).clamp(0.0, h - 40),
+          top: potTagTop,
           child: _Tag(
             title: potentialLabel,
             value: format(potential),
@@ -171,7 +179,12 @@ class _Scene extends StatelessWidget {
         Positioned(
           left: labelX,
           right: 0,
-          top: (nowHead - 38).clamp(potHead + 2, h - 40),
+          // Below the potential tag wherever that one landed: pinned to the
+          // top edge, it used to sit on today's value.
+          top: (nowHead - 38).clamp(
+            math.min(math.max(potHead + 2, potTagTop + 36), h - 40),
+            h - 40,
+          ),
           child: _Tag(
             title: nowLabel,
             value: format(current),

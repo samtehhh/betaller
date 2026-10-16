@@ -13,6 +13,7 @@ import '../utils/dev_tools.dart';
 
 import '../models/user_profile.dart';
 import '../models/height_record.dart';
+import '../models/onboarding_answers.dart';
 import '../models/reminder.dart';
 import '../services/notification_service.dart';
 import '../models/routine.dart';
@@ -51,7 +52,9 @@ class AppProvider extends ChangeNotifier {
 
   /// Answers from the onboarding the profile model has no field for:
   /// dreamHeight (cm), weeklyWorkout ('0-2' | '3-5' | '6+'), sleepHours,
-  /// footSize. Kept as a map so a new question never needs a schema change.
+  /// footSize, and since onboarding v2 whyTaller (list), triedApps, blockers
+  /// (list) and firstWhenTaller, all as ids from [OnboardingIds]. Kept as a
+  /// map so a new question never needs a schema change.
   Map<String, dynamic> _onboardingAnswers = {};
   // false = metric (cm/kg), true = imperial (ft-in/lbs). Defaults to
   // imperial for the US and Canada — everywhere else, including the rest
@@ -141,6 +144,50 @@ class AppProvider extends ChangeNotifier {
   bool get isPremium => _isPremium;
 
   Map<String, dynamic> get onboardingAnswers => _onboardingAnswers;
+
+  // ── Onboarding v2: the "why" questions ──
+  //
+  // Everyone who onboarded before these questions existed has none of these
+  // keys, and a blob from another build may hold anything under them. Each
+  // getter reads defensively, drops ids this build does not know, and falls
+  // back to empty.
+
+  /// Why the user wants to be taller, as [OnboardingIds.whyTaller] ids in the
+  /// order picked (the first is the main reason). Empty when never asked.
+  List<String> get whyTaller =>
+      _answerIds('whyTaller', OnboardingIds.whyTaller);
+
+  /// The main reason, or null when never asked.
+  String? get mainWhyTaller => whyTaller.isEmpty ? null : whyTaller.first;
+
+  /// Whether the user tried other height apps: one of
+  /// [OnboardingIds.triedApps], or '' when never asked.
+  String get triedApps => _answerId('triedApps', OnboardingIds.triedApps);
+
+  /// What gets in the way, as [OnboardingIds.blockers] ids in the order
+  /// picked (the first is the top blocker). Empty when never asked.
+  List<String> get blockers => _answerIds('blockers', OnboardingIds.blockers);
+
+  /// The top blocker, or null when never asked.
+  String? get topBlocker => blockers.isEmpty ? null : blockers.first;
+
+  /// The first thing the user wants to do once taller: one of
+  /// [OnboardingIds.firstWhenTaller], or '' when never asked.
+  String get firstWhenTaller =>
+      _answerId('firstWhenTaller', OnboardingIds.firstWhenTaller);
+
+  List<String> _answerIds(String key, List<String> known) {
+    final v = _onboardingAnswers[key];
+    if (v is! List) return const [];
+    return List.unmodifiable(
+      v.whereType<String>().where(known.contains).toSet(),
+    );
+  }
+
+  String _answerId(String key, List<String> known) {
+    final v = _onboardingAnswers[key];
+    return v is String && known.contains(v) ? v : '';
+  }
 
   /// The height the user told us they want, in cm, or null.
   double? get dreamHeight {
