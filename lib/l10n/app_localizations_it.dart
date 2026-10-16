@@ -5906,4 +5906,66 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get paywallLifetimeDisclaimer =>
       'Pagamento unico · nessun abbonamento, nessun rinnovo';
+
+  @override
+  String get tv3NewEyebrow => 'Novità';
+
+  @override
+  String get tv3NewTitle => 'BeTaller ha un grande aggiornamento';
+
+  @override
+  String get tv3NewDesc =>
+      'Nuovo piano, nuovo programma, nuovo look. Ecco le novità.';
+
+  @override
+  String get tv3PotentialTitle => 'Ecco il tuo potenziale';
+
+  @override
+  String get tv3PotentialDesc =>
+      'La tua altezza di oggi accanto a quella che puoi raggiungere. Il piano colma la distanza.';
+
+  @override
+  String get tv3TodayTitle => 'Il tuo piano di oggi';
+
+  @override
+  String tv3TodayDesc(String button) {
+    return 'Un allenamento breve pensato per oggi. Tocca $button e seguilo passo per passo.';
+  }
+
+  @override
+  String get tv3ProgramTitle => '70 giorni di Disciplina';
+
+  @override
+  String get tv3ProgramDesc =>
+      'Un passo al giorno lungo 10 livelli. Ogni giorno parte da quello prima.';
+
+  @override
+  String get tv3NutritionTitle => 'I tuoi obiettivi del giorno';
+
+  @override
+  String get tv3NutritionDesc =>
+      'Proteine, calcio, vitamina D e acqua, calcolati per il tuo corpo.';
+
+  @override
+  String get tv3ChartTitle => 'Guarda la tua curva';
+
+  @override
+  String get tv3ChartDesc =>
+      'Misurati ogni una o due settimane e guarda la linea salire verso il tuo potenziale.';
+
+  @override
+  String get tv3ScoreTitle => 'Il tuo punteggio BeTaller';
+
+  @override
+  String get tv3ScoreDesc =>
+      'Un numero per capire come stai andando. Migliora prima l\'area più debole.';
+
+  @override
+  String get tv3Next => 'Avanti';
+
+  @override
+  String get tv3ShowMe => 'Fammi vedere';
+
+  @override
+  String get tv3Done => 'Andiamo';
 }

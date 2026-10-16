@@ -1,0 +1,182 @@
+{
+ "tv3NewEyebrow": {
+  "en": "What's new",
+  "tr": "Yenilikler",
+  "de": "Neu",
+  "fr": "Nouveautés",
+  "es": "Novedades",
+  "it": "Novità",
+  "pt": "Novidades",
+  "hi": "नया क्या है"
+ },
+ "tv3NewTitle": {
+  "en": "BeTaller got a big update",
+  "tr": "BeTaller büyük bir güncelleme aldı",
+  "de": "BeTaller hat ein großes Update",
+  "fr": "BeTaller a une grosse mise à jour",
+  "es": "BeTaller tiene una gran actualización",
+  "it": "BeTaller ha un grande aggiornamento",
+  "pt": "O BeTaller ganhou uma grande atualização",
+  "hi": "BeTaller में बड़ा अपडेट आया है"
+ },
+ "tv3NewDesc": {
+  "en": "New plan, new program, new look. Here is what's new.",
+  "tr": "Yeni plan, yeni program, yeni görünüm. İşte yenilikler.",
+  "de": "Neuer Plan, neues Programm, neuer Look. Hier ist, was neu ist.",
+  "fr": "Nouveau plan, nouveau programme, nouveau look. Voici les nouveautés.",
+  "es": "Nuevo plan, nuevo programa, nuevo look. Esto es lo nuevo.",
+  "it": "Nuovo piano, nuovo programma, nuovo look. Ecco le novità.",
+  "pt": "Novo plano, novo programa, novo visual. Veja o que mudou.",
+  "hi": "नया प्लान, नया प्रोग्राम, नया लुक। देखो क्या नया है।"
+ },
+ "tv3PotentialTitle": {
+  "en": "This is your potential",
+  "tr": "İşte potansiyelin",
+  "de": "Das ist dein Potenzial",
+  "fr": "Voici ton potentiel",
+  "es": "Este es tu potencial",
+  "it": "Ecco il tuo potenziale",
+  "pt": "Este é o seu potencial",
+  "hi": "यह है तुम्हारी संभावना"
+ },
+ "tv3PotentialDesc": {
+  "en": "Your height today next to where you can get. The plan closes the gap.",
+  "tr": "Bugünkü boyun ve ulaşabileceğin boy yan yana. Plan aradaki farkı kapatır.",
+  "de": "Deine Größe heute neben dem, was möglich ist. Der Plan schließt die Lücke.",
+  "fr": "Ta taille aujourd'hui et celle que tu peux atteindre. Le plan comble l'écart.",
+  "es": "Tu altura de hoy junto a la que puedes alcanzar. El plan cierra la diferencia.",
+  "it": "La tua altezza di oggi accanto a quella che puoi raggiungere. Il piano colma la distanza.",
+  "pt": "Sua altura hoje ao lado da que você pode alcançar. O plano fecha a diferença.",
+  "hi": "आज की तुम्हारी लंबाई और जहाँ तक तुम पहुँच सकते हो। प्लान यह फ़ासला कम करता है।"
+ },
+ "tv3TodayTitle": {
+  "en": "Today's plan",
+  "tr": "Bugünün planı",
+  "de": "Dein Plan für heute",
+  "fr": "Ton plan du jour",
+  "es": "Tu plan de hoy",
+  "it": "Il tuo piano di oggi",
+  "pt": "Seu plano de hoje",
+  "hi": "आज का प्लान"
+ },
+ "tv3TodayDesc": {
+  "en": "A short workout made for today. Tap {button} and follow along.",
+  "tr": "Bugüne özel kısa bir antrenman. {button} düğmesine dokun ve adım adım ilerle.",
+  "de": "Ein kurzes Training für heute. Tipp auf {button} und mach mit.",
+  "fr": "Une courte séance faite pour aujourd'hui. Appuie sur {button} et suis le guide.",
+  "es": "Un entrenamiento corto hecho para hoy. Toca {button} y síguelo paso a paso.",
+  "it": "Un allenamento breve pensato per oggi. Tocca {button} e seguilo passo per passo.",
+  "pt": "Um treino curto feito para hoje. Toque em {button} e acompanhe.",
+  "hi": "आज के लिए एक छोटा वर्कआउट। {button} पर टैप करो और साथ चलो।"
+ },
+ "tv3ProgramTitle": {
+  "en": "70 days of Discipline",
+  "tr": "70 günlük Disiplin",
+  "de": "70 Tage Disziplin",
+  "fr": "70 jours de Discipline",
+  "es": "70 días de Disciplina",
+  "it": "70 giorni di Disciplina",
+  "pt": "70 dias de Disciplina",
+  "hi": "70 दिन का अनुशासन"
+ },
+ "tv3ProgramDesc": {
+  "en": "One step a day across 10 levels. Each day builds on the last.",
+  "tr": "10 seviye boyunca günde bir adım. Her gün bir öncekinin üstüne koyar.",
+  "de": "Ein Schritt pro Tag über 10 Stufen. Jeder Tag baut auf dem letzten auf.",
+  "fr": "Une étape par jour sur 10 niveaux. Chaque jour s'appuie sur le précédent.",
+  "es": "Un paso al día a lo largo de 10 niveles. Cada día se apoya en el anterior.",
+  "it": "Un passo al giorno lungo 10 livelli. Ogni giorno parte da quello prima.",
+  "pt": "Um passo por dia ao longo de 10 níveis. Cada dia se apoia no anterior.",
+  "hi": "10 लेवल में हर दिन एक कदम। हर दिन पिछले दिन पर बनता है।"
+ },
+ "tv3NutritionTitle": {
+  "en": "Your daily targets",
+  "tr": "Günlük hedeflerin",
+  "de": "Deine Tagesziele",
+  "fr": "Tes objectifs du jour",
+  "es": "Tus objetivos diarios",
+  "it": "I tuoi obiettivi del giorno",
+  "pt": "Suas metas do dia",
+  "hi": "तुम्हारे रोज़ के लक्ष्य"
+ },
+ "tv3NutritionDesc": {
+  "en": "Protein, calcium, vitamin D and water, worked out for your body.",
+  "tr": "Protein, kalsiyum, D vitamini ve su, vücuduna göre hesaplandı.",
+  "de": "Protein, Kalzium, Vitamin D und Wasser, passend für deinen Körper.",
+  "fr": "Protéines, calcium, vitamine D et eau, calculés pour ton corps.",
+  "es": "Proteína, calcio, vitamina D y agua, calculados para tu cuerpo.",
+  "it": "Proteine, calcio, vitamina D e acqua, calcolati per il tuo corpo.",
+  "pt": "Proteína, cálcio, vitamina D e água, calculados para o seu corpo.",
+  "hi": "प्रोटीन, कैल्शियम, विटामिन D और पानी, तुम्हारे शरीर के हिसाब से।"
+ },
+ "tv3ChartTitle": {
+  "en": "Watch your curve",
+  "tr": "Eğrini izle",
+  "de": "Sieh deine Kurve",
+  "fr": "Suis ta courbe",
+  "es": "Mira tu curva",
+  "it": "Guarda la tua curva",
+  "pt": "Acompanhe sua curva",
+  "hi": "अपना कर्व देखो"
+ },
+ "tv3ChartDesc": {
+  "en": "Measure every week or two and see your line climb toward your potential.",
+  "tr": "Bir iki haftada bir ölç, çizginin potansiyeline doğru yükselişini gör.",
+  "de": "Miss alle ein bis zwei Wochen und sieh deine Linie zum Potenzial steigen.",
+  "fr": "Mesure-toi toutes les une à deux semaines et vois ta ligne monter vers ton potentiel.",
+  "es": "Mídete cada una o dos semanas y mira tu línea subir hacia tu potencial.",
+  "it": "Misurati ogni una o due settimane e guarda la linea salire verso il tuo potenziale.",
+  "pt": "Meça a cada uma ou duas semanas e veja sua linha subir rumo ao seu potencial.",
+  "hi": "हर एक-दो हफ़्ते में नापो और अपनी लाइन को संभावना की ओर बढ़ते देखो।"
+ },
+ "tv3ScoreTitle": {
+  "en": "Your BeTaller Score",
+  "tr": "BeTaller Skorun",
+  "de": "Dein BeTaller Score",
+  "fr": "Ton score BeTaller",
+  "es": "Tu puntuación BeTaller",
+  "it": "Il tuo punteggio BeTaller",
+  "pt": "Sua pontuação BeTaller",
+  "hi": "तुम्हारा BeTaller स्कोर"
+ },
+ "tv3ScoreDesc": {
+  "en": "One number for how you are doing. Lift your weakest area first.",
+  "tr": "Nasıl gittiğini tek bir sayı söyler. Önce en zayıf alanını yükselt.",
+  "de": "Eine Zahl dafür, wie es läuft. Stärke zuerst deinen schwächsten Bereich.",
+  "fr": "Un seul chiffre pour savoir où tu en es. Renforce d'abord ton point faible.",
+  "es": "Un número para ver cómo vas. Mejora primero tu área más débil.",
+  "it": "Un numero per capire come stai andando. Migliora prima l'area più debole.",
+  "pt": "Um número para ver como você está indo. Melhore primeiro sua área mais fraca.",
+  "hi": "एक नंबर जो बताता है तुम कैसा कर रहे हो। पहले सबसे कमज़ोर हिस्सा सुधारो।"
+ },
+ "tv3Next": {
+  "en": "Next",
+  "tr": "İleri",
+  "de": "Weiter",
+  "fr": "Suivant",
+  "es": "Siguiente",
+  "it": "Avanti",
+  "pt": "Próximo",
+  "hi": "आगे"
+ },
+ "tv3ShowMe": {
+  "en": "Show me",
+  "tr": "Göster",
+  "de": "Zeig mal",
+  "fr": "Montre-moi",
+  "es": "Muéstramelo",
+  "it": "Fammi vedere",
+  "pt": "Me mostre",
+  "hi": "दिखाओ"
+ },
+ "tv3Done": {
+  "en": "Let's go",
+  "tr": "Hadi başlayalım",
+  "de": "Los geht's",
+  "fr": "C'est parti",
+  "es": "Vamos",
+  "it": "Andiamo",
+  "pt": "Vamos lá",
+  "hi": "चलो शुरू करें"
+ }
+}

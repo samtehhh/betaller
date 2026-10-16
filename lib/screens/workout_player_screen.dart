@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../l10n/app_localizations.dart';
+import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/daily_targets.dart';
 import '../utils/haptics.dart';
@@ -157,6 +159,10 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
     _timer?.cancel();
     Haptics.celebrate();
     setState(() => _phase = _Phase.finished);
+    // Played through to the end, not skipped: a moment worth a rating.
+    if (_done.length >= widget.moves.length) {
+      context.read<AppProvider>().noteReviewMoment(ReviewMoment.workout);
+    }
   }
 
   String _clock(int s) =>

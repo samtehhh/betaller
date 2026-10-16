@@ -110,21 +110,18 @@ class ProgressScreenState extends State<ProgressScreen>
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                     // ── Where you stand ───────────────────────────────────
-                    KeyedSubtree(
-                      key: TourKeys.progressHeight,
-                      child: _HeightHero(
-                        provider: provider,
-                        current: current,
-                        gained: gained,
-                        records: records,
-                        // Logging a height is the habit the whole app is
-                        // built on, and every entry sharpens the prediction.
-                        // Behind the paywall it kept free users from ever
-                        // forming it, and from reaching the rating prompt
-                        // that the first measurement triggers.
-                        onAdd: () =>
-                            _showAddMeasurementSheet(context, provider),
-                      ),
+                    _HeightHero(
+                      provider: provider,
+                      current: current,
+                      gained: gained,
+                      records: records,
+                      // Logging a height is the habit the whole app is
+                      // built on, and every entry sharpens the prediction.
+                      // Behind the paywall it kept free users from ever
+                      // forming it, and from reaching the rating prompt
+                      // that the first measurement triggers.
+                      onAdd: () =>
+                          _showAddMeasurementSheet(context, provider),
                     ),
                     const SizedBox(height: 16),
 
@@ -263,81 +260,72 @@ class ProgressScreenState extends State<ProgressScreen>
                       title: l.trackingSection,
                     ),
                     const SizedBox(height: 12),
-                    KeyedSubtree(
-                      key: TourKeys.progressPhotos,
-                      child: _ToolCard(
-                        color: AppColors.cyan,
-                        icon: CupertinoIcons.photo_fill_on_rectangle_fill,
-                        title: l.progressPhotosTitle,
-                        benefit: l.photosBenefit,
-                        state: provider.progressPhotos.isEmpty
-                            ? l.photosSummaryEmpty
-                            : l.photosSummaryCount(
-                                provider.progressPhotos.length,
-                              ),
-                        cta: l.photosCta,
-                        visual: _PhotoStrip(
-                          paths: provider.progressPhotos
-                              .map((p) => p['path'] as String?)
-                              .whereType<String>()
-                              .toList(),
-                        ),
-                        onTap: () => Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (_) => const ProgressPhotosScreen(),
-                          ),
+                    _ToolCard(
+                      color: AppColors.cyan,
+                      icon: CupertinoIcons.photo_fill_on_rectangle_fill,
+                      title: l.progressPhotosTitle,
+                      benefit: l.photosBenefit,
+                      state: provider.progressPhotos.isEmpty
+                          ? l.photosSummaryEmpty
+                          : l.photosSummaryCount(
+                              provider.progressPhotos.length,
+                            ),
+                      cta: l.photosCta,
+                      visual: _PhotoStrip(
+                        paths: provider.progressPhotos
+                            .map((p) => p['path'] as String?)
+                            .whereType<String>()
+                            .toList(),
+                      ),
+                      onTap: () => Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (_) => const ProgressPhotosScreen(),
                         ),
                       ),
                     ),
                     const SizedBox(height: 12),
-                    KeyedSubtree(
-                      key: TourKeys.progressPosture,
-                      child: _ToolCard(
-                        color: AppColors.lime,
-                        icon: Icons.accessibility_new_rounded,
-                        title: l.explorePosture,
-                        benefit: l.postureBenefit,
-                        state: provider.postureAnalyses.isEmpty
-                            ? l.postureSummaryEmpty
-                            : l.postureSummaryScore(
-                                (provider.postureAnalyses.last['totalScore']
-                                            as num?)
-                                        ?.toInt() ??
-                                    0,
-                              ),
-                        cta: l.postureCta,
-                        visual: _PostureDial(
-                          score: provider.postureAnalyses.isEmpty
-                              ? null
-                              : (provider.postureAnalyses.last['totalScore']
-                                        as num?)
-                                    ?.toInt(),
-                        ),
-                        onTap: () => Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (_) => const PostureAnalysisScreen(),
-                          ),
+                    _ToolCard(
+                      color: AppColors.lime,
+                      icon: Icons.accessibility_new_rounded,
+                      title: l.explorePosture,
+                      benefit: l.postureBenefit,
+                      state: provider.postureAnalyses.isEmpty
+                          ? l.postureSummaryEmpty
+                          : l.postureSummaryScore(
+                              (provider.postureAnalyses.last['totalScore']
+                                          as num?)
+                                      ?.toInt() ??
+                                  0,
+                            ),
+                      cta: l.postureCta,
+                      visual: _PostureDial(
+                        score: provider.postureAnalyses.isEmpty
+                            ? null
+                            : (provider.postureAnalyses.last['totalScore']
+                                      as num?)
+                                  ?.toInt(),
+                      ),
+                      onTap: () => Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (_) => const PostureAnalysisScreen(),
                         ),
                       ),
                     ),
                     const SizedBox(height: 12),
-                    KeyedSubtree(
-                      key: TourKeys.progressReport,
-                      child: _ToolCard(
-                        color: AppColors.orange,
-                        icon: CupertinoIcons.doc_chart_fill,
-                        title: l.weeklyReportMenu,
-                        benefit: l.reportBenefit,
-                        state: l.toolStateReady,
-                        cta: l.reportCta,
-                        visual: _WeekSpark(provider: provider),
-                        onTap: () => Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (_) => const WeeklyReportScreen(),
-                          ),
+                    _ToolCard(
+                      color: AppColors.orange,
+                      icon: CupertinoIcons.doc_chart_fill,
+                      title: l.weeklyReportMenu,
+                      benefit: l.reportBenefit,
+                      state: l.toolStateReady,
+                      cta: l.reportCta,
+                      visual: _WeekSpark(provider: provider),
+                      onTap: () => Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (_) => const WeeklyReportScreen(),
                         ),
                       ),
                     ),
@@ -345,12 +333,9 @@ class ProgressScreenState extends State<ProgressScreen>
                     // ── History as a timeline ─────────────────────────────
                     if (records.isNotEmpty) ...[
                       const SizedBox(height: 22),
-                      KeyedSubtree(
-                        key: TourKeys.progressHistory,
-                        child: SectionHeader(
-                          icon: CupertinoIcons.clock,
-                          title: l.measurementHistory,
-                        ),
+                      SectionHeader(
+                        icon: CupertinoIcons.clock,
+                        title: l.measurementHistory,
                       ),
                       const SizedBox(height: 12),
                       ...List.generate(records.length, (i) {

@@ -5817,4 +5817,66 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get paywallLifetimeDisclaimer =>
       'Tek seferlik ödeme · abonelik yok, yenilenmez';
+
+  @override
+  String get tv3NewEyebrow => 'Yenilikler';
+
+  @override
+  String get tv3NewTitle => 'BeTaller büyük bir güncelleme aldı';
+
+  @override
+  String get tv3NewDesc =>
+      'Yeni plan, yeni program, yeni görünüm. İşte yenilikler.';
+
+  @override
+  String get tv3PotentialTitle => 'İşte potansiyelin';
+
+  @override
+  String get tv3PotentialDesc =>
+      'Bugünkü boyun ve ulaşabileceğin boy yan yana. Plan aradaki farkı kapatır.';
+
+  @override
+  String get tv3TodayTitle => 'Bugünün planı';
+
+  @override
+  String tv3TodayDesc(String button) {
+    return 'Bugüne özel kısa bir antrenman. $button düğmesine dokun ve adım adım ilerle.';
+  }
+
+  @override
+  String get tv3ProgramTitle => '70 günlük Disiplin';
+
+  @override
+  String get tv3ProgramDesc =>
+      '10 seviye boyunca günde bir adım. Her gün bir öncekinin üstüne koyar.';
+
+  @override
+  String get tv3NutritionTitle => 'Günlük hedeflerin';
+
+  @override
+  String get tv3NutritionDesc =>
+      'Protein, kalsiyum, D vitamini ve su, vücuduna göre hesaplandı.';
+
+  @override
+  String get tv3ChartTitle => 'Eğrini izle';
+
+  @override
+  String get tv3ChartDesc =>
+      'Bir iki haftada bir ölç, çizginin potansiyeline doğru yükselişini gör.';
+
+  @override
+  String get tv3ScoreTitle => 'BeTaller Skorun';
+
+  @override
+  String get tv3ScoreDesc =>
+      'Nasıl gittiğini tek bir sayı söyler. Önce en zayıf alanını yükselt.';
+
+  @override
+  String get tv3Next => 'İleri';
+
+  @override
+  String get tv3ShowMe => 'Göster';
+
+  @override
+  String get tv3Done => 'Hadi başlayalım';
 }

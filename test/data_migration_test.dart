@@ -85,6 +85,68 @@ void main() {
     expect(out['isPremium'], isTrue);
   });
 
+  test(
+    'a 1.6.x user goes to MainScreen with premium and data, and gets the '
+    'v3 tour exactly once',
+    () async {
+      // A 1.6.x user who finished the old journey (1.6 stores this field).
+      final blob = _legacyBlob()..['journeyProgress'] = 3;
+      SharedPreferences.setMockInitialValues({
+        'glowup_app_data': jsonEncode(blob),
+      });
+      final p = AppProvider();
+      await p.loadData();
+
+      // SplashScreen sends anyone with a profile to MainScreen; onboarding
+      // only runs without one.
+      expect(p.profile, isNotNull);
+      expect(p.isPremium, isTrue);
+      expect(p.heightRecords, hasLength(2));
+      expect(p.totalXP, 1240);
+      expect(p.journeyProgress, 3);
+      expect(p.updatedThisLaunch, isTrue);
+      expect(p.seenV3Tour, isFalse);
+      expect(p.shouldShowWhatsNewTour, isTrue);
+
+      // MainScreen marks it when the tour ends, finished or skipped.
+      p.markV3TourSeen();
+      await Future<void>.delayed(Duration.zero);
+      expect((await stored())['seenV3Tour'], isTrue);
+
+      final next = AppProvider();
+      await next.loadData();
+      expect(next.seenV3Tour, isTrue);
+      expect(next.shouldShowWhatsNewTour, isFalse);
+      expect(next.updatedThisLaunch, isFalse);
+      expect(next.isPremium, isTrue);
+      expect(next.profile?.name, 'Ece');
+    },
+  );
+
+  test('a 1.6.x user who never finished the old tour gets the first-run '
+      'tour instead, still without onboarding', () async {
+    SharedPreferences.setMockInitialValues({
+      'glowup_app_data': jsonEncode(_legacyBlob()..['journeyProgress'] = 1),
+    });
+    final p = AppProvider();
+    await p.loadData();
+    expect(p.profile, isNotNull);
+    expect(p.journeyProgress, 1);
+    expect(p.seenV3Tour, isFalse);
+    // MainScreen's first-run path covers it; the what's-new path must not
+    // run on top of it.
+    expect(p.shouldShowWhatsNewTour, isFalse);
+  });
+
+  test('a new install has no what\'s-new tour', () async {
+    SharedPreferences.setMockInitialValues({});
+    final p = AppProvider();
+    await p.loadData();
+    expect(p.profile, isNull);
+    expect(p.shouldShowWhatsNewTour, isFalse);
+    expect(p.updatedThisLaunch, isFalse);
+  });
+
   test('the pre-migration blob is backed up exactly once', () async {
     final original = jsonEncode(_legacyBlob());
     SharedPreferences.setMockInitialValues({'glowup_app_data': original});

@@ -153,13 +153,10 @@ class AnalysisScreenState extends State<AnalysisScreen>
               ),
             ),
             const SizedBox(height: 26),
-            KeyedSubtree(
-              key: TourKeys.analysisRadar,
-              child: _Breakdown(
-                score: score,
-                provider: provider,
-                onAct: (f) => _act(f, provider),
-              ),
+            _Breakdown(
+              score: score,
+              provider: provider,
+              onAct: (f) => _act(f, provider),
             ),
           ],
         );
@@ -225,28 +222,19 @@ class AnalysisScreenState extends State<AnalysisScreen>
                       iconColor: AppColors.lime,
                     ),
                     const SizedBox(height: 12),
-                    KeyedSubtree(
-                      key: TourKeys.analysisPrediction,
-                      child: Container(
-                        key: _potentialKey,
-                        child: _PotentialCard(provider: provider),
-                      ),
+                    Container(
+                      key: _potentialKey,
+                      child: _PotentialCard(provider: provider),
                     ),
                     const SizedBox(height: 14),
-                    KeyedSubtree(
-                      key: TourKeys.analysisPeer,
-                      child: _PercentileCard(provider: provider),
-                    ),
+                    _PercentileCard(provider: provider),
                     const SizedBox(height: 30),
 
                     // ── 3. Daily needs ──
-                    KeyedSubtree(
-                      key: TourKeys.analysisDailyNeeds,
-                      child: SectionHeader(
-                        icon: CupertinoIcons.checkmark_seal_fill,
-                        title: _up(context, l.anNeedsTitle),
-                        iconColor: AppColors.orange,
-                      ),
+                    SectionHeader(
+                      icon: CupertinoIcons.checkmark_seal_fill,
+                      title: _up(context, l.anNeedsTitle),
+                      iconColor: AppColors.orange,
                     ),
                     const SizedBox(height: 6),
                     Text(

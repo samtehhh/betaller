@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show Intl;
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -99,6 +100,12 @@ Future<BuildContext?> _waitForNavigatorContext() async {
 /// Notifications and billing, off the start-up path. Failures are contained:
 /// a dead store connection must not take the rest of the app down with it.
 Future<void> _initServices(AppProvider appProvider) async {
+  // The rating prompt is limited to one request per app version.
+  try {
+    appProvider.setAppVersion((await PackageInfo.fromPlatform()).version);
+  } catch (e) {
+    debugPrint('PackageInfo failed: $e');
+  }
   try {
     final notifService = NotificationService();
     await notifService.init();
