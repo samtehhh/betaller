@@ -6284,4 +6284,58 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get plFinishWorkout => 'Bitir';
+
+  @override
+  String get obTriedMostApps => 'Çoğu uygulama';
+
+  @override
+  String get obTriedThatsIt => 'Bir sayı, o kadar.';
+
+  @override
+  String get obTriedPlanLabel => 'BeTaller\'la bir günün';
+
+  @override
+  String get obTriedProteinSub => 'Öğünlerine bölünmüş';
+
+  @override
+  String get obTriedSleepSub => 'Yatmadan önce bir hatırlatma';
+
+  @override
+  String get obTriedFeatVideo => 'Videolu hareketler';
+
+  @override
+  String get obTriedFeatReminders => 'Senin saatlerinde hatırlatma';
+
+  @override
+  String get obTriedFeatStreaks => 'Seriler ve seviyeler';
+
+  @override
+  String get obBedtimeUnknown => 'Bilmiyorum, belirsiz';
+
+  @override
+  String obBedtimeUnknownHint(String time) {
+    return 'Yaşına göre gereken uykuya bakarak $time öneriyoruz. İstediğin zaman değiştirebilirsin.';
+  }
+
+  @override
+  String get obWorkoutTimeUnknown => 'Bilmiyorum, belirli bir saatim yok';
+
+  @override
+  String obWorkoutTimeUnknownHint(String time) {
+    return 'Şimdilik $time kullanacağız. İstediğin zaman değiştirebilirsin.';
+  }
+
+  @override
+  String obNotifSleepDetailSuggested(String time) {
+    return 'Öneri: yatış saati $time civarı. İstediğin zaman değiştir.';
+  }
+
+  @override
+  String obNotifWorkoutDetailSuggested(String time) {
+    return 'Öneri: antrenman $time civarı. İstediğin zaman değiştir.';
+  }
+
+  @override
+  String get obNotifSubtitleSuggested =>
+      'Verdiğin saatlere göre ayarlı, emin olmadığın yerde bir öneriyle. İstediğin zaman değiştirebilirsin.';
 }

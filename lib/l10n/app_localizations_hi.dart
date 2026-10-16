@@ -6271,4 +6271,58 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get plFinishWorkout => 'ख़त्म करें';
+
+  @override
+  String get obTriedMostApps => 'ज़्यादातर ऐप';
+
+  @override
+  String get obTriedThatsIt => 'एक नंबर, बस इतना ही।';
+
+  @override
+  String get obTriedPlanLabel => 'BeTaller के साथ तुम्हारा दिन';
+
+  @override
+  String get obTriedProteinSub => 'तुम्हारे खानों में बँटा हुआ';
+
+  @override
+  String get obTriedSleepSub => 'सोने से पहले एक रिमाइंडर';
+
+  @override
+  String get obTriedFeatVideo => 'वीडियो के साथ एक्सरसाइज़';
+
+  @override
+  String get obTriedFeatReminders => 'तुम्हारे समय पर रिमाइंडर';
+
+  @override
+  String get obTriedFeatStreaks => 'स्ट्रीक और लेवल';
+
+  @override
+  String get obBedtimeUnknown => 'पता नहीं, बदलता रहता है';
+
+  @override
+  String obBedtimeUnknownHint(String time) {
+    return 'तुम्हारी उम्र में ज़रूरी नींद के हिसाब से हम $time सुझाते हैं। इसे कभी भी बदल सकते हो।';
+  }
+
+  @override
+  String get obWorkoutTimeUnknown => 'पता नहीं, मेरा कोई तय समय नहीं है';
+
+  @override
+  String obWorkoutTimeUnknownHint(String time) {
+    return 'अभी के लिए हम $time रखेंगे। इसे कभी भी बदल सकते हो।';
+  }
+
+  @override
+  String obNotifSleepDetailSuggested(String time) {
+    return 'सुझाव: लगभग $time बजे सोना। इसे कभी भी बदल सकते हो।';
+  }
+
+  @override
+  String obNotifWorkoutDetailSuggested(String time) {
+    return 'सुझाव: लगभग $time बजे वर्कआउट। इसे कभी भी बदल सकते हो।';
+  }
+
+  @override
+  String get obNotifSubtitleSuggested =>
+      'तुम्हारे बताए समय के हिसाब से, और जहाँ तुम्हें पता नहीं था वहाँ एक सुझाव। इन्हें कभी भी बदल सकते हो।';
 }

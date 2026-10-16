@@ -1941,5 +1941,20 @@
   "ftPhotosLockedTitle": "Bu ikisini karşılaştır",
   "ftPhotosLockedBody": "Ücretsiz karşılaştırmanı kullandın. Pro ile istediğin iki fotoğraf arasında kaydır.",
   "ftArticleFreeLine": "İlk makalen ücretsiz. İstediğini seç.",
-  "plFinishWorkout": "Bitir"
+  "plFinishWorkout": "Bitir",
+  "obTriedMostApps": "Çoğu uygulama",
+  "obTriedThatsIt": "Bir sayı, o kadar.",
+  "obTriedPlanLabel": "BeTaller'la bir günün",
+  "obTriedProteinSub": "Öğünlerine bölünmüş",
+  "obTriedSleepSub": "Yatmadan önce bir hatırlatma",
+  "obTriedFeatVideo": "Videolu hareketler",
+  "obTriedFeatReminders": "Senin saatlerinde hatırlatma",
+  "obTriedFeatStreaks": "Seriler ve seviyeler",
+  "obBedtimeUnknown": "Bilmiyorum, belirsiz",
+  "obBedtimeUnknownHint": "Yaşına göre gereken uykuya bakarak {time} öneriyoruz. İstediğin zaman değiştirebilirsin.",
+  "obWorkoutTimeUnknown": "Bilmiyorum, belirli bir saatim yok",
+  "obWorkoutTimeUnknownHint": "Şimdilik {time} kullanacağız. İstediğin zaman değiştirebilirsin.",
+  "obNotifSleepDetailSuggested": "Öneri: yatış saati {time} civarı. İstediğin zaman değiştir.",
+  "obNotifWorkoutDetailSuggested": "Öneri: antrenman {time} civarı. İstediğin zaman değiştir.",
+  "obNotifSubtitleSuggested": "Verdiğin saatlere göre ayarlı, emin olmadığın yerde bir öneriyle. İstediğin zaman değiştirebilirsin."
 }
