@@ -10561,6 +10561,384 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Let\'s go'**
   String get tv3Done;
+
+  /// No description provided for @obWhyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Why do you want to be taller?'**
+  String get obWhyTitle;
+
+  /// No description provided for @obWhySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick all that apply. Your plan starts with your reason.'**
+  String get obWhySubtitle;
+
+  /// No description provided for @obWhyConfidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Feel more confident'**
+  String get obWhyConfidence;
+
+  /// No description provided for @obWhyImpression.
+  ///
+  /// In en, this message translates to:
+  /// **'Make a stronger first impression'**
+  String get obWhyImpression;
+
+  /// No description provided for @obWhySports.
+  ///
+  /// In en, this message translates to:
+  /// **'Do better in sports'**
+  String get obWhySports;
+
+  /// No description provided for @obWhyClothes.
+  ///
+  /// In en, this message translates to:
+  /// **'Clothes fit better'**
+  String get obWhyClothes;
+
+  /// No description provided for @obWhyPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Look better in photos'**
+  String get obWhyPhotos;
+
+  /// No description provided for @obWhyPotential.
+  ///
+  /// In en, this message translates to:
+  /// **'Just want to know my potential'**
+  String get obWhyPotential;
+
+  /// No description provided for @obTriedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you tried other height apps?'**
+  String get obTriedTitle;
+
+  /// No description provided for @obTriedSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No wrong answer. It helps us show you what\'s different here.'**
+  String get obTriedSubtitle;
+
+  /// No description provided for @obTriedStopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, but I stopped'**
+  String get obTriedStopped;
+
+  /// No description provided for @obTriedStill.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, I still use one'**
+  String get obTriedStill;
+
+  /// No description provided for @obTriedFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'No, this is my first'**
+  String get obTriedFirst;
+
+  /// No description provided for @obTriedStoppedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A number alone won\'t keep you going'**
+  String get obTriedStoppedTitle;
+
+  /// No description provided for @obTriedStoppedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Most apps give you a number. BeTaller turns it into a daily plan you can tick off, with reminders at your own times.'**
+  String get obTriedStoppedBody;
+
+  /// No description provided for @obTriedStillTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep what works for you'**
+  String get obTriedStillTitle;
+
+  /// No description provided for @obTriedStillBody.
+  ///
+  /// In en, this message translates to:
+  /// **'BeTaller adds the daily part: a plan built from your own answers that you can tick off, one step at a time.'**
+  String get obTriedStillBody;
+
+  /// No description provided for @obTriedFirstTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Good place to start'**
+  String get obTriedFirstTitle;
+
+  /// No description provided for @obTriedFirstBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You won\'t just get a number here. BeTaller turns your answers into a daily plan you can tick off.'**
+  String get obTriedFirstBody;
+
+  /// No description provided for @obTriedCardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What you tick off each day'**
+  String get obTriedCardTitle;
+
+  /// No description provided for @obTriedItem1.
+  ///
+  /// In en, this message translates to:
+  /// **'A short workout picked for your week'**
+  String get obTriedItem1;
+
+  /// No description provided for @obTriedItem2.
+  ///
+  /// In en, this message translates to:
+  /// **'Your protein target'**
+  String get obTriedItem2;
+
+  /// No description provided for @obTriedItem3.
+  ///
+  /// In en, this message translates to:
+  /// **'Lights out on time'**
+  String get obTriedItem3;
+
+  /// No description provided for @obBlockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What gets in the way?'**
+  String get obBlockTitle;
+
+  /// No description provided for @obBlockSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick all that apply. Your plan works around them.'**
+  String get obBlockSubtitle;
+
+  /// No description provided for @obBlockForget.
+  ///
+  /// In en, this message translates to:
+  /// **'I forget'**
+  String get obBlockForget;
+
+  /// No description provided for @obBlockTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough time'**
+  String get obBlockTime;
+
+  /// No description provided for @obBlockExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'I don\'t know which exercises'**
+  String get obBlockExercises;
+
+  /// No description provided for @obBlockMotivation.
+  ///
+  /// In en, this message translates to:
+  /// **'I lose motivation'**
+  String get obBlockMotivation;
+
+  /// No description provided for @obBlockBedtime.
+  ///
+  /// In en, this message translates to:
+  /// **'I go to bed late'**
+  String get obBlockBedtime;
+
+  /// No description provided for @obBlockMeals.
+  ///
+  /// In en, this message translates to:
+  /// **'I skip meals'**
+  String get obBlockMeals;
+
+  /// No description provided for @obFirstTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'First thing you\'ll do when you\'re taller?'**
+  String get obFirstTitle;
+
+  /// No description provided for @obFirstSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Picture it. That\'s what you\'re working toward.'**
+  String get obFirstSubtitle;
+
+  /// No description provided for @obFirstWardrobe.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh my wardrobe'**
+  String get obFirstWardrobe;
+
+  /// No description provided for @obFirstMuscle.
+  ///
+  /// In en, this message translates to:
+  /// **'Build muscle'**
+  String get obFirstMuscle;
+
+  /// No description provided for @obFirstPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Post more photos'**
+  String get obFirstPhotos;
+
+  /// No description provided for @obFirstTeam.
+  ///
+  /// In en, this message translates to:
+  /// **'Try out for a team'**
+  String get obFirstTeam;
+
+  /// No description provided for @obFirstFeelGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing special, just feel good'**
+  String get obFirstFeelGood;
+
+  /// No description provided for @obBuiltChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Built for you'**
+  String get obBuiltChip;
+
+  /// No description provided for @obBuiltTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan, built around you'**
+  String get obBuiltTitle;
+
+  /// No description provided for @obBuiltReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Your reason'**
+  String get obBuiltReason;
+
+  /// No description provided for @obBuiltGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal'**
+  String get obBuiltGoal;
+
+  /// No description provided for @obBuiltWhen.
+  ///
+  /// In en, this message translates to:
+  /// **'When you get there'**
+  String get obBuiltWhen;
+
+  /// No description provided for @obBuiltBlockers.
+  ///
+  /// In en, this message translates to:
+  /// **'What gets in the way, handled'**
+  String get obBuiltBlockers;
+
+  /// No description provided for @obFixForget.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders at the times you chose'**
+  String get obFixForget;
+
+  /// No description provided for @obFixTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Short sessions, most around 15 minutes'**
+  String get obFixTime;
+
+  /// No description provided for @obFixExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Video-guided moves, step by step'**
+  String get obFixExercises;
+
+  /// No description provided for @obFixMotivation.
+  ///
+  /// In en, this message translates to:
+  /// **'Streaks and levels that keep you going'**
+  String get obFixMotivation;
+
+  /// No description provided for @obFixBedtime.
+  ///
+  /// In en, this message translates to:
+  /// **'A sleep target and a bedtime reminder'**
+  String get obFixBedtime;
+
+  /// No description provided for @obFixMeals.
+  ///
+  /// In en, this message translates to:
+  /// **'A protein target and a meal plan'**
+  String get obFixMeals;
+
+  /// No description provided for @obNotifTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BeTaller reminds you when it matters'**
+  String get obNotifTitle;
+
+  /// No description provided for @obNotifSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set to the times you gave us. You can change them any time.'**
+  String get obNotifSubtitle;
+
+  /// No description provided for @obNotifWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout'**
+  String get obNotifWorkout;
+
+  /// No description provided for @obNotifWorkoutDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'30 min before your {time} session'**
+  String obNotifWorkoutDetail(String time);
+
+  /// No description provided for @obNotifMeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal and protein'**
+  String get obNotifMeal;
+
+  /// No description provided for @obNotifMealDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'At your {time} meal'**
+  String obNotifMealDetail(String time);
+
+  /// No description provided for @obNotifWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Water'**
+  String get obNotifWater;
+
+  /// No description provided for @obNotifWaterDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'A water break in the afternoon'**
+  String get obNotifWaterDetail;
+
+  /// No description provided for @obNotifSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Wind down'**
+  String get obNotifSleep;
+
+  /// No description provided for @obNotifSleepDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'An hour before your {time} bedtime'**
+  String obNotifSleepDetail(String time);
+
+  /// No description provided for @obNotifAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on reminders'**
+  String get obNotifAllow;
+
+  /// No description provided for @obNotifNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get obNotifNotNow;
+
+  /// No description provided for @obNotifNow.
+  ///
+  /// In en, this message translates to:
+  /// **'now'**
+  String get obNotifNow;
 }
 
 class _AppLocalizationsDelegate

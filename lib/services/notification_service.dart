@@ -393,11 +393,18 @@ class NotificationService {
     return prefs.getBool(_prefsKey) ?? false;
   }
 
-  Future<void> setEnabled(bool enabled, AppLocalizations l) async {
+  /// [askPermission] is false when the caller has just asked the system
+  /// itself (the onboarding's reminders page), so the prompt is never shown
+  /// twice in a row.
+  Future<void> setEnabled(
+    bool enabled,
+    AppLocalizations l, {
+    bool askPermission = true,
+  }) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_prefsKey, enabled);
     if (enabled) {
-      await requestPermission();
+      if (askPermission) await requestPermission();
       // the caller re-schedules from the user's reminders
     } else {
       await cancelAll();

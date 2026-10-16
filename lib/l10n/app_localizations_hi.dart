@@ -5923,4 +5923,205 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get tv3Done => 'चलो शुरू करें';
+
+  @override
+  String get obWhyTitle => 'तुम्हें लंबाई क्यों बढ़ानी है?';
+
+  @override
+  String get obWhySubtitle => 'जो भी सही लगे, सब चुनो। प्लान इसी से शुरू होगा।';
+
+  @override
+  String get obWhyConfidence => 'खुद पर ज़्यादा भरोसा';
+
+  @override
+  String get obWhyImpression => 'पहली मुलाकात में बेहतर असर छोड़ना';
+
+  @override
+  String get obWhySports => 'खेल में बेहतर करना';
+
+  @override
+  String get obWhyClothes => 'कपड़े बेहतर फिट हों';
+
+  @override
+  String get obWhyPhotos => 'फ़ोटो में बेहतर दिखना';
+
+  @override
+  String get obWhyPotential => 'बस अपनी पोटेंशियल जानना';
+
+  @override
+  String get obTriedTitle => 'क्या तुमने पहले कोई और हाइट ऐप आज़माया है?';
+
+  @override
+  String get obTriedSubtitle =>
+      'कोई जवाब गलत नहीं है। इससे हम तुम्हें दिखा पाएँगे कि यहाँ क्या अलग है।';
+
+  @override
+  String get obTriedStopped => 'हाँ, पर छोड़ दिया';
+
+  @override
+  String get obTriedStill => 'हाँ, एक अभी भी इस्तेमाल में है';
+
+  @override
+  String get obTriedFirst => 'नहीं, यह मेरा पहला है';
+
+  @override
+  String get obTriedStoppedTitle => 'सिर्फ़ एक नंबर से तुम आगे नहीं बढ़ते';
+
+  @override
+  String get obTriedStoppedBody =>
+      'ज़्यादातर ऐप तुम्हें बस एक नंबर देते हैं। BeTaller उसे रोज़ का प्लान बनाता है जिसे तुम टिक कर सको, और रिमाइंडर तुम्हारे समय पर आते हैं।';
+
+  @override
+  String get obTriedStillTitle => 'जो काम आ रहा है, उसे रखो';
+
+  @override
+  String get obTriedStillBody =>
+      'BeTaller रोज़ का हिस्सा जोड़ता है: तुम्हारे अपने जवाबों से बना प्लान, जिसे तुम एक-एक कदम टिक कर सको।';
+
+  @override
+  String get obTriedFirstTitle => 'शुरुआत के लिए सही जगह';
+
+  @override
+  String get obTriedFirstBody =>
+      'यहाँ तुम्हें सिर्फ़ एक नंबर नहीं मिलेगा। BeTaller तुम्हारे जवाबों को रोज़ के प्लान में बदलता है जिसे तुम टिक कर सको।';
+
+  @override
+  String get obTriedCardTitle => 'हर दिन तुम ये टिक करोगे';
+
+  @override
+  String get obTriedItem1 => 'तुम्हारे हफ़्ते के हिसाब से एक छोटा वर्कआउट';
+
+  @override
+  String get obTriedItem2 => 'तुम्हारा प्रोटीन टारगेट';
+
+  @override
+  String get obTriedItem3 => 'समय पर सोना';
+
+  @override
+  String get obBlockTitle => 'तुम्हें क्या रोकता है?';
+
+  @override
+  String get obBlockSubtitle =>
+      'जो भी सही लगे, सब चुनो। तुम्हारा प्लान इन्हीं के हिसाब से बनेगा।';
+
+  @override
+  String get obBlockForget => 'याद नहीं रहता';
+
+  @override
+  String get obBlockTime => 'समय कम पड़ता है';
+
+  @override
+  String get obBlockExercises => 'पता नहीं कौन-सी एक्सरसाइज़ करूँ';
+
+  @override
+  String get obBlockMotivation => 'मोटिवेशन चला जाता है';
+
+  @override
+  String get obBlockBedtime => 'रात को देर से सोना';
+
+  @override
+  String get obBlockMeals => 'खाना छूट जाता है';
+
+  @override
+  String get obFirstTitle => 'लंबाई बढ़ने पर सबसे पहले क्या करोगे?';
+
+  @override
+  String get obFirstSubtitle => 'सोचकर देखो। यही तुम्हारा लक्ष्य है।';
+
+  @override
+  String get obFirstWardrobe => 'नए कपड़े लेना';
+
+  @override
+  String get obFirstMuscle => 'मसल्स बनाना';
+
+  @override
+  String get obFirstPhotos => 'ज़्यादा फ़ोटो पोस्ट करना';
+
+  @override
+  String get obFirstTeam => 'किसी टीम का ट्रायल देना';
+
+  @override
+  String get obFirstFeelGood => 'कुछ खास नहीं, बस अच्छा महसूस करना';
+
+  @override
+  String get obBuiltChip => 'तुम्हारे लिए बना';
+
+  @override
+  String get obBuiltTitle => 'तुम्हारा प्लान, बिल्कुल तुम्हारे हिसाब से';
+
+  @override
+  String get obBuiltReason => 'तुम्हारी वजह';
+
+  @override
+  String get obBuiltGoal => 'लक्ष्य';
+
+  @override
+  String get obBuiltWhen => 'वहाँ पहुँचकर';
+
+  @override
+  String get obBuiltBlockers => 'तुम्हारी रुकावटें, और उनका हल';
+
+  @override
+  String get obFixForget => 'तुम्हारे चुने समय पर रिमाइंडर';
+
+  @override
+  String get obFixTime => 'छोटे सेशन, ज़्यादातर करीब 15 मिनट के';
+
+  @override
+  String get obFixExercises => 'वीडियो के साथ एक्सरसाइज़, कदम-दर-कदम';
+
+  @override
+  String get obFixMotivation => 'स्ट्रीक और लेवल जो तुम्हें चलते रखें';
+
+  @override
+  String get obFixBedtime => 'नींद का टारगेट और सोने से पहले रिमाइंडर';
+
+  @override
+  String get obFixMeals => 'प्रोटीन टारगेट और मील प्लान';
+
+  @override
+  String get obNotifTitle => 'BeTaller तुम्हें सही समय पर याद दिलाता है';
+
+  @override
+  String get obNotifSubtitle =>
+      'तुम्हारे बताए समय के हिसाब से। इन्हें कभी भी बदल सकते हो।';
+
+  @override
+  String get obNotifWorkout => 'वर्कआउट';
+
+  @override
+  String obNotifWorkoutDetail(String time) {
+    return '$time के वर्कआउट से 30 मिनट पहले';
+  }
+
+  @override
+  String get obNotifMeal => 'खाना और प्रोटीन';
+
+  @override
+  String obNotifMealDetail(String time) {
+    return '$time के खाने के समय';
+  }
+
+  @override
+  String get obNotifWater => 'पानी';
+
+  @override
+  String get obNotifWaterDetail => 'दोपहर में पानी का ब्रेक';
+
+  @override
+  String get obNotifSleep => 'सोने की तैयारी';
+
+  @override
+  String obNotifSleepDetail(String time) {
+    return '$time पर सोने से एक घंटा पहले';
+  }
+
+  @override
+  String get obNotifAllow => 'रिमाइंडर चालू करो';
+
+  @override
+  String get obNotifNotNow => 'अभी नहीं';
+
+  @override
+  String get obNotifNow => 'अभी';
 }
