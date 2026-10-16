@@ -10351,6 +10351,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'One-time payment · no subscription, nothing renews'**
   String get paywallLifetimeDisclaimer;
+
+  /// No description provided for @pwSlidePotentialTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See your potential'**
+  String get pwSlidePotentialTitle;
+
+  /// No description provided for @pwSlidePotentialCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Worked out from your age, your height and your parents\' heights.'**
+  String get pwSlidePotentialCaption;
+
+  /// No description provided for @pwSlideTodayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A plan for every day'**
+  String get pwSlideTodayTitle;
+
+  /// No description provided for @pwSlideTodayCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Short daily workouts with video guides.'**
+  String get pwSlideTodayCaption;
+
+  /// No description provided for @pwSlideProgramTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'70 days, 10 levels'**
+  String get pwSlideProgramTitle;
+
+  /// No description provided for @pwSlideProgramCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Every week the moves get a little harder.'**
+  String get pwSlideProgramCaption;
+
+  /// No description provided for @pwSlideNutritionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Eat for growth'**
+  String get pwSlideNutritionTitle;
+
+  /// No description provided for @pwSlideNutritionCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily protein, calcium and vitamin D targets made for you.'**
+  String get pwSlideNutritionCaption;
+
+  /// No description provided for @pwSlideChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch your curve rise'**
+  String get pwSlideChartTitle;
+
+  /// No description provided for @pwSlideChartCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Every measurement lands on the path to your potential.'**
+  String get pwSlideChartCaption;
+
+  /// No description provided for @pwSlideScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'One score for your habits'**
+  String get pwSlideScoreTitle;
+
+  /// No description provided for @pwSlideScoreCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'See which habit to fix first.'**
+  String get pwSlideScoreCaption;
+
+  /// No description provided for @pwSlidePostureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand taller today'**
+  String get pwSlidePostureTitle;
+
+  /// No description provided for @pwSlidePostureCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'A quick posture check, and the moves that fix it.'**
+  String get pwSlidePostureCaption;
+
+  /// No description provided for @pwExample.
+  ///
+  /// In en, this message translates to:
+  /// **'Example'**
+  String get pwExample;
+
+  /// No description provided for @pwYouLine.
+  ///
+  /// In en, this message translates to:
+  /// **'You: {now} → potential {potential}'**
+  String pwYouLine(String now, String potential);
+
+  /// No description provided for @pwExampleLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: {now} → potential {potential}'**
+  String pwExampleLine(String now, String potential);
 }
 
 class _AppLocalizationsDelegate

@@ -1949,5 +1949,22 @@
   "paywallLifetime": "लाइफ़टाइम",
   "paywallOnce": "{price} एक बार",
   "paywallLifetimeBadge": "कोई सब्सक्रिप्शन नहीं",
-  "paywallLifetimeDisclaimer": "एक बार का भुगतान · कोई सब्सक्रिप्शन नहीं, कुछ भी रिन्यू नहीं होता"
+  "paywallLifetimeDisclaimer": "एक बार का भुगतान · कोई सब्सक्रिप्शन नहीं, कुछ भी रिन्यू नहीं होता",
+  "pwSlidePotentialTitle": "अपनी संभावित हाइट देखो",
+  "pwSlidePotentialCaption": "तुम्हारी उम्र, तुम्हारी हाइट और माता-पिता की हाइट से निकाली गई।",
+  "pwSlideTodayTitle": "हर दिन का प्लान",
+  "pwSlideTodayCaption": "वीडियो गाइड के साथ रोज़ के छोटे वर्कआउट।",
+  "pwSlideProgramTitle": "70 दिन, 10 स्तर",
+  "pwSlideProgramCaption": "हर हफ़्ते एक्सरसाइज़ थोड़ी और मुश्किल होती जाती है।",
+  "pwSlideNutritionTitle": "बढ़ने के लिए खाओ",
+  "pwSlideNutritionCaption": "तुम्हारे लिए रोज़ के प्रोटीन, कैल्शियम और विटामिन D टारगेट।",
+  "pwSlideChartTitle": "अपना ग्राफ़ ऊपर जाते देखो",
+  "pwSlideChartCaption": "हर नाप तुम्हारी संभावित हाइट की राह में जुड़ता है।",
+  "pwSlideScoreTitle": "तुम्हारी आदतों का एक स्कोर",
+  "pwSlideScoreCaption": "देखो पहले कौन-सी आदत सुधारनी है।",
+  "pwSlidePostureTitle": "आज से सीधे खड़े हो",
+  "pwSlidePostureCaption": "पोस्चर की जल्दी जांच, और उसे ठीक करने वाली एक्सरसाइज़।",
+  "pwExample": "उदाहरण",
+  "pwYouLine": "तुम: {now} → संभावित {potential}",
+  "pwExampleLine": "उदाहरण: {now} → संभावित {potential}"
 }

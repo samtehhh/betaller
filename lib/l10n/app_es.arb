@@ -1949,5 +1949,22 @@
   "paywallLifetime": "De por vida",
   "paywallOnce": "{price} un solo pago",
   "paywallLifetimeBadge": "Sin suscripción",
-  "paywallLifetimeDisclaimer": "Pago único · sin suscripción, nada se renueva"
+  "paywallLifetimeDisclaimer": "Pago único · sin suscripción, nada se renueva",
+  "pwSlidePotentialTitle": "Descubre tu potencial",
+  "pwSlidePotentialCaption": "Calculado con tu edad, tu altura y la de tus padres.",
+  "pwSlideTodayTitle": "Un plan para cada día",
+  "pwSlideTodayCaption": "Entrenos cortos cada día, guiados en vídeo.",
+  "pwSlideProgramTitle": "70 días, 10 niveles",
+  "pwSlideProgramCaption": "Cada semana los ejercicios se ponen un poco más difíciles.",
+  "pwSlideNutritionTitle": "Come para crecer",
+  "pwSlideNutritionCaption": "Tus metas diarias de proteína, calcio y vitamina D.",
+  "pwSlideChartTitle": "Mira cómo sube tu curva",
+  "pwSlideChartCaption": "Cada medida se suma al camino hacia tu potencial.",
+  "pwSlideScoreTitle": "Una puntuación para tus hábitos",
+  "pwSlideScoreCaption": "Mira qué hábito mejorar primero.",
+  "pwSlidePostureTitle": "Mejora tu postura hoy",
+  "pwSlidePostureCaption": "Un chequeo rápido de postura y los ejercicios para corregirla.",
+  "pwExample": "Ejemplo",
+  "pwYouLine": "Tú: {now} → potencial {potential}",
+  "pwExampleLine": "Ejemplo: {now} → potencial {potential}"
 }

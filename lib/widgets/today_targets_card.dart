@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../l10n/app_localizations.dart';
+import '../models/user_profile.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/daily_targets.dart';
@@ -23,33 +24,6 @@ class TodayTargetsCard extends StatelessWidget {
     if (profile == null) return const SizedBox.shrink();
     final workout = provider.onboardingAnswers['weeklyWorkout'] as String? ?? '';
     final plan = WeeklyPlan.forAnswers(weeklyWorkout: workout, age: profile.age);
-    final today = plan.today;
-    final t = DailyTargets.forProfile(
-      profile,
-      weeklyWorkout: workout,
-      meals: profile.mealTimes.length,
-      trainingDay: today.kind != PlanDayKind.rest,
-    );
-    final nf = NumberFormat.decimalPattern(
-      Localizations.localeOf(context).languageCode,
-    );
-
-    final tiles = [
-      _Tile(CupertinoIcons.flame_fill, AppColors.orange, '${t.proteinG}', 'g',
-          l.targetProtein,
-          '${profile.mealTimes.length.clamp(2, 6)} × ${t.proteinPerMealG} g'),
-      _Tile(Icons.egg_alt_rounded, Colors.white, nf.format(t.calciumMg), 'mg',
-          l.targetCalcium, ' '),
-      _Tile(CupertinoIcons.sun_max_fill, AppColors.warning,
-          nf.format(t.vitaminDIu), 'IU', l.targetVitaminD, ' '),
-      _Tile(CupertinoIcons.drop_fill, AppColors.cyan,
-          t.waterL.fixedL(1), 'L', l.targetWater, ' '),
-      _Tile(CupertinoIcons.moon_fill, AppColors.sleepColor,
-          t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1), l.unitHours,
-          l.targetSleep, ' '),
-      _Tile(CupertinoIcons.bolt_fill, AppColors.lime, '${today.minutes}',
-          l.unitMinutes, l.targetMove, planKindLabel(l, today.kind)),
-    ];
 
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 18, 16, 16),
@@ -78,22 +52,71 @@ class TodayTargetsCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 14),
-          LayoutBuilder(
-            builder: (context, box) {
-              final w = (box.maxWidth - 16) / 3;
-              return Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
-                  for (final tile in tiles) SizedBox(width: w, child: tile),
-                ],
-              );
-            },
-          ),
+          TodayTargetsGrid(profile: profile, weeklyWorkout: workout),
           const SizedBox(height: 16),
           WeeklyPlanStrip(plan: plan),
         ],
       ),
+    );
+  }
+}
+
+/// The six tiles of [TodayTargetsCard], three to a row: protein, calcium,
+/// vitamin D, water, sleep and today's movement, all worked out from
+/// [profile] and the onboarding's [weeklyWorkout] answer.
+class TodayTargetsGrid extends StatelessWidget {
+  final UserProfile profile;
+  final String weeklyWorkout;
+  const TodayTargetsGrid({
+    super.key,
+    required this.profile,
+    this.weeklyWorkout = '',
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final plan =
+        WeeklyPlan.forAnswers(weeklyWorkout: weeklyWorkout, age: profile.age);
+    final today = plan.today;
+    final t = DailyTargets.forProfile(
+      profile,
+      weeklyWorkout: weeklyWorkout,
+      meals: profile.mealTimes.length,
+      trainingDay: today.kind != PlanDayKind.rest,
+    );
+    final nf = NumberFormat.decimalPattern(
+      Localizations.localeOf(context).languageCode,
+    );
+
+    final tiles = [
+      _Tile(CupertinoIcons.flame_fill, AppColors.orange, '${t.proteinG}', 'g',
+          l.targetProtein,
+          '${profile.mealTimes.length.clamp(2, 6)} × ${t.proteinPerMealG} g'),
+      _Tile(Icons.egg_alt_rounded, Colors.white, nf.format(t.calciumMg), 'mg',
+          l.targetCalcium, ' '),
+      _Tile(CupertinoIcons.sun_max_fill, AppColors.warning,
+          nf.format(t.vitaminDIu), 'IU', l.targetVitaminD, ' '),
+      _Tile(CupertinoIcons.drop_fill, AppColors.cyan,
+          t.waterL.fixedL(1), 'L', l.targetWater, ' '),
+      _Tile(CupertinoIcons.moon_fill, AppColors.sleepColor,
+          t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1), l.unitHours,
+          l.targetSleep, ' '),
+      _Tile(CupertinoIcons.bolt_fill, AppColors.lime, '${today.minutes}',
+          l.unitMinutes, l.targetMove, planKindLabel(l, today.kind)),
+    ];
+
+    return LayoutBuilder(
+      builder: (context, box) {
+        final w = (box.maxWidth - 16) / 3;
+        return Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final tile in tiles) SizedBox(width: w, child: tile),
+          ],
+        );
+      },
     );
   }
 }
@@ -173,13 +196,17 @@ class _Tile extends StatelessWidget {
             ),
           ),
           if (note != null)
-            Text(
-              note!,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 10,
-                color: Colors.white.withValues(alpha: 0.45),
+            // "Sprünge & Sprints" shrinks a little instead of losing its end.
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: AlignmentDirectional.centerStart,
+              child: Text(
+                note!,
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: Colors.white.withValues(alpha: 0.45),
+                ),
               ),
             ),
         ],

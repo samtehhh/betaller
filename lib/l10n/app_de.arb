@@ -1949,5 +1949,22 @@
   "paywallLifetime": "Lebenslang",
   "paywallOnce": "{price} einmalig",
   "paywallLifetimeBadge": "Kein Abo",
-  "paywallLifetimeDisclaimer": "Einmalzahlung · kein Abo, nichts verlängert sich"
+  "paywallLifetimeDisclaimer": "Einmalzahlung · kein Abo, nichts verlängert sich",
+  "pwSlidePotentialTitle": "Sieh dein Potenzial",
+  "pwSlidePotentialCaption": "Berechnet aus deinem Alter, deiner Größe und der deiner Eltern.",
+  "pwSlideTodayTitle": "Ein Plan für jeden Tag",
+  "pwSlideTodayCaption": "Kurze tägliche Workouts mit Videoanleitungen.",
+  "pwSlideProgramTitle": "70 Tage, 10 Level",
+  "pwSlideProgramCaption": "Jede Woche werden die Übungen etwas härter.",
+  "pwSlideNutritionTitle": "Iss fürs Wachstum",
+  "pwSlideNutritionCaption": "Tägliche Ziele für Protein, Kalzium und Vitamin D, nur für dich.",
+  "pwSlideChartTitle": "Sieh deine Kurve steigen",
+  "pwSlideChartCaption": "Jede Messung landet auf deinem Weg zum Potenzial.",
+  "pwSlideScoreTitle": "Ein Score für deine Gewohnheiten",
+  "pwSlideScoreCaption": "Sieh, welche Gewohnheit du zuerst verbessern solltest.",
+  "pwSlidePostureTitle": "Steh heute aufrechter",
+  "pwSlidePostureCaption": "Ein kurzer Haltungscheck und die Übungen, die sie verbessern.",
+  "pwExample": "Beispiel",
+  "pwYouLine": "Du: {now} → Potenzial {potential}",
+  "pwExampleLine": "Beispiel: {now} → Potenzial {potential}"
 }

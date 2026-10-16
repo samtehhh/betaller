@@ -5896,4 +5896,65 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get paywallLifetimeDisclaimer =>
       'Pagamento único · sem assinatura, nada é renovado';
+
+  @override
+  String get pwSlidePotentialTitle => 'Descubra seu potencial';
+
+  @override
+  String get pwSlidePotentialCaption =>
+      'Calculado pela sua idade, sua altura e a altura dos seus pais.';
+
+  @override
+  String get pwSlideTodayTitle => 'Um plano para cada dia';
+
+  @override
+  String get pwSlideTodayCaption =>
+      'Treinos curtos todo dia, com guias em vídeo.';
+
+  @override
+  String get pwSlideProgramTitle => '70 dias, 10 níveis';
+
+  @override
+  String get pwSlideProgramCaption =>
+      'A cada semana os exercícios ficam um pouco mais difíceis.';
+
+  @override
+  String get pwSlideNutritionTitle => 'Coma para crescer';
+
+  @override
+  String get pwSlideNutritionCaption =>
+      'Suas metas diárias de proteína, cálcio e vitamina D.';
+
+  @override
+  String get pwSlideChartTitle => 'Veja sua curva subir';
+
+  @override
+  String get pwSlideChartCaption =>
+      'Cada medida entra no caminho até o seu potencial.';
+
+  @override
+  String get pwSlideScoreTitle => 'Uma nota para seus hábitos';
+
+  @override
+  String get pwSlideScoreCaption => 'Veja qual hábito melhorar primeiro.';
+
+  @override
+  String get pwSlidePostureTitle => 'Endireite a postura hoje';
+
+  @override
+  String get pwSlidePostureCaption =>
+      'Uma checagem rápida da postura e os exercícios para corrigi-la.';
+
+  @override
+  String get pwExample => 'Exemplo';
+
+  @override
+  String pwYouLine(String now, String potential) {
+    return 'Você: $now → potencial $potential';
+  }
+
+  @override
+  String pwExampleLine(String now, String potential) {
+    return 'Exemplo: $now → potencial $potential';
+  }
 }

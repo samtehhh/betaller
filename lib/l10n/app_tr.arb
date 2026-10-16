@@ -1800,5 +1800,22 @@
   "paywallLifetime": "Ömür boyu",
   "paywallOnce": "{price} tek seferlik",
   "paywallLifetimeBadge": "Abonelik yok",
-  "paywallLifetimeDisclaimer": "Tek seferlik ödeme · abonelik yok, yenilenmez"
+  "paywallLifetimeDisclaimer": "Tek seferlik ödeme · abonelik yok, yenilenmez",
+  "pwSlidePotentialTitle": "Potansiyelini gör",
+  "pwSlidePotentialCaption": "Yaşından, boyundan ve anne babanın boyundan hesaplanır.",
+  "pwSlideTodayTitle": "Her gün için bir plan",
+  "pwSlideTodayCaption": "Video rehberli kısa günlük antrenmanlar.",
+  "pwSlideProgramTitle": "70 gün, 10 seviye",
+  "pwSlideProgramCaption": "Hareketler her hafta biraz daha zorlaşır.",
+  "pwSlideNutritionTitle": "Büyümek için beslen",
+  "pwSlideNutritionCaption": "Sana özel günlük protein, kalsiyum ve D vitamini hedefleri.",
+  "pwSlideChartTitle": "Eğrinin yükselişini izle",
+  "pwSlideChartCaption": "Her ölçüm, potansiyeline giden yola eklenir.",
+  "pwSlideScoreTitle": "Alışkanlıkların için tek skor",
+  "pwSlideScoreCaption": "Önce hangi alışkanlığı düzelteceğini gör.",
+  "pwSlidePostureTitle": "Bugün daha dik dur",
+  "pwSlidePostureCaption": "Hızlı bir duruş kontrolü ve onu düzelten hareketler.",
+  "pwExample": "Örnek",
+  "pwYouLine": "Sen: {now} → potansiyel {potential}",
+  "pwExampleLine": "Örnek: {now} → potansiyel {potential}"
 }

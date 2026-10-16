@@ -5801,4 +5801,64 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get paywallLifetimeDisclaimer =>
       'एक बार का भुगतान · कोई सब्सक्रिप्शन नहीं, कुछ भी रिन्यू नहीं होता';
+
+  @override
+  String get pwSlidePotentialTitle => 'अपनी संभावित हाइट देखो';
+
+  @override
+  String get pwSlidePotentialCaption =>
+      'तुम्हारी उम्र, तुम्हारी हाइट और माता-पिता की हाइट से निकाली गई।';
+
+  @override
+  String get pwSlideTodayTitle => 'हर दिन का प्लान';
+
+  @override
+  String get pwSlideTodayCaption => 'वीडियो गाइड के साथ रोज़ के छोटे वर्कआउट।';
+
+  @override
+  String get pwSlideProgramTitle => '70 दिन, 10 स्तर';
+
+  @override
+  String get pwSlideProgramCaption =>
+      'हर हफ़्ते एक्सरसाइज़ थोड़ी और मुश्किल होती जाती है।';
+
+  @override
+  String get pwSlideNutritionTitle => 'बढ़ने के लिए खाओ';
+
+  @override
+  String get pwSlideNutritionCaption =>
+      'तुम्हारे लिए रोज़ के प्रोटीन, कैल्शियम और विटामिन D टारगेट।';
+
+  @override
+  String get pwSlideChartTitle => 'अपना ग्राफ़ ऊपर जाते देखो';
+
+  @override
+  String get pwSlideChartCaption =>
+      'हर नाप तुम्हारी संभावित हाइट की राह में जुड़ता है।';
+
+  @override
+  String get pwSlideScoreTitle => 'तुम्हारी आदतों का एक स्कोर';
+
+  @override
+  String get pwSlideScoreCaption => 'देखो पहले कौन-सी आदत सुधारनी है।';
+
+  @override
+  String get pwSlidePostureTitle => 'आज से सीधे खड़े हो';
+
+  @override
+  String get pwSlidePostureCaption =>
+      'पोस्चर की जल्दी जांच, और उसे ठीक करने वाली एक्सरसाइज़।';
+
+  @override
+  String get pwExample => 'उदाहरण';
+
+  @override
+  String pwYouLine(String now, String potential) {
+    return 'तुम: $now → संभावित $potential';
+  }
+
+  @override
+  String pwExampleLine(String now, String potential) {
+    return 'उदाहरण: $now → संभावित $potential';
+  }
 }

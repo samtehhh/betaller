@@ -1949,5 +1949,22 @@
   "paywallLifetime": "A vita",
   "paywallOnce": "{price} una tantum",
   "paywallLifetimeBadge": "Nessun abbonamento",
-  "paywallLifetimeDisclaimer": "Pagamento unico · nessun abbonamento, nessun rinnovo"
+  "paywallLifetimeDisclaimer": "Pagamento unico · nessun abbonamento, nessun rinnovo",
+  "pwSlidePotentialTitle": "Scopri il tuo potenziale",
+  "pwSlidePotentialCaption": "Calcolato dalla tua età, dalla tua altezza e da quella dei tuoi genitori.",
+  "pwSlideTodayTitle": "Un piano per ogni giorno",
+  "pwSlideTodayCaption": "Brevi allenamenti quotidiani con guide video.",
+  "pwSlideProgramTitle": "70 giorni, 10 livelli",
+  "pwSlideProgramCaption": "Ogni settimana gli esercizi diventano un po' più duri.",
+  "pwSlideNutritionTitle": "Mangia per crescere",
+  "pwSlideNutritionCaption": "I tuoi obiettivi giornalieri di proteine, calcio e vitamina D.",
+  "pwSlideChartTitle": "Guarda salire la tua curva",
+  "pwSlideChartCaption": "Ogni misura si aggiunge al percorso verso il tuo potenziale.",
+  "pwSlideScoreTitle": "Un punteggio per le tue abitudini",
+  "pwSlideScoreCaption": "Scopri quale abitudine migliorare per prima.",
+  "pwSlidePostureTitle": "Raddrizza la schiena da oggi",
+  "pwSlidePostureCaption": "Un rapido check della postura e gli esercizi per correggerla.",
+  "pwExample": "Esempio",
+  "pwYouLine": "Tu: {now} → potenziale {potential}",
+  "pwExampleLine": "Esempio: {now} → potenziale {potential}"
 }

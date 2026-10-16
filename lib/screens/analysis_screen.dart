@@ -21,6 +21,7 @@ import '../widgets/tour_keys.dart';
 import '../widgets/water_sheet.dart';
 import 'leaderboard_screen.dart';
 import 'posture_analysis_screen.dart';
+import '../widgets/score_ring.dart';
 import '../utils/num_format.dart';
 
 /// The Analysis tab: the BeTaller Score and the nine signals behind it, the
@@ -303,56 +304,6 @@ TextStyle _label() => TextStyle(
   color: Colors.white.withValues(alpha: 0.45),
 );
 
-String _tierName(AppLocalizations l, ScoreTier t) => switch (t) {
-  ScoreTier.starting => l.anTierStarting,
-  ScoreTier.building => l.anTierBuilding,
-  ScoreTier.rising => l.anTierRising,
-  ScoreTier.strong => l.anTierStrong,
-  ScoreTier.peak => l.anTierPeak,
-};
-
-Color _tierColor(ScoreTier? t) => switch (t) {
-  null || ScoreTier.starting => const Color(0xFF94A3B8),
-  ScoreTier.building => AppColors.primaryLight,
-  ScoreTier.rising || ScoreTier.strong => AppColors.lime,
-  ScoreTier.peak => AppColors.warning,
-};
-
-Color _factorColor(ScoreFactor f) => switch (f) {
-  ScoreFactor.training => AppColors.primaryLight,
-  ScoreFactor.consistency => AppColors.warning,
-  ScoreFactor.sleep => AppColors.sleepColor,
-  ScoreFactor.hydration => AppColors.cyan,
-  ScoreFactor.nutrition => AppColors.orange,
-  ScoreFactor.posture => AppColors.postureColor,
-  ScoreFactor.measuring => AppColors.primary,
-  ScoreFactor.growth || ScoreFactor.headroom => AppColors.lime,
-};
-
-IconData _factorIcon(ScoreFactor f) => switch (f) {
-  ScoreFactor.training => CupertinoIcons.bolt_fill,
-  ScoreFactor.consistency => CupertinoIcons.flame_fill,
-  ScoreFactor.sleep => CupertinoIcons.moon_fill,
-  ScoreFactor.hydration => CupertinoIcons.drop_fill,
-  ScoreFactor.nutrition => CupertinoIcons.leaf_arrow_circlepath,
-  ScoreFactor.posture => CupertinoIcons.person_fill,
-  ScoreFactor.measuring => CupertinoIcons.resize_v,
-  ScoreFactor.growth => CupertinoIcons.arrow_up_right,
-  ScoreFactor.headroom => CupertinoIcons.arrow_up_to_line,
-};
-
-String _factorName(AppLocalizations l, ScoreFactor f) => switch (f) {
-  ScoreFactor.training => l.anFTraining,
-  ScoreFactor.consistency => l.anFConsistency,
-  ScoreFactor.sleep => l.anFSleep,
-  ScoreFactor.hydration => l.anFHydration,
-  ScoreFactor.nutrition => l.anFNutrition,
-  ScoreFactor.posture => l.anFPosture,
-  ScoreFactor.measuring => l.anFMeasuring,
-  ScoreFactor.growth => l.anFGrowth,
-  ScoreFactor.headroom => l.anFHeadroom,
-};
-
 String _num(num v, [int digits = 1]) {
   final s = v.toStringAsFixed(digits);
   return s.endsWith('.0') ? v.fixedL(0) : v.fixedL(digits);
@@ -461,7 +412,7 @@ class _ScoreHero extends StatelessWidget {
     final provider = context.read<AppProvider>();
     final total = score.total;
     final tier = score.tier;
-    final color = _tierColor(tier);
+    final color = scoreTierColor(tier);
     final win = score.fastestWin;
 
     return Container(
@@ -491,7 +442,7 @@ class _ScoreHero extends StatelessWidget {
                     border: Border.all(color: color.withValues(alpha: 0.4)),
                   ),
                   child: Text(
-                    _tierName(l, tier),
+                    scoreTierName(l, tier),
                     style: TextStyle(
                       fontSize: 12.5,
                       fontWeight: FontWeight.w800,
@@ -511,7 +462,7 @@ class _ScoreHero extends StatelessWidget {
                 width: 188,
                 height: 188,
                 child: CustomPaint(
-                  painter: _ScoreRingPainter(
+                  painter: ScoreRingPainter(
                     progress: total == null ? 0 : total / 100 * t,
                     color: color,
                   ),
@@ -575,7 +526,7 @@ class _ScoreHero extends StatelessWidget {
                   ? l.anTopTier
                   : l.anNextTier(
                       BetallerScore.nextTierAt(total)! - total,
-                      _tierName(
+                      scoreTierName(
                         l,
                         BetallerScore.tierFor(BetallerScore.nextTierAt(total)!),
                       ),
@@ -673,7 +624,7 @@ class _FastestWin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final color = _factorColor(result.factor);
+    final color = scoreFactorColor(result.factor);
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
@@ -686,14 +637,14 @@ class _FastestWin extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(_factorIcon(result.factor), size: 18, color: color),
+            Icon(scoreFactorIcon(result.factor), size: 18, color: color),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${l.anFastestWin} · ${_factorName(l, result.factor)}',
+                    '${l.anFastestWin} · ${scoreFactorName(l, result.factor)}',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -793,7 +744,7 @@ class _FactorTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final color = _factorColor(result.factor);
+    final color = scoreFactorColor(result.factor);
     final muted = !result.counted || !result.hasData;
 
     return Container(
@@ -816,7 +767,7 @@ class _FactorTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(11),
                 ),
                 child: Icon(
-                  _factorIcon(result.factor),
+                  scoreFactorIcon(result.factor),
                   size: 16,
                   color: muted ? color.withValues(alpha: 0.55) : color,
                 ),
@@ -829,7 +780,7 @@ class _FactorTile extends StatelessWidget {
                   runSpacing: 2,
                   children: [
                     Text(
-                      _factorName(l, result.factor),
+                      scoreFactorName(l, result.factor),
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
@@ -1612,64 +1563,4 @@ class _UnlockButton extends StatelessWidget {
       ),
     );
   }
-}
-
-// ── Score ring ───────────────────────────────────────────────────────
-
-class _ScoreRingPainter extends CustomPainter {
-  final double progress;
-  final Color color;
-
-  _ScoreRingPainter({required this.progress, required this.color});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2 - 10;
-    final rect = Rect.fromCircle(center: center, radius: radius);
-
-    canvas.drawCircle(
-      center,
-      radius,
-      Paint()
-        ..color = Colors.white.withValues(alpha: 0.07)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 12,
-    );
-    if (progress <= 0) return;
-
-    final sweep = 2 * math.pi * progress;
-    // The one glow on the screen: under the arc.
-    canvas.drawArc(
-      rect,
-      -math.pi / 2,
-      sweep,
-      false,
-      Paint()
-        ..color = color.withValues(alpha: 0.35)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 12
-        ..strokeCap = StrokeCap.round
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10),
-    );
-    canvas.drawArc(
-      rect,
-      -math.pi / 2,
-      sweep,
-      false,
-      Paint()
-        ..shader = SweepGradient(
-          endAngle: 2 * math.pi * progress.clamp(0.01, 1.0),
-          colors: [color.withValues(alpha: 0.55), color],
-          transform: const GradientRotation(-math.pi / 2),
-        ).createShader(rect)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 12
-        ..strokeCap = StrokeCap.round,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant _ScoreRingPainter old) =>
-      old.progress != progress || old.color != color;
 }

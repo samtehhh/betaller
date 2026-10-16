@@ -5817,4 +5817,64 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get paywallLifetimeDisclaimer =>
       'Tek seferlik ödeme · abonelik yok, yenilenmez';
+
+  @override
+  String get pwSlidePotentialTitle => 'Potansiyelini gör';
+
+  @override
+  String get pwSlidePotentialCaption =>
+      'Yaşından, boyundan ve anne babanın boyundan hesaplanır.';
+
+  @override
+  String get pwSlideTodayTitle => 'Her gün için bir plan';
+
+  @override
+  String get pwSlideTodayCaption => 'Video rehberli kısa günlük antrenmanlar.';
+
+  @override
+  String get pwSlideProgramTitle => '70 gün, 10 seviye';
+
+  @override
+  String get pwSlideProgramCaption =>
+      'Hareketler her hafta biraz daha zorlaşır.';
+
+  @override
+  String get pwSlideNutritionTitle => 'Büyümek için beslen';
+
+  @override
+  String get pwSlideNutritionCaption =>
+      'Sana özel günlük protein, kalsiyum ve D vitamini hedefleri.';
+
+  @override
+  String get pwSlideChartTitle => 'Eğrinin yükselişini izle';
+
+  @override
+  String get pwSlideChartCaption =>
+      'Her ölçüm, potansiyeline giden yola eklenir.';
+
+  @override
+  String get pwSlideScoreTitle => 'Alışkanlıkların için tek skor';
+
+  @override
+  String get pwSlideScoreCaption => 'Önce hangi alışkanlığı düzelteceğini gör.';
+
+  @override
+  String get pwSlidePostureTitle => 'Bugün daha dik dur';
+
+  @override
+  String get pwSlidePostureCaption =>
+      'Hızlı bir duruş kontrolü ve onu düzelten hareketler.';
+
+  @override
+  String get pwExample => 'Örnek';
+
+  @override
+  String pwYouLine(String now, String potential) {
+    return 'Sen: $now → potansiyel $potential';
+  }
+
+  @override
+  String pwExampleLine(String now, String potential) {
+    return 'Örnek: $now → potansiyel $potential';
+  }
 }

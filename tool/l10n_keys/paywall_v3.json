@@ -1,0 +1,172 @@
+{
+ "pwSlidePotentialTitle": {
+  "en": "See your potential",
+  "tr": "Potansiyelini gör",
+  "de": "Sieh dein Potenzial",
+  "fr": "Découvre ton potentiel",
+  "es": "Descubre tu potencial",
+  "it": "Scopri il tuo potenziale",
+  "pt": "Descubra seu potencial",
+  "hi": "अपनी संभावित हाइट देखो"
+ },
+ "pwSlidePotentialCaption": {
+  "en": "Worked out from your age, your height and your parents' heights.",
+  "tr": "Yaşından, boyundan ve anne babanın boyundan hesaplanır.",
+  "de": "Berechnet aus deinem Alter, deiner Größe und der deiner Eltern.",
+  "fr": "Calculé à partir de ton âge, de ta taille et de celle de tes parents.",
+  "es": "Calculado con tu edad, tu altura y la de tus padres.",
+  "it": "Calcolato dalla tua età, dalla tua altezza e da quella dei tuoi genitori.",
+  "pt": "Calculado pela sua idade, sua altura e a altura dos seus pais.",
+  "hi": "तुम्हारी उम्र, तुम्हारी हाइट और माता-पिता की हाइट से निकाली गई।"
+ },
+ "pwSlideTodayTitle": {
+  "en": "A plan for every day",
+  "tr": "Her gün için bir plan",
+  "de": "Ein Plan für jeden Tag",
+  "fr": "Un plan pour chaque jour",
+  "es": "Un plan para cada día",
+  "it": "Un piano per ogni giorno",
+  "pt": "Um plano para cada dia",
+  "hi": "हर दिन का प्लान"
+ },
+ "pwSlideTodayCaption": {
+  "en": "Short daily workouts with video guides.",
+  "tr": "Video rehberli kısa günlük antrenmanlar.",
+  "de": "Kurze tägliche Workouts mit Videoanleitungen.",
+  "fr": "De courtes séances chaque jour, guidées en vidéo.",
+  "es": "Entrenos cortos cada día, guiados en vídeo.",
+  "it": "Brevi allenamenti quotidiani con guide video.",
+  "pt": "Treinos curtos todo dia, com guias em vídeo.",
+  "hi": "वीडियो गाइड के साथ रोज़ के छोटे वर्कआउट।"
+ },
+ "pwSlideProgramTitle": {
+  "en": "70 days, 10 levels",
+  "tr": "70 gün, 10 seviye",
+  "de": "70 Tage, 10 Level",
+  "fr": "70 jours, 10 niveaux",
+  "es": "70 días, 10 niveles",
+  "it": "70 giorni, 10 livelli",
+  "pt": "70 dias, 10 níveis",
+  "hi": "70 दिन, 10 स्तर"
+ },
+ "pwSlideProgramCaption": {
+  "en": "Every week the moves get a little harder.",
+  "tr": "Hareketler her hafta biraz daha zorlaşır.",
+  "de": "Jede Woche werden die Übungen etwas härter.",
+  "fr": "Chaque semaine, les mouvements deviennent un peu plus durs.",
+  "es": "Cada semana los ejercicios se ponen un poco más difíciles.",
+  "it": "Ogni settimana gli esercizi diventano un po' più duri.",
+  "pt": "A cada semana os exercícios ficam um pouco mais difíceis.",
+  "hi": "हर हफ़्ते एक्सरसाइज़ थोड़ी और मुश्किल होती जाती है।"
+ },
+ "pwSlideNutritionTitle": {
+  "en": "Eat for growth",
+  "tr": "Büyümek için beslen",
+  "de": "Iss fürs Wachstum",
+  "fr": "Mange pour grandir",
+  "es": "Come para crecer",
+  "it": "Mangia per crescere",
+  "pt": "Coma para crescer",
+  "hi": "बढ़ने के लिए खाओ"
+ },
+ "pwSlideNutritionCaption": {
+  "en": "Daily protein, calcium and vitamin D targets made for you.",
+  "tr": "Sana özel günlük protein, kalsiyum ve D vitamini hedefleri.",
+  "de": "Tägliche Ziele für Protein, Kalzium und Vitamin D, nur für dich.",
+  "fr": "Tes objectifs du jour en protéines, calcium et vitamine D.",
+  "es": "Tus metas diarias de proteína, calcio y vitamina D.",
+  "it": "I tuoi obiettivi giornalieri di proteine, calcio e vitamina D.",
+  "pt": "Suas metas diárias de proteína, cálcio e vitamina D.",
+  "hi": "तुम्हारे लिए रोज़ के प्रोटीन, कैल्शियम और विटामिन D टारगेट।"
+ },
+ "pwSlideChartTitle": {
+  "en": "Watch your curve rise",
+  "tr": "Eğrinin yükselişini izle",
+  "de": "Sieh deine Kurve steigen",
+  "fr": "Regarde ta courbe monter",
+  "es": "Mira cómo sube tu curva",
+  "it": "Guarda salire la tua curva",
+  "pt": "Veja sua curva subir",
+  "hi": "अपना ग्राफ़ ऊपर जाते देखो"
+ },
+ "pwSlideChartCaption": {
+  "en": "Every measurement lands on the path to your potential.",
+  "tr": "Her ölçüm, potansiyeline giden yola eklenir.",
+  "de": "Jede Messung landet auf deinem Weg zum Potenzial.",
+  "fr": "Chaque mesure s'ajoute à ton chemin vers ton potentiel.",
+  "es": "Cada medida se suma al camino hacia tu potencial.",
+  "it": "Ogni misura si aggiunge al percorso verso il tuo potenziale.",
+  "pt": "Cada medida entra no caminho até o seu potencial.",
+  "hi": "हर नाप तुम्हारी संभावित हाइट की राह में जुड़ता है।"
+ },
+ "pwSlideScoreTitle": {
+  "en": "One score for your habits",
+  "tr": "Alışkanlıkların için tek skor",
+  "de": "Ein Score für deine Gewohnheiten",
+  "fr": "Un score pour tes habitudes",
+  "es": "Una puntuación para tus hábitos",
+  "it": "Un punteggio per le tue abitudini",
+  "pt": "Uma nota para seus hábitos",
+  "hi": "तुम्हारी आदतों का एक स्कोर"
+ },
+ "pwSlideScoreCaption": {
+  "en": "See which habit to fix first.",
+  "tr": "Önce hangi alışkanlığı düzelteceğini gör.",
+  "de": "Sieh, welche Gewohnheit du zuerst verbessern solltest.",
+  "fr": "Vois quelle habitude améliorer en premier.",
+  "es": "Mira qué hábito mejorar primero.",
+  "it": "Scopri quale abitudine migliorare per prima.",
+  "pt": "Veja qual hábito melhorar primeiro.",
+  "hi": "देखो पहले कौन-सी आदत सुधारनी है।"
+ },
+ "pwSlidePostureTitle": {
+  "en": "Stand taller today",
+  "tr": "Bugün daha dik dur",
+  "de": "Steh heute aufrechter",
+  "fr": "Redresse-toi dès aujourd'hui",
+  "es": "Mejora tu postura hoy",
+  "it": "Raddrizza la schiena da oggi",
+  "pt": "Endireite a postura hoje",
+  "hi": "आज से सीधे खड़े हो"
+ },
+ "pwSlidePostureCaption": {
+  "en": "A quick posture check, and the moves that fix it.",
+  "tr": "Hızlı bir duruş kontrolü ve onu düzelten hareketler.",
+  "de": "Ein kurzer Haltungscheck und die Übungen, die sie verbessern.",
+  "fr": "Un bilan de posture rapide et les mouvements pour la corriger.",
+  "es": "Un chequeo rápido de postura y los ejercicios para corregirla.",
+  "it": "Un rapido check della postura e gli esercizi per correggerla.",
+  "pt": "Uma checagem rápida da postura e os exercícios para corrigi-la.",
+  "hi": "पोस्चर की जल्दी जांच, और उसे ठीक करने वाली एक्सरसाइज़।"
+ },
+ "pwExample": {
+  "en": "Example",
+  "tr": "Örnek",
+  "de": "Beispiel",
+  "fr": "Exemple",
+  "es": "Ejemplo",
+  "it": "Esempio",
+  "pt": "Exemplo",
+  "hi": "उदाहरण"
+ },
+ "pwYouLine": {
+  "en": "You: {now} → potential {potential}",
+  "tr": "Sen: {now} → potansiyel {potential}",
+  "de": "Du: {now} → Potenzial {potential}",
+  "fr": "Toi : {now} → potentiel {potential}",
+  "es": "Tú: {now} → potencial {potential}",
+  "it": "Tu: {now} → potenziale {potential}",
+  "pt": "Você: {now} → potencial {potential}",
+  "hi": "तुम: {now} → संभावित {potential}"
+ },
+ "pwExampleLine": {
+  "en": "Example: {now} → potential {potential}",
+  "tr": "Örnek: {now} → potansiyel {potential}",
+  "de": "Beispiel: {now} → Potenzial {potential}",
+  "fr": "Exemple : {now} → potentiel {potential}",
+  "es": "Ejemplo: {now} → potencial {potential}",
+  "it": "Esempio: {now} → potenziale {potential}",
+  "pt": "Exemplo: {now} → potencial {potential}",
+  "hi": "उदाहरण: {now} → संभावित {potential}"
+ }
+}

@@ -1949,5 +1949,22 @@
   "paywallLifetime": "À vie",
   "paywallOnce": "{price} une seule fois",
   "paywallLifetimeBadge": "Sans abonnement",
-  "paywallLifetimeDisclaimer": "Paiement unique · aucun abonnement, rien ne se renouvelle"
+  "paywallLifetimeDisclaimer": "Paiement unique · aucun abonnement, rien ne se renouvelle",
+  "pwSlidePotentialTitle": "Découvre ton potentiel",
+  "pwSlidePotentialCaption": "Calculé à partir de ton âge, de ta taille et de celle de tes parents.",
+  "pwSlideTodayTitle": "Un plan pour chaque jour",
+  "pwSlideTodayCaption": "De courtes séances chaque jour, guidées en vidéo.",
+  "pwSlideProgramTitle": "70 jours, 10 niveaux",
+  "pwSlideProgramCaption": "Chaque semaine, les mouvements deviennent un peu plus durs.",
+  "pwSlideNutritionTitle": "Mange pour grandir",
+  "pwSlideNutritionCaption": "Tes objectifs du jour en protéines, calcium et vitamine D.",
+  "pwSlideChartTitle": "Regarde ta courbe monter",
+  "pwSlideChartCaption": "Chaque mesure s'ajoute à ton chemin vers ton potentiel.",
+  "pwSlideScoreTitle": "Un score pour tes habitudes",
+  "pwSlideScoreCaption": "Vois quelle habitude améliorer en premier.",
+  "pwSlidePostureTitle": "Redresse-toi dès aujourd'hui",
+  "pwSlidePostureCaption": "Un bilan de posture rapide et les mouvements pour la corriger.",
+  "pwExample": "Exemple",
+  "pwYouLine": "Toi : {now} → potentiel {potential}",
+  "pwExampleLine": "Exemple : {now} → potentiel {potential}"
 }

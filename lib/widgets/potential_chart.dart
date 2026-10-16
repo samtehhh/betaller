@@ -8,6 +8,70 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 
+/// Everything the height chart draws, without the provider: past heights,
+/// measurements, the projected path and the lines it is measured against.
+class PotentialChartData {
+  /// Every known height in date order; the first [pastCount] are the ones
+  /// remembered at onboarding, drawn faded.
+  final List<MapEntry<DateTime, double>> history;
+  final int pastCount;
+
+  /// The path from the last height to [potential], month by month.
+  final List<MapEntry<DateTime, double>> curve;
+  final double potential;
+  final double? dream;
+
+  /// Height formatting for the legend and tooltips ("175,3 cm", 5'9").
+  final String Function(double cm) format;
+
+  /// Axis labels; null shows the bare centimetre value.
+  final String Function(double cm)? axisFormat;
+
+  const PotentialChartData({
+    required this.history,
+    required this.pastCount,
+    required this.curve,
+    required this.potential,
+    required this.format,
+    this.dream,
+    this.axisFormat,
+  });
+
+  /// The user's own chart, or null before there is a profile or a height.
+  static PotentialChartData? fromProvider(AppProvider provider) {
+    final profile = provider.profile;
+    if (profile == null) return null;
+    final birth = DateTime.tryParse(profile.birthDate);
+    final history = <MapEntry<DateTime, double>>[];
+    var pastCount = 0;
+    if (birth != null) {
+      final ages = provider.pastHeights.keys.toList()..sort();
+      for (final age in ages) {
+        history.add(MapEntry(
+          DateTime(birth.year + age, birth.month, birth.day),
+          provider.pastHeights[age]!,
+        ));
+      }
+      pastCount = history.length;
+    }
+    for (final r in provider.heightRecords) {
+      final d = DateTime.tryParse(r.date);
+      if (d != null) history.add(MapEntry(d, r.height));
+    }
+    if (history.isEmpty) return null;
+    history.sort((a, b) => a.key.compareTo(b.key));
+    return PotentialChartData(
+      history: history,
+      pastCount: pastCount,
+      curve: provider.potentialCurve,
+      potential: provider.potentialHeight,
+      dream: provider.dreamHeight,
+      format: provider.formatHeight,
+      axisFormat: provider.useImperial ? provider.formatHeight : null,
+    );
+  }
+}
+
 /// The height chart with a future: past heights from the onboarding, every
 /// measurement, and a shaded band rising from today's height to the user's
 /// potential. Works from the first measurement — a single point plus the
@@ -26,38 +90,40 @@ class PotentialChart extends StatelessWidget {
     this.height = 210,
   });
 
+  @override
+  Widget build(BuildContext context) {
+    final data = PotentialChartData.fromProvider(provider);
+    if (data == null) return const SizedBox.shrink();
+    return PotentialChartView(data: data, reveal: reveal, height: height);
+  }
+}
+
+/// [PotentialChart] drawn from plain data, for places that show a chart that
+/// is not (or not yet) the user's own.
+class PotentialChartView extends StatelessWidget {
+  final PotentialChartData data;
+  final double reveal;
+  final double height;
+
+  const PotentialChartView({
+    super.key,
+    required this.data,
+    this.reveal = 1,
+    this.height = 210,
+  });
+
   static const _measured = Color(0xFFB57BFF);
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final locale = Localizations.localeOf(context).languageCode;
-    final profile = provider.profile;
-    if (profile == null) return const SizedBox.shrink();
-
-    final birth = DateTime.tryParse(profile.birthDate);
-    final history = <MapEntry<DateTime, double>>[];
-    var pastCount = 0;
-    if (birth != null) {
-      final ages = provider.pastHeights.keys.toList()..sort();
-      for (final age in ages) {
-        history.add(MapEntry(
-          DateTime(birth.year + age, birth.month, birth.day),
-          provider.pastHeights[age]!,
-        ));
-      }
-      pastCount = history.length;
-    }
-    for (final r in provider.heightRecords) {
-      final d = DateTime.tryParse(r.date);
-      if (d != null) history.add(MapEntry(d, r.height));
-    }
+    final history = data.history;
     if (history.isEmpty) return const SizedBox.shrink();
-    history.sort((a, b) => a.key.compareTo(b.key));
-
-    final curve = provider.potentialCurve;
-    final potential = provider.potentialHeight;
-    final dream = provider.dreamHeight;
+    final pastCount = data.pastCount;
+    final curve = data.curve;
+    final potential = data.potential;
+    final dream = data.dream;
     final origin = history.first.key;
     double xOf(DateTime d) => d.difference(origin).inDays / 30.44;
 
@@ -124,8 +190,8 @@ class PotentialChart extends StatelessWidget {
                     getTitlesWidget: (v, meta) => v == meta.min || v == meta.max
                         ? const SizedBox.shrink()
                         : Text(
-                            provider.useImperial
-                                ? provider.formatHeight(v)
+                            data.axisFormat != null
+                                ? data.axisFormat!(v)
                                 : v.toStringAsFixed(0),
                             style: TextStyle(
                               fontSize: 10,
@@ -258,7 +324,7 @@ class PotentialChart extends StatelessWidget {
                     final d = origin.add(Duration(days: (s.x * 30.44).round()));
                     return LineTooltipItem(
                       '${DateFormat('MMM yyyy', locale).format(d)}\n'
-                      '${provider.formatHeight(s.y)}',
+                      '${data.format(s.y)}',
                       TextStyle(
                         color: s.barIndex == 1 ? AppColors.lime : Colors.white,
                         fontWeight: FontWeight.w800,
@@ -281,13 +347,13 @@ class PotentialChart extends StatelessWidget {
             _Legend(
               color: AppColors.lime,
               dashed: true,
-              label: l.chartPotential(provider.formatHeight(potential)),
+              label: l.chartPotential(data.format(potential)),
             ),
             if (dream != null)
               _Legend(
                 color: AppColors.warning,
                 dashed: true,
-                label: l.chartDream(provider.formatHeight(dream)),
+                label: l.chartDream(data.format(dream)),
               ),
           ],
         ),
