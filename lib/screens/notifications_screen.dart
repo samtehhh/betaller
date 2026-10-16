@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../models/reminder.dart';
 import '../providers/app_provider.dart';
+import '../utils/haptics.dart';
 import '../services/notification_service.dart';
 import '../utils/constants.dart';
 import '../widgets/premium_paywall.dart';
@@ -360,6 +361,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   // ── Editing ───────────────────────────────────────────────────────────
   Future<void> _addReminder() async {
+    // Adding reminders of your own is Pro: say so before the editor, not
+    // after the user has filled it in.
+    if (!context.read<AppProvider>().isPremium) {
+      Haptics.tap();
+      await showPremiumPaywall(context);
+      if (!mounted || !context.read<AppProvider>().isPremium) return;
+    }
     final result = await showModalBottomSheet<Reminder>(
       context: context,
       backgroundColor: Colors.transparent,
@@ -375,10 +383,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       ),
     );
     if (result == null || !mounted) return;
-    if (!context.read<AppProvider>().isPremium) {
-      showPremiumPaywall(context);
-      return;
-    }
     context.read<AppProvider>().addReminder(result);
     await _reschedule();
   }

@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../utils/constants.dart';
 import '../utils/daily_targets.dart';
+import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
 import '../utils/meal_plan.dart';
 import 'exercise_media.dart';
+import 'free_tier_widgets.dart';
 import 'premium_paywall.dart';
 import '../utils/text_case.dart';
 
@@ -392,24 +394,48 @@ class LockedPreview extends StatelessWidget {
   final Widget child;
   final String title;
   final String? body;
+
+  /// The free-tier feature behind the lock, so the paywall can say why.
+  final FreeFeature? feature;
   const LockedPreview({
     super.key,
     required this.child,
     required this.title,
     this.body,
+    this.feature,
   });
+
+  void _unlock(BuildContext context) {
+    Haptics.tap();
+    final f = feature;
+    if (f != null) {
+      showPaywallFor(context, f);
+    } else {
+      showPremiumPaywall(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
+    // A tap anywhere on the blurred preview opens the paywall, not only the
+    // button: people tap the thing they want.
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => _unlock(context),
+      child: ClipRRect(
       borderRadius: BorderRadius.circular(24),
       child: Stack(
         children: [
-          IgnorePointer(
-            child: ExcludeSemantics(
-              child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                child: child,
+          // Tall enough for the lock, the line and the button even over a
+          // short strip such as the level week.
+          ConstrainedBox(
+            constraints: BoxConstraints(minHeight: body == null ? 150 : 200),
+            child: IgnorePointer(
+              child: ExcludeSemantics(
+                child: ImageFiltered(
+                  imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                  child: child,
+                ),
               ),
             ),
           ),
@@ -430,8 +456,14 @@ class LockedPreview extends StatelessWidget {
           Positioned.fill(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.sizeOf(context).width - 72,
+                    ),
+                    child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
@@ -467,17 +499,17 @@ class LockedPreview extends StatelessWidget {
                       label: title,
                       color: AppColors.warning,
                       icon: CupertinoIcons.lock_open_fill,
-                      onTap: () {
-                        Haptics.tap();
-                        showPremiumPaywall(context);
-                      },
+                      onTap: () => _unlock(context),
                     ),
                   ],
+                ),
+                  ),
                 ),
               ),
             ),
           ),
         ],
+      ),
       ),
     );
   }

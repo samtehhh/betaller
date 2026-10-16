@@ -449,13 +449,6 @@ class _TodayTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        if (ticksLocked) ...[
-          FreeLockBanner(
-            feature: FreeFeature.planTicks,
-            body: l.ftPlanLocked,
-          ),
-          const SizedBox(height: 16),
-        ],
         PlanSectionLabel(
           icon: planKindIcon(day.kind),
           title: '${l.plTraining} · ${planKindLabel(l, day.kind)}',
@@ -467,7 +460,12 @@ class _TodayTab extends StatelessWidget {
         const SizedBox(height: 10),
         Column(
           children: [
-            PlanCard(
+            _lockedIf(
+              ticksLocked,
+              title: l.ftContinuePro,
+              body: l.ftPlanLocked,
+              feature: FreeFeature.planTicks,
+              child: PlanCard(
               padding: const EdgeInsets.fromLTRB(6, 8, 14, 8),
               child: Column(
                 children: [
@@ -486,6 +484,7 @@ class _TodayTab extends StatelessWidget {
                 ],
               ),
             ),
+            ),
             const SizedBox(height: 20),
             PlanSectionLabel(
               icon: CupertinoIcons.heart_fill,
@@ -497,7 +496,12 @@ class _TodayTab extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            PlanCard(
+            _lockedIf(
+              ticksLocked,
+              title: l.ftContinuePro,
+              body: l.ftPlanLocked,
+              feature: FreeFeature.planTicks,
+              child: PlanCard(
               padding: const EdgeInsets.fromLTRB(6, 8, 14, 8),
               child: Column(
                 children: [
@@ -516,6 +520,7 @@ class _TodayTab extends StatelessWidget {
                     ),
                 ],
               ),
+            ),
             ),
           ],
         ),
@@ -1093,11 +1098,16 @@ class _ProgramTab extends StatelessWidget {
           color: kProgramLevelMeta[level].$2,
         ),
         const SizedBox(height: 10),
-        _LevelWeek(
-          plan: plan,
-          level: level,
-          current: current,
-          completed: completed,
+        _lockedIf(
+          !provider.isPremium,
+          title: l.ftContinuePro,
+          feature: FreeFeature.program,
+          child: _LevelWeek(
+            plan: plan,
+            level: level,
+            current: current,
+            completed: completed,
+          ),
         ),
         const SizedBox(height: 20),
         PlanSectionLabel(
@@ -1444,7 +1454,11 @@ class _ProgramDayCard extends StatelessWidget {
                           icon: CupertinoIcons.checkmark_seal_fill,
                           color: AppColors.success,
                           outlined: !canComplete,
-                          onTap: canComplete ? complete : null,
+                          onTap: ticksLocked
+                              ? () => guardFree(context, FreeFeature.program)
+                              : canComplete
+                              ? complete
+                              : null,
                         ),
                       ),
                       if (ticksLocked) ...[
@@ -1779,9 +1793,9 @@ class _NutritionTab extends StatelessWidget {
         ],
         DayTotalCard(menu: menu, targets: t),
         const SizedBox(height: 20),
-        // The weekly menu is Premium only: free users see today's meals
-        // above and nothing of the rest of the week.
-        if (provider.isPremium) ...[
+        // The weekly menu: Premium sees the week, free users a blurred
+        // preview of it with the way to Pro.
+        ...[
           PlanSectionLabel(
             icon: CupertinoIcons.calendar,
             title: l.plWeeklyMenu,
@@ -1799,7 +1813,14 @@ class _NutritionTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          WeekMenuView(week: week),
+          if (provider.isPremium)
+            WeekMenuView(week: week)
+          else
+            LockedPreview(
+              title: l.plUnlockMenu,
+              feature: FreeFeature.nutrition,
+              child: WeekMenuView(week: week.take(3).toList()),
+            ),
           const SizedBox(height: 20),
         ],
         _LinkTile(
@@ -2049,3 +2070,20 @@ bool completeProgramDay(BuildContext context, AppProvider provider) {
   );
   return true;
 }
+
+/// [child] as is, or behind a blurred [LockedPreview] when [locked].
+Widget _lockedIf(
+  bool locked, {
+  required Widget child,
+  required String title,
+  String? body,
+  FreeFeature? feature,
+}) =>
+    locked
+        ? LockedPreview(
+            title: title,
+            body: body,
+            feature: feature,
+            child: child,
+          )
+        : child;

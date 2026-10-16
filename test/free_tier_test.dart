@@ -349,7 +349,10 @@ void main() {
       expect(find.byType(FreeLimitSheet), findsOneWidget);
       expect(find.text(l.ftOutWorkoutTitle), findsOneWidget);
       expect(p.freeOutNoticed(FreeFeature.workout), isTrue);
-      await t.tap(find.text(l.ftContinuePro));
+      await t.tap(find.descendant(
+        of: find.byType(FreeLimitSheet),
+        matching: find.text(l.ftContinuePro),
+      ));
       await settle(t);
       expect(find.byType(PremiumPaywallScreen), findsOneWidget);
       expect(find.text(l.ftWhyWorkout), findsOneWidget);
