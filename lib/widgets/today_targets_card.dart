@@ -7,6 +7,7 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/daily_targets.dart';
 import '../utils/localized_data.dart';
+import '../utils/num_format.dart';
 
 /// "Today, for you": the day's concrete numbers (protein in grams, calcium,
 /// vitamin D, water, sleep, movement) and what today's training is. Every
@@ -42,9 +43,9 @@ class TodayTargetsCard extends StatelessWidget {
       _Tile(CupertinoIcons.sun_max_fill, AppColors.warning,
           nf.format(t.vitaminDIu), 'IU', l.targetVitaminD, ' '),
       _Tile(CupertinoIcons.drop_fill, AppColors.cyan,
-          t.waterL.toStringAsFixed(1), 'L', l.targetWater, ' '),
+          t.waterL.fixedL(1), 'L', l.targetWater, ' '),
       _Tile(CupertinoIcons.moon_fill, AppColors.sleepColor,
-          t.sleepH.toStringAsFixed(t.sleepH % 1 == 0 ? 0 : 1), l.unitHours,
+          t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1), l.unitHours,
           l.targetSleep, ' '),
       _Tile(CupertinoIcons.bolt_fill, AppColors.lime, '${today.minutes}',
           l.unitMinutes, l.targetMove, planKindLabel(l, today.kind)),

@@ -15,6 +15,7 @@ import '../utils/haptics.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/progress_locked_preview.dart';
 import '../utils/text_case.dart';
+import '../utils/num_format.dart';
 
 /// How often the app suggests a new photo. Two weeks is long enough for a
 /// visible change in posture and short enough to keep the habit.
@@ -423,7 +424,7 @@ String _longDate(BuildContext context, DateTime? d) {
 /// The height number alone, in the user's unit, with a sign.
 String _signedNumber(AppProvider p, double deltaCm) {
   final v = p.heightNumber(deltaCm);
-  final s = v.toStringAsFixed(1);
+  final s = v.fixedL(1);
   return v > 0.04 ? '+$s' : s;
 }
 

@@ -11,6 +11,7 @@ import '../models/reminder.dart';
 import '../models/user_profile.dart';
 import '../utils/daily_targets.dart';
 import '../utils/localized_data.dart';
+import '../utils/num_format.dart';
 
 /// What the reminders can say about this particular user. Built by the
 /// caller from the provider, so the copy carries real numbers ("81 g of
@@ -219,13 +220,13 @@ class NotificationService {
         );
       case 'water':
         return (
-          l.nWaterTitle(t.waterL.toStringAsFixed(1)),
+          l.nWaterTitle(t.waterL.fixedL(1)),
           l.nWaterBody,
         );
       default: // sleep
         return (
           l.nSleepTitle,
-          l.nSleepBody(t.sleepH.toStringAsFixed(t.sleepH % 1 == 0 ? 0 : 1)),
+          l.nSleepBody(t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1)),
         );
     }
   }

@@ -26,6 +26,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart' show Intl;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -757,6 +758,8 @@ void main() {
               const FakeAccessibilityFeatures(disableAnimations: true);
 
           final p = (await t.runAsync(() => _seed(lang)))!;
+          // The app's MaterialApp builder does this; this harness has its own.
+          Intl.defaultLocale = lang;
           imageCache.maximumSizeBytes = 1 << 30;
 
           Future<void> build() async {

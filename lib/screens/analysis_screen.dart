@@ -21,6 +21,7 @@ import '../widgets/tour_keys.dart';
 import '../widgets/water_sheet.dart';
 import 'leaderboard_screen.dart';
 import 'posture_analysis_screen.dart';
+import '../utils/num_format.dart';
 
 /// The Analysis tab: the BeTaller Score and the nine signals behind it, the
 /// one potential the whole app shows, height for age, and the day's targets.
@@ -354,7 +355,7 @@ String _factorName(AppLocalizations l, ScoreFactor f) => switch (f) {
 
 String _num(num v, [int digits = 1]) {
   final s = v.toStringAsFixed(digits);
-  return s.endsWith('.0') ? s.substring(0, s.length - 2) : s;
+  return s.endsWith('.0') ? v.fixedL(0) : v.fixedL(digits);
 }
 
 /// What a signal is based on, in words.
@@ -1064,7 +1065,7 @@ class _HeightNumber extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.baseline,
         textBaseline: TextBaseline.alphabetic,
         children: [
-          Text(cm.toStringAsFixed(1), style: big),
+          Text(cm.fixedL(1), style: big),
           const SizedBox(width: 4),
           Text(
             'cm',
@@ -1295,7 +1296,7 @@ class _PercentileCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    '${l.bmi} ${bmi.toStringAsFixed(1)} · ${localizedBmiCategory(l, Calculations.bmiCategory(bmi))}',
+                    '${l.bmi} ${bmi.fixedL(1)} · ${localizedBmiCategory(l, Calculations.bmiCategory(bmi))}',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

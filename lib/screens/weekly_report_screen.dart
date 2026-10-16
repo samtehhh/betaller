@@ -14,6 +14,7 @@ import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
 import '../widgets/discipline_widgets.dart';
 import '../utils/text_case.dart';
+import '../utils/num_format.dart';
 
 /// The week as a recap: every day scored against the plan that day asked for,
 /// the goals from the Discipline tab, the height against the potential, and
@@ -136,7 +137,7 @@ class WeeklyReportScreen extends StatelessWidget {
                               child: _HabitTile(
                                 icon: CupertinoIcons.drop_fill,
                                 color: AppColors.cyan,
-                                value: provider.todayWater.toStringAsFixed(1),
+                                value: provider.todayWater.fixedL(1),
                                 unit: 'L',
                                 label: l.waterToday2,
                               ),
@@ -149,7 +150,7 @@ class WeeklyReportScreen extends StatelessWidget {
                               child: _HabitTile(
                                 icon: CupertinoIcons.moon_fill,
                                 color: AppColors.sleepColor,
-                                value: provider.todaySleep.toStringAsFixed(1),
+                                value: provider.todaySleep.fixedL(1),
                                 unit: l.hoursShort,
                                 label: l.sleepToday,
                               ),
@@ -929,7 +930,7 @@ class _HeightCard extends StatelessWidget {
         : ((latest - start) / span).clamp(0.0, 1.0);
 
     final unit = provider.heightUnit;
-    String num1(double cm) => provider.heightNumber(cm).toStringAsFixed(1);
+    String num1(double cm) => provider.heightNumber(cm).fixedL(1);
 
     return _Box(
       child: Column(

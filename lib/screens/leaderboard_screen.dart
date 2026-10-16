@@ -9,6 +9,7 @@ import '../utils/constants.dart';
 import '../widgets/height_bell_curve.dart';
 import '../utils/height_reference.dart';
 import '../utils/text_case.dart';
+import '../utils/num_format.dart';
 
 // ─────────────────────────────────────────────────────────────────
 //  Leaderboard Screen — Real WHO/NCD-RisC Height Analysis
@@ -189,7 +190,7 @@ class _HeroPercentileCard extends StatelessWidget {
     final diff = heightCm - mean;
     final isAbove = diff >= 0;
     final diffStr =
-        '${isAbove ? '+' : '-'}${provider.heightNumber(diff.abs()).toStringAsFixed(1)} ${provider.heightUnit}';
+        '${isAbove ? '+' : '-'}${provider.heightNumber(diff.abs()).fixedL(1)} ${provider.heightUnit}';
 
     Color accent;
     String standing;
@@ -261,7 +262,7 @@ class _HeroPercentileCard extends StatelessWidget {
                             textBaseline: TextBaseline.alphabetic,
                             children: [
                               Text(
-                                heightCm.toStringAsFixed(1),
+                                heightCm.fixedL(1),
                                 style: const TextStyle(
                                   fontSize: 40,
                                   fontWeight: FontWeight.w900,

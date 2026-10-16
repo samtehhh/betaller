@@ -21,6 +21,7 @@ import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/water_sheet.dart';
 import '../utils/text_case.dart';
+import '../utils/num_format.dart';
 
 // ── Design Tokens (reference AppColors for consistency) ───────────
 const double _radiusXL = 30.0;
@@ -289,8 +290,8 @@ class _HomeScreenState extends State<HomeScreen>
                             child: _TrackCard(
                               icon: CupertinoIcons.drop_fill,
                               label: l.water,
-                              value: provider.todayWater.toStringAsFixed(1),
-                              target: waterNeed.toStringAsFixed(1),
+                              value: provider.todayWater.fixedL(1),
+                              target: waterNeed.fixedL(1),
                               unit: 'L',
                               color: AppColors.water,
                               progress: (provider.todayWater / waterNeed).clamp(
@@ -311,8 +312,8 @@ class _HomeScreenState extends State<HomeScreen>
                             child: _TrackCard(
                               icon: CupertinoIcons.moon_fill,
                               label: l.sleepLabel,
-                              value: provider.todaySleep.toStringAsFixed(1),
-                              target: sleepNeed.toStringAsFixed(1),
+                              value: provider.todaySleep.fixedL(1),
+                              target: sleepNeed.fixedL(1),
                               unit: l.hoursShort,
                               color: AppColors.sleep,
                               progress: (provider.todaySleep / sleepNeed).clamp(
@@ -468,7 +469,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               const SizedBox(height: 6),
               Text(
-                l.sleepTarget(sleepNeed.toStringAsFixed(1)),
+                l.sleepTarget(sleepNeed.fixedL(1)),
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.white.withValues(alpha: 0.45),
@@ -476,7 +477,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               const SizedBox(height: 20),
               Text(
-                selectedHours.toStringAsFixed(1),
+                selectedHours.fixedL(1),
                 style: TextStyle(
                   fontSize: 56,
                   fontWeight: FontWeight.w900,
@@ -955,7 +956,7 @@ class _TodayMissionCard extends StatelessWidget {
                         iconColor: AppColors.water,
                         label: l.water,
                         value:
-                            '${waterCurrent.toStringAsFixed(1)}/${waterTarget.toStringAsFixed(1)}L',
+                            '${waterCurrent.fixedL(1)}/${waterTarget.fixedL(1)}L',
                         progress: waterRatio * animValue,
                         done: waterRatio >= 1,
                       ),
@@ -2009,7 +2010,7 @@ class _GrowthStatsCard extends StatelessWidget {
               _GrowthStat(
                 label: l.total,
                 value:
-                    '${totalGrowth > 0 ? '+' : ''}${provider.heightNumber(totalGrowth).toStringAsFixed(1)}',
+                    '${totalGrowth > 0 ? '+' : ''}${provider.heightNumber(totalGrowth).fixedL(1)}',
                 unit: provider.heightUnit,
                 color: totalGrowth > 0 ? AppColors.success : AppColors.error,
               ),
@@ -2021,7 +2022,7 @@ class _GrowthStatsCard extends StatelessWidget {
               _GrowthStat(
                 label: l.last,
                 value:
-                    '${lastGrowth > 0 ? '+' : ''}${provider.heightNumber(lastGrowth).toStringAsFixed(1)}',
+                    '${lastGrowth > 0 ? '+' : ''}${provider.heightNumber(lastGrowth).fixedL(1)}',
                 unit: provider.heightUnit,
                 color: lastGrowth > 0
                     ? AppColors.success

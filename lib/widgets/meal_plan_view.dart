@@ -8,6 +8,7 @@ import '../utils/daily_targets.dart';
 import '../utils/meal_plan.dart';
 import 'plan_widgets.dart';
 import '../utils/text_case.dart';
+import '../utils/num_format.dart';
 
 String _fmt(BuildContext context, num v) => NumberFormat.decimalPattern(
   Localizations.localeOf(context).languageCode,
@@ -46,7 +47,7 @@ class NutritionTargetsHeader extends StatelessWidget {
       (
         CupertinoIcons.drop_fill,
         AppColors.cyan,
-        t.waterL.toStringAsFixed(1),
+        t.waterL.fixedL(1),
         'L',
         l.targetWater,
       ),

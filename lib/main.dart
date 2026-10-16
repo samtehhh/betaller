@@ -2,6 +2,7 @@ import 'dart:async' show unawaited;
 import 'dart:io' show Platform;
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' show Intl;
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
@@ -190,10 +191,14 @@ class BeTallerApp extends StatelessWidget {
         // Fallback to English
         return const Locale('en');
       },
-      builder: (context, child) => ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(overscroll: false),
-        child: child!,
-      ),
+      builder: (context, child) {
+        // Numbers on screen follow the app language (lib/utils/num_format.dart).
+        Intl.defaultLocale = Localizations.localeOf(context).languageCode;
+        return ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(overscroll: false),
+          child: child!,
+        );
+      },
       home: const SplashScreen(),
     );
   }

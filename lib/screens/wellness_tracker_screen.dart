@@ -6,6 +6,7 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../widgets/premium_paywall.dart';
+import '../utils/num_format.dart';
 
 /// Wellness Tracker — caffeine, stress, and growth journal in one screen.
 ///
@@ -871,7 +872,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                   label: l.weeklyInsightStress,
                   value: avgStress == null
                       ? '—'
-                      : avgStress.toStringAsFixed(1),
+                      : avgStress.fixedL(1),
                   unit: avgStress == null ? '' : '/5',
                   color: AppColors.pink,
                 ),
@@ -882,7 +883,7 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
                   label: l.weeklyInsightMood,
                   value: avgMood == null
                       ? '—'
-                      : avgMood.toStringAsFixed(1),
+                      : avgMood.fixedL(1),
                   unit: avgMood == null ? '' : '/5',
                   color: AppColors.lime,
                 ),

@@ -11,6 +11,7 @@ import '../utils/haptics.dart';
 import '../utils/meal_plan.dart';
 import '../widgets/meal_plan_view.dart';
 import '../widgets/premium_paywall.dart';
+import '../utils/num_format.dart';
 
 // Free items shown before the rest blurs behind a PRO lock.
 const _freeNutrientCount = 2;
@@ -736,7 +737,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
 
           // Protein badge
           _buildNutrientBadge(
-            '${protein.toStringAsFixed(1)}g',
+            '${protein.fixedL(1)}g',
             l.protein,
             AppColors.orange,
           ),

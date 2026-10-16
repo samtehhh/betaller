@@ -25,6 +25,7 @@ import 'nutrition_screen.dart';
 import 'recipe_generator_screen.dart';
 import 'workout_player_screen.dart';
 import '../utils/text_case.dart';
+import '../utils/num_format.dart';
 
 /// My Plan: today's plan (free for everyone), the 70-day program (premium)
 /// and nutrition built around the user's own daily targets.
@@ -411,9 +412,9 @@ class _TodayTab extends StatelessWidget {
 
     String habitNote(Routine r) => switch (r.id) {
           'protein' => l.plHabitProtein(t.proteinG),
-          'water' => l.plHabitWater(t.waterL.toStringAsFixed(1)),
+          'water' => l.plHabitWater(t.waterL.fixedL(1)),
           'quality_sleep' => l.plHabitSleep(
-              t.sleepH.toStringAsFixed(t.sleepH % 1 == 0 ? 0 : 1)),
+              t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1)),
           _ => localizedRoutine(l, r.id)['description'] ?? r.description,
         };
 
@@ -2106,8 +2107,8 @@ class _Checklist extends StatelessWidget {
       ),
       (
         'water',
-        l.plCheckWater(targets.waterL.toStringAsFixed(1)),
-        l.plWaterLogged(provider.todayWater.toStringAsFixed(1)),
+        l.plCheckWater(targets.waterL.fixedL(1)),
+        l.plWaterLogged(provider.todayWater.fixedL(1)),
         AppColors.cyan,
         provider.todayWater / targets.waterL,
       ),

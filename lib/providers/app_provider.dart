@@ -25,6 +25,7 @@ import '../utils/haptics.dart';
 import '../utils/height_reference.dart';
 import '../services/purchase_service.dart';
 import '../l10n/app_localizations.dart';
+import '../utils/num_format.dart';
 
 class AppProvider extends ChangeNotifier {
   UserProfile? _profile;
@@ -1526,7 +1527,7 @@ class AppProvider extends ChangeNotifier {
 
   /// A single height value, formatted for display: "175.0 cm" or "5'11\"".
   String formatHeight(double cm) {
-    if (!_useImperial) return '${cm.toStringAsFixed(1)} cm';
+    if (!_useImperial) return '${cm.fixedL(1)} cm';
     final totalInches = cm / 2.54;
     var feet = totalInches ~/ 12;
     var inches = (totalInches % 12).round();
@@ -1541,14 +1542,14 @@ class AppProvider extends ChangeNotifier {
   /// A height difference (can be negative), e.g. "+2.5 cm" or "+1.0 in".
   String formatHeightDelta(double deltaCm) {
     final sign = deltaCm > 0 ? '+' : '';
-    if (!_useImperial) return '$sign${deltaCm.toStringAsFixed(1)} cm';
-    return '$sign${(deltaCm / 2.54).toStringAsFixed(1)} in';
+    if (!_useImperial) return '$sign${deltaCm.fixedL(1)} cm';
+    return '$sign${(deltaCm / 2.54).fixedL(1)} in';
   }
 
   /// Convert kg to display string based on unit preference
   String formatWeight(double kg) {
-    if (!_useImperial) return '${kg.toStringAsFixed(1)} kg';
-    return '${(kg * 2.20462).toStringAsFixed(1)} lbs';
+    if (!_useImperial) return '${kg.fixedL(1)} kg';
+    return '${(kg * 2.20462).fixedL(1)} lbs';
   }
 
   void addWater(double amount) {
@@ -1884,6 +1885,10 @@ class AppProvider extends ChangeNotifier {
           ? _todayWater
           : double.parse((waterGoal * (0.7 + (back * 3) % 4 / 10)).toStringAsFixed(1));
     }
+
+    // Breakfast and lunch ticked on the nutrition checklist, so the
+    // protein and calcium rows show grams eaten rather than zero.
+    _nutritionChecks = {_today: ['meal0', 'meal1']};
 
     // ── Level 9 of 20 — earned-looking without maxing the bar out ──
     _totalXP = 4200;

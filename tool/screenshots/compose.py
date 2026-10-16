@@ -85,7 +85,7 @@ FRAMES = [
     ("01-potential", {"iphone": big("home", "_PotentialHero"),
                       "ipad": single("home", "_PotentialHero")}),
     ("02-day", {"iphone": big("day"),
-                "ipad": single("day", "_ProgramDayCard")}),
+                "ipad": single("day")}),
     ("03-targets", {"iphone": big("nutrition", "NutritionTargetsHeader"),
                     "ipad": single("nutrition", "NutritionTargetsHeader")}),
     ("04-chart", {"iphone": big("progress", "PotentialChart"),
@@ -98,8 +98,7 @@ FRAMES = [
                     "ipad": single("program", "_JourneyHeader")}),
     ("08-meals", {"iphone": duo("nutrition", "meals"),
                   "ipad": single("meals", "MealCard")}),
-    ("09-photos", {"iphone": single("photos"), "ipad": single("photos")}),
-    ("10-posture", {"iphone": duo("weekly", "posture"),
+    ("09-posture", {"iphone": duo("weekly", "posture"),
                     "ipad": single("posture", "_ScoreCard")}),
 ]
 
@@ -181,7 +180,7 @@ class Device:
         return self.origin[0] + px * self.k, self.origin[1] + py * self.k
 
 
-def breakout(canvas, dev, meta, name, max_w):
+def breakout(canvas, dev, meta, name, max_w, grow_down=False):
     rect = meta.get("focus", {}).get(name)
     if not rect:
         print(f"  ! no focus rect for {name}", file=sys.stderr)
@@ -209,7 +208,7 @@ def breakout(canvas, dev, meta, name, max_w):
     # On the short duo displays a card right under a title would grow over
     # it and cut the title's letters; there it grows downward instead. A
     # card that opens at the top of the screen keeps growing both ways.
-    if dev.device in BREAKOUT_GROW_DOWN and y0 > 30 * meta["dpr"]:
+    if (grow_down or dev.device in BREAKOUT_GROW_DOWN) and y0 > 30 * meta["dpr"]:
         down = round(dev.to_canvas(0, y0)[1])
         if down + ch <= dev.origin[1] + dev.screen[1] - 20:
             top = down
@@ -292,7 +291,8 @@ def compose(out, device, locale, slug, plan):
         glow(canvas, (W // 2, y + (H - y) // 2), int(W * 0.62), LIME, 34)
         dev.paste(canvas, x, y)
         if plan.get("breakout"):
-            breakout(canvas, dev, meta, plan["breakout"], W * 0.96)
+            # Grows down from the card's top, so the tabs above stay whole.
+            breakout(canvas, dev, meta, plan["breakout"], W * 0.96, grow_down=True)
     else:
         back_raw, _ = load_raw(out, device, locale, plan["back"])
         front_raw, _ = load_raw(out, device, locale, plan["front"])

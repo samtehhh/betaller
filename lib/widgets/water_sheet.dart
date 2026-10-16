@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/num_format.dart';
 
 /// The water sheet: a glass that fills as you log, quick amounts that stay put
 /// so several sips can be added in a row, and an undo for the last one.
@@ -159,7 +160,7 @@ class _WaterSheetState extends State<_WaterSheet>
                       textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
-                          current.toStringAsFixed(1),
+                          current.fixedL(1),
                           style: const TextStyle(
                             fontSize: 34,
                             fontWeight: FontWeight.w900,
@@ -170,7 +171,7 @@ class _WaterSheetState extends State<_WaterSheet>
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '/ ${widget.target.toStringAsFixed(1)} L',
+                          '/ ${widget.target.fixedL(1)} L',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -195,7 +196,7 @@ class _WaterSheetState extends State<_WaterSheet>
                       child: Text(
                         reached
                             ? l.waterGoalReached
-                            : l.waterRemaining(remaining.toStringAsFixed(1)),
+                            : l.waterRemaining(remaining.fixedL(1)),
                         style: TextStyle(
                           fontSize: 11.5,
                           fontWeight: FontWeight.w700,
@@ -326,7 +327,7 @@ class _AmountButton extends StatelessWidget {
                 size: 13, color: AppColors.water.withValues(alpha: 0.75)),
             const SizedBox(height: 4),
             Text(
-              '+${amount.toStringAsFixed(1)}L',
+              '+${amount.fixedL(1)}L',
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w800,

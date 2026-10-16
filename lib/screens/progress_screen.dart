@@ -16,6 +16,7 @@ import 'weekly_report_screen.dart';
 import 'posture_analysis_screen.dart';
 import 'progress_photos_screen.dart';
 import '../utils/text_case.dart';
+import '../utils/num_format.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -177,7 +178,7 @@ class ProgressScreenState extends State<ProgressScreen>
                                   _StatItem(
                                     label: l.totalGrowth,
                                     value:
-                                        '${provider.totalGrowth > 0 ? '+' : ''}${provider.heightNumber(provider.totalGrowth).toStringAsFixed(1)}',
+                                        '${provider.totalGrowth > 0 ? '+' : ''}${provider.heightNumber(provider.totalGrowth).fixedL(1)}',
                                     unit: provider.heightUnit,
                                     color: provider.totalGrowth > 0
                                         ? AppColors.success
@@ -191,7 +192,7 @@ class ProgressScreenState extends State<ProgressScreen>
                                   _StatItem(
                                     label: l.lastDiff,
                                     value:
-                                        '${provider.lastGrowth > 0 ? '+' : ''}${provider.heightNumber(provider.lastGrowth).toStringAsFixed(1)}',
+                                        '${provider.lastGrowth > 0 ? '+' : ''}${provider.heightNumber(provider.lastGrowth).fixedL(1)}',
                                     unit: provider.heightUnit,
                                     color: provider.lastGrowth > 0
                                         ? AppColors.success
@@ -1133,7 +1134,7 @@ class _HeightHero extends StatelessWidget {
                             textBaseline: TextBaseline.alphabetic,
                             children: [
                               Text(
-                                current.toStringAsFixed(1),
+                                current.fixedL(1),
                                 style: const TextStyle(
                                   fontSize: 46,
                                   fontWeight: FontWeight.w900,

@@ -38,7 +38,7 @@
       "slug": "02-day",
       "en": ["Your daily plan, ready", "Every move with sets, reps and a video."],
       "tr": ["Günlük planın hazır", "Her hareket set, tekrar ve videosuyla."],
-      "de": ["Dein Tagesplan steht", "Jede Übung mit Sätzen, Wiederholungen und Video."],
+      "de": ["Dein Plan für heute steht", "Jede Übung mit Sätzen, Wiederholungen und Video."],
       "fr": ["Ton plan du jour est prêt", "Chaque exercice avec séries, répétitions et vidéo."],
       "es": ["Tu plan diario, listo", "Cada ejercicio con series, repeticiones y vídeo."],
       "it": ["Il tuo piano del giorno è pronto", "Ogni esercizio con serie, ripetizioni e video."],
@@ -112,18 +112,7 @@
       "hi": ["आपके हिसाब से मील प्लान", "हर मील के लिए असली खाना और ग्राम।"]
     },
     {
-      "slug": "09-photos",
-      "en": ["See the change side by side", "Drag to compare your before and after."],
-      "tr": ["Değişimi yan yana gör", "Öncesi ve sonrasını kaydırarak karşılaştır."],
-      "de": ["Sieh den Unterschied direkt", "Zieh, um Vorher und Nachher zu vergleichen."],
-      "fr": ["Vois le changement côte à côte", "Fais glisser pour comparer avant et après."],
-      "es": ["Mira el cambio lado a lado", "Desliza para comparar el antes y el después."],
-      "it": ["Guarda il cambiamento a confronto", "Trascina per confrontare prima e dopo."],
-      "pt": ["Veja a mudança lado a lado", "Arraste para comparar o antes e o depois."],
-      "hi": ["पहले और बाद का फ़र्क देखें", "पहले और बाद की तुलना के लिए खींचें।"]
-    },
-    {
-      "slug": "10-posture",
+      "slug": "09-posture",
       "en": ["Check your posture weekly", "A quick self-check, then your weekly report."],
       "tr": ["Duruşunu her hafta kontrol et", "Hızlı bir öz kontrol ve haftalık raporun."],
       "de": ["Prüf jede Woche deine Haltung", "Ein kurzer Selbstcheck und dein Wochenbericht."],

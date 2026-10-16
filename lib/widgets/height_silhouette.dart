@@ -5,6 +5,7 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/haptics.dart';
+import '../utils/num_format.dart';
 
 /// One person, growing: today's figure in front and, right behind it, the
 /// same figure at the potential height, glowing. The extra centimetres sit
@@ -47,7 +48,7 @@ class HeightSilhouette extends StatelessWidget {
     final pot = potential < current ? current : potential;
     final gapText = provider != null
         ? provider.formatHeightDelta(pot - current)
-        : '+${(pot - current).toStringAsFixed(1)} cm';
+        : '+${(pot - current).fixedL(1)} cm';
 
     return SizedBox(
       height: height,

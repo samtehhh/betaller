@@ -11,6 +11,7 @@ import 'discipline_widgets.dart';
 import 'height_bell_curve.dart';
 import 'radar_chart.dart';
 import '../utils/text_case.dart';
+import '../utils/num_format.dart';
 
 // ═════════════════════════════════════════════════════════════════════════════
 //  Paywall hero screens
@@ -1744,7 +1745,7 @@ class _ProgressPreview extends StatelessWidget {
       final index = _points.length - 1 - i;
       final diff = index > 0
           ? double.parse(
-              (_points[index] - _points[index - 1]).toStringAsFixed(1),
+              (_points[index] - _points[index - 1]).fixedL(1),
             )
           : 0.0;
       return _HistoryEntry(
@@ -1795,7 +1796,7 @@ class _ProgressPreview extends StatelessWidget {
                   return const SizedBox();
                 }
                 return Text(
-                  value.toStringAsFixed(1),
+                  value.fixedL(1),
                   style: TextStyle(
                     fontSize: 8.5,
                     color: Colors.white.withValues(alpha: 0.35),
@@ -2032,7 +2033,7 @@ class _HistoryEntry extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${height.toStringAsFixed(1)} cm',
+                            '${height.fixedL(1)} cm',
                             style: const TextStyle(
                               fontSize: 14.5,
                               fontWeight: FontWeight.w800,
@@ -2075,7 +2076,7 @@ class _HistoryEntry extends StatelessWidget {
                             ),
                             const SizedBox(width: 3),
                             Text(
-                              '${up ? '+' : ''}${diff.toStringAsFixed(1)}',
+                              '${up ? '+' : ''}${diff.fixedL(1)}',
                               style: TextStyle(
                                 fontSize: 11.5,
                                 fontWeight: FontWeight.w800,
@@ -2896,7 +2897,7 @@ class _BreakdownRow extends StatelessWidget {
           ),
           const SizedBox(width: 9),
           Text(
-            '+${cm.toStringAsFixed(1)} cm',
+            '+${cm.fixedL(1)} cm',
             style: TextStyle(
               fontSize: 12.5,
               fontWeight: FontWeight.w800,

@@ -20,6 +20,7 @@ import '../utils/haptics.dart';
 import '../widgets/height_silhouette.dart';
 import '../widgets/premium_paywall.dart';
 import '../utils/text_case.dart';
+import '../utils/num_format.dart';
 
 // ─── Page index constants ─────────────────────────────────────────────────────
 const int _kGenderPage = 2;
@@ -4425,7 +4426,7 @@ class _PlanPreview extends StatelessWidget {
       meals: profile.mealTimes.length,
     );
     final plan = WeeklyPlan.forAnswers(weeklyWorkout: workout, age: profile.age);
-    final sleep = t.sleepH.toStringAsFixed(t.sleepH % 1 == 0 ? 0 : 1);
+    final sleep = t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1);
     final lines = [
       (Icons.fitness_center_rounded, l.planPreviewTraining(plan.trainingDays)),
       (Icons.restaurant_rounded, l.planPreviewProtein(t.proteinG)),
