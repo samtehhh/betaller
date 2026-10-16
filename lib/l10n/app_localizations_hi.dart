@@ -1398,10 +1398,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get obPastHeightsSubPart1 =>
-      'अपनी पिछली लंबाइयाँ दर्ज करके अनुमान की विश्वसनीयता को ';
+      'आपकी पुरानी लंबाइयाँ आपके अनुमान को और सटीक बनाती हैं।';
 
   @override
-  String get obPastHeightsSubPart2 => ' तक बढ़ाएं।';
+  String get obPastHeightsSubPart2 => ' ';
 
   @override
   String obHowTallAtAge(String age) {

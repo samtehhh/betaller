@@ -302,8 +302,8 @@
   "emailSubject": "BeTaller Feedback",
   "pastHeightsTip": "Você pode deixar idades desconhecidas em branco. Inserir 1-2 alturas passadas é suficiente.",
   "obPastHeightsTitle": "Alturas Passadas",
-  "obPastHeightsSubPart1": "Insira suas alturas passadas para aumentar a confiança da previsão para ",
-  "obPastHeightsSubPart2": " ou mais.",
+  "obPastHeightsSubPart1": "Suas alturas passadas deixam sua previsão mais precisa.",
+  "obPastHeightsSubPart2": " ",
   "obHowTallAtAge": "Qual era sua altura aos {age} anos?",
   "@obHowTallAtAge": {
     "placeholders": {

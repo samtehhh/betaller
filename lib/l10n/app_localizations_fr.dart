@@ -1419,10 +1419,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get obPastHeightsSubPart1 =>
-      'Entre tes tailles passées pour augmenter la confiance de ta prédiction à ';
+      'Tes tailles passées rendent ta prédiction plus précise.';
 
   @override
-  String get obPastHeightsSubPart2 => ' ou plus.';
+  String get obPastHeightsSubPart2 => ' ';
 
   @override
   String obHowTallAtAge(String age) {

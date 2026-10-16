@@ -1420,10 +1420,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get obPastHeightsSubPart1 =>
-      'Gib vergangene Größen ein, um die Konfidenz deiner Vorhersage auf ';
+      'Deine früheren Größen machen deine Prognose genauer.';
 
   @override
-  String get obPastHeightsSubPart2 => ' zu erhöhen.';
+  String get obPastHeightsSubPart2 => ' ';
 
   @override
   String obHowTallAtAge(String age) {

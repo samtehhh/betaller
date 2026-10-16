@@ -2615,13 +2615,13 @@ abstract class AppLocalizations {
   /// No description provided for @obPastHeightsSubPart1.
   ///
   /// In en, this message translates to:
-  /// **'Enter your past heights to boost your prediction confidence to '**
+  /// **'Your past heights make your prediction more accurate.'**
   String get obPastHeightsSubPart1;
 
   /// No description provided for @obPastHeightsSubPart2.
   ///
   /// In en, this message translates to:
-  /// **' higher.'**
+  /// **' '**
   String get obPastHeightsSubPart2;
 
   /// No description provided for @obHowTallAtAge.

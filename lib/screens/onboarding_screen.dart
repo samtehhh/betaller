@@ -2499,17 +2499,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     child: Text.rich(
                       TextSpan(
                         children: [
+                          // No accuracy figure: there is no measured one.
                           TextSpan(text: l.obPastHeightsSubPart1),
-                          TextSpan(
-                            text: '97%',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              color: const Color(
-                                0xFF22FF88,
-                              ).withValues(alpha: 0.90),
-                            ),
-                          ),
-                          TextSpan(text: l.obPastHeightsSubPart2),
                         ],
                       ),
                       style: TextStyle(

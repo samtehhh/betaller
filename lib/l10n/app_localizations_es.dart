@@ -1418,10 +1418,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get obPastHeightsSubPart1 =>
-      'Ingresa tus alturas pasadas para aumentar la confianza de tu predicción a ';
+      'Tus alturas pasadas hacen tu predicción más precisa.';
 
   @override
-  String get obPastHeightsSubPart2 => ' o más.';
+  String get obPastHeightsSubPart2 => ' ';
 
   @override
   String obHowTallAtAge(String age) {

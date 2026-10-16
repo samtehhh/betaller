@@ -302,8 +302,8 @@
   "emailSubject": "BeTaller Retour",
   "pastHeightsTip": "Tu peux laisser les âges inconnus vides. Entrer 1-2 tailles passées suffit.",
   "obPastHeightsTitle": "Tailles Passées",
-  "obPastHeightsSubPart1": "Entre tes tailles passées pour augmenter la confiance de ta prédiction à ",
-  "obPastHeightsSubPart2": " ou plus.",
+  "obPastHeightsSubPart1": "Tes tailles passées rendent ta prédiction plus précise.",
+  "obPastHeightsSubPart2": " ",
   "obHowTallAtAge": "Quelle était ta taille à {age} ans ?",
   "@obHowTallAtAge": {
     "placeholders": {

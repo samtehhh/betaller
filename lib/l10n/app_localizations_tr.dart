@@ -1394,10 +1394,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get obPastHeightsSubPart1 =>
-      'Geçmiş boylarını girerek tahminin güvenini ';
+      'Geçmiş boyların tahminini daha isabetli yapar.';
 
   @override
-  String get obPastHeightsSubPart2 => '\'ye çıkar.';
+  String get obPastHeightsSubPart2 => ' ';
 
   @override
   String obHowTallAtAge(String age) {
