@@ -1796,5 +1796,9 @@
   "wtEnergyDrink": "Enerji",
   "crCustomBadge": "Özel",
   "crNameHint": "Örn. Sabah Enerji Esnemesi",
-  "crDoseHint": "Örn. 3x10 tekrar ya da 3x30 saniye"
+  "crDoseHint": "Örn. 3x10 tekrar ya da 3x30 saniye",
+  "paywallLifetime": "Ömür boyu",
+  "paywallOnce": "{price} tek seferlik",
+  "paywallLifetimeBadge": "Abonelik yok",
+  "paywallLifetimeDisclaimer": "Tek seferlik ödeme · abonelik yok, yenilenmez"
 }

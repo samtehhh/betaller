@@ -1945,5 +1945,9 @@
   "wtEnergyDrink": "एनर्जी",
   "crCustomBadge": "अपनी",
   "crNameHint": "जैसे: सुबह का पावर स्ट्रेच",
-  "crDoseHint": "जैसे: 3x10 बार या 3x30 सेकंड"
+  "crDoseHint": "जैसे: 3x10 बार या 3x30 सेकंड",
+  "paywallLifetime": "लाइफ़टाइम",
+  "paywallOnce": "{price} एक बार",
+  "paywallLifetimeBadge": "कोई सब्सक्रिप्शन नहीं",
+  "paywallLifetimeDisclaimer": "एक बार का भुगतान · कोई सब्सक्रिप्शन नहीं, कुछ भी रिन्यू नहीं होता"
 }

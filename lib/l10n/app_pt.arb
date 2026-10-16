@@ -1945,5 +1945,9 @@
   "wtEnergyDrink": "Energético",
   "crCustomBadge": "Própria",
   "crNameHint": "ex.: Alongamento energético da manhã",
-  "crDoseHint": "ex.: 3x10 repetições ou 3x30 segundos"
+  "crDoseHint": "ex.: 3x10 repetições ou 3x30 segundos",
+  "paywallLifetime": "Vitalício",
+  "paywallOnce": "{price} pagamento único",
+  "paywallLifetimeBadge": "Sem assinatura",
+  "paywallLifetimeDisclaimer": "Pagamento único · sem assinatura, nada é renovado"
 }

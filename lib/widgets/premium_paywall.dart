@@ -74,10 +74,10 @@ const int _kAssumedTrialDays = 3;
 // never a number nobody is actually being charged. These exist purely so
 // the sheet is reviewable on a device before the store products are
 // approved/configured (App Store Connect, RevenueCat), matching the plan
-// names discussed for BeTaller (weekly/monthly/yearly).
+// names discussed for BeTaller (weekly/monthly/lifetime).
 const double _kDemoWeekly = 4.99;
 const double _kDemoMonthly = 9.99;
-const double _kDemoYearly = 39.99;
+const double _kDemoLifetime = 34.99;
 const String _kDemoCurrency = 'USD';
 
 String? _demoPrice(double amount) {
@@ -159,7 +159,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
   bool _loading = true;
   bool _purchasing = false;
 
-  /// 0 monthly, 1 yearly, 2 weekly. Settled by [_defaultPlan] once the store
+  /// 0 monthly, 1 lifetime, 2 weekly. Settled by [_defaultPlan] once the store
   /// answers, unless the user has already tapped a plan themselves.
   int _selectedPlan = 1;
   bool _userPicked = false;
@@ -232,7 +232,6 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     final o = await service.getOfferings();
     final direct = await service.getProducts();
     final eligible = await service.trialEligibility(const [
-      PurchaseService.yearlyProductId,
       PurchaseService.monthlyProductId,
       PurchaseService.weeklyProductId,
     ]);
@@ -266,13 +265,12 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     return _freeTrialDays(product);
   }
 
-  /// The plan the sheet opens on: the first one that starts with a free trial
-  /// this user can still get — yearly, then monthly, then weekly — else
-  /// yearly. Opening on a plan that bills on day one hid the only trial behind
-  /// a tap, and a trial is what an app nobody has heard of has to sell.
+  /// The plan the sheet opens on: lifetime, the one-time purchase the sheet
+  /// leads with, whenever the store has it; otherwise the first plan that
+  /// starts with a free trial this user can still get (monthly, then weekly).
   int _defaultPlan() {
+    if (_storeProduct(PurchaseService.lifetimeProductId) != null) return 1;
     for (final (plan, id) in const [
-      (1, PurchaseService.yearlyProductId),
       (0, PurchaseService.monthlyProductId),
       (2, PurchaseService.weeklyProductId),
     ]) {
@@ -391,7 +389,8 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
 
     final monthly =
         current?.monthly ?? findPkg(PurchaseService.monthlyProductId);
-    final annual = current?.annual ?? findPkg(PurchaseService.yearlyProductId);
+    final annual =
+        current?.lifetime ?? findPkg(PurchaseService.lifetimeProductId);
     final weekly = current?.weekly ?? findPkg(PurchaseService.weeklyProductId);
     StoreProduct? directMonthly;
     StoreProduct? directAnnual;
@@ -399,7 +398,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     if (monthly == null || annual == null || weekly == null) {
       for (final p in _directProducts) {
         if (p.identifier == PurchaseService.monthlyProductId) directMonthly = p;
-        if (p.identifier == PurchaseService.yearlyProductId) directAnnual = p;
+        if (p.identifier == PurchaseService.lifetimeProductId) directAnnual = p;
         if (p.identifier == PurchaseService.weeklyProductId) directWeekly = p;
       }
     }
@@ -419,12 +418,14 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
           ? _trialFor(monthlyProduct)
           : _freeTrialDays(monthlyProduct) ?? _kAssumedTrialDays,
     );
+    // Slot 1 is the lifetime purchase (the yearly plan's old place): no
+    // trial, nothing renews.
     final annualOffer = _PlanOffer(
-      price: annualProduct?.priceString ?? _demoPrice(_kDemoYearly),
-      rawPrice: annualProduct?.price ?? (kDebugMode ? _kDemoYearly : null),
+      price: annualProduct?.priceString ?? _demoPrice(_kDemoLifetime),
+      rawPrice: annualProduct?.price ?? (kDebugMode ? _kDemoLifetime : null),
       currencyCode:
           annualProduct?.currencyCode ?? (kDebugMode ? _kDemoCurrency : null),
-      trialDays: _trialFor(annualProduct),
+      trialDays: null,
     );
     final weeklyOffer = _PlanOffer(
       price: weeklyProduct?.priceString ?? _demoPrice(_kDemoWeekly),
@@ -549,7 +550,7 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
                             : switch (_selectedPlan) {
                                 0 => l.paywallPerMonth(offer.price!),
                                 2 => l.paywallPerWeek(offer.price!),
-                                _ => l.paywallPerYear(offer.price!),
+                                _ => l.paywallOnce(offer.price!),
                               };
                         if (pkg != null || direct != null) {
                           _purchase(
@@ -793,25 +794,12 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
   }
 
   /// The offer the sheet is currently pointing at — 0 monthly, 2 weekly,
-  /// anything else (1) annual.
+  /// anything else (1) lifetime.
   _PlanOffer _offerFor(int plan) => switch (plan) {
     0 => widget.monthlyOffer,
     2 => widget.weeklyOffer,
     _ => widget.annualOffer,
   };
-
-  /// How much cheaper the annual plan is than paying monthly for a year,
-  /// rounded to a whole percent — or null until both raw prices are in.
-  /// Never derived from the formatted price strings: those carry a currency
-  /// symbol and locale-specific grouping, not a number to do math on.
-  int? get _yearlySavePercent {
-    final monthly = widget.monthlyOffer.rawPrice;
-    final annual = widget.annualOffer.rawPrice;
-    if (monthly == null || annual == null || monthly <= 0) return null;
-    final percent = (1 - (annual / 12) / monthly) * 100;
-    if (percent <= 0) return null;
-    return percent.round();
-  }
 
   /// The store's price with its billing period ("$39.99/year"), or a dash
   /// until the offering loads.
@@ -834,10 +822,7 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
         offer.hasTrial
             ? l.paywallTrialThenWeekly(days, price)
             : l.paywallRenewsWeekly,
-      _ =>
-        offer.hasTrial
-            ? l.paywallTrialThenYearly(days, price)
-            : l.paywallYearlyDisclaimer,
+      _ => l.paywallLifetimeDisclaimer,
     };
   }
 
@@ -944,14 +929,12 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
                       const SizedBox(height: 10),
                       _PlanRow(
                         selected: widget.selectedPlan == 1,
-                        label: l.paywallYearly,
+                        label: l.paywallLifetime,
                         price: _billed(
                           widget.annualOffer.price,
-                          l.paywallPerYear,
+                          l.paywallOnce,
                         ),
-                        badgeText: _yearlySavePercent != null
-                            ? l.paywallSavePercent('$_yearlySavePercent')
-                            : l.paywallBestValue,
+                        badgeText: l.paywallLifetimeBadge,
                         accent: accent,
                         onTap: () => widget.onSelectPlan(1),
                       ),

@@ -1956,5 +1956,10 @@
   "wtEnergyDrink": "Energy",
   "crCustomBadge": "Custom",
   "crNameHint": "e.g. Morning Power Stretch",
-  "crDoseHint": "e.g. 3x10 reps or 3x30 seconds"
+  "crDoseHint": "e.g. 3x10 reps or 3x30 seconds",
+  "paywallLifetime": "Lifetime",
+  "paywallOnce": "{price} once",
+  "@paywallOnce": {"placeholders": {"price": {"type": "String"}}},
+  "paywallLifetimeBadge": "No subscription",
+  "paywallLifetimeDisclaimer": "One-time payment · no subscription, nothing renews"
 }

@@ -1945,5 +1945,9 @@
   "wtEnergyDrink": "Énergie",
   "crCustomBadge": "Perso",
   "crNameHint": "ex. Étirements énergie du matin",
-  "crDoseHint": "ex. 3x10 répétitions ou 3x30 secondes"
+  "crDoseHint": "ex. 3x10 répétitions ou 3x30 secondes",
+  "paywallLifetime": "À vie",
+  "paywallOnce": "{price} une seule fois",
+  "paywallLifetimeBadge": "Sans abonnement",
+  "paywallLifetimeDisclaimer": "Paiement unique · aucun abonnement, rien ne se renouvelle"
 }

@@ -1945,5 +1945,9 @@
   "wtEnergyDrink": "Energy",
   "crCustomBadge": "Personale",
   "crNameHint": "es. Stretching energetico del mattino",
-  "crDoseHint": "es. 3x10 ripetizioni o 3x30 secondi"
+  "crDoseHint": "es. 3x10 ripetizioni o 3x30 secondi",
+  "paywallLifetime": "A vita",
+  "paywallOnce": "{price} una tantum",
+  "paywallLifetimeBadge": "Nessun abbonamento",
+  "paywallLifetimeDisclaimer": "Pagamento unico · nessun abbonamento, nessun rinnovo"
 }

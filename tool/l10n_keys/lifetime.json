@@ -1,0 +1,42 @@
+{
+ "paywallLifetime": {
+  "en": "Lifetime",
+  "tr": "Ömür boyu",
+  "de": "Lebenslang",
+  "fr": "À vie",
+  "es": "De por vida",
+  "it": "A vita",
+  "pt": "Vitalício",
+  "hi": "लाइफ़टाइम"
+ },
+ "paywallOnce": {
+  "en": "{price} once",
+  "tr": "{price} tek seferlik",
+  "de": "{price} einmalig",
+  "fr": "{price} une seule fois",
+  "es": "{price} un solo pago",
+  "it": "{price} una tantum",
+  "pt": "{price} pagamento único",
+  "hi": "{price} एक बार"
+ },
+ "paywallLifetimeBadge": {
+  "en": "No subscription",
+  "tr": "Abonelik yok",
+  "de": "Kein Abo",
+  "fr": "Sans abonnement",
+  "es": "Sin suscripción",
+  "it": "Nessun abbonamento",
+  "pt": "Sem assinatura",
+  "hi": "कोई सब्सक्रिप्शन नहीं"
+ },
+ "paywallLifetimeDisclaimer": {
+  "en": "One-time payment · no subscription, nothing renews",
+  "tr": "Tek seferlik ödeme · abonelik yok, yenilenmez",
+  "de": "Einmalzahlung · kein Abo, nichts verlängert sich",
+  "fr": "Paiement unique · aucun abonnement, rien ne se renouvelle",
+  "es": "Pago único · sin suscripción, nada se renueva",
+  "it": "Pagamento unico · nessun abbonamento, nessun rinnovo",
+  "pt": "Pagamento único · sem assinatura, nada é renovado",
+  "hi": "एक बार का भुगतान · कोई सब्सक्रिप्शन नहीं, कुछ भी रिन्यू नहीं होता"
+ }
+}

@@ -1945,5 +1945,9 @@
   "wtEnergyDrink": "Energy",
   "crCustomBadge": "Eigene",
   "crNameHint": "z. B. Power-Dehnen am Morgen",
-  "crDoseHint": "z. B. 3x10 Wdh. oder 3x30 Sekunden"
+  "crDoseHint": "z. B. 3x10 Wdh. oder 3x30 Sekunden",
+  "paywallLifetime": "Lebenslang",
+  "paywallOnce": "{price} einmalig",
+  "paywallLifetimeBadge": "Kein Abo",
+  "paywallLifetimeDisclaimer": "Einmalzahlung · kein Abo, nichts verlängert sich"
 }

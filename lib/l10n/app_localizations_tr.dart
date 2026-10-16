@@ -5802,4 +5802,19 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get crDoseHint => 'Örn. 3x10 tekrar ya da 3x30 saniye';
+
+  @override
+  String get paywallLifetime => 'Ömür boyu';
+
+  @override
+  String paywallOnce(String price) {
+    return '$price tek seferlik';
+  }
+
+  @override
+  String get paywallLifetimeBadge => 'Abonelik yok';
+
+  @override
+  String get paywallLifetimeDisclaimer =>
+      'Tek seferlik ödeme · abonelik yok, yenilenmez';
 }

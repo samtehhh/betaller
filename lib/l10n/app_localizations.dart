@@ -10327,6 +10327,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'e.g. 3x10 reps or 3x30 seconds'**
   String get crDoseHint;
+
+  /// No description provided for @paywallLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifetime'**
+  String get paywallLifetime;
+
+  /// No description provided for @paywallOnce.
+  ///
+  /// In en, this message translates to:
+  /// **'{price} once'**
+  String paywallOnce(String price);
+
+  /// No description provided for @paywallLifetimeBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'No subscription'**
+  String get paywallLifetimeBadge;
+
+  /// No description provided for @paywallLifetimeDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time payment · no subscription, nothing renews'**
+  String get paywallLifetimeDisclaimer;
 }
 
 class _AppLocalizationsDelegate

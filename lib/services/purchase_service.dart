@@ -48,6 +48,11 @@ class PurchaseService {
   static const yearlyProductId = 'betaller_yearly';
   static const weeklyProductId = 'betaller.weekly';
 
+  /// One-time, non-consumable purchase that replaced the yearly plan on the
+  /// paywall in 1.7.0. The yearly product stays on sale in App Store Connect
+  /// so existing yearly subscribers keep renewing; it is no longer offered.
+  static const lifetimeProductId = 'betaller.lifetime';
+
   static const _ownProductIds = {
     monthlyProductId,
     yearlyProductId,
@@ -63,6 +68,12 @@ class PurchaseService {
   /// `product:base-plan`, hence the split.
   static bool hasPremium(CustomerInfo info) {
     if (info.entitlements.all[entitlementId]?.isActive ?? false) return true;
+    // A lifetime purchase never shows up as an active subscription.
+    if (info.nonSubscriptionTransactions.any(
+      (t) => t.productIdentifier == lifetimeProductId,
+    )) {
+      return true;
+    }
     return info.activeSubscriptions.any(
       (id) => _ownProductIds.contains(id.split(':').first),
     );
@@ -200,11 +211,18 @@ class PurchaseService {
   Future<List<StoreProduct>> getProducts() async {
     if (!_initialized) return [];
     try {
-      final products = await Purchases.getProducts([
-        monthlyProductId,
-        yearlyProductId,
-        weeklyProductId,
-      ]);
+      final products = [
+        ...await Purchases.getProducts([
+          monthlyProductId,
+          yearlyProductId,
+          weeklyProductId,
+        ]),
+        // getProducts looks up subscriptions unless told otherwise.
+        ...await Purchases.getProducts(
+          [lifetimeProductId],
+          productCategory: ProductCategory.nonSubscription,
+        ),
+      ];
       debugPrint(
         'PurchaseService.getProducts: ${products.map((p) => p.identifier).toList()}',
       );
