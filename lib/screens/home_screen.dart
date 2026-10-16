@@ -214,29 +214,23 @@ class _HomeScreenState extends State<HomeScreen>
                               ),
                             ),
                             const SizedBox(width: 14),
-                            KeyedSubtree(
-                              key: TourKeys.homeStreak,
-                              child: _StreakBadge(streak: provider.streak),
-                            ),
+                            _StreakBadge(streak: provider.streak),
                           ],
                         ),
                         const SizedBox(height: 16),
-                        KeyedSubtree(
-                          key: TourKeys.homeXp,
-                          child: _InlineXpBar(
-                            level: provider.level,
-                            levelTitle: localizedLevelTitle(
-                              l,
-                              provider.levelTitle,
-                            ),
-                            totalXP: provider.totalXP,
-                            xpForNextLevel: provider.xpForNextLevel,
-                            progress: provider.levelProgress,
-                            xpToNext:
-                                (provider.xpForNextLevel - provider.totalXP)
-                                    .clamp(0, 999999),
-                            isMaxLevel: provider.level >= 20,
+                        _InlineXpBar(
+                          level: provider.level,
+                          levelTitle: localizedLevelTitle(
+                            l,
+                            provider.levelTitle,
                           ),
+                          totalXP: provider.totalXP,
+                          xpForNextLevel: provider.xpForNextLevel,
+                          progress: provider.levelProgress,
+                          xpToNext:
+                              (provider.xpForNextLevel - provider.totalXP)
+                                  .clamp(0, 999999),
+                          isMaxLevel: provider.level >= 20,
                         ),
                         const SizedBox(height: 10),
                       ],
@@ -262,75 +256,72 @@ class _HomeScreenState extends State<HomeScreen>
                     // ── 1. WHERE YOU ARE, WHERE YOU ARE GOING ─────────────
                     // The first thing on Home is the height story: today
                     // next to the potential, drawn as two figures.
-                    _PotentialHero(provider: provider, l: l),
+                    KeyedSubtree(
+                      key: TourKeys.homePotential,
+                      child: _PotentialHero(provider: provider, l: l),
+                    ),
                     const SizedBox(height: _sectionGap),
 
                     // ── 1. TODAY'S MISSION ────────────────────────────────
-                    KeyedSubtree(
-                      key: TourKeys.homeGoals,
-                      child: _TodayMissionCard(
-                        routineCompleted: provider.completedRoutineCount,
-                        routineTotal: provider.todayRoutineTotal,
-                        challengeCompleted: completedChallenges,
-                        challengeTotal: challenges.length,
-                        waterCurrent: provider.todayWater,
-                        waterTarget: waterNeed,
-                        allDone: allTodayDone,
-                        animValue: _curve.value,
-                      ),
+                    _TodayMissionCard(
+                      routineCompleted: provider.completedRoutineCount,
+                      routineTotal: provider.todayRoutineTotal,
+                      challengeCompleted: completedChallenges,
+                      challengeTotal: challenges.length,
+                      waterCurrent: provider.todayWater,
+                      waterTarget: waterNeed,
+                      allDone: allTodayDone,
+                      animValue: _curve.value,
                     ),
                     const SizedBox(height: 12),
 
                     // ── 1b. WATER + SLEEP, right under today's goals ──────
-                    KeyedSubtree(
-                      key: TourKeys.homeTrack,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: _TrackCard(
-                              icon: CupertinoIcons.drop_fill,
-                              label: l.water,
-                              value: provider.todayWater.fixedL(1),
-                              target: waterNeed.fixedL(1),
-                              unit: 'L',
-                              color: AppColors.water,
-                              progress: (provider.todayWater / waterNeed).clamp(
-                                0.0,
-                                1.0,
-                              ),
-                              isUrgent:
-                                  isEvening &&
-                                  provider.todayWater < waterNeed * 0.6,
-                              onTap: () =>
-                                  showWaterSheet(context, provider, waterNeed),
-                              onAdd: () =>
-                                  showWaterSheet(context, provider, waterNeed),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _TrackCard(
+                            icon: CupertinoIcons.drop_fill,
+                            label: l.water,
+                            value: provider.todayWater.fixedL(1),
+                            target: waterNeed.fixedL(1),
+                            unit: 'L',
+                            color: AppColors.water,
+                            progress: (provider.todayWater / waterNeed).clamp(
+                              0.0,
+                              1.0,
                             ),
+                            isUrgent:
+                                isEvening &&
+                                provider.todayWater < waterNeed * 0.6,
+                            onTap: () =>
+                                showWaterSheet(context, provider, waterNeed),
+                            onAdd: () =>
+                                showWaterSheet(context, provider, waterNeed),
                           ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _TrackCard(
-                              icon: CupertinoIcons.moon_fill,
-                              label: l.sleepLabel,
-                              value: provider.todaySleep.fixedL(1),
-                              target: sleepNeed.fixedL(1),
-                              unit: l.hoursShort,
-                              color: AppColors.sleep,
-                              progress: (provider.todaySleep / sleepNeed).clamp(
-                                0.0,
-                                1.0,
-                              ),
-                              isUrgent:
-                                  isEvening &&
-                                  provider.todaySleep < sleepNeed * 0.5,
-                              onTap: () =>
-                                  _showSleepSheet(context, provider, sleepNeed),
-                              onAdd: () =>
-                                  _showSleepSheet(context, provider, sleepNeed),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: _TrackCard(
+                            icon: CupertinoIcons.moon_fill,
+                            label: l.sleepLabel,
+                            value: provider.todaySleep.fixedL(1),
+                            target: sleepNeed.fixedL(1),
+                            unit: l.hoursShort,
+                            color: AppColors.sleep,
+                            progress: (provider.todaySleep / sleepNeed).clamp(
+                              0.0,
+                              1.0,
                             ),
+                            isUrgent:
+                                isEvening &&
+                                provider.todaySleep < sleepNeed * 0.5,
+                            onTap: () =>
+                                _showSleepSheet(context, provider, sleepNeed),
+                            onAdd: () =>
+                                _showSleepSheet(context, provider, sleepNeed),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: _sectionGap),
                     const SizedBox(height: 12),
@@ -340,13 +331,10 @@ class _HomeScreenState extends State<HomeScreen>
                     const SizedBox(height: _sectionGap),
 
                     // ── 4. ACTIVE CHALLENGES ──────────────────────────────
-                    KeyedSubtree(
-                      key: TourKeys.homeChallenges,
-                      child: _ChallengesSection(
-                        challenges: challenges,
-                        isEvening: isEvening,
-                        l: l,
-                      ),
+                    _ChallengesSection(
+                      challenges: challenges,
+                      isEvening: isEvening,
+                      l: l,
                     ),
                     const SizedBox(height: _sectionGap),
 
@@ -354,25 +342,19 @@ class _HomeScreenState extends State<HomeScreen>
                     // two measurements the card itself shows the empty
                     // state that invites the first one, rather than the
                     // whole section disappearing ───────────────────────────
-                    KeyedSubtree(
-                      key: TourKeys.homeGrowth,
-                      child: _GrowthStatsCard(
-                        provider: provider,
-                        totalGrowth: provider.totalGrowth,
-                        lastGrowth: provider.lastGrowth,
-                        measurementCount: provider.heightRecords.length,
-                        hasData: provider.heightRecords.length >= 2,
-                        isPremium: provider.isPremium,
-                        l: l,
-                      ),
+                    _GrowthStatsCard(
+                      provider: provider,
+                      totalGrowth: provider.totalGrowth,
+                      lastGrowth: provider.lastGrowth,
+                      measurementCount: provider.heightRecords.length,
+                      hasData: provider.heightRecords.length >= 2,
+                      isPremium: provider.isPremium,
+                      l: l,
                     ),
                     const SizedBox(height: _sectionGap),
 
                     // ── 1c. WHAT WE WILL NUDGE YOU ABOUT NEXT ─────────────
-                    KeyedSubtree(
-                      key: TourKeys.homeReminder,
-                      child: const NextReminderCard(),
-                    ),
+                    const NextReminderCard(),
                     const SizedBox(height: _sectionGap),
 
                     // ── 9. EDUCATION BANNER ───────────────────────────────
@@ -923,43 +905,34 @@ class _TodayMissionCard extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    KeyedSubtree(
-                      key: TourKeys.homeGoalsRoutines,
-                      child: _MissionRow(
-                        icon: CupertinoIcons.checkmark_circle_fill,
-                        iconColor: AppColors.primary,
-                        label: l.routinesLabel,
-                        value:
-                            '$routineCompleted/${routineTotal > 0 ? routineTotal : "—"}',
-                        progress: routineRatio * animValue,
-                        done: routineRatio >= 1,
-                      ),
+                    _MissionRow(
+                      icon: CupertinoIcons.checkmark_circle_fill,
+                      iconColor: AppColors.primary,
+                      label: l.routinesLabel,
+                      value:
+                          '$routineCompleted/${routineTotal > 0 ? routineTotal : "—"}',
+                      progress: routineRatio * animValue,
+                      done: routineRatio >= 1,
                     ),
                     const SizedBox(height: 12),
-                    KeyedSubtree(
-                      key: TourKeys.homeGoalsChallenges,
-                      child: _MissionRow(
-                        icon: CupertinoIcons.bolt_fill,
-                        iconColor: AppColors.warning,
-                        label: l.challengesLabel,
-                        value:
-                            '$challengeCompleted/${challengeTotal > 0 ? challengeTotal : "—"}',
-                        progress: challengeRatio * animValue,
-                        done: challengeRatio >= 1,
-                      ),
+                    _MissionRow(
+                      icon: CupertinoIcons.bolt_fill,
+                      iconColor: AppColors.warning,
+                      label: l.challengesLabel,
+                      value:
+                          '$challengeCompleted/${challengeTotal > 0 ? challengeTotal : "—"}',
+                      progress: challengeRatio * animValue,
+                      done: challengeRatio >= 1,
                     ),
                     const SizedBox(height: 12),
-                    KeyedSubtree(
-                      key: TourKeys.homeGoalsWater,
-                      child: _MissionRow(
-                        icon: CupertinoIcons.drop_fill,
-                        iconColor: AppColors.water,
-                        label: l.water,
-                        value:
-                            '${waterCurrent.fixedL(1)}/${waterTarget.fixedL(1)}L',
-                        progress: waterRatio * animValue,
-                        done: waterRatio >= 1,
-                      ),
+                    _MissionRow(
+                      icon: CupertinoIcons.drop_fill,
+                      iconColor: AppColors.water,
+                      label: l.water,
+                      value:
+                          '${waterCurrent.fixedL(1)}/${waterTarget.fixedL(1)}L',
+                      progress: waterRatio * animValue,
+                      done: waterRatio >= 1,
                     ),
                   ],
                 ),

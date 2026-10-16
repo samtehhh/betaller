@@ -10453,6 +10453,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Example: {now} → potential {potential}'**
   String pwExampleLine(String now, String potential);
+
+  /// No description provided for @tv3NewEyebrow.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s new'**
+  String get tv3NewEyebrow;
+
+  /// No description provided for @tv3NewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BeTaller got a big update'**
+  String get tv3NewTitle;
+
+  /// No description provided for @tv3NewDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'New plan, new program, new look. Here is what\'s new.'**
+  String get tv3NewDesc;
+
+  /// No description provided for @tv3PotentialTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is your potential'**
+  String get tv3PotentialTitle;
+
+  /// No description provided for @tv3PotentialDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your height today next to where you can get. The plan closes the gap.'**
+  String get tv3PotentialDesc;
+
+  /// No description provided for @tv3TodayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s plan'**
+  String get tv3TodayTitle;
+
+  /// No description provided for @tv3TodayDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'A short workout made for today. Tap {button} and follow along.'**
+  String tv3TodayDesc(String button);
+
+  /// No description provided for @tv3ProgramTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'70 days of Discipline'**
+  String get tv3ProgramTitle;
+
+  /// No description provided for @tv3ProgramDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'One step a day across 10 levels. Each day builds on the last.'**
+  String get tv3ProgramDesc;
+
+  /// No description provided for @tv3NutritionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily targets'**
+  String get tv3NutritionTitle;
+
+  /// No description provided for @tv3NutritionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein, calcium, vitamin D and water, worked out for your body.'**
+  String get tv3NutritionDesc;
+
+  /// No description provided for @tv3ChartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch your curve'**
+  String get tv3ChartTitle;
+
+  /// No description provided for @tv3ChartDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure every week or two and see your line climb toward your potential.'**
+  String get tv3ChartDesc;
+
+  /// No description provided for @tv3ScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your BeTaller Score'**
+  String get tv3ScoreTitle;
+
+  /// No description provided for @tv3ScoreDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'One number for how you are doing. Lift your weakest area first.'**
+  String get tv3ScoreDesc;
+
+  /// No description provided for @tv3Next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get tv3Next;
+
+  /// No description provided for @tv3ShowMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Show me'**
+  String get tv3ShowMe;
+
+  /// No description provided for @tv3Done.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s go'**
+  String get tv3Done;
 }
 
 class _AppLocalizationsDelegate

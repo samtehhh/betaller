@@ -5861,4 +5861,66 @@ class AppLocalizationsHi extends AppLocalizations {
   String pwExampleLine(String now, String potential) {
     return 'उदाहरण: $now → संभावित $potential';
   }
+
+  @override
+  String get tv3NewEyebrow => 'नया क्या है';
+
+  @override
+  String get tv3NewTitle => 'BeTaller में बड़ा अपडेट आया है';
+
+  @override
+  String get tv3NewDesc =>
+      'नया प्लान, नया प्रोग्राम, नया लुक। देखो क्या नया है।';
+
+  @override
+  String get tv3PotentialTitle => 'यह है तुम्हारी संभावना';
+
+  @override
+  String get tv3PotentialDesc =>
+      'आज की तुम्हारी लंबाई और जहाँ तक तुम पहुँच सकते हो। प्लान यह फ़ासला कम करता है।';
+
+  @override
+  String get tv3TodayTitle => 'आज का प्लान';
+
+  @override
+  String tv3TodayDesc(String button) {
+    return 'आज के लिए एक छोटा वर्कआउट। $button पर टैप करो और साथ चलो।';
+  }
+
+  @override
+  String get tv3ProgramTitle => '70 दिन का अनुशासन';
+
+  @override
+  String get tv3ProgramDesc =>
+      '10 लेवल में हर दिन एक कदम। हर दिन पिछले दिन पर बनता है।';
+
+  @override
+  String get tv3NutritionTitle => 'तुम्हारे रोज़ के लक्ष्य';
+
+  @override
+  String get tv3NutritionDesc =>
+      'प्रोटीन, कैल्शियम, विटामिन D और पानी, तुम्हारे शरीर के हिसाब से।';
+
+  @override
+  String get tv3ChartTitle => 'अपना कर्व देखो';
+
+  @override
+  String get tv3ChartDesc =>
+      'हर एक-दो हफ़्ते में नापो और अपनी लाइन को संभावना की ओर बढ़ते देखो।';
+
+  @override
+  String get tv3ScoreTitle => 'तुम्हारा BeTaller स्कोर';
+
+  @override
+  String get tv3ScoreDesc =>
+      'एक नंबर जो बताता है तुम कैसा कर रहे हो। पहले सबसे कमज़ोर हिस्सा सुधारो।';
+
+  @override
+  String get tv3Next => 'आगे';
+
+  @override
+  String get tv3ShowMe => 'दिखाओ';
+
+  @override
+  String get tv3Done => 'चलो शुरू करें';
 }

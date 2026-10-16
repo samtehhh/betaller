@@ -77,7 +77,7 @@ class RoutinesScreenState extends State<RoutinesScreen>
           body: Column(
             children: [
               _buildHeader(context, provider),
-              KeyedSubtree(key: TourKeys.planTabs, child: _buildTabBar()),
+              _buildTabBar(),
               Expanded(
                 child: TabBarView(
                   controller: _tabController,
@@ -424,7 +424,7 @@ class _TodayTab extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 40),
       children: [
         KeyedSubtree(
-          key: TourKeys.planLevel,
+          key: TourKeys.planTodayHero,
           child: _TodayHero(
             provider: provider,
             day: day,
@@ -435,154 +435,142 @@ class _TodayTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        KeyedSubtree(
-          key: TourKeys.planToday,
-          child: PlanSectionLabel(
-            icon: planKindIcon(day.kind),
-            title: '${l.plTraining} · ${planKindLabel(l, day.kind)}',
-            trailing: l.plDoneCount(
-              training.where((r) => r.completed).length,
-              training.length,
-            ),
+        PlanSectionLabel(
+          icon: planKindIcon(day.kind),
+          title: '${l.plTraining} · ${planKindLabel(l, day.kind)}',
+          trailing: l.plDoneCount(
+            training.where((r) => r.completed).length,
+            training.length,
           ),
         ),
         const SizedBox(height: 10),
-        KeyedSubtree(
-          key: TourKeys.planTodayList,
-          child: Column(
-            children: [
-              PlanCard(
-                padding: const EdgeInsets.fromLTRB(6, 8, 14, 8),
-                child: Column(
-                  children: [
-                    for (final r in training)
-                      PlanItemRow(
-                        routineId: r.id,
-                        title: moveTitle(l, r.id),
-                        subtitle:
-                            '${doseLabel(l, doses[r.id]!)} · ${l.plDoseMinutes(doses[r.id]!.minutes)}',
-                        icon: r.icon,
-                        done: r.completed,
-                        onToggle: () => _tick(provider, r.id),
-                        onOpen: () => _openDetail(context, r),
-                      ),
-                  ],
-                ),
+        Column(
+          children: [
+            PlanCard(
+              padding: const EdgeInsets.fromLTRB(6, 8, 14, 8),
+              child: Column(
+                children: [
+                  for (final r in training)
+                    PlanItemRow(
+                      routineId: r.id,
+                      title: moveTitle(l, r.id),
+                      subtitle:
+                          '${doseLabel(l, doses[r.id]!)} · ${l.plDoseMinutes(doses[r.id]!.minutes)}',
+                      icon: r.icon,
+                      done: r.completed,
+                      onToggle: () => _tick(provider, r.id),
+                      onOpen: () => _openDetail(context, r),
+                    ),
+                ],
               ),
-              const SizedBox(height: 20),
-              PlanSectionLabel(
-                icon: CupertinoIcons.heart_fill,
-                color: AppColors.lime,
-                title: l.plHabits,
-                trailing: l.plDoneCount(
-                  habits.where((r) => r.completed).length,
-                  habits.length,
-                ),
+            ),
+            const SizedBox(height: 20),
+            PlanSectionLabel(
+              icon: CupertinoIcons.heart_fill,
+              color: AppColors.lime,
+              title: l.plHabits,
+              trailing: l.plDoneCount(
+                habits.where((r) => r.completed).length,
+                habits.length,
               ),
-              const SizedBox(height: 10),
-              PlanCard(
-                padding: const EdgeInsets.fromLTRB(6, 8, 14, 8),
-                child: Column(
-                  children: [
-                    for (final r in habits)
-                      PlanItemRow(
-                        routineId: r.id,
-                        title: moveTitle(l, r.id),
-                        subtitle: habitNote(r),
-                        icon: r.icon,
-                        done: r.completed,
-                        showThumb: false,
-                        accent: AppColors.lime,
-                        onToggle: () => _tick(provider, r.id),
-                        onOpen: () => _openDetail(context, r),
-                      ),
-                  ],
-                ),
+            ),
+            const SizedBox(height: 10),
+            PlanCard(
+              padding: const EdgeInsets.fromLTRB(6, 8, 14, 8),
+              child: Column(
+                children: [
+                  for (final r in habits)
+                    PlanItemRow(
+                      routineId: r.id,
+                      title: moveTitle(l, r.id),
+                      subtitle: habitNote(r),
+                      icon: r.icon,
+                      done: r.completed,
+                      showThumb: false,
+                      accent: AppColors.lime,
+                      onToggle: () => _tick(provider, r.id),
+                      onOpen: () => _openDetail(context, r),
+                    ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         const SizedBox(height: 20),
         _CustomRoutines(provider: provider),
         const SizedBox(height: 20),
-        KeyedSubtree(
-          key: TourKeys.planWeekGoals,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              PlanSectionLabel(
-                icon: CupertinoIcons.calendar,
-                title: l.disciplineWeek,
-              ),
-              const SizedBox(height: 10),
-              _WeekCalendar(provider: provider, plan: plan, level: level),
-              const SizedBox(height: 10),
-              _GoalGroup(
-                children: [
-                  GoalBar(
-                    icon: CupertinoIcons.checkmark_seal_fill,
-                    label: l.goalPerfectDays,
-                    done: provider.perfectDaysInWeek(),
-                    target: kWeeklyPerfectDays,
-                    color: AppColors.primary,
-                  ),
-                  GoalBar(
-                    icon: CupertinoIcons.bolt_fill,
-                    label: l.goalWorkouts,
-                    done: provider.workoutsInWeek(),
-                    target: kWeeklyWorkouts,
-                    color: AppColors.orange,
-                  ),
-                  GoalBar(
-                    icon: CupertinoIcons.arrow_up_right_circle_fill,
-                    label: l.goalMeasurement,
-                    done: provider.measurementsInWeek(),
-                    target: kWeeklyMeasurements,
-                    color: AppColors.cyan,
-                  ),
-                ],
-              ),
-            ],
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            PlanSectionLabel(
+              icon: CupertinoIcons.calendar,
+              title: l.disciplineWeek,
+            ),
+            const SizedBox(height: 10),
+            _WeekCalendar(provider: provider, plan: plan, level: level),
+            const SizedBox(height: 10),
+            _GoalGroup(
+              children: [
+                GoalBar(
+                  icon: CupertinoIcons.checkmark_seal_fill,
+                  label: l.goalPerfectDays,
+                  done: provider.perfectDaysInWeek(),
+                  target: kWeeklyPerfectDays,
+                  color: AppColors.primary,
+                ),
+                GoalBar(
+                  icon: CupertinoIcons.bolt_fill,
+                  label: l.goalWorkouts,
+                  done: provider.workoutsInWeek(),
+                  target: kWeeklyWorkouts,
+                  color: AppColors.orange,
+                ),
+                GoalBar(
+                  icon: CupertinoIcons.arrow_up_right_circle_fill,
+                  label: l.goalMeasurement,
+                  done: provider.measurementsInWeek(),
+                  target: kWeeklyMeasurements,
+                  color: AppColors.cyan,
+                ),
+              ],
+            ),
+          ],
         ),
         const SizedBox(height: 20),
-        KeyedSubtree(
-          key: TourKeys.planMonthGoals,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              PlanSectionLabel(
-                icon: CupertinoIcons.calendar_circle_fill,
-                title: l.disciplineMonth,
-              ),
-              const SizedBox(height: 10),
-              _GoalGroup(
-                children: [
-                  GoalBar(
-                    icon: CupertinoIcons.camera_fill,
-                    label: l.goalPhoto,
-                    done: provider.photosInMonth(),
-                    target: kMonthlyPhotos,
-                    color: AppColors.lime,
-                  ),
-                  GoalBar(
-                    icon: CupertinoIcons.person_crop_rectangle,
-                    label: l.goalPostureCheck,
-                    done: provider.postureChecksInMonth(),
-                    target: kMonthlyPostureChecks,
-                    color: AppColors.pink,
-                  ),
-                  GoalBar(
-                    icon: CupertinoIcons.chart_bar_alt_fill,
-                    label: l.goalMeasurement,
-                    done: provider.measurementsInMonth(),
-                    target: kMonthlyMeasurements,
-                    color: AppColors.sleep,
-                  ),
-                ],
-              ),
-            ],
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            PlanSectionLabel(
+              icon: CupertinoIcons.calendar_circle_fill,
+              title: l.disciplineMonth,
+            ),
+            const SizedBox(height: 10),
+            _GoalGroup(
+              children: [
+                GoalBar(
+                  icon: CupertinoIcons.camera_fill,
+                  label: l.goalPhoto,
+                  done: provider.photosInMonth(),
+                  target: kMonthlyPhotos,
+                  color: AppColors.lime,
+                ),
+                GoalBar(
+                  icon: CupertinoIcons.person_crop_rectangle,
+                  label: l.goalPostureCheck,
+                  done: provider.postureChecksInMonth(),
+                  target: kMonthlyPostureChecks,
+                  color: AppColors.pink,
+                ),
+                GoalBar(
+                  icon: CupertinoIcons.chart_bar_alt_fill,
+                  label: l.goalMeasurement,
+                  done: provider.measurementsInMonth(),
+                  target: kMonthlyMeasurements,
+                  color: AppColors.sleep,
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     );
@@ -1070,19 +1058,21 @@ class _ProgramTab extends StatelessWidget {
           color: kProgramLevelMeta[level].$2,
         ),
         const SizedBox(height: 10),
-        if (finished)
-          PlanCard(
-            child: Text(
-              l.plProgramFinished,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w800,
-                color: AppColors.warning,
-              ),
-            ),
-          )
-        else
-          _ProgramDayCard(provider: provider, day: day, premium: premium),
+        KeyedSubtree(
+          key: TourKeys.planProgramDay,
+          child: finished
+              ? PlanCard(
+                  child: Text(
+                    l.plProgramFinished,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.warning,
+                    ),
+                  ),
+                )
+              : _ProgramDayCard(provider: provider, day: day, premium: premium),
+        ),
         const SizedBox(height: 20),
         PlanSectionLabel(
           icon: CupertinoIcons.chart_bar_alt_fill,
@@ -1115,12 +1105,9 @@ class _ProgramTab extends StatelessWidget {
             child: body,
           ),
         const SizedBox(height: 22),
-        KeyedSubtree(
-          key: TourKeys.planProgramLevels,
-          child: PlanSectionLabel(
-            icon: CupertinoIcons.square_stack_3d_up_fill,
-            title: l.disciplineLevels,
-          ),
+        PlanSectionLabel(
+          icon: CupertinoIcons.square_stack_3d_up_fill,
+          title: l.disciplineLevels,
         ),
         const SizedBox(height: 10),
         for (var i = 0; i < kProgramLevelCount; i++)
@@ -1687,7 +1674,7 @@ class _NutritionTab extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 40),
       children: [
         KeyedSubtree(
-          key: TourKeys.planNutritionHeader,
+          key: TourKeys.planNutritionTargets,
           child: NutritionTargetsHeader(
             targets: t,
             meals: profile.mealTimes.length.clamp(2, 6),
@@ -1706,15 +1693,12 @@ class _NutritionTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        KeyedSubtree(
-          key: TourKeys.planNutritionFirst,
-          child: _Checklist(
-            provider: provider,
-            targets: t,
-            menu: menu,
-            checks: checks,
-            onToggle: toggle,
-          ),
+        _Checklist(
+          provider: provider,
+          targets: t,
+          menu: menu,
+          checks: checks,
+          onToggle: toggle,
         ),
         const SizedBox(height: 20),
         PlanSectionLabel(

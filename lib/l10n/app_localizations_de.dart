@@ -5981,4 +5981,66 @@ class AppLocalizationsDe extends AppLocalizations {
   String pwExampleLine(String now, String potential) {
     return 'Beispiel: $now → Potenzial $potential';
   }
+
+  @override
+  String get tv3NewEyebrow => 'Neu';
+
+  @override
+  String get tv3NewTitle => 'BeTaller hat ein großes Update';
+
+  @override
+  String get tv3NewDesc =>
+      'Neuer Plan, neues Programm, neuer Look. Hier ist, was neu ist.';
+
+  @override
+  String get tv3PotentialTitle => 'Das ist dein Potenzial';
+
+  @override
+  String get tv3PotentialDesc =>
+      'Deine Größe heute neben dem, was möglich ist. Der Plan schließt die Lücke.';
+
+  @override
+  String get tv3TodayTitle => 'Dein Plan für heute';
+
+  @override
+  String tv3TodayDesc(String button) {
+    return 'Ein kurzes Training für heute. Tipp auf $button und mach mit.';
+  }
+
+  @override
+  String get tv3ProgramTitle => '70 Tage Disziplin';
+
+  @override
+  String get tv3ProgramDesc =>
+      'Ein Schritt pro Tag über 10 Stufen. Jeder Tag baut auf dem letzten auf.';
+
+  @override
+  String get tv3NutritionTitle => 'Deine Tagesziele';
+
+  @override
+  String get tv3NutritionDesc =>
+      'Protein, Kalzium, Vitamin D und Wasser, passend für deinen Körper.';
+
+  @override
+  String get tv3ChartTitle => 'Sieh deine Kurve';
+
+  @override
+  String get tv3ChartDesc =>
+      'Miss alle ein bis zwei Wochen und sieh deine Linie zum Potenzial steigen.';
+
+  @override
+  String get tv3ScoreTitle => 'Dein BeTaller Score';
+
+  @override
+  String get tv3ScoreDesc =>
+      'Eine Zahl dafür, wie es läuft. Stärke zuerst deinen schwächsten Bereich.';
+
+  @override
+  String get tv3Next => 'Weiter';
+
+  @override
+  String get tv3ShowMe => 'Zeig mal';
+
+  @override
+  String get tv3Done => 'Los geht\'s';
 }

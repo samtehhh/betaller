@@ -19,7 +19,6 @@ import 'analysis_screen.dart';
 import 'routines_screen.dart';
 import 'progress_screen.dart';
 import 'profile_screen.dart';
-import 'journey_complete_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -28,9 +27,18 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
+/// Why the tour is running: right after onboarding, once for people who
+/// updated to v3, or opened again by hand.
+enum _TourMode { firstRun, whatsNew, replay }
+
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
-  bool _tourActive = false;
+  _TourMode? _tourMode;
+  bool get _tourActive => _tourMode != null;
+
+  /// From the end of an automatic tour until its paywall is closed. Badges
+  /// and the rating prompt wait for it.
+  bool _handoff = false;
 
   final _progressKey = GlobalKey<ProgressScreenState>();
   final _analysisKey = GlobalKey<AnalysisScreenState>();
@@ -42,30 +50,33 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _screens = [
-      HomeScreen(onOpenTour: _startTour),
+      HomeScreen(onOpenTour: () => _startTour(_TourMode.replay)),
       RoutinesScreen(key: _routinesKey),
       ProgressScreen(key: _progressKey),
       AnalysisScreen(key: _analysisKey),
-      ProfileScreen(onOpenTour: _startTour),
+      ProfileScreen(onOpenTour: () => _startTour(_TourMode.replay)),
     ];
 
     NotificationService.tappedPayload.addListener(_openFromNotification);
     WidgetsBinding.instance.addPostFrameCallback((_) => _openFromNotification());
 
-    // Once onboarding is behind them and the tour hasn't run yet, give the
-    // home screen a beat to land, then spotlight the app's own features one
-    // by one. Finishing or skipping it always closes this journey step, so
-    // it never fires again after the first time.
+    // Right after onboarding (journey step two open), or once for someone
+    // who updated from 1.6.x and skipped onboarding: let home land, then
+    // run the tour. The paywall follows the tour instead of the launch.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<AppProvider>();
-      if (provider.journeyProgress != 1) {
+      final mode = provider.journeyProgress == 1
+          ? _TourMode.firstRun
+          : provider.shouldShowWhatsNewTour
+          ? _TourMode.whatsNew
+          : null;
+      if (mode == null) {
         _maybeOpenDailyPaywall();
         return;
       }
-      Future.delayed(const Duration(seconds: 3), () {
+      Future.delayed(const Duration(milliseconds: 800), () {
         if (!mounted) return;
-        if (context.read<AppProvider>().journeyProgress != 1) return;
-        _startTour();
+        _startTour(mode);
       });
     });
   }
@@ -88,8 +99,8 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   /// The first launch of the day, for someone who is not premium, opens the
-  /// offer once after the home screen has landed. Not during the first-run
-  /// tour: that session already saw it at the end of onboarding.
+  /// offer once after the home screen has landed. Launches that start a tour
+  /// show it after the tour instead.
   void _maybeOpenDailyPaywall() {
     Future.delayed(const Duration(milliseconds: 1200), () {
       if (!mounted || _tourActive) return;
@@ -98,26 +109,59 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
-  void _startTour() {
-    if (_tourActive) return;
-    setState(() => _tourActive = true);
+  void _startTour(_TourMode mode) {
+    if (_tourActive || _handoff) return;
+    setState(() => _tourMode = mode);
   }
 
-  void _finishTour() {
+  /// Finished or skipped, the same way: back to home, then (for a tour the
+  /// app started by itself) the paywall, with today's automatic slot so it
+  /// never stacks on another one. Premium users get no paywall. The old
+  /// "journey complete" screen used to sit in between; its only way out was
+  /// the paywall button, so it was a second sales screen in a row and is gone.
+  Future<void> _finishTour() async {
     if (!mounted) return;
-    setState(() => _tourActive = false);
-    context.read<AppProvider>().completeTour();
-    // The journey's last step lands here too — finishing or skipping the
-    // tour is what tells the user they're actually ready to use the app.
-    // The screen itself opens the paywall from its CTA and pops when done.
-    Navigator.of(context).push(
-      PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 500),
-        pageBuilder: (_, _, _) => const JourneyCompleteScreen(),
-        transitionsBuilder: (_, anim, _, child) =>
-            FadeTransition(opacity: anim, child: child),
-      ),
-    );
+    final mode = _tourMode;
+    final provider = context.read<AppProvider>();
+    setState(() {
+      _tourMode = null;
+      _handoff = mode != _TourMode.replay;
+      _currentIndex = 0;
+    });
+    _routinesKey.currentState?.goToSubTab(0);
+    provider.markV3TourSeen();
+    // Closes the journey's tour step and hands out its badge, which shows
+    // once the hand-off below is over.
+    provider.completeTour();
+    if (mode != _TourMode.replay && provider.takeDailyPaywallSlot()) {
+      // Let home land under the paywall's slide.
+      await Future.delayed(const Duration(milliseconds: 350));
+      if (mounted) {
+        await showPremiumPaywall(
+          context,
+          closeDelay: const Duration(seconds: 3),
+        );
+      }
+    }
+    if (!mounted) return;
+    setState(() => _handoff = false);
+  }
+
+  /// Asks for a rating a moment after the positive event, so its own
+  /// celebration is seen first, and never over the tour or its paywall.
+  Future<void> _requestReviewSoon() async {
+    await Future.delayed(const Duration(milliseconds: 2500));
+    for (var i = 0; i < 120 && mounted && (_tourActive || _handoff); i++) {
+      await Future.delayed(const Duration(seconds: 1));
+    }
+    if (!mounted || _tourActive || _handoff) return;
+    final provider = context.read<AppProvider>();
+    // The paywall may have opened in the meantime.
+    if (!provider.canRequestReview()) return;
+    final review = InAppReview.instance;
+    if (!await review.isAvailable()) return;
+    provider.markReviewRequested();
+    await review.requestReview();
   }
 
   @override
@@ -126,14 +170,16 @@ class _MainScreenState extends State<MainScreen> {
     // Check if provider wants to show review prompt
     final provider = context.watch<AppProvider>();
 
-    // Announce any badge earned since the last frame.
+    // Announce any badge earned since the last frame. During the tour and
+    // its paywall they wait, rather than being dropped.
     final notices = provider.pendingAchievementNotices;
-    if (notices.isNotEmpty) {
+    if (notices.isNotEmpty && !_tourActive && !_handoff) {
       provider.clearAchievementNotices();
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         for (final a in notices) {
           final copy = localizedAchievement(l, a['id'] as String? ?? '');
-          if (mounted && !_tourActive) {
+          if (!context.mounted) return;
+          if (!_tourActive) {
             await showTrophyCelebration(
               context,
               icon: a['icon'] as String? ?? '🏆',
@@ -152,12 +198,7 @@ class _MainScreenState extends State<MainScreen> {
     }
     if (provider.shouldRequestReview) {
       provider.clearReviewFlag();
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        final review = InAppReview.instance;
-        if (await review.isAvailable()) {
-          await review.requestReview();
-        }
-      });
+      _requestReviewSoon();
     }
 
     return Scaffold(
@@ -169,17 +210,20 @@ class _MainScreenState extends State<MainScreen> {
             FeatureTourOverlay(
               steps: tourStepsFor(
                 l,
-                goToTrainTab: () => _routinesKey.currentState?.goToSubTab(0),
-                goToProgramTab: () => _routinesKey.currentState?.goToSubTab(1),
-                goToNutritionTab: () =>
-                    _routinesKey.currentState?.goToSubTab(2),
+                goToSubTab: (i) => _routinesKey.currentState?.goToSubTab(i),
+                premium: provider.isPremium,
+                whatsNew:
+                    _tourMode == _TourMode.whatsNew ||
+                    (_tourMode == _TourMode.firstRun &&
+                        provider.updatedThisLaunch),
               ),
               currentTab: _currentIndex,
               onRequestTab: (i) => setState(() => _currentIndex = i),
               onFinished: _finishTour,
-              nextLabel: l.continueBtn,
-              finishLabel: l.letsStart,
+              nextLabel: l.tv3Next,
+              finishLabel: l.tv3Done,
               skipLabel: l.obSkip,
+              introLabel: l.tv3ShowMe,
             ),
         ],
       ),

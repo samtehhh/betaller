@@ -29,6 +29,10 @@ Future<bool?> showPremiumPaywall(
   Duration closeDelay = Duration.zero,
 }) async {
   if (!context.mounted) return false;
+  // Keeps the rating prompt out of the minutes after a sales screen.
+  try {
+    context.read<AppProvider>().notePaywallShown();
+  } catch (_) {}
   return Navigator.push<bool>(
     context,
     CupertinoPageRoute(

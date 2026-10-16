@@ -27,6 +27,25 @@ import '../services/purchase_service.dart';
 import '../l10n/app_localizations.dart';
 import '../utils/num_format.dart';
 
+/// The positive moments that may lead to the system rating prompt. Each one
+/// counts only the first time it happens; the names are stored.
+enum ReviewMoment {
+  /// The first height the user logs after onboarding.
+  firstMeasurement,
+
+  /// The first day the water goal is reached.
+  waterGoal,
+
+  /// The first workout played through to the end in the workout player.
+  workout,
+
+  /// The first day of the 70-day program completed.
+  programDay,
+
+  /// Three full days in a row.
+  streak3,
+}
+
 class AppProvider extends ChangeNotifier {
   UserProfile? _profile;
   List<HeightRecord> _heightRecords = [];
@@ -297,7 +316,6 @@ class AppProvider extends ChangeNotifier {
       (a, b) => (a['date'] as String).compareTo(b['date'] as String),
     );
     addXP(20);
-    _maybeRequestReview();
     _saveData();
     notifyListeners();
   }
@@ -389,6 +407,7 @@ class AppProvider extends ChangeNotifier {
     _programMoveChecks = {..._programMoveChecks}..remove('$day');
     _lastProgramDayDate = _today;
     addXP(30);
+    noteReviewMoment(ReviewMoment.programDay);
     _saveData();
     notifyListeners();
     return true;
@@ -721,6 +740,9 @@ class AppProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     _demoDataActive = prefs.containsKey(_demoBackupKey);
     final data = prefs.getString('glowup_app_data');
+    // An empty install: no rating request in this launch.
+    // A later reload in the same launch (demo data) keeps it.
+    _firstSession = _firstSession || data == null;
 
     Map<String, dynamic>? decoded;
     if (data != null) {
@@ -738,6 +760,7 @@ class AppProvider extends ChangeNotifier {
     if (decoded != null) {
       final sv = decoded['schemaVersion'];
       final stored = sv is num ? sv.toInt() : 2;
+      _updatedThisLaunch = stored < schemaVersion;
       if (stored < schemaVersion) {
         // One untouched copy of what the previous version left behind.
         final backupKey = 'glowup_app_data_backup_v$stored';
@@ -864,6 +887,20 @@ class AppProvider extends ChangeNotifier {
       _lastProgramDayDate = asStr(json['lastProgramDayDate']);
       _nutritionChecks = listMap('nutritionChecks');
       _reviewShownOnce = asBool(json['reviewShownOnce']);
+      _lastReviewRequestDate = json['lastReviewRequestDate'] is String
+          ? json['lastReviewRequestDate'] as String
+          : null;
+      _lastReviewRequestVersion = json['lastReviewRequestVersion'] is String
+          ? json['lastReviewRequestVersion'] as String
+          : null;
+      _reviewMoments = _safe(
+        'reviewMoments',
+        () => Set<String>.from((json['reviewMoments'] as List?) ?? const []),
+        <String>{},
+      );
+      // Missing means this blob predates the v3 tour: anyone with a profile
+      // has not seen it yet.
+      _seenV3Tour = asBool(json['seenV3Tour']);
       _lastAutoPaywallDate = json['lastAutoPaywallDate'] is String
           ? json['lastAutoPaywallDate'] as String
           : null;
@@ -1039,6 +1076,10 @@ class AppProvider extends ChangeNotifier {
       'lastProgramDayDate': _lastProgramDayDate,
       'nutritionChecks': _nutritionChecks,
       'reviewShownOnce': _reviewShownOnce,
+      'lastReviewRequestDate': _lastReviewRequestDate,
+      'lastReviewRequestVersion': _lastReviewRequestVersion,
+      'reviewMoments': _reviewMoments.toList(),
+      'seenV3Tour': _seenV3Tour,
       'lastAutoPaywallDate': _lastAutoPaywallDate,
       'announcedAchievements': _announcedAchievements.toList(),
       'reminders': _reminders.map((r) => r.toJson()).toList(),
@@ -1146,7 +1187,10 @@ class AppProvider extends ChangeNotifier {
     _heightRecords.sort((a, b) => a.date.compareTo(b.date));
     addXP(xpRewards['height_logged'] ?? 50);
     updateChallengeProgress('weekly_measure', 1);
-    _maybeRequestReview();
+    // The onboarding wrote the first record; this one is the user's own.
+    if (_heightRecords.length >= 2) {
+      noteReviewMoment(ReviewMoment.firstMeasurement);
+    }
     // a measurement can unlock both counting and growth badges
     checkNewAchievements();
     _raisePotentialAnchor();
@@ -1241,9 +1285,12 @@ class AppProvider extends ChangeNotifier {
       NotificationService().cancelStreakRiskNotification();
     }
 
-    // Trigger review at key milestones
-    if (_streak == 3 || _streak == 7 || _streak == 14 || _streak == 30) {
-      _maybeRequestReview();
+    // Three full days in a row is the first streak worth a rating.
+    if (routine.completed &&
+        allRoutinesCompleted &&
+        _streak >= 3 &&
+        _lastAllCompletedDate == _today) {
+      noteReviewMoment(ReviewMoment.streak3);
     }
 
     // Schedule streak-at-risk if routines not all done yet
@@ -1271,26 +1318,137 @@ class AppProvider extends ChangeNotifier {
   }
 
   // ── App Review ──
+  // The system rating prompt (SKStoreReviewController through in_app_review),
+  // asked for right after a positive moment instead of at random. Apple caps
+  // the real prompt at three a year; these limits keep the app from spending
+  // those on a bad moment.
+
+  /// At least this long between two requests.
+  static const reviewMinGap = Duration(days: 30);
+
+  /// No request this soon after the paywall was on screen.
+  static const reviewPaywallQuiet = Duration(minutes: 10);
+
   bool _shouldRequestReview = false;
-  bool _reviewShownOnce =
-      false; // persisted — never show again after first time
+
+  /// Kept for older builds, which read it as "never ask again". Set again
+  /// whenever a request is made.
+  bool _reviewShownOnce = false;
+
+  /// yyyy-MM-dd of the last request, null if none was ever recorded.
+  String? _lastReviewRequestDate;
+
+  /// App version the last request was made in.
+  String? _lastReviewRequestVersion;
+
+  /// [ReviewMoment] names already seen, so each one counts only the first
+  /// time it happens.
+  Set<String> _reviewMoments = {};
+
+  /// True for the launch that started from an empty install.
+  bool _firstSession = false;
+
+  /// When the paywall last opened in this session.
+  DateTime? _paywallShownAt;
+
+  /// The running app's version (CFBundleShortVersionString), set from main.
+  String _appVersion = '';
 
   bool get shouldRequestReview => _shouldRequestReview;
+  String? get lastReviewRequestDate => _lastReviewRequestDate;
+  String? get lastReviewRequestVersion => _lastReviewRequestVersion;
+  Set<String> get reviewMoments => Set.unmodifiable(_reviewMoments);
+  bool get isFirstSession => _firstSession;
 
-  /// Triggers the review dialog — no-op if already shown once this install
-  /// or if another trigger already queued it this session.
-  void _maybeRequestReview() {
-    if (_reviewShownOnce) return;
-    if (_shouldRequestReview) return;
+  void setAppVersion(String version) => _appVersion = version;
+
+  @visibleForTesting
+  set firstSessionForTest(bool value) => _firstSession = value;
+
+  /// The paywall calls this as it opens.
+  void notePaywallShown([DateTime? at]) => _paywallShownAt = at ?? DateTime.now();
+
+  /// The rate limits, as a pure function so they can be tested on their own.
+  static bool reviewAllowed({
+    required DateTime now,
+    required String appVersion,
+    required bool firstSession,
+    String? lastRequestDate,
+    String? lastRequestVersion,
+    DateTime? paywallShownAt,
+  }) {
+    if (firstSession) return false;
+    if (paywallShownAt != null &&
+        now.difference(paywallShownAt) < reviewPaywallQuiet) {
+      return false;
+    }
+    if (lastRequestVersion != null && lastRequestVersion == appVersion) {
+      return false;
+    }
+    final last = lastRequestDate == null
+        ? null
+        : DateTime.tryParse(lastRequestDate);
+    if (last != null && now.difference(last) < reviewMinGap) return false;
+    return true;
+  }
+
+  /// Whether a request may go out right now.
+  bool canRequestReview([DateTime? now]) => reviewAllowed(
+    now: now ?? DateTime.now(),
+    appVersion: _appVersion,
+    firstSession: _firstSession,
+    lastRequestDate: _lastReviewRequestDate,
+    lastRequestVersion: _lastReviewRequestVersion,
+    paywallShownAt: _paywallShownAt,
+  );
+
+  /// Records [moment] and, if it is the first of its kind and the limits
+  /// allow, queues a review request for MainScreen to make.
+  void noteReviewMoment(ReviewMoment moment, [DateTime? now]) {
+    if (_reviewMoments.contains(moment.name)) return;
+    _reviewMoments = {..._reviewMoments, moment.name};
+    _saveData();
+    if (_shouldRequestReview || !canRequestReview(now)) return;
     _shouldRequestReview = true;
     notifyListeners();
   }
 
-  /// Called by MainScreen after showing the dialog.
-  /// Marks as shown-once so it never fires again.
+  /// MainScreen takes the queued request; it re-checks the limits after its
+  /// short delay and calls [markReviewRequested] if it really asks.
   void clearReviewFlag() {
     _shouldRequestReview = false;
+  }
+
+  /// The request went out: start the 30 day and per-version limits.
+  void markReviewRequested([DateTime? now]) {
+    final d = now ?? DateTime.now();
+    _lastReviewRequestDate =
+        '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+    _lastReviewRequestVersion = _appVersion;
     _reviewShownOnce = true;
+    _saveData();
+  }
+
+  // ── v3 tour ──
+  // The walkthrough of the v3 screens. New users get it right after
+  // onboarding; people who update from 1.6.x already have a profile and skip
+  // onboarding, so they get it once as a "what's new" tour.
+  bool _seenV3Tour = false;
+  bool get seenV3Tour => _seenV3Tour;
+
+  /// This launch read a blob an older build wrote (1.6.x has no
+  /// schemaVersion): the tour opens with its "what's new" card.
+  bool _updatedThisLaunch = false;
+  bool get updatedThisLaunch => _updatedThisLaunch;
+
+  /// Has a profile, has never seen the v3 tour and is not on the first-run
+  /// path (which shows the same tour itself).
+  bool get shouldShowWhatsNewTour =>
+      _profile != null && !_seenV3Tour && _journeyProgress != 1;
+
+  void markV3TourSeen() {
+    if (_seenV3Tour) return;
+    _seenV3Tour = true;
     _saveData();
   }
 
@@ -1573,6 +1731,7 @@ class AppProvider extends ChangeNotifier {
         'weekly_water_5',
         _dailyChallengeProgress[weeklyWaterKey]!,
       );
+      noteReviewMoment(ReviewMoment.waterGoal);
     }
     _saveData();
     notifyListeners();
@@ -1715,6 +1874,9 @@ class AppProvider extends ChangeNotifier {
     _lastChallengeDate = '';
     _dailyChallengeProgress = {};
     _reviewShownOnce = false;
+    // The rating limits stay: they track what Apple has already shown.
+    _reviewMoments = {};
+    _seenV3Tour = false;
     _announcedAchievements = {};
     _pendingAchievementNotices = [];
     _routineHistory = {};
@@ -1896,6 +2058,9 @@ class AppProvider extends ChangeNotifier {
     _analysisCompleted = true;
     _journeyProgress = 3;
     _reviewShownOnce = true;
+    // A demo neither replays the tour nor asks for a rating.
+    _seenV3Tour = true;
+    _reviewMoments = {for (final m in ReviewMoment.values) m.name};
 
     // Badges the history already earned are marked as seen, so seeding does
     // not fire a burst of congratulation notifications.
