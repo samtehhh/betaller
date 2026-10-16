@@ -1168,6 +1168,7 @@ class _ProgramTab extends StatelessWidget {
             levelIndex: i,
             currentLevel: level,
             completed: completed,
+            premium: provider.isPremium,
           ),
       ],
     );
@@ -1492,11 +1493,16 @@ class _LevelCard extends StatefulWidget {
   final int levelIndex;
   final int currentLevel;
   final Set<int> completed;
+
+  /// Free users open a level to a blurred preview of its seven days, with
+  /// the way to Pro on top.
+  final bool premium;
   const _LevelCard({
     required this.plan,
     required this.levelIndex,
     required this.currentLevel,
     required this.completed,
+    this.premium = true,
   });
 
   @override
@@ -1632,58 +1638,68 @@ class _LevelCardState extends State<_LevelCard> {
               ),
               if (_expanded) ...[
                 const SizedBox(height: 10),
-                for (final d in days)
-                  Builder(builder: (context) {
-                    final pd = widget.plan.programDay(d);
-                    final done = widget.completed.contains(d);
-                    return GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => _showDaySheet(
-                        context,
-                        title:
-                            '${l.plCurrentDay(d + 1)} · ${planKindLabel(l, pd.kind)}',
-                        subtitle: l.plWorkoutMeta(pd.moves.length, pd.minutes),
-                        moves: pd.moves,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          children: [
-                            Icon(
-                              done
-                                  ? CupertinoIcons.checkmark_circle_fill
-                                  : planKindIcon(pd.kind),
-                              size: 16,
-                              color: done
-                                  ? AppColors.success
-                                  : color.withValues(alpha: 0.8),
+                _lockedIf(
+                  !widget.premium,
+                  title: l.ftContinuePro,
+                  body: l.ftWhyProgram,
+                  feature: FreeFeature.program,
+                  child: Column(
+                    children: [
+                      for (final d in days)
+                        Builder(builder: (context) {
+                          final pd = widget.plan.programDay(d);
+                          final done = widget.completed.contains(d);
+                          return GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () => _showDaySheet(
+                              context,
+                              title:
+                                  '${l.plCurrentDay(d + 1)} · ${planKindLabel(l, pd.kind)}',
+                              subtitle: l.plWorkoutMeta(pd.moves.length, pd.minutes),
+                              moves: pd.moves,
                             ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                '${l.plCurrentDay(d + 1)} · ${planKindLabel(l, pd.kind)}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    done
+                                        ? CupertinoIcons.checkmark_circle_fill
+                                        : planKindIcon(pd.kind),
+                                    size: 16,
+                                    color: done
+                                        ? AppColors.success
+                                        : color.withValues(alpha: 0.8),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Text(
+                                      '${l.plCurrentDay(d + 1)} · ${planKindLabel(l, pd.kind)}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    l.plWorkoutMeta(pd.moves.length, pd.minutes),
+                                    style: TextStyle(
+                                      fontSize: 11.5,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white.withValues(alpha: 0.45),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(
-                              l.plWorkoutMeta(pd.moves.length, pd.minutes),
-                              style: TextStyle(
-                                fontSize: 11.5,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white.withValues(alpha: 0.45),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
+                          );
+                        }),
+                    ],
+                  ),
+                ),
               ],
             ],
           ),
