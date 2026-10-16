@@ -11,6 +11,8 @@ import '../services/notification_service.dart';
 import '../utils/betaller_score.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
+import '../utils/free_tier.dart';
+import '../widgets/free_tier_widgets.dart';
 import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
 import '../utils/text_case.dart';
@@ -72,6 +74,13 @@ class AnalysisScreenState extends State<AnalysisScreen>
     _ring.forward(from: 0).then((_) {
       if (mounted && context.read<AppProvider>().isPremium) Haptics.impact();
     });
+  }
+
+  /// Called by MainScreen when the user opens the tab: that look is the free
+  /// use of the score breakdown, and it stays open for this session.
+  void noteOpened() {
+    if (!mounted) return;
+    context.read<AppProvider>().openFree(FreeFeature.scoreBreakdown);
   }
 
   @override
@@ -141,6 +150,13 @@ class AnalysisScreenState extends State<AnalysisScreen>
           );
         }
 
+        // The score itself is free for everyone; what builds it is the
+        // metered part (lib/utils/free_tier.dart).
+        final breakdown = _Breakdown(
+          score: score,
+          provider: provider,
+          onAct: (f) => _act(f, provider),
+        );
         final scoreBlock = Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -154,11 +170,16 @@ class AnalysisScreenState extends State<AnalysisScreen>
               ),
             ),
             const SizedBox(height: 26),
-            _Breakdown(
-              score: score,
-              provider: provider,
-              onAct: (f) => _act(f, provider),
-            ),
+            if (provider.canUseFree(FreeFeature.scoreBreakdown))
+              breakdown
+            else
+              _LockedPreview(
+                maxHeight: 520,
+                title: l.ftScoreLockedTitle,
+                body: l.ftScoreLockedBody,
+                feature: FreeFeature.scoreBreakdown,
+                child: breakdown,
+              ),
           ],
         );
 
@@ -205,15 +226,7 @@ class AnalysisScreenState extends State<AnalysisScreen>
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                     // ── 1. The score and what builds it ──
-                    if (provider.isPremium)
-                      scoreBlock
-                    else
-                      _LockedPreview(
-                        maxHeight: 600,
-                        title: l.anUnlockScoreTitle,
-                        body: l.anUnlockScoreBody,
-                        child: scoreBlock,
-                      ),
+                    scoreBlock,
                     const SizedBox(height: 30),
 
                     // ── 2. The one potential ──
@@ -1384,12 +1397,16 @@ class _LockedPreview extends StatelessWidget {
   final double? maxHeight;
   final bool compact;
 
+  /// The free tier feature this locks, for the paywall's reason line.
+  final FreeFeature? feature;
+
   const _LockedPreview({
     required this.child,
     required this.title,
     this.body,
     this.maxHeight,
     this.compact = false,
+    this.feature,
   });
 
   @override
@@ -1397,7 +1414,8 @@ class _LockedPreview extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     void unlock() {
       Haptics.tap();
-      showPremiumPaywall(context);
+      final f = feature;
+      f == null ? showPremiumPaywall(context) : showPaywallFor(context, f);
     }
 
     Widget preview = IgnorePointer(child: ExcludeSemantics(child: child));

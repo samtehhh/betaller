@@ -12,7 +12,8 @@ import '../providers/app_provider.dart';
 import '../utils/camera_utils.dart';
 import '../utils/constants.dart';
 import '../utils/haptics.dart';
-import '../widgets/premium_paywall.dart';
+import '../utils/free_tier.dart';
+import '../widgets/free_tier_widgets.dart';
 import '../widgets/progress_locked_preview.dart';
 import '../utils/text_case.dart';
 import '../utils/num_format.dart';
@@ -24,8 +25,9 @@ const int _kPhotoEveryDays = 14;
 /// Progress photos as a transformation tool: a dated timeline with the height
 /// on each photo, and a before/after comparison of any two of them.
 ///
-/// Adding photos is premium (as it always was); photos already taken stay
-/// visible and comparable for everyone.
+/// On the free tier the first two photos and one comparison of a pair are
+/// free (lib/utils/free_tier.dart); more photos and other pairs are Pro.
+/// Photos already taken stay visible for everyone.
 class ProgressPhotosScreen extends StatefulWidget {
   const ProgressPhotosScreen({super.key});
 
@@ -38,12 +40,21 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   String? _beforeId;
   String? _afterId;
 
+  /// Free users may take the two photos their free comparison needs.
+  static bool _canAddPhoto(AppProvider p) =>
+      p.isPremium ||
+      (p.progressPhotos.length < 2 && p.canUseFree(FreeFeature.photoCompare));
+
+  /// The key a compared pair's free use is stored under.
+  static String _pairKey(Map<String, dynamic> a, Map<String, dynamic> b) =>
+      '${a['id']}|${b['id']}';
+
   // ── Picker flow ─────────────────────────────────────────────────────────
   Future<void> _startCapture() async {
     Haptics.tap();
     final provider = context.read<AppProvider>();
-    if (!provider.isPremium) {
-      await showPremiumPaywall(context);
+    if (!_canAddPhoto(provider)) {
+      await showFreeLimit(context, FreeFeature.photoCompare);
       return;
     }
     final photos = provider.progressPhotos;
@@ -314,7 +325,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final photos = provider.progressPhotos;
-        final locked = !provider.isPremium;
+        final locked = !_canAddPhoto(provider);
 
         Map<String, dynamic>? byId(String? id) {
           if (id == null) return null;
@@ -330,6 +341,33 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
         final after = photos.length >= 2
             ? (byId(_afterId) ?? photos.last)
             : null;
+
+        // The first pair a free user sees is their free comparison: spend
+        // it once the frame is up, and keep that pair open from then on.
+        var compareOpen = true;
+        if (before != null && after != null && provider.isMetered) {
+          final key = _pairKey(before, after);
+          if (provider.isFreeItem(FreeFeature.photoCompare, key)) {
+            compareOpen = true;
+          } else if (provider.canUseFree(FreeFeature.photoCompare)) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (mounted) {
+                provider.consumeFree(FreeFeature.photoCompare, item: key);
+              }
+            });
+          } else {
+            compareOpen = false;
+          }
+        }
+        final compare = before == null || after == null
+            ? null
+            : _CompareCard(
+                before: before,
+                after: after,
+                totalPhotos: photos.length,
+                onChooseBefore: () => _choosePhoto(before: true),
+                onChooseAfter: () => _choosePhoto(before: false),
+              );
 
         return Scaffold(
           backgroundColor: AppColors.scaffold,
@@ -348,6 +386,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                             ? ProgressLockedPreview(
                                 title: l.pgPhotosLockedTitle,
                                 body: l.pgPhotosLockedBody,
+                                feature: FreeFeature.photoCompare,
                                 preview: const _SilhouetteComparePreview(),
                               )
                             : _EmptyState(onStart: _startCapture)
@@ -356,13 +395,15 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                           photo: photos.first,
                           onTap: () => _openViewer(photos.first, 1),
                         )
+                      else if (compareOpen)
+                        compare!
                       else
-                        _CompareCard(
-                          before: before!,
-                          after: after!,
-                          totalPhotos: photos.length,
-                          onChooseBefore: () => _choosePhoto(before: true),
-                          onChooseAfter: () => _choosePhoto(before: false),
+                        ProgressLockedPreview(
+                          title: l.ftPhotosLockedTitle,
+                          body: l.ftPhotosLockedBody,
+                          feature: FreeFeature.photoCompare,
+                          maxHeight: 380,
+                          preview: compare!,
                         ),
                       if (photos.isNotEmpty) ...[
                         const SizedBox(height: 24),
@@ -1362,6 +1403,7 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final chip = FreeChip.forFeature(context, FreeFeature.photoCompare);
     return _CardBox(
       padding: const EdgeInsets.fromLTRB(18, 20, 18, 18),
       child: Column(
@@ -1369,6 +1411,10 @@ class _EmptyState extends StatelessWidget {
         children: [
           const SizedBox(height: 200, child: _GuideFrame(ghostPath: null)),
           const SizedBox(height: 18),
+          if (chip != null) ...[
+            Align(alignment: AlignmentDirectional.centerStart, child: chip),
+            const SizedBox(height: 10),
+          ],
           Text(
             l.pgEmptyTitle,
             style: const TextStyle(

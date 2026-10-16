@@ -12,6 +12,7 @@ import '../providers/app_provider.dart';
 import '../services/notification_service.dart';
 import '../utils/constants.dart';
 import '../utils/dev_tools.dart';
+import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
 import 'notifications_screen.dart';
 import 'wellness_tracker_screen.dart';
@@ -588,6 +589,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   backgroundColor: AppColors.surfaceDark,
                                 ),
                               );
+                            },
+                          ),
+                          // The metered free tier, seen with Premium off:
+                          // fresh on its first day, or the day after it
+                          // with every free use back and the first-day
+                          // ones over.
+                          _MenuRow(
+                            icon: CupertinoIcons.gift_fill,
+                            label: 'Ücretsiz katman: 1. gün',
+                            subtitle:
+                                'Ücretsiz hakları sıfırla, bugün ilk gün olsun',
+                            color: AppColors.lime,
+                            onTap: () {
+                              Haptics.select();
+                              provider.debugResetFreeTier();
+                            },
+                          ),
+                          _MenuRow(
+                            icon: CupertinoIcons.lock_fill,
+                            label: 'Ücretsiz katman: 2. gün',
+                            subtitle:
+                                'Haklar sıfır, ilk gün dün bitti: kilitleri gör',
+                            color: AppColors.warning,
+                            onTap: () {
+                              Haptics.select();
+                              provider.debugResetFreeTier(dayTwo: true);
                             },
                           ),
                           _MenuRow(

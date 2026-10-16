@@ -6141,4 +6141,144 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get obNotifNow => 'şimdi';
+
+  @override
+  String get ftOneFree => '1 ücretsiz';
+
+  @override
+  String get ftFreeToday => 'Bugün ücretsiz';
+
+  @override
+  String get ftContinuePro => 'Pro ile devam et';
+
+  @override
+  String get ftNotNow => 'Şimdi değil';
+
+  @override
+  String get ftOutWorkoutTitle => 'Ücretsiz antrenmanını kullandın';
+
+  @override
+  String get ftOutWorkoutBody =>
+      'Serini Pro ile sürdür: her gün rehberli antrenman, her hareket senin için zamanlanmış.';
+
+  @override
+  String get ftOutDayTitle => 'Ücretsiz ilk günün bitti';
+
+  @override
+  String get ftOutDayBody =>
+      'Planın, hedeflerin ve gelişimin burada okunmaya devam eder. Serini Pro ile sürdür: planını işaretle, suyu ve uykuyu her gün kaydet.';
+
+  @override
+  String get ftOutPostureTitle => 'Ücretsiz duruş kontrolünü kullandın';
+
+  @override
+  String get ftOutPostureBody =>
+      'Sonucun burada kalır. Pro ile her hafta yeniden kontrol et, duruşunun düzeldiğini gör.';
+
+  @override
+  String get ftOutPhotosTitle => 'Ücretsiz fotoğraf karşılaştırmanı kullandın';
+
+  @override
+  String get ftOutPhotosBody =>
+      'O ikili sende kalır. Pro ile daha çok fotoğraf ekle, istediğin ikisini karşılaştır.';
+
+  @override
+  String get ftOutReportTitle => 'Ücretsiz haftalık raporunu kullandın';
+
+  @override
+  String get ftOutReportBody =>
+      'Pro ile her hafta tam özetini al: her gün puanlı, hedeflerin ve daha iyi yapacağın bir şey.';
+
+  @override
+  String get ftOutScoreTitle => 'Ücretsiz skor dökümünü gördün';
+
+  @override
+  String get ftOutScoreBody =>
+      'Skorun ekranda kalır. Onu neyin oluşturduğunu ve sırada ne yapacağını her gün Pro ile gör.';
+
+  @override
+  String get ftOutArticleTitle => 'Ücretsiz makaleni okudun';
+
+  @override
+  String get ftOutArticleBody =>
+      'O makale senin için açık kalır. Tüm kütüphaneyi Pro ile oku.';
+
+  @override
+  String get ftWhyWorkout => 'Rehberli antrenmanlar Pro\'ya dahil';
+
+  @override
+  String get ftWhyPlan => 'Planını işaretlemek Pro\'ya dahil';
+
+  @override
+  String get ftWhyProgram => '70 günlük program Pro\'ya dahil';
+
+  @override
+  String get ftWhyWater => 'Her gün su kaydetmek Pro\'ya dahil';
+
+  @override
+  String get ftWhySleep => 'Her gün uyku kaydetmek Pro\'ya dahil';
+
+  @override
+  String get ftWhyNutrition => 'Günlük beslenme planın Pro\'ya dahil';
+
+  @override
+  String get ftWhyPosture => 'Haftalık duruş kontrolleri Pro\'ya dahil';
+
+  @override
+  String get ftWhyPhotos => 'Fotoğraf karşılaştırmaları Pro\'ya dahil';
+
+  @override
+  String get ftWhyReport => 'Haftalık raporun Pro\'ya dahil';
+
+  @override
+  String get ftWhyScore => 'Skor dökümün Pro\'ya dahil';
+
+  @override
+  String get ftWhyArticle => 'Tüm kütüphane Pro\'ya dahil';
+
+  @override
+  String get ftPlanLocked =>
+      'Planın burada okunmaya devam eder. İşaretlemek Pro\'ya dahil.';
+
+  @override
+  String get ftNutritionLocked =>
+      'Hedeflerin ve öğünlerin burada okunmaya devam eder. İşaretlemek Pro\'ya dahil.';
+
+  @override
+  String get ftPreviewTag => 'Önizleme';
+
+  @override
+  String get ftPreviewTitle => 'Önizlemen buydu';
+
+  @override
+  String get ftPreviewBody =>
+      'Bu antrenmanın devamı Pro\'ya dahil. Sırada bunlar var:';
+
+  @override
+  String get ftFreeWorkoutUsed =>
+      'Bu senin ücretsiz rehberli antrenmanındı. Pro ile her gün devam eder.';
+
+  @override
+  String get ftScoreLockedTitle => 'Skorunu ne oluşturuyor';
+
+  @override
+  String get ftScoreLockedBody =>
+      'Skorunun her parçası, neye dayandığı ve sıradaki tek adım.';
+
+  @override
+  String get ftReportLockedTitle => 'Haftanın tamamı';
+
+  @override
+  String get ftReportLockedBody =>
+      'Her gün planına göre puanlı, hedeflerin, boyun ve gelecek hafta için tek odak.';
+
+  @override
+  String get ftPhotosLockedTitle => 'Bu ikisini karşılaştır';
+
+  @override
+  String get ftPhotosLockedBody =>
+      'Ücretsiz karşılaştırmanı kullandın. Pro ile istediğin iki fotoğraf arasında kaydır.';
+
+  @override
+  String get ftArticleFreeLine => 'İlk makalen ücretsiz. İstediğini seç.';
 }

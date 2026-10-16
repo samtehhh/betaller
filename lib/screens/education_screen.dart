@@ -9,7 +9,8 @@ import '../utils/constants.dart';
 import '../utils/education_data.dart';
 import '../utils/localized_data.dart';
 import 'exercise_detail_screen.dart';
-import '../widgets/premium_paywall.dart';
+import '../utils/free_tier.dart';
+import '../widgets/free_tier_widgets.dart';
 import '../utils/text_case.dart';
 
 // ── Category theming ─────────────────────────────────────────────
@@ -93,7 +94,9 @@ class _EducationScreenState extends State<EducationScreen> {
     final articles = _selectedCategory == 'all'
         ? all
         : all.where((a) => a['category'] == _selectedCategory).toList();
-    final isPremium = context.watch<AppProvider>().isPremium;
+    final provider = context.watch<AppProvider>();
+    final freeLine =
+        provider.isMetered && provider.canUseFree(FreeFeature.article);
 
     return Scaffold(
       backgroundColor: AppColors.scaffold,
@@ -136,6 +139,30 @@ class _EducationScreenState extends State<EducationScreen> {
 
           const SliverToBoxAdapter(child: SizedBox(height: 18)),
 
+          // ── Free tier: the first article is on the house ──
+          if (freeLine)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 14),
+                child: Row(
+                  children: [
+                    FreeChip(label: l.ftOneFree),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        l.ftArticleFreeLine,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white.withValues(alpha: 0.7),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
           // ── Article list ───────────────────────────
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 110),
@@ -144,8 +171,11 @@ class _EducationScreenState extends State<EducationScreen> {
               separatorBuilder: (_, _) => const SizedBox(height: 12),
               itemBuilder: (context, index) => _ArticleCard(
                 article: articles[index],
-                locked: !isPremium,
-                onTap: () => _open(articles, index, isPremium),
+                locked: !provider.canUseFreeFor(
+                  FreeFeature.article,
+                  articles[index]['id'] as String? ?? '',
+                ),
+                onTap: () => _open(articles, index),
               ),
             ),
           ),
@@ -154,16 +184,8 @@ class _EducationScreenState extends State<EducationScreen> {
     );
   }
 
-  void _open(List<Map<String, dynamic>> articles, int index, bool isPremium) {
-    if (!isPremium) {
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (_) => PremiumPaywallScreen(),
-      );
-      return;
-    }
+  void _open(List<Map<String, dynamic>> articles, int index) {
+    if (!openFreeArticle(context, articles[index])) return;
     Navigator.of(context).push(
       CupertinoPageRoute(
         builder: (_) => ArticleDetailScreen(
@@ -174,6 +196,17 @@ class _EducationScreenState extends State<EducationScreen> {
       ),
     );
   }
+}
+
+/// Whether [article] may open: premium, the article the free use went on,
+/// or the free use is spent on it now. Otherwise shows the free limit.
+bool openFreeArticle(BuildContext context, Map<String, dynamic> article) {
+  final id = article['id'] as String? ?? '';
+  if (context.read<AppProvider>().consumeFree(FreeFeature.article, item: id)) {
+    return true;
+  }
+  showFreeLimit(context, FreeFeature.article);
+  return false;
 }
 
 // ── Library header ───────────────────────────────────────────────
@@ -722,15 +755,18 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                       _NextArticleCard(
                         label: l.nextArticle,
                         article: next,
-                        onTap: () => Navigator.of(context).pushReplacement(
-                          CupertinoPageRoute(
-                            builder: (_) => ArticleDetailScreen(
-                              article: next,
-                              siblings: siblings,
-                              index: index! + 1,
+                        onTap: () {
+                          if (!openFreeArticle(context, next)) return;
+                          Navigator.of(context).pushReplacement(
+                            CupertinoPageRoute(
+                              builder: (_) => ArticleDetailScreen(
+                                article: next,
+                                siblings: siblings,
+                                index: index! + 1,
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ],
                   ]),

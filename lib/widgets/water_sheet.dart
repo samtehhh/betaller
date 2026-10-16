@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/free_tier.dart';
+import 'free_tier_widgets.dart';
 import '../utils/num_format.dart';
 
 /// The water sheet: a glass that fills as you log, quick amounts that stay put
@@ -17,6 +19,8 @@ Future<void> showWaterSheet(
   AppProvider provider,
   double target,
 ) {
+  // The card behind stays readable; logging is the metered action.
+  if (!guardFree(context, FreeFeature.water)) return Future.value();
   return showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -56,8 +60,8 @@ class _WaterSheetState extends State<_WaterSheet>
     super.dispose();
   }
 
-  // Logging water is free: it is part of the daily loop, and a habit the
-  // app counts toward streaks and challenges cannot sit behind the paywall.
+  // Logging water is free on the first day (lib/utils/free_tier.dart);
+  // [showWaterSheet] checks before the sheet opens.
   void _add(double amount) {
     HapticFeedback.lightImpact();
     context.read<AppProvider>().addWater(amount);

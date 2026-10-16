@@ -10939,6 +10939,258 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'now'**
   String get obNotifNow;
+
+  /// No description provided for @ftOneFree.
+  ///
+  /// In en, this message translates to:
+  /// **'1 free'**
+  String get ftOneFree;
+
+  /// No description provided for @ftFreeToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Free today'**
+  String get ftFreeToday;
+
+  /// No description provided for @ftContinuePro.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Pro'**
+  String get ftContinuePro;
+
+  /// No description provided for @ftNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get ftNotNow;
+
+  /// No description provided for @ftOutWorkoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used your free workout'**
+  String get ftOutWorkoutTitle;
+
+  /// No description provided for @ftOutWorkoutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your streak with Pro: a guided workout every day, every move timed for you.'**
+  String get ftOutWorkoutBody;
+
+  /// No description provided for @ftOutDayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your free first day is done'**
+  String get ftOutDayTitle;
+
+  /// No description provided for @ftOutDayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan, targets and progress stay here to read. Keep your streak with Pro: tick off your plan and log water and sleep every day.'**
+  String get ftOutDayBody;
+
+  /// No description provided for @ftOutPostureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used your free posture check'**
+  String get ftOutPostureTitle;
+
+  /// No description provided for @ftOutPostureBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your result stays here. Check again every week with Pro and watch your posture improve.'**
+  String get ftOutPostureBody;
+
+  /// No description provided for @ftOutPhotosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used your free photo compare'**
+  String get ftOutPhotosTitle;
+
+  /// No description provided for @ftOutPhotosBody.
+  ///
+  /// In en, this message translates to:
+  /// **'That pair stays yours to look at. Add more photos and compare any two with Pro.'**
+  String get ftOutPhotosBody;
+
+  /// No description provided for @ftOutReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used your free weekly report'**
+  String get ftOutReportTitle;
+
+  /// No description provided for @ftOutReportBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Get your full recap every week with Pro: each day scored, your goals and one thing to do better.'**
+  String get ftOutReportBody;
+
+  /// No description provided for @ftOutScoreTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve seen your free score breakdown'**
+  String get ftOutScoreTitle;
+
+  /// No description provided for @ftOutScoreBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your score stays on screen. See what builds it, and what to do next, every day with Pro.'**
+  String get ftOutScoreBody;
+
+  /// No description provided for @ftOutArticleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve read your free article'**
+  String get ftOutArticleTitle;
+
+  /// No description provided for @ftOutArticleBody.
+  ///
+  /// In en, this message translates to:
+  /// **'That article stays open for you. Read the whole library with Pro.'**
+  String get ftOutArticleBody;
+
+  /// No description provided for @ftWhyWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Guided workouts are part of Pro'**
+  String get ftWhyWorkout;
+
+  /// No description provided for @ftWhyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Ticking off your plan is part of Pro'**
+  String get ftWhyPlan;
+
+  /// No description provided for @ftWhyProgram.
+  ///
+  /// In en, this message translates to:
+  /// **'The 70-day program is part of Pro'**
+  String get ftWhyProgram;
+
+  /// No description provided for @ftWhyWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Logging water every day is part of Pro'**
+  String get ftWhyWater;
+
+  /// No description provided for @ftWhySleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Logging sleep every day is part of Pro'**
+  String get ftWhySleep;
+
+  /// No description provided for @ftWhyNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily nutrition plan is part of Pro'**
+  String get ftWhyNutrition;
+
+  /// No description provided for @ftWhyPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly posture checks are part of Pro'**
+  String get ftWhyPosture;
+
+  /// No description provided for @ftWhyPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo comparisons are part of Pro'**
+  String get ftWhyPhotos;
+
+  /// No description provided for @ftWhyReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weekly report is part of Pro'**
+  String get ftWhyReport;
+
+  /// No description provided for @ftWhyScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Your score breakdown is part of Pro'**
+  String get ftWhyScore;
+
+  /// No description provided for @ftWhyArticle.
+  ///
+  /// In en, this message translates to:
+  /// **'The full library is part of Pro'**
+  String get ftWhyArticle;
+
+  /// No description provided for @ftPlanLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan stays here to read. Ticking it off is part of Pro.'**
+  String get ftPlanLocked;
+
+  /// No description provided for @ftNutritionLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Your targets and meals stay here to read. Ticking them off is part of Pro.'**
+  String get ftNutritionLocked;
+
+  /// No description provided for @ftPreviewTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get ftPreviewTag;
+
+  /// No description provided for @ftPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'That was your preview'**
+  String get ftPreviewTitle;
+
+  /// No description provided for @ftPreviewBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The rest of this workout is part of Pro. Here is what comes next:'**
+  String get ftPreviewBody;
+
+  /// No description provided for @ftFreeWorkoutUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'That was your free guided workout. Pro keeps them coming every day.'**
+  String get ftFreeWorkoutUsed;
+
+  /// No description provided for @ftScoreLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What builds your score'**
+  String get ftScoreLockedTitle;
+
+  /// No description provided for @ftScoreLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every part of your score, what it is based on and the one thing to do next.'**
+  String get ftScoreLockedBody;
+
+  /// No description provided for @ftReportLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your full week'**
+  String get ftReportLockedTitle;
+
+  /// No description provided for @ftReportLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day scored against your plan, your goals, your height and one focus for next week.'**
+  String get ftReportLockedBody;
+
+  /// No description provided for @ftPhotosLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare these two'**
+  String get ftPhotosLockedTitle;
+
+  /// No description provided for @ftPhotosLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your free comparison is used. With Pro you can slide between any two photos.'**
+  String get ftPhotosLockedBody;
+
+  /// No description provided for @ftArticleFreeLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first article is free. Pick the one you want.'**
+  String get ftArticleFreeLine;
 }
 
 class _AppLocalizationsDelegate

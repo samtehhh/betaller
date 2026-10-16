@@ -22,6 +22,7 @@ import '../utils/constants.dart';
 import '../utils/betaller_score.dart';
 import '../utils/daily_plan.dart';
 import '../utils/daily_targets.dart';
+import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
 import '../utils/height_reference.dart';
 import '../services/purchase_service.dart';
@@ -792,6 +793,7 @@ class AppProvider extends ChangeNotifier {
     _firstSession = _firstSession || data == null;
 
     Map<String, dynamic>? decoded;
+    var meteringStartedNow = false;
     if (data != null) {
       try {
         decoded = Map<String, dynamic>.from(jsonDecode(data) as Map);
@@ -995,6 +997,26 @@ class AppProvider extends ChangeNotifier {
         json['journeyProgress'],
         _profile != null ? 1 : 0,
       );
+
+      // Free tier. A blob without these predates metering: an existing user
+      // starts counting today, with today's half-done day still free.
+      _freeUses = intMap('freeUses');
+      _freeItems = listMap('freeItems');
+      _freeOutSeen = _safe(
+        'freeOutSeen',
+        () => Set<String>.from((json['freeOutSeen'] as List?) ?? const []),
+        <String>{},
+      );
+      _installDate = asStr(json['installDate']);
+      _freeTierStart = asStr(json['freeTierStart']);
+      if (_profile != null && _freeTierStart.isEmpty) {
+        _freeTierStart = _today;
+        if (_installDate.isEmpty) {
+          final earliest = _earliestDataDate();
+          _installDate = earliest.isEmpty ? _today : earliest;
+        }
+        meteringStartedNow = true;
+      }
     }
 
     _raisePotentialAnchor();
@@ -1003,6 +1025,8 @@ class AppProvider extends ChangeNotifier {
     checkNewAchievements();
     _setDailyQuote();
     _checkAndGenerateChallenges();
+    // Pin the day metering started, so a launch tomorrow cannot move it.
+    if (meteringStartedNow) await _saveData();
     notifyListeners();
     // Premium is synced from main() once the billing SDK is up. Asking here
     // ran before Purchases.configure, so the answer was always "no" and a
@@ -1137,6 +1161,11 @@ class AppProvider extends ChangeNotifier {
       'sleepLog': _sleepLog,
       'waterLog': _waterLog,
       'scoreHistory': _scoreHistory,
+      'freeUses': _freeUses,
+      'freeItems': _freeItems,
+      'freeOutSeen': _freeOutSeen.toList(),
+      'installDate': _installDate,
+      'freeTierStart': _freeTierStart,
     };
     // Start from what was stored, so keys this build does not write survive.
     final out = <String, dynamic>{
@@ -1200,6 +1229,9 @@ class AppProvider extends ChangeNotifier {
       // the times are the user's to set, and an edit elsewhere must not
       // silently move reminders they have already adjusted.
       _applyProfileReminderTimes(profile);
+      // A new install: metering starts today, the first day is free.
+      if (_installDate.isEmpty) _installDate = _today;
+      if (_freeTierStart.isEmpty) _freeTierStart = _today;
     }
     _raisePotentialAnchor();
     _saveData();
@@ -1362,6 +1394,147 @@ class AppProvider extends ChangeNotifier {
     _lastAutoPaywallDate = _today;
     _saveData();
     return true;
+  }
+
+  // ── Metered free tier ──
+  // See lib/utils/free_tier.dart for the rules. Premium is never metered.
+
+  /// Feature name -> free uses spent. Only counted features are counted.
+  Map<String, int> _freeUses = {};
+
+  /// Feature name -> the items a free use was spent on (the article read,
+  /// the photo pair compared), so that one stays open afterwards.
+  Map<String, List<String>> _freeItems = {};
+
+  /// [FreeFeature.noticeKey]s whose "you've used it" sheet was shown.
+  Set<String> _freeOutSeen = {};
+
+  /// yyyy-MM-dd the app was installed: today for a new install, the
+  /// earliest saved date for someone who had data before metering existed.
+  String _installDate = '';
+
+  /// yyyy-MM-dd metering started: the install day for a new install, the
+  /// day of the update for everyone else, so an update never takes away a
+  /// day that was already under way.
+  String _freeTierStart = '';
+
+  /// Counted features opened in this run of the app. A free use lasts for
+  /// the visit it was spent on: leaving the screen and coming back in the
+  /// same session does not lock it again.
+  final Set<FreeFeature> _freeSession = {};
+
+  Map<String, int> get freeUses => Map.unmodifiable(_freeUses);
+  String get installDate => _installDate;
+  String get freeTierStart => _freeTierStart;
+
+  /// Whether this user is on the metered free tier.
+  bool get isMetered => !_isPremium;
+
+  /// Today is the free first day. Before onboarding there is no start yet,
+  /// and the day in progress counts as the first.
+  bool get isFreeDay => _freeTierStart.isEmpty || _freeTierStart == _today;
+
+  /// Whether [f] may be used right now.
+  bool canUseFree(FreeFeature f) {
+    if (_isPremium) return true;
+    if (f.firstDayOnly) return isFreeDay;
+    return _freeSession.contains(f) || (_freeUses[f.name] ?? 0) < f.limit;
+  }
+
+  /// Free uses of [f] left: 1 or 0 for a first-day feature (today or not),
+  /// the uses not spent yet for a counted one. Premium has no limit and
+  /// reports -1.
+  int freeLeft(FreeFeature f) {
+    if (_isPremium) return -1;
+    if (f.firstDayOnly) return isFreeDay ? 1 : 0;
+    return max(0, f.limit - (_freeUses[f.name] ?? 0));
+  }
+
+  /// Whether this run of the app already spent [f]'s free use, so it is open
+  /// until the app restarts.
+  bool freeOpenThisSession(FreeFeature f) => _freeSession.contains(f);
+
+  /// Spends one free use of [f] (on [item], if given) and returns whether
+  /// the action may go ahead. Premium always may and spends nothing. A
+  /// first-day feature spends nothing either; it is simply free today.
+  bool consumeFree(FreeFeature f, {String? item}) {
+    if (_isPremium) return true;
+    if (f.firstDayOnly) return isFreeDay;
+    if (item != null && isFreeItem(f, item)) return true;
+    final used = _freeUses[f.name] ?? 0;
+    if (used >= f.limit) return false;
+    _freeUses = {..._freeUses, f.name: used + 1};
+    if (item != null) {
+      _freeItems = {
+        ..._freeItems,
+        f.name: [...?_freeItems[f.name], item],
+      };
+    }
+    _saveData();
+    notifyListeners();
+    return true;
+  }
+
+  /// Opens a counted feature to look at for this run of the app: true when
+  /// premium, already opened this session, or a free use was left (and is
+  /// now spent). For things that are read, like the weekly report; an action
+  /// such as a workout spends with [consumeFree] instead, every time.
+  bool openFree(FreeFeature f) {
+    if (_isPremium || _freeSession.contains(f)) return true;
+    if (!consumeFree(f)) return false;
+    _freeSession.add(f);
+    return true;
+  }
+
+  /// Whether [item] is the one [f]'s free use was spent on.
+  bool isFreeItem(FreeFeature f, String item) =>
+      _freeItems[f.name]?.contains(item) ?? false;
+
+  /// Whether [f] is usable for [item]: premium, its own free item, or a free
+  /// use still left.
+  bool canUseFreeFor(FreeFeature f, String item) =>
+      _isPremium || isFreeItem(f, item) || canUseFree(f);
+
+  /// Whether the "you've used your free ..." sheet for [f] was shown.
+  bool freeOutNoticed(FreeFeature f) => _freeOutSeen.contains(f.noticeKey);
+
+  void markFreeOutNoticed(FreeFeature f) {
+    if (_freeOutSeen.contains(f.noticeKey)) return;
+    _freeOutSeen = {..._freeOutSeen, f.noticeKey};
+    _saveData();
+  }
+
+  /// The earliest date anything was saved on, or '' when there is nothing.
+  String _earliestDataDate() {
+    final dates = <String>[
+      if (_profile != null) freeDateKey(_profile!.createdAt),
+      for (final r in _heightRecords) r.date,
+      ..._routineHistory.keys,
+      ..._sleepLog.keys,
+      ..._waterLog.keys,
+      ..._journalByDate.keys,
+      for (final p in _progressPhotos) p['date'] as String? ?? '',
+      for (final p in _postureAnalyses) p['date'] as String? ?? '',
+    ].where((d) => d.length >= 10 && DateTime.tryParse(d) != null).map(
+      (d) => d.substring(0, 10),
+    );
+    if (dates.isEmpty) return '';
+    return dates.reduce((a, b) => a.compareTo(b) <= 0 ? a : b);
+  }
+
+  /// Developer menu: back to a fresh free tier, on its first day or (with
+  /// [dayTwo]) the day after it, so the locked states can be seen.
+  void debugResetFreeTier({bool dayTwo = false}) {
+    if (!kDevTools) return;
+    _freeUses = {};
+    _freeItems = {};
+    _freeOutSeen = {};
+    _freeSession.clear();
+    _freeTierStart = freeDateKey(
+      dayTwo ? DateTime.now().subtract(const Duration(days: 1)) : DateTime.now(),
+    );
+    _saveData();
+    notifyListeners();
   }
 
   // ── App Review ──
@@ -1921,7 +2094,8 @@ class AppProvider extends ChangeNotifier {
     _lastChallengeDate = '';
     _dailyChallengeProgress = {};
     _reviewShownOnce = false;
-    // The rating limits stay: they track what Apple has already shown.
+    // The rating limits stay: they track what Apple has already shown. So
+    // does the free tier: a reset is not a second round of free uses.
     _reviewMoments = {};
     _seenV3Tour = false;
     _announcedAchievements = {};

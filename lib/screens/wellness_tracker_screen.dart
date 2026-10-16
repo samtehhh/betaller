@@ -50,12 +50,8 @@ class _WellnessTrackerScreenState extends State<WellnessTrackerScreen>
   bool _checkPremium(BuildContext context) {
     final provider = context.read<AppProvider>();
     if (!provider.isPremium) {
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        builder: (_) => PremiumPaywallScreen(),
-      );
+      // Through the one entry point, so it never stacks on another paywall.
+      showPremiumPaywall(context);
       return false;
     }
     return true;

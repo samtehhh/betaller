@@ -10,10 +10,12 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/daily_plan.dart';
 import '../utils/daily_targets.dart';
+import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
 import '../utils/meal_plan.dart';
 import '../widgets/discipline_widgets.dart';
+import '../widgets/free_tier_widgets.dart';
 import '../widgets/meal_plan_view.dart';
 import '../widgets/plan_widgets.dart';
 import '../widgets/program_widgets.dart';
@@ -28,8 +30,10 @@ import 'workout_player_screen.dart';
 import '../utils/text_case.dart';
 import '../utils/num_format.dart';
 
-/// My Plan: today's plan (free for everyone), the 70-day program (premium)
-/// and nutrition built around the user's own daily targets.
+/// My Plan: today's plan, the 70-day program and nutrition built around the
+/// user's own daily targets. Everything here is readable on the free tier;
+/// ticking it off is free on the first day, the guided workout once (see
+/// lib/utils/free_tier.dart).
 class RoutinesScreen extends StatefulWidget {
   const RoutinesScreen({super.key});
 
@@ -246,9 +250,11 @@ DailyTargets _targetsOf(AppProvider p) {
   );
 }
 
-void _tick(AppProvider p, String id) {
+void _tick(BuildContext context, AppProvider p, String id) {
   final r = p.allRoutines.where((x) => x.id == id).firstOrNull;
   if (r == null) return;
+  // Unticking is always allowed; ticking is the metered action.
+  if (!r.completed && !guardFree(context, FreeFeature.planTicks)) return;
   final wasAllDone = p.allRoutinesCompleted;
   if (r.completed) {
     Haptics.select();
@@ -385,8 +391,10 @@ class _TodayTab extends StatelessWidget {
     final moves = [for (final r in training) doses[r.id]!];
     final minutes = moves.fold<int>(0, (s, m) => s + m.minutes);
     final t = _targetsOf(provider);
+    final ticksLocked = !provider.canUseFree(FreeFeature.planTicks);
 
     void startWorkout() {
+      if (!guardFree(context, FreeFeature.workout)) return;
       Haptics.tap();
       Navigator.push(
         context,
@@ -435,6 +443,13 @@ class _TodayTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
+        if (ticksLocked) ...[
+          FreeLockBanner(
+            feature: FreeFeature.planTicks,
+            body: l.ftPlanLocked,
+          ),
+          const SizedBox(height: 16),
+        ],
         PlanSectionLabel(
           icon: planKindIcon(day.kind),
           title: '${l.plTraining} · ${planKindLabel(l, day.kind)}',
@@ -458,7 +473,8 @@ class _TodayTab extends StatelessWidget {
                           '${doseLabel(l, doses[r.id]!)} · ${l.plDoseMinutes(doses[r.id]!.minutes)}',
                       icon: r.icon,
                       done: r.completed,
-                      onToggle: () => _tick(provider, r.id),
+                      locked: ticksLocked,
+                      onToggle: () => _tick(context, provider, r.id),
                       onOpen: () => _openDetail(context, r),
                     ),
                 ],
@@ -488,7 +504,8 @@ class _TodayTab extends StatelessWidget {
                       done: r.completed,
                       showThumb: false,
                       accent: AppColors.lime,
-                      onToggle: () => _tick(provider, r.id),
+                      locked: ticksLocked,
+                      onToggle: () => _tick(context, provider, r.id),
                       onOpen: () => _openDetail(context, r),
                     ),
                 ],
@@ -621,6 +638,8 @@ class _TodayHero extends StatelessWidget {
         : trainingDone > 0
             ? l.plContinueWorkout
             : l.plStartWorkout;
+    final workoutLocked = !provider.canUseFree(FreeFeature.workout);
+    final dayChip = FreeChip.forFeature(context, FreeFeature.planTicks);
 
     return PlanCard(
       padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
@@ -719,6 +738,7 @@ class _TodayHero extends StatelessWidget {
                           text: disciplineTierName(l, _tierKeys[tierIdx]),
                           color: tier.color,
                         ),
+                        ?dayChip,
                       ],
                     ),
                   ],
@@ -744,9 +764,18 @@ class _TodayHero extends StatelessWidget {
               label: startLabel,
               icon: allMovesDone
                   ? CupertinoIcons.checkmark_seal_fill
+                  : workoutLocked
+                  ? CupertinoIcons.lock_fill
                   : CupertinoIcons.play_fill,
               color: allMovesDone ? AppColors.success : AppColors.primary,
               outlined: allMovesDone,
+              badge: allMovesDone
+                  ? null
+                  : FreeChip.forFeature(
+                      context,
+                      FreeFeature.workout,
+                      onFill: true,
+                    ),
               onTap: onStart,
             ),
           ),
@@ -976,7 +1005,8 @@ class _CustomRoutines extends StatelessWidget {
                   icon: r.icon,
                   done: r.completed,
                   accent: AppColors.primaryLight,
-                  onToggle: () => _tick(provider, r.id),
+                  locked: !provider.canUseFree(FreeFeature.planTicks),
+                  onToggle: () => _tick(context, provider, r.id),
                   onOpen: () => _openDetail(context, r),
                   onLongPress: () => _confirmDelete(context, r),
                 ),
@@ -1033,7 +1063,6 @@ class _ProgramTab extends StatelessWidget {
     final finished = current >= kProgramDays;
     final level = currentProgramLevel(completed);
     final day = plan.programDay(current.clamp(0, kProgramDays - 1));
-    final premium = provider.isPremium;
 
     final body = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1071,7 +1100,7 @@ class _ProgramTab extends StatelessWidget {
                     ),
                   ),
                 )
-              : _ProgramDayCard(provider: provider, day: day, premium: premium),
+              : _ProgramDayCard(provider: provider, day: day),
         ),
         const SizedBox(height: 20),
         PlanSectionLabel(
@@ -1096,14 +1125,8 @@ class _ProgramTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        if (premium)
-          body
-        else
-          LockedPreview(
-            title: l.plUnlockProgram,
-            body: l.plProgramPitch,
-            child: body,
-          ),
+        // Readable on the free tier; the day card locks its ticks itself.
+        body,
         const SizedBox(height: 22),
         PlanSectionLabel(
           icon: CupertinoIcons.square_stack_3d_up_fill,
@@ -1116,7 +1139,6 @@ class _ProgramTab extends StatelessWidget {
             levelIndex: i,
             currentLevel: level,
             completed: completed,
-            premium: premium,
           ),
       ],
     );
@@ -1227,12 +1249,7 @@ class _LevelWeek extends StatelessWidget {
 class _ProgramDayCard extends StatelessWidget {
   final AppProvider provider;
   final ProgramDay day;
-  final bool premium;
-  const _ProgramDayCard({
-    required this.provider,
-    required this.day,
-    required this.premium,
-  });
+  const _ProgramDayCard({required this.provider, required this.day});
 
   @override
   Widget build(BuildContext context) {
@@ -1241,12 +1258,13 @@ class _ProgramDayCard extends StatelessWidget {
     final checks = provider.programChecksFor(day.index);
     final doneToday = provider.programDayDoneToday;
     final allTicked = day.moves.every((m) => checks.contains(m.routineId));
-    final canComplete = premium && provider.canCompleteProgramDay(day.index);
+    final ticksLocked = !provider.canUseFree(FreeFeature.program);
+    final canComplete =
+        !ticksLocked && provider.canCompleteProgramDay(day.index);
     final byId = {for (final r in provider.allRoutines) r.id: r};
 
     void toggle(String id) {
-      if (!premium) {
-        showPremiumPaywall(context);
+      if (!checks.contains(id) && !guardFree(context, FreeFeature.program)) {
         return;
       }
       if (checks.contains(id)) {
@@ -1258,11 +1276,8 @@ class _ProgramDayCard extends StatelessWidget {
     }
 
     void start() {
+      if (!guardFree(context, FreeFeature.workout)) return;
       Haptics.tap();
-      if (!premium) {
-        showPremiumPaywall(context);
-        return;
-      }
       Navigator.push(
         context,
         CupertinoPageRoute(
@@ -1285,6 +1300,7 @@ class _ProgramDayCard extends StatelessWidget {
     }
 
     void complete() {
+      if (!guardFree(context, FreeFeature.program)) return;
       if (provider.markProgramDayComplete(day.index)) {
         Haptics.celebrate();
         ScaffoldMessenger.of(context).showSnackBar(
@@ -1337,6 +1353,8 @@ class _ProgramDayCard extends StatelessWidget {
                     ],
                   ),
                 ),
+                ?FreeChip.forFeature(context, FreeFeature.program),
+                const SizedBox(width: 8),
                 Text(
                   l.plDoneCount(
                     day.moves.where((m) => checks.contains(m.routineId)).length,
@@ -1360,6 +1378,7 @@ class _ProgramDayCard extends StatelessWidget {
               icon: byId[m.routineId]?.icon ?? '',
               done: checks.contains(m.routineId),
               accent: color,
+              locked: ticksLocked && !doneToday,
               onToggle: doneToday ? null : () => toggle(m.routineId),
               onOpen: byId[m.routineId] == null
                   ? null
@@ -1395,8 +1414,17 @@ class _ProgramDayCard extends StatelessWidget {
                           label: checks.isEmpty
                               ? l.plStartWorkout
                               : l.plContinueWorkout,
-                          icon: CupertinoIcons.play_fill,
+                          icon: provider.canUseFree(FreeFeature.workout)
+                              ? CupertinoIcons.play_fill
+                              : CupertinoIcons.lock_fill,
                           color: color,
+                          badge: allTicked
+                              ? null
+                              : FreeChip.forFeature(
+                                  context,
+                                  FreeFeature.workout,
+                                  onFill: true,
+                                ),
                           onTap: allTicked ? null : start,
                         ),
                       ),
@@ -1411,7 +1439,13 @@ class _ProgramDayCard extends StatelessWidget {
                           onTap: canComplete ? complete : null,
                         ),
                       ),
-                      if (!allTicked) ...[
+                      if (ticksLocked) ...[
+                        const SizedBox(height: 10),
+                        FreeLockBanner(
+                          feature: FreeFeature.program,
+                          body: l.ftPlanLocked,
+                        ),
+                      ] else if (!allTicked) ...[
                         const SizedBox(height: 8),
                         Text(
                           l.plTickToComplete,
@@ -1436,13 +1470,11 @@ class _LevelCard extends StatefulWidget {
   final int levelIndex;
   final int currentLevel;
   final Set<int> completed;
-  final bool premium;
   const _LevelCard({
     required this.plan,
     required this.levelIndex,
     required this.currentLevel,
     required this.completed,
-    required this.premium,
   });
 
   @override
@@ -1478,11 +1510,8 @@ class _LevelCardState extends State<_LevelCard> {
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
+          // Reading the levels is never locked; doing the days is.
           Haptics.select();
-          if (!widget.premium) {
-            showPremiumPaywall(context);
-            return;
-          }
           setState(() => _expanded = !_expanded);
         },
         child: PlanCard(
@@ -1659,8 +1688,13 @@ class _NutritionTab extends StatelessWidget {
     final todayIdx = DateTime.now().weekday - 1;
     final menu = week[todayIdx];
     final checks = provider.todayNutritionChecks;
+    final nutritionOpen = provider.canUseFree(FreeFeature.nutrition);
 
     void toggle(String key) {
+      if (!provider.nutritionCheckDone(key) &&
+          !guardFree(context, FreeFeature.nutrition)) {
+        return;
+      }
       if (provider.nutritionCheckDone(key)) {
         Haptics.select();
       } else {
@@ -1681,10 +1715,18 @@ class _NutritionTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
+        if (!nutritionOpen) ...[
+          FreeLockBanner(
+            feature: FreeFeature.nutrition,
+            body: l.ftNutritionLocked,
+          ),
+          const SizedBox(height: 16),
+        ],
         PlanSectionLabel(
           icon: CupertinoIcons.checkmark_square_fill,
           title: l.plChecklist,
           color: AppColors.orange,
+          badge: FreeChip.forFeature(context, FreeFeature.nutrition),
           trailing: l.plDoneCount(
             ['protein', 'calcium', 'vitaminD', 'water']
                 .where(provider.nutritionCheckDone)
@@ -1698,6 +1740,7 @@ class _NutritionTab extends StatelessWidget {
           targets: t,
           menu: menu,
           checks: checks,
+          locked: !nutritionOpen,
           onToggle: toggle,
         ),
         const SizedBox(height: 20),
@@ -1745,7 +1788,8 @@ class _NutritionTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        if (provider.isPremium)
+        // The whole week is part of the free first day, then a preview.
+        if (nutritionOpen)
           WeekMenuView(week: week)
         else
           LockedPreview(
@@ -1791,6 +1835,7 @@ class _Checklist extends StatelessWidget {
   final DailyTargets targets;
   final DayMenu menu;
   final Set<String> checks;
+  final bool locked;
   final ValueChanged<String> onToggle;
   const _Checklist({
     required this.provider,
@@ -1798,6 +1843,7 @@ class _Checklist extends StatelessWidget {
     required this.menu,
     required this.checks,
     required this.onToggle,
+    this.locked = false,
   });
 
   @override
@@ -1859,6 +1905,7 @@ class _Checklist extends StatelessWidget {
                     PlanCheck(
                       done: provider.nutritionCheckDone(key),
                       color: color,
+                      locked: locked,
                       onTap: () => onToggle(key),
                     ),
                     const SizedBox(width: 4),

@@ -8,6 +8,8 @@ import '../widgets/exercise_media.dart';
 import '../l10n/app_localizations.dart';
 import '../models/routine.dart';
 import '../providers/app_provider.dart';
+import '../widgets/free_tier_widgets.dart';
+import '../utils/free_tier.dart';
 import '../utils/constants.dart';
 import '../utils/localized_data.dart';
 import '../utils/text_case.dart';
@@ -1159,6 +1161,11 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
             top: false,
             child: GestureDetector(
               onTap: () {
+                // Marking it done is the metered action; the page is not.
+                if (!isCompleted &&
+                    !guardFree(context, FreeFeature.planTicks)) {
+                  return;
+                }
                 HapticFeedback.mediumImpact();
                 provider.toggleRoutine(widget.routine.id);
                 Navigator.of(context).pop();

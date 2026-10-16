@@ -10,9 +10,11 @@ import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/daily_plan.dart';
+import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
 import '../widgets/discipline_widgets.dart';
+import '../widgets/progress_locked_preview.dart';
 import '../utils/text_case.dart';
 import '../utils/num_format.dart';
 
@@ -30,6 +32,9 @@ class WeeklyReportScreen extends StatelessWidget {
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         final week = _WeekStats.of(provider, DateTime.now());
+        // Opened from the Progress tab, which spends the free use. Once it is
+        // spent the recap stays on top and the rest is a preview.
+        final open = provider.canUseFree(FreeFeature.weeklyReport);
         final fmt = DateFormat('d MMM', locale);
         final dayName = DateFormat('EEEE', locale);
 
@@ -72,113 +77,129 @@ class WeeklyReportScreen extends StatelessWidget {
                       streak: provider.streak,
                     ),
                     const SizedBox(height: 12),
-                    _DaysCard(
-                      week: week,
-                      locale: locale,
-                      bestDayName: week.bestDay == null
-                          ? null
-                          : dayName.format(week.days[week.bestDay!]),
-                    ),
-                    const SizedBox(height: 12),
-                    _FocusCard(text: _focusLine(l, provider, week, dayName)),
-                    const SizedBox(height: 12),
-                    _HeightCard(provider: provider, week: week),
-                    const SizedBox(height: 24),
-
-                    // ── The same goals the Discipline tab tracks ──────────
-                    SectionHeader(
-                      icon: CupertinoIcons.checkmark_seal_fill,
-                      title: l.disciplineWeek,
-                      iconColor: AppColors.lime,
-                    ),
-                    const SizedBox(height: 12),
-                    _Box(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
-                      child: Column(
-                        children: [
-                          GoalBar(
-                            icon: CupertinoIcons.checkmark_seal_fill,
-                            label: l.goalPerfectDays,
-                            done: provider.perfectDaysInWeek(),
-                            target: kWeeklyPerfectDays,
-                            color: AppColors.primary,
-                          ),
-                          GoalBar(
-                            icon: CupertinoIcons.bolt_fill,
-                            label: l.goalWorkouts,
-                            done: provider.workoutsInWeek(),
-                            target: kWeeklyWorkouts,
-                            color: AppColors.orange,
-                          ),
-                          GoalBar(
-                            icon: CupertinoIcons.arrow_up_right_circle_fill,
-                            label: l.goalMeasurement,
-                            done: provider.measurementsInWeek(),
-                            target: kWeeklyMeasurements,
-                            color: AppColors.cyan,
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // ── Habits: only what is logged, labelled as today ────
-                    if (provider.todayWater > 0 || provider.todaySleep > 0) ...[
-                      const SizedBox(height: 24),
-                      SectionHeader(
-                        icon: CupertinoIcons.drop_fill,
-                        title: l.pgHabitsToday,
-                        iconColor: AppColors.water,
+                    if (!open)
+                      ProgressLockedPreview(
+                        title: l.ftReportLockedTitle,
+                        body: l.ftReportLockedBody,
+                        feature: FreeFeature.weeklyReport,
+                        preview: _DaysCard(
+                          week: week,
+                          locale: locale,
+                          bestDayName: week.bestDay == null
+                              ? null
+                              : dayName.format(week.days[week.bestDay!]),
+                        ),
+                      )
+                    else ...[
+                      _DaysCard(
+                        week: week,
+                        locale: locale,
+                        bestDayName: week.bestDay == null
+                            ? null
+                            : dayName.format(week.days[week.bestDay!]),
                       ),
                       const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          if (provider.todayWater > 0)
-                            Expanded(
-                              child: _HabitTile(
-                                icon: CupertinoIcons.drop_fill,
-                                color: AppColors.cyan,
-                                value: provider.todayWater.fixedL(1),
-                                unit: 'L',
-                                label: l.waterToday2,
-                              ),
-                            ),
-                          if (provider.todayWater > 0 &&
-                              provider.todaySleep > 0)
-                            const SizedBox(width: 10),
-                          if (provider.todaySleep > 0)
-                            Expanded(
-                              child: _HabitTile(
-                                icon: CupertinoIcons.moon_fill,
-                                color: AppColors.sleepColor,
-                                value: provider.todaySleep.fixedL(1),
-                                unit: l.hoursShort,
-                                label: l.sleepToday,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ],
-
-                    // ── Level ─────────────────────────────────────────────
-                    const SizedBox(height: 24),
-                    SectionHeader(
-                      icon: CupertinoIcons.bolt_fill,
-                      title: l.xpAndLevel,
-                      iconColor: AppColors.warning,
-                    ),
-                    const SizedBox(height: 12),
-                    _LevelStrip(provider: provider),
-
-                    // ── Challenges ────────────────────────────────────────
-                    if (provider.activeChallenges.isNotEmpty) ...[
+                      _FocusCard(text: _focusLine(l, provider, week, dayName)),
+                      const SizedBox(height: 12),
+                      _HeightCard(provider: provider, week: week),
                       const SizedBox(height: 24),
+
+                      // ── The same goals the Discipline tab tracks ──────────
                       SectionHeader(
-                        icon: CupertinoIcons.flag_fill,
-                        title: l.activeChallenges,
-                        iconColor: AppColors.pink,
+                        icon: CupertinoIcons.checkmark_seal_fill,
+                        title: l.disciplineWeek,
+                        iconColor: AppColors.lime,
                       ),
                       const SizedBox(height: 12),
-                      _ChallengesBox(challenges: provider.activeChallenges),
+                      _Box(
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
+                        child: Column(
+                          children: [
+                            GoalBar(
+                              icon: CupertinoIcons.checkmark_seal_fill,
+                              label: l.goalPerfectDays,
+                              done: provider.perfectDaysInWeek(),
+                              target: kWeeklyPerfectDays,
+                              color: AppColors.primary,
+                            ),
+                            GoalBar(
+                              icon: CupertinoIcons.bolt_fill,
+                              label: l.goalWorkouts,
+                              done: provider.workoutsInWeek(),
+                              target: kWeeklyWorkouts,
+                              color: AppColors.orange,
+                            ),
+                            GoalBar(
+                              icon: CupertinoIcons.arrow_up_right_circle_fill,
+                              label: l.goalMeasurement,
+                              done: provider.measurementsInWeek(),
+                              target: kWeeklyMeasurements,
+                              color: AppColors.cyan,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // ── Habits: only what is logged, labelled as today ────
+                      if (provider.todayWater > 0 ||
+                          provider.todaySleep > 0) ...[
+                        const SizedBox(height: 24),
+                        SectionHeader(
+                          icon: CupertinoIcons.drop_fill,
+                          title: l.pgHabitsToday,
+                          iconColor: AppColors.water,
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            if (provider.todayWater > 0)
+                              Expanded(
+                                child: _HabitTile(
+                                  icon: CupertinoIcons.drop_fill,
+                                  color: AppColors.cyan,
+                                  value: provider.todayWater.fixedL(1),
+                                  unit: 'L',
+                                  label: l.waterToday2,
+                                ),
+                              ),
+                            if (provider.todayWater > 0 &&
+                                provider.todaySleep > 0)
+                              const SizedBox(width: 10),
+                            if (provider.todaySleep > 0)
+                              Expanded(
+                                child: _HabitTile(
+                                  icon: CupertinoIcons.moon_fill,
+                                  color: AppColors.sleepColor,
+                                  value: provider.todaySleep.fixedL(1),
+                                  unit: l.hoursShort,
+                                  label: l.sleepToday,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ],
+
+                      // ── Level ─────────────────────────────────────────────
+                      const SizedBox(height: 24),
+                      SectionHeader(
+                        icon: CupertinoIcons.bolt_fill,
+                        title: l.xpAndLevel,
+                        iconColor: AppColors.warning,
+                      ),
+                      const SizedBox(height: 12),
+                      _LevelStrip(provider: provider),
+
+                      // ── Challenges ────────────────────────────────────────
+                      if (provider.activeChallenges.isNotEmpty) ...[
+                        const SizedBox(height: 24),
+                        SectionHeader(
+                          icon: CupertinoIcons.flag_fill,
+                          title: l.activeChallenges,
+                          iconColor: AppColors.pink,
+                        ),
+                        const SizedBox(height: 12),
+                        _ChallengesBox(challenges: provider.activeChallenges),
+                      ],
                     ],
                   ]),
                 ),

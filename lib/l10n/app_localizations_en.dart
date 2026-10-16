@@ -6213,4 +6213,145 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get obNotifNow => 'now';
+
+  @override
+  String get ftOneFree => '1 free';
+
+  @override
+  String get ftFreeToday => 'Free today';
+
+  @override
+  String get ftContinuePro => 'Continue with Pro';
+
+  @override
+  String get ftNotNow => 'Not now';
+
+  @override
+  String get ftOutWorkoutTitle => 'You\'ve used your free workout';
+
+  @override
+  String get ftOutWorkoutBody =>
+      'Keep your streak with Pro: a guided workout every day, every move timed for you.';
+
+  @override
+  String get ftOutDayTitle => 'Your free first day is done';
+
+  @override
+  String get ftOutDayBody =>
+      'Your plan, targets and progress stay here to read. Keep your streak with Pro: tick off your plan and log water and sleep every day.';
+
+  @override
+  String get ftOutPostureTitle => 'You\'ve used your free posture check';
+
+  @override
+  String get ftOutPostureBody =>
+      'Your result stays here. Check again every week with Pro and watch your posture improve.';
+
+  @override
+  String get ftOutPhotosTitle => 'You\'ve used your free photo compare';
+
+  @override
+  String get ftOutPhotosBody =>
+      'That pair stays yours to look at. Add more photos and compare any two with Pro.';
+
+  @override
+  String get ftOutReportTitle => 'You\'ve used your free weekly report';
+
+  @override
+  String get ftOutReportBody =>
+      'Get your full recap every week with Pro: each day scored, your goals and one thing to do better.';
+
+  @override
+  String get ftOutScoreTitle => 'You\'ve seen your free score breakdown';
+
+  @override
+  String get ftOutScoreBody =>
+      'Your score stays on screen. See what builds it, and what to do next, every day with Pro.';
+
+  @override
+  String get ftOutArticleTitle => 'You\'ve read your free article';
+
+  @override
+  String get ftOutArticleBody =>
+      'That article stays open for you. Read the whole library with Pro.';
+
+  @override
+  String get ftWhyWorkout => 'Guided workouts are part of Pro';
+
+  @override
+  String get ftWhyPlan => 'Ticking off your plan is part of Pro';
+
+  @override
+  String get ftWhyProgram => 'The 70-day program is part of Pro';
+
+  @override
+  String get ftWhyWater => 'Logging water every day is part of Pro';
+
+  @override
+  String get ftWhySleep => 'Logging sleep every day is part of Pro';
+
+  @override
+  String get ftWhyNutrition => 'Your daily nutrition plan is part of Pro';
+
+  @override
+  String get ftWhyPosture => 'Weekly posture checks are part of Pro';
+
+  @override
+  String get ftWhyPhotos => 'Photo comparisons are part of Pro';
+
+  @override
+  String get ftWhyReport => 'Your weekly report is part of Pro';
+
+  @override
+  String get ftWhyScore => 'Your score breakdown is part of Pro';
+
+  @override
+  String get ftWhyArticle => 'The full library is part of Pro';
+
+  @override
+  String get ftPlanLocked =>
+      'Your plan stays here to read. Ticking it off is part of Pro.';
+
+  @override
+  String get ftNutritionLocked =>
+      'Your targets and meals stay here to read. Ticking them off is part of Pro.';
+
+  @override
+  String get ftPreviewTag => 'Preview';
+
+  @override
+  String get ftPreviewTitle => 'That was your preview';
+
+  @override
+  String get ftPreviewBody =>
+      'The rest of this workout is part of Pro. Here is what comes next:';
+
+  @override
+  String get ftFreeWorkoutUsed =>
+      'That was your free guided workout. Pro keeps them coming every day.';
+
+  @override
+  String get ftScoreLockedTitle => 'What builds your score';
+
+  @override
+  String get ftScoreLockedBody =>
+      'Every part of your score, what it is based on and the one thing to do next.';
+
+  @override
+  String get ftReportLockedTitle => 'Your full week';
+
+  @override
+  String get ftReportLockedBody =>
+      'Every day scored against your plan, your goals, your height and one focus for next week.';
+
+  @override
+  String get ftPhotosLockedTitle => 'Compare these two';
+
+  @override
+  String get ftPhotosLockedBody =>
+      'Your free comparison is used. With Pro you can slide between any two photos.';
+
+  @override
+  String get ftArticleFreeLine =>
+      'Your first article is free. Pick the one you want.';
 }

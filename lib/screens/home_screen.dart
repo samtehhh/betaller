@@ -10,6 +10,8 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/calculations.dart';
+import '../widgets/free_tier_widgets.dart';
+import '../utils/free_tier.dart';
 import '../utils/localized_data.dart';
 import 'education_screen.dart';
 import 'progress_screen.dart';
@@ -280,6 +282,7 @@ class _HomeScreenState extends State<HomeScreen>
                       children: [
                         Expanded(
                           child: _TrackCard(
+                            feature: FreeFeature.water,
                             icon: CupertinoIcons.drop_fill,
                             label: l.water,
                             value: provider.todayWater.fixedL(1),
@@ -302,6 +305,7 @@ class _HomeScreenState extends State<HomeScreen>
                         const SizedBox(width: 12),
                         Expanded(
                           child: _TrackCard(
+                            feature: FreeFeature.sleep,
                             icon: CupertinoIcons.moon_fill,
                             label: l.sleepLabel,
                             value: provider.todaySleep.fixedL(1),
@@ -403,6 +407,8 @@ class _HomeScreenState extends State<HomeScreen>
     AppProvider provider,
     double sleepNeed,
   ) {
+    // The card stays readable; logging is the metered action.
+    if (!guardFree(context, FreeFeature.sleep)) return;
     final l = AppLocalizations.of(context)!;
     double selectedHours = provider.todaySleep > 0
         ? provider.todaySleep
@@ -504,7 +510,7 @@ class _HomeScreenState extends State<HomeScreen>
                   color: AppColors.sleep,
                   borderRadius: BorderRadius.circular(_radiusM),
                   padding: const EdgeInsets.symmetric(vertical: 17),
-                  // Free, like water: part of the daily loop.
+                  // Free on the first day, like water (lib/utils/free_tier.dart).
                   onPressed: () {
                     provider.updateSleep(selectedHours);
                     Navigator.pop(context);
@@ -1248,7 +1254,11 @@ class _TrackCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onAdd;
 
+  /// The free tier allowance logging here runs on.
+  final FreeFeature feature;
+
   const _TrackCard({
+    required this.feature,
     required this.icon,
     required this.label,
     required this.value,
@@ -1265,6 +1275,8 @@ class _TrackCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final displayColor = isUrgent ? AppColors.error : color;
+    final locked = !context.watch<AppProvider>().canUseFree(feature);
+    final chip = FreeChip.forFeature(context, feature);
 
     return GestureDetector(
       onTap: onTap,
@@ -1316,13 +1328,14 @@ class _TrackCard extends StatelessWidget {
                     width: 30,
                     height: 30,
                     decoration: BoxDecoration(
-                      color: displayColor.withValues(alpha: 0.12),
+                      color: (locked ? AppColors.warning : displayColor)
+                          .withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Icon(
-                      CupertinoIcons.plus,
-                      color: displayColor,
-                      size: 14,
+                      locked ? CupertinoIcons.lock_fill : CupertinoIcons.plus,
+                      color: locked ? AppColors.warning : displayColor,
+                      size: locked ? 13 : 14,
                     ),
                   ),
                 ),
@@ -1374,6 +1387,7 @@ class _TrackCard extends StatelessWidget {
                 valueColor: AlwaysStoppedAnimation<Color>(displayColor),
               ),
             ),
+            if (chip != null) ...[const SizedBox(height: 10), chip],
           ],
         ),
       ),

@@ -239,7 +239,10 @@ class _MainScreenState extends State<MainScreen> {
                 if (i != _currentIndex) Haptics.select();
                 setState(() => _currentIndex = i);
                 if (i == 2) _progressKey.currentState?.replayAnimation();
-                if (i == 3) _analysisKey.currentState?.replayAnimation();
+                if (i == 3) {
+                  _analysisKey.currentState?.replayAnimation();
+                  _analysisKey.currentState?.noteOpened();
+                }
               },
       ),
     );

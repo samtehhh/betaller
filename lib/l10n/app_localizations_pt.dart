@@ -6223,4 +6223,148 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get obNotifNow => 'agora';
+
+  @override
+  String get ftOneFree => '1 grátis';
+
+  @override
+  String get ftFreeToday => 'Grátis hoje';
+
+  @override
+  String get ftContinuePro => 'Continuar com o Pro';
+
+  @override
+  String get ftNotNow => 'Agora não';
+
+  @override
+  String get ftOutWorkoutTitle => 'Você já usou seu treino grátis';
+
+  @override
+  String get ftOutWorkoutBody =>
+      'Mantenha sua sequência com o Pro: um treino guiado todo dia, cada exercício cronometrado pra você.';
+
+  @override
+  String get ftOutDayTitle => 'Seu primeiro dia grátis acabou';
+
+  @override
+  String get ftOutDayBody =>
+      'Seu plano, suas metas e seu progresso continuam aqui pra ler. Mantenha sua sequência com o Pro: marque seu plano e registre água e sono todo dia.';
+
+  @override
+  String get ftOutPostureTitle =>
+      'Você já usou sua avaliação de postura grátis';
+
+  @override
+  String get ftOutPostureBody =>
+      'Seu resultado fica aqui. Refaça toda semana com o Pro e veja sua postura melhorar.';
+
+  @override
+  String get ftOutPhotosTitle => 'Você já usou sua comparação de fotos grátis';
+
+  @override
+  String get ftOutPhotosBody =>
+      'Esse par continua seu. Adicione mais fotos e compare as que quiser com o Pro.';
+
+  @override
+  String get ftOutReportTitle => 'Você já usou seu relatório semanal grátis';
+
+  @override
+  String get ftOutReportBody =>
+      'Receba seu resumo completo toda semana com o Pro: cada dia avaliado, suas metas e uma coisa pra melhorar.';
+
+  @override
+  String get ftOutScoreTitle =>
+      'Você já viu o detalhamento grátis da sua pontuação';
+
+  @override
+  String get ftOutScoreBody =>
+      'Sua pontuação continua na tela. Veja todo dia com o Pro o que a forma e o que fazer em seguida.';
+
+  @override
+  String get ftOutArticleTitle => 'Você já leu seu artigo grátis';
+
+  @override
+  String get ftOutArticleBody =>
+      'Esse artigo continua aberto pra você. Leia a biblioteca inteira com o Pro.';
+
+  @override
+  String get ftWhyWorkout => 'Treinos guiados fazem parte do Pro';
+
+  @override
+  String get ftWhyPlan => 'Marcar seu plano faz parte do Pro';
+
+  @override
+  String get ftWhyProgram => 'O programa de 70 dias faz parte do Pro';
+
+  @override
+  String get ftWhyWater => 'Registrar água todo dia faz parte do Pro';
+
+  @override
+  String get ftWhySleep => 'Registrar o sono todo dia faz parte do Pro';
+
+  @override
+  String get ftWhyNutrition => 'Seu plano de nutrição diário faz parte do Pro';
+
+  @override
+  String get ftWhyPosture =>
+      'As avaliações de postura semanais fazem parte do Pro';
+
+  @override
+  String get ftWhyPhotos => 'As comparações de fotos fazem parte do Pro';
+
+  @override
+  String get ftWhyReport => 'Seu relatório semanal faz parte do Pro';
+
+  @override
+  String get ftWhyScore => 'O detalhamento da sua pontuação faz parte do Pro';
+
+  @override
+  String get ftWhyArticle => 'A biblioteca completa faz parte do Pro';
+
+  @override
+  String get ftPlanLocked =>
+      'Seu plano continua aqui pra ler. Marcar faz parte do Pro.';
+
+  @override
+  String get ftNutritionLocked =>
+      'Suas metas e refeições continuam aqui pra ler. Marcar faz parte do Pro.';
+
+  @override
+  String get ftPreviewTag => 'Prévia';
+
+  @override
+  String get ftPreviewTitle => 'Essa foi sua prévia';
+
+  @override
+  String get ftPreviewBody =>
+      'O resto deste treino faz parte do Pro. Veja o que vem a seguir:';
+
+  @override
+  String get ftFreeWorkoutUsed =>
+      'Esse foi seu treino guiado grátis. Com o Pro, tem um todo dia.';
+
+  @override
+  String get ftScoreLockedTitle => 'O que forma sua pontuação';
+
+  @override
+  String get ftScoreLockedBody =>
+      'Cada parte da sua pontuação, no que ela se baseia e a próxima coisa a fazer.';
+
+  @override
+  String get ftReportLockedTitle => 'Sua semana completa';
+
+  @override
+  String get ftReportLockedBody =>
+      'Cada dia avaliado pelo seu plano, suas metas, sua altura e um foco pra próxima semana.';
+
+  @override
+  String get ftPhotosLockedTitle => 'Compare estas duas';
+
+  @override
+  String get ftPhotosLockedBody =>
+      'Você já usou sua comparação grátis. Com o Pro, deslize entre duas fotos quaisquer.';
+
+  @override
+  String get ftArticleFreeLine =>
+      'Seu primeiro artigo é grátis. Escolha o que quiser.';
 }

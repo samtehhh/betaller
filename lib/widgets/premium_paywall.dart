@@ -24,23 +24,41 @@ import 'phone_mockup.dart';
 /// for the placements the app opens on its own (end of onboarding, first
 /// launch of the day) — long enough to read the offer, not a trap: the button
 /// always arrives.
+///
+/// [reason] is one short line saying what the tap that led here needs ("Logging
+/// water is part of Pro"), shown above the plans.
+///
+/// Only one paywall is ever on screen: a call while one is open returns null
+/// and opens nothing.
 Future<bool?> showPremiumPaywall(
   BuildContext context, {
   Duration closeDelay = Duration.zero,
+  String? reason,
 }) async {
   if (!context.mounted) return false;
+  if (isPaywallOpen) return null;
   // Keeps the rating prompt out of the minutes after a sales screen.
   try {
     context.read<AppProvider>().notePaywallShown();
   } catch (_) {}
-  return Navigator.push<bool>(
-    context,
-    CupertinoPageRoute(
-      fullscreenDialog: true,
-      builder: (_) => PremiumPaywallScreen(closeDelay: closeDelay),
-    ),
+  final route = CupertinoPageRoute<bool>(
+    fullscreenDialog: true,
+    builder: (_) => PremiumPaywallScreen(closeDelay: closeDelay, reason: reason),
   );
+  _openPaywall = route;
+  try {
+    return await Navigator.push<bool>(context, route);
+  } finally {
+    if (identical(_openPaywall, route)) _openPaywall = null;
+  }
 }
+
+/// The paywall route on screen, if any.
+Route<bool>? _openPaywall;
+
+/// Whether a paywall is on screen now. A route whose navigator went away
+/// without popping it (a torn-down tree) does not count.
+bool get isPaywallOpen => _openPaywall?.isActive ?? false;
 
 // ═════════════════════════════════════════════════════════════════════════════
 //  Paywall Screen
@@ -144,10 +162,14 @@ int? _freeTrialDays(StoreProduct? product) {
 class PremiumPaywallScreen extends StatefulWidget {
   final bool dismissible;
   final Duration closeDelay;
+
+  /// What the tap that opened the sheet needs, in one short line.
+  final String? reason;
   const PremiumPaywallScreen({
     super.key,
     this.dismissible = true,
     this.closeDelay = Duration.zero,
+    this.reason,
   });
   @override
   State<PremiumPaywallScreen> createState() => _PremiumPaywallScreenState();
@@ -486,6 +508,13 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
                       ),
                     ),
 
+                    // ── Why this opened, when a locked tap opened it ──────
+                    if (widget.reason != null)
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 4, 20, 2),
+                        child: _ReasonPill(text: widget.reason!),
+                      ),
+
                     // ── Page dots ─────────────────────────────────────────
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 2, 20, 14),
@@ -636,6 +665,50 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+/// One line saying what the locked tap needed: a lock and the reason.
+class _ReasonPill extends StatelessWidget {
+  final String text;
+  const _ReasonPill({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: AppColors.warning.withValues(alpha: 0.12),
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(color: AppColors.warning.withValues(alpha: 0.35)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              CupertinoIcons.lock_fill,
+              size: 13,
+              color: AppColors.warning,
+            ),
+            const SizedBox(width: 7),
+            Flexible(
+              child: Text(
+                text,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

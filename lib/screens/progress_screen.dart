@@ -9,6 +9,8 @@ import '../l10n/app_localizations.dart';
 import '../models/height_record.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
+import '../utils/free_tier.dart';
+import '../widgets/free_tier_widgets.dart';
 import '../widgets/height_silhouette.dart';
 import '../widgets/potential_chart.dart';
 import '../widgets/tour_keys.dart';
@@ -271,6 +273,7 @@ class ProgressScreenState extends State<ProgressScreen>
                               provider.progressPhotos.length,
                             ),
                       cta: l.photosCta,
+                      feature: FreeFeature.photoCompare,
                       visual: _PhotoStrip(
                         paths: provider.progressPhotos
                             .map((p) => p['path'] as String?)
@@ -299,6 +302,7 @@ class ProgressScreenState extends State<ProgressScreen>
                                   0,
                             ),
                       cta: l.postureCta,
+                      feature: FreeFeature.posture,
                       visual: _PostureDial(
                         score: provider.postureAnalyses.isEmpty
                             ? null
@@ -321,13 +325,19 @@ class ProgressScreenState extends State<ProgressScreen>
                       benefit: l.reportBenefit,
                       state: l.toolStateReady,
                       cta: l.reportCta,
+                      feature: FreeFeature.weeklyReport,
                       visual: _WeekSpark(provider: provider),
-                      onTap: () => Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (_) => const WeeklyReportScreen(),
-                        ),
-                      ),
+                      onTap: () {
+                        // Opening it is the free use; the screen shows a
+                        // preview once that is spent.
+                        provider.openFree(FreeFeature.weeklyReport);
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (_) => const WeeklyReportScreen(),
+                          ),
+                        );
+                      },
                     ),
 
                     // ── History as a timeline ─────────────────────────────
@@ -721,7 +731,12 @@ class _ToolCard extends StatelessWidget {
   final Widget visual;
   final VoidCallback onTap;
 
+  /// The free tier allowance this tool runs on: a "1 free" chip while it
+  /// lasts, a lock once it is spent.
+  final FreeFeature? feature;
+
   const _ToolCard({
+    this.feature,
     required this.color,
     required this.icon,
     required this.title,
@@ -734,6 +749,18 @@ class _ToolCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final f = feature;
+    final p = context.watch<AppProvider>();
+    final Widget? badge = f == null || !p.isMetered
+        ? null
+        : FreeChip.forFeature(context, f) ??
+              (p.canUseFree(f)
+                  ? null
+                  : const Icon(
+                      CupertinoIcons.lock_fill,
+                      size: 13,
+                      color: AppColors.warning,
+                    ));
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -833,6 +860,7 @@ class _ToolCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
+                if (badge != null) ...[badge, const SizedBox(width: 8)],
                 Text(
                   cta,
                   style: TextStyle(

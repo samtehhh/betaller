@@ -5,23 +5,35 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../utils/constants.dart';
+import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
+import 'free_tier_widgets.dart';
 import 'premium_paywall.dart';
 
 /// A premium area seen from the outside: the real content, blurred, with a
 /// lock on it, and below it one line of what it does and one unlock button.
-/// Used by the progress tools (photos, posture) so a free user sees what is
-/// inside before being asked to pay for it.
+/// Used by the progress tools (photos, posture, the weekly report, the score
+/// breakdown) so a free user sees what is inside before being asked to pay
+/// for it, and after a free use has run out.
 class ProgressLockedPreview extends StatelessWidget {
   final Widget preview;
   final String title;
   final String body;
+
+  /// The free tier feature this locks, for the paywall's reason line.
+  final FreeFeature? feature;
+
+  /// A tall preview is cut to this height, so the unlock button stays on
+  /// screen.
+  final double? maxHeight;
 
   const ProgressLockedPreview({
     super.key,
     required this.preview,
     required this.title,
     required this.body,
+    this.feature,
+    this.maxHeight,
   });
 
   @override
@@ -44,7 +56,22 @@ class ProgressLockedPreview extends StatelessWidget {
                 child: ExcludeSemantics(
                   child: ImageFiltered(
                     imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child: Opacity(opacity: 0.85, child: preview),
+                    child: Opacity(
+                      opacity: 0.85,
+                      child: maxHeight == null
+                          ? preview
+                          : SizedBox(
+                              height: maxHeight,
+                              child: ClipRect(
+                                child: OverflowBox(
+                                  alignment: Alignment.topCenter,
+                                  minHeight: 0,
+                                  maxHeight: double.infinity,
+                                  child: preview,
+                                ),
+                              ),
+                            ),
+                    ),
                   ),
                 ),
               ),
@@ -125,7 +152,10 @@ class ProgressLockedPreview extends StatelessWidget {
                     ),
                     onPressed: () {
                       Haptics.tap();
-                      showPremiumPaywall(context);
+                      final f = feature;
+                      f == null
+                          ? showPremiumPaywall(context)
+                          : showPaywallFor(context, f);
                     },
                     icon: const Icon(CupertinoIcons.lock_open_fill, size: 18),
                     label: Text(

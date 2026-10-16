@@ -14,8 +14,9 @@ import '../utils/camera_utils.dart';
 import '../utils/constants.dart';
 import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
+import '../utils/free_tier.dart';
+import '../widgets/free_tier_widgets.dart';
 import '../widgets/photo_source_sheet.dart';
-import '../widgets/premium_paywall.dart';
 import '../widgets/progress_locked_preview.dart';
 import 'exercise_detail_screen.dart';
 import '../utils/text_case.dart';
@@ -27,7 +28,8 @@ const int _kRetakeDays = 7;
 /// answers. No image analysis and no invented numbers; the side photo is kept
 /// only so the user can look back at it.
 ///
-/// Starting a check is premium (as it always was); past results stay visible.
+/// The first check is free, the next ones are premium (see
+/// lib/utils/free_tier.dart); past results stay visible either way.
 class PostureAnalysisScreen extends StatefulWidget {
   const PostureAnalysisScreen({super.key});
 
@@ -39,11 +41,7 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
   // ── Starting a check ────────────────────────────────────────────────────
   Future<void> _startCheck() async {
     Haptics.tap();
-    final provider = context.read<AppProvider>();
-    if (!provider.isPremium) {
-      await showPremiumPaywall(context);
-      return;
-    }
+    if (!guardFree(context, FreeFeature.posture)) return;
     final l = AppLocalizations.of(context)!;
     final source = await showPhotoSourceSheet(
       context,
@@ -81,7 +79,10 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
       return;
     }
     if (!mounted) return;
-    context.read<AppProvider>().addPostureAnalysis(
+    final provider = context.read<AppProvider>();
+    // A saved result is the free check spent; a cancelled one is not.
+    provider.consumeFree(FreeFeature.posture);
+    provider.addPostureAnalysis(
       path: path,
       kyphosisScore: answers.shoulders,
       lordosisScore: answers.lowerBack,
@@ -125,11 +126,12 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 40),
                     children: [
                       if (latest == null)
-                        provider.isPremium
+                        provider.canUseFree(FreeFeature.posture)
                             ? _IntroCard(onStart: _startCheck)
                             : ProgressLockedPreview(
                                 title: l.pgPostureLockedTitle,
                                 body: l.pgPostureLockedBody,
+                                feature: FreeFeature.posture,
                                 preview: const _PreviewSkeleton(),
                               )
                       else ...[
@@ -139,7 +141,11 @@ class _PostureAnalysisScreenState extends State<PostureAnalysisScreen> {
                           _AreaCard(area: area, check: latest),
                           const SizedBox(height: 12),
                         ],
-                        _RetakeCard(latest: latest, onStart: _startCheck),
+                        _RetakeCard(
+                          latest: latest,
+                          locked: !provider.canUseFree(FreeFeature.posture),
+                          onStart: _startCheck,
+                        ),
                         const SizedBox(height: 12),
                         _HistoryCard(analyses: analyses),
                       ],
@@ -779,7 +785,14 @@ class _ExerciseRow extends StatelessWidget {
 class _RetakeCard extends StatelessWidget {
   final Map<String, dynamic> latest;
   final VoidCallback onStart;
-  const _RetakeCard({required this.latest, required this.onStart});
+
+  /// The free check is spent: the button unlocks Pro instead.
+  final bool locked;
+  const _RetakeCard({
+    required this.latest,
+    required this.onStart,
+    this.locked = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -835,7 +848,26 @@ class _RetakeCard extends StatelessWidget {
           const SizedBox(height: 14),
           SizedBox(
             height: 50,
-            child: due
+            child: locked
+                ? FilledButton.icon(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppColors.warning,
+                      foregroundColor: const Color(0xFF07050F),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    onPressed: onStart,
+                    icon: const Icon(CupertinoIcons.lock_fill, size: 17),
+                    label: Text(
+                      l.pgUnlockPro,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  )
+                : due
                 ? FilledButton.icon(
                     style: FilledButton.styleFrom(
                       backgroundColor: AppColors.primary,
@@ -1134,11 +1166,16 @@ class _IntroCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
+    final chip = FreeChip.forFeature(context, FreeFeature.posture);
     return _Card(
       padding: const EdgeInsets.fromLTRB(18, 22, 18, 18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          if (chip != null) ...[
+            Align(alignment: AlignmentDirectional.centerStart, child: chip),
+            const SizedBox(height: 10),
+          ],
           Text(
             l.pgPostureIntroTitle,
             style: const TextStyle(

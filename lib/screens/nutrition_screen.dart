@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
+import '../widgets/free_tier_widgets.dart';
+import '../utils/free_tier.dart';
 import '../utils/constants.dart';
 import '../utils/nutrition_data.dart';
 import '../utils/daily_targets.dart';
@@ -264,6 +266,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
               if (checks.contains('meal$i')) {
                 Haptics.select();
               } else {
+                if (!guardFree(context, FreeFeature.nutrition)) return;
                 Haptics.success();
               }
               provider.toggleNutritionCheck('meal$i');

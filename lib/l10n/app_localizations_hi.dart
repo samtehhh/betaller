@@ -6124,4 +6124,148 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get obNotifNow => 'अभी';
+
+  @override
+  String get ftOneFree => '1 मुफ़्त';
+
+  @override
+  String get ftFreeToday => 'आज मुफ़्त';
+
+  @override
+  String get ftContinuePro => 'Pro के साथ जारी रखो';
+
+  @override
+  String get ftNotNow => 'अभी नहीं';
+
+  @override
+  String get ftOutWorkoutTitle => 'तुमने अपना मुफ़्त वर्कआउट इस्तेमाल कर लिया';
+
+  @override
+  String get ftOutWorkoutBody =>
+      'Pro के साथ अपनी स्ट्रीक बनाए रखो: हर दिन गाइडेड वर्कआउट, हर मूव तुम्हारे लिए टाइम किया हुआ।';
+
+  @override
+  String get ftOutDayTitle => 'तुम्हारा मुफ़्त पहला दिन पूरा हो गया';
+
+  @override
+  String get ftOutDayBody =>
+      'तुम्हारा प्लान, टारगेट और प्रोग्रेस यहीं पढ़ने के लिए रहेंगे। Pro के साथ स्ट्रीक बनाए रखो: हर दिन प्लान पर टिक करो और पानी व नींद लॉग करो।';
+
+  @override
+  String get ftOutPostureTitle =>
+      'तुमने अपना मुफ़्त पोस्चर चेक इस्तेमाल कर लिया';
+
+  @override
+  String get ftOutPostureBody =>
+      'तुम्हारा रिज़ल्ट यहीं रहेगा। Pro के साथ हर हफ़्ते दोबारा चेक करो और पोस्चर सुधरते देखो।';
+
+  @override
+  String get ftOutPhotosTitle => 'तुमने अपनी मुफ़्त फ़ोटो तुलना इस्तेमाल कर ली';
+
+  @override
+  String get ftOutPhotosBody =>
+      'वह जोड़ी तुम्हारे पास रहेगी। Pro के साथ और फ़ोटो जोड़ो और कोई भी दो तुलना करो।';
+
+  @override
+  String get ftOutReportTitle =>
+      'तुमने अपनी मुफ़्त हफ़्ते की रिपोर्ट इस्तेमाल कर ली';
+
+  @override
+  String get ftOutReportBody =>
+      'Pro के साथ हर हफ़्ते पूरा रीकैप पाओ: हर दिन का स्कोर, तुम्हारे गोल और सुधारने के लिए एक बात।';
+
+  @override
+  String get ftOutScoreTitle => 'तुमने अपने स्कोर का मुफ़्त ब्रेकडाउन देख लिया';
+
+  @override
+  String get ftOutScoreBody =>
+      'तुम्हारा स्कोर स्क्रीन पर रहेगा। Pro के साथ हर दिन देखो कि वह किससे बनता है और आगे क्या करना है।';
+
+  @override
+  String get ftOutArticleTitle => 'तुमने अपना मुफ़्त आर्टिकल पढ़ लिया';
+
+  @override
+  String get ftOutArticleBody =>
+      'वह आर्टिकल तुम्हारे लिए खुला रहेगा। Pro के साथ पूरी लाइब्रेरी पढ़ो।';
+
+  @override
+  String get ftWhyWorkout => 'गाइडेड वर्कआउट Pro का हिस्सा हैं';
+
+  @override
+  String get ftWhyPlan => 'प्लान पर टिक करना Pro का हिस्सा है';
+
+  @override
+  String get ftWhyProgram => '70 दिन का प्रोग्राम Pro का हिस्सा है';
+
+  @override
+  String get ftWhyWater => 'हर दिन पानी लॉग करना Pro का हिस्सा है';
+
+  @override
+  String get ftWhySleep => 'हर दिन नींद लॉग करना Pro का हिस्सा है';
+
+  @override
+  String get ftWhyNutrition =>
+      'तुम्हारा रोज़ का न्यूट्रिशन प्लान Pro का हिस्सा है';
+
+  @override
+  String get ftWhyPosture => 'हफ़्ते के पोस्चर चेक Pro का हिस्सा हैं';
+
+  @override
+  String get ftWhyPhotos => 'फ़ोटो तुलना Pro का हिस्सा है';
+
+  @override
+  String get ftWhyReport => 'तुम्हारी हफ़्ते की रिपोर्ट Pro का हिस्सा है';
+
+  @override
+  String get ftWhyScore => 'तुम्हारे स्कोर का ब्रेकडाउन Pro का हिस्सा है';
+
+  @override
+  String get ftWhyArticle => 'पूरी लाइब्रेरी Pro का हिस्सा है';
+
+  @override
+  String get ftPlanLocked =>
+      'तुम्हारा प्लान यहीं पढ़ने के लिए है। उस पर टिक करना Pro का हिस्सा है।';
+
+  @override
+  String get ftNutritionLocked =>
+      'तुम्हारे टारगेट और मील यहीं पढ़ने के लिए हैं। उन पर टिक करना Pro का हिस्सा है।';
+
+  @override
+  String get ftPreviewTag => 'प्रीव्यू';
+
+  @override
+  String get ftPreviewTitle => 'यह तुम्हारा प्रीव्यू था';
+
+  @override
+  String get ftPreviewBody =>
+      'इस वर्कआउट का बाकी हिस्सा Pro में है। आगे यह आएगा:';
+
+  @override
+  String get ftFreeWorkoutUsed =>
+      'यह तुम्हारा मुफ़्त गाइडेड वर्कआउट था। Pro के साथ हर दिन एक मिलेगा।';
+
+  @override
+  String get ftScoreLockedTitle => 'तुम्हारा स्कोर किससे बनता है';
+
+  @override
+  String get ftScoreLockedBody =>
+      'तुम्हारे स्कोर का हर हिस्सा, वह किस पर आधारित है और आगे करने वाली एक चीज़।';
+
+  @override
+  String get ftReportLockedTitle => 'तुम्हारा पूरा हफ़्ता';
+
+  @override
+  String get ftReportLockedBody =>
+      'हर दिन तुम्हारे प्लान के हिसाब से स्कोर, तुम्हारे गोल, तुम्हारी लंबाई और अगले हफ़्ते का एक फ़ोकस।';
+
+  @override
+  String get ftPhotosLockedTitle => 'इन दोनों की तुलना करो';
+
+  @override
+  String get ftPhotosLockedBody =>
+      'तुम्हारी मुफ़्त तुलना इस्तेमाल हो गई। Pro के साथ किन्हीं भी दो फ़ोटो के बीच स्लाइड करो।';
+
+  @override
+  String get ftArticleFreeLine =>
+      'तुम्हारा पहला आर्टिकल मुफ़्त है। जो चाहो वो चुनो।';
 }

@@ -126,6 +126,9 @@ class PlanSectionLabel extends StatelessWidget {
   final String? trailing;
   final Color color;
   final Color? trailingColor;
+
+  /// A small widget before [trailing], such as the free tier's chip.
+  final Widget? badge;
   const PlanSectionLabel({
     super.key,
     required this.icon,
@@ -133,6 +136,7 @@ class PlanSectionLabel extends StatelessWidget {
     this.trailing,
     this.color = AppColors.primary,
     this.trailingColor,
+    this.badge,
   });
 
   @override
@@ -156,6 +160,7 @@ class PlanSectionLabel extends StatelessWidget {
               ),
             ),
           ),
+          if (badge != null) ...[const SizedBox(width: 8), badge!],
           if (trailing != null) ...[
             const SizedBox(width: 8),
             Text(
@@ -179,12 +184,17 @@ class PlanCheck extends StatelessWidget {
   final Color color;
   final VoidCallback? onTap;
   final double size;
+
+  /// An open box that is not the user's to tick now (the free tier ran
+  /// out): it carries a small lock.
+  final bool locked;
   const PlanCheck({
     super.key,
     required this.done,
     this.color = AppColors.success,
     this.onTap,
     this.size = 28,
+    this.locked = false,
   });
 
   @override
@@ -210,6 +220,12 @@ class PlanCheck extends StatelessWidget {
               color: color.computeLuminance() > 0.5
                   ? const Color(0xFF07050F)
                   : Colors.white,
+            )
+          : locked
+          ? Icon(
+              CupertinoIcons.lock_fill,
+              size: size * 0.42,
+              color: AppColors.warning.withValues(alpha: 0.8),
             )
           : null,
     );
@@ -283,6 +299,9 @@ class PlanItemRow extends StatelessWidget {
   final VoidCallback? onToggle;
   final VoidCallback? onOpen;
   final VoidCallback? onLongPress;
+
+  /// Shows the tick box locked (see [PlanCheck.locked]).
+  final bool locked;
   const PlanItemRow({
     super.key,
     required this.routineId,
@@ -295,6 +314,7 @@ class PlanItemRow extends StatelessWidget {
     this.onToggle,
     this.onOpen,
     this.onLongPress,
+    this.locked = false,
   });
 
   @override
@@ -307,7 +327,12 @@ class PlanItemRow extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           children: [
-            PlanCheck(done: done, color: accent, onTap: onToggle),
+            PlanCheck(
+              done: done,
+              color: accent,
+              onTap: onToggle,
+              locked: locked,
+            ),
             const SizedBox(width: 4),
             if (showThumb) ...[
               MoveThumb(routineId: routineId, icon: icon),
@@ -465,6 +490,9 @@ class PlanButton extends StatelessWidget {
   final IconData? icon;
   final VoidCallback? onTap;
   final bool outlined;
+
+  /// A small widget after the label, such as the free tier's "1 free" chip.
+  final Widget? badge;
   const PlanButton({
     super.key,
     required this.label,
@@ -472,6 +500,7 @@ class PlanButton extends StatelessWidget {
     this.icon,
     this.onTap,
     this.outlined = false,
+    this.badge,
   });
 
   @override
@@ -520,6 +549,7 @@ class PlanButton extends StatelessWidget {
                 ),
               ),
             ),
+            if (badge != null) ...[const SizedBox(width: 8), badge!],
           ],
         ),
       ),

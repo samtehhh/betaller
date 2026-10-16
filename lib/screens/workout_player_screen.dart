@@ -8,15 +8,22 @@ import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/daily_targets.dart';
+import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
 import '../widgets/exercise_media.dart';
+import '../widgets/free_tier_widgets.dart';
 import '../widgets/plan_widgets.dart';
 
-enum _Phase { ready, work, rest, moveDone, finished }
+enum _Phase { ready, work, rest, moveDone, locked, finished }
 
 /// Walks through a list of dosed moves one after another: the clip, the
 /// dose, a timer for holds and timed sets, rests between sets, and next.
 /// [onMoveDone] fires once per move as its last set is finished.
+///
+/// On the free tier the first workout played to the end is free. A free user
+/// who opens the player with that used up gets the first move as a preview,
+/// not counted anywhere, and then a card that shows what comes next and
+/// offers Pro.
 class WorkoutPlayerScreen extends StatefulWidget {
   final List<MoveDose> moves;
   final String title;
@@ -47,6 +54,16 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
   late final Set<String> _done = {...widget.alreadyDone};
   final _started = DateTime.now();
 
+  /// The free workout is used up: one move as a preview, then the Pro card.
+  late bool _preview;
+
+  /// Moves finished in this sitting, as opposed to [WorkoutPlayerScreen
+  /// .alreadyDone]. Only a sitting that did something spends the free use.
+  int _doneHere = 0;
+
+  /// This sitting spent the free workout; the end screen says so.
+  bool _spentFree = false;
+
   MoveDose get _move => widget.moves[_index];
 
   @override
@@ -55,6 +72,7 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
     // Start at the first move not done yet.
     final open = widget.moves.indexWhere((m) => !_done.contains(m.routineId));
     _index = open < 0 ? 0 : open;
+    _preview = !context.read<AppProvider>().canUseFree(FreeFeature.workout);
   }
 
   @override
@@ -111,9 +129,16 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
 
   void _markDone() {
     _timer?.cancel();
+    if (_preview) {
+      // The preview move counts nowhere: it is a taste, not a workout.
+      Haptics.success();
+      setState(() => _phase = _Phase.locked);
+      return;
+    }
     final id = _move.routineId;
     if (!_done.contains(id)) {
       _done.add(id);
+      _doneHere++;
       widget.onMoveDone(id);
     }
     Haptics.success();
@@ -127,6 +152,10 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
   void _next() {
     _timer?.cancel();
     Haptics.tap();
+    if (_preview) {
+      setState(() => _phase = _Phase.locked);
+      return;
+    }
     // Next move not done yet, after this one; wrap to any skipped earlier.
     int? target;
     for (var i = _index + 1; i < widget.moves.length; i++) {
@@ -158,10 +187,28 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
   void _finish() {
     _timer?.cancel();
     Haptics.celebrate();
+    final provider = context.read<AppProvider>();
+    // The free workout is the first one finished with something done in it.
+    if (provider.isMetered && _doneHere > 0) {
+      _spentFree = provider.consumeFree(FreeFeature.workout);
+    }
     setState(() => _phase = _Phase.finished);
     // Played through to the end, not skipped: a moment worth a rating.
     if (_done.length >= widget.moves.length) {
-      context.read<AppProvider>().noteReviewMoment(ReviewMoment.workout);
+      provider.noteReviewMoment(ReviewMoment.workout);
+    }
+  }
+
+  /// The Pro card's button. Bought: the rest of the workout plays on.
+  Future<void> _continueWithPro() async {
+    final bought = await showPaywallFor(context, FreeFeature.workout);
+    if (!mounted) return;
+    if (bought == true || context.read<AppProvider>().isPremium) {
+      setState(() {
+        _preview = false;
+        _phase = _Phase.ready;
+      });
+      _next();
     }
   }
 
@@ -174,9 +221,11 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
     return Scaffold(
       backgroundColor: AppColors.scaffold,
       body: SafeArea(
-        child: _phase == _Phase.finished
-            ? _buildFinished(l)
-            : _buildMove(context, l),
+        child: switch (_phase) {
+          _Phase.finished => _buildFinished(l),
+          _Phase.locked => _buildLocked(l),
+          _ => _buildMove(context, l),
+        },
       ),
     );
   }
@@ -215,6 +264,10 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
             ),
           ),
           const SizedBox(width: 12),
+          if (_preview) ...[
+            FreeChip(label: l.ftPreviewTag),
+            const SizedBox(width: 8),
+          ],
           Text(
             '${_index + 1}/${widget.moves.length}',
             style: TextStyle(
@@ -301,6 +354,7 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
           ],
         );
       case _Phase.ready:
+      case _Phase.locked:
       case _Phase.finished:
         centre = Column(
           mainAxisSize: MainAxisSize.min,
@@ -362,6 +416,7 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
       case _Phase.moveDone:
         primaryLabel = l.plNextMove;
         primaryAction = _next;
+      case _Phase.locked:
       case _Phase.finished:
         primaryLabel = l.done;
         primaryAction = () => Navigator.pop(context);
@@ -494,6 +549,150 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
     );
   }
 
+  /// After the preview move: what is left, and one way on.
+  Widget _buildLocked(AppLocalizations l) {
+    final rest = [
+      for (var i = 0; i < widget.moves.length; i++)
+        if (i != _index && !_done.contains(widget.moves[i].routineId))
+          widget.moves[i],
+    ];
+    return Column(
+      children: [
+        _buildTopBar(l),
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+            children: [
+              Center(
+                child: Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.warning.withValues(alpha: 0.12),
+                    border: Border.all(
+                      color: AppColors.warning.withValues(alpha: 0.5),
+                    ),
+                  ),
+                  child: const Icon(
+                    CupertinoIcons.lock_fill,
+                    size: 28,
+                    color: AppColors.warning,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                l.ftPreviewTitle,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: -0.6,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                l.ftPreviewBody,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14.5,
+                  height: 1.4,
+                  color: Colors.white.withValues(alpha: 0.65),
+                ),
+              ),
+              const SizedBox(height: 16),
+              PlanCard(
+                padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                child: Column(
+                  children: [
+                    for (final m in rest)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        child: Row(
+                          children: [
+                            MoveThumb(
+                              routineId: m.routineId,
+                              width: 40,
+                              height: 50,
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    moveTitle(l, m.routineId),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 14.5,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    doseLabel(l, m),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white.withValues(
+                                        alpha: 0.5,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Icon(
+                              CupertinoIcons.lock_fill,
+                              size: 14,
+                              color: Colors.white.withValues(alpha: 0.35),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 4, 20, 14),
+          child: Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: PlanButton(
+                  label: l.ftContinuePro,
+                  icon: CupertinoIcons.lock_open_fill,
+                  color: AppColors.primary,
+                  onTap: _continueWithPro,
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Haptics.tap();
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  l.ftNotNow,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white.withValues(alpha: 0.6),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildFinished(AppLocalizations l) {
     final minutes = widget.moves.fold<int>(0, (s, m) => s + m.minutes);
     final elapsed = DateTime.now().difference(_started).inMinutes;
@@ -544,6 +743,19 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
               color: Colors.white.withValues(alpha: 0.65),
             ),
           ),
+          if (_spentFree) ...[
+            const SizedBox(height: 18),
+            Text(
+              l.ftFreeWorkoutUsed,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 13.5,
+                height: 1.4,
+                fontWeight: FontWeight.w700,
+                color: AppColors.lime,
+              ),
+            ),
+          ],
           const Spacer(),
           SizedBox(
             width: double.infinity,

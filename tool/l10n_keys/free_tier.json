@@ -1,0 +1,422 @@
+{
+ "ftOneFree": {
+  "en": "1 free",
+  "tr": "1 ücretsiz",
+  "de": "1 gratis",
+  "fr": "1 gratuit",
+  "es": "1 gratis",
+  "it": "1 gratis",
+  "pt": "1 grátis",
+  "hi": "1 मुफ़्त"
+ },
+ "ftFreeToday": {
+  "en": "Free today",
+  "tr": "Bugün ücretsiz",
+  "de": "Heute gratis",
+  "fr": "Gratuit aujourd'hui",
+  "es": "Gratis hoy",
+  "it": "Gratis oggi",
+  "pt": "Grátis hoje",
+  "hi": "आज मुफ़्त"
+ },
+ "ftContinuePro": {
+  "en": "Continue with Pro",
+  "tr": "Pro ile devam et",
+  "de": "Weiter mit Pro",
+  "fr": "Continuer avec Pro",
+  "es": "Seguir con Pro",
+  "it": "Continua con Pro",
+  "pt": "Continuar com o Pro",
+  "hi": "Pro के साथ जारी रखो"
+ },
+ "ftNotNow": {
+  "en": "Not now",
+  "tr": "Şimdi değil",
+  "de": "Nicht jetzt",
+  "fr": "Pas maintenant",
+  "es": "Ahora no",
+  "it": "Non ora",
+  "pt": "Agora não",
+  "hi": "अभी नहीं"
+ },
+ "ftOutWorkoutTitle": {
+  "en": "You've used your free workout",
+  "tr": "Ücretsiz antrenmanını kullandın",
+  "de": "Dein Gratis-Training ist aufgebraucht",
+  "fr": "Tu as utilisé ton entraînement gratuit",
+  "es": "Ya usaste tu entrenamiento gratis",
+  "it": "Hai usato il tuo allenamento gratuito",
+  "pt": "Você já usou seu treino grátis",
+  "hi": "तुमने अपना मुफ़्त वर्कआउट इस्तेमाल कर लिया"
+ },
+ "ftOutWorkoutBody": {
+  "en": "Keep your streak with Pro: a guided workout every day, every move timed for you.",
+  "tr": "Serini Pro ile sürdür: her gün rehberli antrenman, her hareket senin için zamanlanmış.",
+  "de": "Halte deine Serie mit Pro: jeden Tag ein geführtes Training, jede Übung für dich getimt.",
+  "fr": "Garde ta série avec Pro : un entraînement guidé chaque jour, chaque mouvement chronométré pour toi.",
+  "es": "Mantén tu racha con Pro: un entrenamiento guiado cada día, cada ejercicio cronometrado para ti.",
+  "it": "Mantieni la tua serie con Pro: un allenamento guidato ogni giorno, ogni esercizio cronometrato per te.",
+  "pt": "Mantenha sua sequência com o Pro: um treino guiado todo dia, cada exercício cronometrado pra você.",
+  "hi": "Pro के साथ अपनी स्ट्रीक बनाए रखो: हर दिन गाइडेड वर्कआउट, हर मूव तुम्हारे लिए टाइम किया हुआ।"
+ },
+ "ftOutDayTitle": {
+  "en": "Your free first day is done",
+  "tr": "Ücretsiz ilk günün bitti",
+  "de": "Dein freier erster Tag ist vorbei",
+  "fr": "Ta première journée gratuite est terminée",
+  "es": "Tu primer día gratis terminó",
+  "it": "Il tuo primo giorno gratuito è finito",
+  "pt": "Seu primeiro dia grátis acabou",
+  "hi": "तुम्हारा मुफ़्त पहला दिन पूरा हो गया"
+ },
+ "ftOutDayBody": {
+  "en": "Your plan, targets and progress stay here to read. Keep your streak with Pro: tick off your plan and log water and sleep every day.",
+  "tr": "Planın, hedeflerin ve gelişimin burada okunmaya devam eder. Serini Pro ile sürdür: planını işaretle, suyu ve uykuyu her gün kaydet.",
+  "de": "Dein Plan, deine Ziele und dein Fortschritt bleiben hier zum Lesen. Halte deine Serie mit Pro: hak deinen Plan ab und trag jeden Tag Wasser und Schlaf ein.",
+  "fr": "Ton plan, tes objectifs et tes progrès restent ici à lire. Garde ta série avec Pro : coche ton plan et note ton eau et ton sommeil chaque jour.",
+  "es": "Tu plan, tus objetivos y tu progreso siguen aquí para leer. Mantén tu racha con Pro: marca tu plan y registra agua y sueño cada día.",
+  "it": "Il tuo piano, i tuoi obiettivi e i tuoi progressi restano qui da leggere. Mantieni la tua serie con Pro: spunta il piano e registra acqua e sonno ogni giorno.",
+  "pt": "Seu plano, suas metas e seu progresso continuam aqui pra ler. Mantenha sua sequência com o Pro: marque seu plano e registre água e sono todo dia.",
+  "hi": "तुम्हारा प्लान, टारगेट और प्रोग्रेस यहीं पढ़ने के लिए रहेंगे। Pro के साथ स्ट्रीक बनाए रखो: हर दिन प्लान पर टिक करो और पानी व नींद लॉग करो।"
+ },
+ "ftOutPostureTitle": {
+  "en": "You've used your free posture check",
+  "tr": "Ücretsiz duruş kontrolünü kullandın",
+  "de": "Dein Gratis-Haltungscheck ist aufgebraucht",
+  "fr": "Tu as utilisé ton bilan de posture gratuit",
+  "es": "Ya usaste tu revisión de postura gratis",
+  "it": "Hai usato il tuo controllo della postura gratuito",
+  "pt": "Você já usou sua avaliação de postura grátis",
+  "hi": "तुमने अपना मुफ़्त पोस्चर चेक इस्तेमाल कर लिया"
+ },
+ "ftOutPostureBody": {
+  "en": "Your result stays here. Check again every week with Pro and watch your posture improve.",
+  "tr": "Sonucun burada kalır. Pro ile her hafta yeniden kontrol et, duruşunun düzeldiğini gör.",
+  "de": "Dein Ergebnis bleibt hier. Prüf mit Pro jede Woche neu und sieh, wie deine Haltung besser wird.",
+  "fr": "Ton résultat reste ici. Refais le bilan chaque semaine avec Pro et vois ta posture s'améliorer.",
+  "es": "Tu resultado se queda aquí. Revísalo cada semana con Pro y mira cómo mejora tu postura.",
+  "it": "Il tuo risultato resta qui. Ricontrolla ogni settimana con Pro e guarda la tua postura migliorare.",
+  "pt": "Seu resultado fica aqui. Refaça toda semana com o Pro e veja sua postura melhorar.",
+  "hi": "तुम्हारा रिज़ल्ट यहीं रहेगा। Pro के साथ हर हफ़्ते दोबारा चेक करो और पोस्चर सुधरते देखो।"
+ },
+ "ftOutPhotosTitle": {
+  "en": "You've used your free photo compare",
+  "tr": "Ücretsiz fotoğraf karşılaştırmanı kullandın",
+  "de": "Dein Gratis-Fotovergleich ist aufgebraucht",
+  "fr": "Tu as utilisé ta comparaison de photos gratuite",
+  "es": "Ya usaste tu comparación de fotos gratis",
+  "it": "Hai usato il tuo confronto foto gratuito",
+  "pt": "Você já usou sua comparação de fotos grátis",
+  "hi": "तुमने अपनी मुफ़्त फ़ोटो तुलना इस्तेमाल कर ली"
+ },
+ "ftOutPhotosBody": {
+  "en": "That pair stays yours to look at. Add more photos and compare any two with Pro.",
+  "tr": "O ikili sende kalır. Pro ile daha çok fotoğraf ekle, istediğin ikisini karşılaştır.",
+  "de": "Dieses Paar kannst du weiter ansehen. Mit Pro fügst du mehr Fotos hinzu und vergleichst zwei beliebige.",
+  "fr": "Cette paire reste à toi. Ajoute d'autres photos et compare-en deux au choix avec Pro.",
+  "es": "Ese par sigue siendo tuyo. Añade más fotos y compara las que quieras con Pro.",
+  "it": "Quella coppia resta tua. Aggiungi altre foto e confrontane due a scelta con Pro.",
+  "pt": "Esse par continua seu. Adicione mais fotos e compare as que quiser com o Pro.",
+  "hi": "वह जोड़ी तुम्हारे पास रहेगी। Pro के साथ और फ़ोटो जोड़ो और कोई भी दो तुलना करो।"
+ },
+ "ftOutReportTitle": {
+  "en": "You've used your free weekly report",
+  "tr": "Ücretsiz haftalık raporunu kullandın",
+  "de": "Dein Gratis-Wochenbericht ist aufgebraucht",
+  "fr": "Tu as utilisé ton bilan de la semaine gratuit",
+  "es": "Ya usaste tu informe semanal gratis",
+  "it": "Hai usato il tuo report settimanale gratuito",
+  "pt": "Você já usou seu relatório semanal grátis",
+  "hi": "तुमने अपनी मुफ़्त हफ़्ते की रिपोर्ट इस्तेमाल कर ली"
+ },
+ "ftOutReportBody": {
+  "en": "Get your full recap every week with Pro: each day scored, your goals and one thing to do better.",
+  "tr": "Pro ile her hafta tam özetini al: her gün puanlı, hedeflerin ve daha iyi yapacağın bir şey.",
+  "de": "Hol dir mit Pro jede Woche deinen ganzen Rückblick: jeder Tag bewertet, deine Ziele und ein Punkt, den du besser machen kannst.",
+  "fr": "Reçois ton bilan complet chaque semaine avec Pro : chaque jour noté, tes objectifs et un point à améliorer.",
+  "es": "Recibe tu resumen completo cada semana con Pro: cada día puntuado, tus metas y una cosa que mejorar.",
+  "it": "Ricevi il tuo riepilogo completo ogni settimana con Pro: ogni giorno valutato, i tuoi obiettivi e una cosa da migliorare.",
+  "pt": "Receba seu resumo completo toda semana com o Pro: cada dia avaliado, suas metas e uma coisa pra melhorar.",
+  "hi": "Pro के साथ हर हफ़्ते पूरा रीकैप पाओ: हर दिन का स्कोर, तुम्हारे गोल और सुधारने के लिए एक बात।"
+ },
+ "ftOutScoreTitle": {
+  "en": "You've seen your free score breakdown",
+  "tr": "Ücretsiz skor dökümünü gördün",
+  "de": "Deine Gratis-Score-Aufschlüsselung ist aufgebraucht",
+  "fr": "Tu as vu le détail gratuit de ton score",
+  "es": "Ya viste el desglose gratis de tu puntuación",
+  "it": "Hai visto il dettaglio gratuito del tuo punteggio",
+  "pt": "Você já viu o detalhamento grátis da sua pontuação",
+  "hi": "तुमने अपने स्कोर का मुफ़्त ब्रेकडाउन देख लिया"
+ },
+ "ftOutScoreBody": {
+  "en": "Your score stays on screen. See what builds it, and what to do next, every day with Pro.",
+  "tr": "Skorun ekranda kalır. Onu neyin oluşturduğunu ve sırada ne yapacağını her gün Pro ile gör.",
+  "de": "Dein Score bleibt sichtbar. Sieh mit Pro jeden Tag, woraus er besteht und was du als Nächstes tun kannst.",
+  "fr": "Ton score reste affiché. Vois chaque jour avec Pro ce qui le compose et quoi faire ensuite.",
+  "es": "Tu puntuación sigue a la vista. Mira cada día con Pro qué la forma y qué hacer después.",
+  "it": "Il tuo punteggio resta visibile. Guarda ogni giorno con Pro da cosa è fatto e cosa fare dopo.",
+  "pt": "Sua pontuação continua na tela. Veja todo dia com o Pro o que a forma e o que fazer em seguida.",
+  "hi": "तुम्हारा स्कोर स्क्रीन पर रहेगा। Pro के साथ हर दिन देखो कि वह किससे बनता है और आगे क्या करना है।"
+ },
+ "ftOutArticleTitle": {
+  "en": "You've read your free article",
+  "tr": "Ücretsiz makaleni okudun",
+  "de": "Du hast deinen Gratis-Artikel gelesen",
+  "fr": "Tu as lu ton article gratuit",
+  "es": "Ya leíste tu artículo gratis",
+  "it": "Hai letto il tuo articolo gratuito",
+  "pt": "Você já leu seu artigo grátis",
+  "hi": "तुमने अपना मुफ़्त आर्टिकल पढ़ लिया"
+ },
+ "ftOutArticleBody": {
+  "en": "That article stays open for you. Read the whole library with Pro.",
+  "tr": "O makale senin için açık kalır. Tüm kütüphaneyi Pro ile oku.",
+  "de": "Dieser Artikel bleibt für dich offen. Lies die ganze Bibliothek mit Pro.",
+  "fr": "Cet article reste ouvert pour toi. Lis toute la bibliothèque avec Pro.",
+  "es": "Ese artículo sigue abierto para ti. Lee toda la biblioteca con Pro.",
+  "it": "Quell'articolo resta aperto per te. Leggi tutta la libreria con Pro.",
+  "pt": "Esse artigo continua aberto pra você. Leia a biblioteca inteira com o Pro.",
+  "hi": "वह आर्टिकल तुम्हारे लिए खुला रहेगा। Pro के साथ पूरी लाइब्रेरी पढ़ो।"
+ },
+ "ftWhyWorkout": {
+  "en": "Guided workouts are part of Pro",
+  "tr": "Rehberli antrenmanlar Pro'ya dahil",
+  "de": "Geführte Trainings gehören zu Pro",
+  "fr": "Les entraînements guidés font partie de Pro",
+  "es": "Los entrenamientos guiados son parte de Pro",
+  "it": "Gli allenamenti guidati fanno parte di Pro",
+  "pt": "Treinos guiados fazem parte do Pro",
+  "hi": "गाइडेड वर्कआउट Pro का हिस्सा हैं"
+ },
+ "ftWhyPlan": {
+  "en": "Ticking off your plan is part of Pro",
+  "tr": "Planını işaretlemek Pro'ya dahil",
+  "de": "Deinen Plan abhaken gehört zu Pro",
+  "fr": "Cocher ton plan fait partie de Pro",
+  "es": "Marcar tu plan es parte de Pro",
+  "it": "Spuntare il tuo piano fa parte di Pro",
+  "pt": "Marcar seu plano faz parte do Pro",
+  "hi": "प्लान पर टिक करना Pro का हिस्सा है"
+ },
+ "ftWhyProgram": {
+  "en": "The 70-day program is part of Pro",
+  "tr": "70 günlük program Pro'ya dahil",
+  "de": "Das 70-Tage-Programm gehört zu Pro",
+  "fr": "Le programme de 70 jours fait partie de Pro",
+  "es": "El programa de 70 días es parte de Pro",
+  "it": "Il programma di 70 giorni fa parte di Pro",
+  "pt": "O programa de 70 dias faz parte do Pro",
+  "hi": "70 दिन का प्रोग्राम Pro का हिस्सा है"
+ },
+ "ftWhyWater": {
+  "en": "Logging water every day is part of Pro",
+  "tr": "Her gün su kaydetmek Pro'ya dahil",
+  "de": "Jeden Tag Wasser eintragen gehört zu Pro",
+  "fr": "Noter ton eau chaque jour fait partie de Pro",
+  "es": "Registrar agua cada día es parte de Pro",
+  "it": "Registrare l'acqua ogni giorno fa parte di Pro",
+  "pt": "Registrar água todo dia faz parte do Pro",
+  "hi": "हर दिन पानी लॉग करना Pro का हिस्सा है"
+ },
+ "ftWhySleep": {
+  "en": "Logging sleep every day is part of Pro",
+  "tr": "Her gün uyku kaydetmek Pro'ya dahil",
+  "de": "Jeden Tag Schlaf eintragen gehört zu Pro",
+  "fr": "Noter ton sommeil chaque jour fait partie de Pro",
+  "es": "Registrar el sueño cada día es parte de Pro",
+  "it": "Registrare il sonno ogni giorno fa parte di Pro",
+  "pt": "Registrar o sono todo dia faz parte do Pro",
+  "hi": "हर दिन नींद लॉग करना Pro का हिस्सा है"
+ },
+ "ftWhyNutrition": {
+  "en": "Your daily nutrition plan is part of Pro",
+  "tr": "Günlük beslenme planın Pro'ya dahil",
+  "de": "Dein täglicher Ernährungsplan gehört zu Pro",
+  "fr": "Ton plan nutrition du jour fait partie de Pro",
+  "es": "Tu plan de nutrición diario es parte de Pro",
+  "it": "Il tuo piano alimentare quotidiano fa parte di Pro",
+  "pt": "Seu plano de nutrição diário faz parte do Pro",
+  "hi": "तुम्हारा रोज़ का न्यूट्रिशन प्लान Pro का हिस्सा है"
+ },
+ "ftWhyPosture": {
+  "en": "Weekly posture checks are part of Pro",
+  "tr": "Haftalık duruş kontrolleri Pro'ya dahil",
+  "de": "Wöchentliche Haltungschecks gehören zu Pro",
+  "fr": "Les bilans de posture chaque semaine font partie de Pro",
+  "es": "Las revisiones de postura semanales son parte de Pro",
+  "it": "I controlli della postura settimanali fanno parte di Pro",
+  "pt": "As avaliações de postura semanais fazem parte do Pro",
+  "hi": "हफ़्ते के पोस्चर चेक Pro का हिस्सा हैं"
+ },
+ "ftWhyPhotos": {
+  "en": "Photo comparisons are part of Pro",
+  "tr": "Fotoğraf karşılaştırmaları Pro'ya dahil",
+  "de": "Fotovergleiche gehören zu Pro",
+  "fr": "Les comparaisons de photos font partie de Pro",
+  "es": "Las comparaciones de fotos son parte de Pro",
+  "it": "I confronti foto fanno parte di Pro",
+  "pt": "As comparações de fotos fazem parte do Pro",
+  "hi": "फ़ोटो तुलना Pro का हिस्सा है"
+ },
+ "ftWhyReport": {
+  "en": "Your weekly report is part of Pro",
+  "tr": "Haftalık raporun Pro'ya dahil",
+  "de": "Dein Wochenbericht gehört zu Pro",
+  "fr": "Ton bilan de la semaine fait partie de Pro",
+  "es": "Tu informe semanal es parte de Pro",
+  "it": "Il tuo report settimanale fa parte di Pro",
+  "pt": "Seu relatório semanal faz parte do Pro",
+  "hi": "तुम्हारी हफ़्ते की रिपोर्ट Pro का हिस्सा है"
+ },
+ "ftWhyScore": {
+  "en": "Your score breakdown is part of Pro",
+  "tr": "Skor dökümün Pro'ya dahil",
+  "de": "Deine Score-Aufschlüsselung gehört zu Pro",
+  "fr": "Le détail de ton score fait partie de Pro",
+  "es": "El desglose de tu puntuación es parte de Pro",
+  "it": "Il dettaglio del tuo punteggio fa parte di Pro",
+  "pt": "O detalhamento da sua pontuação faz parte do Pro",
+  "hi": "तुम्हारे स्कोर का ब्रेकडाउन Pro का हिस्सा है"
+ },
+ "ftWhyArticle": {
+  "en": "The full library is part of Pro",
+  "tr": "Tüm kütüphane Pro'ya dahil",
+  "de": "Die ganze Bibliothek gehört zu Pro",
+  "fr": "Toute la bibliothèque fait partie de Pro",
+  "es": "La biblioteca completa es parte de Pro",
+  "it": "Tutta la libreria fa parte di Pro",
+  "pt": "A biblioteca completa faz parte do Pro",
+  "hi": "पूरी लाइब्रेरी Pro का हिस्सा है"
+ },
+ "ftPlanLocked": {
+  "en": "Your plan stays here to read. Ticking it off is part of Pro.",
+  "tr": "Planın burada okunmaya devam eder. İşaretlemek Pro'ya dahil.",
+  "de": "Dein Plan bleibt hier zum Lesen. Abhaken gehört zu Pro.",
+  "fr": "Ton plan reste ici à lire. Le cocher fait partie de Pro.",
+  "es": "Tu plan sigue aquí para leer. Marcarlo es parte de Pro.",
+  "it": "Il tuo piano resta qui da leggere. Spuntarlo fa parte di Pro.",
+  "pt": "Seu plano continua aqui pra ler. Marcar faz parte do Pro.",
+  "hi": "तुम्हारा प्लान यहीं पढ़ने के लिए है। उस पर टिक करना Pro का हिस्सा है।"
+ },
+ "ftNutritionLocked": {
+  "en": "Your targets and meals stay here to read. Ticking them off is part of Pro.",
+  "tr": "Hedeflerin ve öğünlerin burada okunmaya devam eder. İşaretlemek Pro'ya dahil.",
+  "de": "Deine Ziele und Mahlzeiten bleiben hier zum Lesen. Abhaken gehört zu Pro.",
+  "fr": "Tes objectifs et tes repas restent ici à lire. Les cocher fait partie de Pro.",
+  "es": "Tus objetivos y comidas siguen aquí para leer. Marcarlos es parte de Pro.",
+  "it": "I tuoi obiettivi e i pasti restano qui da leggere. Spuntarli fa parte di Pro.",
+  "pt": "Suas metas e refeições continuam aqui pra ler. Marcar faz parte do Pro.",
+  "hi": "तुम्हारे टारगेट और मील यहीं पढ़ने के लिए हैं। उन पर टिक करना Pro का हिस्सा है।"
+ },
+ "ftPreviewTag": {
+  "en": "Preview",
+  "tr": "Önizleme",
+  "de": "Vorschau",
+  "fr": "Aperçu",
+  "es": "Adelanto",
+  "it": "Anteprima",
+  "pt": "Prévia",
+  "hi": "प्रीव्यू"
+ },
+ "ftPreviewTitle": {
+  "en": "That was your preview",
+  "tr": "Önizlemen buydu",
+  "de": "Das war deine Vorschau",
+  "fr": "C'était ton aperçu",
+  "es": "Eso fue tu adelanto",
+  "it": "Questa era la tua anteprima",
+  "pt": "Essa foi sua prévia",
+  "hi": "यह तुम्हारा प्रीव्यू था"
+ },
+ "ftPreviewBody": {
+  "en": "The rest of this workout is part of Pro. Here is what comes next:",
+  "tr": "Bu antrenmanın devamı Pro'ya dahil. Sırada bunlar var:",
+  "de": "Der Rest dieses Trainings gehört zu Pro. Das kommt als Nächstes:",
+  "fr": "La suite de cet entraînement fait partie de Pro. Voici ce qui t'attend :",
+  "es": "El resto de este entrenamiento es parte de Pro. Esto es lo que sigue:",
+  "it": "Il resto di questo allenamento fa parte di Pro. Ecco cosa viene dopo:",
+  "pt": "O resto deste treino faz parte do Pro. Veja o que vem a seguir:",
+  "hi": "इस वर्कआउट का बाकी हिस्सा Pro में है। आगे यह आएगा:"
+ },
+ "ftFreeWorkoutUsed": {
+  "en": "That was your free guided workout. Pro keeps them coming every day.",
+  "tr": "Bu senin ücretsiz rehberli antrenmanındı. Pro ile her gün devam eder.",
+  "de": "Das war dein Gratis-Training. Mit Pro geht es jeden Tag weiter.",
+  "fr": "C'était ton entraînement guidé gratuit. Avec Pro, il y en a un chaque jour.",
+  "es": "Ese fue tu entrenamiento guiado gratis. Con Pro tienes uno cada día.",
+  "it": "Questo era il tuo allenamento guidato gratuito. Con Pro ne hai uno ogni giorno.",
+  "pt": "Esse foi seu treino guiado grátis. Com o Pro, tem um todo dia.",
+  "hi": "यह तुम्हारा मुफ़्त गाइडेड वर्कआउट था। Pro के साथ हर दिन एक मिलेगा।"
+ },
+ "ftScoreLockedTitle": {
+  "en": "What builds your score",
+  "tr": "Skorunu ne oluşturuyor",
+  "de": "Woraus dein Score besteht",
+  "fr": "Ce qui compose ton score",
+  "es": "Qué forma tu puntuación",
+  "it": "Da cosa è fatto il tuo punteggio",
+  "pt": "O que forma sua pontuação",
+  "hi": "तुम्हारा स्कोर किससे बनता है"
+ },
+ "ftScoreLockedBody": {
+  "en": "Every part of your score, what it is based on and the one thing to do next.",
+  "tr": "Skorunun her parçası, neye dayandığı ve sıradaki tek adım.",
+  "de": "Jeder Teil deines Scores, worauf er beruht und der eine nächste Schritt.",
+  "fr": "Chaque partie de ton score, sur quoi elle repose et la prochaine chose à faire.",
+  "es": "Cada parte de tu puntuación, en qué se basa y lo próximo que hacer.",
+  "it": "Ogni parte del tuo punteggio, su cosa si basa e la prossima cosa da fare.",
+  "pt": "Cada parte da sua pontuação, no que ela se baseia e a próxima coisa a fazer.",
+  "hi": "तुम्हारे स्कोर का हर हिस्सा, वह किस पर आधारित है और आगे करने वाली एक चीज़।"
+ },
+ "ftReportLockedTitle": {
+  "en": "Your full week",
+  "tr": "Haftanın tamamı",
+  "de": "Deine ganze Woche",
+  "fr": "Ta semaine complète",
+  "es": "Tu semana completa",
+  "it": "La tua settimana completa",
+  "pt": "Sua semana completa",
+  "hi": "तुम्हारा पूरा हफ़्ता"
+ },
+ "ftReportLockedBody": {
+  "en": "Every day scored against your plan, your goals, your height and one focus for next week.",
+  "tr": "Her gün planına göre puanlı, hedeflerin, boyun ve gelecek hafta için tek odak.",
+  "de": "Jeder Tag an deinem Plan gemessen, deine Ziele, deine Größe und ein Fokus für nächste Woche.",
+  "fr": "Chaque jour noté selon ton plan, tes objectifs, ta taille et un objectif pour la semaine prochaine.",
+  "es": "Cada día puntuado según tu plan, tus metas, tu altura y un foco para la próxima semana.",
+  "it": "Ogni giorno valutato sul tuo piano, i tuoi obiettivi, la tua altezza e un obiettivo per la prossima settimana.",
+  "pt": "Cada dia avaliado pelo seu plano, suas metas, sua altura e um foco pra próxima semana.",
+  "hi": "हर दिन तुम्हारे प्लान के हिसाब से स्कोर, तुम्हारे गोल, तुम्हारी लंबाई और अगले हफ़्ते का एक फ़ोकस।"
+ },
+ "ftPhotosLockedTitle": {
+  "en": "Compare these two",
+  "tr": "Bu ikisini karşılaştır",
+  "de": "Vergleiche diese zwei",
+  "fr": "Compare ces deux photos",
+  "es": "Compara estas dos",
+  "it": "Confronta queste due",
+  "pt": "Compare estas duas",
+  "hi": "इन दोनों की तुलना करो"
+ },
+ "ftPhotosLockedBody": {
+  "en": "Your free comparison is used. With Pro you can slide between any two photos.",
+  "tr": "Ücretsiz karşılaştırmanı kullandın. Pro ile istediğin iki fotoğraf arasında kaydır.",
+  "de": "Dein Gratis-Vergleich ist aufgebraucht. Mit Pro wechselst du per Regler zwischen zwei beliebigen Fotos.",
+  "fr": "Ta comparaison gratuite est utilisée. Avec Pro, fais glisser entre deux photos au choix.",
+  "es": "Ya usaste tu comparación gratis. Con Pro puedes deslizar entre dos fotos cualesquiera.",
+  "it": "Hai usato il confronto gratuito. Con Pro scorri tra due foto qualsiasi.",
+  "pt": "Você já usou sua comparação grátis. Com o Pro, deslize entre duas fotos quaisquer.",
+  "hi": "तुम्हारी मुफ़्त तुलना इस्तेमाल हो गई। Pro के साथ किन्हीं भी दो फ़ोटो के बीच स्लाइड करो।"
+ },
+ "ftArticleFreeLine": {
+  "en": "Your first article is free. Pick the one you want.",
+  "tr": "İlk makalen ücretsiz. İstediğini seç.",
+  "de": "Dein erster Artikel ist gratis. Such dir einen aus.",
+  "fr": "Ton premier article est gratuit. Choisis celui que tu veux.",
+  "es": "Tu primer artículo es gratis. Elige el que quieras.",
+  "it": "Il tuo primo articolo è gratis. Scegli quello che vuoi.",
+  "pt": "Seu primeiro artigo é grátis. Escolha o que quiser.",
+  "hi": "तुम्हारा पहला आर्टिकल मुफ़्त है। जो चाहो वो चुनो।"
+ }
+}
