@@ -1745,7 +1745,7 @@ class _ProgressPreview extends StatelessWidget {
       final index = _points.length - 1 - i;
       final diff = index > 0
           ? double.parse(
-              (_points[index] - _points[index - 1]).fixedL(1),
+              (_points[index] - _points[index - 1]).toStringAsFixed(1),
             )
           : 0.0;
       return _HistoryEntry(
