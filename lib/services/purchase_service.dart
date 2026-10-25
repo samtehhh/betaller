@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 
+import 'analytics.dart';
+
 /// How a purchase attempt ended.
 ///
 /// Backing out of the store sheet is not a failure, and the three used to be
@@ -234,12 +236,16 @@ class PurchaseService {
   }
 
   // ── Purchase a StoreProduct directly ─────────────────────────
-  Future<PurchaseOutcome> purchaseProduct(StoreProduct product) =>
-      _buy(() => Purchases.purchase(PurchaseParams.storeProduct(product)));
+  Future<PurchaseOutcome> purchaseProduct(StoreProduct product) => _buy(
+        product,
+        () => Purchases.purchase(PurchaseParams.storeProduct(product)),
+      );
 
   // ── Purchase a package ────────────────────────────────────────
-  Future<PurchaseOutcome> purchasePackage(Package package) =>
-      _buy(() => Purchases.purchase(PurchaseParams.package(package)));
+  Future<PurchaseOutcome> purchasePackage(Package package) => _buy(
+        package.storeProduct,
+        () => Purchases.purchase(PurchaseParams.package(package)),
+      );
 
   /// Runs a purchase and reports how it ended.
   ///
@@ -247,20 +253,37 @@ class PurchaseService {
   /// RevenueCat code, not as a [PurchasesErrorCode] thrown on its own — an
   /// `on PurchasesErrorCode catch` clause never matches it, which is how
   /// backing out of the sheet used to land in the generic failure branch.
-  Future<PurchaseOutcome> _buy(Future<void> Function() attempt) async {
+  Future<PurchaseOutcome> _buy(
+    StoreProduct product,
+    Future<void> Function() attempt,
+  ) async {
+    final props = <String, Object>{
+      'product': product.identifier,
+      'price': product.price,
+      'currency': product.currencyCode,
+    };
+    Analytics.track('purchase_start', props);
     try {
       await attempt();
       final info = await Purchases.getCustomerInfo();
-      return hasPremium(info) ? PurchaseOutcome.success : PurchaseOutcome.failed;
+      final ok = hasPremium(info);
+      Analytics.track(ok ? 'purchase_success' : 'purchase_fail', {
+        ...props,
+        if (!ok) 'reason': 'no_entitlement',
+      });
+      return ok ? PurchaseOutcome.success : PurchaseOutcome.failed;
     } on PlatformException catch (e) {
       final code = PurchasesErrorHelper.getErrorCode(e);
       if (code == PurchasesErrorCode.purchaseCancelledError) {
+        Analytics.track('purchase_cancel', props);
         return PurchaseOutcome.cancelled;
       }
       debugPrint('PurchaseService purchase error: $code');
+      Analytics.track('purchase_fail', {...props, 'reason': code.name});
       return PurchaseOutcome.failed;
     } catch (e) {
       debugPrint('PurchaseService purchase error: $e');
+      Analytics.track('purchase_fail', {...props, 'reason': 'exception'});
       return PurchaseOutcome.failed;
     }
   }
@@ -270,9 +293,12 @@ class PurchaseService {
   Future<bool> restore() async {
     if (!_initialized) return false;
     try {
-      return hasPremium(await Purchases.restorePurchases());
+      final restored = hasPremium(await Purchases.restorePurchases());
+      Analytics.track('restore', {'restored': restored});
+      return restored;
     } catch (e) {
       debugPrint('PurchaseService.restore error: $e');
+      Analytics.track('restore', {'restored': false, 'reason': 'exception'});
       return false;
     }
   }
