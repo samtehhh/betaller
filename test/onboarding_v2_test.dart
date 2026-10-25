@@ -12,6 +12,7 @@ import 'package:boyuzatma_app/l10n/app_localizations.dart';
 import 'package:boyuzatma_app/providers/app_provider.dart';
 import 'package:boyuzatma_app/screens/main_screen.dart';
 import 'package:boyuzatma_app/screens/onboarding_screen.dart';
+import 'package:boyuzatma_app/widgets/feature_tour.dart';
 import 'package:boyuzatma_app/widgets/plan_widgets.dart';
 import 'package:boyuzatma_app/widgets/premium_paywall.dart';
 
@@ -76,11 +77,16 @@ Widget onboardingApp(
 
 /// Walks the whole first run the way a user would: taps the real answers and
 /// the real buttons. [onPage] runs on arrival at each page, named after it.
+///
+/// [unknownParents] ('father', 'mother') are answered "I don't know", which
+/// brings in the background page; [ethnicity] is the answer given there.
 Future<void> walkOnboarding(
   WidgetTester t,
   AppLocalizations l, {
   Future<void> Function(String page)? onPage,
   String? triedAnswer,
+  Set<String> unknownParents = const {},
+  String? ethnicity,
 }) async {
   Future<void> settle() async {
     for (var i = 0; i < 4; i++) {
@@ -128,10 +134,18 @@ Future<void> walkOnboarding(
   await page('heightWeight');
   await tapText(l.continueBtn);
   await page('parents');
+  for (final who in unknownParents) {
+    await t.tap(find.byKey(ValueKey('parent-unknown-$who')));
+    await settle();
+  }
+  await page('parents_answered');
   await tapText(l.continueBtn);
-  await page('ethnicity');
-  await tapText(l.dontWantToAnswer);
-  await tapText(l.continueBtn);
+  // The background is asked only to estimate a parent nobody knew.
+  if (unknownParents.isNotEmpty) {
+    await page('ethnicity');
+    await tapText(ethnicity ?? l.dontWantToAnswer);
+    await tapText(l.continueBtn);
+  }
   await page('footSize');
   await tapText(l.continueBtn);
   await page('pastHeights');
@@ -295,13 +309,68 @@ void main() {
           final prefs = await SharedPreferences.getInstance();
           expect(prefs.getBool('betaller_notifications_enabled'), isNot(true));
 
-          // The result goes straight into the app: no paywall in between.
+          // Both parents were given: no background question, nothing kept.
+          expect(pages, isNot(contains('ethnicity')));
+          expect(p.profile!.ethnicity, '');
+          expect(p.profile!.fatherHeightUnknown, isFalse);
+          expect(
+            find.byKey(const ValueKey('result-no-parents-note')),
+            findsNothing,
+          );
+
+          // The result opens the paywall, with that result at the top of it,
+          // before the app and its tour.
+          final headline = l.pwPersonalTitle(p.formatHeight(p.potentialHeight));
           await t.tap(find.text(l.journeyContinue));
           for (var i = 0; i < 6; i++) {
             await t.pump(const Duration(milliseconds: 200));
           }
+          expect(find.byType(PremiumPaywallScreen), findsOneWidget);
+          expect(find.text(headline), findsOneWidget);
+          expect(find.text(l.pwPersonalEstimate), findsOneWidget);
+          expect(
+            find.text(l.pwPersonalReason(l.obWhyConfidence)),
+            findsOneWidget,
+          );
+          expect(find.byType(MainScreen), findsNothing);
+          expect(
+            errors,
+            isEmpty,
+            reason: errors.map((e) => e.exceptionAsString()).join('\n'),
+          );
+
+          // The close button is held back for three seconds, then there.
+          final close = find.byIcon(CupertinoIcons.xmark);
+          AnimatedOpacity closeFade() => t.widget<AnimatedOpacity>(
+            find
+                .ancestor(of: close, matching: find.byType(AnimatedOpacity))
+                .first,
+          );
+          expect(closeFade().opacity, 0);
+          await t.pump(const Duration(seconds: 3));
+          await t.pump(const Duration(milliseconds: 500));
+          expect(closeFade().opacity, 1);
+          await t.tap(close);
+          for (var i = 0; i < 8; i++) {
+            await t.pump(const Duration(milliseconds: 200));
+          }
           expect(find.byType(PremiumPaywallScreen), findsNothing);
           expect(find.byType(MainScreen), findsOneWidget);
+
+          // Then the tour, as before; its end does not open a second
+          // paywall today.
+          await t.pump(const Duration(milliseconds: 1000));
+          expect(find.byType(FeatureTourOverlay), findsOneWidget);
+          for (var i = 0; i < 8; i++) {
+            await t.pump(const Duration(milliseconds: 200));
+          }
+          await t.tap(find.text(l.obSkip));
+          for (var i = 0; i < 10; i++) {
+            await t.pump(const Duration(milliseconds: 200));
+          }
+          expect(find.byType(FeatureTourOverlay), findsNothing);
+          expect(find.byType(PremiumPaywallScreen), findsNothing);
+          expect(p.takeDailyPaywallSlot(), isFalse);
         } finally {
           FlutterError.onError = previous;
         }

@@ -6477,4 +6477,46 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get routineProteinDescLb =>
       'Eggs, chicken, fish, dairy. At least 0.7 g of protein per lb of body weight daily.';
+
+  @override
+  String pwPersonalTitle(String height) {
+    return 'Your plan to reach $height is ready';
+  }
+
+  @override
+  String get pwPersonalEstimate =>
+      'Estimated potential from your answers, not a guarantee';
+
+  @override
+  String pwPersonalReason(String reason) {
+    return 'Your reason: $reason';
+  }
+
+  @override
+  String pwPersonalBedtime(String time) {
+    return 'A wind-down reminder before your $time bedtime';
+  }
+
+  @override
+  String get obParentUnknown => 'I don\'t know';
+
+  @override
+  String get obParentUnknownHint =>
+      'We\'ll use the average adult height instead. Less precise, and you can add it in your profile anytime.';
+
+  @override
+  String get obEthnicityWhy =>
+      'Only used to estimate the parent\'s height you don\'t know.';
+
+  @override
+  String get resultNoParentNote =>
+      'Estimated without one parent\'s height, so less precise. Add it in your profile anytime.';
+
+  @override
+  String get resultNoParentsNote =>
+      'Estimated without your parents\' heights, so less precise. Add them in your profile anytime.';
+
+  @override
+  String get resultFootnoteEstimated =>
+      'Estimate based on growth-chart data and average adult heights. Not medical advice.';
 }

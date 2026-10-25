@@ -10,6 +10,7 @@ import '../l10n/app_localizations.dart';
 import '../models/user_profile.dart';
 import '../providers/app_provider.dart';
 import '../services/notification_service.dart';
+import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import '../utils/dev_tools.dart';
 import '../utils/haptics.dart';
@@ -1007,6 +1008,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final weightIn = MeasureFields.weight(units, profile.weight);
     final fatherIn = MeasureFields.height(units, profile.fatherHeight);
     final motherIn = MeasureFields.height(units, profile.motherHeight);
+    // An estimate is not the parent's height: the field starts empty, so
+    // turning "I don't know" off asks for the real number.
+    if (profile.fatherHeightUnknown) {
+      for (final c in fatherIn.controllers) {
+        c.clear();
+      }
+    }
+    if (profile.motherHeightUnknown) {
+      for (final c in motherIn.controllers) {
+        c.clear();
+      }
+    }
 
     /// One measurement: a single field labelled with its unit, or two with
     /// the unit as a suffix ("5 ft", "8.5 in").
@@ -1020,6 +1033,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
     String gender = profile.gender;
+    // A parent left as "I don't know" in the onboarding can be filled in
+    // here, and one can be set back to unknown.
+    bool fatherUnknown = profile.fatherHeightUnknown;
+    bool motherUnknown = profile.motherHeightUnknown;
+
+    /// A parent's field, dimmed while "I don't know" is on, with the switch
+    /// under it.
+    Widget parent(
+      MeasureFields m,
+      String label,
+      bool unknown,
+      ValueChanged<bool> onUnknown,
+      String id,
+    ) => Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        AnimatedOpacity(
+          duration: const Duration(milliseconds: 200),
+          opacity: unknown ? 0.35 : 1,
+          child: IgnorePointer(
+            ignoring: unknown,
+            child: measure(m, label, CupertinoIcons.person),
+          ),
+        ),
+        const SizedBox(height: 8),
+        _UnknownSwitch(
+          key: ValueKey('profile-parent-unknown-$id'),
+          label: l.obParentUnknown,
+          selected: unknown,
+          onTap: () {
+            Haptics.select();
+            onUnknown(!unknown);
+          },
+        ),
+      ],
+    );
     DateTime birthDate =
         DateTime.tryParse(profile.birthDate) ?? DateTime(2008, 1, 1);
 
@@ -1212,9 +1261,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: 12),
                   measure(weightIn, l.weightLabel, CupertinoIcons.gauge),
                   const SizedBox(height: 12),
-                  measure(fatherIn, l.dadLabel, CupertinoIcons.person),
+                  parent(
+                    fatherIn,
+                    l.dadLabel,
+                    fatherUnknown,
+                    (v) => setSheetState(() => fatherUnknown = v),
+                    'father',
+                  ),
                   const SizedBox(height: 12),
-                  measure(motherIn, l.motherLabel, CupertinoIcons.person),
+                  parent(
+                    motherIn,
+                    l.motherLabel,
+                    motherUnknown,
+                    (v) => setSheetState(() => motherUnknown = v),
+                    'mother',
+                  ),
                   const SizedBox(height: 24),
                   SizedBox(
                     width: double.infinity,
@@ -1225,8 +1286,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         final name = nameCtrl.text.trim();
                         final height = heightIn.value;
                         final weight = weightIn.value;
-                        final father = fatherIn.value;
-                        final mother = motherIn.value;
+                        // Unknown: the average for that parent stands in.
+                        final father = fatherUnknown
+                            ? Calculations.averageParentHeight(
+                                father: true,
+                                ethnicity: profile.ethnicity,
+                              )
+                            : fatherIn.value;
+                        final mother = motherUnknown
+                            ? Calculations.averageParentHeight(
+                                father: false,
+                                ethnicity: profile.ethnicity,
+                              )
+                            : motherIn.value;
                         if (name.isNotEmpty &&
                             height != null &&
                             weight != null &&
@@ -1245,6 +1317,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               weight: weight,
                               fatherHeight: father,
                               motherHeight: mother,
+                              fatherHeightUnknown: fatherUnknown,
+                              motherHeightUnknown: motherUnknown,
                             ),
                           );
                           Navigator.pop(context);
@@ -1984,6 +2058,67 @@ class _StatBox extends StatelessWidget {
                 letterSpacing: 0.5,
               ),
               textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// "I don't know" for a parent's height in the edit sheet: a small pill that
+/// reads as on or off.
+class _UnknownSwitch extends StatelessWidget {
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+  const _UnknownSwitch({
+    super.key,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: selected
+              ? AppColors.primary.withValues(alpha: 0.2)
+              : Colors.white.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(
+            color: selected
+                ? AppColors.primary
+                : Colors.white.withValues(alpha: 0.1),
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              selected
+                  ? CupertinoIcons.checkmark_circle_fill
+                  : CupertinoIcons.circle,
+              size: 15,
+              color: selected
+                  ? AppColors.primaryLight
+                  : Colors.white.withValues(alpha: 0.5),
+            ),
+            const SizedBox(width: 7),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w700,
+                color: selected
+                    ? Colors.white
+                    : Colors.white.withValues(alpha: 0.7),
+              ),
             ),
           ],
         ),

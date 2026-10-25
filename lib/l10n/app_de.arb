@@ -2124,5 +2124,15 @@
   "painPostureDescIn": "Richtige Haltung kann sofort bis zu etwa 1 Zoll bringen. Die tägliche Haltungsroutine von BeTaller verankert das in wenigen Wochen.",
   "routinePostureDescIn": "Halte den Rücken gerade, Schultern zurück. Jede Stunde überprüfen. Gute Haltung = etwa 1 Zoll Unterschied.",
   "sciPostureCheckIn": "Eine aufrechte Haltung lässt dich sofort etwa 1 Zoll größer wirken und schützt die Wirbelsäule vor Druck",
-  "routineProteinDescLb": "Eier, Hähnchen, Fisch, Milchprodukte. Mindestens 0,7 g Protein pro lb Körpergewicht täglich."
+  "routineProteinDescLb": "Eier, Hähnchen, Fisch, Milchprodukte. Mindestens 0,7 g Protein pro lb Körpergewicht täglich.",
+  "pwPersonalTitle": "Dein Plan für {height} ist fertig",
+  "pwPersonalEstimate": "Geschätztes Potenzial aus deinen Antworten, keine Garantie",
+  "pwPersonalReason": "Dein Grund: {reason}",
+  "pwPersonalBedtime": "Eine Erinnerung vor deiner Schlafenszeit um {time}",
+  "obParentUnknown": "Weiß ich nicht",
+  "obParentUnknownHint": "Wir nehmen stattdessen die durchschnittliche Erwachsenengröße. Weniger genau, und du kannst sie jederzeit im Profil eintragen.",
+  "obEthnicityWhy": "Wird nur genutzt, um die Größe zu schätzen, die du nicht kennst.",
+  "resultNoParentNote": "Ohne die Größe eines Elternteils geschätzt, daher weniger genau. Trag sie jederzeit im Profil ein.",
+  "resultNoParentsNote": "Ohne die Größe deiner Eltern geschätzt, daher weniger genau. Trag sie jederzeit im Profil ein.",
+  "resultFootnoteEstimated": "Schätzung anhand von Wachstumskurven und durchschnittlichen Erwachsenengrößen. Keine medizinische Beratung."
 }

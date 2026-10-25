@@ -28,12 +28,17 @@ import 'phone_mockup.dart';
 /// [reason] is one short line saying what the tap that led here needs ("Logging
 /// water is part of Pro"), shown above the plans.
 ///
+/// [personal] puts the user's own result above the tour: the end of the
+/// onboarding opens the sheet with it. Everything else (plans, purchase,
+/// restore, legal) is the same sheet.
+///
 /// Only one paywall is ever on screen: a call while one is open returns null
 /// and opens nothing.
 Future<bool?> showPremiumPaywall(
   BuildContext context, {
   Duration closeDelay = Duration.zero,
   String? reason,
+  PaywallPersonal? personal,
 }) async {
   if (!context.mounted) return false;
   if (isPaywallOpen) return null;
@@ -43,8 +48,11 @@ Future<bool?> showPremiumPaywall(
   } catch (_) {}
   final route = CupertinoPageRoute<bool>(
     fullscreenDialog: true,
-    builder: (_) =>
-        PremiumPaywallScreen(closeDelay: closeDelay, reason: reason),
+    builder: (_) => PremiumPaywallScreen(
+      closeDelay: closeDelay,
+      reason: reason,
+      personal: personal,
+    ),
   );
   _openPaywall = route;
   try {
@@ -148,17 +156,40 @@ int? _freeTrialDays(StoreProduct? product) {
   }
 }
 
+/// The user's own result, for the paywall that closes the onboarding: a
+/// headline with the height their plan aims at, a line saying that height is
+/// an estimate, and up to three lines taken from their answers.
+class PaywallPersonal {
+  final String headline;
+
+  /// Says the number in [headline] is an estimate. Always shown.
+  final String estimateNote;
+
+  /// Icon and text, at most three are shown.
+  final List<(IconData, String)> lines;
+
+  const PaywallPersonal({
+    required this.headline,
+    required this.estimateNote,
+    this.lines = const [],
+  });
+}
+
 class PremiumPaywallScreen extends StatefulWidget {
   final bool dismissible;
   final Duration closeDelay;
 
   /// What the tap that opened the sheet needs, in one short line.
   final String? reason;
+
+  /// The user's result above the tour, or null for the usual sheet.
+  final PaywallPersonal? personal;
   const PremiumPaywallScreen({
     super.key,
     this.dismissible = true,
     this.closeDelay = Duration.zero,
     this.reason,
+    this.personal,
   });
   @override
   State<PremiumPaywallScreen> createState() => _PremiumPaywallScreenState();
@@ -389,6 +420,9 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     final media = MediaQuery.of(context);
     final topPad = media.padding.top;
     final bottomPad = media.padding.bottom;
+    // The personal result alone, without the tour, where both would not fit:
+    // below about 840 pt the device left between them is a sliver.
+    final personalOnly = widget.personal != null && media.size.height < 840;
 
     final current = _offerings?.current;
     final packages = current?.availablePackages ?? [];
@@ -485,52 +519,91 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
 
                 Column(
                   children: [
-                    // ── The tour ──────────────────────────────────────────
-                    Expanded(
-                      child: _Tour(
-                        controller: _pageCtrl,
-                        topInset: topPad,
-                        onPageChanged: (i) => setState(() => _rawPage = i),
-                        onUserInteraction: _pauseAutoAdvance,
-                      ),
-                    ),
-
-                    // ── Why this opened, when a locked tap opened it ──────
-                    if (widget.reason != null)
+                    // ── The user's own result, above the tour ─────────────
+                    if (widget.personal != null && !personalOnly)
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 4, 20, 2),
-                        child: _ReasonPill(text: widget.reason!),
+                        padding: EdgeInsets.fromLTRB(22, topPad + 54, 22, 4),
+                        child: _PersonalHeader(personal: widget.personal!),
                       ),
 
-                    // ── Page dots ─────────────────────────────────────────
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 2, 20, 14),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(kPaywallPreviews.length, (i) {
-                          final active = i == _slide;
-                          // Only the width is animated here. The colour is
-                          // already being tweened above, and animating it a
-                          // second time left the dot a whole slide behind the
-                          // CTA mid-change — two different accents on screen
-                          // at once.
-                          return AnimatedContainer(
-                            duration: const Duration(milliseconds: 280),
-                            margin: const EdgeInsets.symmetric(horizontal: 3),
-                            width: active ? 18 : 6,
-                            height: 6,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: active
-                                    ? accent
-                                    : Colors.white.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(3),
+                    // ── On a short phone the result takes the tour's place:
+                    // squeezed under it, the device shrank to a sliver.
+                    if (personalOnly)
+                      Expanded(
+                        child: LayoutBuilder(
+                          builder: (context, c) => SingleChildScrollView(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                minHeight: c.maxHeight,
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                  22,
+                                  topPad + 54,
+                                  22,
+                                  18,
+                                ),
+                                child: Center(
+                                  child: _PersonalHeader(
+                                    personal: widget.personal!,
+                                    hero: true,
+                                  ),
+                                ),
                               ),
                             ),
-                          );
-                        }),
+                          ),
+                        ),
+                      )
+                    else ...[
+                      // ── The tour ────────────────────────────────────────
+                      Expanded(
+                        child: _Tour(
+                          controller: _pageCtrl,
+                          // Clear of the floating top bar, or of the result
+                          // that already sits below it.
+                          topInset: widget.personal != null ? 6 : topPad + 44,
+                          onPageChanged: (i) => setState(() => _rawPage = i),
+                          onUserInteraction: _pauseAutoAdvance,
+                        ),
                       ),
-                    ),
+
+                      // ── Why this opened, when a locked tap opened it ──────
+                      if (widget.reason != null)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 4, 20, 2),
+                          child: _ReasonPill(text: widget.reason!),
+                        ),
+
+                      // ── Page dots ─────────────────────────────────────────
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 2, 20, 14),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(kPaywallPreviews.length, (i) {
+                            final active = i == _slide;
+                            // Only the width is animated here. The colour is
+                            // already being tweened above, and animating it a
+                            // second time left the dot a whole slide behind the
+                            // CTA mid-change — two different accents on screen
+                            // at once.
+                            return AnimatedContainer(
+                              duration: const Duration(milliseconds: 280),
+                              margin: const EdgeInsets.symmetric(horizontal: 3),
+                              width: active ? 18 : 6,
+                              height: 6,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: active
+                                      ? accent
+                                      : Colors.white.withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(3),
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                      ),
+                    ],
 
                     // ── The purchase sheet, which never moves ─────────────
                     _PurchaseSheet(
@@ -658,6 +731,102 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
   }
 }
 
+/// The end of the onboarding: the height the plan aims at, said to be an
+/// estimate, and what the plan does about the user's own answers. Compact on
+/// purpose: the tour and the plans below keep their room on a small phone.
+class _PersonalHeader extends StatelessWidget {
+  final PaywallPersonal personal;
+
+  /// Standing in for the tour on a short phone: larger, with more air.
+  final bool hero;
+  const _PersonalHeader({required this.personal, this.hero = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final lines = personal.lines.take(3).toList();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          personal.headline,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: hero ? 29 : 25,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+            letterSpacing: -0.8,
+            height: 1.12,
+          ),
+        ),
+        const SizedBox(height: 5),
+        Row(
+          children: [
+            const Icon(
+              Icons.auto_graph_rounded,
+              size: 13,
+              color: AppColors.lime,
+            ),
+            const SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                personal.estimateNote,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white.withValues(alpha: 0.55),
+                ),
+              ),
+            ),
+          ],
+        ),
+        if (lines.isNotEmpty) ...[
+          SizedBox(height: hero ? 16 : 10),
+          Container(
+            width: double.infinity,
+            padding: hero
+                ? const EdgeInsets.fromLTRB(14, 14, 14, 6)
+                : const EdgeInsets.fromLTRB(12, 10, 12, 4),
+            decoration: BoxDecoration(
+              color: AppColors.lime.withValues(alpha: 0.06),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+            ),
+            child: Column(
+              children: [
+                for (final (icon, text) in lines)
+                  Padding(
+                    padding: EdgeInsets.only(bottom: hero ? 9 : 6),
+                    child: Row(
+                      children: [
+                        Icon(icon, size: hero ? 17 : 15, color: AppColors.lime),
+                        SizedBox(width: hero ? 11 : 9),
+                        Expanded(
+                          child: Text(
+                            text,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: hero ? 14 : 12.5,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
 /// One line saying what the locked tap needed: a lock and the reason.
 class _ReasonPill extends StatelessWidget {
   final String text;
@@ -756,7 +925,7 @@ class _Slide extends StatelessWidget {
           child: PhoneMockup(
             accent: preview.accent,
             screen: preview.screen(l),
-            topInset: topInset + 44,
+            topInset: topInset,
           ),
         ),
         const SizedBox(height: 16),

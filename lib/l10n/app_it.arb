@@ -2124,5 +2124,15 @@
   "painPostureDescIn": "Una postura corretta può aggiungere istantaneamente fino a circa 1 pollice. La routine posturale quotidiana di BeTaller la stabilizza in poche settimane.",
   "routinePostureDescIn": "Tieni la schiena dritta, spalle indietro. Controlla ogni ora. Buona postura = circa 1 pollice di differenza.",
   "sciPostureCheckIn": "Una postura corretta può farti sembrare subito circa 1 pollice più alto e protegge la colonna dalla compressione",
-  "routineProteinDescLb": "Uova, pollo, pesce, latticini. Almeno 0,7 g di proteine per lb di peso corporeo al giorno."
+  "routineProteinDescLb": "Uova, pollo, pesce, latticini. Almeno 0,7 g di proteine per lb di peso corporeo al giorno.",
+  "pwPersonalTitle": "Il tuo piano per arrivare a {height} è pronto",
+  "pwPersonalEstimate": "Potenziale stimato dalle tue risposte, non una garanzia",
+  "pwPersonalReason": "Il tuo motivo: {reason}",
+  "pwPersonalBedtime": "Un promemoria prima di andare a letto alle {time}",
+  "obParentUnknown": "Non lo so",
+  "obParentUnknownHint": "Useremo l'altezza media di un adulto. È meno preciso, e puoi aggiungerla nel profilo quando vuoi.",
+  "obEthnicityWhy": "Serve solo a stimare l'altezza del genitore che non conosci.",
+  "resultNoParentNote": "Stimato senza l'altezza di un genitore, quindi meno preciso. Aggiungila nel profilo quando vuoi.",
+  "resultNoParentsNote": "Stimato senza l'altezza dei tuoi genitori, quindi meno preciso. Aggiungile nel profilo quando vuoi.",
+  "resultFootnoteEstimated": "Stima basata sulle curve di crescita e sulle altezze medie degli adulti. Non è un parere medico."
 }

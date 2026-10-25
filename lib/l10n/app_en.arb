@@ -2148,5 +2148,18 @@
   "painPostureDescIn": "Correct posture can instantly add up to about 1 inch. BeTaller's daily posture routine establishes this in a few weeks.",
   "routinePostureDescIn": "Keep back straight, shoulders back. Check every hour. Good posture = about 1 inch difference.",
   "sciPostureCheckIn": "Correct posture alignment can immediately add about 1 inch to apparent height and prevents spinal compression",
-  "routineProteinDescLb": "Eggs, chicken, fish, dairy. At least 0.7 g of protein per lb of body weight daily."
+  "routineProteinDescLb": "Eggs, chicken, fish, dairy. At least 0.7 g of protein per lb of body weight daily.",
+  "pwPersonalTitle": "Your plan to reach {height} is ready",
+  "@pwPersonalTitle": {"placeholders": {"height": {"type": "String"}}},
+  "pwPersonalEstimate": "Estimated potential from your answers, not a guarantee",
+  "pwPersonalReason": "Your reason: {reason}",
+  "@pwPersonalReason": {"placeholders": {"reason": {"type": "String"}}},
+  "pwPersonalBedtime": "A wind-down reminder before your {time} bedtime",
+  "@pwPersonalBedtime": {"placeholders": {"time": {"type": "String"}}},
+  "obParentUnknown": "I don't know",
+  "obParentUnknownHint": "We'll use the average adult height instead. Less precise, and you can add it in your profile anytime.",
+  "obEthnicityWhy": "Only used to estimate the parent's height you don't know.",
+  "resultNoParentNote": "Estimated without one parent's height, so less precise. Add it in your profile anytime.",
+  "resultNoParentsNote": "Estimated without your parents' heights, so less precise. Add them in your profile anytime.",
+  "resultFootnoteEstimated": "Estimate based on growth-chart data and average adult heights. Not medical advice."
 }

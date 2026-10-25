@@ -6514,4 +6514,46 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get routineProteinDescLb =>
       'Eier, Hähnchen, Fisch, Milchprodukte. Mindestens 0,7 g Protein pro lb Körpergewicht täglich.';
+
+  @override
+  String pwPersonalTitle(String height) {
+    return 'Dein Plan für $height ist fertig';
+  }
+
+  @override
+  String get pwPersonalEstimate =>
+      'Geschätztes Potenzial aus deinen Antworten, keine Garantie';
+
+  @override
+  String pwPersonalReason(String reason) {
+    return 'Dein Grund: $reason';
+  }
+
+  @override
+  String pwPersonalBedtime(String time) {
+    return 'Eine Erinnerung vor deiner Schlafenszeit um $time';
+  }
+
+  @override
+  String get obParentUnknown => 'Weiß ich nicht';
+
+  @override
+  String get obParentUnknownHint =>
+      'Wir nehmen stattdessen die durchschnittliche Erwachsenengröße. Weniger genau, und du kannst sie jederzeit im Profil eintragen.';
+
+  @override
+  String get obEthnicityWhy =>
+      'Wird nur genutzt, um die Größe zu schätzen, die du nicht kennst.';
+
+  @override
+  String get resultNoParentNote =>
+      'Ohne die Größe eines Elternteils geschätzt, daher weniger genau. Trag sie jederzeit im Profil ein.';
+
+  @override
+  String get resultNoParentsNote =>
+      'Ohne die Größe deiner Eltern geschätzt, daher weniger genau. Trag sie jederzeit im Profil ein.';
+
+  @override
+  String get resultFootnoteEstimated =>
+      'Schätzung anhand von Wachstumskurven und durchschnittlichen Erwachsenengrößen. Keine medizinische Beratung.';
 }

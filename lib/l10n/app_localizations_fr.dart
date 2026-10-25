@@ -6529,4 +6529,46 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get routineProteinDescLb =>
       'Œufs, poulet, poisson, produits laitiers. Au moins 0,7 g de protéines par lb de poids corporel par jour.';
+
+  @override
+  String pwPersonalTitle(String height) {
+    return 'Ton plan pour atteindre $height est prêt';
+  }
+
+  @override
+  String get pwPersonalEstimate =>
+      'Potentiel estimé d\'après tes réponses, pas une garantie';
+
+  @override
+  String pwPersonalReason(String reason) {
+    return 'Ta raison : $reason';
+  }
+
+  @override
+  String pwPersonalBedtime(String time) {
+    return 'Un rappel avant ton coucher de $time';
+  }
+
+  @override
+  String get obParentUnknown => 'Je ne sais pas';
+
+  @override
+  String get obParentUnknownHint =>
+      'On utilisera la taille adulte moyenne à la place. C\'est moins précis, et tu peux l\'ajouter dans ton profil quand tu veux.';
+
+  @override
+  String get obEthnicityWhy =>
+      'Sert uniquement à estimer la taille du parent que tu ne connais pas.';
+
+  @override
+  String get resultNoParentNote =>
+      'Estimé sans la taille d\'un de tes parents, donc moins précis. Ajoute-la dans ton profil quand tu veux.';
+
+  @override
+  String get resultNoParentsNote =>
+      'Estimé sans la taille de tes parents, donc moins précis. Ajoute-les dans ton profil quand tu veux.';
+
+  @override
+  String get resultFootnoteEstimated =>
+      'Estimation basée sur des courbes de croissance et des tailles adultes moyennes. Ce n\'est pas un avis médical.';
 }

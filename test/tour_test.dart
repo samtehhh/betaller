@@ -11,6 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:boyuzatma_app/l10n/app_localizations.dart';
 import 'package:boyuzatma_app/providers/app_provider.dart';
 import 'package:boyuzatma_app/screens/main_screen.dart';
+import 'package:boyuzatma_app/screens/onboarding_screen.dart';
+import 'package:boyuzatma_app/screens/splash_screen.dart';
 import 'package:boyuzatma_app/widgets/feature_tour.dart';
 import 'package:boyuzatma_app/widgets/premium_paywall.dart';
 import 'package:boyuzatma_app/widgets/tour_keys.dart';
@@ -216,6 +218,72 @@ void main() {
     expect(find.byType(PremiumPaywallScreen), findsNothing);
     expect(p.seenV3Tour, isTrue);
     expect(p.isPremium, isTrue);
+    await t.pumpWidget(const SizedBox());
+    await t.pump(const Duration(seconds: 5));
+  });
+
+  testWidgets('after the onboarding paywall, the tour ends without one', (
+    t,
+  ) async {
+    // The paywall at the end of the onboarding took today's slot.
+    final p = await pumpMain(
+      t,
+      _blob()
+        ..['lastAutoPaywallDate'] = DateTime.now().toIso8601String().substring(
+          0,
+          10,
+        ),
+    );
+    await t.pump(const Duration(milliseconds: 900));
+    expect(find.byType(FeatureTourOverlay), findsOneWidget);
+    await walk(t, intro: false, premium: false);
+    await settle(t, 1500);
+    expect(find.byType(FeatureTourOverlay), findsNothing);
+    expect(find.byType(PremiumPaywallScreen), findsNothing);
+    expect(p.seenV3Tour, isTrue);
+    expect(p.journeyProgress, 2);
+    await t.pumpWidget(const SizedBox());
+    await t.pump(const Duration(seconds: 5));
+  });
+
+  testWidgets('an updater with a profile goes into the app, not onboarding', (
+    t,
+  ) async {
+    t.view.physicalSize = const Size(440, 956) * 3;
+    t.view.devicePixelRatio = 3;
+    addTearDown(t.view.reset);
+    // A 1.6.x install: no schema version, journey never started.
+    SharedPreferences.setMockInitialValues({
+      'glowup_app_data': jsonEncode(_blob(journey: 0, legacy: true)),
+    });
+    final p = (await t.runAsync(() async {
+      final p = AppProvider();
+      await p.loadData();
+      return p;
+    }))!;
+    expect(p.updatedThisLaunch, isTrue);
+    await t.pumpWidget(
+      ChangeNotifierProvider.value(
+        value: p,
+        child: MaterialApp(
+          theme: ThemeData(brightness: Brightness.dark, fontFamily: 'Inter'),
+          locale: const Locale('en'),
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const SplashScreen(),
+        ),
+      ),
+    );
+    await settle(t, 3500);
+    expect(find.byType(OnboardingScreen), findsNothing);
+    expect(find.byType(MainScreen), findsOneWidget);
+    // and no onboarding paywall: what's new runs first, as before.
+    expect(find.byType(PremiumPaywallScreen), findsNothing);
     await t.pumpWidget(const SizedBox());
     await t.pump(const Duration(seconds: 5));
   });
