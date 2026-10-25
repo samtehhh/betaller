@@ -177,38 +177,82 @@ void main() {
     ];
 
     for (final (profile, workout) in cases) {
-      test('${profile.age} y, ${profile.weight} kg, ${profile.mealCount} meals',
-          () {
-        final t = DailyTargets.forProfile(profile,
-            weeklyWorkout: workout, meals: profile.mealCount);
-        final week = buildWeekMenu(t, profile.mealTimes);
-        expect(week.length, 7);
-        for (final day in week) {
-          expect(day.meals.length, profile.mealCount);
-          // Calcium is met every day.
-          expect(day.calcium, greaterThanOrEqualTo(t.calciumMg),
-              reason: 'day ${day.variant} calcium');
-          // Protein is met, and close to the target: the dairy that covers
-          // calcium sets a floor, so a small teen may land a bit above.
-          expect(day.protein, greaterThanOrEqualTo(t.proteinG * 0.95),
-              reason: 'day ${day.variant} protein');
-          final ceiling = t.proteinG >= 75 ? t.proteinG * 1.12 : 90.0;
-          expect(day.protein, lessThanOrEqualTo(ceiling),
-              reason: 'day ${day.variant} protein ${day.protein}');
-          // The totals are the sum of the items.
-          final sum = day.meals
-              .expand((m) => m.items)
-              .fold(0.0, (s, i) => s + i.protein);
-          expect(day.protein, closeTo(sum, 0.001));
-          for (final m in day.meals) {
-            expect(m.items, isNotEmpty);
-            for (final i in m.items) {
-              expect(i.amount, greaterThan(0));
+      for (final turkish in [false, true]) {
+        test('${profile.age} y, ${profile.weight} kg, ${profile.mealCount} meals'
+            '${turkish ? ', Turkish menu' : ''}', () {
+          final t = DailyTargets.forProfile(profile,
+              weeklyWorkout: workout, meals: profile.mealCount);
+          final week = buildWeekMenu(t, profile.mealTimes, turkish: turkish);
+          expect(week.length, 7);
+          for (final day in week) {
+            expect(day.meals.length, profile.mealCount);
+            // Calcium is met every day.
+            expect(day.calcium, greaterThanOrEqualTo(t.calciumMg),
+                reason: 'day ${day.variant} calcium');
+            // Protein is met, and close to the target: the dairy that covers
+            // calcium sets a floor, so a small teen may land a bit above.
+            expect(day.protein, greaterThanOrEqualTo(t.proteinG * 0.95),
+                reason: 'day ${day.variant} protein');
+            final ceiling = t.proteinG >= 75 ? t.proteinG * 1.12 : 90.0;
+            expect(day.protein, lessThanOrEqualTo(ceiling),
+                reason: 'day ${day.variant} protein ${day.protein}');
+            // The totals are the sum of the items.
+            final sum = day.meals
+                .expand((m) => m.items)
+                .fold(0.0, (s, i) => s + i.protein);
+            expect(day.protein, closeTo(sum, 0.001));
+            for (final m in day.meals) {
+              expect(m.items, isNotEmpty);
+              for (final i in m.items) {
+                expect(i.amount, greaterThan(0));
+              }
             }
           }
-        }
-      });
+        });
+      }
     }
+
+    Set<String> foodsOf(List<DayMenu> week) => {
+          for (final d in week)
+            for (final m in d.meals)
+              for (final i in m.items) i.food.id,
+        };
+
+    test('Turkish users keep ayran, bulgur and the feta breakfast', () {
+      final profile = _profile();
+      final t = DailyTargets.forProfile(profile,
+          weeklyWorkout: '3-5', meals: profile.mealCount);
+      final week = buildWeekMenu(t, profile.mealTimes, turkish: true);
+      expect(foodsOf(week), containsAll(['ayran', 'bulgur', 'whiteCheese']));
+      expect(foodsOf(week), isNot(contains('brownRice')));
+      final tuesday = week[1].meals.first.items.map((i) => i.food.id);
+      expect(tuesday, containsAll(['eggs', 'bread', 'whiteCheese', 'salad']));
+    });
+
+    test('everyone else gets milk, brown rice and eggs on toast', () {
+      final profile = _profile();
+      final t = DailyTargets.forProfile(profile,
+          weeklyWorkout: '3-5', meals: profile.mealCount);
+      final week = buildWeekMenu(t, profile.mealTimes);
+      final foods = foodsOf(week);
+      expect(foods, isNot(contains('ayran')));
+      expect(foods, isNot(contains('bulgur')));
+      expect(foods, contains('brownRice'));
+      final tuesday = week[1].meals.first.items.map((i) => i.food.id).toList();
+      expect(tuesday, containsAll(['eggs', 'bread', 'hardCheese']));
+      expect(tuesday, isNot(contains('whiteCheese')));
+      expect(tuesday, isNot(contains('salad')));
+      // Monday lunch: the ayran glass is now milk, bulgur brown rice, and
+      // the meal's numbers come from the swapped foods.
+      final lunch = week[0].meals[1];
+      final ids = lunch.items.map((i) => i.food.id).toList();
+      expect(ids, containsAll(['chicken', 'brownRice', 'milk']));
+      final rice = lunch.items.firstWhere((i) => i.food.id == 'brownRice');
+      expect(rice.kcal, closeTo(kFoods['brownRice']!.kcal * rice.grams / 100,
+          0.001));
+      expect(lunch.calcium,
+          closeTo(lunch.items.fold(0.0, (s, i) => s + i.calcium), 0.001));
+    });
 
     test('oats 60 g and milk 250 ml', () {
       const oats = MealItem(Food('oats', 13.2, 52, 0, 3.6, 138, 379), 60);

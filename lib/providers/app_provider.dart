@@ -24,7 +24,6 @@ import '../utils/daily_plan.dart';
 import '../utils/daily_targets.dart';
 import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
-import '../utils/height_reference.dart';
 import '../services/purchase_service.dart';
 import '../l10n/app_localizations.dart';
 import '../utils/num_format.dart';
@@ -727,21 +726,13 @@ class AppProvider extends ChangeNotifier {
     }
   }
 
-  // ── Real WHO-based height percentile ──
-  /// Returns the user's height percentile (0–100) vs global population
-  /// using WHO 2007 growth reference data embedded in HeightReference.
+  // ── Height percentile (US CDC growth charts) ──
+  /// The user's height percentile (1 to 99) among people of the same age
+  /// and sex, at their exact age in months. Same function as onboarding.
   int get peerPercentile {
-    final h = _profile?.currentHeight;
-    final age = _profile?.age;
-    final isMale = (_profile?.gender ?? 'male') == 'male';
-    final ethnicity = _profile?.ethnicity ?? '';
-    if (h == null || age == null) return 50;
-    return HeightReference.percentile(
-      heightCm: h,
-      age: age,
-      isMale: isMale,
-      ethnicity: ethnicity,
-    ).round();
+    final profile = _profile;
+    if (profile == null) return 50;
+    return Calculations.profilePercentile(profile, heightCm: latestHeight);
   }
 
   String get _today => DateTime.now().toIso8601String().substring(0, 10);

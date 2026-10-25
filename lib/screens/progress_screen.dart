@@ -18,6 +18,7 @@ import 'weekly_report_screen.dart';
 import 'posture_analysis_screen.dart';
 import 'progress_photos_screen.dart';
 import '../utils/text_case.dart';
+import '../utils/date_locale.dart';
 import '../utils/num_format.dart';
 
 class ProgressScreen extends StatefulWidget {
@@ -62,7 +63,7 @@ class ProgressScreenState extends State<ProgressScreen>
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final locale = Localizations.localeOf(context).languageCode;
+    final locale = dateLocaleOf(context);
 
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
@@ -363,7 +364,7 @@ class ProgressScreenState extends State<ProgressScreen>
                           parsed = DateTime.parse(record.date);
                         } catch (_) {}
                         final dateStr = parsed != null
-                            ? DateFormat('d MMM yyyy', locale).format(parsed)
+                            ? DateFormat.yMMMd(locale).format(parsed)
                             : record.date;
 
                         return Dismissible(
@@ -529,9 +530,8 @@ class ProgressScreenState extends State<ProgressScreen>
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          DateFormat(
-                            'd MMMM yyyy',
-                            Localizations.localeOf(context).languageCode,
+                          DateFormat.yMMMMd(
+                            dateLocaleOf(context),
                           ).format(selectedDate),
                           style: const TextStyle(
                             fontSize: 14,

@@ -21,7 +21,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get disciplineTitle => 'Discipline';
 
   @override
-  String get disciplineProgramTitle => 'Discipline programme';
+  String get disciplineProgramTitle => 'Discipline program';
 
   @override
   String disciplineJourneyDay(int done, int total) {
@@ -429,7 +429,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get growthRemaining => 'Still ahead of you';
 
   @override
-  String get growthBreakdown => 'Where those centimetres come from';
+  String get growthBreakdown => 'Where those centimeters come from';
 
   @override
   String get geneticGainLabel => 'Genetic Gain';
@@ -1954,10 +1954,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get heightAnalysis => 'Height Analysis';
 
   @override
-  String get heightVsPopulation => 'Your Position in Global Population';
+  String get heightVsPopulation => 'Your Position on the CDC Growth Chart';
 
   @override
-  String get globalAveragesTable => 'Global Averages by Age';
+  String get globalAveragesTable => 'Average Height by Age (CDC)';
 
   @override
   String get standingTall => 'Standing Tall';
@@ -1995,7 +1995,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get belowAvg => 'Below avg';
 
   @override
-  String get whoDataSource => 'WHO 2007 Global Reference';
+  String get whoDataSource => 'US CDC Growth Charts';
 
   @override
   String get percentileShort5 => '5th';
@@ -2020,7 +2020,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get whoSourceNote =>
-      'Data source: WHO 2007 Growth Reference & NCD-RisC global pooled estimates. Percentiles are global averages and may vary by country.';
+      'Data source: US CDC 2000 growth charts (stature for age, 2 to 20 years). Percentiles compare you with the US population and can differ by country.';
 
   @override
   String get quickPhotos => 'Photos';
@@ -3447,7 +3447,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get paywallGrowthDesc =>
-      'Every measurement lands on the chart instantly. You watch your progress month by month, centimetre by centimetre.';
+      'Every measurement lands on the chart instantly. You watch your progress month by month, centimeter by centimeter.';
 
   @override
   String get paywallPostureUnit => 'posture score';
@@ -4393,7 +4393,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Routines, water, sleep: three rings to close.';
 
   @override
-  String get paywallSlideProgressTitle => 'See every centimetre';
+  String get paywallSlideProgressTitle => 'See every centimeter';
 
   @override
   String get paywallSlideProgressCaption =>
@@ -4974,7 +4974,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get anSourcesTitle => 'Where the centimetres come from';
+  String get anSourcesTitle => 'Where the centimeters come from';
 
   @override
   String get anSourcesGenes => 'Genes and age';
@@ -4994,7 +4994,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get anPctBasis => 'WHO 2007 growth reference, same age and sex';
+  String get anPctBasis => 'US CDC growth charts, same age and sex';
 
   @override
   String get anPctMore => 'Full comparison';
@@ -5031,7 +5031,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'The score, all nine signals behind it and what to do next.';
 
   @override
-  String get anUnlockSourcesTitle => 'See where your centimetres come from';
+  String get anUnlockSourcesTitle => 'See where your centimeters come from';
 
   @override
   String get anUnlockNeedsTitle => 'Your daily needs, worked out for you';
@@ -5782,7 +5782,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get plFoodEggs => 'Eggs';
 
   @override
-  String get plFoodBread => 'Wholegrain bread';
+  String get plFoodBread => 'Whole-wheat bread';
 
   @override
   String get plFoodWhiteCheese => 'Feta cheese';
@@ -6411,4 +6411,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get obNotifSubtitleSuggested =>
       'Set to the times you gave us, with a suggestion where you weren\'t sure. You can change them anytime.';
+
+  @override
+  String get plFoodBrownRice => 'Brown rice';
 }

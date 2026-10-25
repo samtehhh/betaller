@@ -1,0 +1,52 @@
+{
+  "heightVsPopulation": {
+    "en": "Your Position on the CDC Growth Chart",
+    "tr": "CDC Büyüme Eğrisindeki Konumun",
+    "de": "Deine Position auf der CDC-Wachstumskurve",
+    "fr": "Ta Position sur la Courbe de Croissance CDC",
+    "es": "Tu Posición en la Curva de Crecimiento CDC",
+    "it": "La Tua Posizione sulla Curva di Crescita CDC",
+    "pt": "Sua Posição na Curva de Crescimento CDC",
+    "hi": "CDC ग्रोथ चार्ट पर आपकी स्थिति"
+  },
+  "globalAveragesTable": {
+    "en": "Average Height by Age (CDC)",
+    "tr": "Yaşa Göre Ortalama Boy (CDC)",
+    "de": "Durchschnittsgröße nach Alter (CDC)",
+    "fr": "Taille Moyenne par Âge (CDC)",
+    "es": "Estatura Media por Edad (CDC)",
+    "it": "Altezza Media per Età (CDC)",
+    "pt": "Altura Média por Idade (CDC)",
+    "hi": "उम्र के अनुसार औसत लंबाई (CDC)"
+  },
+  "whoDataSource": {
+    "en": "US CDC Growth Charts",
+    "tr": "ABD CDC Büyüme Eğrileri",
+    "de": "US-CDC-Wachstumskurven",
+    "fr": "Courbes de croissance CDC (États-Unis)",
+    "es": "Curvas de crecimiento CDC de EE. UU.",
+    "it": "Curve di crescita CDC (USA)",
+    "pt": "Curvas de crescimento CDC dos EUA",
+    "hi": "अमेरिकी CDC ग्रोथ चार्ट"
+  },
+  "whoSourceNote": {
+    "en": "Data source: US CDC 2000 growth charts (stature for age, 2 to 20 years). Percentiles compare you with the US population and can differ by country.",
+    "tr": "Veri kaynağı: ABD CDC 2000 büyüme eğrileri (yaşa göre boy, 2 ila 20 yaş). Yüzdelikler seni ABD nüfusuyla karşılaştırır, ülkeye göre farklılık gösterebilir.",
+    "de": "Datenquelle: US-CDC-Wachstumskurven 2000 (Körpergröße nach Alter, 2 bis 20 Jahre). Perzentilen vergleichen dich mit der US-Bevölkerung und können je nach Land abweichen.",
+    "fr": "Source : courbes de croissance CDC 2000 des États-Unis (taille pour l'âge, 2 à 20 ans). Les percentiles te comparent à la population américaine et peuvent varier selon le pays.",
+    "es": "Fuente: curvas de crecimiento CDC 2000 de EE. UU. (estatura para la edad, de 2 a 20 años). Los percentiles te comparan con la población de EE. UU. y pueden variar según el país.",
+    "it": "Fonte: curve di crescita CDC 2000 degli Stati Uniti (statura per età, da 2 a 20 anni). I percentili ti confrontano con la popolazione statunitense e possono variare per paese.",
+    "pt": "Fonte: curvas de crescimento CDC 2000 dos EUA (estatura por idade, de 2 a 20 anos). Os percentis comparam você com a população dos EUA e podem variar por país.",
+    "hi": "डेटा स्रोत: अमेरिकी CDC 2000 ग्रोथ चार्ट (उम्र के अनुसार लंबाई, 2 से 20 वर्ष)। प्रतिशतक आपकी तुलना अमेरिकी आबादी से करते हैं और देश के अनुसार भिन्न हो सकते हैं।"
+  },
+  "anPctBasis": {
+    "en": "US CDC growth charts, same age and sex",
+    "tr": "ABD CDC büyüme eğrileri, aynı yaş ve cinsiyet",
+    "de": "US-CDC-Wachstumskurven, gleiches Alter und Geschlecht",
+    "fr": "Courbes de croissance CDC (États-Unis), même âge et sexe",
+    "es": "Curvas de crecimiento CDC de EE. UU., misma edad y sexo",
+    "it": "Curve di crescita CDC (USA), stessa età e sesso",
+    "pt": "Curvas de crescimento CDC dos EUA, mesma idade e sexo",
+    "hi": "अमेरिकी CDC ग्रोथ चार्ट, समान उम्र और लिंग"
+  }
+}

@@ -5,6 +5,7 @@ import '../models/user_profile.dart';
 import '../models/height_record.dart';
 import 'constants.dart';
 import 'growth_data.dart';
+import 'height_reference.dart';
 
 class Calculations {
   // ── Temel Hesaplamalar ──────────────────────────────────────────
@@ -321,37 +322,36 @@ class Calculations {
     return confidence.clamp(78, 97);
   }
 
-  // ── WHO Percentile & Growth Plate Analysis ─────────────────────
+  // ── Height Percentile & Growth Plate Analysis ──────────────────
 
-  /// Returns which WHO percentile the user falls into based on height, age, gender.
-  /// Returns the closest percentile from: 3, 5, 10, 25, 50, 75, 90, 95, 97.
-  static int calculatePercentile(double height, int age, String gender) {
-    final genderData = whoHeightPercentiles[gender];
-    if (genderData == null) return 50;
-    final clampedAge = age.clamp(2, 20);
-    final ageData = genderData[clampedAge];
-    if (ageData == null) return 50;
-
-    const percentiles = [3, 5, 10, 25, 50, 75, 90, 95, 97];
-
-    // If below the lowest percentile
-    if (height <= ageData[3]!) return 3;
-    // If above the highest percentile
-    if (height >= ageData[97]!) return 97;
-
-    // Find the closest percentile
-    int closest = 50;
-    double minDiff = double.infinity;
-    for (final p in percentiles) {
-      final pHeight = ageData[p]!;
-      final diff = (height - pHeight).abs();
-      if (diff < minDiff) {
-        minDiff = diff;
-        closest = p;
-      }
-    }
-    return closest;
+  /// Where [height] sits among people of the same age and sex on the US CDC
+  /// growth charts (HeightReference), as a whole percentile from 1 to 99.
+  /// Uses the exact age in months when [ageMonths] is given (from the birth
+  /// date), else the middle of [age]. This is the one percentile the app
+  /// shows: onboarding and AppProvider.peerPercentile both come through here.
+  static int calculatePercentile(
+    double height,
+    int age,
+    String gender, {
+    double? ageMonths,
+  }) {
+    return HeightReference.percentile(
+      heightCm: height,
+      age: age,
+      isMale: gender == 'male',
+      ageMonths: ageMonths,
+    ).round().clamp(1, 99);
   }
+
+  /// [calculatePercentile] for a profile at its exact age, at [heightCm]
+  /// or else the profile's current height.
+  static int profilePercentile(UserProfile profile, {double? heightCm}) =>
+      calculatePercentile(
+        heightCm ?? profile.currentHeight,
+        profile.age,
+        profile.gender,
+        ageMonths: profile.ageInMonths,
+      );
 
   /// Returns growth plate status info for the given age and gender.
   static Map<String, dynamic> growthPlateStatus(int age, String gender) {

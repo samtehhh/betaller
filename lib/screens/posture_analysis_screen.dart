@@ -12,6 +12,7 @@ import '../models/routine.dart';
 import '../providers/app_provider.dart';
 import '../utils/camera_utils.dart';
 import '../utils/constants.dart';
+import '../utils/date_locale.dart';
 import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
 import '../utils/free_tier.dart';
@@ -262,12 +263,14 @@ DateTime _today() {
   return DateTime(n.year, n.month, n.day);
 }
 
-String _fmt(BuildContext context, DateTime? d, String pattern) => d == null
-    ? ''
-    : DateFormat(
-        pattern,
-        Localizations.localeOf(context).languageCode,
-      ).format(d);
+/// Day and month in the reader's order: "Oct 25" in the US, or with
+/// [weekday] "Sunday, October 25".
+String _fmt(BuildContext context, DateTime? d, {bool weekday = false}) {
+  if (d == null) return '';
+  final locale = dateLocaleOf(context);
+  return (weekday ? DateFormat.MMMMEEEEd(locale) : DateFormat.MMMd(locale))
+      .format(d);
+}
 
 class _Card extends StatelessWidget {
   final Widget child;
@@ -396,7 +399,7 @@ class _ScoreCard extends StatelessWidget {
             children: [
               Expanded(child: _Eyebrow(l.pgYourPosture)),
               Text(
-                l.pgCheckedOn(_fmt(context, _checkDate(latest), 'd MMM')),
+                l.pgCheckedOn(_fmt(context, _checkDate(latest))),
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -836,7 +839,7 @@ class _RetakeCard extends StatelessWidget {
                     _fmt(
                       context,
                       last.add(const Duration(days: _kRetakeDays)),
-                      'EEEE d MMM',
+                      weekday: true,
                     ),
                   ),
             style: TextStyle(
@@ -974,7 +977,7 @@ class _HistoryCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  _fmt(context, _checkDate(recent.first), 'd MMM'),
+                  _fmt(context, _checkDate(recent.first)),
                   style: TextStyle(
                     fontSize: 11.5,
                     color: Colors.white.withValues(alpha: 0.45),
@@ -982,7 +985,7 @@ class _HistoryCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  _fmt(context, _checkDate(recent.last), 'd MMM'),
+                  _fmt(context, _checkDate(recent.last)),
                   style: TextStyle(
                     fontSize: 11.5,
                     color: Colors.white.withValues(alpha: 0.45),

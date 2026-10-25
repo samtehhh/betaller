@@ -60,6 +60,13 @@ class UserProfile {
     return a;
   }
 
+  /// Exact age in months (days / 30.4375), what the growth charts index by.
+  double get ageInMonths {
+    final birth = DateTime.tryParse(birthDate);
+    if (birth == null) return age * 12.0 + 6.0;
+    return DateTime.now().difference(birth).inHours / 24.0 / 30.4375;
+  }
+
   /// How many meals a day — the answer to "kaç öğün", read off [mealTimes].
   int get mealCount => mealTimes.length;
 

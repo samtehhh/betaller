@@ -12,9 +12,9 @@ import '../utils/text_case.dart';
 import '../utils/num_format.dart';
 
 // ─────────────────────────────────────────────────────────────────
-//  Leaderboard Screen — Real WHO/NCD-RisC Height Analysis
-//  No synthetic peer data. Shows user's height vs. real global
-//  population averages by age and sex using WHO 2007 + NCD-RisC.
+//  Leaderboard Screen — Height Analysis on the US CDC growth charts
+//  No synthetic peer data. Shows the user's height against the CDC 2000
+//  stature-for-age reference (HeightReference) by age and sex.
 // ─────────────────────────────────────────────────────────────────
 
 class LeaderboardScreen extends StatelessWidget {
@@ -28,19 +28,20 @@ class LeaderboardScreen extends StatelessWidget {
     final age = provider.profile?.age ?? 18;
     final isMale = (provider.profile?.gender ?? 'male') == 'male';
     final height = provider.latestHeight;
-    final ethnicity = provider.profile?.ethnicity ?? '';
+    // Exact age in months, the same input onboarding and peerPercentile use.
+    final ageMonths = provider.profile?.ageInMonths;
 
-    final mean = HeightReference.getMean(age, isMale, ethnicity: ethnicity);
+    final mean = HeightReference.getMean(age, isMale, ageMonths: ageMonths);
     final pct = HeightReference.percentile(
       heightCm: height,
       age: age,
       isMale: isMale,
-      ethnicity: ethnicity,
+      ageMonths: ageMonths,
     );
     final refs = HeightReference.referenceHeights(
       age,
       isMale,
-      ethnicity: ethnicity,
+      ageMonths: ageMonths,
     );
 
     // pastHeights'tan HeightRecord listesi türet (analysis flow'dan girilen geçmiş boylar)
@@ -81,7 +82,7 @@ class LeaderboardScreen extends StatelessWidget {
                   heightCm: height,
                   pct: pct,
                   mean: mean,
-                  sd: HeightReference.getSd(age, isMale),
+                  sd: HeightReference.getSd(age, isMale, ageMonths: ageMonths),
                   age: age,
                   isMale: isMale,
                 ),
@@ -117,7 +118,7 @@ class LeaderboardScreen extends StatelessWidget {
                   pastHeights: provider.pastHeights,
                   // The potential path every other screen shows, not a second model.
                   yearlyPredictions: provider.potentialByAge,
-                  ethnicity: ethnicity,
+                  ageMonths: ageMonths,
                 ),
               ]),
             ),
@@ -703,7 +704,10 @@ class _ReferenceTable extends StatelessWidget {
   final List<HeightRecord> records;
   final Map<int, double> pastHeights;
   final Map<int, double> yearlyPredictions;
-  final String ethnicity;
+
+  /// The user's exact age in months, used on their own row so it matches the
+  /// hero card; other rows use the middle of that year.
+  final double? ageMonths;
 
   const _ReferenceTable({
     required this.provider,
@@ -713,7 +717,7 @@ class _ReferenceTable extends StatelessWidget {
     required this.records,
     required this.pastHeights,
     required this.yearlyPredictions,
-    this.ethnicity = '',
+    this.ageMonths,
   });
 
   @override
@@ -747,7 +751,8 @@ class _ReferenceTable extends StatelessWidget {
           // Rows
           ...ages.map((a) {
             final isUserAge = a == age;
-            final m = HeightReference.getMean(a, isMale, ethnicity: ethnicity);
+            final rowMonths = isUserAge ? ageMonths : null;
+            final m = HeightReference.getMean(a, isMale, ageMonths: rowMonths);
 
             // Geçmiş yaş: height records içinde o yıla ait kayıt var mı?
             double? rowHeight;
@@ -790,7 +795,7 @@ class _ReferenceTable extends StatelessWidget {
                     heightCm: rowHeight,
                     age: a,
                     isMale: isMale,
-                    ethnicity: ethnicity,
+                    ageMonths: rowMonths,
                   )
                 : null;
 
