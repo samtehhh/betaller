@@ -1722,7 +1722,11 @@ class _NutritionTab extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     final profile = _profileOf(provider);
     final t = _targetsOf(provider);
-    final week = buildWeekMenu(t, profile.mealTimes);
+    final week = buildWeekMenu(
+      t,
+      profile.mealTimes,
+      turkish: Localizations.localeOf(context).languageCode == 'tr',
+    );
     final todayIdx = DateTime.now().weekday - 1;
     final menu = week[todayIdx];
     final checks = provider.todayNutritionChecks;

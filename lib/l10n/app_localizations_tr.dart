@@ -1937,10 +1937,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get heightAnalysis => 'Boy Analizi';
 
   @override
-  String get heightVsPopulation => 'Küresel Nüfustaki Konumun';
+  String get heightVsPopulation => 'CDC Büyüme Eğrisindeki Konumun';
 
   @override
-  String get globalAveragesTable => 'Yaşa Göre Küresel Ortalamalar';
+  String get globalAveragesTable => 'Yaşa Göre Ortalama Boy (CDC)';
 
   @override
   String get standingTall => 'Dimdik Duruş';
@@ -1978,7 +1978,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get belowAvg => 'Ort. altı';
 
   @override
-  String get whoDataSource => 'WHO 2007 Küresel Referans';
+  String get whoDataSource => 'ABD CDC Büyüme Eğrileri';
 
   @override
   String get percentileShort5 => '5.';
@@ -2003,7 +2003,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get whoSourceNote =>
-      'Veri kaynağı: WHO 2007 Büyüme Referansı & NCD-RisC küresel havuz tahminleri. Yüzdelikler küresel ortalamadır, ülkeye göre farklılık gösterebilir.';
+      'Veri kaynağı: ABD CDC 2000 büyüme eğrileri (yaşa göre boy, 2 ila 20 yaş). Yüzdelikler seni ABD nüfusuyla karşılaştırır, ülkeye göre farklılık gösterebilir.';
 
   @override
   String get quickPhotos => 'Fotoğraflar';
@@ -4932,7 +4932,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get anPctBasis => 'WHO 2007 büyüme referansı, aynı yaş ve cinsiyet';
+  String get anPctBasis => 'ABD CDC büyüme eğrileri, aynı yaş ve cinsiyet';
 
   @override
   String get anPctMore => 'Tam karşılaştırma';
@@ -6338,4 +6338,7 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get obNotifSubtitleSuggested =>
       'Verdiğin saatlere göre ayarlı, emin olmadığın yerde bir öneriyle. İstediğin zaman değiştirebilirsin.';
+
+  @override
+  String get plFoodBrownRice => 'Esmer pirinç';
 }

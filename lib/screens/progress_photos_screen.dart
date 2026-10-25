@@ -16,6 +16,7 @@ import '../utils/free_tier.dart';
 import '../widgets/free_tier_widgets.dart';
 import '../widgets/progress_locked_preview.dart';
 import '../utils/text_case.dart';
+import '../utils/date_locale.dart';
 import '../utils/num_format.dart';
 
 /// How often the app suggests a new photo. Two weeks is long enough for a
@@ -448,18 +449,12 @@ double _height(Map<String, dynamic> photo) =>
 
 String _shortDate(BuildContext context, DateTime? d) {
   if (d == null) return '';
-  return DateFormat(
-    'd MMM',
-    Localizations.localeOf(context).languageCode,
-  ).format(d);
+  return DateFormat.MMMd(dateLocaleOf(context)).format(d);
 }
 
 String _longDate(BuildContext context, DateTime? d) {
   if (d == null) return '';
-  return DateFormat(
-    'd MMM y',
-    Localizations.localeOf(context).languageCode,
-  ).format(d);
+  return DateFormat.yMMMd(dateLocaleOf(context)).format(d);
 }
 
 /// The height number alone, in the user's unit, with a sign.

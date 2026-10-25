@@ -66,6 +66,7 @@ const Map<String, Food> kFoods = {
   'pasta': Food('pasta', 5.8, 7, 0, 0.5, 18, 158),
   'beef': Food('beef', 26, 18, 7, 6.3, 21, 250),
   'rice': Food('rice', 2.7, 10, 0, 0.5, 12, 130),
+  'brownRice': Food('brownRice', 2.6, 10, 0, 0.6, 43, 112),
   'chickpeas': Food('chickpeas', 8.9, 49, 0, 1.5, 48, 164),
   'salmon': Food('salmon', 25.4, 15, 526, 0.4, 30, 206),
   'broccoli': Food('broccoli', 2.4, 40, 0, 0.5, 21, 35),
@@ -267,6 +268,45 @@ const Map<MealSlot, List<List<_Spec>>> _templates = {
   ],
 };
 
+/// Outside Turkey the Turkish staples become what a US or European kitchen
+/// has: ayran a glass of milk, bulgur brown rice. Every total is summed from
+/// [kFoods], so protein, calcium and kcal follow the swapped food and the
+/// anchors and dairy are sized for it as usual. Milk carries twice ayran's
+/// protein and calcium, so its glass is a little smaller (200 ml, at most
+/// 250) and the rest of the day's calcium comes from the other meals.
+const Map<String, _Spec> _internationalSwaps = {
+  'ayran': _Spec('milk', 200, role: _d, max: 250, step: 50),
+  'bulgur': _Spec('brownRice', 150),
+};
+
+/// Whole meals that only make sense in Turkey, and what is served instead.
+const Map<(MealSlot, int), List<_Spec>> _internationalMeals = {
+  // Eggs, bread, feta, tomato and cucumber: eggs on whole-wheat toast with
+  // cheese.
+  (MealSlot.breakfast, 1): [
+    _Spec('eggs', 2, role: _a, min: 1, max: 4, step: 1),
+    _Spec('bread', 60),
+    _Spec('hardCheese', 30, role: _d, max: 50, step: 10),
+    _Spec('banana', 1),
+  ],
+  // Lentil soup, bread and ayran: a chicken sandwich and a glass of milk.
+  // The soup's lentils fill lunch's protein on their own, so the milk that
+  // replaces ayran would overshoot it; in a sandwich the chicken (the
+  // anchor) shrinks to make room for the milk the day's calcium needs.
+  (MealSlot.lunch, 4): [
+    _Spec('chicken', 100, role: _a, min: 0, max: 220),
+    _Spec('bread', 90),
+    _Spec('salad', 150),
+    _Spec('milk', 200, role: _d, max: 250, step: 50),
+  ],
+};
+
+/// [pick], the template for [slot] at [index], as served to a user whose
+/// app is not in Turkish.
+List<_Spec> _international(MealSlot slot, int index, List<_Spec> pick) =>
+    _internationalMeals[(slot, index)] ??
+    [for (final x in pick) _internationalSwaps[x.food] ?? x];
+
 /// One food in a meal, with its amount in [Food.unit].
 class MealItem {
   final Food food;
@@ -360,11 +400,14 @@ List<int> proteinSplit(int totalProtein, List<MealSlot> slots) {
 }
 
 /// The day's menu for [mealTimes], sized to [targets]. [variant] picks the
-/// day of the weekly rotation (0 = Monday).
+/// day of the weekly rotation (0 = Monday). [turkish] keeps the Turkish
+/// staples (ayran, bulgur, the feta breakfast); pass it when the app
+/// language is Turkish, everyone else gets the international swaps.
 DayMenu buildDayMenu(
   DailyTargets targets,
   List<String> mealTimes, {
   int variant = 0,
+  bool turkish = false,
 }) {
   final times = mealTimes.isEmpty
       ? const ['08:00', '13:00', '19:00']
@@ -378,9 +421,12 @@ DayMenu buildDayMenu(
   final specs = <List<_Spec>>[];
   for (final slot in slots) {
     final list = _templates[slot]!;
-    final pick = slot == MealSlot.snack
-        ? list[(variant + snackIndex++) % list.length]
-        : list[variant % list.length];
+    final index = slot == MealSlot.snack
+        ? (variant + snackIndex++) % list.length
+        : variant % list.length;
+    final pick = turkish
+        ? list[index]
+        : _international(slot, index, list[index]);
     final side = _sides.firstWhere(
       (x) => !pick.any((p) => p.food == x.food),
       orElse: () => _sides.first,
@@ -468,5 +514,12 @@ DayMenu buildDayMenu(
 }
 
 /// Monday to Sunday.
-List<DayMenu> buildWeekMenu(DailyTargets targets, List<String> mealTimes) =>
-    [for (var d = 0; d < 7; d++) buildDayMenu(targets, mealTimes, variant: d)];
+List<DayMenu> buildWeekMenu(
+  DailyTargets targets,
+  List<String> mealTimes, {
+  bool turkish = false,
+}) =>
+    [
+      for (var d = 0; d < 7; d++)
+        buildDayMenu(targets, mealTimes, variant: d, turkish: turkish),
+    ];

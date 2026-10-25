@@ -23,6 +23,7 @@ import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/water_sheet.dart';
 import '../utils/text_case.dart';
+import '../utils/date_locale.dart';
 import '../utils/num_format.dart';
 
 // ── Design Tokens (reference AppColors for consistency) ───────────
@@ -127,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen>
     }
     return _GreetingData(
       title: 'BeTaller',
-      subtitle: DateFormat('EEEE, d MMMM', l.localeName).format(DateTime.now()),
+      subtitle: DateFormat.MMMMEEEEd(dateLocaleOf(context)).format(DateTime.now()),
     );
   }
 

@@ -56,6 +56,7 @@ String foodLabel(AppLocalizations l, String id) => switch (id) {
       'pasta' => l.plFoodPasta,
       'beef' => l.plFoodBeef,
       'rice' => l.plFoodRice,
+      'brownRice' => l.plFoodBrownRice,
       'chickpeas' => l.plFoodChickpeas,
       'salmon' => l.plFoodSalmon,
       'broccoli' => l.plFoodBroccoli,

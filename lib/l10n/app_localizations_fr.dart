@@ -1972,10 +1972,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get heightAnalysis => 'Analyse de Taille';
 
   @override
-  String get heightVsPopulation => 'Ta Position dans la Population Mondiale';
+  String get heightVsPopulation =>
+      'Ta Position sur la Courbe de Croissance CDC';
 
   @override
-  String get globalAveragesTable => 'Moyennes Mondiales par Âge';
+  String get globalAveragesTable => 'Taille Moyenne par Âge (CDC)';
 
   @override
   String get standingTall => 'Grande Stature';
@@ -2013,7 +2014,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get belowAvg => 'En dessous';
 
   @override
-  String get whoDataSource => 'Référence Mondiale OMS 2007';
+  String get whoDataSource => 'Courbes de croissance CDC (États-Unis)';
 
   @override
   String get percentileShort5 => '5e';
@@ -2038,7 +2039,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get whoSourceNote =>
-      'Source: Référence de croissance OMS 2007 & estimations mondiales NCD-RisC. Les percentiles sont des moyennes mondiales et peuvent varier selon le pays.';
+      'Source : courbes de croissance CDC 2000 des États-Unis (taille pour l\'âge, 2 à 20 ans). Les percentiles te comparent à la population américaine et peuvent varier selon le pays.';
 
   @override
   String get quickPhotos => 'Photos';
@@ -5027,7 +5028,8 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get anPctBasis => 'Référence de croissance OMS 2007, même âge et sexe';
+  String get anPctBasis =>
+      'Courbes de croissance CDC (États-Unis), même âge et sexe';
 
   @override
   String get anPctMore => 'Comparaison complète';
@@ -6461,4 +6463,7 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get obNotifSubtitleSuggested =>
       'Réglés sur tes horaires, avec une suggestion là où tu ne savais pas. Tu peux les changer quand tu veux.';
+
+  @override
+  String get plFoodBrownRice => 'Riz complet';
 }

@@ -6126,11 +6126,8 @@ class _PredictionResultCard extends StatelessWidget {
       profile,
       p.heightRecords,
     );
-    final percentile = Calculations.calculatePercentile(
-      profile.currentHeight,
-      profile.age,
-      profile.gender,
-    );
+    // The same number the app shows later (AppProvider.peerPercentile).
+    final percentile = p.peerPercentile;
     final potential = p.potentialHeight;
     final growthLeft = potential - profile.currentHeight;
 

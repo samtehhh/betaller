@@ -137,7 +137,7 @@ abstract class AppLocalizations {
   /// No description provided for @disciplineProgramTitle.
   ///
   /// In en, this message translates to:
-  /// **'Discipline programme'**
+  /// **'Discipline program'**
   String get disciplineProgramTitle;
 
   /// No description provided for @disciplineJourneyDay.
@@ -815,7 +815,7 @@ abstract class AppLocalizations {
   /// No description provided for @growthBreakdown.
   ///
   /// In en, this message translates to:
-  /// **'Where those centimetres come from'**
+  /// **'Where those centimeters come from'**
   String get growthBreakdown;
 
   /// No description provided for @geneticGainLabel.
@@ -3629,13 +3629,13 @@ abstract class AppLocalizations {
   /// No description provided for @heightVsPopulation.
   ///
   /// In en, this message translates to:
-  /// **'Your Position in Global Population'**
+  /// **'Your Position on the CDC Growth Chart'**
   String get heightVsPopulation;
 
   /// No description provided for @globalAveragesTable.
   ///
   /// In en, this message translates to:
-  /// **'Global Averages by Age'**
+  /// **'Average Height by Age (CDC)'**
   String get globalAveragesTable;
 
   /// No description provided for @standingTall.
@@ -3707,7 +3707,7 @@ abstract class AppLocalizations {
   /// No description provided for @whoDataSource.
   ///
   /// In en, this message translates to:
-  /// **'WHO 2007 Global Reference'**
+  /// **'US CDC Growth Charts'**
   String get whoDataSource;
 
   /// No description provided for @percentileShort5.
@@ -3755,7 +3755,7 @@ abstract class AppLocalizations {
   /// No description provided for @whoSourceNote.
   ///
   /// In en, this message translates to:
-  /// **'Data source: WHO 2007 Growth Reference & NCD-RisC global pooled estimates. Percentiles are global averages and may vary by country.'**
+  /// **'Data source: US CDC 2000 growth charts (stature for age, 2 to 20 years). Percentiles compare you with the US population and can differ by country.'**
   String get whoSourceNote;
 
   /// No description provided for @quickPhotos.
@@ -6287,7 +6287,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallGrowthDesc.
   ///
   /// In en, this message translates to:
-  /// **'Every measurement lands on the chart instantly. You watch your progress month by month, centimetre by centimetre.'**
+  /// **'Every measurement lands on the chart instantly. You watch your progress month by month, centimeter by centimeter.'**
   String get paywallGrowthDesc;
 
   /// No description provided for @paywallPostureUnit.
@@ -7973,7 +7973,7 @@ abstract class AppLocalizations {
   /// No description provided for @paywallSlideProgressTitle.
   ///
   /// In en, this message translates to:
-  /// **'See every centimetre'**
+  /// **'See every centimeter'**
   String get paywallSlideProgressTitle;
 
   /// No description provided for @paywallSlideProgressCaption.
@@ -8861,7 +8861,7 @@ abstract class AppLocalizations {
   /// No description provided for @anSourcesTitle.
   ///
   /// In en, this message translates to:
-  /// **'Where the centimetres come from'**
+  /// **'Where the centimeters come from'**
   String get anSourcesTitle;
 
   /// No description provided for @anSourcesGenes.
@@ -8897,7 +8897,7 @@ abstract class AppLocalizations {
   /// No description provided for @anPctBasis.
   ///
   /// In en, this message translates to:
-  /// **'WHO 2007 growth reference, same age and sex'**
+  /// **'US CDC growth charts, same age and sex'**
   String get anPctBasis;
 
   /// No description provided for @anPctMore.
@@ -8969,7 +8969,7 @@ abstract class AppLocalizations {
   /// No description provided for @anUnlockSourcesTitle.
   ///
   /// In en, this message translates to:
-  /// **'See where your centimetres come from'**
+  /// **'See where your centimeters come from'**
   String get anUnlockSourcesTitle;
 
   /// No description provided for @anUnlockNeedsTitle.
@@ -10145,7 +10145,7 @@ abstract class AppLocalizations {
   /// No description provided for @plFoodBread.
   ///
   /// In en, this message translates to:
-  /// **'Wholegrain bread'**
+  /// **'Whole-wheat bread'**
   String get plFoodBread;
 
   /// No description provided for @plFoodWhiteCheese.
@@ -11287,6 +11287,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set to the times you gave us, with a suggestion where you weren\'t sure. You can change them anytime.'**
   String get obNotifSubtitleSuggested;
+
+  /// No description provided for @plFoodBrownRice.
+  ///
+  /// In en, this message translates to:
+  /// **'Brown rice'**
+  String get plFoodBrownRice;
 }
 
 class _AppLocalizationsDelegate

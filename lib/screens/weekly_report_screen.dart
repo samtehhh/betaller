@@ -16,6 +16,7 @@ import '../utils/localized_data.dart';
 import '../widgets/discipline_widgets.dart';
 import '../widgets/progress_locked_preview.dart';
 import '../utils/text_case.dart';
+import '../utils/date_locale.dart';
 import '../utils/num_format.dart';
 
 /// The week as a recap: every day scored against the plan that day asked for,
@@ -27,7 +28,7 @@ class WeeklyReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final locale = Localizations.localeOf(context).languageCode;
+    final locale = dateLocaleOf(context);
 
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
@@ -35,7 +36,7 @@ class WeeklyReportScreen extends StatelessWidget {
         // Opened from the Progress tab, which spends the free use. Once it is
         // spent the recap stays on top and the rest is a preview.
         final open = provider.canUseFree(FreeFeature.weeklyReport);
-        final fmt = DateFormat('d MMM', locale);
+        final fmt = DateFormat.MMMd(locale);
         final dayName = DateFormat('EEEE', locale);
 
         return Scaffold(

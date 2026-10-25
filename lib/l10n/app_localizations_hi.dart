@@ -1941,10 +1941,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get heightAnalysis => 'ऊंचाई विश्लेषण';
 
   @override
-  String get heightVsPopulation => 'वैश्विक जनसंख्या में आपकी स्थिति';
+  String get heightVsPopulation => 'CDC ग्रोथ चार्ट पर आपकी स्थिति';
 
   @override
-  String get globalAveragesTable => 'उम्र के अनुसार वैश्विक औसत';
+  String get globalAveragesTable => 'उम्र के अनुसार औसत लंबाई (CDC)';
 
   @override
   String get standingTall => 'लंबे कद का';
@@ -1982,7 +1982,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get belowAvg => 'औसत से नीचे';
 
   @override
-  String get whoDataSource => 'WHO 2007 वैश्विक संदर्भ';
+  String get whoDataSource => 'अमेरिकी CDC ग्रोथ चार्ट';
 
   @override
   String get percentileShort5 => '5वां';
@@ -2007,7 +2007,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get whoSourceNote =>
-      'डेटा स्रोत: WHO 2007 विकास संदर्भ और NCD-RisC वैश्विक अनुमान। प्रतिशतक वैश्विक औसत हैं और देश के अनुसार भिन्न हो सकते हैं।';
+      'डेटा स्रोत: अमेरिकी CDC 2000 ग्रोथ चार्ट (उम्र के अनुसार लंबाई, 2 से 20 वर्ष)। प्रतिशतक आपकी तुलना अमेरिकी आबादी से करते हैं और देश के अनुसार भिन्न हो सकते हैं।';
 
   @override
   String get quickPhotos => 'फ़ोटो';
@@ -4914,7 +4914,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get anPctBasis => 'WHO 2007 ग्रोथ संदर्भ, समान उम्र और लिंग';
+  String get anPctBasis => 'अमेरिकी CDC ग्रोथ चार्ट, समान उम्र और लिंग';
 
   @override
   String get anPctMore => 'पूरी तुलना';
@@ -6325,4 +6325,7 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get obNotifSubtitleSuggested =>
       'तुम्हारे बताए समय के हिसाब से, और जहाँ तुम्हें पता नहीं था वहाँ एक सुझाव। इन्हें कभी भी बदल सकते हो।';
+
+  @override
+  String get plFoodBrownRice => 'ब्राउन राइस';
 }

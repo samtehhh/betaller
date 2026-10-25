@@ -613,8 +613,8 @@
   "hideAll": "Hepsini gizle",
 
   "heightAnalysis": "Boy Analizi",
-  "heightVsPopulation": "Küresel Nüfustaki Konumun",
-  "globalAveragesTable": "Yaşa Göre Küresel Ortalamalar",
+  "heightVsPopulation": "CDC Büyüme Eğrisindeki Konumun",
+  "globalAveragesTable": "Yaşa Göre Ortalama Boy (CDC)",
   "standingTall": "Dimdik Duruş",
   "standingAboveAverage": "Ortalamanın Üstünde",
   "standingBelowAverage": "Ortalamanın Altında",
@@ -627,7 +627,7 @@
   "@peerAvg": {"placeholders": {"age": {"type": "int"}}},
   "aboveAvg": "Ort. üstü",
   "belowAvg": "Ort. altı",
-  "whoDataSource": "WHO 2007 Küresel Referans",
+  "whoDataSource": "ABD CDC Büyüme Eğrileri",
   "percentileShort5": "5.",
   "percentileShort50": "50.",
   "percentileShort95": "95.",
@@ -635,7 +635,7 @@
   "avgHeightLabel": "ORT",
   "percentileLabel": "%",
   "diffLabel": "FARK",
-  "whoSourceNote": "Veri kaynağı: WHO 2007 Büyüme Referansı & NCD-RisC küresel havuz tahminleri. Yüzdelikler küresel ortalamadır, ülkeye göre farklılık gösterebilir.",
+  "whoSourceNote": "Veri kaynağı: ABD CDC 2000 büyüme eğrileri (yaşa göre boy, 2 ila 20 yaş). Yüzdelikler seni ABD nüfusuyla karşılaştırır, ülkeye göre farklılık gösterebilir.",
 
   "quickPhotos": "Fotoğraflar",
   "quickPosture": "Postür",
@@ -1558,7 +1558,7 @@
   "anSourcesPosture": "Duruş",
   "anPctTitle": "Yaşına göre boyun",
   "anPctValue": "Yaşıtlarının %{p} kadarı senden kısa",
-  "anPctBasis": "WHO 2007 büyüme referansı, aynı yaş ve cinsiyet",
+  "anPctBasis": "ABD CDC büyüme eğrileri, aynı yaş ve cinsiyet",
   "anPctMore": "Tam karşılaştırma",
   "anNeedsBasis": "Yaşın, kilon ve antrenmanına göre hesaplandı",
   "anCalcium": "Kalsiyum",
@@ -1956,5 +1956,6 @@
   "obWorkoutTimeUnknownHint": "Şimdilik {time} kullanacağız. İstediğin zaman değiştirebilirsin.",
   "obNotifSleepDetailSuggested": "Öneri: yatış saati {time} civarı. İstediğin zaman değiştir.",
   "obNotifWorkoutDetailSuggested": "Öneri: antrenman {time} civarı. İstediğin zaman değiştir.",
-  "obNotifSubtitleSuggested": "Verdiğin saatlere göre ayarlı, emin olmadığın yerde bir öneriyle. İstediğin zaman değiştirebilirsin."
+  "obNotifSubtitleSuggested": "Verdiğin saatlere göre ayarlı, emin olmadığın yerde bir öneriyle. İstediğin zaman değiştirebilirsin.",
+  "plFoodBrownRice": "Esmer pirinç"
 }

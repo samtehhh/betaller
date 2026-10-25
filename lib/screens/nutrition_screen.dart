@@ -249,6 +249,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
       targets,
       profile.mealTimes,
       variant: DateTime.now().weekday - 1,
+      turkish: lang == 'tr',
     );
     final checks = provider.todayNutritionChecks;
     return SliverList(
