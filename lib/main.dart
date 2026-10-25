@@ -12,6 +12,8 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import 'providers/app_provider.dart';
 import 'screens/splash_screen.dart';
+import 'package:posthog_flutter/posthog_flutter.dart' show PostHogWidget;
+import 'services/analytics.dart';
 import 'services/notification_service.dart';
 import 'services/purchase_service.dart';
 import 'utils/constants.dart';
@@ -45,7 +47,8 @@ void main() async {
   runApp(
     ChangeNotifierProvider.value(
       value: appProvider,
-      child: const BeTallerApp(),
+      // PostHogWidget captures the (fully masked) session replay frames.
+      child: const PostHogWidget(child: BeTallerApp()),
     ),
   );
 
@@ -101,11 +104,14 @@ Future<BuildContext?> _waitForNavigatorContext() async {
 /// a dead store connection must not take the rest of the app down with it.
 Future<void> _initServices(AppProvider appProvider) async {
   // The rating prompt is limited to one request per app version.
+  var version = '';
   try {
-    appProvider.setAppVersion((await PackageInfo.fromPlatform()).version);
+    version = (await PackageInfo.fromPlatform()).version;
+    appProvider.setAppVersion(version);
   } catch (e) {
     debugPrint('PackageInfo failed: $e');
   }
+  await Analytics.init(appVersion: version);
   try {
     final notifService = NotificationService();
     await notifService.init();
