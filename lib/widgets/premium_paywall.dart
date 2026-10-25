@@ -43,7 +43,8 @@ Future<bool?> showPremiumPaywall(
   } catch (_) {}
   final route = CupertinoPageRoute<bool>(
     fullscreenDialog: true,
-    builder: (_) => PremiumPaywallScreen(closeDelay: closeDelay, reason: reason),
+    builder: (_) =>
+        PremiumPaywallScreen(closeDelay: closeDelay, reason: reason),
   );
   _openPaywall = route;
   try {
@@ -964,7 +965,10 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
                       _PlanRow(
                         selected: widget.selectedPlan == 2,
                         label: l.paywallWeekly,
-                        price: _billed(widget.weeklyOffer.price, l.paywallPerWeek),
+                        price: _billed(
+                          widget.weeklyOffer.price,
+                          l.paywallPerWeek,
+                        ),
                         badgeText: widget.weeklyOffer.hasTrial
                             ? l.paywallTrialHeadline(
                                 '${widget.weeklyOffer.trialDays}',
@@ -993,10 +997,7 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
                       _PlanRow(
                         selected: widget.selectedPlan == 1,
                         label: l.paywallLifetime,
-                        price: _billed(
-                          widget.annualOffer.price,
-                          l.paywallOnce,
-                        ),
+                        price: _billed(widget.annualOffer.price, l.paywallOnce),
                         badgeText: l.paywallLifetimeBadge,
                         accent: accent,
                         onTap: () => widget.onSelectPlan(1),
@@ -1236,100 +1237,112 @@ class _PlanRow extends StatelessWidget {
                 ]
               : null,
         ),
-        child: Row(
-          children: [
-            // The radio, so it is obvious these are a choice of one.
-            Container(
-              width: 19,
-              height: 19,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: selected ? accent : Colors.transparent,
-                border: Border.all(
-                  color: selected
-                      ? accent
-                      : Colors.white.withValues(alpha: 0.28),
-                  width: 1.6,
-                ),
-              ),
-              child: selected
-                  ? Icon(Icons.check_rounded, size: 13, color: onAccent)
-                  : null,
-            ),
-            const SizedBox(width: 10),
-            // Everything in this row competes for a 320pt screen's width, so
-            // the order of who gives way matters. The price and the offer never
-            // shorten — a clipped "₺399,…" is worse than no price at all, and
-            // both stores treat a misstated price as grounds for rejection — so
-            // the plan's name is the only thing here that may ellipsize.
-            // The plan's name with its badge stacked underneath, not beside
-            // it: side by side, "3 TAGE GRATIS" plus "11,99 €/Monat" left a
-            // 320pt phone no room for "Monatlich" at all.
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Shrinks rather than ellipsizes: "Hebdomad…" or
-                  // "Settimana…" hid which plan the row was.
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text(
-                      label,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: selected
-                            ? Colors.white
-                            : Colors.white.withValues(alpha: 0.60),
-                      ),
-                    ),
+        child: LayoutBuilder(
+          builder: (context, box) => Row(
+            children: [
+              // The radio, so it is obvious these are a choice of one.
+              Container(
+                width: 19,
+                height: 19,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: selected ? accent : Colors.transparent,
+                  border: Border.all(
+                    color: selected
+                        ? accent
+                        : Colors.white.withValues(alpha: 0.28),
+                    width: 1.6,
                   ),
-                  if (badgeText != null) ...[
-                    const SizedBox(height: 4),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 3,
-                      ),
-                      decoration: BoxDecoration(
-                        color: accent.withValues(alpha: 0.14),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
+                ),
+                child: selected
+                    ? Icon(Icons.check_rounded, size: 13, color: onAccent)
+                    : null,
+              ),
+              const SizedBox(width: 10),
+              // Everything in this row competes for a 320pt screen's width, so
+              // the order of who gives way matters. The price and the offer never
+              // shorten — a clipped "₺399,…" is worse than no price at all, and
+              // both stores treat a misstated price as grounds for rejection — so
+              // the plan's name is the only thing here that may ellipsize.
+              // The plan's name with its badge stacked underneath, not beside
+              // it: side by side, "3 TAGE GRATIS" plus "11,99 €/Monat" left a
+              // 320pt phone no room for "Monatlich" at all.
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Shrinks rather than ellipsizes: "Hebdomad…" or
+                    // "Settimana…" hid which plan the row was.
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: AlignmentDirectional.centerStart,
                       child: Text(
-                        badgeText!,
+                        label,
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 9,
-                          fontWeight: FontWeight.w800,
-                          color: accent.withValues(alpha: 0.90),
-                          letterSpacing: 0.3,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: selected
+                              ? Colors.white
+                              : Colors.white.withValues(alpha: 0.60),
                         ),
                       ),
                     ),
+                    if (badgeText != null) ...[
+                      const SizedBox(height: 4),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: accent.withValues(alpha: 0.14),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          badgeText!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.w800,
+                            color: accent.withValues(alpha: 0.90),
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
-                ],
+                ),
               ),
-            ),
-            const SizedBox(width: 8),
-            // The billed price sits last, right-aligned, at the largest size
-            // on the sheet's pricing — the "most clear and conspicuous" spot.
-            Text(
-              price,
-              maxLines: 1,
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w900,
-                color: selected
-                    ? Colors.white
-                    : Colors.white.withValues(alpha: 0.80),
-                letterSpacing: -0.3,
+              const SizedBox(width: 8),
+              // The billed price sits last, right-aligned, at the largest size
+              // on the sheet's pricing — the "most clear and conspicuous" spot.
+              // A long local price ("₺999,99", "34,99 €") in a narrow row scales
+              // down as a whole instead of overflowing: never clipped, never
+              // ellipsized, and the plan name keeps at least 40% of the row.
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: box.maxWidth * 0.6),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: Text(
+                    price,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w900,
+                      color: selected
+                          ? Colors.white
+                          : Colors.white.withValues(alpha: 0.80),
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
