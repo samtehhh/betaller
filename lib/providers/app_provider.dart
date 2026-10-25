@@ -26,7 +26,7 @@ import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
 import '../services/purchase_service.dart';
 import '../l10n/app_localizations.dart';
-import '../utils/num_format.dart';
+import '../utils/units.dart';
 
 /// The positive moments that may lead to the system rating prompt. Each one
 /// counts only the first time it happens; the names are stored.
@@ -75,12 +75,11 @@ class AppProvider extends ChangeNotifier {
   /// (list) and firstWhenTaller, all as ids from [OnboardingIds]. Kept as a
   /// map so a new question never needs a schema change.
   Map<String, dynamic> _onboardingAnswers = {};
-  // false = metric (cm/kg), true = imperial (ft-in/lbs). Defaults to
-  // imperial for the US and Canada — everywhere else, including the rest
-  // of the English-speaking world, defaults to metric. loadData() only
-  // overrides this when a value was actually saved before, so an
-  // upgrading user who never touched the setting still gets this default.
-  bool _useImperial = _detectImperialDefault();
+  // Display units for height, weight and water, chosen separately. The
+  // first-run default comes from the device region (UnitPrefs.forRegion);
+  // loadData() reads the saved three, or maps a save from before them that
+  // only had the old useImperial flag (UnitPrefs.fromLegacy).
+  UnitPrefs _units = _syncUnits(UnitPrefs.forRegion(_deviceCountry()));
 
   // Gamification state
   int _totalXP = 0;
@@ -270,7 +269,12 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
   bool get hasPaidPremium => _isPremium; // Check if paid to remove ads
-  bool get useImperial => _useImperial;
+  /// Imperial height (ft-in). Kept for the many height call sites; display
+  /// goes through [formatHeight] and the other formatters below.
+  bool get useImperial => _units.imperialHeight;
+
+  /// The user's display units for height, weight and water.
+  UnitPrefs get units => _units;
 
   // Gamification getters
   int get totalXP => _totalXP;
@@ -644,7 +648,14 @@ class AppProvider extends ChangeNotifier {
 
   /// Today's water goal in litres, the one number every screen shows:
   /// home, the plan, nutrition and the water sheet.
-  double get waterGoal => dailyTargets?.waterL ?? 2.5;
+  /// The daily water goal in litres, as the user reads it: in fl oz it is
+  /// the rounded target on screen, so "84 / 84 fl oz" counts as reached.
+  double get waterGoal =>
+      _units.snapWaterTarget(dailyTargets?.waterL ?? 2.5);
+
+  /// Logged amounts are kept to the millilitre; a sum of fl oz cups can land
+  /// a millilitre under the goal it visibly meets.
+  static const double _waterSlack = 0.003;
 
   /// The BeTaller Score from everything logged so far, or null before
   /// onboarding.
@@ -943,7 +954,20 @@ class AppProvider extends ChangeNotifier {
       _todaySleep = asDouble(json['todaySleep']);
       _analysisCompleted = asBool(json['analysisCompleted']);
       _isPremium = asBool(json['isPremium']);
-      _useImperial = asBool(json['useImperial']);
+      if (json['heightUnitPref'] is String) {
+        _units = UnitPrefs.fromNames(
+          json['heightUnitPref'],
+          json['weightUnitPref'],
+          json['volumeUnitPref'],
+          fallback: _units,
+        );
+      } else if (json['useImperial'] is bool) {
+        _units = UnitPrefs.fromLegacy(
+          json['useImperial'] as bool,
+          _deviceCountry(),
+        );
+      }
+      _syncUnits(_units);
       if (json['pastHeights'] != null) {
         _pastHeights = _safe(
           'pastHeights',
@@ -1192,7 +1216,11 @@ class AppProvider extends ChangeNotifier {
       'analysisCompleted': _analysisCompleted,
       'pastHeights': _pastHeights.map((k, v) => MapEntry(k.toString(), v)),
       'isPremium': _isPremium,
-      'useImperial': _useImperial,
+      // Still written so an older build reading this save keeps its unit.
+      'useImperial': useImperial,
+      'heightUnitPref': _units.height.name,
+      'weightUnitPref': _units.weight.name,
+      'volumeUnitPref': _units.volume.name,
       'locale': _locale?.languageCode ?? '',
       'totalXP': _totalXP,
       'activeChallenges': _activeChallenges,
@@ -1932,79 +1960,103 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// The onboarding unit toggle: imperial switches height to ft-in and a
+  /// metric weight to the region's imperial one (stones in the UK, pounds
+  /// elsewhere), keeping water as it is; metric switches all three.
   void setUseImperial(bool value) {
-    _useImperial = value;
+    if (value) {
+      final region = UnitPrefs.forRegion(_deviceCountry());
+      _setUnits(
+        _units.copyWith(
+          height: HeightUnit.ftIn,
+          weight: _units.weight != WeightUnit.kg
+              ? _units.weight
+              : (region.weight == WeightUnit.kg
+                    ? WeightUnit.lb
+                    : region.weight),
+        ),
+      );
+    } else {
+      _setUnits(UnitPrefs.metric);
+    }
+  }
+
+  void setHeightUnit(HeightUnit unit) =>
+      _setUnits(_units.copyWith(height: unit));
+  void setWeightUnit(WeightUnit unit) =>
+      _setUnits(_units.copyWith(weight: unit));
+  void setVolumeUnit(VolumeUnit unit) =>
+      _setUnits(_units.copyWith(volume: unit));
+
+  void _setUnits(UnitPrefs units) {
+    _units = _syncUnits(units);
     _saveData();
     notifyListeners();
   }
 
-  /// Height/weight are always stored in cm/kg — this is the one place that
-  /// guesses a first-run display unit before the user has ever chosen one.
-  /// Everywhere else in the world (Europe included) reads a height in cm.
-  static bool _detectImperialDefault() {
-    final country = PlatformDispatcher.instance.locale.countryCode;
-    return country == 'US' || country == 'CA';
-  }
+  static UnitPrefs _syncUnits(UnitPrefs units) => UnitPrefs.current = units;
 
-  /// Short unit suffix for the current preference — "cm"/"in", used by the
+  /// Height/weight are always stored in cm/kg and water in litres; the
+  /// device region only picks first-run display units.
+  static String? _deviceCountry() =>
+      debugCountryOverride ?? PlatformDispatcher.instance.locale.countryCode;
+
+  /// Tests set a region here; flutter_test's locale override does not reach
+  /// PlatformDispatcher.instance.
+  @visibleForTesting
+  static String? debugCountryOverride;
+
+  /// Short unit suffix for a bare height number, "cm"/"in", used by the
   /// growth chart, stat cards and anywhere showing a bare height number.
-  String get heightUnit => _useImperial ? 'in' : 'cm';
+  String get heightUnit => _units.heightLabel;
 
-  /// Short unit suffix for weight — "kg"/"lbs".
-  String get weightUnit => _useImperial ? 'lbs' : 'kg';
+  /// Short unit suffix for a bare weight number, "kg"/"lb".
+  String get weightUnit => _units.weight == WeightUnit.kg ? 'kg' : 'lb';
 
   /// A stored cm value, converted to the unit the user reads in. Height is
   /// always stored in cm regardless of this preference.
-  double heightNumber(double cm) => _useImperial ? cm / 2.54 : cm;
+  double heightNumber(double cm) => _units.heightNumber(cm);
 
   /// The inverse of [heightNumber] — a value the user typed in their own
   /// unit, converted back to the cm the app stores.
-  double heightFromInput(double value) => _useImperial ? value * 2.54 : value;
+  double heightFromInput(double value) => _units.heightFromNumber(value);
 
-  /// A stored kg value, converted to the unit the user reads in.
-  double weightNumber(double kg) => _useImperial ? kg * 2.20462 : kg;
+  /// A height where growth shows, formatted for display: "175.0 cm" or
+  /// 5'8½" (half inches, so a few months of growth are visible).
+  String formatHeight(double cm) => _units.formatHeight(cm);
 
-  /// The inverse of [weightNumber] — a value the user typed in their own
-  /// unit, converted back to the kg the app stores.
-  double weightFromInput(double value) =>
-      _useImperial ? value / 2.20462 : value;
+  /// A height where space is tight (chart axes, scale labels): 5'9".
+  String formatHeightCompact(double cm) => _units.formatHeightCompact(cm);
 
-  /// A single height value, formatted for display: "175.0 cm" or "5'11\"".
-  String formatHeight(double cm) {
-    if (!_useImperial) return '${cm.fixedL(1)} cm';
-    final totalInches = cm / 2.54;
-    var feet = totalInches ~/ 12;
-    var inches = (totalInches % 12).round();
-    // Rounding up can hit 12 (e.g. 182cm → 5'12"), carry into next foot.
-    if (inches == 12) {
-      feet += 1;
-      inches = 0;
-    }
-    return "$feet'$inches\"";
-  }
+  /// An axis label: "175" in cm, 5'9" in ft-in.
+  String formatHeightAxis(double cm) => _units.formatHeightAxis(cm);
 
   /// A height difference (can be negative), e.g. "+2.5 cm" or "+1.0 in".
-  String formatHeightDelta(double deltaCm) {
-    final sign = deltaCm > 0 ? '+' : '';
-    if (!_useImperial) return '$sign${deltaCm.fixedL(1)} cm';
-    return '$sign${(deltaCm / 2.54).fixedL(1)} in';
-  }
+  String formatHeightDelta(double deltaCm) =>
+      _units.formatHeightAmount(deltaCm, signed: true);
 
-  /// Convert kg to display string based on unit preference
-  String formatWeight(double kg) {
-    if (!_useImperial) return '${kg.fixedL(1)} kg';
-    return '${(kg * 2.20462).fixedL(1)} lbs';
-  }
+  /// An unsigned length, "2.5 cm" or "1.0 in" (growth a year, headroom).
+  String formatHeightAmount(double cm) => _units.formatHeightAmount(cm);
+
+  /// A body weight: "52.4 kg", "115.5 lb" or "8 st 3 lb".
+  String formatWeight(double kg) => _units.formatWeight(kg);
+
+  /// Water logged, "1.2 L" or "40 fl oz".
+  String formatWater(double litres) => _units.formatWater(litres);
+
+  /// A water target, "2.5 L" or "84 fl oz" (nearest 4 oz).
+  String formatWaterTarget(double litres) => _units.formatWaterTarget(litres);
 
   void addWater(double amount) {
     final waterGoal = this.waterGoal;
-    final wasUnderGoal = _todayWater < waterGoal;
+    final wasUnderGoal = _todayWater < waterGoal - _waterSlack;
+    // To the millilitre: fl oz amounts (8 oz = 0.237 L) must add up exactly.
     _todayWater = double.parse(
-      (_todayWater + amount).clamp(0.0, 99.0).toStringAsFixed(1),
+      (_todayWater + amount).clamp(0.0, 99.0).toStringAsFixed(3),
     );
     _waterLog[_today] = _todayWater;
     _trimLog(_waterLog);
-    if (wasUnderGoal && _todayWater >= waterGoal) {
+    if (wasUnderGoal && _todayWater >= waterGoal - _waterSlack) {
       addXP(xpRewards['water_goal']!);
       updateChallengeProgress('daily_water', 1);
       // Track weekly water days via dailyChallengeProgress

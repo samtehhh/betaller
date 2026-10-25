@@ -12,6 +12,7 @@ import '../models/user_profile.dart';
 import '../utils/daily_targets.dart';
 import '../utils/localized_data.dart';
 import '../utils/num_format.dart';
+import '../utils/units.dart';
 
 /// What the reminders can say about this particular user. Built by the
 /// caller from the provider, so the copy carries real numbers ("81 g of
@@ -220,7 +221,7 @@ class NotificationService {
         );
       case 'water':
         return (
-          l.nWaterTitle(t.waterL.fixedL(1)),
+          l.nWaterTitle(UnitPrefs.current.formatWaterTarget(t.waterL)),
           l.nWaterBody,
         );
       default: // sleep
@@ -297,7 +298,12 @@ class NotificationService {
       case 'sleep':
         return (l.notifSleepTitle, l.notifSleepBody);
       case 'posture':
-        return (l.notifPostureTitle, l.notifPostureBody);
+        return (
+          l.notifPostureTitle,
+          UnitPrefs.current.imperialHeight
+              ? l.notifPostureBodyIn
+              : l.notifPostureBody,
+        );
       case 'nutrition':
         return (l.notifProteinTitle, l.notifProteinBody);
       case 'measurement':

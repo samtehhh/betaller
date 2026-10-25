@@ -238,7 +238,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String waterRemaining(String amount) {
-    return 'Noch $amount L';
+    return 'Noch $amount';
   }
 
   @override
@@ -2245,7 +2245,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get heightDialogMessage =>
-      'Gib deine aktuelle Größe in cm für dieses Foto ein';
+      'Gib deine aktuelle Größe für dieses Foto ein';
 
   @override
   String get postureAnalysisTitle => 'Haltungsanalyse';
@@ -4638,7 +4638,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String nWaterTitle(String liters) {
-    return 'Wasserziel: $liters L';
+    return 'Wasserziel: $liters';
   }
 
   @override
@@ -4844,7 +4844,7 @@ class AppLocalizationsDe extends AppLocalizations {
       other: '$days Tage',
       one: '$days Tag',
     );
-    return 'Im Schnitt $litres L pro Tag, Ziel $target L, $_temp0 eingetragen';
+    return 'Im Schnitt $litres pro Tag, Ziel $target, $_temp0 eingetragen';
   }
 
   @override
@@ -4898,7 +4898,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String anBGrowth(String v, String e) {
-    return '$v cm pro Jahr, typisch in deinem Alter $e cm';
+    return '$v pro Jahr, typisch in deinem Alter $e';
   }
 
   @override
@@ -4933,7 +4933,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String anAHydration(String left) {
-    return 'Trink heute noch $left L';
+    return 'Trink heute noch $left';
   }
 
   @override
@@ -5525,7 +5525,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String plHabitWater(String liters) {
-    return '$liters L über den Tag';
+    return '$liters über den Tag';
   }
 
   @override
@@ -5714,7 +5714,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String plCheckWater(String liters) {
-    return 'Wasser $liters L';
+    return 'Wasser $liters';
   }
 
   @override
@@ -5728,7 +5728,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String plWaterLogged(String liters) {
-    return 'Bisher $liters L eingetragen';
+    return 'Bisher $liters eingetragen';
   }
 
   @override
@@ -6450,4 +6450,68 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get plFoodBrownRice => 'Naturreis';
+
+  @override
+  String get unitHeightTitle => 'Einheit für Größe';
+
+  @override
+  String get unitWeightTitle => 'Einheit für Gewicht';
+
+  @override
+  String get unitWaterTitle => 'Einheit für Wasser';
+
+  @override
+  String get unitOptCm => 'Zentimeter';
+
+  @override
+  String get unitOptFtIn => 'Fuß und Zoll';
+
+  @override
+  String get unitOptKg => 'Kilogramm';
+
+  @override
+  String get unitOptLb => 'Pfund';
+
+  @override
+  String get unitOptStLb => 'Stone und Pfund';
+
+  @override
+  String get unitOptLiters => 'Liter';
+
+  @override
+  String get unitOptFlOz => 'Flüssigunzen';
+
+  @override
+  String achieveGrowthImp(String amount) {
+    return '$amount Wachstum';
+  }
+
+  @override
+  String achieveGrowthImpDesc(String amount) {
+    return 'Zeichne $amount Gesamtwachstum auf';
+  }
+
+  @override
+  String get postureBenefitIn =>
+      'Kopf, Schultern und unterer Rücken. Aufrecht stehen zeigt bis zu etwa 1 Zoll mehr deiner echten Größe.';
+
+  @override
+  String get notifPostureBodyIn =>
+      'Rücken gerade, Schultern zurück. Gute Haltung = etwa 1 Zoll!';
+
+  @override
+  String get painPostureDescIn =>
+      'Richtige Haltung kann sofort bis zu etwa 1 Zoll bringen. Die tägliche Haltungsroutine von BeTaller verankert das in wenigen Wochen.';
+
+  @override
+  String get routinePostureDescIn =>
+      'Halte den Rücken gerade, Schultern zurück. Jede Stunde überprüfen. Gute Haltung = etwa 1 Zoll Unterschied.';
+
+  @override
+  String get sciPostureCheckIn =>
+      'Eine aufrechte Haltung lässt dich sofort etwa 1 Zoll größer wirken und schützt die Wirbelsäule vor Druck';
+
+  @override
+  String get routineProteinDescLb =>
+      'Eier, Hähnchen, Fisch, Milchprodukte. Mindestens 0,7 g Protein pro lb Körpergewicht täglich.';
 }

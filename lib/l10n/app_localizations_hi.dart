@@ -232,7 +232,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String waterRemaining(String amount) {
-    return '$amount L बाकी';
+    return '$amount बाकी';
   }
 
   @override
@@ -2215,7 +2215,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get heightDialogMessage =>
-      'इस फ़ोटो के लिए अपनी वर्तमान ऊंचाई सेमी में दर्ज करें';
+      'इस फ़ोटो के लिए अपनी वर्तमान ऊंचाई दर्ज करें';
 
   @override
   String get postureAnalysisTitle => 'पोस्चर विश्लेषण';
@@ -4571,7 +4571,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String nWaterTitle(String liters) {
-    return 'पानी का लक्ष्य: $liters L';
+    return 'पानी का लक्ष्य: $liters';
   }
 
   @override
@@ -4760,7 +4760,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String anBHydration(String litres, String target, int days) {
-    return 'औसतन $litres L प्रति दिन, लक्ष्य $target L, $days दिन दर्ज';
+    return 'औसतन $litres प्रति दिन, लक्ष्य $target, $days दिन दर्ज';
   }
 
   @override
@@ -4801,7 +4801,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String anBGrowth(String v, String e) {
-    return 'साल में $v cm, तुम्हारी उम्र में आम $e cm';
+    return 'साल में $v, तुम्हारी उम्र में आम $e';
   }
 
   @override
@@ -4835,7 +4835,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String anAHydration(String left) {
-    return 'आज $left L और पियो';
+    return 'आज $left और पियो';
   }
 
   @override
@@ -5417,7 +5417,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String plHabitWater(String liters) {
-    return 'दिन भर में $liters L';
+    return 'दिन भर में $liters';
   }
 
   @override
@@ -5596,7 +5596,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String plCheckWater(String liters) {
-    return 'पानी $liters L';
+    return 'पानी $liters';
   }
 
   @override
@@ -5610,7 +5610,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String plWaterLogged(String liters) {
-    return 'अब तक $liters L दर्ज';
+    return 'अब तक $liters दर्ज';
   }
 
   @override
@@ -6328,4 +6328,67 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get plFoodBrownRice => 'ब्राउन राइस';
+
+  @override
+  String get unitHeightTitle => 'ऊँचाई की इकाई';
+
+  @override
+  String get unitWeightTitle => 'वज़न की इकाई';
+
+  @override
+  String get unitWaterTitle => 'पानी की इकाई';
+
+  @override
+  String get unitOptCm => 'सेंटीमीटर';
+
+  @override
+  String get unitOptFtIn => 'फ़ुट और इंच';
+
+  @override
+  String get unitOptKg => 'किलोग्राम';
+
+  @override
+  String get unitOptLb => 'पाउंड';
+
+  @override
+  String get unitOptStLb => 'स्टोन और पाउंड';
+
+  @override
+  String get unitOptLiters => 'लीटर';
+
+  @override
+  String get unitOptFlOz => 'फ़्लूइड आउंस';
+
+  @override
+  String achieveGrowthImp(String amount) {
+    return '$amount विकास';
+  }
+
+  @override
+  String achieveGrowthImpDesc(String amount) {
+    return 'कुल $amount विकास रिकॉर्ड करें';
+  }
+
+  @override
+  String get postureBenefitIn =>
+      'सिर, कंधे और कमर। सीधे खड़े होने से तुम्हारी असली लंबाई करीब 1 इंच तक ज़्यादा दिखती है।';
+
+  @override
+  String get notifPostureBodyIn => 'पीठ सीधी, कंधे पीछे। करीब 1 इंच!';
+
+  @override
+  String get painPostureDescIn =>
+      'सही पॉस्चर तुरंत करीब 1 इंच तक जोड़ सकता है। BeTaller की रोज़ की पॉस्चर रूटीन कुछ हफ़्तों में इसे आदत बना देती है।';
+
+  @override
+  String get routinePostureDescIn =>
+      'पीठ सीधी रखें, कंधे पीछे। हर घंटे जाँचें। अच्छी मुद्रा = करीब 1 इंच का अंतर।';
+
+  @override
+  String get sciPostureCheckIn =>
+      'सही पोस्चर से तुम तुरंत करीब 1 इंच लंबे दिख सकते हो और रीढ़ पर दबाव नहीं पड़ता';
+
+  @override
+  String get routineProteinDescLb =>
+      'अंडे, चिकन, मछली, डेयरी। रोज़ शरीर के हर lb वज़न पर कम से कम 0.7 g प्रोटीन।';
 }

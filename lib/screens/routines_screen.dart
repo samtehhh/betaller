@@ -423,7 +423,7 @@ class _TodayTab extends StatelessWidget {
 
     String habitNote(Routine r) => switch (r.id) {
           'protein' => l.plHabitProtein(t.proteinG),
-          'water' => l.plHabitWater(t.waterL.fixedL(1)),
+          'water' => l.plHabitWater(provider.formatWaterTarget(t.waterL)),
           'quality_sleep' => l.plHabitSleep(
               t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1)),
           _ => localizedRoutine(l, r.id)['description'] ?? r.description,
@@ -1930,10 +1930,10 @@ class _Checklist extends StatelessWidget {
       ),
       (
         'water',
-        l.plCheckWater(targets.waterL.fixedL(1)),
-        l.plWaterLogged(provider.todayWater.fixedL(1)),
+        l.plCheckWater(provider.formatWaterTarget(targets.waterL)),
+        l.plWaterLogged(provider.formatWater(provider.todayWater)),
         AppColors.cyan,
-        provider.todayWater / targets.waterL,
+        provider.todayWater / provider.units.snapWaterTarget(targets.waterL),
       ),
     ];
     return PlanCard(

@@ -238,7 +238,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String waterRemaining(String amount) {
-    return 'Encore $amount L';
+    return 'Encore $amount';
   }
 
   @override
@@ -2247,8 +2247,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get yourHeightDialog => 'Ta taille';
 
   @override
-  String get heightDialogMessage =>
-      'Entre ta taille actuelle en cm pour cette photo';
+  String get heightDialogMessage => 'Entre ta taille actuelle pour cette photo';
 
   @override
   String get postureAnalysisTitle => 'Analyse posturale';
@@ -4648,7 +4647,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String nWaterTitle(String liters) {
-    return 'Objectif eau : $liters L';
+    return 'Objectif eau : $liters';
   }
 
   @override
@@ -4855,7 +4854,7 @@ class AppLocalizationsFr extends AppLocalizations {
       other: '$days jours notés',
       one: '$days jour noté',
     );
-    return '$litres L par jour en moyenne, objectif $target L, $_temp0';
+    return '$litres par jour en moyenne, objectif $target, $_temp0';
   }
 
   @override
@@ -4908,7 +4907,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String anBGrowth(String v, String e) {
-    return '$v cm par an, typique à ton âge $e cm';
+    return '$v par an, typique à ton âge $e';
   }
 
   @override
@@ -4943,7 +4942,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String anAHydration(String left) {
-    return 'Bois encore $left L aujourd\'hui';
+    return 'Bois encore $left aujourd\'hui';
   }
 
   @override
@@ -5536,7 +5535,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String plHabitWater(String liters) {
-    return '$liters L dans la journée';
+    return '$liters dans la journée';
   }
 
   @override
@@ -5726,7 +5725,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String plCheckWater(String liters) {
-    return 'Eau $liters L';
+    return 'Eau $liters';
   }
 
   @override
@@ -5740,7 +5739,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String plWaterLogged(String liters) {
-    return '$liters L notés pour l\'instant';
+    return '$liters notés pour l\'instant';
   }
 
   @override
@@ -6466,4 +6465,68 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get plFoodBrownRice => 'Riz complet';
+
+  @override
+  String get unitHeightTitle => 'Unité de taille';
+
+  @override
+  String get unitWeightTitle => 'Unité de poids';
+
+  @override
+  String get unitWaterTitle => 'Unité d\'eau';
+
+  @override
+  String get unitOptCm => 'Centimètres';
+
+  @override
+  String get unitOptFtIn => 'Pieds et pouces';
+
+  @override
+  String get unitOptKg => 'Kilogrammes';
+
+  @override
+  String get unitOptLb => 'Livres';
+
+  @override
+  String get unitOptStLb => 'Stones et livres';
+
+  @override
+  String get unitOptLiters => 'Litres';
+
+  @override
+  String get unitOptFlOz => 'Onces liquides';
+
+  @override
+  String achieveGrowthImp(String amount) {
+    return '$amount de croissance';
+  }
+
+  @override
+  String achieveGrowthImpDesc(String amount) {
+    return 'Enregistre $amount de croissance au total';
+  }
+
+  @override
+  String get postureBenefitIn =>
+      'Tête, épaules et bas du dos. Se tenir droit montre jusqu\'à environ 1 pouce de plus de ta vraie taille.';
+
+  @override
+  String get notifPostureBodyIn =>
+      'Dos droit, épaules en arrière. Bonne posture = environ 1 pouce !';
+
+  @override
+  String get painPostureDescIn =>
+      'Une bonne posture peut ajouter instantanément jusqu\'à environ 1 pouce. La routine posturale quotidienne de BeTaller installe ça en quelques semaines.';
+
+  @override
+  String get routinePostureDescIn =>
+      'Garde le dos droit, les épaules en arrière. Vérifie toutes les heures. Une bonne posture = environ 1 pouce de différence.';
+
+  @override
+  String get sciPostureCheckIn =>
+      'Une bonne posture peut te faire paraître environ 1 pouce plus grand tout de suite et évite la compression de la colonne';
+
+  @override
+  String get routineProteinDescLb =>
+      'Œufs, poulet, poisson, produits laitiers. Au moins 0,7 g de protéines par lb de poids corporel par jour.';
 }

@@ -1,0 +1,92 @@
+{
+  "waterRemaining": {
+    "en": "{amount} to go",
+    "tr": "{amount} kaldı",
+    "de": "Noch {amount}",
+    "fr": "Encore {amount}",
+    "es": "Faltan {amount}",
+    "it": "Mancano {amount}",
+    "pt": "Faltam {amount}",
+    "hi": "{amount} बाकी"
+  },
+  "nWaterTitle": {
+    "en": "Water goal: {liters}",
+    "tr": "Su hedefin: {liters}",
+    "de": "Wasserziel: {liters}",
+    "fr": "Objectif eau : {liters}",
+    "es": "Meta de agua: {liters}",
+    "it": "Obiettivo acqua: {liters}",
+    "pt": "Meta de água: {liters}",
+    "hi": "पानी का लक्ष्य: {liters}"
+  },
+  "plHabitWater": {
+    "en": "{liters} through the day",
+    "tr": "Gün boyunca {liters}",
+    "de": "{liters} über den Tag",
+    "fr": "{liters} dans la journée",
+    "es": "{liters} a lo largo del día",
+    "it": "{liters} durante la giornata",
+    "pt": "{liters} ao longo do dia",
+    "hi": "दिन भर में {liters}"
+  },
+  "plCheckWater": {
+    "en": "Water {liters}",
+    "tr": "Su {liters}",
+    "de": "Wasser {liters}",
+    "fr": "Eau {liters}",
+    "es": "Agua {liters}",
+    "it": "Acqua {liters}",
+    "pt": "Água {liters}",
+    "hi": "पानी {liters}"
+  },
+  "plWaterLogged": {
+    "en": "{liters} logged so far",
+    "tr": "Şu ana kadar {liters}",
+    "de": "Bisher {liters} eingetragen",
+    "fr": "{liters} notés pour l'instant",
+    "es": "{liters} registrados hasta ahora",
+    "it": "{liters} registrati finora",
+    "pt": "{liters} registrados até agora",
+    "hi": "अब तक {liters} दर्ज"
+  },
+  "anAHydration": {
+    "en": "Drink {left} more today",
+    "tr": "Bugün {left} daha iç",
+    "de": "Trink heute noch {left}",
+    "fr": "Bois encore {left} aujourd'hui",
+    "es": "Bebe {left} más hoy",
+    "it": "Bevi altri {left} oggi",
+    "pt": "Beba mais {left} hoje",
+    "hi": "आज {left} और पियो"
+  },
+  "anBHydration": {
+    "en": "{litres} a day on average, target {target}, {days, plural, =1{{days} day} other{{days} days}} logged",
+    "tr": "Günde ortalama {litres}, hedef {target}, {days} gün kaydı",
+    "de": "Im Schnitt {litres} pro Tag, Ziel {target}, {days, plural, =1{{days} Tag} other{{days} Tage}} eingetragen",
+    "fr": "{litres} par jour en moyenne, objectif {target}, {days, plural, =1{{days} jour noté} other{{days} jours notés}}",
+    "es": "{litres} al día de media, objetivo {target}, {days, plural, =1{{days} día registrado} other{{days} días registrados}}",
+    "it": "{litres} al giorno in media, obiettivo {target}, {days, plural, =1{{days} giorno registrato} other{{days} giorni registrati}}",
+    "pt": "{litres} por dia em média, meta {target}, {days, plural, =1{{days} dia registrado} other{{days} dias registrados}}",
+    "hi": "औसतन {litres} प्रति दिन, लक्ष्य {target}, {days} दिन दर्ज"
+  },
+  "anBGrowth": {
+    "en": "{v} a year, typical at your age {e}",
+    "tr": "Yılda {v}, yaşına göre tipik {e}",
+    "de": "{v} pro Jahr, typisch in deinem Alter {e}",
+    "fr": "{v} par an, typique à ton âge {e}",
+    "es": "{v} al año, lo típico a tu edad {e}",
+    "it": "{v} all'anno, tipico alla tua età {e}",
+    "pt": "{v} por ano, típico na sua idade {e}",
+    "hi": "साल में {v}, तुम्हारी उम्र में आम {e}"
+  },
+  "heightDialogMessage": {
+    "en": "Enter your current height for this photo",
+    "tr": "Bu fotoğraf için güncel boyunu gir",
+    "de": "Gib deine aktuelle Größe für dieses Foto ein",
+    "fr": "Entre ta taille actuelle pour cette photo",
+    "es": "Introduce tu altura actual para esta foto",
+    "it": "Inserisci la tua altezza attuale per questa foto",
+    "pt": "Digite sua altura atual para esta foto",
+    "hi": "इस फ़ोटो के लिए अपनी वर्तमान ऊंचाई दर्ज करें"
+  }
+}

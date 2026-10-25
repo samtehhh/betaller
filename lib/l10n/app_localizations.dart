@@ -509,7 +509,7 @@ abstract class AppLocalizations {
   /// No description provided for @waterRemaining.
   ///
   /// In en, this message translates to:
-  /// **'{amount} L to go'**
+  /// **'{amount} to go'**
   String waterRemaining(String amount);
 
   /// No description provided for @undo.
@@ -4109,7 +4109,7 @@ abstract class AppLocalizations {
   /// No description provided for @heightDialogMessage.
   ///
   /// In en, this message translates to:
-  /// **'Enter your current height in cm for this photo'**
+  /// **'Enter your current height for this photo'**
   String get heightDialogMessage;
 
   /// No description provided for @postureAnalysisTitle.
@@ -8333,7 +8333,7 @@ abstract class AppLocalizations {
   /// No description provided for @nWaterTitle.
   ///
   /// In en, this message translates to:
-  /// **'Water goal: {liters} L'**
+  /// **'Water goal: {liters}'**
   String nWaterTitle(String liters);
 
   /// No description provided for @nWaterBody.
@@ -8645,7 +8645,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBHydration.
   ///
   /// In en, this message translates to:
-  /// **'{litres} L a day on average, target {target} L, {days, plural, =1{{days} day} other{{days} days}} logged'**
+  /// **'{litres} a day on average, target {target}, {days, plural, =1{{days} day} other{{days} days}} logged'**
   String anBHydration(String litres, String target, int days);
 
   /// No description provided for @anBHydrationNone.
@@ -8705,7 +8705,7 @@ abstract class AppLocalizations {
   /// No description provided for @anBGrowth.
   ///
   /// In en, this message translates to:
-  /// **'{v} cm a year, typical at your age {e} cm'**
+  /// **'{v} a year, typical at your age {e}'**
   String anBGrowth(String v, String e);
 
   /// No description provided for @anBGrowthNone.
@@ -8759,7 +8759,7 @@ abstract class AppLocalizations {
   /// No description provided for @anAHydration.
   ///
   /// In en, this message translates to:
-  /// **'Drink {left} L more today'**
+  /// **'Drink {left} more today'**
   String anAHydration(String left);
 
   /// No description provided for @anAHydrationDone.
@@ -9695,7 +9695,7 @@ abstract class AppLocalizations {
   /// No description provided for @plHabitWater.
   ///
   /// In en, this message translates to:
-  /// **'{liters} L through the day'**
+  /// **'{liters} through the day'**
   String plHabitWater(String liters);
 
   /// No description provided for @plHabitSleep.
@@ -9977,7 +9977,7 @@ abstract class AppLocalizations {
   /// No description provided for @plCheckWater.
   ///
   /// In en, this message translates to:
-  /// **'Water {liters} L'**
+  /// **'Water {liters}'**
   String plCheckWater(String liters);
 
   /// No description provided for @plFromMeals.
@@ -9995,7 +9995,7 @@ abstract class AppLocalizations {
   /// No description provided for @plWaterLogged.
   ///
   /// In en, this message translates to:
-  /// **'{liters} L logged so far'**
+  /// **'{liters} logged so far'**
   String plWaterLogged(String liters);
 
   /// No description provided for @plMealPlan.
@@ -11293,6 +11293,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Brown rice'**
   String get plFoodBrownRice;
+
+  /// No description provided for @unitHeightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Height unit'**
+  String get unitHeightTitle;
+
+  /// No description provided for @unitWeightTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight unit'**
+  String get unitWeightTitle;
+
+  /// No description provided for @unitWaterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Water unit'**
+  String get unitWaterTitle;
+
+  /// No description provided for @unitOptCm.
+  ///
+  /// In en, this message translates to:
+  /// **'Centimeters'**
+  String get unitOptCm;
+
+  /// No description provided for @unitOptFtIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Feet and inches'**
+  String get unitOptFtIn;
+
+  /// No description provided for @unitOptKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Kilograms'**
+  String get unitOptKg;
+
+  /// No description provided for @unitOptLb.
+  ///
+  /// In en, this message translates to:
+  /// **'Pounds'**
+  String get unitOptLb;
+
+  /// No description provided for @unitOptStLb.
+  ///
+  /// In en, this message translates to:
+  /// **'Stones and pounds'**
+  String get unitOptStLb;
+
+  /// No description provided for @unitOptLiters.
+  ///
+  /// In en, this message translates to:
+  /// **'Liters'**
+  String get unitOptLiters;
+
+  /// No description provided for @unitOptFlOz.
+  ///
+  /// In en, this message translates to:
+  /// **'Fluid ounces'**
+  String get unitOptFlOz;
+
+  /// No description provided for @achieveGrowthImp.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} Growth'**
+  String achieveGrowthImp(String amount);
+
+  /// No description provided for @achieveGrowthImpDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Record {amount} total growth'**
+  String achieveGrowthImpDesc(String amount);
+
+  /// No description provided for @postureBenefitIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Head, shoulders and lower back. Standing tall shows up to about 1 inch more of your real height.'**
+  String get postureBenefitIn;
+
+  /// No description provided for @notifPostureBodyIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Back straight, shoulders back. Good posture = about 1 inch difference!'**
+  String get notifPostureBodyIn;
+
+  /// No description provided for @painPostureDescIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct posture can instantly add up to about 1 inch. BeTaller\'s daily posture routine establishes this in a few weeks.'**
+  String get painPostureDescIn;
+
+  /// No description provided for @routinePostureDescIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep back straight, shoulders back. Check every hour. Good posture = about 1 inch difference.'**
+  String get routinePostureDescIn;
+
+  /// No description provided for @sciPostureCheckIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct posture alignment can immediately add about 1 inch to apparent height and prevents spinal compression'**
+  String get sciPostureCheckIn;
+
+  /// No description provided for @routineProteinDescLb.
+  ///
+  /// In en, this message translates to:
+  /// **'Eggs, chicken, fish, dairy. At least 0.7 g of protein per lb of body weight daily.'**
+  String get routineProteinDescLb;
 }
 
 class _AppLocalizationsDelegate

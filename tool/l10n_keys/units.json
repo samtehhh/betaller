@@ -1,0 +1,182 @@
+{
+  "unitHeightTitle": {
+    "en": "Height unit",
+    "tr": "Boy birimi",
+    "de": "Einheit für Größe",
+    "fr": "Unité de taille",
+    "es": "Unidad de altura",
+    "it": "Unità di altezza",
+    "pt": "Unidade de altura",
+    "hi": "ऊँचाई की इकाई"
+  },
+  "unitWeightTitle": {
+    "en": "Weight unit",
+    "tr": "Kilo birimi",
+    "de": "Einheit für Gewicht",
+    "fr": "Unité de poids",
+    "es": "Unidad de peso",
+    "it": "Unità di peso",
+    "pt": "Unidade de peso",
+    "hi": "वज़न की इकाई"
+  },
+  "unitWaterTitle": {
+    "en": "Water unit",
+    "tr": "Su birimi",
+    "de": "Einheit für Wasser",
+    "fr": "Unité d'eau",
+    "es": "Unidad de agua",
+    "it": "Unità per l'acqua",
+    "pt": "Unidade de água",
+    "hi": "पानी की इकाई"
+  },
+  "unitOptCm": {
+    "en": "Centimeters",
+    "tr": "Santimetre",
+    "de": "Zentimeter",
+    "fr": "Centimètres",
+    "es": "Centímetros",
+    "it": "Centimetri",
+    "pt": "Centímetros",
+    "hi": "सेंटीमीटर"
+  },
+  "unitOptFtIn": {
+    "en": "Feet and inches",
+    "tr": "Fit ve inç",
+    "de": "Fuß und Zoll",
+    "fr": "Pieds et pouces",
+    "es": "Pies y pulgadas",
+    "it": "Piedi e pollici",
+    "pt": "Pés e polegadas",
+    "hi": "फ़ुट और इंच"
+  },
+  "unitOptKg": {
+    "en": "Kilograms",
+    "tr": "Kilogram",
+    "de": "Kilogramm",
+    "fr": "Kilogrammes",
+    "es": "Kilogramos",
+    "it": "Chilogrammi",
+    "pt": "Quilogramas",
+    "hi": "किलोग्राम"
+  },
+  "unitOptLb": {
+    "en": "Pounds",
+    "tr": "Libre",
+    "de": "Pfund",
+    "fr": "Livres",
+    "es": "Libras",
+    "it": "Libbre",
+    "pt": "Libras",
+    "hi": "पाउंड"
+  },
+  "unitOptStLb": {
+    "en": "Stones and pounds",
+    "tr": "Stone ve libre",
+    "de": "Stone und Pfund",
+    "fr": "Stones et livres",
+    "es": "Stones y libras",
+    "it": "Stone e libbre",
+    "pt": "Stones e libras",
+    "hi": "स्टोन और पाउंड"
+  },
+  "unitOptLiters": {
+    "en": "Liters",
+    "tr": "Litre",
+    "de": "Liter",
+    "fr": "Litres",
+    "es": "Litros",
+    "it": "Litri",
+    "pt": "Litros",
+    "hi": "लीटर"
+  },
+  "unitOptFlOz": {
+    "en": "Fluid ounces",
+    "tr": "Sıvı ons",
+    "de": "Flüssigunzen",
+    "fr": "Onces liquides",
+    "es": "Onzas líquidas",
+    "it": "Once liquide",
+    "pt": "Onças líquidas",
+    "hi": "फ़्लूइड आउंस"
+  },
+  "achieveGrowthImp": {
+    "en": "{amount} Growth",
+    "tr": "{amount} Büyüme",
+    "de": "{amount} Wachstum",
+    "fr": "{amount} de croissance",
+    "es": "{amount} de crecimiento",
+    "it": "{amount} di crescita",
+    "pt": "{amount} de crescimento",
+    "hi": "{amount} विकास"
+  },
+  "achieveGrowthImpDesc": {
+    "en": "Record {amount} total growth",
+    "tr": "Toplam {amount} büyüme kaydet",
+    "de": "Zeichne {amount} Gesamtwachstum auf",
+    "fr": "Enregistre {amount} de croissance au total",
+    "es": "Registra {amount} de crecimiento total",
+    "it": "Registra {amount} di crescita totale",
+    "pt": "Registre {amount} de crescimento total",
+    "hi": "कुल {amount} विकास रिकॉर्ड करें"
+  },
+  "postureBenefitIn": {
+    "en": "Head, shoulders and lower back. Standing tall shows up to about 1 inch more of your real height.",
+    "tr": "Baş, omuzlar ve bel. Dik durmak gerçek boyunun yaklaşık 1 inçe kadar daha fazlasını gösterir.",
+    "de": "Kopf, Schultern und unterer Rücken. Aufrecht stehen zeigt bis zu etwa 1 Zoll mehr deiner echten Größe.",
+    "fr": "Tête, épaules et bas du dos. Se tenir droit montre jusqu'à environ 1 pouce de plus de ta vraie taille.",
+    "es": "Cabeza, hombros y zona lumbar. Estar erguido muestra hasta cerca de 1 pulgada más de tu altura real.",
+    "it": "Testa, spalle e zona lombare. Stare dritto mostra fino a circa 1 pollice in più della tua altezza reale.",
+    "pt": "Cabeça, ombros e lombar. Ficar ereto mostra até cerca de 1 polegada a mais da sua altura real.",
+    "hi": "सिर, कंधे और कमर। सीधे खड़े होने से तुम्हारी असली लंबाई करीब 1 इंच तक ज़्यादा दिखती है।"
+  },
+  "notifPostureBodyIn": {
+    "en": "Back straight, shoulders back. Good posture = about 1 inch difference!",
+    "tr": "Sırtını dik tut, omuzlarını geri çek. Doğru duruş = yaklaşık 1 inç fark!",
+    "de": "Rücken gerade, Schultern zurück. Gute Haltung = etwa 1 Zoll!",
+    "fr": "Dos droit, épaules en arrière. Bonne posture = environ 1 pouce !",
+    "es": "Espalda recta, hombros atrás. ¡Cerca de 1 pulgada!",
+    "it": "Schiena dritta, spalle indietro. Circa 1 pollice!",
+    "pt": "Costas retas, ombros para trás. Cerca de 1 polegada!",
+    "hi": "पीठ सीधी, कंधे पीछे। करीब 1 इंच!"
+  },
+  "painPostureDescIn": {
+    "en": "Correct posture can instantly add up to about 1 inch. BeTaller's daily posture routine establishes this in a few weeks.",
+    "tr": "Doğru duruş sana anında yaklaşık 1 inç katabilir. BeTaller'ın günlük postür rutini bunu birkaç haftada yerleştirir.",
+    "de": "Richtige Haltung kann sofort bis zu etwa 1 Zoll bringen. Die tägliche Haltungsroutine von BeTaller verankert das in wenigen Wochen.",
+    "fr": "Une bonne posture peut ajouter instantanément jusqu'à environ 1 pouce. La routine posturale quotidienne de BeTaller installe ça en quelques semaines.",
+    "es": "Una postura correcta puede añadir al instante hasta cerca de 1 pulgada. La rutina diaria de postura de BeTaller lo consolida en pocas semanas.",
+    "it": "Una postura corretta può aggiungere istantaneamente fino a circa 1 pollice. La routine posturale quotidiana di BeTaller la stabilizza in poche settimane.",
+    "pt": "Uma postura correta pode adicionar instantaneamente até cerca de 1 polegada. A rotina diária de postura do BeTaller estabelece isso em poucas semanas.",
+    "hi": "सही पॉस्चर तुरंत करीब 1 इंच तक जोड़ सकता है। BeTaller की रोज़ की पॉस्चर रूटीन कुछ हफ़्तों में इसे आदत बना देती है।"
+  },
+  "routinePostureDescIn": {
+    "en": "Keep back straight, shoulders back. Check every hour. Good posture = about 1 inch difference.",
+    "tr": "Sırtını dik, omuzlarını geride tut. Her saat kontrol et. İyi duruş = yaklaşık 1 inç fark.",
+    "de": "Halte den Rücken gerade, Schultern zurück. Jede Stunde überprüfen. Gute Haltung = etwa 1 Zoll Unterschied.",
+    "fr": "Garde le dos droit, les épaules en arrière. Vérifie toutes les heures. Une bonne posture = environ 1 pouce de différence.",
+    "es": "Mantén la espalda recta, hombros hacia atrás. Revisa cada hora. Buena postura = cerca de 1 pulgada de diferencia.",
+    "it": "Tieni la schiena dritta, spalle indietro. Controlla ogni ora. Buona postura = circa 1 pollice di differenza.",
+    "pt": "Mantenha as costas retas, ombros para trás. Verifique a cada hora. Boa postura = cerca de 1 polegada de diferença.",
+    "hi": "पीठ सीधी रखें, कंधे पीछे। हर घंटे जाँचें। अच्छी मुद्रा = करीब 1 इंच का अंतर।"
+  },
+  "sciPostureCheckIn": {
+    "en": "Correct posture alignment can immediately add about 1 inch to apparent height and prevents spinal compression",
+    "tr": "Doğru duruş hizalaması, görünen boya anında yaklaşık 1 inç ekleyebilir ve omurga sıkışmasını önler",
+    "de": "Eine aufrechte Haltung lässt dich sofort etwa 1 Zoll größer wirken und schützt die Wirbelsäule vor Druck",
+    "fr": "Une bonne posture peut te faire paraître environ 1 pouce plus grand tout de suite et évite la compression de la colonne",
+    "es": "Una buena postura puede hacerte parecer cerca de 1 pulgada más alto al instante y evita que la columna se comprima",
+    "it": "Una postura corretta può farti sembrare subito circa 1 pollice più alto e protegge la colonna dalla compressione",
+    "pt": "Uma boa postura pode fazer você parecer cerca de 1 polegada mais alto na hora e evita a compressão da coluna",
+    "hi": "सही पोस्चर से तुम तुरंत करीब 1 इंच लंबे दिख सकते हो और रीढ़ पर दबाव नहीं पड़ता"
+  },
+  "routineProteinDescLb": {
+    "en": "Eggs, chicken, fish, dairy. At least 0.7 g of protein per lb of body weight daily.",
+    "tr": "Yumurta, tavuk, balık, süt ürünleri. Günde vücut ağırlığının her lb'si için en az 0,7 g protein.",
+    "de": "Eier, Hähnchen, Fisch, Milchprodukte. Mindestens 0,7 g Protein pro lb Körpergewicht täglich.",
+    "fr": "Œufs, poulet, poisson, produits laitiers. Au moins 0,7 g de protéines par lb de poids corporel par jour.",
+    "es": "Huevos, pollo, pescado, lácteos. Al menos 0,7 g de proteína por lb de peso corporal al día.",
+    "it": "Uova, pollo, pesce, latticini. Almeno 0,7 g di proteine per lb di peso corporeo al giorno.",
+    "pt": "Ovos, frango, peixe, laticínios. Pelo menos 0,7 g de proteína por lb de peso corporal por dia.",
+    "hi": "अंडे, चिकन, मछली, डेयरी। रोज़ शरीर के हर lb वज़न पर कम से कम 0.7 g प्रोटीन।"
+  }
+}

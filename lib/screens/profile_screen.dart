@@ -14,9 +14,11 @@ import '../utils/constants.dart';
 import '../utils/dev_tools.dart';
 import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
+import '../utils/units.dart';
 import 'notifications_screen.dart';
 import 'wellness_tracker_screen.dart';
 import 'onboarding_screen.dart';
+import '../widgets/measure_fields.dart';
 import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 import '../utils/text_case.dart';
@@ -490,16 +492,61 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onTap: () => _showLanguagePicker(context, provider),
                         ),
                         _menuDivider(),
+                        // Three separate units: a Canadian reads height in
+                        // ft-in but buys water in ml, a Briton weighs in
+                        // stones.
                         _MenuRow(
                           icon: Icons.straighten_rounded,
-                          label: l.unitSystem,
+                          label: l.unitHeightTitle,
                           subtitle: '',
-                          value: provider.useImperial
-                              ? l.unitImperial
-                              : l.unitMetric,
+                          value: _heightUnitAbbr(provider.units.height),
                           color: AppColors.cyan,
-                          onTap: () =>
-                              provider.setUseImperial(!provider.useImperial),
+                          onTap: () => _showUnitPicker<HeightUnit>(
+                            context,
+                            title: l.unitHeightTitle,
+                            selected: provider.units.height,
+                            options: [
+                              for (final u in HeightUnit.values)
+                                (u, _heightUnitName(l, u), _heightUnitAbbr(u)),
+                            ],
+                            onPick: provider.setHeightUnit,
+                          ),
+                        ),
+                        _menuDivider(),
+                        _MenuRow(
+                          icon: CupertinoIcons.gauge,
+                          label: l.unitWeightTitle,
+                          subtitle: '',
+                          value: _weightUnitAbbr(provider.units.weight),
+                          color: AppColors.cyan,
+                          onTap: () => _showUnitPicker<WeightUnit>(
+                            context,
+                            title: l.unitWeightTitle,
+                            selected: provider.units.weight,
+                            options: [
+                              for (final u in WeightUnit.values)
+                                (u, _weightUnitName(l, u), _weightUnitAbbr(u)),
+                            ],
+                            onPick: provider.setWeightUnit,
+                          ),
+                        ),
+                        _menuDivider(),
+                        _MenuRow(
+                          icon: CupertinoIcons.drop_fill,
+                          label: l.unitWaterTitle,
+                          subtitle: '',
+                          value: _volumeUnitAbbr(provider.units.volume),
+                          color: AppColors.cyan,
+                          onTap: () => _showUnitPicker<VolumeUnit>(
+                            context,
+                            title: l.unitWaterTitle,
+                            selected: provider.units.volume,
+                            options: [
+                              for (final u in VolumeUnit.values)
+                                (u, _volumeUnitName(l, u), _volumeUnitAbbr(u)),
+                            ],
+                            onPick: provider.setVolumeUnit,
+                          ),
                         ),
                         _menuDivider(),
                         _MenuRow(
@@ -954,17 +1001,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ) {
     final l = AppLocalizations.of(context)!;
     final nameCtrl = TextEditingController(text: profile.name);
-    final heightCtrl = TextEditingController(
-      text: provider.heightNumber(profile.currentHeight).toStringAsFixed(1),
-    );
-    final weightCtrl = TextEditingController(
-      text: provider.weightNumber(profile.weight).toStringAsFixed(1),
-    );
-    final fatherCtrl = TextEditingController(
-      text: provider.heightNumber(profile.fatherHeight).toStringAsFixed(1),
-    );
-    final motherCtrl = TextEditingController(
-      text: provider.heightNumber(profile.motherHeight).toStringAsFixed(1),
+    // cm or ft + in, kg, lb or st + lb: the same split as the onboarding.
+    final units = provider.units;
+    final heightIn = MeasureFields.height(units, profile.currentHeight);
+    final weightIn = MeasureFields.weight(units, profile.weight);
+    final fatherIn = MeasureFields.height(units, profile.fatherHeight);
+    final motherIn = MeasureFields.height(units, profile.motherHeight);
+
+    /// One measurement: a single field labelled with its unit, or two with
+    /// the unit as a suffix ("5 ft", "8.5 in").
+    Widget measure(MeasureFields m, String label, IconData icon) => m.build(
+      (c, suffix, i) => _EditField(
+        controller: c,
+        label: m.split ? (i == 0 ? label : '') : '$label ($suffix)',
+        icon: i == 0 ? icon : null,
+        suffix: m.split ? suffix : null,
+        isNumber: true,
+      ),
     );
     String gender = profile.gender;
     DateTime birthDate =
@@ -1155,33 +1208,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  _EditField(
-                    controller: heightCtrl,
-                    label: '${l.heightLabel} (${provider.heightUnit})',
-                    icon: CupertinoIcons.resize_v,
-                    isNumber: true,
-                  ),
+                  measure(heightIn, l.heightLabel, CupertinoIcons.resize_v),
                   const SizedBox(height: 12),
-                  _EditField(
-                    controller: weightCtrl,
-                    label: '${l.weightLabel} (${provider.weightUnit})',
-                    icon: CupertinoIcons.gauge,
-                    isNumber: true,
-                  ),
+                  measure(weightIn, l.weightLabel, CupertinoIcons.gauge),
                   const SizedBox(height: 12),
-                  _EditField(
-                    controller: fatherCtrl,
-                    label: '${l.dadLabel} (${provider.heightUnit})',
-                    icon: CupertinoIcons.person,
-                    isNumber: true,
-                  ),
+                  measure(fatherIn, l.dadLabel, CupertinoIcons.person),
                   const SizedBox(height: 12),
-                  _EditField(
-                    controller: motherCtrl,
-                    label: '${l.motherLabel} (${provider.heightUnit})',
-                    icon: CupertinoIcons.person,
-                    isNumber: true,
-                  ),
+                  measure(motherIn, l.motherLabel, CupertinoIcons.person),
                   const SizedBox(height: 24),
                   SizedBox(
                     width: double.infinity,
@@ -1190,30 +1223,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       borderRadius: BorderRadius.circular(18),
                       onPressed: () {
                         final name = nameCtrl.text.trim();
-                        final heightTyped = double.tryParse(
-                          heightCtrl.text.replaceAll(',', '.'),
-                        );
-                        final weightTyped = double.tryParse(
-                          weightCtrl.text.replaceAll(',', '.'),
-                        );
-                        final fatherTyped = double.tryParse(
-                          fatherCtrl.text.replaceAll(',', '.'),
-                        );
-                        final motherTyped = double.tryParse(
-                          motherCtrl.text.replaceAll(',', '.'),
-                        );
-                        final height = heightTyped == null
-                            ? null
-                            : provider.heightFromInput(heightTyped);
-                        final weight = weightTyped == null
-                            ? null
-                            : provider.weightFromInput(weightTyped);
-                        final father = fatherTyped == null
-                            ? null
-                            : provider.heightFromInput(fatherTyped);
-                        final mother = motherTyped == null
-                            ? null
-                            : provider.heightFromInput(motherTyped);
+                        final height = heightIn.value;
+                        final weight = weightIn.value;
+                        final father = fatherIn.value;
+                        final mother = motherIn.value;
                         if (name.isNotEmpty &&
                             height != null &&
                             weight != null &&
@@ -1279,6 +1292,151 @@ class _ProfileScreenState extends State<ProfileScreen> {
       default:
         return AppLocalizations.of(context)?.systemLanguage ?? 'System';
     }
+  }
+
+  static String _heightUnitAbbr(HeightUnit u) => switch (u) {
+    HeightUnit.cm => 'cm',
+    HeightUnit.ftIn => 'ft, in',
+  };
+
+  static String _heightUnitName(AppLocalizations l, HeightUnit u) =>
+      switch (u) {
+        HeightUnit.cm => l.unitOptCm,
+        HeightUnit.ftIn => l.unitOptFtIn,
+      };
+
+  static String _weightUnitAbbr(WeightUnit u) => switch (u) {
+    WeightUnit.kg => 'kg',
+    WeightUnit.lb => 'lb',
+    WeightUnit.stLb => 'st, lb',
+  };
+
+  static String _weightUnitName(AppLocalizations l, WeightUnit u) =>
+      switch (u) {
+        WeightUnit.kg => l.unitOptKg,
+        WeightUnit.lb => l.unitOptLb,
+        WeightUnit.stLb => l.unitOptStLb,
+      };
+
+  static String _volumeUnitAbbr(VolumeUnit u) => switch (u) {
+    VolumeUnit.ml => 'L, ml',
+    VolumeUnit.flOz => 'fl oz',
+  };
+
+  static String _volumeUnitName(AppLocalizations l, VolumeUnit u) =>
+      switch (u) {
+        VolumeUnit.ml => l.unitOptLiters,
+        VolumeUnit.flOz => l.unitOptFlOz,
+      };
+
+  /// A short list of units in the language picker's style; a tap saves the
+  /// choice and closes the sheet.
+  void _showUnitPicker<T>(
+    BuildContext context, {
+    required String title,
+    required T selected,
+    required List<(T, String, String)> options,
+    required void Function(T) onPick,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.surfaceDark,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+      ),
+      builder: (context) => Padding(
+        padding: EdgeInsets.fromLTRB(
+          20,
+          16,
+          20,
+          MediaQuery.of(context).padding.bottom + 16,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 36,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.50),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+                letterSpacing: -0.5,
+              ),
+            ),
+            const SizedBox(height: 16),
+            for (final (value, name, abbr) in options)
+              GestureDetector(
+                onTap: () {
+                  Haptics.select();
+                  onPick(value);
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
+                  decoration: BoxDecoration(
+                    color: value == selected
+                        ? AppColors.primary.withValues(alpha: 0.15)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(18),
+                    border: value == selected
+                        ? Border.all(
+                            color: AppColors.primary.withValues(alpha: 0.4),
+                          )
+                        : null,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: value == selected
+                                ? FontWeight.w700
+                                : FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        abbr,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white.withValues(alpha: 0.45),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Icon(
+                        value == selected
+                            ? CupertinoIcons.checkmark_circle_fill
+                            : CupertinoIcons.circle,
+                        color: value == selected
+                            ? AppColors.primary
+                            : Colors.white.withValues(alpha: 0.2),
+                        size: 22,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 
   void _showLanguagePicker(BuildContext context, AppProvider provider) {
@@ -1837,13 +1995,15 @@ class _StatBox extends StatelessWidget {
 class _EditField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
-  final IconData icon;
+  final IconData? icon;
+  final String? suffix;
   final bool isNumber;
 
   const _EditField({
     required this.controller,
     required this.label,
     required this.icon,
+    this.suffix,
     this.isNumber = false,
   });
 
@@ -1863,7 +2023,14 @@ class _EditField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(color: Colors.white.withValues(alpha: 0.72)),
-        prefixIcon: Icon(icon, color: AppColors.primaryLight, size: 18),
+        prefixIcon: icon == null
+            ? null
+            : Icon(icon, color: AppColors.primaryLight, size: 18),
+        suffixText: suffix,
+        suffixStyle: TextStyle(
+          color: Colors.white.withValues(alpha: 0.6),
+          fontWeight: FontWeight.w600,
+        ),
         filled: true,
         fillColor: Colors.white.withValues(alpha: 0.12),
         border: OutlineInputBorder(

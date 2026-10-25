@@ -14,6 +14,7 @@ import '../utils/constants.dart';
 import '../utils/haptics.dart';
 import '../utils/free_tier.dart';
 import '../widgets/free_tier_widgets.dart';
+import '../widgets/measure_fields.dart';
 import '../widgets/progress_locked_preview.dart';
 import '../utils/text_case.dart';
 import '../utils/date_locale.dart';
@@ -111,9 +112,8 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
   Future<double?> _askHeight() async {
     final provider = context.read<AppProvider>();
     final suggested = provider.latestHeight > 0 ? provider.latestHeight : 170.0;
-    final controller = TextEditingController(
-      text: provider.heightNumber(suggested).toStringAsFixed(1),
-    );
+    // cm, or ft + in like the onboarding picker.
+    final input = MeasureFields.height(provider.units, suggested);
     final l = AppLocalizations.of(context)!;
 
     final result = await showDialog<double>(
@@ -144,9 +144,9 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
+            input.build((controller, suffix, i) => TextField(
               controller: controller,
-              autofocus: true,
+              autofocus: i == 0,
               keyboardType: const TextInputType.numberWithOptions(
                 decimal: true,
               ),
@@ -157,7 +157,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
               ),
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                suffixText: provider.heightUnit,
+                suffixText: suffix,
                 suffixStyle: TextStyle(
                   color: Colors.white.withValues(alpha: 0.5),
                   fontSize: 15,
@@ -185,7 +185,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                   ),
                 ),
               ),
-            ),
+            )),
           ],
         ),
         actions: [
@@ -201,12 +201,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
           ),
           TextButton(
             onPressed: () {
-              final typed = double.tryParse(
-                controller.text.replaceAll(',', '.'),
-              );
-              final value = typed == null
-                  ? null
-                  : provider.heightFromInput(typed);
+              final value = input.value;
               if (value == null || value < 80 || value > 250) {
                 Haptics.warning();
                 return;
@@ -224,7 +219,7 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
         ],
       ),
     );
-    controller.dispose();
+    input.dispose();
     return result;
   }
 

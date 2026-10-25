@@ -230,7 +230,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String waterRemaining(String amount) {
-    return '$amount L kaldı';
+    return '$amount kaldı';
   }
 
   @override
@@ -2209,8 +2209,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get yourHeightDialog => 'Boyun';
 
   @override
-  String get heightDialogMessage =>
-      'Bu fotoğraf için güncel boyunu cm olarak gir';
+  String get heightDialogMessage => 'Bu fotoğraf için güncel boyunu gir';
 
   @override
   String get postureAnalysisTitle => 'Postür Analizi';
@@ -4590,7 +4589,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String nWaterTitle(String liters) {
-    return 'Su hedefin: $liters L';
+    return 'Su hedefin: $liters';
   }
 
   @override
@@ -4778,7 +4777,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String anBHydration(String litres, String target, int days) {
-    return 'Günde ortalama $litres L, hedef $target L, $days gün kaydı';
+    return 'Günde ortalama $litres, hedef $target, $days gün kaydı';
   }
 
   @override
@@ -4819,7 +4818,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String anBGrowth(String v, String e) {
-    return 'Yılda $v cm, yaşına göre tipik $e cm';
+    return 'Yılda $v, yaşına göre tipik $e';
   }
 
   @override
@@ -4853,7 +4852,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String anAHydration(String left) {
-    return 'Bugün $left L daha iç';
+    return 'Bugün $left daha iç';
   }
 
   @override
@@ -5433,7 +5432,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String plHabitWater(String liters) {
-    return 'Gün boyunca $liters L';
+    return 'Gün boyunca $liters';
   }
 
   @override
@@ -5612,7 +5611,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String plCheckWater(String liters) {
-    return 'Su $liters L';
+    return 'Su $liters';
   }
 
   @override
@@ -5626,7 +5625,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String plWaterLogged(String liters) {
-    return 'Şu ana kadar $liters L';
+    return 'Şu ana kadar $liters';
   }
 
   @override
@@ -6341,4 +6340,68 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get plFoodBrownRice => 'Esmer pirinç';
+
+  @override
+  String get unitHeightTitle => 'Boy birimi';
+
+  @override
+  String get unitWeightTitle => 'Kilo birimi';
+
+  @override
+  String get unitWaterTitle => 'Su birimi';
+
+  @override
+  String get unitOptCm => 'Santimetre';
+
+  @override
+  String get unitOptFtIn => 'Fit ve inç';
+
+  @override
+  String get unitOptKg => 'Kilogram';
+
+  @override
+  String get unitOptLb => 'Libre';
+
+  @override
+  String get unitOptStLb => 'Stone ve libre';
+
+  @override
+  String get unitOptLiters => 'Litre';
+
+  @override
+  String get unitOptFlOz => 'Sıvı ons';
+
+  @override
+  String achieveGrowthImp(String amount) {
+    return '$amount Büyüme';
+  }
+
+  @override
+  String achieveGrowthImpDesc(String amount) {
+    return 'Toplam $amount büyüme kaydet';
+  }
+
+  @override
+  String get postureBenefitIn =>
+      'Baş, omuzlar ve bel. Dik durmak gerçek boyunun yaklaşık 1 inçe kadar daha fazlasını gösterir.';
+
+  @override
+  String get notifPostureBodyIn =>
+      'Sırtını dik tut, omuzlarını geri çek. Doğru duruş = yaklaşık 1 inç fark!';
+
+  @override
+  String get painPostureDescIn =>
+      'Doğru duruş sana anında yaklaşık 1 inç katabilir. BeTaller\'ın günlük postür rutini bunu birkaç haftada yerleştirir.';
+
+  @override
+  String get routinePostureDescIn =>
+      'Sırtını dik, omuzlarını geride tut. Her saat kontrol et. İyi duruş = yaklaşık 1 inç fark.';
+
+  @override
+  String get sciPostureCheckIn =>
+      'Doğru duruş hizalaması, görünen boya anında yaklaşık 1 inç ekleyebilir ve omurga sıkışmasını önler';
+
+  @override
+  String get routineProteinDescLb =>
+      'Yumurta, tavuk, balık, süt ürünleri. Günde vücut ağırlığının her lb\'si için en az 0,7 g protein.';
 }

@@ -158,8 +158,10 @@ class WeeklyReportScreen extends StatelessWidget {
                                 child: _HabitTile(
                                   icon: CupertinoIcons.drop_fill,
                                   color: AppColors.cyan,
-                                  value: provider.todayWater.fixedL(1),
-                                  unit: 'L',
+                                  value: provider.units.waterValue(
+                                    provider.todayWater,
+                                  ),
+                                  unit: provider.units.waterUnit,
                                   label: l.waterToday2,
                                 ),
                               ),

@@ -67,7 +67,7 @@ class PotentialChartData {
       potential: provider.potentialHeight,
       dream: provider.dreamHeight,
       format: provider.formatHeight,
-      axisFormat: provider.useImperial ? provider.formatHeight : null,
+      axisFormat: provider.useImperial ? provider.formatHeightCompact : null,
     );
   }
 }
@@ -147,7 +147,7 @@ class PotentialChartView extends StatelessWidget {
     final ys = [
       ...history.map((e) => e.value),
       potential,
-      if (dream != null) dream,
+      ?dream,
     ];
     final minY = ((ys.reduce(math.min) - 3) / 5).floor() * 5.0;
     final maxY = ((ys.reduce(math.max) + 3) / 5).ceil() * 5.0;
@@ -268,7 +268,7 @@ class PotentialChartView extends StatelessWidget {
                   isStrokeCapRound: true,
                   dotData: FlDotData(
                     show: true,
-                    getDotPainter: (spot, _, __, i) {
+                    getDotPainter: (spot, _, _, i) {
                       final isPast = i < pastCount;
                       final isLast = i == measuredSpots.length - 1;
                       return FlDotCirclePainter(
@@ -298,7 +298,7 @@ class PotentialChartView extends StatelessWidget {
                   dotData: FlDotData(
                     show: true,
                     checkToShowDot: (s, bar) => s == bar.spots.last && reveal >= 1,
-                    getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
+                    getDotPainter: (_, _, _, _) => FlDotCirclePainter(
                       radius: 6,
                       color: AppColors.lime,
                       strokeWidth: 3,
