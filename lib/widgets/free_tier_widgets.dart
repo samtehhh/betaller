@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
+import '../services/analytics.dart';
 import '../utils/constants.dart';
 import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
@@ -67,6 +68,10 @@ Future<void> showFreeLimit(BuildContext context, FreeFeature f) async {
   final provider = context.read<AppProvider>();
   if (!provider.isMetered || _sheetOpen || isPaywallOpen) return;
   Haptics.tap();
+  Analytics.track('free_limit', {
+    'feature': f.name,
+    'first': !provider.freeOutNoticed(f),
+  });
   if (provider.freeOutNoticed(f)) {
     await showPaywallFor(context, f);
     return;
