@@ -112,6 +112,11 @@ Future<void> _initServices(AppProvider appProvider) async {
     debugPrint('PackageInfo failed: $e');
   }
   await Analytics.init(appVersion: version);
+  // Lets every funnel be split by language and by the phone's region.
+  Analytics.setSuper('lang', appProvider.effectiveLocale.languageCode);
+  final region = Platform.localeName.split(RegExp('[_-]'));
+  if (region.length > 1) Analytics.setSuper('region', region.last);
+  Analytics.setSuper('premium', appProvider.isPremium);
   try {
     final notifService = NotificationService();
     await notifService.init();
