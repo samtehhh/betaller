@@ -37,7 +37,9 @@ void main() {
 
   testWidgets('every article detail renders in every language', (tester) async {
     await phone(tester);
-    for (final lang in ['tr', 'en', 'de', 'fr', 'es', 'pt', 'it', 'hi']) {
+    for (final lang in [
+      'tr', 'en', 'de', 'fr', 'es', 'pt', 'it', 'hi', 'nl', 'pl', 'sv',
+    ]) {
       final articles = getEducationArticles(lang);
       for (var i = 0; i < articles.length; i++) {
         await tester.pumpWidget(

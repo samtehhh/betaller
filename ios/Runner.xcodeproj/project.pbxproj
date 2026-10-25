@@ -64,6 +64,9 @@
 		BB2000000000000000000006 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BB2000000000000000000007 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = "tr.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BB2000000000000000000008 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		BB2000000000000000000009 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = "nl.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		BB200000000000000000000A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = "pl.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		BB200000000000000000000B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = "sv.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,7 +206,10 @@
 				fr,
 				hi,
 				it,
+				nl,
+				pl,
 				"pt-BR",
+				sv,
 				tr,
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
@@ -329,6 +335,9 @@
 				BB2000000000000000000005 /* it */,
 				BB2000000000000000000006 /* pt-BR */,
 				BB2000000000000000000007 /* tr */,
+				BB2000000000000000000009 /* nl */,
+				BB200000000000000000000A /* pl */,
+				BB200000000000000000000B /* sv */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

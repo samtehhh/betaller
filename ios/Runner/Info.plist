@@ -55,7 +55,10 @@
 		<string>fr</string>
 		<string>hi</string>
 		<string>it</string>
+		<string>nl</string>
+		<string>pl</string>
 		<string>pt-BR</string>
+		<string>sv</string>
 		<string>tr</string>
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>

@@ -1949,7 +1949,9 @@ class AppProvider extends ChangeNotifier {
   /// resolve the same way instead of defaulting to English.
   Locale get effectiveLocale {
     if (_locale != null) return _locale!;
-    const supported = {'en', 'tr', 'de', 'fr', 'hi', 'pt', 'es', 'it'};
+    const supported = {
+      'en', 'tr', 'de', 'fr', 'hi', 'pt', 'es', 'it', 'nl', 'pl', 'sv',
+    };
     final device = PlatformDispatcher.instance.locale.languageCode;
     return Locale(supported.contains(device) ? device : 'en');
   }

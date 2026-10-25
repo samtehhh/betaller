@@ -18,12 +18,14 @@ const _devices = <String, Size>{
 };
 
 /// The longest UI languages, where the copy wraps onto extra lines.
-const _locales = ['tr', 'en', 'de', 'fr'];
+const _locales = ['tr', 'en', 'de', 'fr', 'nl', 'pl', 'sv'];
 
 /// Every language the paywall ships in. The preview screens are laid out in a
 /// fixed design box, so the device makes no difference to them — the language
 /// is the only thing that can burst one.
-const _allLocales = ['tr', 'en', 'de', 'fr', 'es', 'it', 'pt', 'hi'];
+const _allLocales = [
+  'tr', 'en', 'de', 'fr', 'es', 'it', 'pt', 'hi', 'nl', 'pl', 'sv',
+];
 
 Widget _app({required String lang, required Widget home}) =>
     ChangeNotifierProvider(

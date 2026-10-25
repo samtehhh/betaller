@@ -493,6 +493,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     (locale: Locale('es'), flag: '🇪🇸', name: 'ES'),
     (locale: Locale('it'), flag: '🇮🇹', name: 'IT'),
     (locale: Locale('pt'), flag: '🇧🇷', name: 'PT'),
+    (locale: Locale('nl'), flag: '🇳🇱', name: 'NL'),
+    (locale: Locale('pl'), flag: '🇵🇱', name: 'PL'),
+    (locale: Locale('sv'), flag: '🇸🇪', name: 'SV'),
     (locale: Locale('hi'), flag: '🇮🇳', name: 'HI'),
   ];
 
@@ -540,6 +543,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           color: Colors.transparent,
           child: Container(
             width: 260,
+            // Eleven languages: scroll rather than overflow on short screens.
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(ctx).size.height * 0.8,
+            ),
             padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
             decoration: BoxDecoration(
               color: const Color(0xFF0C0A16),
@@ -555,7 +562,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 ),
               ],
             ),
-            child: Column(
+            child: SingleChildScrollView(
+              child: Column(
               mainAxisSize: MainAxisSize.min,
               children: _langs.map((lang) {
                 final selected = lang.locale.languageCode == currentCode;
@@ -610,6 +618,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   ),
                 );
               }).toList(),
+              ),
             ),
           ),
         ),

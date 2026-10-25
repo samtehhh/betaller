@@ -1,5 +1,5 @@
-// Nutrition data for the BeTaller app — 8-language support.
-// en, tr, de, fr, es, pt, it, hi
+// Nutrition data for the BeTaller app — 11-language support.
+// en, tr, de, fr, es, pt, it, hi, nl, pl, sv
 
 // ══════════════════════════════════════════════════════════════════════
 // A) Growth-Critical Nutrients
@@ -149,6 +149,39 @@ const _topFoodNames = <String, List<List<String>>>{
     ['कद्दू के बीज (30 ग्रा.)', 'बादाम (30 ग्रा.)', 'पालक, पकी (1/2 कप)', 'डार्क चॉकलेट (30 ग्रा.)', 'केला (1 मध्यम)'],
     ['टर्की ब्रेस्ट (100 ग्रा.)', 'कद्दू के बीज (30 ग्रा.)', 'सोयाबीन, पकी (1 कप)', 'चिकन ब्रेस्ट (100 ग्रा.)', 'मूंगफली (30 ग्रा.)'],
   ],
+  'nl': [
+    ['Melk (1 glas / 240 ml)', 'Yoghurt (1 kom / 245 g)', 'Cheddar (30 g)', 'Sardines met graat (85 g)', 'Verrijkt sinaasappelsap (1 glas)'],
+    ['Kipfilet (100 g)', 'Eieren (2 grote)', 'Griekse yoghurt (170 g)', 'Linzen, gekookt (1 kopje)', 'Zalmfilet (100 g)'],
+    ['Oesters (6 middelgrote)', 'Biefstuk (100 g)', 'Pompoenpitten (30 g)', 'Kikkererwten, gekookt (1 kopje)', 'Cashewnoten (30 g)'],
+    ['Zalm (100 g)', 'Verrijkte melk (1 glas)', 'Eigeel (1 groot ei)', 'Verrijkte ontbijtgranen (1 portie)', 'Zonlicht (15 min, rond het middaguur)'],
+    ['Zoete aardappel (1 middelgrote)', 'Wortel (1 middelgrote)', 'Spinazie, gekookt (1/2 kopje)', 'Runderlever (85 g)', 'Rode paprika (1 middelgrote)'],
+    ['Biefstuk (100 g)', 'Spinazie, gekookt (1/2 kopje)', 'Linzen, gekookt (1 kopje)', 'Verrijkte ontbijtgranen (1 portie)', 'Pure chocolade (30 g)'],
+    ['Kipfilet (100 g)', 'Zalm (100 g)', 'Linzen, gekookt (1 kopje)', 'Melk (1 glas)', 'Zonnebloempitten (30 g)'],
+    ['Pompoenpitten (30 g)', 'Amandelen (30 g)', 'Spinazie, gekookt (1/2 kopje)', 'Pure chocolade (30 g)', 'Banaan (1 middelgrote)'],
+    ['Kalkoenfilet (100 g)', 'Pompoenpitten (30 g)', 'Sojabonen, gekookt (1 kopje)', 'Kipfilet (100 g)', 'Pinda\'s (30 g)'],
+  ],
+  'pl': [
+    ['Mleko (1 szklanka / 240 ml)', 'Jogurt (1 szklanka / 245 g)', 'Ser cheddar (30 g)', 'Sardynki z ośćmi (85 g)', 'Wzbogacany sok pomarańczowy (1 szklanka)'],
+    ['Pierś z kurczaka (100 g)', 'Jajka (2 duże)', 'Jogurt grecki (170 g)', 'Soczewica, gotowana (1 szklanka)', 'Filet z łososia (100 g)'],
+    ['Ostrygi (6 średnich)', 'Stek wołowy (100 g)', 'Pestki dyni (30 g)', 'Ciecierzyca, gotowana (1 szklanka)', 'Orzechy nerkowca (30 g)'],
+    ['Łosoś (100 g)', 'Wzbogacane mleko (1 szklanka)', 'Żółtko (z 1 dużego jajka)', 'Wzbogacane płatki śniadaniowe (1 porcja)', 'Słońce (15 min, w południe)'],
+    ['Batat (1 średni)', 'Marchewka (1 średnia)', 'Szpinak, gotowany (1/2 szklanki)', 'Wątróbka wołowa (85 g)', 'Czerwona papryka (1 średnia)'],
+    ['Stek wołowy (100 g)', 'Szpinak, gotowany (1/2 szklanki)', 'Soczewica, gotowana (1 szklanka)', 'Wzbogacane płatki śniadaniowe (1 porcja)', 'Gorzka czekolada (30 g)'],
+    ['Pierś z kurczaka (100 g)', 'Łosoś (100 g)', 'Soczewica, gotowana (1 szklanka)', 'Mleko (1 szklanka)', 'Pestki słonecznika (30 g)'],
+    ['Pestki dyni (30 g)', 'Migdały (30 g)', 'Szpinak, gotowany (1/2 szklanki)', 'Gorzka czekolada (30 g)', 'Banan (1 średni)'],
+    ['Pierś z indyka (100 g)', 'Pestki dyni (30 g)', 'Soja, gotowana (1 szklanka)', 'Pierś z kurczaka (100 g)', 'Orzeszki ziemne (30 g)'],
+  ],
+  'sv': [
+    ['Mjölk (1 glas / 240 ml)', 'Yoghurt (2,4 dl / 245 g)', 'Cheddarost (30 g)', 'Sardiner med ben (85 g)', 'Berikad apelsinjuice (1 glas)'],
+    ['Kycklingbröst (100 g)', 'Ägg (2 stora)', 'Grekisk yoghurt (170 g)', 'Linser, kokta (2,4 dl)', 'Laxfilé (100 g)'],
+    ['Ostron (6 medelstora)', 'Nötbiff (100 g)', 'Pumpafrön (30 g)', 'Kikärtor, kokta (2,4 dl)', 'Cashewnötter (30 g)'],
+    ['Lax (100 g)', 'Berikad mjölk (1 glas)', 'Äggula (1 stor)', 'Berikade frukostflingor (1 portion)', 'Solljus (15 min, mitt på dagen)'],
+    ['Sötpotatis (1 medelstor)', 'Morot (1 medelstor)', 'Spenat, kokt (1,2 dl)', 'Oxlever (85 g)', 'Röd paprika (1 medelstor)'],
+    ['Nötbiff (100 g)', 'Spenat, kokt (1,2 dl)', 'Linser, kokta (2,4 dl)', 'Berikade frukostflingor (1 portion)', 'Mörk choklad (30 g)'],
+    ['Kycklingbröst (100 g)', 'Lax (100 g)', 'Linser, kokta (2,4 dl)', 'Mjölk (1 glas)', 'Solrosfrön (30 g)'],
+    ['Pumpafrön (30 g)', 'Mandlar (30 g)', 'Spenat, kokt (1,2 dl)', 'Mörk choklad (30 g)', 'Banan (1 medelstor)'],
+    ['Kalkonbröst (100 g)', 'Pumpafrön (30 g)', 'Sojabönor, kokta (2,4 dl)', 'Kycklingbröst (100 g)', 'Jordnötter (30 g)'],
+  ],
 };
 
 /// Returns top food sources for a nutrient at [nutrientIndex] in the given language.
@@ -167,6 +200,9 @@ const _nutrientNames = {
   'pt': ['Cálcio', 'Proteína', 'Zinco', 'Vitamina D', 'Vitamina A', 'Ferro', 'Fósforo', 'Magnésio', 'L-Arginina'],
   'it': ['Calcio', 'Proteina', 'Zinco', 'Vitamina D', 'Vitamina A', 'Ferro', 'Fosforo', 'Magnesio', 'L-Arginina'],
   'hi': ['कैल्शियम', 'प्रोटीन', 'जिंक', 'विटामिन D', 'विटामिन A', 'आयरन', 'फास्फोरस', 'मैग्नीशियम', 'L-आर्जिनिन'],
+  'nl': ['Calcium', 'Eiwit', 'Zink', 'Vitamine D', 'Vitamine A', 'IJzer', 'Fosfor', 'Magnesium', 'L-arginine'],
+  'pl': ['Wapń', 'Białko', 'Cynk', 'Witamina D', 'Witamina A', 'Żelazo', 'Fosfor', 'Magnez', 'L-arginina'],
+  'sv': ['Kalcium', 'Protein', 'Zink', 'D-vitamin', 'A-vitamin', 'Järn', 'Fosfor', 'Magnesium', 'L-arginin'],
 };
 
 const _nutrientRoles = {
@@ -257,6 +293,39 @@ const _nutrientRoles = {
     'फास्फोरस कैल्शियम के बाद आपके शरीर में दूसरा सबसे प्रचुर खनिज है, और इसका लगभग 85% हड्डियों और दांतों में होता है। यह हाइड्रोक्सीअपेटाइट बनाने के लिए कैल्शियम के साथ मिलकर काम करता है, जो खनिज क्रिस्टल है जो हड्डियों को उनकी कठोरता और मजबूती देता है। यह बढ़ती कोशिकाओं में ऊर्जा उत्पादन (ATP) के लिए भी आवश्यक है।',
     'मैग्नीशियम 300 से अधिक एंजाइमेटिक प्रतिक्रियाओं में शामिल है, जिसमें हड्डी निर्माण और कैल्शियम चयापचय शामिल हैं। यह विटामिन D को उसके सक्रिय रूप में बदलने में मदद करता है, जो कैल्शियम अवशोषण के लिए आवश्यक है। मैग्नीशियम की कमी हड्डी के विकास को बाधित कर सकती है और हड्डी घनत्व को कम कर सकती है। यह मांसपेशी विश्राम और नींद की गुणवत्ता को भी सहारा देता है।',
     'L-आर्जिनिन एक अमीनो एसिड है जो सीधे पिट्यूटरी ग्रंथि से वृद्धि हार्मोन के स्राव को उत्तेजित करता है। यह नाइट्रिक ऑक्साइड का अग्रदूत भी है, जो बढ़ते ऊतकों में रक्त प्रवाह में सुधार करता है। अध्ययनों से पता चलता है कि आर्जिनिन पूरकता HGH स्राव बढ़ा सकती है, खासकर जब व्यायाम के साथ संयुक्त हो।',
+  ],
+  'nl': [
+    'Calcium is het belangrijkste bouwmineraal van je botten en tanden. Ongeveer 99% van het calcium in je lichaam zit in je skelet. Tijdens groeispurts hebben je botten veel calcium nodig om nieuw botweefsel te maken. Krijg je te weinig calcium binnen, dan haalt je lichaam het uit je bestaande botten, waardoor je skelet zwakker wordt.',
+    'Eiwit levert de aminozuren waarmee elk weefsel in je lichaam wordt opgebouwd en hersteld — botten, spieren, kraakbeen en huid. In de puberteit heb je flink meer eiwit nodig om snelle groei te ondersteunen. Aminozuren zoals arginine en lysine stimuleren ook direct de afgifte van groeihormoon.',
+    'Zink is essentieel voor celdeling, de aanmaak van DNA en je immuunsysteem — allemaal cruciaal tijdens de groei. Zinktekort is wereldwijd een van de meest voorkomende oorzaken van groeiachterstand. Zink speelt ook een rol bij de signalering van groeihormoon en de mineralisatie van je botten.',
+    'Vitamine D is cruciaal voor de opname van calcium — zonder vitamine D neemt je lichaam maar 10-15% van het calcium uit je eten op (tegenover 30-40% met genoeg vitamine D). Het heeft ook direct invloed op de activiteit van de kraakbeencellen in je groeischijven en op de mineralisatie van je botten. Veel tieners hebben een tekort, vooral als ze het grootste deel van hun tijd binnen zitten.',
+    'Vitamine A speelt een sleutelrol bij botombouw — het proces waarbij oud bot wordt afgebroken en vervangen door nieuw, sterker weefsel. Het is ook essentieel voor de werking van je groeischijven en voor celdifferentiatie. Zowel een tekort als een teveel kan de groei remmen, dus balans is belangrijk.',
+    'IJzer vervoert zuurstof via je bloed naar elke cel in je lichaam, ook naar groeiend bot- en spierweefsel. In de puberteit heb je veel meer ijzer nodig — vooral meisjes zodra ze ongesteld worden. Bloedarmoede door ijzertekort wordt in verband gebracht met groeiachterstand en een vertraagde ontwikkeling.',
+    'Fosfor is na calcium het meest voorkomende mineraal in je lichaam, en ongeveer 85% ervan zit in je botten en tanden. Samen met calcium vormt het hydroxyapatiet, het mineraalkristal dat je botten hard en sterk maakt. Het is ook essentieel voor de energieproductie (ATP) in groeiende cellen.',
+    'Magnesium is betrokken bij meer dan 300 enzymreacties, waaronder botvorming en de calciumstofwisseling. Het helpt vitamine D om te zetten in de actieve vorm, die nodig is voor de opname van calcium. Een magnesiumtekort kan de botgroei remmen en de botdichtheid verlagen. Magnesium helpt ook je spieren te ontspannen en ondersteunt een goede nachtrust.',
+    'L-arginine is een aminozuur dat direct de afgifte van groeihormoon uit de hypofyse stimuleert. Het is ook een voorloper van stikstofmonoxide, dat de doorbloeding van groeiende weefsels verbetert. Onderzoek laat zien dat een argininesupplement de afgifte van HGH kan verhogen, vooral in combinatie met sporten.',
+  ],
+  'pl': [
+    'Wapń to główny minerał budujący kości i zęby. Około 99% wapnia w twoim organizmie jest zmagazynowane w szkielecie. W czasie skoków wzrostowych kości potrzebują dużo wapnia, by budować nową tkankę kostną. Gdy wapnia brakuje, organizm pobiera go z istniejących kości, co osłabia szkielet.',
+    'Białko dostarcza aminokwasów, które budują i naprawiają każdą tkankę w twoim ciele — kości, mięśnie, chrząstki i skórę. W okresie dojrzewania zapotrzebowanie na białko wyraźnie rośnie, by nadążyć za szybkim wzrostem. Aminokwasy takie jak arginina i lizyna bezpośrednio pobudzają też wydzielanie hormonu wzrostu.',
+    'Cynk jest niezbędny do podziału komórek, syntezy DNA i pracy układu odpornościowego — a wszystko to ma kluczowe znaczenie w czasie wzrostu. Niedobór cynku to jedna z najczęstszych przyczyn zahamowania wzrostu na świecie. Cynk bierze też udział w sygnalizacji hormonu wzrostu i mineralizacji kości.',
+    'Witamina D jest kluczowa dla wchłaniania wapnia — bez niej organizm przyswaja tylko 10-15% wapnia z jedzenia (a przy odpowiednim poziomie witaminy D 30-40%). Wpływa też bezpośrednio na aktywność chondrocytów w chrząstkach wzrostowych i na mineralizację kości. Wielu nastolatkom jej brakuje, zwłaszcza tym, którzy większość czasu spędzają w pomieszczeniach.',
+    'Witamina A odgrywa kluczową rolę w przebudowie kości — procesie, w którym stara tkanka kostna jest rozkładana i zastępowana nową, mocniejszą. Jest też niezbędna dla pracy chrząstek wzrostowych i różnicowania komórek. Zarówno niedobór, jak i nadmiar mogą zaburzać wzrost, dlatego ważna jest równowaga.',
+    'Żelazo przenosi tlen we krwi do każdej komórki ciała, także do rosnącej tkanki kostnej i mięśniowej. W okresie dojrzewania zapotrzebowanie na żelazo gwałtownie rośnie — zwłaszcza u dziewczyn po pierwszej miesiączce. Niedokrwistość z niedoboru żelaza wiąże się z zahamowaniem wzrostu i opóźnionym rozwojem.',
+    'Fosfor to po wapniu drugi najobficiej występujący minerał w organizmie, a około 85% fosforu znajduje się w kościach i zębach. Razem z wapniem tworzy hydroksyapatyt — kryształ mineralny, który nadaje kościom twardość i wytrzymałość. Jest też niezbędny do wytwarzania energii (ATP) w rosnących komórkach.',
+    'Magnez bierze udział w ponad 300 reakcjach enzymatycznych, w tym w tworzeniu kości i gospodarce wapniem. Pomaga przekształcać witaminę D w jej aktywną formę, potrzebną do wchłaniania wapnia. Niedobór magnezu może zaburzać wzrost kości i obniżać ich gęstość. Magnez wspiera też rozluźnienie mięśni i jakość snu.',
+    'L-arginina to aminokwas, który bezpośrednio pobudza wydzielanie hormonu wzrostu przez przysadkę mózgową. Jest też prekursorem tlenku azotu, który poprawia przepływ krwi do rosnących tkanek. Badania pokazują, że suplementacja argininy może zwiększać wydzielanie HGH, zwłaszcza w połączeniu z wysiłkiem fizycznym.',
+  ],
+  'sv': [
+    'Kalcium är det viktigaste byggmineralet i skelett och tänder. Ungefär 99 % av kroppens kalcium finns i skelettet. Under tillväxtspurter behöver skelettet stora mängder kalcium för att bygga ny benvävnad. Får du i dig för lite kalcium hämtar kroppen det från befintligt skelett, vilket försvagar det.',
+    'Protein ger de aminosyror som bygger upp och reparerar alla vävnader i kroppen – skelett, muskler, brosk och hud. Under tonåren ökar proteinbehovet tydligt för att stödja den snabba tillväxten. Aminosyror som arginin och lysin stimulerar dessutom direkt utsöndringen av tillväxthormon.',
+    'Zink behövs för celldelning, DNA-syntes och immunförsvaret – allt avgörande under tillväxten. Zinkbrist är en av de vanligaste orsakerna till hämmad tillväxt i världen. Zink spelar också en roll för tillväxthormonets signalering och för mineraliseringen av skelettet.',
+    'D-vitamin är avgörande för kalciumupptaget – utan det tar kroppen bara upp 10–15 % av kalciumet i maten (jämfört med 30–40 % med tillräckligt D-vitamin). Det påverkar också direkt broskcellernas aktivitet i tillväxtzonerna och mineraliseringen av skelettet. Många tonåringar har brist, särskilt de som är inomhus större delen av tiden.',
+    'A-vitamin spelar en nyckelroll i skelettets ombyggnad – processen där gammal benvävnad bryts ned och ersätts med ny, starkare vävnad. Det behövs också för att tillväxtzonerna ska fungera och för celldifferentiering. Både brist och överskott kan störa tillväxten, så balans är viktigt.',
+    'Järn transporterar syre i blodet till kroppens alla celler, även till växande ben- och muskelvävnad. Under puberteten ökar järnbehovet kraftigt – särskilt för tjejer efter att mensen har börjat. Järnbristanemi har kopplats till hämmad tillväxt och försenad utveckling.',
+    'Fosfor är det näst vanligaste mineralet i kroppen efter kalcium, och ungefär 85 % av det finns i skelett och tänder. Tillsammans med kalcium bildar det hydroxiapatit, den mineralkristall som gör skelettet hårt och starkt. Det behövs också för energiproduktionen (ATP) i växande celler.',
+    'Magnesium deltar i över 300 enzymreaktioner, bland annat benbildning och kalciumomsättning. Det hjälper till att omvandla D-vitamin till sin aktiva form, som behövs för kalciumupptaget. Magnesiumbrist kan försämra skelettets tillväxt och minska bentätheten. Magnesium bidrar också till muskelavslappning och bättre sömn.',
+    'L-arginin är en aminosyra som direkt stimulerar hypofysen att frisätta tillväxthormon. Den är också ett förstadium till kväveoxid, som förbättrar blodflödet till växande vävnader. Studier visar att tillskott av arginin kan öka utsöndringen av HGH, särskilt i kombination med träning.',
   ],
 };
 
@@ -404,6 +473,42 @@ const _foodNames = <String, List<String>>{
     'संतरा', 'एवोकाडो', 'ब्लूबेरी', 'स्ट्रॉबेरी', 'कीवी',
     'जई (सूखी)', 'क्विनोआ (पकी)', 'ब्राउन राइस (पका)', 'साबुत गेहूं की रोटी',
     'बादाम', 'कद्दू के बीज', 'मूंगफली', 'काजू', 'सूरजमुखी के बीज', 'चिया बीज', 'अखरोट',
+  ],
+  'nl': [
+    'Volle melk', 'Griekse yoghurt', 'Cheddar', 'Cottage cheese', 'Mozzarella',
+    'Kipfilet', 'Kalkoenfilet', 'Biefstuk (lende)', 'Mager rundergehakt', 'Lamskotelet',
+    'Runderlever', 'Zalm', 'Sardines (blik)', 'Tonijn (blik, op water)', 'Garnalen',
+    'Makreel', 'Heel ei', 'Linzen (gekookt)', 'Kikkererwten (gekookt)', 'Zwarte bonen (gekookt)',
+    'Sojabonen (gekookt)', 'Tofu (stevig)', 'Spinazie (gekookt)', 'Broccoli', 'Boerenkool (gekookt)',
+    'Zoete aardappel', 'Wortels', 'Rode paprika', 'Edamame', 'Banaan',
+    'Sinaasappel', 'Avocado', 'Blauwe bessen', 'Aardbeien', 'Kiwi',
+    'Havermout (droog)', 'Quinoa (gekookt)', 'Zilvervliesrijst (gekookt)', 'Volkorenbrood', 'Amandelen',
+    'Pompoenpitten', 'Pinda\'s', 'Cashewnoten', 'Zonnebloempitten', 'Chiazaad',
+    'Walnoten',
+  ],
+  'pl': [
+    'Mleko pełnotłuste', 'Jogurt grecki', 'Ser cheddar', 'Serek wiejski', 'Mozzarella',
+    'Pierś z kurczaka', 'Pierś z indyka', 'Stek wołowy (rostbef)', 'Chuda mielona wołowina', 'Kotlet jagnięcy',
+    'Wątróbka wołowa', 'Łosoś', 'Sardynki (z puszki)', 'Tuńczyk (w wodzie, z puszki)', 'Krewetki',
+    'Makrela', 'Całe jajko', 'Soczewica (gotowana)', 'Ciecierzyca (gotowana)', 'Czarna fasola (gotowana)',
+    'Soja (gotowana)', 'Tofu (twarde)', 'Szpinak (gotowany)', 'Brokuły', 'Jarmuż (gotowany)',
+    'Batat', 'Marchewka', 'Czerwona papryka', 'Edamame', 'Banan',
+    'Pomarańcza', 'Awokado', 'Borówki', 'Truskawki', 'Kiwi',
+    'Płatki owsiane (suche)', 'Komosa ryżowa (gotowana)', 'Brązowy ryż (gotowany)', 'Chleb pełnoziarnisty', 'Migdały',
+    'Pestki dyni', 'Orzeszki ziemne', 'Orzechy nerkowca', 'Pestki słonecznika', 'Nasiona chia',
+    'Orzechy włoskie',
+  ],
+  'sv': [
+    'Standardmjölk', 'Grekisk yoghurt', 'Cheddarost', 'Keso', 'Mozzarella',
+    'Kycklingbröst', 'Kalkonbröst', 'Nötbiff (ryggbiff)', 'Mager nötfärs', 'Lammkotlett',
+    'Oxlever', 'Lax', 'Sardiner (konserv)', 'Tonfisk (i vatten, konserv)', 'Räkor',
+    'Makrill', 'Ägg (helt)', 'Linser (kokta)', 'Kikärtor (kokta)', 'Svarta bönor (kokta)',
+    'Sojabönor (kokta)', 'Tofu (fast)', 'Spenat (kokt)', 'Broccoli', 'Grönkål (kokt)',
+    'Sötpotatis', 'Morötter', 'Röd paprika', 'Edamame', 'Banan',
+    'Apelsin', 'Avokado', 'Blåbär', 'Jordgubbar', 'Kiwi',
+    'Havregryn (torra)', 'Quinoa (kokt)', 'Fullkornsris (kokt)', 'Fullkornsbröd', 'Mandlar',
+    'Pumpafrön', 'Jordnötter', 'Cashewnötter', 'Solrosfrön', 'Chiafrön',
+    'Valnötter',
   ],
 };
 

@@ -1289,6 +1289,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return 'Español';
       case 'it':
         return 'Italiano';
+      case 'nl':
+        return 'Nederlands';
+      case 'pl':
+        return 'Polski';
+      case 'sv':
+        return 'Svenska';
       default:
         return AppLocalizations.of(context)?.systemLanguage ?? 'System';
     }
@@ -1450,6 +1456,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       {'locale': const Locale('es'), 'name': 'Español', 'flag': '🇪🇸'},
       {'locale': const Locale('it'), 'name': 'Italiano', 'flag': '🇮🇹'},
       {'locale': const Locale('pt'), 'name': 'Português', 'flag': '🇧🇷'},
+      {'locale': const Locale('nl'), 'name': 'Nederlands', 'flag': '🇳🇱'},
+      {'locale': const Locale('pl'), 'name': 'Polski', 'flag': '🇵🇱'},
+      {'locale': const Locale('sv'), 'name': 'Svenska', 'flag': '🇸🇪'},
       {'locale': const Locale('hi'), 'name': 'हिन्दी', 'flag': '🇮🇳'},
     ];
 
