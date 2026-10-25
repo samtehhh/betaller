@@ -2124,5 +2124,15 @@
   "painPostureDescIn": "Una postura correcta puede añadir al instante hasta cerca de 1 pulgada. La rutina diaria de postura de BeTaller lo consolida en pocas semanas.",
   "routinePostureDescIn": "Mantén la espalda recta, hombros hacia atrás. Revisa cada hora. Buena postura = cerca de 1 pulgada de diferencia.",
   "sciPostureCheckIn": "Una buena postura puede hacerte parecer cerca de 1 pulgada más alto al instante y evita que la columna se comprima",
-  "routineProteinDescLb": "Huevos, pollo, pescado, lácteos. Al menos 0,7 g de proteína por lb de peso corporal al día."
+  "routineProteinDescLb": "Huevos, pollo, pescado, lácteos. Al menos 0,7 g de proteína por lb de peso corporal al día.",
+  "pwPersonalTitle": "Tu plan para llegar a {height} está listo",
+  "pwPersonalEstimate": "Potencial estimado según tus respuestas, no una garantía",
+  "pwPersonalReason": "Tu motivo: {reason}",
+  "pwPersonalBedtime": "Un recordatorio antes de dormir a las {time}",
+  "obParentUnknown": "No lo sé",
+  "obParentUnknownHint": "Usaremos la estatura adulta media en su lugar. Es menos preciso, y puedes añadirla en tu perfil cuando quieras.",
+  "obEthnicityWhy": "Solo se usa para estimar la estatura del padre o madre que no sabes.",
+  "resultNoParentNote": "Estimado sin la estatura de uno de tus padres, así que es menos preciso. Añádela en tu perfil cuando quieras.",
+  "resultNoParentsNote": "Estimado sin la estatura de tus padres, así que es menos preciso. Añádelas en tu perfil cuando quieras.",
+  "resultFootnoteEstimated": "Estimación basada en curvas de crecimiento y estaturas adultas medias. No es consejo médico."
 }

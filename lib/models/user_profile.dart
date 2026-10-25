@@ -32,6 +32,13 @@ class UserProfile {
   /// Calories a day, as the user reckons it.
   final int dailyCalories;
 
+  /// The user did not know this parent's height. [fatherHeight] or
+  /// [motherHeight] then holds an estimate (the adult average for that
+  /// parent's sex and the user's [ethnicity]), and the potential is shown
+  /// with a wider range. Profiles saved before this existed read as known.
+  final bool fatherHeightUnknown;
+  final bool motherHeightUnknown;
+
   UserProfile({
     required this.name,
     required this.gender,
@@ -47,6 +54,8 @@ class UserProfile {
     this.mealTimes = const ['08:00', '13:00', '19:00'],
     this.dailyProtein = 0,
     this.dailyCalories = 0,
+    this.fatherHeightUnknown = false,
+    this.motherHeightUnknown = false,
   }) : createdAt = createdAt ?? DateTime.now();
 
   int get age {
@@ -96,6 +105,8 @@ class UserProfile {
         'mealTimes': mealTimes,
         'dailyProtein': dailyProtein,
         'dailyCalories': dailyCalories,
+        'fatherHeightUnknown': fatherHeightUnknown,
+        'motherHeightUnknown': motherHeightUnknown,
       };
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
@@ -118,6 +129,8 @@ class UserProfile {
             const ['08:00', '13:00', '19:00'],
         dailyProtein: (json['dailyProtein'] as num?)?.toInt() ?? 0,
         dailyCalories: (json['dailyCalories'] as num?)?.toInt() ?? 0,
+        fatherHeightUnknown: json['fatherHeightUnknown'] == true,
+        motherHeightUnknown: json['motherHeightUnknown'] == true,
       );
 
   UserProfile copyWith({
@@ -134,6 +147,8 @@ class UserProfile {
     List<ClockTime>? mealTimes,
     int? dailyProtein,
     int? dailyCalories,
+    bool? fatherHeightUnknown,
+    bool? motherHeightUnknown,
   }) =>
       UserProfile(
         name: name ?? this.name,
@@ -150,5 +165,7 @@ class UserProfile {
         mealTimes: mealTimes ?? this.mealTimes,
         dailyProtein: dailyProtein ?? this.dailyProtein,
         dailyCalories: dailyCalories ?? this.dailyCalories,
+        fatherHeightUnknown: fatherHeightUnknown ?? this.fatherHeightUnknown,
+        motherHeightUnknown: motherHeightUnknown ?? this.motherHeightUnknown,
       );
 }

@@ -10,13 +10,79 @@ import 'height_reference.dart';
 class Calculations {
   // ── Temel Hesaplamalar ──────────────────────────────────────────
 
+  /// Mid-parental height: the parents' mean, plus 6.5 cm for a boy and
+  /// minus 6.5 cm for a girl. A parent whose height the user did not know
+  /// stands in at the adult average for that parent's sex and the user's
+  /// background ([averageParentHeight]).
   static double geneticPotentialHeight(UserProfile profile) {
+    final father = effectiveFatherHeight(profile);
+    final mother = effectiveMotherHeight(profile);
     if (profile.gender == 'male') {
-      return (profile.motherHeight + profile.fatherHeight + 13) / 2;
+      return (mother + father + 13) / 2;
     } else {
-      return (profile.motherHeight + profile.fatherHeight - 13) / 2;
+      return (mother + father - 13) / 2;
     }
   }
+
+  // ── Parents whose height is unknown ─────────────────────────────
+
+  /// Global adult means (NCD-RisC), in cm.
+  static const double adultMeanMale = 175.5;
+  static const double adultMeanFemale = 162.0;
+
+  /// Adult mean offsets from the global mean by background (NCD-RisC 2016),
+  /// in cm. Keys are the ethnicity ids the onboarding stores.
+  static const Map<String, double> maleEthnicityOffset = {
+    'white': 2.5,
+    'black': 0.5,
+    'hispanic': -2.5,
+    'asian': -4.5,
+    'middle_eastern': 0.0,
+    'no_answer': 0.0,
+  };
+  static const Map<String, double> femaleEthnicityOffset = {
+    'white': 2.0,
+    'black': 0.5,
+    'hispanic': -2.0,
+    'asian': -3.5,
+    'middle_eastern': -0.5,
+    'no_answer': 0.0,
+  };
+
+  /// The height used for a parent nobody could give: the adult average for
+  /// that parent's sex, moved by the background's offset. No background, or
+  /// one not listed, is the global average.
+  static double averageParentHeight({
+    required bool father,
+    String ethnicity = '',
+  }) {
+    final base = father ? adultMeanMale : adultMeanFemale;
+    final offsets = father ? maleEthnicityOffset : femaleEthnicityOffset;
+    return base + (offsets[ethnicity] ?? 0.0);
+  }
+
+  static double effectiveFatherHeight(UserProfile p) => p.fatherHeightUnknown
+      ? averageParentHeight(father: true, ethnicity: p.ethnicity)
+      : p.fatherHeight;
+
+  static double effectiveMotherHeight(UserProfile p) => p.motherHeightUnknown
+      ? averageParentHeight(father: false, ethnicity: p.ethnicity)
+      : p.motherHeight;
+
+  /// How many parent heights were estimated rather than given: 0, 1 or 2.
+  static int unknownParents(UserProfile p) =>
+      (p.fatherHeightUnknown ? 1 : 0) + (p.motherHeightUnknown ? 1 : 0);
+
+  static const double knownTargetRangeCm = 8.5;
+
+  /// Half-width of the mid-parental target range, in cm: ±8.5 cm with both
+  /// parents measured, wider when an average stands in for one (±12) or
+  /// both (±15), since a parent's real height can sit far from the average.
+  static double targetRangeCm(UserProfile p) => switch (unknownParents(p)) {
+        0 => knownTargetRangeCm,
+        1 => 12.0,
+        _ => 15.0,
+      };
 
   static double calculateBMI(double heightCm, double weightKg) {
     final heightM = heightCm / 100;
@@ -273,7 +339,14 @@ class Calculations {
 
     // ── 6. Güven & aralık ────────────────────────────────────────
     final confidence = _calculateConfidence(records, age);
-    final margin = (100 - confidence) * 0.06;
+    // A parent's height that was estimated widens the range by the extra
+    // width of the target range, in the share genetics has in the estimate.
+    // Past 20 the genetic part no longer moves the estimate, so neither
+    // does a missing parent.
+    final parentsMargin = age > 20
+        ? 0.0
+        : (targetRangeCm(profile) - knownTargetRangeCm) * geneticWeight;
+    final margin = (100 - confidence) * 0.06 + parentsMargin;
 
     final resultMin = math.max(finalEstimate - margin, profile.currentHeight);
     final resultMax = finalEstimate + margin;

@@ -2124,5 +2124,15 @@
   "painPostureDescIn": "Une bonne posture peut ajouter instantanément jusqu'à environ 1 pouce. La routine posturale quotidienne de BeTaller installe ça en quelques semaines.",
   "routinePostureDescIn": "Garde le dos droit, les épaules en arrière. Vérifie toutes les heures. Une bonne posture = environ 1 pouce de différence.",
   "sciPostureCheckIn": "Une bonne posture peut te faire paraître environ 1 pouce plus grand tout de suite et évite la compression de la colonne",
-  "routineProteinDescLb": "Œufs, poulet, poisson, produits laitiers. Au moins 0,7 g de protéines par lb de poids corporel par jour."
+  "routineProteinDescLb": "Œufs, poulet, poisson, produits laitiers. Au moins 0,7 g de protéines par lb de poids corporel par jour.",
+  "pwPersonalTitle": "Ton plan pour atteindre {height} est prêt",
+  "pwPersonalEstimate": "Potentiel estimé d'après tes réponses, pas une garantie",
+  "pwPersonalReason": "Ta raison : {reason}",
+  "pwPersonalBedtime": "Un rappel avant ton coucher de {time}",
+  "obParentUnknown": "Je ne sais pas",
+  "obParentUnknownHint": "On utilisera la taille adulte moyenne à la place. C'est moins précis, et tu peux l'ajouter dans ton profil quand tu veux.",
+  "obEthnicityWhy": "Sert uniquement à estimer la taille du parent que tu ne connais pas.",
+  "resultNoParentNote": "Estimé sans la taille d'un de tes parents, donc moins précis. Ajoute-la dans ton profil quand tu veux.",
+  "resultNoParentsNote": "Estimé sans la taille de tes parents, donc moins précis. Ajoute-les dans ton profil quand tu veux.",
+  "resultFootnoteEstimated": "Estimation basée sur des courbes de croissance et des tailles adultes moyennes. Ce n'est pas un avis médical."
 }

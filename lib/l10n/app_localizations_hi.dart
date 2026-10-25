@@ -6391,4 +6391,46 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get routineProteinDescLb =>
       'अंडे, चिकन, मछली, डेयरी। रोज़ शरीर के हर lb वज़न पर कम से कम 0.7 g प्रोटीन।';
+
+  @override
+  String pwPersonalTitle(String height) {
+    return '$height तक पहुँचने का तुम्हारा प्लान तैयार है';
+  }
+
+  @override
+  String get pwPersonalEstimate =>
+      'तुम्हारे जवाबों से अनुमानित पोटेंशियल, कोई गारंटी नहीं';
+
+  @override
+  String pwPersonalReason(String reason) {
+    return 'तुम्हारी वजह: $reason';
+  }
+
+  @override
+  String pwPersonalBedtime(String time) {
+    return '$time बजे सोने से पहले एक रिमाइंडर';
+  }
+
+  @override
+  String get obParentUnknown => 'पता नहीं';
+
+  @override
+  String get obParentUnknownHint =>
+      'हम इसकी जगह औसत वयस्क हाइट लेंगे। यह कम सटीक है, और तुम इसे कभी भी अपनी प्रोफ़ाइल में जोड़ सकते हो।';
+
+  @override
+  String get obEthnicityWhy =>
+      'सिर्फ़ उस पैरेंट की हाइट का अनुमान लगाने के लिए, जो तुम्हें नहीं पता।';
+
+  @override
+  String get resultNoParentNote =>
+      'एक पैरेंट की हाइट के बिना अनुमान, इसलिए कम सटीक। इसे कभी भी अपनी प्रोफ़ाइल में जोड़ो।';
+
+  @override
+  String get resultNoParentsNote =>
+      'तुम्हारे पैरेंट्स की हाइट के बिना अनुमान, इसलिए कम सटीक। इन्हें कभी भी अपनी प्रोफ़ाइल में जोड़ो।';
+
+  @override
+  String get resultFootnoteEstimated =>
+      'ग्रोथ-चार्ट डेटा और औसत वयस्क लंबाई पर आधारित अनुमान। यह चिकित्सा सलाह नहीं है।';
 }

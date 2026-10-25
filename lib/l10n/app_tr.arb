@@ -1975,5 +1975,15 @@
   "painPostureDescIn": "Doğru duruş sana anında yaklaşık 1 inç katabilir. BeTaller'ın günlük postür rutini bunu birkaç haftada yerleştirir.",
   "routinePostureDescIn": "Sırtını dik, omuzlarını geride tut. Her saat kontrol et. İyi duruş = yaklaşık 1 inç fark.",
   "sciPostureCheckIn": "Doğru duruş hizalaması, görünen boya anında yaklaşık 1 inç ekleyebilir ve omurga sıkışmasını önler",
-  "routineProteinDescLb": "Yumurta, tavuk, balık, süt ürünleri. Günde vücut ağırlığının her lb'si için en az 0,7 g protein."
+  "routineProteinDescLb": "Yumurta, tavuk, balık, süt ürünleri. Günde vücut ağırlığının her lb'si için en az 0,7 g protein.",
+  "pwPersonalTitle": "{height} boya ulaşma planın hazır",
+  "pwPersonalEstimate": "Cevaplarına göre tahmini potansiyel, garanti değil",
+  "pwPersonalReason": "Sebebin: {reason}",
+  "pwPersonalBedtime": "Saat {time} yatışından önce uyku hatırlatması",
+  "obParentUnknown": "Bilmiyorum",
+  "obParentUnknownHint": "Yerine ortalama yetişkin boyunu kullanacağız. Daha az kesin olur, istediğin zaman profilinden ekleyebilirsin.",
+  "obEthnicityWhy": "Sadece bilmediğin ebeveyn boyunu tahmin etmek için kullanılır.",
+  "resultNoParentNote": "Bir ebeveynin boyu olmadan tahmin edildi, bu yüzden daha az kesin. İstediğin zaman profilinden ekleyebilirsin.",
+  "resultNoParentsNote": "Anne ve babanın boyu olmadan tahmin edildi, bu yüzden daha az kesin. İstediğin zaman profilinden ekleyebilirsin.",
+  "resultFootnoteEstimated": "Büyüme eğrisi verilerine ve ortalama yetişkin boylarına dayalı bir tahmindir. Tıbbi tavsiye değildir."
 }

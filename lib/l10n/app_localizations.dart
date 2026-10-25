@@ -11401,6 +11401,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Eggs, chicken, fish, dairy. At least 0.7 g of protein per lb of body weight daily.'**
   String get routineProteinDescLb;
+
+  /// No description provided for @pwPersonalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan to reach {height} is ready'**
+  String pwPersonalTitle(String height);
+
+  /// No description provided for @pwPersonalEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated potential from your answers, not a guarantee'**
+  String get pwPersonalEstimate;
+
+  /// No description provided for @pwPersonalReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Your reason: {reason}'**
+  String pwPersonalReason(String reason);
+
+  /// No description provided for @pwPersonalBedtime.
+  ///
+  /// In en, this message translates to:
+  /// **'A wind-down reminder before your {time} bedtime'**
+  String pwPersonalBedtime(String time);
+
+  /// No description provided for @obParentUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'I don\'t know'**
+  String get obParentUnknown;
+
+  /// No description provided for @obParentUnknownHint.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll use the average adult height instead. Less precise, and you can add it in your profile anytime.'**
+  String get obParentUnknownHint;
+
+  /// No description provided for @obEthnicityWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Only used to estimate the parent\'s height you don\'t know.'**
+  String get obEthnicityWhy;
+
+  /// No description provided for @resultNoParentNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated without one parent\'s height, so less precise. Add it in your profile anytime.'**
+  String get resultNoParentNote;
+
+  /// No description provided for @resultNoParentsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated without your parents\' heights, so less precise. Add them in your profile anytime.'**
+  String get resultNoParentsNote;
+
+  /// No description provided for @resultFootnoteEstimated.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate based on growth-chart data and average adult heights. Not medical advice.'**
+  String get resultFootnoteEstimated;
 }
 
 class _AppLocalizationsDelegate

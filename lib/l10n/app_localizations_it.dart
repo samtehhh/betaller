@@ -6503,4 +6503,46 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get routineProteinDescLb =>
       'Uova, pollo, pesce, latticini. Almeno 0,7 g di proteine per lb di peso corporeo al giorno.';
+
+  @override
+  String pwPersonalTitle(String height) {
+    return 'Il tuo piano per arrivare a $height è pronto';
+  }
+
+  @override
+  String get pwPersonalEstimate =>
+      'Potenziale stimato dalle tue risposte, non una garanzia';
+
+  @override
+  String pwPersonalReason(String reason) {
+    return 'Il tuo motivo: $reason';
+  }
+
+  @override
+  String pwPersonalBedtime(String time) {
+    return 'Un promemoria prima di andare a letto alle $time';
+  }
+
+  @override
+  String get obParentUnknown => 'Non lo so';
+
+  @override
+  String get obParentUnknownHint =>
+      'Useremo l\'altezza media di un adulto. È meno preciso, e puoi aggiungerla nel profilo quando vuoi.';
+
+  @override
+  String get obEthnicityWhy =>
+      'Serve solo a stimare l\'altezza del genitore che non conosci.';
+
+  @override
+  String get resultNoParentNote =>
+      'Stimato senza l\'altezza di un genitore, quindi meno preciso. Aggiungila nel profilo quando vuoi.';
+
+  @override
+  String get resultNoParentsNote =>
+      'Stimato senza l\'altezza dei tuoi genitori, quindi meno preciso. Aggiungile nel profilo quando vuoi.';
+
+  @override
+  String get resultFootnoteEstimated =>
+      'Stima basata sulle curve di crescita e sulle altezze medie degli adulti. Non è un parere medico.';
 }

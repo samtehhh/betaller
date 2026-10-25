@@ -6404,4 +6404,46 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get routineProteinDescLb =>
       'Yumurta, tavuk, balık, süt ürünleri. Günde vücut ağırlığının her lb\'si için en az 0,7 g protein.';
+
+  @override
+  String pwPersonalTitle(String height) {
+    return '$height boya ulaşma planın hazır';
+  }
+
+  @override
+  String get pwPersonalEstimate =>
+      'Cevaplarına göre tahmini potansiyel, garanti değil';
+
+  @override
+  String pwPersonalReason(String reason) {
+    return 'Sebebin: $reason';
+  }
+
+  @override
+  String pwPersonalBedtime(String time) {
+    return 'Saat $time yatışından önce uyku hatırlatması';
+  }
+
+  @override
+  String get obParentUnknown => 'Bilmiyorum';
+
+  @override
+  String get obParentUnknownHint =>
+      'Yerine ortalama yetişkin boyunu kullanacağız. Daha az kesin olur, istediğin zaman profilinden ekleyebilirsin.';
+
+  @override
+  String get obEthnicityWhy =>
+      'Sadece bilmediğin ebeveyn boyunu tahmin etmek için kullanılır.';
+
+  @override
+  String get resultNoParentNote =>
+      'Bir ebeveynin boyu olmadan tahmin edildi, bu yüzden daha az kesin. İstediğin zaman profilinden ekleyebilirsin.';
+
+  @override
+  String get resultNoParentsNote =>
+      'Anne ve babanın boyu olmadan tahmin edildi, bu yüzden daha az kesin. İstediğin zaman profilinden ekleyebilirsin.';
+
+  @override
+  String get resultFootnoteEstimated =>
+      'Büyüme eğrisi verilerine ve ortalama yetişkin boylarına dayalı bir tahmindir. Tıbbi tavsiye değildir.';
 }

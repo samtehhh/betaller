@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ const _devices = <String, Size>{
   'iPhone SE 2020 / 8': Size(375, 667),
   'iPhone 11': Size(414, 896),
   'iPhone 15': Size(393, 852),
+  'iPhone 14': Size(390, 844),
   'Samsung A06': Size(360, 800),
 };
 
@@ -66,6 +68,70 @@ void main() {
             reason:
                 '${entry.key} @ ${entry.value.width}x${entry.value.height} '
                 '($lang) overflows on slide $i',
+          );
+        }
+      });
+    }
+  }
+
+  // ── The end-of-onboarding variant, with the user's own result ─────────────
+  //
+  // The longest real lines, in the longest languages: on a short phone the
+  // result stands in for the tour, on a tall one it sits above it.
+  for (final entry in _devices.entries) {
+    for (final lang in _locales) {
+      testWidgets('personal paywall fits ${entry.key} in $lang', (
+        tester,
+      ) async {
+        await tester.binding.setSurfaceSize(entry.value);
+        addTearDown(() => tester.binding.setSurfaceSize(null));
+        tester.view.physicalSize = entry.value;
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.reset);
+        final l = lookupAppLocalizations(Locale(lang));
+        final personal = PaywallPersonal(
+          headline: l.pwPersonalTitle('5\'11½"'),
+          estimateNote: l.pwPersonalEstimate,
+          lines: [
+            (Icons.star, l.pwPersonalReason(l.obWhyImpression)),
+            (Icons.alarm, l.obFixExercises),
+            (Icons.bedtime, l.pwPersonalBedtime('22:30')),
+          ],
+        );
+        await tester.pumpWidget(
+          _app(
+            lang: lang,
+            home: PremiumPaywallScreen(
+              personal: personal,
+              closeDelay: const Duration(seconds: 3),
+            ),
+          ),
+        );
+        await tester.pump(const Duration(milliseconds: 600));
+        expect(find.text(personal.headline), findsOneWidget);
+        expect(find.text(l.pwPersonalEstimate), findsOneWidget);
+        // Held back, then always there: never a trap.
+        double closeOpacity() => tester
+            .widget<AnimatedOpacity>(
+              find
+                  .ancestor(
+                    of: find.byIcon(CupertinoIcons.xmark),
+                    matching: find.byType(AnimatedOpacity),
+                  )
+                  .first,
+            )
+            .opacity;
+        expect(closeOpacity(), 0);
+        await tester.pump(const Duration(seconds: 3));
+        await tester.pump(const Duration(milliseconds: 500));
+        expect(closeOpacity(), 1);
+        for (var i = 0; i < kPaywallPreviews.length; i++) {
+          await tester.pump(const Duration(milliseconds: 2800));
+          await tester.pump(const Duration(milliseconds: 700));
+          expect(
+            tester.takeException(),
+            isNull,
+            reason: '${entry.key} ($lang) overflows with the personal result',
           );
         }
       });

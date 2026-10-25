@@ -1,0 +1,102 @@
+{
+  "pwPersonalTitle": {
+    "en": "Your plan to reach {height} is ready",
+    "tr": "{height} boya ulaşma planın hazır",
+    "de": "Dein Plan für {height} ist fertig",
+    "fr": "Ton plan pour atteindre {height} est prêt",
+    "es": "Tu plan para llegar a {height} está listo",
+    "it": "Il tuo piano per arrivare a {height} è pronto",
+    "pt": "Seu plano para chegar a {height} está pronto",
+    "hi": "{height} तक पहुँचने का तुम्हारा प्लान तैयार है"
+  },
+  "pwPersonalEstimate": {
+    "en": "Estimated potential from your answers, not a guarantee",
+    "tr": "Cevaplarına göre tahmini potansiyel, garanti değil",
+    "de": "Geschätztes Potenzial aus deinen Antworten, keine Garantie",
+    "fr": "Potentiel estimé d'après tes réponses, pas une garantie",
+    "es": "Potencial estimado según tus respuestas, no una garantía",
+    "it": "Potenziale stimato dalle tue risposte, non una garanzia",
+    "pt": "Potencial estimado pelas suas respostas, não uma garantia",
+    "hi": "तुम्हारे जवाबों से अनुमानित पोटेंशियल, कोई गारंटी नहीं"
+  },
+  "pwPersonalReason": {
+    "en": "Your reason: {reason}",
+    "tr": "Sebebin: {reason}",
+    "de": "Dein Grund: {reason}",
+    "fr": "Ta raison : {reason}",
+    "es": "Tu motivo: {reason}",
+    "it": "Il tuo motivo: {reason}",
+    "pt": "Seu motivo: {reason}",
+    "hi": "तुम्हारी वजह: {reason}"
+  },
+  "pwPersonalBedtime": {
+    "en": "A wind-down reminder before your {time} bedtime",
+    "tr": "Saat {time} yatışından önce uyku hatırlatması",
+    "de": "Eine Erinnerung vor deiner Schlafenszeit um {time}",
+    "fr": "Un rappel avant ton coucher de {time}",
+    "es": "Un recordatorio antes de dormir a las {time}",
+    "it": "Un promemoria prima di andare a letto alle {time}",
+    "pt": "Um lembrete antes de dormir às {time}",
+    "hi": "{time} बजे सोने से पहले एक रिमाइंडर"
+  },
+  "obParentUnknown": {
+    "en": "I don't know",
+    "tr": "Bilmiyorum",
+    "de": "Weiß ich nicht",
+    "fr": "Je ne sais pas",
+    "es": "No lo sé",
+    "it": "Non lo so",
+    "pt": "Não sei",
+    "hi": "पता नहीं"
+  },
+  "obParentUnknownHint": {
+    "en": "We'll use the average adult height instead. Less precise, and you can add it in your profile anytime.",
+    "tr": "Yerine ortalama yetişkin boyunu kullanacağız. Daha az kesin olur, istediğin zaman profilinden ekleyebilirsin.",
+    "de": "Wir nehmen stattdessen die durchschnittliche Erwachsenengröße. Weniger genau, und du kannst sie jederzeit im Profil eintragen.",
+    "fr": "On utilisera la taille adulte moyenne à la place. C'est moins précis, et tu peux l'ajouter dans ton profil quand tu veux.",
+    "es": "Usaremos la estatura adulta media en su lugar. Es menos preciso, y puedes añadirla en tu perfil cuando quieras.",
+    "it": "Useremo l'altezza media di un adulto. È meno preciso, e puoi aggiungerla nel profilo quando vuoi.",
+    "pt": "Vamos usar a altura média de um adulto. É menos preciso, e você pode adicionar no seu perfil quando quiser.",
+    "hi": "हम इसकी जगह औसत वयस्क हाइट लेंगे। यह कम सटीक है, और तुम इसे कभी भी अपनी प्रोफ़ाइल में जोड़ सकते हो।"
+  },
+  "obEthnicityWhy": {
+    "en": "Only used to estimate the parent's height you don't know.",
+    "tr": "Sadece bilmediğin ebeveyn boyunu tahmin etmek için kullanılır.",
+    "de": "Wird nur genutzt, um die Größe zu schätzen, die du nicht kennst.",
+    "fr": "Sert uniquement à estimer la taille du parent que tu ne connais pas.",
+    "es": "Solo se usa para estimar la estatura del padre o madre que no sabes.",
+    "it": "Serve solo a stimare l'altezza del genitore che non conosci.",
+    "pt": "Usado só para estimar a altura do pai ou da mãe que você não sabe.",
+    "hi": "सिर्फ़ उस पैरेंट की हाइट का अनुमान लगाने के लिए, जो तुम्हें नहीं पता।"
+  },
+  "resultNoParentNote": {
+    "en": "Estimated without one parent's height, so less precise. Add it in your profile anytime.",
+    "tr": "Bir ebeveynin boyu olmadan tahmin edildi, bu yüzden daha az kesin. İstediğin zaman profilinden ekleyebilirsin.",
+    "de": "Ohne die Größe eines Elternteils geschätzt, daher weniger genau. Trag sie jederzeit im Profil ein.",
+    "fr": "Estimé sans la taille d'un de tes parents, donc moins précis. Ajoute-la dans ton profil quand tu veux.",
+    "es": "Estimado sin la estatura de uno de tus padres, así que es menos preciso. Añádela en tu perfil cuando quieras.",
+    "it": "Stimato senza l'altezza di un genitore, quindi meno preciso. Aggiungila nel profilo quando vuoi.",
+    "pt": "Estimado sem a altura de um dos seus pais, então é menos preciso. Adicione no seu perfil quando quiser.",
+    "hi": "एक पैरेंट की हाइट के बिना अनुमान, इसलिए कम सटीक। इसे कभी भी अपनी प्रोफ़ाइल में जोड़ो।"
+  },
+  "resultFootnoteEstimated": {
+    "en": "Estimate based on growth-chart data and average adult heights. Not medical advice.",
+    "tr": "Büyüme eğrisi verilerine ve ortalama yetişkin boylarına dayalı bir tahmindir. Tıbbi tavsiye değildir.",
+    "de": "Schätzung anhand von Wachstumskurven und durchschnittlichen Erwachsenengrößen. Keine medizinische Beratung.",
+    "fr": "Estimation basée sur des courbes de croissance et des tailles adultes moyennes. Ce n'est pas un avis médical.",
+    "es": "Estimación basada en curvas de crecimiento y estaturas adultas medias. No es consejo médico.",
+    "it": "Stima basata sulle curve di crescita e sulle altezze medie degli adulti. Non è un parere medico.",
+    "pt": "Estimativa baseada em curvas de crescimento e alturas médias de adultos. Não é aconselhamento médico.",
+    "hi": "ग्रोथ-चार्ट डेटा और औसत वयस्क लंबाई पर आधारित अनुमान। यह चिकित्सा सलाह नहीं है।"
+  },
+  "resultNoParentsNote": {
+    "en": "Estimated without your parents' heights, so less precise. Add them in your profile anytime.",
+    "tr": "Anne ve babanın boyu olmadan tahmin edildi, bu yüzden daha az kesin. İstediğin zaman profilinden ekleyebilirsin.",
+    "de": "Ohne die Größe deiner Eltern geschätzt, daher weniger genau. Trag sie jederzeit im Profil ein.",
+    "fr": "Estimé sans la taille de tes parents, donc moins précis. Ajoute-les dans ton profil quand tu veux.",
+    "es": "Estimado sin la estatura de tus padres, así que es menos preciso. Añádelas en tu perfil cuando quieras.",
+    "it": "Stimato senza l'altezza dei tuoi genitori, quindi meno preciso. Aggiungile nel profilo quando vuoi.",
+    "pt": "Estimado sem a altura dos seus pais, então é menos preciso. Adicione no seu perfil quando quiser.",
+    "hi": "तुम्हारे पैरेंट्स की हाइट के बिना अनुमान, इसलिए कम सटीक। इन्हें कभी भी अपनी प्रोफ़ाइल में जोड़ो।"
+  }
+}

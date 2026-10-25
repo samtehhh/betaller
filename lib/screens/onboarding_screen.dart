@@ -25,6 +25,7 @@ import '../utils/num_format.dart';
 import '../utils/exercise_guides.dart';
 import '../utils/localized_data.dart';
 import '../widgets/plan_widgets.dart';
+import '../widgets/premium_paywall.dart';
 
 // ─── The flow ─────────────────────────────────────────────────────────────────
 //
@@ -128,6 +129,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   int _selectedMotherHeight = 162; // cm
   int _dadFt = 5, _dadIn = 9;
   int _momFt = 5, _momIn = 4;
+
+  /// "I don't know" for a parent: an average height stands in for theirs
+  /// (Calculations.averageParentHeight), the background question is asked
+  /// to make that average closer, and the result says it is less precise.
+  bool _fatherUnknown = false;
+  bool _motherUnknown = false;
+
+  /// The background question only matters for a parent whose height is
+  /// missing, so it is asked only then.
+  bool get _asksEthnicity => _fatherUnknown || _motherUnknown;
 
   // ── Lifestyle questions ──────────────────────────────────────────────────────
   String _weeklyWorkout = '';
@@ -280,6 +291,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       return;
     }
     var next = page.index + 1;
+    if (_Page.values[next] == _Page.ethnicity && !_asksEthnicity) next++;
     if (_Page.values[next] == _Page.pastHeights) {
       _initObPastHeights();
       // Past heights start at age 10, so a 9- or 10-year-old has none to
@@ -361,21 +373,37 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   /// The profile as answered so far. The reminders and "Built for you" pages
   /// use it to show real numbers before anything is saved.
-  UserProfile _draftProfile() => UserProfile(
-    name: 'User',
-    gender: _gender,
-    birthDate: _birthDate.toIso8601String().substring(0, 10),
-    currentHeight: _selectedHeight.toDouble(),
-    weight: _selectedWeight.toDouble(),
-    fatherHeight: _selectedFatherHeight.toDouble(),
-    motherHeight: _selectedMotherHeight.toDouble(),
-    ethnicity: _ethnicity,
-    bedtime: _bedtime,
-    workoutTime: _workoutTime,
-    mealTimes: _mealTimes,
-    dailyProtein: _proteinUnknown ? 0 : _dailyProtein,
-    dailyCalories: _caloriesUnknown ? 0 : _dailyCalories,
-  );
+  UserProfile _draftProfile() {
+    // Not asked when both parents are known, so nothing is kept from a
+    // visit made before both were filled in.
+    final ethnicity = _asksEthnicity ? _ethnicity : '';
+    return UserProfile(
+      name: 'User',
+      gender: _gender,
+      birthDate: _birthDate.toIso8601String().substring(0, 10),
+      currentHeight: _selectedHeight.toDouble(),
+      weight: _selectedWeight.toDouble(),
+      // An unknown parent is saved at the average that stands in for them, so
+      // the profile shows the number the estimate used.
+      fatherHeight: _fatherUnknown
+          ? Calculations.averageParentHeight(father: true, ethnicity: ethnicity)
+          : _selectedFatherHeight.toDouble(),
+      motherHeight: _motherUnknown
+          ? Calculations.averageParentHeight(
+              father: false,
+              ethnicity: ethnicity,
+            )
+          : _selectedMotherHeight.toDouble(),
+      fatherHeightUnknown: _fatherUnknown,
+      motherHeightUnknown: _motherUnknown,
+      ethnicity: ethnicity,
+      bedtime: _bedtime,
+      workoutTime: _workoutTime,
+      mealTimes: _mealTimes,
+      dailyProtein: _proteinUnknown ? 0 : _dailyProtein,
+      dailyCalories: _caloriesUnknown ? 0 : _dailyCalories,
+    );
+  }
 
   void _computeAnalysisResults() {
     final profile = _draftProfile();
@@ -396,6 +424,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       return;
     }
     var prev = _currentPage - 1;
+    if (_Page.values[prev] == _Page.ethnicity && !_asksEthnicity) prev--;
     if (_Page.values[prev] == _Page.pastHeights) {
       // Entered from the far side: start the ages over, and step past the
       // page altogether for someone too young to have any.
@@ -1839,9 +1868,96 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // Parents height
   // ─────────────────────────────────────────────────────────────────────────────
 
+  void _setParentUnknown({required bool father, required bool unknown}) {
+    if (unknown == (father ? _fatherUnknown : _motherUnknown)) return;
+    Haptics.select();
+    setState(() {
+      if (father) {
+        _fatherUnknown = unknown;
+      } else {
+        _motherUnknown = unknown;
+      }
+    });
+  }
+
   Widget _buildParentsPage() {
     final l = AppLocalizations.of(context)!;
     final unitKey = _heightImperial ? 'imp' : 'met';
+    final dad = _heightImperial
+        ? [
+            _PickerBox(
+              accent: AppColors.pink,
+              key: ValueKey('dft_$unitKey'),
+              initialItem: (_dadFt - 4).clamp(0, 4),
+              items: List.generate(5, (i) => '${i + 4} ft'),
+              onChanged: (i) => setState(() {
+                _dadFt = i + 4;
+                _selectedFatherHeight = _ftInToCm(_dadFt, _dadIn);
+              }),
+            ),
+            _PickerBox(
+              accent: AppColors.pink,
+              key: ValueKey('din_$unitKey'),
+              initialItem: _dadIn.clamp(0, 11),
+              items: List.generate(12, (i) => '$i in'),
+              onChanged: (i) => setState(() {
+                _dadIn = i;
+                _selectedFatherHeight = _ftInToCm(_dadFt, _dadIn);
+              }),
+            ),
+          ]
+        : [
+            _PickerBox(
+              accent: AppColors.pink,
+              key: ValueKey('dcm_$unitKey'),
+              initialItem: (_selectedFatherHeight - 100).clamp(0, 120),
+              items: List.generate(121, (i) => '${i + 100} cm'),
+              onChanged: (i) => setState(() {
+                _selectedFatherHeight = i + 100;
+                _dadFt = _cmToFt(_selectedFatherHeight);
+                _dadIn = _cmToIn(_selectedFatherHeight);
+              }),
+            ),
+          ];
+    final mom = _heightImperial
+        ? [
+            _PickerBox(
+              accent: AppColors.pink,
+              key: ValueKey('mft_$unitKey'),
+              initialItem: (_momFt - 4).clamp(0, 4),
+              items: List.generate(5, (i) => '${i + 4} ft'),
+              onChanged: (i) => setState(() {
+                _momFt = i + 4;
+                _selectedMotherHeight = _ftInToCm(_momFt, _momIn);
+              }),
+            ),
+            _PickerBox(
+              accent: AppColors.pink,
+              key: ValueKey('min_$unitKey'),
+              initialItem: _momIn.clamp(0, 11),
+              items: List.generate(12, (i) => '$i in'),
+              onChanged: (i) => setState(() {
+                _momIn = i;
+                _selectedMotherHeight = _ftInToCm(_momFt, _momIn);
+              }),
+            ),
+          ]
+        : [
+            _PickerBox(
+              accent: AppColors.pink,
+              key: ValueKey('mcm_$unitKey'),
+              initialItem: (_selectedMotherHeight - 100).clamp(0, 120),
+              items: List.generate(121, (i) => '${i + 100} cm'),
+              onChanged: (i) => setState(() {
+                _selectedMotherHeight = i + 100;
+                _momFt = _cmToFt(_selectedMotherHeight);
+                _momIn = _cmToIn(_selectedMotherHeight);
+              }),
+            ),
+          ];
+    final speed = MediaQuery.of(context).disableAnimations
+        ? Duration.zero
+        : const Duration(milliseconds: 220);
     return _ScrollPickerPage(
       title: l.parentsHeight,
       subtitle: l.onboardingPredictSubtitle,
@@ -1853,99 +1969,61 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         isRight: !_heightImperial,
         onToggle: (isMetric) => setState(() => _heightImperial = !isMetric),
       ),
-      headerRow: _pickerHeaders(
-        _heightImperial
-            ? [l.dadLabel, '', l.motherLabel, '']
-            : [l.dadLabel, l.motherLabel],
-        flex: _heightImperial ? [1, 1, 1, 1] : [1, 1],
-      ),
-      child: _heightImperial
-          ? Row(
+      headerRow: _pickerHeaders([l.dadLabel, l.motherLabel], flex: [1, 1]),
+      child: Column(
+        children: [
+          Expanded(
+            child: Row(
               children: [
                 Expanded(
-                  child: _PickerBox(
+                  child: _UnknownableParent(
+                    id: 'father',
                     accent: AppColors.pink,
-                    key: ValueKey('dft_$unitKey'),
-                    initialItem: (_dadFt - 4).clamp(0, 4),
-                    items: List.generate(5, (i) => '${i + 4} ft'),
-                    onChanged: (i) => setState(() {
-                      _dadFt = i + 4;
-                      _selectedFatherHeight = _ftInToCm(_dadFt, _dadIn);
-                    }),
+                    unknown: _fatherUnknown,
+                    unknownLabel: l.obParentUnknown,
+                    pickers: dad,
+                    onUnknownChanged: (v) =>
+                        _setParentUnknown(father: true, unknown: v),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: _PickerBox(
+                  child: _UnknownableParent(
+                    id: 'mother',
                     accent: AppColors.pink,
-                    key: ValueKey('din_$unitKey'),
-                    initialItem: _dadIn.clamp(0, 11),
-                    items: List.generate(12, (i) => '$i in'),
-                    onChanged: (i) => setState(() {
-                      _dadIn = i;
-                      _selectedFatherHeight = _ftInToCm(_dadFt, _dadIn);
-                    }),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: _PickerBox(
-                    accent: AppColors.pink,
-                    key: ValueKey('mft_$unitKey'),
-                    initialItem: (_momFt - 4).clamp(0, 4),
-                    items: List.generate(5, (i) => '${i + 4} ft'),
-                    onChanged: (i) => setState(() {
-                      _momFt = i + 4;
-                      _selectedMotherHeight = _ftInToCm(_momFt, _momIn);
-                    }),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: _PickerBox(
-                    accent: AppColors.pink,
-                    key: ValueKey('min_$unitKey'),
-                    initialItem: _momIn.clamp(0, 11),
-                    items: List.generate(12, (i) => '$i in'),
-                    onChanged: (i) => setState(() {
-                      _momIn = i;
-                      _selectedMotherHeight = _ftInToCm(_momFt, _momIn);
-                    }),
-                  ),
-                ),
-              ],
-            )
-          : Row(
-              children: [
-                Expanded(
-                  child: _PickerBox(
-                    accent: AppColors.pink,
-                    key: ValueKey('dcm_$unitKey'),
-                    initialItem: (_selectedFatherHeight - 100).clamp(0, 120),
-                    items: List.generate(121, (i) => '${i + 100} cm'),
-                    onChanged: (i) => setState(() {
-                      _selectedFatherHeight = i + 100;
-                      _dadFt = _cmToFt(_selectedFatherHeight);
-                      _dadIn = _cmToIn(_selectedFatherHeight);
-                    }),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: _PickerBox(
-                    accent: AppColors.pink,
-                    key: ValueKey('mcm_$unitKey'),
-                    initialItem: (_selectedMotherHeight - 100).clamp(0, 120),
-                    items: List.generate(121, (i) => '${i + 100} cm'),
-                    onChanged: (i) => setState(() {
-                      _selectedMotherHeight = i + 100;
-                      _momFt = _cmToFt(_selectedMotherHeight);
-                      _momIn = _cmToIn(_selectedMotherHeight);
-                    }),
+                    unknown: _motherUnknown,
+                    unknownLabel: l.obParentUnknown,
+                    pickers: mom,
+                    onUnknownChanged: (v) =>
+                        _setParentUnknown(father: false, unknown: v),
                   ),
                 ),
               ],
             ),
+          ),
+          // What happens instead, while either is picked.
+          AnimatedSize(
+            duration: speed,
+            curve: Curves.easeOutCubic,
+            alignment: Alignment.topCenter,
+            child: _asksEthnicity
+                ? Padding(
+                    padding: const EdgeInsets.fromLTRB(4, 10, 4, 0),
+                    child: Text(
+                      l.obParentUnknownHint,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        height: 1.35,
+                        color: Colors.white.withValues(alpha: 0.6),
+                      ),
+                    ),
+                  )
+                : const SizedBox(width: double.infinity),
+          ),
+          const SizedBox(height: 10),
+        ],
+      ),
     );
   }
 
@@ -1994,7 +2072,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final l = AppLocalizations.of(context)!;
     return _RadioListPage(
       title: l.whatsYourEthnicity,
-      subtitle: l.onboardingPredictSubtitle,
+      subtitle: l.obEthnicityWhy,
       icon: CupertinoIcons.globe,
       accent: AppColors.cyan,
       options: [
@@ -4561,6 +4639,112 @@ class _UnknownableTimeWheels extends StatelessWidget {
   }
 }
 
+/// One parent's height wheels with an honest way out, the same pattern as
+/// the bedtime's "I don't know": picked, the wheels dim, and a touch on them
+/// hands the answer back to the wheels.
+class _UnknownableParent extends StatelessWidget {
+  /// 'father' or 'mother', for the keys the parts are found by.
+  final String id;
+  final Color accent;
+  final bool unknown;
+  final String unknownLabel;
+  final List<Widget> pickers;
+  final ValueChanged<bool> onUnknownChanged;
+
+  const _UnknownableParent({
+    required this.id,
+    required this.accent,
+    required this.unknown,
+    required this.unknownLabel,
+    required this.pickers,
+    required this.onUnknownChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final speed = MediaQuery.of(context).disableAnimations
+        ? Duration.zero
+        : const Duration(milliseconds: 220);
+    return Column(
+      children: [
+        Expanded(
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: AnimatedOpacity(
+                  duration: speed,
+                  opacity: unknown ? 0.3 : 1,
+                  child: IgnorePointer(
+                    ignoring: unknown,
+                    child: Row(
+                      children: [
+                        for (var i = 0; i < pickers.length; i++) ...[
+                          if (i > 0) const SizedBox(width: 8),
+                          Expanded(child: pickers[i]),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              if (unknown)
+                Positioned.fill(
+                  child: Listener(
+                    key: ValueKey('parent-wheels-wake-$id'),
+                    behavior: HitTestBehavior.opaque,
+                    onPointerDown: (_) => onUnknownChanged(false),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        GestureDetector(
+          key: ValueKey('parent-unknown-$id'),
+          onTap: () => onUnknownChanged(!unknown),
+          child: AnimatedContainer(
+            duration: speed,
+            width: double.infinity,
+            padding: const EdgeInsets.fromLTRB(10, 11, 10, 11),
+            decoration: BoxDecoration(
+              color: unknown
+                  ? accent.withValues(alpha: 0.16)
+                  : Colors.white.withValues(alpha: 0.04),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: unknown
+                    ? accent.withValues(alpha: 0.7)
+                    : Colors.white.withValues(alpha: 0.08),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _RadioDot(selected: unknown, accent: accent),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    unknownLabel,
+                    maxLines: 2,
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      height: 1.2,
+                      fontWeight: FontWeight.w700,
+                      color: unknown
+                          ? Colors.white
+                          : Colors.white.withValues(alpha: 0.7),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 /// One meal on the meals page: which meal it is, when it is, and a hint that
 /// tapping changes it.
 class _MealTimeRow extends StatelessWidget {
@@ -5868,10 +6052,25 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
     super.dispose();
   }
 
-  void _enter() {
+  bool _entering = false;
+
+  /// The result has just landed, which is when wanting the plan peaks. So
+  /// the paywall opens here, with that result on it, and the app tour comes
+  /// after it either way. It takes today's automatic slot, so the tour's own
+  /// paywall does not follow it the same day; a premium user gets none.
+  Future<void> _enter() async {
+    if (_entering) return;
+    _entering = true;
     Haptics.success();
-    // Straight into the app. The paywall no longer interrupts here: it opens
-    // when the app tour finishes, once the user has seen what it unlocks.
+    final provider = context.read<AppProvider>();
+    if (provider.takeDailyPaywallSlot()) {
+      await showPremiumPaywall(
+        context,
+        closeDelay: const Duration(seconds: 3),
+        personal: _personalPaywall(AppLocalizations.of(context)!, provider),
+      );
+    }
+    if (!mounted) return;
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 500),
@@ -6108,6 +6307,54 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
   }
 }
 
+/// The paywall's header at the end of the onboarding, from the user's own
+/// result and answers: the potential in their unit, said to be an estimate,
+/// then their main reason, the fix for their top blocker and their bedtime
+/// (or, where an answer is missing, the training plan).
+PaywallPersonal _personalPaywall(AppLocalizations l, AppProvider p) {
+  final profile = p.profile;
+  final answers = p.onboardingAnswers;
+  final lines = <(IconData, String)>[];
+  final reason = p.mainWhyTaller;
+  if (reason != null) {
+    lines.add((
+      _OnboardingScreenState._whyIcons[reason] ?? CupertinoIcons.sparkles,
+      l.pwPersonalReason(_OnboardingScreenState._whyLabel(l, reason)),
+    ));
+  }
+  final blocker = p.topBlocker;
+  if (blocker != null) {
+    lines.add((
+      _OnboardingScreenState._blockerIcons[blocker] ?? CupertinoIcons.bell_fill,
+      _OnboardingScreenState._blockerFix(l, blocker),
+    ));
+  }
+  // A bedtime the user gave, unless the blocker line already covers sleep.
+  if (profile != null &&
+      answers['bedtimeUnknown'] != true &&
+      blocker != 'bedtime') {
+    lines.add((
+      CupertinoIcons.moon_stars_fill,
+      l.pwPersonalBedtime(profile.bedtime),
+    ));
+  }
+  if (lines.length < 3 && profile != null) {
+    final plan = WeeklyPlan.forAnswers(
+      weeklyWorkout: answers['weeklyWorkout'] as String? ?? '',
+      age: profile.age,
+    );
+    lines.add((
+      Icons.fitness_center_rounded,
+      l.planPreviewTraining(plan.trainingDays),
+    ));
+  }
+  return PaywallPersonal(
+    headline: l.pwPersonalTitle(p.formatHeight(p.potentialHeight)),
+    estimateNote: l.pwPersonalEstimate,
+    lines: lines,
+  );
+}
+
 /// The questionnaire's payoff, shown before the paywall asks for anything: the
 /// predicted adult height, where the user stands among people their age, and
 /// roughly how much growth the estimate leaves. The paywall used to arrive
@@ -6211,9 +6458,44 @@ class _PredictionResultCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _PlanPreview(profile: profile, answers: p.onboardingAnswers),
+          // An average stood in for a parent: the range above is wider, and
+          // this says why and how to make it sharper.
+          if (Calculations.unknownParents(profile) > 0) ...[
+            const SizedBox(height: 12),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 1),
+                  child: Icon(
+                    CupertinoIcons.info_circle,
+                    size: 14,
+                    color: Colors.white.withValues(alpha: 0.6),
+                  ),
+                ),
+                const SizedBox(width: 7),
+                Expanded(
+                  child: Text(
+                    Calculations.unknownParents(profile) == 2
+                        ? l.resultNoParentsNote
+                        : l.resultNoParentNote,
+                    key: const ValueKey('result-no-parents-note'),
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1.4,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white.withValues(alpha: 0.65),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
           const SizedBox(height: 12),
           Text(
-            l.resultFootnote,
+            Calculations.unknownParents(profile) > 0
+                ? l.resultFootnoteEstimated
+                : l.resultFootnote,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 10.5,
