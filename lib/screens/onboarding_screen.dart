@@ -12,6 +12,7 @@ import '../models/onboarding_answers.dart';
 import '../models/reminder.dart';
 import '../models/user_profile.dart';
 import '../providers/app_provider.dart';
+import '../services/analytics.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import 'main_screen.dart';
@@ -223,6 +224,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   void initState() {
     super.initState();
+    Analytics.track('onboarding_start');
     // Open the height/weight pickers in whichever unit the app already
     // defaults to (imperial for the US/Canada, metric everywhere else) —
     // the user can still flip the toggle on either page.
@@ -266,6 +268,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   /// Moves the flow to [page]. With reduced motion on, the slide collapses to
   /// its end state.
   void _goTo(int page) {
+    _trackStep(page);
     setState(() => _currentPage = page);
     if (MediaQuery.of(context).disableAnimations) {
       _pageController.jumpToPage(page);
@@ -278,6 +281,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     }
   }
 
+  /// One event per onboarding page reached, so the funnel shows where
+  /// people stop. Going back is tagged, not counted as progress.
+  void _trackStep(int page) {
+    Analytics.track('onboarding_step', {
+      'step': _Page.values[page].name,
+      'index': page,
+      'back': page < _currentPage,
+    });
+  }
+
   void _nextPage() {
     FocusScope.of(context).unfocus();
     final page = _page;
@@ -286,6 +299,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     if (page == _kLastQuestion) {
       // Pre-compute profile & predictions before showing analyzing page
       _computeAnalysisResults();
+      _trackStep(_Page.analyzing.index);
       setState(() => _currentPage = _Page.analyzing.index);
       _pageController.jumpToPage(_Page.analyzing.index);
       return;
@@ -6062,12 +6076,14 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
     if (_entering) return;
     _entering = true;
     Haptics.success();
+    Analytics.track('onboarding_complete');
     final provider = context.read<AppProvider>();
     if (provider.takeDailyPaywallSlot()) {
       await showPremiumPaywall(
         context,
         closeDelay: const Duration(seconds: 3),
         personal: _personalPaywall(AppLocalizations.of(context)!, provider),
+        source: 'onboarding',
       );
     }
     if (!mounted) return;

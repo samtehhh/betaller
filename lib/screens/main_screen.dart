@@ -105,7 +105,11 @@ class _MainScreenState extends State<MainScreen> {
     Future.delayed(const Duration(milliseconds: 1200), () {
       if (!mounted || _tourActive) return;
       if (!context.read<AppProvider>().takeDailyPaywallSlot()) return;
-      showPremiumPaywall(context, closeDelay: const Duration(seconds: 2));
+      showPremiumPaywall(
+        context,
+        closeDelay: const Duration(seconds: 2),
+        source: 'daily',
+      );
     });
   }
 
@@ -140,6 +144,7 @@ class _MainScreenState extends State<MainScreen> {
         await showPremiumPaywall(
           context,
           closeDelay: const Duration(seconds: 3),
+          source: 'tour',
         );
       }
     }

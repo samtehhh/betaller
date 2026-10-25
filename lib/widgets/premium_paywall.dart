@@ -15,6 +15,7 @@ import '../l10n/app_localizations.dart';
 import '../services/notification_service.dart';
 import '../utils/haptics.dart';
 import '../providers/app_provider.dart';
+import '../services/analytics.dart';
 import '../services/purchase_service.dart';
 import '../utils/constants.dart';
 import 'paywall_previews.dart';
@@ -39,9 +40,11 @@ Future<bool?> showPremiumPaywall(
   Duration closeDelay = Duration.zero,
   String? reason,
   PaywallPersonal? personal,
+  String source = 'other',
 }) async {
   if (!context.mounted) return false;
   if (isPaywallOpen) return null;
+  Analytics.track('paywall_view', {'source': source});
   // Keeps the rating prompt out of the minutes after a sales screen.
   try {
     context.read<AppProvider>().notePaywallShown();
@@ -56,7 +59,12 @@ Future<bool?> showPremiumPaywall(
   );
   _openPaywall = route;
   try {
-    return await Navigator.push<bool>(context, route);
+    final bought = await Navigator.push<bool>(context, route);
+    Analytics.track('paywall_close', {
+      'source': source,
+      'bought': bought == true,
+    });
+    return bought;
   } finally {
     if (identical(_openPaywall, route)) _openPaywall = null;
   }
@@ -617,7 +625,12 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
                       annualOffer: annualOffer,
                       weeklyOffer: weeklyOffer,
                       onSelectPlan: (i) => setState(() {
-                        if (i != _selectedPlan) Haptics.select();
+                        if (i != _selectedPlan) {
+                          Haptics.select();
+                          Analytics.track('paywall_plan', {
+                            'plan': const ['monthly', 'lifetime', 'weekly'][i],
+                          });
+                        }
                         _selectedPlan = i;
                         _userPicked = true;
                       }),

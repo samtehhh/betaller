@@ -52,7 +52,11 @@ String freeChipLabel(AppLocalizations l, FreeFeature f) =>
 /// Opens the paywall for a locked tap on [f], with its reason line.
 Future<bool?> showPaywallFor(BuildContext context, FreeFeature f) {
   final l = AppLocalizations.of(context)!;
-  return showPremiumPaywall(context, reason: freeReason(l, f));
+  return showPremiumPaywall(
+    context,
+    reason: freeReason(l, f),
+    source: 'feature_${f.name}',
+  );
 }
 
 /// The limit sheet on screen, if any. Like the paywall's guard, a route

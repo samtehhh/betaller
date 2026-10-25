@@ -73,7 +73,7 @@ Future<void> _initDeepLinks() async {
       // The link was tapped on purpose, so it always opens; it just uses up
       // today's automatic showing so the two never stack.
       context.read<AppProvider>().takeDailyPaywallSlot();
-      unawaited(showPremiumPaywall(context));
+      unawaited(showPremiumPaywall(context, source: 'deeplink'));
     }
   }
 
