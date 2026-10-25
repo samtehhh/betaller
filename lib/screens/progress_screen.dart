@@ -12,6 +12,7 @@ import '../utils/constants.dart';
 import '../utils/free_tier.dart';
 import '../widgets/free_tier_widgets.dart';
 import '../widgets/height_silhouette.dart';
+import '../widgets/measure_fields.dart';
 import '../widgets/potential_chart.dart';
 import '../widgets/tour_keys.dart';
 import 'weekly_report_screen.dart';
@@ -292,7 +293,9 @@ class ProgressScreenState extends State<ProgressScreen>
                       color: AppColors.lime,
                       icon: Icons.accessibility_new_rounded,
                       title: l.explorePosture,
-                      benefit: l.postureBenefit,
+                      benefit: provider.useImperial
+                          ? l.postureBenefitIn
+                          : l.postureBenefit,
                       state: provider.postureAnalyses.isEmpty
                           ? l.postureSummaryEmpty
                           : l.postureSummaryScore(
@@ -431,13 +434,12 @@ class ProgressScreenState extends State<ProgressScreen>
 
   void _showAddMeasurementSheet(BuildContext context, AppProvider provider) {
     final l = AppLocalizations.of(context)!;
-    final controller = TextEditingController();
     final profile = provider.profile;
-    if (profile != null) {
-      controller.text = provider
-          .heightNumber(profile.currentHeight)
-          .toStringAsFixed(1);
-    }
+    // cm, or ft + in like the onboarding picker.
+    final input = MeasureFields.height(
+      provider.units,
+      profile?.currentHeight ?? provider.latestHeight,
+    );
     DateTime selectedDate = DateTime.now();
 
     showModalBottomSheet(
@@ -550,7 +552,7 @@ class ProgressScreenState extends State<ProgressScreen>
                   ),
                 ),
                 const SizedBox(height: 24),
-                TextField(
+                input.build((controller, suffix, _) => TextField(
                   controller: controller,
                   keyboardType: const TextInputType.numberWithOptions(
                     decimal: true,
@@ -564,7 +566,7 @@ class ProgressScreenState extends State<ProgressScreen>
                   textAlign: TextAlign.center,
                   cursorColor: AppColors.primary,
                   decoration: InputDecoration(
-                    suffixText: provider.heightUnit,
+                    suffixText: suffix,
                     suffixStyle: TextStyle(
                       fontSize: 16,
                       color: AppColors.textSecondary,
@@ -595,7 +597,7 @@ class ProgressScreenState extends State<ProgressScreen>
                       vertical: 16,
                     ),
                   ),
-                ),
+                )),
                 const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
@@ -603,12 +605,7 @@ class ProgressScreenState extends State<ProgressScreen>
                     color: AppColors.primary,
                     borderRadius: BorderRadius.circular(14),
                     onPressed: () {
-                      final typed = double.tryParse(
-                        controller.text.replaceAll(',', '.'),
-                      );
-                      final height = typed == null
-                          ? null
-                          : provider.heightFromInput(typed);
+                      final height = input.value;
                       if (height != null && height > 50 && height < 250) {
                         // Drop focus (and the keyboard/text-selection overlay
                         // that comes with it) before the save below tears

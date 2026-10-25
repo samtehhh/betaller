@@ -98,6 +98,7 @@ class LeaderboardScreen extends StatelessWidget {
                   heightCm: height,
                   refs: refs,
                   color: AppColors.primary,
+                  label: provider.formatHeightAxis,
                 ),
                 const SizedBox(height: 24),
 
@@ -348,13 +349,13 @@ class _HeroPercentileCard extends StatelessWidget {
               tween: Tween(begin: 0, end: 1),
               duration: const Duration(milliseconds: 900),
               curve: Curves.easeOutCubic,
-              // z-scores are unit-invariant, so scaling all three inputs by
-              // the same factor keeps the curve identical — only the axis
-              // labels painted from them end up in the display unit.
+              // The curve works in cm; only its axis labels are painted in
+              // the display unit ("170" or 5'7").
               builder: (context, t, _) => HeightBellCurve(
-                heightCm: provider.heightNumber(heightCm),
-                mean: provider.heightNumber(mean),
-                sd: provider.heightNumber(sd),
+                heightCm: heightCm,
+                mean: mean,
+                sd: sd,
+                axisLabel: provider.formatHeightAxis,
                 percentile: pct,
                 color: accent,
                 progress: t,
@@ -481,10 +482,14 @@ class _PopulationBarChart extends StatelessWidget {
   final Map<String, double> refs;
   final Color color;
 
+  /// Scale labels in the display unit: "170" or 5'7".
+  final String Function(double cm) label;
+
   const _PopulationBarChart({
     required this.heightCm,
     required this.refs,
     required this.color,
+    required this.label,
   });
 
   @override
@@ -590,7 +595,7 @@ class _PopulationBarChart extends StatelessWidget {
                               ],
                             ),
                             child: Text(
-                              heightCm.toStringAsFixed(0),
+                              label(heightCm),
                               style: TextStyle(
                                 fontSize: 9,
                                 fontWeight: FontWeight.w900,
@@ -628,7 +633,7 @@ class _PopulationBarChart extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              b.cm.toStringAsFixed(0),
+                              label(b.cm),
                               style: const TextStyle(
                                 fontSize: 9,
                                 fontWeight: FontWeight.w800,

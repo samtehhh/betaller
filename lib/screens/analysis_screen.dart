@@ -310,6 +310,21 @@ String _num(num v, [int digits = 1]) {
   return s.endsWith('.0') ? v.fixedL(0) : v.fixedL(digits);
 }
 
+/// Water with its unit: "2 L" / "2.5 L", or "84 fl oz" ([target]s to the
+/// nearest 4 oz).
+String _water(AppProvider p, num litres, {bool target = false}) {
+  final u = p.units;
+  if (!u.flOz) return '${_num(litres)} L';
+  return target
+      ? u.formatWaterTarget(litres.toDouble())
+      : u.formatWater(litres.toDouble());
+}
+
+/// A length of growth: "6 cm" / "6.5 cm", or "2.6 in" (always one decimal).
+String _growth(AppProvider p, num cm) => p.useImperial
+    ? p.formatHeightAmount(cm.toDouble())
+    : '${_num(cm)} cm';
+
 /// What a signal is based on, in words.
 String _basedOn(AppLocalizations l, FactorResult r, AppProvider p) {
   final f = r.facts;
@@ -330,7 +345,11 @@ String _basedOn(AppLocalizations l, FactorResult r, AppProvider p) {
           : l.anBSleepNone;
     case ScoreFactor.hydration:
       return r.hasData
-          ? l.anBHydration(_num(f['avg']!), _num(f['target']!), i('days'))
+          ? l.anBHydration(
+              _water(p, f['avg']!),
+              _water(p, f['target']!, target: true),
+              i('days'),
+            )
           : l.anBHydrationNone;
     case ScoreFactor.nutrition:
       return r.hasData
@@ -348,11 +367,14 @@ String _basedOn(AppLocalizations l, FactorResult r, AppProvider p) {
           : l.anBMeasuring(i('daysAgo'));
     case ScoreFactor.growth:
       return r.hasData
-          ? l.anBGrowth(_num(f['velocity']!), _num(f['expected']!))
+          ? l.anBGrowth(
+              _growth(p, f['velocity']!),
+              _growth(p, f['expected']!),
+            )
           : l.anBGrowthNone;
     case ScoreFactor.headroom:
       return l.anBHeadroom(
-        p.formatHeightDelta(f['cm']!.toDouble()).replaceFirst('+', ''),
+        p.formatHeightAmount(f['cm']!.toDouble()),
       );
   }
 }
@@ -373,7 +395,9 @@ String? _action(AppLocalizations l, FactorResult r, AppProvider p) {
     case ScoreFactor.hydration:
       if (!r.hasData) return l.anAHydrationLog;
       final left = (f['target']! - (f['today'] ?? 0)).toDouble();
-      return left <= 0.05 ? l.anAHydrationDone : l.anAHydration(_num(left));
+      return left <= 0.05
+          ? l.anAHydrationDone
+          : l.anAHydration(_water(p, left));
     case ScoreFactor.nutrition:
       return l.anANutrition;
     case ScoreFactor.posture:
@@ -1294,7 +1318,15 @@ class _DailyNeeds extends StatelessWidget {
     final tiles = [
       (l.protein, '${t.proteinG}', 'g', l.anPerDay, AppColors.orange),
       (l.calories, '${t.kcal}', 'kcal', l.anPerDay, AppColors.orange),
-      (l.water, _num(t.waterL), 'L', l.anPerDay, AppColors.cyan),
+      (
+        l.water,
+        provider.units.flOz
+            ? provider.units.waterTargetValue(t.waterL)
+            : _num(t.waterL),
+        provider.units.waterUnit,
+        l.anPerDay,
+        AppColors.cyan,
+      ),
       (
         l.sleepLabel,
         _num(t.sleepH),

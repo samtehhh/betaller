@@ -9,6 +9,7 @@ import '../utils/constants.dart';
 import '../utils/daily_targets.dart';
 import '../utils/localized_data.dart';
 import '../utils/num_format.dart';
+import '../utils/units.dart';
 
 /// "Today, for you": the day's concrete numbers (protein in grams, calcium,
 /// vitamin D, water, sleep, movement) and what today's training is. Every
@@ -107,7 +108,8 @@ class TodayTargetsGrid extends StatelessWidget {
       _Tile(CupertinoIcons.sun_max_fill, AppColors.warning,
           nf.format(t.vitaminDIu), 'IU', l.targetVitaminD, ' '),
       _Tile(CupertinoIcons.drop_fill, AppColors.cyan,
-          t.waterL.fixedL(1), 'L', l.targetWater, ' '),
+          UnitPrefs.current.waterTargetValue(t.waterL),
+          UnitPrefs.current.waterUnit, l.targetWater, ' '),
       _Tile(CupertinoIcons.moon_fill, AppColors.sleepColor,
           t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1), l.unitHours,
           l.targetSleep, ' '),

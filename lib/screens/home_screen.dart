@@ -272,6 +272,10 @@ class _HomeScreenState extends State<HomeScreen>
                       challengeTotal: challenges.length,
                       waterCurrent: provider.todayWater,
                       waterTarget: waterNeed,
+                      waterText: provider.units.waterProgress(
+                        provider.todayWater,
+                        waterNeed,
+                      ),
                       allDone: allTodayDone,
                       animValue: _curve.value,
                     ),
@@ -285,9 +289,11 @@ class _HomeScreenState extends State<HomeScreen>
                             feature: FreeFeature.water,
                             icon: CupertinoIcons.drop_fill,
                             label: l.water,
-                            value: provider.todayWater.fixedL(1),
-                            target: waterNeed.fixedL(1),
-                            unit: 'L',
+                            value: provider.units.waterValue(
+                              provider.todayWater,
+                            ),
+                            target: provider.units.waterTargetValue(waterNeed),
+                            unit: provider.units.waterUnitTight,
                             color: AppColors.water,
                             progress: (provider.todayWater / waterNeed).clamp(
                               0.0,
@@ -760,6 +766,7 @@ class _TodayMissionCard extends StatelessWidget {
   final int challengeTotal;
   final double waterCurrent;
   final double waterTarget;
+  final String waterText;
   final bool allDone;
   final double animValue;
 
@@ -770,6 +777,7 @@ class _TodayMissionCard extends StatelessWidget {
     required this.challengeTotal,
     required this.waterCurrent,
     required this.waterTarget,
+    required this.waterText,
     required this.allDone,
     required this.animValue,
   });
@@ -935,8 +943,7 @@ class _TodayMissionCard extends StatelessWidget {
                       icon: CupertinoIcons.drop_fill,
                       iconColor: AppColors.water,
                       label: l.water,
-                      value:
-                          '${waterCurrent.fixedL(1)}/${waterTarget.fixedL(1)}L',
+                      value: waterText,
                       progress: waterRatio * animValue,
                       done: waterRatio >= 1,
                     ),

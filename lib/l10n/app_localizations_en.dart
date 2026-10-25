@@ -237,7 +237,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String waterRemaining(String amount) {
-    return '$amount L to go';
+    return '$amount to go';
   }
 
   @override
@@ -2225,8 +2225,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yourHeightDialog => 'Your Height';
 
   @override
-  String get heightDialogMessage =>
-      'Enter your current height in cm for this photo';
+  String get heightDialogMessage => 'Enter your current height for this photo';
 
   @override
   String get postureAnalysisTitle => 'Posture Analysis';
@@ -4615,7 +4614,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String nWaterTitle(String liters) {
-    return 'Water goal: $liters L';
+    return 'Water goal: $liters';
   }
 
   @override
@@ -4822,7 +4821,7 @@ class AppLocalizationsEn extends AppLocalizations {
       other: '$days days',
       one: '$days day',
     );
-    return '$litres L a day on average, target $target L, $_temp0 logged';
+    return '$litres a day on average, target $target, $_temp0 logged';
   }
 
   @override
@@ -4875,7 +4874,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String anBGrowth(String v, String e) {
-    return '$v cm a year, typical at your age $e cm';
+    return '$v a year, typical at your age $e';
   }
 
   @override
@@ -4909,7 +4908,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String anAHydration(String left) {
-    return 'Drink $left L more today';
+    return 'Drink $left more today';
   }
 
   @override
@@ -5498,7 +5497,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String plHabitWater(String liters) {
-    return '$liters L through the day';
+    return '$liters through the day';
   }
 
   @override
@@ -5684,7 +5683,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String plCheckWater(String liters) {
-    return 'Water $liters L';
+    return 'Water $liters';
   }
 
   @override
@@ -5698,7 +5697,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String plWaterLogged(String liters) {
-    return '$liters L logged so far';
+    return '$liters logged so far';
   }
 
   @override
@@ -6411,4 +6410,68 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get obNotifSubtitleSuggested =>
       'Set to the times you gave us, with a suggestion where you weren\'t sure. You can change them anytime.';
+
+  @override
+  String get unitHeightTitle => 'Height unit';
+
+  @override
+  String get unitWeightTitle => 'Weight unit';
+
+  @override
+  String get unitWaterTitle => 'Water unit';
+
+  @override
+  String get unitOptCm => 'Centimeters';
+
+  @override
+  String get unitOptFtIn => 'Feet and inches';
+
+  @override
+  String get unitOptKg => 'Kilograms';
+
+  @override
+  String get unitOptLb => 'Pounds';
+
+  @override
+  String get unitOptStLb => 'Stones and pounds';
+
+  @override
+  String get unitOptLiters => 'Liters';
+
+  @override
+  String get unitOptFlOz => 'Fluid ounces';
+
+  @override
+  String achieveGrowthImp(String amount) {
+    return '$amount Growth';
+  }
+
+  @override
+  String achieveGrowthImpDesc(String amount) {
+    return 'Record $amount total growth';
+  }
+
+  @override
+  String get postureBenefitIn =>
+      'Head, shoulders and lower back. Standing tall shows up to about 1 inch more of your real height.';
+
+  @override
+  String get notifPostureBodyIn =>
+      'Back straight, shoulders back. Good posture = about 1 inch difference!';
+
+  @override
+  String get painPostureDescIn =>
+      'Correct posture can instantly add up to about 1 inch. BeTaller\'s daily posture routine establishes this in a few weeks.';
+
+  @override
+  String get routinePostureDescIn =>
+      'Keep back straight, shoulders back. Check every hour. Good posture = about 1 inch difference.';
+
+  @override
+  String get sciPostureCheckIn =>
+      'Correct posture alignment can immediately add about 1 inch to apparent height and prevents spinal compression';
+
+  @override
+  String get routineProteinDescLb =>
+      'Eggs, chicken, fish, dairy. At least 0.7 g of protein per lb of body weight daily.';
 }

@@ -238,7 +238,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String waterRemaining(String amount) {
-    return 'Faltam $amount L';
+    return 'Faltam $amount';
   }
 
   @override
@@ -2241,8 +2241,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get yourHeightDialog => 'Sua altura';
 
   @override
-  String get heightDialogMessage =>
-      'Digite sua altura atual em cm para esta foto';
+  String get heightDialogMessage => 'Digite sua altura atual para esta foto';
 
   @override
   String get postureAnalysisTitle => 'Análise postural';
@@ -4619,7 +4618,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String nWaterTitle(String liters) {
-    return 'Meta de água: $liters L';
+    return 'Meta de água: $liters';
   }
 
   @override
@@ -4825,7 +4824,7 @@ class AppLocalizationsPt extends AppLocalizations {
       other: '$days dias registrados',
       one: '$days dia registrado',
     );
-    return '$litres L por dia em média, meta $target L, $_temp0';
+    return '$litres por dia em média, meta $target, $_temp0';
   }
 
   @override
@@ -4878,7 +4877,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String anBGrowth(String v, String e) {
-    return '$v cm por ano, típico na sua idade $e cm';
+    return '$v por ano, típico na sua idade $e';
   }
 
   @override
@@ -4913,7 +4912,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String anAHydration(String left) {
-    return 'Beba mais $left L hoje';
+    return 'Beba mais $left hoje';
   }
 
   @override
@@ -5504,7 +5503,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String plHabitWater(String liters) {
-    return '$liters L ao longo do dia';
+    return '$liters ao longo do dia';
   }
 
   @override
@@ -5690,7 +5689,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String plCheckWater(String liters) {
-    return 'Água $liters L';
+    return 'Água $liters';
   }
 
   @override
@@ -5704,7 +5703,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String plWaterLogged(String liters) {
-    return '$liters L registrados até agora';
+    return '$liters registrados até agora';
   }
 
   @override
@@ -6424,4 +6423,68 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get obNotifSubtitleSuggested =>
       'Nos horários que você deu, com uma sugestão onde você não sabia. Você pode mudar quando quiser.';
+
+  @override
+  String get unitHeightTitle => 'Unidade de altura';
+
+  @override
+  String get unitWeightTitle => 'Unidade de peso';
+
+  @override
+  String get unitWaterTitle => 'Unidade de água';
+
+  @override
+  String get unitOptCm => 'Centímetros';
+
+  @override
+  String get unitOptFtIn => 'Pés e polegadas';
+
+  @override
+  String get unitOptKg => 'Quilogramas';
+
+  @override
+  String get unitOptLb => 'Libras';
+
+  @override
+  String get unitOptStLb => 'Stones e libras';
+
+  @override
+  String get unitOptLiters => 'Litros';
+
+  @override
+  String get unitOptFlOz => 'Onças líquidas';
+
+  @override
+  String achieveGrowthImp(String amount) {
+    return '$amount de crescimento';
+  }
+
+  @override
+  String achieveGrowthImpDesc(String amount) {
+    return 'Registre $amount de crescimento total';
+  }
+
+  @override
+  String get postureBenefitIn =>
+      'Cabeça, ombros e lombar. Ficar ereto mostra até cerca de 1 polegada a mais da sua altura real.';
+
+  @override
+  String get notifPostureBodyIn =>
+      'Costas retas, ombros para trás. Cerca de 1 polegada!';
+
+  @override
+  String get painPostureDescIn =>
+      'Uma postura correta pode adicionar instantaneamente até cerca de 1 polegada. A rotina diária de postura do BeTaller estabelece isso em poucas semanas.';
+
+  @override
+  String get routinePostureDescIn =>
+      'Mantenha as costas retas, ombros para trás. Verifique a cada hora. Boa postura = cerca de 1 polegada de diferença.';
+
+  @override
+  String get sciPostureCheckIn =>
+      'Uma boa postura pode fazer você parecer cerca de 1 polegada mais alto na hora e evita a compressão da coluna';
+
+  @override
+  String get routineProteinDescLb =>
+      'Ovos, frango, peixe, laticínios. Pelo menos 0,7 g de proteína por lb de peso corporal por dia.';
 }

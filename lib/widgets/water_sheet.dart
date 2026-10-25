@@ -10,7 +10,7 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/free_tier.dart';
 import 'free_tier_widgets.dart';
-import '../utils/num_format.dart';
+import '../utils/units.dart';
 
 /// The water sheet: a glass that fills as you log, quick amounts that stay put
 /// so several sips can be added in a row, and an undo for the last one.
@@ -80,12 +80,13 @@ class _WaterSheetState extends State<_WaterSheet>
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final provider = context.watch<AppProvider>();
+    final units = provider.units;
     final current = provider.todayWater;
-    final ratio = widget.target <= 0
-        ? 0.0
-        : (current / widget.target).clamp(0.0, 1.0);
-    final reached = current >= widget.target;
-    final remaining = (widget.target - current).clamp(0.0, widget.target);
+    // In fl oz the goal is the rounded number on screen (nearest 4 oz).
+    final target = units.snapWaterTarget(widget.target);
+    final ratio = target <= 0 ? 0.0 : (current / target).clamp(0.0, 1.0);
+    final reached = current >= target - 0.003;
+    final remaining = (target - current).clamp(0.0, target);
 
     return Container(
       padding: EdgeInsets.fromLTRB(
@@ -164,7 +165,7 @@ class _WaterSheetState extends State<_WaterSheet>
                       textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
-                          current.fixedL(1),
+                          units.waterValue(current),
                           style: const TextStyle(
                             fontSize: 34,
                             fontWeight: FontWeight.w900,
@@ -175,7 +176,7 @@ class _WaterSheetState extends State<_WaterSheet>
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '/ ${widget.target.fixedL(1)} L',
+                          '/ ${units.waterTargetValue(target)} ${units.waterUnit}',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -200,7 +201,7 @@ class _WaterSheetState extends State<_WaterSheet>
                       child: Text(
                         reached
                             ? l.waterGoalReached
-                            : l.waterRemaining(remaining.fixedL(1)),
+                            : l.waterRemaining(units.formatWater(remaining)),
                         style: TextStyle(
                           fontSize: 11.5,
                           fontWeight: FontWeight.w700,
@@ -219,9 +220,15 @@ class _WaterSheetState extends State<_WaterSheet>
           // ── Quick amounts; the sheet stays open so sips can stack ────
           Row(
             children: [
-              for (final amount in const [0.2, 0.3, 0.5, 1.0]) ...[
-                Expanded(child: _AmountButton(amount: amount, onTap: () => _add(amount))),
-                if (amount != 1.0) const SizedBox(width: 10),
+              for (final (i, amount) in units.waterQuickAmounts.indexed) ...[
+                if (i > 0) const SizedBox(width: 10),
+                Expanded(
+                  child: _AmountButton(
+                    amount: amount,
+                    units: units,
+                    onTap: () => _add(amount),
+                  ),
+                ),
               ],
             ],
           ),
@@ -310,8 +317,13 @@ class _WaterSheetState extends State<_WaterSheet>
 
 class _AmountButton extends StatelessWidget {
   final double amount;
+  final UnitPrefs units;
   final VoidCallback onTap;
-  const _AmountButton({required this.amount, required this.onTap});
+  const _AmountButton({
+    required this.amount,
+    required this.units,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -330,8 +342,22 @@ class _AmountButton extends StatelessWidget {
             Icon(CupertinoIcons.drop_fill,
                 size: 13, color: AppColors.water.withValues(alpha: 0.75)),
             const SizedBox(height: 4),
-            Text(
-              '+${amount.fixedL(1)}L',
+            // Number big, unit small: "+8 fl oz" has to fit a quarter row.
+            Text.rich(
+              TextSpan(
+                text: '+${units.waterValue(amount)}',
+                children: [
+                  TextSpan(
+                    text: units.flOz ? ' ${units.waterUnit}' : units.waterUnit,
+                    style: TextStyle(
+                      fontSize: units.flOz ? 10.5 : 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+              maxLines: 1,
+              softWrap: false,
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w800,

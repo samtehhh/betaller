@@ -17,6 +17,9 @@ class HeightBellCurve extends StatelessWidget {
   final Color color;
   final double progress;
 
+  /// Axis labels for the cm values under the curve; whole cm by default.
+  final String Function(double cm)? axisLabel;
+
   const HeightBellCurve({
     super.key,
     required this.heightCm,
@@ -25,6 +28,7 @@ class HeightBellCurve extends StatelessWidget {
     required this.percentile,
     this.color = AppColors.primary,
     this.progress = 1,
+    this.axisLabel,
   });
 
   @override
@@ -37,6 +41,7 @@ class HeightBellCurve extends StatelessWidget {
         percentile: percentile,
         color: color,
         progress: progress,
+        axisLabel: axisLabel,
         textDirection: Directionality.of(context),
       ),
       child: const SizedBox.expand(),
@@ -51,6 +56,7 @@ class _BellPainter extends CustomPainter {
   final double percentile;
   final Color color;
   final double progress;
+  final String Function(double cm)? axisLabel;
   final TextDirection textDirection;
 
   const _BellPainter({
@@ -60,6 +66,7 @@ class _BellPainter extends CustomPainter {
     required this.percentile,
     required this.color,
     required this.progress,
+    required this.axisLabel,
     required this.textDirection,
   });
 
@@ -146,7 +153,7 @@ class _BellPainter extends CustomPainter {
       );
       final tp = TextPainter(
         text: TextSpan(
-          text: cm.round().toString(),
+          text: axisLabel?.call(cm) ?? cm.round().toString(),
           style: TextStyle(
             fontSize: 9.5,
             fontWeight: z == 0 ? FontWeight.w800 : FontWeight.w600,
@@ -185,5 +192,6 @@ class _BellPainter extends CustomPainter {
       old.heightCm != heightCm ||
       old.mean != mean ||
       old.progress != progress ||
-      old.color != color;
+      old.color != color ||
+      old.axisLabel != axisLabel;
 }

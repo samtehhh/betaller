@@ -781,7 +781,7 @@ class _ChartPreview extends StatelessWidget {
       potential: _kDemoPotential,
       dream: _kDemoDream,
       format: (cm) => _formatHeight(p, cm),
-      axisFormat: p != null && p.useImperial ? p.formatHeight : null,
+      axisFormat: p != null && p.useImperial ? p.formatHeightCompact : null,
     );
   }
 

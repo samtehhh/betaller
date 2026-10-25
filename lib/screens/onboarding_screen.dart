@@ -1532,7 +1532,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               '🦴',
               const Color(0xFF00C6FF),
               l.painPostureTitle,
-              l.painPostureDesc,
+              _heightImperial ? l.painPostureDescIn : l.painPostureDesc,
               l.painPostureTag,
             ),
             (
@@ -2926,8 +2926,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 600),
-        pageBuilder: (_, __, ___) => const _WelcomeScreen(),
-        transitionsBuilder: (_, anim, __, child) =>
+        pageBuilder: (_, _, _) => const _WelcomeScreen(),
+        transitionsBuilder: (_, anim, _, child) =>
             FadeTransition(opacity: anim, child: child),
       ),
     );
@@ -5122,7 +5122,7 @@ class _AnalyzingPageState extends State<_AnalyzingPage>
                       width: 128,
                       height: 128,
                       fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => const Icon(
+                      errorBuilder: (_, _, _) => const Icon(
                         CupertinoIcons.person_fill,
                         color: Colors.white,
                         size: 56,

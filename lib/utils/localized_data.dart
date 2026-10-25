@@ -1,4 +1,5 @@
 import 'exercise_guides.dart';
+import 'units.dart';
 import '../l10n/app_localizations.dart';
 
 /// Returns localized routine title/description/form/science by routine ID
@@ -66,7 +67,9 @@ final Map<String, _R> _routineData = {
   ),
   'protein': (
     (l) => l.routineProtein,
-    (l) => l.routineProteinDesc,
+    (l) => UnitPrefs.current.perPound
+        ? l.routineProteinDescLb
+        : l.routineProteinDesc,
     (l) => l.formProtein,
     (l) => l.sciProtein,
   ),
@@ -102,9 +105,13 @@ final Map<String, _R> _routineData = {
   ),
   'posture_check': (
     (l) => l.routinePosture,
-    (l) => l.routinePostureDesc,
+    (l) => UnitPrefs.current.imperialHeight
+        ? l.routinePostureDescIn
+        : l.routinePostureDesc,
     (l) => l.formPostureCheck,
-    (l) => l.sciPostureCheck,
+    (l) => UnitPrefs.current.imperialHeight
+        ? l.sciPostureCheckIn
+        : l.sciPostureCheck,
   ),
   'wall_stand': (
     (l) => l.routineWallStand,
@@ -307,6 +314,17 @@ Map<String, String> localizedAchievement(AppLocalizations l, String id) {
       return {
         'title': l.achieveTenMeasures,
         'description': l.achieveTenMeasuresDesc,
+      };
+    // The growth badges count centimetres; in ft-in they name the same
+    // amount in inches ("1.2 in Growth").
+    case 'first_cm' || 'three_cm' || 'five_cm' || 'ten_cm'
+        when UnitPrefs.current.imperialHeight:
+      final amount = UnitPrefs.current.formatHeightAmount(
+        const {'first_cm': 1.0, 'three_cm': 3.0, 'five_cm': 5.0}[id] ?? 10.0,
+      );
+      return {
+        'title': l.achieveGrowthImp(amount),
+        'description': l.achieveGrowthImpDesc(amount),
       };
     case 'first_cm':
       return {'title': l.achieveFirstCm, 'description': l.achieveFirstCmDesc};
