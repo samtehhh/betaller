@@ -77,18 +77,6 @@ const Duration _kSlideDuration = Duration(milliseconds: 2800);
 /// it never yanks a screen away from someone who is still looking at it.
 const Duration _kResumeDelay = Duration(seconds: 7);
 
-/// The trial length to advertise on the monthly plan when the store has not
-/// told us one.
-///
-/// The store is the authority: [_freeTrialDays] reads the real introductory
-/// offer, so a user who has already burned their trial is not promised another,
-/// and a change made in App Store Connect needs no app release. This constant
-/// only covers the window before the offering resolves — and the sheet is a
-/// spinner then anyway — plus Android builds whose trial is expressed as an
-/// offer the plugin does not surface as an introductory price. Keep it in step
-/// with what the stores are actually configured to give.
-const int _kAssumedTrialDays = 3;
-
 // ── Debug-only demo prices ───────────────────────────────────────────────
 //
 // Never reach a real user: every use below is gated on [kDebugMode], so a
@@ -437,12 +425,10 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
       rawPrice: monthlyProduct?.price ?? (kDebugMode ? _kDemoMonthly : null),
       currencyCode:
           monthlyProduct?.currencyCode ?? (kDebugMode ? _kDemoCurrency : null),
-      // On iOS a loaded product is the authority, eligibility included. The
-      // assumed trial only covers the window before it loads, and Android,
-      // whose trial the plugin does not surface as an introductory price.
-      trialDays: Platform.isIOS && monthlyProduct != null
-          ? _trialFor(monthlyProduct)
-          : _freeTrialDays(monthlyProduct) ?? _kAssumedTrialDays,
+      // The store is the only authority, eligibility included: no product
+      // loaded, or no free trial configured in App Store Connect, means no
+      // trial is advertised. The free trials were removed on 2026-10-21.
+      trialDays: _trialFor(monthlyProduct),
     );
     // Slot 1 is the lifetime purchase (the yearly plan's old place): no
     // trial, nothing renews.
