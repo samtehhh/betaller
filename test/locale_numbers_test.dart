@@ -13,13 +13,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart' show Intl;
+import 'package:intl/intl.dart' show DateFormat, Intl;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:boyuzatma_app/l10n/app_localizations.dart';
 import 'package:boyuzatma_app/models/user_profile.dart';
 import 'package:boyuzatma_app/providers/app_provider.dart';
+import 'package:boyuzatma_app/utils/date_locale.dart';
+import 'package:boyuzatma_app/utils/num_format.dart';
 import 'package:boyuzatma_app/widgets/paywall_previews.dart';
 
 Future<AppProvider> _onboardedUser({required bool imperial}) async {
@@ -57,7 +59,7 @@ void main() {
   setUpAll(() async => initializeDateFormatting());
   tearDown(() => Intl.defaultLocale = null);
 
-  for (final lang in ['tr', 'de', 'fr', 'en']) {
+  for (final lang in ['tr', 'de', 'fr', 'en', 'nl', 'pl', 'sv']) {
     for (final preview in kPaywallPreviews) {
       testWidgets('preview ${preview.id} builds in $lang', (t) async {
         t.view.physicalSize = const Size(375, 760);
@@ -109,5 +111,32 @@ void main() {
     await t.pumpWidget(_app('en', kPaywallPreviews.first));
     await t.pump();
     expect(find.textContaining('Example: 164.0 cm'), findsOneWidget);
+  });
+
+  // Dutch, Polish and Swedish write decimals with a comma; Polish and Swedish
+  // group thousands with a (no-break) space, Swedish spaces the percent sign.
+  group('nl, pl and sv number and date formats', () {
+    const nbsp = ' ';
+    final cases = {
+      'nl': ('2,5', '1.300,4', '62%', 'zondag 25 oktober'),
+      'pl': ('2,5', '1${nbsp}300,4', '62%', 'niedziela, 25 października'),
+      'sv': ('2,5', '1${nbsp}300,4', '62$nbsp%', 'söndag 25 oktober'),
+    };
+    for (final MapEntry(key: lang, value: want) in cases.entries) {
+      test(lang, () {
+        Intl.defaultLocale = lang;
+        expect(2.5.fixedL(1), want.$1);
+        expect(1300.4.fixedL(1), want.$2);
+        expect(62.pctL(), want.$3);
+        expect(DateFormat.localeExists(lang), isTrue);
+        // A region intl has no data for falls back to the bare language.
+        final loc = dateLocaleFor(Locale(lang), [Locale(lang, 'XX')]);
+        expect(loc, lang);
+        expect(
+          DateFormat.MMMMEEEEd(loc).format(DateTime(2026, 10, 25)),
+          want.$4,
+        );
+      });
+    }
   });
 }

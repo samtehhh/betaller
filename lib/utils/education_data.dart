@@ -17,6 +17,12 @@ List<Map<String, dynamic>> getEducationArticles(String languageCode) {
       return _articlesIt;
     case 'hi':
       return _articlesHi;
+    case 'nl':
+      return _articlesNl;
+    case 'pl':
+      return _articlesPl;
+    case 'sv':
+      return _articlesSv;
     default:
       return _articlesEn;
   }
@@ -3113,6 +3119,1062 @@ const List<Map<String, dynamic>> _articlesHi = [
     ],
     'references': [
       'Tanner JM. Growth at Adolescence. Blackwell, 1962.',
+    ],
+    'relatedRoutineIds': ['quality_sleep', 'protein', 'morning_stretch'],
+  },
+];
+
+// ── DUTCH ───────────────────────────────────────────────────────
+const List<Map<String, dynamic>> _articlesNl = [
+  {
+    'id': 'article_hgh',
+    'title': 'Wat is groeihormoon?',
+    'icon': '🧬',
+    'category': 'science',
+    'sections': [
+      {
+        'header': 'Maak kennis met je groeimotor: HGH',
+        'body':
+            'Menselijk groeihormoon (HGH) is een klein eiwit dat wordt aangemaakt door de hypofyse, onderaan je hersenen. HGH is het allerbelangrijkste hormoon voor lengtegroei tijdens je kindertijd en puberteit. Het geeft je botten, spieren en organen het signaal om te groeien.',
+      },
+      {
+        'header': 'Hoe de hypofyse werkt',
+        'body':
+            'De hypofyse geeft HGH de hele dag door in pulsen af, maar de grootste pieken komen tijdens je diepe slaap en direct na intensief sporten. De hypothalamus stuurt deze pulsen aan met GHRH (stimuleert HGH) en somatostatine (remt HGH).',
+      },
+      {
+        'header': 'Wanneer piekt HGH?',
+        'body':
+            'Je HGH-gehalte is het hoogst in de puberteit. Bij jongens ligt de piek meestal tussen 13 en 15 jaar, bij meisjes tussen 11 en 13 jaar. Na de groeispurtjaren daalt de aanmaak van HGH geleidelijk, met ongeveer 14% per tien jaar vanaf je twintigste.',
+      },
+      {
+        'header': 'HGH op een natuurlijke manier stimuleren',
+        'body':
+            '1. Slaap elke nacht 8–10 uur (diepe slaap = de grootste HGH-pulsen).\n'
+            '2. Sport intensief — sprints en krachttraining zorgen voor een flinke afgifte van HGH.\n'
+            '3. Eet genoeg eiwit — arginine en ornithine stimuleren HGH.\n'
+            '4. Vermijd suikerpieken voor het slapengaan — een hoge bloedsuiker remt de afgifte van HGH tijdens je slaap.',
+      },
+      {
+        'header': 'Wat verlaagt HGH?',
+        'body':
+            '• Langdurig slaaptekort.\n'
+            '• Te veel lichaamsvet, vooral rond je buik.\n'
+            '• Veel suiker en bewerkt eten.\n'
+            '• Langdurige stress (verhoogt cortisol, remt HGH).\n'
+            '• Een zittende leefstijl met weinig beweging.',
+      },
+    ],
+    'references': [
+      'Veldhuis JD et al. J Neuroendocrinol. 2012;24(12):1365-71.',
+      'Takahashi Y et al. J Clin Invest. 1968;47(9):2079-90.',
+      'Wideman L et al. Sports Med. 2002;32(15):987-1004.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'quality_sleep'],
+  },
+  {
+    'id': 'article_growth_plates',
+    'title': 'Hoe werken groeischijven?',
+    'icon': '🦴',
+    'category': 'science',
+    'sections': [
+      {
+        'header': 'Wat zijn groeischijven?',
+        'body':
+            'Groeischijven (epifysairschijven) zijn dunne laagjes kraakbeen vlak bij de uiteinden van je lange botten. Alleen hier komt er nieuw botweefsel bij waardoor je botten langer worden. Zolang ze open zijn (nog niet vergroeid), kun je nog langer worden.',
+      },
+      {
+        'header': 'Hoe botten langer worden',
+        'body':
+            'In elke groeischijf delen kraakbeencellen (chondrocyten) zich voortdurend. Nieuwe kraakbeencellen duwen oudere cellen richting de botschacht, waar ze door verbening worden vervangen door hard botweefsel. Door deze cyclus worden je benen en wervelkolom na verloop van tijd langer.',
+      },
+      {
+        'header': 'Wanneer sluiten groeischijven?',
+        'body':
+            'Het sluiten van de groeischijven wordt vooral in gang gezet door geslachtshormonen:\n'
+            '\n'
+            '• Meisjes: de schijven beginnen rond 14–16 jaar te vergroeien.\n'
+            '• Jongens: de schijven beginnen rond 16–18 jaar te vergroeien.\n'
+            '• Sommige schijven zijn mogelijk pas rond je 25e helemaal gesloten.\n'
+            '\n'
+            'Een röntgenfoto van hand en pols (botleeftijdtest) kan laten zien hoeveel groei er nog in zit.',
+      },
+      {
+        'header': 'Wat het sluiten beïnvloedt',
+        'body':
+            '• Vroege puberteit → schijven sluiten eerder (minder tijd om te groeien).\n'
+            '• Ondervoeding → schijven sluiten later, maar je groeit ook langzamer.\n'
+            '• Overgewicht → meer oestrogeen kan het sluiten versnellen.\n'
+            '• Goede voeding en genoeg slaap houden je groeischijven gezond en actief.',
+      },
+    ],
+    'references': [
+      'Nilsson O et al. Horm Res. 2005;64(4):157-65.',
+      'Weise M et al. PNAS. 2001;98(12):6871-6.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'protein'],
+  },
+  {
+    'id': 'article_sleep_growth',
+    'title': 'Slaap en groei: de wetenschap',
+    'icon': '🌙',
+    'category': 'sleep',
+    'sections': [
+      {
+        'header': 'Waarom slaap onmisbaar is',
+        'body':
+            'Tot 75% van je dagelijkse groeihormoon komt vrij tijdens je slaap. Geen enkele hoeveelheid sport of goede voeding kan slecht slapen volledig goedmaken. Je lichaam bouwt letterlijk bot op en herstelt weefsel terwijl je slaapt.',
+      },
+      {
+        'header': 'Slaapcycli en de afgifte van GH',
+        'body':
+            'Een gemiddelde nacht bestaat uit 4–6 slaapcycli van ongeveer 90 minuten. De grootste HGH-pulsen komen in de diepe slaap (fase 3), vooral in de eerste 1–2 cycli. Laat naar bed gaan of vaak wakker worden betekent dat je deze belangrijke pulsen mist.',
+      },
+      {
+        'header': 'Hoeveel slaap heb je nodig?',
+        'body':
+            '• 6–12 jaar: 9–12 uur per nacht.\n'
+            '• 13–15 jaar: 9–10 uur per nacht.\n'
+            '• 16–18 jaar: 8–10 uur per nacht.\n'
+            '• 19–25 jaar: 7–9 uur per nacht.\n'
+            '\n'
+            'Mik op de bovenkant als je nog flink groeit.',
+      },
+      {
+        'header': 'Tips voor betere slaap',
+        'body':
+            '1. Ga elke dag op dezelfde tijd naar bed en sta op dezelfde tijd op.\n'
+            '2. Stop 30 minuten voor bedtijd met schermen (blauw licht remt melatonine).\n'
+            '3. Houd je kamer koel (18–20 °C) en donker.\n'
+            '4. Vermijd cafeïne na 14:00 en zware maaltijden 2 uur voor bedtijd.\n'
+            '5. Lichte stretches voor het slapengaan helpen je lichaam te ontspannen.',
+      },
+    ],
+    'references': [
+      'Van Cauter E, Plat L. J Pediatr. 1996;128(5):S32-7.',
+      'Paruthi S et al. J Clin Sleep Med. 2016;12(6):785-786.',
+    ],
+    'relatedRoutineIds': ['quality_sleep'],
+  },
+  {
+    'id': 'article_nutrition',
+    'title': 'Voeding voor maximale groei',
+    'icon': '🥗',
+    'category': 'nutrition',
+    'sections': [
+      {
+        'header': 'Waarom voeding telt voor je lengte',
+        'body':
+            'Je genen bepalen je lengtepotentieel, maar voeding bepaalt of je dat ook haalt. Door betere voeding is de gemiddelde lengte in de afgelopen eeuw in veel landen met wel 10 cm gestegen.',
+      },
+      {
+        'header': 'Calcium — de botbouwer',
+        'body':
+            'Calcium vormt ongeveer 70% van je botweefsel. In je belangrijkste groeijaren heb je 1.000–1.300 mg per dag nodig. Beste bronnen: melk, yoghurt, kaas, broccoli, amandelen. Combineer het met vitamine D voor de beste opname.',
+      },
+      {
+        'header': 'Eiwit — brandstof voor groei',
+        'body':
+            'Tieners hebben per dag ongeveer 1,0–1,5 g eiwit per kg lichaamsgewicht nodig. Vooral arginine stimuleert de afgifte van HGH. Goede bronnen: eieren, kip, vis, mager rundvlees, linzen, Griekse yoghurt, tofu.',
+      },
+      {
+        'header': 'Belangrijke vitamines en mineralen',
+        'body':
+            '• Vitamine D: 600–1.000 IU per dag voor de opname van calcium.\n'
+            '• Zink: 8–11 mg per dag voor celdeling en groei.\n'
+            '• Vitamine A: ondersteunt botombouw (wortels, zoete aardappel).\n'
+            '• IJzer: 8–15 mg per dag, vervoert zuurstof naar groeiend weefsel.\n'
+            '• Fosfor en magnesium: mineraliseren je botten samen met calcium.',
+      },
+      {
+        'header': 'Wat je beter kunt vermijden',
+        'body':
+            '• Te veel suiker en frisdrank — onttrekt calcium en remt HGH.\n'
+            '• Extreem lijnen — remt je groei.\n'
+            '• Te veel cafeïne — verstoort de opname van calcium.\n'
+            '• Sterk bewerkt eten — bevat weinig micronutriënten.',
+      },
+    ],
+    'references': [
+      'Golden NH et al. Pediatrics. 2014;134(4):e1229-43.',
+      'Prentice A. Public Health Nutr. 2004;7(1A):227-243.',
+    ],
+    'relatedRoutineIds': ['protein'],
+  },
+  {
+    'id': 'article_exercise_height',
+    'title': 'Sport en lengte: de wetenschap',
+    'icon': '🏃',
+    'category': 'exercise',
+    'sections': [
+      {
+        'header': 'Kun je langer worden door te sporten?',
+        'body':
+            'Sporten alleen kan je genetische maximale lengte niet veranderen, maar het helpt je wel om je volledige potentieel te bereiken. Beweging stimuleert de afgifte van HGH, maakt je botten sterker en verbetert je houding.',
+      },
+      {
+        'header': 'Impactsport en groeischijven',
+        'body':
+            'Rennen, springen en basketbal zorgen voor mechanische belasting op je groeischijven. Dat stimuleert de kraakbeencellen en bevordert botgroei. Sporters in springsporten hebben vaak een hogere botdichtheid.',
+      },
+      {
+        'header': 'Beste oefeningen voor groei',
+        'body':
+            '1. Springen: touwtjespringen, box jumps — stimuleert de groeischijven in je benen.\n'
+            '2. Sprinten: zorgt voor een flinke afgifte van HGH.\n'
+            '3. Zwemmen: strekt je hele lichaam met weinig belasting.\n'
+            '4. Hangen en optrekken: ontlast je wervelkolom.\n'
+            '5. Yoga/dynamisch stretchen: verbetert je houding.\n'
+            '6. Gematigde krachttraining: ondersteunt botgroei.',
+      },
+      {
+        'header': 'HGH-reactie op sporten',
+        'body':
+            'Intensief sporten kan je HGH-gehalte tot 1–2 uur na je training met 300–500% verhogen. Belangrijke factoren:\n'
+            '\n'
+            '• Intensiteit > 70% van je maximale inspanning.\n'
+            '• Duur van minstens 10–20 minuten.\n'
+            '• 60–90 seconden rust tussen de sets.',
+      },
+    ],
+    'references': [
+      'Godfrey RJ et al. Sports Med. 2003;33(8):599-613.',
+      'Behringer M et al. Pediatrics. 2014;133(5):e1121.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'posture_check'],
+  },
+  {
+    'id': 'article_posture',
+    'title': 'Houding en verborgen centimeters',
+    'icon': '🧍',
+    'category': 'exercise',
+    'sections': [
+      {
+        'header': 'Hoe je houding je lengte beïnvloedt',
+        'body':
+            'Door een slechte houding kun je 2–5 cm kleiner lijken dan je echte lengte. Afhangende schouders en een naar voren gestoken hoofd drukken je wervelkolom samen. Door goed te staan kun je er bij het meten meteen centimeters "bij krijgen".',
+      },
+      {
+        'header': 'Je wervelkolom zakt overdag in',
+        'body':
+            'De zwaartekracht drukt de hele dag de schijven tussen je wervels samen. \'s Ochtends ben je het langst en \'s avonds het kortst — het verschil kan 1,5–2,5 cm zijn. Een slechte houding en zwakke corespieren maken het erger.',
+      },
+      {
+        'header': 'Oefeningen die je rug ontlasten',
+        'body':
+            '1. Hangen aan een stang (30–60 sec) — laat de zwaartekracht je wervelkolom strekken.\n'
+            '2. Kat-koe — maak op handen en knieën je rug afwisselend hol en bol.\n'
+            '3. Cobrastretch — duw vanuit buiklig je borst omhoog.\n'
+            '4. Kindhouding — kniel en reik naar voren.\n'
+            '5. Wall angels — versterken je houdingsspieren.',
+      },
+      {
+        'header': 'Houdingsgewoontes voor de lange termijn',
+        'body':
+            '• Ergonomische werkplek — scherm op ooghoogte.\n'
+            '• Na elke 30 minuten zitten een houdingspauze van 2 minuten.\n'
+            '• Versterk je core en rug (planken, roeioefeningen).\n'
+            '• Stel je voor dat een touwtje je kruin omhoogtrekt.\n'
+            '• Slaap op je rug met een dun kussen.',
+      },
+    ],
+    'references': [
+      'Kim D et al. J Phys Ther Sci. 2015;27(6):1791-4.',
+      'Reilly T et al. Ergonomics. 1984;27(1):11-16.',
+    ],
+    'relatedRoutineIds': ['posture_check', 'morning_stretch'],
+  },
+  {
+    'id': 'article_myths',
+    'title': 'Lengtegroei: mythes en feiten',
+    'icon': '❓',
+    'category': 'myths',
+    'sections': [
+      {
+        'header': 'Mythe: "Genen bepalen alles"',
+        'body':
+            'FEIT: Genen bepalen 60–80% van je uiteindelijke lengte. De overige 20–40% hangt af van voeding, slaap en beweging. In Zuid-Korea en Nederland steeg de gemiddelde lengte in maar een paar generaties met 10–15 cm door betere voeding.',
+      },
+      {
+        'header': 'Mythe: "Stretchen maakt je blijvend langer"',
+        'body':
+            'FEIT: Stretchen verbetert je houding en vermindert de druk op je wervelkolom, waardoor je bij het meten 1–3 cm langer kunt zijn. Maar je botten worden er niet langer van. De winst komt van een betere houding, niet van botgroei.',
+      },
+      {
+        'header': 'Mythe: "Alleen melk maakt je lang"',
+        'body':
+            'FEIT: Melk levert calcium, eiwit en vitamine D — allemaal top. Maar je hebt ook zink, vitamine A, ijzer en fosfor nodig. Groeien vraagt om een heel team aan voedingsstoffen, niet om één voedingsmiddel.',
+      },
+      {
+        'header': 'Mythe: "Na je 18e groei je niet meer"',
+        'body':
+            'FEIT: De meeste mensen zijn rond hun 18e uitgegroeid, maar sommigen — vooral jongens die laat in de puberteit komen — groeien door tot 20–22 jaar. Wanneer de groeischijven sluiten, verschilt per persoon. Een röntgenfoto voor je botleeftijd kan laten zien hoeveel groei er nog in zit.',
+      },
+      {
+        'header': 'Mythe: "Gewichten remmen de groei van tieners"',
+        'body':
+            'FEIT: Krachttraining onder goede begeleiding is veilig voor tieners en ondersteunt de groei doordat het HGH verhoogt en je botten sterker maakt. De mythe komt van zeldzame blessures door verkeerd zwaar tillen.',
+      },
+    ],
+    'references': [
+      'Silventoinen K. J Biosoc Sci. 2003;35(2):263-85.',
+      'Faigenbaum AD et al. J Strength Cond Res. 2009;23(5):S60-79.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'protein'],
+  },
+  {
+    'id': 'article_growth_window',
+    'title': 'Haal alles uit je groeiperiode',
+    'icon': '📈',
+    'category': 'science',
+    'sections': [
+      {
+        'header': 'Groeispurts begrijpen',
+        'body':
+            'Lengtegroei gaat met vlagen. Er zijn twee grote groeispurts:\n'
+            '\n'
+            '1. Van baby tot 2 jaar (~25 cm in het eerste jaar).\n'
+            '2. Puberteit (meisjes: piek van ~8–10 cm per jaar; jongens: ~10–12 cm per jaar).\n'
+            '\n'
+            'Tussen de spurts door groeien kinderen ongeveer 5–6 cm per jaar.',
+      },
+      {
+        'header': 'De timing van je puberteit telt',
+        'body':
+            'Wie vroeg in de puberteit komt, groeit snel maar stopt eerder. Wie laat is, groeit eerst langzamer, maar wordt vaak uiteindelijk langer door meer groeijaren. Zijn je vrienden nu langer? Dan heb je je grootste groeispurt misschien nog niet gehad — en groei je uiteindelijk misschien zelfs meer.',
+      },
+      {
+        'header': 'Wat je op elke leeftijd kunt doen',
+        'body':
+            '8–12 jaar: leg de basis.\n'
+            '• Gevarieerd eten met calcium en eiwit. 10+ uur slaap.\n'
+            '\n'
+            '13–16 jaar: de belangrijkste periode.\n'
+            '• Maak 9+ uur slaap je prioriteit. Sprint- en springoefeningen.\n'
+            '• 1.300 mg calcium en 1,2–1,5 g/kg eiwit per dag.\n'
+            '\n'
+            '17–20 jaar: de laatste kans.\n'
+            '• Uitstekende voeding, slaap en houdingsoefeningen.',
+      },
+      {
+        'header': 'Signalen dat er een groeispurt aankomt',
+        'body':
+            '• Je schoenmaat groeit eerder dan je lengte.\n'
+            '• Je handen en voeten lijken onevenredig groot.\n'
+            '• Meer trek en honger.\n'
+            '• Groeipijn (zeurende benen \'s nachts).\n'
+            '• Je kleren passen snel anders.\n'
+            '\n'
+            'Merk je deze signalen? Zet dan extra in op slaap en voeding.',
+      },
+    ],
+    'references': [
+      'Tanner JM. Growth at Adolescence. Blackwell, 1962.',
+      'Rogol AD et al. J Adolesc Health. 2002;31(6):192-200.',
+    ],
+    'relatedRoutineIds': ['quality_sleep', 'protein', 'morning_stretch'],
+  },
+];
+
+// ── POLISH ──────────────────────────────────────────────────────
+const List<Map<String, dynamic>> _articlesPl = [
+  {
+    'id': 'article_hgh',
+    'title': 'Czym jest hormon wzrostu?',
+    'icon': '🧬',
+    'category': 'science',
+    'sections': [
+      {
+        'header': 'Poznaj swój silnik wzrostu: HGH',
+        'body':
+            'Ludzki hormon wzrostu (HGH) to małe białko wytwarzane przez przysadkę mózgową u podstawy mózgu. HGH to najważniejszy hormon odpowiadający za wzrost w dzieciństwie i okresie dojrzewania. Daje sygnał kościom, mięśniom i narządom, by rosły.',
+      },
+      {
+        'header': 'Jak działa przysadka mózgowa',
+        'body':
+            'Przysadka wydziela HGH falami przez cały dzień, ale największe wyrzuty zdarzają się w głębokim śnie i tuż po intensywnym wysiłku. Podwzgórze steruje tymi falami za pomocą GHRH (pobudza HGH) i somatostatyny (hamuje HGH).',
+      },
+      {
+        'header': 'Kiedy HGH osiąga szczyt?',
+        'body':
+            'Poziom HGH jest najwyższy w okresie dojrzewania. U chłopców szczyt zwykle przypada na wiek 13–15 lat, a u dziewczyn na 11–13 lat. Po latach skoku wzrostowego produkcja HGH stopniowo spada — po 20. roku życia o około 14% na dekadę.',
+      },
+      {
+        'header': 'Jak naturalnie zwiększyć HGH',
+        'body':
+            '1. Śpij 8–10 godzin każdej nocy (głęboki sen = największe wyrzuty HGH).\n'
+            '2. Ćwicz intensywnie — sprinty i trening siłowy wywołują duże wyrzuty HGH.\n'
+            '3. Jedz wystarczająco dużo białka — arginina i ornityna pobudzają HGH.\n'
+            '4. Unikaj skoków cukru przed snem — wysoki poziom cukru we krwi hamuje wydzielanie HGH podczas snu.',
+      },
+      {
+        'header': 'Co obniża HGH?',
+        'body':
+            '• Przewlekły niedobór snu.\n'
+            '• Nadmiar tkanki tłuszczowej, zwłaszcza na brzuchu.\n'
+            '• Dużo cukru i przetworzonego jedzenia.\n'
+            '• Przewlekły stres (podnosi kortyzol, hamuje HGH).\n'
+            '• Siedzący tryb życia z małą ilością ruchu.',
+      },
+    ],
+    'references': [
+      'Veldhuis JD et al. J Neuroendocrinol. 2012;24(12):1365-71.',
+      'Takahashi Y et al. J Clin Invest. 1968;47(9):2079-90.',
+      'Wideman L et al. Sports Med. 2002;32(15):987-1004.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'quality_sleep'],
+  },
+  {
+    'id': 'article_growth_plates',
+    'title': 'Jak działają chrząstki wzrostowe?',
+    'icon': '🦴',
+    'category': 'science',
+    'sections': [
+      {
+        'header': 'Czym są chrząstki wzrostowe?',
+        'body':
+            'Chrząstki wzrostowe (płytki nasadowe) to cienkie warstwy chrząstki w pobliżu końców kości długich. Tylko w tych miejscach przybywa nowej tkanki kostnej, dzięki której kości się wydłużają. Dopóki pozostają otwarte (niezrośnięte), możesz jeszcze urosnąć.',
+      },
+      {
+        'header': 'Jak kości się wydłużają',
+        'body':
+            'W każdej chrząstce wzrostowej stale dzielą się chondrocyty. Nowe komórki chrząstki spychają starsze w stronę trzonu kości, gdzie w procesie kostnienia zastępuje je twarda tkanka kostna. Dzięki temu cyklowi nogi i kręgosłup z czasem się wydłużają.',
+      },
+      {
+        'header': 'Kiedy zamykają się chrząstki wzrostowe?',
+        'body':
+            'Zamykanie chrząstek wzrostowych wywołują głównie hormony płciowe:\n'
+            '\n'
+            '• Dziewczyny: chrząstki zaczynają się zrastać w wieku około 14–16 lat.\n'
+            '• Chłopcy: chrząstki zaczynają się zrastać w wieku około 16–18 lat.\n'
+            '• Niektóre chrząstki mogą zamknąć się w pełni dopiero około 25 roku życia.\n'
+            '\n'
+            'RTG dłoni i nadgarstka (badanie wieku kostnego) może pokazać pozostały potencjał.',
+      },
+      {
+        'header': 'Co wpływa na zamykanie chrząstek',
+        'body':
+            '• Wczesne dojrzewanie → wcześniejsze zamknięcie (mniej czasu na wzrost).\n'
+            '• Niedożywienie → opóźnione zamknięcie, ale też wolniejsze tempo wzrostu.\n'
+            '• Otyłość → więcej estrogenu może przyspieszyć zamknięcie.\n'
+            '• Odpowiednie odżywianie i sen wspierają zdrową pracę chrząstek.',
+      },
+    ],
+    'references': [
+      'Nilsson O et al. Horm Res. 2005;64(4):157-65.',
+      'Weise M et al. PNAS. 2001;98(12):6871-6.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'protein'],
+  },
+  {
+    'id': 'article_sleep_growth',
+    'title': 'Sen i wzrost: co mówi nauka',
+    'icon': '🌙',
+    'category': 'sleep',
+    'sections': [
+      {
+        'header': 'Dlaczego sen to podstawa',
+        'body':
+            'Nawet 75% dobowej ilości hormonu wzrostu wydziela się podczas snu. Żadne ćwiczenia ani dieta nie zrekompensują w pełni słabego snu. Twoje ciało dosłownie buduje kości i naprawia tkanki, kiedy śpisz.',
+      },
+      {
+        'header': 'Cykle snu a wydzielanie GH',
+        'body':
+            'Typowa noc to 4–6 cykli snu, każdy po około 90 minut. Największe wyrzuty HGH pojawiają się w 3. fazie snu, czyli w śnie głębokim, zwłaszcza w pierwszych 1–2 cyklach. Późne chodzenie spać lub częste budzenie się oznacza utratę tych ważnych wyrzutów.',
+      },
+      {
+        'header': 'Ile snu potrzebujesz?',
+        'body':
+            '• Wiek 6–12 lat: 9–12 godzin na dobę.\n'
+            '• Wiek 13–15 lat: 9–10 godzin na dobę.\n'
+            '• Wiek 16–18 lat: 8–10 godzin na dobę.\n'
+            '• Wiek 19–25 lat: 7–9 godzin na dobę.\n'
+            '\n'
+            'Celuj w górną granicę, jeśli wciąż intensywnie rośniesz.',
+      },
+      {
+        'header': 'Jak lepiej spać',
+        'body':
+            '1. Kładź się i wstawaj codziennie o tej samej porze.\n'
+            '2. Odłóż ekrany 30 minut przed snem (niebieskie światło hamuje melatoninę).\n'
+            '3. Zadbaj, by w pokoju było chłodno (18–20 °C) i ciemno.\n'
+            '4. Unikaj kofeiny po 14:00 i ciężkich posiłków 2 godziny przed snem.\n'
+            '5. Lekkie rozciąganie przed snem pomaga rozluźnić ciało.',
+      },
+    ],
+    'references': [
+      'Van Cauter E, Plat L. J Pediatr. 1996;128(5):S32-7.',
+      'Paruthi S et al. J Clin Sleep Med. 2016;12(6):785-786.',
+    ],
+    'relatedRoutineIds': ['quality_sleep'],
+  },
+  {
+    'id': 'article_nutrition',
+    'title': 'Odżywianie dla maksymalnego wzrostu',
+    'icon': '🥗',
+    'category': 'nutrition',
+    'sections': [
+      {
+        'header': 'Dlaczego dieta ma znaczenie dla wzrostu',
+        'body':
+            'Geny wyznaczają twój potencjał wzrostu, ale to odżywianie decyduje, czy go osiągniesz. Dzięki lepszemu odżywianiu w ciągu ostatniego stulecia średni wzrost w wielu krajach zwiększył się nawet o 10 cm.',
+      },
+      {
+        'header': 'Wapń — budulec kości',
+        'body':
+            'Wapń stanowi około 70% tkanki kostnej. W latach najszybszego wzrostu potrzebujesz 1000–1300 mg dziennie. Najlepsze źródła: mleko, jogurt, ser, brokuły, migdały. Łącz go z witaminą D, by lepiej się wchłaniał.',
+      },
+      {
+        'header': 'Białko — paliwo wzrostu',
+        'body':
+            'Nastolatki potrzebują około 1,0–1,5 g białka na kg masy ciała dziennie. Szczególnie arginina pobudza wydzielanie HGH. Świetne źródła: jajka, kurczak, ryby, chuda wołowina, soczewica, jogurt grecki, tofu.',
+      },
+      {
+        'header': 'Najważniejsze witaminy i minerały',
+        'body':
+            '• Witamina D: 600–1000 IU dziennie dla wchłaniania wapnia.\n'
+            '• Cynk: 8–11 mg dziennie dla podziału komórek i wzrostu.\n'
+            '• Witamina A: wspiera przebudowę kości (marchewka, bataty).\n'
+            '• Żelazo: 8–15 mg dziennie, transportuje tlen do rosnących tkanek.\n'
+            '• Fosfor i magnez: razem z wapniem mineralizują kości.',
+      },
+      {
+        'header': 'Czego unikać',
+        'body':
+            '• Nadmiaru cukru i słodkich napojów gazowanych — wypłukują wapń i hamują HGH.\n'
+            '• Drastycznych diet — hamują wzrost.\n'
+            '• Zbyt dużej ilości kofeiny — utrudnia wchłanianie wapnia.\n'
+            '• Mocno przetworzonego jedzenia — ma mało mikroskładników.',
+      },
+    ],
+    'references': [
+      'Golden NH et al. Pediatrics. 2014;134(4):e1229-43.',
+      'Prentice A. Public Health Nutr. 2004;7(1A):227-243.',
+    ],
+    'relatedRoutineIds': ['protein'],
+  },
+  {
+    'id': 'article_exercise_height',
+    'title': 'Ruch i wzrost: co mówi nauka',
+    'icon': '🏃',
+    'category': 'exercise',
+    'sections': [
+      {
+        'header': 'Czy ćwiczenia sprawią, że urośniesz?',
+        'body':
+            'Same ćwiczenia nie zmienią twojego genetycznego limitu wzrostu, ale pomagają w pełni wykorzystać potencjał. Aktywność fizyczna pobudza wydzielanie HGH, wzmacnia kości i poprawia postawę.',
+      },
+      {
+        'header': 'Ćwiczenia udarowe a chrząstki wzrostowe',
+        'body':
+            'Bieganie, skakanie i koszykówka tworzą mechaniczne obciążenie chrząstek wzrostowych, pobudzając aktywność chondrocytów i sprzyjając wzrostowi kości. Sportowcy z dyscyplin skocznych mają zwykle większą gęstość mineralną kości.',
+      },
+      {
+        'header': 'Najlepsze ćwiczenia na wzrost',
+        'body':
+            '1. Skoki: skakanka, wskoki na skrzynię — pobudzają chrząstki wzrostowe w nogach.\n'
+            '2. Sprinty: wywołują duże wyrzuty HGH.\n'
+            '3. Pływanie: rozciąga całe ciało przy małym obciążeniu stawów.\n'
+            '4. Zwisy i podciąganie: odciążają kręgosłup.\n'
+            '5. Joga / rozciąganie dynamiczne: poprawiają postawę.\n'
+            '6. Umiarkowany trening siłowy: wspiera wzrost kości.',
+      },
+      {
+        'header': 'Reakcja HGH na wysiłek',
+        'body':
+            'Intensywny wysiłek może podnieść poziom HGH o 300–500% na 1–2 godziny po treningu. Kluczowe czynniki:\n'
+            '\n'
+            '• Intensywność > 70% maksymalnego wysiłku.\n'
+            '• Czas trwania co najmniej 10–20 minut.\n'
+            '• Przerwy 60–90 sekund między seriami.',
+      },
+    ],
+    'references': [
+      'Godfrey RJ et al. Sports Med. 2003;33(8):599-613.',
+      'Behringer M et al. Pediatrics. 2014;133(5):e1121.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'posture_check'],
+  },
+  {
+    'id': 'article_posture',
+    'title': 'Postawa i ukryte centymetry',
+    'icon': '🧍',
+    'category': 'exercise',
+    'sections': [
+      {
+        'header': 'Jak postawa wpływa na twój wzrost',
+        'body':
+            'Zła postawa może sprawić, że wyglądasz o 2–5 cm niżej, niż wynika z budowy twojego szkieletu. Zaokrąglone barki i wysunięta do przodu głowa uciskają kręgosłup. Prawidłowa postawa może od razu „dodać” centymetrów w pomiarze.',
+      },
+      {
+        'header': 'Ucisk kręgosłupa w ciągu dnia',
+        'body':
+            'W ciągu dnia grawitacja uciska krążki międzykręgowe. Rano twój wzrost jest największy, a wieczorem najmniejszy — różnica może wynosić 1,5–2,5 cm. Zła postawa i słabe mięśnie core pogłębiają ten efekt.',
+      },
+      {
+        'header': 'Ćwiczenia odciążające kręgosłup',
+        'body':
+            '1. Zwis na drążku (30–60 s) — grawitacja rozciąga kręgosłup.\n'
+            '2. Koci grzbiet — wyginaj i zaokrąglaj plecy w klęku podpartym.\n'
+            '3. Pozycja kobry — z leżenia na brzuchu unieś klatkę piersiową.\n'
+            '4. Pozycja dziecka — uklęknij i sięgnij rękami do przodu.\n'
+            '5. Anioły przy ścianie — wzmacniają mięśnie posturalne.',
+      },
+      {
+        'header': 'Nawyki dla dobrej postawy na dłużej',
+        'body':
+            '• Ergonomiczne biurko — ekran na wysokości oczu.\n'
+            '• 2-minutowa przerwa na postawę co 30 minut siedzenia.\n'
+            '• Wzmacniaj brzuch i plecy (deska, wiosłowanie).\n'
+            '• Wyobraź sobie nitkę, która ciągnie czubek głowy w górę.\n'
+            '• Śpij na plecach z cienką poduszką.',
+      },
+    ],
+    'references': [
+      'Kim D et al. J Phys Ther Sci. 2015;27(6):1791-4.',
+      'Reilly T et al. Ergonomics. 1984;27(1):11-16.',
+    ],
+    'relatedRoutineIds': ['posture_check', 'morning_stretch'],
+  },
+  {
+    'id': 'article_myths',
+    'title': 'Wzrost: mity i fakty',
+    'icon': '❓',
+    'category': 'myths',
+    'sections': [
+      {
+        'header': 'Mit: „Geny decydują o wszystkim”',
+        'body':
+            'FAKT: Geny odpowiadają za 60–80% wzrostu docelowego. Pozostałe 20–40% zależy od odżywiania, snu i ruchu. W Korei Południowej i Holandii średni wzrost zwiększył się o 10–15 cm w ciągu zaledwie kilku pokoleń dzięki lepszemu odżywianiu.',
+      },
+      {
+        'header': 'Mit: „Rozciąganie trwale dodaje wzrostu”',
+        'body':
+            'FAKT: Rozciąganie poprawia postawę i zmniejsza ucisk kręgosłupa, przez co pomiar może pokazać 1–3 cm więcej. Nie wydłuża jednak kości. Zysk wynika z korekty postawy, a nie ze wzrostu kości.',
+      },
+      {
+        'header': 'Mit: „Samo mleko sprawi, że urośniesz”',
+        'body':
+            'FAKT: Mleko dostarcza wapnia, białka i witaminy D — i to świetnie. Ale potrzebujesz też cynku, witaminy A, żelaza i fosforu. Wzrost wymaga całej drużyny składników odżywczych, a nie jednego produktu.',
+      },
+      {
+        'header': 'Mit: „Po 18 latach już się nie rośnie”',
+        'body':
+            'FAKT: Większość osób kończy rosnąć do 18. roku życia, ale niektórzy — zwłaszcza chłopcy, którzy później weszli w okres dojrzewania — rosną aż do 20–22 lat. Moment zamknięcia chrząstek wzrostowych jest różny. RTG wieku kostnego może pokazać pozostały potencjał.',
+      },
+      {
+        'header': 'Mit: „Ciężary hamują wzrost nastolatków”',
+        'body':
+            'FAKT: Trening siłowy pod odpowiednim nadzorem jest bezpieczny dla nastolatków i wspiera wzrost, zwiększając HGH i wzmacniając kości. Mit wziął się z rzadkich kontuzji przy nieprawidłowym dźwiganiu dużych ciężarów.',
+      },
+    ],
+    'references': [
+      'Silventoinen K. J Biosoc Sci. 2003;35(2):263-85.',
+      'Faigenbaum AD et al. J Strength Cond Res. 2009;23(5):S60-79.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'protein'],
+  },
+  {
+    'id': 'article_growth_window',
+    'title': 'Wykorzystaj swoje okno wzrostu',
+    'icon': '📈',
+    'category': 'science',
+    'sections': [
+      {
+        'header': 'Jak działają skoki wzrostowe',
+        'body':
+            'Wzrost następuje skokami. Dwa główne skoki wzrostowe:\n'
+            '\n'
+            '1. Od urodzenia do 2 lat (~25 cm w pierwszym roku).\n'
+            '2. Dojrzewanie (dziewczyny: szczyt ~8–10 cm/rok; chłopcy: ~10–12 cm/rok).\n'
+            '\n'
+            'Między skokami dzieci rosną o około 5–6 cm rocznie.',
+      },
+      {
+        'header': 'Moment dojrzewania ma znaczenie',
+        'body':
+            'Osoby, które dojrzewają wcześnie, rosną szybko, ale wcześniej kończą. Te, które dojrzewają później, na początku rosną wolniej, ale dzięki dłuższemu okresowi wzrostu często są w końcu wyższe. Jeśli znajomi są teraz wyżsi, twój największy skok może być jeszcze przed tobą — i ostatecznie możesz urosnąć więcej.',
+      },
+      {
+        'header': 'Co robić w każdym wieku',
+        'body':
+            'Wiek 8–12 lat: zbuduj fundament.\n'
+            '• Zbilansowana dieta z wapniem i białkiem. Ponad 10 godzin snu.\n'
+            '\n'
+            'Wiek 13–16 lat: kluczowe okno.\n'
+            '• Postaw na ponad 9 godzin snu. Sprinty i skoki.\n'
+            '• 1300 mg wapnia, 1,2–1,5 g/kg białka dziennie.\n'
+            '\n'
+            'Wiek 17–20 lat: ostatnia szansa.\n'
+            '• Świetne odżywianie, sen, ćwiczenia na postawę.',
+      },
+      {
+        'header': 'Oznaki zbliżającego się skoku wzrostowego',
+        'body':
+            '• Rozmiar buta rośnie szybciej niż wzrost.\n'
+            '• Dłonie i stopy wydają się nieproporcjonalnie duże.\n'
+            '• Większy apetyt i głód.\n'
+            '• Bóle wzrostowe (bolące nogi w nocy).\n'
+            '• Ubrania szybko robią się za małe.\n'
+            '\n'
+            'Gdy zauważysz te oznaki, jeszcze bardziej postaw na sen i odżywianie.',
+      },
+    ],
+    'references': [
+      'Tanner JM. Growth at Adolescence. Blackwell, 1962.',
+      'Rogol AD et al. J Adolesc Health. 2002;31(6):192-200.',
+    ],
+    'relatedRoutineIds': ['quality_sleep', 'protein', 'morning_stretch'],
+  },
+];
+
+// ── SWEDISH ─────────────────────────────────────────────────────
+const List<Map<String, dynamic>> _articlesSv = [
+  {
+    'id': 'article_hgh',
+    'title': 'Vad är tillväxthormon?',
+    'icon': '🧬',
+    'category': 'science',
+    'sections': [
+      {
+        'header': 'Möt din tillväxtmotor: HGH',
+        'body':
+            'Tillväxthormon (HGH, human growth hormone) är ett litet protein som bildas i hypofysen vid basen av hjärnan. HGH är det viktigaste hormonet för att du ska växa på längden under barndomen och tonåren. Det signalerar till ditt skelett, dina muskler och organ att växa.',
+      },
+      {
+        'header': 'Så fungerar hypofysen',
+        'body':
+            'Hypofysen frisätter HGH i pulser under hela dygnet, men de största pulserna kommer under djupsömn och direkt efter intensiv träning. Hypotalamus styr pulserna med hjälp av GHRH (stimulerar HGH) och somatostatin (hämmar HGH).',
+      },
+      {
+        'header': 'När är HGH som högst?',
+        'body':
+            'HGH-nivåerna är som högst under puberteten. För killar kommer toppen oftast vid 13–15 års ålder, för tjejer vid 11–13 år. Efter åren med tillväxtspurt minskar produktionen av HGH gradvis, med cirka 14 % per decennium efter 20 års ålder.',
+      },
+      {
+        'header': 'Så kan du öka HGH naturligt',
+        'body':
+            '1. Sov 8–10 timmar varje natt (djupsömn = störst HGH-pulser).\n'
+            '2. Träna intensivt – sprinter och styrketräning ger stora HGH-pulser.\n'
+            '3. Ät tillräckligt med protein – arginin och ornitin stimulerar HGH.\n'
+            '4. Undvik blodsockertoppar före läggdags – högt blodsocker hämmar frisättningen av HGH under sömnen.',
+      },
+      {
+        'header': 'Vad sänker HGH?',
+        'body':
+            '• Långvarig sömnbrist.\n'
+            '• För mycket kroppsfett, särskilt runt magen.\n'
+            '• Mycket socker och processad mat.\n'
+            '• Långvarig stress (höjer kortisol och hämmar HGH).\n'
+            '• Stillasittande livsstil med lite fysisk aktivitet.',
+      },
+    ],
+    'references': [
+      'Veldhuis JD et al. J Neuroendocrinol. 2012;24(12):1365-71.',
+      'Takahashi Y et al. J Clin Invest. 1968;47(9):2079-90.',
+      'Wideman L et al. Sports Med. 2002;32(15):987-1004.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'quality_sleep'],
+  },
+  {
+    'id': 'article_growth_plates',
+    'title': 'Hur fungerar tillväxtzonerna?',
+    'icon': '🦴',
+    'category': 'science',
+    'sections': [
+      {
+        'header': 'Vad är tillväxtzoner?',
+        'body':
+            'Tillväxtzonerna (epifysplattorna) är tunna lager av brosk nära ändarna på dina långa rörben. De är de enda ställena där ny benvävnad läggs till så att benen blir längre. Så länge de är öppna (inte sammanväxta) kan du fortfarande växa på längden.',
+      },
+      {
+        'header': 'Så blir skelettet längre',
+        'body':
+            'Inne i varje tillväxtzon delar sig broskceller (kondrocyter) hela tiden. Nya broskceller trycker de äldre mot benets skaft, där de ersätts av hård benvävnad genom förbening. Den här cykeln gör att dina ben och din ryggrad blir längre med tiden.',
+      },
+      {
+        'header': 'När sluts tillväxtzonerna?',
+        'body':
+            'Att tillväxtzonerna sluts styrs främst av könshormonerna:\n'
+            '\n'
+            '• Tjejer: zonerna börjar växa ihop runt 14–16 års ålder.\n'
+            '• Killar: zonerna börjar växa ihop runt 16–18 års ålder.\n'
+            '• Vissa zoner sluts inte helt förrän vid 25 års ålder.\n'
+            '\n'
+            'En röntgen av hand och handled (skelettålder) kan visa hur mycket tillväxt som kan återstå.',
+      },
+      {
+        'header': 'Det här påverkar när zonerna sluts',
+        'body':
+            '• Tidig pubertet → tidigare slutning (kortare tid att växa totalt).\n'
+            '• Undernäring → senare slutning men också långsammare tillväxt.\n'
+            '• Fetma → högre östrogennivåer kan påskynda slutningen.\n'
+            '• Tillräckligt med näring och sömn håller tillväxtzonerna aktiva och friska.',
+      },
+    ],
+    'references': [
+      'Nilsson O et al. Horm Res. 2005;64(4):157-65.',
+      'Weise M et al. PNAS. 2001;98(12):6871-6.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'protein'],
+  },
+  {
+    'id': 'article_sleep_growth',
+    'title': 'Sömn & tillväxt: vetenskapen',
+    'icon': '🌙',
+    'category': 'sleep',
+    'sections': [
+      {
+        'header': 'Därför är sömnen inte förhandlingsbar',
+        'body':
+            'Upp till 75 % av dygnets tillväxthormon frisätts under sömnen. Ingen mängd träning eller bra kost kan helt väga upp dålig sömn. Kroppen bygger bokstavligen skelett och reparerar vävnad medan du sover.',
+      },
+      {
+        'header': 'Sömncykler och frisättning av GH',
+        'body':
+            'En vanlig natt består av 4–6 sömncykler på cirka 90 minuter vardera. De största HGH-pulserna kommer i djupsömnen (steg 3), särskilt under de första 1–2 cyklerna. Lägger du dig sent eller vaknar ofta missar du de här viktiga pulserna.',
+      },
+      {
+        'header': 'Hur mycket sömn behöver du?',
+        'body':
+            '• 6–12 år: 9–12 timmar per natt.\n'
+            '• 13–15 år: 9–10 timmar per natt.\n'
+            '• 16–18 år: 8–10 timmar per natt.\n'
+            '• 19–25 år: 7–9 timmar per natt.\n'
+            '\n'
+            'Sikta på den övre gränsen om du växer just nu.',
+      },
+      {
+        'header': 'Tips för bättre sömn',
+        'body':
+            '1. Lägg dig och vakna vid samma tid varje dag.\n'
+            '2. Lägg undan skärmar 30 minuter före läggdags (blått ljus hämmar melatonin).\n'
+            '3. Håll rummet svalt (18–20 °C) och mörkt.\n'
+            '4. Undvik koffein efter kl. 14 och tunga måltider 2 timmar före läggdags.\n'
+            '5. Lätt stretch före läggdags hjälper kroppen att slappna av.',
+      },
+    ],
+    'references': [
+      'Van Cauter E, Plat L. J Pediatr. 1996;128(5):S32-7.',
+      'Paruthi S et al. J Clin Sleep Med. 2016;12(6):785-786.',
+    ],
+    'relatedRoutineIds': ['quality_sleep'],
+  },
+  {
+    'id': 'article_nutrition',
+    'title': 'Kost för maximal tillväxt',
+    'icon': '🥗',
+    'category': 'nutrition',
+    'sections': [
+      {
+        'header': 'Därför spelar kosten roll för längden',
+        'body':
+            'Generna sätter din längdpotential, men kosten avgör om du når den. Bättre kost under det senaste århundradet har ökat medellängden med upp till 10 cm i många länder.',
+      },
+      {
+        'header': 'Kalcium – skelettets byggsten',
+        'body':
+            'Kalcium utgör cirka 70 % av benvävnaden. Under åren med snabbast tillväxt behöver du 1 000–1 300 mg per dag. Bästa källor: mjölk, yoghurt, ost, broccoli, mandlar. Kombinera med D-vitamin för bästa upptag.',
+      },
+      {
+        'header': 'Protein – tillväxtens bränsle',
+        'body':
+            'Tonåringar behöver cirka 1,0–1,5 g protein per kg kroppsvikt och dag. Särskilt arginin stimulerar utsöndringen av HGH. Bra källor: ägg, kyckling, fisk, magert nötkött, linser, grekisk yoghurt, tofu.',
+      },
+      {
+        'header': 'Viktiga vitaminer och mineraler',
+        'body':
+            '• D-vitamin: 600–1 000 IU per dag för kalciumupptaget.\n'
+            '• Zink: 8–11 mg/dag för celldelning och tillväxt.\n'
+            '• A-vitamin: stödjer skelettets ombyggnad (morötter, sötpotatis).\n'
+            '• Järn: 8–15 mg/dag, transporterar syre till växande vävnader.\n'
+            '• Fosfor & magnesium: mineraliserar skelettet tillsammans med kalcium.',
+      },
+      {
+        'header': 'Det här bör du undvika',
+        'body':
+            '• För mycket socker och läsk – drar ut kalcium och hämmar HGH.\n'
+            '• Extrema dieter – hämmar tillväxten.\n'
+            '• För mycket koffein – försämrar kalciumupptaget.\n'
+            '• Kraftigt processad mat – innehåller lite mikronäringsämnen.',
+      },
+    ],
+    'references': [
+      'Golden NH et al. Pediatrics. 2014;134(4):e1229-43.',
+      'Prentice A. Public Health Nutr. 2004;7(1A):227-243.',
+    ],
+    'relatedRoutineIds': ['protein'],
+  },
+  {
+    'id': 'article_exercise_height',
+    'title': 'Träning & längd: vetenskapen',
+    'icon': '🏃',
+    'category': 'exercise',
+    'sections': [
+      {
+        'header': 'Kan träning göra dig längre?',
+        'body':
+            'Träning i sig kan inte ändra den längd dina gener sätter som tak, men den hjälper dig att nå din fulla potential. Fysisk aktivitet stimulerar frisättningen av HGH, stärker skelettet och förbättrar hållningen.',
+      },
+      {
+        'header': 'Stötbelastning och tillväxtzoner',
+        'body':
+            'Löpning, hopp och basket ger mekanisk belastning på tillväxtzonerna, vilket stimulerar broskcellernas aktivitet och främjar mer benbildning. Idrottare i hoppsporter har ofta högre bentäthet.',
+      },
+      {
+        'header': 'Bästa övningarna för tillväxt',
+        'body':
+            '1. Hopp: hopprep, boxhopp – stimulerar tillväxtzonerna i benen.\n'
+            '2. Sprint: ger stora HGH-pulser.\n'
+            '3. Simning: stretchar hela kroppen med låg belastning.\n'
+            '4. Häng & chins: avlastar ryggraden.\n'
+            '5. Yoga/dynamisk stretch: förbättrar hållningen.\n'
+            '6. Måttlig styrketräning: stödjer skelettets tillväxt.',
+      },
+      {
+        'header': 'Så svarar HGH på träning',
+        'body':
+            'Högintensiv träning kan höja HGH med 300–500 % i 1–2 timmar efter passet. Viktiga faktorer:\n'
+            '\n'
+            '• Intensitet > 70 % av maxansträngning.\n'
+            '• Minst 10–20 minuters träning.\n'
+            '• Vila 60–90 sekunder mellan seten.',
+      },
+    ],
+    'references': [
+      'Godfrey RJ et al. Sports Med. 2003;33(8):599-613.',
+      'Behringer M et al. Pediatrics. 2014;133(5):e1121.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'posture_check'],
+  },
+  {
+    'id': 'article_posture',
+    'title': 'Hållning & dolda centimeter',
+    'icon': '🧍',
+    'category': 'exercise',
+    'sections': [
+      {
+        'header': 'Så påverkar hållningen din längd',
+        'body':
+            'Dålig hållning kan få dig att se 2–5 cm kortare ut än din faktiska skelettlängd. Framåtrullade axlar och framskjutet huvud trycker ihop ryggraden. Att stå rätt kan direkt ”lägga till” centimeter till din uppmätta längd.',
+      },
+      {
+        'header': 'Ryggraden trycks ihop under dagen',
+        'body':
+            'Tyngdkraften trycker ihop diskarna mellan kotorna under dagen. Du är längst på morgonen och kortast på kvällen – skillnaden kan vara 1,5–2,5 cm. Dålig hållning och svaga bålmuskler gör det värre.',
+      },
+      {
+        'header': 'Avlastande övningar',
+        'body':
+            '1. Stånghäng (30–60 sek) – sträck ryggraden med tyngdkraftens hjälp.\n'
+            '2. Katt-ko – svanka och runda ryggen på alla fyra.\n'
+            '3. Kobrastretch – pressa upp bröstet från magliggande.\n'
+            '4. Barnets position – sitt på knä och sträck dig framåt.\n'
+            '5. Väggänglar – stärker hållningsmusklerna.',
+      },
+      {
+        'header': 'Hållningsvanor på lång sikt',
+        'body':
+            '• Ergonomisk skrivplats – skärmen i ögonhöjd.\n'
+            '• 2 minuters hållningspaus var 30:e minut du sitter.\n'
+            '• Stärk bål och rygg (plankan, rodd).\n'
+            '• Tänk dig ett snöre som drar hjässan uppåt.\n'
+            '• Sov på rygg med en tunn kudde.',
+      },
+    ],
+    'references': [
+      'Kim D et al. J Phys Ther Sci. 2015;27(6):1791-4.',
+      'Reilly T et al. Ergonomics. 1984;27(1):11-16.',
+    ],
+    'relatedRoutineIds': ['posture_check', 'morning_stretch'],
+  },
+  {
+    'id': 'article_myths',
+    'title': 'Längdtillväxt: myter och fakta',
+    'icon': '❓',
+    'category': 'myths',
+    'sections': [
+      {
+        'header': 'Myt: ”Generna avgör allt”',
+        'body':
+            'FAKTA: Generna står för 60–80 % av slutlängden. Resterande 20–40 % beror på kost, sömn och träning. I Sydkorea och Nederländerna ökade medellängden med 10–15 cm på bara några generationer tack vare bättre kost.',
+      },
+      {
+        'header': 'Myt: ”Stretch gör dig permanent längre”',
+        'body':
+            'FAKTA: Stretch förbättrar hållningen och minskar kompressionen av ryggraden, vilket kan göra att du mäter 1–3 cm mer. Men skelettet blir inte längre. Ökningen kommer från bättre hållning, inte från benväxt.',
+      },
+      {
+        'header': 'Myt: ”Mjölk räcker för att bli lång”',
+        'body':
+            'FAKTA: Mjölk ger kalcium, protein och D-vitamin – allt bra. Men du behöver också zink, A-vitamin, järn och fosfor. Tillväxt kräver ett helt lag av näringsämnen, inte ett enda livsmedel.',
+      },
+      {
+        'header': 'Myt: ”Man slutar växa vid 18”',
+        'body':
+            'FAKTA: De flesta har vuxit klart vid 18, men vissa – särskilt killar med sen pubertet – fortsätter till 20–22 års ålder. När tillväxtzonerna sluts varierar. En röntgen av skelettåldern kan visa om det finns tillväxt kvar.',
+      },
+      {
+        'header': 'Myt: ”Vikter hämmar tonåringars tillväxt”',
+        'body':
+            'FAKTA: Styrketräning med rätt handledning är säker för tonåringar och stödjer tillväxten genom att öka HGH och stärka skelettet. Myten kommer från sällsynta skador orsakade av felaktiga tunga lyft.',
+      },
+    ],
+    'references': [
+      'Silventoinen K. J Biosoc Sci. 2003;35(2):263-85.',
+      'Faigenbaum AD et al. J Strength Cond Res. 2009;23(5):S60-79.',
+    ],
+    'relatedRoutineIds': ['morning_stretch', 'protein'],
+  },
+  {
+    'id': 'article_growth_window',
+    'title': 'Ta vara på ditt tillväxtfönster',
+    'icon': '📈',
+    'category': 'science',
+    'sections': [
+      {
+        'header': 'Så fungerar tillväxtspurter',
+        'body':
+            'Längdtillväxt sker i skov. Två stora tillväxtspurter:\n'
+            '\n'
+            '1. Från födseln till 2 års ålder (~25 cm första året).\n'
+            '2. Puberteten (tjejer: topp ~8–10 cm/år; killar: ~10–12 cm/år).\n'
+            '\n'
+            'Mellan spurterna växer barn cirka 5–6 cm per år.',
+      },
+      {
+        'header': 'Pubertetens timing spelar roll',
+        'body':
+            'Den som kommer tidigt i puberteten växer snabbt men slutar tidigare. Den som kommer sent växer långsammare i början men blir ofta längre, tack vare fler år av tillväxt. Om dina kompisar är längre nu har du kanske inte nått din största spurt än – och kan i slutändan växa mer.',
+      },
+      {
+        'header': 'Det här kan du göra i varje ålder',
+        'body':
+            '8–12 år: Bygg grunden.\n'
+            '• Balanserad kost med kalcium och protein. 10+ timmars sömn.\n'
+            '\n'
+            '13–16 år: Det avgörande fönstret.\n'
+            '• Prioritera 9+ timmars sömn. Sprint- och hoppövningar.\n'
+            '• 1 300 mg kalcium, 1,2–1,5 g/kg protein per dag.\n'
+            '\n'
+            '17–20 år: Sista chansen.\n'
+            '• Riktigt bra kost, sömn och hållningsövningar.',
+      },
+      {
+        'header': 'Tecken på att en tillväxtspurt är på väg',
+        'body':
+            '• Skostorleken ökar före längden.\n'
+            '• Händer och fötter verkar oproportionerligt stora.\n'
+            '• Större aptit och mer hunger.\n'
+            '• Växtvärk (värk i benen på natten).\n'
+            '• Kläderna blir snabbt för små.\n'
+            '\n'
+            'När du märker de här tecknen: satsa extra på sömn och kost.',
+      },
+    ],
+    'references': [
+      'Tanner JM. Growth at Adolescence. Blackwell, 1962.',
+      'Rogol AD et al. J Adolesc Health. 2002;31(6):192-200.',
     ],
     'relatedRoutineIds': ['quality_sleep', 'protein', 'morning_stretch'],
   },

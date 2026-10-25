@@ -299,7 +299,7 @@ void main() {
     setUpAll(loadInter);
 
     for (final size in const [Size(320, 568), Size(375, 667)]) {
-      for (final lang in const ['en', 'de', 'hi']) {
+      for (final lang in const ['en', 'de', 'hi', 'nl', 'pl', 'sv']) {
         testWidgets('fits ${size.width.toInt()} wide in $lang', (tester) async {
           tester.view.physicalSize = size;
           tester.view.devicePixelRatio = 1;

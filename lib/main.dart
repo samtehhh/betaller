@@ -196,6 +196,9 @@ class BeTallerApp extends StatelessWidget {
         Locale('pt'),
         Locale('es'),
         Locale('it'),
+        Locale('nl'),
+        Locale('pl'),
+        Locale('sv'),
       ],
       localeResolutionCallback: (deviceLocale, supported) {
         // If user has explicitly set a locale, use it

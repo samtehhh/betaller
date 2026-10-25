@@ -260,7 +260,7 @@ void main() {
     });
   });
 
-  for (final lang in ['tr', 'de']) {
+  for (final lang in ['tr', 'de', 'nl', 'pl', 'sv']) {
     for (final size in kOnboardingSizes.entries) {
       testWidgets('onboarding runs end to end in $lang at ${size.key}', (
         t,
@@ -567,7 +567,7 @@ void main() {
       await tapText(l.continueBtn);
     }
 
-    for (final lang in ['tr', 'de']) {
+    for (final lang in ['tr', 'de', 'nl', 'pl', 'sv']) {
       for (final size in kOnboardingSizes.entries) {
         testWidgets('builds in $lang at ${size.key} with no overflow', (
           t,
