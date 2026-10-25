@@ -1,7 +1,7 @@
-"""Add l10n keys to all 8 arb files. Usage: python arb_add.py keys.json
+"""Add l10n keys to all 11 arb files. Usage: python arb_add.py keys.json
 keys.json: {"key": {"en": "...", "tr": "...", ...}, ...}; "{x}" placeholders get String metadata in en."""
 import json, re, sys
-LANGS=["en","tr","de","fr","es","it","pt","hi"]
+LANGS=["en","tr","de","fr","es","it","pt","hi","nl","pl","sv"]
 keys=json.load(open(sys.argv[1],encoding="utf-8"))
 for lang in LANGS:
     p=f"lib/l10n/app_{lang}.arb"

@@ -1,4 +1,4 @@
-"""Replace the value of existing l10n keys in all 8 arb files.
+"""Replace the value of existing l10n keys in all 11 arb files.
 
 Usage: python tool/arb_set.py tool/l10n_keys/<file>.json
 The json has the same shape as arb_add.py input. Only whole-line
@@ -7,7 +7,7 @@ The json has the same shape as arb_add.py input. Only whole-line
 import json
 import sys
 
-LANGS = ["en", "tr", "de", "fr", "es", "it", "pt", "hi"]
+LANGS = ["en", "tr", "de", "fr", "es", "it", "pt", "hi", "nl", "pl", "sv"]
 keys = json.load(open(sys.argv[1], encoding="utf-8"))
 for lang in LANGS:
     p = f"lib/l10n/app_{lang}.arb"

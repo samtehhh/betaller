@@ -6519,4 +6519,46 @@ class AppLocalizationsPl extends AppLocalizations {
   @override
   String get routineProteinDescLb =>
       'Jajka, kurczak, ryby, nabiał. Co najmniej 0,7 g białka na lb masy ciała dziennie.';
+
+  @override
+  String pwPersonalTitle(String height) {
+    return 'Twój plan, by osiągnąć $height, jest gotowy';
+  }
+
+  @override
+  String get pwPersonalEstimate =>
+      'Szacowany potencjał na podstawie odpowiedzi, bez gwarancji';
+
+  @override
+  String pwPersonalReason(String reason) {
+    return 'Twój powód: $reason';
+  }
+
+  @override
+  String pwPersonalBedtime(String time) {
+    return 'Przypomnienie o wyciszeniu przed snem o $time';
+  }
+
+  @override
+  String get obParentUnknown => 'Nie wiem';
+
+  @override
+  String get obParentUnknownHint =>
+      'Użyjemy wtedy średniego wzrostu dorosłych. To mniej dokładne, a wzrost możesz dodać w profilu w każdej chwili.';
+
+  @override
+  String get obEthnicityWhy =>
+      'Używamy tego tylko do oszacowania wzrostu rodzica, którego nie znasz.';
+
+  @override
+  String get resultNoParentNote =>
+      'Oszacowane bez wzrostu jednego z rodziców, więc mniej dokładne. Dodaj go w profilu w każdej chwili.';
+
+  @override
+  String get resultNoParentsNote =>
+      'Oszacowane bez wzrostu rodziców, więc mniej dokładne. Dodaj go w profilu w każdej chwili.';
+
+  @override
+  String get resultFootnoteEstimated =>
+      'Szacunek na podstawie siatek centylowych i średniego wzrostu dorosłych. To nie jest porada medyczna.';
 }

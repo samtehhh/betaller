@@ -6507,4 +6507,46 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get routineProteinDescLb =>
       'Eieren, kip, vis, zuivel. Minstens 0,7 g eiwit per lb lichaamsgewicht per dag.';
+
+  @override
+  String pwPersonalTitle(String height) {
+    return 'Je plan om $height te halen is klaar';
+  }
+
+  @override
+  String get pwPersonalEstimate =>
+      'Geschat potentieel op basis van je antwoorden, geen garantie';
+
+  @override
+  String pwPersonalReason(String reason) {
+    return 'Jouw reden: $reason';
+  }
+
+  @override
+  String pwPersonalBedtime(String time) {
+    return 'Een herinnering om tot rust te komen voor je bedtijd van $time';
+  }
+
+  @override
+  String get obParentUnknown => 'Weet ik niet';
+
+  @override
+  String get obParentUnknownHint =>
+      'We gebruiken dan de gemiddelde lengte van volwassenen. Minder precies, en je kunt het altijd in je profiel toevoegen.';
+
+  @override
+  String get obEthnicityWhy =>
+      'Alleen gebruikt om de lengte te schatten van de ouder die je niet weet.';
+
+  @override
+  String get resultNoParentNote =>
+      'Geschat zonder de lengte van één ouder, dus minder precies. Voeg die altijd toe in je profiel.';
+
+  @override
+  String get resultNoParentsNote =>
+      'Geschat zonder de lengte van je ouders, dus minder precies. Voeg die altijd toe in je profiel.';
+
+  @override
+  String get resultFootnoteEstimated =>
+      'Schatting op basis van groeicurves en gemiddelde lengtes van volwassenen. Geen medisch advies.';
 }

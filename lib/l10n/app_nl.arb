@@ -1881,5 +1881,15 @@
   "painPostureDescIn": "Een goede houding kan je direct tot ongeveer 1 inch opleveren. De dagelijkse houdingsroutine van BeTaller zorgt daar binnen een paar weken voor.",
   "routinePostureDescIn": "Houd je rug recht en je schouders naar achteren. Check elk uur. Goede houding = ongeveer 1 inch verschil.",
   "sciPostureCheckIn": "Een goede houding kan je direct ongeveer 1 inch langer laten lijken en voorkomt druk op je wervelkolom",
-  "routineProteinDescLb": "Eieren, kip, vis, zuivel. Minstens 0,7 g eiwit per lb lichaamsgewicht per dag."
+  "routineProteinDescLb": "Eieren, kip, vis, zuivel. Minstens 0,7 g eiwit per lb lichaamsgewicht per dag.",
+  "pwPersonalTitle": "Je plan om {height} te halen is klaar",
+  "pwPersonalEstimate": "Geschat potentieel op basis van je antwoorden, geen garantie",
+  "pwPersonalReason": "Jouw reden: {reason}",
+  "pwPersonalBedtime": "Een herinnering om tot rust te komen voor je bedtijd van {time}",
+  "obParentUnknown": "Weet ik niet",
+  "obParentUnknownHint": "We gebruiken dan de gemiddelde lengte van volwassenen. Minder precies, en je kunt het altijd in je profiel toevoegen.",
+  "obEthnicityWhy": "Alleen gebruikt om de lengte te schatten van de ouder die je niet weet.",
+  "resultNoParentNote": "Geschat zonder de lengte van één ouder, dus minder precies. Voeg die altijd toe in je profiel.",
+  "resultNoParentsNote": "Geschat zonder de lengte van je ouders, dus minder precies. Voeg die altijd toe in je profiel.",
+  "resultFootnoteEstimated": "Schatting op basis van groeicurves en gemiddelde lengtes van volwassenen. Geen medisch advies."
 }

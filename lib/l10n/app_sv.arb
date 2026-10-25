@@ -1881,5 +1881,15 @@
   "painPostureDescIn": "Rätt hållning kan direkt ge upp till cirka 1 tum. BeTallers dagliga hållningsrutin bygger upp det på några veckor.",
   "routinePostureDescIn": "Håll ryggen rak och axlarna bakåt. Kolla varje timme. Bra hållning = cirka 1 tums skillnad.",
   "sciPostureCheckIn": "Rätt hållning kan direkt få dig att se cirka 1 tum längre ut och förebygger kompression av ryggraden",
-  "routineProteinDescLb": "Ägg, kyckling, fisk, mejeri. Minst 0,7 g protein per lb kroppsvikt om dagen."
+  "routineProteinDescLb": "Ägg, kyckling, fisk, mejeri. Minst 0,7 g protein per lb kroppsvikt om dagen.",
+  "pwPersonalTitle": "Din plan för att nå {height} är klar",
+  "pwPersonalEstimate": "Uppskattad potential utifrån dina svar, ingen garanti",
+  "pwPersonalReason": "Ditt skäl: {reason}",
+  "pwPersonalBedtime": "En påminnelse att varva ner före din läggdags {time}",
+  "obParentUnknown": "Vet inte",
+  "obParentUnknownHint": "Vi använder då genomsnittlig vuxenlängd. Mindre exakt, och du kan lägga till den i din profil när som helst.",
+  "obEthnicityWhy": "Används bara för att uppskatta längden på den förälder du inte vet.",
+  "resultNoParentNote": "Uppskattat utan ena förälderns längd, så mindre exakt. Lägg till den i din profil när som helst.",
+  "resultNoParentsNote": "Uppskattat utan dina föräldrars längd, så mindre exakt. Lägg till dem i din profil när som helst.",
+  "resultFootnoteEstimated": "Uppskattning utifrån tillväxtkurvor och genomsnittlig vuxenlängd. Inte medicinsk rådgivning."
 }

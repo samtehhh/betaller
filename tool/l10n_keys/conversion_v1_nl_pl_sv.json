@@ -1,0 +1,62 @@
+{
+  "pwPersonalTitle": {
+    "en": "Your plan to reach {height} is ready",
+    "nl": "Je plan om {height} te halen is klaar",
+    "pl": "Twój plan, by osiągnąć {height}, jest gotowy",
+    "sv": "Din plan för att nå {height} är klar"
+  },
+  "pwPersonalEstimate": {
+    "en": "Estimated potential from your answers, not a guarantee",
+    "nl": "Geschat potentieel op basis van je antwoorden, geen garantie",
+    "pl": "Szacowany potencjał na podstawie odpowiedzi, bez gwarancji",
+    "sv": "Uppskattad potential utifrån dina svar, ingen garanti"
+  },
+  "pwPersonalReason": {
+    "en": "Your reason: {reason}",
+    "nl": "Jouw reden: {reason}",
+    "pl": "Twój powód: {reason}",
+    "sv": "Ditt skäl: {reason}"
+  },
+  "pwPersonalBedtime": {
+    "en": "A wind-down reminder before your {time} bedtime",
+    "nl": "Een herinnering om tot rust te komen voor je bedtijd van {time}",
+    "pl": "Przypomnienie o wyciszeniu przed snem o {time}",
+    "sv": "En påminnelse att varva ner före din läggdags {time}"
+  },
+  "obParentUnknown": {
+    "en": "I don't know",
+    "nl": "Weet ik niet",
+    "pl": "Nie wiem",
+    "sv": "Vet inte"
+  },
+  "obParentUnknownHint": {
+    "en": "We'll use the average adult height instead. Less precise, and you can add it in your profile anytime.",
+    "nl": "We gebruiken dan de gemiddelde lengte van volwassenen. Minder precies, en je kunt het altijd in je profiel toevoegen.",
+    "pl": "Użyjemy wtedy średniego wzrostu dorosłych. To mniej dokładne, a wzrost możesz dodać w profilu w każdej chwili.",
+    "sv": "Vi använder då genomsnittlig vuxenlängd. Mindre exakt, och du kan lägga till den i din profil när som helst."
+  },
+  "obEthnicityWhy": {
+    "en": "Only used to estimate the parent's height you don't know.",
+    "nl": "Alleen gebruikt om de lengte te schatten van de ouder die je niet weet.",
+    "pl": "Używamy tego tylko do oszacowania wzrostu rodzica, którego nie znasz.",
+    "sv": "Används bara för att uppskatta längden på den förälder du inte vet."
+  },
+  "resultNoParentNote": {
+    "en": "Estimated without one parent's height, so less precise. Add it in your profile anytime.",
+    "nl": "Geschat zonder de lengte van één ouder, dus minder precies. Voeg die altijd toe in je profiel.",
+    "pl": "Oszacowane bez wzrostu jednego z rodziców, więc mniej dokładne. Dodaj go w profilu w każdej chwili.",
+    "sv": "Uppskattat utan ena förälderns längd, så mindre exakt. Lägg till den i din profil när som helst."
+  },
+  "resultNoParentsNote": {
+    "en": "Estimated without your parents' heights, so less precise. Add them in your profile anytime.",
+    "nl": "Geschat zonder de lengte van je ouders, dus minder precies. Voeg die altijd toe in je profiel.",
+    "pl": "Oszacowane bez wzrostu rodziców, więc mniej dokładne. Dodaj go w profilu w każdej chwili.",
+    "sv": "Uppskattat utan dina föräldrars längd, så mindre exakt. Lägg till dem i din profil när som helst."
+  },
+  "resultFootnoteEstimated": {
+    "en": "Estimate based on growth-chart data and average adult heights. Not medical advice.",
+    "nl": "Schatting op basis van groeicurves en gemiddelde lengtes van volwassenen. Geen medisch advies.",
+    "pl": "Szacunek na podstawie siatek centylowych i średniego wzrostu dorosłych. To nie jest porada medyczna.",
+    "sv": "Uppskattning utifrån tillväxtkurvor och genomsnittlig vuxenlängd. Inte medicinsk rådgivning."
+  }
+}

@@ -6479,4 +6479,46 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get routineProteinDescLb =>
       'Ägg, kyckling, fisk, mejeri. Minst 0,7 g protein per lb kroppsvikt om dagen.';
+
+  @override
+  String pwPersonalTitle(String height) {
+    return 'Din plan för att nå $height är klar';
+  }
+
+  @override
+  String get pwPersonalEstimate =>
+      'Uppskattad potential utifrån dina svar, ingen garanti';
+
+  @override
+  String pwPersonalReason(String reason) {
+    return 'Ditt skäl: $reason';
+  }
+
+  @override
+  String pwPersonalBedtime(String time) {
+    return 'En påminnelse att varva ner före din läggdags $time';
+  }
+
+  @override
+  String get obParentUnknown => 'Vet inte';
+
+  @override
+  String get obParentUnknownHint =>
+      'Vi använder då genomsnittlig vuxenlängd. Mindre exakt, och du kan lägga till den i din profil när som helst.';
+
+  @override
+  String get obEthnicityWhy =>
+      'Används bara för att uppskatta längden på den förälder du inte vet.';
+
+  @override
+  String get resultNoParentNote =>
+      'Uppskattat utan ena förälderns längd, så mindre exakt. Lägg till den i din profil när som helst.';
+
+  @override
+  String get resultNoParentsNote =>
+      'Uppskattat utan dina föräldrars längd, så mindre exakt. Lägg till dem i din profil när som helst.';
+
+  @override
+  String get resultFootnoteEstimated =>
+      'Uppskattning utifrån tillväxtkurvor och genomsnittlig vuxenlängd. Inte medicinsk rådgivning.';
 }

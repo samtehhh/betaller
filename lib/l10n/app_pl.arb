@@ -1881,5 +1881,15 @@
   "painPostureDescIn": "Prawidłowa postawa może od razu dodać nawet około 1 cala. Codzienne ćwiczenia postawy w BeTaller utrwalą ją w kilka tygodni.",
   "routinePostureDescIn": "Plecy proste, ramiona do tyłu. Sprawdzaj co godzinę. Dobra postawa = około 1 cala różnicy.",
   "sciPostureCheckIn": "Prawidłowa postawa może od razu dodać około 1 cala widocznego wzrostu i zapobiega uciskowi kręgosłupa",
-  "routineProteinDescLb": "Jajka, kurczak, ryby, nabiał. Co najmniej 0,7 g białka na lb masy ciała dziennie."
+  "routineProteinDescLb": "Jajka, kurczak, ryby, nabiał. Co najmniej 0,7 g białka na lb masy ciała dziennie.",
+  "pwPersonalTitle": "Twój plan, by osiągnąć {height}, jest gotowy",
+  "pwPersonalEstimate": "Szacowany potencjał na podstawie odpowiedzi, bez gwarancji",
+  "pwPersonalReason": "Twój powód: {reason}",
+  "pwPersonalBedtime": "Przypomnienie o wyciszeniu przed snem o {time}",
+  "obParentUnknown": "Nie wiem",
+  "obParentUnknownHint": "Użyjemy wtedy średniego wzrostu dorosłych. To mniej dokładne, a wzrost możesz dodać w profilu w każdej chwili.",
+  "obEthnicityWhy": "Używamy tego tylko do oszacowania wzrostu rodzica, którego nie znasz.",
+  "resultNoParentNote": "Oszacowane bez wzrostu jednego z rodziców, więc mniej dokładne. Dodaj go w profilu w każdej chwili.",
+  "resultNoParentsNote": "Oszacowane bez wzrostu rodziców, więc mniej dokładne. Dodaj go w profilu w każdej chwili.",
+  "resultFootnoteEstimated": "Szacunek na podstawie siatek centylowych i średniego wzrostu dorosłych. To nie jest porada medyczna."
 }
