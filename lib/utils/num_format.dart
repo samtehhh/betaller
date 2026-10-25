@@ -14,3 +14,10 @@ extension LocalFixed on num {
     return f.format(this);
   }
 }
+
+/// A whole percentage in the app's language: "62%" in English, "%62" in
+/// Turkish, "62 %" in German and French. [this] is the percent value (62).
+extension LocalPercent on num {
+  String pctL() =>
+      NumberFormat.percentPattern(Intl.defaultLocale ?? 'en').format(this / 100);
+}

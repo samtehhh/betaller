@@ -376,7 +376,7 @@ class _HeroPercentileCard extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                '%${pct.toStringAsFixed(0)} ${l.bellShorterThanYou}',
+                '${pct.round().pctL()} ${l.bellShorterThanYou}',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
@@ -899,7 +899,7 @@ class _ReferenceTable extends StatelessWidget {
                         flex: 3,
                         child: p != null
                             ? Text(
-                                '%${(100 - p).clamp(1, 99).toStringAsFixed(0)}',
+                                (100 - p).clamp(1, 99).round().pctL(),
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontSize: 12,
