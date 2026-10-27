@@ -11527,6 +11527,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Workouts, sleep, nutrition, posture and progress reports.'**
   String get obBudgetAllDesc;
+
+  /// No description provided for @obRateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BeTaller was built to truly help you'**
+  String get obRateTitle;
+
+  /// No description provided for @obRateDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'If you liked our personal attention and our honesty, we\'d be really happy if you rated us.'**
+  String get obRateDesc;
+
+  /// No description provided for @obRateCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate BeTaller'**
+  String get obRateCta;
+
+  /// No description provided for @obRateLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Maybe later'**
+  String get obRateLater;
 }
 
 class _AppLocalizationsDelegate

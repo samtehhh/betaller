@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 import '../l10n/app_localizations.dart';
 import '../models/onboarding_answers.dart';
@@ -58,6 +59,7 @@ enum _Page {
   whyTaller,
   triedApps,
   triedAppsAnswer,
+  rate,
   heightWeight,
   parents,
   ethnicity,
@@ -686,7 +688,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         _currentPage <= _kLastQuestion.index;
     // Past heights and the reminders page carry their own buttons.
     final showButton =
-        _currentPage < _kLastQuestion.index && _page != _Page.pastHeights;
+        _currentPage < _kLastQuestion.index &&
+        _page != _Page.pastHeights &&
+        _page != _Page.rate;
     final progress =
         ((_currentPage - _kFirstQuestion.index + 1) /
                 (_kLastQuestion.index - _kFirstQuestion.index + 1))
@@ -826,6 +830,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     _Page.calories => _buildCaloriesPage(),
     _Page.firstWhenTaller => _buildFirstWhenTallerPage(),
     _Page.builtForYou => _buildBuiltForYouPage(),
+    _Page.rate => _buildRatePage(),
     _Page.notifications => _buildNotificationsPage(),
     // The analysis runs as an overlay on top of the flow.
     _Page.analyzing => const SizedBox(),
@@ -1499,6 +1504,99 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             const SizedBox(height: 18),
           ],
         ),
+      ),
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Rate: mid-flow, right after the honest answer about other apps; the
+  // one place a free user is asked for a rating
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  /// Opens the system rating sheet, then moves on. Either button continues,
+  /// so nobody is filtered by what they would rate: the sheet is Apple's own,
+  /// and Apple decides whether it actually appears.
+  Future<void> _rate() async {
+    Haptics.tap();
+    Analytics.track('rating_ask', {'action': 'rate'});
+    final provider = context.read<AppProvider>();
+    try {
+      final review = InAppReview.instance;
+      if (await review.isAvailable()) {
+        provider.markReviewRequested();
+        await review.requestReview();
+      }
+    } catch (_) {}
+    if (!mounted) return;
+    // Let the sheet come up over this page before it slides on.
+    await Future.delayed(const Duration(milliseconds: 1200));
+    if (mounted && _page == _Page.rate) _nextPage();
+  }
+
+  void _skipRate() {
+    Haptics.tap();
+    Analytics.track('rating_ask', {'action': 'later'});
+    _nextPage();
+  }
+
+  Widget _buildRatePage() {
+    final l = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 24, 24, 20),
+      child: Column(
+        children: [
+          const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (var i = 0; i < 5; i++)
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 3),
+                  child: Icon(
+                    CupertinoIcons.star_fill,
+                    size: 42,
+                    color: Color(0xFFFFD700),
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 28),
+          Text(
+            l.obRateTitle,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: -1.0,
+              height: 1.1,
+            ),
+          ),
+          const SizedBox(height: 14),
+          Text(
+            l.obRateDesc,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 15.5,
+              color: Colors.white.withValues(alpha: 0.65),
+              height: 1.5,
+            ),
+          ),
+          const Spacer(),
+          _TallerButton(label: l.obRateCta, enabled: true, onTap: _rate),
+          const SizedBox(height: 6),
+          TextButton(
+            onPressed: _skipRate,
+            child: Text(
+              l.obRateLater,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: Colors.white.withValues(alpha: 0.6),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

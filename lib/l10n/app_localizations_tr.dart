@@ -6483,4 +6483,18 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get obBudgetAllDesc =>
       'Egzersizler, uyku, beslenme, duruş ve gelişim raporları.';
+
+  @override
+  String get obRateTitle =>
+      'BeTaller gerçekten sana faydalı olmak için oluşturuldu';
+
+  @override
+  String get obRateDesc =>
+      'Sana özel ilgimiz ve realitemiz hoşuna gittiyse bizi puanlarsan çok seviniriz.';
+
+  @override
+  String get obRateCta => 'BeTaller\'ı puanla';
+
+  @override
+  String get obRateLater => 'Belki sonra';
 }

@@ -1901,5 +1901,9 @@
   "obBudgetWeekTitle": "Börja med bara en vecka",
   "obBudgetWeekDesc": "Ingen stor betalning i förväg. Avsluta när du vill i inställningarna för ditt Apple-ID.",
   "obBudgetAllTitle": "Allt i en plan",
-  "obBudgetAllDesc": "Träningspass, sömn, kost, hållning och framstegsrapporter."
+  "obBudgetAllDesc": "Träningspass, sömn, kost, hållning och framstegsrapporter.",
+  "obRateTitle": "BeTaller är gjort för att verkligen hjälpa dig",
+  "obRateDesc": "Om du gillade vår personliga omtanke och vår ärlighet blir vi jätteglada om du betygsätter oss.",
+  "obRateCta": "Betygsätt BeTaller",
+  "obRateLater": "Kanske senare"
 }
