@@ -6446,4 +6446,41 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get resultFootnoteEstimated =>
       'Büyüme eğrisi verilerine ve ortalama yetişkin boylarına dayalı bir tahmindir. Tıbbi tavsiye değildir.';
+
+  @override
+  String get obBudgetChip => 'ADİL FİYAT';
+
+  @override
+  String get obBudgetTitle =>
+      'BeTaller, uzamak isteyen her gencin bütçesine göre ayarlandı';
+
+  @override
+  String get obBudgetDesc =>
+      'Boyun, cebindeki paraya bağlı olmamalı. Bu yüzden fiyat her ülke için ayrı belirlendi.';
+
+  @override
+  String obBudgetWeek(String price) {
+    return 'Burada 1 haftalık Pro: $price';
+  }
+
+  @override
+  String get obBudgetLocalTitle => 'Ülkene göre fiyat';
+
+  @override
+  String get obBudgetLocalDesc =>
+      'Dolardan çevrilmedi: yaşadığın yerin bütçesine göre ayarlandı.';
+
+  @override
+  String get obBudgetWeekTitle => 'Sadece bir haftayla başla';
+
+  @override
+  String get obBudgetWeekDesc =>
+      'Başta büyük bir ödeme yok. Apple Kimliği ayarlarından istediğin zaman iptal et.';
+
+  @override
+  String get obBudgetAllTitle => 'Her şey tek planda';
+
+  @override
+  String get obBudgetAllDesc =>
+      'Egzersizler, uyku, beslenme, duruş ve gelişim raporları.';
 }

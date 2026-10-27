@@ -1891,5 +1891,15 @@
   "obEthnicityWhy": "Używamy tego tylko do oszacowania wzrostu rodzica, którego nie znasz.",
   "resultNoParentNote": "Oszacowane bez wzrostu jednego z rodziców, więc mniej dokładne. Dodaj go w profilu w każdej chwili.",
   "resultNoParentsNote": "Oszacowane bez wzrostu rodziców, więc mniej dokładne. Dodaj go w profilu w każdej chwili.",
-  "resultFootnoteEstimated": "Szacunek na podstawie siatek centylowych i średniego wzrostu dorosłych. To nie jest porada medyczna."
+  "resultFootnoteEstimated": "Szacunek na podstawie siatek centylowych i średniego wzrostu dorosłych. To nie jest porada medyczna.",
+  "obBudgetChip": "UCZCIWA CENA",
+  "obBudgetTitle": "BeTaller ma cenę dopasowaną do każdego nastolatka, który chce urosnąć",
+  "obBudgetDesc": "Twój wzrost nie powinien zależeć od tego, ile masz pieniędzy. Dlatego cena jest ustalana osobno dla każdego kraju.",
+  "obBudgetWeek": "Tydzień Pro tutaj: {price}",
+  "obBudgetLocalTitle": "Cena dla twojego kraju",
+  "obBudgetLocalDesc": "Nie przeliczona z dolarów: dopasowana do budżetów tam, gdzie mieszkasz.",
+  "obBudgetWeekTitle": "Zacznij od jednego tygodnia",
+  "obBudgetWeekDesc": "Bez dużej płatności na start. Anuluj w dowolnym momencie w ustawieniach Apple ID.",
+  "obBudgetAllTitle": "Wszystko w jednym planie",
+  "obBudgetAllDesc": "Treningi, sen, odżywianie, postawa i raporty postępów."
 }

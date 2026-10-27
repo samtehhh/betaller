@@ -2134,5 +2134,15 @@
   "obEthnicityWhy": "Wird nur genutzt, um die Größe zu schätzen, die du nicht kennst.",
   "resultNoParentNote": "Ohne die Größe eines Elternteils geschätzt, daher weniger genau. Trag sie jederzeit im Profil ein.",
   "resultNoParentsNote": "Ohne die Größe deiner Eltern geschätzt, daher weniger genau. Trag sie jederzeit im Profil ein.",
-  "resultFootnoteEstimated": "Schätzung anhand von Wachstumskurven und durchschnittlichen Erwachsenengrößen. Keine medizinische Beratung."
+  "resultFootnoteEstimated": "Schätzung anhand von Wachstumskurven und durchschnittlichen Erwachsenengrößen. Keine medizinische Beratung.",
+  "obBudgetChip": "FAIRER PREIS",
+  "obBudgetTitle": "BeTaller ist auf das Budget jedes Teens abgestimmt, der wachsen will",
+  "obBudgetDesc": "Deine Größe sollte nicht davon abhängen, wie viel Geld du hast. Deshalb wird der Preis für jedes Land einzeln festgelegt.",
+  "obBudgetWeek": "Eine Woche Pro hier: {price}",
+  "obBudgetLocalTitle": "Preis für dein Land",
+  "obBudgetLocalDesc": "Nicht aus US-Dollar umgerechnet, sondern für das Budget dort, wo du lebst.",
+  "obBudgetWeekTitle": "Starte mit nur einer Woche",
+  "obBudgetWeekDesc": "Keine große Zahlung vorab. Jederzeit in den Apple-ID-Einstellungen kündbar.",
+  "obBudgetAllTitle": "Alles in einem Plan",
+  "obBudgetAllDesc": "Workouts, Schlaf, Ernährung, Haltung und Fortschrittsberichte."
 }

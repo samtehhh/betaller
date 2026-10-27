@@ -6521,4 +6521,41 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get resultFootnoteEstimated =>
       'Uppskattning utifrån tillväxtkurvor och genomsnittlig vuxenlängd. Inte medicinsk rådgivning.';
+
+  @override
+  String get obBudgetChip => 'SCHYSST PRIS';
+
+  @override
+  String get obBudgetTitle =>
+      'BeTaller är prissatt för varje tonåring som vill växa';
+
+  @override
+  String get obBudgetDesc =>
+      'Din längd ska inte bero på hur mycket pengar du har. Därför sätts priset separat för varje land.';
+
+  @override
+  String obBudgetWeek(String price) {
+    return 'En vecka Pro här: $price';
+  }
+
+  @override
+  String get obBudgetLocalTitle => 'Pris för ditt land';
+
+  @override
+  String get obBudgetLocalDesc =>
+      'Inte omräknat från dollar, utan satt efter budgetar där du bor.';
+
+  @override
+  String get obBudgetWeekTitle => 'Börja med bara en vecka';
+
+  @override
+  String get obBudgetWeekDesc =>
+      'Ingen stor betalning i förväg. Avsluta när du vill i inställningarna för ditt Apple-ID.';
+
+  @override
+  String get obBudgetAllTitle => 'Allt i en plan';
+
+  @override
+  String get obBudgetAllDesc =>
+      'Träningspass, sömn, kost, hållning och framstegsrapporter.';
 }

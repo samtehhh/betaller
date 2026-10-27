@@ -1985,5 +1985,15 @@
   "obEthnicityWhy": "Sadece bilmediğin ebeveyn boyunu tahmin etmek için kullanılır.",
   "resultNoParentNote": "Bir ebeveynin boyu olmadan tahmin edildi, bu yüzden daha az kesin. İstediğin zaman profilinden ekleyebilirsin.",
   "resultNoParentsNote": "Anne ve babanın boyu olmadan tahmin edildi, bu yüzden daha az kesin. İstediğin zaman profilinden ekleyebilirsin.",
-  "resultFootnoteEstimated": "Büyüme eğrisi verilerine ve ortalama yetişkin boylarına dayalı bir tahmindir. Tıbbi tavsiye değildir."
+  "resultFootnoteEstimated": "Büyüme eğrisi verilerine ve ortalama yetişkin boylarına dayalı bir tahmindir. Tıbbi tavsiye değildir.",
+  "obBudgetChip": "ADİL FİYAT",
+  "obBudgetTitle": "BeTaller, uzamak isteyen her gencin bütçesine göre ayarlandı",
+  "obBudgetDesc": "Boyun, cebindeki paraya bağlı olmamalı. Bu yüzden fiyat her ülke için ayrı belirlendi.",
+  "obBudgetWeek": "Burada 1 haftalık Pro: {price}",
+  "obBudgetLocalTitle": "Ülkene göre fiyat",
+  "obBudgetLocalDesc": "Dolardan çevrilmedi: yaşadığın yerin bütçesine göre ayarlandı.",
+  "obBudgetWeekTitle": "Sadece bir haftayla başla",
+  "obBudgetWeekDesc": "Başta büyük bir ödeme yok. Apple Kimliği ayarlarından istediğin zaman iptal et.",
+  "obBudgetAllTitle": "Her şey tek planda",
+  "obBudgetAllDesc": "Egzersizler, uyku, beslenme, duruş ve gelişim raporları."
 }
