@@ -2134,5 +2134,15 @@
   "obEthnicityWhy": "Sert uniquement à estimer la taille du parent que tu ne connais pas.",
   "resultNoParentNote": "Estimé sans la taille d'un de tes parents, donc moins précis. Ajoute-la dans ton profil quand tu veux.",
   "resultNoParentsNote": "Estimé sans la taille de tes parents, donc moins précis. Ajoute-les dans ton profil quand tu veux.",
-  "resultFootnoteEstimated": "Estimation basée sur des courbes de croissance et des tailles adultes moyennes. Ce n'est pas un avis médical."
+  "resultFootnoteEstimated": "Estimation basée sur des courbes de croissance et des tailles adultes moyennes. Ce n'est pas un avis médical.",
+  "obBudgetChip": "PRIX JUSTE",
+  "obBudgetTitle": "BeTaller est pensé pour le budget de chaque ado qui veut grandir",
+  "obBudgetDesc": "Ta taille ne devrait pas dépendre de ton argent. C'est pourquoi le prix est fixé pays par pays.",
+  "obBudgetWeek": "Une semaine de Pro ici : {price}",
+  "obBudgetLocalTitle": "Prix adapté à ton pays",
+  "obBudgetLocalDesc": "Pas converti depuis le dollar : fixé pour les budgets de là où tu vis.",
+  "obBudgetWeekTitle": "Commence par une semaine",
+  "obBudgetWeekDesc": "Pas de gros paiement au départ. Annule quand tu veux dans les réglages de ton identifiant Apple.",
+  "obBudgetAllTitle": "Tout dans une seule offre",
+  "obBudgetAllDesc": "Exercices, sommeil, nutrition, posture et rapports de progrès."
 }

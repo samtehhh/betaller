@@ -2161,5 +2161,16 @@
   "obEthnicityWhy": "Only used to estimate the parent's height you don't know.",
   "resultNoParentNote": "Estimated without one parent's height, so less precise. Add it in your profile anytime.",
   "resultNoParentsNote": "Estimated without your parents' heights, so less precise. Add them in your profile anytime.",
-  "resultFootnoteEstimated": "Estimate based on growth-chart data and average adult heights. Not medical advice."
+  "resultFootnoteEstimated": "Estimate based on growth-chart data and average adult heights. Not medical advice.",
+  "obBudgetChip": "FAIR PRICE",
+  "obBudgetTitle": "BeTaller is priced for every teen who wants to grow",
+  "obBudgetDesc": "Your height shouldn't depend on how much money you have. That's why the price is set separately for each country.",
+  "obBudgetWeek": "One week of Pro here: {price}",
+  "@obBudgetWeek": {"placeholders": {"price": {"type": "String"}}},
+  "obBudgetLocalTitle": "Priced for your country",
+  "obBudgetLocalDesc": "Not converted from US dollars: set for budgets where you live.",
+  "obBudgetWeekTitle": "Start with just a week",
+  "obBudgetWeekDesc": "No big payment up front. Cancel anytime in your Apple ID settings.",
+  "obBudgetAllTitle": "Everything in one plan",
+  "obBudgetAllDesc": "Workouts, sleep, nutrition, posture and progress reports."
 }

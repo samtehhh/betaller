@@ -111,6 +111,8 @@ Future<void> walkOnboarding(
   await tapText(l.letsStart);
   await page('painHook');
   await tapText(l.continueBtn);
+  await page('budget');
+  await tapText(l.continueBtn);
   await page('gender');
   await tapText(l.continueBtn);
   await page('birthDate');
@@ -558,7 +560,8 @@ void main() {
       }
 
       await tapText(l.letsStart);
-      for (var i = 0; i < 3; i++) {
+      // Pain hook, budget, gender, birth date.
+      for (var i = 0; i < 4; i++) {
         await tapText(l.continueBtn);
       }
       await tapText(l.obWhyConfidence);

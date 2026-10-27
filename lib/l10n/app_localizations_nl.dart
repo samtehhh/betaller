@@ -6549,4 +6549,41 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get resultFootnoteEstimated =>
       'Schatting op basis van groeicurves en gemiddelde lengtes van volwassenen. Geen medisch advies.';
+
+  @override
+  String get obBudgetChip => 'EERLIJKE PRIJS';
+
+  @override
+  String get obBudgetTitle =>
+      'BeTaller is geprijsd voor elke tiener die wil groeien';
+
+  @override
+  String get obBudgetDesc =>
+      'Je lengte mag niet afhangen van hoeveel geld je hebt. Daarom is de prijs per land apart bepaald.';
+
+  @override
+  String obBudgetWeek(String price) {
+    return 'Eén week Pro hier: $price';
+  }
+
+  @override
+  String get obBudgetLocalTitle => 'Prijs voor jouw land';
+
+  @override
+  String get obBudgetLocalDesc =>
+      'Niet omgerekend uit dollars, maar afgestemd op budgetten waar je woont.';
+
+  @override
+  String get obBudgetWeekTitle => 'Begin met één week';
+
+  @override
+  String get obBudgetWeekDesc =>
+      'Geen grote betaling vooraf. Altijd op te zeggen in je Apple ID-instellingen.';
+
+  @override
+  String get obBudgetAllTitle => 'Alles in één abonnement';
+
+  @override
+  String get obBudgetAllDesc =>
+      'Workouts, slaap, voeding, houding en voortgangsrapporten.';
 }

@@ -6519,4 +6519,41 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get resultFootnoteEstimated =>
       'Estimate based on growth-chart data and average adult heights. Not medical advice.';
+
+  @override
+  String get obBudgetChip => 'FAIR PRICE';
+
+  @override
+  String get obBudgetTitle =>
+      'BeTaller is priced for every teen who wants to grow';
+
+  @override
+  String get obBudgetDesc =>
+      'Your height shouldn\'t depend on how much money you have. That\'s why the price is set separately for each country.';
+
+  @override
+  String obBudgetWeek(String price) {
+    return 'One week of Pro here: $price';
+  }
+
+  @override
+  String get obBudgetLocalTitle => 'Priced for your country';
+
+  @override
+  String get obBudgetLocalDesc =>
+      'Not converted from US dollars: set for budgets where you live.';
+
+  @override
+  String get obBudgetWeekTitle => 'Start with just a week';
+
+  @override
+  String get obBudgetWeekDesc =>
+      'No big payment up front. Cancel anytime in your Apple ID settings.';
+
+  @override
+  String get obBudgetAllTitle => 'Everything in one plan';
+
+  @override
+  String get obBudgetAllDesc =>
+      'Workouts, sleep, nutrition, posture and progress reports.';
 }

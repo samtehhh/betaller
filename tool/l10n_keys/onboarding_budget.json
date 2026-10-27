@@ -1,0 +1,92 @@
+{
+  "obBudgetChip": {
+    "en": "FAIR PRICE", "tr": "ADİL FİYAT", "de": "FAIRER PREIS", "fr": "PRIX JUSTE", "es": "PRECIO JUSTO", "it": "PREZZO GIUSTO", "pt": "PREÇO JUSTO", "hi": "सही कीमत", "nl": "EERLIJKE PRIJS", "pl": "UCZCIWA CENA", "sv": "SCHYSST PRIS"
+  },
+  "obBudgetTitle": {
+    "en": "BeTaller is priced for every teen who wants to grow",
+    "tr": "BeTaller, uzamak isteyen her gencin bütçesine göre ayarlandı",
+    "de": "BeTaller ist auf das Budget jedes Teens abgestimmt, der wachsen will",
+    "fr": "BeTaller est pensé pour le budget de chaque ado qui veut grandir",
+    "es": "BeTaller tiene un precio pensado para cada joven que quiere crecer",
+    "it": "BeTaller ha un prezzo pensato per ogni ragazzo che vuole crescere",
+    "pt": "BeTaller tem um preço pensado para cada jovem que quer crescer",
+    "hi": "BeTaller की कीमत हर उस किशोर के बजट के हिसाब से है जो लंबा होना चाहता है",
+    "nl": "BeTaller is geprijsd voor elke tiener die wil groeien",
+    "pl": "BeTaller ma cenę dopasowaną do każdego nastolatka, który chce urosnąć",
+    "sv": "BeTaller är prissatt för varje tonåring som vill växa"
+  },
+  "obBudgetDesc": {
+    "en": "Your height shouldn't depend on how much money you have. That's why the price is set separately for each country.",
+    "tr": "Boyun, cebindeki paraya bağlı olmamalı. Bu yüzden fiyat her ülke için ayrı belirlendi.",
+    "de": "Deine Größe sollte nicht davon abhängen, wie viel Geld du hast. Deshalb wird der Preis für jedes Land einzeln festgelegt.",
+    "fr": "Ta taille ne devrait pas dépendre de ton argent. C'est pourquoi le prix est fixé pays par pays.",
+    "es": "Tu altura no debería depender de cuánto dinero tienes. Por eso el precio se fija por separado en cada país.",
+    "it": "La tua altezza non dovrebbe dipendere da quanti soldi hai. Per questo il prezzo è fissato paese per paese.",
+    "pt": "Sua altura não deveria depender de quanto dinheiro você tem. Por isso o preço é definido para cada país.",
+    "hi": "तुम्हारी लंबाई इस पर निर्भर नहीं होनी चाहिए कि तुम्हारे पास कितने पैसे हैं। इसलिए हर देश के लिए कीमत अलग तय की गई है।",
+    "nl": "Je lengte mag niet afhangen van hoeveel geld je hebt. Daarom is de prijs per land apart bepaald.",
+    "pl": "Twój wzrost nie powinien zależeć od tego, ile masz pieniędzy. Dlatego cena jest ustalana osobno dla każdego kraju.",
+    "sv": "Din längd ska inte bero på hur mycket pengar du har. Därför sätts priset separat för varje land."
+  },
+  "obBudgetWeek": {
+    "en": "One week of Pro here: {price}",
+    "tr": "Burada 1 haftalık Pro: {price}",
+    "de": "Eine Woche Pro hier: {price}",
+    "fr": "Une semaine de Pro ici : {price}",
+    "es": "Una semana de Pro aquí: {price}",
+    "it": "Una settimana di Pro qui: {price}",
+    "pt": "Uma semana de Pro aqui: {price}",
+    "hi": "यहाँ Pro का एक हफ़्ता: {price}",
+    "nl": "Eén week Pro hier: {price}",
+    "pl": "Tydzień Pro tutaj: {price}",
+    "sv": "En vecka Pro här: {price}"
+  },
+  "obBudgetLocalTitle": {
+    "en": "Priced for your country", "tr": "Ülkene göre fiyat", "de": "Preis für dein Land", "fr": "Prix adapté à ton pays", "es": "Precio para tu país", "it": "Prezzo per il tuo paese", "pt": "Preço para o seu país", "hi": "तुम्हारे देश के हिसाब से कीमत", "nl": "Prijs voor jouw land", "pl": "Cena dla twojego kraju", "sv": "Pris för ditt land"
+  },
+  "obBudgetLocalDesc": {
+    "en": "Not converted from US dollars: set for budgets where you live.",
+    "tr": "Dolardan çevrilmedi: yaşadığın yerin bütçesine göre ayarlandı.",
+    "de": "Nicht aus US-Dollar umgerechnet, sondern für das Budget dort, wo du lebst.",
+    "fr": "Pas converti depuis le dollar : fixé pour les budgets de là où tu vis.",
+    "es": "No convertido desde dólares: ajustado a los presupuestos de donde vives.",
+    "it": "Non convertito dal dollaro: pensato per i budget di dove vivi.",
+    "pt": "Não convertido do dólar: ajustado aos orçamentos de onde você mora.",
+    "hi": "डॉलर से बदला नहीं गया: जहाँ तुम रहते हो, वहाँ के बजट के हिसाब से तय।",
+    "nl": "Niet omgerekend uit dollars, maar afgestemd op budgetten waar je woont.",
+    "pl": "Nie przeliczona z dolarów: dopasowana do budżetów tam, gdzie mieszkasz.",
+    "sv": "Inte omräknat från dollar, utan satt efter budgetar där du bor."
+  },
+  "obBudgetWeekTitle": {
+    "en": "Start with just a week", "tr": "Sadece bir haftayla başla", "de": "Starte mit nur einer Woche", "fr": "Commence par une semaine", "es": "Empieza con solo una semana", "it": "Inizia con una sola settimana", "pt": "Comece com apenas uma semana", "hi": "बस एक हफ़्ते से शुरू करो", "nl": "Begin met één week", "pl": "Zacznij od jednego tygodnia", "sv": "Börja med bara en vecka"
+  },
+  "obBudgetWeekDesc": {
+    "en": "No big payment up front. Cancel anytime in your Apple ID settings.",
+    "tr": "Başta büyük bir ödeme yok. Apple Kimliği ayarlarından istediğin zaman iptal et.",
+    "de": "Keine große Zahlung vorab. Jederzeit in den Apple-ID-Einstellungen kündbar.",
+    "fr": "Pas de gros paiement au départ. Annule quand tu veux dans les réglages de ton identifiant Apple.",
+    "es": "Sin un gran pago inicial. Cancela cuando quieras en los ajustes de tu ID de Apple.",
+    "it": "Nessun grosso pagamento iniziale. Annulla quando vuoi nelle impostazioni dell'ID Apple.",
+    "pt": "Sem um grande pagamento inicial. Cancele quando quiser nos ajustes do seu ID Apple.",
+    "hi": "शुरू में कोई बड़ा भुगतान नहीं। Apple ID सेटिंग में कभी भी रद्द करो।",
+    "nl": "Geen grote betaling vooraf. Altijd op te zeggen in je Apple ID-instellingen.",
+    "pl": "Bez dużej płatności na start. Anuluj w dowolnym momencie w ustawieniach Apple ID.",
+    "sv": "Ingen stor betalning i förväg. Avsluta när du vill i inställningarna för ditt Apple-ID."
+  },
+  "obBudgetAllTitle": {
+    "en": "Everything in one plan", "tr": "Her şey tek planda", "de": "Alles in einem Plan", "fr": "Tout dans une seule offre", "es": "Todo en un solo plan", "it": "Tutto in un unico piano", "pt": "Tudo em um só plano", "hi": "सब कुछ एक प्लान में", "nl": "Alles in één abonnement", "pl": "Wszystko w jednym planie", "sv": "Allt i en plan"
+  },
+  "obBudgetAllDesc": {
+    "en": "Workouts, sleep, nutrition, posture and progress reports.",
+    "tr": "Egzersizler, uyku, beslenme, duruş ve gelişim raporları.",
+    "de": "Workouts, Schlaf, Ernährung, Haltung und Fortschrittsberichte.",
+    "fr": "Exercices, sommeil, nutrition, posture et rapports de progrès.",
+    "es": "Ejercicios, sueño, nutrición, postura e informes de progreso.",
+    "it": "Allenamenti, sonno, alimentazione, postura e report dei progressi.",
+    "pt": "Treinos, sono, nutrição, postura e relatórios de progresso.",
+    "hi": "वर्कआउट, नींद, पोषण, पोस्चर और प्रगति रिपोर्ट।",
+    "nl": "Workouts, slaap, voeding, houding en voortgangsrapporten.",
+    "pl": "Treningi, sen, odżywianie, postawa i raporty postępów.",
+    "sv": "Träningspass, sömn, kost, hållning och framstegsrapporter."
+  }
+}

@@ -1891,5 +1891,15 @@
   "obEthnicityWhy": "Alleen gebruikt om de lengte te schatten van de ouder die je niet weet.",
   "resultNoParentNote": "Geschat zonder de lengte van één ouder, dus minder precies. Voeg die altijd toe in je profiel.",
   "resultNoParentsNote": "Geschat zonder de lengte van je ouders, dus minder precies. Voeg die altijd toe in je profiel.",
-  "resultFootnoteEstimated": "Schatting op basis van groeicurves en gemiddelde lengtes van volwassenen. Geen medisch advies."
+  "resultFootnoteEstimated": "Schatting op basis van groeicurves en gemiddelde lengtes van volwassenen. Geen medisch advies.",
+  "obBudgetChip": "EERLIJKE PRIJS",
+  "obBudgetTitle": "BeTaller is geprijsd voor elke tiener die wil groeien",
+  "obBudgetDesc": "Je lengte mag niet afhangen van hoeveel geld je hebt. Daarom is de prijs per land apart bepaald.",
+  "obBudgetWeek": "Eén week Pro hier: {price}",
+  "obBudgetLocalTitle": "Prijs voor jouw land",
+  "obBudgetLocalDesc": "Niet omgerekend uit dollars, maar afgestemd op budgetten waar je woont.",
+  "obBudgetWeekTitle": "Begin met één week",
+  "obBudgetWeekDesc": "Geen grote betaling vooraf. Altijd op te zeggen in je Apple ID-instellingen.",
+  "obBudgetAllTitle": "Alles in één abonnement",
+  "obBudgetAllDesc": "Workouts, slaap, voeding, houding en voortgangsrapporten."
 }

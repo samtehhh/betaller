@@ -11467,6 +11467,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Estimate based on growth-chart data and average adult heights. Not medical advice.'**
   String get resultFootnoteEstimated;
+
+  /// No description provided for @obBudgetChip.
+  ///
+  /// In en, this message translates to:
+  /// **'FAIR PRICE'**
+  String get obBudgetChip;
+
+  /// No description provided for @obBudgetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BeTaller is priced for every teen who wants to grow'**
+  String get obBudgetTitle;
+
+  /// No description provided for @obBudgetDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your height shouldn\'t depend on how much money you have. That\'s why the price is set separately for each country.'**
+  String get obBudgetDesc;
+
+  /// No description provided for @obBudgetWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'One week of Pro here: {price}'**
+  String obBudgetWeek(String price);
+
+  /// No description provided for @obBudgetLocalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Priced for your country'**
+  String get obBudgetLocalTitle;
+
+  /// No description provided for @obBudgetLocalDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Not converted from US dollars: set for budgets where you live.'**
+  String get obBudgetLocalDesc;
+
+  /// No description provided for @obBudgetWeekTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start with just a week'**
+  String get obBudgetWeekTitle;
+
+  /// No description provided for @obBudgetWeekDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'No big payment up front. Cancel anytime in your Apple ID settings.'**
+  String get obBudgetWeekDesc;
+
+  /// No description provided for @obBudgetAllTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything in one plan'**
+  String get obBudgetAllTitle;
+
+  /// No description provided for @obBudgetAllDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Workouts, sleep, nutrition, posture and progress reports.'**
+  String get obBudgetAllDesc;
 }
 
 class _AppLocalizationsDelegate

@@ -6529,4 +6529,41 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get resultFootnoteEstimated =>
       'Estimación basada en curvas de crecimiento y estaturas adultas medias. No es consejo médico.';
+
+  @override
+  String get obBudgetChip => 'PRECIO JUSTO';
+
+  @override
+  String get obBudgetTitle =>
+      'BeTaller tiene un precio pensado para cada joven que quiere crecer';
+
+  @override
+  String get obBudgetDesc =>
+      'Tu altura no debería depender de cuánto dinero tienes. Por eso el precio se fija por separado en cada país.';
+
+  @override
+  String obBudgetWeek(String price) {
+    return 'Una semana de Pro aquí: $price';
+  }
+
+  @override
+  String get obBudgetLocalTitle => 'Precio para tu país';
+
+  @override
+  String get obBudgetLocalDesc =>
+      'No convertido desde dólares: ajustado a los presupuestos de donde vives.';
+
+  @override
+  String get obBudgetWeekTitle => 'Empieza con solo una semana';
+
+  @override
+  String get obBudgetWeekDesc =>
+      'Sin un gran pago inicial. Cancela cuando quieras en los ajustes de tu ID de Apple.';
+
+  @override
+  String get obBudgetAllTitle => 'Todo en un solo plan';
+
+  @override
+  String get obBudgetAllDesc =>
+      'Ejercicios, sueño, nutrición, postura e informes de progreso.';
 }

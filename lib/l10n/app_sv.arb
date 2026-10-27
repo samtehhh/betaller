@@ -1891,5 +1891,15 @@
   "obEthnicityWhy": "Används bara för att uppskatta längden på den förälder du inte vet.",
   "resultNoParentNote": "Uppskattat utan ena förälderns längd, så mindre exakt. Lägg till den i din profil när som helst.",
   "resultNoParentsNote": "Uppskattat utan dina föräldrars längd, så mindre exakt. Lägg till dem i din profil när som helst.",
-  "resultFootnoteEstimated": "Uppskattning utifrån tillväxtkurvor och genomsnittlig vuxenlängd. Inte medicinsk rådgivning."
+  "resultFootnoteEstimated": "Uppskattning utifrån tillväxtkurvor och genomsnittlig vuxenlängd. Inte medicinsk rådgivning.",
+  "obBudgetChip": "SCHYSST PRIS",
+  "obBudgetTitle": "BeTaller är prissatt för varje tonåring som vill växa",
+  "obBudgetDesc": "Din längd ska inte bero på hur mycket pengar du har. Därför sätts priset separat för varje land.",
+  "obBudgetWeek": "En vecka Pro här: {price}",
+  "obBudgetLocalTitle": "Pris för ditt land",
+  "obBudgetLocalDesc": "Inte omräknat från dollar, utan satt efter budgetar där du bor.",
+  "obBudgetWeekTitle": "Börja med bara en vecka",
+  "obBudgetWeekDesc": "Ingen stor betalning i förväg. Avsluta när du vill i inställningarna för ditt Apple-ID.",
+  "obBudgetAllTitle": "Allt i en plan",
+  "obBudgetAllDesc": "Träningspass, sömn, kost, hållning och framstegsrapporter."
 }

@@ -13,6 +13,7 @@ import '../models/reminder.dart';
 import '../models/user_profile.dart';
 import '../providers/app_provider.dart';
 import '../services/analytics.dart';
+import '../services/purchase_service.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
 import 'main_screen.dart';
@@ -51,6 +52,7 @@ import '../widgets/premium_paywall.dart';
 enum _Page {
   intro,
   painHook,
+  budget,
   gender,
   birthDate,
   whyTaller,
@@ -225,6 +227,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   void initState() {
     super.initState();
     Analytics.track('onboarding_start');
+    _loadWeeklyPrice();
     // Open the height/weight pickers in whichever unit the app already
     // defaults to (imperial for the US/Canada, metric everywhere else) —
     // the user can still flip the toggle on either page.
@@ -607,60 +610,62 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             ),
             child: SingleChildScrollView(
               child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: _langs.map((lang) {
-                final selected = lang.locale.languageCode == currentCode;
-                return GestureDetector(
-                  onTap: () {
-                    provider.setLocale(lang.locale);
-                    Navigator.pop(ctx);
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 11,
-                    ),
-                    decoration: BoxDecoration(
-                      color: selected
-                          ? AppColors.primary.withValues(alpha: 0.12)
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(14),
-                      border: selected
-                          ? Border.all(
-                              color: AppColors.primary.withValues(alpha: 0.30),
-                            )
-                          : null,
-                    ),
-                    child: Row(
-                      children: [
-                        Text(lang.flag, style: const TextStyle(fontSize: 20)),
-                        const SizedBox(width: 12),
-                        Text(
-                          lang.name,
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: selected
-                                ? FontWeight.w700
-                                : FontWeight.w500,
-                            color: Colors.white,
+                mainAxisSize: MainAxisSize.min,
+                children: _langs.map((lang) {
+                  final selected = lang.locale.languageCode == currentCode;
+                  return GestureDetector(
+                    onTap: () {
+                      provider.setLocale(lang.locale);
+                      Navigator.pop(ctx);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 11,
+                      ),
+                      decoration: BoxDecoration(
+                        color: selected
+                            ? AppColors.primary.withValues(alpha: 0.12)
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(14),
+                        border: selected
+                            ? Border.all(
+                                color: AppColors.primary.withValues(
+                                  alpha: 0.30,
+                                ),
+                              )
+                            : null,
+                      ),
+                      child: Row(
+                        children: [
+                          Text(lang.flag, style: const TextStyle(fontSize: 20)),
+                          const SizedBox(width: 12),
+                          Text(
+                            lang.name,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: selected
+                                  ? FontWeight.w700
+                                  : FontWeight.w500,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        const Spacer(),
-                        if (selected)
-                          const Icon(
-                            CupertinoIcons.checkmark_circle_fill,
-                            color: AppColors.primary,
-                            size: 20,
-                          ),
-                      ],
+                          const Spacer(),
+                          if (selected)
+                            const Icon(
+                              CupertinoIcons.checkmark_circle_fill,
+                              color: AppColors.primary,
+                              size: 20,
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }).toList(),
+                  );
+                }).toList(),
               ),
             ),
           ),
@@ -799,6 +804,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   Widget _buildPage(_Page page) => switch (page) {
     _Page.intro => _buildIntroPage(),
     _Page.painHook => _buildPainHookPage(),
+    _Page.budget => _buildBudgetPage(),
     _Page.gender => _buildGenderPage(),
     _Page.birthDate => _buildBirthDatePage(),
     _Page.whyTaller => _buildWhyTallerPage(),
@@ -1493,6 +1499,155 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             const SizedBox(height: 18),
           ],
         ),
+      ),
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Budget: the price is set per country
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  /// The store's weekly price for this Apple ID's country, or null until it
+  /// loads (or when purchases are not configured, as in tests).
+  String? _weeklyPrice;
+
+  Future<void> _loadWeeklyPrice() async {
+    final products = await PurchaseService().getProducts();
+    for (final p in products) {
+      if (p.identifier == PurchaseService.weeklyProductId) {
+        if (mounted) setState(() => _weeklyPrice = p.priceString);
+        return;
+      }
+    }
+  }
+
+  Widget _buildBudgetPage() {
+    final l = AppLocalizations.of(context)!;
+    final price = _weeklyPrice;
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: AppColors.lime.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: AppColors.lime.withValues(alpha: 0.30)),
+            ),
+            child: Text(
+              '\u{1F4B8}  ${l.obBudgetChip}',
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.0,
+                color: AppColors.lime,
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+          Text(
+            l.obBudgetTitle,
+            style: const TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: -1.0,
+              height: 1.1,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l.obBudgetDesc,
+            style: TextStyle(
+              fontSize: 15.5,
+              color: Colors.white.withValues(alpha: 0.65),
+              height: 1.55,
+            ),
+          ),
+          // The real weekly price in this country, straight from the store;
+          // nothing is shown until it has loaded.
+          if (price != null) ...[
+            const SizedBox(height: 20),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.lime.withValues(alpha: 0.16),
+                    AppColors.lime.withValues(alpha: 0.05),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(
+                  color: AppColors.lime.withValues(alpha: 0.35),
+                ),
+              ),
+              child: Text(
+                l.obBudgetWeek(price),
+                style: const TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: -0.4,
+                ),
+              ),
+            ),
+          ],
+          const SizedBox(height: 22),
+          for (final (emoji, title, desc) in [
+            ('\u{1F30D}', l.obBudgetLocalTitle, l.obBudgetLocalDesc),
+            ('\u{1F4C5}', l.obBudgetWeekTitle, l.obBudgetWeekDesc),
+            ('\u{2705}', l.obBudgetAllTitle, l.obBudgetAllDesc),
+          ])
+            Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF161220),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: AppColors.lime.withValues(alpha: 0.15),
+                ),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(emoji, style: const TextStyle(fontSize: 24)),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          desc,
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            color: Colors.white.withValues(alpha: 0.55),
+                            height: 1.45,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          const SizedBox(height: 24),
+        ],
       ),
     );
   }

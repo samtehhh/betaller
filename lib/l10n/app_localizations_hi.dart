@@ -6433,4 +6433,41 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get resultFootnoteEstimated =>
       'ग्रोथ-चार्ट डेटा और औसत वयस्क लंबाई पर आधारित अनुमान। यह चिकित्सा सलाह नहीं है।';
+
+  @override
+  String get obBudgetChip => 'सही कीमत';
+
+  @override
+  String get obBudgetTitle =>
+      'BeTaller की कीमत हर उस किशोर के बजट के हिसाब से है जो लंबा होना चाहता है';
+
+  @override
+  String get obBudgetDesc =>
+      'तुम्हारी लंबाई इस पर निर्भर नहीं होनी चाहिए कि तुम्हारे पास कितने पैसे हैं। इसलिए हर देश के लिए कीमत अलग तय की गई है।';
+
+  @override
+  String obBudgetWeek(String price) {
+    return 'यहाँ Pro का एक हफ़्ता: $price';
+  }
+
+  @override
+  String get obBudgetLocalTitle => 'तुम्हारे देश के हिसाब से कीमत';
+
+  @override
+  String get obBudgetLocalDesc =>
+      'डॉलर से बदला नहीं गया: जहाँ तुम रहते हो, वहाँ के बजट के हिसाब से तय।';
+
+  @override
+  String get obBudgetWeekTitle => 'बस एक हफ़्ते से शुरू करो';
+
+  @override
+  String get obBudgetWeekDesc =>
+      'शुरू में कोई बड़ा भुगतान नहीं। Apple ID सेटिंग में कभी भी रद्द करो।';
+
+  @override
+  String get obBudgetAllTitle => 'सब कुछ एक प्लान में';
+
+  @override
+  String get obBudgetAllDesc =>
+      'वर्कआउट, नींद, पोषण, पोस्चर और प्रगति रिपोर्ट।';
 }

@@ -2134,5 +2134,15 @@
   "obEthnicityWhy": "Serve solo a stimare l'altezza del genitore che non conosci.",
   "resultNoParentNote": "Stimato senza l'altezza di un genitore, quindi meno preciso. Aggiungila nel profilo quando vuoi.",
   "resultNoParentsNote": "Stimato senza l'altezza dei tuoi genitori, quindi meno preciso. Aggiungile nel profilo quando vuoi.",
-  "resultFootnoteEstimated": "Stima basata sulle curve di crescita e sulle altezze medie degli adulti. Non è un parere medico."
+  "resultFootnoteEstimated": "Stima basata sulle curve di crescita e sulle altezze medie degli adulti. Non è un parere medico.",
+  "obBudgetChip": "PREZZO GIUSTO",
+  "obBudgetTitle": "BeTaller ha un prezzo pensato per ogni ragazzo che vuole crescere",
+  "obBudgetDesc": "La tua altezza non dovrebbe dipendere da quanti soldi hai. Per questo il prezzo è fissato paese per paese.",
+  "obBudgetWeek": "Una settimana di Pro qui: {price}",
+  "obBudgetLocalTitle": "Prezzo per il tuo paese",
+  "obBudgetLocalDesc": "Non convertito dal dollaro: pensato per i budget di dove vivi.",
+  "obBudgetWeekTitle": "Inizia con una sola settimana",
+  "obBudgetWeekDesc": "Nessun grosso pagamento iniziale. Annulla quando vuoi nelle impostazioni dell'ID Apple.",
+  "obBudgetAllTitle": "Tutto in un unico piano",
+  "obBudgetAllDesc": "Allenamenti, sonno, alimentazione, postura e report dei progressi."
 }
