@@ -76,7 +76,9 @@ Future<void> showFreeLimit(BuildContext context, FreeFeature f) async {
     'feature': f.name,
     'first': !provider.freeOutNoticed(f),
   });
-  if (provider.freeOutNoticed(f)) {
+  // Without an allowance there was nothing to use up, so no "you've used
+  // it" sheet: the paywall, saying what the tap needs.
+  if (!FreeTier.enabled || provider.freeOutNoticed(f)) {
     await showPaywallFor(context, f);
     return;
   }

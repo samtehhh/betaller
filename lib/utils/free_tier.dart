@@ -15,6 +15,11 @@
 ///
 /// The enum names are stored (as keys of AppProvider's `freeUses`), so they
 /// must never be renamed.
+///
+/// Since 1.7.3 the allowance is off ([FreeTier.enabled]): with regional
+/// prices from about a dollar a week, every action is Pro from the start and
+/// a locked tap goes straight to the paywall. The rules stay so the
+/// allowance can come back without a migration.
 enum FreeFeature {
   /// A guided workout played to the end in the workout player.
   workout,
@@ -70,6 +75,14 @@ extension FreeFeatureRules on FreeFeature {
   /// First-day features share one: the first day ends for all of them at
   /// once, so one sheet says it.
   String get noticeKey => firstDayOnly ? 'firstDay' : name;
+}
+
+/// Whether free users get any allowance at all.
+class FreeTier {
+  FreeTier._();
+
+  /// Off in shipped builds. Tests of the metered rules switch it on.
+  static bool enabled = false;
 }
 
 /// yyyy-MM-dd for [d], the format every stored date in the app uses.

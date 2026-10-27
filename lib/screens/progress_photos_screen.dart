@@ -396,7 +396,11 @@ class _ProgressPhotosScreenState extends State<ProgressPhotosScreen> {
                       else
                         ProgressLockedPreview(
                           title: l.ftPhotosLockedTitle,
-                          body: l.ftPhotosLockedBody,
+                          // "Your free comparison is used" only when
+                          // there was one to use.
+                          body: FreeTier.enabled
+                              ? l.ftPhotosLockedBody
+                              : l.ftWhyPhotos,
                           feature: FreeFeature.photoCompare,
                           maxHeight: 380,
                           preview: compare!,

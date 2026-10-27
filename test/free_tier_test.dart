@@ -65,6 +65,8 @@ void main() {
 
   late Directory docs;
   setUp(() {
+    // These tests cover the metered rules, which ship switched off.
+    FreeTier.enabled = true;
     docs = Directory.systemTemp.createTempSync('betaller_free');
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
@@ -73,9 +75,43 @@ void main() {
         );
   });
   tearDown(() {
+    FreeTier.enabled = false;
     try {
       docs.deleteSync(recursive: true);
     } catch (_) {}
+  });
+
+  group('allowance off (shipped)', () {
+    test('a free user gets nothing free, a premium user everything', () async {
+      FreeTier.enabled = false;
+      final p = await _load(_blob({'freeTierStart': _today}));
+      for (final f in FreeFeature.values) {
+        expect(p.canUseFree(f), isFalse, reason: f.name);
+        expect(p.freeLeft(f), 0, reason: f.name);
+        expect(p.consumeFree(f), isFalse, reason: f.name);
+        expect(p.openFree(f), isFalse, reason: f.name);
+      }
+      expect(p.freeUses, isEmpty);
+
+      final pro = await _load(_blob({'isPremium': true}));
+      for (final f in FreeFeature.values) {
+        expect(pro.canUseFree(f), isTrue, reason: f.name);
+      }
+    });
+
+    test('an item opened under the old allowance locks again', () async {
+      FreeTier.enabled = false;
+      final p = await _load(
+        _blob({
+          'freeUses': {'article': 1},
+          'freeItems': {
+            'article': ['a1'],
+          },
+        }),
+      );
+      expect(p.isFreeItem(FreeFeature.article, 'a1'), isFalse);
+      expect(p.canUseFreeFor(FreeFeature.article, 'a1'), isFalse);
+    });
   });
 
   group('quota', () {

@@ -308,6 +308,8 @@ void main() {
           final p = AppProvider();
           await p.loadData();
           p.setVolumeUnit(VolumeUnit.flOz);
+          // Logging water is Pro; the layout under test is the full sheet.
+          p.setPremium(true);
           p.addWater(UnitPrefs.flOzToLitres(12));
 
           await tester.pumpWidget(
