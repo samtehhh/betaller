@@ -2144,5 +2144,9 @@
   "obBudgetWeekTitle": "Commence par une semaine",
   "obBudgetWeekDesc": "Pas de gros paiement au départ. Annule quand tu veux dans les réglages de ton identifiant Apple.",
   "obBudgetAllTitle": "Tout dans une seule offre",
-  "obBudgetAllDesc": "Exercices, sommeil, nutrition, posture et rapports de progrès."
+  "obBudgetAllDesc": "Exercices, sommeil, nutrition, posture et rapports de progrès.",
+  "obRateTitle": "BeTaller a été créé pour vraiment t'aider",
+  "obRateDesc": "Si notre attention personnelle et notre honnêteté t'ont plu, nous serions ravis que tu nous notes.",
+  "obRateCta": "Noter BeTaller",
+  "obRateLater": "Plus tard"
 }

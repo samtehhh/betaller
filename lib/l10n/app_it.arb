@@ -2144,5 +2144,9 @@
   "obBudgetWeekTitle": "Inizia con una sola settimana",
   "obBudgetWeekDesc": "Nessun grosso pagamento iniziale. Annulla quando vuoi nelle impostazioni dell'ID Apple.",
   "obBudgetAllTitle": "Tutto in un unico piano",
-  "obBudgetAllDesc": "Allenamenti, sonno, alimentazione, postura e report dei progressi."
+  "obBudgetAllDesc": "Allenamenti, sonno, alimentazione, postura e report dei progressi.",
+  "obRateTitle": "BeTaller è nato per aiutarti davvero",
+  "obRateDesc": "Se ti sono piaciute la nostra attenzione personale e la nostra onestà, saremmo felicissimi se ci valutassi.",
+  "obRateCta": "Valuta BeTaller",
+  "obRateLater": "Magari dopo"
 }

@@ -1901,5 +1901,9 @@
   "obBudgetWeekTitle": "Begin met één week",
   "obBudgetWeekDesc": "Geen grote betaling vooraf. Altijd op te zeggen in je Apple ID-instellingen.",
   "obBudgetAllTitle": "Alles in één abonnement",
-  "obBudgetAllDesc": "Workouts, slaap, voeding, houding en voortgangsrapporten."
+  "obBudgetAllDesc": "Workouts, slaap, voeding, houding en voortgangsrapporten.",
+  "obRateTitle": "BeTaller is gemaakt om je echt te helpen",
+  "obRateDesc": "Vond je onze persoonlijke aandacht en eerlijkheid fijn? Dan zouden we heel blij zijn met je beoordeling.",
+  "obRateCta": "BeTaller beoordelen",
+  "obRateLater": "Misschien later"
 }

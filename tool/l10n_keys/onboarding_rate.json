@@ -1,0 +1,54 @@
+{
+  "obRateTitle": {
+    "en": "BeTaller was built to truly help you",
+    "tr": "BeTaller gerçekten sana faydalı olmak için oluşturuldu",
+    "de": "BeTaller wurde gemacht, um dir wirklich zu helfen",
+    "fr": "BeTaller a été créé pour vraiment t'aider",
+    "es": "BeTaller se creó para ayudarte de verdad",
+    "it": "BeTaller è nato per aiutarti davvero",
+    "pt": "O BeTaller foi criado para te ajudar de verdade",
+    "hi": "BeTaller सच में तुम्हारी मदद के लिए बनाया गया है",
+    "nl": "BeTaller is gemaakt om je echt te helpen",
+    "pl": "BeTaller powstał, żeby naprawdę ci pomóc",
+    "sv": "BeTaller är gjort för att verkligen hjälpa dig"
+  },
+  "obRateDesc": {
+    "en": "If you liked our personal attention and our honesty, we'd be really happy if you rated us.",
+    "tr": "Sana özel ilgimiz ve realitemiz hoşuna gittiyse bizi puanlarsan çok seviniriz.",
+    "de": "Wenn dir unsere persönliche Betreuung und unsere Ehrlichkeit gefallen, würden wir uns sehr über deine Bewertung freuen.",
+    "fr": "Si notre attention personnelle et notre honnêteté t'ont plu, nous serions ravis que tu nous notes.",
+    "es": "Si te gustaron nuestra atención personal y nuestra honestidad, nos encantaría que nos valoraras.",
+    "it": "Se ti sono piaciute la nostra attenzione personale e la nostra onestà, saremmo felicissimi se ci valutassi.",
+    "pt": "Se você gostou da nossa atenção pessoal e da nossa honestidade, ficaríamos muito felizes com a sua avaliação.",
+    "hi": "अगर तुम्हें हमारा निजी ध्यान और हमारी ईमानदारी पसंद आई, तो हमें रेट करोगे तो हमें बहुत खुशी होगी।",
+    "nl": "Vond je onze persoonlijke aandacht en eerlijkheid fijn? Dan zouden we heel blij zijn met je beoordeling.",
+    "pl": "Jeśli spodobała ci się nasza osobista uwaga i szczerość, bardzo ucieszy nas twoja ocena.",
+    "sv": "Om du gillade vår personliga omtanke och vår ärlighet blir vi jätteglada om du betygsätter oss."
+  },
+  "obRateCta": {
+    "en": "Rate BeTaller",
+    "tr": "BeTaller'ı puanla",
+    "de": "BeTaller bewerten",
+    "fr": "Noter BeTaller",
+    "es": "Valorar BeTaller",
+    "it": "Valuta BeTaller",
+    "pt": "Avaliar o BeTaller",
+    "hi": "BeTaller को रेट करो",
+    "nl": "BeTaller beoordelen",
+    "pl": "Oceń BeTaller",
+    "sv": "Betygsätt BeTaller"
+  },
+  "obRateLater": {
+    "en": "Maybe later",
+    "tr": "Belki sonra",
+    "de": "Vielleicht später",
+    "fr": "Plus tard",
+    "es": "Quizás luego",
+    "it": "Magari dopo",
+    "pt": "Talvez depois",
+    "hi": "शायद बाद में",
+    "nl": "Misschien later",
+    "pl": "Może później",
+    "sv": "Kanske senare"
+  }
+}

@@ -6470,4 +6470,17 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get obBudgetAllDesc =>
       'वर्कआउट, नींद, पोषण, पोस्चर और प्रगति रिपोर्ट।';
+
+  @override
+  String get obRateTitle => 'BeTaller सच में तुम्हारी मदद के लिए बनाया गया है';
+
+  @override
+  String get obRateDesc =>
+      'अगर तुम्हें हमारा निजी ध्यान और हमारी ईमानदारी पसंद आई, तो हमें रेट करोगे तो हमें बहुत खुशी होगी।';
+
+  @override
+  String get obRateCta => 'BeTaller को रेट करो';
+
+  @override
+  String get obRateLater => 'शायद बाद में';
 }

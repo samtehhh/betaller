@@ -2144,5 +2144,9 @@
   "obBudgetWeekTitle": "Starte mit nur einer Woche",
   "obBudgetWeekDesc": "Keine große Zahlung vorab. Jederzeit in den Apple-ID-Einstellungen kündbar.",
   "obBudgetAllTitle": "Alles in einem Plan",
-  "obBudgetAllDesc": "Workouts, Schlaf, Ernährung, Haltung und Fortschrittsberichte."
+  "obBudgetAllDesc": "Workouts, Schlaf, Ernährung, Haltung und Fortschrittsberichte.",
+  "obRateTitle": "BeTaller wurde gemacht, um dir wirklich zu helfen",
+  "obRateDesc": "Wenn dir unsere persönliche Betreuung und unsere Ehrlichkeit gefallen, würden wir uns sehr über deine Bewertung freuen.",
+  "obRateCta": "BeTaller bewerten",
+  "obRateLater": "Vielleicht später"
 }

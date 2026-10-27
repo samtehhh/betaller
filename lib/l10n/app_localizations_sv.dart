@@ -6558,4 +6558,17 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get obBudgetAllDesc =>
       'Träningspass, sömn, kost, hållning och framstegsrapporter.';
+
+  @override
+  String get obRateTitle => 'BeTaller är gjort för att verkligen hjälpa dig';
+
+  @override
+  String get obRateDesc =>
+      'Om du gillade vår personliga omtanke och vår ärlighet blir vi jätteglada om du betygsätter oss.';
+
+  @override
+  String get obRateCta => 'Betygsätt BeTaller';
+
+  @override
+  String get obRateLater => 'Kanske senare';
 }

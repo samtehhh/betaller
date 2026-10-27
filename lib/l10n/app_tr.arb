@@ -1995,5 +1995,9 @@
   "obBudgetWeekTitle": "Sadece bir haftayla başla",
   "obBudgetWeekDesc": "Başta büyük bir ödeme yok. Apple Kimliği ayarlarından istediğin zaman iptal et.",
   "obBudgetAllTitle": "Her şey tek planda",
-  "obBudgetAllDesc": "Egzersizler, uyku, beslenme, duruş ve gelişim raporları."
+  "obBudgetAllDesc": "Egzersizler, uyku, beslenme, duruş ve gelişim raporları.",
+  "obRateTitle": "BeTaller gerçekten sana faydalı olmak için oluşturuldu",
+  "obRateDesc": "Sana özel ilgimiz ve realitemiz hoşuna gittiyse bizi puanlarsan çok seviniriz.",
+  "obRateCta": "BeTaller'ı puanla",
+  "obRateLater": "Belki sonra"
 }

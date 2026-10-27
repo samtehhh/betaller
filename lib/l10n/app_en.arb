@@ -2172,5 +2172,9 @@
   "obBudgetWeekTitle": "Start with just a week",
   "obBudgetWeekDesc": "No big payment up front. Cancel anytime in your Apple ID settings.",
   "obBudgetAllTitle": "Everything in one plan",
-  "obBudgetAllDesc": "Workouts, sleep, nutrition, posture and progress reports."
+  "obBudgetAllDesc": "Workouts, sleep, nutrition, posture and progress reports.",
+  "obRateTitle": "BeTaller was built to truly help you",
+  "obRateDesc": "If you liked our personal attention and our honesty, we'd be really happy if you rated us.",
+  "obRateCta": "Rate BeTaller",
+  "obRateLater": "Maybe later"
 }

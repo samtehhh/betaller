@@ -6582,4 +6582,17 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get obBudgetAllDesc =>
       'Allenamenti, sonno, alimentazione, postura e report dei progressi.';
+
+  @override
+  String get obRateTitle => 'BeTaller è nato per aiutarti davvero';
+
+  @override
+  String get obRateDesc =>
+      'Se ti sono piaciute la nostra attenzione personale e la nostra onestà, saremmo felicissimi se ci valutassi.';
+
+  @override
+  String get obRateCta => 'Valuta BeTaller';
+
+  @override
+  String get obRateLater => 'Magari dopo';
 }

@@ -133,6 +133,9 @@ Future<void> walkOnboarding(
   await page('triedAppsAnswer_done');
   await tapText(l.continueBtn);
 
+  await page('rate');
+  await tapText(l.obRateLater);
+
   await page('heightWeight');
   await tapText(l.continueBtn);
   await page('parents');
