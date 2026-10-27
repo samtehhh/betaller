@@ -1531,6 +1531,7 @@ class AppProvider extends ChangeNotifier {
   /// Whether [f] may be used right now.
   bool canUseFree(FreeFeature f) {
     if (_isPremium) return true;
+    if (!FreeTier.enabled) return false;
     if (f.firstDayOnly) return isFreeDay;
     return _freeSession.contains(f) || (_freeUses[f.name] ?? 0) < f.limit;
   }
@@ -1540,6 +1541,7 @@ class AppProvider extends ChangeNotifier {
   /// reports -1.
   int freeLeft(FreeFeature f) {
     if (_isPremium) return -1;
+    if (!FreeTier.enabled) return 0;
     if (f.firstDayOnly) return isFreeDay ? 1 : 0;
     return max(0, f.limit - (_freeUses[f.name] ?? 0));
   }
@@ -1553,6 +1555,7 @@ class AppProvider extends ChangeNotifier {
   /// first-day feature spends nothing either; it is simply free today.
   bool consumeFree(FreeFeature f, {String? item}) {
     if (_isPremium) return true;
+    if (!FreeTier.enabled) return false;
     if (f.firstDayOnly) return isFreeDay;
     if (item != null && isFreeItem(f, item)) return true;
     final used = _freeUses[f.name] ?? 0;
@@ -1582,7 +1585,7 @@ class AppProvider extends ChangeNotifier {
 
   /// Whether [item] is the one [f]'s free use was spent on.
   bool isFreeItem(FreeFeature f, String item) =>
-      _freeItems[f.name]?.contains(item) ?? false;
+      FreeTier.enabled && (_freeItems[f.name]?.contains(item) ?? false);
 
   /// Whether [f] is usable for [item]: premium, its own free item, or a free
   /// use still left.
