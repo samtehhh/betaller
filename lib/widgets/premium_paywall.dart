@@ -319,10 +319,12 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     return _freeTrialDays(product);
   }
 
-  /// The plan the sheet opens on: lifetime, the one-time purchase the sheet
-  /// leads with, whenever the store has it; otherwise the first plan that
-  /// starts with a free trial this user can still get (monthly, then weekly).
+  /// The plan the sheet opens on: weekly, the smallest commitment, whenever
+  /// the store has it (since 1.7.3 the regional prices make a week an impulse
+  /// buy everywhere); then lifetime; otherwise the first plan that starts
+  /// with a free trial this user can still get (monthly, then weekly).
   int _defaultPlan() {
+    if (_storeProduct(PurchaseService.weeklyProductId) != null) return 2;
     if (_storeProduct(PurchaseService.lifetimeProductId) != null) return 1;
     for (final (plan, id) in const [
       (0, PurchaseService.monthlyProductId),
