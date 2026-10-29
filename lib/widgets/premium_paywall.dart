@@ -18,6 +18,7 @@ import '../providers/app_provider.dart';
 import '../services/analytics.dart';
 import '../services/purchase_service.dart';
 import '../utils/constants.dart';
+import '../utils/design_tokens.dart';
 import 'paywall_previews.dart';
 import 'phone_mockup.dart';
 
@@ -93,6 +94,14 @@ const Duration _kSlideDuration = Duration(milliseconds: 2800);
 /// After a manual swipe the tour waits this long before taking over again, so
 /// it never yanks a screen away from someone who is still looking at it.
 const Duration _kResumeDelay = Duration(seconds: 7);
+
+/// The sheet's chrome (page, plan rows, button, dots) in the brand purple of
+/// the app tabs, whatever preview is showing; each preview keeps its own
+/// colours inside the phone. Until Oct 2026 the whole screen took on the
+/// preview's accent (green, cyan, amber, orange, indigo, pink) with a glow
+/// behind it, so the paywall looked like a different app on every slide.
+/// False brings that back.
+const bool _kPaywallBrandChrome = true;
 
 // ── Debug-only demo prices ───────────────────────────────────────────────
 //
@@ -495,7 +504,9 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
     return PopScope(
       canPop: widget.dismissible && _closeVisible,
       child: Scaffold(
-        backgroundColor: const Color(0xFF07050F),
+        backgroundColor: _kPaywallBrandChrome
+            ? BtColors.page
+            : const Color(0xFF07050F),
         body: TweenAnimationBuilder<Color?>(
           tween: ColorTween(
             begin: kPaywallPreviews.first.accent,
@@ -504,7 +515,9 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
           duration: const Duration(milliseconds: 520),
           curve: Curves.easeInOut,
           builder: (context, tweened, _) {
-            final accent = tweened ?? _preview.accent;
+            final accent = _kPaywallBrandChrome
+                ? AppColors.primary
+                : tweened ?? _preview.accent;
             // Bright accents (green, amber, cyan) need dark text on the CTA.
             final onAccent = accent.computeLuminance() > 0.5
                 ? const Color(0xFF07050F)
@@ -513,19 +526,20 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
             return Stack(
               children: [
                 // ── Accent glow behind the device ─────────────────────────
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: RadialGradient(
-                      center: const Alignment(0.0, -0.75),
-                      radius: 1.05,
-                      colors: [
-                        accent.withValues(alpha: 0.30),
-                        const Color(0xFF07050F),
-                      ],
+                if (!_kPaywallBrandChrome)
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: RadialGradient(
+                        center: const Alignment(0.0, -0.75),
+                        radius: 1.05,
+                        colors: [
+                          accent.withValues(alpha: 0.30),
+                          const Color(0xFF07050F),
+                        ],
+                      ),
                     ),
+                    child: const SizedBox.expand(),
                   ),
-                  child: const SizedBox.expand(),
-                ),
 
                 Column(
                   children: [
@@ -1104,10 +1118,16 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: const Color(0xFF0D0920),
+          color: _kPaywallBrandChrome
+              ? BtColors.raised
+              : const Color(0xFF0D0920),
           borderRadius: const BorderRadius.vertical(top: Radius.circular(34)),
           border: Border(
-            top: BorderSide(color: accent.withValues(alpha: 0.30)),
+            top: BorderSide(
+              color: _kPaywallBrandChrome
+                  ? BtColors.stroke
+                  : accent.withValues(alpha: 0.30),
+            ),
           ),
           boxShadow: [
             BoxShadow(
@@ -1218,21 +1238,29 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
                     onTap: widget.purchasing ? null : widget.onBuy,
                     child: Container(
                       height: 58,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [accent, accent.withValues(alpha: 0.65)],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.circular(17),
-                        boxShadow: [
-                          BoxShadow(
-                            color: accent.withValues(alpha: 0.45),
-                            blurRadius: 26,
-                            offset: const Offset(0, 6),
-                          ),
-                        ],
-                      ),
+                      decoration: _kPaywallBrandChrome
+                          ? BoxDecoration(
+                              color: accent,
+                              borderRadius: BorderRadius.circular(BtRadius.md),
+                            )
+                          : BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  accent,
+                                  accent.withValues(alpha: 0.65),
+                                ],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(17),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: accent.withValues(alpha: 0.45),
+                                  blurRadius: 26,
+                                  offset: const Offset(0, 6),
+                                ),
+                              ],
+                            ),
                       child: Center(
                         child: widget.purchasing
                             ? SizedBox(
@@ -1403,6 +1431,8 @@ class _PlanRow extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected
               ? accent.withValues(alpha: 0.12)
+              : _kPaywallBrandChrome
+              ? BtColors.card
               : Colors.white.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
@@ -1411,7 +1441,7 @@ class _PlanRow extends StatelessWidget {
                 : Colors.white.withValues(alpha: 0.10),
             width: selected ? 1.5 : 1,
           ),
-          boxShadow: selected
+          boxShadow: selected && !_kPaywallBrandChrome
               ? [
                   BoxShadow(
                     color: accent.withValues(alpha: 0.18),

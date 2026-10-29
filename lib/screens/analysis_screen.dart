@@ -199,7 +199,7 @@ class AnalysisScreenState extends State<AnalysisScreen>
                         Text(
                           l.analysis,
                           style: const TextStyle(
-                            fontSize: 34,
+                            fontSize: 32,
                             fontWeight: FontWeight.w900,
                             color: Colors.white,
                             letterSpacing: -1,

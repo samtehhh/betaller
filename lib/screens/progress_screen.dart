@@ -91,17 +91,13 @@ class ProgressScreenState extends State<ProgressScreen>
                       child: Text(
                         l.progressTitle,
                         maxLines: 1,
-                        style: TextStyle(
+                        // White like every other tab's title; the purple
+                        // glow made this one tab look like another app.
+                        style: const TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w900,
-                          color: AppColors.primary,
-                          letterSpacing: -1.1,
-                          shadows: [
-                            Shadow(
-                              color: AppColors.primary.withValues(alpha: 0.25),
-                              blurRadius: 10,
-                            ),
-                          ],
+                          color: Colors.white,
+                          letterSpacing: -1.0,
                         ),
                       ),
                     ),
