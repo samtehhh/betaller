@@ -23,6 +23,7 @@ import '../widgets/measure_fields.dart';
 import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 import '../utils/text_case.dart';
+import '../utils/app_languages.dart';
 
 class ProfileScreen extends StatefulWidget {
   /// Lets MainScreen re-launch the guided walkthrough from here too — a
@@ -1346,32 +1347,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   String _languageName(Locale? locale) {
-    switch (locale?.languageCode) {
-      case 'tr':
-        return 'Türkçe';
-      case 'en':
-        return 'English';
-      case 'de':
-        return 'Deutsch';
-      case 'fr':
-        return 'Français';
-      case 'hi':
-        return 'हिन्दी';
-      case 'pt':
-        return 'Português';
-      case 'es':
-        return 'Español';
-      case 'it':
-        return 'Italiano';
-      case 'nl':
-        return 'Nederlands';
-      case 'pl':
-        return 'Polski';
-      case 'sv':
-        return 'Svenska';
-      default:
-        return AppLocalizations.of(context)?.systemLanguage ?? 'System';
-    }
+    final lang = locale == null ? null : appLanguageFor(locale);
+    return lang?.nativeName ??
+        AppLocalizations.of(context)?.systemLanguage ??
+        'System';
   }
 
   static String _heightUnitAbbr(HeightUnit u) => switch (u) {
@@ -1523,17 +1502,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final l = AppLocalizations.of(context)!;
     final languages = [
       {'locale': null, 'name': l.systemLanguage, 'flag': '🌐'},
-      {'locale': const Locale('tr'), 'name': 'Türkçe', 'flag': '🇹🇷'},
-      {'locale': const Locale('en'), 'name': 'English', 'flag': '🇬🇧'},
-      {'locale': const Locale('de'), 'name': 'Deutsch', 'flag': '🇩🇪'},
-      {'locale': const Locale('fr'), 'name': 'Français', 'flag': '🇫🇷'},
-      {'locale': const Locale('es'), 'name': 'Español', 'flag': '🇪🇸'},
-      {'locale': const Locale('it'), 'name': 'Italiano', 'flag': '🇮🇹'},
-      {'locale': const Locale('pt'), 'name': 'Português', 'flag': '🇧🇷'},
-      {'locale': const Locale('nl'), 'name': 'Nederlands', 'flag': '🇳🇱'},
-      {'locale': const Locale('pl'), 'name': 'Polski', 'flag': '🇵🇱'},
-      {'locale': const Locale('sv'), 'name': 'Svenska', 'flag': '🇸🇪'},
-      {'locale': const Locale('hi'), 'name': 'हिन्दी', 'flag': '🇮🇳'},
+      for (final lang in appLanguages)
+        {'locale': lang.locale, 'name': lang.nativeName, 'flag': lang.flag},
     ];
 
     showModalBottomSheet(
@@ -1578,9 +1548,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     ...languages.map((lang) {
                       final isSelected =
-                          provider.locale?.languageCode ==
-                              (lang['locale'] as Locale?)?.languageCode &&
-                          (lang['locale'] != null || provider.locale == null);
+                          provider.locale == lang['locale'] as Locale?;
                       return GestureDetector(
                         onTap: () {
                           if (lang['locale'] == null) {

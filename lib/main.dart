@@ -18,6 +18,7 @@ import 'services/notification_service.dart';
 import 'services/purchase_service.dart';
 import 'utils/constants.dart';
 import 'widgets/premium_paywall.dart';
+import 'utils/app_languages.dart';
 
 /// Lets the deep-link handler push routes without threading a BuildContext
 /// through main() — the link can arrive before the first frame is built.
@@ -187,27 +188,14 @@ class BeTallerApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       locale: provider.locale,
-      supportedLocales: const [
-        Locale('en'),
-        Locale('tr'),
-        Locale('de'),
-        Locale('fr'),
-        Locale('hi'),
-        Locale('pt'),
-        Locale('es'),
-        Locale('it'),
-        Locale('nl'),
-        Locale('pl'),
-        Locale('sv'),
-      ],
+      supportedLocales: supportedAppLocales,
       localeResolutionCallback: (deviceLocale, supported) {
         // If user has explicitly set a locale, use it
         if (provider.locale != null) return provider.locale;
         // Match device locale to supported locales
         if (deviceLocale != null) {
-          for (final s in supported) {
-            if (s.languageCode == deviceLocale.languageCode) return s;
-          }
+          final match = matchAppLocale(deviceLocale);
+          if (match != null) return match;
         }
         // Fallback to English
         return const Locale('en');
