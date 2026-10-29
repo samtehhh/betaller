@@ -17,6 +17,7 @@ import '../services/analytics.dart';
 import '../services/purchase_service.dart';
 import '../utils/calculations.dart';
 import '../utils/constants.dart';
+import '../utils/design_tokens.dart';
 import 'main_screen.dart';
 import '../services/notification_service.dart';
 import '../widgets/journey_steps.dart';
@@ -86,6 +87,12 @@ const _kFirstQuestion = _Page.gender;
 
 /// Last page before the analysis. It carries its own two buttons.
 const _kLastQuestion = _Page.notifications;
+
+/// The onboarding in the app's own design language (Oct 2026): the flat
+/// indigo page, dark hairline cards, one purple for what you can press and
+/// the tabs' type sizes ([BtColors], [BtType]). The first design is kept
+/// whole behind this switch; false brings it back.
+const _kObDesignV2 = true;
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -534,7 +541,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // LANGUAGE PICKER
   // ─────────────────────────────────────────────────────────────────────────────
 
-
   Widget _buildLanguageButton(BuildContext context) {
     final provider = context.read<AppProvider>();
     final currentFlag =
@@ -684,16 +690,22 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final isAnalyzing = _page == _Page.analyzing;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF080608),
+      backgroundColor: _kObDesignV2 ? BtColors.page : const Color(0xFF080608),
       resizeToAvoidBottomInset: true,
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF1A0E2E), Color(0xFF0A0812), Color(0xFF060406)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        decoration: _kObDesignV2
+            ? const BoxDecoration(color: BtColors.page)
+            : const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF1A0E2E),
+                    Color(0xFF0A0812),
+                    Color(0xFF060406),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
         child: SafeArea(
           child: Stack(
             children: [
@@ -712,8 +724,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                               width: 40,
                               height: 40,
                               decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.10),
+                                color: _kObDesignV2
+                                    ? BtColors.card
+                                    : Colors.white.withValues(alpha: 0.10),
                                 shape: BoxShape.circle,
+                                border: _kObDesignV2
+                                    ? Border.all(color: BtColors.stroke)
+                                    : null,
                               ),
                               child: const Icon(
                                 CupertinoIcons.arrow_left,
@@ -733,9 +750,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                 builder: (ctx, v, _) => LinearProgressIndicator(
                                   value: v,
                                   minHeight: 4,
-                                  backgroundColor: Colors.white.withValues(
-                                    alpha: 0.10,
-                                  ),
+                                  backgroundColor: _kObDesignV2
+                                      ? BtColors.tint
+                                      : Colors.white.withValues(alpha: 0.10),
                                   valueColor: const AlwaysStoppedAnimation(
                                     AppColors.primary,
                                   ),
@@ -779,7 +796,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               if (isAnalyzing)
                 Positioned.fill(
                   child: Container(
-                    color: const Color(0xFF0A0812),
+                    color: _kObDesignV2
+                        ? BtColors.page
+                        : const Color(0xFF0A0812),
                     child: _AnalyzingPage(onComplete: _onAnalysisComplete),
                   ),
                 ),
@@ -792,8 +811,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   Widget _buildPage(_Page page) => switch (page) {
     _Page.intro => _buildIntroPage(),
-    _Page.painHook => _buildPainHookPage(),
-    _Page.budget => _buildBudgetPage(),
+    _Page.painHook =>
+      _kObDesignV2 ? _buildPainHookPageV2() : _buildPainHookPage(),
+    _Page.budget => _kObDesignV2 ? _buildBudgetPageV2() : _buildBudgetPage(),
     _Page.gender => _buildGenderPage(),
     _Page.birthDate => _buildBirthDatePage(),
     _Page.whyTaller => _buildWhyTallerPage(),
@@ -1066,7 +1086,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _Pill(text: l.obBuiltChip.upperIn(context), color: AppColors.lime),
+          _Pill(
+            text: l.obBuiltChip.upperIn(context),
+            color: _kObDesignV2 ? AppColors.primary : AppColors.lime,
+          ),
           const SizedBox(height: 14),
           Text(
             l.obBuiltTitle,
@@ -1086,15 +1109,23 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 6),
             decoration: BoxDecoration(
               color: AppColors.cardFill,
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: AppColors.lime.withValues(alpha: 0.35)),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.lime.withValues(alpha: 0.10),
-                  blurRadius: 30,
-                  spreadRadius: -8,
-                ),
-              ],
+              borderRadius: BorderRadius.circular(
+                _kObDesignV2 ? BtRadius.lg : 24,
+              ),
+              border: Border.all(
+                color: _kObDesignV2
+                    ? BtColors.stroke
+                    : AppColors.lime.withValues(alpha: 0.35),
+              ),
+              boxShadow: _kObDesignV2
+                  ? null
+                  : [
+                      BoxShadow(
+                        color: AppColors.lime.withValues(alpha: 0.10),
+                        blurRadius: 30,
+                        spreadRadius: -8,
+                      ),
+                    ],
             ),
             child: Column(
               children: [
@@ -1730,6 +1761,198 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               ),
             ),
           const SizedBox(height: 24),
+        ],
+      ),
+    );
+  }
+
+  /// The budget page in the tabs' language: one tag, the title, the store's
+  /// real weekly price on a single flat card, then the three reasons as rows
+  /// of one list instead of three outlined boxes with emoji on them.
+  Widget _buildBudgetPageV2() {
+    final l = AppLocalizations.of(context)!;
+    final price = _weeklyPrice;
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _Pill(
+            text: l.obBudgetChip.upperIn(context),
+            color: AppColors.primary,
+          ),
+          const SizedBox(height: BtSpace.s16),
+          Text(l.obBudgetTitle, style: BtType.screenTitle),
+          const SizedBox(height: BtSpace.s12),
+          Text(l.obBudgetDesc, style: BtType.body),
+          // The real weekly price in this country, straight from the store;
+          // nothing is shown until it has loaded.
+          if (price != null) ...[
+            const SizedBox(height: BtSpace.s20),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+              decoration: BoxDecoration(
+                color: BtColors.brandWash,
+                borderRadius: BorderRadius.circular(BtRadius.md),
+                border: Border.all(color: BtColors.brandEdge),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    CupertinoIcons.tag_fill,
+                    size: 18,
+                    color: AppColors.primaryLight,
+                  ),
+                  const SizedBox(width: BtSpace.s12),
+                  Expanded(
+                    child: Text(
+                      l.obBudgetWeek(price),
+                      style: BtType.headline.copyWith(fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+          const SizedBox(height: BtSpace.s20),
+          _FactList(
+            rows: [
+              (
+                CupertinoIcons.globe,
+                l.obBudgetLocalTitle,
+                l.obBudgetLocalDesc,
+                null,
+              ),
+              (
+                CupertinoIcons.calendar,
+                l.obBudgetWeekTitle,
+                l.obBudgetWeekDesc,
+                null,
+              ),
+              (
+                CupertinoIcons.checkmark_seal_fill,
+                l.obBudgetAllTitle,
+                l.obBudgetAllDesc,
+                null,
+              ),
+            ],
+          ),
+          const SizedBox(height: BtSpace.s24),
+        ],
+      ),
+    );
+  }
+
+  /// The pain hook in the tabs' language. Red stays, because it means
+  /// something here (time running out), but only on the words that say so;
+  /// the six facts are one list with neutral marks and brand tags.
+  Widget _buildPainHookPageV2() {
+    final l = AppLocalizations.of(context)!;
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _Pill(
+            text: l.criticalWindow.upperIn(context),
+            color: AppColors.error,
+          ),
+          const SizedBox(height: BtSpace.s16),
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(text: '${l.heightPotentialFading}\n'),
+                TextSpan(
+                  text: l.fadingAway,
+                  style: const TextStyle(color: AppColors.error),
+                ),
+              ],
+            ),
+            style: BtType.screenTitle,
+          ),
+          const SizedBox(height: BtSpace.s12),
+          Text(l.painHookDesc, style: BtType.body),
+          const SizedBox(height: BtSpace.s20),
+          _FactList(
+            rows: [
+              (
+                Icons.biotech_rounded,
+                l.painGeneticTitle,
+                l.painGeneticDesc,
+                l.painGeneticTag,
+              ),
+              (
+                CupertinoIcons.moon_zzz_fill,
+                l.painSleepTitle,
+                l.painSleepDesc,
+                l.painSleepTag,
+              ),
+              (
+                Icons.accessibility_new_rounded,
+                l.painPostureTitle,
+                _heightImperial ? l.painPostureDescIn : l.painPostureDesc,
+                l.painPostureTag,
+              ),
+              (
+                Icons.fitness_center_rounded,
+                l.painExerciseTitle,
+                l.painExerciseDesc,
+                l.painExerciseTag,
+              ),
+              (
+                Icons.restaurant_rounded,
+                l.painNutritionTitle,
+                l.painNutritionDesc,
+                l.painNutritionTag,
+              ),
+              (
+                CupertinoIcons.chart_bar_alt_fill,
+                l.painTrackingTitle,
+                l.painTrackingDesc,
+                l.painTrackingTag,
+              ),
+            ],
+          ),
+          const SizedBox(height: BtSpace.s12),
+          Container(
+            padding: const EdgeInsets.all(BtSpace.s16),
+            decoration: BoxDecoration(
+              color: BtColors.brandWash,
+              borderRadius: BorderRadius.circular(BtRadius.md),
+            ),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(BtRadius.sm - 2),
+                  child: Image.asset(
+                    'assets/icon.png',
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(width: BtSpace.s12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l.designedForYou,
+                        style: BtType.headline.copyWith(fontSize: 15),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        l.designedForYouDesc,
+                        style: BtType.body.copyWith(fontSize: 13),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: BtSpace.s20),
         ],
       ),
     );
@@ -2604,22 +2827,28 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
-            gradient: isSelected
+            gradient: isSelected && !_kObDesignV2
                 ? const LinearGradient(
                     colors: [Color(0xFF3D1A78), Color(0xFF1C0A3E)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   )
                 : null,
-            color: isSelected ? null : const Color(0xFF110D22),
-            borderRadius: BorderRadius.circular(24),
+            color: _kObDesignV2
+                ? (isSelected ? BtColors.brandWash : BtColors.card)
+                : (isSelected ? null : const Color(0xFF110D22)),
+            borderRadius: BorderRadius.circular(
+              _kObDesignV2 ? BtRadius.lg : 24,
+            ),
             border: Border.all(
               color: isSelected
-                  ? const Color(0xFF8B5CF6).withValues(alpha: 0.60)
+                  ? (_kObDesignV2
+                        ? BtColors.brandEdge
+                        : const Color(0xFF8B5CF6).withValues(alpha: 0.60))
                   : Colors.white.withValues(alpha: 0.07),
               width: isSelected ? 1.5 : 1,
             ),
-            boxShadow: isSelected
+            boxShadow: isSelected && !_kObDesignV2
                 ? [
                     BoxShadow(
                       color: const Color(0xFF8B5CF6).withValues(alpha: 0.32),
@@ -3085,13 +3314,18 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        const Color(0xFF7C3AED).withValues(alpha: 0.20),
-                        const Color(0xFF4C1D95).withValues(alpha: 0.20),
-                      ],
+                    color: _kObDesignV2 ? BtColors.brandWash : null,
+                    gradient: _kObDesignV2
+                        ? null
+                        : LinearGradient(
+                            colors: [
+                              const Color(0xFF7C3AED).withValues(alpha: 0.20),
+                              const Color(0xFF4C1D95).withValues(alpha: 0.20),
+                            ],
+                          ),
+                    borderRadius: BorderRadius.circular(
+                      _kObDesignV2 ? BtRadius.sm : 16,
                     ),
-                    borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       color: const Color(0xFF8B5CF6).withValues(alpha: 0.55),
                       width: 1.5,
@@ -3212,24 +3446,29 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 child: GestureDetector(
                   onTap: _obConfirmAndAdvance,
                   child: Container(
-                    height: 64,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFFA78BFA), Color(0xFF7C3AED)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(18),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(
-                            0xFF8B5CF6,
-                          ).withValues(alpha: 0.42),
-                          blurRadius: 20,
-                          offset: const Offset(0, 8),
-                        ),
-                      ],
-                    ),
+                    height: _kObDesignV2 ? 56 : 64,
+                    decoration: _kObDesignV2
+                        ? BoxDecoration(
+                            color: BtColors.brand,
+                            borderRadius: BorderRadius.circular(BtRadius.md),
+                          )
+                        : BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFFA78BFA), Color(0xFF7C3AED)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(18),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(
+                                  0xFF8B5CF6,
+                                ).withValues(alpha: 0.42),
+                                blurRadius: 20,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
+                          ),
                     child: Center(
                       child: Text(
                         _obCurrentAgeIndex == _obAges.length - 1
@@ -3376,6 +3615,7 @@ class _QuestionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_kObDesignV2) return _buildV2();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -3426,6 +3666,30 @@ class _QuestionHeader extends StatelessWidget {
       ],
     );
   }
+
+  /// The tabs' header: a quiet mark, the title in the screen's own size and
+  /// the line under it. The mark keeps its glyph but drops the glow and the
+  /// per-question colour, which made every page a different app.
+  Widget _buildV2() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: BtColors.brandWash,
+            borderRadius: BorderRadius.circular(BtRadius.sm),
+          ),
+          child: Icon(icon, color: AppColors.primaryLight, size: 20),
+        ),
+        const SizedBox(height: BtSpace.s16),
+        Text(title, style: BtType.title),
+        const SizedBox(height: BtSpace.s8),
+        Text(subtitle, style: BtType.body),
+      ],
+    );
+  }
 }
 
 /// One answer. Picking it lights the card in the question's colour and runs a
@@ -3460,6 +3724,7 @@ class _ChoiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_kObDesignV2) return _buildV2(context);
     // Reduced motion: the card lands in its picked state at once.
     final speed = MediaQuery.of(context).disableAnimations
         ? Duration.zero
@@ -3585,6 +3850,100 @@ class _ChoiceCard extends StatelessWidget {
       ),
     );
   }
+
+  /// An answer row as the tabs draw a list row: a dark card with a hairline
+  /// edge that turns brand purple when picked, a neutral icon tile, and the
+  /// mark on the right. One colour for every question.
+  Widget _buildV2(BuildContext context) {
+    final speed = MediaQuery.of(context).disableAnimations
+        ? Duration.zero
+        : BtMotion.quick;
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          Haptics.select();
+          onTap();
+        },
+        child: AnimatedContainer(
+          duration: speed,
+          curve: BtMotion.curve,
+          margin: const EdgeInsets.only(bottom: 10),
+          constraints: const BoxConstraints(minHeight: 58),
+          padding: EdgeInsets.fromLTRB(
+            leading != null ? 12 : 18,
+            subtitle == null ? 12 : 14,
+            16,
+            subtitle == null ? 12 : 14,
+          ),
+          decoration: BoxDecoration(
+            color: selected ? BtColors.brandWash : BtColors.card,
+            borderRadius: BorderRadius.circular(BtRadius.md),
+            border: Border.all(
+              color: selected ? BtColors.brandEdge : BtColors.stroke,
+              width: selected ? 1.5 : 1,
+            ),
+          ),
+          child: Row(
+            children: [
+              if (leading != null) ...[
+                AnimatedContainer(
+                  duration: speed,
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    color: selected
+                        ? AppColors.primary.withValues(alpha: 0.22)
+                        : BtColors.tint,
+                    borderRadius: BorderRadius.circular(BtRadius.sm - 2),
+                  ),
+                  child: Icon(
+                    leading,
+                    size: 18,
+                    color: selected
+                        ? AppColors.primaryLight
+                        : Colors.white.withValues(alpha: 0.70),
+                  ),
+                ),
+                const SizedBox(width: BtSpace.s12),
+              ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: subtitle == null
+                          ? BtType.option.copyWith(
+                              color: selected
+                                  ? Colors.white
+                                  : BtColors.textSoft,
+                            )
+                          : BtType.headline.copyWith(fontSize: 19),
+                    ),
+                    if (subtitle != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle!,
+                        style: TextStyle(
+                          color: BtColors.textMute,
+                          fontSize: 13.5,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(width: BtSpace.s12),
+              _RadioDot(selected: selected, square: multi),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 /// A question answered by picking from a list, one answer or several.
@@ -3637,6 +3996,88 @@ class _OptionListPage extends StatelessWidget {
   }
 }
 
+/// Facts as the tabs list them: one card, rows split by hairlines, a neutral
+/// mark in front, the title with an optional brand tag, the line under it.
+class _FactList extends StatelessWidget {
+  final List<(IconData icon, String title, String desc, String? tag)> rows;
+  const _FactList({required this.rows});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: BtColors.card,
+        borderRadius: BorderRadius.circular(BtRadius.md),
+        border: Border.all(color: BtColors.stroke),
+      ),
+      child: Column(
+        children: [
+          for (var i = 0; i < rows.length; i++) ...[
+            if (i > 0)
+              Divider(
+                height: 1,
+                thickness: 1,
+                indent: 64,
+                color: BtColors.stroke,
+              ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: BtColors.tint,
+                      borderRadius: BorderRadius.circular(BtRadius.sm - 2),
+                    ),
+                    child: Icon(
+                      rows[i].$1,
+                      size: 18,
+                      color: AppColors.primaryLight,
+                    ),
+                  ),
+                  const SizedBox(width: BtSpace.s12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                rows[i].$2,
+                                style: BtType.headline.copyWith(fontSize: 15),
+                              ),
+                            ),
+                            if (rows[i].$4 != null) ...[
+                              const SizedBox(width: BtSpace.s8),
+                              _Pill(
+                                text: rows[i].$4!.upperIn(context),
+                                color: AppColors.primary,
+                              ),
+                            ],
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          rows[i].$3,
+                          style: BtType.body.copyWith(fontSize: 13.5),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
 /// A small all-caps label on a tinted pill.
 class _Pill extends StatelessWidget {
   final String text;
@@ -3645,6 +4086,25 @@ class _Pill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_kObDesignV2) {
+      // One tag style, as the tabs use it: a tinted pill, no outline.
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.14),
+          borderRadius: BorderRadius.circular(100),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.9,
+            color: color == AppColors.primary ? AppColors.primaryLight : color,
+          ),
+        ),
+      );
+    }
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
@@ -3821,15 +4281,21 @@ class _PlanShowcase extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(14, 14, 14, 8),
       decoration: BoxDecoration(
         color: AppColors.cardFill,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.lime.withValues(alpha: 0.35)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.lime.withValues(alpha: 0.12),
-            blurRadius: 30,
-            spreadRadius: -8,
-          ),
-        ],
+        borderRadius: BorderRadius.circular(_kObDesignV2 ? BtRadius.lg : 24),
+        border: Border.all(
+          color: _kObDesignV2
+              ? BtColors.stroke
+              : AppColors.lime.withValues(alpha: 0.35),
+        ),
+        boxShadow: _kObDesignV2
+            ? null
+            : [
+                BoxShadow(
+                  color: AppColors.lime.withValues(alpha: 0.12),
+                  blurRadius: 30,
+                  spreadRadius: -8,
+                ),
+              ],
       ),
       child: TweenAnimationBuilder<double>(
         tween: Tween(begin: still ? 1 : 0, end: 1),
@@ -4528,13 +4994,15 @@ class _PageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
     text,
-    style: const TextStyle(
-      fontSize: 32,
-      fontWeight: FontWeight.w800,
-      color: Colors.white,
-      letterSpacing: -1.0,
-      height: 1.15,
-    ),
+    style: _kObDesignV2
+        ? BtType.title
+        : const TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+            letterSpacing: -1.0,
+            height: 1.15,
+          ),
   );
 }
 
@@ -4544,11 +5012,13 @@ class _PageSubtitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
     text,
-    style: TextStyle(
-      fontSize: 15,
-      color: Colors.white.withValues(alpha: 0.55),
-      height: 1.45,
-    ),
+    style: _kObDesignV2
+        ? BtType.body
+        : TextStyle(
+            fontSize: 15,
+            color: Colors.white.withValues(alpha: 0.55),
+            height: 1.45,
+          ),
   );
 }
 
@@ -4571,12 +5041,16 @@ class _RadioDot extends StatelessWidget {
     decoration: BoxDecoration(
       shape: square ? BoxShape.rectangle : BoxShape.circle,
       borderRadius: square ? BorderRadius.circular(7) : null,
-      color: selected ? accent : Colors.transparent,
+      color: selected
+          ? (_kObDesignV2 ? BtColors.brand : accent)
+          : Colors.transparent,
       border: Border.all(
-        color: selected ? accent : Colors.white.withValues(alpha: 0.24),
+        color: selected
+            ? (_kObDesignV2 ? BtColors.brand : accent)
+            : Colors.white.withValues(alpha: _kObDesignV2 ? 0.28 : 0.24),
         width: 1.5,
       ),
-      boxShadow: selected
+      boxShadow: selected && !_kObDesignV2
           ? [
               BoxShadow(
                 color: accent.withValues(alpha: 0.45),
@@ -4604,6 +5078,27 @@ class _TallerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_kObDesignV2) {
+      return _PressScale(
+        onTap: enabled ? onTap : null,
+        child: AnimatedContainer(
+          duration: BtMotion.quick,
+          width: double.infinity,
+          height: 56,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: enabled ? BtColors.brand : BtColors.tint,
+            borderRadius: BorderRadius.circular(BtRadius.md),
+          ),
+          child: Text(
+            label,
+            style: BtType.button.copyWith(
+              color: enabled ? Colors.white : BtColors.textFaint,
+            ),
+          ),
+        ),
+      );
+    }
     return GestureDetector(
       onTap: enabled ? onTap : null,
       child: AnimatedContainer(
@@ -4648,6 +5143,43 @@ class _TallerButton extends StatelessWidget {
   }
 }
 
+/// Shrinks a touch to 98% while it is held, the tabs' press feedback.
+class _PressScale extends StatefulWidget {
+  final Widget child;
+  final VoidCallback? onTap;
+  const _PressScale({required this.child, this.onTap});
+
+  @override
+  State<_PressScale> createState() => _PressScaleState();
+}
+
+class _PressScaleState extends State<_PressScale> {
+  bool _down = false;
+
+  void _set(bool v) {
+    if (widget.onTap != null && v != _down) setState(() => _down = v);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      enabled: widget.onTap != null,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        onTapDown: (_) => _set(true),
+        onTapUp: (_) => _set(false),
+        onTapCancel: () => _set(false),
+        child: AnimatedScale(
+          scale: _down ? 0.98 : 1,
+          duration: const Duration(milliseconds: 110),
+          child: widget.child,
+        ),
+      ),
+    );
+  }
+}
+
 class _UnitToggle extends StatelessWidget {
   final String left, right;
   final bool isRight;
@@ -4661,6 +5193,45 @@ class _UnitToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_kObDesignV2) {
+      // The tabs' segmented control (Today / Discipline / Nutrition).
+      Widget seg(String text, bool right) {
+        final on = isRight == right;
+        return Expanded(
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: on ? null : () => onToggle(right),
+            child: AnimatedContainer(
+              duration: BtMotion.quick,
+              height: 38,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: on ? BtColors.brand : Colors.transparent,
+                borderRadius: BorderRadius.circular(BtRadius.sm - 2),
+              ),
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 14.5,
+                  fontWeight: on ? FontWeight.w700 : FontWeight.w500,
+                  color: on ? Colors.white : BtColors.textMute,
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+
+      return Container(
+        padding: const EdgeInsets.all(3),
+        decoration: BoxDecoration(
+          color: BtColors.card,
+          borderRadius: BorderRadius.circular(BtRadius.sm),
+          border: Border.all(color: BtColors.stroke),
+        ),
+        child: Row(children: [seg(left, false), seg(right, true)]),
+      );
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -5212,12 +5783,17 @@ class _PickerBoxState extends State<_PickerBox> {
 
   @override
   Widget build(BuildContext context) {
-    final accent = widget.accent;
+    final accent = _kObDesignV2 ? BtColors.brand : widget.accent;
+    final fill = _kObDesignV2 ? BtColors.card : const Color(0xFF120E1C);
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF120E1C),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        color: fill,
+        borderRadius: BorderRadius.circular(_kObDesignV2 ? BtRadius.md : 20),
+        border: Border.all(
+          color: _kObDesignV2
+              ? BtColors.stroke
+              : Colors.white.withValues(alpha: 0.05),
+        ),
       ),
       clipBehavior: Clip.antiAlias,
       child: Stack(
@@ -5235,15 +5811,19 @@ class _PickerBoxState extends State<_PickerBox> {
               margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
               decoration: BoxDecoration(
                 color: accent.withValues(alpha: 0.14),
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(
+                  _kObDesignV2 ? BtRadius.sm : 14,
+                ),
                 border: Border.all(color: accent.withValues(alpha: 0.45)),
-                boxShadow: [
-                  BoxShadow(
-                    color: accent.withValues(alpha: 0.20),
-                    blurRadius: 16,
-                    spreadRadius: -4,
-                  ),
-                ],
+                boxShadow: _kObDesignV2
+                    ? null
+                    : [
+                        BoxShadow(
+                          color: accent.withValues(alpha: 0.20),
+                          blurRadius: 16,
+                          spreadRadius: -4,
+                        ),
+                      ],
               ),
             ),
             onSelectedItemChanged: (i) {
@@ -5276,10 +5856,10 @@ class _PickerBoxState extends State<_PickerBox> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      const Color(0xFF120E1C),
-                      const Color(0xFF120E1C).withValues(alpha: 0.0),
-                      const Color(0xFF120E1C).withValues(alpha: 0.0),
-                      const Color(0xFF120E1C),
+                      fill,
+                      fill.withValues(alpha: 0.0),
+                      fill.withValues(alpha: 0.0),
+                      fill,
                     ],
                     stops: const [0.0, 0.22, 0.78, 1.0],
                   ),
@@ -5436,18 +6016,26 @@ class _AnalyzingPageState extends State<_AnalyzingPage>
           height: 104,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [AppColors.lime, AppColors.lime.withValues(alpha: 0.72)],
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.lime.withValues(alpha: 0.42),
-                blurRadius: 36,
-                spreadRadius: 4,
-              ),
-            ],
+            color: _kObDesignV2 ? AppColors.lime : null,
+            gradient: _kObDesignV2
+                ? null
+                : LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      AppColors.lime,
+                      AppColors.lime.withValues(alpha: 0.72),
+                    ],
+                  ),
+            boxShadow: _kObDesignV2
+                ? null
+                : [
+                    BoxShadow(
+                      color: AppColors.lime.withValues(alpha: 0.42),
+                      blurRadius: 36,
+                      spreadRadius: 4,
+                    ),
+                  ],
           ),
           child: const Icon(
             Icons.check_rounded,
@@ -5536,27 +6124,32 @@ class _AnalyzingPageState extends State<_AnalyzingPage>
                     size: const Size(210, 210),
                     painter: _CompletionBadgePainter(
                       sweep: progress,
-                      halo: _haloCtrl.value,
+                      halo: _kObDesignV2 ? 0 : _haloCtrl.value,
                       color: AppColors.primary,
                     ),
                   ),
                   // ── Glow halo behind the logo ──
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 500),
-                    width: 150,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        colors: [
-                          AppColors.primary.withValues(alpha: progress * 0.32),
-                          AppColors.primary.withValues(alpha: progress * 0.08),
-                          Colors.transparent,
-                        ],
-                        stops: const [0.0, 0.5, 1.0],
+                  if (!_kObDesignV2)
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: RadialGradient(
+                          colors: [
+                            AppColors.primary.withValues(
+                              alpha: progress * 0.32,
+                            ),
+                            AppColors.primary.withValues(
+                              alpha: progress * 0.08,
+                            ),
+                            Colors.transparent,
+                          ],
+                          stops: const [0.0, 0.5, 1.0],
+                        ),
                       ),
                     ),
-                  ),
                   // ── Logo: icon_2.png (proper transparent-bg version) ──
                   ColorFiltered(
                     colorFilter: ColorFilter.matrix(
@@ -5850,11 +6443,17 @@ class _RawPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final accent = _kObDesignV2 ? BtColors.brand : this.accent;
+    final fill = _kObDesignV2 ? BtColors.card : const Color(0xFF120E1C);
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF120E1C),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        color: fill,
+        borderRadius: BorderRadius.circular(_kObDesignV2 ? BtRadius.md : 20),
+        border: Border.all(
+          color: _kObDesignV2
+              ? BtColors.stroke
+              : Colors.white.withValues(alpha: 0.05),
+        ),
       ),
       clipBehavior: Clip.antiAlias,
       child: Stack(
@@ -5869,15 +6468,19 @@ class _RawPicker extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 5),
               decoration: BoxDecoration(
                 color: accent.withValues(alpha: 0.14),
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(
+                  _kObDesignV2 ? BtRadius.sm : 14,
+                ),
                 border: Border.all(color: accent.withValues(alpha: 0.45)),
-                boxShadow: [
-                  BoxShadow(
-                    color: accent.withValues(alpha: 0.20),
-                    blurRadius: 16,
-                    spreadRadius: -4,
-                  ),
-                ],
+                boxShadow: _kObDesignV2
+                    ? null
+                    : [
+                        BoxShadow(
+                          color: accent.withValues(alpha: 0.20),
+                          blurRadius: 16,
+                          spreadRadius: -4,
+                        ),
+                      ],
               ),
             ),
             onSelectedItemChanged: (i) {
@@ -5907,10 +6510,10 @@ class _RawPicker extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      const Color(0xFF120E1C),
-                      const Color(0xFF120E1C).withValues(alpha: 0.0),
-                      const Color(0xFF120E1C).withValues(alpha: 0.0),
-                      const Color(0xFF120E1C),
+                      fill,
+                      fill.withValues(alpha: 0.0),
+                      fill.withValues(alpha: 0.0),
+                      fill,
                     ],
                     stops: const [0.0, 0.22, 0.78, 1.0],
                   ),
@@ -6351,44 +6954,46 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
     final next = journeySteps(l)[1];
 
     return Scaffold(
-      backgroundColor: const Color(0xFF07050F),
+      backgroundColor: _kObDesignV2 ? BtColors.page : const Color(0xFF07050F),
       body: Stack(
         children: [
           // ── Ground: a cool wash that leans toward the next step's colour ──
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFF160B33),
-                  Color(0xFF0A0718),
-                  Color(0xFF07050F),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+          if (!_kObDesignV2)
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF160B33),
+                    Color(0xFF0A0718),
+                    Color(0xFF07050F),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
               ),
             ),
-          ),
-          AnimatedBuilder(
-            animation: _ring,
-            builder: (context, _) => Positioned(
-              top: -120,
-              left: -60,
-              right: -60,
-              height: 420,
-              child: IgnorePointer(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: RadialGradient(
-                      colors: [
-                        AppColors.lime.withValues(alpha: 0.16 * _ring.value),
-                        Colors.transparent,
-                      ],
+          if (!_kObDesignV2)
+            AnimatedBuilder(
+              animation: _ring,
+              builder: (context, _) => Positioned(
+                top: -120,
+                left: -60,
+                right: -60,
+                height: 420,
+                child: IgnorePointer(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: RadialGradient(
+                        colors: [
+                          AppColors.lime.withValues(alpha: 0.16 * _ring.value),
+                          Colors.transparent,
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
 
           SafeArea(
             child: Column(
@@ -6409,7 +7014,7 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                               child: CustomPaint(
                                 painter: _CompletionBadgePainter(
                                   sweep: _ring.value,
-                                  halo: _halo.value,
+                                  halo: _kObDesignV2 ? 0 : _halo.value,
                                   color: AppColors.lime,
                                 ),
                                 child: Center(
@@ -6420,25 +7025,31 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                                       height: 78,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        gradient: LinearGradient(
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                          colors: [
-                                            AppColors.lime,
-                                            AppColors.lime.withValues(
-                                              alpha: 0.72,
-                                            ),
-                                          ],
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: AppColors.lime.withValues(
-                                              alpha: 0.45,
-                                            ),
-                                            blurRadius: 30,
-                                            spreadRadius: 2,
-                                          ),
-                                        ],
+                                        color: _kObDesignV2
+                                            ? AppColors.lime
+                                            : null,
+                                        gradient: _kObDesignV2
+                                            ? null
+                                            : LinearGradient(
+                                                begin: Alignment.topLeft,
+                                                end: Alignment.bottomRight,
+                                                colors: [
+                                                  AppColors.lime,
+                                                  AppColors.lime.withValues(
+                                                    alpha: 0.72,
+                                                  ),
+                                                ],
+                                              ),
+                                        boxShadow: _kObDesignV2
+                                            ? null
+                                            : [
+                                                BoxShadow(
+                                                  color: AppColors.lime
+                                                      .withValues(alpha: 0.45),
+                                                  blurRadius: 30,
+                                                  spreadRadius: 2,
+                                                ),
+                                              ],
                                       ),
                                       child: const Icon(
                                         Icons.check_rounded,
@@ -6645,9 +7256,15 @@ class _PredictionResultCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.lime.withValues(alpha: 0.35)),
+        color: _kObDesignV2
+            ? BtColors.card
+            : Colors.white.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(_kObDesignV2 ? BtRadius.lg : 24),
+        border: Border.all(
+          color: _kObDesignV2
+              ? BtColors.stroke
+              : AppColors.lime.withValues(alpha: 0.35),
+        ),
       ),
       child: Column(
         children: [

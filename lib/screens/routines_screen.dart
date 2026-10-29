@@ -114,7 +114,7 @@ class RoutinesScreenState extends State<RoutinesScreen>
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  fontSize: 30,
+                  fontSize: 32,
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
                   letterSpacing: -1.0,
