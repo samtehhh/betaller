@@ -26,6 +26,7 @@ import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
 import '../services/purchase_service.dart';
 import '../l10n/app_localizations.dart';
+import '../utils/app_languages.dart';
 import '../utils/units.dart';
 
 /// The positive moments that may lead to the system rating prompt. Each one
@@ -982,7 +983,7 @@ class AppProvider extends ChangeNotifier {
       if (asStr(json['lastSleepDate']) != _today) _todaySleep = 0;
 
       final savedLocale = asStr(json['locale']);
-      if (savedLocale.isNotEmpty) _locale = Locale(savedLocale);
+      if (savedLocale.isNotEmpty) _locale = parseLocaleTag(savedLocale);
 
       // Load gamification data
       _totalXP = asInt(json['totalXP']);
@@ -1221,7 +1222,7 @@ class AppProvider extends ChangeNotifier {
       'heightUnitPref': _units.height.name,
       'weightUnitPref': _units.weight.name,
       'volumeUnitPref': _units.volume.name,
-      'locale': _locale?.languageCode ?? '',
+      'locale': _locale == null ? '' : localeTag(_locale!),
       'totalXP': _totalXP,
       'activeChallenges': _activeChallenges,
       'lastChallengeDate': _lastChallengeDate,
@@ -1952,11 +1953,8 @@ class AppProvider extends ChangeNotifier {
   /// resolve the same way instead of defaulting to English.
   Locale get effectiveLocale {
     if (_locale != null) return _locale!;
-    const supported = {
-      'en', 'tr', 'de', 'fr', 'hi', 'pt', 'es', 'it', 'nl', 'pl', 'sv',
-    };
-    final device = PlatformDispatcher.instance.locale.languageCode;
-    return Locale(supported.contains(device) ? device : 'en');
+    return matchAppLocale(PlatformDispatcher.instance.locale) ??
+        const Locale('en');
   }
 
   void setLocale(Locale newLocale) {

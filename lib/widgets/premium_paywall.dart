@@ -102,9 +102,9 @@ const Duration _kResumeDelay = Duration(seconds: 7);
 // the sheet is reviewable on a device before the store products are
 // approved/configured (App Store Connect, RevenueCat), matching the plan
 // names discussed for BeTaller (weekly/monthly/lifetime).
-const double _kDemoWeekly = 4.99;
-const double _kDemoMonthly = 9.99;
-const double _kDemoLifetime = 34.99;
+const double _kDemoWeekly = 2.99;
+const double _kDemoMonthly = 4.99;
+const double _kDemoLifetime = 11.99;
 const String _kDemoCurrency = 'USD';
 
 String? _demoPrice(double amount) {

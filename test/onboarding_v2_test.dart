@@ -59,6 +59,20 @@ Future<void> loadInter() async {
   await loader.load();
 }
 
+/// Every UI language the onboarding runs in; zh_Hant is Traditional Chinese.
+const kOnboardingLangs = [
+  'tr', 'de', 'nl', 'pl', 'sv', 'ru', 'ar', 'id', 'ms', 'vi', 'th', 'ja',
+  'ko', 'zh', 'zh_Hant',
+];
+
+Locale testLocale(String lang) {
+  final parts = lang.split('_');
+  return Locale.fromSubtags(
+    languageCode: parts.first,
+    scriptCode: parts.length > 1 ? parts[1] : null,
+  );
+}
+
 Widget onboardingApp(
   AppProvider p,
   String lang, {
@@ -68,7 +82,7 @@ Widget onboardingApp(
   child: MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: theme ?? ThemeData(brightness: Brightness.dark, fontFamily: 'Inter'),
-    locale: Locale(lang),
+    locale: testLocale(lang),
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
     home: const OnboardingScreen(),
@@ -265,7 +279,7 @@ void main() {
     });
   });
 
-  for (final lang in ['tr', 'de', 'nl', 'pl', 'sv']) {
+  for (final lang in kOnboardingLangs) {
     for (final size in kOnboardingSizes.entries) {
       testWidgets('onboarding runs end to end in $lang at ${size.key}', (
         t,
@@ -281,7 +295,7 @@ void main() {
         try {
           final p = AppProvider();
           await t.pumpWidget(onboardingApp(p, lang));
-          final l = lookupAppLocalizations(Locale(lang));
+          final l = lookupAppLocalizations(testLocale(lang));
           final pages = <String>[];
           await walkOnboarding(
             t,
@@ -573,7 +587,7 @@ void main() {
       await tapText(l.continueBtn);
     }
 
-    for (final lang in ['tr', 'de', 'nl', 'pl', 'sv']) {
+    for (final lang in kOnboardingLangs) {
       for (final size in kOnboardingSizes.entries) {
         testWidgets('builds in $lang at ${size.key} with no overflow', (
           t,
@@ -582,7 +596,7 @@ void main() {
           t.view.devicePixelRatio = 1;
           addTearDown(t.view.reset);
           await loadInter();
-          final l = lookupAppLocalizations(Locale(lang));
+          final l = lookupAppLocalizations(testLocale(lang));
           for (final answer in [
             (l.obTriedStopped, l.obTriedStoppedTitle),
             (l.obTriedStill, l.obTriedStillTitle),

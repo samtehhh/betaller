@@ -26,6 +26,7 @@ import '../widgets/height_silhouette.dart';
 import '../utils/text_case.dart';
 import '../utils/num_format.dart';
 import '../utils/exercise_guides.dart';
+import '../utils/app_languages.dart';
 import '../utils/localized_data.dart';
 import '../widgets/plan_widgets.dart';
 import '../widgets/premium_paywall.dart';
@@ -533,28 +534,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   // LANGUAGE PICKER
   // ─────────────────────────────────────────────────────────────────────────────
 
-  static const _langs = [
-    (locale: Locale('tr'), flag: '🇹🇷', name: 'TR'),
-    (locale: Locale('en'), flag: '🇬🇧', name: 'EN'),
-    (locale: Locale('de'), flag: '🇩🇪', name: 'DE'),
-    (locale: Locale('fr'), flag: '🇫🇷', name: 'FR'),
-    (locale: Locale('es'), flag: '🇪🇸', name: 'ES'),
-    (locale: Locale('it'), flag: '🇮🇹', name: 'IT'),
-    (locale: Locale('pt'), flag: '🇧🇷', name: 'PT'),
-    (locale: Locale('nl'), flag: '🇳🇱', name: 'NL'),
-    (locale: Locale('pl'), flag: '🇵🇱', name: 'PL'),
-    (locale: Locale('sv'), flag: '🇸🇪', name: 'SV'),
-    (locale: Locale('hi'), flag: '🇮🇳', name: 'HI'),
-  ];
 
   Widget _buildLanguageButton(BuildContext context) {
     final provider = context.read<AppProvider>();
-    final currentCode = Localizations.localeOf(
-      context,
-    ).languageCode.toUpperCase();
-    final currentFlag = _langs
-        .firstWhere((l) => l.name == currentCode, orElse: () => _langs[0])
-        .flag;
+    final currentFlag =
+        (appLanguageFor(Localizations.localeOf(context)) ?? appLanguages.first)
+            .flag;
 
     return GestureDetector(
       onTap: () => _showLanguageSheet(context, provider),
@@ -582,7 +567,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _showLanguageSheet(BuildContext context, AppProvider provider) {
-    final currentCode = Localizations.localeOf(context).languageCode;
+    final current = appLanguageFor(Localizations.localeOf(context));
     showDialog(
       context: context,
       barrierColor: Colors.black.withValues(alpha: 0.70),
@@ -591,7 +576,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           color: Colors.transparent,
           child: Container(
             width: 260,
-            // Eleven languages: scroll rather than overflow on short screens.
+            // Twenty-one languages: scroll rather than overflow on short screens.
             constraints: BoxConstraints(
               maxHeight: MediaQuery.of(ctx).size.height * 0.8,
             ),
@@ -613,8 +598,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: _langs.map((lang) {
-                  final selected = lang.locale.languageCode == currentCode;
+                children: appLanguages.map((lang) {
+                  final selected = lang == current;
                   return GestureDetector(
                     onTap: () {
                       provider.setLocale(lang.locale);
@@ -647,7 +632,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                           Text(lang.flag, style: const TextStyle(fontSize: 20)),
                           const SizedBox(width: 12),
                           Text(
-                            lang.name,
+                            lang.nativeName,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: selected
