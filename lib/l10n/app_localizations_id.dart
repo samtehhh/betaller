@@ -6593,4 +6593,14 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get obRateLater => 'Nanti saja';
+
+  @override
+  String paywallStartTrial(String days) {
+    return 'Mulai gratis $days hari';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return 'Atau coba gratis $days hari dulu.';
+  }
 }

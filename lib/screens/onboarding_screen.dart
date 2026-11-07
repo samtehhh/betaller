@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'dart:async';
 
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
@@ -1625,13 +1626,39 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   /// loads (or when purchases are not configured, as in tests).
   String? _weeklyPrice;
 
+  /// Days of the monthly plan's free trial when the store offers one and this
+  /// Apple ID can still take it; null otherwise, and then nothing is said.
+  int? _monthlyTrialDays;
+
   Future<void> _loadWeeklyPrice() async {
-    final products = await PurchaseService().getProducts();
+    final service = PurchaseService();
+    final products = await service.getProducts();
+    String? weekly;
+    int? trial;
     for (final p in products) {
       if (p.identifier == PurchaseService.weeklyProductId) {
-        if (mounted) setState(() => _weeklyPrice = p.priceString);
-        return;
+        weekly = p.priceString;
+      } else if (p.identifier == PurchaseService.monthlyProductId) {
+        trial = freeTrialDays(p);
       }
+    }
+    if (trial != null) {
+      final eligible = await service.trialEligibility(const [
+        PurchaseService.monthlyProductId,
+      ]);
+      if (eligible[PurchaseService.monthlyProductId] == false) trial = null;
+    }
+    // Debug builds without store products show the paywall's demo figures
+    // (US prices, the monthly 7-day trial) so the page can be reviewed.
+    if (kDebugMode && products.isEmpty) {
+      weekly = NumberFormat.simpleCurrency(name: 'USD').format(2.99);
+      trial = 7;
+    }
+    if (mounted) {
+      setState(() {
+        _weeklyPrice = weekly;
+        _monthlyTrialDays = trial;
+      });
     }
   }
 
@@ -1806,9 +1833,27 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   ),
                   const SizedBox(width: BtSpace.s12),
                   Expanded(
-                    child: Text(
-                      l.obBudgetWeek(price),
-                      style: BtType.headline.copyWith(fontSize: 18),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l.obBudgetWeek(price),
+                          style: BtType.headline.copyWith(fontSize: 18),
+                        ),
+                        // Smaller than the price on purpose: the weekly
+                        // price stays the headline, the trial is the
+                        // alternative (the monthly plan's, from the store).
+                        if (_monthlyTrialDays != null) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            l.obBudgetTrial('$_monthlyTrialDays'),
+                            style: BtType.body.copyWith(
+                              color: AppColors.primaryLight,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
                   ),
                 ],

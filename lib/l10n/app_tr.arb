@@ -1999,5 +1999,7 @@
   "obRateTitle": "BeTaller gerçekten sana faydalı olmak için oluşturuldu",
   "obRateDesc": "Sana özel ilgimiz ve realitemiz hoşuna gittiyse bizi puanlarsan çok seviniriz.",
   "obRateCta": "BeTaller'ı puanla",
-  "obRateLater": "Belki sonra"
+  "obRateLater": "Belki sonra",
+  "paywallStartTrial": "{days} günü bedava başlat",
+  "obBudgetTrial": "İstersen önce {days} gün bedava dene."
 }

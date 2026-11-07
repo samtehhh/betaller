@@ -115,6 +115,8 @@ const double _kDemoWeekly = 2.99;
 const double _kDemoMonthly = 4.99;
 const double _kDemoLifetime = 11.99;
 const String _kDemoCurrency = 'USD';
+// The monthly plan's free trial in App Store Connect since 2026-11-06.
+const int _kDemoMonthlyTrialDays = 7;
 
 String? _demoPrice(double amount) {
   if (!kDebugMode) return null;
@@ -154,8 +156,9 @@ class _PlanOffer {
 
 /// The free trial the store is actually offering on this product, in days, or
 /// null when it offers none. An introductory price above zero is a discount,
-/// not a trial, and is not advertised as one.
-int? _freeTrialDays(StoreProduct? product) {
+/// not a trial, and is not advertised as one. Onboarding's budget page uses it
+/// too, so both screens advertise the same trial or none.
+int? freeTrialDays(StoreProduct? product) {
   final intro = product?.introductoryPrice;
   if (intro == null || intro.price > 0) return null;
   final n = intro.periodNumberOfUnits;
@@ -325,22 +328,28 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
   int? _trialFor(StoreProduct? product) {
     if (product == null) return null;
     if (_trialEligible[product.identifier] == false) return null;
-    return _freeTrialDays(product);
+    return freeTrialDays(product);
   }
 
-  /// The plan the sheet opens on: weekly, the smallest commitment, whenever
-  /// the store has it (since 1.7.3 the regional prices make a week an impulse
-  /// buy everywhere); then lifetime; otherwise the first plan that starts
-  /// with a free trial this user can still get (monthly, then weekly).
+  /// The monthly plan's trial; in debug builds without store products, the
+  /// demo trial, so the sheet is reviewable before the store answers.
+  int? _monthlyTrial(StoreProduct? product) {
+    if (product == null) return kDebugMode ? _kDemoMonthlyTrialDays : null;
+    return _trialFor(product);
+  }
+
+  /// The plan the sheet opens on: the first plan that starts with a free
+  /// trial this user can still get (monthly, then weekly; the monthly trial
+  /// came back on 2026-11-06, after all nine buy taps since 1.7.3 turned back
+  /// at Apple's sheet); otherwise weekly, the smallest commitment; then
+  /// lifetime.
   int _defaultPlan() {
-    if (_storeProduct(PurchaseService.weeklyProductId) != null) return 2;
+    final weekly = _storeProduct(PurchaseService.weeklyProductId);
+    final monthly = _storeProduct(PurchaseService.monthlyProductId);
+    if ((_monthlyTrial(monthly) ?? 0) > 0) return 0;
+    if ((_trialFor(weekly) ?? 0) > 0) return 2;
+    if (weekly != null) return 2;
     if (_storeProduct(PurchaseService.lifetimeProductId) != null) return 1;
-    for (final (plan, id) in const [
-      (0, PurchaseService.monthlyProductId),
-      (2, PurchaseService.weeklyProductId),
-    ]) {
-      if ((_trialFor(_storeProduct(id)) ?? 0) > 0) return plan;
-    }
     return 1;
   }
 
@@ -481,8 +490,9 @@ class _PremiumPaywallScreenState extends State<PremiumPaywallScreen> {
           monthlyProduct?.currencyCode ?? (kDebugMode ? _kDemoCurrency : null),
       // The store is the only authority, eligibility included: no product
       // loaded, or no free trial configured in App Store Connect, means no
-      // trial is advertised. The free trials were removed on 2026-10-21.
-      trialDays: _trialFor(monthlyProduct),
+      // trial is advertised. The free trials were removed on 2026-10-21;
+      // a 7-day one came back on the monthly plan on 2026-11-06.
+      trialDays: _monthlyTrial(monthlyProduct),
     );
     // Slot 1 is the lifetime purchase (the yearly plan's old place): no
     // trial, nothing renews.
@@ -1271,16 +1281,19 @@ class _PurchaseSheetState extends State<_PurchaseSheet>
                                   strokeWidth: 2.5,
                                 ),
                               )
-                            // "Continue", never "Try Free": an 18pt trial
-                            // promise on the button outranks the billed
-                            // price in the rows above, which is what 3.1.2(c)
-                            // forbids. The trial terms sit right under it.
+                            // On a plan with a trial the button names it
+                            // ("Start 7 days free"), at 16pt so it never
+                            // outranks the 17pt billed price in the rows above
+                            // (3.1.2(c)); the price after the trial is spelled
+                            // out right under it. Otherwise "Continue".
                             : Text(
-                                l.paywallCtaAlt,
+                                offer.hasTrial
+                                    ? l.paywallStartTrial('${offer.trialDays}')
+                                    : l.paywallCtaAlt,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: offer.hasTrial ? 16 : 18,
                                   fontWeight: FontWeight.w800,
                                   color: onAccent,
                                   letterSpacing: 0.1,

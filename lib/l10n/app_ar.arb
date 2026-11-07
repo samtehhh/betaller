@@ -1905,5 +1905,7 @@
   "obRateTitle": "صُمّم BeTaller ليساعدك فعلًا",
   "obRateDesc": "إذا عجبك اهتمامنا الشخصي وصدقنا، بنكون سعداء جدًا لو قيّمتنا.",
   "obRateCta": "قيّم BeTaller",
-  "obRateLater": "ربما لاحقًا"
+  "obRateLater": "ربما لاحقًا",
+  "paywallStartTrial": "ابدأ {days} أيام مجانًا",
+  "obBudgetTrial": "أو جرّبه مجانًا لمدة {days} أيام أولًا."
 }

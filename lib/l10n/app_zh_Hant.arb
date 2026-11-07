@@ -1905,5 +1905,7 @@
   "obRateTitle": "BeTaller 是為了真正幫助你而打造",
   "obRateDesc": "如果你喜歡我們的用心和誠實，幫我們評分會讓我們非常開心。",
   "obRateCta": "幫 BeTaller 評分",
-  "obRateLater": "以後再說"
+  "obRateLater": "以後再說",
+  "paywallStartTrial": "免費試用 {days} 天",
+  "obBudgetTrial": "也可以先免費試用 {days} 天。"
 }

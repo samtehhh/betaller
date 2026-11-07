@@ -6497,4 +6497,14 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get obRateLater => 'Belki sonra';
+
+  @override
+  String paywallStartTrial(String days) {
+    return '$days günü bedava başlat';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return 'İstersen önce $days gün bedava dene.';
+  }
 }

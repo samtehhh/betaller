@@ -2176,5 +2176,9 @@
   "obRateTitle": "BeTaller was built to truly help you",
   "obRateDesc": "If you liked our personal attention and our honesty, we'd be really happy if you rated us.",
   "obRateCta": "Rate BeTaller",
-  "obRateLater": "Maybe later"
+  "obRateLater": "Maybe later",
+  "paywallStartTrial": "Start {days} days free",
+  "@paywallStartTrial": {"placeholders": {"days": {"type": "String"}}},
+  "obBudgetTrial": "Or try it free for {days} days first.",
+  "@obBudgetTrial": {"placeholders": {"days": {"type": "String"}}}
 }

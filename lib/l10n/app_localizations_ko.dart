@@ -6320,4 +6320,14 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get obRateLater => '나중에';
+
+  @override
+  String paywallStartTrial(String days) {
+    return '$days일 무료로 시작';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return '먼저 $days일 동안 무료로 써 볼 수도 있어요.';
+  }
 }

@@ -1905,5 +1905,7 @@
   "obRateTitle": "BeTaller is gemaakt om je echt te helpen",
   "obRateDesc": "Vond je onze persoonlijke aandacht en eerlijkheid fijn? Dan zouden we heel blij zijn met je beoordeling.",
   "obRateCta": "BeTaller beoordelen",
-  "obRateLater": "Misschien later"
+  "obRateLater": "Misschien later",
+  "paywallStartTrial": "Start {days} dagen gratis",
+  "obBudgetTrial": "Of probeer het eerst {days} dagen gratis."
 }

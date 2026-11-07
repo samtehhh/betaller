@@ -6483,4 +6483,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get obRateLater => 'शायद बाद में';
+
+  @override
+  String paywallStartTrial(String days) {
+    return '$days दिन मुफ़्त शुरू करें';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return 'या पहले $days दिन मुफ़्त आज़माएँ।';
+  }
 }

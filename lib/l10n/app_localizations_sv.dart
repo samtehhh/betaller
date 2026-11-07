@@ -6571,4 +6571,14 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get obRateLater => 'Kanske senare';
+
+  @override
+  String paywallStartTrial(String days) {
+    return 'Starta $days dagar gratis';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return 'Eller testa gratis i $days dagar först.';
+  }
 }

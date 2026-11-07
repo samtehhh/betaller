@@ -1905,5 +1905,7 @@
   "obRateTitle": "BeTaller는 진짜 도움이 되려고 만들었어요",
   "obRateDesc": "세심한 관심과 솔직함이 마음에 들었다면, 평가를 남겨 주면 정말 기쁠 거예요.",
   "obRateCta": "BeTaller 평가하기",
-  "obRateLater": "나중에"
+  "obRateLater": "나중에",
+  "paywallStartTrial": "{days}일 무료로 시작",
+  "obBudgetTrial": "먼저 {days}일 동안 무료로 써 볼 수도 있어요."
 }
