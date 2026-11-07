@@ -11570,6 +11570,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Maybe later'**
   String get obRateLater;
+
+  /// No description provided for @paywallStartTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Start {days} days free'**
+  String paywallStartTrial(String days);
+
+  /// No description provided for @obBudgetTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Or try it free for {days} days first.'**
+  String obBudgetTrial(String days);
 }
 
 class _AppLocalizationsDelegate

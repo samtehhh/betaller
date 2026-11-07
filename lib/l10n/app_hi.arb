@@ -2148,5 +2148,7 @@
   "obRateTitle": "BeTaller सच में तुम्हारी मदद के लिए बनाया गया है",
   "obRateDesc": "अगर तुम्हें हमारा निजी ध्यान और हमारी ईमानदारी पसंद आई, तो हमें रेट करोगे तो हमें बहुत खुशी होगी।",
   "obRateCta": "BeTaller को रेट करो",
-  "obRateLater": "शायद बाद में"
+  "obRateLater": "शायद बाद में",
+  "paywallStartTrial": "{days} दिन मुफ़्त शुरू करें",
+  "obBudgetTrial": "या पहले {days} दिन मुफ़्त आज़माएँ।"
 }

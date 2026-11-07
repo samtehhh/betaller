@@ -6552,4 +6552,14 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get obRateLater => 'Để sau';
+
+  @override
+  String paywallStartTrial(String days) {
+    return 'Bắt đầu $days ngày miễn phí';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return 'Hoặc dùng thử miễn phí $days ngày trước.';
+  }
 }

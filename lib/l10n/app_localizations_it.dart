@@ -6595,4 +6595,14 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get obRateLater => 'Magari dopo';
+
+  @override
+  String paywallStartTrial(String days) {
+    return 'Inizia $days giorni gratis';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return 'Oppure provalo gratis per $days giorni.';
+  }
 }

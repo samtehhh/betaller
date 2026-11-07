@@ -6215,6 +6215,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get obRateLater => '以后再说';
+
+  @override
+  String paywallStartTrial(String days) {
+    return '免费试用 $days 天';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return '也可以先免费试用 $days 天。';
+  }
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -12443,4 +12453,14 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get obRateLater => '以後再說';
+
+  @override
+  String paywallStartTrial(String days) {
+    return '免費試用 $days 天';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return '也可以先免費試用 $days 天。';
+  }
 }

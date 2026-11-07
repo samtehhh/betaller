@@ -1905,5 +1905,7 @@
   "obRateTitle": "BeTaller dibuat untuk benar-benar membantumu",
   "obRateDesc": "Kalau kamu suka perhatian pribadi dan kejujuran kami, kami bakal senang banget kalau kamu kasih rating.",
   "obRateCta": "Beri Rating BeTaller",
-  "obRateLater": "Nanti saja"
+  "obRateLater": "Nanti saja",
+  "paywallStartTrial": "Mulai gratis {days} hari",
+  "obBudgetTrial": "Atau coba gratis {days} hari dulu."
 }

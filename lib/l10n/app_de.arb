@@ -2148,5 +2148,7 @@
   "obRateTitle": "BeTaller wurde gemacht, um dir wirklich zu helfen",
   "obRateDesc": "Wenn dir unsere persönliche Betreuung und unsere Ehrlichkeit gefallen, würden wir uns sehr über deine Bewertung freuen.",
   "obRateCta": "BeTaller bewerten",
-  "obRateLater": "Vielleicht später"
+  "obRateLater": "Vielleicht später",
+  "paywallStartTrial": "{days} Tage gratis starten",
+  "obBudgetTrial": "Oder erst {days} Tage gratis testen."
 }

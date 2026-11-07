@@ -6608,4 +6608,14 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get obRateLater => 'Mungkin nanti';
+
+  @override
+  String paywallStartTrial(String days) {
+    return 'Mula percuma $days hari';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return 'Atau cuba percuma $days hari dahulu.';
+  }
 }

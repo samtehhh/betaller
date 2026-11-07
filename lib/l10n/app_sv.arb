@@ -1905,5 +1905,7 @@
   "obRateTitle": "BeTaller är gjort för att verkligen hjälpa dig",
   "obRateDesc": "Om du gillade vår personliga omtanke och vår ärlighet blir vi jätteglada om du betygsätter oss.",
   "obRateCta": "Betygsätt BeTaller",
-  "obRateLater": "Kanske senare"
+  "obRateLater": "Kanske senare",
+  "paywallStartTrial": "Starta {days} dagar gratis",
+  "obBudgetTrial": "Eller testa gratis i {days} dagar först."
 }

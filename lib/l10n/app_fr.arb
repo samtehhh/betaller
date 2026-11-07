@@ -2148,5 +2148,7 @@
   "obRateTitle": "BeTaller a été créé pour vraiment t'aider",
   "obRateDesc": "Si notre attention personnelle et notre honnêteté t'ont plu, nous serions ravis que tu nous notes.",
   "obRateCta": "Noter BeTaller",
-  "obRateLater": "Plus tard"
+  "obRateLater": "Plus tard",
+  "paywallStartTrial": "Commencer {days} jours gratuits",
+  "obBudgetTrial": "Ou essaie d'abord {days} jours gratuitement."
 }

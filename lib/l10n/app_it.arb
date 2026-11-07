@@ -2148,5 +2148,7 @@
   "obRateTitle": "BeTaller è nato per aiutarti davvero",
   "obRateDesc": "Se ti sono piaciute la nostra attenzione personale e la nostra onestà, saremmo felicissimi se ci valutassi.",
   "obRateCta": "Valuta BeTaller",
-  "obRateLater": "Magari dopo"
+  "obRateLater": "Magari dopo",
+  "paywallStartTrial": "Inizia {days} giorni gratis",
+  "obBudgetTrial": "Oppure provalo gratis per {days} giorni."
 }

@@ -1905,5 +1905,7 @@
   "obRateTitle": "BeTaller dibina untuk benar-benar membantu anda",
   "obRateDesc": "Jika anda suka perhatian peribadi dan kejujuran kami, kami akan sangat gembira jika anda menilai kami.",
   "obRateCta": "Nilai BeTaller",
-  "obRateLater": "Mungkin nanti"
+  "obRateLater": "Mungkin nanti",
+  "paywallStartTrial": "Mula percuma {days} hari",
+  "obBudgetTrial": "Atau cuba percuma {days} hari dahulu."
 }

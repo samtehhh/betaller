@@ -1905,5 +1905,7 @@
   "obRateTitle": "BeTaller được tạo ra để thật sự giúp bạn",
   "obRateDesc": "Nếu bạn thích sự quan tâm riêng và sự thẳng thắn của tụi mình, tụi mình sẽ rất vui nếu bạn đánh giá app.",
   "obRateCta": "Đánh giá BeTaller",
-  "obRateLater": "Để sau"
+  "obRateLater": "Để sau",
+  "paywallStartTrial": "Bắt đầu {days} ngày miễn phí",
+  "obBudgetTrial": "Hoặc dùng thử miễn phí {days} ngày trước."
 }

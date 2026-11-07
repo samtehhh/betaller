@@ -6601,4 +6601,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get obRateLater => 'Может, позже';
+
+  @override
+  String paywallStartTrial(String days) {
+    return 'Начать: $days дн. бесплатно';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return 'Или сначала попробуй бесплатно: $days дн.';
+  }
 }

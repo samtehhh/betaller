@@ -6582,4 +6582,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get obRateLater => 'Talvez depois';
+
+  @override
+  String paywallStartTrial(String days) {
+    return 'Começar $days dias grátis';
+  }
+
+  @override
+  String obBudgetTrial(String days) {
+    return 'Ou teste grátis por $days dias primeiro.';
+  }
 }
