@@ -3,6 +3,7 @@ import 'dart:ui' show ImageFilter;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'height_silhouette.dart';
 import '../l10n/app_localizations.dart';
 import '../utils/constants.dart';
 import '../utils/daily_targets.dart';
@@ -66,6 +67,16 @@ String foodLabel(AppLocalizations l, String id) => switch (id) {
       'almonds' => l.plFoodAlmonds,
       'kefir' => l.plFoodKefir,
       'pumpkinSeeds' => l.plFoodPumpkinSeeds,
+      'turkey' => l.plFoodTurkey,
+      'cod' => l.plFoodCod,
+      'beans' => l.plFoodBeans,
+      'quinoa' => l.plFoodQuinoa,
+      'sweetPotato' => l.plFoodSweetPotato,
+      'apple' => l.plFoodApple,
+      'berries' => l.plFoodBerries,
+      'mozzarella' => l.plFoodMozzarella,
+      'hummus' => l.plFoodHummus,
+      'greenBeans' => l.plFoodGreenBeans,
       _ => id,
     };
 
@@ -258,11 +269,15 @@ class MoveThumb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (ExerciseMedia.hasClip(routineId)) {
+    final stills = ExerciseMedia.hasStills(routineId);
+    if (stills || ExerciseMedia.hasClip(routineId)) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(14),
         child: Image.asset(
-          ExerciseMedia.posterFor(routineId),
+          // With no clip, the photograph of the movement's end position.
+          stills
+              ? ExerciseMedia.stillFor(routineId, 2)
+              : ExerciseMedia.posterFor(routineId),
           width: width,
           height: height,
           fit: BoxFit.cover,
@@ -361,7 +376,7 @@ class PlanItemRow extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 3),
-                  Text(
+                  CensoredText(
                     subtitle,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

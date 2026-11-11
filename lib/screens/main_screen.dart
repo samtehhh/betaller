@@ -1,3 +1,5 @@
+import '../services/push_service.dart';
+import 'measure_gate_screen.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,7 +33,7 @@ class MainScreen extends StatefulWidget {
 /// updated to v3, or opened again by hand.
 enum _TourMode { firstRun, whatsNew, replay }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   int _currentIndex = 0;
   _TourMode? _tourMode;
   bool get _tourActive => _tourMode != null;
@@ -57,8 +59,12 @@ class _MainScreenState extends State<MainScreen> {
       ProfileScreen(onOpenTour: () => _startTour(_TourMode.replay)),
     ];
 
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _queueWinBack());
     NotificationService.tappedPayload.addListener(_openFromNotification);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _openFromNotification());
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => _openFromNotification(),
+    );
 
     // Right after onboarding (journey step two open), or once for someone
     // who updated from 1.6.x and skipped onboarding: let home land, then
@@ -71,7 +77,12 @@ class _MainScreenState extends State<MainScreen> {
           ? _TourMode.whatsNew
           : null;
       if (mode == null) {
-        _maybeOpenDailyPaywall();
+        // A due measurement comes before the day's offer, not on top of it.
+        if (provider.measureGateDue) {
+          _maybeOpenMeasureGate();
+        } else {
+          _maybeOpenDailyPaywall();
+        }
         return;
       }
       Future.delayed(const Duration(milliseconds: 800), () {
@@ -81,11 +92,63 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  /// Every return to the app pushes the win-back series out again.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _queueWinBack();
+      PushService.retry();
+      _maybeOpenMeasureGate();
+    }
+  }
+
+  bool _measureGateOpen = false;
+
+  /// The weekly measurement, when one is due: a page over the app that only
+  /// a reading (or, once, "not today") closes.
+  void _maybeOpenMeasureGate() {
+    Future.delayed(const Duration(milliseconds: 900), () async {
+      if (!mounted || _tourActive || _handoff || _measureGateOpen) return;
+      if (!context.read<AppProvider>().measureGateDue) return;
+      // Only over the tabs themselves, never over a sheet or another page.
+      if (ModalRoute.of(context)?.isCurrent != true) return;
+      _measureGateOpen = true;
+      await Navigator.of(context).push(
+        CupertinoPageRoute(
+          fullscreenDialog: true,
+          builder: (_) => const MeasureGateScreen(),
+        ),
+      );
+      _measureGateOpen = false;
+    });
+  }
+
+  void _queueWinBack() {
+    if (!mounted) return;
+    final provider = context.read<AppProvider>();
+    final c = provider.reminderContext;
+    if (c == null) return;
+    provider.noteAppOpened();
+    NotificationService().scheduleWinBack(
+      c,
+      lookupAppLocalizations(provider.effectiveLocale),
+    );
+  }
+
   /// A tapped reminder lands on the tab it is about ("tab:1" is the plan).
   void _openFromNotification() {
     final payload = NotificationService.tappedPayload.value;
     if (payload == null || !mounted) return;
     NotificationService.tappedPayload.value = null;
+    // "paywall": a console campaign such as "your free trial is back".
+    if (payload == 'paywall') {
+      final provider = context.read<AppProvider>();
+      if (!provider.isPremium && !_tourActive) {
+        provider.takeDailyPaywallSlot();
+        showPremiumPaywall(context, source: 'push');
+      }
+      return;
+    }
     final tab = int.tryParse(payload.replaceFirst('tab:', ''));
     if (tab != null && tab >= 0 && tab < _screens.length && !_tourActive) {
       setState(() => _currentIndex = tab);
@@ -94,6 +157,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     NotificationService.tappedPayload.removeListener(_openFromNotification);
     super.dispose();
   }

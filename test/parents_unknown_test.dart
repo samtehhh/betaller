@@ -147,8 +147,8 @@ void main() {
       }
     }
 
-    testWidgets('both parents known: the background page is skipped both '
-        'ways', (t) async {
+    testWidgets('both parents known: the background is still asked, and '
+        'back from the feet lands on it', (t) async {
       t.view.physicalSize = const Size(375, 667);
       t.view.devicePixelRatio = 1;
       addTearDown(t.view.reset);
@@ -163,21 +163,23 @@ void main() {
         onPage: (name) async {
           pages.add(name);
           if (name == 'footSize') {
-            // Straight from the parents to the feet...
-            expect(find.text(l.whatsYourEthnicity).hitTestable(), findsNothing);
             expect(find.text(l.footSizeLabel).hitTestable(), findsOneWidget);
-            // ...and back the same way.
-            await t.tap(find.byIcon(CupertinoIcons.arrow_left));
+            // Back goes to the background page, with its line for someone
+            // whose parents are both known.
+            await t.tap(find.byIcon(CupertinoIcons.chevron_left));
             await settle(t);
-            expect(find.text(l.parentsHeight).hitTestable(), findsOneWidget);
+            // On a short phone the page is still scrolled down to the reply, so
+            // the title may sit above the fold: there, not necessarily tappable.
+            expect(find.text(l.whatsYourEthnicity), findsOneWidget);
+            expect(find.text(l.obEthnicitySubAll), findsOneWidget);
             await t.tap(find.text(l.continueBtn).last);
             await settle(t);
             expect(find.text(l.footSizeLabel).hitTestable(), findsOneWidget);
           }
         },
       );
-      expect(pages, isNot(contains('ethnicity')));
-      expect(p.profile!.ethnicity, '');
+      expect(pages, contains('ethnicity'));
+      expect(p.profile!.ethnicity, 'no_answer');
       expect(p.profile!.fatherHeightUnknown, isFalse);
       expect(p.profile!.motherHeightUnknown, isFalse);
       await t.pumpWidget(const SizedBox());

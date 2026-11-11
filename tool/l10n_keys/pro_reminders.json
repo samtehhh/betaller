@@ -1,0 +1,80 @@
+{
+  "nPmFirstTitle": {
+    "en": "{name}, time for your first meal.",
+    "tr": "{name}, ilk öğün saatin."
+  },
+  "nPmFirstTitleNoName": {
+    "en": "Time for your first meal.",
+    "tr": "İlk öğün saatin."
+  },
+  "nPmFirstBody": {
+    "en": "Your own meal is ready. If you would rather not, your macros and the nutrients you need are ready too. Do not skip the first meal.",
+    "tr": "Özel öğünün hazır; istemiyorsan da makroların ve alacakların hazır. İlk öğünü kesinlikle atlama."
+  },
+  "nPmMealTitle": {
+    "en": "{name}, it is time for meal {n}.",
+    "tr": "{name}, {n}. öğün saatin geldi.",
+    "_types": {
+      "n": "int"
+    }
+  },
+  "nPmMealTitleNoName": {
+    "en": "It is time for meal {n}.",
+    "tr": "{n}. öğün saatin geldi.",
+    "_types": {
+      "n": "int"
+    }
+  },
+  "nPmMealBody": {
+    "en": "{protein} g protein and {calcium} mg calcium. Do not skip this meal.",
+    "tr": "{protein} g protein ve {calcium} mg kalsiyum. Bu öğünü kesinlikle atlama.",
+    "_types": {
+      "protein": "int",
+      "calcium": "int"
+    }
+  },
+  "nPmWaterTitle": {
+    "en": "Are you drinking enough water?",
+    "tr": "Yeterince su içiyor musun?"
+  },
+  "nPmWaterBody": {
+    "en": "{name}, remember to drink water through the day. Your daily target is {liters}.",
+    "tr": "{name}, gün içinde su içmeyi unutma. Günlük hedefin {liters}."
+  },
+  "nPmWaterBodyNoName": {
+    "en": "Remember to drink water through the day. Your daily target is {liters}.",
+    "tr": "Gün içinde su içmeyi unutma. Günlük hedefin {liters}."
+  },
+  "nPmTrainTitle": {
+    "en": "Your workout time is 30 minutes away!",
+    "tr": "30 dk içinde antrenman saatin yaklaşıyor!"
+  },
+  "nPmTrainBody": {
+    "en": "Your own program is waiting. Today: {count} exercises, about {minutes} minutes.",
+    "tr": "Özel programın seni bekliyor. Bugün {count} egzersiz, ortalama {minutes} dakika.",
+    "_types": {
+      "count": "int",
+      "minutes": "int"
+    }
+  },
+  "nPmHabitTitle": {
+    "en": "You can skip rope and stretch a little during the day",
+    "tr": "Gün içinde ufak ip atlayıp esneyebilirsin"
+  },
+  "nPmHabitBody": {
+    "en": "{name}, do not forget these small habits.",
+    "tr": "{name}, bu küçük alışkanlıkları unutma."
+  },
+  "nPmHabitBodyNoName": {
+    "en": "Do not forget these small habits.",
+    "tr": "Bu küçük alışkanlıkları unutma."
+  },
+  "nPmSleepTitle": {
+    "en": "{name}, your bedtime is close.",
+    "tr": "{name}, yatma saatin yaklaşıyor."
+  },
+  "nPmSleepTitleNoName": {
+    "en": "Your bedtime is close.",
+    "tr": "Yatma saatin yaklaşıyor."
+  }
+}

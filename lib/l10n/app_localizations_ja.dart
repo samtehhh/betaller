@@ -945,7 +945,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tipVitaminD => '毎日15分日光を浴びると、ビタミンDの生成が増えます。ビタミンDはカルシウムの吸収に欠かせません。';
 
   @override
-  String get tipBarHanging => 'ぶら下がりは背骨への圧迫をやわらげます。1日30秒×3回から試してみよう。';
+  String get tipBarHanging => '鉄棒にぶら下がると肩と背中が伸びます。毎日30秒×3回試してみましょう。';
 
   @override
   String get tipSwimming => '水泳は全身運動になり、成長をサポートするのに最適なスポーツです。';
@@ -963,7 +963,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get routineBarHanging => 'ぶら下がり';
 
   @override
-  String get routineBarHangingDesc => '鉄棒にぶら下がって背骨を伸ばします。30秒×3セット。';
+  String get routineBarHangingDesc => '鉄棒にぶら下がって肩と背中を伸ばします。30秒×3セット。';
 
   @override
   String get routineCobraStretch => 'コブラのポーズ';
@@ -975,13 +975,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get routineJumping => 'ジャンプ運動';
 
   @override
-  String get routineJumpingDesc => '縄跳びやスクワットジャンプ。成長板を刺激します。20回×3セット。';
+  String get routineJumpingDesc => '縄跳びやスクワットジャンプ。骨を強くするのに役立ちます。20回×3セット。';
 
   @override
   String get routineSwimming => '水泳またはバスケ';
 
   @override
-  String get routineSwimmingDesc => '成長をサポートするスポーツを最低30分行いましょう。';
+  String get routineSwimmingDesc => '体力と筋力のために好きなスポーツをしましょう。30分以上。';
 
   @override
   String get routineYoga => '夜のヨガ＆ストレッチ';
@@ -1042,38 +1042,37 @@ class AppLocalizationsJa extends AppLocalizations {
   String get routineSprintIntervals => 'スプリントインターバル';
 
   @override
-  String get routineSprintIntervalsDesc =>
-      '短い全力ダッシュを繰り返すことで、成長ホルモンの分泌を大きく促します。';
+  String get routineSprintIntervalsDesc => '短いダッシュと回復のウォーキングで体力と脚力を高めます。';
 
   @override
   String get routineHiitWorkout => 'HIITトレーニング';
 
   @override
-  String get routineHiitWorkoutDesc => '高強度インターバルトレーニングで成長ホルモンの分泌を最大化します。';
+  String get routineHiitWorkoutDesc => '高強度インターバルトレーニングで体力と筋力を高めます。';
 
   @override
   String get routineSquats => '自重スクワット';
 
   @override
-  String get routineSquatsDesc => '自重スクワットは脚と背骨の成長板を刺激します。';
+  String get routineSquatsDesc => '自重スクワットは脚と姿勢を支える筋肉を強くします。';
 
   @override
   String get routineDeadliftStretch => 'デッドリフトストレッチ';
 
   @override
-  String get routineDeadliftStretchDesc => '背骨の圧迫をやわらげ、椎間板の健康を保つストレッチです。';
+  String get routineDeadliftStretchDesc => 'ハムストリングの柔軟性と強い背中のためのデッドリフトストレッチ。';
 
   @override
   String get routineOverheadPress => 'オーバーヘッドプレス';
 
   @override
-  String get routineOverheadPressDesc => '頭上に押し上げる動きで背骨を伸ばし、姿勢を支える筋肉を鍛えます。';
+  String get routineOverheadPressDesc => 'オーバーヘッドプレスは肩と姿勢の筋肉を強くします。';
 
   @override
   String get routineSkippingRope => '縄跳び';
 
   @override
-  String get routineSkippingRopeDesc => '縄跳びの繰り返しのジャンプが、脚の成長板を刺激します。';
+  String get routineSkippingRopeDesc => '縄跳びの繰り返しは脚の骨に負荷をかけ、骨を強くするのに役立ちます。';
 
   @override
   String get routinePilatesCore => 'ピラティス体幹';
@@ -1086,7 +1085,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get routineInversionHangDesc =>
-      '逆さになると椎間板の圧迫がやわらぎ、一時的に1〜2cm伸びることがあります。';
+      '逆さぶら下がりは背中の筋肉をゆるめることがあります。身長の変化は一時的です。';
 
   @override
   String get routineZincIntake => '亜鉛を含む食品';
@@ -2330,10 +2329,10 @@ class AppLocalizationsJa extends AppLocalizations {
       '成長をサポートするために厳選したレシピです。食事の種類や栄養の目的で絞り込んで、あなたのプランにぴったりのものを見つけよう。';
 
   @override
-  String get animHintSpinalDecomp => '背骨の圧迫をやわらげる';
+  String get animHintSpinalDecomp => '肩と背中のストレッチ';
 
   @override
-  String get animHintGravityReversal => '重力をリセット';
+  String get animHintGravityReversal => '背中をリラックス';
 
   @override
   String get animHintImpactBones => '骨に適度な刺激';
@@ -2351,7 +2350,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get animHintSpinalExtension => '背骨を伸ばす';
 
   @override
-  String get animHintCervicalDecomp => '首の圧迫をやわらげる';
+  String get animHintCervicalDecomp => '首をリラックス';
 
   @override
   String get animHintShoulderMobility => '肩の可動域アップ';
@@ -2396,13 +2395,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get animHintCoreStability => '体幹の安定';
 
   @override
-  String get animHintLegPower => '脚力アップ＆成長ホルモン';
+  String get animHintLegPower => '脚力';
 
   @override
   String get animHintVerticalPower => 'ジャンプ力';
 
   @override
-  String get animHintHghSurge => '成長ホルモンを促すトレーニング';
+  String get animHintHghSurge => '高強度トレーニング';
 
   @override
   String get animHintPeakHgh => '成長ホルモン分泌のピーク時間';
@@ -2424,7 +2423,7 @@ class AppLocalizationsJa extends AppLocalizations {
       '首回しから始めて、全身のストレッチへ。反動をつけずに、各ストレッチを20〜30秒キープします。';
 
   @override
-  String get formBarHanging => '肩幅で鉄棒を握り、全身の力を抜いて重力で背骨を伸ばします。体を揺らさないように。';
+  String get formBarHanging => '肩幅で鉄棒を握り、体の力を抜いて肩と背中の伸びを感じましょう。体を揺らさないでください。';
 
   @override
   String get formCobraStretch =>
@@ -2529,48 +2528,47 @@ class AppLocalizationsJa extends AppLocalizations {
   String get formShoulderRolls => '肩を前に15回、後ろに15回回します。続けて胸をひらくストレッチを20秒キープ。';
 
   @override
-  String get sciMorningStretch =>
-      '朝のストレッチは、夜のあいだに水分を取り戻した椎間板への圧迫をやわらげ、身長を保つのに役立ちます';
+  String get sciMorningStretch => '朝のストレッチは寝起きのこわばりをやわらげ、筋肉を動かしやすくします';
 
   @override
-  String get sciBarHanging => 'ぶら下がると重力で背骨が伸び、椎間板の圧迫がやわらぐため、一時的に身長が伸びる可能性があります';
+  String get sciBarHanging => 'ぶら下がりは肩と背中を伸ばし、握力も鍛えます。身長の変化は一時的です';
 
   @override
-  String get sciCobraStretch => 'コブラのポーズは背骨を伸ばして胸をひらき、座りっぱなしによる背骨の圧迫を打ち消します';
+  String get sciCobraStretch => 'コブラのポーズは胸を開き、長時間座ったあとのこわばりをやわらげます';
 
   @override
-  String get sciJumping => '衝撃のあるジャンプは脚の成長板を刺激し、成長ホルモンの分泌を促します';
+  String get sciJumping => '衝撃のあるジャンプは骨に負荷をかけ、10代の骨を強くするのに役立ちます';
 
   @override
   String get sciSwimmingBasketball =>
-      '水泳やバスケには全身を伸ばす、跳ぶ、手を伸ばす動きが多く、成長板の働きを刺激します';
+      '水泳とバスケットボールは体力、協調性、筋力を高め、バスケのジャンプは骨を強くするのに役立ちます';
 
   @override
-  String get sciEveningYoga => '夜のヨガは成長ホルモンを妨げるコルチゾールを減らし、筋肉を伸ばして夜の回復を助けます';
+  String get sciEveningYoga => '夜のヨガは気持ちを落ち着かせ、寝る前に筋肉をゆるめます';
 
   @override
-  String get sciSprintIntervals => '全力ダッシュは成長ホルモンの分泌を大きく促します';
+  String get sciSprintIntervals => '短いダッシュと回復のウォーキングで体力と脚力を高めます';
 
   @override
-  String get sciHiitWorkout => '高強度の運動で成長ホルモンが最大450%増えます';
+  String get sciHiitWorkout => '高強度インターバルトレーニングで体力と筋力を高めます';
 
   @override
-  String get sciSquats => 'スクワットは脚と背骨の成長板を刺激します';
+  String get sciSquats => '自重スクワットは脚と姿勢を支える筋肉を強くします';
 
   @override
-  String get sciDeadliftStretch => '背骨の圧迫をやわらげると、椎間板の健康につながります';
+  String get sciDeadliftStretch => 'ハムストリングの柔軟性と強い背中のためのデッドリフトストレッチ';
 
   @override
-  String get sciOverheadPress => '頭上に押し上げる動きは背骨を伸ばし、姿勢を支える筋肉を鍛えます';
+  String get sciOverheadPress => 'オーバーヘッドプレスは肩と姿勢の筋肉を強くします';
 
   @override
-  String get sciSkippingRope => '繰り返しのジャンプは脚の成長板を刺激します';
+  String get sciSkippingRope => '縄跳びの繰り返しは脚の骨に負荷をかけ、骨を強くするのに役立ちます';
 
   @override
   String get sciPilatesCore => '体幹の強さが背骨の並びと姿勢を支えます';
 
   @override
-  String get sciInversionHang => '逆さになると椎間板の圧迫がやわらぎ、一時的に1〜2cm伸びることがあります';
+  String get sciInversionHang => '逆さぶら下がりは背中の筋肉をゆるめることがあります。身長の変化は一時的です';
 
   @override
   String get sciProtein => 'たんぱく質は骨と筋肉の成長に欠かせないアミノ酸を供給します。特に成長期には重要です';
@@ -3135,7 +3133,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get notifJumpTitle => '🦘 ジャンプの時間！';
 
   @override
-  String get notifJumpBody => 'ジャンプ運動は成長板を刺激します。20回×3セットに挑戦！';
+  String get notifJumpBody => 'ジャンプは骨を強くするのに役立ちます。20回×3セットに挑戦！';
 
   @override
   String get notifCalciumTitle => '🥛 カルシウムの時間！';
@@ -6297,4 +6295,674 @@ class AppLocalizationsJa extends AppLocalizations {
   String obBudgetTrial(String days) {
     return 'まずは$days日間、無料で試すこともできます。';
   }
+
+  @override
+  String get obNameTitle => 'なんて呼べばいい？';
+
+  @override
+  String get obNameSubtitle => '任意。プランやリマインダーで使うよ。';
+
+  @override
+  String get obNameHint => '名前';
+
+  @override
+  String get nWb1Title => '昨日はサボったね';
+
+  @override
+  String nWb1Body(String height) {
+    return '$heightのプランはまだ待ってる。10分で取り戻せるよ。';
+  }
+
+  @override
+  String get nWb2Title => '身長、もうあきらめた？';
+
+  @override
+  String get nWb2Body => 'プランはまだ終わってないって言ってるよ。';
+
+  @override
+  String nWb3Title(String gain) {
+    return '$gainはどうするの？';
+  }
+
+  @override
+  String get nWb3Body => '予測のうち、習慣で変えられる部分だよ。';
+
+  @override
+  String nWb5Title(String name) {
+    return '$name、グラフが止まってるよ';
+  }
+
+  @override
+  String get nWb5TitleNoName => 'グラフが止まってるよ';
+
+  @override
+  String get nWb5Body => '5日間、新しい記録なし。今はどのくらい？';
+
+  @override
+  String get nWb7Title => '1週間が過ぎた';
+
+  @override
+  String get nWb7Body => '友だちは今週も伸び続けてる。あなたは？';
+
+  @override
+  String get nWb10Title => '予測が変わったかも';
+
+  @override
+  String get nWb10Body => '1回測って、新しい数字を見よう。';
+
+  @override
+  String nWb14Title(String height) {
+    return 'まだ$heightのまま？';
+  }
+
+  @override
+  String get nWb14Body => '前回の測定から2週間。測って確かめよう。';
+
+  @override
+  String get nWb21Title => 'プラン、まだ続ける？';
+
+  @override
+  String get nWb21Body => '保存してあるよ。ワンタップで再開。';
+
+  @override
+  String nWb30Title(String name) {
+    return 'これで最後だよ、$name';
+  }
+
+  @override
+  String get nWb30TitleNoName => 'これで最後だよ';
+
+  @override
+  String get nWb30Body => 'データは保存したまま。準備ができたら戻っておいで。';
+
+  @override
+  String nTrainHookTitle(int minutes) {
+    return '$minutes分あれば今日のプランは終わる';
+  }
+
+  @override
+  String get nWaterHookTitle => '水、もう飲んだ？';
+
+  @override
+  String nWaterHookBody(String liters) {
+    return '今日は$liters。まず1杯。';
+  }
+
+  @override
+  String nProteinHookTitle(int grams) {
+    return '今日はタンパク質$grams g。もう始めた？';
+  }
+
+  @override
+  String nSleepHookTitle(String name) {
+    return 'スマホ置こう、$name';
+  }
+
+  @override
+  String get nSleepHookTitleNoName => 'スマホ置こう';
+
+  @override
+  String get nMeasureHookTitle => '今週、背は伸びた？';
+
+  @override
+  String get nMeasureHookBody => '朝に測って確かめよう。';
+
+  @override
+  String nStreakHookTitle(int streak) {
+    return '$streak日連続の記録、今夜で途切れるよ';
+  }
+
+  @override
+  String get nStreakHookBody => 'ルーティン1つで守れるよ。';
+
+  @override
+  String get nPostureHookTitle => '今すぐ背中をチェック';
+
+  @override
+  String get nPostureHookBody => '肩を引いて、あごはまっすぐ。';
+
+  @override
+  String hkReturn(int days) {
+    return '$days日ぶりだね。何が変わったか見てみよう。';
+  }
+
+  @override
+  String hkHabits(String gain) {
+    return '予測のうち$gainは習慣で変わります';
+  }
+
+  @override
+  String hkStreakDay(int day) {
+    return '$day日目。連続記録がもっと途切れにくくなった。';
+  }
+
+  @override
+  String get hkPredictionUpdated => '予測が更新されました。タップして確認。';
+
+  @override
+  String get hkMeasureDue => 'グラフが今週の数値を待っています';
+
+  @override
+  String get hkLeaveTitle => 'プランの準備ができました。開かずに閉じますか？';
+
+  @override
+  String get hkLeaveOpen => 'プランを見る';
+
+  @override
+  String get rsLockedSubtitle => 'あなたがどこまで伸びるか計算しました。数値は下にロックされています。';
+
+  @override
+  String get rsUnlock => '結果を見る';
+
+  @override
+  String get rsPaywallHeadline => 'あなたの数値が出ました。開きますか？';
+
+  @override
+  String get rsLockedChart => 'どこまで伸びるか見る';
+
+  @override
+  String get rsLineHeight => '大人になったときの身長';
+
+  @override
+  String get rsLineGrowth => 'あと伸びる分';
+
+  @override
+  String get rsLineRank => '同年代での順位';
+
+  @override
+  String get rsProgressTitle => 'セットと進み具合';
+
+  @override
+  String get rsStageStart => 'スタート';
+
+  @override
+  String get rsStageNow => '強くなっている';
+
+  @override
+  String get rsStagePeak => 'フルパワー';
+
+  @override
+  String get rsLevelLine => 'セット、進み具合、強化';
+
+  @override
+  String get pwBuyWeekly => '週額プランを開始';
+
+  @override
+  String get pwBuyMonthly => '月額プランを開始';
+
+  @override
+  String get pwBuyLifetime => '買い切りで購入';
+
+  @override
+  String get obGenderSub => '成長のカーブは男女で違います。';
+
+  @override
+  String get obBirthSub => '月と年だけで大丈夫です。成長期のどのあたりにいるかがわかります。';
+
+  @override
+  String obAgeLine(int age) {
+    return '$age歳ですね';
+  }
+
+  @override
+  String get obAgeReplyGrowing => '今は成長期です。まさに一緒に身長を伸ばしていく時期です！';
+
+  @override
+  String get obAgeReplyLate =>
+      'この年頃は成長がゆるやかになりますが、止まる時期は人それぞれです。あなたの場合はこのあと計算します。';
+
+  @override
+  String get obAgeReplyAdult =>
+      'この年齢では骨が伸びることはほとんどありません。プランは姿勢が中心です。猫背で失っていた数センチは姿勢で取り戻せます。';
+
+  @override
+  String get obHwSub => '予測は今の身長からスタートします。';
+
+  @override
+  String get obFootSub => '足は体のほかの部分より先に大きくなります。靴のサイズは今の成長段階のヒントになります。';
+
+  @override
+  String obFootLength(String length) {
+    return '約$length';
+  }
+
+  @override
+  String get obWorkoutSub => 'これをもとに、たんぱく質とカロリーの目標を決めます。';
+
+  @override
+  String obNameNotif(String name) {
+    return '$nameさん、今日のプランができました';
+  }
+
+  @override
+  String get obNameNotifAnon => '今日のプランができました';
+
+  @override
+  String get obNameNotifBody => 'いくつかの動きで、約15分です。';
+
+  @override
+  String get obNamePreviewLabel => 'リマインダーはこのように表示されます';
+
+  @override
+  String get obReplyTriedStopped => 'それなら、BeTallerは続けられるとお約束できます！';
+
+  @override
+  String get obReplyTriedStill =>
+      'それなら、すぐに違いがわかるはずです。BeTallerは数字に加えて、毎日チェックできるプランもあります。';
+
+  @override
+  String get obReplyTriedFirst => 'それなら、心から歓迎します！身長を伸ばす道のりで、とても良い選択をしましたね。';
+
+  @override
+  String get obReplyWhyConfidence =>
+      '背すじが伸びている人は、背が高く、落ち着いて見えます。プランはまず姿勢から始めます。';
+
+  @override
+  String get obReplyWhyImpression => '第一印象の多くは立ち姿で決まります。1週目からそこに取り組みます。';
+
+  @override
+  String get obReplyWhySports => 'ストレッチとぶら下がりは、コートでも役に立ちます。プランには両方入っています。';
+
+  @override
+  String get obReplyWhyClothes => '同じ服でも、背すじが伸びていると見え方が変わります。まずはそこを整えます。';
+
+  @override
+  String get obReplyWhyPhotos =>
+      '写真では、姿勢で身長の見え方がいちばん変わります。アプリでビフォーとアフターの写真も比べられます。';
+
+  @override
+  String get obReplyWhyPotential => 'わかりました。あといくつか質問に答えたら、ポテンシャルを計算します。';
+
+  @override
+  String get obReplyWorkoutLow => '大丈夫です。プランは短いセッションから始まり、ほとんどが約15分です。';
+
+  @override
+  String get obReplyWorkoutMid => 'いいペースです。このリズムなら、プランも無理なく続けられます。';
+
+  @override
+  String get obReplyWorkoutHigh => 'たくさん運動していますね。それに合わせて、たんぱく質の目標を上げます。';
+
+  @override
+  String get obReplyFirstWardrobe => '新しいズボンの丈を、今から考えておいてもいいですよ。';
+
+  @override
+  String get obReplyFirstMuscle => 'プランの動きは、その土台づくりにもなります。';
+
+  @override
+  String get obReplyFirstPhotos => '初日に写真を1枚撮っておきましょう。あとで並べて見るのが楽しくなります。';
+
+  @override
+  String get obReplyFirstTeam => 'セレクションまで続けられるよう、リマインダーを設定します。';
+
+  @override
+  String get obReplyFirstFeelGood => 'それがいちばん確かな理由です。';
+
+  @override
+  String get obDayTitle => 'BeTallerのある1日はこんな感じです';
+
+  @override
+  String get obDayBody => 'これまでの回答をもとに作りました。できたものからチェックしていきます。';
+
+  @override
+  String obDayProtein(int grams) {
+    return 'たんぱく質 $grams g';
+  }
+
+  @override
+  String get obDayProteinSub => '1食目の準備ができました';
+
+  @override
+  String obDaySleep(String time) {
+    return '$timeの睡眠リマインダー';
+  }
+
+  @override
+  String get obDaySleepSub => '冒険を続けるためのリマインダー';
+
+  @override
+  String get obParentsSub => '身長の大部分は両親から受け継ぎます。この2つの数字が予測の土台です。';
+
+  @override
+  String get obSleepSub => '成長ホルモンの多くは深い眠りの間に分泌されます。';
+
+  @override
+  String obDreamDelta(String delta) {
+    return '今の身長より$delta高い';
+  }
+
+  @override
+  String get obEthnicitySubAll => '大人の平均身長は、ルーツによって数センチ違います。';
+
+  @override
+  String obEthReplyHigh(String avg) {
+    return 'このルーツの大人の平均は$avgで、世界平均より上です。あなたのポテンシャルはとても高いです！';
+  }
+
+  @override
+  String obEthReplyMid(String avg) {
+    return 'このルーツの大人の平均は約$avgです。あなたのポテンシャルは高く、良い習慣で平均を超えられます。';
+  }
+
+  @override
+  String obEthReplyRising(String avg) {
+    return 'このルーツの大人の平均は約$avgで、この数字は近い世代で急速に伸びています。あなたのポテンシャルは思っているより高いかもしれません。';
+  }
+
+  @override
+  String get obEthReplyNoAnswer => '大丈夫です。ご両親とあなた自身の数値から計算します。';
+
+  @override
+  String obEthAbove(String avg, String you) {
+    return 'このルーツの成人の平均身長は$avgです。あなたはすでに$youで、平均を超えています！';
+  }
+
+  @override
+  String obEthNear(String avg, String you) {
+    return 'このルーツの成人の平均身長は$avgです。あなたは$youでちょうど平均です。目標はそれを超えることです。';
+  }
+
+  @override
+  String obEthBelowYoung(String avg, String you) {
+    return 'このルーツの成人の平均身長は$avgです。あなたは$youで、まだ成長期です。平均を超える時間は十分あります。';
+  }
+
+  @override
+  String obEthBelowAdult(String avg, String you) {
+    return 'このルーツの成人の平均身長は$avgです。あなたは$youです。姿勢でその差の一部を縮められます。';
+  }
+
+  @override
+  String get obMealsUnknown => '時間ははっきりしません';
+
+  @override
+  String get obMealsUnknownReply => '大丈夫です。あなた専用の時間ごとのプランを作りました。';
+
+  @override
+  String get obUnknownPlanned => '大丈夫です。こちらで計画します。いつでも変更できます。';
+
+  @override
+  String get obReplyWeCalc => 'ご心配なく。これはこちらで計算しています。';
+
+  @override
+  String get obGoalDaysTitle => 'いつまでに本当に身長を伸ばしたいですか？';
+
+  @override
+  String get obGoalDaysSub => '目標に期限を決めましょう。';
+
+  @override
+  String obGoalDaysN(int n) {
+    return '$n日';
+  }
+
+  @override
+  String get obGoalYear => '1年以内';
+
+  @override
+  String get obGoalOpen => '伸びるところまで';
+
+  @override
+  String get obReplyGoal90 => '90日は、姿勢と習慣が定着するのにちょうどいい期間です。最初の変化は立ち姿に表れます。';
+
+  @override
+  String get obReplyGoal120 => '120日あれば習慣が身につきます。その間ずっと、測定を一緒に記録していきます。';
+
+  @override
+  String get obReplyGoal180 => '6か月は、伸びを測定で確かめるのに現実的な期間です。';
+
+  @override
+  String get obReplyGoal365 => '1年がいちばん確実なプランです。成長には根気が必要ですが、毎日そばにいます。';
+
+  @override
+  String get obReplyGoalOpen => 'それがいちばん正しい考え方です。体が伸びるところまで、毎日そばにいます。';
+
+  @override
+  String get tv4TrackTitle => '水分と睡眠をワンタップで';
+
+  @override
+  String get tv4TrackDesc => '1日の目標は年齢と体重から決まるよ。できたらチェックしていこう。';
+
+  @override
+  String get tv4PhotosTitle => 'ビフォーアフター写真';
+
+  @override
+  String get tv4PhotosDesc => '同じポーズで撮って、週ごとの写真を並べて比べよう。';
+
+  @override
+  String get tv4PostureTitle => 'カメラで姿勢チェック';
+
+  @override
+  String get tv4PostureDesc => '立ち姿をスコアにして、直すポイントを教えてくれるよ。';
+
+  @override
+  String get tv4ReportTitle => 'あなたの週間レポート';
+
+  @override
+  String get tv4ReportDesc => 'トレーニング、睡眠、食事を毎週1ページにまとめるよ。';
+
+  @override
+  String get tv4BreakdownTitle => 'スコアを上げるもの';
+
+  @override
+  String get tv4BreakdownDesc => '各要素の割合と、次にやることがわかるよ。';
+
+  @override
+  String get reminderProTitle => 'リマインダーはProで使えます';
+
+  @override
+  String get reminderProDesc => 'トレーニング、食事、睡眠の時間になったらお知らせします。';
+
+  @override
+  String get nFw1Title => '2日目、新しい動き';
+
+  @override
+  String get nFw1Body => '今日のトレーニングは昨日と違うよ。数分で終わるよ。';
+
+  @override
+  String get nFw2Title => '最初の連続メダルまであと少し';
+
+  @override
+  String get nFw2Body => '3日続けてやりきると、3日連続メダルがもらえるよ。';
+
+  @override
+  String get nFw3Title => '測定の日';
+
+  @override
+  String get nFw3Body => '身長を測って保存しよう。今日、グラフに次の点が加わるよ。';
+
+  @override
+  String get nFw4Title => '姿勢を見てみよう';
+
+  @override
+  String get nFw4Body => 'カメラの姿勢チェックは1分で終わるよ。スコアを見てみよう。';
+
+  @override
+  String get nFw5Title => '最初の写真を撮ろう';
+
+  @override
+  String get nFw5Body => '今日は写真を1枚撮ろう。数週間後に並べて見比べられるよ。';
+
+  @override
+  String get nFw6Title => '明日で最初の1週間が終わるよ';
+
+  @override
+  String get nFw6Body => '今日をやりきれば、明日には週間レポートができあがるよ。';
+
+  @override
+  String get nFw7Title => '最初の1週間、達成';
+
+  @override
+  String get nFw7Body => '週間レポートができたよ。身長ももう一度測ってみよう。';
+
+  @override
+  String nPmFirstTitle(String name) {
+    return '$name、最初の食事の時間だよ。';
+  }
+
+  @override
+  String get nPmFirstTitleNoName => '最初の食事の時間だよ。';
+
+  @override
+  String get nPmFirstBody =>
+      '専用メニューができてるよ。気が進まなければ、マクロと必要な栄養素も用意してある。最初の食事は絶対に抜かないで。';
+
+  @override
+  String nPmMealTitle(String name, int n) {
+    return '$name、$n食目の時間だよ。';
+  }
+
+  @override
+  String nPmMealTitleNoName(int n) {
+    return '$n食目の時間だよ。';
+  }
+
+  @override
+  String nPmMealBody(int protein, int calcium) {
+    return 'たんぱく質$protein g、カルシウム$calcium mg。この食事は絶対に抜かないで。';
+  }
+
+  @override
+  String get nPmWaterTitle => '水、ちゃんと飲んでる？';
+
+  @override
+  String nPmWaterBody(String name, String liters) {
+    return '$name、一日を通して水を飲むのを忘れずに。1日の目標は$liters。';
+  }
+
+  @override
+  String nPmWaterBodyNoName(String liters) {
+    return '一日を通して水を飲むのを忘れずに。1日の目標は$liters。';
+  }
+
+  @override
+  String get nPmTrainTitle => 'トレーニングまであと30分！';
+
+  @override
+  String nPmTrainBody(int count, int minutes) {
+    return '専用プログラムが待ってるよ。今日は$count種目、約$minutes分。';
+  }
+
+  @override
+  String get nPmHabitTitle => '日中に少し縄跳びとストレッチをしてみよう';
+
+  @override
+  String nPmHabitBody(String name) {
+    return '$name、この小さな習慣を忘れずに。';
+  }
+
+  @override
+  String get nPmHabitBodyNoName => 'この小さな習慣を忘れずに。';
+
+  @override
+  String nPmSleepTitle(String name) {
+    return '$name、そろそろ寝る時間だよ。';
+  }
+
+  @override
+  String get nPmSleepTitleNoName => 'そろそろ寝る時間だよ。';
+
+  @override
+  String get pwMoreFeatures => 'ほかにも機能がたくさん。';
+
+  @override
+  String get libTitle => 'エクササイズ一覧';
+
+  @override
+  String libCount(int count) {
+    return '$count種目';
+  }
+
+  @override
+  String get libJump => 'ジャンプ';
+
+  @override
+  String get libHang => 'ぶら下がり';
+
+  @override
+  String get libStretch => 'ストレッチ';
+
+  @override
+  String get libStrength => '筋力';
+
+  @override
+  String get libPosture => '姿勢';
+
+  @override
+  String get libWeights => 'ウエイト';
+
+  @override
+  String get libWeightsNote => 'ダンベルかバンドが必要です。毎回正しいフォームでやり切れる重さを選ぼう。';
+
+  @override
+  String get plFoodTurkey => '七面鳥むね肉';
+
+  @override
+  String get plFoodCod => 'タラ';
+
+  @override
+  String get plFoodBeans => '金時豆';
+
+  @override
+  String get plFoodQuinoa => 'キヌア';
+
+  @override
+  String get plFoodSweetPotato => 'さつまいも';
+
+  @override
+  String get plFoodApple => 'りんご';
+
+  @override
+  String get plFoodBerries => 'いちご';
+
+  @override
+  String get plFoodMozzarella => 'モッツァレラ';
+
+  @override
+  String get plFoodHummus => 'フムス';
+
+  @override
+  String get plFoodGreenBeans => 'さやいんげん';
+
+  @override
+  String get mgTitle => '測定の時間です';
+
+  @override
+  String mgBody(int days) {
+    return '前回の測定から$days日たちました。続ける前に身長を測りましょう。';
+  }
+
+  @override
+  String get mgTip1 => '靴を脱いで、かかとを壁につける。';
+
+  @override
+  String get mgTip2 => 'まっすぐ前を見て、頭の上に本を水平にのせる。';
+
+  @override
+  String get mgTip3 => '朝に測ろう。身長は日中に少し縮みます。';
+
+  @override
+  String get mgLater => '今日は測れません';
+
+  @override
+  String get paTitle => 'プランの回答';
+
+  @override
+  String get paSubtitle => 'プランとリマインダーはこの回答をもとに作られます。変更すると更新されます。';
+
+  @override
+  String get paRowSubtitle => 'トレーニング日数、目標、時刻';
+
+  @override
+  String get paWorkout => '週のトレーニング';
+
+  @override
+  String get paGoal => 'プログラムの長さ';
+
+  @override
+  String get paBedtime => '就寝時刻';
+
+  @override
+  String get paWorkoutTime => 'トレーニング時刻';
+
+  @override
+  String get restoreDone => '購入を復元しました。';
 }

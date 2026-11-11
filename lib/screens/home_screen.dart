@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
+import '../services/notification_service.dart';
+import '../utils/haptics.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../utils/constants.dart';
@@ -80,6 +82,33 @@ class _HomeScreenState extends State<HomeScreen>
   void dispose() {
     _anim.dispose();
     super.dispose();
+  }
+
+  /// One line under the height story, the most pressing one that is true.
+  Widget? _homeHook(AppProvider provider, AppLocalizations l) {
+    final gain = provider.prediction?.lifestyleGain ?? 0;
+    if (provider.daysAway >= 2) {
+      return _HookStrip(
+        icon: CupertinoIcons.arrow_counterclockwise,
+        text: l.hkReturn(provider.daysAway),
+        tab: 2,
+      );
+    }
+    if (provider.measureDue) {
+      return _HookStrip(
+        icon: CupertinoIcons.chart_bar_alt_fill,
+        text: l.hkMeasureDue,
+        tab: 2,
+      );
+    }
+    if (gain > 0) {
+      return _HookStrip(
+        icon: CupertinoIcons.bolt_fill,
+        text: l.hkHabits(provider.formatHeightAmount(gain)),
+        tab: 1,
+      );
+    }
+    return null;
   }
 
   _GreetingData _buildGreeting({
@@ -264,6 +293,8 @@ class _HomeScreenState extends State<HomeScreen>
                       child: _PotentialHero(provider: provider, l: l),
                     ),
                     const SizedBox(height: _sectionGap),
+                    if (provider.journeyComplete)
+                      ?_homeHook(provider, l),
 
                     // ── 1. TODAY'S MISSION ────────────────────────────────
                     _TodayMissionCard(
@@ -273,10 +304,12 @@ class _HomeScreenState extends State<HomeScreen>
                       challengeTotal: challenges.length,
                       waterCurrent: provider.todayWater,
                       waterTarget: waterNeed,
-                      waterText: provider.units.waterProgress(
-                        provider.todayWater,
-                        waterNeed,
-                      ),
+                      waterText: provider.isPremium
+                          ? provider.units.waterProgress(
+                              provider.todayWater,
+                              waterNeed,
+                            )
+                          : '${provider.units.waterValue(provider.todayWater)}/$kCensored',
                       allDone: allTodayDone,
                       animValue: _curve.value,
                     ),
@@ -284,6 +317,7 @@ class _HomeScreenState extends State<HomeScreen>
 
                     // ── 1b. WATER + SLEEP, right under today's goals ──────
                     Row(
+                      key: TourKeys.homeTrackers,
                       children: [
                         Expanded(
                           child: _TrackCard(
@@ -545,6 +579,58 @@ class _HomeScreenState extends State<HomeScreen>
 // ═══════════════════════════════════════════════════════════════════
 //  STREAK BADGE — always visible, soft glow
 // ═══════════════════════════════════════════════════════════════════
+
+/// A single tappable line that opens the tab it talks about.
+class _HookStrip extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  final int tab;
+  const _HookStrip({required this.icon, required this.text, required this.tab});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: _sectionGap),
+      child: Material(
+        color: AppColors.primary.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () {
+            Haptics.tap();
+            NotificationService.tappedPayload.value = 'tab:$tab';
+          },
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(14, 13, 12, 13),
+            child: Row(
+              children: [
+                Icon(icon, size: 18, color: AppColors.primary),
+                const SizedBox(width: 11),
+                Expanded(
+                  child: Text(
+                    text,
+                    style: const TextStyle(
+                      fontSize: 14.5,
+                      height: 1.3,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Icon(
+                  CupertinoIcons.chevron_right,
+                  size: 14,
+                  color: Colors.white.withValues(alpha: 0.5),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class _StreakBadge extends StatelessWidget {
   final int streak;
@@ -1071,7 +1157,7 @@ class _MissionRow extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 6),
-            Text(
+            CensoredText(
               value,
               style: TextStyle(
                 fontSize: 12.5,
@@ -1375,8 +1461,10 @@ class _TrackCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 4),
-                Text(
-                  '/ $target$unit',
+                CensoredText(
+                  numbersLocked(context)
+                      ? '/ $kCensored$unit'
+                      : '/ $target$unit',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.white.withValues(alpha: 0.32),
@@ -2186,7 +2274,8 @@ class _PotentialHero extends StatelessWidget {
     final now = provider.latestHeight;
     final pot = provider.potentialHeight;
     final gap = pot - now;
-    return Container(
+    final locked = !provider.isPremium;
+    final card = Container(
       padding: const EdgeInsets.fromLTRB(22, 22, 22, 14),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
@@ -2208,7 +2297,7 @@ class _PotentialHero extends StatelessWidget {
               color: Colors.white.withValues(alpha: 0.7),
             ),
           ),
-          if (gap >= 0.5) ...[
+          if (locked || gap >= 0.5) ...[
             const SizedBox(height: 10),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -2216,8 +2305,10 @@ class _PotentialHero extends StatelessWidget {
                 color: AppColors.lime.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(100),
               ),
-              child: Text(
-                l.homeHeroGap(provider.formatHeightDelta(gap)),
+              child: CensoredText(
+                l.homeHeroGap(
+                  locked ? kCensored : provider.formatHeightDelta(gap),
+                ),
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w800,
@@ -2233,9 +2324,19 @@ class _PotentialHero extends StatelessWidget {
             dream: provider.dreamHeight,
             format: provider.formatHeight,
             height: 200,
+            locked: locked,
           ),
         ],
       ),
+    );
+    if (!locked) return card;
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        Haptics.tap();
+        showPremiumPaywall(context, source: 'result_lock_home');
+      },
+      child: card,
     );
   }
 }

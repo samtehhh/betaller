@@ -53,3 +53,12 @@ release-builds/
 
 # local render harness for design checks
 test/_render/
+
+# Sosyal medya API anahtarları ve OAuth dosyaları (sahip girer, depoya girmez)
+.secrets/
+.env
+.env.*
+tool/social/konu/_cache/
+
+# Firebase client config (public repo)
+lib/firebase_options.dart

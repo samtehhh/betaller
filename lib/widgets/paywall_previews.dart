@@ -58,7 +58,7 @@ class PaywallPreview {
   String title(AppLocalizations l) => switch (id) {
         'potential' => l.pwSlidePotentialTitle,
         'today' => l.pwSlideTodayTitle,
-        'program' => l.pwSlideProgramTitle,
+        'program' => programText(l.pwSlideProgramTitle),
         'nutrition' => l.pwSlideNutritionTitle,
         'chart' => l.pwSlideChartTitle,
         'score' => l.pwSlideScoreTitle,
@@ -267,8 +267,9 @@ class _PotentialPreview extends StatelessWidget {
     var pot = _kDemoPotential;
     double? dream = _kDemoDream;
     var mine = false;
-    if (profile != null) {
-      final n = p!.latestHeight;
+    // The user's own number stays behind the purchase: this page sells it.
+    if (profile != null && p!.isPremium) {
+      final n = p.latestHeight;
       final t = p.potentialHeight;
       // Never a number that looks wrong: a missing measurement reads as 0,
       // and a potential under today or 40 cm above it is not one to sell.
@@ -364,14 +365,15 @@ class _TodayPreview extends StatelessWidget {
     final today = DateTime.now();
     var offset = 0;
     for (var i = 0; i < 7; i++) {
-      final d = plan.days[(today.weekday - 1 + i) % 7];
+      final on = today.add(Duration(days: i));
+      final d = plan.weekOf(on)[on.weekday - 1];
       if (d.movesAt(level).length >= 3) {
         offset = i;
         break;
       }
     }
     final date = today.add(Duration(days: offset));
-    final day = plan.days[date.weekday - 1];
+    final day = plan.weekOf(date)[date.weekday - 1];
     final moves = day.movesAt(level);
     final minutes = moves.fold<int>(0, (s, m) => s + m.minutes);
     final locale = Localizations.localeOf(context).languageCode;
@@ -422,7 +424,7 @@ class _TodayPreview extends StatelessWidget {
                 _VideoMoveRow(
                   routineId: m.routineId,
                   title: moveTitle(l, m.routineId),
-                  subtitle: '${doseLabel(l, m)} · ${l.plDoseMinutes(m.minutes)}',
+                  subtitle: '$kCensored · ${l.plDoseMinutes(m.minutes)}',
                 ),
               const SizedBox(height: 12),
               Padding(
@@ -513,7 +515,7 @@ class _VideoMoveRow extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(
+                CensoredText(
                   subtitle,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -608,7 +610,10 @@ class _LevelWeekStrip extends StatelessWidget {
           for (var d = 0; d < kProgramLevelDays; d++)
             Expanded(
               child: Builder(builder: (context) {
-                final index = level * kProgramLevelDays + d;
+                final week =
+                    current.clamp(0, kProgramDays - 1) ~/ kProgramLevelDays;
+                final index = week * kProgramLevelDays + d;
+                if (index >= kProgramDays) return const SizedBox();
                 final done = completed.contains(index);
                 final isCurrent = index == current;
                 final locked = index > current;
@@ -683,7 +688,8 @@ class _NutritionPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = _providerOf(context);
-    final own = _validProfile(p);
+    // The user's own targets stay behind the purchase: this page sells them.
+    final own = p != null && p.isPremium ? _validProfile(p) : null;
     final profile = own ?? _demoProfile();
     final workout = own == null
         ? '3-5'
@@ -724,7 +730,11 @@ class _NutritionPreview extends StatelessWidget {
               const SizedBox(height: 12),
               // The numbers straight under the title, where a small phone
               // still shows them; what they are worked out from goes last.
-              TodayTargetsGrid(profile: profile, weeklyWorkout: workout),
+              TodayTargetsGrid(
+                profile: profile,
+                weeklyWorkout: workout,
+                showNumbers: true,
+              ),
               const SizedBox(height: 12),
               Text(
                 l.targetsSubtitle,
@@ -753,8 +763,8 @@ class _ChartPreview extends StatelessWidget {
 
   /// The user's own chart when every point on it is a plausible height.
   static PotentialChartData? _own(AppProvider? p) {
-    if (_validProfile(p) == null) return null;
-    final data = PotentialChartData.fromProvider(p!);
+    if (_validProfile(p) == null || !p!.isPremium) return null;
+    final data = PotentialChartData.fromProvider(p);
     if (data == null || data.curve.isEmpty) return null;
     if (!_plausibleHeight(data.potential)) return null;
     if (!data.history.every((e) => _plausibleHeight(e.value))) return null;

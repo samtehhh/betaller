@@ -964,7 +964,7 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get tipBarHanging =>
-      'Bergantung pada palang meregangkan tulang belakang. Cuba 3x30 saat setiap hari.';
+      'Bergayut pada palang meregangkan bahu dan belakang. Cuba 3x30 saat setiap hari.';
 
   @override
   String get tipSwimming =>
@@ -986,7 +986,7 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get routineBarHangingDesc =>
-      'Bergantung pada palang pull-up untuk meregangkan tulang belakang. 3 set x 30 saat.';
+      'Bergayut pada palang untuk meregangkan bahu dan belakang. 3 set x 30 saat.';
 
   @override
   String get routineCobraStretch => 'Regangan Kobra';
@@ -1000,14 +1000,14 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get routineJumpingDesc =>
-      'Lompat tali atau squat jump. Merangsang plat pertumbuhan. 3 set x 20 kali.';
+      'Lompat tali atau squat jump. Membantu menguatkan tulang. 3 set x 20 ulangan.';
 
   @override
   String get routineSwimming => 'Berenang atau Bola Keranjang';
 
   @override
   String get routineSwimmingDesc =>
-      'Main sukan yang menyokong pertumbuhan tinggi. Sekurang-kurangnya 30 minit.';
+      'Lakukan sukan yang anda suka untuk kecergasan dan kekuatan. Sekurang-kurangnya 30 minit.';
 
   @override
   String get routineYoga => 'Yoga & Regangan Malam';
@@ -1077,42 +1077,42 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get routineSprintIntervalsDesc =>
-      'Latihan pecut selang-seli mencetuskan rembesan hormon pertumbuhan yang ketara melalui letusan intensiti tinggi.';
+      'Pecutan pendek dengan berjalan untuk pemulihan meningkatkan kecergasan dan kekuatan kaki.';
 
   @override
   String get routineHiitWorkout => 'Latihan HIIT';
 
   @override
   String get routineHiitWorkoutDesc =>
-      'Latihan selang-seli intensiti tinggi untuk memaksimumkan rembesan hormon pertumbuhan.';
+      'Latihan selang intensiti tinggi meningkatkan kecergasan dan kekuatan.';
 
   @override
   String get routineSquats => 'Squat Berat Badan';
 
   @override
   String get routineSquatsDesc =>
-      'Squat berat badan merangsang plat pertumbuhan di kaki dan tulang belakang.';
+      'Squat berat badan menguatkan kaki dan otot yang menyokong postur.';
 
   @override
   String get routineDeadliftStretch => 'Regangan Deadlift';
 
   @override
   String get routineDeadliftStretchDesc =>
-      'Regangan deadlift untuk melegakan tekanan tulang belakang dan kesihatan cakera vertebra.';
+      'Regangan deadlift untuk hamstring yang fleksibel dan belakang yang lebih kuat.';
 
   @override
   String get routineOverheadPress => 'Overhead Press';
 
   @override
   String get routineOverheadPressDesc =>
-      'Tekanan atas kepala meregangkan tulang belakang dan menguatkan otot postur.';
+      'Tekanan atas kepala menguatkan bahu dan otot postur.';
 
   @override
   String get routineSkippingRope => 'Lompat Tali';
 
   @override
   String get routineSkippingRopeDesc =>
-      'Lompatan berulang dengan tali merangsang plat pertumbuhan di bahagian bawah badan.';
+      'Lompat tali berulang memberi beban pada tulang kaki dan membantu menguatkannya.';
 
   @override
   String get routinePilatesCore => 'Pilates Teras';
@@ -1126,7 +1126,7 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get routineInversionHangDesc =>
-      'Posisi songsang melegakan tekanan cakera tulang belakang, boleh menambah 1-2cm buat sementara.';
+      'Inversi boleh merehatkan otot belakang. Sebarang perubahan ketinggian hanya sementara.';
 
   @override
   String get routineZincIntake => 'Makanan Kaya Zink';
@@ -2408,10 +2408,10 @@ class AppLocalizationsMs extends AppLocalizations {
       'Resipi pilihan untuk menyokong pertumbuhan anda. Tapis mengikut jenis hidangan atau matlamat nutrisi untuk mencari yang paling sesuai dengan pelan anda.';
 
   @override
-  String get animHintSpinalDecomp => 'Melegakan tekanan tulang belakang';
+  String get animHintSpinalDecomp => 'Regangan bahu dan belakang';
 
   @override
-  String get animHintGravityReversal => 'Melawan graviti';
+  String get animHintGravityReversal => 'Relaksasi belakang';
 
   @override
   String get animHintImpactBones => 'Hentakan untuk tulang';
@@ -2429,7 +2429,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get animHintSpinalExtension => 'Lanjutan tulang belakang';
 
   @override
-  String get animHintCervicalDecomp => 'Melegakan tekanan leher';
+  String get animHintCervicalDecomp => 'Relaksasi leher';
 
   @override
   String get animHintShoulderMobility => 'Mobiliti bahu';
@@ -2474,13 +2474,13 @@ class AppLocalizationsMs extends AppLocalizations {
   String get animHintCoreStability => 'Kestabilan teras';
 
   @override
-  String get animHintLegPower => 'Kuasa kaki & lonjakan HGH';
+  String get animHintLegPower => 'Kekuatan kaki';
 
   @override
   String get animHintVerticalPower => 'Kuasa menegak';
 
   @override
-  String get animHintHghSurge => 'Latihan lonjakan HGH';
+  String get animHintHghSurge => 'Latihan intensiti tinggi';
 
   @override
   String get animHintPeakHgh => 'Waktu puncak rembesan HGH';
@@ -2503,7 +2503,7 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get formBarHanging =>
-      'Pegang palang selebar bahu, rehatkan badan sepenuhnya, biar graviti meregangkan tulang belakang. Elakkan berayun.';
+      'Pegang palang selebar bahu, rehatkan badan dan rasai regangan pada bahu dan belakang. Elakkan berayun.';
 
   @override
   String get formCobraStretch =>
@@ -2619,51 +2619,51 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get sciMorningStretch =>
-      'Regangan pagi melegakan cakera tulang belakang yang terhidrat semula semalaman, membantu mengekalkan tinggi';
+      'Regangan pagi mengurangkan kekejangan selepas tidur dan menggerakkan otot';
 
   @override
   String get sciBarHanging =>
-      'Bergantung melegakan cakera vertebra dengan graviti yang meregangkan tulang belakang, mungkin menambah tinggi buat sementara';
+      'Bergayut meregangkan bahu dan belakang serta melatih kekuatan genggaman. Sebarang perubahan ketinggian hanya sementara';
 
   @override
   String get sciCobraStretch =>
-      'Regangan kobra melanjutkan tulang belakang dan membuka dada, melawan tekanan tulang belakang akibat duduk';
+      'Regangan kobra membuka dada dan mengurangkan kekejangan akibat duduk lama';
 
   @override
   String get sciJumping =>
-      'Lompatan hentakan tinggi merangsang plat pertumbuhan di kaki dan mencetuskan rembesan hormon pertumbuhan';
+      'Lompatan berimpak tinggi memberi beban pada tulang dan membantu menguatkannya semasa remaja';
 
   @override
   String get sciSwimmingBasketball =>
-      'Berenang dan bola keranjang melibatkan regangan seluruh badan, lompatan dan capaian yang merangsang aktiviti plat pertumbuhan';
+      'Renang dan bola keranjang meningkatkan kecergasan, koordinasi dan kekuatan, dan lompatan dalam bola keranjang membantu menguatkan tulang';
 
   @override
   String get sciEveningYoga =>
-      'Yoga malam mengurangkan kortisol yang menyekat hormon pertumbuhan, dan meregangkan otot untuk pemulihan semalaman';
+      'Yoga waktu malam membantu anda bertenang dan merehatkan otot sebelum tidur';
 
   @override
   String get sciSprintIntervals =>
-      'Pecut mencetuskan rembesan hormon pertumbuhan yang ketara';
+      'Pecutan pendek dengan berjalan untuk pemulihan meningkatkan kecergasan dan kekuatan kaki';
 
   @override
   String get sciHiitWorkout =>
-      'Senaman intensiti tinggi meningkatkan HGH sehingga 450%';
+      'Latihan selang intensiti tinggi meningkatkan kecergasan dan kekuatan';
 
   @override
   String get sciSquats =>
-      'Squat merangsang plat pertumbuhan di kaki dan tulang belakang';
+      'Squat berat badan menguatkan kaki dan otot yang menyokong postur';
 
   @override
   String get sciDeadliftStretch =>
-      'Melegakan tekanan tulang belakang menggalakkan kesihatan cakera vertebra';
+      'Regangan deadlift untuk hamstring yang fleksibel dan belakang yang lebih kuat';
 
   @override
   String get sciOverheadPress =>
-      'Tekanan atas kepala meregangkan tulang belakang dan menguatkan otot postur';
+      'Tekanan atas kepala menguatkan bahu dan otot postur';
 
   @override
   String get sciSkippingRope =>
-      'Lompatan berulang merangsang plat pertumbuhan di bahagian bawah badan';
+      'Lompat tali berulang memberi beban pada tulang kaki dan membantu menguatkannya';
 
   @override
   String get sciPilatesCore =>
@@ -2671,7 +2671,7 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get sciInversionHang =>
-      'Posisi songsang melegakan tekanan cakera tulang belakang, boleh menambah 1-2cm buat sementara';
+      'Inversi boleh merehatkan otot belakang. Sebarang perubahan ketinggian hanya sementara';
 
   @override
   String get sciProtein =>
@@ -3279,7 +3279,7 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get notifJumpBody =>
-      'Senaman lompat merangsang plat pertumbuhan. Cuba 3 x 20 kali!';
+      'Melompat membantu menguatkan tulang. Cuba 3 x 20 ulangan!';
 
   @override
   String get notifCalciumTitle => '🥛 Masa Kalsium!';
@@ -6618,4 +6618,731 @@ class AppLocalizationsMs extends AppLocalizations {
   String obBudgetTrial(String days) {
     return 'Atau cuba percuma $days hari dahulu.';
   }
+
+  @override
+  String get obNameTitle => 'Nak dipanggil apa?';
+
+  @override
+  String get obNameSubtitle =>
+      'Pilihan. Pelan dan peringatan anda akan menggunakannya.';
+
+  @override
+  String get obNameHint => 'Nama anda';
+
+  @override
+  String get nWb1Title => 'Semalam anda ponteng';
+
+  @override
+  String nWb1Body(String height) {
+    return 'Pelan $height anda masih menunggu. 10 minit pun cukup.';
+  }
+
+  @override
+  String get nWb2Title => 'Dah putus asa dengan ketinggian anda?';
+
+  @override
+  String get nWb2Body => 'Pelan anda kata anda belum selesai.';
+
+  @override
+  String nWb3Title(String gain) {
+    return 'Macam mana dengan $gain anda?';
+  }
+
+  @override
+  String get nWb3Body => 'Itu bahagian ramalan yang dikawal oleh tabiat anda.';
+
+  @override
+  String nWb5Title(String name) {
+    return '$name, carta anda mendatar';
+  }
+
+  @override
+  String get nWb5TitleNoName => 'Carta anda mendatar';
+
+  @override
+  String get nWb5Body => 'Tiada ukuran baharu selama 5 hari. Sekarang berapa?';
+
+  @override
+  String get nWb7Title => 'Seminggu dah berlalu';
+
+  @override
+  String get nWb7Body =>
+      'Kawan-kawan anda tak berhenti membesar minggu ini. Anda?';
+
+  @override
+  String get nWb10Title => 'Ramalan anda mungkin dah berubah';
+
+  @override
+  String get nWb10Body => 'Ukur sekali dan lihat angka baharu.';
+
+  @override
+  String nWb14Title(String height) {
+    return 'Masih $height?';
+  }
+
+  @override
+  String get nWb14Body => 'Dua minggu sejak ukuran terakhir. Ukur dan ketahui.';
+
+  @override
+  String get nWb21Title => 'Masih mahu pelan anda?';
+
+  @override
+  String get nWb21Body => 'Dah disimpan. Satu ketik, sambung semula.';
+
+  @override
+  String nWb30Title(String name) {
+    return 'Yang terakhir, $name';
+  }
+
+  @override
+  String get nWb30TitleNoName => 'Yang terakhir';
+
+  @override
+  String get nWb30Body =>
+      'Data anda masih disimpan. Kembali bila-bila anda sedia.';
+
+  @override
+  String nTrainHookTitle(int minutes) {
+    return '$minutes minit lagi ke pelan hari ini';
+  }
+
+  @override
+  String get nWaterHookTitle => 'Dah minum air?';
+
+  @override
+  String nWaterHookBody(String liters) {
+    return '$liters hari ini. Segelas sekarang.';
+  }
+
+  @override
+  String nProteinHookTitle(int grams) {
+    return '$grams g protein hari ini. Dah mula?';
+  }
+
+  @override
+  String nSleepHookTitle(String name) {
+    return 'Letak telefon, $name';
+  }
+
+  @override
+  String get nSleepHookTitleNoName => 'Letak telefon';
+
+  @override
+  String get nMeasureHookTitle => 'Minggu ini anda bertambah tinggi?';
+
+  @override
+  String get nMeasureHookBody => 'Ukur waktu pagi dan ketahui.';
+
+  @override
+  String nStreakHookTitle(int streak) {
+    return 'Streak $streak hari anda mati malam ini';
+  }
+
+  @override
+  String get nStreakHookBody => 'Satu rutin boleh selamatkannya.';
+
+  @override
+  String get nPostureHookTitle => 'Semak belakang anda sekarang';
+
+  @override
+  String get nPostureHookBody => 'Bahu ke belakang, dagu lurus.';
+
+  @override
+  String hkReturn(int days) {
+    return 'Awak hilang $days hari. Jom lihat apa yang berubah.';
+  }
+
+  @override
+  String hkHabits(String gain) {
+    return '$gain daripada ramalan awak bergantung pada tabiat awak';
+  }
+
+  @override
+  String hkStreakDay(int day) {
+    return 'Hari ke-$day. Streak awak kini lebih sukar diputuskan.';
+  }
+
+  @override
+  String get hkPredictionUpdated =>
+      'Ramalan awak baru dikemas kini. Ketik untuk lihat.';
+
+  @override
+  String get hkMeasureDue => 'Carta awak menunggu angka minggu ini';
+
+  @override
+  String get hkLeaveTitle =>
+      'Pelan awak sudah sedia. Nak keluar tanpa membukanya?';
+
+  @override
+  String get hkLeaveOpen => 'Lihat pelan saya';
+
+  @override
+  String get rsLockedSubtitle =>
+      'Kami dah kira setinggi mana awak boleh membesar. Nombor awak dikunci di bawah.';
+
+  @override
+  String get rsUnlock => 'Buka keputusan saya';
+
+  @override
+  String get rsPaywallHeadline => 'Nombor awak dah keluar. Nak buka?';
+
+  @override
+  String get rsLockedChart => 'Lihat ke mana arah awak';
+
+  @override
+  String get rsLineHeight => 'Ketinggian dewasa awak';
+
+  @override
+  String get rsLineGrowth => 'Baki pertumbuhan awak';
+
+  @override
+  String get rsLineRank => 'Kedudukan awak dalam kalangan sebaya';
+
+  @override
+  String get rsProgressTitle => 'Set dan kemajuan awak';
+
+  @override
+  String get rsStageStart => 'Mula';
+
+  @override
+  String get rsStageNow => 'Makin kuat';
+
+  @override
+  String get rsStagePeak => 'Kuasa penuh';
+
+  @override
+  String get rsLevelLine => 'Set, kemajuan dan makin kuat';
+
+  @override
+  String get pwBuyWeekly => 'Mula pelan mingguan';
+
+  @override
+  String get pwBuyMonthly => 'Mula pelan bulanan';
+
+  @override
+  String get pwBuyLifetime => 'Beli akses seumur hidup';
+
+  @override
+  String get obGenderSub =>
+      'Lengkung pertumbuhan lelaki dan perempuan berbeza.';
+
+  @override
+  String get obBirthSub =>
+      'Bulan dan tahun sudah cukup. Dari sini kami tahu anda di peringkat mana dalam tahun pertumbuhan.';
+
+  @override
+  String obAgeLine(int age) {
+    return 'Anda berumur $age tahun';
+  }
+
+  @override
+  String get obAgeReplyGrowing =>
+      'Anda sedang dalam usia membesar. Inilah masanya kita menambah ketinggian anda bersama!';
+
+  @override
+  String get obAgeReplyLate =>
+      'Pada usia ini pertumbuhan jadi perlahan, tetapi tidak berhenti pada masa yang sama bagi semua orang. Kami akan kira yang anda sebentar lagi.';
+
+  @override
+  String get obAgeReplyAdult =>
+      'Pada usia ini tulang jarang memanjang. Pelan anda bertumpu pada postur, di mana sentimeter yang hilang kerana membongkok akan kembali.';
+
+  @override
+  String get obHwSub => 'Anggaran bermula daripada ketinggian anda hari ini.';
+
+  @override
+  String get obFootSub =>
+      'Kaki membesar dahulu sebelum bahagian badan lain, jadi saiz anda memberi petunjuk tentang peringkat anda.';
+
+  @override
+  String obFootLength(String length) {
+    return 'Kira-kira $length';
+  }
+
+  @override
+  String get obWorkoutSub =>
+      'Kami tetapkan sasaran protein dan kalori anda berdasarkan ini.';
+
+  @override
+  String obNameNotif(String name) {
+    return '$name, pelan hari ini sudah sedia';
+  }
+
+  @override
+  String get obNameNotifAnon => 'Pelan hari ini sudah sedia';
+
+  @override
+  String get obNameNotifBody => 'Beberapa gerakan, kira-kira 15 minit.';
+
+  @override
+  String get obNamePreviewLabel => 'Peringatan anda akan kelihatan begini';
+
+  @override
+  String get obReplyTriedStopped =>
+      'Kalau begitu, kami boleh janji anda tidak akan tinggalkan BeTaller!';
+
+  @override
+  String get obReplyTriedStill =>
+      'Kalau begitu anda akan nampak bezanya tidak lama lagi. Selain nombor, BeTaller beri anda pelan untuk ditanda setiap hari.';
+
+  @override
+  String get obReplyTriedFirst =>
+      'Kalau begitu, selamat datang! Anda telah buat salah satu pilihan terbaik dalam perjalanan untuk jadi lebih tinggi.';
+
+  @override
+  String get obReplyWhyConfidence =>
+      'Orang yang berdiri tegak nampak lebih tinggi dan lebih tenang. Postur ialah perkara pertama dalam pelan anda.';
+
+  @override
+  String get obReplyWhyImpression =>
+      'Sebahagian besar tanggapan pertama datang daripada cara anda berdiri. Kita mula dengannya pada minggu pertama.';
+
+  @override
+  String get obReplyWhySports =>
+      'Regangan dan bergayut juga membantu di gelanggang. Pelan anda ada kedua-duanya.';
+
+  @override
+  String get obReplyWhyClothes =>
+      'Pakaian yang sama nampak berbeza pada belakang yang tegak. Itu yang kita betulkan dahulu.';
+
+  @override
+  String get obReplyWhyPhotos =>
+      'Dalam gambar, postur paling mengubah ketinggian anda. Anda juga boleh bandingkan gambar sebelum dan selepas dalam aplikasi.';
+
+  @override
+  String get obReplyWhyPotential =>
+      'Baiklah. Beberapa soalan lagi dan kami akan kira potensi anda.';
+
+  @override
+  String get obReplyWorkoutLow =>
+      'Tiada masalah. Pelan anda bermula dengan sesi singkat, kebanyakannya sekitar 15 minit.';
+
+  @override
+  String get obReplyWorkoutMid =>
+      'Rentak yang bagus. Dengan ritma ini, pelan itu mudah dimuatkan.';
+
+  @override
+  String get obReplyWorkoutHigh =>
+      'Anda banyak berlatih. Kami naikkan sasaran protein anda supaya sepadan.';
+
+  @override
+  String get obReplyFirstWardrobe =>
+      'Anda boleh mula fikirkan panjang seluar baharu anda.';
+
+  @override
+  String get obReplyFirstMuscle =>
+      'Gerakan dalam pelan anda juga menyediakan asas untuk itu.';
+
+  @override
+  String get obReplyFirstPhotos =>
+      'Ambil gambar pada hari pertama. Nanti anda pasti suka meletakkannya sebelah-menyebelah.';
+
+  @override
+  String get obReplyFirstTeam =>
+      'Kami akan tetapkan peringatan supaya anda kekal konsisten sehingga pemilihan.';
+
+  @override
+  String get obReplyFirstFeelGood => 'Itu sebab yang paling kukuh.';
+
+  @override
+  String get obDayTitle => 'Inilah sehari bersama BeTaller';
+
+  @override
+  String get obDayBody =>
+      'Dibina daripada apa yang anda beritahu setakat ini. Anda tandakan sambil melakukannya.';
+
+  @override
+  String obDayProtein(int grams) {
+    return '$grams g protein';
+  }
+
+  @override
+  String get obDayProteinSub => 'Hidangan pertama anda sudah sedia';
+
+  @override
+  String obDaySleep(String time) {
+    return 'Peringatan tidur anda pada $time';
+  }
+
+  @override
+  String get obDaySleepSub =>
+      'Peringatan yang memastikan pengembaraan anda berterusan';
+
+  @override
+  String get obParentsSub =>
+      'Sebahagian besar ketinggian anda datang daripada ibu bapa. Dua angka ini ialah asas anggaran.';
+
+  @override
+  String get obSleepSub =>
+      'Kebanyakan hormon pertumbuhan dirembeskan semasa tidur nyenyak.';
+
+  @override
+  String obDreamDelta(String delta) {
+    return '$delta melebihi ketinggian anda hari ini';
+  }
+
+  @override
+  String get obEthnicitySubAll =>
+      'Purata ketinggian dewasa berbeza beberapa sentimeter mengikut latar belakang.';
+
+  @override
+  String obEthReplyHigh(String avg) {
+    return 'Purata dewasa daripada latar belakang ini ialah $avg, melebihi purata dunia. Potensi anda sangat tinggi!';
+  }
+
+  @override
+  String obEthReplyMid(String avg) {
+    return 'Purata dewasa daripada latar belakang ini sekitar $avg. Potensi anda tinggi, dan tabiat yang baik boleh membawa anda melepasi purata.';
+  }
+
+  @override
+  String obEthReplyRising(String avg) {
+    return 'Purata dewasa daripada latar belakang ini sekitar $avg, dan angka itu meningkat pantas dalam generasi kebelakangan ini. Potensi anda mungkin lebih tinggi daripada yang anda sangka.';
+  }
+
+  @override
+  String get obEthReplyNoAnswer =>
+      'Tiada masalah. Kami mengira daripada ibu bapa dan ukuran anda sendiri.';
+
+  @override
+  String obEthAbove(String avg, String you) {
+    return 'Purata tinggi orang dewasa daripada latar belakang ini ialah $avg. Anda sudah $you, melebihi purata!';
+  }
+
+  @override
+  String obEthNear(String avg, String you) {
+    return 'Purata tinggi orang dewasa daripada latar belakang ini ialah $avg. Dengan $you, anda tepat pada purata, dan matlamatnya ialah melepasinya.';
+  }
+
+  @override
+  String obEthBelowYoung(String avg, String you) {
+    return 'Purata tinggi orang dewasa daripada latar belakang ini ialah $avg. Anda $you dan masih dalam usia membesar, jadi masih ada masa untuk melepasinya.';
+  }
+
+  @override
+  String obEthBelowAdult(String avg, String you) {
+    return 'Purata tinggi orang dewasa daripada latar belakang ini ialah $avg. Anda $you, dan postur boleh merapatkan sebahagian jurang itu.';
+  }
+
+  @override
+  String get obMealsUnknown => 'Saya tidak pasti waktunya';
+
+  @override
+  String get obMealsUnknownReply =>
+      'Tiada masalah, kami sudah bina pelan mengikut jam khas untuk anda.';
+
+  @override
+  String get obUnknownPlanned =>
+      'Tiada masalah, kami akan rancang ini untuk anda. Anda boleh ubah bila-bila masa.';
+
+  @override
+  String get obReplyWeCalc =>
+      'Jangan risau, kami memang sudah kira ini untuk anda.';
+
+  @override
+  String get obGoalDaysTitle =>
+      'Menjelang bila anda benar-benar mahu sudah bertambah tinggi?';
+
+  @override
+  String get obGoalDaysSub => 'Mari tetapkan tempoh untuk matlamat anda.';
+
+  @override
+  String obGoalDaysN(int n) {
+    return '$n hari';
+  }
+
+  @override
+  String get obGoalYear => 'Dalam masa 1 tahun';
+
+  @override
+  String get obGoalOpen => 'Setinggi yang saya mampu';
+
+  @override
+  String get obReplyGoal90 =>
+      '90 hari ialah tempoh yang baik untuk postur dan tabiat menjadi mantap. Anda akan nampak perubahan pertama pada cara anda berdiri.';
+
+  @override
+  String get obReplyGoal120 =>
+      'Dalam 120 hari, tabiat sudah terbentuk. Kami akan jejak ukuran anda bersama sepanjang tempoh itu.';
+
+  @override
+  String get obReplyGoal180 =>
+      'Enam bulan ialah tempoh yang realistik untuk melihat pertumbuhan pada pita ukur.';
+
+  @override
+  String get obReplyGoal365 =>
+      'Setahun ialah pelan yang paling kukuh. Membesar perlukan kesabaran, dan kami bersama anda setiap hari.';
+
+  @override
+  String get obReplyGoalOpen =>
+      'Itulah cara pandang yang betul. Sejauh yang badan anda izinkan, dan kami bersama anda setiap hari.';
+
+  @override
+  String get tv4TrackTitle => 'Air dan tidur dengan satu ketikan';
+
+  @override
+  String get tv4TrackDesc =>
+      'Sasaran harian anda dikira daripada umur dan berat badan anda. Tandakan satu demi satu sepanjang hari.';
+
+  @override
+  String get tv4PhotosTitle => 'Foto sebelum dan selepas';
+
+  @override
+  String get tv4PhotosDesc =>
+      'Ambil pose yang sama, kemudian letakkan minggu demi minggu sebelah-menyebelah.';
+
+  @override
+  String get tv4PostureTitle => 'Semakan postur dengan kamera';
+
+  @override
+  String get tv4PostureDesc =>
+      'Ia memberi skor pada cara anda berdiri dan memberitahu apa yang perlu dibetulkan.';
+
+  @override
+  String get tv4ReportTitle => 'Laporan mingguan anda';
+
+  @override
+  String get tv4ReportDesc =>
+      'Latihan, tidur dan pemakanan dalam satu halaman, setiap minggu.';
+
+  @override
+  String get tv4BreakdownTitle => 'Apa yang menaikkan skor anda';
+
+  @override
+  String get tv4BreakdownDesc =>
+      'Ia menunjukkan bahagian setiap faktor dan langkah anda yang seterusnya.';
+
+  @override
+  String get reminderProTitle => 'Peringatan disertakan dengan Pro';
+
+  @override
+  String get reminderProDesc =>
+      'Kami akan ingatkan anda pada waktu latihan, makan dan tidur.';
+
+  @override
+  String get nFw1Title => 'Hari kedua, gerakan baharu';
+
+  @override
+  String get nFw1Body =>
+      'Latihan hari ini berbeza daripada semalam. Hanya beberapa minit sahaja.';
+
+  @override
+  String get nFw2Title => 'Pingat rentetan pertama anda sudah dekat';
+
+  @override
+  String get nFw2Body =>
+      'Selesaikan tiga hari berturut-turut dan pingat rentetan 3 hari akan dibuka.';
+
+  @override
+  String get nFw3Title => 'Hari mengukur';
+
+  @override
+  String get nFw3Body =>
+      'Ukur ketinggian anda dan simpan. Carta anda dapat titik baharu hari ini.';
+
+  @override
+  String get nFw4Title => 'Mari lihat postur anda';
+
+  @override
+  String get nFw4Body =>
+      'Semakan postur dengan kamera ambil masa seminit. Lihat skor anda.';
+
+  @override
+  String get nFw5Title => 'Ambil gambar pertama anda';
+
+  @override
+  String get nFw5Body =>
+      'Ambil satu gambar hari ini. Beberapa minggu lagi anda akan letak gambar itu sebelah-menyebelah.';
+
+  @override
+  String get nFw6Title => 'Minggu pertama anda tamat esok';
+
+  @override
+  String get nFw6Body =>
+      'Selesaikan hari ini, dan laporan mingguan anda siap esok.';
+
+  @override
+  String get nFw7Title => 'Minggu pertama anda selesai';
+
+  @override
+  String get nFw7Body =>
+      'Laporan mingguan anda sudah siap. Ukur ketinggian anda sekali lagi juga.';
+
+  @override
+  String nPmFirstTitle(String name) {
+    return '$name, masa untuk hidangan pertama anda.';
+  }
+
+  @override
+  String get nPmFirstTitleNoName => 'Masa untuk hidangan pertama anda.';
+
+  @override
+  String get nPmFirstBody =>
+      'Hidangan khas anda sudah sedia. Jika tidak mahu, makro dan nutrien yang anda perlukan juga sudah sedia. Jangan sesekali langkau hidangan pertama.';
+
+  @override
+  String nPmMealTitle(String name, int n) {
+    return '$name, sudah tiba masa untuk hidangan ke-$n.';
+  }
+
+  @override
+  String nPmMealTitleNoName(int n) {
+    return 'Sudah tiba masa untuk hidangan ke-$n.';
+  }
+
+  @override
+  String nPmMealBody(int protein, int calcium) {
+    return '$protein g protein dan $calcium mg kalsium. Jangan sesekali langkau hidangan ini.';
+  }
+
+  @override
+  String get nPmWaterTitle => 'Cukupkah air yang anda minum?';
+
+  @override
+  String nPmWaterBody(String name, String liters) {
+    return '$name, ingat untuk minum air sepanjang hari. Sasaran harian anda ialah $liters.';
+  }
+
+  @override
+  String nPmWaterBodyNoName(String liters) {
+    return 'Ingat untuk minum air sepanjang hari. Sasaran harian anda ialah $liters.';
+  }
+
+  @override
+  String get nPmTrainTitle => 'Masa senaman anda 30 minit lagi!';
+
+  @override
+  String nPmTrainBody(int count, int minutes) {
+    return 'Program khas anda sedang menunggu. Hari ini: $count senaman, kira-kira $minutes minit.';
+  }
+
+  @override
+  String get nPmHabitTitle =>
+      'Anda boleh lompat tali dan regangkan badan sedikit pada siang hari';
+
+  @override
+  String nPmHabitBody(String name) {
+    return '$name, jangan lupa tabiat kecil ini.';
+  }
+
+  @override
+  String get nPmHabitBodyNoName => 'Jangan lupa tabiat kecil ini.';
+
+  @override
+  String nPmSleepTitle(String name) {
+    return '$name, waktu tidur anda semakin hampir.';
+  }
+
+  @override
+  String get nPmSleepTitleNoName => 'Waktu tidur anda semakin hampir.';
+
+  @override
+  String get pwMoreFeatures => 'Dan banyak lagi ciri lain.';
+
+  @override
+  String get libTitle => 'Pustaka senaman';
+
+  @override
+  String libCount(int count) {
+    return '$count senaman';
+  }
+
+  @override
+  String get libJump => 'Lompat';
+
+  @override
+  String get libHang => 'Bergayut';
+
+  @override
+  String get libStretch => 'Regangan';
+
+  @override
+  String get libStrength => 'Kekuatan';
+
+  @override
+  String get libPosture => 'Postur';
+
+  @override
+  String get libWeights => 'Beban';
+
+  @override
+  String get libWeightsNote =>
+      'Senaman ini perlukan dumbel atau jalur rintangan. Pilih berat yang anda boleh habiskan setiap ulangan dengan teknik yang betul.';
+
+  @override
+  String get plFoodTurkey => 'Dada ayam belanda';
+
+  @override
+  String get plFoodCod => 'Ikan kod';
+
+  @override
+  String get plFoodBeans => 'Kacang merah';
+
+  @override
+  String get plFoodQuinoa => 'Kuinoa';
+
+  @override
+  String get plFoodSweetPotato => 'Keledek';
+
+  @override
+  String get plFoodApple => 'Epal';
+
+  @override
+  String get plFoodBerries => 'Strawberi';
+
+  @override
+  String get plFoodMozzarella => 'Mozzarella';
+
+  @override
+  String get plFoodHummus => 'Hummus';
+
+  @override
+  String get plFoodGreenBeans => 'Kacang buncis';
+
+  @override
+  String get mgTitle => 'Masa untuk mengukur';
+
+  @override
+  String mgBody(int days) {
+    return 'Sudah $days hari sejak ukuran terakhir anda. Ukur ketinggian anda sebelum teruskan.';
+  }
+
+  @override
+  String get mgTip1 => 'Tanpa kasut, tumit rapat ke dinding.';
+
+  @override
+  String get mgTip2 =>
+      'Pandang terus ke depan dan letak buku rata di atas kepala.';
+
+  @override
+  String get mgTip3 =>
+      'Ukur pada waktu pagi. Ketinggian berkurang sedikit sepanjang hari.';
+
+  @override
+  String get mgLater => 'Hari ini tidak dapat mengukur';
+
+  @override
+  String get paTitle => 'Jawapan pelan anda';
+
+  @override
+  String get paSubtitle =>
+      'Pelan dan peringatan anda mengikut jawapan ini. Tukar satu dan ia dikemas kini.';
+
+  @override
+  String get paRowSubtitle => 'Hari latihan, matlamat dan masa';
+
+  @override
+  String get paWorkout => 'Latihan mingguan';
+
+  @override
+  String get paGoal => 'Tempoh program';
+
+  @override
+  String get paBedtime => 'Waktu tidur';
+
+  @override
+  String get paWorkoutTime => 'Masa latihan';
+
+  @override
+  String get restoreDone => 'Pembelian anda telah dipulihkan.';
 }

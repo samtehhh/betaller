@@ -961,7 +961,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get tipBarHanging =>
-      'Att hänga i en stång avlastar ryggraden. Testa 3 x 30 sekunder om dagen.';
+      'Att hänga i en stång stretchar axlar och rygg. Prova 3x30 sekunder dagligen.';
 
   @override
   String get tipSwimming =>
@@ -983,7 +983,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get routineBarHangingDesc =>
-      'Häng i en chinsstång för att sträcka ut ryggraden. 3 set x 30 sekunder.';
+      'Häng i en chinsstång för att stretcha axlar och rygg. 3 set x 30 sekunder.';
 
   @override
   String get routineCobraStretch => 'Kobrastretch';
@@ -997,14 +997,14 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get routineJumpingDesc =>
-      'Hopprep eller knäböjshopp. Stimulerar tillväxtzonerna. 3 set x 20 reps.';
+      'Hopprep eller squat jumps. Hjälper till att stärka skelettet. 3 set x 20 repetitioner.';
 
   @override
   String get routineSwimming => 'Simning eller basket';
 
   @override
   String get routineSwimmingDesc =>
-      'Utöva en sport som stödjer tillväxten. Minst 30 minuter.';
+      'Utöva en sport du gillar för kondition och styrka. Minst 30 minuter.';
 
   @override
   String get routineYoga => 'Kvällsyoga & stretch';
@@ -1074,42 +1074,42 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get routineSprintIntervalsDesc =>
-      'Sprintintervaller ger en tydlig frisättning av tillväxthormon genom korta, intensiva ruscher.';
+      'Korta sprinter med återhämtningsgång förbättrar kondition och benstyrka.';
 
   @override
   String get routineHiitWorkout => 'HIIT-pass';
 
   @override
   String get routineHiitWorkoutDesc =>
-      'Högintensiv intervallträning för att maximera frisättningen av tillväxthormon.';
+      'Högintensiv intervallträning förbättrar kondition och styrka.';
 
   @override
   String get routineSquats => 'Knäböj utan vikter';
 
   @override
   String get routineSquatsDesc =>
-      'Knäböj med kroppsvikten stimulerar tillväxtzonerna i ben och ryggrad.';
+      'Knäböj med kroppsvikt stärker benen och musklerna som stöder hållningen.';
 
   @override
   String get routineDeadliftStretch => 'Marklyftsstretch';
 
   @override
   String get routineDeadliftStretchDesc =>
-      'Marklyftsstretch för att avlasta ryggraden och hålla diskarna friska.';
+      'Marklyftsstretch för smidiga baksidor och en starkare rygg.';
 
   @override
   String get routineOverheadPress => 'Axelpress';
 
   @override
   String get routineOverheadPressDesc =>
-      'Press över huvudet sträcker ryggraden och stärker hållningsmusklerna.';
+      'Axelpress stärker axlarna och hållningsmusklerna.';
 
   @override
   String get routineSkippingRope => 'Hopprep';
 
   @override
   String get routineSkippingRopeDesc =>
-      'Upprepade hopp med hopprep stimulerar tillväxtzonerna i benen.';
+      'Upprepade hopp med hopprep belastar benens skelett och hjälper till att stärka det.';
 
   @override
   String get routinePilatesCore => 'Pilates core';
@@ -1123,7 +1123,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get routineInversionHangDesc =>
-      'Att hänga upp och ner avlastar diskarna och kan tillfälligt ge 1–2 cm.';
+      'Inversion kan slappna av ryggmusklerna. Eventuell längdförändring är tillfällig.';
 
   @override
   String get routineZincIntake => 'Zinkrik mat';
@@ -2397,10 +2397,10 @@ class AppLocalizationsSv extends AppLocalizations {
       'Utvalda recept som ger din tillväxt bränsle. Filtrera på måltid eller näringsmål för att hitta det som passar din plan.';
 
   @override
-  String get animHintSpinalDecomp => 'Avlastar ryggraden';
+  String get animHintSpinalDecomp => 'Axel- och ryggstretch';
 
   @override
-  String get animHintGravityReversal => 'Omvänd tyngdkraft';
+  String get animHintGravityReversal => 'Ryggavslappning';
 
   @override
   String get animHintImpactBones => 'Stötbelastning för skelettet';
@@ -2418,7 +2418,7 @@ class AppLocalizationsSv extends AppLocalizations {
   String get animHintSpinalExtension => 'Sträcker ryggraden';
 
   @override
-  String get animHintCervicalDecomp => 'Avlastar nacken';
+  String get animHintCervicalDecomp => 'Nackavslappning';
 
   @override
   String get animHintShoulderMobility => 'Axelrörlighet';
@@ -2463,13 +2463,13 @@ class AppLocalizationsSv extends AppLocalizations {
   String get animHintCoreStability => 'Bålstabilitet';
 
   @override
-  String get animHintLegPower => 'Benkraft & HGH-boost';
+  String get animHintLegPower => 'Benstyrka';
 
   @override
   String get animHintVerticalPower => 'Spänst';
 
   @override
-  String get animHintHghSurge => 'HGH-boostande träning';
+  String get animHintHghSurge => 'Högintensiv träning';
 
   @override
   String get animHintPeakHgh => 'Toppfönster för HGH';
@@ -2492,7 +2492,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get formBarHanging =>
-      'Greppa stången axelbrett, slappna av helt och låt tyngdkraften sträcka ryggraden. Undvik att svinga.';
+      'Greppa stången axelbrett, slappna av i kroppen och känn stretchen i axlar och rygg. Undvik att gunga.';
 
   @override
   String get formCobraStretch =>
@@ -2608,50 +2608,51 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get sciMorningStretch =>
-      'Morgonstretch avlastar diskarna som återfått vätska under natten och hjälper dig att behålla längden';
+      'Morgonstretch minskar stelhet efter natten och får igång musklerna';
 
   @override
   String get sciBarHanging =>
-      'Att hänga avlastar diskarna genom att låta tyngdkraften sträcka ryggraden, vilket kan ge tillfällig extra längd';
+      'Att hänga stretchar axlar och rygg och tränar greppstyrkan. Eventuell längdförändring är tillfällig';
 
   @override
   String get sciCobraStretch =>
-      'Kobrastretch sträcker ryggraden och öppnar bröstet, vilket motverkar kompressionen från sittande';
+      'Kobran öppnar bröstet och minskar stelhet efter långt sittande';
 
   @override
   String get sciJumping =>
-      'Hopp med hög belastning stimulerar tillväxtzonerna i benen och frisätter tillväxthormon';
+      'Hopp med hög belastning belastar skelettet och hjälper till att stärka det under tonåren';
 
   @override
   String get sciSwimmingBasketball =>
-      'Simning och basket innebär stretch, hopp och sträckningar för hela kroppen som stimulerar tillväxtzonerna';
+      'Simning och basket ger kondition, koordination och styrka, och hoppen i basket hjälper till att stärka skelettet';
 
   @override
   String get sciEveningYoga =>
-      'Kvällsyoga sänker kortisolet som hämmar tillväxthormonet och stretchar musklerna inför nattens återhämtning';
+      'Kvällsyoga hjälper dig att varva ner och slappnar av musklerna före sömnen';
 
   @override
   String get sciSprintIntervals =>
-      'Sprintlöpning ger en tydlig frisättning av tillväxthormon';
+      'Korta sprinter med återhämtningsgång förbättrar kondition och benstyrka';
 
   @override
   String get sciHiitWorkout =>
-      'Högintensiv träning kan öka HGH med upp till 450 %';
+      'Högintensiv intervallträning förbättrar kondition och styrka';
 
   @override
-  String get sciSquats => 'Knäböj stimulerar tillväxtzonerna i ben och ryggrad';
+  String get sciSquats =>
+      'Knäböj med kroppsvikt stärker benen och musklerna som stöder hållningen';
 
   @override
   String get sciDeadliftStretch =>
-      'Avlastning av ryggraden främjar friska diskar';
+      'Marklyftsstretch för smidiga baksidor och en starkare rygg';
 
   @override
   String get sciOverheadPress =>
-      'Press över huvudet sträcker ryggraden och stärker hållningsmusklerna';
+      'Axelpress stärker axlarna och hållningsmusklerna';
 
   @override
   String get sciSkippingRope =>
-      'Upprepade hopp stimulerar tillväxtzonerna i benen';
+      'Upprepade hopp med hopprep belastar benens skelett och hjälper till att stärka det';
 
   @override
   String get sciPilatesCore =>
@@ -2659,7 +2660,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get sciInversionHang =>
-      'Att hänga upp och ner avlastar diskarna och kan tillfälligt ge 1–2 cm';
+      'Inversion kan slappna av ryggmusklerna. Eventuell längdförändring är tillfällig';
 
   @override
   String get sciProtein =>
@@ -3263,7 +3264,7 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get notifJumpBody =>
-      'Hoppövningar stimulerar tillväxtzonerna. Testa 3 x 20 reps!';
+      'Hopp hjälper till att stärka skelettet. Prova 3 x 20 repetitioner!';
 
   @override
   String get notifCalciumTitle => '🥛 Dags för kalcium!';
@@ -6581,4 +6582,722 @@ class AppLocalizationsSv extends AppLocalizations {
   String obBudgetTrial(String days) {
     return 'Eller testa gratis i $days dagar först.';
   }
+
+  @override
+  String get obNameTitle => 'Vad ska vi kalla dig?';
+
+  @override
+  String get obNameSubtitle =>
+      'Valfritt. Din plan och dina påminnelser använder det.';
+
+  @override
+  String get obNameHint => 'Ditt namn';
+
+  @override
+  String get nWb1Title => 'Du hoppade över igår';
+
+  @override
+  String nWb1Body(String height) {
+    return 'Din plan för $height ligger kvar. 10 minuter fixar det.';
+  }
+
+  @override
+  String get nWb2Title => 'Har du gett upp din längd?';
+
+  @override
+  String get nWb2Body => 'Din plan säger att du inte är klar än.';
+
+  @override
+  String nWb3Title(String gain) {
+    return 'Vad händer med dina $gain?';
+  }
+
+  @override
+  String get nWb3Body => 'Det är den delen av prognosen som dina vanor styr.';
+
+  @override
+  String nWb5Title(String name) {
+    return '$name, din kurva har planat ut';
+  }
+
+  @override
+  String get nWb5TitleNoName => 'Din kurva har planat ut';
+
+  @override
+  String get nWb5Body => 'Ingen ny mätning på 5 dagar. Var ligger du nu?';
+
+  @override
+  String get nWb7Title => 'En vecka borta';
+
+  @override
+  String get nWb7Body =>
+      'Dina kompisar slutade inte växa den här veckan. Gjorde du?';
+
+  @override
+  String get nWb10Title => 'Din prognos kan ha ändrats';
+
+  @override
+  String get nWb10Body => 'Mät en gång och se den nya siffran.';
+
+  @override
+  String nWb14Title(String height) {
+    return 'Fortfarande $height?';
+  }
+
+  @override
+  String get nWb14Body =>
+      'Två veckor sedan din senaste mätning. Mät och ta reda på det.';
+
+  @override
+  String get nWb21Title => 'Vill du fortfarande ha din plan?';
+
+  @override
+  String get nWb21Body => 'Den är sparad. Ett tryck så är du igång.';
+
+  @override
+  String nWb30Title(String name) {
+    return 'Sista meddelandet, $name';
+  }
+
+  @override
+  String get nWb30TitleNoName => 'Sista meddelandet';
+
+  @override
+  String get nWb30Body => 'Din data finns kvar. Kom tillbaka när du vill.';
+
+  @override
+  String nTrainHookTitle(int minutes) {
+    return '$minutes minuter mellan dig och dagens plan';
+  }
+
+  @override
+  String get nWaterHookTitle => 'Har du druckit vatten än?';
+
+  @override
+  String nWaterHookBody(String liters) {
+    return '$liters idag. Ett glas nu.';
+  }
+
+  @override
+  String nProteinHookTitle(int grams) {
+    return '$grams g protein idag. Har du börjat?';
+  }
+
+  @override
+  String nSleepHookTitle(String name) {
+    return 'Lägg bort mobilen, $name';
+  }
+
+  @override
+  String get nSleepHookTitleNoName => 'Lägg bort mobilen';
+
+  @override
+  String get nMeasureHookTitle => 'Har du vuxit den här veckan?';
+
+  @override
+  String get nMeasureHookBody => 'Mät på morgonen och ta reda på det.';
+
+  @override
+  String nStreakHookTitle(int streak) {
+    return 'Din svit på $streak dagar dör ikväll';
+  }
+
+  @override
+  String get nStreakHookBody => 'En rutin räddar den.';
+
+  @override
+  String get nPostureHookTitle => 'Kolla ryggen nu direkt';
+
+  @override
+  String get nPostureHookBody => 'Axlarna bakåt, hakan rak.';
+
+  @override
+  String hkReturn(int days) {
+    return 'Du var borta i $days dagar. Vi kollar vad som har ändrats.';
+  }
+
+  @override
+  String hkHabits(String gain) {
+    return '$gain av din prognos beror på dina vanor';
+  }
+
+  @override
+  String hkStreakDay(int day) {
+    return 'Dag $day. Nu blir din svit svårare att bryta.';
+  }
+
+  @override
+  String get hkPredictionUpdated =>
+      'Din prognos uppdaterades nyss. Tryck för att se den.';
+
+  @override
+  String get hkMeasureDue => 'Ditt diagram väntar på veckans siffra';
+
+  @override
+  String get hkLeaveTitle => 'Din plan är klar. Lämnar du den oöppnad?';
+
+  @override
+  String get hkLeaveOpen => 'Visa min plan';
+
+  @override
+  String get rsLockedSubtitle =>
+      'Vi har räknat ut hur lång du kan bli. Din siffra är låst här nedanför.';
+
+  @override
+  String get rsUnlock => 'Lås upp mitt resultat';
+
+  @override
+  String get rsPaywallHeadline => 'Din siffra är klar. Ska vi öppna?';
+
+  @override
+  String get rsLockedChart => 'Se vart du är på väg';
+
+  @override
+  String get rsLineHeight => 'Din längd som vuxen';
+
+  @override
+  String get rsLineGrowth => 'Hur mycket du har kvar att växa';
+
+  @override
+  String get rsLineRank => 'Din plats bland jämnåriga';
+
+  @override
+  String get rsProgressTitle => 'Dina set och framsteg';
+
+  @override
+  String get rsStageStart => 'Start';
+
+  @override
+  String get rsStageNow => 'Starkare';
+
+  @override
+  String get rsStagePeak => 'Full styrka';
+
+  @override
+  String get rsLevelLine => 'Set, framsteg och styrka';
+
+  @override
+  String get pwBuyWeekly => 'Starta veckoplan';
+
+  @override
+  String get pwBuyMonthly => 'Starta månadsplan';
+
+  @override
+  String get pwBuyLifetime => 'Köp livstidsåtkomst';
+
+  @override
+  String get obGenderSub => 'Killar och tjejer växer enligt olika kurvor.';
+
+  @override
+  String get obBirthSub =>
+      'Månad och år räcker. Då ser vi var du är i dina växtår.';
+
+  @override
+  String obAgeLine(int age) {
+    return 'Du är $age år';
+  }
+
+  @override
+  String get obAgeReplyGrowing =>
+      'Du är i dina växtår. Det är verkligen nu vi jobbar på din längd tillsammans!';
+
+  @override
+  String get obAgeReplyLate =>
+      'I den här åldern saktar växten in, men den slutar inte samtidigt för alla. Vi räknar ut din om en stund.';
+
+  @override
+  String get obAgeReplyAdult =>
+      'I den här åldern blir skelettet sällan längre. Din plan bygger på hållningen, där centimetrarna du tappar på att kuta kommer tillbaka.';
+
+  @override
+  String get obHwSub => 'Uppskattningen utgår från din längd i dag.';
+
+  @override
+  String get obFootSub =>
+      'Fötterna växer före resten av kroppen, så din storlek säger något om var du är.';
+
+  @override
+  String obFootLength(String length) {
+    return 'Ungefär $length';
+  }
+
+  @override
+  String get obWorkoutSub =>
+      'Utifrån det sätter vi dina protein- och kalorimål.';
+
+  @override
+  String obNameNotif(String name) {
+    return '$name, dagens plan är klar';
+  }
+
+  @override
+  String get obNameNotifAnon => 'Dagens plan är klar';
+
+  @override
+  String get obNameNotifBody => 'Några övningar, ungefär 15 minuter.';
+
+  @override
+  String get obNamePreviewLabel => 'Så här ser dina påminnelser ut';
+
+  @override
+  String get obReplyTriedStopped =>
+      'Då kan vi lova att du inte kommer att släppa BeTaller!';
+
+  @override
+  String get obReplyTriedStill =>
+      'Då märker du snart skillnaden. Utöver siffran ger BeTaller dig en plan att bocka av varje dag.';
+
+  @override
+  String get obReplyTriedFirst =>
+      'Då säger vi varmt välkommen! Du har gjort ett av de bästa valen på vägen mot att bli längre.';
+
+  @override
+  String get obReplyWhyConfidence =>
+      'Den som står rakt ser längre och mer avslappnad ut. Hållningen är det första din plan jobbar med.';
+
+  @override
+  String get obReplyWhyImpression =>
+      'Mycket av ett första intryck är hur du står. Det börjar vi med redan vecka ett.';
+
+  @override
+  String get obReplyWhySports =>
+      'Stretching och hängövningar hjälper på planen också. Din plan har båda.';
+
+  @override
+  String get obReplyWhyClothes =>
+      'Samma kläder sitter annorlunda på en rak rygg. Det fixar vi först.';
+
+  @override
+  String get obReplyWhyPhotos =>
+      'På bild är det hållningen som ändrar din längd mest. I appen kan du också jämföra före- och efterbilder.';
+
+  @override
+  String get obReplyWhyPotential =>
+      'Okej. Några frågor till, sedan räknar vi ut din potential.';
+
+  @override
+  String get obReplyWorkoutLow =>
+      'Inga problem. Din plan börjar med korta pass, de flesta runt 15 minuter.';
+
+  @override
+  String get obReplyWorkoutMid =>
+      'Bra tempo. I den takten får planen lätt plats.';
+
+  @override
+  String get obReplyWorkoutHigh =>
+      'Du tränar mycket. Vi höjer ditt proteinmål därefter.';
+
+  @override
+  String get obReplyFirstWardrobe =>
+      'Du kan börja fundera på din nya byxlängd redan nu.';
+
+  @override
+  String get obReplyFirstMuscle =>
+      'Övningarna i din plan lägger grunden för det också.';
+
+  @override
+  String get obReplyFirstPhotos =>
+      'Ta en bild dag ett. Senare kommer du att gilla att lägga dem sida vid sida.';
+
+  @override
+  String get obReplyFirstTeam =>
+      'Vi ställer in dina påminnelser så att du håller i ända fram till uttagningen.';
+
+  @override
+  String get obReplyFirstFeelGood => 'Bättre skäl än så finns inte.';
+
+  @override
+  String get obDayTitle => 'Så här ser en dag med BeTaller ut';
+
+  @override
+  String get obDayBody =>
+      'Byggd på det du har berättat hittills. Du bockar av allt eftersom.';
+
+  @override
+  String obDayProtein(int grams) {
+    return '$grams g protein';
+  }
+
+  @override
+  String get obDayProteinSub => 'Din första måltid är klar';
+
+  @override
+  String obDaySleep(String time) {
+    return 'Din sömnpåminnelse kl. $time';
+  }
+
+  @override
+  String get obDaySleepSub => 'Påminnelsen som håller ditt äventyr igång';
+
+  @override
+  String get obParentsSub =>
+      'Det mesta av din längd kommer från dina föräldrar. De här två talen är grunden för uppskattningen.';
+
+  @override
+  String get obSleepSub =>
+      'Det mesta tillväxthormonet frisätts under djupsömnen.';
+
+  @override
+  String obDreamDelta(String delta) {
+    return '$delta över din längd i dag';
+  }
+
+  @override
+  String get obEthnicitySubAll =>
+      'Vuxnas medellängd skiljer sig några centimeter mellan olika bakgrunder.';
+
+  @override
+  String obEthReplyHigh(String avg) {
+    return 'Vuxna med den här bakgrunden är i snitt $avg, över världssnittet. Din potential är mycket hög!';
+  }
+
+  @override
+  String obEthReplyMid(String avg) {
+    return 'Vuxna med den här bakgrunden är i snitt ungefär $avg. Din potential är hög, och med bra vanor kan du gå förbi snittet.';
+  }
+
+  @override
+  String obEthReplyRising(String avg) {
+    return 'Vuxna med den här bakgrunden är i snitt ungefär $avg, och siffran har stigit snabbt de senaste generationerna. Din potential kan vara högre än du tror.';
+  }
+
+  @override
+  String get obEthReplyNoAnswer =>
+      'Inga problem. Vi räknar utifrån dina föräldrar och dina egna mått.';
+
+  @override
+  String obEthAbove(String avg, String you) {
+    return 'Vuxna med den här bakgrunden är i snitt $avg. Du är redan $you, över snittet!';
+  }
+
+  @override
+  String obEthNear(String avg, String you) {
+    return 'Vuxna med den här bakgrunden är i snitt $avg. Med $you ligger du precis på snittet, och målet är att komma över det.';
+  }
+
+  @override
+  String obEthBelowYoung(String avg, String you) {
+    return 'Vuxna med den här bakgrunden är i snitt $avg. Du är $you och växer fortfarande, så du har tid att gå om snittet.';
+  }
+
+  @override
+  String obEthBelowAdult(String avg, String you) {
+    return 'Vuxna med den här bakgrunden är i snitt $avg. Du är $you, och hållningen kan ta igen en del av skillnaden.';
+  }
+
+  @override
+  String get obMealsUnknown => 'Jag är inte säker på tiderna';
+
+  @override
+  String get obMealsUnknownReply =>
+      'Inga problem, vi har gjort en timplan just för dig.';
+
+  @override
+  String get obUnknownPlanned =>
+      'Inga problem, vi planerar det åt dig. Du kan ändra det när du vill.';
+
+  @override
+  String get obReplyWeCalc => 'Ingen fara, det räknar vi redan ut åt dig.';
+
+  @override
+  String get obGoalDaysTitle => 'Till när vill du verkligen ha vuxit?';
+
+  @override
+  String get obGoalDaysSub => 'Vi sätter ett datum på ditt mål.';
+
+  @override
+  String obGoalDaysN(int n) {
+    return '$n dagar';
+  }
+
+  @override
+  String get obGoalYear => 'Inom 1 år';
+
+  @override
+  String get obGoalOpen => 'Så mycket jag kan växa';
+
+  @override
+  String get obReplyGoal90 =>
+      '90 dagar är en bra period för att hållning och vanor ska sätta sig. Den första förändringen ser du i hur du står.';
+
+  @override
+  String get obReplyGoal120 =>
+      'På 120 dagar sitter vanorna. Vi följer dina mätningar tillsammans hela vägen.';
+
+  @override
+  String get obReplyGoal180 =>
+      'Sex månader är en realistisk tid för att se tillväxt på måttbandet.';
+
+  @override
+  String get obReplyGoal365 =>
+      'Ett år är den stadigaste planen. Att växa kräver tålamod, och vi finns med dig varje dag.';
+
+  @override
+  String get obReplyGoalOpen =>
+      'Det är rätt sätt att se det. Så långt kroppen tillåter, och vi finns med dig varje dag.';
+
+  @override
+  String get tv4TrackTitle => 'Vatten och sömn med ett tryck';
+
+  @override
+  String get tv4TrackDesc =>
+      'Dina dagliga mål utgår från din ålder och vikt. Bocka av dem efter hand.';
+
+  @override
+  String get tv4PhotosTitle => 'Före- och efterbilder';
+
+  @override
+  String get tv4PhotosDesc =>
+      'Ta samma pose och lägg sedan veckorna sida vid sida.';
+
+  @override
+  String get tv4PostureTitle => 'Hållningskoll med kameran';
+
+  @override
+  String get tv4PostureDesc =>
+      'Den poängsätter hur du står och säger vad du kan rätta till.';
+
+  @override
+  String get tv4ReportTitle => 'Din veckorapport';
+
+  @override
+  String get tv4ReportDesc => 'Träning, sömn och kost på en sida, varje vecka.';
+
+  @override
+  String get tv4BreakdownTitle => 'Det som höjer din poäng';
+
+  @override
+  String get tv4BreakdownDesc =>
+      'Den visar varje faktors andel och ditt nästa steg.';
+
+  @override
+  String get reminderProTitle => 'Påminnelser ingår i Pro';
+
+  @override
+  String get reminderProDesc =>
+      'Vi påminner dig när det är dags för träning, måltid och sömn.';
+
+  @override
+  String get nFw1Title => 'Dag två, nya övningar';
+
+  @override
+  String get nFw1Body =>
+      'Dagens pass är annorlunda än gårdagens. Det tar bara några minuter.';
+
+  @override
+  String get nFw2Title => 'Din första medalj för dagar i rad är nära';
+
+  @override
+  String get nFw2Body =>
+      'Klara tre dagar i rad så låses medaljen för 3 dagar i rad upp.';
+
+  @override
+  String get nFw3Title => 'Mätdag';
+
+  @override
+  String get nFw3Body =>
+      'Mät din längd och spara den. Ditt diagram får sin nästa punkt i dag.';
+
+  @override
+  String get nFw4Title => 'Vi kollar din hållning';
+
+  @override
+  String get nFw4Body =>
+      'Hållningskollen med kameran tar en minut. Se din poäng.';
+
+  @override
+  String get nFw5Title => 'Ta din första bild';
+
+  @override
+  String get nFw5Body =>
+      'Ta en bild i dag. Om några veckor lägger du dem sida vid sida.';
+
+  @override
+  String get nFw6Title => 'Din första vecka är slut i morgon';
+
+  @override
+  String get nFw6Body => 'Klara av i dag så är din veckorapport klar i morgon.';
+
+  @override
+  String get nFw7Title => 'Din första vecka är klar';
+
+  @override
+  String get nFw7Body =>
+      'Din veckorapport är klar. Mät din längd en gång till också.';
+
+  @override
+  String nPmFirstTitle(String name) {
+    return '$name, dags för din första måltid.';
+  }
+
+  @override
+  String get nPmFirstTitleNoName => 'Dags för din första måltid.';
+
+  @override
+  String get nPmFirstBody =>
+      'Din egen måltid är klar. Vill du hellre inte ha den är dina makron och de näringsämnen du behöver också klara. Hoppa absolut inte över första måltiden.';
+
+  @override
+  String nPmMealTitle(String name, int n) {
+    return '$name, det är dags för måltid $n.';
+  }
+
+  @override
+  String nPmMealTitleNoName(int n) {
+    return 'Det är dags för måltid $n.';
+  }
+
+  @override
+  String nPmMealBody(int protein, int calcium) {
+    return '$protein g protein och $calcium mg kalcium. Hoppa absolut inte över den här måltiden.';
+  }
+
+  @override
+  String get nPmWaterTitle => 'Dricker du tillräckligt med vatten?';
+
+  @override
+  String nPmWaterBody(String name, String liters) {
+    return '$name, kom ihåg att dricka vatten under dagen. Ditt dagliga mål är $liters.';
+  }
+
+  @override
+  String nPmWaterBodyNoName(String liters) {
+    return 'Kom ihåg att dricka vatten under dagen. Ditt dagliga mål är $liters.';
+  }
+
+  @override
+  String get nPmTrainTitle => 'Om 30 minuter är det dags för ditt pass!';
+
+  @override
+  String nPmTrainBody(int count, int minutes) {
+    return 'Ditt eget program väntar. Idag: $count övningar, ungefär $minutes minuter.';
+  }
+
+  @override
+  String get nPmHabitTitle =>
+      'Under dagen kan du hoppa lite hopprep och stretcha';
+
+  @override
+  String nPmHabitBody(String name) {
+    return '$name, glöm inte de här små vanorna.';
+  }
+
+  @override
+  String get nPmHabitBodyNoName => 'Glöm inte de här små vanorna.';
+
+  @override
+  String nPmSleepTitle(String name) {
+    return '$name, det är snart läggdags.';
+  }
+
+  @override
+  String get nPmSleepTitleNoName => 'Det är snart läggdags.';
+
+  @override
+  String get pwMoreFeatures => 'Och många fler funktioner.';
+
+  @override
+  String get libTitle => 'Övningsbibliotek';
+
+  @override
+  String libCount(int count) {
+    return '$count övningar';
+  }
+
+  @override
+  String get libJump => 'Hopp';
+
+  @override
+  String get libHang => 'Hängning';
+
+  @override
+  String get libStretch => 'Stretch';
+
+  @override
+  String get libStrength => 'Styrka';
+
+  @override
+  String get libPosture => 'Hållning';
+
+  @override
+  String get libWeights => 'Vikter';
+
+  @override
+  String get libWeightsNote =>
+      'De här kräver hantlar eller ett gummiband. Välj en vikt som du klarar varje repetition med, med bra teknik.';
+
+  @override
+  String get plFoodTurkey => 'Kalkonbröst';
+
+  @override
+  String get plFoodCod => 'Torsk';
+
+  @override
+  String get plFoodBeans => 'Kidneybönor';
+
+  @override
+  String get plFoodQuinoa => 'Quinoa';
+
+  @override
+  String get plFoodSweetPotato => 'Sötpotatis';
+
+  @override
+  String get plFoodApple => 'Äpple';
+
+  @override
+  String get plFoodBerries => 'Jordgubbar';
+
+  @override
+  String get plFoodMozzarella => 'Mozzarella';
+
+  @override
+  String get plFoodHummus => 'Hummus';
+
+  @override
+  String get plFoodGreenBeans => 'Haricots verts';
+
+  @override
+  String get mgTitle => 'Dags att mäta';
+
+  @override
+  String mgBody(int days) {
+    return 'Det har gått $days dagar sedan din senaste mätning. Mät din längd innan du går vidare.';
+  }
+
+  @override
+  String get mgTip1 => 'Utan skor, hälarna mot väggen.';
+
+  @override
+  String get mgTip2 => 'Titta rakt fram och lägg en platt bok på huvudet.';
+
+  @override
+  String get mgTip3 => 'Mät på morgonen. Längden minskar lite under dagen.';
+
+  @override
+  String get mgLater => 'Jag kan inte mäta i dag';
+
+  @override
+  String get paTitle => 'Dina plansvar';
+
+  @override
+  String get paSubtitle =>
+      'Din plan och dina påminnelser följer de här svaren. Ändra ett så uppdateras de.';
+
+  @override
+  String get paRowSubtitle => 'Träningsdagar, mål och tider';
+
+  @override
+  String get paWorkout => 'Träning per vecka';
+
+  @override
+  String get paGoal => 'Programmets längd';
+
+  @override
+  String get paBedtime => 'Läggdags';
+
+  @override
+  String get paWorkoutTime => 'Träningstid';
+
+  @override
+  String get restoreDone => 'Ditt köp är återställt.';
 }

@@ -949,7 +949,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tipBarHanging =>
-      'Barfiks çubuğunda asılmak omurgayı açar. Günde 3x30 saniye dene.';
+      'Barfiks çubuğunda asılmak omuzlarını ve sırtını esnetir. Günde 3x30 saniye dene.';
 
   @override
   String get tipSwimming =>
@@ -971,7 +971,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get routineBarHangingDesc =>
-      'Barfiks çubuğunda asılarak omurganı uzat. 3 set x 30 saniye.';
+      'Omuzlarını ve sırtını esnetmek için barfiks çubuğuna asıl. 3 set x 30 saniye.';
 
   @override
   String get routineCobraStretch => 'Kobra Esneme';
@@ -985,14 +985,14 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get routineJumpingDesc =>
-      'İp atla ya da squat jump yap. Büyüme plaklarını uyarır. 3 set x 20 tekrar.';
+      'İp atla ya da squat jump yap. Kemiklerinin güçlenmesine yardım eder. 3 set x 20 tekrar.';
 
   @override
   String get routineSwimming => 'Yüzme veya Basketbol';
 
   @override
   String get routineSwimmingDesc =>
-      'Boy uzamayı destekleyen bir spor yap. En az 30 dakika.';
+      'Kondisyonunu ve gücünü artırmak için sevdiğin bir sporu yap. En az 30 dakika.';
 
   @override
   String get routineYoga => 'Akşam Yoga ve Esneme';
@@ -1062,42 +1062,42 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get routineSprintIntervalsDesc =>
-      'Sprint aralık antrenmanı, yüksek yoğunluklu patlamalarla önemli ölçüde büyüme hormonu salgılatır.';
+      'Kısa sprintler ve dinlenme yürüyüşleri kondisyonunu ve bacak gücünü artırır.';
 
   @override
   String get routineHiitWorkout => 'HIIT Antrenmanı';
 
   @override
   String get routineHiitWorkoutDesc =>
-      'Büyüme hormonu salgısını en üst düzeye çıkarmak için yüksek yoğunluklu aralıklı antrenman.';
+      'Yüksek yoğunluklu aralıklı antrenman kondisyonunu ve gücünü artırır.';
 
   @override
   String get routineSquats => 'Vücut Ağırlığı Squatları';
 
   @override
   String get routineSquatsDesc =>
-      'Vücut ağırlığı squatları bacaklardaki ve omurgadaki büyüme plaklarını uyarır.';
+      'Vücut ağırlığı squatları bacaklarını ve duruşu destekleyen kasları güçlendirir.';
 
   @override
   String get routineDeadliftStretch => 'Deadlift Esneme';
 
   @override
   String get routineDeadliftStretchDesc =>
-      'Omurga dekompresyonu ve vertebral disk sağlığı için deadlift esneme hareketi.';
+      'Esnek arka bacak kasları ve daha güçlü bir sırt için deadlift esneme hareketi.';
 
   @override
   String get routineOverheadPress => 'Baş Üstü Press';
 
   @override
   String get routineOverheadPressDesc =>
-      'Baş üstü press omurgayı esnetir ve duruş kaslarını güçlendirir.';
+      'Baş üstü itiş omuzlarını ve duruş kaslarını güçlendirir.';
 
   @override
   String get routineSkippingRope => 'İp Atlama';
 
   @override
   String get routineSkippingRopeDesc =>
-      'İp ile tekrarlayan zıplama, alt ekstremitelerdeki büyüme plaklarını uyarır.';
+      'İple tekrarlayan zıplama bacak kemiklerine yük bindirir ve onları güçlendirmeye yardım eder.';
 
   @override
   String get routinePilatesCore => 'Pilates Core';
@@ -1111,7 +1111,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get routineInversionHangDesc =>
-      'Ters asılma omurga disklerini dekomprese eder, geçici olarak 1-2 cm ekleyebilir.';
+      'Ters asılma sırt kaslarını gevşetebilir. Boydaki değişiklik geçicidir.';
 
   @override
   String get routineZincIntake => 'Çinko Açısından Zengin Gıdalar';
@@ -2382,10 +2382,10 @@ class AppLocalizationsTr extends AppLocalizations {
       'Büyümeni desteklemek için özenle seçilmiş tarifler. Öğün türüne veya besin hedefine göre filtreleyerek planına en uygun tarifi bul.';
 
   @override
-  String get animHintSpinalDecomp => 'Omurga dekompresyonu';
+  String get animHintSpinalDecomp => 'Omuz ve sırt esnetme';
 
   @override
-  String get animHintGravityReversal => 'Yerçekimi tersine çevirme';
+  String get animHintGravityReversal => 'Sırt gevşetme';
 
   @override
   String get animHintImpactBones => 'Kemiklere darbe yüklemesi';
@@ -2403,7 +2403,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get animHintSpinalExtension => 'Omurga uzantısı';
 
   @override
-  String get animHintCervicalDecomp => 'Servikal dekompresyon';
+  String get animHintCervicalDecomp => 'Boyun gevşetme';
 
   @override
   String get animHintShoulderMobility => 'Omuz hareketliliği';
@@ -2448,13 +2448,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get animHintCoreStability => 'Kor stabilite';
 
   @override
-  String get animHintLegPower => 'Bacak gücü ve HGH patlaması';
+  String get animHintLegPower => 'Bacak gücü';
 
   @override
   String get animHintVerticalPower => 'Dikey güç';
 
   @override
-  String get animHintHghSurge => 'HGH patlama antrenmanı';
+  String get animHintHghSurge => 'Yüksek yoğunluklu antrenman';
 
   @override
   String get animHintPeakHgh => 'Tepe HGH salınım penceresi';
@@ -2477,7 +2477,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get formBarHanging =>
-      'Bara omuz genişliğinde tut, vücudunu tamamen gevşet, yerçekiminin omurganı esnetmesine izin ver. Sallanmaktan kaçın.';
+      'Bara omuz genişliğinde tut, vücudunu gevşet ve esnemeyi omuzlarında ve sırtında hisset. Sallanmaktan kaçın.';
 
   @override
   String get formCobraStretch =>
@@ -2593,50 +2593,51 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get sciMorningStretch =>
-      'Sabah esnemesi, gece boyunca yeniden hidrate olan omurga disklerini açar ve boy korumayı maksimize eder';
+      'Sabah esnemesi gece oluşan tutukluğu azaltır ve kaslarını harekete hazırlar';
 
   @override
   String get sciBarHanging =>
-      'Asılma, yerçekimini kullanarak omurga disklerini açar ve geçici olarak boy uzaması sağlayabilir';
+      'Asılma omuzlarını ve sırtını esnetir, kavrama gücünü çalıştırır. Boydaki değişiklik geçicidir';
 
   @override
   String get sciCobraStretch =>
-      'Kobra esneme, omurgayı uzatır ve göğsü açarak oturmadan kaynaklanan omurga sıkışmasını azaltır';
+      'Kobra esneme göğsü açar ve uzun süre oturmanın yaptığı tutukluğu azaltır';
 
   @override
   String get sciJumping =>
-      'Yüksek etkili zıplama, bacaklardaki büyüme plaklarını uyarır ve büyüme hormonu salınımını tetikler';
+      'Yüksek etkili zıplama kemiklere yük bindirir ve ergenlikte onları güçlendirmeye yardım eder';
 
   @override
   String get sciSwimmingBasketball =>
-      'Yüzme ve basketbol, büyüme plağı aktivitesini uyaran tüm vücut esneme, zıplama ve uzanma içerir';
+      'Yüzme ve basketbol kondisyon, koordinasyon ve güç kazandırır; basketboldaki zıplamalar da kemikleri güçlendirmeye yardım eder';
 
   @override
   String get sciEveningYoga =>
-      'Akşam yogası, büyüme hormonunu baskılayan kortizolü azaltır ve gece toparlanması için kasları esnetir';
+      'Akşam yogası gevşemene yardım eder ve uykudan önce kaslarını rahatlatır';
 
   @override
   String get sciSprintIntervals =>
-      'Sprint, önemli miktarda büyüme hormonu salınımını tetikler';
+      'Kısa sprintler ve dinlenme yürüyüşleri kondisyonunu ve bacak gücünü artırır';
 
   @override
   String get sciHiitWorkout =>
-      'Yüksek yoğunluklu egzersiz, HGH\'yi %450\'ye kadar artırır';
+      'Yüksek yoğunluklu aralıklı antrenman kondisyonunu ve gücünü artırır';
 
   @override
-  String get sciSquats => 'Squat, bacak ve omurgadaki büyüme plaklarını uyarır';
+  String get sciSquats =>
+      'Vücut ağırlığı squatları bacaklarını ve duruşu destekleyen kasları güçlendirir';
 
   @override
   String get sciDeadliftStretch =>
-      'Omurga dekompresyonu, vertebral disk sağlığını destekler';
+      'Esnek arka bacak kasları ve daha güçlü bir sırt için deadlift esneme hareketi';
 
   @override
   String get sciOverheadPress =>
-      'Baş üstü press, omurgayı esnetir ve duruş kaslarını güçlendirir';
+      'Baş üstü itiş omuzlarını ve duruş kaslarını güçlendirir';
 
   @override
   String get sciSkippingRope =>
-      'Tekrarlayan zıplama, alt ekstremitelerdeki büyüme plaklarını uyarır';
+      'İple tekrarlayan zıplama bacak kemiklerine yük bindirir ve onları güçlendirmeye yardım eder';
 
   @override
   String get sciPilatesCore =>
@@ -2644,7 +2645,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get sciInversionHang =>
-      'İnversiyon, omurga disklerini açar, geçici olarak 1-2 cm ekleyebilir';
+      'Ters asılma sırt kaslarını gevşetebilir. Boydaki değişiklik geçicidir';
 
   @override
   String get sciProtein =>
@@ -3244,7 +3245,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get notifJumpBody =>
-      'Zıplama egzersizleri büyüme plakalarını uyarır. 3 set x 20 tekrar dene!';
+      'Zıplama kemiklerini güçlendirmeye yardım eder. 3 set x 20 tekrar dene!';
 
   @override
   String get notifCalciumTitle => '🥛 Kalsiyum Zamanı!';
@@ -6507,4 +6508,719 @@ class AppLocalizationsTr extends AppLocalizations {
   String obBudgetTrial(String days) {
     return 'İstersen önce $days gün bedava dene.';
   }
+
+  @override
+  String get obNameTitle => 'Sana nasıl seslenelim?';
+
+  @override
+  String get obNameSubtitle =>
+      'İsteğe bağlı. Planında ve hatırlatmalarında kullanılır.';
+
+  @override
+  String get obNameHint => 'Adın';
+
+  @override
+  String get nWb1Title => 'Dün atladın';
+
+  @override
+  String nWb1Body(String height) {
+    return '$height planın hâlâ seni bekliyor. 10 dakika yeter.';
+  }
+
+  @override
+  String get nWb2Title => 'Boyundan vazgeçtin mi?';
+
+  @override
+  String get nWb2Body => 'Planın daha işin bitmediğini söylüyor.';
+
+  @override
+  String nWb3Title(String gain) {
+    return '$gain ne olacak?';
+  }
+
+  @override
+  String get nWb3Body => 'Tahmininde alışkanlıklarına bağlı olan kısım bu.';
+
+  @override
+  String nWb5Title(String name) {
+    return '$name, grafiğin düz gidiyor';
+  }
+
+  @override
+  String get nWb5TitleNoName => 'Grafiğin düz gidiyor';
+
+  @override
+  String get nWb5Body => '5 gündür yeni ölçüm yok. Şu an boyun kaç?';
+
+  @override
+  String get nWb7Title => 'Bir hafta gitti';
+
+  @override
+  String get nWb7Body => 'Arkadaşların bu hafta uzamayı bırakmadı. Ya sen?';
+
+  @override
+  String get nWb10Title => 'Tahminin değişmiş olabilir';
+
+  @override
+  String get nWb10Body => 'Bir kez ölç, yeni sayıyı gör.';
+
+  @override
+  String nWb14Title(String height) {
+    return 'Boyun hâlâ $height mi?';
+  }
+
+  @override
+  String get nWb14Body => 'Son ölçümünden beri iki hafta geçti. Ölç de gör.';
+
+  @override
+  String get nWb21Title => 'Planını hâlâ istiyor musun?';
+
+  @override
+  String get nWb21Body =>
+      'Kayıtlı duruyor. Tek dokunuşla kaldığın yerden devam.';
+
+  @override
+  String nWb30Title(String name) {
+    return 'Son mesaj, $name';
+  }
+
+  @override
+  String get nWb30TitleNoName => 'Son mesaj';
+
+  @override
+  String get nWb30Body => 'Verilerin hâlâ kayıtlı. Hazır olunca dön.';
+
+  @override
+  String nTrainHookTitle(int minutes) {
+    return 'Bugünün planıyla arandaki tek şey $minutes dakika';
+  }
+
+  @override
+  String get nWaterHookTitle => 'Suyunu içtin mi?';
+
+  @override
+  String nWaterHookBody(String liters) {
+    return 'Bugün $liters. Şimdi bir bardak.';
+  }
+
+  @override
+  String nProteinHookTitle(int grams) {
+    return 'Bugün $grams g protein. Başladın mı?';
+  }
+
+  @override
+  String nSleepHookTitle(String name) {
+    return 'Telefonu bırak, $name';
+  }
+
+  @override
+  String get nSleepHookTitleNoName => 'Telefonu bırak';
+
+  @override
+  String get nMeasureHookTitle => 'Bu hafta uzadın mı?';
+
+  @override
+  String get nMeasureHookBody => 'Sabah ölç, gör.';
+
+  @override
+  String nStreakHookTitle(int streak) {
+    return '$streak günlük serin bu gece bitiyor';
+  }
+
+  @override
+  String get nStreakHookBody => 'Tek rutin kurtarır.';
+
+  @override
+  String get nPostureHookTitle => 'Sırtın dik mi, hemen bak';
+
+  @override
+  String get nPostureHookBody => 'Omuzlar geride, çene düz.';
+
+  @override
+  String hkReturn(int days) {
+    return '$days gündür yoktun. Bakalım neler değişmiş.';
+  }
+
+  @override
+  String hkHabits(String gain) {
+    return 'Tahmininin $gain kadarı alışkanlıklarına bağlı';
+  }
+
+  @override
+  String hkStreakDay(int day) {
+    return '$day. gün. Serini bozmak artık daha zor.';
+  }
+
+  @override
+  String get hkPredictionUpdated => 'Tahminin güncellendi. Görmek için dokun.';
+
+  @override
+  String get hkMeasureDue => 'Grafiğin bu haftanın ölçümünü bekliyor';
+
+  @override
+  String get hkLeaveTitle => 'Planın hazır. Açmadan mı çıkacaksın?';
+
+  @override
+  String get hkLeaveOpen => 'Planımı göster';
+
+  @override
+  String get rsLockedSubtitle =>
+      'Ne kadar uzayabileceğini hesapladık. Sayın aşağıda kilitli.';
+
+  @override
+  String get rsUnlock => 'Sonucumu aç';
+
+  @override
+  String get rsPaywallHeadline => 'Sayın çıktı. Açalım mı?';
+
+  @override
+  String get rsLockedChart => 'Nereye gittiğini gör';
+
+  @override
+  String get rsLineHeight => 'Yetişkin boyun';
+
+  @override
+  String get rsLineGrowth => 'Kalan uzama payın';
+
+  @override
+  String get rsLineRank => 'Yaşıtların arasında yerin';
+
+  @override
+  String get rsProgressTitle => 'Setlerin ve ilerlemen';
+
+  @override
+  String get rsStageStart => 'Başlangıç';
+
+  @override
+  String get rsStageNow => 'Güçleniyorsun';
+
+  @override
+  String get rsStagePeak => 'Tam güç';
+
+  @override
+  String get rsLevelLine => 'Setler, ilerleme ve güçlenme';
+
+  @override
+  String get pwBuyWeekly => 'Haftalık planı başlat';
+
+  @override
+  String get pwBuyMonthly => 'Aylık planı başlat';
+
+  @override
+  String get pwBuyLifetime => 'Ömür boyu satın al';
+
+  @override
+  String get obGenderSub =>
+      'Büyüme eğrisi erkeklerde ve kadınlarda farklı ilerler.';
+
+  @override
+  String get obBirthSub =>
+      'Ay ve yıl yeterli. Büyüme döneminin neresinde olduğunu buradan anlıyoruz.';
+
+  @override
+  String obAgeLine(int age) {
+    return '$age yaşındasın';
+  }
+
+  @override
+  String get obAgeReplyGrowing =>
+      'Büyüme çağındasın, gerçekten birlikte boyunu uzatacağımız dönemler bunlar!';
+
+  @override
+  String get obAgeReplyLate =>
+      'Bu yaşlarda büyüme yavaşlar ama herkeste aynı anda bitmez. Seninkini birazdan hesaplayacağız.';
+
+  @override
+  String get obAgeReplyAdult =>
+      'Bu yaşta kemikler pek uzamaz. Planın duruşa ağırlık verir; kambur dururken kaybettiğin santimler oradan geri gelir.';
+
+  @override
+  String get obHwSub => 'Potansiyel hesabı bugünkü boyundan başlar.';
+
+  @override
+  String get obFootSub =>
+      'Ayak, boydan önce büyür. Numaran büyümenin neresinde olduğuna dair bir ipucu verir.';
+
+  @override
+  String obFootLength(String length) {
+    return 'Yaklaşık $length';
+  }
+
+  @override
+  String get obWorkoutSub =>
+      'Protein ve kalori hedefini buna göre ayarlıyoruz.';
+
+  @override
+  String obNameNotif(String name) {
+    return '$name, bugünkü planın hazır';
+  }
+
+  @override
+  String get obNameNotifAnon => 'Bugünkü planın hazır';
+
+  @override
+  String get obNameNotifBody => 'Birkaç hareket, 15 dakika civarı.';
+
+  @override
+  String get obNamePreviewLabel => 'Hatırlatmaların böyle görünecek';
+
+  @override
+  String get obReplyTriedStopped =>
+      'O zaman BeTaller\'ı bırakmayacağını garanti edebiliriz!';
+
+  @override
+  String get obReplyTriedStill =>
+      'O zaman farkı çabuk görürsün. BeTaller\'da sayının yanında her gün işaretleyeceğin bir plan da var.';
+
+  @override
+  String get obReplyTriedFirst =>
+      'Öyleyse gerçekten hoş geldin! Boy uzatma yolculuğunda en doğru tercihlerden birini yaptın.';
+
+  @override
+  String get obReplyWhyConfidence =>
+      'Dik duran biri hem daha uzun hem daha rahat görünür. Planının ilk işi duruşun.';
+
+  @override
+  String get obReplyWhyImpression =>
+      'İlk izlenimin büyük kısmı duruştan gelir. Ona ilk haftadan başlıyoruz.';
+
+  @override
+  String get obReplyWhySports =>
+      'Esneme ve asılma sahada da işine yarar. Planında ikisi de var.';
+
+  @override
+  String get obReplyWhyClothes =>
+      'Dik bir sırtta aynı kıyafet bile farklı durur. Önce onu düzeltiyoruz.';
+
+  @override
+  String get obReplyWhyPhotos =>
+      'Fotoğrafta boyu en çok duruş değiştirir. Uygulamada önce ve sonra fotoğraflarını da karşılaştırabilirsin.';
+
+  @override
+  String get obReplyWhyPotential =>
+      'Tamam. Birkaç soru sonra potansiyelini hesaplıyoruz.';
+
+  @override
+  String get obReplyWorkoutLow =>
+      'Sorun değil. Planın kısa seanslarla başlar, çoğu 15 dakika civarı.';
+
+  @override
+  String get obReplyWorkoutMid =>
+      'Güzel tempo. Bu düzenle planı rahat götürürsün.';
+
+  @override
+  String get obReplyWorkoutHigh =>
+      'Çok aktifsin. Protein hedefini buna göre yükseltiyoruz.';
+
+  @override
+  String get obReplyFirstWardrobe =>
+      'Yeni pantolon boyunu şimdiden düşünmeye başlayabilirsin.';
+
+  @override
+  String get obReplyFirstMuscle =>
+      'Planındaki hareketler buna da zemin hazırlar.';
+
+  @override
+  String get obReplyFirstPhotos =>
+      'İlk gün bir fotoğraf çek. İleride yan yana koymak hoşuna gidecek.';
+
+  @override
+  String get obReplyFirstTeam =>
+      'Seçmelere kadar düzenli gidebilmen için hatırlatmaları sana göre kuracağız.';
+
+  @override
+  String get obReplyFirstFeelGood => 'En sağlam sebep bu.';
+
+  @override
+  String get obDayTitle => 'İşte BeTaller\'la bir günün';
+
+  @override
+  String get obDayBody =>
+      'Şimdiye kadar verdiğin cevaplardan kurduk. Yaptıkça işaretleyeceksin.';
+
+  @override
+  String obDayProtein(int grams) {
+    return '$grams g protein';
+  }
+
+  @override
+  String get obDayProteinSub => '1. öğünün hazır';
+
+  @override
+  String obDaySleep(String time) {
+    return '$time uyku bildirimin';
+  }
+
+  @override
+  String get obDaySleepSub => 'Serüvenine devam etmen için gereken bildirim';
+
+  @override
+  String get obParentsSub =>
+      'Boyunun büyük kısmı anne babandan gelir. Hesabın temeli bu iki sayı.';
+
+  @override
+  String get obSleepSub => 'Büyüme hormonunun çoğu derin uykuda salgılanır.';
+
+  @override
+  String obDreamDelta(String delta) {
+    return 'Bugünkü boyundan $delta fazla';
+  }
+
+  @override
+  String get obEthnicitySubAll =>
+      'Ortalama yetişkin boyu kökene göre birkaç santim değişir.';
+
+  @override
+  String obEthReplyHigh(String avg) {
+    return 'Bu kökende yetişkin ortalaması $avg, dünya ortalamasının üstünde. Potansiyelin çok yüksek!';
+  }
+
+  @override
+  String obEthReplyMid(String avg) {
+    return 'Bu kökende yetişkin ortalaması $avg civarı. Potansiyelin yüksek, doğru alışkanlıklarla ortalamayı geçebilirsin.';
+  }
+
+  @override
+  String obEthReplyRising(String avg) {
+    return 'Bu kökende yetişkin ortalaması $avg civarı ve son kuşaklarda hızla yükseliyor. Potansiyelin sandığından yüksek olabilir.';
+  }
+
+  @override
+  String get obEthReplyNoAnswer =>
+      'Sorun değil. Hesabı anne baban ve kendi ölçülerin üzerinden yapıyoruz.';
+
+  @override
+  String obEthAbove(String avg, String you) {
+    return 'Bu kökende yetişkin ortalaması $avg. Sen şimdiden $you boyundasın, ortalamanın üstündesin!';
+  }
+
+  @override
+  String obEthNear(String avg, String you) {
+    return 'Bu kökende yetişkin ortalaması $avg. Sen $you ile tam ortalamadasın; hedef üstüne çıkmak.';
+  }
+
+  @override
+  String obEthBelowYoung(String avg, String you) {
+    return 'Bu kökende yetişkin ortalaması $avg. Sen $you boyundasın ve hâlâ büyüme çağındasın; ortalamayı geçmek için önünde zaman var.';
+  }
+
+  @override
+  String obEthBelowAdult(String avg, String you) {
+    return 'Bu kökende yetişkin ortalaması $avg. Sen $you boyundasın; aradaki farkın bir kısmını duruşla kapatabiliriz.';
+  }
+
+  @override
+  String get obMealsUnknown => 'Saatleri hakkında tam emin değilim';
+
+  @override
+  String get obMealsUnknownReply =>
+      'Sorun yok, sana özel saatlik planını oluşturduk.';
+
+  @override
+  String get obUnknownPlanned =>
+      'Sorun yok, bunu senin için planlıyoruz. İstediğin zaman değiştirebilirsin.';
+
+  @override
+  String get obReplyWeCalc => 'Merak etme, bunu zaten senin için hesaplıyoruz.';
+
+  @override
+  String get obGoalDaysTitle =>
+      'Gerçekten kaç gün içinde uzamış olmayı dilersin?';
+
+  @override
+  String get obGoalDaysSub => 'Hedefine bir süre koyalım.';
+
+  @override
+  String obGoalDaysN(int n) {
+    return '$n gün';
+  }
+
+  @override
+  String get obGoalYear => '1 yıl içinde';
+
+  @override
+  String get obGoalOpen => 'Uzayabildiğim kadar';
+
+  @override
+  String get obReplyGoal90 =>
+      '90 gün, duruşun ve alışkanlıkların oturması için iyi bir süre. İlk farkı duruşunda görürsün.';
+
+  @override
+  String get obReplyGoal120 =>
+      '120 günde alışkanlıklar yerine oturur. Ölçümlerini bu süre boyunca birlikte takip edeceğiz.';
+
+  @override
+  String get obReplyGoal180 =>
+      'Altı ay, büyümeyi ölçümde görmek için gerçekçi bir süre.';
+
+  @override
+  String get obReplyGoal365 =>
+      'Bir yıl en sağlam plan. Büyüme sabır ister, biz her gün yanındayız.';
+
+  @override
+  String get obReplyGoalOpen =>
+      'En doğrusu bu. Vücudun izin verdiği kadar, biz de her gün yanındayız.';
+
+  @override
+  String get tv4TrackTitle => 'Su ve uyku, tek dokunuşla';
+
+  @override
+  String get tv4TrackDesc =>
+      'Günlük hedefin yaşına ve kilona göre belirlenir. İçtikçe ve uyudukça işaretle.';
+
+  @override
+  String get tv4PhotosTitle => 'Önce ve sonra fotoğrafları';
+
+  @override
+  String get tv4PhotosDesc => 'Aynı pozda çek, haftalar sonra yan yana koy.';
+
+  @override
+  String get tv4PostureTitle => 'Kamerayla duruş kontrolü';
+
+  @override
+  String get tv4PostureDesc =>
+      'Duruşuna puan verir, neyi düzelteceğini söyler.';
+
+  @override
+  String get tv4ReportTitle => 'Haftalık raporun';
+
+  @override
+  String get tv4ReportDesc =>
+      'Antrenman, uyku ve beslenme her hafta tek sayfada.';
+
+  @override
+  String get tv4BreakdownTitle => 'Skorunu ne yükseltir';
+
+  @override
+  String get tv4BreakdownDesc =>
+      'Her etkenin payını ve bir sonraki adımını gösterir.';
+
+  @override
+  String get reminderProTitle => 'Hatırlatıcılar Pro ile gelir';
+
+  @override
+  String get reminderProDesc =>
+      'Antrenman, öğün ve uyku saatinde haber veririz.';
+
+  @override
+  String get nFw1Title => 'İkinci gün, yeni hareketler';
+
+  @override
+  String get nFw1Body =>
+      'Bugünün antrenmanı dünkünden farklı. Birkaç dakikanı ayır.';
+
+  @override
+  String get nFw2Title => 'İlk seri madalyan yakın';
+
+  @override
+  String get nFw2Body =>
+      'Üç günü art arda tamamla, 3 günlük seri madalyan açılsın.';
+
+  @override
+  String get nFw3Title => 'Ölçüm günü';
+
+  @override
+  String get nFw3Body =>
+      'Boyunu ölç ve kaydet. Grafiğine bugün yeni bir nokta ekliyoruz.';
+
+  @override
+  String get nFw4Title => 'Duruşuna bakalım';
+
+  @override
+  String get nFw4Body =>
+      'Kamerayla duruş kontrolü bir dakika sürer. Puanını gör.';
+
+  @override
+  String get nFw5Title => 'İlk fotoğrafını çek';
+
+  @override
+  String get nFw5Body =>
+      'Bugün bir fotoğraf çek. Haftalar sonra yan yana koyacaksın.';
+
+  @override
+  String get nFw6Title => 'Yarın ilk haftan doluyor';
+
+  @override
+  String get nFw6Body => 'Bugünü tamamla, haftalık raporun yarın hazır.';
+
+  @override
+  String get nFw7Title => 'İlk haftan tamam';
+
+  @override
+  String get nFw7Body => 'Haftalık raporun hazır. Boyunu da bir kez daha ölç.';
+
+  @override
+  String nPmFirstTitle(String name) {
+    return '$name, ilk öğün saatin.';
+  }
+
+  @override
+  String get nPmFirstTitleNoName => 'İlk öğün saatin.';
+
+  @override
+  String get nPmFirstBody =>
+      'Özel öğünün hazır; istemiyorsan da makroların ve alacakların hazır. İlk öğünü kesinlikle atlama.';
+
+  @override
+  String nPmMealTitle(String name, int n) {
+    return '$name, $n. öğün saatin geldi.';
+  }
+
+  @override
+  String nPmMealTitleNoName(int n) {
+    return '$n. öğün saatin geldi.';
+  }
+
+  @override
+  String nPmMealBody(int protein, int calcium) {
+    return '$protein g protein ve $calcium mg kalsiyum. Bu öğünü kesinlikle atlama.';
+  }
+
+  @override
+  String get nPmWaterTitle => 'Yeterince su içiyor musun?';
+
+  @override
+  String nPmWaterBody(String name, String liters) {
+    return '$name, gün içinde su içmeyi unutma. Günlük hedefin $liters.';
+  }
+
+  @override
+  String nPmWaterBodyNoName(String liters) {
+    return 'Gün içinde su içmeyi unutma. Günlük hedefin $liters.';
+  }
+
+  @override
+  String get nPmTrainTitle => '30 dk içinde antrenman saatin yaklaşıyor!';
+
+  @override
+  String nPmTrainBody(int count, int minutes) {
+    return 'Özel programın seni bekliyor. Bugün $count egzersiz, ortalama $minutes dakika.';
+  }
+
+  @override
+  String get nPmHabitTitle => 'Gün içinde ufak ip atlayıp esneyebilirsin';
+
+  @override
+  String nPmHabitBody(String name) {
+    return '$name, bu küçük alışkanlıkları unutma.';
+  }
+
+  @override
+  String get nPmHabitBodyNoName => 'Bu küçük alışkanlıkları unutma.';
+
+  @override
+  String nPmSleepTitle(String name) {
+    return '$name, yatma saatin yaklaşıyor.';
+  }
+
+  @override
+  String get nPmSleepTitleNoName => 'Yatma saatin yaklaşıyor.';
+
+  @override
+  String get pwMoreFeatures => 'Ve daha nice özellik.';
+
+  @override
+  String get libTitle => 'Hareket kütüphanesi';
+
+  @override
+  String libCount(int count) {
+    return '$count hareket';
+  }
+
+  @override
+  String get libJump => 'Zıplama';
+
+  @override
+  String get libHang => 'Asılma';
+
+  @override
+  String get libStretch => 'Esneme';
+
+  @override
+  String get libStrength => 'Güç';
+
+  @override
+  String get libPosture => 'Duruş';
+
+  @override
+  String get libWeights => 'Ağırlık';
+
+  @override
+  String get libWeightsNote =>
+      'Bunlar için dambıl ya da direnç bandı gerekir. Her tekrarı düzgün formla bitirebildiğin bir ağırlık seç.';
+
+  @override
+  String get plFoodTurkey => 'Hindi göğsü';
+
+  @override
+  String get plFoodCod => 'Mezgit';
+
+  @override
+  String get plFoodBeans => 'Barbunya';
+
+  @override
+  String get plFoodQuinoa => 'Kinoa';
+
+  @override
+  String get plFoodSweetPotato => 'Tatlı patates';
+
+  @override
+  String get plFoodApple => 'Elma';
+
+  @override
+  String get plFoodBerries => 'Çilek';
+
+  @override
+  String get plFoodMozzarella => 'Mozzarella';
+
+  @override
+  String get plFoodHummus => 'Humus';
+
+  @override
+  String get plFoodGreenBeans => 'Taze fasulye';
+
+  @override
+  String get mgTitle => 'Ölçüm zamanı';
+
+  @override
+  String mgBody(int days) {
+    return 'Son ölçümünün üzerinden $days gün geçti. Devam etmeden önce boyunu ölç.';
+  }
+
+  @override
+  String get mgTip1 => 'Ayakkabısız, topukların duvara değsin.';
+
+  @override
+  String get mgTip2 => 'Karşıya bak, başının üstüne düz bir kitap koy.';
+
+  @override
+  String get mgTip3 => 'Sabah ölç. Boy gün içinde biraz kısalır.';
+
+  @override
+  String get mgLater => 'Bugün ölçemiyorum';
+
+  @override
+  String get paTitle => 'Plan cevapların';
+
+  @override
+  String get paSubtitle =>
+      'Planın ve hatırlatmaların bunlara göre kurulur. Birini değiştirdiğinde güncellenir.';
+
+  @override
+  String get paRowSubtitle => 'Antrenman sıklığı, hedef süre ve saatler';
+
+  @override
+  String get paWorkout => 'Haftalık antrenman';
+
+  @override
+  String get paGoal => 'Hedef süre';
+
+  @override
+  String get paBedtime => 'Yatma saati';
+
+  @override
+  String get paWorkoutTime => 'Antrenman saati';
+
+  @override
+  String get restoreDone => 'Satın alımın geri yüklendi.';
 }

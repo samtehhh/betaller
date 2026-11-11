@@ -8,7 +8,8 @@ import '../l10n/app_localizations.dart';
 import '../utils/constants.dart';
 import '../utils/haptics.dart';
 import '../utils/text_case.dart';
-import 'tour_keys.dart';
+import 'tour_keys.dart';
+import '../utils/daily_targets.dart';
 
 /// One stop on the tour: the bottom-nav tab it lives on, the real widget to
 /// spotlight (see [TourKeys]) and the one thing to say about it.
@@ -40,7 +41,7 @@ class TourStep {
   });
 }
 
-/// The v3 tour: six stops that cover the daily loop, from where you are
+/// The tour: eleven stops (six until Nov 2026) that cover the daily loop, from where you are
 /// going (the potential) to what you do today (plan, program, food) to how
 /// you see it working (curve, score). [whatsNew] opens with a card for
 /// people who updated from an older version.
@@ -77,6 +78,15 @@ List<TourStep> tourStepsFor(
       color: AppColors.lime,
     ),
     TourStep(
+      tab: 0,
+      target: TourKeys.homeTrackers,
+      eyebrow: up(l.navHome),
+      title: l.tv4TrackTitle,
+      desc: l.tv4TrackDesc,
+      icon: CupertinoIcons.drop_fill,
+      color: AppColors.water,
+    ),
+    TourStep(
       tab: 1,
       target: TourKeys.planTodayHero,
       eyebrow: plan(l.disciplineToday),
@@ -92,7 +102,7 @@ List<TourStep> tourStepsFor(
       // they can read.
       target: premium ? TourKeys.planProgramDay : TourKeys.planProgramHeader,
       eyebrow: plan(l.disciplineTitle),
-      title: l.tv3ProgramTitle,
+      title: programText(l.tv3ProgramTitle),
       desc: l.tv3ProgramDesc,
       icon: CupertinoIcons.flag_fill,
       color: AppColors.warning,
@@ -118,12 +128,48 @@ List<TourStep> tourStepsFor(
       color: AppColors.lime,
     ),
     TourStep(
+      tab: 2,
+      target: TourKeys.progressPhotos,
+      eyebrow: up(l.navProgress),
+      title: l.tv4PhotosTitle,
+      desc: l.tv4PhotosDesc,
+      icon: CupertinoIcons.photo_fill_on_rectangle_fill,
+      color: AppColors.cyan,
+    ),
+    TourStep(
+      tab: 2,
+      target: TourKeys.progressPosture,
+      eyebrow: up(l.navProgress),
+      title: l.tv4PostureTitle,
+      desc: l.tv4PostureDesc,
+      icon: Icons.accessibility_new_rounded,
+      color: AppColors.lime,
+    ),
+    TourStep(
+      tab: 2,
+      target: TourKeys.progressReport,
+      eyebrow: up(l.navProgress),
+      title: l.tv4ReportTitle,
+      desc: l.tv4ReportDesc,
+      icon: CupertinoIcons.doc_chart_fill,
+      color: AppColors.orange,
+    ),
+    TourStep(
       tab: 3,
       target: TourKeys.analysisScore,
       eyebrow: up(l.navAnalysis),
       title: l.tv3ScoreTitle,
       desc: l.tv3ScoreDesc,
       icon: CupertinoIcons.chart_bar_alt_fill,
+      color: AppColors.primaryBright,
+    ),
+    TourStep(
+      tab: 3,
+      target: TourKeys.analysisBreakdown,
+      eyebrow: up(l.navAnalysis),
+      title: l.tv4BreakdownTitle,
+      desc: l.tv4BreakdownDesc,
+      icon: CupertinoIcons.chart_pie_fill,
       color: AppColors.primaryBright,
     ),
   ];

@@ -248,7 +248,9 @@ class _NutritionScreenState extends State<NutritionScreen> {
     final menu = buildDayMenu(
       targets,
       profile.mealTimes,
-      variant: DateTime.now().weekday - 1,
+      variant: DateTime.now().weekday -
+          1 +
+          (WeeklyPlan.isWeekB(DateTime.now()) ? 7 : 0),
       turkish: lang == 'tr',
     );
     final checks = provider.todayNutritionChecks;

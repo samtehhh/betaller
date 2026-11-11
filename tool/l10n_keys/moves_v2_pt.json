@@ -1,0 +1,610 @@
+{
+ "pogo_jumps": {
+  "title": "Pogo Jumps",
+  "desc": "Quiques rápidos com os tornozelos firmes que trabalham os ossos da canela e do pé e deixam as panturrilhas elásticas e potentes.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Fique em pé com os pés na largura do quadril e as mãos na cintura.",
+   "Quique na ponta dos pés com os joelhos quase esticados.",
+   "Deixe cada contato com o chão curto e rápido, como um pula-pula.",
+   "Continue por 20 segundos, 3 séries no total."
+  ],
+  "mistakes": [
+   "Dobrar muito os joelhos a cada quique.",
+   "Bater os calcanhares no chão."
+  ],
+  "tip": "Salte em uma superfície firme e plana e pare se as canelas ou os tornozelos doerem."
+ },
+ "jump_squats": {
+  "title": "Agachamento com salto",
+  "desc": "Agache e salte para ganhar potência nas pernas, um esforço pesado dos músculos grandes ao qual o corpo responde depois com hormônio do crescimento.",
+  "dose": "3 x 8",
+  "steps": [
+   "Fique com os pés na largura dos ombros e o peito aberto.",
+   "Sente para trás em um agachamento até as coxas ficarem mais ou menos paralelas ao chão.",
+   "Empurre forte o chão, salte para cima e aterrisse suave de volta no agachamento.",
+   "Faça 8 saltos, descanse e repita até completar 3 séries."
+  ],
+  "mistakes": [
+   "Deixar os joelhos caírem para dentro na aterrissagem.",
+   "Aterrissar com as pernas duras e esticadas."
+  ],
+  "tip": "Aterrisse o mais silenciosamente que puder e encerre a série quando as aterrissagens ficarem barulhentas."
+ },
+ "tuck_jumps": {
+  "title": "Tuck Jump",
+  "desc": "Salte e puxe os joelhos para cima para ganhar explosão, um esforço pesado ao qual o corpo responde depois com hormônio do crescimento.",
+  "dose": "3 x 6",
+  "steps": [
+   "Fique em pé com os pés na largura do quadril.",
+   "Desça em um quarto de agachamento rápido e salte o mais alto que puder.",
+   "No alto, puxe os dois joelhos em direção ao peito e aterrisse suave com os joelhos dobrados.",
+   "Faça 6 saltos, descanse e repita até completar 3 séries."
+  ],
+  "mistakes": [
+   "Curvar o peito para os joelhos em vez de subir os joelhos.",
+   "Aterrissar forte com as pernas esticadas."
+  ],
+  "tip": "Recupere o equilíbrio entre um salto e outro e garanta espaço livre e um piso que não escorregue."
+ },
+ "broad_jumps": {
+  "title": "Saltos em distância",
+  "desc": "Salte para a frente com os dois pés e segure a aterrissagem para ganhar potência no quadril e ossos das pernas fortes.",
+  "dose": "3 x 5",
+  "steps": [
+   "Fique com os pés na largura do quadril e os dedos atrás de uma linha.",
+   "Balance os braços para trás, dobre os joelhos e leve o quadril para trás.",
+   "Balance os braços para a frente, salte o mais longe que puder e aterrisse com os dois pés.",
+   "Segure a aterrissagem por um segundo, volte andando e faça 5 saltos, 3 séries no total."
+  ],
+  "mistakes": [
+   "Cair para a frente ou para trás na aterrissagem.",
+   "Aterrissar com os joelhos travados e esticados."
+  ],
+  "tip": "Salte em uma superfície que não escorregue e faça saltos mais curtos até conseguir segurar cada aterrissagem parado."
+ },
+ "single_leg_hops": {
+  "title": "Saltinhos em uma perna",
+  "desc": "Saltinhos em uma perna só fortalecem os tornozelos e os ossos e equilibram os dois lados do corpo.",
+  "dose": "2 x 8",
+  "steps": [
+   "Fique em uma perna só, com o outro pé levantado atrás de você.",
+   "Dê pequenos saltinhos no lugar, aterrissando na ponta do pé.",
+   "Mantenha o quadril nivelado e o joelho de apoio levemente dobrado.",
+   "Faça 8 saltinhos, troque de perna e faça 2 séries de cada lado."
+  ],
+  "mistakes": [
+   "Deixar o joelho da perna que salta cair para dentro.",
+   "Saltar tão alto que perde o equilíbrio."
+  ],
+  "tip": "Fique perto de uma parede em que possa se apoiar e mantenha os saltinhos baixos até o equilíbrio ficar firme."
+ },
+ "high_knees": {
+  "title": "Corrida com joelhos altos",
+  "desc": "Corra no lugar com os joelhos na altura do quadril para aquecer rápido e trabalhar as pernas.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Fique em pé com os pés na largura do quadril.",
+   "Corra no lugar e leve cada joelho até a altura do quadril.",
+   "Balance os braços com energia e fique leve na ponta dos pés.",
+   "Continue por 20 segundos, 3 séries no total."
+  ],
+  "mistakes": [
+   "Inclinar o corpo para trás quando os joelhos sobem.",
+   "Bater no chão com o pé inteiro."
+  ],
+  "tip": "Diminua o ritmo e faça uma marcha com joelhos altos se ficar sem fôlego."
+ },
+ "mountain_pose": {
+  "title": "Postura da montanha na ponta",
+  "desc": "Suba na ponta dos pés e estique os braços para cima para alongar a coluna e praticar ficar em pé bem alto.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Fique com os pés juntos e o peso igual nos dois pés.",
+   "Estique os dois braços acima da cabeça, com as palmas de frente uma para a outra.",
+   "Suba na ponta dos pés e estique-se até a ponta dos dedos.",
+   "Segure 20 segundos e desça devagar, 2 séries no total."
+  ],
+  "mistakes": [
+   "Abrir as costelas e arquear a lombar.",
+   "Subir os ombros até as orelhas."
+  ],
+  "tip": "Fixe o olhar em um ponto à sua frente ou mantenha os calcanhares no chão se balançar."
+ },
+ "pelvic_shift": {
+  "title": "Ponte vértebra por vértebra",
+  "desc": "Suba e desça o quadril uma vértebra de cada vez para soltar a coluna e acordar os glúteos.",
+  "dose": "2 x 10",
+  "steps": [
+   "Deite de costas com os joelhos dobrados e os pés apoiados no chão.",
+   "Encaixe o cóccix e descole a coluna do chão de baixo para cima.",
+   "Pare no alto e depois desça devagar, uma vértebra de cada vez.",
+   "Faça 10 repetições lentas e descanse, 2 séries no total."
+  ],
+  "mistakes": [
+   "Empurrar o quadril para cima rápido, de uma vez só.",
+   "Arquear a lombar lá em cima."
+  ],
+  "tip": "Mova-se devagar o bastante para sentir cada parte das costas tocando o chão."
+ },
+ "table_top": {
+  "title": "Mesa invertida",
+  "desc": "Levante o quadril até formar uma mesa reta para abrir o peito e os ombros e fortalecer a parte de trás do corpo.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Sente com os joelhos dobrados, os pés no chão e as mãos no chão atrás do quadril.",
+   "Aponte os dedos para os pés e pressione as mãos e os pés no chão.",
+   "Levante o quadril até o corpo ficar reto dos joelhos aos ombros.",
+   "Segure 15 segundos e desça, 2 séries no total."
+  ],
+  "mistakes": [
+   "Deixar o quadril cair no meio.",
+   "Jogar a cabeça para trás e forçar o pescoço."
+  ],
+  "tip": "Gire os dedos para fora se os punhos doerem."
+ },
+ "childs_pose": {
+  "title": "Postura da criança",
+  "desc": "Sente sobre os calcanhares com os braços esticados para alongar as costas com suavidade e deixar a coluna relaxar.",
+  "dose": "2 x 30 s",
+  "steps": [
+   "Ajoelhe no chão com os dedões dos pés juntos e os joelhos afastados.",
+   "Leve o quadril para trás até sentar sobre os calcanhares.",
+   "Caminhe com as mãos para a frente e apoie a testa no chão.",
+   "Respire devagar por 30 segundos e suba, 2 séries no total."
+  ],
+  "mistakes": [
+   "Levantar muito o quadril dos calcanhares para ir mais longe.",
+   "Prender a respiração e tensionar os ombros."
+  ],
+  "tip": "Coloque uma almofada entre o quadril e os calcanhares se os joelhos ficarem tensos."
+ },
+ "puppy_pose": {
+  "title": "Postura do filhote",
+  "desc": "Deixe o peito descer em direção ao chão para abrir os ombros tensos e alongar a parte de cima das costas.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Comece de quatro apoios, com o quadril bem acima dos joelhos.",
+   "Caminhe com as mãos para a frente e mantenha o quadril onde está.",
+   "Deixe o peito e a testa afundarem em direção ao chão.",
+   "Segure 20 segundos e volte, 2 séries no total."
+  ],
+  "mistakes": [
+   "Deixar o quadril escorregar para trás em direção aos calcanhares.",
+   "Dobrar os cotovelos e apoiá-los no chão."
+  ],
+  "tip": "Apoie a testa em uma almofada se o alongamento dos ombros ficar forte demais."
+ },
+ "seated_forward_fold": {
+  "title": "Flexão para a frente sentado",
+  "desc": "Incline-se para a frente sobre as pernas esticadas para alongar a parte de trás das coxas e toda a extensão das costas.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Sente no chão com as pernas esticadas e os dedos dos pés apontando para cima.",
+   "Sente-se alto e estique os dois braços acima da cabeça.",
+   "Incline-se para a frente a partir do quadril e alcance as canelas ou os pés.",
+   "Segure 20 segundos e volte a sentar reto, 2 séries no total."
+  ],
+  "mistakes": [
+   "Arredondar a parte de cima das costas para alcançar os dedos.",
+   "Quicar para descer mais no alongamento."
+  ],
+  "tip": "Dobre um pouco os joelhos ou sente em uma toalha dobrada se a lombar arredondar."
+ },
+ "standing_side_stretch": {
+  "title": "Alongamento lateral em pé",
+  "desc": "Incline-se para cada lado com os braços acima da cabeça para alongar a cintura e soltar as costelas.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Fique em pé com os pés na largura do quadril.",
+   "Estique os dois braços acima da cabeça e segure um pulso com a outra mão.",
+   "Incline-se devagar para um lado e mantenha os dois pés pressionados no chão.",
+   "Segure 15 segundos, troque de lado e faça 2 séries de cada lado."
+  ],
+  "mistakes": [
+   "Inclinar para a frente ou girar em vez de dobrar direto para o lado.",
+   "Empurrar o quadril muito para o lado."
+  ],
+  "tip": "Imagine que você está entre duas paredes e só consegue se mover para o lado."
+ },
+ "low_lunge_arch": {
+  "title": "Avanço baixo com braços para cima",
+  "desc": "Leve o quadril para a frente e estique os braços para cima para abrir a frente do quadril e o peito.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Dê um passo à frente com um pé e abaixe o joelho de trás até o chão.",
+   "Deslize o quadril para a frente até sentir o alongamento na frente do quadril de trás.",
+   "Estique os dois braços para cima e levante o peito em um arco leve.",
+   "Segure 20 segundos, troque de perna e faça 2 séries de cada lado."
+  ],
+  "mistakes": [
+   "Deixar o joelho da frente passar muito dos dedos do pé.",
+   "Arquear só a lombar."
+  ],
+  "tip": "Coloque uma toalha dobrada sob o joelho de trás e mantenha o arco pequeno."
+ },
+ "bow_pose": {
+  "title": "Postura do arco",
+  "desc": "Segure os tornozelos e levante o peito e as coxas para abrir toda a frente do corpo e fortalecer as costas.",
+  "dose": "2 x 10 s",
+  "steps": [
+   "Deite de barriga para baixo e dobre os joelhos levando os calcanhares em direção ao quadril.",
+   "Estique os braços para trás e segure os dois tornozelos.",
+   "Empurre os pés contra as mãos para levantar o peito e as coxas.",
+   "Segure 10 segundos e desça devagar, 2 séries no total."
+  ],
+  "mistakes": [
+   "Deixar os joelhos mais abertos que o quadril.",
+   "Jogar a cabeça para trás e forçar o pescoço."
+  ],
+  "tip": "Suba só até onde for confortável e pule este exercício se a lombar doer."
+ },
+ "pilates_roll_over": {
+  "title": "Roll Over do Pilates",
+  "desc": "Leve as pernas por cima da cabeça e volte com controle para alongar a coluna e treinar a força profunda do abdômen.",
+  "dose": "2 x 5",
+  "steps": [
+   "Deite de costas com os braços ao lado do corpo e as pernas esticadas para cima.",
+   "Pressione os braços no chão e levante o quadril para levar as pernas por cima da cabeça.",
+   "Pare quando as pernas estiverem na altura do chão atrás da cabeça.",
+   "Desça devagar, faça 5 repetições e descanse, 2 séries no total."
+  ],
+  "mistakes": [
+   "Jogar as pernas por cima com impulso.",
+   "Rolar sobre o pescoço em vez dos ombros."
+  ],
+  "tip": "Mantenha o peso nos ombros e nunca no pescoço, e dobre os joelhos para facilitar."
+ },
+ "legs_up_wall": {
+  "title": "Pernas na parede",
+  "desc": "Apoie as pernas na parede para aliviar a carga da coluna e relaxar depois de um dia longo.",
+  "dose": "3 min",
+  "steps": [
+   "Sente de lado ao lado de uma parede, com um quadril encostado nela.",
+   "Levante as pernas pela parede enquanto deita de costas no chão.",
+   "Deixe os braços ao lado do corpo e relaxe as pernas contra a parede.",
+   "Fique 3 minutos, respirando devagar."
+  ],
+  "mistakes": [
+   "Descolar a lombar do chão.",
+   "Travar os joelhos com força e tensionar as pernas."
+  ],
+  "tip": "Afaste um pouco o quadril da parede se a parte de trás das pernas ficar tensa."
+ },
+ "spinal_twist": {
+  "title": "Torção da coluna deitado",
+  "desc": "Leve um joelho para o outro lado do corpo para girar a coluna com suavidade e soltar uma lombar travada.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Deite de costas com os braços abertos para os lados.",
+   "Dobre um joelho e leve-o para o outro lado do corpo em direção ao chão.",
+   "Mantenha os dois ombros no chão e olhe para o lado oposto.",
+   "Segure 20 segundos, troque de lado e faça 2 séries de cada lado."
+  ],
+  "mistakes": [
+   "Deixar o ombro oposto levantar do chão.",
+   "Forçar o joelho para baixo com a mão."
+  ],
+  "tip": "Apoie o joelho em uma almofada se ele não alcançar o chão."
+ },
+ "chest_stretch": {
+  "title": "Alongamento do peito na porta",
+  "desc": "Passe por uma porta com o antebraço no batente para abrir um peito fechado de tanto olhar para telas.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Fique em uma porta e apoie um antebraço no batente, com o cotovelo na altura do ombro.",
+   "Dê um passo à frente, atravessando a porta, com o pé do mesmo lado.",
+   "Incline o peito para a frente até sentir o alongamento na frente do ombro.",
+   "Segure 20 segundos, troque de lado e faça 2 séries de cada lado."
+  ],
+  "mistakes": [
+   "Arquear a lombar para ir mais longe.",
+   "Subir o ombro em direção à orelha."
+  ],
+  "tip": "Mantenha o alongamento leve e recue se sentir uma pontada no ombro."
+ },
+ "scapular_retraction": {
+  "title": "Aperto das escápulas",
+  "desc": "Aperte as escápulas para trás e para baixo para treinar os músculos que impedem os ombros de curvar para a frente.",
+  "dose": "2 x 10",
+  "steps": [
+   "Sente ou fique em pé com os braços relaxados ao lado do corpo.",
+   "Puxe as escápulas para trás e para baixo, como se as guardasse nos bolsos de trás da calça.",
+   "Segure o aperto por uma respiração lenta e depois solte.",
+   "Faça 10 repetições e descanse, 2 séries no total."
+  ],
+  "mistakes": [
+   "Subir os ombros enquanto aperta.",
+   "Empurrar as costelas para a frente e arquear as costas."
+  ],
+  "tip": "Mantenha o queixo reto e o pescoço relaxado o tempo todo."
+ },
+ "thoracic_extension": {
+  "title": "Extensão das costas na cadeira",
+  "desc": "Incline a parte de cima das costas sobre uma cadeira para desfazer a postura curvada de ficar sentado e abrir o peito.",
+  "dose": "2 x 8",
+  "steps": [
+   "Sente em uma cadeira firme, com o topo do encosto logo abaixo das escápulas.",
+   "Coloque as mãos atrás da cabeça e mantenha os cotovelos abertos.",
+   "Incline devagar a parte de cima das costas sobre o encosto e olhe para cima.",
+   "Volte, faça 8 repetições e descanse, 2 séries no total."
+  ],
+  "mistakes": [
+   "Dobrar pela lombar em vez da parte de cima das costas.",
+   "Puxar a cabeça para a frente com as mãos."
+  ],
+  "tip": "Use uma cadeira que não role nem tombe e mantenha os pés apoiados no chão."
+ },
+ "hanging_knee_raise": {
+  "title": "Elevação de joelhos na barra",
+  "desc": "Levante os joelhos pendurado na barra para construir um abdômen forte, enquanto o pendurar alivia a coluna.",
+  "dose": "3 x 5",
+  "steps": [
+   "Segure a barra com as palmas para a frente e fique pendurado com os braços esticados.",
+   "Puxe os ombros para baixo, longe das orelhas.",
+   "Leve os dois joelhos até a altura do quadril sem balançar e depois desça devagar.",
+   "Faça 5 repetições, desça e descanse, 3 séries no total."
+  ],
+  "mistakes": [
+   "Balançar o corpo para jogar os joelhos para cima.",
+   "Ficar pendurado com os ombros junto às orelhas."
+  ],
+  "tip": "Confira se a barra é firme antes de pendurar e desça com os pés em vez de se soltar."
+ },
+ "scapular_pull": {
+  "title": "Puxada escapular",
+  "desc": "Puxe os ombros para baixo pendurado com os braços esticados para criar a base de barras fortes.",
+  "dose": "3 x 5",
+  "steps": [
+   "Segure a barra com as palmas para a frente, com as mãos um pouco mais abertas que os ombros.",
+   "Fique pendurado com os braços esticados e deixe os ombros subirem em direção às orelhas.",
+   "Puxe as escápulas para baixo para o corpo subir um pouco, com os cotovelos esticados.",
+   "Segure um segundo e solte, faça 5 repetições, 3 séries no total."
+  ],
+  "mistakes": [
+   "Dobrar os cotovelos para subir mais.",
+   "Balançar as pernas para ajudar."
+  ],
+  "tip": "Confira se a barra é firme e apoie os pés em uma caixa se ficar totalmente pendurado for difícil demais."
+ },
+ "pull_ups": {
+  "title": "Barra fixa",
+  "desc": "Leve o queixo acima da barra para fortalecer as costas, um trabalho pesado ao qual o corpo responde depois com hormônio do crescimento.",
+  "dose": "3 x 2",
+  "steps": [
+   "Segure a barra com as palmas para a frente, com as mãos um pouco mais abertas que os ombros.",
+   "Comece pendurado com os braços esticados e puxe as escápulas para baixo.",
+   "Puxe até o queixo passar da barra e depois desça devagar.",
+   "Faça 2 repetições, desça e descanse, 3 séries no total."
+  ],
+  "mistakes": [
+   "Chutar e balançar para passar da barra.",
+   "Despencar rápido em vez de descer com controle."
+  ],
+  "tip": "Passe uma faixa elástica sob os pés ou salte até o topo e desça devagar, e confira se a barra é firme."
+ },
+ "bird_dog": {
+  "title": "Bird Dog",
+  "desc": "Estique o braço e a perna opostos para treinar os músculos profundos que mantêm a coluna estável.",
+  "dose": "2 x 8",
+  "steps": [
+   "Comece de quatro apoios, com as mãos sob os ombros e os joelhos sob o quadril.",
+   "Estique um braço para a frente e a perna oposta reta para trás.",
+   "Segure por dois segundos com o quadril nivelado e depois volte.",
+   "Faça 8 repetições, troque de lado e faça 2 séries de cada lado."
+  ],
+  "mistakes": [
+   "Deixar a lombar ceder quando a perna sobe.",
+   "Abrir o quadril girando para subir mais a perna."
+  ],
+  "tip": "Imagine um copo de água apoiado na lombar que não pode derramar."
+ },
+ "dead_bug": {
+  "title": "Dead Bug",
+  "desc": "Abaixe o braço e a perna opostos com as costas coladas no chão para ganhar controle do abdômen que protege a coluna.",
+  "dose": "2 x 8",
+  "steps": [
+   "Deite de costas com os braços esticados para cima e os joelhos dobrados sobre o quadril.",
+   "Pressione a lombar com suavidade contra o chão.",
+   "Abaixe um braço acima da cabeça e a perna oposta em direção ao chão, e depois volte.",
+   "Faça 8 repetições de cada lado e descanse, 2 séries no total."
+  ],
+  "mistakes": [
+   "Deixar a lombar arquear e descolar do chão.",
+   "Fazer as repetições com pressa."
+  ],
+  "tip": "Abaixe o braço e a perna só até onde as costas continuarem coladas no chão."
+ },
+ "side_plank": {
+  "title": "Prancha lateral",
+  "desc": "Mantenha uma linha reta apoiado em um antebraço para fortalecer os músculos laterais que mantêm a postura equilibrada.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Deite de lado com o antebraço no chão e o cotovelo sob o ombro.",
+   "Empilhe os pés e levante o quadril do chão.",
+   "Mantenha o corpo em uma linha reta da cabeça aos calcanhares.",
+   "Segure 15 segundos, troque de lado e faça 2 séries de cada lado."
+  ],
+  "mistakes": [
+   "Deixar o quadril cair em direção ao chão.",
+   "Girar o peito para a frente em direção ao chão."
+  ],
+  "tip": "Mantenha o joelho de baixo no chão para facilitar."
+ },
+ "wall_sit": {
+  "title": "Cadeirinha na parede",
+  "desc": "Sente contra a parede com as coxas niveladas para ganhar força nas pernas com as costas retas.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Fique com as costas na parede e os pés um passo à sua frente.",
+   "Deslize para baixo até as coxas ficarem paralelas ao chão.",
+   "Mantenha os joelhos acima dos tornozelos e as costas inteiras na parede.",
+   "Segure 20 segundos e levante, 3 séries no total."
+  ],
+  "mistakes": [
+   "Apoiar as mãos nas coxas.",
+   "Deixar os joelhos irem para a frente além dos dedos dos pés."
+  ],
+  "tip": "Fique um pouco mais alto se os joelhos reclamarem e desça mais conforme ficar mais forte."
+ },
+ "lunges": {
+  "title": "Avanços",
+  "desc": "Dê um passo à frente e dobre os dois joelhos para fortalecer pernas e quadril, um lado de cada vez.",
+  "dose": "3 x 8",
+  "steps": [
+   "Fique em pé com os pés na largura do quadril.",
+   "Dê um passo grande à frente e desça até os dois joelhos ficarem dobrados em cerca de 90 graus.",
+   "Empurre o calcanhar da frente para voltar à posição inicial.",
+   "Faça 8 repetições em cada perna e descanse, 3 séries no total."
+  ],
+  "mistakes": [
+   "Deixar o joelho da frente cair para dentro.",
+   "Inclinar muito o peito para a frente sobre a perna da frente."
+  ],
+  "tip": "Dê um passo mais curto ou segure em uma cadeira para o equilíbrio até o movimento ficar firme."
+ },
+ "step_ups": {
+  "title": "Subida no degrau",
+  "desc": "Suba no degrau e fique em pé, depois desça devagar, para ganhar força em uma perna só e equilíbrio.",
+  "dose": "3 x 8",
+  "steps": [
+   "Fique em frente a um degrau ou a um banco baixo e firme.",
+   "Apoie o pé inteiro no degrau e empurre até ficar em pé.",
+   "Desça o outro pé de volta ao chão devagar.",
+   "Faça 8 repetições em cada perna e descanse, 3 séries no total."
+  ],
+  "mistakes": [
+   "Empurrar forte com o pé que ficou no chão.",
+   "Despencar rápido em vez de descer com controle."
+  ],
+  "tip": "Use um degrau que não deslize nem tombe e comece baixo antes de ir para um mais alto."
+ },
+ "push_ups": {
+  "title": "Flexão de braço",
+  "desc": "Abaixe o peito em direção ao chão com o corpo reto para fortalecer peito, braços e abdômen.",
+  "dose": "3 x 5",
+  "steps": [
+   "Apoie as mãos no chão um pouco mais abertas que os ombros.",
+   "Leve os pés para trás para o corpo formar uma linha reta.",
+   "Dobre os cotovelos para abaixar o peito até o chão e depois empurre para subir.",
+   "Faça 5 repetições e descanse, 3 séries no total."
+  ],
+  "mistakes": [
+   "Deixar o quadril cair em direção ao chão.",
+   "Abrir os cotovelos retos para os lados."
+  ],
+  "tip": "Apoie os joelhos no chão ou as mãos em um banco para facilitar."
+ },
+ "single_leg_calf_raise": {
+  "title": "Panturrilha em uma perna",
+  "desc": "Suba em um pé só na borda de um degrau para ter panturrilhas e tornozelos fortes para saltar.",
+  "dose": "3 x 8",
+  "steps": [
+   "Fique na borda de um degrau na ponta de um pé e segure em uma parede ou corrimão.",
+   "Abaixe o calcanhar devagar abaixo do nível do degrau.",
+   "Suba o mais alto que puder na ponta do pé e segure um segundo.",
+   "Faça 8 repetições em cada perna e descanse, 3 séries no total."
+  ],
+  "mistakes": [
+   "Quicar na parte de baixo em vez de se mover devagar.",
+   "Dobrar o joelho para ajudar a panturrilha."
+  ],
+  "tip": "Comece com o peso do corpo e, se usar um halter ou uma mochila, escolha um peso leve o bastante para terminar cada repetição com boa técnica."
+ },
+ "goblet_squat": {
+  "title": "Agachamento goblet",
+  "desc": "Agache com um peso junto ao peito, um esforço dos músculos grandes ao qual o corpo responde depois com hormônio do crescimento.",
+  "dose": "3 x 8",
+  "steps": [
+   "Segure um halter ou uma mochila com peso junto ao peito, com as duas mãos.",
+   "Fique com os pés na largura dos ombros e os dedos levemente para fora.",
+   "Sente entre os calcanhares com o peito aberto e depois levante.",
+   "Faça 8 repetições e descanse, 3 séries no total."
+  ],
+  "mistakes": [
+   "Deixar os joelhos caírem para dentro.",
+   "Arredondar as costas e deixar o peito cair."
+  ],
+  "tip": "Escolha um peso leve o bastante para terminar cada repetição com boa técnica."
+ },
+ "dumbbell_deadlift": {
+  "title": "Levantamento terra romeno",
+  "desc": "Incline o tronco a partir do quadril com as costas retas, um trabalho pesado dos músculos grandes ao qual o corpo responde depois com hormônio do crescimento.",
+  "dose": "3 x 8",
+  "steps": [
+   "Fique em pé com um halter em cada mão à frente das coxas.",
+   "Solte os joelhos e leve o quadril para trás com as costas retas.",
+   "Deslize os pesos pelas coxas até um pouco abaixo dos joelhos.",
+   "Contraia os glúteos para levantar, faça 8 repetições, 3 séries no total."
+  ],
+  "mistakes": [
+   "Arredondar as costas enquanto os pesos descem.",
+   "Transformar em agachamento dobrando muito os joelhos."
+  ],
+  "tip": "Escolha um peso leve o bastante para terminar cada repetição com boa técnica."
+ },
+ "dumbbell_row": {
+  "title": "Remada com halter",
+  "desc": "Puxe um halter até o quadril para fortalecer os músculos da parte de cima das costas que levam os ombros para trás.",
+  "dose": "3 x 8",
+  "steps": [
+   "Apoie uma mão em um banco ou cadeira e leve os pés para trás.",
+   "Segure um halter na outra mão, com as costas retas e o braço solto para baixo.",
+   "Puxe o peso até o quadril com o cotovelo junto ao corpo e depois abaixe devagar.",
+   "Faça 8 repetições de cada lado e descanse, 3 séries no total."
+  ],
+  "mistakes": [
+   "Girar o corpo para jogar o peso para cima.",
+   "Subir o ombro em direção à orelha."
+  ],
+  "tip": "Escolha um peso leve o bastante para terminar cada repetição com boa técnica."
+ },
+ "farmer_carry": {
+  "title": "Caminhada do fazendeiro",
+  "desc": "Ande em pé, bem ereto, com um peso em cada mão, um trabalho de corpo inteiro ao qual o corpo responde depois com hormônio do crescimento.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Fique entre dois halteres ou duas bolsas com peso.",
+   "Dobre os joelhos, mantenha as costas retas e pegue os pesos.",
+   "Ande com passos curtos, ombros para trás e olhos para a frente.",
+   "Ande por 20 segundos, coloque os pesos no chão e descanse, 3 séries no total."
+  ],
+  "mistakes": [
+   "Inclinar para um lado ou deixar os ombros caírem para a frente.",
+   "Arredondar as costas ao pegar ou ao largar os pesos."
+  ],
+  "tip": "Escolha um peso leve o bastante para terminar cada série com boa técnica e mantenha os dois lados iguais."
+ },
+ "band_pull_apart": {
+  "title": "Abertura com elástico",
+  "desc": "Abra um elástico diante do peito para fortalecer a parte de cima das costas e manter os ombros abertos.",
+  "dose": "2 x 12",
+  "steps": [
+   "Fique em pé e segure um elástico à sua frente com os braços esticados na altura dos ombros.",
+   "Abra o elástico apertando as escápulas uma contra a outra.",
+   "Encoste o elástico no peito e depois volte devagar.",
+   "Faça 12 repetições e descanse, 2 séries no total."
+  ],
+  "mistakes": [
+   "Subir os ombros em direção às orelhas.",
+   "Deixar o elástico voltar de uma vez em vez de voltar devagar."
+  ],
+  "tip": "Escolha um elástico leve o bastante para terminar cada repetição com boa técnica e confira antes se ele não está rasgado."
+ },
+ "burpees": {
+  "title": "Burpees",
+  "desc": "Agachamento, prancha e salto em um só movimento, um trabalho de corpo inteiro ao qual o corpo responde depois com hormônio do crescimento.",
+  "dose": "3 x 5",
+  "steps": [
+   "Fique em pé, depois agache e apoie as mãos no chão.",
+   "Salte com os pés para trás até ficar em prancha reta.",
+   "Salte com os pés de volta para perto das mãos.",
+   "Salte para cima, faça 5 repetições e descanse, 3 séries no total."
+  ],
+  "mistakes": [
+   "Deixar o quadril ceder na prancha.",
+   "Aterrissar forte com as pernas esticadas depois do salto."
+  ],
+  "tip": "Para facilitar, leve os pés para trás e para a frente andando em vez de saltar, e diminua o ritmo se a técnica falhar."
+ }
+}

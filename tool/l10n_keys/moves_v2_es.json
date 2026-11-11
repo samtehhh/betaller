@@ -1,0 +1,610 @@
+{
+ "pogo_jumps": {
+  "title": "Saltos pogo",
+  "desc": "Rebotes rápidos con los tobillos firmes cargan los huesos de las espinillas y los pies y dan pantorrillas fuertes y elásticas.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Ponte recto con los pies a la anchura de las caderas y las manos en la cintura.",
+   "Rebota sobre la parte delantera de los pies con las rodillas casi estiradas.",
+   "Haz cada contacto con el suelo corto y rápido, como un palo de pogo.",
+   "Sigue durante 20 segundos, 3 series en total."
+  ],
+  "mistakes": [
+   "Flexionar mucho las rodillas en cada rebote.",
+   "Dejar que los talones golpeen el suelo."
+  ],
+  "tip": "Salta sobre una superficie firme y plana, y para si te duelen las espinillas o los tobillos."
+ },
+ "jump_squats": {
+  "title": "Sentadillas con salto",
+  "desc": "Una sentadilla con salto para ganar potencia en las piernas, un esfuerzo duro de los músculos grandes al que tu cuerpo responde después con hormona del crecimiento.",
+  "dose": "3 x 8",
+  "steps": [
+   "Ponte con los pies a la anchura de los hombros y el pecho abierto.",
+   "Siéntate hacia atrás en una sentadilla hasta que los muslos queden casi paralelos al suelo.",
+   "Empuja fuerte con los pies, salta recto hacia arriba y cae con suavidad otra vez en sentadilla.",
+   "Haz 8 saltos, descansa y repite, 3 series en total."
+  ],
+  "mistakes": [
+   "Dejar que las rodillas se metan hacia dentro al caer.",
+   "Caer con las piernas rígidas y estiradas."
+  ],
+  "tip": "Cae lo más silencioso que puedas y termina la serie cuando las caídas empiecen a sonar fuerte."
+ },
+ "tuck_jumps": {
+  "title": "Saltos con rodillas al pecho",
+  "desc": "Salta y sube las rodillas al pecho para ganar potencia, un esfuerzo duro al que tu cuerpo responde después con hormona del crecimiento.",
+  "dose": "3 x 6",
+  "steps": [
+   "Ponte recto con los pies a la anchura de las caderas.",
+   "Baja rápido en un cuarto de sentadilla y salta lo más alto que puedas.",
+   "Arriba, lleva las dos rodillas hacia el pecho y cae con suavidad con las rodillas flexionadas.",
+   "Haz 6 saltos, descansa y repite, 3 series en total."
+  ],
+  "mistakes": [
+   "Inclinar el pecho hacia las rodillas en vez de subir las rodillas.",
+   "Caer fuerte con las piernas estiradas."
+  ],
+  "tip": "Recupera el equilibrio entre saltos, y asegúrate de tener espacio libre y un suelo que no resbale."
+ },
+ "broad_jumps": {
+  "title": "Saltos de longitud",
+  "desc": "Salta hacia delante con los dos pies y aguanta la caída para ganar potencia de cadera y huesos de las piernas fuertes.",
+  "dose": "3 x 5",
+  "steps": [
+   "Ponte con los pies a la anchura de las caderas y las puntas detrás de una línea.",
+   "Lleva los brazos hacia atrás, flexiona las rodillas y echa las caderas atrás.",
+   "Lanza los brazos hacia delante, salta lo más lejos que puedas y cae con los dos pies.",
+   "Aguanta la caída un segundo, vuelve andando y haz 5 saltos, 3 series en total."
+  ],
+  "mistakes": [
+   "Caerte hacia delante o hacia atrás al aterrizar.",
+   "Caer con las rodillas bloqueadas y estiradas."
+  ],
+  "tip": "Salta sobre una superficie que no resbale, y haz saltos más cortos hasta que puedas aguantar cada caída sin moverte."
+ },
+ "single_leg_hops": {
+  "title": "Saltitos a una pierna",
+  "desc": "Saltitos pequeños sobre una pierna fortalecen tobillos y huesos y equilibran tus dos lados.",
+  "dose": "2 x 8",
+  "steps": [
+   "Ponte sobre una pierna con el otro pie levantado hacia atrás.",
+   "Haz saltitos pequeños en el sitio, cayendo sobre la parte delantera del pie.",
+   "Mantén las caderas niveladas y la rodilla de apoyo un poco flexionada.",
+   "Haz 8 saltitos, cambia de pierna y haz 2 series de cada lado."
+  ],
+  "mistakes": [
+   "Dejar que la rodilla de la pierna que salta se meta hacia dentro.",
+   "Saltar tan alto que pierdes el equilibrio."
+  ],
+  "tip": "Quédate cerca de una pared que puedas tocar, y salta bajo hasta que tu equilibrio sea firme."
+ },
+ "high_knees": {
+  "title": "Rodillas arriba",
+  "desc": "Corre en el sitio subiendo las rodillas a la altura de las caderas para calentar rápido y trabajar las piernas.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Ponte recto con los pies a la anchura de las caderas.",
+   "Corre en el sitio y sube cada rodilla a la altura de la cadera.",
+   "Mueve los brazos y mantente ligero sobre la parte delantera de los pies.",
+   "Sigue durante 20 segundos, 3 series en total."
+  ],
+  "mistakes": [
+   "Inclinarte hacia atrás al subir las rodillas.",
+   "Pisar el suelo con los pies planos."
+  ],
+  "tip": "Baja el ritmo a una marcha con rodillas altas si te quedas sin aire."
+ },
+ "mountain_pose": {
+  "title": "Postura de la montaña de puntillas",
+  "desc": "Sube de puntillas y estírate hacia arriba para ponerte bien recto y practicar la postura de pie.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Ponte con los pies juntos y el peso repartido por igual en los dos pies.",
+   "Estira los dos brazos por encima de la cabeza con las palmas enfrentadas.",
+   "Sube de puntillas y estírate hasta la punta de los dedos.",
+   "Aguanta 20 segundos y baja despacio, 2 series en total."
+  ],
+  "mistakes": [
+   "Abrir las costillas y arquear la zona lumbar.",
+   "Subir los hombros hasta las orejas."
+  ],
+  "tip": "Fija la vista en un punto frente a ti, o deja los talones en el suelo si te tambaleas."
+ },
+ "pelvic_shift": {
+  "title": "Báscula de pelvis",
+  "desc": "Sube y baja las caderas vértebra a vértebra para soltar la columna y despertar los glúteos.",
+  "dose": "2 x 10",
+  "steps": [
+   "Túmbate boca arriba con las rodillas flexionadas y los pies planos en el suelo.",
+   "Mete el coxis y despega la columna del suelo de abajo hacia arriba.",
+   "Haz una pausa arriba y baja despacio, vértebra a vértebra.",
+   "Haz 10 repeticiones lentas y descansa, 2 series en total."
+  ],
+  "mistakes": [
+   "Subir las caderas rápido y de una sola pieza.",
+   "Arquear la zona lumbar arriba."
+  ],
+  "tip": "Muévete tan despacio que notes cómo cada parte de la espalda toca el suelo."
+ },
+ "table_top": {
+  "title": "Mesa invertida",
+  "desc": "Sube las caderas hasta formar una mesa plana para abrir el pecho y los hombros y fortalecer la parte de atrás del cuerpo.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Siéntate con las rodillas flexionadas, los pies planos y las manos en el suelo detrás de las caderas.",
+   "Apunta los dedos hacia los pies y presiona con las manos y los pies.",
+   "Sube las caderas hasta que el cuerpo quede plano de las rodillas a los hombros.",
+   "Aguanta 15 segundos y baja, 2 series en total."
+  ],
+  "mistakes": [
+   "Dejar que las caderas se hundan en el medio.",
+   "Dejar caer la cabeza hacia atrás y forzar el cuello."
+  ],
+  "tip": "Gira los dedos hacia fuera si te duelen las muñecas."
+ },
+ "childs_pose": {
+  "title": "Postura del niño",
+  "desc": "Siéntate sobre los talones con los brazos largos para estirar la espalda con suavidad y relajar la columna.",
+  "dose": "2 x 30 s",
+  "steps": [
+   "Arrodíllate en el suelo con los dedos gordos de los pies juntos y las rodillas separadas.",
+   "Lleva las caderas hacia atrás, sobre los talones.",
+   "Camina con las manos hacia delante y apoya la frente en el suelo.",
+   "Respira despacio durante 30 segundos y sube, 2 series en total."
+  ],
+  "mistakes": [
+   "Levantar las caderas de los talones para llegar más lejos.",
+   "Aguantar la respiración y tensar los hombros."
+  ],
+  "tip": "Pon un cojín entre las caderas y los talones si notas las rodillas tensas."
+ },
+ "puppy_pose": {
+  "title": "Postura del cachorro",
+  "desc": "Deja caer el pecho hacia el suelo para abrir unos hombros tensos y estirar la parte alta de la espalda.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Empieza a cuatro patas con las caderas justo encima de las rodillas.",
+   "Camina con las manos hacia delante y deja las caderas donde están.",
+   "Deja que el pecho y la frente se hundan hacia el suelo.",
+   "Aguanta 20 segundos y vuelve a subir, 2 series en total."
+  ],
+  "mistakes": [
+   "Dejar que las caderas se deslicen hacia los talones.",
+   "Doblar los codos y apoyarlos en el suelo."
+  ],
+  "tip": "Apoya la frente en un cojín si el estiramiento de los hombros es demasiado fuerte."
+ },
+ "seated_forward_fold": {
+  "title": "Flexión hacia delante sentado",
+  "desc": "Inclínate desde las caderas sobre las piernas estiradas para estirar la parte de atrás de los muslos y toda la espalda.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Siéntate en el suelo con las piernas estiradas y las puntas de los pies hacia arriba.",
+   "Siéntate bien recto y estira los dos brazos por encima de la cabeza.",
+   "Inclínate desde las caderas y alcanza las espinillas o los pies.",
+   "Aguanta 20 segundos y siéntate otra vez recto, 2 series en total."
+  ],
+  "mistakes": [
+   "Redondear la parte alta de la espalda para llegar a los pies.",
+   "Rebotar para profundizar en el estiramiento."
+  ],
+  "tip": "Flexiona un poco las rodillas o siéntate sobre una toalla doblada si se te redondea la zona lumbar."
+ },
+ "standing_side_stretch": {
+  "title": "Estiramiento lateral de pie",
+  "desc": "Inclínate a cada lado con los brazos arriba para estirar la cintura y liberar las costillas.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Ponte recto con los pies a la anchura de las caderas.",
+   "Estira los dos brazos hacia arriba y agárrate una muñeca con la otra mano.",
+   "Inclínate despacio hacia un lado y mantén los dos pies bien apoyados en el suelo.",
+   "Aguanta 15 segundos, cambia de lado y haz 2 series de cada lado."
+  ],
+  "mistakes": [
+   "Inclinarte hacia delante o girarte en vez de doblarte recto hacia el lado.",
+   "Sacar mucho las caderas hacia un lado."
+  ],
+  "tip": "Imagina que estás entre dos paredes y solo puedes moverte hacia los lados."
+ },
+ "low_lunge_arch": {
+  "title": "Zancada baja con brazos arriba",
+  "desc": "Lleva las caderas hacia delante y estira los brazos para abrir la parte delantera de las caderas y el pecho.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Da un paso hacia delante y apoya la rodilla de atrás en el suelo.",
+   "Desliza las caderas hacia delante hasta notar un estiramiento en la parte delantera de la cadera de atrás.",
+   "Sube los dos brazos y eleva el pecho en un arco suave.",
+   "Aguanta 20 segundos, cambia de pierna y haz 2 series de cada lado."
+  ],
+  "mistakes": [
+   "Dejar que la rodilla de delante pase mucho de la punta del pie.",
+   "Arquearte solo desde la zona lumbar."
+  ],
+  "tip": "Pon una toalla doblada bajo la rodilla de atrás y mantén el arco pequeño."
+ },
+ "bow_pose": {
+  "title": "Postura del arco",
+  "desc": "Agárrate los tobillos y levanta el pecho y los muslos para abrir toda la parte delantera y fortalecer la espalda.",
+  "dose": "2 x 10 s",
+  "steps": [
+   "Túmbate boca abajo y flexiona las rodillas para acercar los talones a las caderas.",
+   "Lleva las manos hacia atrás y agarra los dos tobillos.",
+   "Empuja los pies contra las manos para levantar el pecho y los muslos.",
+   "Aguanta 10 segundos y baja despacio, 2 series en total."
+  ],
+  "mistakes": [
+   "Dejar que las rodillas se separen más que las caderas.",
+   "Echar la cabeza hacia atrás y forzar el cuello."
+  ],
+  "tip": "Sube solo hasta donde te resulte cómodo, y sáltate este ejercicio si te duele la zona lumbar."
+ },
+ "pilates_roll_over": {
+  "title": "Roll over de pilates",
+  "desc": "Pasa las piernas por encima de la cabeza y vuelve con control para estirar la columna y entrenar la fuerza profunda del abdomen.",
+  "dose": "2 x 5",
+  "steps": [
+   "Túmbate boca arriba con los brazos a los lados y las piernas estiradas hacia el techo.",
+   "Presiona los brazos contra el suelo y levanta las caderas para llevar las piernas por encima de la cabeza.",
+   "Para cuando las piernas queden a la altura del suelo detrás de la cabeza.",
+   "Vuelve rodando despacio, haz 5 repeticiones y descansa, 2 series en total."
+  ],
+  "mistakes": [
+   "Lanzar las piernas hacia atrás con impulso.",
+   "Rodar sobre el cuello en vez de sobre los hombros."
+  ],
+  "tip": "Mantén el peso sobre los hombros y nunca sobre el cuello, y flexiona las rodillas para hacerlo más fácil."
+ },
+ "legs_up_wall": {
+  "title": "Piernas en la pared",
+  "desc": "Apoya las piernas en una pared para aliviar la carga de la columna y relajarte después de un día largo.",
+  "dose": "3 min",
+  "steps": [
+   "Siéntate de lado junto a una pared con una cadera tocándola.",
+   "Sube las piernas por la pared mientras te tumbas en el suelo.",
+   "Deja los brazos a los lados y relaja las piernas contra la pared.",
+   "Quédate 3 minutos respirando despacio."
+  ],
+  "mistakes": [
+   "Levantar la zona lumbar del suelo.",
+   "Bloquear las rodillas con fuerza y tensar las piernas."
+  ],
+  "tip": "Aleja un poco las caderas de la pared si notas tensa la parte de atrás de las piernas."
+ },
+ "spinal_twist": {
+  "title": "Torsión tumbado",
+  "desc": "Deja caer una rodilla hacia el otro lado del cuerpo para girar la columna con suavidad y soltar una zona lumbar rígida.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Túmbate boca arriba con los brazos abiertos a los lados.",
+   "Flexiona una rodilla y llévala cruzando el cuerpo hacia el suelo.",
+   "Mantén los dos hombros en el suelo y mira hacia el lado contrario.",
+   "Aguanta 20 segundos, cambia de lado y haz 2 series de cada lado."
+  ],
+  "mistakes": [
+   "Dejar que el hombro contrario se levante del suelo.",
+   "Forzar la rodilla hacia abajo con la mano."
+  ],
+  "tip": "Apoya la rodilla en un cojín si no llega al suelo."
+ },
+ "chest_stretch": {
+  "title": "Estiramiento de pecho en la puerta",
+  "desc": "Pasa por el marco de una puerta con el antebrazo apoyado para abrir un pecho encogido por las pantallas.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Ponte en el marco de una puerta y apoya un antebrazo en él, con el codo a la altura del hombro.",
+   "Da un paso adelante con el pie del mismo lado, atravesando la puerta.",
+   "Inclina el pecho hacia delante hasta notar un estiramiento en la parte delantera del hombro.",
+   "Aguanta 20 segundos, cambia de lado y haz 2 series de cada lado."
+  ],
+  "mistakes": [
+   "Arquear la zona lumbar para inclinarte más.",
+   "Subir el hombro hacia la oreja."
+  ],
+  "tip": "Estira con suavidad y afloja si notas un pellizco en el hombro."
+ },
+ "scapular_retraction": {
+  "title": "Juntar los omóplatos",
+  "desc": "Junta los omóplatos hacia atrás y abajo para entrenar los músculos que evitan que los hombros se encorven.",
+  "dose": "2 x 10",
+  "steps": [
+   "Siéntate o ponte de pie, recto, con los brazos relajados a los lados.",
+   "Lleva los omóplatos hacia atrás y abajo, como si los metieras en los bolsillos de atrás.",
+   "Aguanta el apretón durante una respiración lenta y suelta.",
+   "Haz 10 repeticiones y descansa, 2 series en total."
+  ],
+  "mistakes": [
+   "Subir los hombros mientras aprietas.",
+   "Sacar las costillas hacia delante y arquear la espalda."
+  ],
+  "tip": "Mantén la barbilla a nivel y el cuello relajado todo el tiempo."
+ },
+ "thoracic_extension": {
+  "title": "Extensión de espalda alta en silla",
+  "desc": "Inclina la parte alta de la espalda sobre una silla para deshacer la postura encorvada de estar sentado y abrir el pecho.",
+  "dose": "2 x 8",
+  "steps": [
+   "Siéntate en una silla resistente con el borde superior del respaldo justo debajo de los omóplatos.",
+   "Pon las manos detrás de la cabeza y mantén los codos abiertos.",
+   "Inclina despacio la parte alta de la espalda sobre el respaldo y mira hacia arriba.",
+   "Vuelve a subir, haz 8 repeticiones y descansa, 2 series en total."
+  ],
+  "mistakes": [
+   "Doblarte desde la zona lumbar en vez de la parte alta de la espalda.",
+   "Tirar de la cabeza hacia delante con las manos."
+  ],
+  "tip": "Usa una silla que no ruede ni se incline, y mantén los pies planos en el suelo."
+ },
+ "hanging_knee_raise": {
+  "title": "Elevación de rodillas colgado",
+  "desc": "Sube las rodillas colgado de una barra para tener un abdomen fuerte, mientras el colgarte descomprime la columna.",
+  "dose": "3 x 5",
+  "steps": [
+   "Agarra la barra con las palmas hacia delante y cuélgate con los brazos estirados.",
+   "Baja los hombros alejándolos de las orejas.",
+   "Sube las dos rodillas a la altura de la cadera sin balancearte y bájalas despacio.",
+   "Haz 5 repeticiones, bájate de la barra y descansa, 3 series en total."
+  ],
+  "mistakes": [
+   "Balancear el cuerpo para lanzar las rodillas hacia arriba.",
+   "Colgarte con los hombros pegados a las orejas."
+  ],
+  "tip": "Comprueba que la barra es firme antes de colgarte, y bájate con cuidado en vez de dejarte caer."
+ },
+ "scapular_pull": {
+  "title": "Tracción escapular",
+  "desc": "Desde un cuelgue con los brazos estirados, tira de los hombros hacia abajo para crear la base de unas buenas dominadas.",
+  "dose": "3 x 5",
+  "steps": [
+   "Agarra la barra con las palmas hacia delante, con las manos un poco más abiertas que los hombros.",
+   "Cuélgate con los brazos estirados y deja que los hombros suban hacia las orejas.",
+   "Tira de los omóplatos hacia abajo para que el cuerpo suba un poco, con los codos estirados.",
+   "Aguanta un segundo y suelta, haz 5 repeticiones, 3 series en total."
+  ],
+  "mistakes": [
+   "Doblar los codos para subir más.",
+   "Balancear las piernas para ayudarte."
+  ],
+  "tip": "Comprueba que la barra es firme, y deja los pies sobre un cajón si el cuelgue completo es demasiado difícil."
+ },
+ "pull_ups": {
+  "title": "Dominadas",
+  "desc": "Sube la barbilla por encima de la barra para fortalecer la espalda, un esfuerzo duro al que tu cuerpo responde después con hormona del crecimiento.",
+  "dose": "3 x 2",
+  "steps": [
+   "Agarra la barra con las palmas hacia delante, con las manos un poco más abiertas que los hombros.",
+   "Empieza desde un cuelgue con los brazos estirados y baja los omóplatos.",
+   "Sube hasta que la barbilla pase la barra y baja despacio.",
+   "Haz 2 repeticiones, bájate de la barra y descansa, 3 series en total."
+  ],
+  "mistakes": [
+   "Patalear y balancearte para pasar la barra.",
+   "Dejarte caer rápido en vez de bajar con control."
+  ],
+  "tip": "Pasa una banda elástica bajo los pies, o salta hasta arriba y baja despacio, y comprueba que la barra es firme."
+ },
+ "bird_dog": {
+  "title": "Bird Dog",
+  "desc": "Estira el brazo y la pierna contrarios para entrenar los músculos profundos que mantienen estable la columna.",
+  "dose": "2 x 8",
+  "steps": [
+   "Empieza a cuatro patas con las manos bajo los hombros y las rodillas bajo las caderas.",
+   "Estira un brazo hacia delante y la pierna contraria recta hacia atrás.",
+   "Aguanta dos segundos con las caderas niveladas y vuelve.",
+   "Haz 8 repeticiones, cambia de lado y haz 2 series de cada lado."
+  ],
+  "mistakes": [
+   "Dejar que la zona lumbar se hunda al subir la pierna.",
+   "Abrir la cadera hacia un lado para subir más la pierna."
+  ],
+  "tip": "Imagina un vaso de agua apoyado en la zona lumbar que no se debe derramar."
+ },
+ "dead_bug": {
+  "title": "Dead Bug",
+  "desc": "Baja el brazo y la pierna contrarios con la espalda plana para ganar control del abdomen que protege tu columna.",
+  "dose": "2 x 8",
+  "steps": [
+   "Túmbate boca arriba con los brazos estirados hacia arriba y las rodillas flexionadas sobre las caderas.",
+   "Presiona la zona lumbar con suavidad contra el suelo.",
+   "Baja un brazo por encima de la cabeza y la pierna contraria hacia el suelo, y vuelve.",
+   "Haz 8 repeticiones de cada lado y descansa, 2 series en total."
+  ],
+  "mistakes": [
+   "Dejar que la zona lumbar se arquee y se despegue del suelo.",
+   "Hacer las repeticiones con prisa."
+  ],
+  "tip": "Baja el brazo y la pierna solo hasta donde la espalda siga plana contra el suelo."
+ },
+ "side_plank": {
+  "title": "Plancha lateral",
+  "desc": "Mantén una línea recta apoyado en un antebrazo para fortalecer los músculos laterales que equilibran tu postura.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Túmbate de lado con el antebrazo en el suelo y el codo bajo el hombro.",
+   "Apila los pies y levanta las caderas del suelo.",
+   "Mantén el cuerpo en una línea recta de la cabeza a los talones.",
+   "Aguanta 15 segundos, cambia de lado y haz 2 series de cada lado."
+  ],
+  "mistakes": [
+   "Dejar caer las caderas hacia el suelo.",
+   "Girar el pecho hacia delante, hacia el suelo."
+  ],
+  "tip": "Deja la rodilla de abajo apoyada en el suelo para hacerlo más fácil."
+ },
+ "wall_sit": {
+  "title": "Sentadilla en la pared",
+  "desc": "Siéntate contra una pared con los muslos paralelos al suelo para ganar fuerza en las piernas con la espalda recta.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Apoya la espalda en una pared con los pies un paso por delante.",
+   "Baja deslizándote hasta que los muslos queden paralelos al suelo.",
+   "Mantén las rodillas sobre los tobillos y toda la espalda en la pared.",
+   "Aguanta 20 segundos y levántate, 3 series en total."
+  ],
+  "mistakes": [
+   "Apoyar las manos en los muslos.",
+   "Dejar que las rodillas pasen hacia delante de las puntas de los pies."
+  ],
+  "tip": "Sube un poco si te molestan las rodillas, y baja más cuando estés más fuerte."
+ },
+ "lunges": {
+  "title": "Zancadas",
+  "desc": "Da un paso hacia delante y flexiona las dos rodillas para tener piernas y caderas fuertes, un lado cada vez.",
+  "dose": "3 x 8",
+  "steps": [
+   "Ponte recto con los pies a la anchura de las caderas.",
+   "Da un paso grande hacia delante y baja hasta que las dos rodillas formen unos 90 grados.",
+   "Empuja con el talón de delante para volver a la posición inicial.",
+   "Haz 8 repeticiones con cada pierna y descansa, 3 series en total."
+  ],
+  "mistakes": [
+   "Dejar que la rodilla de delante se meta hacia dentro.",
+   "Inclinar mucho el pecho hacia delante sobre la pierna de delante."
+  ],
+  "tip": "Da un paso más corto o agárrate a una silla para el equilibrio hasta que el movimiento te salga estable."
+ },
+ "step_ups": {
+  "title": "Subidas al escalón",
+  "desc": "Sube al escalón, ponte recto y baja despacio para ganar fuerza en una pierna y equilibrio.",
+  "dose": "3 x 8",
+  "steps": [
+   "Ponte frente a un escalón o un banco bajo y resistente.",
+   "Apoya un pie entero en el escalón y empuja hasta quedar de pie, recto.",
+   "Baja el otro pie al suelo despacio.",
+   "Haz 8 repeticiones con cada pierna y descansa, 3 series en total."
+  ],
+  "mistakes": [
+   "Impulsarte fuerte con el pie que queda en el suelo.",
+   "Dejarte caer rápido en vez de bajar con control."
+  ],
+  "tip": "Usa un escalón que no pueda deslizarse ni volcar, y empieza bajo antes de pasar a uno más alto."
+ },
+ "push_ups": {
+  "title": "Flexiones",
+  "desc": "Baja el pecho hacia el suelo con el cuerpo recto para fortalecer el pecho, los brazos y el abdomen.",
+  "dose": "3 x 5",
+  "steps": [
+   "Apoya las manos en el suelo, un poco más abiertas que los hombros.",
+   "Lleva los pies hacia atrás para que el cuerpo forme una línea recta.",
+   "Flexiona los codos para bajar el pecho al suelo y empuja para subir.",
+   "Haz 5 repeticiones y descansa, 3 series en total."
+  ],
+  "mistakes": [
+   "Dejar que las caderas se hundan hacia el suelo.",
+   "Abrir los codos directamente hacia los lados."
+  ],
+  "tip": "Apoya las rodillas o pon las manos en un banco para hacerlo más fácil."
+ },
+ "single_leg_calf_raise": {
+  "title": "Elevación de talón a una pierna",
+  "desc": "Sube sobre un pie desde el borde de un escalón para tener pantorrillas y tobillos fuertes para saltar.",
+  "dose": "3 x 8",
+  "steps": [
+   "Ponte en el borde de un escalón sobre la parte delantera de un pie y agárrate a una pared o barandilla.",
+   "Baja el talón despacio por debajo del nivel del escalón.",
+   "Sube lo más alto que puedas de puntillas y haz una pausa de un segundo.",
+   "Haz 8 repeticiones con cada pierna y descansa, 3 series en total."
+  ],
+  "mistakes": [
+   "Rebotar abajo en vez de moverte despacio.",
+   "Flexionar la rodilla para ayudar a la pantorrilla."
+  ],
+  "tip": "Empieza con el peso del cuerpo, y si añades una mancuerna o una mochila, elige un peso con el que puedas terminar cada repetición con buena técnica."
+ },
+ "goblet_squat": {
+  "title": "Sentadilla goblet",
+  "desc": "Una sentadilla con peso contra el pecho, un esfuerzo de los músculos grandes al que tu cuerpo responde después con hormona del crecimiento.",
+  "dose": "3 x 8",
+  "steps": [
+   "Sujeta una mancuerna o una mochila con peso contra el pecho con las dos manos.",
+   "Ponte con los pies a la anchura de los hombros y las puntas un poco hacia fuera.",
+   "Siéntate entre los talones con el pecho alto y vuelve a subir.",
+   "Haz 8 repeticiones y descansa, 3 series en total."
+  ],
+  "mistakes": [
+   "Dejar que las rodillas se metan hacia dentro.",
+   "Redondear la espalda y dejar caer el pecho."
+  ],
+  "tip": "Elige un peso con el que puedas terminar cada repetición con buena técnica."
+ },
+ "dumbbell_deadlift": {
+  "title": "Peso muerto rumano con mancuernas",
+  "desc": "Inclínate desde las caderas con la espalda plana, un trabajo duro de los músculos grandes al que tu cuerpo responde después con hormona del crecimiento.",
+  "dose": "3 x 8",
+  "steps": [
+   "Ponte recto con una mancuerna en cada mano delante de los muslos.",
+   "Afloja las rodillas y echa las caderas hacia atrás con la espalda plana.",
+   "Desliza las mancuernas por los muslos hasta justo debajo de las rodillas.",
+   "Aprieta los glúteos para subir, haz 8 repeticiones, 3 series en total."
+  ],
+  "mistakes": [
+   "Redondear la espalda al bajar las mancuernas.",
+   "Convertirlo en una sentadilla flexionando mucho las rodillas."
+  ],
+  "tip": "Elige un peso con el que puedas terminar cada repetición con buena técnica."
+ },
+ "dumbbell_row": {
+  "title": "Remo con mancuerna",
+  "desc": "Lleva una mancuerna hacia la cadera para fortalecer los músculos de la parte alta de la espalda que llevan los hombros hacia atrás.",
+  "dose": "3 x 8",
+  "steps": [
+   "Apoya una mano en un banco o una silla y lleva los pies hacia atrás.",
+   "Sujeta una mancuerna con la otra mano, con la espalda plana y el brazo colgando hacia abajo.",
+   "Lleva el peso hacia la cadera con el codo pegado y bájalo despacio.",
+   "Haz 8 repeticiones de cada lado y descansa, 3 series en total."
+  ],
+  "mistakes": [
+   "Girar el cuerpo para subir el peso de golpe.",
+   "Subir el hombro hacia la oreja."
+  ],
+  "tip": "Elige un peso con el que puedas terminar cada repetición con buena técnica."
+ },
+ "farmer_carry": {
+  "title": "Paseo del granjero",
+  "desc": "Camina recto con un peso en cada mano, un trabajo de todo el cuerpo al que tu cuerpo responde después con hormona del crecimiento.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Ponte entre dos mancuernas o dos bolsas con peso.",
+   "Flexiona las rodillas, mantén la espalda plana y levántalas.",
+   "Camina con pasos cortos, con los hombros atrás y la mirada al frente.",
+   "Camina durante 20 segundos, deja los pesos y descansa, 3 series en total."
+  ],
+  "mistakes": [
+   "Inclinarte hacia un lado o dejar que los hombros se encorven hacia delante.",
+   "Redondear la espalda al levantar o dejar los pesos."
+  ],
+  "tip": "Elige un peso con el que puedas terminar cada serie con buena técnica, y mantén los dos lados iguales."
+ },
+ "band_pull_apart": {
+  "title": "Apertura con banda",
+  "desc": "Abre una banda elástica hasta el pecho para fortalecer la parte alta de la espalda y mantener los hombros abiertos.",
+  "dose": "2 x 12",
+  "steps": [
+   "Ponte recto y sujeta una banda delante de ti con los brazos estirados a la altura de los hombros.",
+   "Abre la banda juntando los omóplatos.",
+   "Toca el pecho con la banda y vuelve despacio.",
+   "Haz 12 repeticiones y descansa, 2 series en total."
+  ],
+  "mistakes": [
+   "Subir los hombros hacia las orejas.",
+   "Dejar que la banda vuelva de golpe en vez de volver despacio."
+  ],
+  "tip": "Elige una banda con la que puedas terminar cada repetición con buena técnica, y comprueba antes que no tenga roturas."
+ },
+ "burpees": {
+  "title": "Burpees",
+  "desc": "Sentadilla, plancha y salto en un solo movimiento, un trabajo de todo el cuerpo al que tu cuerpo responde después con hormona del crecimiento.",
+  "dose": "3 x 5",
+  "steps": [
+   "Ponte recto, luego baja en sentadilla y apoya las manos en el suelo.",
+   "Salta con los pies hacia atrás hasta quedar en plancha recta.",
+   "Salta con los pies hacia delante, acercándolos a las manos.",
+   "Salta recto hacia arriba, haz 5 repeticiones y descansa, 3 series en total."
+  ],
+  "mistakes": [
+   "Dejar que las caderas se hundan en la plancha.",
+   "Caer fuerte con las piernas estiradas después del salto."
+  ],
+  "tip": "Lleva los pies atrás y adelante caminando en vez de saltar para hacerlo más fácil, y ve más despacio si pierdes la técnica."
+ }
+}

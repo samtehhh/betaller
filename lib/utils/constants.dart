@@ -335,6 +335,87 @@ class SectionHeader extends StatelessWidget {
 // ── Default Routines ──────────────────────────────────────────────
 
 const List<Map<String, dynamic>> defaultRoutines = [
+  // ── v4 moves ── titles/descriptions per language: kNewMoveText.
+  {
+    'id': 'masai_jumps',
+    'title': 'Masai Jumps',
+    'description': 'Stay tall and make small springy jumps on the spot.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🦘',
+  },
+  {
+    'id': 'calf_pulses',
+    'title': 'Calf Pulses',
+    'description': 'Small quick bounces on your toes for strong calves.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🦶',
+  },
+  {
+    'id': 'toe_touch',
+    'title': 'Toe Touch',
+    'description': 'Fold forward from the hips to free up your hamstrings.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🙇',
+  },
+  {
+    'id': 'downward_dog',
+    'title': 'Downward Dog',
+    'description': 'Hips high and spine long to stretch your whole back line.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🐕',
+  },
+  {
+    'id': 'wall_angels',
+    'title': 'Wall Angels',
+    'description': 'Slide your arms up a wall to open the chest and fix rounded shoulders.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '👼',
+  },
+  {
+    'id': 'superman',
+    'title': 'Superman',
+    'description': 'Lift arms and legs from the floor to strengthen your back.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🦸',
+  },
+  {
+    'id': 'knee_circles',
+    'title': 'Knee Circles',
+    'description': 'Small circles to warm up your knees.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🔄',
+  },
+  {
+    'id': 'upward_salute',
+    'title': 'Upward Salute',
+    'description': 'Reach tall overhead and open up your posture.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🙌',
+  },
+  {
+    'id': 'wall_dog',
+    'title': 'Wall Dog',
+    'description': 'Hands on the wall, hinge back and stretch your back.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧱',
+  },
+  {
+    'id': 'chin_tucks',
+    'title': 'Chin Tucks',
+    'description': 'Slide your chin straight back to undo forward head posture.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧍',
+  },
   // ── v3 moves ── titles/descriptions per language: kNewMoveText.
   {
     'id': 'plank',
@@ -431,7 +512,7 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'icon': '🌅',
     'musclesTargeted': ['spine', 'legs', 'back'],
     'scientificBasis':
-        'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention. (Spine Journal, 2014)',
+        'Morning stretching eases overnight stiffness and gets your muscles moving',
     'formDescription':
         'Start with neck rolls, then move to full body stretches. Hold each stretch for 20-30 seconds without bouncing.',
     'setsReps': '5-6 stretches x 30s hold',
@@ -442,15 +523,15 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'id': 'bar_hanging',
     'title': 'Barfiks Barına Asılma',
     'description':
-        'Barfiks barına asılarak omurgayı uzat. 3 set x 30 saniye tut.',
+        'Omuzlarını ve sırtını esnetmek için barfiks çubuğuna asıl. 3 set x 30 saniye.',
     'category': 'exercise',
     'duration': '5 dk',
     'icon': '💪',
     'musclesTargeted': ['spine', 'shoulders', 'arms'],
     'scientificBasis':
-        'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height. (J Orthopedic Research, 2012)',
+        'Hanging stretches your shoulders and back and trains grip strength. Any height change is temporary',
     'formDescription':
-        'Grip the bar shoulder-width apart, relax your body completely, let gravity stretch your spine. Avoid swinging.',
+        'Grip the bar shoulder-width apart, relax your body and feel the stretch in your shoulders and back. Avoid swinging.',
     'setsReps': '3x30 seconds',
     'timerSeconds': 300,
     'difficulty': 'beginner',
@@ -465,7 +546,7 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'icon': '🐍',
     'musclesTargeted': ['spine', 'core', 'chest'],
     'scientificBasis':
-        'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting',
+        'Cobra stretch opens the chest and eases stiffness from long periods of sitting',
     'formDescription':
         'Lie face down, place hands under shoulders, slowly push upper body up while keeping hips on the floor. Look upward.',
     'setsReps': '3x15 seconds',
@@ -476,13 +557,13 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'id': 'jumping',
     'title': 'Zıplama Egzersizleri',
     'description':
-        'İp atlama veya squat jump. Büyüme plakalarını uyarır. 3 set x 20 tekrar.',
+        'İp atla ya da squat jump yap. Kemiklerinin güçlenmesine yardım eder. 3 set x 20 tekrar.',
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '🦘',
     'musclesTargeted': ['legs', 'calves', 'core'],
     'scientificBasis':
-        'High-impact loading stimulates bone modeling and triggers growth hormone release through mechanical stress. (J Bone Mineral Research, 2016)',
+        'High-impact jumping loads your bones and helps make them stronger during the teen years',
     'formDescription':
         'Perform squat jumps or jump rope. Land softly on the balls of your feet. Rest 30 seconds between sets.',
     'setsReps': '3x20 reps',
@@ -493,13 +574,13 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'id': 'swimming_basketball',
     'title': 'Yüzme veya Basketbol',
     'description':
-        'Boy uzamasını destekleyen sporlardan birini yap. En az 30 dakika.',
+        'Kondisyonunu ve gücünü artırmak için sevdiğin bir sporu yap. En az 30 dakika.',
     'category': 'exercise',
     'duration': '30 dk',
     'icon': '🏀',
     'musclesTargeted': ['full_body', 'legs', 'spine'],
     'scientificBasis':
-        'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity',
+        'Swimming and basketball build fitness, coordination and strength, and the jumping in basketball helps make bones stronger',
     'formDescription':
         'Choose swimming (freestyle/backstroke) or basketball. Focus on jumping, reaching, and full range of motion.',
     'setsReps': '30 min continuous',
@@ -516,7 +597,7 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'icon': '🧘',
     'musclesTargeted': ['spine', 'legs', 'hips', 'back'],
     'scientificBasis':
-        'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery. (J Clinical Endocrinology, 2017)',
+        'Evening yoga helps you unwind and relaxes your muscles before sleep',
     'formDescription':
         'Perform gentle poses: cat-cow, child pose, downward dog, forward fold. Breathe deeply and hold each pose 30-60 seconds.',
     'setsReps': '6-8 poses x 60s hold',
@@ -528,12 +609,12 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'id': 'sprint_intervals',
     'title': 'Sprint Interval Training',
     'description':
-        'Sprint interval training triggers significant growth hormone release through high-intensity bursts.',
+        'Short sprints with recovery walks build fitness and leg strength.',
     'category': 'exercise',
     'duration': '20 dk',
     'icon': '🏃',
     'musclesTargeted': ['legs', 'core'],
-    'scientificBasis': 'Sprinting triggers significant growth hormone release',
+    'scientificBasis': 'Short sprints with recovery walks build fitness and leg strength',
     'formDescription':
         'Warm up for 5 minutes, then sprint at maximum effort for 30 seconds. Walk or jog for 90 seconds to recover. Repeat.',
     'setsReps': '3x30 second sprints',
@@ -544,13 +625,13 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'id': 'hiit_workout',
     'title': 'HIIT Workout',
     'description':
-        'High intensity interval training to maximize growth hormone release.',
+        'High intensity interval training builds fitness and strength.',
     'category': 'exercise',
     'duration': '15 dk',
     'icon': '💥',
     'musclesTargeted': ['full_body'],
     'scientificBasis':
-        'High intensity exercise increases HGH secretion by up to 450% through lactate accumulation. (Sports Medicine, 2003)',
+        'High intensity interval training builds fitness and strength',
     'formDescription':
         'Perform exercises like burpees, mountain climbers, and jump squats at maximum intensity for 45 seconds, rest 15 seconds.',
     'setsReps': '4 rounds of 45s work/15s rest',
@@ -561,12 +642,12 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'id': 'squats',
     'title': 'Bodyweight Squats',
     'description':
-        'Bodyweight squats stimulate growth plates in legs and spine.',
+        'Bodyweight squats strengthen your legs and the muscles that support posture.',
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '🦵',
     'musclesTargeted': ['legs', 'spine'],
-    'scientificBasis': 'Squats stimulate growth plates in legs and spine',
+    'scientificBasis': 'Bodyweight squats strengthen your legs and the muscles that support posture',
     'formDescription':
         'Stand with feet shoulder-width apart. Lower your body until thighs are parallel to ground. Keep back straight and knees behind toes.',
     'setsReps': '3x20 reps',
@@ -577,12 +658,12 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'id': 'deadlift_stretch',
     'title': 'Deadlift Stretch',
     'description':
-        'Deadlift stretch for spinal decompression and vertebral disc health.',
+        'Deadlift stretch for flexible hamstrings and a stronger back.',
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '🏋️',
     'musclesTargeted': ['back', 'legs', 'spine'],
-    'scientificBasis': 'Spinal decompression promotes vertebral disc health',
+    'scientificBasis': 'Deadlift stretch for flexible hamstrings and a stronger back',
     'formDescription':
         'Stand with feet hip-width apart, hinge at hips keeping back flat. Reach toward toes, feel the stretch in hamstrings and back.',
     'setsReps': '3x12 reps',
@@ -593,13 +674,13 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'id': 'overhead_press',
     'title': 'Overhead Press',
     'description':
-        'Overhead pressing stretches the spine and strengthens posture muscles.',
+        'Overhead pressing strengthens your shoulders and posture muscles.',
     'category': 'exercise',
     'duration': '10 dk',
     'icon': '💪',
     'musclesTargeted': ['shoulders', 'spine'],
     'scientificBasis':
-        'Overhead pressing stretches the spine and strengthens posture muscles',
+        'Overhead pressing strengthens your shoulders and posture muscles',
     'formDescription':
         'Stand tall, press arms overhead fully extending. Use light weights or bodyweight. Keep core tight and avoid arching back.',
     'setsReps': '3x10 reps',
@@ -610,13 +691,13 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'id': 'skipping_rope',
     'title': 'Skipping Rope',
     'description':
-        'Repetitive jumping with a skipping rope stimulates growth plates in lower extremities.',
+        'Repetitive jumping with a rope loads your leg bones and helps make them stronger.',
     'category': 'exercise',
     'duration': '15 dk',
     'icon': '⏭️',
     'musclesTargeted': ['legs', 'calves'],
     'scientificBasis':
-        'Repetitive jumping stimulates growth plates in lower extremities',
+        'Repetitive jumping with a rope loads your leg bones and helps make them stronger',
     'formDescription':
         'Jump with both feet, landing softly on the balls of your feet. Keep jumps low and consistent. Rest between sets.',
     'setsReps': '5 min x 3 sets',
@@ -643,13 +724,13 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'id': 'inversion_hang',
     'title': 'Inversion Hanging',
     'description':
-        'Inversion decompresses spinal discs, can temporarily add 1-2cm.',
+        'Inversion can relax your back muscles. Any height change is temporary.',
     'category': 'exercise',
     'duration': '5 dk',
     'icon': '🔄',
     'musclesTargeted': ['spine', 'back'],
     'scientificBasis':
-        'Inversion decompresses spinal discs, can temporarily add 1-2cm',
+        'Inversion can relax your back muscles. Any height change is temporary',
     'formDescription':
         'Use an inversion table or gravity boots. Start with a slight incline and gradually increase. Keep sessions short.',
     'setsReps': '3x1 minute',
@@ -920,6 +1001,350 @@ const List<Map<String, dynamic>> defaultRoutines = [
     'timerSeconds': 300,
     'difficulty': 'beginner',
   },
+  // ── v5 moves (generated by tool/moves_v2_gen.py) ──
+  {
+    'id': 'pogo_jumps',
+    'title': 'Pogo Jumps',
+    'description':
+        'Quick, stiff-ankle bounces load your shin and foot bones and build springy, powerful calves.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🦘',
+  },
+  {
+    'id': 'jump_squats',
+    'title': 'Jump Squats',
+    'description':
+        'Squat and jump for leg power, the hard big-muscle work your body answers with growth hormone afterwards.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🏋️',
+  },
+  {
+    'id': 'tuck_jumps',
+    'title': 'Tuck Jumps',
+    'description':
+        'Jump and pull your knees up for explosive power, the hard effort your body answers with growth hormone afterwards.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🦘',
+  },
+  {
+    'id': 'broad_jumps',
+    'title': 'Broad Jumps',
+    'description':
+        'Jump forward off two feet and stick the landing to build hip power and strong leg bones.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🏃',
+  },
+  {
+    'id': 'single_leg_hops',
+    'title': 'Single-Leg Hops',
+    'description':
+        'Small hops on one leg strengthen your ankles and bones and even out your two sides.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🦶',
+  },
+  {
+    'id': 'high_knees',
+    'title': 'High Knees',
+    'description':
+        'Run on the spot with your knees at hip height to warm up fast and load your legs.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🏃',
+  },
+  {
+    'id': 'mountain_pose',
+    'title': 'Mountain Pose on Toes',
+    'description':
+        'Rise onto your toes and reach up to lengthen your spine and practise standing at your full height.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧍',
+  },
+  {
+    'id': 'pelvic_shift',
+    'title': 'Pelvic Shift',
+    'description':
+        'Lift and lower your hips one vertebra at a time to loosen your spine and wake up your glutes.',
+    'category': 'posture',
+    'duration': '5 dk',
+    'icon': '🧘',
+  },
+  {
+    'id': 'table_top',
+    'title': 'Reverse Table Top',
+    'description':
+        'Lift your hips into a flat table to open your chest and shoulders and strengthen your back side.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧘',
+  },
+  {
+    'id': 'childs_pose',
+    'title': 'Child\'s Pose',
+    'description':
+        'Sit back on your heels with long arms to gently stretch your back and let your spine relax.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧘',
+  },
+  {
+    'id': 'puppy_pose',
+    'title': 'Puppy Pose',
+    'description':
+        'Melt your chest toward the floor to open tight shoulders and stretch your upper back.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧘',
+  },
+  {
+    'id': 'seated_forward_fold',
+    'title': 'Seated Forward Fold',
+    'description':
+        'Hinge forward over straight legs to stretch your hamstrings and the whole length of your back.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧘',
+  },
+  {
+    'id': 'standing_side_stretch',
+    'title': 'Standing Side Stretch',
+    'description':
+        'Lean to each side with your arms overhead to stretch your waist and free up your ribs.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧍',
+  },
+  {
+    'id': 'low_lunge_arch',
+    'title': 'Low Lunge with Reach',
+    'description':
+        'Sink your hips forward and reach up to open the front of your hips and your chest.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧘',
+  },
+  {
+    'id': 'bow_pose',
+    'title': 'Bow Pose',
+    'description':
+        'Hold your ankles and lift your chest and thighs to open your whole front and strengthen your back.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧘',
+  },
+  {
+    'id': 'pilates_roll_over',
+    'title': 'Pilates Roll Over',
+    'description':
+        'Roll your legs overhead and back with control to stretch your spine and train deep core strength.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧘',
+  },
+  {
+    'id': 'legs_up_wall',
+    'title': 'Legs Up the Wall',
+    'description':
+        'Rest your legs up a wall to take the load off your spine and unwind after a long day.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧱',
+  },
+  {
+    'id': 'spinal_twist',
+    'title': 'Lying Spinal Twist',
+    'description':
+        'Drop one knee across your body to gently rotate your spine and release a stiff lower back.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧘',
+  },
+  {
+    'id': 'chest_stretch',
+    'title': 'Doorway Chest Stretch',
+    'description':
+        'Step through a doorway with your forearm on the frame to open a chest rounded by screens.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🚪',
+  },
+  {
+    'id': 'scapular_retraction',
+    'title': 'Shoulder Blade Squeeze',
+    'description':
+        'Squeeze your shoulder blades back and down to train the muscles that keep your shoulders from rounding.',
+    'category': 'posture',
+    'duration': '5 dk',
+    'icon': '🧍',
+  },
+  {
+    'id': 'thoracic_extension',
+    'title': 'Chair Upper-Back Extension',
+    'description':
+        'Lean your upper back over a chair to undo the slouch from sitting and open your chest.',
+    'category': 'posture',
+    'duration': '5 dk',
+    'icon': '🪑',
+  },
+  {
+    'id': 'hanging_knee_raise',
+    'title': 'Hanging Knee Raise',
+    'description':
+        'Lift your knees while you hang to build a strong core as the hang decompresses your spine.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🤸',
+  },
+  {
+    'id': 'scapular_pull',
+    'title': 'Scapular Pull',
+    'description':
+        'Pull your shoulders down from a hang with straight arms to build the base for strong pull-ups.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🤸',
+  },
+  {
+    'id': 'pull_ups',
+    'title': 'Pull-Ups',
+    'description':
+        'Pull your chin over the bar to build your back, hard work the body answers with growth hormone afterwards.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '💪',
+  },
+  {
+    'id': 'bird_dog',
+    'title': 'Bird Dog',
+    'description':
+        'Reach your opposite arm and leg long to train the deep muscles that keep your spine steady.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '💪',
+  },
+  {
+    'id': 'dead_bug',
+    'title': 'Dead Bug',
+    'description':
+        'Lower your opposite arm and leg with your back flat to build core control that protects your spine.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '💪',
+  },
+  {
+    'id': 'side_plank',
+    'title': 'Side Plank',
+    'description':
+        'Hold a straight line on one forearm to strengthen the side muscles that keep your posture even.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '💪',
+  },
+  {
+    'id': 'wall_sit',
+    'title': 'Wall Sit',
+    'description':
+        'Sit against a wall with your thighs level to build leg strength with your back held straight.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🧱',
+  },
+  {
+    'id': 'lunges',
+    'title': 'Lunges',
+    'description':
+        'Step forward and bend both knees to build strong legs and hips, one side at a time.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🦵',
+  },
+  {
+    'id': 'step_ups',
+    'title': 'Step-Ups',
+    'description':
+        'Step up and stand tall, then lower slowly, to build single-leg strength and balance.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🦵',
+  },
+  {
+    'id': 'push_ups',
+    'title': 'Push-Ups',
+    'description':
+        'Lower your chest to the floor with a straight body to build your chest, arms and core.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '💪',
+  },
+  {
+    'id': 'single_leg_calf_raise',
+    'title': 'Single-Leg Calf Raise',
+    'description':
+        'Rise on one foot from the edge of a step to build strong calves and ankles for jumping.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🦶',
+  },
+  {
+    'id': 'goblet_squat',
+    'title': 'Goblet Squat',
+    'description':
+        'Squat with a weight at your chest, the big-muscle effort your body answers with growth hormone afterwards.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🏋️',
+  },
+  {
+    'id': 'dumbbell_deadlift',
+    'title': 'Dumbbell Romanian Deadlift',
+    'description':
+        'Hinge at your hips with a flat back, hard big-muscle work your body answers with growth hormone afterwards.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🏋️',
+  },
+  {
+    'id': 'dumbbell_row',
+    'title': 'Dumbbell Row',
+    'description':
+        'Pull a dumbbell to your hip to build the upper-back muscles that draw your shoulders back.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🏋️',
+  },
+  {
+    'id': 'farmer_carry',
+    'title': 'Farmer\'s Carry',
+    'description':
+        'Walk tall with a weight in each hand, whole-body work the body answers with growth hormone afterwards.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🏋️',
+  },
+  {
+    'id': 'band_pull_apart',
+    'title': 'Band Pull-Apart',
+    'description':
+        'Pull a band apart to your chest to strengthen your upper back and keep your shoulders open.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '💪',
+  },
+  {
+    'id': 'burpees',
+    'title': 'Burpees',
+    'description':
+        'Squat, plank and jump in one move, whole-body work your body answers with growth hormone afterwards.',
+    'category': 'exercise',
+    'duration': '5 dk',
+    'icon': '🔥',
+  },
+  // ── end v5 moves ──
 ];
 
 const List<String> motivationalQuotes = [

@@ -1,0 +1,610 @@
+{
+ "pogo_jumps": {
+  "title": "Pogo Jumps",
+  "desc": "Rimbalzi rapidi a caviglie rigide che sollecitano le ossa di tibia e piede e rendono i polpacci elastici e potenti.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stai dritto con i piedi alla larghezza delle anche e le mani sui fianchi.",
+   "Rimbalza sull'avampiede con le ginocchia quasi tese.",
+   "Tieni ogni contatto con il suolo breve e veloce, come su un pogo stick.",
+   "Continua per 20 secondi, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Piegare molto le ginocchia a ogni rimbalzo.",
+   "Far sbattere i talloni sul pavimento."
+  ],
+  "tip": "Salta su una superficie dura e piana e fermati se ti fanno male gli stinchi o le caviglie."
+ },
+ "jump_squats": {
+  "title": "Jump Squat",
+  "desc": "Squat con salto per la potenza delle gambe: uno sforzo intenso dei grandi muscoli a cui il corpo risponde poi con l'ormone della crescita.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stai con i piedi alla larghezza delle spalle e il petto alto.",
+   "Siediti all'indietro in squat finché le cosce sono più o meno parallele al pavimento.",
+   "Spingi forte sui piedi, salta in verticale e atterra morbido di nuovo in squat.",
+   "Fai 8 salti, riposa e ripeti per 3 serie in totale."
+  ],
+  "mistakes": [
+   "Far cadere le ginocchia verso l'interno all'atterraggio.",
+   "Atterrare con le gambe rigide e tese."
+  ],
+  "tip": "Atterra più piano che puoi e chiudi la serie quando gli atterraggi diventano rumorosi."
+ },
+ "tuck_jumps": {
+  "title": "Tuck Jump",
+  "desc": "Salta e porta le ginocchia al petto per la potenza esplosiva: uno sforzo intenso a cui il corpo risponde poi con l'ormone della crescita.",
+  "dose": "3 x 6",
+  "steps": [
+   "Stai dritto con i piedi alla larghezza delle anche.",
+   "Fai un rapido quarto di squat e salta più in alto che puoi.",
+   "In alto porta entrambe le ginocchia verso il petto, poi atterra morbido a ginocchia piegate.",
+   "Fai 6 salti, riposa e ripeti per 3 serie in totale."
+  ],
+  "mistakes": [
+   "Piegare il busto verso le ginocchia invece di alzare le ginocchia.",
+   "Atterrare forte con le gambe tese."
+  ],
+  "tip": "Ritrova l'equilibrio tra un salto e l'altro e assicurati di avere spazio libero e un pavimento che non scivola."
+ },
+ "broad_jumps": {
+  "title": "Salti in lungo da fermo",
+  "desc": "Salta in avanti a piedi uniti e blocca l'atterraggio per costruire potenza nelle anche e ossa delle gambe forti.",
+  "dose": "3 x 5",
+  "steps": [
+   "Stai con i piedi alla larghezza delle anche e le punte dietro una linea.",
+   "Porta le braccia indietro, piega le ginocchia e spingi i fianchi all'indietro.",
+   "Porta le braccia avanti, salta più lontano che puoi e atterra su entrambi i piedi.",
+   "Resta fermo un secondo nell'atterraggio, torna indietro a piedi e fai 5 salti, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Cadere in avanti o all'indietro all'atterraggio.",
+   "Atterrare con le ginocchia bloccate e tese."
+  ],
+  "tip": "Salta su una superficie che non scivola e fai salti più corti finché non riesci a fermare ogni atterraggio."
+ },
+ "single_leg_hops": {
+  "title": "Saltelli su una gamba",
+  "desc": "Piccoli saltelli su una gamba rinforzano caviglie e ossa e pareggiano i due lati del corpo.",
+  "dose": "2 x 8",
+  "steps": [
+   "Stai su una gamba con l'altro piede sollevato dietro di te.",
+   "Fai piccoli saltelli sul posto, atterrando sull'avampiede.",
+   "Tieni le anche livellate e il ginocchio d'appoggio leggermente piegato.",
+   "Fai 8 saltelli, cambia gamba e fai 2 serie per lato."
+  ],
+  "mistakes": [
+   "Far cadere verso l'interno il ginocchio della gamba che salta.",
+   "Saltare così in alto da perdere l'equilibrio."
+  ],
+  "tip": "Resta vicino a un muro che puoi toccare e tieni i saltelli bassi finché l'equilibrio non è stabile."
+ },
+ "high_knees": {
+  "title": "Corsa a ginocchia alte",
+  "desc": "Corri sul posto con le ginocchia all'altezza delle anche per scaldarti in fretta e lavorare con le gambe.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stai dritto con i piedi alla larghezza delle anche.",
+   "Corri sul posto e porta ogni ginocchio all'altezza dell'anca.",
+   "Muovi le braccia con energia e resta leggero sull'avampiede.",
+   "Continua per 20 secondi, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Inclinarti all'indietro mentre alzi le ginocchia.",
+   "Battere sul pavimento con i piedi piatti."
+  ],
+  "tip": "Rallenta e fai una marcia a ginocchia alte se rimani senza fiato."
+ },
+ "mountain_pose": {
+  "title": "Montagna sulle punte",
+  "desc": "Sali sulle punte e allunga le braccia in alto per allungare la colonna e allenarti a stare in piedi ben eretto.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Stai con i piedi uniti e il peso distribuito in modo uniforme.",
+   "Porta entrambe le braccia tese sopra la testa, con i palmi uno di fronte all'altro.",
+   "Sali sulle punte e allungati fino alla punta delle dita.",
+   "Tieni 20 secondi e scendi lentamente, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Aprire le costole e inarcare la zona lombare.",
+   "Alzare le spalle fino alle orecchie."
+  ],
+  "tip": "Fissa lo sguardo su un punto davanti a te, oppure tieni i talloni a terra se ondeggi."
+ },
+ "pelvic_shift": {
+  "title": "Ponte vertebra per vertebra",
+  "desc": "Solleva e abbassa il bacino una vertebra alla volta per sciogliere la colonna e svegliare i glutei.",
+  "dose": "2 x 10",
+  "steps": [
+   "Sdraiati sulla schiena con le ginocchia piegate e i piedi appoggiati a terra.",
+   "Porta il coccige in dentro e stacca la schiena dal pavimento dal basso verso l'alto.",
+   "Fermati in alto, poi scendi lentamente, una vertebra alla volta.",
+   "Fai 10 ripetizioni lente e riposa, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Spingere il bacino in alto di scatto, tutto in un blocco.",
+   "Inarcare la zona lombare in alto."
+  ],
+  "tip": "Muoviti abbastanza piano da sentire ogni tratto della schiena che tocca il pavimento."
+ },
+ "table_top": {
+  "title": "Tavolo rovesciato",
+  "desc": "Solleva il bacino fino a formare un tavolo piatto per aprire petto e spalle e rinforzare la parte posteriore del corpo.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Siediti con le ginocchia piegate, i piedi a terra e le mani sul pavimento dietro i fianchi.",
+   "Punta le dita verso i piedi e spingi su mani e piedi.",
+   "Solleva il bacino finché il corpo è piatto dalle ginocchia alle spalle.",
+   "Tieni 15 secondi e scendi, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Lasciar cedere il bacino al centro.",
+   "Lasciar cadere indietro la testa e stirare il collo."
+  ],
+  "tip": "Ruota le dita verso l'esterno se senti dolore ai polsi."
+ },
+ "childs_pose": {
+  "title": "Posizione del bambino",
+  "desc": "Siediti sui talloni con le braccia lunghe per allungare dolcemente la schiena e lasciarla rilassare.",
+  "dose": "2 x 30 s",
+  "steps": [
+   "Inginocchiati a terra con gli alluci uniti e le ginocchia aperte.",
+   "Porta i fianchi indietro sui talloni.",
+   "Cammina con le mani in avanti e appoggia la fronte a terra.",
+   "Respira lentamente per 30 secondi e risali, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Alzare molto il bacino dai talloni per andare più avanti.",
+   "Trattenere il respiro e irrigidire le spalle."
+  ],
+  "tip": "Metti un cuscino tra i fianchi e i talloni se senti le ginocchia tese."
+ },
+ "puppy_pose": {
+  "title": "Posizione del cucciolo",
+  "desc": "Lascia sciogliere il petto verso il pavimento per aprire le spalle rigide e allungare la parte alta della schiena.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Parti a quattro zampe con i fianchi esattamente sopra le ginocchia.",
+   "Cammina con le mani in avanti e tieni i fianchi dove sono.",
+   "Lascia che petto e fronte scendano verso il pavimento.",
+   "Tieni 20 secondi e risali, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Lasciar scivolare i fianchi indietro verso i talloni.",
+   "Piegare i gomiti e appoggiarli a terra."
+  ],
+  "tip": "Appoggia la fronte su un cuscino se l'allungamento delle spalle è troppo intenso."
+ },
+ "seated_forward_fold": {
+  "title": "Flessione in avanti da seduti",
+  "desc": "Piegati in avanti sulle gambe tese per allungare i muscoli posteriori delle cosce e tutta la schiena.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Siediti a terra con le gambe tese e le punte dei piedi verso l'alto.",
+   "Allungati verso l'alto e porta entrambe le braccia sopra la testa.",
+   "Piegati in avanti dalle anche e cerca di arrivare a stinchi o piedi.",
+   "Tieni 20 secondi e torna su, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Arrotondare la parte alta della schiena per toccare le punte.",
+   "Molleggiare per andare più a fondo."
+  ],
+  "tip": "Piega un po' le ginocchia o siediti su un asciugamano ripiegato se la zona lombare si arrotonda."
+ },
+ "standing_side_stretch": {
+  "title": "Allungamento laterale in piedi",
+  "desc": "Inclinati da un lato e dall'altro con le braccia in alto per allungare i fianchi e liberare le costole.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Stai dritto con i piedi alla larghezza delle anche.",
+   "Porta entrambe le braccia sopra la testa e tieni un polso con l'altra mano.",
+   "Inclinati lentamente da un lato e tieni entrambi i piedi premuti a terra.",
+   "Tieni 15 secondi, cambia lato e fai 2 serie per lato."
+  ],
+  "mistakes": [
+   "Inclinarti in avanti o ruotare invece di piegarti dritto di lato.",
+   "Spingere i fianchi molto di lato."
+  ],
+  "tip": "Immagina di stare tra due pareti, così puoi muoverti solo di lato."
+ },
+ "low_lunge_arch": {
+  "title": "Affondo basso con braccia in alto",
+  "desc": "Spingi i fianchi in avanti e allunga le braccia in alto per aprire la parte anteriore delle anche e il petto.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Fai un passo avanti con un piede e abbassa a terra il ginocchio dietro.",
+   "Fai scivolare i fianchi in avanti finché senti l'allungamento davanti all'anca dietro.",
+   "Porta entrambe le braccia in alto e solleva il petto in un leggero inarcamento.",
+   "Tieni 20 secondi, cambia gamba e fai 2 serie per lato."
+  ],
+  "mistakes": [
+   "Lasciare che il ginocchio davanti superi molto la punta del piede.",
+   "Piegarti solo con la zona lombare."
+  ],
+  "tip": "Metti un asciugamano ripiegato sotto il ginocchio dietro e tieni l'inarcamento piccolo."
+ },
+ "bow_pose": {
+  "title": "Posizione dell'arco",
+  "desc": "Afferra le caviglie e solleva petto e cosce per aprire tutta la parte anteriore e rinforzare la schiena.",
+  "dose": "2 x 10 s",
+  "steps": [
+   "Sdraiati a pancia in giù e piega le ginocchia portando i talloni verso i fianchi.",
+   "Porta le mani indietro e afferra entrambe le caviglie.",
+   "Spingi i piedi contro le mani per sollevare petto e cosce.",
+   "Tieni 10 secondi e scendi lentamente, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Aprire le ginocchia più della larghezza delle anche.",
+   "Gettare la testa indietro e stirare il collo."
+  ],
+  "tip": "Sali solo fin dove ti senti a tuo agio e salta questo esercizio se ti fa male la zona lombare."
+ },
+ "pilates_roll_over": {
+  "title": "Roll Over del Pilates",
+  "desc": "Porta le gambe sopra la testa e torna indietro con controllo per allungare la colonna e allenare i muscoli profondi del core.",
+  "dose": "2 x 5",
+  "steps": [
+   "Sdraiati sulla schiena con le braccia lungo i fianchi e le gambe tese verso l'alto.",
+   "Premi le braccia a terra e solleva il bacino per portare le gambe sopra la testa.",
+   "Fermati quando le gambe sono all'altezza del pavimento dietro la testa.",
+   "Torna giù lentamente, fai 5 ripetizioni e riposa, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Lanciare le gambe oltre con lo slancio.",
+   "Rotolare sul collo invece che sulle spalle."
+  ],
+  "tip": "Tieni il peso sulle spalle e mai sul collo, e piega le ginocchia per renderlo più facile."
+ },
+ "legs_up_wall": {
+  "title": "Gambe al muro",
+  "desc": "Appoggia le gambe al muro per scaricare la colonna e rilassarti dopo una lunga giornata.",
+  "dose": "3 min",
+  "steps": [
+   "Siediti di lato accanto a un muro, con un fianco che lo tocca.",
+   "Fai salire le gambe lungo il muro mentre ti sdrai all'indietro.",
+   "Lascia le braccia lungo i fianchi e rilassa le gambe contro il muro.",
+   "Resta così per 3 minuti, respirando lentamente."
+  ],
+  "mistakes": [
+   "Staccare la zona lombare dal pavimento.",
+   "Bloccare forte le ginocchia e irrigidire le gambe."
+  ],
+  "tip": "Allontana un po' i fianchi dal muro se senti tese le gambe dietro."
+ },
+ "spinal_twist": {
+  "title": "Torsione della colonna da sdraiati",
+  "desc": "Porta un ginocchio oltre il corpo per ruotare dolcemente la colonna e sciogliere una zona lombare rigida.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Sdraiati sulla schiena con le braccia aperte ai lati.",
+   "Piega un ginocchio e portalo oltre il corpo verso il pavimento.",
+   "Tieni entrambe le spalle a terra e guarda dal lato opposto.",
+   "Tieni 20 secondi, cambia lato e fai 2 serie per lato."
+  ],
+  "mistakes": [
+   "Far sollevare da terra la spalla opposta.",
+   "Forzare il ginocchio verso il basso con la mano."
+  ],
+  "tip": "Appoggia il ginocchio su un cuscino se non arriva a terra."
+ },
+ "chest_stretch": {
+  "title": "Allungamento petto allo stipite",
+  "desc": "Passa oltre uno stipite con l'avambraccio sul telaio per aprire un petto chiuso dagli schermi.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Mettiti in uno stipite e appoggia un avambraccio sul telaio, con il gomito all'altezza della spalla.",
+   "Fai un passo avanti, attraverso lo stipite, con il piede dello stesso lato.",
+   "Inclina il petto in avanti finché senti l'allungamento davanti alla spalla.",
+   "Tieni 20 secondi, cambia lato e fai 2 serie per lato."
+  ],
+  "mistakes": [
+   "Inarcare la zona lombare per andare più avanti.",
+   "Alzare la spalla verso l'orecchio."
+  ],
+  "tip": "Tieni l'allungamento leggero e fermati se senti un pizzico alla spalla."
+ },
+ "scapular_retraction": {
+  "title": "Stretta delle scapole",
+  "desc": "Stringi le scapole indietro e in basso per allenare i muscoli che evitano alle spalle di curvarsi in avanti.",
+  "dose": "2 x 10",
+  "steps": [
+   "Stai seduto o in piedi con le braccia rilassate lungo i fianchi.",
+   "Porta le scapole indietro e in basso, come se le infilassi nelle tasche posteriori dei pantaloni.",
+   "Mantieni la stretta per un respiro lento, poi rilascia.",
+   "Fai 10 ripetizioni e riposa, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Alzare le spalle mentre stringi.",
+   "Spingere le costole in avanti e inarcare la schiena."
+  ],
+  "tip": "Tieni il mento in piano e il collo rilassato per tutto il tempo."
+ },
+ "thoracic_extension": {
+  "title": "Estensione dorsale sulla sedia",
+  "desc": "Piegati all'indietro con la parte alta della schiena su una sedia per annullare la postura curva da seduti e aprire il petto.",
+  "dose": "2 x 8",
+  "steps": [
+   "Siediti su una sedia stabile con il bordo dello schienale appena sotto le scapole.",
+   "Metti le mani dietro la testa e tieni i gomiti larghi.",
+   "Piegati lentamente all'indietro con la parte alta della schiena sullo schienale e guarda in alto.",
+   "Torna su, fai 8 ripetizioni e riposa, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Piegarti con la zona lombare invece che con la parte alta della schiena.",
+   "Tirare la testa in avanti con le mani."
+  ],
+  "tip": "Usa una sedia che non scivola né si ribalta e tieni i piedi piatti a terra."
+ },
+ "hanging_knee_raise": {
+  "title": "Sollevamento ginocchia alla sbarra",
+  "desc": "Solleva le ginocchia mentre sei appeso per costruire un core forte, mentre la sospensione scarica la colonna.",
+  "dose": "3 x 5",
+  "steps": [
+   "Afferra la sbarra a presa prona e resta appeso con le braccia tese.",
+   "Abbassa le spalle lontano dalle orecchie.",
+   "Porta entrambe le ginocchia all'altezza delle anche senza dondolare, poi abbassale lentamente.",
+   "Fai 5 ripetizioni, scendi e riposa, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Dondolare con il corpo per lanciare su le ginocchia.",
+   "Restare appeso con le spalle vicino alle orecchie."
+  ],
+  "tip": "Controlla che la sbarra sia solida prima di appenderti e scendi con i piedi invece di lasciarti cadere."
+ },
+ "scapular_pull": {
+  "title": "Trazione scapolare",
+  "desc": "Abbassa le spalle da appeso con le braccia tese per costruire la base per trazioni forti.",
+  "dose": "3 x 5",
+  "steps": [
+   "Afferra la sbarra a presa prona, con le mani un po' più larghe delle spalle.",
+   "Resta appeso con le braccia tese e lascia salire le spalle verso le orecchie.",
+   "Abbassa le scapole in modo che il corpo si sollevi un po', con i gomiti tesi.",
+   "Tieni un secondo e rilascia, fai 5 ripetizioni, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Piegare i gomiti per salire di più.",
+   "Dondolare le gambe per aiutarti."
+  ],
+  "tip": "Controlla che la sbarra sia solida e tieni i piedi su un rialzo se restare appeso del tutto è troppo difficile."
+ },
+ "pull_ups": {
+  "title": "Trazioni alla sbarra",
+  "desc": "Porta il mento sopra la sbarra per costruire la schiena: un lavoro intenso a cui il corpo risponde poi con l'ormone della crescita.",
+  "dose": "3 x 2",
+  "steps": [
+   "Afferra la sbarra a presa prona, con le mani un po' più larghe delle spalle.",
+   "Parti appeso con le braccia tese e abbassa le scapole.",
+   "Tira finché il mento supera la sbarra, poi scendi lentamente.",
+   "Fai 2 ripetizioni, scendi e riposa, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Scalciare e dondolare per superare la sbarra.",
+   "Lasciarsi cadere in fretta invece di scendere con controllo."
+  ],
+  "tip": "Fai passare un elastico sotto i piedi, oppure salta in alto e scendi lentamente, e controlla che la sbarra sia solida."
+ },
+ "bird_dog": {
+  "title": "Bird Dog",
+  "desc": "Allunga il braccio e la gamba opposti per allenare i muscoli profondi che tengono ferma la colonna.",
+  "dose": "2 x 8",
+  "steps": [
+   "Parti a quattro zampe, con le mani sotto le spalle e le ginocchia sotto le anche.",
+   "Allunga un braccio in avanti e la gamba opposta dritta all'indietro.",
+   "Resta fermo per due secondi con le anche livellate, poi torna.",
+   "Fai 8 ripetizioni, cambia lato e fai 2 serie per lato."
+  ],
+  "mistakes": [
+   "Lasciar cedere la zona lombare mentre sollevi la gamba.",
+   "Aprire le anche ruotando per alzare di più la gamba."
+  ],
+  "tip": "Immagina un bicchiere d'acqua appoggiato sulla zona lombare che non deve rovesciarsi."
+ },
+ "dead_bug": {
+  "title": "Dead Bug",
+  "desc": "Abbassa braccio e gamba opposti con la schiena piatta per costruire il controllo del core che protegge la colonna.",
+  "dose": "2 x 8",
+  "steps": [
+   "Sdraiati sulla schiena con le braccia tese verso l'alto e le ginocchia piegate sopra le anche.",
+   "Premi dolcemente la zona lombare contro il pavimento.",
+   "Abbassa un braccio sopra la testa e la gamba opposta verso il pavimento, poi torna.",
+   "Fai 8 ripetizioni per lato e riposa, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Lasciare che la zona lombare si inarchi staccandosi da terra.",
+   "Fare le ripetizioni di fretta."
+  ],
+  "tip": "Abbassa braccio e gamba solo fin dove la schiena resta piatta sul pavimento."
+ },
+ "side_plank": {
+  "title": "Plank laterale",
+  "desc": "Mantieni una linea retta su un avambraccio per rinforzare i muscoli laterali che tengono la postura equilibrata.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Sdraiati su un fianco con l'avambraccio a terra e il gomito sotto la spalla.",
+   "Sovrapponi i piedi e solleva i fianchi da terra.",
+   "Tieni il corpo in un'unica linea retta dalla testa ai talloni.",
+   "Tieni 15 secondi, cambia lato e fai 2 serie per lato."
+  ],
+  "mistakes": [
+   "Lasciar scendere i fianchi verso il pavimento.",
+   "Ruotare il petto in avanti verso il pavimento."
+  ],
+  "tip": "Tieni il ginocchio di sotto a terra per renderlo più facile."
+ },
+ "wall_sit": {
+  "title": "Sedia al muro",
+  "desc": "Siediti contro il muro con le cosce parallele al pavimento per costruire forza nelle gambe con la schiena dritta.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stai con la schiena contro il muro e i piedi un passo davanti a te.",
+   "Scivola giù finché le cosce sono parallele al pavimento.",
+   "Tieni le ginocchia sopra le caviglie e tutta la schiena sul muro.",
+   "Tieni 20 secondi e rialzati, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Appoggiare le mani sulle cosce.",
+   "Lasciare che le ginocchia vadano avanti oltre le punte dei piedi."
+  ],
+  "tip": "Resta un po' più in alto se le ginocchia protestano e scendi di più man mano che diventi più forte."
+ },
+ "lunges": {
+  "title": "Affondi",
+  "desc": "Fai un passo avanti e piega entrambe le ginocchia per costruire gambe e anche forti, un lato alla volta.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stai dritto con i piedi alla larghezza delle anche.",
+   "Fai un grande passo avanti e scendi finché entrambe le ginocchia sono piegate a circa 90 gradi.",
+   "Spingi sul tallone davanti per tornare alla posizione di partenza.",
+   "Fai 8 ripetizioni per gamba e riposa, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Far cadere verso l'interno il ginocchio davanti.",
+   "Piegare molto il busto in avanti sopra la gamba davanti."
+  ],
+  "tip": "Fai un passo più corto o tieniti a una sedia per l'equilibrio finché il movimento è stabile."
+ },
+ "step_ups": {
+  "title": "Salite sul gradino",
+  "desc": "Sali sul gradino e rialzati in piedi, poi scendi lentamente, per costruire forza su una gamba e equilibrio.",
+  "dose": "3 x 8",
+  "steps": [
+   "Mettiti davanti a un gradino o a una panca bassa e stabile.",
+   "Appoggia tutto un piede sul gradino e spingi finché sei in piedi.",
+   "Riporta l'altro piede a terra lentamente.",
+   "Fai 8 ripetizioni per gamba e riposa, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Spingere forte con il piede rimasto a terra.",
+   "Lasciarsi cadere in fretta invece di scendere con controllo."
+  ],
+  "tip": "Usa un gradino che non scivola né si ribalta e parti basso prima di salire di altezza."
+ },
+ "push_ups": {
+  "title": "Piegamenti sulle braccia",
+  "desc": "Abbassa il petto verso il pavimento con il corpo dritto per costruire petto, braccia e core.",
+  "dose": "3 x 5",
+  "steps": [
+   "Appoggia le mani a terra un po' più larghe delle spalle.",
+   "Porta i piedi indietro in modo che il corpo formi un'unica linea retta.",
+   "Piega i gomiti per abbassare il petto verso il pavimento, poi spingi su.",
+   "Fai 5 ripetizioni e riposa, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Lasciar cedere i fianchi verso il pavimento.",
+   "Aprire i gomiti dritti ai lati."
+  ],
+  "tip": "Appoggia le ginocchia a terra o le mani su una panca per renderlo più facile."
+ },
+ "single_leg_calf_raise": {
+  "title": "Calf raise su una gamba",
+  "desc": "Sali su un piede dal bordo di un gradino per costruire polpacci e caviglie forti per i salti.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stai sul bordo di un gradino sull'avampiede di una gamba e tieniti a un muro o a una ringhiera.",
+   "Abbassa il tallone lentamente sotto il livello del gradino.",
+   "Sali più in alto che puoi sulle punte e resta fermo un secondo.",
+   "Fai 8 ripetizioni per gamba e riposa, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Rimbalzare dalla posizione bassa invece di muoverti piano.",
+   "Piegare il ginocchio per aiutare il polpaccio."
+  ],
+  "tip": "Parti a corpo libero e, se aggiungi un manubrio o uno zaino, scegli un peso abbastanza leggero da finire ogni ripetizione con una buona tecnica."
+ },
+ "goblet_squat": {
+  "title": "Goblet Squat",
+  "desc": "Squat con un peso al petto: uno sforzo intenso dei grandi muscoli a cui il corpo risponde poi con l'ormone della crescita.",
+  "dose": "3 x 8",
+  "steps": [
+   "Tieni un manubrio o uno zaino carico contro il petto con entrambe le mani.",
+   "Stai con i piedi alla larghezza delle spalle e le punte un po' aperte.",
+   "Siediti in mezzo ai talloni con il petto alto, poi rialzati.",
+   "Fai 8 ripetizioni e riposa, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Far cadere le ginocchia verso l'interno.",
+   "Arrotondare la schiena e far cadere il petto."
+  ],
+  "tip": "Scegli un peso abbastanza leggero da finire ogni ripetizione con una buona tecnica."
+ },
+ "dumbbell_deadlift": {
+  "title": "Stacco rumeno con manubri",
+  "desc": "Piegati sulle anche con la schiena piatta: un lavoro intenso dei grandi muscoli a cui il corpo risponde poi con l'ormone della crescita.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stai dritto con un manubrio per mano davanti alle cosce.",
+   "Sciogli le ginocchia e spingi i fianchi all'indietro con la schiena piatta.",
+   "Fai scivolare i pesi lungo le cosce fin appena sotto le ginocchia.",
+   "Contrai i glutei per rialzarti, fai 8 ripetizioni, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Arrotondare la schiena mentre i pesi scendono.",
+   "Trasformarlo in uno squat piegando molto le ginocchia."
+  ],
+  "tip": "Scegli un peso abbastanza leggero da finire ogni ripetizione con una buona tecnica."
+ },
+ "dumbbell_row": {
+  "title": "Rematore con manubrio",
+  "desc": "Tira un manubrio verso l'anca per costruire i muscoli della parte alta della schiena che portano le spalle indietro.",
+  "dose": "3 x 8",
+  "steps": [
+   "Appoggia una mano su una panca o su una sedia e porta i piedi indietro.",
+   "Tieni un manubrio nell'altra mano con la schiena piatta e il braccio disteso verso il basso.",
+   "Tira il peso verso l'anca con il gomito vicino al corpo, poi abbassalo lentamente.",
+   "Fai 8 ripetizioni per lato e riposa, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Ruotare il corpo per tirare su il peso a forza.",
+   "Alzare la spalla verso l'orecchio."
+  ],
+  "tip": "Scegli un peso abbastanza leggero da finire ogni ripetizione con una buona tecnica."
+ },
+ "farmer_carry": {
+  "title": "Farmer's Carry",
+  "desc": "Cammina eretto con un peso per mano: un lavoro per tutto il corpo a cui il corpo risponde poi con l'ormone della crescita.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Mettiti in mezzo a due manubri o a due borse cariche.",
+   "Piega le ginocchia, tieni la schiena piatta e sollevali.",
+   "Cammina a piccoli passi, con le spalle indietro e lo sguardo in avanti.",
+   "Cammina per 20 secondi, appoggia i pesi e riposa, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Pendere da un lato o lasciare che le spalle si curvino in avanti.",
+   "Arrotondare la schiena quando raccogli o appoggi i pesi."
+  ],
+  "tip": "Scegli un peso abbastanza leggero da finire ogni serie con una buona tecnica e tieni i due lati uguali."
+ },
+ "band_pull_apart": {
+  "title": "Apertura con elastico",
+  "desc": "Apri un elastico davanti al petto per rinforzare la parte alta della schiena e tenere le spalle aperte.",
+  "dose": "2 x 12",
+  "steps": [
+   "Stai dritto e tieni un elastico davanti a te con le braccia tese all'altezza delle spalle.",
+   "Apri l'elastico stringendo le scapole l'una verso l'altra.",
+   "Porta l'elastico a toccare il petto, poi torna lentamente.",
+   "Fai 12 ripetizioni e riposa, 2 serie in totale."
+  ],
+  "mistakes": [
+   "Alzare le spalle verso le orecchie.",
+   "Lasciare che l'elastico scatti indietro invece di tornare piano."
+  ],
+  "tip": "Scegli un elastico abbastanza leggero da finire ogni ripetizione con una buona tecnica e controlla prima che non sia strappato."
+ },
+ "burpees": {
+  "title": "Burpees",
+  "desc": "Squat, plank e salto in un solo movimento: un lavoro per tutto il corpo a cui il corpo risponde poi con l'ormone della crescita.",
+  "dose": "3 x 5",
+  "steps": [
+   "Stai dritto, poi accosciati e appoggia le mani a terra.",
+   "Porta i piedi indietro con un salto in un plank dritto.",
+   "Riporta i piedi verso le mani con un salto.",
+   "Salta in verticale, fai 5 ripetizioni e riposa, 3 serie in totale."
+  ],
+  "mistakes": [
+   "Lasciar cedere i fianchi nel plank.",
+   "Atterrare forte con le gambe tese dopo il salto."
+  ],
+  "tip": "Per renderlo più facile porta i piedi indietro e avanti camminando invece di saltare, e rallenta se la tecnica cede."
+ }
+}

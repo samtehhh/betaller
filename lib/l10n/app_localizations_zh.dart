@@ -942,7 +942,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get tipVitaminD => '每天晒 15 分钟太阳，能促进维生素 D 合成。维生素 D 对钙的吸收必不可少。';
 
   @override
-  String get tipBarHanging => '单杠悬挂能给脊柱减压。每天试试 3x30 秒。';
+  String get tipBarHanging => '悬挂单杠可以拉伸肩部和背部。每天试试 3x30 秒。';
 
   @override
   String get tipSwimming => '游泳是锻炼全身、助力长高的最佳运动。';
@@ -960,7 +960,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get routineBarHanging => '单杠悬挂';
 
   @override
-  String get routineBarHangingDesc => '挂在单杠上伸展脊柱。3 组 x 30 秒。';
+  String get routineBarHangingDesc => '悬挂在单杠上，拉伸肩部和背部。3 组 x 30 秒。';
 
   @override
   String get routineCobraStretch => '眼镜蛇式拉伸';
@@ -972,13 +972,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get routineJumping => '跳跃训练';
 
   @override
-  String get routineJumpingDesc => '跳绳或深蹲跳，刺激生长板。3 组 x 20 次。';
+  String get routineJumpingDesc => '跳绳或深蹲跳。有助于增强骨骼。3 组 x 20 次。';
 
   @override
   String get routineSwimming => '游泳或篮球';
 
   @override
-  String get routineSwimmingDesc => '做一项有助长高的运动，至少 30 分钟。';
+  String get routineSwimmingDesc => '做一项你喜欢的运动，提升体能和力量。至少 30 分钟。';
 
   @override
   String get routineYoga => '晚间瑜伽和拉伸';
@@ -1038,37 +1038,37 @@ class AppLocalizationsZh extends AppLocalizations {
   String get routineSprintIntervals => '冲刺间歇训练';
 
   @override
-  String get routineSprintIntervalsDesc => '冲刺间歇训练通过高强度爆发，促进大量生长激素释放。';
+  String get routineSprintIntervalsDesc => '短距离冲刺配合步行恢复，可提升体能和腿部力量。';
 
   @override
   String get routineHiitWorkout => 'HIIT 训练';
 
   @override
-  String get routineHiitWorkoutDesc => '高强度间歇训练，最大化生长激素释放。';
+  String get routineHiitWorkoutDesc => '高强度间歇训练可提升体能和力量。';
 
   @override
   String get routineSquats => '徒手深蹲';
 
   @override
-  String get routineSquatsDesc => '徒手深蹲能刺激腿部和脊柱的生长板。';
+  String get routineSquatsDesc => '徒手深蹲能增强腿部和支撑体态的肌肉。';
 
   @override
   String get routineDeadliftStretch => '硬拉式拉伸';
 
   @override
-  String get routineDeadliftStretchDesc => '硬拉式拉伸，给脊柱减压，保护椎间盘健康。';
+  String get routineDeadliftStretchDesc => '硬拉式拉伸，让腘绳肌更柔韧、背部更有力。';
 
   @override
   String get routineOverheadPress => '过头推举';
 
   @override
-  String get routineOverheadPressDesc => '过头推举能伸展脊柱，强化体态肌群。';
+  String get routineOverheadPressDesc => '过头推举能增强肩部和体态肌肉。';
 
   @override
   String get routineSkippingRope => '跳绳';
 
   @override
-  String get routineSkippingRopeDesc => '反复跳绳能刺激下肢的生长板。';
+  String get routineSkippingRopeDesc => '反复跳绳会给腿部骨骼施加负荷，有助于增强骨骼。';
 
   @override
   String get routinePilatesCore => '普拉提核心';
@@ -1080,7 +1080,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get routineInversionHang => '倒立悬挂';
 
   @override
-  String get routineInversionHangDesc => '倒立能给椎间盘减压，可暂时增加 1-2cm。';
+  String get routineInversionHangDesc => '倒挂可以放松背部肌肉。身高变化只是暂时的。';
 
   @override
   String get routineZincIntake => '富锌食物';
@@ -2319,10 +2319,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get recipesAboutBody => '精选食谱，为你的成长补充能量。按餐次或营养目标筛选，找到最适合你计划的那一款。';
 
   @override
-  String get animHintSpinalDecomp => '脊柱减压';
+  String get animHintSpinalDecomp => '肩背拉伸';
 
   @override
-  String get animHintGravityReversal => '反重力';
+  String get animHintGravityReversal => '背部放松';
 
   @override
   String get animHintImpactBones => '冲击刺激骨骼';
@@ -2340,7 +2340,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get animHintSpinalExtension => '脊柱伸展';
 
   @override
-  String get animHintCervicalDecomp => '颈椎减压';
+  String get animHintCervicalDecomp => '颈部放松';
 
   @override
   String get animHintShoulderMobility => '肩部灵活性';
@@ -2385,13 +2385,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get animHintCoreStability => '核心稳定';
 
   @override
-  String get animHintLegPower => '腿部力量和生长激素激增';
+  String get animHintLegPower => '腿部力量';
 
   @override
   String get animHintVerticalPower => '弹跳力';
 
   @override
-  String get animHintHghSurge => '生长激素激增训练';
+  String get animHintHghSurge => '高强度训练';
 
   @override
   String get animHintPeakHgh => '生长激素分泌高峰期';
@@ -2412,7 +2412,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get formMorningStretch => '先做绕颈，再做全身拉伸。每个动作保持 20-30 秒，不要弹振。';
 
   @override
-  String get formBarHanging => '双手与肩同宽握杠，全身放松，让重力拉伸脊柱。避免摇晃。';
+  String get formBarHanging => '双手与肩同宽握住单杠，放松身体，感受肩部和背部的拉伸。避免摆动。';
 
   @override
   String get formCobraStretch => '俯卧，双手放在肩膀下方，慢慢撑起上半身，臀部贴地。目视上方。';
@@ -2500,46 +2500,46 @@ class AppLocalizationsZh extends AppLocalizations {
   String get formShoulderRolls => '肩膀向前绕 15 次，再向后绕 15 次。接着做开胸拉伸，保持 20 秒。';
 
   @override
-  String get sciMorningStretch => '晨间拉伸能给夜间恢复水分的椎间盘减压，最大限度保持身高';
+  String get sciMorningStretch => '晨间拉伸可缓解一夜的僵硬，让肌肉活动起来';
 
   @override
-  String get sciBarHanging => '悬挂利用重力拉伸脊柱，给椎间盘减压，可能带来暂时的身高增加';
+  String get sciBarHanging => '悬挂可拉伸肩部和背部并锻炼握力。身高变化只是暂时的';
 
   @override
-  String get sciCobraStretch => '眼镜蛇式能伸展脊柱、打开胸腔，抵消久坐带来的脊柱压迫';
+  String get sciCobraStretch => '眼镜蛇式能打开胸部，缓解久坐带来的僵硬';
 
   @override
-  String get sciJumping => '高冲击跳跃能刺激腿部生长板，并促进生长激素释放';
+  String get sciJumping => '高冲击跳跃给骨骼施加负荷，有助于在青少年时期增强骨骼';
 
   @override
-  String get sciSwimmingBasketball => '游泳和篮球包含全身伸展、跳跃和够高动作，能刺激生长板活动';
+  String get sciSwimmingBasketball => '游泳和篮球能提升体能、协调性和力量，篮球中的跳跃还有助于增强骨骼';
 
   @override
-  String get sciEveningYoga => '晚间瑜伽能降低抑制生长激素的皮质醇，并拉伸肌肉，帮助夜间恢复';
+  String get sciEveningYoga => '晚间瑜伽帮助你放松身心，在睡前舒缓肌肉';
 
   @override
-  String get sciSprintIntervals => '冲刺跑能促进大量生长激素释放';
+  String get sciSprintIntervals => '短距离冲刺配合步行恢复，可提升体能和腿部力量';
 
   @override
-  String get sciHiitWorkout => '高强度运动可让生长激素提升高达 450%';
+  String get sciHiitWorkout => '高强度间歇训练可提升体能和力量';
 
   @override
-  String get sciSquats => '深蹲能刺激腿部和脊柱的生长板';
+  String get sciSquats => '徒手深蹲能增强腿部和支撑体态的肌肉';
 
   @override
-  String get sciDeadliftStretch => '脊柱减压有助于椎间盘健康';
+  String get sciDeadliftStretch => '硬拉式拉伸，让腘绳肌更柔韧、背部更有力';
 
   @override
-  String get sciOverheadPress => '过头推举能伸展脊柱，强化体态肌群';
+  String get sciOverheadPress => '过头推举能增强肩部和体态肌肉';
 
   @override
-  String get sciSkippingRope => '反复跳跃能刺激下肢的生长板';
+  String get sciSkippingRope => '反复跳绳会给腿部骨骼施加负荷，有助于增强骨骼';
 
   @override
   String get sciPilatesCore => '核心力量有助于脊柱排列和体态';
 
   @override
-  String get sciInversionHang => '倒立能给椎间盘减压，可暂时增加 1-2cm';
+  String get sciInversionHang => '倒挂可以放松背部肌肉。身高变化只是暂时的';
 
   @override
   String get sciProtein => '蛋白质提供骨骼和肌肉生长必需的氨基酸，在快速生长期尤其重要';
@@ -3101,7 +3101,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notifJumpTitle => '🦘 跳跃时间！';
 
   @override
-  String get notifJumpBody => '跳跃练习能刺激生长板。试试 3 x 20 次！';
+  String get notifJumpBody => '跳跃有助于增强骨骼。试试 3 x 20 次！';
 
   @override
   String get notifCalciumTitle => '🥛 补钙时间！';
@@ -6225,6 +6225,670 @@ class AppLocalizationsZh extends AppLocalizations {
   String obBudgetTrial(String days) {
     return '也可以先免费试用 $days 天。';
   }
+
+  @override
+  String get obNameTitle => '我们该怎么称呼你？';
+
+  @override
+  String get obNameSubtitle => '选填。你的计划和提醒会用到它。';
+
+  @override
+  String get obNameHint => '你的名字';
+
+  @override
+  String get nWb1Title => '你昨天没练';
+
+  @override
+  String nWb1Body(String height) {
+    return '你的 $height 计划还在等你。10 分钟就能补上。';
+  }
+
+  @override
+  String get nWb2Title => '你放弃长高了吗？';
+
+  @override
+  String get nWb2Body => '你的计划说，你还没到头。';
+
+  @override
+  String nWb3Title(String gain) {
+    return '你的 $gain 怎么办？';
+  }
+
+  @override
+  String get nWb3Body => '这是预测里由你的习惯决定的部分。';
+
+  @override
+  String nWb5Title(String name) {
+    return '$name，你的曲线不动了';
+  }
+
+  @override
+  String get nWb5TitleNoName => '你的曲线不动了';
+
+  @override
+  String get nWb5Body => '5 天没有新测量了。你现在多高？';
+
+  @override
+  String get nWb7Title => '一周过去了';
+
+  @override
+  String get nWb7Body => '你的朋友这周可没停止长高。你呢？';
+
+  @override
+  String get nWb10Title => '你的预测可能变了';
+
+  @override
+  String get nWb10Body => '量一次，看看新数字。';
+
+  @override
+  String nWb14Title(String height) {
+    return '还是 $height 吗？';
+  }
+
+  @override
+  String get nWb14Body => '上次测量已经两周了。量一下就知道。';
+
+  @override
+  String get nWb21Title => '还想要你的计划吗？';
+
+  @override
+  String get nWb21Body => '它还保存着。点一下就能接着来。';
+
+  @override
+  String nWb30Title(String name) {
+    return '最后一条，$name';
+  }
+
+  @override
+  String get nWb30TitleNoName => '最后一条';
+
+  @override
+  String get nWb30Body => '你的数据还在。准备好了随时回来。';
+
+  @override
+  String nTrainHookTitle(int minutes) {
+    return '离今天的计划只差 $minutes 分钟';
+  }
+
+  @override
+  String get nWaterHookTitle => '喝水了吗？';
+
+  @override
+  String nWaterHookBody(String liters) {
+    return '今天 $liters。现在先来一杯。';
+  }
+
+  @override
+  String nProteinHookTitle(int grams) {
+    return '今天 $grams 克蛋白质。开始了吗？';
+  }
+
+  @override
+  String nSleepHookTitle(String name) {
+    return '$name，放下手机';
+  }
+
+  @override
+  String get nSleepHookTitleNoName => '放下手机';
+
+  @override
+  String get nMeasureHookTitle => '这周长高了吗？';
+
+  @override
+  String get nMeasureHookBody => '早上量一下就知道。';
+
+  @override
+  String nStreakHookTitle(int streak) {
+    return '你的 $streak 天连胜今晚要断了';
+  }
+
+  @override
+  String get nStreakHookBody => '做一个训练就能保住。';
+
+  @override
+  String get nPostureHookTitle => '现在检查一下你的背';
+
+  @override
+  String get nPostureHookBody => '肩膀向后，下巴放平。';
+
+  @override
+  String hkReturn(int days) {
+    return '你离开了 $days 天。看看有什么变化。';
+  }
+
+  @override
+  String hkHabits(String gain) {
+    return '你的预测中有 $gain 取决于你的习惯';
+  }
+
+  @override
+  String hkStreakDay(int day) {
+    return '第 $day 天。你的连胜更难断了。';
+  }
+
+  @override
+  String get hkPredictionUpdated => '你的预测刚刚更新。点按查看。';
+
+  @override
+  String get hkMeasureDue => '你的图表在等这周的数据';
+
+  @override
+  String get hkLeaveTitle => '你的计划已准备好。不打开就走吗？';
+
+  @override
+  String get hkLeaveOpen => '查看我的计划';
+
+  @override
+  String get rsLockedSubtitle => '我们算出了你可能长到多高。你的数字锁在下方。';
+
+  @override
+  String get rsUnlock => '解锁我的结果';
+
+  @override
+  String get rsPaywallHeadline => '你的数字出来了。打开吗？';
+
+  @override
+  String get rsLockedChart => '看看你能长到哪里';
+
+  @override
+  String get rsLineHeight => '你成年后的身高';
+
+  @override
+  String get rsLineGrowth => '你还能长多少';
+
+  @override
+  String get rsLineRank => '你在同龄人中的排名';
+
+  @override
+  String get rsProgressTitle => '你的组数和进步';
+
+  @override
+  String get rsStageStart => '起步';
+
+  @override
+  String get rsStageNow => '正在变强';
+
+  @override
+  String get rsStagePeak => '全力状态';
+
+  @override
+  String get rsLevelLine => '组数、进步和变强';
+
+  @override
+  String get pwBuyWeekly => '开始周度方案';
+
+  @override
+  String get pwBuyMonthly => '开始月度方案';
+
+  @override
+  String get pwBuyLifetime => '购买终身权限';
+
+  @override
+  String get obGenderSub => '男生和女生的生长曲线不一样。';
+
+  @override
+  String get obBirthSub => '填月份和年份就够了。这样我们就知道你处在生长期的哪个阶段。';
+
+  @override
+  String obAgeLine(int age) {
+    return '你 $age 岁';
+  }
+
+  @override
+  String get obAgeReplyGrowing => '你正处在生长期。现在正是我们一起长高的时候！';
+
+  @override
+  String get obAgeReplyLate => '这个年纪生长会放缓，但每个人停下来的时间不一样。稍后我们会算出你的情况。';
+
+  @override
+  String get obAgeReplyAdult => '这个年纪骨骼很少再变长。你的计划侧重体态，驼背丢掉的那几厘米可以从这里找回来。';
+
+  @override
+  String get obHwSub => '预测从你现在的身高开始。';
+
+  @override
+  String get obFootSub => '脚比身体其他部位先长，所以你的鞋码能看出你长到了哪一步。';
+
+  @override
+  String obFootLength(String length) {
+    return '约 $length';
+  }
+
+  @override
+  String get obWorkoutSub => '我们会据此设定你的蛋白质和热量目标。';
+
+  @override
+  String obNameNotif(String name) {
+    return '$name，今天的计划准备好了';
+  }
+
+  @override
+  String get obNameNotifAnon => '今天的计划准备好了';
+
+  @override
+  String get obNameNotifBody => '几个动作，大约 15 分钟。';
+
+  @override
+  String get obNamePreviewLabel => '你的提醒会是这个样子';
+
+  @override
+  String get obReplyTriedStopped => '那我们可以保证，你不会放弃 BeTaller！';
+
+  @override
+  String get obReplyTriedStill => '那你很快就会看到不同。除了数字，BeTaller 还给你一份每天打勾的计划。';
+
+  @override
+  String get obReplyTriedFirst => '那就真心欢迎你！在长高这条路上，你做了最正确的选择之一。';
+
+  @override
+  String get obReplyWhyConfidence => '站得直的人看起来更高，也更从容。你的计划第一步就是体态。';
+
+  @override
+  String get obReplyWhyImpression => '第一印象很大一部分来自站姿。我们从第一周就开始练。';
+
+  @override
+  String get obReplyWhySports => '拉伸和悬挂在球场上也用得上。你的计划里两样都有。';
+
+  @override
+  String get obReplyWhyClothes => '同样的衣服，背挺直了穿起来就不一样。我们先解决这个。';
+
+  @override
+  String get obReplyWhyPhotos => '拍照时，体态对身高的影响最大。你还可以在 App 里对比前后照片。';
+
+  @override
+  String get obReplyWhyPotential => '好的。再回答几个问题，我们就能算出你的潜力。';
+
+  @override
+  String get obReplyWorkoutLow => '没关系。你的计划从短时训练开始，大多 15 分钟左右。';
+
+  @override
+  String get obReplyWorkoutMid => '节奏不错。按这个节奏，计划很容易安排进去。';
+
+  @override
+  String get obReplyWorkoutHigh => '你练得很多。我们会相应提高你的蛋白质目标。';
+
+  @override
+  String get obReplyFirstWardrobe => '你可以开始想想新裤长了。';
+
+  @override
+  String get obReplyFirstMuscle => '计划里的动作也会为这个打下基础。';
+
+  @override
+  String get obReplyFirstPhotos => '第一天拍张照吧。以后把照片放在一起对比，你会喜欢的。';
+
+  @override
+  String get obReplyFirstTeam => '我们会为你设好提醒，让你坚持到选拔那天。';
+
+  @override
+  String get obReplyFirstFeelGood => '这是最站得住脚的理由。';
+
+  @override
+  String get obDayTitle => '这就是你和 BeTaller 的一天';
+
+  @override
+  String get obDayBody => '根据你目前告诉我们的内容生成。做完一项就打一个勾。';
+
+  @override
+  String obDayProtein(int grams) {
+    return '$grams g 蛋白质';
+  }
+
+  @override
+  String get obDayProteinSub => '你的第一餐准备好了';
+
+  @override
+  String obDaySleep(String time) {
+    return '$time 的睡眠提醒';
+  }
+
+  @override
+  String get obDaySleepSub => '让你的冒险继续下去的提醒';
+
+  @override
+  String get obParentsSub => '身高大部分来自父母。这两个数字是估算的基础。';
+
+  @override
+  String get obSleepSub => '生长激素大多在深度睡眠时分泌。';
+
+  @override
+  String obDreamDelta(String delta) {
+    return '比现在的身高高$delta';
+  }
+
+  @override
+  String get obEthnicitySubAll => '成年人的平均身高因族裔不同会相差几厘米。';
+
+  @override
+  String obEthReplyHigh(String avg) {
+    return '这一族裔的成年人平均身高为$avg，高于世界平均。你的潜力非常高！';
+  }
+
+  @override
+  String obEthReplyMid(String avg) {
+    return '这一族裔的成年人平均身高约为$avg。你的潜力很高，好习惯能让你超过平均。';
+  }
+
+  @override
+  String obEthReplyRising(String avg) {
+    return '这一族裔的成年人平均身高约为$avg，而且近几代上升得很快。你的潜力可能比你想的更高。';
+  }
+
+  @override
+  String get obEthReplyNoAnswer => '没关系。我们根据你的父母和你自己的数据来计算。';
+
+  @override
+  String obEthAbove(String avg, String you) {
+    return '这个族裔的成年人平均身高是 $avg。你已经 $you 了，高于平均！';
+  }
+
+  @override
+  String obEthNear(String avg, String you) {
+    return '这个族裔的成年人平均身高是 $avg。你 $you，正好在平均线上，目标是超过它。';
+  }
+
+  @override
+  String obEthBelowYoung(String avg, String you) {
+    return '这个族裔的成年人平均身高是 $avg。你 $you，还在长个子的年纪，还有时间超过它。';
+  }
+
+  @override
+  String obEthBelowAdult(String avg, String you) {
+    return '这个族裔的成年人平均身高是 $avg。你 $you，改善体态可以补上一部分差距。';
+  }
+
+  @override
+  String get obMealsUnknown => '我不确定时间';
+
+  @override
+  String get obMealsUnknownReply => '没关系，我们已经为你专门排好了按小时的计划。';
+
+  @override
+  String get obUnknownPlanned => '没关系，这部分我们帮你安排。你随时可以改。';
+
+  @override
+  String get obReplyWeCalc => '别担心，这个我们本来就会帮你算。';
+
+  @override
+  String get obGoalDaysTitle => '你真心希望在多久之内长高？';
+
+  @override
+  String get obGoalDaysSub => '给你的目标定个期限吧。';
+
+  @override
+  String obGoalDaysN(int n) {
+    return '$n 天';
+  }
+
+  @override
+  String get obGoalYear => '1 年内';
+
+  @override
+  String get obGoalOpen => '能长多高就多高';
+
+  @override
+  String get obReplyGoal90 => '90 天足够让体态和习惯稳定下来。你会先从站姿上看到变化。';
+
+  @override
+  String get obReplyGoal120 => '120 天后，习惯就养成了。这段时间我们会一直陪你记录测量数据。';
+
+  @override
+  String get obReplyGoal180 => '六个月是在尺子上看到长高的合理时间。';
+
+  @override
+  String get obReplyGoal365 => '一年是最稳妥的计划。长高需要耐心，我们每天都陪着你。';
+
+  @override
+  String get obReplyGoalOpen => '这样想最对。身体能长多少就长多少，我们每天都陪着你。';
+
+  @override
+  String get tv4TrackTitle => '喝水和睡眠，一点就记';
+
+  @override
+  String get tv4TrackDesc => '每日目标根据你的年龄和体重计算。完成一项，勾一项。';
+
+  @override
+  String get tv4PhotosTitle => '前后对比照';
+
+  @override
+  String get tv4PhotosDesc => '用同一个姿势拍照，再把几周的照片并排对比。';
+
+  @override
+  String get tv4PostureTitle => '用相机检查体态';
+
+  @override
+  String get tv4PostureDesc => '为你的站姿打分，并告诉你该改哪里。';
+
+  @override
+  String get tv4ReportTitle => '你的周报';
+
+  @override
+  String get tv4ReportDesc => '训练、睡眠和饮食，每周汇总在一页。';
+
+  @override
+  String get tv4BreakdownTitle => '什么能提高你的分数';
+
+  @override
+  String get tv4BreakdownDesc => '显示每个因素的占比，以及你的下一步。';
+
+  @override
+  String get reminderProTitle => '提醒功能包含在 Pro 中';
+
+  @override
+  String get reminderProDesc => '到了训练、吃饭和睡觉的时间，我们会提醒你。';
+
+  @override
+  String get nFw1Title => '第二天，新动作';
+
+  @override
+  String get nFw1Body => '今天的训练和昨天不一样。只要几分钟。';
+
+  @override
+  String get nFw2Title => '第一枚连续奖牌就快到手了';
+
+  @override
+  String get nFw2Body => '连续完成三天，就能解锁连续 3 天奖牌。';
+
+  @override
+  String get nFw3Title => '测量日';
+
+  @override
+  String get nFw3Body => '量一下身高并保存。今天你的曲线会多一个点。';
+
+  @override
+  String get nFw4Title => '来看看你的体态';
+
+  @override
+  String get nFw4Body => '用相机检查体态只要一分钟。看看你的分数。';
+
+  @override
+  String get nFw5Title => '拍下你的第一张照片';
+
+  @override
+  String get nFw5Body => '今天拍一张照片。几周后你可以把它们放在一起对比。';
+
+  @override
+  String get nFw6Title => '你的第一周明天结束';
+
+  @override
+  String get nFw6Body => '完成今天的任务，你的周报明天就准备好了。';
+
+  @override
+  String get nFw7Title => '你的第一周完成了';
+
+  @override
+  String get nFw7Body => '你的周报准备好了。再量一次身高吧。';
+
+  @override
+  String nPmFirstTitle(String name) {
+    return '$name，该吃第一餐了。';
+  }
+
+  @override
+  String get nPmFirstTitleNoName => '该吃第一餐了。';
+
+  @override
+  String get nPmFirstBody => '你的专属餐已备好。不想吃的话，宏量营养目标和你需要的营养素也准备好了。第一餐千万别跳过。';
+
+  @override
+  String nPmMealTitle(String name, int n) {
+    return '$name，该吃第 $n 餐了。';
+  }
+
+  @override
+  String nPmMealTitleNoName(int n) {
+    return '该吃第 $n 餐了。';
+  }
+
+  @override
+  String nPmMealBody(int protein, int calcium) {
+    return '$protein g 蛋白质和 $calcium mg 钙。这一餐千万别跳过。';
+  }
+
+  @override
+  String get nPmWaterTitle => '水喝够了吗？';
+
+  @override
+  String nPmWaterBody(String name, String liters) {
+    return '$name，记得全天多喝水。你的每日目标是 $liters。';
+  }
+
+  @override
+  String nPmWaterBodyNoName(String liters) {
+    return '记得全天多喝水。你的每日目标是 $liters。';
+  }
+
+  @override
+  String get nPmTrainTitle => '距离训练时间还有 30 分钟！';
+
+  @override
+  String nPmTrainBody(int count, int minutes) {
+    return '你的专属计划在等你。今天：$count 个动作，约 $minutes 分钟。';
+  }
+
+  @override
+  String get nPmHabitTitle => '白天可以抽空跳跳绳、拉拉筋';
+
+  @override
+  String nPmHabitBody(String name) {
+    return '$name，别忘了这些小习惯。';
+  }
+
+  @override
+  String get nPmHabitBodyNoName => '别忘了这些小习惯。';
+
+  @override
+  String nPmSleepTitle(String name) {
+    return '$name，快到睡觉时间了。';
+  }
+
+  @override
+  String get nPmSleepTitleNoName => '快到睡觉时间了。';
+
+  @override
+  String get pwMoreFeatures => '还有更多功能。';
+
+  @override
+  String get libTitle => '动作库';
+
+  @override
+  String libCount(int count) {
+    return '$count 个动作';
+  }
+
+  @override
+  String get libJump => '跳跃';
+
+  @override
+  String get libHang => '悬挂';
+
+  @override
+  String get libStretch => '拉伸';
+
+  @override
+  String get libStrength => '力量';
+
+  @override
+  String get libPosture => '体态';
+
+  @override
+  String get libWeights => '负重';
+
+  @override
+  String get libWeightsNote => '这些动作需要哑铃或弹力带。选择每一次都能用标准姿势完成的重量。';
+
+  @override
+  String get plFoodTurkey => '火鸡胸肉';
+
+  @override
+  String get plFoodCod => '鳕鱼';
+
+  @override
+  String get plFoodBeans => '红腰豆';
+
+  @override
+  String get plFoodQuinoa => '藜麦';
+
+  @override
+  String get plFoodSweetPotato => '红薯';
+
+  @override
+  String get plFoodApple => '苹果';
+
+  @override
+  String get plFoodBerries => '草莓';
+
+  @override
+  String get plFoodMozzarella => '马苏里拉奶酪';
+
+  @override
+  String get plFoodHummus => '鹰嘴豆泥';
+
+  @override
+  String get plFoodGreenBeans => '四季豆';
+
+  @override
+  String get mgTitle => '该量身高了';
+
+  @override
+  String mgBody(int days) {
+    return '距离上次测量已经 $days 天了。继续之前先量一下身高。';
+  }
+
+  @override
+  String get mgTip1 => '脱鞋，脚跟贴墙。';
+
+  @override
+  String get mgTip2 => '目视前方，在头顶平放一本书。';
+
+  @override
+  String get mgTip3 => '早上测量。身高在白天会略微变矮。';
+
+  @override
+  String get mgLater => '今天没法测量';
+
+  @override
+  String get paTitle => '计划相关回答';
+
+  @override
+  String get paSubtitle => '你的计划和提醒都以这些回答为准。改动任意一项就会更新。';
+
+  @override
+  String get paRowSubtitle => '训练天数、目标和时间';
+
+  @override
+  String get paWorkout => '每周训练';
+
+  @override
+  String get paGoal => '计划时长';
+
+  @override
+  String get paBedtime => '就寝时间';
+
+  @override
+  String get paWorkoutTime => '训练时间';
+
+  @override
+  String get restoreDone => '已恢复你的购买。';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -7167,7 +7831,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get tipVitaminD => '每天曬太陽 15 分鐘能增加維生素 D 合成，而維生素 D 是吸收鈣質的關鍵。';
 
   @override
-  String get tipBarHanging => '單槓懸吊能減輕脊椎壓力。每天試試 3x30 秒。';
+  String get tipBarHanging => '懸掛單槓可以伸展肩部和背部。每天試試 3x30 秒。';
 
   @override
   String get tipSwimming => '游泳是全身運動的首選，也有助於支持長高。';
@@ -7185,7 +7849,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get routineBarHanging => '單槓懸吊';
 
   @override
-  String get routineBarHangingDesc => '抓住單槓懸吊，伸展脊椎。3 組 x 30 秒。';
+  String get routineBarHangingDesc => '懸掛在單槓上，伸展肩部和背部。3 組 x 30 秒。';
 
   @override
   String get routineCobraStretch => '眼鏡蛇式伸展';
@@ -7197,13 +7861,13 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get routineJumping => '跳躍訓練';
 
   @override
-  String get routineJumpingDesc => '跳繩或深蹲跳，刺激生長板。3 組 x 20 下。';
+  String get routineJumpingDesc => '跳繩或深蹲跳。有助於強健骨骼。3 組 x 20 下。';
 
   @override
   String get routineSwimming => '游泳或籃球';
 
   @override
-  String get routineSwimmingDesc => '做一項有助長高的運動，至少 30 分鐘。';
+  String get routineSwimmingDesc => '做一項你喜歡的運動，提升體能和肌力。至少 30 分鐘。';
 
   @override
   String get routineYoga => '晚間瑜伽與伸展';
@@ -7263,37 +7927,37 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get routineSprintIntervals => '衝刺間歇訓練';
 
   @override
-  String get routineSprintIntervalsDesc => '短時間高強度衝刺，能大量促進生長激素分泌。';
+  String get routineSprintIntervalsDesc => '短距離衝刺搭配步行恢復，可提升體能和腿部力量。';
 
   @override
   String get routineHiitWorkout => 'HIIT 訓練';
 
   @override
-  String get routineHiitWorkoutDesc => '高強度間歇訓練，盡可能提高生長激素分泌。';
+  String get routineHiitWorkoutDesc => '高強度間歇訓練可提升體能和肌力。';
 
   @override
   String get routineSquats => '徒手深蹲';
 
   @override
-  String get routineSquatsDesc => '徒手深蹲能刺激腿部和脊椎的生長板。';
+  String get routineSquatsDesc => '徒手深蹲能強化腿部和支撐體態的肌肉。';
 
   @override
   String get routineDeadliftStretch => '硬舉式伸展';
 
   @override
-  String get routineDeadliftStretchDesc => '硬舉式伸展可減輕脊椎壓力，維護椎間盤健康。';
+  String get routineDeadliftStretchDesc => '硬舉式伸展，讓腿後肌更柔軟、背部更有力。';
 
   @override
   String get routineOverheadPress => '過頭推舉';
 
   @override
-  String get routineOverheadPressDesc => '過頭推舉能伸展脊椎，強化維持體態的肌肉。';
+  String get routineOverheadPressDesc => '過頭推舉能強化肩部和體態肌肉。';
 
   @override
   String get routineSkippingRope => '跳繩';
 
   @override
-  String get routineSkippingRopeDesc => '反覆跳繩能刺激下肢的生長板。';
+  String get routineSkippingRopeDesc => '反覆跳繩會給腿部骨骼施加負荷，有助於強健骨骼。';
 
   @override
   String get routinePilatesCore => '皮拉提斯核心';
@@ -7305,7 +7969,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get routineInversionHang => '倒立懸吊';
 
   @override
-  String get routineInversionHangDesc => '倒立能減輕椎間盤壓力，可暫時增加 1-2cm。';
+  String get routineInversionHangDesc => '倒掛可以放鬆背部肌肉。身高變化只是暫時的。';
 
   @override
   String get routineZincIntake => '富含鋅的食物';
@@ -8546,10 +9210,10 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get recipesAboutBody => '精選幫助成長的食譜。依餐別或營養目標篩選，找到最適合你計畫的一道。';
 
   @override
-  String get animHintSpinalDecomp => '脊椎減壓';
+  String get animHintSpinalDecomp => '肩背伸展';
 
   @override
-  String get animHintGravityReversal => '反轉重力';
+  String get animHintGravityReversal => '背部放鬆';
 
   @override
   String get animHintImpactBones => '骨骼衝擊負荷';
@@ -8567,7 +9231,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get animHintSpinalExtension => '脊椎伸展';
 
   @override
-  String get animHintCervicalDecomp => '頸椎減壓';
+  String get animHintCervicalDecomp => '頸部放鬆';
 
   @override
   String get animHintShoulderMobility => '肩部活動度';
@@ -8612,13 +9276,13 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get animHintCoreStability => '核心穩定';
 
   @override
-  String get animHintLegPower => '腿部力量與 HGH 激增';
+  String get animHintLegPower => '腿部力量';
 
   @override
   String get animHintVerticalPower => '垂直爆發力';
 
   @override
-  String get animHintHghSurge => 'HGH 激增訓練';
+  String get animHintHghSurge => '高強度訓練';
 
   @override
   String get animHintPeakHgh => 'HGH 分泌高峰時段';
@@ -8639,7 +9303,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get formMorningStretch => '先轉轉脖子，再做全身伸展。每個動作維持 20-30 秒，不要彈震。';
 
   @override
-  String get formBarHanging => '雙手與肩同寬握住單槓，全身放鬆，讓重力伸展脊椎。避免晃動。';
+  String get formBarHanging => '雙手與肩同寬握住單槓，放鬆身體，感受肩部和背部的伸展。避免擺動。';
 
   @override
   String get formCobraStretch => '趴下，雙手放在肩膀下方，慢慢撐起上半身，臀部保持貼地。眼睛往上看。';
@@ -8727,46 +9391,46 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get formShoulderRolls => '肩膀往前轉 15 次，再往後轉 15 次。接著做開胸伸展，維持 20 秒。';
 
   @override
-  String get sciMorningStretch => '晨間伸展能為一夜補水的椎間盤減壓，盡量保住身高';
+  String get sciMorningStretch => '晨間伸展可緩解一夜的僵硬，讓肌肉活動起來';
 
   @override
-  String get sciBarHanging => '懸吊利用重力伸展脊椎、為椎間盤減壓，可能暫時增加身高';
+  String get sciBarHanging => '懸掛可伸展肩部和背部並鍛鍊握力。身高變化只是暫時的';
 
   @override
-  String get sciCobraStretch => '眼鏡蛇式能伸展脊椎、打開胸口，抵銷久坐造成的脊椎壓迫';
+  String get sciCobraStretch => '眼鏡蛇式能打開胸部，緩解久坐帶來的僵硬';
 
   @override
-  String get sciJumping => '高衝擊跳躍能刺激腿部生長板，並促進生長激素分泌';
+  String get sciJumping => '高衝擊跳躍給骨骼施加負荷，有助於在青少年時期強健骨骼';
 
   @override
-  String get sciSwimmingBasketball => '游泳和籃球包含全身伸展、跳躍和伸手動作，能刺激生長板活動';
+  String get sciSwimmingBasketball => '游泳和籃球能提升體能、協調性和肌力，籃球中的跳躍還有助於強健骨骼';
 
   @override
-  String get sciEveningYoga => '晚間瑜伽能降低會抑制生長激素的皮質醇，並伸展肌肉幫助夜間恢復';
+  String get sciEveningYoga => '晚間瑜伽幫助你放鬆身心，在睡前舒緩肌肉';
 
   @override
-  String get sciSprintIntervals => '衝刺能大量促進生長激素分泌';
+  String get sciSprintIntervals => '短距離衝刺搭配步行恢復，可提升體能和腿部力量';
 
   @override
-  String get sciHiitWorkout => '高強度運動可讓 HGH 增加多達 450%';
+  String get sciHiitWorkout => '高強度間歇訓練可提升體能和肌力';
 
   @override
-  String get sciSquats => '深蹲能刺激腿部和脊椎的生長板';
+  String get sciSquats => '徒手深蹲能強化腿部和支撐體態的肌肉';
 
   @override
-  String get sciDeadliftStretch => '脊椎減壓有助椎間盤健康';
+  String get sciDeadliftStretch => '硬舉式伸展，讓腿後肌更柔軟、背部更有力';
 
   @override
-  String get sciOverheadPress => '過頭推舉能伸展脊椎，強化維持體態的肌肉';
+  String get sciOverheadPress => '過頭推舉能強化肩部和體態肌肉';
 
   @override
-  String get sciSkippingRope => '反覆跳躍能刺激下肢的生長板';
+  String get sciSkippingRope => '反覆跳繩會給腿部骨骼施加負荷，有助於強健骨骼';
 
   @override
   String get sciPilatesCore => '核心肌力有助脊椎排列和體態';
 
   @override
-  String get sciInversionHang => '倒立能減輕椎間盤壓力，可暫時增加 1-2cm';
+  String get sciInversionHang => '倒掛可以放鬆背部肌肉。身高變化只是暫時的';
 
   @override
   String get sciProtein => '蛋白質提供骨骼和肌肉生長必需的胺基酸，在快速成長期特別重要';
@@ -9328,7 +9992,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get notifJumpTitle => '🦘 跳躍時間！';
 
   @override
-  String get notifJumpBody => '跳躍運動能刺激生長板。試試 3 x 20 下！';
+  String get notifJumpBody => '跳躍有助於強健骨骼。試試 3 x 20 下！';
 
   @override
   String get notifCalciumTitle => '🥛 補鈣時間！';
@@ -12463,4 +13127,668 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String obBudgetTrial(String days) {
     return '也可以先免費試用 $days 天。';
   }
+
+  @override
+  String get obNameTitle => '我們該怎麼稱呼你？';
+
+  @override
+  String get obNameSubtitle => '選填。你的計畫和提醒會用到它。';
+
+  @override
+  String get obNameHint => '你的名字';
+
+  @override
+  String get nWb1Title => '你昨天沒練';
+
+  @override
+  String nWb1Body(String height) {
+    return '你的 $height 計畫還在等你。10 分鐘就能補上。';
+  }
+
+  @override
+  String get nWb2Title => '你放棄長高了嗎？';
+
+  @override
+  String get nWb2Body => '你的計畫說，你還沒到頭。';
+
+  @override
+  String nWb3Title(String gain) {
+    return '你的 $gain 怎麼辦？';
+  }
+
+  @override
+  String get nWb3Body => '這是預測裡由你的習慣決定的部分。';
+
+  @override
+  String nWb5Title(String name) {
+    return '$name，你的曲線不動了';
+  }
+
+  @override
+  String get nWb5TitleNoName => '你的曲線不動了';
+
+  @override
+  String get nWb5Body => '5 天沒有新測量了。你現在多高？';
+
+  @override
+  String get nWb7Title => '一週過去了';
+
+  @override
+  String get nWb7Body => '你的朋友這週可沒停止長高。你呢？';
+
+  @override
+  String get nWb10Title => '你的預測可能變了';
+
+  @override
+  String get nWb10Body => '量一次，看看新數字。';
+
+  @override
+  String nWb14Title(String height) {
+    return '還是 $height 嗎？';
+  }
+
+  @override
+  String get nWb14Body => '上次測量已經兩週了。量一下就知道。';
+
+  @override
+  String get nWb21Title => '還想要你的計畫嗎？';
+
+  @override
+  String get nWb21Body => '它還保存著。點一下就能接著來。';
+
+  @override
+  String nWb30Title(String name) {
+    return '最後一則，$name';
+  }
+
+  @override
+  String get nWb30TitleNoName => '最後一則';
+
+  @override
+  String get nWb30Body => '你的資料還在。準備好了隨時回來。';
+
+  @override
+  String nTrainHookTitle(int minutes) {
+    return '離今天的計畫只差 $minutes 分鐘';
+  }
+
+  @override
+  String get nWaterHookTitle => '喝水了嗎？';
+
+  @override
+  String nWaterHookBody(String liters) {
+    return '今天 $liters。現在先來一杯。';
+  }
+
+  @override
+  String nProteinHookTitle(int grams) {
+    return '今天 $grams 克蛋白質。開始了嗎？';
+  }
+
+  @override
+  String nSleepHookTitle(String name) {
+    return '$name，放下手機';
+  }
+
+  @override
+  String get nSleepHookTitleNoName => '放下手機';
+
+  @override
+  String get nMeasureHookTitle => '這週長高了嗎？';
+
+  @override
+  String get nMeasureHookBody => '早上量一下就知道。';
+
+  @override
+  String nStreakHookTitle(int streak) {
+    return '你的 $streak 天連勝今晚要斷了';
+  }
+
+  @override
+  String get nStreakHookBody => '做一個訓練就能保住。';
+
+  @override
+  String get nPostureHookTitle => '現在檢查一下你的背';
+
+  @override
+  String get nPostureHookBody => '肩膀向後，下巴放平。';
+
+  @override
+  String hkReturn(int days) {
+    return '你離開了 $days 天。看看有什麼變化。';
+  }
+
+  @override
+  String hkHabits(String gain) {
+    return '你的預測中有 $gain 取決於你的習慣';
+  }
+
+  @override
+  String hkStreakDay(int day) {
+    return '第 $day 天。你的連勝更難斷了。';
+  }
+
+  @override
+  String get hkPredictionUpdated => '你的預測剛剛更新。點按查看。';
+
+  @override
+  String get hkMeasureDue => '你的圖表在等這週的數據';
+
+  @override
+  String get hkLeaveTitle => '你的計畫已準備好。不打開就走嗎？';
+
+  @override
+  String get hkLeaveOpen => '查看我的計畫';
+
+  @override
+  String get rsLockedSubtitle => '我們算出了你可能長到多高。你的數字鎖在下方。';
+
+  @override
+  String get rsUnlock => '解鎖我的結果';
+
+  @override
+  String get rsPaywallHeadline => '你的數字出來了。打開嗎？';
+
+  @override
+  String get rsLockedChart => '看看你能長到哪裡';
+
+  @override
+  String get rsLineHeight => '你成年後的身高';
+
+  @override
+  String get rsLineGrowth => '你還能長多少';
+
+  @override
+  String get rsLineRank => '你在同齡人中的排名';
+
+  @override
+  String get rsProgressTitle => '你的組數和進步';
+
+  @override
+  String get rsStageStart => '起步';
+
+  @override
+  String get rsStageNow => '正在變強';
+
+  @override
+  String get rsStagePeak => '全力狀態';
+
+  @override
+  String get rsLevelLine => '組數、進步和變強';
+
+  @override
+  String get pwBuyWeekly => '開始每週方案';
+
+  @override
+  String get pwBuyMonthly => '開始每月方案';
+
+  @override
+  String get pwBuyLifetime => '購買終身權限';
+
+  @override
+  String get obGenderSub => '男生和女生的生長曲線不一樣。';
+
+  @override
+  String get obBirthSub => '填月份和年份就夠了。這樣我們就知道你處在生長期的哪個階段。';
+
+  @override
+  String obAgeLine(int age) {
+    return '你 $age 歲';
+  }
+
+  @override
+  String get obAgeReplyGrowing => '你正處在生長期。現在正是我們一起長高的時候！';
+
+  @override
+  String get obAgeReplyLate => '這個年紀生長會放緩，但每個人停下來的時間不一樣。稍後我們會算出你的情況。';
+
+  @override
+  String get obAgeReplyAdult => '這個年紀骨骼很少再變長。你的計畫著重體態，駝背丟掉的那幾公分可以從這裡找回來。';
+
+  @override
+  String get obHwSub => '預測從你現在的身高開始。';
+
+  @override
+  String get obFootSub => '腳比身體其他部位先長，所以你的鞋碼能看出你長到了哪一步。';
+
+  @override
+  String obFootLength(String length) {
+    return '約 $length';
+  }
+
+  @override
+  String get obWorkoutSub => '我們會依此設定你的蛋白質和熱量目標。';
+
+  @override
+  String obNameNotif(String name) {
+    return '$name，今天的計畫準備好了';
+  }
+
+  @override
+  String get obNameNotifAnon => '今天的計畫準備好了';
+
+  @override
+  String get obNameNotifBody => '幾個動作，大約 15 分鐘。';
+
+  @override
+  String get obNamePreviewLabel => '你的提醒會是這個樣子';
+
+  @override
+  String get obReplyTriedStopped => '那我們可以保證，你不會放棄 BeTaller！';
+
+  @override
+  String get obReplyTriedStill => '那你很快就會看到不同。除了數字，BeTaller 還給你一份每天打勾的計畫。';
+
+  @override
+  String get obReplyTriedFirst => '那就真心歡迎你！在長高這條路上，你做了最正確的選擇之一。';
+
+  @override
+  String get obReplyWhyConfidence => '站得直的人看起來更高，也更從容。你的計畫第一步就是體態。';
+
+  @override
+  String get obReplyWhyImpression => '第一印象很大一部分來自站姿。我們從第一週就開始練。';
+
+  @override
+  String get obReplyWhySports => '伸展和懸吊在球場上也用得上。你的計畫裡兩樣都有。';
+
+  @override
+  String get obReplyWhyClothes => '同樣的衣服，背挺直了穿起來就不一樣。我們先解決這個。';
+
+  @override
+  String get obReplyWhyPhotos => '拍照時，體態對身高的影響最大。你還可以在 App 裡比較前後照片。';
+
+  @override
+  String get obReplyWhyPotential => '好的。再回答幾個問題，我們就能算出你的潛力。';
+
+  @override
+  String get obReplyWorkoutLow => '沒關係。你的計畫從簡短的訓練開始，大多約 15 分鐘。';
+
+  @override
+  String get obReplyWorkoutMid => '節奏不錯。照這個節奏，計畫很容易排進去。';
+
+  @override
+  String get obReplyWorkoutHigh => '你練得很多。我們會相應提高你的蛋白質目標。';
+
+  @override
+  String get obReplyFirstWardrobe => '你可以開始想想新的褲長了。';
+
+  @override
+  String get obReplyFirstMuscle => '計畫裡的動作也會為這個打下基礎。';
+
+  @override
+  String get obReplyFirstPhotos => '第一天拍張照吧。以後把照片放在一起比較，你會喜歡的。';
+
+  @override
+  String get obReplyFirstTeam => '我們會為你設好提醒，讓你堅持到選拔那天。';
+
+  @override
+  String get obReplyFirstFeelGood => '這是最站得住腳的理由。';
+
+  @override
+  String get obDayTitle => '這就是你和 BeTaller 的一天';
+
+  @override
+  String get obDayBody => '根據你目前告訴我們的內容產生。做完一項就打一個勾。';
+
+  @override
+  String obDayProtein(int grams) {
+    return '$grams g 蛋白質';
+  }
+
+  @override
+  String get obDayProteinSub => '你的第一餐準備好了';
+
+  @override
+  String obDaySleep(String time) {
+    return '$time 的睡眠提醒';
+  }
+
+  @override
+  String get obDaySleepSub => '讓你的冒險繼續下去的提醒';
+
+  @override
+  String get obParentsSub => '身高大部分來自父母。這兩個數字是估算的基礎。';
+
+  @override
+  String get obSleepSub => '生長激素大多在深度睡眠時分泌。';
+
+  @override
+  String obDreamDelta(String delta) {
+    return '比現在的身高高$delta';
+  }
+
+  @override
+  String get obEthnicitySubAll => '成年人的平均身高因族裔不同會相差幾公分。';
+
+  @override
+  String obEthReplyHigh(String avg) {
+    return '這一族裔的成年人平均身高為$avg，高於世界平均。你的潛力非常高！';
+  }
+
+  @override
+  String obEthReplyMid(String avg) {
+    return '這一族裔的成年人平均身高約為$avg。你的潛力很高，好習慣能讓你超過平均。';
+  }
+
+  @override
+  String obEthReplyRising(String avg) {
+    return '這一族裔的成年人平均身高約為$avg，而且近幾代上升得很快。你的潛力可能比你想的更高。';
+  }
+
+  @override
+  String get obEthReplyNoAnswer => '沒關係。我們根據你的父母和你自己的數據來計算。';
+
+  @override
+  String obEthAbove(String avg, String you) {
+    return '這個族裔的成年人平均身高是 $avg。你已經 $you 了，高於平均！';
+  }
+
+  @override
+  String obEthNear(String avg, String you) {
+    return '這個族裔的成年人平均身高是 $avg。你 $you，剛好在平均值上，目標是超過它。';
+  }
+
+  @override
+  String obEthBelowYoung(String avg, String you) {
+    return '這個族裔的成年人平均身高是 $avg。你 $you，還在長高的年紀，還有時間超過它。';
+  }
+
+  @override
+  String obEthBelowAdult(String avg, String you) {
+    return '這個族裔的成年人平均身高是 $avg。你 $you，改善體態可以補上一部分差距。';
+  }
+
+  @override
+  String get obMealsUnknown => '我不確定時間';
+
+  @override
+  String get obMealsUnknownReply => '沒關係，我們已經為你專門排好了按小時的計畫。';
+
+  @override
+  String get obUnknownPlanned => '沒關係，這部分我們幫你安排。你隨時可以改。';
+
+  @override
+  String get obReplyWeCalc => '別擔心，這個我們本來就會幫你算。';
+
+  @override
+  String get obGoalDaysTitle => '你真心希望在多久之內長高？';
+
+  @override
+  String get obGoalDaysSub => '給你的目標定個期限吧。';
+
+  @override
+  String obGoalDaysN(int n) {
+    return '$n 天';
+  }
+
+  @override
+  String get obGoalYear => '1 年內';
+
+  @override
+  String get obGoalOpen => '能長多高就多高';
+
+  @override
+  String get obReplyGoal90 => '90 天足夠讓體態和習慣穩定下來。你會先從站姿上看到變化。';
+
+  @override
+  String get obReplyGoal120 => '120 天後，習慣就養成了。這段時間我們會一直陪你記錄測量數據。';
+
+  @override
+  String get obReplyGoal180 => '六個月是在尺上看到長高的合理時間。';
+
+  @override
+  String get obReplyGoal365 => '一年是最穩妥的計畫。長高需要耐心，我們每天都陪著你。';
+
+  @override
+  String get obReplyGoalOpen => '這樣想最對。身體能長多少就長多少，我們每天都陪著你。';
+
+  @override
+  String get tv4TrackTitle => '喝水和睡眠，一點就記';
+
+  @override
+  String get tv4TrackDesc => '每日目標依你的年齡和體重計算。完成一項，勾一項。';
+
+  @override
+  String get tv4PhotosTitle => '前後對比照';
+
+  @override
+  String get tv4PhotosDesc => '用同一個姿勢拍照，再把幾週的照片並排比較。';
+
+  @override
+  String get tv4PostureTitle => '用相機檢查體態';
+
+  @override
+  String get tv4PostureDesc => '為你的站姿評分，並告訴你該改哪裡。';
+
+  @override
+  String get tv4ReportTitle => '你的每週報告';
+
+  @override
+  String get tv4ReportDesc => '訓練、睡眠和飲食，每週整理在一頁。';
+
+  @override
+  String get tv4BreakdownTitle => '什麼能提高你的分數';
+
+  @override
+  String get tv4BreakdownDesc => '顯示每個因素的占比，以及你的下一步。';
+
+  @override
+  String get reminderProTitle => '提醒功能包含在 Pro 中';
+
+  @override
+  String get reminderProDesc => '到了訓練、吃飯和睡覺的時間，我們會提醒你。';
+
+  @override
+  String get nFw1Title => '第二天，新動作';
+
+  @override
+  String get nFw1Body => '今天的訓練和昨天不一樣。只要幾分鐘。';
+
+  @override
+  String get nFw2Title => '第一枚連續獎牌就快到手了';
+
+  @override
+  String get nFw2Body => '連續完成三天，就能解鎖連續 3 天獎牌。';
+
+  @override
+  String get nFw3Title => '測量日';
+
+  @override
+  String get nFw3Body => '量一下身高並儲存。今天你的圖表會多一個點。';
+
+  @override
+  String get nFw4Title => '來看看你的體態';
+
+  @override
+  String get nFw4Body => '用相機檢查體態只要一分鐘。看看你的分數。';
+
+  @override
+  String get nFw5Title => '拍下你的第一張照片';
+
+  @override
+  String get nFw5Body => '今天拍一張照片。幾週後你可以把它們放在一起對比。';
+
+  @override
+  String get nFw6Title => '你的第一週明天結束';
+
+  @override
+  String get nFw6Body => '完成今天的任務，你的每週報告明天就準備好了。';
+
+  @override
+  String get nFw7Title => '你的第一週完成了';
+
+  @override
+  String get nFw7Body => '你的每週報告準備好了。再量一次身高吧。';
+
+  @override
+  String nPmFirstTitle(String name) {
+    return '$name，該吃第一餐了。';
+  }
+
+  @override
+  String get nPmFirstTitleNoName => '該吃第一餐了。';
+
+  @override
+  String get nPmFirstBody => '你的專屬餐點已備好。不想吃的話，巨量營養素目標和你需要的營養素也準備好了。第一餐千萬別跳過。';
+
+  @override
+  String nPmMealTitle(String name, int n) {
+    return '$name，該吃第 $n 餐了。';
+  }
+
+  @override
+  String nPmMealTitleNoName(int n) {
+    return '該吃第 $n 餐了。';
+  }
+
+  @override
+  String nPmMealBody(int protein, int calcium) {
+    return '$protein g 蛋白質和 $calcium mg 鈣。這一餐千萬別跳過。';
+  }
+
+  @override
+  String get nPmWaterTitle => '水喝夠了嗎？';
+
+  @override
+  String nPmWaterBody(String name, String liters) {
+    return '$name，記得整天多喝水。你的每日目標是 $liters。';
+  }
+
+  @override
+  String nPmWaterBodyNoName(String liters) {
+    return '記得整天多喝水。你的每日目標是 $liters。';
+  }
+
+  @override
+  String get nPmTrainTitle => '距離訓練時間還有 30 分鐘！';
+
+  @override
+  String nPmTrainBody(int count, int minutes) {
+    return '你的專屬計畫在等你。今天：$count 個動作，約 $minutes 分鐘。';
+  }
+
+  @override
+  String get nPmHabitTitle => '白天可以抽空跳跳繩、拉拉筋';
+
+  @override
+  String nPmHabitBody(String name) {
+    return '$name，別忘了這些小習慣。';
+  }
+
+  @override
+  String get nPmHabitBodyNoName => '別忘了這些小習慣。';
+
+  @override
+  String nPmSleepTitle(String name) {
+    return '$name，快到睡覺時間了。';
+  }
+
+  @override
+  String get nPmSleepTitleNoName => '快到睡覺時間了。';
+
+  @override
+  String get pwMoreFeatures => '還有更多功能。';
+
+  @override
+  String get libTitle => '動作庫';
+
+  @override
+  String libCount(int count) {
+    return '$count 個動作';
+  }
+
+  @override
+  String get libJump => '跳躍';
+
+  @override
+  String get libHang => '懸吊';
+
+  @override
+  String get libStretch => '伸展';
+
+  @override
+  String get libStrength => '力量';
+
+  @override
+  String get libPosture => '體態';
+
+  @override
+  String get libWeights => '負重';
+
+  @override
+  String get libWeightsNote => '這些動作需要啞鈴或彈力帶。選擇每一次都能用標準姿勢完成的重量。';
+
+  @override
+  String get plFoodTurkey => '火雞胸肉';
+
+  @override
+  String get plFoodCod => '鱈魚';
+
+  @override
+  String get plFoodBeans => '紅腰豆';
+
+  @override
+  String get plFoodQuinoa => '藜麥';
+
+  @override
+  String get plFoodSweetPotato => '地瓜';
+
+  @override
+  String get plFoodApple => '蘋果';
+
+  @override
+  String get plFoodBerries => '草莓';
+
+  @override
+  String get plFoodMozzarella => '莫札瑞拉起司';
+
+  @override
+  String get plFoodHummus => '鷹嘴豆泥';
+
+  @override
+  String get plFoodGreenBeans => '四季豆';
+
+  @override
+  String get mgTitle => '該量身高了';
+
+  @override
+  String mgBody(int days) {
+    return '距離上次測量已經 $days 天了。繼續之前先量一下身高。';
+  }
+
+  @override
+  String get mgTip1 => '脫鞋，腳跟貼牆。';
+
+  @override
+  String get mgTip2 => '目視前方，在頭頂平放一本書。';
+
+  @override
+  String get mgTip3 => '早上測量。身高在白天會略微變矮。';
+
+  @override
+  String get mgLater => '今天沒辦法測量';
+
+  @override
+  String get paTitle => '計畫相關回答';
+
+  @override
+  String get paSubtitle => '你的計畫和提醒都以這些回答為準。改動任一項就會更新。';
+
+  @override
+  String get paRowSubtitle => '訓練天數、目標和時間';
+
+  @override
+  String get paWorkout => '每週訓練';
+
+  @override
+  String get paGoal => '計畫時長';
+
+  @override
+  String get paBedtime => '就寢時間';
+
+  @override
+  String get paWorkoutTime => '訓練時間';
+
+  @override
+  String get restoreDone => '已恢復你的購買。';
 }

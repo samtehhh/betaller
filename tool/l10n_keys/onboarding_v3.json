@@ -1,0 +1,152 @@
+{
+  "obGenderSub": {
+    "en": "Growth runs on a different curve for boys and girls.",
+    "tr": "Büyüme eğrisi erkeklerde ve kadınlarda farklı ilerler."
+  },
+  "obBirthSub": {
+    "en": "Month and year are enough. This tells us where you are in your growth years.",
+    "tr": "Ay ve yıl yeterli. Büyüme döneminin neresinde olduğunu buradan anlıyoruz."
+  },
+  "obAgeLine": {
+    "en": "You are {age}",
+    "tr": "{age} yaşındasın",
+    "_types": {"age": "int"}
+  },
+  "obAgeReplyGrowing": {
+    "en": "You are in your growth years. Sleep and food count the most right now.",
+    "tr": "Büyüme çağındasın. Bu dönemde en çok uyku ve beslenme işe yarar."
+  },
+  "obAgeReplyLate": {
+    "en": "Growth slows around this age, but it does not stop at the same time for everyone. We will work yours out in a moment.",
+    "tr": "Bu yaşlarda büyüme yavaşlar ama herkeste aynı anda bitmez. Seninkini birazdan hesaplayacağız."
+  },
+  "obAgeReplyAdult": {
+    "en": "Bones rarely lengthen at this age. Your plan leans on posture, where the centimetres lost to slouching come back.",
+    "tr": "Bu yaşta kemikler pek uzamaz. Planın duruşa ağırlık verir; kambur dururken kaybettiğin santimler oradan geri gelir."
+  },
+  "obHwSub": {
+    "en": "Your height today is where the estimate starts.",
+    "tr": "Potansiyel hesabı bugünkü boyundan başlar."
+  },
+  "obFootSub": {
+    "en": "Feet grow before the rest of you does, so your size says something about where you are.",
+    "tr": "Ayak, boydan önce büyür. Numaran büyümenin neresinde olduğuna dair bir ipucu verir."
+  },
+  "obFootLength": {
+    "en": "About {length}",
+    "tr": "Yaklaşık {length}"
+  },
+  "obWorkoutSub": {
+    "en": "We set your protein and calorie targets from this.",
+    "tr": "Protein ve kalori hedefini buna göre ayarlıyoruz."
+  },
+  "obNameNotif": {
+    "en": "{name}, today's plan is ready",
+    "tr": "{name}, bugünkü planın hazır"
+  },
+  "obNameNotifAnon": {
+    "en": "Today's plan is ready",
+    "tr": "Bugünkü planın hazır"
+  },
+  "obNameNotifBody": {
+    "en": "A few moves, about 15 minutes.",
+    "tr": "Birkaç hareket, 15 dakika civarı."
+  },
+  "obNamePreviewLabel": {
+    "en": "Your reminders will look like this",
+    "tr": "Hatırlatmaların böyle görünecek"
+  },
+  "obReplyTriedStopped": {
+    "en": "Then we can promise you will not drop BeTaller!",
+    "tr": "O zaman BeTaller'ı bırakmayacağını garanti edebiliriz!"
+  },
+  "obReplyTriedStill": {
+    "en": "Then you will see the difference soon. Next to the number, BeTaller gives you a plan to tick off every day.",
+    "tr": "O zaman farkı çabuk görürsün. BeTaller'da sayının yanında her gün işaretleyeceğin bir plan da var."
+  },
+  "obReplyTriedFirst": {
+    "en": "Then a real welcome! You have made one of the best choices on your way to growing taller.",
+    "tr": "Öyleyse gerçekten hoş geldin! Boy uzatma yolculuğunda en doğru tercihlerden birini yaptın."
+  },
+  "obReplyWhyConfidence": {
+    "en": "Someone who stands straight looks taller and more at ease. Posture is the first thing your plan works on.",
+    "tr": "Dik duran biri hem daha uzun hem daha rahat görünür. Planının ilk işi duruşun."
+  },
+  "obReplyWhyImpression": {
+    "en": "Much of a first impression is how you stand. We start on that in week one.",
+    "tr": "İlk izlenimin büyük kısmı duruştan gelir. Ona ilk haftadan başlıyoruz."
+  },
+  "obReplyWhySports": {
+    "en": "Stretching and hanging help on the court too. Your plan has both.",
+    "tr": "Esneme ve asılma sahada da işine yarar. Planında ikisi de var."
+  },
+  "obReplyWhyClothes": {
+    "en": "The same clothes sit differently on a straight back. We fix that first.",
+    "tr": "Dik bir sırtta aynı kıyafet bile farklı durur. Önce onu düzeltiyoruz."
+  },
+  "obReplyWhyPhotos": {
+    "en": "In photos, posture changes your height the most. You can also compare before and after shots in the app.",
+    "tr": "Fotoğrafta boyu en çok duruş değiştirir. Uygulamada önce ve sonra fotoğraflarını da karşılaştırabilirsin."
+  },
+  "obReplyWhyPotential": {
+    "en": "Fair enough. A few more questions and we will work out your potential.",
+    "tr": "Tamam. Birkaç soru sonra potansiyelini hesaplıyoruz."
+  },
+  "obReplyWorkoutLow": {
+    "en": "No problem. Your plan starts with short sessions, most around 15 minutes.",
+    "tr": "Sorun değil. Planın kısa seanslarla başlar, çoğu 15 dakika civarı."
+  },
+  "obReplyWorkoutMid": {
+    "en": "Good pace. At this rhythm the plan will fit in easily.",
+    "tr": "Güzel tempo. Bu düzenle planı rahat götürürsün."
+  },
+  "obReplyWorkoutHigh": {
+    "en": "You train a lot. We are raising your protein target to match.",
+    "tr": "Çok aktifsin. Protein hedefini buna göre yükseltiyoruz."
+  },
+  "obReplyFirstWardrobe": {
+    "en": "You can start thinking about your new trouser length.",
+    "tr": "Yeni pantolon boyunu şimdiden düşünmeye başlayabilirsin."
+  },
+  "obReplyFirstMuscle": {
+    "en": "The moves in your plan lay the ground for that too.",
+    "tr": "Planındaki hareketler buna da zemin hazırlar."
+  },
+  "obReplyFirstPhotos": {
+    "en": "Take a photo on day one. You will like putting them side by side later.",
+    "tr": "İlk gün bir fotoğraf çek. İleride yan yana koymak hoşuna gidecek."
+  },
+  "obReplyFirstTeam": {
+    "en": "We will set your reminders so you stay regular until the tryouts.",
+    "tr": "Seçmelere kadar düzenli gidebilmen için hatırlatmaları sana göre kuracağız."
+  },
+  "obReplyFirstFeelGood": {
+    "en": "That is the soundest reason there is.",
+    "tr": "En sağlam sebep bu."
+  },
+  "obDayTitle": {
+    "en": "Here is a day with BeTaller",
+    "tr": "İşte BeTaller'la bir günün"
+  },
+  "obDayBody": {
+    "en": "Built from what you have told us so far. You tick it off as you go.",
+    "tr": "Şimdiye kadar verdiğin cevaplardan kurduk. Yaptıkça işaretleyeceksin."
+  },
+  "obDayProtein": {
+    "en": "{grams} g protein",
+    "tr": "{grams} g protein",
+    "_types": {"grams": "int"}
+  },
+  "obDayProteinSub": {
+    "en": "Your first meal is ready",
+    "tr": "1. öğünün hazır"
+  },
+  "obDaySleep": {
+    "en": "Your {time} sleep reminder",
+    "tr": "{time} uyku bildirimin"
+  },
+  "obDaySleepSub": {
+    "en": "The reminder that keeps your adventure going",
+    "tr": "Serüvenine devam etmen için gereken bildirim"
+  }
+}

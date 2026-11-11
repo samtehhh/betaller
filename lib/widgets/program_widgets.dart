@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'height_silhouette.dart';
 import '../l10n/app_localizations.dart';
 import '../utils/constants.dart';
 import '../utils/daily_targets.dart';
@@ -60,7 +61,13 @@ class ProgramJourneyHeader extends StatelessWidget {
     final color = meta.$2;
     final done = completed.length.clamp(0, kProgramDays);
     final finished = current >= kProgramDays;
-    final toNextLevel = kProgramLevelDays - (current % kProgramLevelDays);
+    // Days until the first day of the next level.
+    final nextLevel = programDaysOfLevel(
+      (level + 1).clamp(0, kProgramLevelCount - 1),
+    );
+    final toNextLevel = nextLevel.isEmpty
+        ? 0
+        : (nextLevel.first - current).clamp(1, kProgramDays);
 
     return PlanCard(
       padding: const EdgeInsets.fromLTRB(18, 18, 18, 16),
@@ -124,7 +131,7 @@ class ProgramJourneyHeader extends StatelessWidget {
                     const SizedBox(height: 8),
                     PlanChip(
                       text: finished
-                          ? l.plProgramFinished
+                          ? programText(l.plProgramFinished)
                           : level < kProgramLevelCount - 1
                               ? l.plNextLevelIn(toNextLevel, level + 2)
                               : l.daysLeftProgram(kProgramDays - done),
@@ -138,10 +145,8 @@ class ProgramJourneyHeader extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: List.generate(kProgramLevelCount, (i) {
-              final inLevel = List.generate(
-                kProgramLevelDays,
-                (d) => i * kProgramLevelDays + d,
-              ).where(completed.contains).length;
+              final levelDays = programDaysOfLevel(i);
+              final inLevel = levelDays.where(completed.contains).length;
               return Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -149,7 +154,9 @@ class ProgramJourneyHeader extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(3),
                     child: LinearProgressIndicator(
-                      value: inLevel / kProgramLevelDays,
+                      value: levelDays.isEmpty
+                          ? 0
+                          : inLevel / levelDays.length,
                       minHeight: 5,
                       backgroundColor: Colors.white.withValues(alpha: 0.07),
                       valueColor:
@@ -179,13 +186,14 @@ class ProgressionTable extends StatelessWidget {
     'dead_hang_active',
     'squats',
     'jumping',
-    'skipping_rope',
+    'masai_jumps',
   ];
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    Widget cell(String head, MoveDose d, Color color, {bool strong = false}) =>
+    final locked = numbersLocked(context);
+    Widget cell(String head, String value, Color color, {bool strong = false}) =>
         Expanded(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 7),
@@ -209,7 +217,7 @@ class ProgressionTable extends StatelessWidget {
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    doseLabel(l, d),
+                    value,
                     maxLines: 1,
                     style: TextStyle(
                       fontSize: 12,
@@ -248,14 +256,31 @@ class ProgressionTable extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      cell(l.plLevelN(1), moveDose(id, level: 0)!,
-                          Colors.white),
-                      cell(l.plNow, moveDose(id, level: level)!,
-                          AppColors.lime,
-                          strong: true),
-                      cell(l.plLevelN(kProgramLevelCount),
-                          moveDose(id, level: kProgramLevelCount - 1)!,
-                          AppColors.warning),
+                      cell(
+                        l.plLevelN(1),
+                        locked
+                            ? l.rsStageStart
+                            : doseLabel(l, moveDose(id, level: 0)!),
+                        Colors.white,
+                      ),
+                      cell(
+                        l.plNow,
+                        locked
+                            ? l.rsStageNow
+                            : doseLabel(l, moveDose(id, level: level)!),
+                        AppColors.lime,
+                        strong: true,
+                      ),
+                      cell(
+                        l.plLevelN(kProgramLevelCount),
+                        locked
+                            ? l.rsStagePeak
+                            : doseLabel(
+                                l,
+                                moveDose(id, level: kProgramLevelCount - 1)!,
+                              ),
+                        AppColors.warning,
+                      ),
                     ],
                   ),
                 ],

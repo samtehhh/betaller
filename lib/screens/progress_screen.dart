@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
+import '../services/notification_service.dart';
+import '../widgets/plan_widgets.dart' show LockedPreview;
 import '../l10n/app_localizations.dart';
 import '../models/height_record.dart';
 import '../providers/app_provider.dart';
@@ -149,21 +151,34 @@ class ProgressScreenState extends State<ProgressScreen>
                                 title: l.heightChart,
                               ),
                               const SizedBox(height: 18),
-                              AnimatedBuilder(
-                                animation: _chartAnim,
-                                builder: (context, _) => PotentialChart(
-                                  provider: provider,
-                                  reveal: _chartCurve.value,
+                              if (provider.isPremium) ...[
+                                AnimatedBuilder(
+                                  animation: _chartAnim,
+                                  builder: (context, _) => PotentialChart(
+                                    provider: provider,
+                                    reveal: _chartCurve.value,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 18),
-                              HeightSilhouette(
-                                current: provider.latestHeight,
-                                potential: provider.potentialHeight,
-                                dream: provider.dreamHeight,
-                                format: provider.formatHeight,
-                                height: 200,
-                              ),
+                                const SizedBox(height: 18),
+                                HeightSilhouette(
+                                  current: provider.latestHeight,
+                                  potential: provider.potentialHeight,
+                                  dream: provider.dreamHeight,
+                                  format: provider.formatHeight,
+                                  height: 200,
+                                ),
+                              ] else
+                                LockedPreview(
+                                  title: l.rsLockedChart,
+                                  child: HeightSilhouette(
+                                    current: provider.latestHeight,
+                                    potential: provider.potentialHeight,
+                                    format: provider.formatHeight,
+                                    height: 200,
+                                    animate: false,
+                                    locked: true,
+                                  ),
+                                ),
                               const SizedBox(height: 16),
                               Divider(
                                 color: Colors.white.withValues(alpha: 0.06),
@@ -261,6 +276,7 @@ class ProgressScreenState extends State<ProgressScreen>
                     ),
                     const SizedBox(height: 12),
                     _ToolCard(
+                      key: TourKeys.progressPhotos,
                       color: AppColors.cyan,
                       icon: CupertinoIcons.photo_fill_on_rectangle_fill,
                       title: l.progressPhotosTitle,
@@ -287,6 +303,7 @@ class ProgressScreenState extends State<ProgressScreen>
                     ),
                     const SizedBox(height: 12),
                     _ToolCard(
+                      key: TourKeys.progressPosture,
                       color: AppColors.lime,
                       icon: Icons.accessibility_new_rounded,
                       title: l.explorePosture,
@@ -319,6 +336,7 @@ class ProgressScreenState extends State<ProgressScreen>
                     ),
                     const SizedBox(height: 12),
                     _ToolCard(
+                      key: TourKeys.progressReport,
                       color: AppColors.orange,
                       icon: CupertinoIcons.doc_chart_fill,
                       title: l.weeklyReportMenu,
@@ -610,6 +628,7 @@ class ProgressScreenState extends State<ProgressScreen>
                         // has been observed to corrupt the render tree
                         // ('_owner != null' assertion) on some devices.
                         FocusScope.of(context).unfocus();
+                        final messenger = ScaffoldMessenger.of(context);
                         final dateStr = selectedDate
                             .toIso8601String()
                             .substring(0, 10);
@@ -626,6 +645,26 @@ class ProgressScreenState extends State<ProgressScreen>
                         // instead of doing both in the same synchronous pass.
                         WidgetsBinding.instance.addPostFrameCallback((_) {
                           if (context.mounted) Navigator.pop(context);
+                          messenger.showSnackBar(
+                            SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: AppColors.surfaceDark,
+                              content: GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () {
+                                  messenger.hideCurrentSnackBar();
+                                  NotificationService.tappedPayload.value =
+                                      'tab:3';
+                                },
+                                child: Text(
+                                  l.hkPredictionUpdated,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
                         });
                       }
                     },
@@ -729,6 +768,7 @@ class _ToolCard extends StatelessWidget {
   final FreeFeature? feature;
 
   const _ToolCard({
+    super.key,
     this.feature,
     required this.color,
     required this.icon,

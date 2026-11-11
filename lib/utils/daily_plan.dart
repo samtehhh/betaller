@@ -34,7 +34,7 @@ const List<String> kDailyCoreRoutineIds = [
 List<String> dailyPlanIds([DateTime? date, String weeklyWorkout = '']) {
   final day = date ?? DateTime.now();
   final block = WeeklyPlan.forAnswers(weeklyWorkout: weeklyWorkout)
-      .days[(day.weekday - 1) % 7]
+      .weekOf(day)[(day.weekday - 1) % 7]
       .routineIds;
   final ids = <String>[];
   for (final id in [...block, ...kDailyCoreRoutineIds]) {

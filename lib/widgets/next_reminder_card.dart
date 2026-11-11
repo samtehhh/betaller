@@ -8,7 +8,8 @@ import '../providers/app_provider.dart';
 import '../screens/notifications_screen.dart';
 import '../services/notification_service.dart';
 import '../utils/constants.dart';
-import '../utils/text_case.dart';
+import '../utils/design_tokens.dart';
+import '../utils/haptics.dart';
 
 /// What the app will nudge the user about next, and the way into changing it.
 ///
@@ -71,108 +72,117 @@ class _NextReminderCardState extends State<NextReminderCard> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
-    final reminders = context.watch<AppProvider>().reminders;
+    final provider = context.watch<AppProvider>();
+    // Without Pro the everyday reminders are not sent, so the card must not
+    // show one of their times as "next".
+    final reminders = provider.isPremium
+        ? provider.reminders
+        : [
+            for (final r in provider.reminders)
+              if (!NotificationService.kEverydayCategories.contains(r.category))
+                r,
+          ];
     final next = _enabled ? nextReminder(reminders) : null;
 
     final color = next == null
-        ? AppColors.orange
-        : _meta[next.reminder.category]?.$2 ?? AppColors.orange;
+        ? BtColors.textMute
+        : _meta[next.reminder.category]?.$2 ?? AppColors.primaryLight;
     final icon = next == null
         ? CupertinoIcons.bell_slash_fill
         : _meta[next.reminder.category]?.$1 ?? CupertinoIcons.bell_fill;
+    final label = next == null ? l.reminderMasterTitle : l.reminderNextLabel;
+    final title = next == null ? l.reminderOffCta : _title(l, next.reminder);
+    final sub = l.reminderManageHint;
 
-    return GestureDetector(
-      onTap: () async {
-        await Navigator.push(
-          context,
-          CupertinoPageRoute(builder: (_) => const NotificationsScreen()),
-        );
-        _load();
-      },
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(16, 14, 14, 14),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [color.withValues(alpha: 0.12), AppColors.cardFill],
-            stops: const [0.0, 0.68],
+    return Semantics(
+      button: true,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () async {
+          Haptics.tap();
+          await Navigator.push(
+            context,
+            CupertinoPageRoute(builder: (_) => const NotificationsScreen()),
+          );
+          _load();
+        },
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(14, 14, 14, 14),
+          decoration: BoxDecoration(
+            color: BtColors.card,
+            borderRadius: BorderRadius.circular(BtRadius.lg),
+            border: Border.all(color: BtColors.stroke),
           ),
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: color.withValues(alpha: 0.26)),
-          boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.14),
-              blurRadius: 24,
-              offset: const Offset(0, 8),
-              spreadRadius: -10,
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: color.withValues(alpha: 0.28)),
+          child: Row(
+            children: [
+              Container(
+                width: 46,
+                height: 46,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.14),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(icon, size: 21, color: color),
               ),
-              child: Icon(icon, size: 20, color: color),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    next == null
-                        ? l.reminderMasterTitle.upperIn(context)
-                        : l.reminderNextLabel.upperIn(context),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 1.2,
-                      color: Colors.white.withValues(alpha: 0.40),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    next == null
-                        ? l.reminderOffCta
-                        : '${_title(l, next.reminder)} · ${next.reminder.timeLabel}',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 15.5,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
-                      letterSpacing: -0.3,
-                    ),
-                  ),
-                  if (!widget.compact) ...[
-                    const SizedBox(height: 3),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
-                      l.reminderManageHint,
-                      maxLines: 2,
+                      label,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white.withValues(alpha: 0.42),
+                        fontWeight: FontWeight.w700,
+                        color: BtColors.textMute,
                       ),
                     ),
+                    const SizedBox(height: 3),
+                    Text(
+                      title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: BtType.headline.copyWith(fontSize: 16),
+                    ),
+                    if (!widget.compact) ...[
+                      const SizedBox(height: 3),
+                      Text(
+                        sub,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 12.5,
+                          height: 1.3,
+                          color: BtColors.textMute,
+                        ),
+                      ),
+                    ],
                   ],
-                ],
+                ),
               ),
-            ),
-            const SizedBox(width: 8),
-            Icon(CupertinoIcons.chevron_right,
-                size: 15, color: color.withValues(alpha: 0.7)),
-          ],
+              const SizedBox(width: 10),
+              // The time is the answer the card exists for: large, on the
+              // right, where a clock sits on a lock screen row.
+              if (next != null)
+                Text(
+                  next.reminder.timeLabel,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.6,
+                    color: Colors.white,
+                  ),
+                )
+              else
+                Icon(
+                  CupertinoIcons.chevron_right,
+                  size: 15,
+                  color: BtColors.textFaint,
+                ),
+            ],
+          ),
         ),
       ),
     );

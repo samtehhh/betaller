@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'dart:async';
 
 import 'package:flutter/foundation.dart' show kDebugMode;
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,6 +34,8 @@ import '../utils/localized_data.dart';
 import '../widgets/plan_widgets.dart';
 import '../widgets/premium_paywall.dart';
 
+part 'onboarding_v3.dart';
+
 // ─── The flow ─────────────────────────────────────────────────────────────────
 //
 // The order of this enum IS the order of the pages: a page's index in the
@@ -58,21 +61,26 @@ enum _Page {
   painHook,
   budget,
   gender,
+  name,
   birthDate,
   whyTaller,
   triedApps,
-  triedAppsAnswer,
-  rate,
   heightWeight,
   parents,
   ethnicity,
   footSize,
   pastHeights,
   dreamHeight,
+  goalDays,
   blockers,
   workout,
   sleep,
   bedtime,
+  // A day of the plan with the user's own numbers in it (weight and bedtime
+  // are known by now), then the one rating ask, about two thirds of the way
+  // through and right after that first look at what they are getting.
+  dayPreview,
+  rate,
   workoutTime,
   meals,
   protein,
@@ -120,6 +128,24 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   final List<String> _blockers = [];
   String _firstWhenTaller = '';
 
+  /// The answer BeTaller replies to on a question with several: the one
+  /// tapped last, or the last one still picked after an unpick.
+  String? _whyLast;
+  String? _blockLast;
+
+  /// By when the user hopes to have grown: '90', '120', '180', '365' (days)
+  /// or 'open'. Kept with the answers; the plan can pace itself on it.
+  String _goalDays = '';
+
+  /// "Not sure about the times" on the meals page: the times are then planned
+  /// from the bedtime and the hours of sleep, and are not shown here.
+  bool _mealTimesUnknown = false;
+
+  /// The rating page opens the system sheet by itself; its two buttons come
+  /// up once that sheet is gone (or never came).
+  bool _rateAutoAsked = false;
+  bool _rateButtons = false;
+
   /// True while the system permission prompt is up, so a second tap cannot
   /// ask twice.
   bool _askingNotifications = false;
@@ -152,7 +178,13 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   /// The background question only matters for a parent whose height is
   /// missing, so it is asked only then.
+  final _nameCtrl = TextEditingController();
+
   bool get _asksEthnicity => _fatherUnknown || _motherUnknown;
+
+  /// The third pass asks everyone: the answer fills in an unknown parent as
+  /// before, and for everyone it is answered with that background's average.
+  bool get _showsEthnicity => _kObDesignV3 || _asksEthnicity;
 
   // ── Lifestyle questions ──────────────────────────────────────────────────────
   String _weeklyWorkout = '';
@@ -259,6 +291,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   void dispose() {
+    _nameCtrl.dispose();
     _pageController.dispose();
     _obAgePageController.dispose();
     _obHeightPickerController.dispose();
@@ -284,6 +317,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   void _goTo(int page) {
     _trackStep(page);
     setState(() => _currentPage = page);
+    if (_kObDesignV3 && _Page.values[page] == _Page.rate) _autoRate();
     if (MediaQuery.of(context).disableAnimations) {
       _pageController.jumpToPage(page);
     } else {
@@ -319,7 +353,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       return;
     }
     var next = page.index + 1;
-    if (_Page.values[next] == _Page.ethnicity && !_asksEthnicity) next++;
+    if (_Page.values[next] == _Page.ethnicity && !_showsEthnicity) next++;
     if (_Page.values[next] == _Page.pastHeights) {
       _initObPastHeights();
       // Past heights start at age 10, so a 9- or 10-year-old has none to
@@ -375,7 +409,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     Haptics.select();
     setState(() {
       _bedtimeUnknown = unknown;
-      if (unknown) {
+      if (unknown && !_kObDesignV3) {
         // The dimmed wheels show the time that will be used, and pick up
         // from it if the user starts turning them after all.
         final (h, m) = _suggestedBedtime;
@@ -391,7 +425,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     Haptics.select();
     setState(() {
       _workoutTimeUnknown = unknown;
-      if (unknown) {
+      if (unknown && !_kObDesignV3) {
         _workoutHour = _kDefaultWorkout.$1;
         _workoutMin = _kDefaultWorkout.$2;
         _workoutWheelsRev++;
@@ -404,9 +438,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   UserProfile _draftProfile() {
     // Not asked when both parents are known, so nothing is kept from a
     // visit made before both were filled in.
-    final ethnicity = _asksEthnicity ? _ethnicity : '';
+    final ethnicity = _showsEthnicity ? _ethnicity : '';
     return UserProfile(
-      name: 'User',
+      name: _nameCtrl.text.trim().isEmpty ? 'User' : _nameCtrl.text.trim(),
       gender: _gender,
       birthDate: _birthDate.toIso8601String().substring(0, 10),
       currentHeight: _selectedHeight.toDouble(),
@@ -452,7 +486,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       return;
     }
     var prev = _currentPage - 1;
-    if (_Page.values[prev] == _Page.ethnicity && !_asksEthnicity) prev--;
+    if (_Page.values[prev] == _Page.ethnicity && !_showsEthnicity) prev--;
     if (_Page.values[prev] == _Page.pastHeights) {
       // Entered from the far side: start the ages over, and step past the
       // page altogether for someone too young to have any.
@@ -468,6 +502,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         return _weeklyWorkout.isNotEmpty;
       case _Page.ethnicity:
         return _ethnicity.isNotEmpty;
+      case _Page.goalDays:
+        return _goalDays.isNotEmpty;
       case _Page.whyTaller:
         return _whyTaller.isNotEmpty;
       case _Page.triedApps:
@@ -520,6 +556,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       'firstWhenTaller': _firstWhenTaller,
       // The saved bedtime and training time are then suggestions, not the
       // user's own answer.
+      'goalDays': _goalDays,
+      'mealTimesUnknown': _mealTimesUnknown,
       'bedtimeUnknown': _bedtimeUnknown,
       'workoutTimeUnknown': _workoutTimeUnknown,
     });
@@ -529,13 +567,18 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     // gave. Putting them on the clock needs their language, which is here and
     // not in the provider. This only schedules anything when the user said
     // yes on the reminders page (scheduleReminders checks).
-    unawaited(
-      NotificationService().scheduleReminders(
+    // The first week's own series starts counting today; it goes on the
+    // clock together with the reminders.
+    final l = AppLocalizations.of(context)!;
+    final context_ = p.reminderContext;
+    unawaited(() async {
+      await NotificationService().startFirstWeek();
+      await NotificationService().scheduleReminders(
         p.reminders,
-        AppLocalizations.of(context)!,
-        context: p.reminderContext,
-      ),
-    );
+        l,
+        context: context_,
+      );
+    }());
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -694,7 +737,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       backgroundColor: _kObDesignV2 ? BtColors.page : const Color(0xFF080608),
       resizeToAvoidBottomInset: true,
       body: Container(
-        decoration: _kObDesignV2
+        decoration: _kObDesignV3
+            ? const BoxDecoration(
+                color: BtColors.page,
+                gradient: RadialGradient(
+                  center: Alignment(-0.9, -1.08),
+                  radius: 1.1,
+                  colors: [Color(0xFF231A4A), BtColors.page],
+                ),
+              )
+            : _kObDesignV2
             ? const BoxDecoration(color: BtColors.page)
             : const BoxDecoration(
                 gradient: LinearGradient(
@@ -734,7 +786,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                     : null,
                               ),
                               child: const Icon(
-                                CupertinoIcons.arrow_left,
+                                _kObDesignV3
+                                    ? CupertinoIcons.chevron_left
+                                    : CupertinoIcons.arrow_left,
                                 color: Colors.white,
                                 size: 18,
                               ),
@@ -750,7 +804,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                 curve: Curves.easeOut,
                                 builder: (ctx, v, _) => LinearProgressIndicator(
                                   value: v,
-                                  minHeight: 4,
+                                  minHeight: _kObDesignV3 ? 6 : 4,
                                   backgroundColor: _kObDesignV2
                                       ? BtColors.tint
                                       : Colors.white.withValues(alpha: 0.10),
@@ -816,16 +870,19 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       _kObDesignV2 ? _buildPainHookPageV2() : _buildPainHookPage(),
     _Page.budget => _kObDesignV2 ? _buildBudgetPageV2() : _buildBudgetPage(),
     _Page.gender => _buildGenderPage(),
+    _Page.name => _buildNamePage(),
     _Page.birthDate => _buildBirthDatePage(),
     _Page.whyTaller => _buildWhyTallerPage(),
     _Page.triedApps => _buildTriedAppsPage(),
-    _Page.triedAppsAnswer => _buildTriedAppsAnswerPage(),
+    _Page.dayPreview =>
+      _kObDesignV3 ? _buildDayPreviewPage() : _buildTriedAppsAnswerPage(),
     _Page.heightWeight => _buildHeightWeightPage(),
     _Page.parents => _buildParentsPage(),
     _Page.ethnicity => _buildEthnicityPage(),
     _Page.footSize => _buildFootSizePage(),
     _Page.pastHeights => _buildOnboardingPastHeightsPage(),
     _Page.dreamHeight => _buildDreamHeightPage(),
+    _Page.goalDays => _buildGoalDaysPage(),
     _Page.blockers => _buildBlockersPage(),
     _Page.workout => _buildWorkoutPage(),
     _Page.sleep => _buildSleepPage(),
@@ -933,7 +990,21 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           (id, _whyIcons[id]!, _whyLabel(l, id)),
       ],
       isSelected: _whyTaller.contains,
-      onTap: (id) => _toggle(_whyTaller, id),
+      onTap: (id) {
+        _toggle(_whyTaller, id);
+        _whyLast = _whyTaller.contains(id)
+            ? id
+            : (_whyTaller.isEmpty ? null : _whyTaller.last);
+      },
+      reply: switch (_whyLast) {
+        null => null,
+        'confidence' => l.obReplyWhyConfidence,
+        'impression' => l.obReplyWhyImpression,
+        'sports' => l.obReplyWhySports,
+        'clothes' => l.obReplyWhyClothes,
+        'photos' => l.obReplyWhyPhotos,
+        _ => l.obReplyWhyPotential,
+      },
     );
   }
 
@@ -950,6 +1021,73 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ],
       isSelected: (id) => _triedApps == id,
       onTap: (id) => setState(() => _triedApps = id),
+      reply: switch (_triedApps) {
+        '' => null,
+        'stopped' => l.obReplyTriedStopped,
+        'still' => l.obReplyTriedStill,
+        _ => l.obReplyTriedFirst,
+      },
+    );
+  }
+
+  /// A day of the plan, in the user's own numbers: three real moves with
+  /// their stills, the protein target worked out from the weight just given,
+  /// and the sleep reminder at the hour it will actually arrive.
+  Widget _buildDayPreviewPage() {
+    final l = AppLocalizations.of(context)!;
+    final sleep = remindersForProfile(
+      bedtime: _bedtime,
+      workoutTime: _workoutTime,
+      mealTimes: _mealTimes,
+    ).firstWhere((r) => r.category == 'sleep');
+    return _FadeBottom(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(24, 22, 24, 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _ObHeader3(title: l.obDayTitle, subtitle: l.obDayBody),
+            const SizedBox(height: 18),
+            _PlanShowcase(
+              l: l,
+              moveIds: const [
+                'dead_hang_active',
+                'downward_dog',
+                'upward_salute',
+              ],
+              // The protein figure is part of the result the paywall opens,
+              // so the row names the target without giving the number.
+              proteinSub: l.obDayProteinSub,
+              // A bedtime the user gave is theirs to see; one we suggested
+              // is not shown before the result.
+              sleepTitle: _bedtimeUnknown
+                  ? null
+                  : l.obDaySleep(_clock(sleep.hour, sleep.minute)),
+              sleepSub: l.obDaySleepSub,
+            ),
+            const SizedBox(height: 12),
+            _FeatureChips(
+              items: [
+                (
+                  CupertinoIcons.play_rectangle_fill,
+                  AppColors.primaryLight,
+                  l.obTriedFeatVideo,
+                ),
+                (
+                  CupertinoIcons.bell_fill,
+                  AppColors.primaryLight,
+                  l.obTriedFeatReminders,
+                ),
+                (
+                  CupertinoIcons.flame_fill,
+                  AppColors.warning,
+                  l.obTriedFeatStreaks,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -1043,7 +1181,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           (id, _blockerIcons[id]!, _blockerLabel(l, id)),
       ],
       isSelected: _blockers.contains,
-      onTap: (id) => _toggle(_blockers, id),
+      onTap: (id) {
+        _toggle(_blockers, id);
+        _blockLast = _blockers.contains(id)
+            ? id
+            : (_blockers.isEmpty ? null : _blockers.last);
+      },
+      // What the app does about that blocker, in the words "Built for you"
+      // repeats later.
+      reply: _blockLast == null ? null : _blockerFix(l, _blockLast!),
     );
   }
 
@@ -1060,6 +1206,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ],
       isSelected: (id) => _firstWhenTaller == id,
       onTap: (id) => setState(() => _firstWhenTaller = id),
+      reply: switch (_firstWhenTaller) {
+        '' => null,
+        'wardrobe' => l.obReplyFirstWardrobe,
+        'muscle' => l.obReplyFirstMuscle,
+        'photos' => l.obReplyFirstPhotos,
+        'team' => l.obReplyFirstTeam,
+        _ => l.obReplyFirstFeelGood,
+      },
     );
   }
 
@@ -1461,7 +1615,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             // ── Wordmark ────────────────────────────────────────────────
             ShaderMask(
               shaderCallback: (r) => const LinearGradient(
-                colors: [Colors.white, Color(0xFFB39DFF)],
+                colors: _kObDesignV3
+                    ? [Colors.white, Colors.white]
+                    : [Colors.white, Color(0xFFB39DFF)],
               ).createShader(r),
               child: const Text(
                 'BeTaller',
@@ -1474,25 +1630,29 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               ),
             ),
             const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.14),
-                borderRadius: BorderRadius.circular(100),
-                border: Border.all(
-                  color: AppColors.primary.withValues(alpha: 0.35),
+            if (!_kObDesignV3)
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: 0.14),
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(
+                    color: AppColors.primary.withValues(alpha: 0.35),
+                  ),
+                ),
+                child: Text(
+                  l.journeyProgressLabel.upperIn(context),
+                  style: const TextStyle(
+                    fontSize: 9.5,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1.4,
+                    color: AppColors.primary,
+                  ),
                 ),
               ),
-              child: Text(
-                l.journeyProgressLabel.upperIn(context),
-                style: const TextStyle(
-                  fontSize: 9.5,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.4,
-                  color: AppColors.primary,
-                ),
-              ),
-            ),
 
             const SizedBox(height: 22),
             Text(
@@ -1556,8 +1716,123 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     _nextPage();
   }
 
+  /// Opens the system rating sheet by itself a moment after the page lands,
+  /// then brings the two buttons up once the sheet is gone. The system does
+  /// not say when (or whether) its sheet was shown, so the buttons wait for
+  /// the app to come back to the front and, failing that, for a few seconds.
+  Future<void> _autoRate() async {
+    if (_rateAutoAsked) return;
+    _rateAutoAsked = true;
+    void showButtons() {
+      if (mounted && !_rateButtons) setState(() => _rateButtons = true);
+    }
+
+    await Future.delayed(const Duration(milliseconds: 900));
+    if (!mounted || _page != _Page.rate) {
+      showButtons();
+      return;
+    }
+    Analytics.track('rating_ask', {'action': 'auto'});
+    AppLifecycleListener? back;
+    // Whatever the sheet does, and even if the store never answers, the
+    // buttons are up within a few seconds: nobody is left on a page with no
+    // way forward.
+    Timer(const Duration(milliseconds: 3200), () {
+      back?.dispose();
+      showButtons();
+    });
+    try {
+      final review = InAppReview.instance;
+      if (!await review.isAvailable()) {
+        showButtons();
+        return;
+      }
+      if (!mounted) return;
+      context.read<AppProvider>().markReviewRequested();
+      var left = false;
+      back = AppLifecycleListener(
+        onInactive: () => left = true,
+        onResume: () {
+          if (left) showButtons();
+        },
+      );
+      await review.requestReview();
+    } catch (_) {
+      showButtons();
+    }
+  }
+
   Widget _buildRatePage() {
     final l = AppLocalizations.of(context)!;
+    if (_kObDesignV3) {
+      final still = MediaQuery.of(context).disableAnimations;
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(24, 24, 24, 20),
+        child: Column(
+          children: [
+            const Spacer(flex: 2),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var i = 0; i < 5; i++)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4),
+                    child: Icon(
+                      CupertinoIcons.star_fill,
+                      size: 38,
+                      color: AppColors.warning,
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 28),
+            Text(l.obRateTitle, textAlign: TextAlign.center, style: _ob3Title),
+            const SizedBox(height: 14),
+            Text(
+              l.obRateDesc,
+              textAlign: TextAlign.center,
+              style: BtType.body.copyWith(
+                fontSize: 15.5,
+                color: BtColors.textSoft,
+              ),
+            ),
+            const Spacer(flex: 3),
+            // Held back until the system sheet has had its turn, so the page
+            // is not two rating asks at once.
+            IgnorePointer(
+              ignoring: !_rateButtons,
+              child: AnimatedOpacity(
+                opacity: _rateButtons ? 1 : 0,
+                duration: still
+                    ? Duration.zero
+                    : const Duration(milliseconds: 320),
+                child: Column(
+                  children: [
+                    _TallerButton(
+                      label: l.obRateCta,
+                      enabled: true,
+                      onTap: _rate,
+                    ),
+                    const SizedBox(height: 6),
+                    TextButton(
+                      onPressed: _skipRate,
+                      child: Text(
+                        l.obRateLater,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white.withValues(alpha: 0.6),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 20),
       child: Column(
@@ -2257,6 +2532,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   Widget _buildGenderPage() {
     final l = AppLocalizations.of(context)!;
+    if (_kObDesignV3) {
+      return _GenderPage3(
+        title: l.selectYourGender,
+        subtitle: l.obGenderSub,
+        maleLabel: l.male,
+        femaleLabel: l.female,
+        otherLabel: l.other,
+        selected: _gender,
+        onSelect: (v) => setState(() => _gender = v),
+      );
+    }
     return _RadioListPage(
       title: l.selectYourGender,
       subtitle: l.onboardingPredictSubtitle,
@@ -2269,11 +2555,69 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
+  // Name (optional; reminders use it)
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  Widget _buildNamePage() {
+    final l = AppLocalizations.of(context)!;
+    if (_kObDesignV3) {
+      return _NamePage3(
+        controller: _nameCtrl,
+        onSubmit: _nextPage,
+        // The reminder preview under the field carries the name as typed.
+        onChanged: () => setState(() {}),
+      );
+    }
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(24, 22, 24, 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _QuestionHeader(
+            icon: CupertinoIcons.person_fill,
+            accent: AppColors.primary,
+            title: l.obNameTitle,
+            subtitle: l.obNameSubtitle,
+          ),
+          const SizedBox(height: 24),
+          TextField(
+            controller: _nameCtrl,
+            maxLength: 24,
+            textCapitalization: TextCapitalization.words,
+            textInputAction: TextInputAction.done,
+            onSubmitted: (_) => _nextPage(),
+            style: const TextStyle(color: Colors.white, fontSize: 20),
+            decoration: InputDecoration(
+              hintText: l.obNameHint,
+              counterText: '',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
   // Birth date
   // ─────────────────────────────────────────────────────────────────────────────
 
   Widget _buildBirthDatePage() {
     final l = AppLocalizations.of(context)!;
+    if (_kObDesignV3) {
+      final age = _userAge;
+      return _BirthPage3(
+        title: l.whenWereYouBorn,
+        subtitle: l.obBirthSub,
+        ageLine: l.obAgeLine(age),
+        reply: age <= 17
+            ? l.obAgeReplyGrowing
+            : (age <= 21 ? l.obAgeReplyLate : l.obAgeReplyAdult),
+        pickers: _BirthDatePickers(
+          initialDate: _birthDate,
+          onChanged: (date) => setState(() => _birthDate = date),
+        ),
+      );
+    }
     return _ScrollPickerPage(
       title: l.whenWereYouBorn,
       subtitle: l.onboardingPredictSubtitle,
@@ -2295,9 +2639,18 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final unitKey = _heightImperial ? 'imp' : 'met';
     return _ScrollPickerPage(
       title: l.heightAndWeight,
-      subtitle: l.onboardingPredictSubtitle,
+      subtitle: _kObDesignV3 ? l.obHwSub : l.onboardingPredictSubtitle,
       icon: CupertinoIcons.arrow_up_right_circle_fill,
       accent: AppColors.lime,
+      hero: _HeightHero3(
+        cm: _selectedHeight,
+        female: _gender == 'female',
+        heightText: _heightImperial
+            ? "$_heightFt'$_heightIn\""
+            : '$_selectedHeight',
+        heightUnit: _heightImperial ? '' : 'cm',
+        weightText: _heightImperial ? '$_weightLbs lb' : '$_selectedWeight kg',
+      ),
       unitToggle: _UnitToggle(
         left: l.imperialShort,
         right: l.metricShort,
@@ -2489,7 +2842,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         : const Duration(milliseconds: 220);
     return _ScrollPickerPage(
       title: l.parentsHeight,
-      subtitle: l.onboardingPredictSubtitle,
+      subtitle: _kObDesignV3 ? l.obParentsSub : l.onboardingPredictSubtitle,
       icon: CupertinoIcons.person_2_square_stack_fill,
       accent: AppColors.pink,
       unitToggle: _UnitToggle(
@@ -2576,7 +2929,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             icon: CupertinoIcons.bolt_fill,
             accent: AppColors.warning,
             title: l.weeklyWorkout,
-            subtitle: l.onboardingPredictSubtitle,
+            subtitle: _kObDesignV3
+                ? l.obWorkoutSub
+                : l.onboardingPredictSubtitle,
           ),
           const SizedBox(height: 22),
           ...options.map(
@@ -2588,6 +2943,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               onTap: () => setState(() => _weeklyWorkout = opt.$1),
             ),
           ),
+          if (_kObDesignV3)
+            _ObReply(
+              text: switch (_weeklyWorkout) {
+                '' => null,
+                '0-2' => l.obReplyWorkoutLow,
+                '3-5' => l.obReplyWorkoutMid,
+                _ => l.obReplyWorkoutHigh,
+              },
+            ),
         ],
       ),
     );
@@ -2599,9 +2963,36 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   Widget _buildEthnicityPage() {
     final l = AppLocalizations.of(context)!;
+    // What BeTaller says back: the adult average for that background and the
+    // user's sex, from the same table that fills in an unknown parent.
+    String? reply;
+    if (_kObDesignV3 && _ethnicity.isNotEmpty) {
+      if (_ethnicity == 'no_answer') {
+        reply = l.obEthReplyNoAnswer;
+      } else {
+        final father = _gender != 'female';
+        final avgCm = Calculations.averageParentHeight(
+          father: father,
+          ethnicity: _ethnicity,
+        );
+        final avg = _formatCm(avgCm, imperial: _heightImperial);
+        final you = _formatCm(_selectedHeight, imperial: _heightImperial);
+        final gap = _selectedHeight - avgCm;
+        reply = gap > 2
+            ? l.obEthAbove(avg, you)
+            : gap >= -2
+            ? l.obEthNear(avg, you)
+            : (_userAge < 18
+                  ? l.obEthBelowYoung(avg, you)
+                  : l.obEthBelowAdult(avg, you));
+      }
+    }
     return _RadioListPage(
       title: l.whatsYourEthnicity,
-      subtitle: l.obEthnicityWhy,
+      subtitle: _kObDesignV3 && !_asksEthnicity
+          ? l.obEthnicitySubAll
+          : l.obEthnicityWhy,
+      reply: reply,
       icon: CupertinoIcons.globe,
       accent: AppColors.cyan,
       options: [
@@ -2631,6 +3022,34 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     final initIdx = _footSizeEU
         ? (currentEU - 36).clamp(0, 20).round()
         : ((_footSize - 5.0) * 2).clamp(0, 20).round();
+
+    if (_kObDesignV3) {
+      // The foot length an EU size stands for: size = 1.5 x (length + 1.5 cm).
+      final lengthCm = currentEU / 1.5 - 1.5;
+      final tag = Localizations.localeOf(context).toLanguageTag();
+      final length = _footSizeEU
+          ? '${NumberFormat('0.0', tag).format(lengthCm)} cm'
+          : '${NumberFormat('0.0', tag).format(lengthCm / 2.54)} in';
+      return _WheelPage3(
+        title: l.footSizeLabel,
+        subtitle: l.obFootSub,
+        hero: _ShoeHero3(eu: currentEU, lengthLabel: l.obFootLength(length)),
+        unitToggle: _UnitToggle(
+          left: 'US',
+          right: 'EU',
+          isRight: _footSizeEU,
+          onToggle: (isEU) => setState(() => _footSizeEU = isEU),
+        ),
+        child: _PickerBox(
+          key: ValueKey('foot_$unitKey'),
+          initialItem: initIdx,
+          items: items,
+          onChanged: (i) => setState(() {
+            _footSize = _footSizeEU ? _euToUS(36.0 + i) : 5.0 + i * 0.5;
+          }),
+        ),
+      );
+    }
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 28, 24, 0),
@@ -2693,14 +3112,29 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           const SizedBox(height: 8),
           _PageSubtitle(l.dreamHeightCalcSubtitle),
           const SizedBox(height: 20),
-          Text(
-            l.dreamHeightLabel,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 17,
-              fontWeight: FontWeight.w700,
+          if (_kObDesignV3 && _dreamHeightCm > _selectedHeight)
+            // How far the dream is from today, in the growth green.
+            Text(
+              l.obDreamDelta(
+                _dreamImperial
+                    ? '${((_dreamHeightCm - _selectedHeight) / 2.54).round()} in'
+                    : '${_dreamHeightCm - _selectedHeight} cm',
+              ),
+              style: const TextStyle(
+                color: AppColors.lime,
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              ),
+            )
+          else
+            Text(
+              l.dreamHeightLabel,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
           const SizedBox(height: 12),
           Expanded(
             child: _dreamImperial
@@ -2771,7 +3205,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         children: [
           _PageTitle(l.sleepQuestion),
           const SizedBox(height: 8),
-          _PageSubtitle(l.onboardingPredictSubtitle),
+          _PageSubtitle(
+            _kObDesignV3 ? l.obSleepSub : l.onboardingPredictSubtitle,
+          ),
           Expanded(
             child: Center(
               child: _CircularSleepDial(
@@ -2978,7 +3414,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         accent: AppColors.sleep,
         unknown: _bedtimeUnknown,
         unknownLabel: l.obBedtimeUnknown,
-        unknownHint: l.obBedtimeUnknownHint(_bedtime),
+        unknownHint: _kObDesignV3
+            ? l.obUnknownPlanned
+            : l.obBedtimeUnknownHint(_bedtime),
         onChanged: (h, m) => setState(() {
           _bedHour = h;
           _bedMin = m;
@@ -3002,7 +3440,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         accent: AppColors.warning,
         unknown: _workoutTimeUnknown,
         unknownLabel: l.obWorkoutTimeUnknown,
-        unknownHint: l.obWorkoutTimeUnknownHint(_workoutTime),
+        unknownHint: _kObDesignV3
+            ? l.obUnknownPlanned
+            : l.obWorkoutTimeUnknownHint(_workoutTime),
         onChanged: (h, m) => setState(() {
           _workoutHour = h;
           _workoutMin = m;
@@ -3036,7 +3476,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   child: GestureDetector(
                     onTap: () {
                       HapticFeedback.selectionClick();
-                      setState(() => _mealTimes = List.of(_mealDefaults[n]!));
+                      setState(
+                        () => _mealTimes = _mealTimesUnknown
+                            ? _plannedMealTimes(n)
+                            : List.of(_mealDefaults[n]!),
+                      );
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
@@ -3083,16 +3527,85 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           const SizedBox(height: 18),
 
           // And when. Each one opens a wheel.
-          for (var i = 0; i < _mealTimes.length; i++)
-            _MealTimeRow(
-              accent: accent,
-              label: l.obMealLabel('${i + 1}'),
-              time: _mealTimes[i],
-              onTap: () => _editMealTime(i, accent),
+          if (!(_kObDesignV3 && _mealTimesUnknown))
+            for (var i = 0; i < _mealTimes.length; i++)
+              _MealTimeRow(
+                accent: accent,
+                label: l.obMealLabel('${i + 1}'),
+                time: _mealTimes[i],
+                onTap: () => _editMealTime(i, accent),
+              ),
+          if (_kObDesignV3) ...[
+            const SizedBox(height: 4),
+            _Choice3(
+              selected: _mealTimesUnknown,
+              title: l.obMealsUnknown,
+              multi: true,
+              onTap: () => setState(() {
+                _mealTimesUnknown = !_mealTimesUnknown;
+                final n = _mealTimes.length;
+                _mealTimes = _mealTimesUnknown
+                    ? _plannedMealTimes(n)
+                    : List.of(_mealDefaults[n]!);
+              }),
             ),
+            // The plan is made; its hours are kept for the app itself.
+            _ObReply(text: _mealTimesUnknown ? l.obMealsUnknownReply : null),
+          ],
           const SizedBox(height: 12),
         ],
       ),
+    );
+  }
+
+  /// Meal times for someone who has no fixed ones: the first an hour after
+  /// waking (bedtime plus the hours slept), the last three hours before bed,
+  /// the rest spread evenly between, on the half hour.
+  List<String> _plannedMealTimes(int n) {
+    final bed = UserProfile.parseTime(_bedtime) ?? (23, 0);
+    // A bedtime after midnight still closes the day it belongs to.
+    final bedMin = bed.$1 * 60 + bed.$2 + (bed.$1 < 12 ? 24 * 60 : 0);
+    final wake = bedMin + (_sleepHours * 60).round() - 24 * 60;
+    final first = wake + 60;
+    final last = bedMin - 180;
+    if (n < 2 || last - first < (n - 1) * 120) {
+      return List.of(_mealDefaults[n.clamp(2, 6)]!);
+    }
+    String at(int m) {
+      final r = ((m / 30).round() * 30) % (24 * 60);
+      return _clock(r ~/ 60, r % 60);
+    }
+
+    return [
+      for (var i = 0; i < n; i++)
+        at(first + ((last - first) * i / (n - 1)).round()),
+    ]..sort();
+  }
+
+  Widget _buildGoalDaysPage() {
+    final l = AppLocalizations.of(context)!;
+    return _OptionListPage(
+      title: l.obGoalDaysTitle,
+      subtitle: l.obGoalDaysSub,
+      icon: CupertinoIcons.calendar,
+      accent: AppColors.primary,
+      options: [
+        ('90', CupertinoIcons.timer, l.obGoalDaysN(90)),
+        ('120', CupertinoIcons.calendar, l.obGoalDaysN(120)),
+        ('180', CupertinoIcons.calendar_today, l.obGoalDaysN(180)),
+        ('365', CupertinoIcons.flag_fill, l.obGoalYear),
+        ('open', CupertinoIcons.arrow_up_circle_fill, l.obGoalOpen),
+      ],
+      isSelected: (id) => _goalDays == id,
+      onTap: (id) => setState(() => _goalDays = id),
+      reply: switch (_goalDays) {
+        '' => null,
+        '90' => l.obReplyGoal90,
+        '120' => l.obReplyGoal120,
+        '180' => l.obReplyGoal180,
+        '365' => l.obReplyGoal365,
+        _ => l.obReplyGoalOpen,
+      },
     );
   }
 
@@ -3184,6 +3697,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         accent: accent,
         unknown: _proteinUnknown,
         unknownLabel: l.obNotSure,
+        unknownReply: l.obReplyWeCalc,
         items: items,
         initialItem: index.clamp(0, items.length - 1),
         onChanged: (i) => setState(() => _dailyProtein = 40 + i * 5),
@@ -3206,6 +3720,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         accent: accent,
         unknown: _caloriesUnknown,
         unknownLabel: l.obNotSure,
+        unknownReply: l.obReplyWeCalc,
         items: items,
         initialItem: index.clamp(0, items.length - 1),
         onChanged: (i) => setState(() => _dailyCalories = 1200 + i * 50),
@@ -3339,100 +3854,123 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
         // Boy picker
         Expanded(
-          child: Stack(
-            children: [
-              CupertinoPicker(
-                scrollController: _obHeightPickerController,
-                itemExtent: 56,
-                backgroundColor: Colors.transparent,
-                useMagnifier: true,
-                magnification: 1.12,
-                squeeze: 1.15,
-                onSelectedItemChanged: (index) {
-                  Haptics.select();
-                  _obPastHeightValues[currentAge] = (_kObMinH + index)
-                      .toDouble();
-                },
-                selectionOverlay: Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 44,
-                    vertical: 5,
+          child: _kObDesignV3
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 44),
+                  child: _Wheel3(
+                    controller: _obHeightPickerController,
+                    items: [
+                      for (var i = 0; i <= _kObMaxH - _kObMinH; i++)
+                        provider.useImperial
+                            ? provider.formatHeight((_kObMinH + i).toDouble())
+                            : '${_kObMinH + i} cm',
+                    ],
+                    onChanged: (index) => _obPastHeightValues[currentAge] =
+                        (_kObMinH + index).toDouble(),
                   ),
-                  decoration: BoxDecoration(
-                    color: _kObDesignV2 ? BtColors.brandWash : null,
-                    gradient: _kObDesignV2
-                        ? null
-                        : LinearGradient(
-                            colors: [
-                              const Color(0xFF7C3AED).withValues(alpha: 0.20),
-                              const Color(0xFF4C1D95).withValues(alpha: 0.20),
-                            ],
+                )
+              : Stack(
+                  children: [
+                    CupertinoPicker(
+                      scrollController: _obHeightPickerController,
+                      itemExtent: 56,
+                      backgroundColor: Colors.transparent,
+                      useMagnifier: true,
+                      magnification: 1.12,
+                      squeeze: 1.15,
+                      onSelectedItemChanged: (index) {
+                        Haptics.select();
+                        _obPastHeightValues[currentAge] = (_kObMinH + index)
+                            .toDouble();
+                      },
+                      selectionOverlay: Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 44,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: _kObDesignV2 ? BtColors.brandWash : null,
+                          gradient: _kObDesignV2
+                              ? null
+                              : LinearGradient(
+                                  colors: [
+                                    const Color(
+                                      0xFF7C3AED,
+                                    ).withValues(alpha: 0.20),
+                                    const Color(
+                                      0xFF4C1D95,
+                                    ).withValues(alpha: 0.20),
+                                  ],
+                                ),
+                          borderRadius: BorderRadius.circular(
+                            _kObDesignV2 ? BtRadius.sm : 16,
                           ),
-                    borderRadius: BorderRadius.circular(
-                      _kObDesignV2 ? BtRadius.sm : 16,
-                    ),
-                    border: Border.all(
-                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.55),
-                      width: 1.5,
-                    ),
-                  ),
-                ),
-                children: List.generate(
-                  _kObMaxH - _kObMinH + 1,
-                  (i) => Center(
-                    child: Text(
-                      // The wheel still steps through 1cm-wide slots — only
-                      // the label is converted, so none of the index<->cm
-                      // math elsewhere on this page needs to change.
-                      provider.useImperial
-                          ? provider.formatHeight((_kObMinH + i).toDouble())
-                          : '${_kObMinH + i} cm',
-                      style: const TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        letterSpacing: -0.8,
+                          border: Border.all(
+                            color: const Color(
+                              0xFF8B5CF6,
+                            ).withValues(alpha: 0.55),
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      children: List.generate(
+                        _kObMaxH - _kObMinH + 1,
+                        (i) => Center(
+                          child: Text(
+                            // The wheel still steps through 1cm-wide slots — only
+                            // the label is converted, so none of the index<->cm
+                            // math elsewhere on this page needs to change.
+                            provider.useImperial
+                                ? provider.formatHeight(
+                                    (_kObMinH + i).toDouble(),
+                                  )
+                                : '${_kObMinH + i} cm',
+                            style: const TextStyle(
+                              fontSize: 27,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: -0.8,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 100,
-                child: IgnorePointer(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Color(0xFF09070F), Colors.transparent],
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: 100,
+                      child: IgnorePointer(
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Color(0xFF09070F), Colors.transparent],
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: 100,
-                child: IgnorePointer(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [Color(0xFF09070F), Colors.transparent],
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: 100,
+                      child: IgnorePointer(
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                              colors: [Color(0xFF09070F), Colors.transparent],
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
         ),
 
         // Butonlar
@@ -3601,6 +4139,9 @@ class _RadioListPage extends StatelessWidget {
   final String selected;
   final ValueChanged<String> onSelect;
 
+  /// What BeTaller says back to the answer picked, under the list.
+  final String? reply;
+
   const _RadioListPage({
     required this.title,
     required this.subtitle,
@@ -3609,12 +4150,13 @@ class _RadioListPage extends StatelessWidget {
     required this.options,
     required this.selected,
     required this.onSelect,
+    this.reply,
   });
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(24, 22, 24, 0),
+      padding: const EdgeInsets.fromLTRB(24, 22, 24, 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -3633,6 +4175,7 @@ class _RadioListPage extends StatelessWidget {
               onTap: () => onSelect(opt.$1),
             ),
           ),
+          if (_kObDesignV3) _ObReply(text: reply),
         ],
       ),
     );
@@ -3660,6 +4203,7 @@ class _QuestionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_kObDesignV3) return _ObHeader3(title: title, subtitle: subtitle);
     if (_kObDesignV2) return _buildV2();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -3769,6 +4313,16 @@ class _ChoiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_kObDesignV3) {
+      return _Choice3(
+        selected: selected,
+        title: title,
+        subtitle: subtitle,
+        leading: leading,
+        multi: multi,
+        onTap: onTap,
+      );
+    }
     if (_kObDesignV2) return _buildV2(context);
     // Reduced motion: the card lands in its picked state at once.
     final speed = MediaQuery.of(context).disableAnimations
@@ -4001,6 +4555,9 @@ class _OptionListPage extends StatelessWidget {
   final ValueChanged<String> onTap;
   final bool multi;
 
+  /// What BeTaller says back to the answer picked, under the list.
+  final String? reply;
+
   const _OptionListPage({
     required this.title,
     required this.subtitle,
@@ -4010,6 +4567,7 @@ class _OptionListPage extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
     this.multi = false,
+    this.reply,
   });
 
   @override
@@ -4035,6 +4593,7 @@ class _OptionListPage extends StatelessWidget {
               multi: multi,
               onTap: () => onTap(id),
             ),
+          if (_kObDesignV3) _ObReply(text: reply),
         ],
       ),
     );
@@ -4274,7 +4833,21 @@ class _MostAppsCard extends StatelessWidget {
 /// glowing element.
 class _PlanShowcase extends StatelessWidget {
   final AppLocalizations l;
-  const _PlanShowcase({required this.l});
+
+  /// Which moves to show; the first pass's three when not given.
+  final List<String> moveIds;
+
+  /// The protein and sleep rows in the user's own numbers, when the page
+  /// has them; the general wording otherwise.
+  final String? proteinSub, sleepTitle, sleepSub;
+
+  const _PlanShowcase({
+    required this.l,
+    this.moveIds = moves,
+    this.proteinSub,
+    this.sleepTitle,
+    this.sleepSub,
+  });
 
   /// Moves from the real library, each with a bundled still. The doses are
   /// the library's own.
@@ -4293,7 +4866,7 @@ class _PlanShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     final still = MediaQuery.of(context).disableAnimations;
     final rows = <(Widget thumb, String title, String subtitle)>[
-      for (final id in moves)
+      for (final id in moveIds)
         (
           _PosterThumb(routineId: id),
           localizedRoutine(l, id)['title']!,
@@ -4305,15 +4878,15 @@ class _PlanShowcase extends StatelessWidget {
           color: AppColors.orange,
         ),
         l.obTriedItem2,
-        l.obTriedProteinSub,
+        proteinSub ?? l.obTriedProteinSub,
       ),
       (
         const _IconThumb(
           icon: CupertinoIcons.moon_fill,
           color: AppColors.sleepColor,
         ),
-        l.obTriedItem3,
-        l.obTriedSleepSub,
+        sleepTitle ?? l.obTriedItem3,
+        sleepSub ?? l.obTriedSleepSub,
       ),
     ];
 
@@ -4364,7 +4937,8 @@ class _PlanShowcase extends StatelessWidget {
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
-                        l.obTriedPlanLabel.upperIn(context),
+                        (_kObDesignV3 ? l.obTriedCardTitle : l.obTriedPlanLabel)
+                            .upperIn(context),
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
@@ -4993,6 +5567,9 @@ class _ScrollPickerPage extends StatelessWidget {
   final Widget? unitToggle;
   final Widget? headerRow;
 
+  /// The thing being measured, drawn above the wheels (third pass only).
+  final Widget? hero;
+
   const _ScrollPickerPage({
     required this.title,
     required this.subtitle,
@@ -5001,10 +5578,21 @@ class _ScrollPickerPage extends StatelessWidget {
     required this.child,
     this.unitToggle,
     this.headerRow,
+    this.hero,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (_kObDesignV3) {
+      return _WheelPage3(
+        title: title,
+        subtitle: subtitle,
+        hero: hero,
+        unitToggle: unitToggle,
+        headerRow: headerRow,
+        child: child,
+      );
+    }
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 22, 24, 0),
       child: Column(
@@ -5039,7 +5627,9 @@ class _PageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Text(
     text,
-    style: _kObDesignV2
+    style: _kObDesignV3
+        ? _ob3Title
+        : _kObDesignV2
         ? BtType.title
         : const TextStyle(
             fontSize: 32,
@@ -5358,16 +5948,18 @@ class _TimeWheels extends StatelessWidget {
             accent: accent,
             initialItem: hour.clamp(0, 23),
             items: List.generate(24, (i) => i.toString().padLeft(2, '0')),
+            looping: _kObDesignV3,
             onChanged: (i) => onChanged(i, minute),
           ),
         ),
-        const SizedBox(width: 12),
+        _kObDesignV3 ? const _DashSeam() : const SizedBox(width: 12),
         Expanded(
           child: _PickerBox(
             key: ValueKey('minute-$accent-$rev'),
             accent: accent,
             initialItem: (minute ~/ 5).clamp(0, minutes.length - 1),
             items: minutes,
+            looping: _kObDesignV3,
             onChanged: (i) => onChanged(hour, i * 5),
           ),
         ),
@@ -5701,6 +6293,9 @@ class _UnknownableWheel extends StatelessWidget {
   final ValueChanged<int> onChanged;
   final ValueChanged<bool> onUnknownChanged;
 
+  /// What BeTaller says once "not sure" is picked.
+  final String? unknownReply;
+
   const _UnknownableWheel({
     required this.accent,
     required this.unknown,
@@ -5709,6 +6304,7 @@ class _UnknownableWheel extends StatelessWidget {
     required this.initialItem,
     required this.onChanged,
     required this.onUnknownChanged,
+    this.unknownReply,
   });
 
   @override
@@ -5769,6 +6365,7 @@ class _UnknownableWheel extends StatelessWidget {
             ),
           ),
         ),
+        if (_kObDesignV3) _ObReply(text: unknown ? unknownReply : null),
         const SizedBox(height: 8),
       ],
     );
@@ -5783,12 +6380,16 @@ class _PickerBox extends StatefulWidget {
   /// The question's colour, so the selected row belongs to the page it is on.
   final Color accent;
 
+  /// The wheel comes round again past its last row (a clock's hours).
+  final bool looping;
+
   const _PickerBox({
     super.key,
     required this.initialItem,
     required this.items,
     required this.onChanged,
     this.accent = AppColors.primary,
+    this.looping = false,
   });
 
   @override
@@ -5828,6 +6429,14 @@ class _PickerBoxState extends State<_PickerBox> {
 
   @override
   Widget build(BuildContext context) {
+    if (_kObDesignV3) {
+      return _Wheel3(
+        controller: _ctrl,
+        items: widget.items,
+        looping: widget.looping,
+        onChanged: widget.onChanged,
+      );
+    }
     final accent = _kObDesignV2 ? BtColors.brand : widget.accent;
     final fill = _kObDesignV2 ? BtColors.card : const Color(0xFF120E1C);
     return Container(
@@ -5974,7 +6583,9 @@ class _AnalyzingPageState extends State<_AnalyzingPage>
     // A short "your data has been received" beat before the checklist
     // starts, so the hand-off from the questionnaire feels acknowledged
     // rather than an abrupt jump into a spinner.
-    await Future.delayed(const Duration(milliseconds: 950));
+    await Future.delayed(
+      const Duration(milliseconds: _kObDesignV3 ? 1900 : 950),
+    );
     if (!mounted) return;
     setState(() => _phase = _AnalyzePhase.analyzing);
 
@@ -6051,6 +6662,13 @@ class _AnalyzingPageState extends State<_AnalyzingPage>
 
   // ── Phase 1: a calm confirmation that the questionnaire made it through ──
   Widget _buildReceivedView(AppLocalizations l) {
+    if (_kObDesignV3) {
+      return _ReceivedView3(
+        key: const ValueKey('received'),
+        title: l.analysisDataReceivedTitle,
+        subtitle: l.analysisDataReceivedSubtitle,
+      );
+    }
     return Column(
       key: const ValueKey('received'),
       mainAxisAlignment: MainAxisAlignment.center,
@@ -6396,7 +7014,9 @@ class _BirthDatePickersState extends State<_BirthDatePickers> {
   void initState() {
     super.initState();
     _month = widget.initialDate.month;
-    _day = widget.initialDate.day;
+    // The third pass asks for the month and the year only; mid-month stands
+    // in for the day, which nothing downstream needs.
+    _day = _kObDesignV3 ? 15 : widget.initialDate.day;
     _year = widget.initialDate.year;
     _mCtrl = FixedExtentScrollController(initialItem: _month - 1);
     _dCtrl = FixedExtentScrollController(initialItem: _day - 1);
@@ -6439,19 +7059,21 @@ class _BirthDatePickersState extends State<_BirthDatePickers> {
             },
           ),
         ),
-        const SizedBox(width: 8),
-        Expanded(
-          flex: 2,
-          child: _RawPicker(
-            accent: AppColors.cyan,
-            controller: _dCtrl,
-            items: _days,
-            onChanged: (i) {
-              _day = i + 1;
-              _notify();
-            },
+        if (!_kObDesignV3) ...[
+          const SizedBox(width: 8),
+          Expanded(
+            flex: 2,
+            child: _RawPicker(
+              accent: AppColors.cyan,
+              controller: _dCtrl,
+              items: _days,
+              onChanged: (i) {
+                _day = i + 1;
+                _notify();
+              },
+            ),
           ),
-        ),
+        ],
         const SizedBox(width: 8),
         Expanded(
           flex: 2,
@@ -6488,6 +7110,13 @@ class _RawPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_kObDesignV3) {
+      return _Wheel3(
+        controller: controller,
+        items: items,
+        onChanged: onChanged,
+      );
+    }
     final accent = _kObDesignV2 ? BtColors.brand : this.accent;
     final fill = _kObDesignV2 ? BtColors.card : const Color(0xFF120E1C);
     return Container(
@@ -6973,13 +7602,24 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
     Haptics.success();
     Analytics.track('onboarding_complete');
     final provider = context.read<AppProvider>();
-    if (provider.takeDailyPaywallSlot()) {
+    // The result is what is on sale here, so the paywall opens even if some
+    // other automatic one already used today's slot.
+    if (!provider.isPremium) {
+      provider.takeDailyPaywallSlot();
       await showPremiumPaywall(
         context,
         closeDelay: const Duration(seconds: 3),
         personal: _personalPaywall(AppLocalizations.of(context)!, provider),
         source: 'onboarding',
       );
+      if (!mounted) return;
+      // Bought: stay here, the card has just opened. This is what they paid
+      // to see; the button below takes them on.
+      if (provider.isPremium) {
+        _entering = false;
+        Haptics.celebrate();
+        return;
+      }
     }
     if (!mounted) return;
     Navigator.of(context).pushReplacement(
@@ -6996,6 +7636,7 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final progress = context.watch<AppProvider>().journeyProgress;
+    final locked = !context.watch<AppProvider>().isPremium;
     final next = journeySteps(l)[1];
 
     return Scaffold(
@@ -7131,7 +7772,9 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  l.journeyDataDoneSubtitle,
+                                  locked
+                                      ? l.rsLockedSubtitle
+                                      : l.journeyDataDoneSubtitle,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 14.5,
@@ -7150,7 +7793,11 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                         // ── What the questionnaire worked out ───────────
                         FadeTransition(
                           opacity: _headOpacity,
-                          child: const _PredictionResultCard(),
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: locked ? _enter : null,
+                            child: const _PredictionResultCard(),
+                          ),
                         ),
 
                         const SizedBox(height: 20),
@@ -7208,7 +7855,7 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
                           ),
                           const SizedBox(height: 12),
                           _TallerButton(
-                            label: l.journeyContinue,
+                            label: locked ? l.rsUnlock : l.journeyContinue,
                             enabled: true,
                             onTap: _enter,
                           ),
@@ -7226,51 +7873,17 @@ class _WelcomeScreenState extends State<_WelcomeScreen>
   }
 }
 
-/// The paywall's header at the end of the onboarding, from the user's own
-/// result and answers: the potential in their unit, said to be an estimate,
-/// then their main reason, the fix for their top blocker and their bedtime
-/// (or, where an answer is missing, the training plan).
+/// The paywall's header at the end of the onboarding: what the money opens,
+/// each value still blurred.
 PaywallPersonal _personalPaywall(AppLocalizations l, AppProvider p) {
-  final profile = p.profile;
-  final answers = p.onboardingAnswers;
-  final lines = <(IconData, String)>[];
-  final reason = p.mainWhyTaller;
-  if (reason != null) {
-    lines.add((
-      _OnboardingScreenState._whyIcons[reason] ?? CupertinoIcons.sparkles,
-      l.pwPersonalReason(_OnboardingScreenState._whyLabel(l, reason)),
-    ));
-  }
-  final blocker = p.topBlocker;
-  if (blocker != null) {
-    lines.add((
-      _OnboardingScreenState._blockerIcons[blocker] ?? CupertinoIcons.bell_fill,
-      _OnboardingScreenState._blockerFix(l, blocker),
-    ));
-  }
-  // A bedtime the user gave, unless the blocker line already covers sleep.
-  if (profile != null &&
-      answers['bedtimeUnknown'] != true &&
-      blocker != 'bedtime') {
-    lines.add((
-      CupertinoIcons.moon_stars_fill,
-      l.pwPersonalBedtime(profile.bedtime),
-    ));
-  }
-  if (lines.length < 3 && profile != null) {
-    final plan = WeeklyPlan.forAnswers(
-      weeklyWorkout: answers['weeklyWorkout'] as String? ?? '',
-      age: profile.age,
-    );
-    lines.add((
-      Icons.fitness_center_rounded,
-      l.planPreviewTraining(plan.trainingDays),
-    ));
-  }
   return PaywallPersonal(
-    headline: l.pwPersonalTitle(p.formatHeight(p.potentialHeight)),
-    estimateNote: l.pwPersonalEstimate,
-    lines: lines,
+    headline: l.rsPaywallHeadline,
+    estimateNote: '',
+    lines: [
+      (Icons.height_rounded, '${l.rsLineHeight}: $kCensored'),
+      (Icons.trending_up_rounded, '${l.rsLineGrowth}: $kCensored'),
+      (Icons.bar_chart_rounded, '${l.rsLineRank}: $kCensored'),
+    ],
   );
 }
 
@@ -7296,6 +7909,7 @@ class _PredictionResultCard extends StatelessWidget {
     final percentile = p.peerPercentile;
     final potential = p.potentialHeight;
     final growthLeft = potential - profile.currentHeight;
+    final locked = !p.isPremium;
 
     return Container(
       width: double.infinity,
@@ -7324,32 +7938,37 @@ class _PredictionResultCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           // Counts up from today's height: the number arrives as a reveal.
-          TweenAnimationBuilder<double>(
-            tween: Tween(
-              begin: MediaQuery.of(context).disableAnimations
-                  ? potential
-                  : profile.currentHeight,
-              end: potential,
-            ),
-            duration: const Duration(milliseconds: 1600),
-            curve: Curves.easeOutCubic,
-            builder: (context, v, _) => Text(
-              p.formatHeight(v),
-              style: const TextStyle(
-                fontSize: 44,
-                fontWeight: FontWeight.w900,
-                color: Colors.white,
-                letterSpacing: -1.2,
-                height: 1.1,
+          if (locked)
+            _SecretNumber(text: p.formatHeight(170), fontSize: 44)
+          else
+            TweenAnimationBuilder<double>(
+              tween: Tween(
+                begin: MediaQuery.of(context).disableAnimations
+                    ? potential
+                    : profile.currentHeight,
+                end: potential,
+              ),
+              duration: const Duration(milliseconds: 1600),
+              curve: Curves.easeOutCubic,
+              builder: (context, v, _) => Text(
+                p.formatHeight(v),
+                style: const TextStyle(
+                  fontSize: 44,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: -1.2,
+                  height: 1.1,
+                ),
               ),
             ),
-          ),
           const SizedBox(height: 2),
-          Text(
-            l.resultRange(
-              p.formatHeight(prediction.minHeight),
-              p.formatHeight(prediction.maxHeight),
-            ),
+          CensoredText(
+            locked
+                ? l.resultRange(kCensored, kCensored)
+                : l.resultRange(
+                    p.formatHeight(prediction.minHeight),
+                    p.formatHeight(prediction.maxHeight),
+                  ),
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 12.5,
@@ -7363,6 +7982,7 @@ class _PredictionResultCard extends StatelessWidget {
             dream: p.dreamHeight,
             format: p.formatHeight,
             height: 190,
+            locked: locked,
           ),
           const SizedBox(height: 14),
           Wrap(
@@ -7372,17 +7992,23 @@ class _PredictionResultCard extends StatelessWidget {
             children: [
               _ResultChip(
                 icon: Icons.bar_chart_rounded,
-                text: l.resultPercentile('$percentile'),
+                text: l.resultPercentile(locked ? kCensored : '$percentile'),
               ),
-              if (growthLeft >= 0.5)
+              if (locked || growthLeft >= 0.5)
                 _ResultChip(
                   icon: Icons.trending_up_rounded,
-                  text: l.resultGrowthLeft(p.formatHeightDelta(growthLeft)),
+                  text: l.resultGrowthLeft(
+                    locked ? kCensored : p.formatHeightDelta(growthLeft),
+                  ),
                 ),
             ],
           ),
           const SizedBox(height: 16),
-          _PlanPreview(profile: profile, answers: p.onboardingAnswers),
+          _PlanPreview(
+            profile: profile,
+            answers: p.onboardingAnswers,
+            locked: locked,
+          ),
           // An average stood in for a parent: the range above is wider, and
           // this says why and how to make it sharper.
           if (Calculations.unknownParents(profile) > 0) ...[
@@ -7434,13 +8060,51 @@ class _PredictionResultCard extends StatelessWidget {
   }
 }
 
+/// A number the user has not paid for: fixed stand-in digits under a blur too
+/// heavy to read, with a lock on top. The real value is never drawn.
+class _SecretNumber extends StatelessWidget {
+  final String text;
+  final double fontSize;
+  const _SecretNumber({required this.text, required this.fontSize});
+
+  @override
+  Widget build(BuildContext context) {
+    return ExcludeSemantics(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          ImageFiltered(
+            imageFilter: ui.ImageFilter.blur(sigmaX: 11, sigmaY: 11),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+                letterSpacing: -1.2,
+                height: 1.1,
+              ),
+            ),
+          ),
+          const Icon(CupertinoIcons.lock_fill, size: 26, color: AppColors.lime),
+        ],
+      ),
+    );
+  }
+}
+
 /// "Your plan is ready": three concrete lines built from the answers just
 /// given, so the paywall that follows is selling something the user has
 /// already seen is theirs.
 class _PlanPreview extends StatelessWidget {
   final UserProfile profile;
   final Map<String, dynamic> answers;
-  const _PlanPreview({required this.profile, required this.answers});
+  final bool locked;
+  const _PlanPreview({
+    required this.profile,
+    required this.answers,
+    required this.locked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -7456,10 +8120,14 @@ class _PlanPreview extends StatelessWidget {
       age: profile.age,
     );
     final sleep = t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1);
+    String shown(String s) => locked ? censorDigits(s) : s;
     final lines = [
-      (Icons.fitness_center_rounded, l.planPreviewTraining(plan.trainingDays)),
-      (Icons.restaurant_rounded, l.planPreviewProtein(t.proteinG)),
-      (Icons.bedtime_rounded, l.planPreviewSleep(sleep)),
+      (
+        Icons.fitness_center_rounded,
+        shown(l.planPreviewTraining(plan.trainingDays)),
+      ),
+      (Icons.restaurant_rounded, shown(l.planPreviewProtein(t.proteinG))),
+      (Icons.bedtime_rounded, shown(l.planPreviewSleep(sleep))),
     ];
     return Container(
       width: double.infinity,
@@ -7492,7 +8160,7 @@ class _PlanPreview extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
+                    child: CensoredText(
                       text,
                       style: const TextStyle(
                         fontSize: 13,
@@ -7529,7 +8197,7 @@ class _ResultChip extends StatelessWidget {
           Icon(icon, size: 14, color: AppColors.lime),
           const SizedBox(width: 6),
           Flexible(
-            child: Text(
+            child: CensoredText(
               text,
               style: const TextStyle(
                 fontSize: 12,

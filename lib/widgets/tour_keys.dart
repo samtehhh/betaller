@@ -35,4 +35,24 @@ class TourKeys {
 
   /// Analysis: the BeTaller Score hero.
   static final analysisScore = GlobalKey(debugLabel: 'tour.analysisScore');
+
+  // ── The longer tour (Nov 2026): five more stops ───────────────────────────
+
+  /// Home: the water and sleep trackers, side by side.
+  static final homeTrackers = GlobalKey(debugLabel: 'tour.homeTrackers');
+
+  /// Progress: the before/after photos tool card.
+  static final progressPhotos = GlobalKey(debugLabel: 'tour.progressPhotos');
+
+  /// Progress: the posture check tool card.
+  static final progressPosture = GlobalKey(debugLabel: 'tour.progressPosture');
+
+  /// Progress: the weekly report tool card.
+  static final progressReport = GlobalKey(debugLabel: 'tour.progressReport');
+
+  /// Analysis: what the score is made of (blurred behind the lock once the
+  /// free look is spent).
+  static final analysisBreakdown = GlobalKey(
+    debugLabel: 'tour.analysisBreakdown',
+  );
 }

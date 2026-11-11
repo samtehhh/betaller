@@ -960,7 +960,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get tipBarHanging =>
-      'Treo xà giúp giảm áp lực cột sống. Thử 3x30 giây mỗi ngày.';
+      'Treo xà giúp giãn vai và lưng. Hãy thử 3x30 giây mỗi ngày.';
 
   @override
   String get tipSwimming =>
@@ -982,7 +982,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get routineBarHangingDesc =>
-      'Treo người trên xà để kéo giãn cột sống. 3 hiệp x 30 giây.';
+      'Treo người trên xà để giãn vai và lưng. 3 hiệp x 30 giây.';
 
   @override
   String get routineCobraStretch => 'Tư thế rắn hổ mang';
@@ -996,14 +996,14 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get routineJumpingDesc =>
-      'Nhảy dây hoặc squat nhảy. Kích thích sụn tăng trưởng. 3 hiệp x 20 lần.';
+      'Nhảy dây hoặc squat nhảy. Giúp xương chắc khỏe hơn. 3 hiệp x 20 lần.';
 
   @override
   String get routineSwimming => 'Bơi hoặc bóng rổ';
 
   @override
   String get routineSwimmingDesc =>
-      'Chơi một môn hỗ trợ phát triển chiều cao. Ít nhất 30 phút.';
+      'Chơi môn thể thao bạn thích để tăng thể lực và sức mạnh. Ít nhất 30 phút.';
 
   @override
   String get routineYoga => 'Yoga & giãn cơ buổi tối';
@@ -1073,42 +1073,42 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get routineSprintIntervalsDesc =>
-      'Chạy nước rút ngắt quãng kích thích tiết nhiều hormone tăng trưởng nhờ các đợt cường độ cao.';
+      'Chạy nước rút ngắn xen kẽ đi bộ hồi sức giúp tăng thể lực và sức mạnh chân.';
 
   @override
   String get routineHiitWorkout => 'Bài tập HIIT';
 
   @override
   String get routineHiitWorkoutDesc =>
-      'Tập ngắt quãng cường độ cao để tối đa hóa hormone tăng trưởng.';
+      'Tập ngắt quãng cường độ cao giúp tăng thể lực và sức mạnh.';
 
   @override
   String get routineSquats => 'Squat không tạ';
 
   @override
   String get routineSquatsDesc =>
-      'Squat bằng trọng lượng cơ thể kích thích sụn tăng trưởng ở chân và cột sống.';
+      'Squat với trọng lượng cơ thể giúp chân khỏe hơn và tăng sức các cơ giữ tư thế.';
 
   @override
   String get routineDeadliftStretch => 'Giãn cơ kiểu deadlift';
 
   @override
   String get routineDeadliftStretchDesc =>
-      'Giãn cơ kiểu deadlift giúp giảm áp lực cột sống và tốt cho đĩa đệm.';
+      'Động tác giãn kiểu deadlift giúp cơ đùi sau dẻo dai và lưng khỏe hơn.';
 
   @override
   String get routineOverheadPress => 'Đẩy tay qua đầu';
 
   @override
   String get routineOverheadPressDesc =>
-      'Đẩy tay qua đầu kéo giãn cột sống và làm khỏe cơ giữ tư thế.';
+      'Đẩy qua đầu giúp vai và các cơ giữ tư thế khỏe hơn.';
 
   @override
   String get routineSkippingRope => 'Nhảy dây';
 
   @override
   String get routineSkippingRopeDesc =>
-      'Nhảy dây liên tục kích thích sụn tăng trưởng ở chân.';
+      'Nhảy dây lặp lại tạo lực lên xương chân và giúp xương chắc khỏe hơn.';
 
   @override
   String get routinePilatesCore => 'Pilates cơ lõi';
@@ -1122,7 +1122,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get routineInversionHangDesc =>
-      'Treo ngược giảm áp lực đĩa đệm, có thể tạm thời thêm 1-2cm.';
+      'Treo ngược có thể làm thư giãn cơ lưng. Mọi thay đổi chiều cao chỉ là tạm thời.';
 
   @override
   String get routineZincIntake => 'Thực phẩm giàu kẽm';
@@ -2393,10 +2393,10 @@ class AppLocalizationsVi extends AppLocalizations {
       'Các công thức được chọn lọc để tiếp năng lượng cho tăng trưởng. Lọc theo bữa ăn hoặc mục tiêu dinh dưỡng để tìm món hợp kế hoạch của bạn.';
 
   @override
-  String get animHintSpinalDecomp => 'Giảm áp cột sống';
+  String get animHintSpinalDecomp => 'Giãn vai và lưng';
 
   @override
-  String get animHintGravityReversal => 'Đảo chiều trọng lực';
+  String get animHintGravityReversal => 'Thư giãn lưng';
 
   @override
   String get animHintImpactBones => 'Tác động lực lên xương';
@@ -2414,7 +2414,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get animHintSpinalExtension => 'Duỗi cột sống';
 
   @override
-  String get animHintCervicalDecomp => 'Giảm áp cột sống cổ';
+  String get animHintCervicalDecomp => 'Thư giãn cổ';
 
   @override
   String get animHintShoulderMobility => 'Linh hoạt vai';
@@ -2459,13 +2459,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get animHintCoreStability => 'Ổn định cơ lõi';
 
   @override
-  String get animHintLegPower => 'Sức mạnh chân & tăng HGH';
+  String get animHintLegPower => 'Sức mạnh chân';
 
   @override
   String get animHintVerticalPower => 'Sức bật';
 
   @override
-  String get animHintHghSurge => 'Tập tăng vọt HGH';
+  String get animHintHghSurge => 'Tập cường độ cao';
 
   @override
   String get animHintPeakHgh => 'Khung giờ HGH đạt đỉnh';
@@ -2488,7 +2488,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get formBarHanging =>
-      'Nắm xà rộng bằng vai, thả lỏng toàn thân, để trọng lực kéo giãn cột sống. Tránh đung đưa.';
+      'Nắm xà rộng bằng vai, thả lỏng cơ thể và cảm nhận độ giãn ở vai và lưng. Tránh đung đưa.';
 
   @override
   String get formCobraStretch =>
@@ -2604,55 +2604,58 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sciMorningStretch =>
-      'Giãn cơ buổi sáng giảm áp cho đĩa đệm vừa được bù nước qua đêm, giúp giữ chiều cao tối đa';
+      'Giãn cơ buổi sáng giúp giảm cứng người sau một đêm và khởi động cơ bắp';
 
   @override
   String get sciBarHanging =>
-      'Treo xà dùng trọng lực kéo giãn cột sống, giảm áp đĩa đệm và có thể tạm thời tăng chiều cao';
+      'Treo xà giúp giãn vai và lưng, đồng thời rèn sức nắm. Mọi thay đổi chiều cao chỉ là tạm thời';
 
   @override
   String get sciCobraStretch =>
-      'Tư thế rắn hổ mang duỗi cột sống và mở ngực, chống lại sự chèn ép do ngồi nhiều';
+      'Tư thế rắn hổ mang giúp mở ngực và giảm cứng người do ngồi lâu';
 
   @override
   String get sciJumping =>
-      'Bật nhảy cường độ cao kích thích sụn tăng trưởng ở chân và thúc đẩy tiết hormone tăng trưởng';
+      'Nhảy tác động mạnh tạo lực lên xương và giúp xương chắc khỏe hơn ở tuổi thiếu niên';
 
   @override
   String get sciSwimmingBasketball =>
-      'Bơi và bóng rổ có nhiều động tác giãn toàn thân, bật nhảy và vươn người, kích thích sụn tăng trưởng';
+      'Bơi và bóng rổ giúp tăng thể lực, sự phối hợp và sức mạnh, còn các cú bật nhảy trong bóng rổ giúp xương chắc khỏe hơn';
 
   @override
   String get sciEveningYoga =>
-      'Yoga buổi tối giảm cortisol, chất ức chế hormone tăng trưởng, và giãn cơ để phục hồi qua đêm';
+      'Yoga buổi tối giúp bạn thư thái và thả lỏng cơ bắp trước khi ngủ';
 
   @override
   String get sciSprintIntervals =>
-      'Chạy nước rút thúc đẩy tiết nhiều hormone tăng trưởng';
+      'Chạy nước rút ngắn xen kẽ đi bộ hồi sức giúp tăng thể lực và sức mạnh chân';
 
   @override
-  String get sciHiitWorkout => 'Tập cường độ cao làm tăng HGH tới 450%';
+  String get sciHiitWorkout =>
+      'Tập ngắt quãng cường độ cao giúp tăng thể lực và sức mạnh';
 
   @override
-  String get sciSquats => 'Squat kích thích sụn tăng trưởng ở chân và cột sống';
+  String get sciSquats =>
+      'Squat với trọng lượng cơ thể giúp chân khỏe hơn và tăng sức các cơ giữ tư thế';
 
   @override
-  String get sciDeadliftStretch => 'Giảm áp cột sống giúp đĩa đệm khỏe mạnh';
+  String get sciDeadliftStretch =>
+      'Động tác giãn kiểu deadlift giúp cơ đùi sau dẻo dai và lưng khỏe hơn';
 
   @override
   String get sciOverheadPress =>
-      'Đẩy tay qua đầu kéo giãn cột sống và làm khỏe cơ giữ tư thế';
+      'Đẩy qua đầu giúp vai và các cơ giữ tư thế khỏe hơn';
 
   @override
   String get sciSkippingRope =>
-      'Nhảy lặp lại kích thích sụn tăng trưởng ở chân';
+      'Nhảy dây lặp lại tạo lực lên xương chân và giúp xương chắc khỏe hơn';
 
   @override
   String get sciPilatesCore => 'Cơ lõi khỏe giúp cột sống thẳng và tư thế đẹp';
 
   @override
   String get sciInversionHang =>
-      'Treo ngược giảm áp đĩa đệm, có thể tạm thời thêm 1-2cm';
+      'Treo ngược có thể làm thư giãn cơ lưng. Mọi thay đổi chiều cao chỉ là tạm thời';
 
   @override
   String get sciProtein =>
@@ -3254,7 +3257,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get notifJumpBody =>
-      'Bật nhảy kích thích sụn tăng trưởng. Thử 3 x 20 lần nhé!';
+      'Nhảy giúp xương chắc khỏe hơn. Hãy thử 3 x 20 lần!';
 
   @override
   String get notifCalciumTitle => '🥛 Giờ canxi!';
@@ -6562,4 +6565,725 @@ class AppLocalizationsVi extends AppLocalizations {
   String obBudgetTrial(String days) {
     return 'Hoặc dùng thử miễn phí $days ngày trước.';
   }
+
+  @override
+  String get obNameTitle => 'Bọn mình gọi bạn là gì nhỉ?';
+
+  @override
+  String get obNameSubtitle =>
+      'Không bắt buộc. Kế hoạch và lời nhắc của bạn sẽ dùng tên này.';
+
+  @override
+  String get obNameHint => 'Tên của bạn';
+
+  @override
+  String get nWb1Title => 'Hôm qua bạn bỏ lỡ rồi';
+
+  @override
+  String nWb1Body(String height) {
+    return 'Kế hoạch $height của bạn vẫn đang chờ. 10 phút là ổn.';
+  }
+
+  @override
+  String get nWb2Title => 'Bạn bỏ cuộc với chiều cao rồi à?';
+
+  @override
+  String get nWb2Body => 'Kế hoạch nói bạn chưa xong đâu.';
+
+  @override
+  String nWb3Title(String gain) {
+    return 'Còn $gain của bạn thì sao?';
+  }
+
+  @override
+  String get nWb3Body => 'Đó là phần dự đoán do thói quen của bạn quyết định.';
+
+  @override
+  String nWb5Title(String name) {
+    return '$name, biểu đồ của bạn đứng yên rồi';
+  }
+
+  @override
+  String get nWb5TitleNoName => 'Biểu đồ của bạn đứng yên rồi';
+
+  @override
+  String get nWb5Body => '5 ngày chưa đo mới. Giờ bạn cao bao nhiêu?';
+
+  @override
+  String get nWb7Title => 'Một tuần trôi qua';
+
+  @override
+  String get nWb7Body => 'Tuần này bạn bè bạn vẫn cao lên. Còn bạn?';
+
+  @override
+  String get nWb10Title => 'Dự đoán của bạn có thể đã đổi';
+
+  @override
+  String get nWb10Body => 'Đo một lần và xem con số mới.';
+
+  @override
+  String nWb14Title(String height) {
+    return 'Vẫn $height à?';
+  }
+
+  @override
+  String get nWb14Body => 'Hai tuần từ lần đo gần nhất. Đo đi rồi biết.';
+
+  @override
+  String get nWb21Title => 'Bạn còn muốn kế hoạch của mình không?';
+
+  @override
+  String get nWb21Body => 'Đã lưu rồi. Một chạm là tiếp tục.';
+
+  @override
+  String nWb30Title(String name) {
+    return 'Lần cuối nhé, $name';
+  }
+
+  @override
+  String get nWb30TitleNoName => 'Lần cuối nhé';
+
+  @override
+  String get nWb30Body => 'Dữ liệu của bạn vẫn còn. Sẵn sàng thì quay lại nhé.';
+
+  @override
+  String nTrainHookTitle(int minutes) {
+    return '$minutes phút nữa là xong kế hoạch hôm nay';
+  }
+
+  @override
+  String get nWaterHookTitle => 'Uống nước chưa?';
+
+  @override
+  String nWaterHookBody(String liters) {
+    return 'Hôm nay $liters. Uống một ly ngay.';
+  }
+
+  @override
+  String nProteinHookTitle(int grams) {
+    return 'Hôm nay $grams g protein. Bắt đầu chưa?';
+  }
+
+  @override
+  String nSleepHookTitle(String name) {
+    return 'Bỏ điện thoại xuống, $name';
+  }
+
+  @override
+  String get nSleepHookTitleNoName => 'Bỏ điện thoại xuống';
+
+  @override
+  String get nMeasureHookTitle => 'Tuần này bạn có cao lên không?';
+
+  @override
+  String get nMeasureHookBody => 'Đo vào buổi sáng rồi biết.';
+
+  @override
+  String nStreakHookTitle(int streak) {
+    return 'Chuỗi $streak ngày của bạn sẽ mất đêm nay';
+  }
+
+  @override
+  String get nStreakHookBody => 'Một thói quen là cứu được.';
+
+  @override
+  String get nPostureHookTitle => 'Kiểm tra lưng ngay đi';
+
+  @override
+  String get nPostureHookBody => 'Vai ra sau, cằm thẳng.';
+
+  @override
+  String hkReturn(int days) {
+    return 'Bạn đã vắng $days ngày. Xem có gì thay đổi nhé.';
+  }
+
+  @override
+  String hkHabits(String gain) {
+    return '$gain trong dự đoán của bạn phụ thuộc vào thói quen';
+  }
+
+  @override
+  String hkStreakDay(int day) {
+    return 'Ngày $day. Chuỗi của bạn giờ khó đứt hơn rồi.';
+  }
+
+  @override
+  String get hkPredictionUpdated =>
+      'Dự đoán của bạn vừa cập nhật. Chạm để xem.';
+
+  @override
+  String get hkMeasureDue => 'Biểu đồ của bạn đang chờ số đo tuần này';
+
+  @override
+  String get hkLeaveTitle =>
+      'Kế hoạch của bạn đã sẵn sàng. Rời đi mà không mở sao?';
+
+  @override
+  String get hkLeaveOpen => 'Xem kế hoạch của tôi';
+
+  @override
+  String get rsLockedSubtitle =>
+      'Chúng tôi đã tính bạn có thể cao đến đâu. Con số của bạn đang bị khóa bên dưới.';
+
+  @override
+  String get rsUnlock => 'Mở khóa kết quả';
+
+  @override
+  String get rsPaywallHeadline => 'Con số của bạn đã có. Mở chứ?';
+
+  @override
+  String get rsLockedChart => 'Xem bạn sẽ đến đâu';
+
+  @override
+  String get rsLineHeight => 'Chiều cao trưởng thành';
+
+  @override
+  String get rsLineGrowth => 'Mức còn có thể cao thêm';
+
+  @override
+  String get rsLineRank => 'Vị trí của bạn so với bạn cùng tuổi';
+
+  @override
+  String get rsProgressTitle => 'Hiệp tập và tiến bộ của bạn';
+
+  @override
+  String get rsStageStart => 'Bắt đầu';
+
+  @override
+  String get rsStageNow => 'Mạnh hơn';
+
+  @override
+  String get rsStagePeak => 'Sức mạnh tối đa';
+
+  @override
+  String get rsLevelLine => 'Hiệp tập, tiến bộ và tăng sức mạnh';
+
+  @override
+  String get pwBuyWeekly => 'Bắt đầu gói tuần';
+
+  @override
+  String get pwBuyMonthly => 'Bắt đầu gói tháng';
+
+  @override
+  String get pwBuyLifetime => 'Mua trọn đời';
+
+  @override
+  String get obGenderSub => 'Đường cong tăng trưởng của nam và nữ khác nhau.';
+
+  @override
+  String get obBirthSub =>
+      'Chỉ cần tháng và năm. Nhờ đó chúng tôi biết bạn đang ở đâu trong giai đoạn phát triển.';
+
+  @override
+  String obAgeLine(int age) {
+    return 'Bạn $age tuổi';
+  }
+
+  @override
+  String get obAgeReplyGrowing =>
+      'Bạn đang ở tuổi lớn. Đây chính là giai đoạn chúng ta cùng nhau tăng chiều cao!';
+
+  @override
+  String get obAgeReplyLate =>
+      'Ở tuổi này tốc độ phát triển chậm lại, nhưng không dừng cùng lúc ở mọi người. Lát nữa chúng tôi sẽ tính cho bạn.';
+
+  @override
+  String get obAgeReplyAdult =>
+      'Ở tuổi này xương hiếm khi dài thêm. Kế hoạch của bạn tập trung vào tư thế, nơi lấy lại những centimet bị mất vì gù lưng.';
+
+  @override
+  String get obHwSub => 'Ước tính bắt đầu từ chiều cao hiện tại của bạn.';
+
+  @override
+  String get obFootSub =>
+      'Bàn chân lớn trước phần còn lại của cơ thể, nên cỡ giày cho biết bạn đang ở giai đoạn nào.';
+
+  @override
+  String obFootLength(String length) {
+    return 'Khoảng $length';
+  }
+
+  @override
+  String get obWorkoutSub =>
+      'Chúng tôi dựa vào đây để đặt mục tiêu protein và calo cho bạn.';
+
+  @override
+  String obNameNotif(String name) {
+    return '$name, kế hoạch hôm nay đã sẵn sàng';
+  }
+
+  @override
+  String get obNameNotifAnon => 'Kế hoạch hôm nay đã sẵn sàng';
+
+  @override
+  String get obNameNotifBody => 'Vài động tác, khoảng 15 phút.';
+
+  @override
+  String get obNamePreviewLabel => 'Lời nhắc của bạn sẽ trông như thế này';
+
+  @override
+  String get obReplyTriedStopped =>
+      'Vậy thì chúng tôi dám hứa bạn sẽ không bỏ BeTaller!';
+
+  @override
+  String get obReplyTriedStill =>
+      'Vậy bạn sẽ sớm thấy khác biệt. Ngoài con số, BeTaller còn cho bạn một kế hoạch để đánh dấu mỗi ngày.';
+
+  @override
+  String get obReplyTriedFirst =>
+      'Vậy thì chào mừng bạn! Bạn vừa có một trong những lựa chọn đúng nhất trên hành trình tăng chiều cao.';
+
+  @override
+  String get obReplyWhyConfidence =>
+      'Người đứng thẳng trông cao hơn và thoải mái hơn. Tư thế là điều đầu tiên kế hoạch của bạn cải thiện.';
+
+  @override
+  String get obReplyWhyImpression =>
+      'Ấn tượng đầu tiên phần lớn đến từ dáng đứng. Chúng ta bắt đầu từ đó ngay tuần đầu.';
+
+  @override
+  String get obReplyWhySports =>
+      'Giãn cơ và đu xà cũng có ích trên sân. Kế hoạch của bạn có cả hai.';
+
+  @override
+  String get obReplyWhyClothes =>
+      'Cùng một bộ đồ nhưng lưng thẳng thì mặc lên khác hẳn. Chúng ta sửa điều đó trước.';
+
+  @override
+  String get obReplyWhyPhotos =>
+      'Trong ảnh, tư thế làm thay đổi chiều cao của bạn nhiều nhất. Bạn cũng có thể so sánh ảnh trước và sau trong app.';
+
+  @override
+  String get obReplyWhyPotential =>
+      'Được thôi. Thêm vài câu hỏi nữa là chúng tôi tính ra tiềm năng của bạn.';
+
+  @override
+  String get obReplyWorkoutLow =>
+      'Không sao. Kế hoạch của bạn bắt đầu bằng các buổi tập ngắn, phần lớn khoảng 15 phút.';
+
+  @override
+  String get obReplyWorkoutMid =>
+      'Nhịp độ tốt. Với nhịp này, kế hoạch sẽ vừa vặn dễ dàng.';
+
+  @override
+  String get obReplyWorkoutHigh =>
+      'Bạn tập khá nhiều. Chúng tôi sẽ tăng mục tiêu protein cho phù hợp.';
+
+  @override
+  String get obReplyFirstWardrobe =>
+      'Bạn có thể bắt đầu nghĩ đến chiều dài quần mới rồi đấy.';
+
+  @override
+  String get obReplyFirstMuscle =>
+      'Các động tác trong kế hoạch của bạn cũng tạo nền tảng cho điều đó.';
+
+  @override
+  String get obReplyFirstPhotos =>
+      'Hãy chụp một tấm ảnh vào ngày đầu. Sau này bạn sẽ thích đặt chúng cạnh nhau.';
+
+  @override
+  String get obReplyFirstTeam =>
+      'Chúng tôi sẽ đặt lời nhắc để bạn giữ đều đặn cho đến buổi tuyển chọn.';
+
+  @override
+  String get obReplyFirstFeelGood => 'Đó là lý do vững chắc nhất.';
+
+  @override
+  String get obDayTitle => 'Một ngày cùng BeTaller sẽ như thế này';
+
+  @override
+  String get obDayBody =>
+      'Được dựng từ những gì bạn đã chia sẻ đến giờ. Làm đến đâu, bạn đánh dấu đến đó.';
+
+  @override
+  String obDayProtein(int grams) {
+    return '$grams g protein';
+  }
+
+  @override
+  String get obDayProteinSub => 'Bữa đầu tiên của bạn đã sẵn sàng';
+
+  @override
+  String obDaySleep(String time) {
+    return 'Lời nhắc ngủ lúc $time';
+  }
+
+  @override
+  String get obDaySleepSub => 'Lời nhắc giúp hành trình của bạn tiếp tục';
+
+  @override
+  String get obParentsSub =>
+      'Phần lớn chiều cao của bạn đến từ bố mẹ. Hai con số này là nền của ước tính.';
+
+  @override
+  String get obSleepSub =>
+      'Phần lớn hormone tăng trưởng được tiết ra khi ngủ sâu.';
+
+  @override
+  String obDreamDelta(String delta) {
+    return 'Cao hơn chiều cao hôm nay $delta';
+  }
+
+  @override
+  String get obEthnicitySubAll =>
+      'Chiều cao trung bình của người lớn chênh nhau vài centimet tùy nguồn gốc.';
+
+  @override
+  String obEthReplyHigh(String avg) {
+    return 'Người lớn thuộc nguồn gốc này cao trung bình $avg, trên mức trung bình thế giới. Tiềm năng của bạn rất cao!';
+  }
+
+  @override
+  String obEthReplyMid(String avg) {
+    return 'Người lớn thuộc nguồn gốc này cao trung bình khoảng $avg. Tiềm năng của bạn cao, và thói quen tốt có thể đưa bạn vượt mức trung bình.';
+  }
+
+  @override
+  String obEthReplyRising(String avg) {
+    return 'Người lớn thuộc nguồn gốc này cao trung bình khoảng $avg, và con số đó tăng nhanh ở các thế hệ gần đây. Tiềm năng của bạn có thể cao hơn bạn nghĩ.';
+  }
+
+  @override
+  String get obEthReplyNoAnswer =>
+      'Không sao. Chúng tôi tính từ bố mẹ và số đo của chính bạn.';
+
+  @override
+  String obEthAbove(String avg, String you) {
+    return 'Người trưởng thành thuộc nhóm này cao trung bình $avg. Bạn đã cao $you, hơn mức trung bình rồi!';
+  }
+
+  @override
+  String obEthNear(String avg, String you) {
+    return 'Người trưởng thành thuộc nhóm này cao trung bình $avg. Với $you, bạn đang đúng mức trung bình, và mục tiêu là vượt qua nó.';
+  }
+
+  @override
+  String obEthBelowYoung(String avg, String you) {
+    return 'Người trưởng thành thuộc nhóm này cao trung bình $avg. Bạn cao $you và vẫn đang tuổi lớn, nên còn thời gian để vượt qua.';
+  }
+
+  @override
+  String obEthBelowAdult(String avg, String you) {
+    return 'Người trưởng thành thuộc nhóm này cao trung bình $avg. Bạn cao $you, và tư thế có thể thu hẹp một phần khoảng cách đó.';
+  }
+
+  @override
+  String get obMealsUnknown => 'Mình không chắc về giờ';
+
+  @override
+  String get obMealsUnknownReply =>
+      'Không sao, chúng tôi đã lập kế hoạch theo giờ dành riêng cho bạn.';
+
+  @override
+  String get obUnknownPlanned =>
+      'Không sao, chúng tôi sẽ lên kế hoạch phần này cho bạn. Bạn có thể đổi bất cứ lúc nào.';
+
+  @override
+  String get obReplyWeCalc =>
+      'Đừng lo, chúng tôi đã tính sẵn phần này cho bạn.';
+
+  @override
+  String get obGoalDaysTitle => 'Bạn thật sự muốn cao lên trong bao lâu?';
+
+  @override
+  String get obGoalDaysSub => 'Hãy đặt thời hạn cho mục tiêu của bạn.';
+
+  @override
+  String obGoalDaysN(int n) {
+    return '$n ngày';
+  }
+
+  @override
+  String get obGoalYear => 'Trong vòng 1 năm';
+
+  @override
+  String get obGoalOpen => 'Cao được bao nhiêu hay bấy nhiêu';
+
+  @override
+  String get obReplyGoal90 =>
+      '90 ngày là khoảng thời gian tốt để tư thế và thói quen vào nếp. Thay đổi đầu tiên bạn sẽ thấy ở dáng đứng.';
+
+  @override
+  String get obReplyGoal120 =>
+      'Sau 120 ngày, thói quen đã vào nếp. Chúng ta sẽ cùng theo dõi số đo của bạn suốt chặng đường.';
+
+  @override
+  String get obReplyGoal180 =>
+      'Sáu tháng là khoảng thời gian thực tế để thấy mức tăng trên thước đo.';
+
+  @override
+  String get obReplyGoal365 =>
+      'Một năm là kế hoạch vững nhất. Cao lên cần kiên nhẫn, và chúng tôi ở bên bạn mỗi ngày.';
+
+  @override
+  String get obReplyGoalOpen =>
+      'Nghĩ vậy là đúng nhất. Cao đến mức cơ thể bạn cho phép, và chúng tôi ở bên bạn mỗi ngày.';
+
+  @override
+  String get tv4TrackTitle => 'Nước và giấc ngủ, chỉ một chạm';
+
+  @override
+  String get tv4TrackDesc =>
+      'Mục tiêu hằng ngày được tính theo tuổi và cân nặng của bạn. Làm đến đâu, đánh dấu đến đó.';
+
+  @override
+  String get tv4PhotosTitle => 'Ảnh trước và sau';
+
+  @override
+  String get tv4PhotosDesc =>
+      'Chụp cùng một dáng đứng, rồi đặt ảnh các tuần cạnh nhau.';
+
+  @override
+  String get tv4PostureTitle => 'Kiểm tra tư thế bằng camera';
+
+  @override
+  String get tv4PostureDesc =>
+      'Chấm điểm dáng đứng của bạn và chỉ ra chỗ cần sửa.';
+
+  @override
+  String get tv4ReportTitle => 'Báo cáo tuần của bạn';
+
+  @override
+  String get tv4ReportDesc =>
+      'Tập luyện, giấc ngủ và ăn uống trên một trang, mỗi tuần.';
+
+  @override
+  String get tv4BreakdownTitle => 'Điều gì nâng điểm của bạn';
+
+  @override
+  String get tv4BreakdownDesc =>
+      'Cho thấy tỷ trọng của từng yếu tố và bước tiếp theo của bạn.';
+
+  @override
+  String get reminderProTitle => 'Lời nhắc đi kèm với Pro';
+
+  @override
+  String get reminderProDesc =>
+      'Chúng tôi sẽ nhắc bạn vào giờ tập, giờ ăn và giờ ngủ.';
+
+  @override
+  String get nFw1Title => 'Ngày thứ hai, động tác mới';
+
+  @override
+  String get nFw1Body => 'Bài tập hôm nay khác hôm qua. Chỉ mất vài phút thôi.';
+
+  @override
+  String get nFw2Title => 'Huy chương chuỗi đầu tiên sắp tới rồi';
+
+  @override
+  String get nFw2Body =>
+      'Hoàn thành ba ngày liên tiếp để mở huy chương chuỗi 3 ngày.';
+
+  @override
+  String get nFw3Title => 'Ngày đo';
+
+  @override
+  String get nFw3Body =>
+      'Đo chiều cao và lưu lại. Hôm nay biểu đồ của bạn có thêm một điểm mới.';
+
+  @override
+  String get nFw4Title => 'Cùng xem tư thế của bạn nhé';
+
+  @override
+  String get nFw4Body =>
+      'Kiểm tra tư thế bằng camera chỉ mất một phút. Xem điểm của bạn.';
+
+  @override
+  String get nFw5Title => 'Chụp tấm ảnh đầu tiên';
+
+  @override
+  String get nFw5Body =>
+      'Hôm nay chụp một tấm ảnh. Vài tuần nữa bạn sẽ đặt chúng cạnh nhau.';
+
+  @override
+  String get nFw6Title => 'Ngày mai là hết tuần đầu tiên';
+
+  @override
+  String get nFw6Body =>
+      'Hoàn thành hôm nay, ngày mai báo cáo tuần của bạn sẽ sẵn sàng.';
+
+  @override
+  String get nFw7Title => 'Bạn đã xong tuần đầu tiên';
+
+  @override
+  String get nFw7Body =>
+      'Báo cáo tuần của bạn đã sẵn sàng. Đo chiều cao thêm một lần nữa nhé.';
+
+  @override
+  String nPmFirstTitle(String name) {
+    return '$name, đến giờ bữa đầu tiên của bạn rồi.';
+  }
+
+  @override
+  String get nPmFirstTitleNoName => 'Đến giờ bữa đầu tiên của bạn rồi.';
+
+  @override
+  String get nPmFirstBody =>
+      'Bữa ăn riêng của bạn đã sẵn sàng. Nếu không muốn, macro và các dưỡng chất bạn cần cũng đã sẵn sàng. Tuyệt đối đừng bỏ bữa đầu tiên.';
+
+  @override
+  String nPmMealTitle(String name, int n) {
+    return '$name, đến giờ bữa số $n rồi.';
+  }
+
+  @override
+  String nPmMealTitleNoName(int n) {
+    return 'Đến giờ bữa số $n rồi.';
+  }
+
+  @override
+  String nPmMealBody(int protein, int calcium) {
+    return '$protein g protein và $calcium mg canxi. Tuyệt đối đừng bỏ bữa này.';
+  }
+
+  @override
+  String get nPmWaterTitle => 'Bạn có uống đủ nước không?';
+
+  @override
+  String nPmWaterBody(String name, String liters) {
+    return '$name, nhớ uống nước suốt cả ngày nhé. Mục tiêu mỗi ngày của bạn là $liters.';
+  }
+
+  @override
+  String nPmWaterBodyNoName(String liters) {
+    return 'Nhớ uống nước suốt cả ngày nhé. Mục tiêu mỗi ngày của bạn là $liters.';
+  }
+
+  @override
+  String get nPmTrainTitle => 'Còn 30 phút nữa là đến giờ tập của bạn!';
+
+  @override
+  String nPmTrainBody(int count, int minutes) {
+    return 'Chương trình riêng của bạn đang chờ. Hôm nay: $count bài tập, khoảng $minutes phút.';
+  }
+
+  @override
+  String get nPmHabitTitle =>
+      'Trong ngày bạn có thể nhảy dây và giãn cơ một chút';
+
+  @override
+  String nPmHabitBody(String name) {
+    return '$name, đừng quên những thói quen nhỏ này.';
+  }
+
+  @override
+  String get nPmHabitBodyNoName => 'Đừng quên những thói quen nhỏ này.';
+
+  @override
+  String nPmSleepTitle(String name) {
+    return '$name, sắp đến giờ đi ngủ của bạn rồi.';
+  }
+
+  @override
+  String get nPmSleepTitleNoName => 'Sắp đến giờ đi ngủ của bạn rồi.';
+
+  @override
+  String get pwMoreFeatures => 'Và còn nhiều tính năng khác.';
+
+  @override
+  String get libTitle => 'Thư viện bài tập';
+
+  @override
+  String libCount(int count) {
+    return '$count bài tập';
+  }
+
+  @override
+  String get libJump => 'Bật nhảy';
+
+  @override
+  String get libHang => 'Treo xà';
+
+  @override
+  String get libStretch => 'Giãn cơ';
+
+  @override
+  String get libStrength => 'Sức mạnh';
+
+  @override
+  String get libPosture => 'Tư thế';
+
+  @override
+  String get libWeights => 'Tạ';
+
+  @override
+  String get libWeightsNote =>
+      'Các bài này cần tạ tay hoặc dây kháng lực. Chọn mức tạ mà bạn làm hết mỗi lần với kỹ thuật đúng.';
+
+  @override
+  String get plFoodTurkey => 'Ức gà tây';
+
+  @override
+  String get plFoodCod => 'Cá tuyết';
+
+  @override
+  String get plFoodBeans => 'Đậu đỏ';
+
+  @override
+  String get plFoodQuinoa => 'Hạt diêm mạch';
+
+  @override
+  String get plFoodSweetPotato => 'Khoai lang';
+
+  @override
+  String get plFoodApple => 'Táo';
+
+  @override
+  String get plFoodBerries => 'Dâu tây';
+
+  @override
+  String get plFoodMozzarella => 'Phô mai mozzarella';
+
+  @override
+  String get plFoodHummus => 'Sốt hummus';
+
+  @override
+  String get plFoodGreenBeans => 'Đậu que';
+
+  @override
+  String get mgTitle => 'Đến lúc đo rồi';
+
+  @override
+  String mgBody(int days) {
+    return 'Đã $days ngày kể từ lần đo gần nhất. Hãy đo chiều cao trước khi tiếp tục.';
+  }
+
+  @override
+  String get mgTip1 => 'Không mang giày, gót chân sát tường.';
+
+  @override
+  String get mgTip2 =>
+      'Nhìn thẳng về phía trước và đặt một cuốn sách phẳng lên đầu.';
+
+  @override
+  String get mgTip3 =>
+      'Hãy đo vào buổi sáng. Chiều cao giảm một chút trong ngày.';
+
+  @override
+  String get mgLater => 'Hôm nay tôi chưa đo được';
+
+  @override
+  String get paTitle => 'Câu trả lời cho kế hoạch';
+
+  @override
+  String get paSubtitle =>
+      'Kế hoạch và lời nhắc của bạn dựa trên các câu trả lời này. Đổi một câu là chúng được cập nhật.';
+
+  @override
+  String get paRowSubtitle => 'Ngày tập, mục tiêu và giờ giấc';
+
+  @override
+  String get paWorkout => 'Tập luyện hằng tuần';
+
+  @override
+  String get paGoal => 'Thời lượng chương trình';
+
+  @override
+  String get paBedtime => 'Giờ đi ngủ';
+
+  @override
+  String get paWorkoutTime => 'Giờ tập';
+
+  @override
+  String get restoreDone => 'Đã khôi phục giao dịch mua của bạn.';
 }
