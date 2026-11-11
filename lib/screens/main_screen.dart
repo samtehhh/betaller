@@ -81,7 +81,7 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
         if (provider.measureGateDue) {
           _maybeOpenMeasureGate();
         } else {
-          _maybeOpenDailyPaywall();
+          _maybeOpenReturnPaywall('launch');
         }
         return;
       }
@@ -95,12 +95,29 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
   /// Every return to the app pushes the win-back series out again.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      _leftAt = DateTime.now();
+    }
     if (state == AppLifecycleState.resumed) {
       _queueWinBack();
       PushService.retry();
-      _maybeOpenMeasureGate();
+      final left = _leftAt;
+      _leftAt = null;
+      final provider = context.read<AppProvider>();
+      if (provider.measureGateDue) {
+        _maybeOpenMeasureGate();
+      } else if (left != null &&
+          DateTime.now().difference(left) >= _kReturnAfter) {
+        // Back after being away: the offer again, for someone not on Pro.
+        _maybeOpenReturnPaywall('return');
+      }
     }
   }
+
+  /// When the app went to the background, to tell a real return from the
+  /// seconds a share sheet or a store dialog takes.
+  DateTime? _leftAt;
+  static const _kReturnAfter = Duration(seconds: 30);
 
   bool _measureGateOpen = false;
 
@@ -153,6 +170,9 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     if (tab != null && tab >= 0 && tab < _screens.length && !_tourActive) {
       setState(() => _currentIndex = tab);
     }
+    // A reminder brought them back: the offer follows, for someone not on
+    // Pro, once the tab has landed.
+    _maybeOpenReturnPaywall('push');
   }
 
   @override
@@ -162,17 +182,23 @@ class _MainScreenState extends State<MainScreen> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  /// The first launch of the day, for someone who is not premium, opens the
-  /// offer once after the home screen has landed. Launches that start a tour
-  /// show it after the tour instead.
-  void _maybeOpenDailyPaywall() {
+  /// Every launch, every return after a while away and every tapped
+  /// reminder opens the offer for someone who is not premium, once the tabs
+  /// have landed. (It used to be once a day.) Launches that start a tour
+  /// show it after the tour instead; a due measurement comes first; and it
+  /// never opens over another page or a paywall that is already up.
+  void _maybeOpenReturnPaywall(String source) {
     Future.delayed(const Duration(milliseconds: 1200), () {
-      if (!mounted || _tourActive) return;
-      if (!context.read<AppProvider>().takeDailyPaywallSlot()) return;
+      if (!mounted || _tourActive || _handoff || _measureGateOpen) return;
+      final provider = context.read<AppProvider>();
+      if (provider.isPremium || provider.measureGateDue) return;
+      if (ModalRoute.of(context)?.isCurrent != true) return;
+      // Keeps the tour's own paywall from following this one the same day.
+      provider.takeDailyPaywallSlot();
       showPremiumPaywall(
         context,
         closeDelay: const Duration(seconds: 2),
-        source: 'daily',
+        source: source,
       );
     });
   }
