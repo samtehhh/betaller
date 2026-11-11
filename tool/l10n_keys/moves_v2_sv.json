@@ -1,0 +1,610 @@
+{
+ "pogo_jumps": {
+  "title": "Pogohopp",
+  "desc": "Snabba studsar med stela fotleder belastar skenbenen och fötterna och bygger fjädrande, kraftfulla vader.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stå rak med fötterna höftbrett isär och händerna på höfterna.",
+   "Studsa på framfötterna med nästan raka knän.",
+   "Håll varje markkontakt kort och snabb, som på en hoppstylta.",
+   "Fortsätt i 20 sekunder, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att böja knäna djupt vid varje studs.",
+   "Att låta hälarna smälla i golvet."
+  ],
+  "tip": "Hoppa på ett fast, plant underlag och sluta om det gör ont i smalbenen eller fotlederna."
+ },
+ "jump_squats": {
+  "title": "Hoppande knäböj",
+  "desc": "Gå ner i knäböj och hoppa för benkraft, tungt arbete för de stora musklerna som kroppen svarar på med tillväxthormon efteråt.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stå med fötterna axelbrett isär och bröstet uppe.",
+   "Sjunk ner i en knäböj tills låren är ungefär i höjd med golvet.",
+   "Tryck hårt genom fötterna, hoppa rakt upp och landa mjukt tillbaka i knäböjen.",
+   "Gör 8 hopp, vila och upprepa, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att låta knäna falla inåt vid landningen.",
+   "Att landa med stela, raka ben."
+  ],
+  "tip": "Landa så tyst du kan och avbryt setet när landningarna börjar bli högljudda."
+ },
+ "tuck_jumps": {
+  "title": "Hopp med knäupplyft",
+  "desc": "Hoppa och dra upp knäna för explosiv kraft, den tuffa ansträngning som kroppen svarar på med tillväxthormon efteråt.",
+  "dose": "3 x 6",
+  "steps": [
+   "Stå rak med fötterna höftbrett isär.",
+   "Sjunk snabbt ner i en kvarts knäböj och hoppa så högt du kan.",
+   "Dra båda knäna mot bröstet högst upp och landa sedan mjukt på böjda knän.",
+   "Gör 6 hopp, vila och upprepa, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att böja bröstet ner mot knäna i stället för att lyfta knäna.",
+   "Att landa hårt med raka ben."
+  ],
+  "tip": "Hitta balansen igen mellan hoppen och se till att du har fritt utrymme och ett golv som inte slirar."
+ },
+ "broad_jumps": {
+  "title": "Längdhopp från stående",
+  "desc": "Hoppa framåt med båda fötterna och stå kvar i landningen för att bygga höftkraft och ett starkt skelett i benen.",
+  "dose": "3 x 5",
+  "steps": [
+   "Stå med fötterna höftbrett isär och tårna bakom en linje.",
+   "Svinga armarna bakåt, böj knäna och skjut höfterna bakåt.",
+   "Svinga armarna framåt, hoppa så långt du kan och landa på båda fötterna.",
+   "Håll landningen i en sekund, gå tillbaka och gör 5 hopp, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att falla framåt eller bakåt vid landningen.",
+   "Att landa med knäna spärrade."
+  ],
+  "tip": "Hoppa på ett underlag som inte slirar och hoppa kortare tills du kan hålla varje landning stilla."
+ },
+ "single_leg_hops": {
+  "title": "Hopp på ett ben",
+  "desc": "Små hopp på ett ben stärker fotlederna och skelettet och jämnar ut skillnaden mellan sidorna.",
+  "dose": "2 x 8",
+  "steps": [
+   "Stå på ett ben med den andra foten lyft bakom dig.",
+   "Gör små hopp på stället och landa på framfoten.",
+   "Håll höfterna i våg och det stående knät lätt böjt.",
+   "Gör 8 hopp, byt ben och gör 2 set på varje sida."
+  ],
+  "mistakes": [
+   "Att låta knät på hoppbenet falla inåt.",
+   "Att hoppa så högt att du tappar balansen."
+  ],
+  "tip": "Stå nära en vägg du kan nudda och håll hoppen låga tills balansen känns stabil."
+ },
+ "high_knees": {
+  "title": "Höga knän",
+  "desc": "Spring på stället med knäna i höftnivå för att värma upp snabbt och belasta benen.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stå rak med fötterna höftbrett isär.",
+   "Spring på stället och lyft varje knä till höftnivå.",
+   "Pumpa med armarna och var lätt på framfötterna.",
+   "Fortsätt i 20 sekunder, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att luta sig bakåt när knäna kommer upp.",
+   "Att stampa i golvet med platta fötter."
+  ],
+  "tip": "Sänk tempot till en marsch med höga knän om du blir andfådd."
+ },
+ "mountain_pose": {
+  "title": "Bergställning på tå",
+  "desc": "Res dig på tå och sträck dig uppåt för att sträcka ut ryggraden och öva på att stå rak och utsträckt.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Stå med fötterna ihop och vikten jämnt fördelad på båda fötterna.",
+   "Sträck båda armarna rakt upp med handflatorna mot varandra.",
+   "Res dig på tå och sträck dig upp genom fingertopparna.",
+   "Håll i 20 sekunder och sänk dig långsamt, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att spreta ut revbenen och svanka.",
+   "Att dra upp axlarna mot öronen."
+  ],
+  "tip": "Fäst blicken på en punkt framför dig, eller ha hälarna i golvet om du vinglar."
+ },
+ "pelvic_shift": {
+  "title": "Bäckenlyft kota för kota",
+  "desc": "Lyft och sänk höfterna kota för kota för att lösa upp ryggraden och väcka sätesmusklerna.",
+  "dose": "2 x 10",
+  "steps": [
+   "Ligg på rygg med böjda knän och fötterna platta i golvet.",
+   "Tippa svanskotan inåt och rulla upp ryggraden från golvet nerifrån och upp.",
+   "Pausa högst upp och sänk sedan långsamt, en kota i taget.",
+   "Gör 10 långsamma upprepningar och vila, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att skjuta upp höfterna snabbt i ett stycke.",
+   "Att svanka högst upp."
+  ],
+  "tip": "Rör dig så långsamt att du känner varje del av ryggen nudda golvet."
+ },
+ "table_top": {
+  "title": "Omvänd bordsställning",
+  "desc": "Lyft höfterna till ett platt bord för att öppna bröstet och axlarna och stärka baksidan.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Sitt med böjda knän, fötterna platta och händerna i golvet bakom höfterna.",
+   "Peka med fingrarna mot fötterna och tryck ner i händer och fötter.",
+   "Lyft höfterna tills kroppen är platt från knän till axlar.",
+   "Håll i 15 sekunder och sänk, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att låta höfterna hänga ner i mitten.",
+   "Att tappa huvudet bakåt så att nacken belastas."
+  ],
+  "tip": "Vrid fingrarna utåt åt sidorna om handlederna känns ömma."
+ },
+ "childs_pose": {
+  "title": "Barnets ställning",
+  "desc": "Sitt tillbaka på hälarna med långa armar för att försiktigt sträcka ryggen och låta ryggraden slappna av.",
+  "dose": "2 x 30 s",
+  "steps": [
+   "Knäböj på golvet med stortårna ihop och knäna isär.",
+   "Sänk höfterna bakåt ner på hälarna.",
+   "Gå med händerna framåt och vila pannan i golvet.",
+   "Andas långsamt i 30 sekunder och kom upp, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att lyfta höfterna långt från hälarna för att nå längre.",
+   "Att hålla andan och spänna axlarna."
+  ],
+  "tip": "Lägg en kudde mellan höfterna och hälarna om knäna känns stela."
+ },
+ "puppy_pose": {
+  "title": "Valpställning",
+  "desc": "Låt bröstet sjunka mot golvet för att öppna spända axlar och sträcka överryggen.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Börja på alla fyra med höfterna rakt ovanför knäna.",
+   "Gå med händerna framåt och låt höfterna stå kvar.",
+   "Låt bröstet och pannan sjunka mot golvet.",
+   "Håll i 20 sekunder och kom tillbaka upp, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att låta höfterna glida bakåt mot hälarna.",
+   "Att böja armbågarna och vila dem i golvet."
+  ],
+  "tip": "Vila pannan på en kudde om sträckningen i axlarna känns för stark."
+ },
+ "seated_forward_fold": {
+  "title": "Sittande framåtböjning",
+  "desc": "Böj dig framåt från höfterna över raka ben för att sträcka baksidan av låren och hela ryggen.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Sitt på golvet med raka ben och tårna pekande uppåt.",
+   "Sitt rak och sträck båda armarna över huvudet.",
+   "Böj dig framåt från höfterna och sträck dig mot smalbenen eller fötterna.",
+   "Håll i 20 sekunder och sätt dig upp igen, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att runda överryggen för att nå tårna.",
+   "Att fjädra för att komma djupare i sträckningen."
+  ],
+  "tip": "Böj knäna lite eller sitt på en vikt handduk om ländryggen rundar sig."
+ },
+ "standing_side_stretch": {
+  "title": "Stående sidosträck",
+  "desc": "Luta dig åt varje sida med armarna över huvudet för att sträcka midjan och ge revbenen mer rörlighet.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Stå rak med fötterna höftbrett isär.",
+   "Sträck båda armarna över huvudet och håll ena handleden med andra handen.",
+   "Luta dig långsamt åt ena sidan och tryck båda fötterna mot golvet.",
+   "Håll i 15 sekunder, byt sida och gör 2 set på varje sida."
+  ],
+  "mistakes": [
+   "Att luta sig framåt eller vrida sig i stället för att böja sig rakt åt sidan.",
+   "Att skjuta ut höfterna långt åt sidan."
+  ],
+  "tip": "Föreställ dig att du står mellan två väggar så att du bara kan röra dig åt sidan."
+ },
+ "low_lunge_arch": {
+  "title": "Lågt utfall med sträck uppåt",
+  "desc": "Sjunk fram med höfterna och sträck dig uppåt för att öppna framsidan av höfterna och bröstet.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Kliv fram med ena foten och sänk det bakre knät mot golvet.",
+   "Skjut höfterna framåt tills du känner en stretch på framsidan av den bakre höften.",
+   "Sträck båda armarna uppåt och lyft bröstet i en mjuk båge.",
+   "Håll i 20 sekunder, byt ben och gör 2 set på varje sida."
+  ],
+  "mistakes": [
+   "Att låta det främre knät glida långt förbi tårna.",
+   "Att bara böja sig i ländryggen."
+  ],
+  "tip": "Lägg en vikt handduk under det bakre knät och håll bågen liten."
+ },
+ "bow_pose": {
+  "title": "Bågställning",
+  "desc": "Ta tag i vristerna och lyft bröst och lår för att öppna hela framsidan och stärka ryggen.",
+  "dose": "2 x 10 s",
+  "steps": [
+   "Ligg på mage och böj knäna så att hälarna närmar sig höfterna.",
+   "Sträck dig bakåt och ta tag i båda vristerna.",
+   "Sparka fötterna in i händerna för att lyfta bröst och lår.",
+   "Håll i 10 sekunder och sänk långsamt, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att låta knäna glida isär bredare än höfterna.",
+   "Att kasta huvudet bakåt så att nacken belastas."
+  ],
+  "tip": "Lyft bara så högt som känns bekvämt och hoppa över den här om du har ont i ländryggen."
+ },
+ "pilates_roll_over": {
+  "title": "Pilates Roll Over",
+  "desc": "Rulla benen över huvudet och tillbaka under kontroll för att sträcka ryggraden och träna den djupa bålstyrkan.",
+  "dose": "2 x 5",
+  "steps": [
+   "Ligg på rygg med armarna längs sidorna och benen rakt upp.",
+   "Tryck armarna mot golvet och lyft höfterna för att rulla benen över huvudet.",
+   "Stanna när benen är i höjd med golvet bakom huvudet.",
+   "Rulla tillbaka långsamt, gör 5 upprepningar och vila, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att svinga benen över med fart.",
+   "Att rulla upp på nacken i stället för på axlarna."
+  ],
+  "tip": "Håll vikten på axlarna och aldrig på nacken, och böj knäna för att göra det lättare."
+ },
+ "legs_up_wall": {
+  "title": "Ben uppför väggen",
+  "desc": "Vila benen uppför en vägg för att avlasta ryggraden och varva ner efter en lång dag.",
+  "dose": "3 min",
+  "steps": [
+   "Sitt på sidan intill en vägg med ena höften mot den.",
+   "Sväng upp benen uppför väggen medan du lägger dig ner på golvet.",
+   "Låt armarna vila längs sidorna och slappna av i benen mot väggen.",
+   "Stanna i 3 minuter och andas långsamt."
+  ],
+  "mistakes": [
+   "Att lyfta ländryggen från golvet.",
+   "Att spärra knäna hårt och spänna benen."
+  ],
+  "tip": "Flytta höfterna lite bort från väggen om baksidan av benen känns stram."
+ },
+ "spinal_twist": {
+  "title": "Liggande ryggradsvridning",
+  "desc": "Låt ena knät falla över kroppen för att försiktigt vrida ryggraden och lösa upp en stel ländrygg.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Ligg på rygg med armarna utsträckta åt sidorna.",
+   "Böj ena knät och för det över kroppen mot golvet.",
+   "Håll båda axlarna i golvet och titta åt motsatt håll.",
+   "Håll i 20 sekunder, byt sida och gör 2 set på varje sida."
+  ],
+  "mistakes": [
+   "Att låta motsatt axel lyfta från golvet.",
+   "Att tvinga ner knät med handen."
+  ],
+  "tip": "Vila knät på en kudde om det inte når golvet."
+ },
+ "chest_stretch": {
+  "title": "Bröststretch i dörröppning",
+  "desc": "Kliv genom en dörröppning med underarmen mot karmen för att öppna ett bröst som blivit framåtrundat av skärmar.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Stå i en dörröppning och lägg ena underarmen mot karmen med armbågen i axelhöjd.",
+   "Kliv fram med foten på samma sida genom dörröppningen.",
+   "Luta bröstet framåt tills du känner en stretch över framsidan av axeln.",
+   "Håll i 20 sekunder, byt sida och gör 2 set på varje sida."
+  ],
+  "mistakes": [
+   "Att svanka för att luta sig längre.",
+   "Att dra upp axeln mot örat."
+  ],
+  "tip": "Håll stretchen mjuk och backa om du känner ett nyp i axeln."
+ },
+ "scapular_retraction": {
+  "title": "Skulderbladsknip",
+  "desc": "Knip ihop skulderbladen bakåt och nedåt för att träna musklerna som hindrar axlarna från att rundas framåt.",
+  "dose": "2 x 10",
+  "steps": [
+   "Sitt eller stå rakt med armarna avslappnade längs sidorna.",
+   "Dra skulderbladen bakåt och nedåt, som om du stoppade ner dem i bakfickorna.",
+   "Håll kvar knipet under ett långsamt andetag och släpp sedan.",
+   "Gör 10 upprepningar och vila, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att dra upp axlarna medan du knipar.",
+   "Att skjuta fram revbenen och svanka."
+  ],
+  "tip": "Håll hakan i våg och nacken avslappnad hela tiden."
+ },
+ "thoracic_extension": {
+  "title": "Överrygg över en stolsrygg",
+  "desc": "Luta överryggen bakåt över en stol för att häva hopsjunkenheten från sittandet och öppna bröstet.",
+  "dose": "2 x 8",
+  "steps": [
+   "Sitt på en stadig stol med ryggstödets överkant strax under skulderbladen.",
+   "Lägg händerna bakom huvudet och håll armbågarna brett.",
+   "Luta överryggen långsamt bakåt över stolsryggen och titta uppåt.",
+   "Kom upp igen, gör 8 upprepningar och vila, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att böja sig i ländryggen i stället för i överryggen.",
+   "Att dra huvudet framåt med händerna."
+  ],
+  "tip": "Använd en stol som inte kan rulla eller tippa och ha fötterna platta i golvet."
+ },
+ "hanging_knee_raise": {
+  "title": "Knälyft i häng",
+  "desc": "Lyft knäna medan du hänger för att bygga en stark bål, samtidigt som hänget avlastar ryggraden.",
+  "dose": "3 x 5",
+  "steps": [
+   "Ta tag i stången med överhandsgrepp och häng med raka armar.",
+   "Dra ner axlarna bort från öronen.",
+   "Lyft båda knäna till höftnivå utan att svinga och sänk dem sedan långsamt.",
+   "Gör 5 upprepningar, kliv ner och vila, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att svinga kroppen för att kasta upp knäna.",
+   "Att hänga med axlarna uppe vid öronen."
+  ],
+  "tip": "Kontrollera att stången är stabil innan du hänger dig och kliv ner i stället för att släppa dig."
+ },
+ "scapular_pull": {
+  "title": "Skulderbladsdrag i häng",
+  "desc": "Dra ner axlarna från ett häng med raka armar för att bygga grunden för starka pull-ups.",
+  "dose": "3 x 5",
+  "steps": [
+   "Ta tag i stången med överhandsgrepp, händerna något bredare än axlarna.",
+   "Häng med raka armar och låt axlarna glida upp mot öronen.",
+   "Dra skulderbladen nedåt så att kroppen lyfts lite, med raka armbågar.",
+   "Håll en sekund och släpp, gör 5 upprepningar, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att böja armbågarna för att dra högre.",
+   "Att svinga benen för att hjälpa till."
+  ],
+  "tip": "Kontrollera att stången är stabil och ha fötterna på en låda om ett helt häng är för tungt."
+ },
+ "pull_ups": {
+  "title": "Pull-ups",
+  "desc": "Dra hakan över stången för att bygga ryggen, tungt arbete som kroppen svarar på med tillväxthormon efteråt.",
+  "dose": "3 x 2",
+  "steps": [
+   "Ta tag i stången med överhandsgrepp, händerna något bredare än axlarna.",
+   "Börja i ett häng med raka armar och dra skulderbladen nedåt.",
+   "Dra tills hakan går över stången och sänk dig sedan långsamt.",
+   "Gör 2 upprepningar, kliv ner och vila, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att sparka och svinga för att komma över stången.",
+   "Att släppa sig ner snabbt i stället för att sänka sig under kontroll."
+  ],
+  "tip": "Lägg ett gummiband under fötterna eller hoppa upp och sänk dig långsamt, och kontrollera att stången är stabil."
+ },
+ "bird_dog": {
+  "title": "Bird Dog",
+  "desc": "Sträck ut motsatt arm och ben långt för att träna de djupa musklerna som håller ryggraden stadig.",
+  "dose": "2 x 8",
+  "steps": [
+   "Börja på alla fyra med händerna under axlarna och knäna under höfterna.",
+   "Sträck ena armen framåt och motsatt ben rakt bakåt.",
+   "Håll i två sekunder med höfterna i våg och återgå sedan.",
+   "Gör 8 upprepningar, byt sida och gör 2 set på varje sida."
+  ],
+  "mistakes": [
+   "Att låta ländryggen hänga ner när benet lyfts.",
+   "Att vrida upp höfterna för att få benet högre."
+  ],
+  "tip": "Tänk dig ett glas vatten på ländryggen som inte får spillas."
+ },
+ "dead_bug": {
+  "title": "Dead Bug",
+  "desc": "Sänk motsatt arm och ben med platt rygg för att bygga bålkontroll som skyddar ryggraden.",
+  "dose": "2 x 8",
+  "steps": [
+   "Ligg på rygg med armarna rakt upp och knäna böjda ovanför höfterna.",
+   "Tryck ländryggen försiktigt mot golvet.",
+   "Sänk ena armen över huvudet och motsatt ben mot golvet, och återgå sedan.",
+   "Gör 8 upprepningar på varje sida och vila, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att låta ländryggen välvas bort från golvet.",
+   "Att rusa igenom upprepningarna."
+  ],
+  "tip": "Sänk armen och benet bara så långt att ryggen kan vara platt mot golvet."
+ },
+ "side_plank": {
+  "title": "Sidoplanka",
+  "desc": "Håll en rak linje på en underarm för att stärka sidomusklerna som håller hållningen jämn.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Ligg på sidan med underarmen i golvet och armbågen under axeln.",
+   "Lägg fötterna ovanpå varandra och lyft höfterna från golvet.",
+   "Håll kroppen i en rak linje från huvud till hälar.",
+   "Håll i 15 sekunder, byt sida och gör 2 set på varje sida."
+  ],
+  "mistakes": [
+   "Att låta höfterna sjunka mot golvet.",
+   "Att rulla bröstet framåt mot golvet."
+  ],
+  "tip": "Ha det nedre knät i golvet för att göra det lättare."
+ },
+ "wall_sit": {
+  "title": "Väggsittning",
+  "desc": "Sitt mot en vägg med låren i våg för att bygga benstyrka med rak rygg.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stå med ryggen mot en vägg och fötterna ett steg framför dig.",
+   "Glid ner tills låren är i höjd med golvet.",
+   "Ha knäna ovanför vristerna och hela ryggen mot väggen.",
+   "Håll i 20 sekunder och res dig, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att vila händerna på låren.",
+   "Att låta knäna glida fram förbi tårna."
+  ],
+  "tip": "Sitt lite högre om knäna protesterar och gå ner lägre när du blir starkare."
+ },
+ "lunges": {
+  "title": "Utfall",
+  "desc": "Kliv framåt och böj båda knäna för att bygga starka ben och höfter, en sida i taget.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stå rak med fötterna höftbrett isär.",
+   "Ta ett stort steg framåt och sänk dig tills båda knäna är böjda till ungefär 90 grader.",
+   "Tryck ifrån genom den främre hälen och kliv tillbaka till start.",
+   "Gör 8 upprepningar på varje ben och vila, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att låta det främre knät falla inåt.",
+   "Att luta bröstet långt framåt över det främre benet."
+  ],
+  "tip": "Ta ett kortare steg eller håll i en stol för balans tills rörelsen känns stabil."
+ },
+ "step_ups": {
+  "title": "Step-ups",
+  "desc": "Kliv upp och stå rak, sänk dig sedan långsamt, för att bygga enbensstyrka och balans.",
+  "dose": "3 x 8",
+  "steps": [
+   "Ställ dig framför ett steg eller en stadig låg bänk.",
+   "Sätt hela ena foten på steget och tryck upp tills du står rak.",
+   "Sänk den andra foten långsamt tillbaka till golvet.",
+   "Gör 8 upprepningar på varje ben och vila, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att trycka ifrån hårt med foten som står på golvet.",
+   "Att släppa sig ner snabbt i stället för att sänka sig under kontroll."
+  ],
+  "tip": "Använd ett steg som inte kan glida eller tippa och börja lågt innan du går högre."
+ },
+ "push_ups": {
+  "title": "Armhävningar",
+  "desc": "Sänk bröstet mot golvet med rak kropp för att bygga bröst, armar och bål.",
+  "dose": "3 x 5",
+  "steps": [
+   "Placera händerna i golvet något bredare än axlarna.",
+   "Kliv bakåt med fötterna så att kroppen bildar en rak linje.",
+   "Böj armbågarna för att sänka bröstet mot golvet och tryck sedan upp igen.",
+   "Gör 5 upprepningar och vila, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att låta höfterna sjunka mot golvet.",
+   "Att sprida armbågarna rakt ut åt sidorna."
+  ],
+  "tip": "Gå ner på knä eller ha händerna på en bänk för att göra det lättare."
+ },
+ "single_leg_calf_raise": {
+  "title": "Tåhävning på ett ben",
+  "desc": "Res dig på en fot från kanten av ett steg för att bygga starka vader och fotleder för hopp.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stå på kanten av ett steg med framfoten på ena foten och håll i en vägg eller ett räcke.",
+   "Sänk hälen långsamt under stegets nivå.",
+   "Res dig så högt du kan upp på tå och pausa en sekund.",
+   "Gör 8 upprepningar på varje ben och vila, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att studsa upp ur det nedre läget i stället för att röra sig långsamt.",
+   "Att böja knät för att hjälpa vaden."
+  ],
+  "tip": "Börja med kroppsvikt, och om du lägger till en hantel eller en ryggsäck, välj en vikt som är lätt nog för att klara varje upprepning med bra teknik."
+ },
+ "goblet_squat": {
+  "title": "Goblet Squat",
+  "desc": "Gör knäböj med en vikt mot bröstet, en ansträngning för de stora musklerna som kroppen svarar på med tillväxthormon efteråt.",
+  "dose": "3 x 8",
+  "steps": [
+   "Håll en hantel eller en lastad ryggsäck mot bröstet med båda händerna.",
+   "Stå med fötterna axelbrett isär och tårna lätt utåt.",
+   "Sjunk ner mellan hälarna med bröstet uppe och res dig sedan upp igen.",
+   "Gör 8 upprepningar och vila, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att låta knäna falla inåt.",
+   "Att runda ryggen och låta bröstet sjunka."
+  ],
+  "tip": "Välj en vikt som är lätt nog för att klara varje upprepning med bra teknik."
+ },
+ "dumbbell_deadlift": {
+  "title": "Rumänsk marklyft med hantlar",
+  "desc": "Böj dig i höfterna med rak rygg, tungt arbete för de stora musklerna som kroppen svarar på med tillväxthormon efteråt.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stå rak med en hantel i varje hand framför låren.",
+   "Mjuka upp knäna och skjut höfterna bakåt med rak rygg.",
+   "Låt hantlarna glida nedför låren till strax under knäna.",
+   "Kläm ihop sätet för att resa dig, gör 8 upprepningar, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att runda ryggen när vikterna går ner.",
+   "Att göra om det till en knäböj genom att böja knäna mycket."
+  ],
+  "tip": "Välj en vikt som är lätt nog för att klara varje upprepning med bra teknik."
+ },
+ "dumbbell_row": {
+  "title": "Hantelrodd",
+  "desc": "Dra en hantel mot höften för att bygga de muskler i överryggen som drar axlarna bakåt.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stötta ena handen på en bänk eller stol och kliv bakåt med fötterna.",
+   "Håll en hantel i den andra handen med rak rygg och armen hängande rakt ner.",
+   "Dra vikten mot höften med armbågen nära kroppen och sänk den sedan långsamt.",
+   "Gör 8 upprepningar på varje sida och vila, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att vrida kroppen för att slänga upp vikten.",
+   "Att dra upp axeln mot örat."
+  ],
+  "tip": "Välj en vikt som är lätt nog för att klara varje upprepning med bra teknik."
+ },
+ "farmer_carry": {
+  "title": "Farmer's Carry",
+  "desc": "Gå rak med en vikt i varje hand, ett arbete för hela kroppen som kroppen svarar på med tillväxthormon efteråt.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Ställ dig mellan två hantlar eller två lastade väskor.",
+   "Böj knäna, håll ryggen rak och lyft dem.",
+   "Gå med små steg, axlarna bakåt och blicken framåt.",
+   "Gå i 20 sekunder, ställ ner dem och vila, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att luta sig åt ena sidan eller låta axlarna rundas framåt.",
+   "Att runda ryggen när du lyfter eller ställer ner vikterna."
+  ],
+  "tip": "Välj en vikt som är lätt nog för att klara varje set med bra teknik och håll båda sidorna lika."
+ },
+ "band_pull_apart": {
+  "title": "Band Pull-Apart",
+  "desc": "Dra isär ett gummiband mot bröstet för att stärka överryggen och hålla axlarna öppna.",
+  "dose": "2 x 12",
+  "steps": [
+   "Stå rak och håll ett gummiband framför dig med raka armar i axelhöjd.",
+   "Dra isär bandet genom att knipa ihop skulderbladen.",
+   "Nudda bröstet med bandet och återgå sedan långsamt.",
+   "Gör 12 upprepningar och vila, 2 set totalt."
+  ],
+  "mistakes": [
+   "Att dra upp axlarna mot öronen.",
+   "Att låta bandet smälla tillbaka i stället för att återgå långsamt."
+  ],
+  "tip": "Välj ett band som är lätt nog för att klara varje upprepning med bra teknik och kontrollera först att det inte har revor."
+ },
+ "burpees": {
+  "title": "Burpees",
+  "desc": "Knäböj, planka och hopp i en och samma rörelse, ett arbete för hela kroppen som kroppen svarar på med tillväxthormon efteråt.",
+  "dose": "3 x 5",
+  "steps": [
+   "Stå rak, gå sedan ner i knäböj och sätt händerna i golvet.",
+   "Hoppa fötterna bakåt till en rak planka.",
+   "Hoppa fötterna tillbaka in mot händerna.",
+   "Hoppa rakt upp, gör 5 upprepningar och vila, 3 set totalt."
+  ],
+  "mistakes": [
+   "Att låta höfterna hänga ner i plankan.",
+   "Att landa hårt med raka ben efter hoppet."
+  ],
+  "tip": "Kliv fötterna bakåt och in i stället för att hoppa för att göra det lättare, och sakta ner om tekniken försämras."
+ }
+}

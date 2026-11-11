@@ -968,7 +968,7 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get tipBarHanging =>
-      'Zwis na drążku odciąża kręgosłup. Spróbuj 3x30 sekund dziennie.';
+      'Zwis na drążku rozciąga barki i plecy. Spróbuj 3x30 sekund dziennie.';
 
   @override
   String get tipSwimming =>
@@ -990,7 +990,7 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get routineBarHangingDesc =>
-      'Zawiśnij na drążku, aby rozciągnąć kręgosłup. 3 serie x 30 sekund.';
+      'Zawiśnij na drążku, aby rozciągnąć barki i plecy. 3 serie x 30 sekund.';
 
   @override
   String get routineCobraStretch => 'Pozycja kobry';
@@ -1004,14 +1004,14 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get routineJumpingDesc =>
-      'Skakanka lub wyskoki z przysiadu. Pobudzają chrząstki wzrostowe. 3 serie x 20 powtórzeń.';
+      'Skakanka lub przysiady z wyskokiem. Pomaga wzmacniać kości. 3 serie x 20 powtórzeń.';
 
   @override
   String get routineSwimming => 'Pływanie lub koszykówka';
 
   @override
   String get routineSwimmingDesc =>
-      'Uprawiaj sport, który wspiera wzrost. Co najmniej 30 minut.';
+      'Uprawiaj sport, który lubisz, dla kondycji i siły. Co najmniej 30 minut.';
 
   @override
   String get routineYoga => 'Wieczorna joga i rozciąganie';
@@ -1081,42 +1081,42 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get routineSprintIntervalsDesc =>
-      'Interwały sprinterskie wywołują wyraźny wyrzut hormonu wzrostu dzięki krótkim, intensywnym zrywom.';
+      'Krótkie sprinty z marszem na odpoczynek poprawiają kondycję i siłę nóg.';
 
   @override
   String get routineHiitWorkout => 'Trening HIIT';
 
   @override
   String get routineHiitWorkoutDesc =>
-      'Intensywny trening interwałowy, który maksymalizuje wydzielanie hormonu wzrostu.';
+      'Trening interwałowy o wysokiej intensywności poprawia kondycję i siłę.';
 
   @override
   String get routineSquats => 'Przysiady';
 
   @override
   String get routineSquatsDesc =>
-      'Przysiady bez obciążenia pobudzają chrząstki wzrostowe w nogach i kręgosłupie.';
+      'Przysiady z masą ciała wzmacniają nogi i mięśnie odpowiedzialne za postawę.';
 
   @override
   String get routineDeadliftStretch => 'Rozciąganie w skłonie';
 
   @override
   String get routineDeadliftStretchDesc =>
-      'Rozciąganie w pozycji martwego ciągu odciąża kręgosłup i wspiera zdrowie krążków międzykręgowych.';
+      'Rozciąganie w stylu martwego ciągu dla elastycznych mięśni dwugłowych uda i silniejszych pleców.';
 
   @override
   String get routineOverheadPress => 'Wyciskanie nad głowę';
 
   @override
   String get routineOverheadPressDesc =>
-      'Wyciskanie nad głowę rozciąga kręgosłup i wzmacnia mięśnie postawy.';
+      'Wyciskanie nad głowę wzmacnia barki i mięśnie odpowiedzialne za postawę.';
 
   @override
   String get routineSkippingRope => 'Skakanka';
 
   @override
   String get routineSkippingRopeDesc =>
-      'Powtarzane skoki na skakance pobudzają chrząstki wzrostowe w nogach.';
+      'Powtarzane skoki na skakance obciążają kości nóg i pomagają je wzmacniać.';
 
   @override
   String get routinePilatesCore => 'Pilates na core';
@@ -1130,7 +1130,7 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get routineInversionHangDesc =>
-      'Zwis głową w dół odciąża krążki międzykręgowe i może chwilowo dodać 1-2 cm.';
+      'Zwis głową w dół może rozluźnić mięśnie pleców. Każda zmiana wzrostu jest tymczasowa.';
 
   @override
   String get routineZincIntake => 'Produkty bogate w cynk';
@@ -2406,10 +2406,10 @@ class AppLocalizationsPl extends AppLocalizations {
       'Wybrane przepisy, które dodają energii do wzrostu. Filtruj według rodzaju posiłku lub celu odżywczego, by znaleźć coś idealnego do swojego planu.';
 
   @override
-  String get animHintSpinalDecomp => 'Odciążenie kręgosłupa';
+  String get animHintSpinalDecomp => 'Rozciąganie barków i pleców';
 
   @override
-  String get animHintGravityReversal => 'Odwrócenie grawitacji';
+  String get animHintGravityReversal => 'Rozluźnienie pleców';
 
   @override
   String get animHintImpactBones => 'Obciążenie udarowe kości';
@@ -2427,7 +2427,7 @@ class AppLocalizationsPl extends AppLocalizations {
   String get animHintSpinalExtension => 'Wyprost kręgosłupa';
 
   @override
-  String get animHintCervicalDecomp => 'Odciążenie odcinka szyjnego';
+  String get animHintCervicalDecomp => 'Rozluźnienie szyi';
 
   @override
   String get animHintShoulderMobility => 'Mobilność barków';
@@ -2472,13 +2472,13 @@ class AppLocalizationsPl extends AppLocalizations {
   String get animHintCoreStability => 'Stabilność korpusu';
 
   @override
-  String get animHintLegPower => 'Siła nóg i wyrzut HGH';
+  String get animHintLegPower => 'Siła nóg';
 
   @override
   String get animHintVerticalPower => 'Moc wyskoku';
 
   @override
-  String get animHintHghSurge => 'Trening na wyrzut HGH';
+  String get animHintHghSurge => 'Trening o wysokiej intensywności';
 
   @override
   String get animHintPeakHgh => 'Okno szczytu HGH';
@@ -2501,7 +2501,7 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get formBarHanging =>
-      'Chwyć drążek na szerokość barków, rozluźnij całe ciało i pozwól grawitacji rozciągnąć kręgosłup. Nie bujaj się.';
+      'Chwyć drążek na szerokość barków, rozluźnij ciało i poczuj rozciąganie w barkach i plecach. Unikaj bujania się.';
 
   @override
   String get formCobraStretch =>
@@ -2617,50 +2617,51 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get sciMorningStretch =>
-      'Poranne rozciąganie odciąża krążki międzykręgowe, które nawodniły się w nocy, pomagając zachować wzrost';
+      'Poranne rozciąganie zmniejsza sztywność po nocy i pobudza mięśnie do ruchu';
 
   @override
   String get sciBarHanging =>
-      'Zwis odciąża krążki międzykręgowe, wykorzystując grawitację do rozciągnięcia kręgosłupa, co może chwilowo dodać wzrostu';
+      'Zwis rozciąga barki i plecy oraz ćwiczy siłę chwytu. Każda zmiana wzrostu jest tymczasowa';
 
   @override
   String get sciCobraStretch =>
-      'Pozycja kobry wydłuża kręgosłup i otwiera klatkę piersiową, przeciwdziałając uciskowi od siedzenia';
+      'Pozycja kobry otwiera klatkę piersiową i zmniejsza sztywność po długim siedzeniu';
 
   @override
   String get sciJumping =>
-      'Intensywne skoki pobudzają chrząstki wzrostowe w nogach i wywołują wydzielanie hormonu wzrostu';
+      'Skoki o wysokim impakcie obciążają kości i pomagają je wzmacniać w okresie dojrzewania';
 
   @override
   String get sciSwimmingBasketball =>
-      'Pływanie i koszykówka to rozciąganie całego ciała, skoki i sięganie, które pobudzają chrząstki wzrostowe';
+      'Pływanie i koszykówka poprawiają kondycję, koordynację i siłę, a skoki w koszykówce pomagają wzmacniać kości';
 
   @override
   String get sciEveningYoga =>
-      'Wieczorna joga obniża kortyzol, który hamuje hormon wzrostu, i rozciąga mięśnie przed nocną regeneracją';
+      'Wieczorna joga pomaga się wyciszyć i rozluźnia mięśnie przed snem';
 
   @override
   String get sciSprintIntervals =>
-      'Sprinty wywołują wyraźny wyrzut hormonu wzrostu';
+      'Krótkie sprinty z marszem na odpoczynek poprawiają kondycję i siłę nóg';
 
   @override
-  String get sciHiitWorkout => 'Intensywny wysiłek zwiększa HGH nawet o 450%';
+  String get sciHiitWorkout =>
+      'Trening interwałowy o wysokiej intensywności poprawia kondycję i siłę';
 
   @override
   String get sciSquats =>
-      'Przysiady pobudzają chrząstki wzrostowe w nogach i kręgosłupie';
+      'Przysiady z masą ciała wzmacniają nogi i mięśnie odpowiedzialne za postawę';
 
   @override
   String get sciDeadliftStretch =>
-      'Odciążenie kręgosłupa wspiera zdrowie krążków międzykręgowych';
+      'Rozciąganie w stylu martwego ciągu dla elastycznych mięśni dwugłowych uda i silniejszych pleców';
 
   @override
   String get sciOverheadPress =>
-      'Wyciskanie nad głowę rozciąga kręgosłup i wzmacnia mięśnie postawy';
+      'Wyciskanie nad głowę wzmacnia barki i mięśnie odpowiedzialne za postawę';
 
   @override
   String get sciSkippingRope =>
-      'Powtarzane skoki pobudzają chrząstki wzrostowe w nogach';
+      'Powtarzane skoki na skakance obciążają kości nóg i pomagają je wzmacniać';
 
   @override
   String get sciPilatesCore =>
@@ -2668,7 +2669,7 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get sciInversionHang =>
-      'Zwis głową w dół odciąża krążki międzykręgowe i może chwilowo dodać 1-2 cm';
+      'Zwis głową w dół może rozluźnić mięśnie pleców. Każda zmiana wzrostu jest tymczasowa';
 
   @override
   String get sciProtein =>
@@ -3270,7 +3271,7 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get notifJumpBody =>
-      'Skoki pobudzają chrząstki wzrostowe. Spróbuj 3 x 20 powtórzeń!';
+      'Skakanie pomaga wzmacniać kości. Spróbuj 3 x 20 powtórzeń!';
 
   @override
   String get notifCalciumTitle => '🥛 Czas na wapń!';
@@ -6621,4 +6622,726 @@ class AppLocalizationsPl extends AppLocalizations {
   String obBudgetTrial(String days) {
     return 'Albo najpierw wypróbuj za darmo przez $days dni.';
   }
+
+  @override
+  String get obNameTitle => 'Jak mamy do ciebie mówić?';
+
+  @override
+  String get obNameSubtitle =>
+      'Opcjonalnie. Użyjemy tego w planie i przypomnieniach.';
+
+  @override
+  String get obNameHint => 'Twoje imię';
+
+  @override
+  String get nWb1Title => 'Wczoraj odpuszczone';
+
+  @override
+  String nWb1Body(String height) {
+    return 'Twój plan na $height wciąż czeka. 10 minut i po sprawie.';
+  }
+
+  @override
+  String get nWb2Title => 'Odpuszczasz swój wzrost?';
+
+  @override
+  String get nWb2Body => 'Twój plan mówi, że to jeszcze nie koniec.';
+
+  @override
+  String nWb3Title(String gain) {
+    return 'A co z $gain?';
+  }
+
+  @override
+  String get nWb3Body =>
+      'To ta część prognozy, na którą wpływają twoje nawyki.';
+
+  @override
+  String nWb5Title(String name) {
+    return '$name, twój wykres stoi w miejscu';
+  }
+
+  @override
+  String get nWb5TitleNoName => 'Twój wykres stoi w miejscu';
+
+  @override
+  String get nWb5Body => 'Od 5 dni brak nowego pomiaru. Ile masz teraz?';
+
+  @override
+  String get nWb7Title => 'Tydzień minął';
+
+  @override
+  String get nWb7Body => 'Twoi znajomi w tym tygodniu dalej rośli. A ty?';
+
+  @override
+  String get nWb10Title => 'Twoja prognoza mogła się zmienić';
+
+  @override
+  String get nWb10Body => 'Zmierz się raz i zobacz nową liczbę.';
+
+  @override
+  String nWb14Title(String height) {
+    return 'Dalej $height?';
+  }
+
+  @override
+  String get nWb14Body =>
+      'Dwa tygodnie od ostatniego pomiaru. Zmierz się i sprawdź.';
+
+  @override
+  String get nWb21Title => 'Nadal chcesz swój plan?';
+
+  @override
+  String get nWb21Body => 'Jest zapisany. Jedno stuknięcie i wracasz.';
+
+  @override
+  String nWb30Title(String name) {
+    return 'Ostatnia wiadomość, $name';
+  }
+
+  @override
+  String get nWb30TitleNoName => 'Ostatnia wiadomość';
+
+  @override
+  String get nWb30Body => 'Twoje dane są wciąż zapisane. Wróć, kiedy zechcesz.';
+
+  @override
+  String nTrainHookTitle(int minutes) {
+    return '$minutes min dzieli cię od dzisiejszego planu';
+  }
+
+  @override
+  String get nWaterHookTitle => 'Woda już była?';
+
+  @override
+  String nWaterHookBody(String liters) {
+    return '$liters na dziś. Teraz jedna szklanka.';
+  }
+
+  @override
+  String nProteinHookTitle(int grams) {
+    return '$grams g białka na dziś. Już zaczęte?';
+  }
+
+  @override
+  String nSleepHookTitle(String name) {
+    return 'Odłóż telefon, $name';
+  }
+
+  @override
+  String get nSleepHookTitleNoName => 'Odłóż telefon';
+
+  @override
+  String get nMeasureHookTitle => 'Są nowe centymetry w tym tygodniu?';
+
+  @override
+  String get nMeasureHookBody => 'Zmierz się rano i sprawdź.';
+
+  @override
+  String nStreakHookTitle(int streak) {
+    return 'Dziś w nocy przepada twoja seria: $streak dni';
+  }
+
+  @override
+  String get nStreakHookBody => 'Jedna rutyna ją uratuje.';
+
+  @override
+  String get nPostureHookTitle => 'Sprawdź teraz swoje plecy';
+
+  @override
+  String get nPostureHookBody => 'Barki do tyłu, broda prosto.';
+
+  @override
+  String hkReturn(int days) {
+    return 'Dni bez aplikacji: $days. Zobaczmy, co się zmieniło.';
+  }
+
+  @override
+  String hkHabits(String gain) {
+    return '$gain Twojej prognozy zależy od Twoich nawyków';
+  }
+
+  @override
+  String hkStreakDay(int day) {
+    return 'Dzień $day. Twoją serię trudniej teraz przerwać.';
+  }
+
+  @override
+  String get hkPredictionUpdated =>
+      'Twoja prognoza właśnie się zmieniła. Dotknij, aby zobaczyć.';
+
+  @override
+  String get hkMeasureDue => 'Twój wykres czeka na wynik z tego tygodnia';
+
+  @override
+  String get hkLeaveTitle =>
+      'Twój plan jest gotowy. Wychodzisz bez otwierania?';
+
+  @override
+  String get hkLeaveOpen => 'Pokaż mój plan';
+
+  @override
+  String get rsLockedSubtitle =>
+      'Obliczyliśmy, ile możesz urosnąć. Twój wynik jest zablokowany poniżej.';
+
+  @override
+  String get rsUnlock => 'Odblokuj mój wynik';
+
+  @override
+  String get rsPaywallHeadline => 'Twój wynik już jest. Otwieramy?';
+
+  @override
+  String get rsLockedChart => 'Zobacz, dokąd zmierzasz';
+
+  @override
+  String get rsLineHeight => 'Twój wzrost w dorosłości';
+
+  @override
+  String get rsLineGrowth => 'Ile jeszcze urośniesz';
+
+  @override
+  String get rsLineRank => 'Twoje miejsce wśród rówieśników';
+
+  @override
+  String get rsProgressTitle => 'Twoje serie i postępy';
+
+  @override
+  String get rsStageStart => 'Start';
+
+  @override
+  String get rsStageNow => 'Coraz silniej';
+
+  @override
+  String get rsStagePeak => 'Pełna moc';
+
+  @override
+  String get rsLevelLine => 'Serie, postępy i siła';
+
+  @override
+  String get pwBuyWeekly => 'Rozpocznij plan tygodniowy';
+
+  @override
+  String get pwBuyMonthly => 'Rozpocznij plan miesięczny';
+
+  @override
+  String get pwBuyLifetime => 'Kup dostęp dożywotni';
+
+  @override
+  String get obGenderSub => 'U chłopców i dziewczyn wzrost przebiega inaczej.';
+
+  @override
+  String get obBirthSub =>
+      'Wystarczy miesiąc i rok. Dzięki temu wiemy, na jakim etapie wzrostu jesteś.';
+
+  @override
+  String obAgeLine(int age) {
+    return 'Twój wiek: $age';
+  }
+
+  @override
+  String get obAgeReplyGrowing =>
+      'Jesteś w wieku wzrostu. To naprawdę ten czas, w którym razem popracujemy nad twoim wzrostem!';
+
+  @override
+  String get obAgeReplyLate =>
+      'W tym wieku wzrost zwalnia, ale nie u każdego kończy się w tym samym czasie. Twój za chwilę policzymy.';
+
+  @override
+  String get obAgeReplyAdult =>
+      'W tym wieku kości rzadko się wydłużają. Twój plan stawia na postawę: tam wracają centymetry stracone przez garbienie się.';
+
+  @override
+  String get obHwSub => 'Szacunek zaczyna się od twojego dzisiejszego wzrostu.';
+
+  @override
+  String get obFootSub =>
+      'Stopy rosną wcześniej niż reszta ciała, więc twój rozmiar mówi coś o tym, na jakim jesteś etapie.';
+
+  @override
+  String obFootLength(String length) {
+    return 'Około $length';
+  }
+
+  @override
+  String get obWorkoutSub =>
+      'Na tej podstawie ustawiamy twoje cele białka i kalorii.';
+
+  @override
+  String obNameNotif(String name) {
+    return '$name, twój plan na dziś jest gotowy';
+  }
+
+  @override
+  String get obNameNotifAnon => 'Twój plan na dziś jest gotowy';
+
+  @override
+  String get obNameNotifBody => 'Kilka ćwiczeń, około 15 minut.';
+
+  @override
+  String get obNamePreviewLabel => 'Tak będą wyglądać twoje przypomnienia';
+
+  @override
+  String get obReplyTriedStopped =>
+      'W takim razie obiecujemy, że z BeTaller nie zrezygnujesz!';
+
+  @override
+  String get obReplyTriedStill =>
+      'W takim razie szybko zobaczysz różnicę. Oprócz liczby BeTaller daje ci plan do odhaczania każdego dnia.';
+
+  @override
+  String get obReplyTriedFirst =>
+      'W takim razie naprawdę witamy! To jeden z najlepszych wyborów na twojej drodze do większego wzrostu.';
+
+  @override
+  String get obReplyWhyConfidence =>
+      'Kto stoi prosto, wygląda na wyższego i bardziej swobodnego. Twój plan zaczyna od postawy.';
+
+  @override
+  String get obReplyWhyImpression =>
+      'Pierwsze wrażenie to w dużej mierze to, jak stoisz. Zaczynamy od tego w pierwszym tygodniu.';
+
+  @override
+  String get obReplyWhySports =>
+      'Rozciąganie i zwisy pomagają też na boisku. W twoim planie jest jedno i drugie.';
+
+  @override
+  String get obReplyWhyClothes =>
+      'Te same ubrania inaczej leżą na prostych plecach. Tym zajmiemy się najpierw.';
+
+  @override
+  String get obReplyWhyPhotos =>
+      'Na zdjęciach to postawa najbardziej zmienia twój wzrost. W aplikacji możesz też porównać zdjęcia przed i po.';
+
+  @override
+  String get obReplyWhyPotential =>
+      'Jasne. Jeszcze kilka pytań i policzymy twój potencjał.';
+
+  @override
+  String get obReplyWorkoutLow =>
+      'Nie szkodzi. Twój plan zaczyna się od krótkich sesji, zwykle około 15 minut.';
+
+  @override
+  String get obReplyWorkoutMid =>
+      'Dobre tempo. Przy takim rytmie plan łatwo się zmieści.';
+
+  @override
+  String get obReplyWorkoutHigh =>
+      'Dużo trenujesz. Odpowiednio podnosimy twój cel białka.';
+
+  @override
+  String get obReplyFirstWardrobe =>
+      'Możesz już myśleć o nowej długości spodni.';
+
+  @override
+  String get obReplyFirstMuscle =>
+      'Ćwiczenia z twojego planu przygotowują grunt także pod to.';
+
+  @override
+  String get obReplyFirstPhotos =>
+      'Zrób zdjęcie pierwszego dnia. Później chętnie zestawisz je obok siebie.';
+
+  @override
+  String get obReplyFirstTeam =>
+      'Ustawimy przypomnienia tak, żeby łatwiej było ci trzymać rytm aż do naboru.';
+
+  @override
+  String get obReplyFirstFeelGood => 'To najsolidniejszy powód z możliwych.';
+
+  @override
+  String get obDayTitle => 'Tak wygląda dzień z BeTaller';
+
+  @override
+  String get obDayBody =>
+      'Ułożony na podstawie twoich dotychczasowych odpowiedzi. Odhaczasz na bieżąco.';
+
+  @override
+  String obDayProtein(int grams) {
+    return '$grams g białka';
+  }
+
+  @override
+  String get obDayProteinSub => 'Twój pierwszy posiłek jest gotowy';
+
+  @override
+  String obDaySleep(String time) {
+    return 'Twoje przypomnienie o śnie o $time';
+  }
+
+  @override
+  String get obDaySleepSub =>
+      'Przypomnienie, dzięki któremu twoja przygoda trwa';
+
+  @override
+  String get obParentsSub =>
+      'Większość wzrostu masz po rodzicach. Te dwie liczby to podstawa szacunku.';
+
+  @override
+  String get obSleepSub =>
+      'Większość hormonu wzrostu wydziela się w głębokim śnie.';
+
+  @override
+  String obDreamDelta(String delta) {
+    return '$delta więcej niż twój dzisiejszy wzrost';
+  }
+
+  @override
+  String get obEthnicitySubAll =>
+      'Średni wzrost dorosłych różni się o kilka centymetrów zależnie od pochodzenia.';
+
+  @override
+  String obEthReplyHigh(String avg) {
+    return 'Dorośli o tym pochodzeniu mają średnio $avg, powyżej średniej światowej. Twój potencjał jest bardzo wysoki!';
+  }
+
+  @override
+  String obEthReplyMid(String avg) {
+    return 'Dorośli o tym pochodzeniu mają średnio około $avg. Twój potencjał jest wysoki, a dobre nawyki mogą wynieść cię ponad średnią.';
+  }
+
+  @override
+  String obEthReplyRising(String avg) {
+    return 'Dorośli o tym pochodzeniu mają średnio około $avg, a ta liczba szybko rośnie w ostatnich pokoleniach. Twój potencjał może być wyższy, niż myślisz.';
+  }
+
+  @override
+  String get obEthReplyNoAnswer =>
+      'Nie ma sprawy. Liczymy na podstawie twoich rodziców i twoich własnych pomiarów.';
+
+  @override
+  String obEthAbove(String avg, String you) {
+    return 'Dorośli o tym pochodzeniu mają średnio $avg. Ty masz już $you, czyli powyżej średniej!';
+  }
+
+  @override
+  String obEthNear(String avg, String you) {
+    return 'Dorośli o tym pochodzeniu mają średnio $avg. Z wynikiem $you jesteś dokładnie w średniej, a cel to ją przebić.';
+  }
+
+  @override
+  String obEthBelowYoung(String avg, String you) {
+    return 'Dorośli o tym pochodzeniu mają średnio $avg. Ty masz $you i wciąż rośniesz, więc masz czas, żeby ją przebić.';
+  }
+
+  @override
+  String obEthBelowAdult(String avg, String you) {
+    return 'Dorośli o tym pochodzeniu mają średnio $avg. Ty masz $you, a postawa może zniwelować część tej różnicy.';
+  }
+
+  @override
+  String get obMealsUnknown => 'Nie znam dokładnych godzin';
+
+  @override
+  String get obMealsUnknownReply =>
+      'Nie szkodzi, ułożyliśmy plan godzinowy specjalnie dla ciebie.';
+
+  @override
+  String get obUnknownPlanned =>
+      'Nie szkodzi, zaplanujemy to za ciebie. Możesz to zmienić w każdej chwili.';
+
+  @override
+  String get obReplyWeCalc => 'Spokojnie, i tak liczymy to za ciebie.';
+
+  @override
+  String get obGoalDaysTitle => 'Do kiedy naprawdę chcesz urosnąć?';
+
+  @override
+  String get obGoalDaysSub => 'Ustalmy termin dla twojego celu.';
+
+  @override
+  String obGoalDaysN(int n) {
+    return '$n dni';
+  }
+
+  @override
+  String get obGoalYear => 'W ciągu 1 roku';
+
+  @override
+  String get obGoalOpen => 'Tyle, ile dam radę urosnąć';
+
+  @override
+  String get obReplyGoal90 =>
+      '90 dni to dobry czas, żeby postawa i nawyki się utrwaliły. Pierwszą zmianę zobaczysz w tym, jak stoisz.';
+
+  @override
+  String get obReplyGoal120 =>
+      'W 120 dni nawyki są już na swoim miejscu. Przez cały ten czas będziemy razem śledzić twoje pomiary.';
+
+  @override
+  String get obReplyGoal180 =>
+      'Sześć miesięcy to realny czas, żeby zobaczyć wzrost na miarce.';
+
+  @override
+  String get obReplyGoal365 =>
+      'Rok to najpewniejszy plan. Wzrost wymaga cierpliwości, a my jesteśmy z tobą każdego dnia.';
+
+  @override
+  String get obReplyGoalOpen =>
+      'To najlepsze podejście. Tyle, na ile pozwoli twoje ciało, a my jesteśmy z tobą każdego dnia.';
+
+  @override
+  String get tv4TrackTitle => 'Woda i sen jednym stuknięciem';
+
+  @override
+  String get tv4TrackDesc =>
+      'Twoje dzienne cele zależą od wieku i wagi. Odhaczaj je na bieżąco.';
+
+  @override
+  String get tv4PhotosTitle => 'Zdjęcia przed i po';
+
+  @override
+  String get tv4PhotosDesc =>
+      'Stań w tej samej pozie, a potem zestaw tygodnie obok siebie.';
+
+  @override
+  String get tv4PostureTitle => 'Test postawy za pomocą aparatu';
+
+  @override
+  String get tv4PostureDesc => 'Ocenia, jak stoisz, i podpowiada, co poprawić.';
+
+  @override
+  String get tv4ReportTitle => 'Twój raport tygodniowy';
+
+  @override
+  String get tv4ReportDesc =>
+      'Trening, sen i odżywianie na jednej stronie, co tydzień.';
+
+  @override
+  String get tv4BreakdownTitle => 'Co podnosi twój wynik';
+
+  @override
+  String get tv4BreakdownDesc =>
+      'Pokazuje udział każdego czynnika i twój następny krok.';
+
+  @override
+  String get reminderProTitle => 'Przypomnienia są w Pro';
+
+  @override
+  String get reminderProDesc =>
+      'Damy ci znać, gdy przyjdzie pora na trening, posiłek i sen.';
+
+  @override
+  String get nFw1Title => 'Dzień drugi, nowe ćwiczenia';
+
+  @override
+  String get nFw1Body =>
+      'Dzisiejszy trening jest inny niż wczorajszy. Zajmie tylko kilka minut.';
+
+  @override
+  String get nFw2Title => 'Pierwszy medal za serię jest blisko';
+
+  @override
+  String get nFw2Body =>
+      'Ukończ trzy dni z rzędu, a odblokujesz medal za serię 3 dni.';
+
+  @override
+  String get nFw3Title => 'Dzień pomiaru';
+
+  @override
+  String get nFw3Body =>
+      'Zmierz swój wzrost i zapisz go. Dziś na twoim wykresie pojawi się kolejny punkt.';
+
+  @override
+  String get nFw4Title => 'Sprawdźmy twoją postawę';
+
+  @override
+  String get nFw4Body =>
+      'Test postawy aparatem trwa minutę. Zobacz swój wynik.';
+
+  @override
+  String get nFw5Title => 'Zrób pierwsze zdjęcie';
+
+  @override
+  String get nFw5Body =>
+      'Zrób dziś jedno zdjęcie. Za kilka tygodni położysz je obok siebie.';
+
+  @override
+  String get nFw6Title => 'Jutro kończy się twój pierwszy tydzień';
+
+  @override
+  String get nFw6Body =>
+      'Ukończ dzisiejszy dzień, a jutro twój raport tygodniowy będzie gotowy.';
+
+  @override
+  String get nFw7Title => 'Pierwszy tydzień za tobą';
+
+  @override
+  String get nFw7Body =>
+      'Twój raport tygodniowy jest gotowy. Zmierz też jeszcze raz swój wzrost.';
+
+  @override
+  String nPmFirstTitle(String name) {
+    return '$name, pora na twój pierwszy posiłek.';
+  }
+
+  @override
+  String get nPmFirstTitleNoName => 'Pora na twój pierwszy posiłek.';
+
+  @override
+  String get nPmFirstBody =>
+      'Twój własny posiłek jest gotowy. Jeśli go nie chcesz, makra i składniki odżywcze, których potrzebujesz, też są gotowe. Pod żadnym pozorem nie pomijaj pierwszego posiłku.';
+
+  @override
+  String nPmMealTitle(String name, int n) {
+    return '$name, pora na posiłek nr $n.';
+  }
+
+  @override
+  String nPmMealTitleNoName(int n) {
+    return 'Pora na posiłek nr $n.';
+  }
+
+  @override
+  String nPmMealBody(int protein, int calcium) {
+    return '$protein g białka i $calcium mg wapnia. Pod żadnym pozorem nie pomijaj tego posiłku.';
+  }
+
+  @override
+  String get nPmWaterTitle => 'Pijesz wystarczająco dużo wody?';
+
+  @override
+  String nPmWaterBody(String name, String liters) {
+    return '$name, pamiętaj o piciu wody w ciągu dnia. Twój dzienny cel to $liters.';
+  }
+
+  @override
+  String nPmWaterBodyNoName(String liters) {
+    return 'Pamiętaj o piciu wody w ciągu dnia. Twój dzienny cel to $liters.';
+  }
+
+  @override
+  String get nPmTrainTitle => 'Za 30 minut pora na trening!';
+
+  @override
+  String nPmTrainBody(int count, int minutes) {
+    return 'Twój własny program czeka. Dziś ćwiczeń: $count, około $minutes min.';
+  }
+
+  @override
+  String get nPmHabitTitle =>
+      'W ciągu dnia możesz trochę poskakać na skakance i się porozciągać';
+
+  @override
+  String nPmHabitBody(String name) {
+    return '$name, nie zapominaj o tych małych nawykach.';
+  }
+
+  @override
+  String get nPmHabitBodyNoName => 'Nie zapominaj o tych małych nawykach.';
+
+  @override
+  String nPmSleepTitle(String name) {
+    return '$name, zbliża się twoja pora snu.';
+  }
+
+  @override
+  String get nPmSleepTitleNoName => 'Zbliża się twoja pora snu.';
+
+  @override
+  String get pwMoreFeatures => 'I wiele innych funkcji.';
+
+  @override
+  String get libTitle => 'Biblioteka ćwiczeń';
+
+  @override
+  String libCount(int count) {
+    return 'Ćwiczenia: $count';
+  }
+
+  @override
+  String get libJump => 'Skoki';
+
+  @override
+  String get libHang => 'Zwisy';
+
+  @override
+  String get libStretch => 'Rozciąganie';
+
+  @override
+  String get libStrength => 'Siła';
+
+  @override
+  String get libPosture => 'Postawa';
+
+  @override
+  String get libWeights => 'Ciężary';
+
+  @override
+  String get libWeightsNote =>
+      'Do tych ćwiczeń potrzebujesz hantli albo gumy. Wybierz ciężar, z którym każde powtórzenie zrobisz poprawnie.';
+
+  @override
+  String get plFoodTurkey => 'Pierś z indyka';
+
+  @override
+  String get plFoodCod => 'Dorsz';
+
+  @override
+  String get plFoodBeans => 'Czerwona fasola';
+
+  @override
+  String get plFoodQuinoa => 'Komosa ryżowa';
+
+  @override
+  String get plFoodSweetPotato => 'Batat';
+
+  @override
+  String get plFoodApple => 'Jabłko';
+
+  @override
+  String get plFoodBerries => 'Truskawki';
+
+  @override
+  String get plFoodMozzarella => 'Mozzarella';
+
+  @override
+  String get plFoodHummus => 'Hummus';
+
+  @override
+  String get plFoodGreenBeans => 'Fasolka szparagowa';
+
+  @override
+  String get mgTitle => 'Czas na pomiar';
+
+  @override
+  String mgBody(int days) {
+    return 'Od ostatniego pomiaru minęło $days dni. Zmierz wzrost, zanim przejdziesz dalej.';
+  }
+
+  @override
+  String get mgTip1 => 'Bez butów, pięty przy ścianie.';
+
+  @override
+  String get mgTip2 =>
+      'Patrz prosto przed siebie i połóż płasko książkę na głowie.';
+
+  @override
+  String get mgTip3 => 'Mierz się rano. W ciągu dnia wzrost trochę spada.';
+
+  @override
+  String get mgLater => 'Dziś nie mogę się zmierzyć';
+
+  @override
+  String get paTitle => 'Odpowiedzi do planu';
+
+  @override
+  String get paSubtitle =>
+      'Na nich opiera się twój plan i przypomnienia. Zmień jedną, a zostaną zaktualizowane.';
+
+  @override
+  String get paRowSubtitle => 'Dni treningowe, cel i godziny';
+
+  @override
+  String get paWorkout => 'Treningi w tygodniu';
+
+  @override
+  String get paGoal => 'Długość programu';
+
+  @override
+  String get paBedtime => 'Pora snu';
+
+  @override
+  String get paWorkoutTime => 'Godzina treningu';
+
+  @override
+  String get restoreDone => 'Twój zakup został przywrócony.';
 }

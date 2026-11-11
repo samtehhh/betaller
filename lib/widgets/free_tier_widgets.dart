@@ -8,7 +8,8 @@ import '../services/analytics.dart';
 import '../utils/constants.dart';
 import '../utils/free_tier.dart';
 import '../utils/haptics.dart';
-import 'premium_paywall.dart';
+import 'premium_paywall.dart';
+import '../utils/daily_targets.dart';
 
 // The free tier as the user sees it, in three states that look the same on
 // every screen:
@@ -23,7 +24,7 @@ import 'premium_paywall.dart';
 String freeReason(AppLocalizations l, FreeFeature f) => switch (f) {
   FreeFeature.workout => l.ftWhyWorkout,
   FreeFeature.planTicks => l.ftWhyPlan,
-  FreeFeature.program => l.ftWhyProgram,
+  FreeFeature.program => programText(l.ftWhyProgram),
   FreeFeature.water => l.ftWhyWater,
   FreeFeature.sleep => l.ftWhySleep,
   FreeFeature.nutrition => l.ftWhyNutrition,

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'height_silhouette.dart';
 import '../l10n/app_localizations.dart';
 import '../models/user_profile.dart';
 import '../providers/app_provider.dart';
@@ -76,11 +77,15 @@ class TodayTargetsGrid extends StatelessWidget {
   /// Today's plan day, when the caller knows it (the app passes the
   /// program's day). Without it the weekday's day of the week is used.
   final PlanDay? today;
+
+  /// Shows the numbers to a free user: for the paywall's example page.
+  final bool showNumbers;
   const TodayTargetsGrid({
     super.key,
     required this.profile,
     this.weeklyWorkout = '',
     this.today,
+    this.showNumbers = false,
   });
 
   @override
@@ -99,22 +104,27 @@ class TodayTargetsGrid extends StatelessWidget {
       Localizations.localeOf(context).languageCode,
     );
 
+    final locked = !showNumbers && numbersLocked(context);
+    String v(String s) => locked ? kCensored : s;
     final tiles = [
-      _Tile(CupertinoIcons.flame_fill, AppColors.orange, '${t.proteinG}', 'g',
+      _Tile(CupertinoIcons.flame_fill, AppColors.orange, v('${t.proteinG}'), 'g',
           l.targetProtein,
-          '${profile.mealTimes.length.clamp(2, 6)} × ${t.proteinPerMealG} g'),
-      _Tile(Icons.egg_alt_rounded, Colors.white, nf.format(t.calciumMg), 'mg',
+          locked
+              ? ' '
+              : '${profile.mealTimes.length.clamp(2, 6)} × ${t.proteinPerMealG} g'),
+      _Tile(Icons.egg_alt_rounded, Colors.white, v(nf.format(t.calciumMg)), 'mg',
           l.targetCalcium, ' '),
       _Tile(CupertinoIcons.sun_max_fill, AppColors.warning,
-          nf.format(t.vitaminDIu), 'IU', l.targetVitaminD, ' '),
+          v(nf.format(t.vitaminDIu)), 'IU', l.targetVitaminD, ' '),
       _Tile(CupertinoIcons.drop_fill, AppColors.cyan,
-          UnitPrefs.current.waterTargetValue(t.waterL),
+          v(UnitPrefs.current.waterTargetValue(t.waterL)),
           UnitPrefs.current.waterUnit, l.targetWater, ' '),
       _Tile(CupertinoIcons.moon_fill, AppColors.sleepColor,
-          t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1), l.unitHours,
+          v(t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1)), l.unitHours,
           l.targetSleep, ' '),
-      _Tile(CupertinoIcons.bolt_fill, AppColors.lime, '${today.minutes}',
-          l.unitMinutes, l.targetMove, planKindLabel(l, today.kind)),
+      _Tile(CupertinoIcons.bolt_fill, AppColors.lime, v('${today.minutes}'),
+          l.unitMinutes, l.targetMove,
+          locked ? ' ' : planKindLabel(l, today.kind)),
     ];
 
     return LayoutBuilder(
@@ -167,7 +177,17 @@ class _Tile extends StatelessWidget {
           FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
-            child: Text.rich(
+            child: value == kCensored
+                ? CensoredText(
+                    '$kCensored $unit',
+                    maxLines: 1,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
+                  )
+                : Text.rich(
               TextSpan(children: [
                 TextSpan(
                   text: value,
@@ -244,7 +264,11 @@ class _WeeklyPlanStripState extends State<WeeklyPlanStrip> {
     final locale = Localizations.localeOf(context).languageCode;
     final todayIdx = DateTime.now().weekday - 1;
     final monday = DateTime.now().subtract(Duration(days: todayIdx));
-    final day = widget.plan.days[_selected];
+    final week = widget.plan.weekOf(DateTime.now());
+    final day = week[_selected];
+    // Which moves a day holds, and for how long, is the plan itself: a free
+    // user sees that the week is laid out, not what is in it.
+    final locked = numbersLocked(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -292,9 +316,9 @@ class _WeeklyPlanStripState extends State<WeeklyPlanStrip> {
                         ),
                         const SizedBox(height: 4),
                         Icon(
-                          planKindIcon(widget.plan.days[i].kind),
+                          planKindIcon(week[i].kind),
                           size: 16,
-                          color: widget.plan.days[i].kind == PlanDayKind.rest
+                          color: week[i].kind == PlanDayKind.rest
                               ? Colors.white.withValues(alpha: 0.35)
                               : AppColors.lime,
                         ),
@@ -306,25 +330,49 @@ class _WeeklyPlanStripState extends State<WeeklyPlanStrip> {
           ],
         ),
         const SizedBox(height: 10),
-        Text(
-          '${planKindLabel(l, day.kind)} · ${day.minutes} ${l.unitMinutes}',
-          style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w800,
-            color: Colors.white,
+        if (locked) ...[
+          CensoredText(
+            '$kCensored · $kCensored ${l.unitMinutes}',
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+            ),
           ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          day.routineIds
-              .map((id) => localizedRoutine(l, id)['title'] ?? id)
-              .join(', '),
-          style: TextStyle(
-            fontSize: 12,
-            height: 1.4,
-            color: Colors.white.withValues(alpha: 0.55),
+          const SizedBox(height: 4),
+          CensoredText(
+            // One blurred stand-in per move, so a longer day still reads as
+            // a longer list.
+            List.filled(day.routineIds.length.clamp(1, 5), kCensored).join(
+              '  ',
+            ),
+            style: TextStyle(
+              fontSize: 12,
+              height: 1.4,
+              color: Colors.white.withValues(alpha: 0.55),
+            ),
           ),
-        ),
+        ] else ...[
+          Text(
+            '${planKindLabel(l, day.kind)} · ${day.minutes} ${l.unitMinutes}',
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            day.routineIds
+                .map((id) => localizedRoutine(l, id)['title'] ?? id)
+                .join(', '),
+            style: TextStyle(
+              fontSize: 12,
+              height: 1.4,
+              color: Colors.white.withValues(alpha: 0.55),
+            ),
+          ),
+        ],
       ],
     );
   }

@@ -35,7 +35,9 @@ void main() {
         for (final d in program) {
           expect(d.moves, isNotEmpty, reason: 'day ${d.index}');
           expect(d.level, d.index ~/ 7);
-          expect(d.template, plan.days[d.index % 7]);
+          // Odd program weeks run the alternate week.
+          final week = (d.index ~/ 7).isOdd ? plan.daysB : plan.days;
+          expect(d.template, week[d.index % 7]);
           expect(d.minutes, greaterThan(0));
         }
       });
@@ -53,8 +55,10 @@ void main() {
     test('every move only gets harder from one level to the next', () {
       final plan = WeeklyPlan.forAnswers(weeklyWorkout: '3-5');
       for (var day = 0; day < 7; day++) {
-        for (var level = 1; level < kProgramLevelCount; level++) {
-          final before = plan.programDay((level - 1) * 7 + day).moves;
+        // Weeks alternate (A, B, A...), so a week is compared with the
+        // one two before it, which holds the same moves.
+        for (var level = 2; level < kProgramLevelCount; level++) {
+          final before = plan.programDay((level - 2) * 7 + day).moves;
           final after = plan.programDay(level * 7 + day).moves;
           expect(after.length, before.length);
           for (var i = 0; i < before.length; i++) {
@@ -67,7 +71,7 @@ void main() {
       }
       // And level 10 is clearly more than level 1 on a strength day.
       final l1 = plan.programDay(0).minutes;
-      final l10 = plan.programDay(63).minutes;
+      final l10 = plan.programDay(56).minutes;
       expect(l10, greaterThan(l1 * 1.5));
     });
 
@@ -81,10 +85,41 @@ void main() {
     test('today\'s plan is the weekday block plus the daily habits', () {
       final monday = DateTime(2026, 10, 12);
       final ids = dailyPlanIds(monday, '3-5');
-      final block = WeeklyPlan.forAnswers(weeklyWorkout: '3-5').days[0];
+      final plan = WeeklyPlan.forAnswers(weeklyWorkout: '3-5');
+      final block = plan.weekOf(monday)[0];
       expect(ids.take(block.routineIds.length), block.routineIds);
+      // The week after is the other week, made of different moves.
+      final next = monday.add(const Duration(days: 7));
+      expect(WeeklyPlan.isWeekB(next), isNot(WeeklyPlan.isWeekB(monday)));
+      expect(plan.weekOf(next)[0].routineIds, isNot(block.routineIds));
       expect(ids, containsAll(kDailyCoreRoutineIds));
       expect(ids.toSet().length, ids.length);
+    });
+
+    test('a goal in days stretches the ten levels over that many days', () {
+      addTearDown(() => setProgramGoal(null));
+      for (final goal in const [90, 120, 180, 365]) {
+        setProgramGoal('$goal');
+        expect(kProgramDays, goal);
+        final levels = [for (var d = 0; d < goal; d++) programLevelOf(d)];
+        expect(levels.first, 0);
+        expect(levels.last, kProgramLevelCount - 1);
+        // Levels only ever go up, and every one of the ten is used.
+        for (var d = 1; d < goal; d++) {
+          expect(levels[d], greaterThanOrEqualTo(levels[d - 1]));
+        }
+        expect(levels.toSet().length, kProgramLevelCount);
+        // Every day belongs to exactly one level.
+        final all = [
+          for (var i = 0; i < kProgramLevelCount; i++) ...programDaysOfLevel(i),
+        ];
+        expect(all, [for (var d = 0; d < goal; d++) d]);
+        expect(programText('70 days'), '$goal days');
+      }
+      // "As much as I can", or no answer, keeps the default.
+      setProgramGoal('open');
+      expect(kProgramDays, 70);
+      expect(programText('70 days'), '70 days');
     });
 
     test('firstOpenProgramDay and currentProgramLevel', () {
@@ -182,8 +217,13 @@ void main() {
             '${turkish ? ', Turkish menu' : ''}', () {
           final t = DailyTargets.forProfile(profile,
               weeklyWorkout: workout, meals: profile.mealCount);
-          final week = buildWeekMenu(t, profile.mealTimes, turkish: turkish);
-          expect(week.length, 7);
+          // Both weeks of the fortnight.
+          final week = [
+            ...buildWeekMenu(t, profile.mealTimes, turkish: turkish),
+            ...buildWeekMenu(t, profile.mealTimes,
+                turkish: turkish, weekB: true),
+          ];
+          expect(week.length, 14);
           for (final day in week) {
             expect(day.meals.length, profile.mealCount);
             // Calcium is met every day.
@@ -217,6 +257,22 @@ void main() {
             for (final m in d.meals)
               for (final i in m.items) i.food.id,
         };
+
+    test('the alternate week serves different days', () {
+      final profile = _profile();
+      final t = DailyTargets.forProfile(profile,
+          weeklyWorkout: '3-5', meals: profile.mealCount);
+      final a = buildWeekMenu(t, profile.mealTimes, turkish: true);
+      final b = buildWeekMenu(t, profile.mealTimes, turkish: true, weekB: true);
+      String day(DayMenu d) => [
+            for (final m in d.meals) m.items.map((i) => i.food.id).join('+'),
+          ].join(' | ');
+      expect({...a.map(day), ...b.map(day)}.length, 14);
+      expect(foodsOf(b), containsAll(['turkey', 'cod', 'quinoa', 'berries']));
+      // Outside Turkey the alternate week has no ayran either.
+      final intl = buildWeekMenu(t, profile.mealTimes, weekB: true);
+      expect(foodsOf(intl), isNot(contains('ayran')));
+    });
 
     test('Turkish users keep ayran, bulgur and the feta breakfast', () {
       final profile = _profile();

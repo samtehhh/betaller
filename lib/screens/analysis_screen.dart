@@ -170,16 +170,18 @@ class AnalysisScreenState extends State<AnalysisScreen>
               ),
             ),
             const SizedBox(height: 26),
-            if (provider.canUseFree(FreeFeature.scoreBreakdown))
-              breakdown
-            else
-              _LockedPreview(
-                maxHeight: 520,
-                title: l.ftScoreLockedTitle,
-                body: l.ftScoreLockedBody,
-                feature: FreeFeature.scoreBreakdown,
-                child: breakdown,
-              ),
+            KeyedSubtree(
+              key: TourKeys.analysisBreakdown,
+              child: provider.canUseFree(FreeFeature.scoreBreakdown)
+                  ? breakdown
+                  : _LockedPreview(
+                      maxHeight: 520,
+                      title: l.ftScoreLockedTitle,
+                      body: l.ftScoreLockedBody,
+                      feature: FreeFeature.scoreBreakdown,
+                      child: breakdown,
+                    ),
+            ),
           ],
         );
 
@@ -238,10 +240,30 @@ class AnalysisScreenState extends State<AnalysisScreen>
                     const SizedBox(height: 12),
                     Container(
                       key: _potentialKey,
-                      child: _PotentialCard(provider: provider),
+                      // Not the real card under the blur: the number stays
+                      // out of the drawing until it is paid for.
+                      child: provider.isPremium
+                          ? _PotentialCard(provider: provider)
+                          : _LockedPreview(
+                              title: l.rsLockedChart,
+                              child: HeightSilhouette(
+                                current: provider.latestHeight,
+                                potential: provider.potentialHeight,
+                                format: provider.formatHeight,
+                                height: 200,
+                                animate: false,
+                                locked: true,
+                              ),
+                            ),
                     ),
                     const SizedBox(height: 14),
-                    _PercentileCard(provider: provider),
+                    if (provider.isPremium)
+                      _PercentileCard(provider: provider)
+                    else
+                      _LockedPreview(
+                        title: l.rsLockedChart,
+                        child: _PercentileCard(provider: provider),
+                      ),
                     const SizedBox(height: 30),
 
                     // ── 3. Daily needs ──

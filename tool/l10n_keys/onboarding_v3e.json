@@ -1,0 +1,75 @@
+{
+  "obEthAbove": {
+    "en": "Adults of this background average {avg}. You are already {you}, above the average!",
+    "tr": "Bu kökende yetişkin ortalaması {avg}. Sen şimdiden {you} boyundasın, ortalamanın üstündesin!"
+  },
+  "obEthNear": {
+    "en": "Adults of this background average {avg}. At {you} you are right on it, and the goal is to go past it.",
+    "tr": "Bu kökende yetişkin ortalaması {avg}. Sen {you} ile tam ortalamadasın; hedef üstüne çıkmak."
+  },
+  "obEthBelowYoung": {
+    "en": "Adults of this background average {avg}. You are {you} and still in your growth years, so there is time to pass it.",
+    "tr": "Bu kökende yetişkin ortalaması {avg}. Sen {you} boyundasın ve hâlâ büyüme çağındasın; ortalamayı geçmek için önünde zaman var."
+  },
+  "obEthBelowAdult": {
+    "en": "Adults of this background average {avg}. You are {you}, and posture can close part of that gap.",
+    "tr": "Bu kökende yetişkin ortalaması {avg}. Sen {you} boyundasın; aradaki farkın bir kısmını duruşla kapatabiliriz."
+  },
+  "obMealsUnknown": {
+    "en": "I am not sure about the times",
+    "tr": "Saatleri hakkında tam emin değilim"
+  },
+  "obMealsUnknownReply": {
+    "en": "No problem, we have built an hourly plan just for you.",
+    "tr": "Sorun yok, sana özel saatlik planını oluşturduk."
+  },
+  "obUnknownPlanned": {
+    "en": "No problem, we will plan this for you. You can change it any time.",
+    "tr": "Sorun yok, bunu senin için planlıyoruz. İstediğin zaman değiştirebilirsin."
+  },
+  "obReplyWeCalc": {
+    "en": "Do not worry, we already work this out for you.",
+    "tr": "Merak etme, bunu zaten senin için hesaplıyoruz."
+  },
+  "obGoalDaysTitle": {
+    "en": "By when do you really wish to have grown?",
+    "tr": "Gerçekten kaç gün içinde uzamış olmayı dilersin?"
+  },
+  "obGoalDaysSub": {
+    "en": "Let us put a date on your goal.",
+    "tr": "Hedefine bir süre koyalım."
+  },
+  "obGoalDaysN": {
+    "en": "{n} days",
+    "tr": "{n} gün",
+    "_types": {"n": "int"}
+  },
+  "obGoalYear": {
+    "en": "Within 1 year",
+    "tr": "1 yıl içinde"
+  },
+  "obGoalOpen": {
+    "en": "As much as I can grow",
+    "tr": "Uzayabildiğim kadar"
+  },
+  "obReplyGoal90": {
+    "en": "90 days is a good stretch for posture and habits to settle. You will see the first change in how you stand.",
+    "tr": "90 gün, duruşun ve alışkanlıkların oturması için iyi bir süre. İlk farkı duruşunda görürsün."
+  },
+  "obReplyGoal120": {
+    "en": "In 120 days the habits are in place. We will track your measurements together the whole way.",
+    "tr": "120 günde alışkanlıklar yerine oturur. Ölçümlerini bu süre boyunca birlikte takip edeceğiz."
+  },
+  "obReplyGoal180": {
+    "en": "Six months is a realistic span to see growth on the tape measure.",
+    "tr": "Altı ay, büyümeyi ölçümde görmek için gerçekçi bir süre."
+  },
+  "obReplyGoal365": {
+    "en": "A year is the soundest plan. Growing takes patience, and we are with you every day.",
+    "tr": "Bir yıl en sağlam plan. Büyüme sabır ister, biz her gün yanındayız."
+  },
+  "obReplyGoalOpen": {
+    "en": "That is the right way to see it. As far as your body allows, and we are with you every day.",
+    "tr": "En doğrusu bu. Vücudun izin verdiği kadar, biz de her gün yanındayız."
+  }
+}

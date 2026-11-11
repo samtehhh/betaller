@@ -56,6 +56,14 @@ class AppProvider extends ChangeNotifier {
   Set<String> _hiddenRoutineIds = {};
   String _lastRoutineDate = '';
   String _lastAllCompletedDate = '';
+
+  /// The last calendar day the app was open, and how many days had passed
+  /// when it was opened today. Zero for a same-day return or a fresh update.
+  String _lastOpenDate = '';
+
+  /// The day the due measurement was put off, or empty.
+  String _measurePostponedOn = '';
+  int _daysAway = 0;
   int _streak = 0;
   int _bestStreak = 0;
   double _todayWater = 0;
@@ -76,6 +84,12 @@ class AppProvider extends ChangeNotifier {
   /// (list) and firstWhenTaller, all as ids from [OnboardingIds]. Kept as a
   /// map so a new question never needs a schema change.
   Map<String, dynamic> _onboardingAnswers = {};
+
+  /// A fresh provider starts on the default program length; loading the
+  /// saved answers then sets this user's own.
+  AppProvider() {
+    setProgramGoal(null);
+  }
   // Display units for height, weight and water, chosen separately. The
   // first-run default comes from the device region (UnitPrefs.forRegion);
   // loadData() reads the saved three, or maps a save from before them that
@@ -153,6 +167,49 @@ class AppProvider extends ChangeNotifier {
   }
 
   int get streak => _streak;
+  int get daysAway => _daysAway;
+
+  /// A week or more since the last measurement.
+  bool get measureDue {
+    if (_heightRecords.isEmpty) return false;
+    final last = DateTime.tryParse(_heightRecords.last.date);
+    return last != null && DateTime.now().difference(last).inDays >= 7;
+  }
+
+  /// Days since the last measurement (0 with none).
+  int get daysSinceMeasurement {
+    if (_heightRecords.isEmpty) return 0;
+    final last = DateTime.tryParse(_heightRecords.last.date);
+    return last == null ? 0 : DateTime.now().difference(last).inDays;
+  }
+
+  /// Whether the measurement page has to open now: a reading is due and it
+  /// was not put off earlier today.
+  bool get measureGateDue =>
+      _profile != null && measureDue && _measurePostponedOn != _today;
+
+  /// A due reading can be put off for a day, once. After that only a
+  /// measurement closes the page.
+  bool get canPostponeMeasure => _measurePostponedOn.isEmpty;
+
+  void postponeMeasure() {
+    _measurePostponedOn = _today;
+    _saveData();
+  }
+
+  /// Called on launch and on every return to the foreground.
+  void noteAppOpened() {
+    final today = _today;
+    if (_lastOpenDate == today) return;
+    final last = DateTime.tryParse(_lastOpenDate);
+    // Rounded: a daylight-saving change makes a day 23 or 25 hours long.
+    _daysAway = last == null
+        ? 0
+        : (DateTime.parse(today).difference(last).inHours / 24).round();
+    _lastOpenDate = today;
+    _saveData();
+    notifyListeners();
+  }
   int get bestStreak => _bestStreak;
   double get todayWater => _todayWater;
   double get todaySleep => _todaySleep;
@@ -262,10 +319,15 @@ class AppProvider extends ChangeNotifier {
           profile: _profile!,
           weeklyWorkout: _onboardingAnswers['weeklyWorkout'] as String? ?? '',
           potential: formatHeight(potentialHeight),
+          height: formatHeight(latestHeight),
+          habitGain: formatHeightAmount(prediction?.lifestyleGain ?? 0),
         );
 
   void setOnboardingAnswers(Map<String, dynamic> answers) {
     _onboardingAnswers = {..._onboardingAnswers, ...answers};
+    // The program runs for as many days as the user said they hope to have
+    // grown in.
+    setProgramGoal(_onboardingAnswers['goalDays']);
     _saveData();
     notifyListeners();
   }
@@ -450,14 +512,20 @@ class AppProvider extends ChangeNotifier {
 
   /// Today's plan day: the program day's template, or the weekday's day on
   /// the one day [_todayOnWeekdayPlan] keeps it.
-  PlanDay get todayPlanDay => _todayOnWeekdayPlan
+  PlanDay get todayPlanDay => _todayOnWeekdayPlan || _followsCalendar
       ? weeklyPlan.today
       : weeklyPlan.programDay(todayProgramDay).template;
 
   /// The moves and doses of today's workout, matching [todayPlanDay].
-  List<MoveDose> get todayMoves => _todayOnWeekdayPlan
+  List<MoveDose> get todayMoves => _todayOnWeekdayPlan || _followsCalendar
       ? weeklyPlan.today.movesAt(currentProgramLevel(_completedProgramDays))
       : weeklyPlan.programDay(todayProgramDay).moves;
+
+  /// Someone who cannot tick a program day off (the free tier) would stay
+  /// on its first day for good and see the same five moves every morning.
+  /// Their Today follows the calendar instead: a different day of the week
+  /// plan each day, at the level they are on.
+  bool get _followsCalendar => !_isPremium;
 
   // ── Program Day Progression ──
   /// The day the program is on: the first one not completed (0..70).
@@ -941,6 +1009,8 @@ class AppProvider extends ChangeNotifier {
       _bestStreak = asInt(json['bestStreak']);
       _lastRoutineDate = asStr(json['lastRoutineDate']);
       _lastAllCompletedDate = asStr(json['lastAllCompletedDate']);
+      _lastOpenDate = asStr(json['lastOpenDate']);
+      _measurePostponedOn = asStr(json['measurePostponedOn']);
       _completedRoutineIds = _safe(
         'completedRoutineIds',
         () => List<String>.from(json['completedRoutineIds'] ?? const []),
@@ -955,6 +1025,7 @@ class AppProvider extends ChangeNotifier {
       _todaySleep = asDouble(json['todaySleep']);
       _analysisCompleted = asBool(json['analysisCompleted']);
       _isPremium = asBool(json['isPremium']);
+      NotificationService.personalNumbers = _isPremium;
       if (json['heightUnitPref'] is String) {
         _units = UnitPrefs.fromNames(
           json['heightUnitPref'],
@@ -1081,6 +1152,7 @@ class AppProvider extends ChangeNotifier {
       _onboardingAnswers = json['onboardingAnswers'] is Map
           ? Map<String, dynamic>.from(json['onboardingAnswers'] as Map)
           : {};
+      setProgramGoal(_onboardingAnswers['goalDays']);
       _journeyProgress = asInt(
         json['journeyProgress'],
         _profile != null ? 1 : 0,
@@ -1152,6 +1224,7 @@ class AppProvider extends ChangeNotifier {
         : _isPremium;
     if (next == _isPremium) return;
     _isPremium = next;
+    NotificationService.personalNumbers = next;
     _saveData();
     notifyListeners();
   }
@@ -1208,6 +1281,8 @@ class AppProvider extends ChangeNotifier {
       'bestStreak': _bestStreak,
       'lastRoutineDate': _lastRoutineDate,
       'lastAllCompletedDate': _lastAllCompletedDate,
+      'lastOpenDate': _lastOpenDate,
+      'measurePostponedOn': _measurePostponedOn,
       'completedRoutineIds': _completedRoutineIds,
       'hiddenRoutineIds': _hiddenRoutineIds.toList(),
       'todayWater': _todayWater,
@@ -1345,6 +1420,15 @@ class AppProvider extends ChangeNotifier {
     // widget tree — the onboarding schedules them the moment it finishes.
   }
 
+  /// Re-times the built-in reminders after a plan answer changed.
+  void rebuildReminders() {
+    final profile = _profile;
+    if (profile == null) return;
+    _applyProfileReminderTimes(profile);
+    _saveData();
+    notifyListeners();
+  }
+
   void updateProfile(UserProfile profile) {
     _profile = profile;
     _saveData();
@@ -1356,6 +1440,7 @@ class AppProvider extends ChangeNotifier {
     _heightRecords.removeWhere((r) => r.date == record.date);
     _heightRecords.add(record);
     _heightRecords.sort((a, b) => a.date.compareTo(b.date));
+    _measurePostponedOn = '';
     addXP(xpRewards['height_logged'] ?? 50);
     updateChallengeProgress('weekly_measure', 1);
     // The onboarding wrote the first record; this one is the user's own.
@@ -1942,6 +2027,7 @@ class AppProvider extends ChangeNotifier {
 
   void setPremium(bool value) {
     _isPremium = value;
+    NotificationService.personalNumbers = value;
     _saveData();
     notifyListeners();
   }

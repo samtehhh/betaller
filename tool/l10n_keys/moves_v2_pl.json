@@ -1,0 +1,610 @@
+{
+ "pogo_jumps": {
+  "title": "Skoki pogo",
+  "desc": "Szybkie odbicia na sztywnych kostkach obciążają kości goleni i stopy oraz budują sprężyste, mocne łydki.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stań prosto, stopy na szerokość bioder, dłonie na biodrach.",
+   "Odbijaj się na przodostopiu, z kolanami prawie wyprostowanymi.",
+   "Kontakt z podłożem niech będzie krótki i szybki, jak na kiju pogo.",
+   "Kontynuuj przez 20 sekund, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Głębokie uginanie kolan przy każdym odbiciu.",
+   "Uderzanie piętami o podłogę."
+  ],
+  "tip": "Skacz na twardym, płaskim podłożu i przerwij, jeśli bolą cię piszczele lub kostki."
+ },
+ "jump_squats": {
+  "title": "Przysiady ze skokiem",
+  "desc": "Zrób przysiad i wyskocz, by zbudować moc nóg. To ciężka praca dużych mięśni, na którą organizm później odpowiada hormonem wzrostu.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stań w rozkroku na szerokość barków, klatka piersiowa uniesiona.",
+   "Usiądź w przysiadzie, aż uda będą mniej więcej równolegle do podłogi.",
+   "Mocno odepchnij się stopami, wyskocz prosto w górę i wyląduj miękko z powrotem w przysiadzie.",
+   "Zrób 8 skoków, odpocznij i powtórz, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Zapadanie się kolan do środka przy lądowaniu.",
+   "Lądowanie na sztywnych, prostych nogach."
+  ],
+  "tip": "Lądując, staraj się robić jak najmniej hałasu i przerwij serię, gdy lądowania robią się głośne."
+ },
+ "tuck_jumps": {
+  "title": "Skoki z podciąganiem kolan",
+  "desc": "Wyskocz i podciągnij kolana dla dynamicznej mocy. To ciężki wysiłek, na który organizm później odpowiada hormonem wzrostu.",
+  "dose": "3 x 6",
+  "steps": [
+   "Stań prosto, stopy na szerokość bioder.",
+   "Szybko ugnij kolana w ćwierć przysiadu i wyskocz tak wysoko, jak potrafisz.",
+   "W górze podciągnij oba kolana do klatki piersiowej, potem wyląduj miękko na ugiętych kolanach.",
+   "Zrób 6 skoków, odpocznij i powtórz, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Zginanie klatki do kolan zamiast unoszenia kolan.",
+   "Twarde lądowanie na prostych nogach."
+  ],
+  "tip": "Odzyskuj równowagę między skokami i zadbaj o wolne miejsce oraz podłogę, która się nie ślizga."
+ },
+ "broad_jumps": {
+  "title": "Skoki w dal z miejsca",
+  "desc": "Skacz do przodu z obu nóg i utrzymaj lądowanie, by budować moc bioder i mocne kości nóg.",
+  "dose": "3 x 5",
+  "steps": [
+   "Stań w rozkroku na szerokość bioder, palce stóp za linią.",
+   "Zamachnij ramiona do tyłu, ugnij kolana i odsuń biodra w tył.",
+   "Zamachnij ramiona do przodu, skocz jak najdalej i wyląduj na obu stopach.",
+   "Utrzymaj lądowanie przez sekundę, wróć na start i zrób 5 skoków, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Przewracanie się do przodu lub do tyłu przy lądowaniu.",
+   "Lądowanie ze sztywno wyprostowanymi kolanami."
+  ],
+  "tip": "Skacz na nieśliskiej powierzchni i skacz krócej, aż każde lądowanie utrzymasz w bezruchu."
+ },
+ "single_leg_hops": {
+  "title": "Skoki na jednej nodze",
+  "desc": "Małe skoki na jednej nodze wzmacniają kostki i kości oraz wyrównują siłę obu stron.",
+  "dose": "2 x 8",
+  "steps": [
+   "Stań na jednej nodze, drugą stopę unieś za sobą.",
+   "Wykonuj małe podskoki w miejscu, lądując na przodostopiu.",
+   "Utrzymuj biodra w jednej linii, a kolano nogi podporowej lekko ugięte.",
+   "Zrób 8 podskoków, zmień nogę i wykonaj 2 serie na każdą stronę."
+  ],
+  "mistakes": [
+   "Zapadanie się kolana nogi skaczącej do środka.",
+   "Skakanie tak wysoko, że tracisz równowagę."
+  ],
+  "tip": "Stój blisko ściany, której możesz dotknąć, i skacz nisko, aż równowaga będzie stabilna."
+ },
+ "high_knees": {
+  "title": "Wysokie kolana w miejscu",
+  "desc": "Biegnij w miejscu z kolanami na wysokości bioder, by szybko się rozgrzać i obciążyć nogi.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stań prosto, stopy na szerokość bioder.",
+   "Biegnij w miejscu i unoś każde kolano na wysokość bioder.",
+   "Pracuj ramionami i pozostań lekko na przodostopiu.",
+   "Kontynuuj przez 20 sekund, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Odchylanie się do tyłu przy unoszeniu kolan.",
+   "Tupanie płaskimi stopami o podłogę."
+  ],
+  "tip": "Zwolnij do marszu z wysokimi kolanami, jeśli brakuje ci tchu."
+ },
+ "mountain_pose": {
+  "title": "Pozycja góry na palcach",
+  "desc": "Unieś się na palce i sięgnij w górę, by rozciągnąć kręgosłup i poćwiczyć stanie w pełnym wyproście.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Stań ze stopami razem i ciężarem równo rozłożonym na obie stopy.",
+   "Wyciągnij oba ramiona prosto nad głowę, dłońmi do siebie.",
+   "Unieś się na palce i wyciągaj się przez czubki palców.",
+   "Wytrzymaj 20 sekund i opuść się powoli, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Wypychanie żeber i wyginanie lędźwi.",
+   "Unoszenie barków do uszu."
+  ],
+  "tip": "Utkwij wzrok w jednym punkcie przed sobą albo trzymaj pięty na podłodze, jeśli się chwiejesz."
+ },
+ "pelvic_shift": {
+  "title": "Unoszenie miednicy kręg po kręgu",
+  "desc": "Unoś i opuszczaj biodra kręg po kręgu, by rozluźnić kręgosłup i obudzić pośladki.",
+  "dose": "2 x 10",
+  "steps": [
+   "Połóż się na plecach, kolana ugięte, stopy płasko na podłodze.",
+   "Podwiń kość ogonową i odklejaj kręgosłup od podłogi od dołu do góry.",
+   "Zatrzymaj się na górze, potem opuszczaj się powoli, kręg po kręgu.",
+   "Zrób 10 wolnych powtórzeń i odpocznij, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Szybkie wypychanie bioder w górę jednym ruchem.",
+   "Wyginanie lędźwi na górze."
+  ],
+  "tip": "Poruszaj się tak wolno, by każdy fragment pleców po kolei dotykał podłogi."
+ },
+ "table_top": {
+  "title": "Odwrócony stół",
+  "desc": "Unieś biodra do płaskiego stołu, by otworzyć klatkę piersiową i barki oraz wzmocnić tylną stronę ciała.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Usiądź z ugiętymi kolanami, stopami płasko i dłońmi na podłodze za biodrami.",
+   "Skieruj palce dłoni w stronę stóp i dociśnij dłonie i stopy do podłogi.",
+   "Unieś biodra, aż ciało będzie płaskie od kolan do barków.",
+   "Wytrzymaj 15 sekund i opuść się, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Zapadanie się bioder w środku.",
+   "Opuszczanie głowy do tyłu, co przeciąża kark."
+  ],
+  "tip": "Skieruj palce dłoni na boki, jeśli bolą cię nadgarstki."
+ },
+ "childs_pose": {
+  "title": "Pozycja dziecka",
+  "desc": "Usiądź na piętach z wyciągniętymi ramionami, by delikatnie rozciągnąć plecy i rozluźnić kręgosłup.",
+  "dose": "2 x 30 s",
+  "steps": [
+   "Uklęknij na podłodze z dużymi palcami stóp razem i kolanami rozstawionymi.",
+   "Opuść biodra na pięty.",
+   "Przesuń dłonie do przodu i oprzyj czoło o podłogę.",
+   "Oddychaj powoli przez 30 sekund i wstań, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Odrywanie bioder daleko od pięt, by sięgnąć dalej.",
+   "Wstrzymywanie oddechu i napinanie barków."
+  ],
+  "tip": "Połóż poduszkę między biodrami a piętami, jeśli kolana są spięte."
+ },
+ "puppy_pose": {
+  "title": "Pozycja szczeniaka",
+  "desc": "Opuść klatkę piersiową w stronę podłogi, by otworzyć spięte barki i rozciągnąć górną część pleców.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Zacznij w podporze klęcznym, biodra dokładnie nad kolanami.",
+   "Przesuń dłonie do przodu, a biodra zostaw tam, gdzie są.",
+   "Pozwól klatce piersiowej i czołu opaść w stronę podłogi.",
+   "Wytrzymaj 20 sekund i wróć, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Cofanie bioder w stronę pięt.",
+   "Uginanie łokci i opieranie ich o podłogę."
+  ],
+  "tip": "Oprzyj czoło na poduszce, jeśli rozciąganie barków jest zbyt mocne."
+ },
+ "seated_forward_fold": {
+  "title": "Skłon w siadzie",
+  "desc": "Pochyl się do przodu nad wyprostowanymi nogami, by rozciągnąć tylne uda i całą długość pleców.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Usiądź na podłodze z wyprostowanymi nogami i palcami stóp skierowanymi w górę.",
+   "Wyprostuj się i wyciągnij oba ramiona nad głowę.",
+   "Pochyl się do przodu w biodrach i sięgnij do goleni lub stóp.",
+   "Wytrzymaj 20 sekund i wróć do siadu, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Zaokrąglanie górnej części pleców, by dosięgnąć palców.",
+   "Podrywanie się, by wejść głębiej w rozciąganie."
+  ],
+  "tip": "Lekko ugnij kolana albo usiądź na złożonym ręczniku, jeśli dolne plecy się zaokrąglają."
+ },
+ "standing_side_stretch": {
+  "title": "Rozciąganie boku w staniu",
+  "desc": "Pochylaj się na boki z rękami nad głową, by rozciągnąć talię i uwolnić żebra.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Stań prosto, stopy na szerokość bioder.",
+   "Wyciągnij oba ramiona nad głowę i chwyć jedną ręką drugi nadgarstek.",
+   "Pochyl się powoli na jedną stronę, mocno dociskając obie stopy do podłogi.",
+   "Wytrzymaj 15 sekund, zmień stronę i wykonaj 2 serie na każdą stronę."
+  ],
+  "mistakes": [
+   "Pochylanie się do przodu lub skręcanie zamiast zgięcia prosto w bok.",
+   "Mocne wypychanie bioder w bok."
+  ],
+  "tip": "Wyobraź sobie, że stoisz między dwiema ścianami i możesz poruszać się tylko na boki."
+ },
+ "low_lunge_arch": {
+  "title": "Niski wykrok z wyciągnięciem",
+  "desc": "Opuść biodra do przodu i sięgnij w górę, by otworzyć przód bioder i klatkę piersiową.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Zrób krok jedną nogą do przodu i opuść tylne kolano na podłogę.",
+   "Przesuń biodra do przodu, aż poczujesz rozciąganie z przodu tylnego biodra.",
+   "Wyciągnij oba ramiona w górę i unieś klatkę piersiową w delikatnym wygięciu.",
+   "Wytrzymaj 20 sekund, zmień nogę i wykonaj 2 serie na każdą stronę."
+  ],
+  "mistakes": [
+   "Wysuwanie przedniego kolana daleko poza palce.",
+   "Wyginanie się tylko w lędźwiach."
+  ],
+  "tip": "Podłóż złożony ręcznik pod tylne kolano i utrzymuj wygięcie niewielkie."
+ },
+ "bow_pose": {
+  "title": "Pozycja łuku",
+  "desc": "Chwyć kostki i unieś klatkę piersiową oraz uda, by otworzyć cały przód ciała i wzmocnić plecy.",
+  "dose": "2 x 10 s",
+  "steps": [
+   "Połóż się na brzuchu i ugnij kolana, aby pięty zbliżyły się do bioder.",
+   "Sięgnij do tyłu i chwyć obie kostki.",
+   "Wypchnij stopy w dłonie, by unieść klatkę piersiową i uda.",
+   "Wytrzymaj 10 sekund i opuść się powoli, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Rozstawianie kolan szerzej niż biodra.",
+   "Odrzucanie głowy do tyłu, co przeciąża kark."
+  ],
+  "tip": "Unoś się tylko tak wysoko, jak jest wygodnie, i pomiń to ćwiczenie, jeśli bolą cię dolne plecy."
+ },
+ "pilates_roll_over": {
+  "title": "Roll Over z pilatesu",
+  "desc": "Przetaczaj nogi nad głowę i z powrotem pod kontrolą, by rozciągnąć kręgosłup i wzmocnić głębokie mięśnie brzucha.",
+  "dose": "2 x 5",
+  "steps": [
+   "Połóż się na plecach, ramiona wzdłuż ciała, nogi proste w górę.",
+   "Dociśnij ramiona do podłogi i unieś biodra, by przetoczyć nogi nad głowę.",
+   "Zatrzymaj się, gdy nogi będą równolegle do podłogi za głową.",
+   "Przetocz się powoli z powrotem, zrób 5 powtórzeń i odpocznij, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Przerzucanie nóg rozpędem.",
+   "Przetaczanie się na kark zamiast na barki."
+  ],
+  "tip": "Utrzymuj ciężar na barkach, nigdy na karku, i ugnij kolana, by było łatwiej."
+ },
+ "legs_up_wall": {
+  "title": "Nogi w górze na ścianie",
+  "desc": "Oprzyj nogi o ścianę, by odciążyć kręgosłup i odpocząć po długim dniu.",
+  "dose": "3 min",
+  "steps": [
+   "Usiądź bokiem przy ścianie, jednym biodrem dotykając jej.",
+   "Unieś nogi po ścianie, kładąc się jednocześnie na plecach na podłodze.",
+   "Ramiona połóż wzdłuż ciała i rozluźnij nogi na ścianie.",
+   "Zostań w tej pozycji 3 minuty, oddychając powoli."
+  ],
+  "mistakes": [
+   "Odrywanie dolnych pleców od podłogi.",
+   "Mocne blokowanie kolan i napinanie nóg."
+  ],
+  "tip": "Odsuń biodra trochę od ściany, jeśli tył nóg jest napięty."
+ },
+ "spinal_twist": {
+  "title": "Skręt kręgosłupa w leżeniu",
+  "desc": "Opuść jedno kolano w poprzek ciała, by delikatnie skręcić kręgosłup i rozluźnić sztywne dolne plecy.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Połóż się na plecach, ramiona wyciągnij na boki.",
+   "Ugnij jedno kolano i przenieś je w poprzek ciała w stronę podłogi.",
+   "Oba barki trzymaj na podłodze i spójrz w przeciwną stronę.",
+   "Wytrzymaj 20 sekund, zmień stronę i wykonaj 2 serie na każdą stronę."
+  ],
+  "mistakes": [
+   "Odrywanie przeciwnego barku od podłogi.",
+   "Dociskanie kolana do podłogi ręką na siłę."
+  ],
+  "tip": "Oprzyj kolano na poduszce, jeśli nie sięga podłogi."
+ },
+ "chest_stretch": {
+  "title": "Rozciąganie klatki w drzwiach",
+  "desc": "Przejdź krok przez futrynę z przedramieniem na framudze, by otworzyć klatkę zgarbioną od ekranów.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Stań w drzwiach i oprzyj jedno przedramię o framugę, łokieć na wysokości barku.",
+   "Zrób krok przez drzwi stopą po tej samej stronie.",
+   "Pochyl klatkę piersiową do przodu, aż poczujesz rozciąganie z przodu barku.",
+   "Wytrzymaj 20 sekund, zmień stronę i wykonaj 2 serie na każdą stronę."
+  ],
+  "mistakes": [
+   "Wyginanie lędźwi, by pochylić się dalej.",
+   "Unoszenie barku w stronę ucha."
+  ],
+  "tip": "Rozciągaj delikatnie i wycofaj się, jeśli poczujesz kłucie w barku."
+ },
+ "scapular_retraction": {
+  "title": "Ściąganie łopatek",
+  "desc": "Ściągnij łopatki do tyłu i w dół, by wzmocnić mięśnie, które nie pozwalają barkom zaokrąglać się do przodu.",
+  "dose": "2 x 10",
+  "steps": [
+   "Usiądź lub stań prosto z rozluźnionymi ramionami wzdłuż ciała.",
+   "Ściągnij łopatki do tyłu i w dół, jakbyś chował je do tylnych kieszeni.",
+   "Utrzymaj napięcie przez jeden powolny oddech, potem puść.",
+   "Zrób 10 powtórzeń i odpocznij, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Unoszenie barków podczas ściągania.",
+   "Wypychanie żeber do przodu i wyginanie pleców."
+  ],
+  "tip": "Trzymaj brodę prosto, a kark rozluźniony przez cały czas."
+ },
+ "thoracic_extension": {
+  "title": "Wyprost górnych pleców na krześle",
+  "desc": "Odchyl górną część pleców przez krzesło, by rozluźnić garbienie od siedzenia i otworzyć klatkę piersiową.",
+  "dose": "2 x 8",
+  "steps": [
+   "Usiądź na stabilnym krześle tak, by górna krawędź oparcia była tuż pod łopatkami.",
+   "Złóż dłonie za głową i trzymaj łokcie szeroko.",
+   "Powoli odchylaj górną część pleców przez oparcie i patrz w górę.",
+   "Wróć do pionu, zrób 8 powtórzeń i odpocznij, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Zginanie się w lędźwiach zamiast w górnej części pleców.",
+   "Ciągnięcie głowy do przodu rękami."
+  ],
+  "tip": "Użyj krzesła, które nie jeździ ani nie przechyla się, i trzymaj stopy płasko na podłodze."
+ },
+ "hanging_knee_raise": {
+  "title": "Unoszenie kolan w zwisie",
+  "desc": "Unoś kolana w zwisie, by wzmocnić brzuch, a sam zwis odciąża kręgosłup.",
+  "dose": "3 x 5",
+  "steps": [
+   "Chwyć drążek nachwytem i zwisaj z wyprostowanymi ramionami.",
+   "Ściągnij barki w dół, z dala od uszu.",
+   "Unieś oba kolana na wysokość bioder bez bujania, potem opuść je powoli.",
+   "Zrób 5 powtórzeń, zejdź i odpocznij, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Bujanie ciałem, by wyrzucić kolana w górę.",
+   "Zwis z barkami przy uszach."
+  ],
+  "tip": "Sprawdź, czy drążek jest solidny, zanim zawiśniesz, i zejdź zamiast spadać."
+ },
+ "scapular_pull": {
+  "title": "Podciąganie łopatek w zwisie",
+  "desc": "Ściągaj barki w dół ze zwisu na prostych ramionach, by zbudować podstawę pod mocne podciąganie.",
+  "dose": "3 x 5",
+  "steps": [
+   "Chwyć drążek nachwytem, ręce nieco szerzej niż barki.",
+   "Zwisaj na prostych ramionach i pozwól barkom unieść się w stronę uszu.",
+   "Ściągnij łopatki w dół, aby ciało lekko się uniosło, z wyprostowanymi łokciami.",
+   "Przytrzymaj sekundę i puść, zrób 5 powtórzeń, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Uginanie łokci, by podciągnąć się wyżej.",
+   "Bujanie nogami dla pomocy."
+  ],
+  "tip": "Sprawdź, czy drążek jest solidny, i postaw stopy na skrzyni, jeśli pełny zwis jest za trudny."
+ },
+ "pull_ups": {
+  "title": "Podciąganie na drążku",
+  "desc": "Podciągnij brodę nad drążek, by zbudować plecy. To ciężka praca, na którą organizm później odpowiada hormonem wzrostu.",
+  "dose": "3 x 2",
+  "steps": [
+   "Chwyć drążek nachwytem, ręce nieco szerzej niż barki.",
+   "Zacznij od zwisu na prostych ramionach i ściągnij łopatki w dół.",
+   "Podciągaj się, aż broda znajdzie się nad drążkiem, potem opuszczaj się powoli.",
+   "Zrób 2 powtórzenia, zejdź i odpocznij, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Kopanie i bujanie się, by przejść nad drążek.",
+   "Szybkie opadanie zamiast kontrolowanego opuszczania."
+  ],
+  "tip": "Zapętl gumę pod stopami albo wskocz do góry i opuszczaj się powoli, oraz sprawdź, czy drążek jest solidny."
+ },
+ "bird_dog": {
+  "title": "Bird Dog",
+  "desc": "Wyciągnij przeciwną rękę i nogę, by wzmocnić głębokie mięśnie, które stabilizują kręgosłup.",
+  "dose": "2 x 8",
+  "steps": [
+   "Zacznij w podporze klęcznym, dłonie pod barkami, kolana pod biodrami.",
+   "Wyciągnij jedną rękę do przodu i przeciwną nogę prosto do tyłu.",
+   "Przytrzymaj dwie sekundy, trzymając biodra prosto, potem wróć.",
+   "Zrób 8 powtórzeń, zmień stronę i wykonaj 2 serie na każdą stronę."
+  ],
+  "mistakes": [
+   "Zapadanie się dolnych pleców przy unoszeniu nogi.",
+   "Otwieranie bioder w bok, by unieść nogę wyżej."
+  ],
+  "tip": "Wyobraź sobie szklankę wody na dolnych plecach, z której nie wolno nic rozlać."
+ },
+ "dead_bug": {
+  "title": "Dead Bug",
+  "desc": "Opuszczaj przeciwną rękę i nogę przy płaskich plecach, by zbudować kontrolę brzucha, która chroni kręgosłup.",
+  "dose": "2 x 8",
+  "steps": [
+   "Połóż się na plecach, ramiona proste w górę, kolana ugięte nad biodrami.",
+   "Delikatnie dociśnij dolne plecy do podłogi.",
+   "Opuść jedną rękę za głowę i przeciwną nogę w stronę podłogi, potem wróć.",
+   "Zrób 8 powtórzeń na każdą stronę i odpocznij, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Odrywanie dolnych pleców od podłogi przez wygięcie.",
+   "Pośpiech w powtórzeniach."
+  ],
+  "tip": "Opuszczaj rękę i nogę tylko tak nisko, by plecy pozostały płasko na podłodze."
+ },
+ "side_plank": {
+  "title": "Deska boczna",
+  "desc": "Utrzymaj prostą linię na jednym przedramieniu, by wzmocnić mięśnie boczne dbające o równą postawę.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Połóż się na boku, przedramię na podłodze, łokieć pod barkiem.",
+   "Ułóż stopy jedna na drugiej i unieś biodra znad podłogi.",
+   "Trzymaj ciało w jednej prostej linii od głowy do pięt.",
+   "Wytrzymaj 15 sekund, zmień stronę i wykonaj 2 serie na każdą stronę."
+  ],
+  "mistakes": [
+   "Opadanie bioder w stronę podłogi.",
+   "Przekręcanie klatki piersiowej do przodu w stronę podłogi."
+  ],
+  "tip": "Zostaw dolne kolano na podłodze, by było łatwiej."
+ },
+ "wall_sit": {
+  "title": "Krzesło przy ścianie",
+  "desc": "Usiądź przy ścianie z udami równolegle do podłogi, by budować siłę nóg przy prostych plecach.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stań plecami do ściany, stopy krok przed sobą.",
+   "Zsuwaj się w dół, aż uda będą równolegle do podłogi.",
+   "Trzymaj kolana nad kostkami, a całe plecy na ścianie.",
+   "Wytrzymaj 20 sekund i wstań, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Opieranie dłoni na udach.",
+   "Wysuwanie kolan przed palce stóp."
+  ],
+  "tip": "Usiądź trochę wyżej, jeśli kolana protestują, i schodź niżej, gdy zyskasz więcej siły."
+ },
+ "lunges": {
+  "title": "Wykroki",
+  "desc": "Zrób krok do przodu i ugnij oba kolana, by zbudować silne nogi i biodra, jedna strona po drugiej.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stań prosto, stopy na szerokość bioder.",
+   "Zrób duży krok do przodu i opuść się, aż oba kolana będą ugięte pod kątem około 90 stopni.",
+   "Odepchnij się piętą przedniej nogi i wróć do pozycji wyjściowej.",
+   "Zrób 8 powtórzeń na każdą nogę i odpocznij, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Zapadanie się przedniego kolana do środka.",
+   "Mocne pochylanie klatki do przodu nad przednią nogą."
+  ],
+  "tip": "Zrób krótszy krok albo przytrzymaj się krzesła, aż ruch będzie stabilny."
+ },
+ "step_ups": {
+  "title": "Wejścia na podwyższenie",
+  "desc": "Wejdź na podwyższenie i wyprostuj się, potem opuść się powoli, by budować siłę jednej nogi i równowagę.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stań przed schodkiem lub stabilną niską ławką.",
+   "Postaw całą jedną stopę na podwyższeniu i wepchnij się w górę, aż staniesz prosto.",
+   "Powoli opuść drugą stopę z powrotem na podłogę.",
+   "Zrób 8 powtórzeń na każdą nogę i odpocznij, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Mocne odpychanie się stopą stojącą na podłodze.",
+   "Szybkie opadanie zamiast kontrolowanego opuszczania."
+  ],
+  "tip": "Użyj schodka, który się nie ślizga i nie przechyla, i zacznij od niskiego, zanim wejdziesz wyżej."
+ },
+ "push_ups": {
+  "title": "Pompki",
+  "desc": "Opuść klatkę piersiową ku podłodze z prostym ciałem, by zbudować klatkę, ramiona i brzuch.",
+  "dose": "3 x 5",
+  "steps": [
+   "Połóż dłonie na podłodze nieco szerzej niż barki.",
+   "Cofnij stopy, aby ciało tworzyło jedną prostą linię.",
+   "Ugnij łokcie, by opuścić klatkę ku podłodze, potem wypchnij się w górę.",
+   "Zrób 5 powtórzeń i odpocznij, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Opadanie bioder w stronę podłogi.",
+   "Rozstawianie łokci prosto na boki."
+  ],
+  "tip": "Oprzyj się na kolanach albo połóż dłonie na ławce, by było łatwiej."
+ },
+ "single_leg_calf_raise": {
+  "title": "Wspięcia na jednej nodze",
+  "desc": "Wspinaj się na jednej stopie z krawędzi schodka, by zbudować mocne łydki i kostki do skakania.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stań przodostopiem jednej stopy na krawędzi schodka i przytrzymaj się ściany lub poręczy.",
+   "Powoli opuść piętę poniżej poziomu schodka.",
+   "Unieś się jak najwyżej na palce i zatrzymaj się na sekundę.",
+   "Zrób 8 powtórzeń na każdą nogę i odpocznij, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Odbijanie się z dolnej pozycji zamiast powolnego ruchu.",
+   "Uginanie kolana, by pomóc łydce."
+  ],
+  "tip": "Zacznij z masą własnego ciała, a jeśli dodasz hantlę lub plecak, wybierz ciężar na tyle lekki, by każde powtórzenie zrobić poprawnie."
+ },
+ "goblet_squat": {
+  "title": "Przysiad goblet",
+  "desc": "Zrób przysiad z ciężarem przy klatce piersiowej. To wysiłek dużych mięśni, na który organizm później odpowiada hormonem wzrostu.",
+  "dose": "3 x 8",
+  "steps": [
+   "Trzymaj jedną hantlę lub załadowany plecak obiema rękami przy klatce.",
+   "Stań w rozkroku na szerokość barków, palce stóp lekko na zewnątrz.",
+   "Usiądź między piętami z uniesioną klatką, potem wstań.",
+   "Zrób 8 powtórzeń i odpocznij, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Zapadanie się kolan do środka.",
+   "Zaokrąglanie pleców i opadanie klatki."
+  ],
+  "tip": "Wybierz ciężar na tyle lekki, by każde powtórzenie zrobić poprawnie."
+ },
+ "dumbbell_deadlift": {
+  "title": "Rumuński martwy ciąg z hantlami",
+  "desc": "Zginaj się w biodrach z płaskimi plecami. To ciężka praca dużych mięśni, na którą organizm później odpowiada hormonem wzrostu.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stań prosto z hantlą w każdej ręce przed udami.",
+   "Lekko ugnij kolana i odsuń biodra w tył, z płaskimi plecami.",
+   "Zsuwaj hantle po udach do miejsca tuż poniżej kolan.",
+   "Napnij pośladki, by wstać, zrób 8 powtórzeń, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Zaokrąglanie pleców podczas opuszczania ciężaru.",
+   "Zamienianie ruchu w przysiad przez mocne uginanie kolan."
+  ],
+  "tip": "Wybierz ciężar na tyle lekki, by każde powtórzenie zrobić poprawnie."
+ },
+ "dumbbell_row": {
+  "title": "Wiosłowanie hantlą",
+  "desc": "Przyciągnij hantlę do biodra, by zbudować mięśnie górnej części pleców, które ściągają barki do tyłu.",
+  "dose": "3 x 8",
+  "steps": [
+   "Oprzyj jedną rękę na ławce lub krześle i cofnij stopy.",
+   "Trzymaj hantlę w drugiej ręce, z płaskimi plecami i ramieniem zwisającym w dół.",
+   "Przyciągnij ciężar do biodra, łokieć blisko ciała, potem opuść go powoli.",
+   "Zrób 8 powtórzeń na każdą stronę i odpocznij, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Skręcanie ciała, by wyszarpnąć ciężar w górę.",
+   "Unoszenie barku w stronę ucha."
+  ],
+  "tip": "Wybierz ciężar na tyle lekki, by każde powtórzenie zrobić poprawnie."
+ },
+ "farmer_carry": {
+  "title": "Spacer farmera",
+  "desc": "Idź wyprostowany z ciężarem w każdej ręce. To praca całego ciała, na którą organizm później odpowiada hormonem wzrostu.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stań między dwiema hantlami lub dwiema obciążonymi torbami.",
+   "Ugnij kolana, zachowaj proste plecy i podnieś je.",
+   "Idź małymi krokami, z barkami do tyłu i wzrokiem przed siebie.",
+   "Idź przez 20 sekund, odłóż ciężary i odpocznij, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Przechylanie się na jedną stronę lub zaokrąglanie barków do przodu.",
+   "Zaokrąglanie pleców przy podnoszeniu lub odkładaniu ciężarów."
+  ],
+  "tip": "Wybierz ciężar na tyle lekki, by każdą serię zrobić poprawnie, i dbaj o równe obciążenie obu stron."
+ },
+ "band_pull_apart": {
+  "title": "Band Pull-Apart",
+  "desc": "Rozciągaj gumę do klatki piersiowej, by wzmocnić górną część pleców i utrzymać barki otwarte.",
+  "dose": "2 x 12",
+  "steps": [
+   "Stań prosto i trzymaj gumę przed sobą na prostych ramionach, na wysokości barków.",
+   "Rozciągnij gumę, ściągając łopatki ku sobie.",
+   "Dotknij gumą klatki piersiowej, potem wróć powoli.",
+   "Zrób 12 powtórzeń i odpocznij, łącznie 2 serie."
+  ],
+  "mistakes": [
+   "Unoszenie barków w stronę uszu.",
+   "Pozwalanie gumie, by wystrzeliła z powrotem, zamiast wracać powoli."
+  ],
+  "tip": "Wybierz gumę na tyle lekką, by każde powtórzenie zrobić poprawnie, i najpierw sprawdź, czy nie jest pęknięta."
+ },
+ "burpees": {
+  "title": "Burpees",
+  "desc": "Przysiad, deska i skok w jednym ruchu. To praca całego ciała, na którą organizm później odpowiada hormonem wzrostu.",
+  "dose": "3 x 5",
+  "steps": [
+   "Stań prosto, potem zrób przysiad i połóż dłonie na podłodze.",
+   "Wyskocz stopami do tyłu w prostą deskę.",
+   "Wyskocz stopami z powrotem w stronę dłoni.",
+   "Wyskocz prosto w górę, zrób 5 powtórzeń i odpocznij, łącznie 3 serie."
+  ],
+  "mistakes": [
+   "Opadanie bioder w desce.",
+   "Twarde lądowanie na prostych nogach po skoku."
+  ],
+  "tip": "Cofaj i przysuwaj stopy krokiem zamiast skoku, by było łatwiej, i zwolnij, gdy technika się psuje."
+ }
+}

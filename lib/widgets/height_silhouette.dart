@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,76 @@ import '../providers/app_provider.dart';
 import '../utils/constants.dart';
 import '../utils/haptics.dart';
 import '../utils/num_format.dart';
+
+/// Marks a number the user has not unlocked. Never reaches the screen:
+/// [CensoredText] draws a soft smear in its place.
+const kCensored = '█████';
+
+/// Every number in [s], replaced by [kCensored].
+String censorDigits(String s) =>
+    s.replaceAll(RegExp(r'\p{Nd}+([.,]\p{Nd}+)?', unicode: true), kCensored);
+
+/// True for someone who has not paid: plan numbers are blurred for them.
+bool numbersLocked(BuildContext context) {
+  try {
+    return !Provider.of<AppProvider>(context).isPremium;
+  } catch (_) {
+    return false;
+  }
+}
+
+/// Text in which every [kCensored] is drawn as blurred stand-in digits, sized
+/// and coloured like the words around it. The real value is never drawn.
+class CensoredText extends StatelessWidget {
+  final String text;
+  final TextStyle style;
+  final TextAlign? textAlign;
+  final int? maxLines;
+  final TextOverflow? overflow;
+  const CensoredText(
+    this.text, {
+    super.key,
+    required this.style,
+    this.textAlign,
+    this.maxLines,
+    this.overflow,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final parts = text.split(kCensored);
+    final size = style.fontSize ?? 14;
+    return Text.rich(
+      TextSpan(
+        style: style,
+        children: [
+          for (var i = 0; i < parts.length; i++) ...[
+            if (i > 0)
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: ExcludeSemantics(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size * 0.25),
+                    child: ImageFiltered(
+                      imageFilter: ImageFilter.blur(
+                        sigmaX: size * 0.3,
+                        sigmaY: size * 0.3,
+                      ),
+                      child: Text('168', style: style),
+                    ),
+                  ),
+                ),
+              ),
+            if (parts[i].isNotEmpty) TextSpan(text: parts[i]),
+          ],
+        ],
+      ),
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+    );
+  }
+}
 
 /// One person, growing: today's figure in front and, right behind it, the
 /// same figure at the potential height, glowing. The extra centimetres sit
@@ -31,6 +102,10 @@ class HeightSilhouette extends StatelessWidget {
   /// something else, such as the goal the user picked in the onboarding.
   final String? potentialLabel;
 
+  /// For someone who has not paid: the taller figure is a fixed stand-in and
+  /// its numbers are censored, so nothing real can be read off the drawing.
+  final bool locked;
+
   const HeightSilhouette({
     super.key,
     required this.current,
@@ -41,6 +116,7 @@ class HeightSilhouette extends StatelessWidget {
     this.animate = true,
     this.female,
     this.potentialLabel,
+    this.locked = false,
   });
 
   @override
@@ -52,10 +128,19 @@ class HeightSilhouette extends StatelessWidget {
       provider = Provider.of<AppProvider>(context, listen: false);
     } catch (_) {}
     final isFemale = female ?? provider?.profile?.gender == 'female';
-    final pot = potential < current ? current : potential;
-    final gapText = provider != null
+    final pot = locked
+        ? current + 7
+        : potential < current
+        ? current
+        : potential;
+    final gapText = locked
+        ? kCensored
+        : provider != null
         ? provider.formatHeightDelta(pot - current)
         : '+${(pot - current).fixedL(1)} cm';
+    final shown = locked
+        ? (double cm) => cm == current ? format(cm) : kCensored
+        : format;
 
     return SizedBox(
       height: height,
@@ -70,10 +155,10 @@ class HeightSilhouette extends StatelessWidget {
             current: current,
             potential: current + (pot - current) * t,
             finalPotential: pot,
-            dream: dream,
+            dream: locked ? null : dream,
             female: isFemale,
             glow: t,
-            format: format,
+            format: shown,
             gapText: gapText,
             nowLabel: l.silNow,
             potentialLabel: potentialLabel ?? l.silPotential,
@@ -206,7 +291,7 @@ class _Scene extends StatelessWidget {
                     color: AppColors.lime.withValues(alpha: 0.6),
                   ),
                 ),
-                child: Text(
+                child: CensoredText(
                   gapText.startsWith('+') ? gapText : '+$gapText',
                   style: const TextStyle(
                     fontSize: 11.5,
@@ -245,7 +330,7 @@ class _Tag extends StatelessWidget {
             color: color.withValues(alpha: 0.8),
           ),
         ),
-        Text(
+        CensoredText(
           value,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -549,4 +634,29 @@ class _BodyPainter extends CustomPainter {
       old.glow != glow ||
       old.female != female ||
       old.width != width;
+}
+
+/// The standing figure on its own, [height] tall, feet on the bottom edge:
+/// the onboarding draws it on the gender cards and beside the height wheel.
+class BodyFigure extends StatelessWidget {
+  final bool female;
+  final double height;
+  const BodyFigure({super.key, required this.female, required this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    final width = height * 0.36;
+    return CustomPaint(
+      size: Size(width, height),
+      painter: _BodyPainter(
+        cx: width / 2,
+        ground: height,
+        width: height * 0.25,
+        nowHead: 0,
+        potHead: 0,
+        female: female,
+        glow: 0,
+      ),
+    );
+  }
 }

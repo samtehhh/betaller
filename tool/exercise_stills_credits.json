@@ -1,0 +1,32 @@
+{
+ "source": "https://github.com/yuhonas/free-exercise-db",
+ "licence": "The Unlicense (public domain)",
+ "fetched": "2026-11-11",
+ "images": {
+  "jump_squats": "Freehand Jump Squat",
+  "tuck_jumps": "Knee Tuck Jump",
+  "single_leg_hops": "Single-Leg Hop Progression",
+  "pelvic_shift": "Pelvic Tilt Into Bridge",
+  "childs_pose": "Child's Pose",
+  "seated_forward_fold": "Upper Back-Leg Grab",
+  "standing_side_stretch": "Standing Lateral Stretch",
+  "spinal_twist": "Knee Across The Body",
+  "chest_stretch": "One Arm Against Wall",
+  "mountain_pose": "Upward Stretch",
+  "scapular_retraction": "Elbows Back",
+  "hanging_knee_raise": "Hanging Leg Raise",
+  "scapular_pull": "Scapular Pull-Up",
+  "pull_ups": "Pullups",
+  "dead_bug": "Dead Bug",
+  "side_plank": "Side Bridge",
+  "lunges": "Bodyweight Walking Lunge",
+  "step_ups": "Dumbbell Step Ups",
+  "push_ups": "Pushups",
+  "goblet_squat": "Goblet Squat",
+  "dumbbell_deadlift": "Stiff-Legged Dumbbell Deadlift",
+  "dumbbell_row": "One-Arm Dumbbell Row",
+  "farmer_carry": "Farmer's Walk",
+  "band_pull_apart": "Band Pull Apart",
+  "superman": "Superman"
+ }
+}

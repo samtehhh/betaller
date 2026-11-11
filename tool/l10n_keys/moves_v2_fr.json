@@ -1,0 +1,610 @@
+{
+ "pogo_jumps": {
+  "title": "Sauts pogo",
+  "desc": "De petits rebonds rapides, chevilles raides, sollicitent les os des tibias et des pieds et donnent des mollets puissants et élastiques.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Tiens-toi droit, les pieds écartés largeur de hanches et les mains sur les hanches.",
+   "Rebondis sur l'avant des pieds, les genoux presque tendus.",
+   "Garde chaque contact avec le sol court et rapide, comme sur un bâton sauteur.",
+   "Continue pendant 20 secondes, 3 séries au total."
+  ],
+  "mistakes": [
+   "Plier profondément les genoux à chaque rebond.",
+   "Laisser les talons claquer au sol."
+  ],
+  "tip": "Saute sur une surface ferme et plane, et arrête si tes tibias ou tes chevilles te font mal."
+ },
+ "jump_squats": {
+  "title": "Squats sautés",
+  "desc": "Un squat suivi d'un saut pour la puissance des jambes, un gros effort des grands muscles auquel ton corps répond ensuite par de l'hormone de croissance.",
+  "dose": "3 x 8",
+  "steps": [
+   "Tiens-toi les pieds écartés largeur d'épaules, la poitrine ouverte.",
+   "Descends en squat en reculant les fesses, jusqu'à ce que les cuisses soient à peu près à l'horizontale.",
+   "Pousse fort dans tes pieds, saute bien droit vers le haut et réceptionne-toi en douceur en squat.",
+   "Fais 8 sauts, repose-toi et recommence, 3 séries au total."
+  ],
+  "mistakes": [
+   "Laisser les genoux rentrer vers l'intérieur à la réception.",
+   "Retomber les jambes raides et tendues."
+  ],
+  "tip": "Réceptionne-toi le plus silencieusement possible, et arrête la série quand les réceptions deviennent bruyantes."
+ },
+ "tuck_jumps": {
+  "title": "Sauts groupés",
+  "desc": "Saute et ramène les genoux vers toi pour développer la puissance, un gros effort auquel ton corps répond ensuite par de l'hormone de croissance.",
+  "dose": "3 x 6",
+  "steps": [
+   "Tiens-toi droit, les pieds écartés largeur de hanches.",
+   "Fléchis vite les genoux en quart de squat et saute le plus haut possible.",
+   "En haut, ramène les deux genoux vers la poitrine, puis réceptionne-toi en douceur, genoux fléchis.",
+   "Fais 6 sauts, repose-toi et recommence, 3 séries au total."
+  ],
+  "mistakes": [
+   "Pencher la poitrine vers les genoux au lieu de monter les genoux.",
+   "Retomber lourdement, jambes tendues."
+  ],
+  "tip": "Retrouve ton équilibre entre les sauts, et vérifie que tu as de la place et un sol qui ne glisse pas."
+ },
+ "broad_jumps": {
+  "title": "Sauts en longueur",
+  "desc": "Saute vers l'avant pieds joints et tiens la réception pour développer la puissance des hanches et des os des jambes solides.",
+  "dose": "3 x 5",
+  "steps": [
+   "Tiens-toi les pieds écartés largeur de hanches, les orteils derrière une ligne.",
+   "Balance les bras vers l'arrière, fléchis les genoux et pousse les fesses en arrière.",
+   "Balance les bras vers l'avant, saute aussi loin que possible et réceptionne-toi sur les deux pieds.",
+   "Tiens la réception une seconde, reviens en marchant et fais 5 sauts, 3 séries au total."
+  ],
+  "mistakes": [
+   "Basculer vers l'avant ou vers l'arrière à la réception.",
+   "Retomber les genoux bloqués, jambes tendues."
+  ],
+  "tip": "Saute sur une surface qui ne glisse pas, et fais des sauts plus courts jusqu'à tenir chaque réception sans bouger."
+ },
+ "single_leg_hops": {
+  "title": "Sautillements sur une jambe",
+  "desc": "De petits sautillements sur une jambe renforcent les chevilles et les os et équilibrent tes deux côtés.",
+  "dose": "2 x 8",
+  "steps": [
+   "Tiens-toi sur une jambe, l'autre pied levé derrière toi.",
+   "Fais de petits sauts sur place en te réceptionnant sur l'avant du pied.",
+   "Garde les hanches à niveau et le genou d'appui légèrement fléchi.",
+   "Fais 8 sauts, change de jambe et fais 2 séries de chaque côté."
+  ],
+  "mistakes": [
+   "Laisser le genou de la jambe qui saute rentrer vers l'intérieur.",
+   "Sauter si haut que tu perds l'équilibre."
+  ],
+  "tip": "Reste près d'un mur que tu peux toucher, et saute bas jusqu'à ce que ton équilibre soit stable."
+ },
+ "high_knees": {
+  "title": "Montées de genoux",
+  "desc": "Cours sur place en montant les genoux à hauteur de hanches pour t'échauffer vite et faire travailler les jambes.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Tiens-toi droit, les pieds écartés largeur de hanches.",
+   "Cours sur place en montant chaque genou à hauteur de hanches.",
+   "Balance les bras et reste léger sur l'avant des pieds.",
+   "Continue pendant 20 secondes, 3 séries au total."
+  ],
+  "mistakes": [
+   "Se pencher en arrière quand les genoux montent.",
+   "Taper le sol avec les pieds à plat."
+  ],
+  "tip": "Ralentis en marchant genoux hauts si tu es essoufflé."
+ },
+ "mountain_pose": {
+  "title": "Posture de la montagne sur pointes",
+  "desc": "Monte sur la pointe des pieds et étire-toi vers le haut pour t'entraîner à te tenir bien droit.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Tiens-toi les pieds joints, le poids réparti également sur les deux pieds.",
+   "Lève les deux bras tendus au-dessus de la tête, paumes face à face.",
+   "Monte sur la pointe des pieds et étire-toi jusqu'au bout des doigts.",
+   "Tiens 20 secondes et redescends lentement, 2 séries au total."
+  ],
+  "mistakes": [
+   "Ouvrir les côtes et creuser le bas du dos.",
+   "Monter les épaules jusqu'aux oreilles."
+  ],
+  "tip": "Fixe un point devant toi, ou garde les talons au sol si tu vacilles."
+ },
+ "pelvic_shift": {
+  "title": "Bascule du bassin",
+  "desc": "Monte et descends les hanches vertèbre par vertèbre pour détendre la colonne et réveiller les fessiers.",
+  "dose": "2 x 10",
+  "steps": [
+   "Allonge-toi sur le dos, les genoux fléchis et les pieds à plat au sol.",
+   "Rentre le coccyx et décolle la colonne du sol de bas en haut.",
+   "Marque une pause en haut, puis redescends lentement, vertèbre par vertèbre.",
+   "Fais 10 répétitions lentes et repose-toi, 2 séries au total."
+  ],
+  "mistakes": [
+   "Pousser les hanches vers le haut d'un seul bloc et trop vite.",
+   "Creuser le bas du dos en haut du mouvement."
+  ],
+  "tip": "Bouge assez lentement pour sentir chaque partie de ton dos toucher le sol."
+ },
+ "table_top": {
+  "title": "Table inversée",
+  "desc": "Monte les hanches pour former une table plate qui ouvre la poitrine et les épaules et renforce l'arrière du corps.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Assieds-toi, genoux fléchis, pieds à plat et mains au sol derrière les hanches.",
+   "Oriente les doigts vers les pieds et appuie dans tes mains et tes pieds.",
+   "Monte les hanches jusqu'à ce que ton corps soit plat des genoux aux épaules.",
+   "Tiens 15 secondes et redescends, 2 séries au total."
+  ],
+  "mistakes": [
+   "Laisser les hanches s'affaisser au milieu.",
+   "Laisser tomber la tête en arrière au point de forcer sur la nuque."
+  ],
+  "tip": "Tourne les doigts vers l'extérieur si tes poignets sont douloureux."
+ },
+ "childs_pose": {
+  "title": "Posture de l'enfant",
+  "desc": "Assieds-toi sur les talons, bras allongés, pour étirer doucement le dos et relâcher la colonne.",
+  "dose": "2 x 30 s",
+  "steps": [
+   "Mets-toi à genoux au sol, gros orteils réunis et genoux écartés.",
+   "Recule les fesses sur les talons.",
+   "Avance les mains et pose le front au sol.",
+   "Respire lentement pendant 30 secondes et remonte, 2 séries au total."
+  ],
+  "mistakes": [
+   "Décoller les fesses des talons pour aller plus loin.",
+   "Retenir sa respiration et crisper les épaules."
+  ],
+  "tip": "Glisse un coussin entre les fesses et les talons si tes genoux sont tendus."
+ },
+ "puppy_pose": {
+  "title": "Posture du chiot",
+  "desc": "Laisse fondre la poitrine vers le sol pour ouvrir des épaules tendues et étirer le haut du dos.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Mets-toi à quatre pattes, les hanches juste au-dessus des genoux.",
+   "Avance les mains sans bouger les hanches.",
+   "Laisse la poitrine et le front descendre vers le sol.",
+   "Tiens 20 secondes et remonte, 2 séries au total."
+  ],
+  "mistakes": [
+   "Laisser les hanches reculer vers les talons.",
+   "Plier les coudes et les poser au sol."
+  ],
+  "tip": "Pose le front sur un coussin si l'étirement des épaules est trop fort."
+ },
+ "seated_forward_fold": {
+  "title": "Flexion avant assise",
+  "desc": "Penche-toi depuis les hanches au-dessus de jambes tendues pour étirer l'arrière des cuisses et tout le dos.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Assieds-toi au sol, jambes tendues et orteils vers le haut.",
+   "Redresse-toi et lève les deux bras au-dessus de la tête.",
+   "Penche-toi depuis les hanches et attrape tes tibias ou tes pieds.",
+   "Tiens 20 secondes et redresse-toi, 2 séries au total."
+  ],
+  "mistakes": [
+   "Arrondir le haut du dos pour atteindre les orteils.",
+   "Faire des rebonds pour aller plus loin dans l'étirement."
+  ],
+  "tip": "Fléchis un peu les genoux ou assieds-toi sur une serviette pliée si ton bas du dos s'arrondit."
+ },
+ "standing_side_stretch": {
+  "title": "Étirement latéral debout",
+  "desc": "Penche-toi de chaque côté, bras levés, pour étirer la taille et libérer les côtes.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Tiens-toi droit, les pieds écartés largeur de hanches.",
+   "Lève les deux bras et attrape un poignet avec l'autre main.",
+   "Penche-toi lentement sur le côté en appuyant les deux pieds dans le sol.",
+   "Tiens 15 secondes, change de côté et fais 2 séries de chaque côté."
+  ],
+  "mistakes": [
+   "Se pencher vers l'avant ou se tordre au lieu de s'incliner droit sur le côté.",
+   "Pousser les hanches loin sur le côté."
+  ],
+  "tip": "Imagine que tu es coincé entre deux murs et que tu ne peux bouger que sur le côté."
+ },
+ "low_lunge_arch": {
+  "title": "Fente basse bras levés",
+  "desc": "Avance les hanches et lève les bras pour ouvrir l'avant des hanches et la poitrine.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Fais un pas en avant et pose le genou arrière au sol.",
+   "Avance les hanches jusqu'à sentir un étirement à l'avant de la hanche arrière.",
+   "Lève les deux bras et ouvre la poitrine en une légère cambrure.",
+   "Tiens 20 secondes, change de jambe et fais 2 séries de chaque côté."
+  ],
+  "mistakes": [
+   "Laisser le genou avant dépasser largement les orteils.",
+   "Se cambrer uniquement avec le bas du dos."
+  ],
+  "tip": "Glisse une serviette pliée sous le genou arrière, et garde la cambrure petite."
+ },
+ "bow_pose": {
+  "title": "Posture de l'arc",
+  "desc": "Attrape tes chevilles et monte la poitrine et les cuisses pour ouvrir tout l'avant du corps et renforcer le dos.",
+  "dose": "2 x 10 s",
+  "steps": [
+   "Allonge-toi sur le ventre et fléchis les genoux pour amener les talons vers les fesses.",
+   "Passe les mains derrière toi et attrape les deux chevilles.",
+   "Pousse les pieds dans les mains pour monter la poitrine et les cuisses.",
+   "Tiens 10 secondes et redescends lentement, 2 séries au total."
+  ],
+  "mistakes": [
+   "Laisser les genoux s'écarter plus que les hanches.",
+   "Jeter la tête en arrière et forcer sur la nuque."
+  ],
+  "tip": "Monte seulement aussi haut que c'est confortable, et saute cet exercice si ton bas du dos te fait mal."
+ },
+ "pilates_roll_over": {
+  "title": "Roll over de Pilates",
+  "desc": "Fais passer tes jambes au-dessus de la tête et reviens avec contrôle pour étirer la colonne et travailler les abdos profonds.",
+  "dose": "2 x 5",
+  "steps": [
+   "Allonge-toi sur le dos, les bras le long du corps et les jambes tendues vers le plafond.",
+   "Appuie les bras dans le sol et monte les hanches pour faire passer les jambes au-dessus de la tête.",
+   "Arrête-toi quand tes jambes sont à l'horizontale derrière ta tête.",
+   "Redescends lentement, fais 5 répétitions et repose-toi, 2 séries au total."
+  ],
+  "mistakes": [
+   "Envoyer les jambes par-dessus avec de l'élan.",
+   "Rouler sur la nuque au lieu des épaules."
+  ],
+  "tip": "Garde le poids sur les épaules et jamais sur la nuque, et fléchis les genoux pour faciliter l'exercice."
+ },
+ "legs_up_wall": {
+  "title": "Jambes au mur",
+  "desc": "Pose les jambes contre un mur pour soulager la colonne et décompresser après une longue journée.",
+  "dose": "3 min",
+  "steps": [
+   "Assieds-toi de côté contre un mur, une hanche touchant le mur.",
+   "Fais monter les jambes le long du mur en t'allongeant sur le dos.",
+   "Laisse les bras le long du corps et relâche les jambes contre le mur.",
+   "Reste 3 minutes en respirant lentement."
+  ],
+  "mistakes": [
+   "Décoller le bas du dos du sol.",
+   "Bloquer fort les genoux et crisper les jambes."
+  ],
+  "tip": "Éloigne un peu les hanches du mur si l'arrière de tes jambes est tendu."
+ },
+ "spinal_twist": {
+  "title": "Torsion allongée",
+  "desc": "Laisse un genou tomber de l'autre côté du corps pour tourner doucement la colonne et relâcher un bas du dos raide.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Allonge-toi sur le dos, les bras écartés sur les côtés.",
+   "Fléchis un genou et amène-le de l'autre côté du corps vers le sol.",
+   "Garde les deux épaules au sol et regarde du côté opposé.",
+   "Tiens 20 secondes, change de côté et fais 2 séries de chaque côté."
+  ],
+  "mistakes": [
+   "Laisser l'épaule opposée se décoller du sol.",
+   "Forcer le genou vers le bas avec la main."
+  ],
+  "tip": "Pose le genou sur un coussin s'il n'atteint pas le sol."
+ },
+ "chest_stretch": {
+  "title": "Étirement pectoral à la porte",
+  "desc": "Avance dans l'encadrement d'une porte, l'avant-bras contre le montant, pour ouvrir une poitrine fermée par les écrans.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Place-toi dans l'encadrement d'une porte et pose un avant-bras contre le montant, le coude à hauteur d'épaule.",
+   "Avance le pied du même côté à travers la porte.",
+   "Penche la poitrine vers l'avant jusqu'à sentir un étirement à l'avant de l'épaule.",
+   "Tiens 20 secondes, change de côté et fais 2 séries de chaque côté."
+  ],
+  "mistakes": [
+   "Se cambrer pour aller plus loin.",
+   "Monter l'épaule vers l'oreille."
+  ],
+  "tip": "Reste en douceur et relâche si tu sens un pincement dans l'épaule."
+ },
+ "scapular_retraction": {
+  "title": "Serrage des omoplates",
+  "desc": "Serre les omoplates vers l'arrière et vers le bas pour travailler les muscles qui empêchent les épaules de s'arrondir.",
+  "dose": "2 x 10",
+  "steps": [
+   "Assieds-toi ou tiens-toi droit, les bras relâchés le long du corps.",
+   "Ramène les omoplates vers l'arrière et vers le bas, comme pour les glisser dans tes poches arrière.",
+   "Garde le serrage le temps d'une respiration lente, puis relâche.",
+   "Fais 10 répétitions et repose-toi, 2 séries au total."
+  ],
+  "mistakes": [
+   "Monter les épaules en serrant.",
+   "Pousser les côtes vers l'avant en se cambrant."
+  ],
+  "tip": "Garde le menton à l'horizontale et la nuque détendue tout le temps."
+ },
+ "thoracic_extension": {
+  "title": "Extension haut du dos sur chaise",
+  "desc": "Penche le haut du dos par-dessus une chaise pour défaire le dos voûté de la position assise et ouvrir la poitrine.",
+  "dose": "2 x 8",
+  "steps": [
+   "Assieds-toi sur une chaise solide, le haut du dossier juste sous tes omoplates.",
+   "Mets les mains derrière la tête en gardant les coudes bien ouverts.",
+   "Penche lentement le haut du dos par-dessus le dossier et regarde vers le haut.",
+   "Reviens, fais 8 répétitions et repose-toi, 2 séries au total."
+  ],
+  "mistakes": [
+   "Se cambrer avec le bas du dos au lieu du haut du dos.",
+   "Tirer la tête vers l'avant avec les mains."
+  ],
+  "tip": "Prends une chaise qui ne peut ni rouler ni basculer, et garde les pieds à plat au sol."
+ },
+ "hanging_knee_raise": {
+  "title": "Relevé de genoux suspendu",
+  "desc": "Monte les genoux en suspension pour des abdos solides, pendant que la suspension décompresse la colonne.",
+  "dose": "3 x 5",
+  "steps": [
+   "Attrape la barre en pronation et suspends-toi, bras tendus.",
+   "Abaisse les épaules en les éloignant des oreilles.",
+   "Monte les deux genoux à hauteur de hanches sans te balancer, puis redescends-les lentement.",
+   "Fais 5 répétitions, descends de la barre et repose-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Se balancer pour projeter les genoux vers le haut.",
+   "Rester suspendu avec les épaules collées aux oreilles."
+  ],
+  "tip": "Vérifie que la barre est solide avant de t'y suspendre, et descends en douceur au lieu de sauter."
+ },
+ "scapular_pull": {
+  "title": "Traction des omoplates",
+  "desc": "Depuis une suspension bras tendus, tire les épaules vers le bas pour construire la base de belles tractions.",
+  "dose": "3 x 5",
+  "steps": [
+   "Attrape la barre en pronation, les mains un peu plus larges que les épaules.",
+   "Suspends-toi bras tendus et laisse les épaules monter vers les oreilles.",
+   "Tire les omoplates vers le bas pour que ton corps monte un peu, les coudes restent tendus.",
+   "Tiens une seconde et relâche, fais 5 répétitions, 3 séries au total."
+  ],
+  "mistakes": [
+   "Plier les coudes pour monter plus haut.",
+   "Balancer les jambes pour s'aider."
+  ],
+  "tip": "Vérifie que la barre est solide, et garde les pieds sur un banc si la suspension complète est trop difficile."
+ },
+ "pull_ups": {
+  "title": "Tractions",
+  "desc": "Monte le menton au-dessus de la barre pour construire ton dos, un gros effort auquel ton corps répond ensuite par de l'hormone de croissance.",
+  "dose": "3 x 2",
+  "steps": [
+   "Attrape la barre en pronation, les mains un peu plus larges que les épaules.",
+   "Pars d'une suspension bras tendus et tire les omoplates vers le bas.",
+   "Tire jusqu'à ce que le menton passe au-dessus de la barre, puis redescends lentement.",
+   "Fais 2 répétitions, descends de la barre et repose-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Donner des coups de pied et se balancer pour passer la barre.",
+   "Se laisser tomber vite au lieu de descendre avec contrôle."
+  ],
+  "tip": "Passe un élastique sous tes pieds, ou saute en haut et descends lentement, et vérifie que la barre est solide."
+ },
+ "bird_dog": {
+  "title": "Bird Dog",
+  "desc": "Étire le bras et la jambe opposés pour travailler les muscles profonds qui gardent la colonne stable.",
+  "dose": "2 x 8",
+  "steps": [
+   "Mets-toi à quatre pattes, les mains sous les épaules et les genoux sous les hanches.",
+   "Tends un bras vers l'avant et la jambe opposée droite vers l'arrière.",
+   "Tiens deux secondes, les hanches bien à niveau, puis reviens.",
+   "Fais 8 répétitions, change de côté et fais 2 séries de chaque côté."
+  ],
+  "mistakes": [
+   "Laisser le bas du dos s'affaisser quand la jambe monte.",
+   "Ouvrir les hanches pour monter la jambe plus haut."
+  ],
+  "tip": "Imagine un verre d'eau posé sur ton bas du dos qui ne doit pas se renverser."
+ },
+ "dead_bug": {
+  "title": "Dead Bug",
+  "desc": "Descends le bras et la jambe opposés en gardant le dos à plat pour développer un contrôle du tronc qui protège ta colonne.",
+  "dose": "2 x 8",
+  "steps": [
+   "Allonge-toi sur le dos, les bras tendus vers le plafond et les genoux fléchis au-dessus des hanches.",
+   "Plaque doucement le bas du dos contre le sol.",
+   "Descends un bras derrière la tête et la jambe opposée vers le sol, puis reviens.",
+   "Fais 8 répétitions de chaque côté et repose-toi, 2 séries au total."
+  ],
+  "mistakes": [
+   "Laisser le bas du dos se cambrer et se décoller du sol.",
+   "Bâcler les répétitions."
+  ],
+  "tip": "Descends le bras et la jambe seulement jusqu'où ton dos reste bien à plat au sol."
+ },
+ "side_plank": {
+  "title": "Planche latérale",
+  "desc": "Tiens une ligne droite sur un avant-bras pour renforcer les muscles des côtés qui équilibrent ta posture.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Allonge-toi sur le côté, l'avant-bras au sol et le coude sous l'épaule.",
+   "Superpose les pieds et décolle les hanches du sol.",
+   "Garde le corps en une seule ligne droite de la tête aux talons.",
+   "Tiens 15 secondes, change de côté et fais 2 séries de chaque côté."
+  ],
+  "mistakes": [
+   "Laisser les hanches descendre vers le sol.",
+   "Basculer la poitrine vers l'avant, vers le sol."
+  ],
+  "tip": "Garde le genou du dessous au sol pour rendre l'exercice plus facile."
+ },
+ "wall_sit": {
+  "title": "Chaise contre le mur",
+  "desc": "Assieds-toi contre un mur, cuisses à l'horizontale, pour construire la force des jambes avec le dos bien droit.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Place le dos contre un mur, les pieds un pas devant toi.",
+   "Glisse vers le bas jusqu'à ce que tes cuisses soient à l'horizontale.",
+   "Garde les genoux au-dessus des chevilles et tout le dos contre le mur.",
+   "Tiens 20 secondes et relève-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Poser les mains sur les cuisses.",
+   "Laisser les genoux dépasser les orteils vers l'avant."
+  ],
+  "tip": "Monte un peu si tes genoux protestent, et descends plus bas quand tu seras plus fort."
+ },
+ "lunges": {
+  "title": "Fentes avant",
+  "desc": "Fais un pas en avant et fléchis les deux genoux pour des jambes et des hanches solides, un côté après l'autre.",
+  "dose": "3 x 8",
+  "steps": [
+   "Tiens-toi droit, les pieds écartés largeur de hanches.",
+   "Fais un grand pas en avant et descends jusqu'à ce que les deux genoux soient fléchis à environ 90 degrés.",
+   "Pousse dans le talon avant pour revenir à la position de départ.",
+   "Fais 8 répétitions sur chaque jambe et repose-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Laisser le genou avant rentrer vers l'intérieur.",
+   "Pencher beaucoup la poitrine vers l'avant au-dessus de la jambe avant."
+  ],
+  "tip": "Fais un pas plus court ou tiens une chaise pour l'équilibre, jusqu'à ce que le mouvement soit stable."
+ },
+ "step_ups": {
+  "title": "Montées sur marche",
+  "desc": "Monte sur une marche, redresse-toi, puis redescends lentement pour travailler la force sur une jambe et l'équilibre.",
+  "dose": "3 x 8",
+  "steps": [
+   "Place-toi devant une marche ou un banc bas et solide.",
+   "Pose un pied entier sur la marche et pousse jusqu'à être debout, bien droit.",
+   "Redescends l'autre pied au sol lentement.",
+   "Fais 8 répétitions sur chaque jambe et repose-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Se pousser fort avec le pied resté au sol.",
+   "Se laisser tomber vite au lieu de descendre avec contrôle."
+  ],
+  "tip": "Prends une marche qui ne peut ni glisser ni basculer, et commence bas avant de monter plus haut."
+ },
+ "push_ups": {
+  "title": "Pompes",
+  "desc": "Descends la poitrine vers le sol, le corps bien droit, pour développer la poitrine, les bras et les abdos.",
+  "dose": "3 x 5",
+  "steps": [
+   "Pose les mains au sol, un peu plus larges que les épaules.",
+   "Recule les pieds pour que ton corps forme une seule ligne droite.",
+   "Fléchis les coudes pour descendre la poitrine vers le sol, puis repousse.",
+   "Fais 5 répétitions et repose-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Laisser les hanches s'affaisser vers le sol.",
+   "Écarter les coudes droit sur les côtés."
+  ],
+  "tip": "Mets-toi à genoux ou pose les mains sur un banc pour rendre l'exercice plus facile."
+ },
+ "single_leg_calf_raise": {
+  "title": "Montées sur pointe à une jambe",
+  "desc": "Monte sur un pied depuis le bord d'une marche pour des mollets et des chevilles solides pour sauter.",
+  "dose": "3 x 8",
+  "steps": [
+   "Place l'avant d'un pied au bord d'une marche et tiens-toi à un mur ou à une rampe.",
+   "Descends lentement le talon sous le niveau de la marche.",
+   "Monte aussi haut que possible sur la pointe du pied et marque une pause d'une seconde.",
+   "Fais 8 répétitions sur chaque jambe et repose-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Rebondir en bas au lieu de bouger lentement.",
+   "Fléchir le genou pour aider le mollet."
+  ],
+  "tip": "Commence avec le poids du corps, et si tu ajoutes un haltère ou un sac à dos, choisis une charge qui te permet de finir chaque répétition proprement."
+ },
+ "goblet_squat": {
+  "title": "Goblet squat",
+  "desc": "Un squat avec une charge contre la poitrine, un effort des grands muscles auquel ton corps répond ensuite par de l'hormone de croissance.",
+  "dose": "3 x 8",
+  "steps": [
+   "Tiens un haltère ou un sac à dos chargé contre ta poitrine, à deux mains.",
+   "Place les pieds écartés largeur d'épaules, les pointes un peu ouvertes.",
+   "Descends entre tes talons en gardant la poitrine haute, puis remonte.",
+   "Fais 8 répétitions et repose-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Laisser les genoux rentrer vers l'intérieur.",
+   "Arrondir le dos et laisser la poitrine tomber."
+  ],
+  "tip": "Choisis une charge qui te permet de finir chaque répétition proprement."
+ },
+ "dumbbell_deadlift": {
+  "title": "Soulevé de terre roumain",
+  "desc": "Penche-toi depuis les hanches, dos plat, un gros travail des grands muscles auquel ton corps répond ensuite par de l'hormone de croissance.",
+  "dose": "3 x 8",
+  "steps": [
+   "Tiens-toi droit avec un haltère dans chaque main devant les cuisses.",
+   "Assouplis les genoux et recule les fesses, dos plat.",
+   "Fais glisser les haltères le long des cuisses jusque juste sous les genoux.",
+   "Serre les fessiers pour te redresser, fais 8 répétitions, 3 séries au total."
+  ],
+  "mistakes": [
+   "Arrondir le dos quand les haltères descendent.",
+   "En faire un squat en fléchissant beaucoup les genoux."
+  ],
+  "tip": "Choisis une charge qui te permet de finir chaque répétition proprement."
+ },
+ "dumbbell_row": {
+  "title": "Rowing haltère",
+  "desc": "Tire un haltère vers la hanche pour développer les muscles du haut du dos qui ramènent les épaules en arrière.",
+  "dose": "3 x 8",
+  "steps": [
+   "Pose une main sur un banc ou une chaise et recule les pieds.",
+   "Tiens un haltère dans l'autre main, le dos plat et le bras pendant vers le sol.",
+   "Tire la charge vers la hanche, le coude près du corps, puis redescends-la lentement.",
+   "Fais 8 répétitions de chaque côté et repose-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Tordre le corps pour soulever la charge.",
+   "Monter l'épaule vers l'oreille."
+  ],
+  "tip": "Choisis une charge qui te permet de finir chaque répétition proprement."
+ },
+ "farmer_carry": {
+  "title": "Marche du fermier",
+  "desc": "Marche bien droit avec une charge dans chaque main, un travail de tout le corps auquel ton corps répond ensuite par de l'hormone de croissance.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Place-toi entre deux haltères ou deux sacs chargés.",
+   "Fléchis les genoux, garde le dos plat et soulève-les.",
+   "Marche à petits pas, les épaules en arrière et le regard devant toi.",
+   "Marche pendant 20 secondes, repose les charges et repose-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Pencher d'un côté ou laisser les épaules s'arrondir vers l'avant.",
+   "Arrondir le dos en soulevant ou en reposant les charges."
+  ],
+  "tip": "Choisis une charge qui te permet de finir chaque série proprement, et garde les deux côtés égaux."
+ },
+ "band_pull_apart": {
+  "title": "Écartement d'élastique",
+  "desc": "Écarte un élastique jusqu'à la poitrine pour renforcer le haut du dos et garder les épaules ouvertes.",
+  "dose": "2 x 12",
+  "steps": [
+   "Tiens-toi droit et tiens un élastique devant toi, bras tendus à hauteur d'épaules.",
+   "Écarte l'élastique en serrant les omoplates l'une vers l'autre.",
+   "Amène l'élastique contre la poitrine, puis reviens lentement.",
+   "Fais 12 répétitions et repose-toi, 2 séries au total."
+  ],
+  "mistakes": [
+   "Monter les épaules vers les oreilles.",
+   "Laisser l'élastique claquer au retour au lieu de revenir lentement."
+  ],
+  "tip": "Choisis un élastique qui te permet de finir chaque répétition proprement, et vérifie d'abord qu'il n'est pas déchiré."
+ },
+ "burpees": {
+  "title": "Burpees",
+  "desc": "Squat, planche et saut en un seul mouvement, un travail de tout le corps auquel ton corps répond ensuite par de l'hormone de croissance.",
+  "dose": "3 x 5",
+  "steps": [
+   "Tiens-toi droit, puis accroupis-toi et pose les mains au sol.",
+   "Saute avec les pieds en arrière pour arriver en planche droite.",
+   "Ramène les pieds en sautant vers tes mains.",
+   "Saute bien droit vers le haut, fais 5 répétitions et repose-toi, 3 séries au total."
+  ],
+  "mistakes": [
+   "Laisser les hanches s'affaisser en planche.",
+   "Retomber lourdement, jambes tendues, après le saut."
+  ],
+  "tip": "Recule et avance les pieds en marchant au lieu de sauter pour faciliter l'exercice, et ralentis si ta posture se dégrade."
+ }
+}

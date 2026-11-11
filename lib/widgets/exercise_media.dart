@@ -3,6 +3,7 @@ import 'package:video_player/video_player.dart';
 
 import '../utils/constants.dart';
 import '../utils/exercise_guides.dart';
+import '../utils/move_catalog.dart';
 import 'exercise_animation.dart';
 
 /// Shows how a move is done: the bundled loop for it (silent, repeating,
@@ -22,6 +23,13 @@ class ExerciseMedia extends StatefulWidget {
 
   static bool hasClip(String id) => kExerciseMedia.contains(id);
   static String posterFor(String id) => 'assets/exercises/$id.jpg';
+
+  /// Whether [id] has the two photographs (start and end of the movement).
+  static bool hasStills(String id) => kExerciseStills.contains(id);
+
+  /// Photograph [n] (1 or 2) of [id].
+  static String stillFor(String id, int n) =>
+      'assets/exercises/stills/${id}_$n.jpg';
 
   @override
   State<ExerciseMedia> createState() => _ExerciseMediaState();
@@ -84,6 +92,8 @@ class _ExerciseMediaState extends State<ExerciseMedia> {
           ),
         ],
       );
+    } else if (ExerciseMedia.hasStills(id)) {
+      child = _StillsPager(routineId: id);
     } else if (id == 'wall_stand') {
       child = const WallStandIllustration();
     } else {
@@ -96,6 +106,86 @@ class _ExerciseMediaState extends State<ExerciseMedia> {
         width: double.infinity,
         child: ColoredBox(color: AppColors.cardFill, child: child),
       ),
+    );
+  }
+}
+
+/// The start and the end of a movement, as two photographs to swipe
+/// between, with the usual two dots underneath.
+class _StillsPager extends StatefulWidget {
+  final String routineId;
+  const _StillsPager({required this.routineId});
+
+  @override
+  State<_StillsPager> createState() => _StillsPagerState();
+}
+
+class _StillsPagerState extends State<_StillsPager> {
+  final _pages = PageController();
+  int _page = 0;
+
+  @override
+  void dispose() {
+    _pages.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        PageView(
+          controller: _pages,
+          onPageChanged: (i) => setState(() => _page = i),
+          children: [
+            for (var n = 1; n <= 2; n++)
+              Image.asset(
+                ExerciseMedia.stillFor(widget.routineId, n),
+                fit: BoxFit.cover,
+              ),
+          ],
+        ),
+        // A tap goes to the other photograph, for those who do not swipe.
+        Positioned.fill(
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () => _pages.animateToPage(
+              1 - _page,
+              duration: const Duration(milliseconds: 280),
+              curve: Curves.easeOutCubic,
+            ),
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 12,
+          child: IgnorePointer(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var i = 0; i < 2; i++)
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    margin: const EdgeInsets.symmetric(horizontal: 3),
+                    width: i == _page ? 18 : 7,
+                    height: 7,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(
+                        alpha: i == _page ? 0.95 : 0.45,
+                      ),
+                      borderRadius: BorderRadius.circular(4),
+                      boxShadow: const [
+                        BoxShadow(color: Colors.black38, blurRadius: 4),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,0 +1,50 @@
+{
+  "tv4TrackTitle": {
+    "en": "Water and sleep in one tap",
+    "tr": "Su ve uyku, tek dokunuşla"
+  },
+  "tv4TrackDesc": {
+    "en": "Your daily targets come from your age and weight. Tick them off as you go.",
+    "tr": "Günlük hedefin yaşına ve kilona göre belirlenir. İçtikçe ve uyudukça işaretle."
+  },
+  "tv4PhotosTitle": {
+    "en": "Before and after photos",
+    "tr": "Önce ve sonra fotoğrafları"
+  },
+  "tv4PhotosDesc": {
+    "en": "Take the same pose, then put the weeks side by side.",
+    "tr": "Aynı pozda çek, haftalar sonra yan yana koy."
+  },
+  "tv4PostureTitle": {
+    "en": "A posture check with your camera",
+    "tr": "Kamerayla duruş kontrolü"
+  },
+  "tv4PostureDesc": {
+    "en": "It scores how you stand and tells you what to fix.",
+    "tr": "Duruşuna puan verir, neyi düzelteceğini söyler."
+  },
+  "tv4ReportTitle": {
+    "en": "Your weekly report",
+    "tr": "Haftalık raporun"
+  },
+  "tv4ReportDesc": {
+    "en": "Training, sleep and food on one page, every week.",
+    "tr": "Antrenman, uyku ve beslenme her hafta tek sayfada."
+  },
+  "tv4BreakdownTitle": {
+    "en": "What raises your score",
+    "tr": "Skorunu ne yükseltir"
+  },
+  "tv4BreakdownDesc": {
+    "en": "It shows each factor's share and your next step.",
+    "tr": "Her etkenin payını ve bir sonraki adımını gösterir."
+  },
+  "reminderProTitle": {
+    "en": "Reminders come with Pro",
+    "tr": "Hatırlatıcılar Pro ile gelir"
+  },
+  "reminderProDesc": {
+    "en": "We nudge you at your training, meal and sleep times.",
+    "tr": "Antrenman, öğün ve uyku saatinde haber veririz."
+  }
+}

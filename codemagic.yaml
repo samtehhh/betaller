@@ -13,9 +13,14 @@ workflows:
       # for this bundle id. The old step created a certificate from
       # CERTIFICATE_PRIVATE_KEY; once that certificate was revoked, every
       # build failed, because the team already holds its three certificates.
+      # Named, not matched by bundle id: the profile made before Push
+      # Notifications was enabled (betaller_appstore) is still stored for the
+      # same bundle id and is invalid now.
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.glowup.boyuzatmaApp.33JY92T594
+        provisioning_profiles:
+          - betaller_appstore_push
+        certificates:
+          - takipplus_dist
       groups:
         - ios_credentials
       vars:
@@ -24,6 +29,16 @@ workflows:
     scripts:
       - name: Apply provisioning profiles
         script: xcode-project use-profiles
+      # lib/firebase_options.dart is kept out of the public repository; the
+      # build gets it from a secret (the file, base64-encoded) and stops with
+      # a clear message when the secret is missing.
+      - name: Firebase config
+        script: |
+          if [ -z "$FIREBASE_OPTIONS_DART_B64" ]; then
+            echo "FIREBASE_OPTIONS_DART_B64 is not set: add it to the ios_credentials group."
+            exit 1
+          fi
+          echo "$FIREBASE_OPTIONS_DART_B64" | base64 --decode > lib/firebase_options.dart
       - name: Get Flutter packages
         script: flutter packages pub get
       - name: Pre-build iOS config

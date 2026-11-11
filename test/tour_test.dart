@@ -46,11 +46,16 @@ Map<String, dynamic> _blob({
 
 const _targets = [
   'tour.homePotential',
+  'tour.homeTrackers',
   'tour.planTodayHero',
   'tour.planProgramDay',
   'tour.planNutritionTargets',
   'tour.progressChart',
+  'tour.progressPhotos',
+  'tour.progressPosture',
+  'tour.progressReport',
   'tour.analysisScore',
+  'tour.analysisBreakdown',
 ];
 
 void main() {
@@ -178,7 +183,7 @@ void main() {
     }
   }
 
-  testWidgets('first run: six real targets, then the paywall', (t) async {
+  testWidgets('first run: eleven real targets, then the paywall', (t) async {
     final p = await pumpMain(t, _blob());
     expect(find.byType(FeatureTourOverlay), findsNothing);
     await t.pump(const Duration(milliseconds: 900));
@@ -305,4 +310,9 @@ final _keys = <String, GlobalKey>{
   'tour.planNutritionTargets': TourKeys.planNutritionTargets,
   'tour.progressChart': TourKeys.progressChart,
   'tour.analysisScore': TourKeys.analysisScore,
+  'tour.homeTrackers': TourKeys.homeTrackers,
+  'tour.progressPhotos': TourKeys.progressPhotos,
+  'tour.progressPosture': TourKeys.progressPosture,
+  'tour.progressReport': TourKeys.progressReport,
+  'tour.analysisBreakdown': TourKeys.analysisBreakdown,
 };

@@ -46,6 +46,9 @@ class WorkoutPlayerScreen extends StatefulWidget {
 }
 
 class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
+  /// The streak when this workout opened, to tell if it grew during it.
+  late final int _streakAtStart = context.read<AppProvider>().streak;
+
   late int _index;
   int _set = 0;
   _Phase _phase = _Phase.ready;
@@ -70,6 +73,7 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
   @override
   void initState() {
     super.initState();
+    _streakAtStart;
     // Start at the first move not done yet.
     final open = widget.moves.indexWhere((m) => !_done.contains(m.routineId));
     _index = open < 0 ? 0 : open;
@@ -761,6 +765,20 @@ class _WorkoutPlayerScreenState extends State<WorkoutPlayerScreen> {
               color: Colors.white.withValues(alpha: 0.65),
             ),
           ),
+          if (context.read<AppProvider>().streak >= 2 &&
+              context.read<AppProvider>().streak > _streakAtStart) ...[
+            const SizedBox(height: 18),
+            Text(
+              l.hkStreakDay(context.read<AppProvider>().streak),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 15,
+                height: 1.35,
+                fontWeight: FontWeight.w800,
+                color: AppColors.warning,
+              ),
+            ),
+          ],
           if (_spentFree) ...[
             const SizedBox(height: 18),
             Text(

@@ -16,6 +16,7 @@ import 'package:posthog_flutter/posthog_flutter.dart' show PostHogWidget;
 import 'services/analytics.dart';
 import 'services/notification_service.dart';
 import 'services/purchase_service.dart';
+import 'services/push_service.dart';
 import 'utils/constants.dart';
 import 'widgets/premium_paywall.dart';
 import 'utils/app_languages.dart';
@@ -146,6 +147,16 @@ Future<void> _initServices(AppProvider appProvider) async {
   } catch (e) {
     debugPrint('Purchase init failed: $e');
   }
+
+  // Console campaigns. Topics follow the app language and the subscription.
+  await PushService.init(
+    lang: appProvider.effectiveLocale.languageCode,
+    premium: appProvider.isPremium,
+  );
+  appProvider.addListener(() {
+    PushService.setLanguage(appProvider.effectiveLocale.languageCode);
+    PushService.setPremium(appProvider.isPremium);
+  });
 }
 
 class BeTallerApp extends StatelessWidget {
@@ -177,6 +188,15 @@ class BeTallerApp extends StatelessWidget {
           scrolledUnderElevation: 0,
           foregroundColor: Colors.white,
           systemOverlayStyle: SystemUiOverlayStyle.light,
+        ),
+        // Every snack bar here sets a dark background; the default text colour
+        // for this colour scheme is dark too, which made them unreadable.
+        snackBarTheme: SnackBarThemeData(
+          contentTextStyle: TextStyle(
+            color: Colors.white,
+            fontFamily: fontFamily,
+            fontSize: 14,
+          ),
         ),
         splashColor: Colors.white10,
         highlightColor: Colors.white10,

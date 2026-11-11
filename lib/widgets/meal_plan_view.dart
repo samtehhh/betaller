@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'height_silhouette.dart';
 import '../l10n/app_localizations.dart';
 import '../utils/constants.dart';
 import '../utils/daily_targets.dart';
@@ -29,6 +30,7 @@ class NutritionTargetsHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final t = targets;
+    final locked = numbersLocked(context);
     final tiles = <(IconData, Color, String, String, String)>[
       (
         Icons.egg_alt_rounded,
@@ -111,12 +113,21 @@ class NutritionTargetsHeader extends StatelessWidget {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       alignment: Alignment.centerLeft,
-                      child: PlanNumber(
-                        '${t.proteinG}',
-                        'g',
-                        size: 40,
-                        color: AppColors.orange,
-                      ),
+                      child: locked
+                          ? const CensoredText(
+                              '$kCensored g',
+                              style: TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.w900,
+                                color: AppColors.orange,
+                              ),
+                            )
+                          : PlanNumber(
+                              '${t.proteinG}',
+                              'g',
+                              size: 40,
+                              color: AppColors.orange,
+                            ),
                     ),
                   ],
                 ),
@@ -130,8 +141,10 @@ class NutritionTargetsHeader extends StatelessWidget {
                   color: AppColors.orange.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(100),
                 ),
-                child: Text(
-                  l.plProteinSplit(meals, t.proteinPerMealG),
+                child: CensoredText(
+                  locked
+                      ? censorDigits(l.plProteinSplit(meals, t.proteinPerMealG))
+                      : l.plProteinSplit(meals, t.proteinPerMealG),
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w800,
@@ -166,7 +179,16 @@ class NutritionTargetsHeader extends StatelessWidget {
                             FittedBox(
                               fit: BoxFit.scaleDown,
                               alignment: Alignment.centerLeft,
-                              child: PlanNumber(value, unit, size: 17),
+                              child: locked
+                                  ? CensoredText(
+                                      '$kCensored $unit',
+                                      style: const TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : PlanNumber(value, unit, size: 17),
                             ),
                             const SizedBox(height: 2),
                             FittedBox(
@@ -250,8 +272,10 @@ class MealCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 1),
-                    Text(
-                      '${meal.time} · ${l.plMealGoal(meal.proteinTarget)}',
+                    CensoredText(
+                      numbersLocked(context)
+                          ? '${meal.time} · ${censorDigits(l.plMealGoal(meal.proteinTarget))}'
+                          : '${meal.time} · ${l.plMealGoal(meal.proteinTarget)}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -293,21 +317,38 @@ class MealCard extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                 ),
-                                TextSpan(
-                                  text: '  ${amountLabel(l, item)}',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white.withValues(alpha: 0.5),
+                                if (numbersLocked(context))
+                                  WidgetSpan(
+                                    alignment: PlaceholderAlignment.middle,
+                                    child: CensoredText(
+                                      kCensored,
+                                      style: TextStyle(
+                                        fontSize: 13.5,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                else
+                                  TextSpan(
+                                    text: '  ${amountLabel(l, item)}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white.withValues(alpha: 0.5),
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                             style: const TextStyle(fontSize: 13.5, height: 1.3),
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Text(
-                          '${item.protein.round()} g',
+                        CensoredText(
+                          numbersLocked(context)
+                              ? '$kCensored g'
+                              : '${item.protein.round()} g',
                           style: TextStyle(
                             fontSize: 12.5,
                             fontWeight: FontWeight.w800,
@@ -322,8 +363,12 @@ class MealCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    '= ${l.plMealSum(meal.protein.round(), _fmt(context, meal.calcium), _fmt(context, meal.kcal))}',
+                  child: CensoredText(
+                    () {
+                      final sum =
+                          '= ${l.plMealSum(meal.protein.round(), _fmt(context, meal.calcium), _fmt(context, meal.kcal))}';
+                      return numbersLocked(context) ? censorDigits(sum) : sum;
+                    }(),
                     style: TextStyle(
                       fontSize: 12,
                       height: 1.35,
@@ -349,6 +394,8 @@ class DayTotalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Every line here sets a total against a target.
+    if (numbersLocked(context)) return const SizedBox.shrink();
     final l = AppLocalizations.of(context)!;
     Widget bar(
       String label,

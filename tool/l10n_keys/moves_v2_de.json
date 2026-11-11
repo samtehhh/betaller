@@ -1,0 +1,610 @@
+{
+ "pogo_jumps": {
+  "title": "Pogo-Sprünge",
+  "desc": "Schnelle Hüpfer mit steifen Knöcheln fordern Schien- und Fußknochen und machen die Waden kräftig und federnd.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stell dich aufrecht hin, die Füße hüftbreit, die Hände an den Hüften.",
+   "Federe auf den Fußballen, die Knie fast gestreckt.",
+   "Halte jeden Bodenkontakt kurz und schnell, wie ein Pogostock.",
+   "Mach 20 Sekunden lang weiter, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Bei jedem Sprung die Knie tief beugen.",
+   "Die Fersen auf den Boden knallen lassen."
+  ],
+  "tip": "Spring auf festem, ebenem Untergrund und hör auf, wenn Schienbeine oder Knöchel wehtun."
+ },
+ "jump_squats": {
+  "title": "Sprung-Kniebeugen",
+  "desc": "Kniebeuge mit Sprung für Beinkraft: harte Arbeit für große Muskeln, auf die dein Körper danach mit Wachstumshormon antwortet.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stell dich schulterbreit hin, die Brust offen.",
+   "Setz dich nach hinten in die Kniebeuge, bis die Oberschenkel etwa waagerecht sind.",
+   "Drück dich kräftig über die Füße ab, spring senkrecht hoch und lande weich wieder in der Kniebeuge.",
+   "Mach 8 Sprünge, ruh dich aus und wiederhole das Ganze, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Die Knie bei der Landung nach innen kippen lassen.",
+   "Mit steifen, durchgestreckten Beinen landen."
+  ],
+  "tip": "Lande so leise wie möglich und beende den Satz, sobald die Landungen laut werden."
+ },
+ "tuck_jumps": {
+  "title": "Hockstrecksprünge",
+  "desc": "Spring hoch und zieh die Knie an: explosive Kraft und harte Arbeit, auf die dein Körper danach mit Wachstumshormon antwortet.",
+  "dose": "3 x 6",
+  "steps": [
+   "Stell dich aufrecht hin, die Füße hüftbreit.",
+   "Geh kurz in eine kleine Kniebeuge und spring so hoch du kannst.",
+   "Zieh oben beide Knie zur Brust und lande weich mit gebeugten Knien.",
+   "Mach 6 Sprünge, ruh dich aus und wiederhole das Ganze, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Den Oberkörper zu den Knien beugen, statt die Knie anzuheben.",
+   "Mit durchgestreckten Beinen hart landen."
+  ],
+  "tip": "Finde zwischen den Sprüngen dein Gleichgewicht wieder und sorg für freien Platz und einen rutschfesten Boden."
+ },
+ "broad_jumps": {
+  "title": "Standweitsprünge",
+  "desc": "Spring mit beiden Füßen nach vorn und steh die Landung sicher, das stärkt Hüftkraft und kräftige Beinknochen.",
+  "dose": "3 x 5",
+  "steps": [
+   "Stell dich hüftbreit hin, die Zehen hinter einer Linie.",
+   "Schwing die Arme nach hinten, beuge die Knie und schieb die Hüfte zurück.",
+   "Schwing die Arme nach vorn, spring so weit du kannst und lande auf beiden Füßen.",
+   "Halte die Landung eine Sekunde, geh zurück und mach 5 Sprünge, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Bei der Landung nach vorn oder hinten kippen.",
+   "Mit durchgedrückten Knien landen."
+  ],
+  "tip": "Spring auf rutschfestem Untergrund und spring kürzer, bis du jede Landung ruhig halten kannst."
+ },
+ "single_leg_hops": {
+  "title": "Einbeinhüpfer",
+  "desc": "Kleine Hüpfer auf einem Bein kräftigen Knöchel und Knochen und gleichen beide Seiten an.",
+  "dose": "2 x 8",
+  "steps": [
+   "Stell dich auf ein Bein, den anderen Fuß hinten angehoben.",
+   "Hüpfe in kleinen Sprüngen auf der Stelle und lande auf dem Fußballen.",
+   "Halte die Hüfte gerade und das Standbein leicht gebeugt.",
+   "Mach 8 Hüpfer, wechsle das Bein und mach 2 Sätze pro Seite."
+  ],
+  "mistakes": [
+   "Das Knie des Sprungbeins nach innen kippen lassen.",
+   "So hoch hüpfen, dass du das Gleichgewicht verlierst."
+  ],
+  "tip": "Bleib nah an einer Wand, die du berühren kannst, und hüpf flach, bis dein Gleichgewicht stabil ist."
+ },
+ "high_knees": {
+  "title": "Kniehebelauf",
+  "desc": "Lauf auf der Stelle und heb die Knie bis auf Hüfthöhe, um dich schnell aufzuwärmen und die Beine zu fordern.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stell dich aufrecht hin, die Füße hüftbreit.",
+   "Lauf auf der Stelle und heb jedes Knie auf Hüfthöhe.",
+   "Schwing die Arme mit und bleib leicht auf den Fußballen.",
+   "Mach 20 Sekunden lang weiter, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Sich nach hinten lehnen, wenn die Knie hochkommen.",
+   "Mit flachen Füßen auf den Boden stampfen."
+  ],
+  "tip": "Geh in ein Marschieren mit hohen Knien über, wenn dir die Luft ausgeht."
+ },
+ "mountain_pose": {
+  "title": "Bergpose auf Zehenspitzen",
+  "desc": "Komm auf die Zehenspitzen und streck dich nach oben, um dich aufzurichten und aufrechtes Stehen zu üben.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Stell dich mit geschlossenen Füßen hin, das Gewicht gleichmäßig verteilt.",
+   "Streck beide Arme senkrecht über den Kopf, die Handflächen zeigen zueinander.",
+   "Komm auf die Zehenspitzen und streck dich bis in die Fingerspitzen.",
+   "Halte 20 Sekunden und senk dich langsam ab, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Den Rippenbogen abspreizen und ins Hohlkreuz gehen.",
+   "Die Schultern bis zu den Ohren hochziehen."
+  ],
+  "tip": "Fixiere einen Punkt vor dir oder lass die Fersen unten, wenn du wackelst."
+ },
+ "pelvic_shift": {
+  "title": "Beckenheben",
+  "desc": "Heb und senk die Hüfte Wirbel für Wirbel, um die Wirbelsäule zu lockern und die Gesäßmuskeln zu wecken.",
+  "dose": "2 x 10",
+  "steps": [
+   "Leg dich auf den Rücken, die Knie gebeugt und die Füße flach auf dem Boden.",
+   "Kipp das Becken ein und roll die Wirbelsäule von unten nach oben vom Boden ab.",
+   "Halte oben kurz inne und roll dann langsam zurück, Wirbel für Wirbel.",
+   "Mach 10 langsame Wiederholungen und ruh dich aus, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Die Hüfte schnell und in einem Stück hochdrücken.",
+   "Oben ins Hohlkreuz gehen."
+  ],
+  "tip": "Beweg dich so langsam, dass du spürst, wie jeder Teil deines Rückens den Boden berührt."
+ },
+ "table_top": {
+  "title": "Umgekehrter Tisch",
+  "desc": "Heb die Hüfte zu einem flachen Tisch, um Brust und Schultern zu öffnen und die Rückseite deines Körpers zu kräftigen.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Setz dich mit gebeugten Knien, flachen Füßen und den Händen hinter der Hüfte auf den Boden.",
+   "Dreh die Finger zu den Füßen und drück in Hände und Füße.",
+   "Heb die Hüfte, bis dein Körper von den Knien bis zu den Schultern flach ist.",
+   "Halte 15 Sekunden und senk dich ab, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Die Hüfte in der Mitte durchhängen lassen.",
+   "Den Kopf in den Nacken fallen lassen, sodass sich der Nacken verspannt."
+  ],
+  "tip": "Dreh die Finger zur Seite, wenn deine Handgelenke schmerzen."
+ },
+ "childs_pose": {
+  "title": "Kindhaltung",
+  "desc": "Setz dich mit langen Armen auf die Fersen zurück, um den Rücken sanft zu dehnen und die Wirbelsäule zu entspannen.",
+  "dose": "2 x 30 s",
+  "steps": [
+   "Knie dich auf den Boden, die großen Zehen berühren sich, die Knie sind geöffnet.",
+   "Setz die Hüfte nach hinten auf die Fersen.",
+   "Lauf mit den Händen nach vorn und leg die Stirn auf dem Boden ab.",
+   "Atme 30 Sekunden lang ruhig und komm wieder hoch, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Die Hüfte weit von den Fersen abheben, um weiter zu kommen.",
+   "Den Atem anhalten und die Schultern anspannen."
+  ],
+  "tip": "Leg ein Kissen zwischen Hüfte und Fersen, wenn sich deine Knie eng anfühlen."
+ },
+ "puppy_pose": {
+  "title": "Welpenhaltung",
+  "desc": "Lass die Brust Richtung Boden sinken, um verspannte Schultern zu öffnen und den oberen Rücken zu dehnen.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Starte im Vierfüßlerstand, die Hüfte genau über den Knien.",
+   "Lauf mit den Händen nach vorn, die Hüfte bleibt, wo sie ist.",
+   "Lass Brust und Stirn Richtung Boden sinken.",
+   "Halte 20 Sekunden und komm wieder hoch, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Die Hüfte nach hinten zu den Fersen rutschen lassen.",
+   "Die Ellbogen beugen und auf dem Boden ablegen."
+  ],
+  "tip": "Leg die Stirn auf ein Kissen, wenn die Dehnung in den Schultern zu stark ist."
+ },
+ "seated_forward_fold": {
+  "title": "Sitzende Vorbeuge",
+  "desc": "Beug dich aus der Hüfte über gestreckte Beine, um die Beinrückseite und den ganzen Rücken zu dehnen.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Setz dich mit gestreckten Beinen auf den Boden, die Zehen zeigen nach oben.",
+   "Sitz aufrecht und streck beide Arme über den Kopf.",
+   "Beug dich aus der Hüfte nach vorn und greif zu den Schienbeinen oder Füßen.",
+   "Halte 20 Sekunden und richte dich wieder auf, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Den oberen Rücken rund machen, um die Zehen zu erreichen.",
+   "Wippen, um tiefer in die Dehnung zu kommen."
+  ],
+  "tip": "Beug die Knie leicht oder setz dich auf ein gefaltetes Handtuch, wenn sich dein unterer Rücken rundet."
+ },
+ "standing_side_stretch": {
+  "title": "Stehende Seitdehnung",
+  "desc": "Neig dich mit den Armen über dem Kopf zu jeder Seite, um die Taille zu dehnen und die Rippen zu befreien.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Stell dich aufrecht hin, die Füße hüftbreit.",
+   "Streck beide Arme über den Kopf und halte ein Handgelenk mit der anderen Hand.",
+   "Neig dich langsam zur Seite und drück beide Füße in den Boden.",
+   "Halte 15 Sekunden, wechsle die Seite und mach 2 Sätze pro Seite."
+  ],
+  "mistakes": [
+   "Sich nach vorn lehnen oder verdrehen, statt gerade zur Seite zu neigen.",
+   "Die Hüfte weit zur Seite schieben."
+  ],
+  "tip": "Stell dir vor, du stehst zwischen zwei Wänden und kannst dich nur seitlich bewegen."
+ },
+ "low_lunge_arch": {
+  "title": "Tiefer Ausfallschritt, Arme hoch",
+  "desc": "Schieb die Hüfte nach vorn und streck dich nach oben, um die Hüftvorderseite und die Brust zu öffnen.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Mach einen Schritt nach vorn und senk das hintere Knie auf den Boden.",
+   "Schieb die Hüfte nach vorn, bis du vorn an der hinteren Hüfte eine Dehnung spürst.",
+   "Streck beide Arme nach oben und heb die Brust in ein sanftes Hohlkreuz.",
+   "Halte 20 Sekunden, wechsle das Bein und mach 2 Sätze pro Seite."
+  ],
+  "mistakes": [
+   "Das vordere Knie weit über die Zehen schieben.",
+   "Nur aus dem unteren Rücken nach hinten beugen."
+  ],
+  "tip": "Leg ein gefaltetes Handtuch unter das hintere Knie und halte den Bogen klein."
+ },
+ "bow_pose": {
+  "title": "Bogenhaltung",
+  "desc": "Greif deine Knöchel und heb Brust und Oberschenkel, um die ganze Vorderseite zu öffnen und den Rücken zu kräftigen.",
+  "dose": "2 x 10 s",
+  "steps": [
+   "Leg dich auf den Bauch und beug die Knie, sodass die Fersen zur Hüfte kommen.",
+   "Greif nach hinten und halte beide Knöchel.",
+   "Tritt mit den Füßen in die Hände und heb Brust und Oberschenkel an.",
+   "Halte 10 Sekunden und senk dich langsam ab, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Die Knie weiter als hüftbreit auseinandergehen lassen.",
+   "Den Kopf in den Nacken werfen und den Nacken überlasten."
+  ],
+  "tip": "Heb nur so hoch, wie es sich angenehm anfühlt, und lass die Übung aus, wenn dein unterer Rücken wehtut."
+ },
+ "pilates_roll_over": {
+  "title": "Pilates Roll-over",
+  "desc": "Roll die Beine kontrolliert über den Kopf und zurück, um die Wirbelsäule zu dehnen und die tiefe Rumpfkraft zu trainieren.",
+  "dose": "2 x 5",
+  "steps": [
+   "Leg dich auf den Rücken, die Arme neben dem Körper und die Beine senkrecht nach oben.",
+   "Drück die Arme in den Boden und heb die Hüfte an, sodass die Beine über den Kopf rollen.",
+   "Stopp, wenn die Beine hinter dem Kopf auf Bodenhöhe sind.",
+   "Roll langsam zurück, mach 5 Wiederholungen und ruh dich aus, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Die Beine mit Schwung nach hinten werfen.",
+   "Auf den Nacken statt auf die Schultern rollen."
+  ],
+  "tip": "Halte das Gewicht auf den Schultern und nie auf dem Nacken, und beug die Knie, um es leichter zu machen."
+ },
+ "legs_up_wall": {
+  "title": "Beine an der Wand",
+  "desc": "Leg die Beine an einer Wand hoch, um die Wirbelsäule zu entlasten und nach einem langen Tag abzuschalten.",
+  "dose": "3 min",
+  "steps": [
+   "Setz dich seitlich an eine Wand, eine Hüfte berührt sie.",
+   "Schwing die Beine an der Wand hoch, während du dich auf den Boden legst.",
+   "Lass die Arme neben dem Körper ruhen und entspann die Beine an der Wand.",
+   "Bleib 3 Minuten und atme ruhig."
+  ],
+  "mistakes": [
+   "Den unteren Rücken vom Boden abheben.",
+   "Die Knie hart durchdrücken und die Beine anspannen."
+  ],
+  "tip": "Rück mit der Hüfte etwas von der Wand weg, wenn sich die Beinrückseite eng anfühlt."
+ },
+ "spinal_twist": {
+  "title": "Liegende Rumpfdrehung",
+  "desc": "Lass ein Knie über den Körper fallen, um die Wirbelsäule sanft zu drehen und einen steifen unteren Rücken zu lösen.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Leg dich auf den Rücken, die Arme seitlich ausgestreckt.",
+   "Beug ein Knie und führ es quer über den Körper Richtung Boden.",
+   "Lass beide Schultern am Boden und schau zur anderen Seite.",
+   "Halte 20 Sekunden, wechsle die Seite und mach 2 Sätze pro Seite."
+  ],
+  "mistakes": [
+   "Die gegenüberliegende Schulter vom Boden abheben.",
+   "Das Knie mit der Hand nach unten zwingen."
+  ],
+  "tip": "Leg das Knie auf ein Kissen, wenn es den Boden nicht erreicht."
+ },
+ "chest_stretch": {
+  "title": "Brustdehnung im Türrahmen",
+  "desc": "Geh durch einen Türrahmen, den Unterarm am Rahmen, um eine vom Bildschirm gerundete Brust zu öffnen.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Stell dich in einen Türrahmen und leg einen Unterarm an den Rahmen, der Ellbogen auf Schulterhöhe.",
+   "Setz den Fuß derselben Seite durch den Türrahmen nach vorn.",
+   "Lehn die Brust nach vorn, bis du eine Dehnung vorn an der Schulter spürst.",
+   "Halte 20 Sekunden, wechsle die Seite und mach 2 Sätze pro Seite."
+  ],
+  "mistakes": [
+   "Ins Hohlkreuz gehen, um weiter zu kommen.",
+   "Die Schulter zum Ohr hochziehen."
+  ],
+  "tip": "Dehn sanft und geh zurück, wenn du ein Zwicken in der Schulter spürst."
+ },
+ "scapular_retraction": {
+  "title": "Schulterblatt-Squeeze",
+  "desc": "Zieh die Schulterblätter nach hinten und unten und trainiere so die Muskeln, die verhindern, dass die Schultern nach vorn fallen.",
+  "dose": "2 x 10",
+  "steps": [
+   "Sitz oder steh aufrecht, die Arme locker an den Seiten.",
+   "Zieh die Schulterblätter nach hinten und unten, als würdest du sie in die Hosentaschen stecken.",
+   "Halte die Spannung einen langsamen Atemzug lang und lass dann los.",
+   "Mach 10 Wiederholungen und ruh dich aus, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Die Schultern beim Zusammenziehen hochziehen.",
+   "Die Rippen nach vorn schieben und ins Hohlkreuz gehen."
+  ],
+  "tip": "Halte das Kinn waagerecht und den Nacken die ganze Zeit entspannt."
+ },
+ "thoracic_extension": {
+  "title": "Rückbeuge über der Stuhllehne",
+  "desc": "Lehn den oberen Rücken über einen Stuhl, um den Rundrücken vom Sitzen zu lösen und die Brust zu öffnen.",
+  "dose": "2 x 8",
+  "steps": [
+   "Setz dich auf einen stabilen Stuhl, die Oberkante der Lehne knapp unter deinen Schulterblättern.",
+   "Leg die Hände hinter den Kopf und halte die Ellbogen weit.",
+   "Lehn den oberen Rücken langsam über die Lehne und schau nach oben.",
+   "Komm zurück, mach 8 Wiederholungen und ruh dich aus, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Aus dem unteren statt aus dem oberen Rücken beugen.",
+   "Den Kopf mit den Händen nach vorn ziehen."
+  ],
+  "tip": "Nimm einen Stuhl, der nicht rollen oder kippen kann, und halte die Füße flach auf dem Boden."
+ },
+ "hanging_knee_raise": {
+  "title": "Hängendes Knieheben",
+  "desc": "Heb im Hang die Knie für einen starken Rumpf, während der Hang die Wirbelsäule entlastet.",
+  "dose": "3 x 5",
+  "steps": [
+   "Greif die Stange im Obergriff und häng mit gestreckten Armen.",
+   "Zieh die Schultern von den Ohren weg nach unten.",
+   "Heb beide Knie auf Hüfthöhe, ohne zu schwingen, und senk sie langsam wieder ab.",
+   "Mach 5 Wiederholungen, steig ab und ruh dich aus, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Mit dem Körper schwingen, um die Knie hochzuwerfen.",
+   "Mit den Schultern bis zu den Ohren hängen."
+  ],
+  "tip": "Prüf vor dem Hängen, ob die Stange stabil ist, und steig ab, statt abzuspringen."
+ },
+ "scapular_pull": {
+  "title": "Schulterblatt-Klimmzug",
+  "desc": "Zieh dich mit gestreckten Armen im Hang an den Schulterblättern nach unten, als Grundlage für starke Klimmzüge.",
+  "dose": "3 x 5",
+  "steps": [
+   "Greif die Stange im Obergriff, die Hände etwas weiter als schulterbreit.",
+   "Häng mit gestreckten Armen und lass die Schultern Richtung Ohren steigen.",
+   "Zieh die Schulterblätter nach unten, sodass sich dein Körper ein Stück hebt, die Ellbogen bleiben gestreckt.",
+   "Halte eine Sekunde und lass los, mach 5 Wiederholungen, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Die Ellbogen beugen, um höher zu kommen.",
+   "Mit den Beinen schwingen, um nachzuhelfen."
+  ],
+  "tip": "Prüf, ob die Stange stabil ist, und lass die Füße auf einer Box, wenn der volle Hang zu schwer ist."
+ },
+ "pull_ups": {
+  "title": "Klimmzüge",
+  "desc": "Zieh dein Kinn über die Stange, um den Rücken aufzubauen: harte Arbeit, auf die dein Körper danach mit Wachstumshormon antwortet.",
+  "dose": "3 x 2",
+  "steps": [
+   "Greif die Stange im Obergriff, die Hände etwas weiter als schulterbreit.",
+   "Starte im Hang mit gestreckten Armen und zieh die Schulterblätter nach unten.",
+   "Zieh dich hoch, bis das Kinn über der Stange ist, und lass dich langsam wieder ab.",
+   "Mach 2 Wiederholungen, steig ab und ruh dich aus, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Strampeln und schwingen, um über die Stange zu kommen.",
+   "Schnell nach unten fallen, statt kontrolliert abzulassen."
+  ],
+  "tip": "Schling ein Band unter die Füße oder spring nach oben und lass dich langsam ab, und prüf, ob die Stange stabil ist."
+ },
+ "bird_dog": {
+  "title": "Bird Dog",
+  "desc": "Streck den gegenüberliegenden Arm und das Bein lang aus und trainiere die tiefen Muskeln, die deine Wirbelsäule stabil halten.",
+  "dose": "2 x 8",
+  "steps": [
+   "Starte im Vierfüßlerstand, die Hände unter den Schultern und die Knie unter der Hüfte.",
+   "Streck einen Arm nach vorn und das gegenüberliegende Bein gerade nach hinten.",
+   "Halte zwei Sekunden mit waagerechter Hüfte und komm zurück.",
+   "Mach 8 Wiederholungen, wechsle die Seite und mach 2 Sätze pro Seite."
+  ],
+  "mistakes": [
+   "Den unteren Rücken beim Heben des Beins durchhängen lassen.",
+   "Die Hüfte aufdrehen, um das Bein höher zu bekommen."
+  ],
+  "tip": "Stell dir ein Glas Wasser auf deinem unteren Rücken vor, das nicht überschwappen darf."
+ },
+ "dead_bug": {
+  "title": "Dead Bug",
+  "desc": "Senk Arm und Bein der Gegenseite bei flachem Rücken ab und baue Rumpfkontrolle auf, die deine Wirbelsäule schützt.",
+  "dose": "2 x 8",
+  "steps": [
+   "Leg dich auf den Rücken, die Arme senkrecht nach oben und die Knie über der Hüfte gebeugt.",
+   "Drück den unteren Rücken sanft in den Boden.",
+   "Senk einen Arm nach hinten über den Kopf und das gegenüberliegende Bein Richtung Boden, dann komm zurück.",
+   "Mach 8 Wiederholungen pro Seite und ruh dich aus, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Den unteren Rücken vom Boden abheben und ins Hohlkreuz gehen.",
+   "Durch die Wiederholungen hetzen."
+  ],
+  "tip": "Senk Arm und Bein nur so weit ab, wie dein Rücken flach am Boden bleibt."
+ },
+ "side_plank": {
+  "title": "Seitstütz",
+  "desc": "Halt eine gerade Linie auf einem Unterarm und kräftige die seitlichen Muskeln, die deine Haltung ausgleichen.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Leg dich auf die Seite, der Unterarm liegt am Boden, der Ellbogen unter der Schulter.",
+   "Stapel die Füße und heb die Hüfte vom Boden.",
+   "Halte den Körper in einer geraden Linie von Kopf bis Ferse.",
+   "Halte 15 Sekunden, wechsle die Seite und mach 2 Sätze pro Seite."
+  ],
+  "mistakes": [
+   "Die Hüfte zum Boden absinken lassen.",
+   "Die Brust nach vorn zum Boden kippen."
+  ],
+  "tip": "Lass das untere Knie auf dem Boden, um es leichter zu machen."
+ },
+ "wall_sit": {
+  "title": "Wandsitzen",
+  "desc": "Sitz mit waagerechten Oberschenkeln an einer Wand und baue Beinkraft auf, während dein Rücken gerade bleibt.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stell dich mit dem Rücken an eine Wand, die Füße einen Schritt davor.",
+   "Rutsch nach unten, bis die Oberschenkel waagerecht sind.",
+   "Halte die Knie über den Knöcheln und den ganzen Rücken an der Wand.",
+   "Halte 20 Sekunden und steh auf, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Die Hände auf die Oberschenkel legen.",
+   "Die Knie über die Zehen nach vorn wandern lassen."
+  ],
+  "tip": "Sitz etwas höher, wenn deine Knie meckern, und geh tiefer, sobald du stärker wirst."
+ },
+ "lunges": {
+  "title": "Ausfallschritte",
+  "desc": "Mach einen Schritt nach vorn und beug beide Knie für starke Beine und Hüften, eine Seite nach der anderen.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stell dich aufrecht hin, die Füße hüftbreit.",
+   "Mach einen großen Schritt nach vorn und senk dich, bis beide Knie etwa 90 Grad gebeugt sind.",
+   "Drück dich über die vordere Ferse zurück in den Start.",
+   "Mach 8 Wiederholungen pro Bein und ruh dich aus, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Das vordere Knie nach innen kippen lassen.",
+   "Den Oberkörper weit über das vordere Bein lehnen."
+  ],
+  "tip": "Mach einen kürzeren Schritt oder halt dich an einem Stuhl fest, bis sich die Bewegung stabil anfühlt."
+ },
+ "step_ups": {
+  "title": "Step-ups",
+  "desc": "Steig auf, steh aufrecht und senk dich langsam ab, für Einbeinkraft und Gleichgewicht.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stell dich vor eine Stufe oder eine stabile, niedrige Bank.",
+   "Setz einen Fuß ganz auf die Stufe und drück dich hoch, bis du aufrecht stehst.",
+   "Setz den anderen Fuß langsam wieder auf den Boden.",
+   "Mach 8 Wiederholungen pro Bein und ruh dich aus, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Sich mit dem Fuß am Boden kräftig abstoßen.",
+   "Schnell nach unten fallen, statt kontrolliert abzusenken."
+  ],
+  "tip": "Nimm eine Stufe, die nicht rutschen oder kippen kann, und fang niedrig an, bevor du höher gehst."
+ },
+ "push_ups": {
+  "title": "Liegestütze",
+  "desc": "Senk die Brust mit geradem Körper zum Boden und baue Brust, Arme und Rumpf auf.",
+  "dose": "3 x 5",
+  "steps": [
+   "Setz die Hände etwas weiter als schulterbreit auf den Boden.",
+   "Geh mit den Füßen zurück, sodass dein Körper eine gerade Linie bildet.",
+   "Beug die Ellbogen, senk die Brust zum Boden und drück dich wieder hoch.",
+   "Mach 5 Wiederholungen und ruh dich aus, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Die Hüfte zum Boden durchhängen lassen.",
+   "Die Ellbogen gerade nach außen abspreizen."
+  ],
+  "tip": "Geh auf die Knie oder stütz die Hände auf eine Bank, um es leichter zu machen."
+ },
+ "single_leg_calf_raise": {
+  "title": "Einbeiniges Wadenheben",
+  "desc": "Komm auf einem Fuß von der Stufenkante hoch und baue kräftige Waden und Knöchel fürs Springen auf.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stell dich mit dem Ballen eines Fußes an die Kante einer Stufe und halt dich an einer Wand oder einem Geländer fest.",
+   "Senk die Ferse langsam unter die Stufenhöhe.",
+   "Komm so hoch du kannst auf die Zehenspitzen und halte eine Sekunde.",
+   "Mach 8 Wiederholungen pro Bein und ruh dich aus, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Unten wippen, statt dich langsam zu bewegen.",
+   "Das Knie beugen, um der Wade zu helfen."
+  ],
+  "tip": "Starte mit dem Körpergewicht, und wenn du eine Hantel oder einen Rucksack nimmst, wähl ein Gewicht, bei dem du jede Wiederholung sauber schaffst."
+ },
+ "goblet_squat": {
+  "title": "Goblet Squat",
+  "desc": "Kniebeuge mit einem Gewicht vor der Brust: Arbeit für große Muskeln, auf die dein Körper danach mit Wachstumshormon antwortet.",
+  "dose": "3 x 8",
+  "steps": [
+   "Halt eine Hantel oder einen beladenen Rucksack mit beiden Händen vor der Brust.",
+   "Stell dich schulterbreit hin, die Zehen leicht nach außen gedreht.",
+   "Setz dich zwischen die Fersen, die Brust bleibt oben, und steh wieder auf.",
+   "Mach 8 Wiederholungen und ruh dich aus, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Die Knie nach innen kippen lassen.",
+   "Den Rücken rund machen und die Brust sinken lassen."
+  ],
+  "tip": "Wähl ein Gewicht, bei dem du jede Wiederholung sauber schaffst."
+ },
+ "dumbbell_deadlift": {
+  "title": "Rumänisches Kreuzheben",
+  "desc": "Beug dich mit geradem Rücken aus der Hüfte: harte Arbeit für große Muskeln, auf die dein Körper danach mit Wachstumshormon antwortet.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stell dich aufrecht hin, in jeder Hand eine Hantel vor den Oberschenkeln.",
+   "Beug die Knie leicht und schieb die Hüfte mit geradem Rücken nach hinten.",
+   "Lass die Gewichte an den Oberschenkeln entlang bis knapp unter die Knie gleiten.",
+   "Spann das Gesäß an und richte dich auf, mach 8 Wiederholungen, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Den Rücken rund machen, wenn die Gewichte nach unten gehen.",
+   "Eine Kniebeuge daraus machen, indem die Knie stark gebeugt werden."
+  ],
+  "tip": "Wähl ein Gewicht, bei dem du jede Wiederholung sauber schaffst."
+ },
+ "dumbbell_row": {
+  "title": "Kurzhantelrudern",
+  "desc": "Zieh eine Hantel zur Hüfte und baue die Muskeln im oberen Rücken auf, die die Schultern nach hinten ziehen.",
+  "dose": "3 x 8",
+  "steps": [
+   "Stütz eine Hand auf eine Bank oder einen Stuhl und geh mit den Füßen zurück.",
+   "Halte in der anderen Hand eine Hantel, der Rücken ist flach und der Arm hängt nach unten.",
+   "Zieh das Gewicht mit eng geführtem Ellbogen zur Hüfte und senk es langsam ab.",
+   "Mach 8 Wiederholungen pro Seite und ruh dich aus, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Den Körper verdrehen, um das Gewicht hochzuwuchten.",
+   "Die Schulter zum Ohr hochziehen."
+  ],
+  "tip": "Wähl ein Gewicht, bei dem du jede Wiederholung sauber schaffst."
+ },
+ "farmer_carry": {
+  "title": "Farmer's Walk",
+  "desc": "Geh aufrecht mit je einem Gewicht in der Hand: Ganzkörperarbeit, auf die dein Körper danach mit Wachstumshormon antwortet.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Stell dich zwischen zwei Hanteln oder zwei beladene Taschen.",
+   "Beug die Knie, halte den Rücken gerade und heb sie auf.",
+   "Geh in kleinen Schritten, die Schultern zurück und den Blick nach vorn.",
+   "Geh 20 Sekunden lang, stell sie ab und ruh dich aus, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Zu einer Seite kippen oder die Schultern nach vorn rollen lassen.",
+   "Beim Aufheben oder Abstellen der Gewichte den Rücken rund machen."
+  ],
+  "tip": "Wähl ein Gewicht, bei dem du jeden Satz sauber schaffst, und halt beide Seiten gleich schwer."
+ },
+ "band_pull_apart": {
+  "title": "Band Pull-Apart",
+  "desc": "Zieh ein Band auseinander bis zur Brust, um den oberen Rücken zu kräftigen und die Schultern offen zu halten.",
+  "dose": "2 x 12",
+  "steps": [
+   "Stell dich aufrecht hin und halt ein Band mit gestreckten Armen auf Schulterhöhe vor dir.",
+   "Zieh das Band auseinander, indem du die Schulterblätter zusammendrückst.",
+   "Führ das Band bis zur Brust und lass es dann langsam zurückkommen.",
+   "Mach 12 Wiederholungen und ruh dich aus, insgesamt 2 Sätze."
+  ],
+  "mistakes": [
+   "Die Schultern zu den Ohren hochziehen.",
+   "Das Band zurückschnappen lassen, statt es langsam zurückzuführen."
+  ],
+  "tip": "Wähl ein Band, bei dem du jede Wiederholung sauber schaffst, und prüf es vorher auf Risse."
+ },
+ "burpees": {
+  "title": "Burpees",
+  "desc": "Kniebeuge, Liegestütz-Position und Sprung in einer Bewegung: Ganzkörperarbeit, auf die dein Körper danach mit Wachstumshormon antwortet.",
+  "dose": "3 x 5",
+  "steps": [
+   "Stell dich aufrecht hin, geh dann in die Hocke und setz die Hände auf den Boden.",
+   "Spring mit den Füßen zurück in einen geraden Stütz.",
+   "Spring mit den Füßen wieder zu den Händen.",
+   "Spring senkrecht hoch, mach 5 Wiederholungen und ruh dich aus, insgesamt 3 Sätze."
+  ],
+  "mistakes": [
+   "Die Hüfte im Stütz durchhängen lassen.",
+   "Nach dem Sprung mit durchgestreckten Beinen hart landen."
+  ],
+  "tip": "Geh mit den Füßen zurück und vor, statt zu springen, um es leichter zu machen, und werde langsamer, wenn deine Haltung nachlässt."
+ }
+}

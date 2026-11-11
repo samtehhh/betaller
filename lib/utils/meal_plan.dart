@@ -76,6 +76,18 @@ const Map<String, Food> kFoods = {
   'almonds': Food('almonds', 21.2, 269, 0, 3.1, 270, 579),
   'kefir': Food('kefir', 3.6, 125, 0, 0.4, 12, 55, unit: FoodUnit.millilitres),
   'pumpkinSeeds': Food('pumpkinSeeds', 30, 46, 0, 7.8, 550, 559),
+  // The alternate week's foods.
+  'turkey': Food('turkey', 29, 10, 6, 1.7, 30, 147),
+  'cod': Food('cod', 22.8, 14, 46, 0.6, 42, 105),
+  'beans': Food('beans', 8.7, 35, 0, 1.0, 42, 127),
+  'quinoa': Food('quinoa', 4.4, 17, 0, 1.1, 64, 120),
+  'sweetPotato': Food('sweetPotato', 2.0, 38, 0, 0.3, 27, 90),
+  'apple': Food('apple', 0.3, 6, 0, 0.0, 5, 52,
+      unit: FoodUnit.pieces, pieceGrams: 180),
+  'berries': Food('berries', 0.7, 16, 0, 0.1, 13, 32),
+  'mozzarella': Food('mozzarella', 22.2, 505, 16, 2.9, 20, 300),
+  'hummus': Food('hummus', 7.9, 38, 0, 1.8, 71, 166),
+  'greenBeans': Food('greenBeans', 1.9, 44, 0, 0.3, 18, 35),
 };
 
 enum MealSlot { breakfast, lunch, dinner, snack }
@@ -268,6 +280,165 @@ const Map<MealSlot, List<List<_Spec>>> _templates = {
   ],
 };
 
+/// The alternate week: the same shape of day (an anchor, a grain, a
+/// vegetable or fruit, dairy) with other foods, so a fortnight has fourteen
+/// different days. Entry `i` is the counterpart of entry `i` above.
+const Map<MealSlot, List<List<_Spec>>> _templatesB = {
+  MealSlot.breakfast: [
+    [
+      _Spec('oats', 60),
+      _Spec('milk', 250, role: _d, max: 400, step: 50),
+      _Spec('greekYogurt', 100, role: _a, min: 0, max: 250, step: 25),
+      _Spec('berries', 100),
+      _Spec('almonds', 15),
+    ],
+    [
+      _Spec('eggs', 2, role: _a, min: 1, max: 4, step: 1),
+      _Spec('bread', 60),
+      _Spec('mozzarella', 40, role: _d, max: 80, step: 10),
+      _Spec('apple', 1),
+    ],
+    [
+      _Spec('greekYogurt', 200, role: _a, min: 100, max: 350, step: 25),
+      _Spec('oats', 40),
+      _Spec('walnuts', 15),
+      _Spec('berries', 100),
+      _Spec('milk', 150, role: _d, max: 300, step: 50),
+    ],
+    [
+      _Spec('eggs', 2, role: _a, min: 1, max: 4, step: 1),
+      _Spec('bread', 60),
+      _Spec('hardCheese', 30, role: _d, max: 50, step: 10),
+      _Spec('salad', 100),
+    ],
+    [
+      _Spec('oats', 50),
+      _Spec('milk', 300, role: _d, max: 400, step: 50),
+      _Spec('peanutButter', 15),
+      _Spec('eggs', 1, role: _a, min: 0, max: 3, step: 1),
+      _Spec('apple', 1),
+    ],
+    [
+      _Spec('eggs', 2, role: _a, min: 1, max: 4, step: 1),
+      _Spec('bread', 60),
+      _Spec('hummus', 30),
+      _Spec('whiteCheese', 30, role: _d, max: 80, step: 10),
+    ],
+    [
+      _Spec('cottageCheese', 150, role: _a, min: 50, max: 250, step: 25),
+      _Spec('bread', 60),
+      _Spec('berries', 100),
+      _Spec('almonds', 15),
+      _Spec('milk', 200, role: _d, max: 350, step: 50),
+    ],
+  ],
+  MealSlot.lunch: [
+    [
+      _Spec('turkey', 120, role: _a, min: 30, max: 220),
+      _Spec('quinoa', 150),
+      _Spec('salad', 150),
+      _Spec('ayran', 250, role: _d, max: 400, step: 50),
+    ],
+    [
+      _Spec('tuna', 100, role: _a, min: 30, max: 180),
+      _Spec('bread', 90),
+      _Spec('salad', 150),
+      _Spec('yogurt', 150, role: _d, max: 250, step: 50),
+    ],
+    [
+      _Spec('beef', 120, role: _a, min: 30, max: 200),
+      _Spec('potato', 200),
+      _Spec('greenBeans', 150),
+      _Spec('ayran', 250, role: _d, max: 400, step: 50),
+    ],
+    [
+      _Spec('beans', 150),
+      _Spec('rice', 120),
+      _Spec('chicken', 80, role: _a, min: 0, max: 200),
+      _Spec('yogurt', 150, role: _d, max: 250, step: 50),
+    ],
+    [
+      _Spec('cod', 120, role: _a, min: 30, max: 240),
+      _Spec('potato', 200),
+      _Spec('salad', 150),
+      _Spec('ayran', 250, role: _d, max: 400, step: 50),
+    ],
+    [
+      _Spec('tuna', 100, role: _a, min: 30, max: 180),
+      _Spec('quinoa', 150),
+      _Spec('spinach', 100),
+      _Spec('yogurt', 150, role: _d, max: 250, step: 50),
+    ],
+    [
+      _Spec('turkey', 120, role: _a, min: 30, max: 220),
+      _Spec('pasta', 180),
+      _Spec('broccoli', 150),
+      _Spec('hardCheese', 20, role: _d, max: 40, step: 10),
+    ],
+  ],
+  MealSlot.dinner: [
+    [
+      _Spec('cod', 120, role: _a, min: 30, max: 240),
+      _Spec('rice', 150),
+      _Spec('greenBeans', 150),
+      _Spec('yogurt', 150, role: _d, max: 250, step: 50),
+    ],
+    [
+      _Spec('turkey', 120, role: _a, min: 30, max: 220),
+      _Spec('sweetPotato', 200),
+      _Spec('spinach', 150),
+      _Spec('yogurt', 150, role: _d, max: 250, step: 50),
+    ],
+    [
+      _Spec('beef', 120, role: _a, min: 30, max: 200),
+      _Spec('quinoa', 150),
+      _Spec('broccoli', 150),
+      _Spec('yogurt', 150, role: _d, max: 250, step: 50),
+    ],
+    [
+      _Spec('sardines', 100, role: _a, min: 30, max: 180),
+      _Spec('potato', 200),
+      _Spec('salad', 150),
+      _Spec('ayran', 250, role: _d, max: 400, step: 50),
+    ],
+    [
+      _Spec('chicken', 120, role: _a, min: 30, max: 220),
+      _Spec('pasta', 180),
+      _Spec('greenBeans', 150),
+      _Spec('mozzarella', 30, role: _d, max: 50, step: 10),
+    ],
+    [
+      _Spec('salmon', 120, role: _a, min: 30, max: 200),
+      _Spec('quinoa', 150),
+      _Spec('salad', 150),
+      _Spec('yogurt', 150, role: _d, max: 250, step: 50),
+    ],
+    [
+      _Spec('beans', 150),
+      _Spec('rice', 120),
+      _Spec('beef', 90, role: _a, min: 0, max: 200),
+      _Spec('yogurt', 150, role: _d, max: 250, step: 50),
+    ],
+  ],
+  MealSlot.snack: [
+    [
+      _Spec('greekYogurt', 150, role: _a, min: 100, max: 300, step: 25),
+      _Spec('berries', 100),
+      _Spec('walnuts', 15),
+    ],
+    [
+      _Spec('kefir', 250, role: _a, min: 150, max: 500, step: 50),
+      _Spec('apple', 1),
+      _Spec('almonds', 15),
+    ],
+    [
+      _Spec('whiteCheese', 40, role: _a, min: 30, max: 100, step: 10),
+      _Spec('bread', 30),
+      _Spec('hummus', 30),
+    ],
+  ],
+};
+
 /// Outside Turkey the Turkish staples become what a US or European kitchen
 /// has: ayran a glass of milk, bulgur brown rice. Every total is summed from
 /// [kFoods], so protein, calcium and kcal follow the swapped food and the
@@ -400,7 +571,8 @@ List<int> proteinSplit(int totalProtein, List<MealSlot> slots) {
 }
 
 /// The day's menu for [mealTimes], sized to [targets]. [variant] picks the
-/// day of the weekly rotation (0 = Monday). [turkish] keeps the Turkish
+/// day of the fortnight's rotation (0 = Monday of week A, 7 = Monday of the
+/// alternate week). [turkish] keeps the Turkish
 /// staples (ayran, bulgur, the feta breakfast); pass it when the app
 /// language is Turkish, everyone else gets the international swaps.
 DayMenu buildDayMenu(
@@ -419,14 +591,18 @@ DayMenu buildDayMenu(
   // of milk on the side, used only once its own dairy is at its limit.
   var snackIndex = 0;
   final specs = <List<_Spec>>[];
+  final weekB = (variant ~/ 7).isOdd;
+  final day = variant % 7;
   for (final slot in slots) {
-    final list = _templates[slot]!;
+    final list = (weekB ? _templatesB : _templates)[slot]!;
     final index = slot == MealSlot.snack
-        ? (variant + snackIndex++) % list.length
-        : variant % list.length;
+        ? (day + snackIndex++) % list.length
+        : day % list.length;
     final pick = turkish
         ? list[index]
-        : _international(slot, index, list[index]);
+        : weekB
+            ? [for (final x in list[index]) _internationalSwaps[x.food] ?? x]
+            : _international(slot, index, list[index]);
     final side = _sides.firstWhere(
       (x) => !pick.any((p) => p.food == x.food),
       orElse: () => _sides.first,
@@ -510,16 +686,22 @@ DayMenu buildDayMenu(
         if (amounts[m][i] > 0) MealItem(kFoods[specs[m][i].food]!, amounts[m][i]),
     ]));
   }
-  return DayMenu(variant % 7, meals);
+  return DayMenu(variant % 14, meals);
 }
 
-/// Monday to Sunday.
+/// Monday to Sunday, of week A or (with [weekB]) the alternate week.
 List<DayMenu> buildWeekMenu(
   DailyTargets targets,
   List<String> mealTimes, {
   bool turkish = false,
+  bool weekB = false,
 }) =>
     [
       for (var d = 0; d < 7; d++)
-        buildDayMenu(targets, mealTimes, variant: d, turkish: turkish),
+        buildDayMenu(
+          targets,
+          mealTimes,
+          variant: d + (weekB ? 7 : 0),
+          turkish: turkish,
+        ),
     ];

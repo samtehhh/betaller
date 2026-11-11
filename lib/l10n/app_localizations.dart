@@ -1830,7 +1830,7 @@ abstract class AppLocalizations {
   /// No description provided for @tipBarHanging.
   ///
   /// In en, this message translates to:
-  /// **'Bar hanging decompresses the spine. Try 3x30 seconds daily.'**
+  /// **'Bar hanging stretches your shoulders and back. Try 3x30 seconds daily.'**
   String get tipBarHanging;
 
   /// No description provided for @tipSwimming.
@@ -1866,7 +1866,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineBarHangingDesc.
   ///
   /// In en, this message translates to:
-  /// **'Hang from a pull-up bar to extend the spine. 3 sets x 30 seconds.'**
+  /// **'Hang from a pull-up bar to stretch your shoulders and back. 3 sets x 30 seconds.'**
   String get routineBarHangingDesc;
 
   /// No description provided for @routineCobraStretch.
@@ -1890,7 +1890,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineJumpingDesc.
   ///
   /// In en, this message translates to:
-  /// **'Jump rope or squat jumps. Stimulates growth plates. 3 sets x 20 reps.'**
+  /// **'Jump rope or squat jumps. Helps build stronger bones. 3 sets x 20 reps.'**
   String get routineJumpingDesc;
 
   /// No description provided for @routineSwimming.
@@ -1902,7 +1902,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineSwimmingDesc.
   ///
   /// In en, this message translates to:
-  /// **'Do a sport that supports height growth. At least 30 minutes.'**
+  /// **'Do a sport you enjoy to build fitness and strength. At least 30 minutes.'**
   String get routineSwimmingDesc;
 
   /// No description provided for @routineYoga.
@@ -2022,7 +2022,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineSprintIntervalsDesc.
   ///
   /// In en, this message translates to:
-  /// **'Sprint interval training triggers significant growth hormone release through high-intensity bursts.'**
+  /// **'Short sprints with recovery walks build fitness and leg strength.'**
   String get routineSprintIntervalsDesc;
 
   /// No description provided for @routineHiitWorkout.
@@ -2034,7 +2034,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineHiitWorkoutDesc.
   ///
   /// In en, this message translates to:
-  /// **'High intensity interval training to maximize growth hormone release.'**
+  /// **'High intensity interval training builds fitness and strength.'**
   String get routineHiitWorkoutDesc;
 
   /// No description provided for @routineSquats.
@@ -2046,7 +2046,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineSquatsDesc.
   ///
   /// In en, this message translates to:
-  /// **'Bodyweight squats stimulate growth plates in legs and spine.'**
+  /// **'Bodyweight squats strengthen your legs and the muscles that support posture.'**
   String get routineSquatsDesc;
 
   /// No description provided for @routineDeadliftStretch.
@@ -2058,7 +2058,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineDeadliftStretchDesc.
   ///
   /// In en, this message translates to:
-  /// **'Deadlift stretch for spinal decompression and vertebral disc health.'**
+  /// **'Deadlift stretch for flexible hamstrings and a stronger back.'**
   String get routineDeadliftStretchDesc;
 
   /// No description provided for @routineOverheadPress.
@@ -2070,7 +2070,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineOverheadPressDesc.
   ///
   /// In en, this message translates to:
-  /// **'Overhead pressing stretches the spine and strengthens posture muscles.'**
+  /// **'Overhead pressing strengthens your shoulders and posture muscles.'**
   String get routineOverheadPressDesc;
 
   /// No description provided for @routineSkippingRope.
@@ -2082,7 +2082,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineSkippingRopeDesc.
   ///
   /// In en, this message translates to:
-  /// **'Repetitive jumping with a skipping rope stimulates growth plates in lower extremities.'**
+  /// **'Repetitive jumping with a rope loads your leg bones and helps make them stronger.'**
   String get routineSkippingRopeDesc;
 
   /// No description provided for @routinePilatesCore.
@@ -2106,7 +2106,7 @@ abstract class AppLocalizations {
   /// No description provided for @routineInversionHangDesc.
   ///
   /// In en, this message translates to:
-  /// **'Inversion decompresses spinal discs, can temporarily add 1-2cm.'**
+  /// **'Inversion can relax your back muscles. Any height change is temporary.'**
   String get routineInversionHangDesc;
 
   /// No description provided for @routineZincIntake.
@@ -4464,13 +4464,13 @@ abstract class AppLocalizations {
   /// No description provided for @animHintSpinalDecomp.
   ///
   /// In en, this message translates to:
-  /// **'Spinal decompression'**
+  /// **'Shoulder and back stretch'**
   String get animHintSpinalDecomp;
 
   /// No description provided for @animHintGravityReversal.
   ///
   /// In en, this message translates to:
-  /// **'Gravity reversal'**
+  /// **'Back relaxation'**
   String get animHintGravityReversal;
 
   /// No description provided for @animHintImpactBones.
@@ -4506,7 +4506,7 @@ abstract class AppLocalizations {
   /// No description provided for @animHintCervicalDecomp.
   ///
   /// In en, this message translates to:
-  /// **'Cervical decompression'**
+  /// **'Neck relaxation'**
   String get animHintCervicalDecomp;
 
   /// No description provided for @animHintShoulderMobility.
@@ -4596,7 +4596,7 @@ abstract class AppLocalizations {
   /// No description provided for @animHintLegPower.
   ///
   /// In en, this message translates to:
-  /// **'Leg power & HGH surge'**
+  /// **'Leg strength'**
   String get animHintLegPower;
 
   /// No description provided for @animHintVerticalPower.
@@ -4608,7 +4608,7 @@ abstract class AppLocalizations {
   /// No description provided for @animHintHghSurge.
   ///
   /// In en, this message translates to:
-  /// **'HGH surge training'**
+  /// **'High-intensity training'**
   String get animHintHghSurge;
 
   /// No description provided for @animHintPeakHgh.
@@ -4650,7 +4650,7 @@ abstract class AppLocalizations {
   /// No description provided for @formBarHanging.
   ///
   /// In en, this message translates to:
-  /// **'Grip the bar shoulder-width apart, relax your body completely, let gravity stretch your spine. Avoid swinging.'**
+  /// **'Grip the bar shoulder-width apart, relax your body and feel the stretch in your shoulders and back. Avoid swinging.'**
   String get formBarHanging;
 
   /// No description provided for @formCobraStretch.
@@ -4824,73 +4824,73 @@ abstract class AppLocalizations {
   /// No description provided for @sciMorningStretch.
   ///
   /// In en, this message translates to:
-  /// **'Morning stretching decompresses spinal discs that were rehydrated overnight, maximizing height retention'**
+  /// **'Morning stretching eases overnight stiffness and gets your muscles moving'**
   String get sciMorningStretch;
 
   /// No description provided for @sciBarHanging.
   ///
   /// In en, this message translates to:
-  /// **'Hanging decompresses vertebral discs by using gravity to stretch the spine, potentially adding temporary height'**
+  /// **'Hanging stretches your shoulders and back and trains grip strength. Any height change is temporary'**
   String get sciBarHanging;
 
   /// No description provided for @sciCobraStretch.
   ///
   /// In en, this message translates to:
-  /// **'Cobra stretch extends the spine and opens the chest, counteracting spinal compression from sitting'**
+  /// **'Cobra stretch opens the chest and eases stiffness from long periods of sitting'**
   String get sciCobraStretch;
 
   /// No description provided for @sciJumping.
   ///
   /// In en, this message translates to:
-  /// **'High-impact jumping stimulates growth plates in the legs and triggers growth hormone release'**
+  /// **'High-impact jumping loads your bones and helps make them stronger during the teen years'**
   String get sciJumping;
 
   /// No description provided for @sciSwimmingBasketball.
   ///
   /// In en, this message translates to:
-  /// **'Swimming and basketball involve full-body stretching, jumping, and reaching that stimulate growth plate activity'**
+  /// **'Swimming and basketball build fitness, coordination and strength, and the jumping in basketball helps make bones stronger'**
   String get sciSwimmingBasketball;
 
   /// No description provided for @sciEveningYoga.
   ///
   /// In en, this message translates to:
-  /// **'Evening yoga reduces cortisol which inhibits growth hormone, and stretches muscles for overnight recovery'**
+  /// **'Evening yoga helps you unwind and relaxes your muscles before sleep'**
   String get sciEveningYoga;
 
   /// No description provided for @sciSprintIntervals.
   ///
   /// In en, this message translates to:
-  /// **'Sprinting triggers significant growth hormone release'**
+  /// **'Short sprints with recovery walks build fitness and leg strength'**
   String get sciSprintIntervals;
 
   /// No description provided for @sciHiitWorkout.
   ///
   /// In en, this message translates to:
-  /// **'High intensity exercise increases HGH by up to 450%'**
+  /// **'High intensity interval training builds fitness and strength'**
   String get sciHiitWorkout;
 
   /// No description provided for @sciSquats.
   ///
   /// In en, this message translates to:
-  /// **'Squats stimulate growth plates in legs and spine'**
+  /// **'Bodyweight squats strengthen your legs and the muscles that support posture'**
   String get sciSquats;
 
   /// No description provided for @sciDeadliftStretch.
   ///
   /// In en, this message translates to:
-  /// **'Spinal decompression promotes vertebral disc health'**
+  /// **'Deadlift stretch for flexible hamstrings and a stronger back'**
   String get sciDeadliftStretch;
 
   /// No description provided for @sciOverheadPress.
   ///
   /// In en, this message translates to:
-  /// **'Overhead pressing stretches the spine and strengthens posture muscles'**
+  /// **'Overhead pressing strengthens your shoulders and posture muscles'**
   String get sciOverheadPress;
 
   /// No description provided for @sciSkippingRope.
   ///
   /// In en, this message translates to:
-  /// **'Repetitive jumping stimulates growth plates in lower extremities'**
+  /// **'Repetitive jumping with a rope loads your leg bones and helps make them stronger'**
   String get sciSkippingRope;
 
   /// No description provided for @sciPilatesCore.
@@ -4902,7 +4902,7 @@ abstract class AppLocalizations {
   /// No description provided for @sciInversionHang.
   ///
   /// In en, this message translates to:
-  /// **'Inversion decompresses spinal discs, can temporarily add 1-2cm'**
+  /// **'Inversion can relax your back muscles. Any height change is temporary'**
   String get sciInversionHang;
 
   /// No description provided for @sciProtein.
@@ -5982,7 +5982,7 @@ abstract class AppLocalizations {
   /// No description provided for @notifJumpBody.
   ///
   /// In en, this message translates to:
-  /// **'Jumping exercises stimulate growth plates. Try 3 x 20 reps!'**
+  /// **'Jumping helps build stronger bones. Try 3 x 20 reps!'**
   String get notifJumpBody;
 
   /// No description provided for @notifCalciumTitle.
@@ -11582,6 +11582,1182 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Or try it free for {days} days first.'**
   String obBudgetTrial(String days);
+
+  /// No description provided for @obNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we call you?'**
+  String get obNameTitle;
+
+  /// No description provided for @obNameSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. Your plan and reminders will use it.'**
+  String get obNameSubtitle;
+
+  /// No description provided for @obNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get obNameHint;
+
+  /// No description provided for @nWb1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'You skipped yesterday'**
+  String get nWb1Title;
+
+  /// No description provided for @nWb1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Your {height} plan is still sitting there. 10 minutes fixes it.'**
+  String nWb1Body(String height);
+
+  /// No description provided for @nWb2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you give up on your height?'**
+  String get nWb2Title;
+
+  /// No description provided for @nWb2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan says you\'re not done yet.'**
+  String get nWb2Body;
+
+  /// No description provided for @nWb3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'What about your {gain}?'**
+  String nWb3Title(String gain);
+
+  /// No description provided for @nWb3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s the part of your prediction your habits control.'**
+  String get nWb3Body;
+
+  /// No description provided for @nWb5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, your chart went flat'**
+  String nWb5Title(String name);
+
+  /// No description provided for @nWb5TitleNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'Your chart went flat'**
+  String get nWb5TitleNoName;
+
+  /// No description provided for @nWb5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'No new measurement in 5 days. Where are you now?'**
+  String get nWb5Body;
+
+  /// No description provided for @nWb7Title.
+  ///
+  /// In en, this message translates to:
+  /// **'One week gone'**
+  String get nWb7Title;
+
+  /// No description provided for @nWb7Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Your friends didn\'t stop growing this week. Did you?'**
+  String get nWb7Body;
+
+  /// No description provided for @nWb10Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your prediction may have changed'**
+  String get nWb10Title;
+
+  /// No description provided for @nWb10Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure once and see the new number.'**
+  String get nWb10Body;
+
+  /// No description provided for @nWb14Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Still {height}?'**
+  String nWb14Title(String height);
+
+  /// No description provided for @nWb14Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Two weeks since your last check. Measure and find out.'**
+  String get nWb14Body;
+
+  /// No description provided for @nWb21Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Still want your plan?'**
+  String get nWb21Title;
+
+  /// No description provided for @nWb21Body.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s saved. One tap picks it back up.'**
+  String get nWb21Body;
+
+  /// No description provided for @nWb30Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Last one, {name}'**
+  String nWb30Title(String name);
+
+  /// No description provided for @nWb30TitleNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last one'**
+  String get nWb30TitleNoName;
+
+  /// No description provided for @nWb30Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data is still saved. Come back whenever you\'re ready.'**
+  String get nWb30Body;
+
+  /// No description provided for @nTrainHookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes between you and today\'s plan'**
+  String nTrainHookTitle(int minutes);
+
+  /// No description provided for @nWaterHookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Had your water yet?'**
+  String get nWaterHookTitle;
+
+  /// No description provided for @nWaterHookBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{liters} today. One glass now.'**
+  String nWaterHookBody(String liters);
+
+  /// No description provided for @nProteinHookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{grams} g of protein today. Started yet?'**
+  String nProteinHookTitle(int grams);
+
+  /// No description provided for @nSleepHookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone down, {name}'**
+  String nSleepHookTitle(String name);
+
+  /// No description provided for @nSleepHookTitleNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone down'**
+  String get nSleepHookTitleNoName;
+
+  /// No description provided for @nMeasureHookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you grow this week?'**
+  String get nMeasureHookTitle;
+
+  /// No description provided for @nMeasureHookBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure in the morning and find out.'**
+  String get nMeasureHookBody;
+
+  /// No description provided for @nStreakHookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your {streak}-day streak dies tonight'**
+  String nStreakHookTitle(int streak);
+
+  /// No description provided for @nStreakHookBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One routine saves it.'**
+  String get nStreakHookBody;
+
+  /// No description provided for @nPostureHookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your back right now'**
+  String get nPostureHookTitle;
+
+  /// No description provided for @nPostureHookBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders back, chin level.'**
+  String get nPostureHookBody;
+
+  /// No description provided for @hkReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'You were gone {days} days. Let\'s see what changed.'**
+  String hkReturn(int days);
+
+  /// No description provided for @hkHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'{gain} of your prediction depends on your habits'**
+  String hkHabits(String gain);
+
+  /// No description provided for @hkStreakDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day}. Your streak just got harder to break.'**
+  String hkStreakDay(int day);
+
+  /// No description provided for @hkPredictionUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Your prediction just updated. Tap to see it.'**
+  String get hkPredictionUpdated;
+
+  /// No description provided for @hkMeasureDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Your chart is waiting for this week\'s number'**
+  String get hkMeasureDue;
+
+  /// No description provided for @hkLeaveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan is ready. Leave it unopened?'**
+  String get hkLeaveTitle;
+
+  /// No description provided for @hkLeaveOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'See my plan'**
+  String get hkLeaveOpen;
+
+  /// No description provided for @rsLockedSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We worked out how tall you could get. Your number is locked below.'**
+  String get rsLockedSubtitle;
+
+  /// No description provided for @rsUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock my result'**
+  String get rsUnlock;
+
+  /// No description provided for @rsPaywallHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your number is in. Open it?'**
+  String get rsPaywallHeadline;
+
+  /// No description provided for @rsLockedChart.
+  ///
+  /// In en, this message translates to:
+  /// **'See where you\'re headed'**
+  String get rsLockedChart;
+
+  /// No description provided for @rsLineHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Your adult height'**
+  String get rsLineHeight;
+
+  /// No description provided for @rsLineGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth you have left'**
+  String get rsLineGrowth;
+
+  /// No description provided for @rsLineRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Your rank at your age'**
+  String get rsLineRank;
+
+  /// No description provided for @rsProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your sets and progress'**
+  String get rsProgressTitle;
+
+  /// No description provided for @rsStageStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get rsStageStart;
+
+  /// No description provided for @rsStageNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting stronger'**
+  String get rsStageNow;
+
+  /// No description provided for @rsStagePeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Full power'**
+  String get rsStagePeak;
+
+  /// No description provided for @rsLevelLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Sets, progress and getting stronger'**
+  String get rsLevelLine;
+
+  /// No description provided for @pwBuyWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Start weekly plan'**
+  String get pwBuyWeekly;
+
+  /// No description provided for @pwBuyMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Start monthly plan'**
+  String get pwBuyMonthly;
+
+  /// No description provided for @pwBuyLifetime.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy lifetime access'**
+  String get pwBuyLifetime;
+
+  /// No description provided for @obGenderSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth runs on a different curve for boys and girls.'**
+  String get obGenderSub;
+
+  /// No description provided for @obBirthSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Month and year are enough. This tells us where you are in your growth years.'**
+  String get obBirthSub;
+
+  /// No description provided for @obAgeLine.
+  ///
+  /// In en, this message translates to:
+  /// **'You are {age}'**
+  String obAgeLine(int age);
+
+  /// No description provided for @obAgeReplyGrowing.
+  ///
+  /// In en, this message translates to:
+  /// **'You are in your growth years. This is truly the time when we will grow your height together!'**
+  String get obAgeReplyGrowing;
+
+  /// No description provided for @obAgeReplyLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth slows around this age, but it does not stop at the same time for everyone. We will work yours out in a moment.'**
+  String get obAgeReplyLate;
+
+  /// No description provided for @obAgeReplyAdult.
+  ///
+  /// In en, this message translates to:
+  /// **'Bones rarely lengthen at this age. Your plan leans on posture, where the centimetres lost to slouching come back.'**
+  String get obAgeReplyAdult;
+
+  /// No description provided for @obHwSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Your height today is where the estimate starts.'**
+  String get obHwSub;
+
+  /// No description provided for @obFootSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Feet grow before the rest of you does, so your size says something about where you are.'**
+  String get obFootSub;
+
+  /// No description provided for @obFootLength.
+  ///
+  /// In en, this message translates to:
+  /// **'About {length}'**
+  String obFootLength(String length);
+
+  /// No description provided for @obWorkoutSub.
+  ///
+  /// In en, this message translates to:
+  /// **'We set your protein and calorie targets from this.'**
+  String get obWorkoutSub;
+
+  /// No description provided for @obNameNotif.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, today\'s plan is ready'**
+  String obNameNotif(String name);
+
+  /// No description provided for @obNameNotifAnon.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s plan is ready'**
+  String get obNameNotifAnon;
+
+  /// No description provided for @obNameNotifBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A few moves, about 15 minutes.'**
+  String get obNameNotifBody;
+
+  /// No description provided for @obNamePreviewLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your reminders will look like this'**
+  String get obNamePreviewLabel;
+
+  /// No description provided for @obReplyTriedStopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Then we can promise you will not drop BeTaller!'**
+  String get obReplyTriedStopped;
+
+  /// No description provided for @obReplyTriedStill.
+  ///
+  /// In en, this message translates to:
+  /// **'Then you will see the difference soon. Next to the number, BeTaller gives you a plan to tick off every day.'**
+  String get obReplyTriedStill;
+
+  /// No description provided for @obReplyTriedFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Then a real welcome! You have made one of the best choices on your way to growing taller.'**
+  String get obReplyTriedFirst;
+
+  /// No description provided for @obReplyWhyConfidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone who stands straight looks taller and more at ease. Posture is the first thing your plan works on.'**
+  String get obReplyWhyConfidence;
+
+  /// No description provided for @obReplyWhyImpression.
+  ///
+  /// In en, this message translates to:
+  /// **'Much of a first impression is how you stand. We start on that in week one.'**
+  String get obReplyWhyImpression;
+
+  /// No description provided for @obReplyWhySports.
+  ///
+  /// In en, this message translates to:
+  /// **'Stretching and hanging help on the court too. Your plan has both.'**
+  String get obReplyWhySports;
+
+  /// No description provided for @obReplyWhyClothes.
+  ///
+  /// In en, this message translates to:
+  /// **'The same clothes sit differently on a straight back. We fix that first.'**
+  String get obReplyWhyClothes;
+
+  /// No description provided for @obReplyWhyPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'In photos, posture changes your height the most. You can also compare before and after shots in the app.'**
+  String get obReplyWhyPhotos;
+
+  /// No description provided for @obReplyWhyPotential.
+  ///
+  /// In en, this message translates to:
+  /// **'Fair enough. A few more questions and we will work out your potential.'**
+  String get obReplyWhyPotential;
+
+  /// No description provided for @obReplyWorkoutLow.
+  ///
+  /// In en, this message translates to:
+  /// **'No problem. Your plan starts with short sessions, most around 15 minutes.'**
+  String get obReplyWorkoutLow;
+
+  /// No description provided for @obReplyWorkoutMid.
+  ///
+  /// In en, this message translates to:
+  /// **'Good pace. At this rhythm the plan will fit in easily.'**
+  String get obReplyWorkoutMid;
+
+  /// No description provided for @obReplyWorkoutHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'You train a lot. We are raising your protein target to match.'**
+  String get obReplyWorkoutHigh;
+
+  /// No description provided for @obReplyFirstWardrobe.
+  ///
+  /// In en, this message translates to:
+  /// **'You can start thinking about your new trouser length.'**
+  String get obReplyFirstWardrobe;
+
+  /// No description provided for @obReplyFirstMuscle.
+  ///
+  /// In en, this message translates to:
+  /// **'The moves in your plan lay the ground for that too.'**
+  String get obReplyFirstMuscle;
+
+  /// No description provided for @obReplyFirstPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo on day one. You will like putting them side by side later.'**
+  String get obReplyFirstPhotos;
+
+  /// No description provided for @obReplyFirstTeam.
+  ///
+  /// In en, this message translates to:
+  /// **'We will set your reminders so you stay regular until the tryouts.'**
+  String get obReplyFirstTeam;
+
+  /// No description provided for @obReplyFirstFeelGood.
+  ///
+  /// In en, this message translates to:
+  /// **'That is the soundest reason there is.'**
+  String get obReplyFirstFeelGood;
+
+  /// No description provided for @obDayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Here is a day with BeTaller'**
+  String get obDayTitle;
+
+  /// No description provided for @obDayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Built from what you have told us so far. You tick it off as you go.'**
+  String get obDayBody;
+
+  /// No description provided for @obDayProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'{grams} g protein'**
+  String obDayProtein(int grams);
+
+  /// No description provided for @obDayProteinSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first meal is ready'**
+  String get obDayProteinSub;
+
+  /// No description provided for @obDaySleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Your {time} sleep reminder'**
+  String obDaySleep(String time);
+
+  /// No description provided for @obDaySleepSub.
+  ///
+  /// In en, this message translates to:
+  /// **'The reminder that keeps your adventure going'**
+  String get obDaySleepSub;
+
+  /// No description provided for @obParentsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Most of your height comes from your parents. These two numbers are the base of the estimate.'**
+  String get obParentsSub;
+
+  /// No description provided for @obSleepSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Most growth hormone is released in deep sleep.'**
+  String get obSleepSub;
+
+  /// No description provided for @obDreamDelta.
+  ///
+  /// In en, this message translates to:
+  /// **'{delta} above your height today'**
+  String obDreamDelta(String delta);
+
+  /// No description provided for @obEthnicitySubAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Average adult height differs by a few centimetres between backgrounds.'**
+  String get obEthnicitySubAll;
+
+  /// No description provided for @obEthReplyHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Adults of this background average {avg}, above the world average. Your potential is very high!'**
+  String obEthReplyHigh(String avg);
+
+  /// No description provided for @obEthReplyMid.
+  ///
+  /// In en, this message translates to:
+  /// **'Adults of this background average about {avg}. Your potential is high, and good habits can take you past the average.'**
+  String obEthReplyMid(String avg);
+
+  /// No description provided for @obEthReplyRising.
+  ///
+  /// In en, this message translates to:
+  /// **'Adults of this background average about {avg}, and that number has been rising fast in recent generations. Your potential may be higher than you think.'**
+  String obEthReplyRising(String avg);
+
+  /// No description provided for @obEthReplyNoAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'No problem. We work from your parents and your own measurements.'**
+  String get obEthReplyNoAnswer;
+
+  /// No description provided for @obEthAbove.
+  ///
+  /// In en, this message translates to:
+  /// **'Adults of this background average {avg}. You are already {you}, above the average!'**
+  String obEthAbove(String avg, String you);
+
+  /// No description provided for @obEthNear.
+  ///
+  /// In en, this message translates to:
+  /// **'Adults of this background average {avg}. At {you} you are right on it, and the goal is to go past it.'**
+  String obEthNear(String avg, String you);
+
+  /// No description provided for @obEthBelowYoung.
+  ///
+  /// In en, this message translates to:
+  /// **'Adults of this background average {avg}. You are {you} and still in your growth years, so there is time to pass it.'**
+  String obEthBelowYoung(String avg, String you);
+
+  /// No description provided for @obEthBelowAdult.
+  ///
+  /// In en, this message translates to:
+  /// **'Adults of this background average {avg}. You are {you}, and posture can close part of that gap.'**
+  String obEthBelowAdult(String avg, String you);
+
+  /// No description provided for @obMealsUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'I am not sure about the times'**
+  String get obMealsUnknown;
+
+  /// No description provided for @obMealsUnknownReply.
+  ///
+  /// In en, this message translates to:
+  /// **'No problem, we have built an hourly plan just for you.'**
+  String get obMealsUnknownReply;
+
+  /// No description provided for @obUnknownPlanned.
+  ///
+  /// In en, this message translates to:
+  /// **'No problem, we will plan this for you. You can change it any time.'**
+  String get obUnknownPlanned;
+
+  /// No description provided for @obReplyWeCalc.
+  ///
+  /// In en, this message translates to:
+  /// **'Do not worry, we already work this out for you.'**
+  String get obReplyWeCalc;
+
+  /// No description provided for @obGoalDaysTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'By when do you really wish to have grown?'**
+  String get obGoalDaysTitle;
+
+  /// No description provided for @obGoalDaysSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Let us put a date on your goal.'**
+  String get obGoalDaysSub;
+
+  /// No description provided for @obGoalDaysN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} days'**
+  String obGoalDaysN(int n);
+
+  /// No description provided for @obGoalYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Within 1 year'**
+  String get obGoalYear;
+
+  /// No description provided for @obGoalOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'As much as I can grow'**
+  String get obGoalOpen;
+
+  /// No description provided for @obReplyGoal90.
+  ///
+  /// In en, this message translates to:
+  /// **'90 days is a good stretch for posture and habits to settle. You will see the first change in how you stand.'**
+  String get obReplyGoal90;
+
+  /// No description provided for @obReplyGoal120.
+  ///
+  /// In en, this message translates to:
+  /// **'In 120 days the habits are in place. We will track your measurements together the whole way.'**
+  String get obReplyGoal120;
+
+  /// No description provided for @obReplyGoal180.
+  ///
+  /// In en, this message translates to:
+  /// **'Six months is a realistic span to see growth on the tape measure.'**
+  String get obReplyGoal180;
+
+  /// No description provided for @obReplyGoal365.
+  ///
+  /// In en, this message translates to:
+  /// **'A year is the soundest plan. Growing takes patience, and we are with you every day.'**
+  String get obReplyGoal365;
+
+  /// No description provided for @obReplyGoalOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'That is the right way to see it. As far as your body allows, and we are with you every day.'**
+  String get obReplyGoalOpen;
+
+  /// No description provided for @tv4TrackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Water and sleep in one tap'**
+  String get tv4TrackTitle;
+
+  /// No description provided for @tv4TrackDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily targets come from your age and weight. Tick them off as you go.'**
+  String get tv4TrackDesc;
+
+  /// No description provided for @tv4PhotosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Before and after photos'**
+  String get tv4PhotosTitle;
+
+  /// No description provided for @tv4PhotosDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Take the same pose, then put the weeks side by side.'**
+  String get tv4PhotosDesc;
+
+  /// No description provided for @tv4PostureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A posture check with your camera'**
+  String get tv4PostureTitle;
+
+  /// No description provided for @tv4PostureDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'It scores how you stand and tells you what to fix.'**
+  String get tv4PostureDesc;
+
+  /// No description provided for @tv4ReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weekly report'**
+  String get tv4ReportTitle;
+
+  /// No description provided for @tv4ReportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Training, sleep and food on one page, every week.'**
+  String get tv4ReportDesc;
+
+  /// No description provided for @tv4BreakdownTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What raises your score'**
+  String get tv4BreakdownTitle;
+
+  /// No description provided for @tv4BreakdownDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'It shows each factor\'s share and your next step.'**
+  String get tv4BreakdownDesc;
+
+  /// No description provided for @reminderProTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders come with Pro'**
+  String get reminderProTitle;
+
+  /// No description provided for @reminderProDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'We nudge you at your training, meal and sleep times.'**
+  String get reminderProDesc;
+
+  /// No description provided for @nFw1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Day two, new moves'**
+  String get nFw1Title;
+
+  /// No description provided for @nFw1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s workout is different from yesterday\'s. It takes a few minutes.'**
+  String get nFw1Body;
+
+  /// No description provided for @nFw2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first streak medal is close'**
+  String get nFw2Title;
+
+  /// No description provided for @nFw2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish three days in a row and the 3-day streak medal opens.'**
+  String get nFw2Body;
+
+  /// No description provided for @nFw3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Measuring day'**
+  String get nFw3Title;
+
+  /// No description provided for @nFw3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure your height and save it. Your chart gets its next point today.'**
+  String get nFw3Body;
+
+  /// No description provided for @nFw4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Let us look at your posture'**
+  String get nFw4Title;
+
+  /// No description provided for @nFw4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera posture check takes a minute. See your score.'**
+  String get nFw4Body;
+
+  /// No description provided for @nFw5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Take your first photo'**
+  String get nFw5Title;
+
+  /// No description provided for @nFw5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Take one photo today. In a few weeks you will put them side by side.'**
+  String get nFw5Body;
+
+  /// No description provided for @nFw6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first week ends tomorrow'**
+  String get nFw6Title;
+
+  /// No description provided for @nFw6Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish today, and your weekly report is ready tomorrow.'**
+  String get nFw6Body;
+
+  /// No description provided for @nFw7Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first week is done'**
+  String get nFw7Title;
+
+  /// No description provided for @nFw7Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weekly report is ready. Measure your height once more too.'**
+  String get nFw7Body;
+
+  /// No description provided for @nPmFirstTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, time for your first meal.'**
+  String nPmFirstTitle(String name);
+
+  /// No description provided for @nPmFirstTitleNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'Time for your first meal.'**
+  String get nPmFirstTitleNoName;
+
+  /// No description provided for @nPmFirstBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own meal is ready. If you would rather not, your macros and the nutrients you need are ready too. Do not skip the first meal.'**
+  String get nPmFirstBody;
+
+  /// No description provided for @nPmMealTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, it is time for meal {n}.'**
+  String nPmMealTitle(String name, int n);
+
+  /// No description provided for @nPmMealTitleNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'It is time for meal {n}.'**
+  String nPmMealTitleNoName(int n);
+
+  /// No description provided for @nPmMealBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{protein} g protein and {calcium} mg calcium. Do not skip this meal.'**
+  String nPmMealBody(int protein, int calcium);
+
+  /// No description provided for @nPmWaterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you drinking enough water?'**
+  String get nPmWaterTitle;
+
+  /// No description provided for @nPmWaterBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, remember to drink water through the day. Your daily target is {liters}.'**
+  String nPmWaterBody(String name, String liters);
+
+  /// No description provided for @nPmWaterBodyNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember to drink water through the day. Your daily target is {liters}.'**
+  String nPmWaterBodyNoName(String liters);
+
+  /// No description provided for @nPmTrainTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your workout time is 30 minutes away!'**
+  String get nPmTrainTitle;
+
+  /// No description provided for @nPmTrainBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own program is waiting. Today: {count} exercises, about {minutes} minutes.'**
+  String nPmTrainBody(int count, int minutes);
+
+  /// No description provided for @nPmHabitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You can skip rope and stretch a little during the day'**
+  String get nPmHabitTitle;
+
+  /// No description provided for @nPmHabitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, do not forget these small habits.'**
+  String nPmHabitBody(String name);
+
+  /// No description provided for @nPmHabitBodyNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'Do not forget these small habits.'**
+  String get nPmHabitBodyNoName;
+
+  /// No description provided for @nPmSleepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, your bedtime is close.'**
+  String nPmSleepTitle(String name);
+
+  /// No description provided for @nPmSleepTitleNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'Your bedtime is close.'**
+  String get nPmSleepTitleNoName;
+
+  /// No description provided for @pwMoreFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'And many more features.'**
+  String get pwMoreFeatures;
+
+  /// No description provided for @libTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise library'**
+  String get libTitle;
+
+  /// No description provided for @libCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} exercises'**
+  String libCount(int count);
+
+  /// No description provided for @libJump.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumps'**
+  String get libJump;
+
+  /// No description provided for @libHang.
+  ///
+  /// In en, this message translates to:
+  /// **'Hanging'**
+  String get libHang;
+
+  /// No description provided for @libStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Stretches'**
+  String get libStretch;
+
+  /// No description provided for @libStrength.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength'**
+  String get libStrength;
+
+  /// No description provided for @libPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture'**
+  String get libPosture;
+
+  /// No description provided for @libWeights.
+  ///
+  /// In en, this message translates to:
+  /// **'Weights'**
+  String get libWeights;
+
+  /// No description provided for @libWeightsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'These need dumbbells or a band. Pick a weight you can finish every rep with, in good form.'**
+  String get libWeightsNote;
+
+  /// No description provided for @plFoodTurkey.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkey breast'**
+  String get plFoodTurkey;
+
+  /// No description provided for @plFoodCod.
+  ///
+  /// In en, this message translates to:
+  /// **'Cod'**
+  String get plFoodCod;
+
+  /// No description provided for @plFoodBeans.
+  ///
+  /// In en, this message translates to:
+  /// **'Kidney beans'**
+  String get plFoodBeans;
+
+  /// No description provided for @plFoodQuinoa.
+  ///
+  /// In en, this message translates to:
+  /// **'Quinoa'**
+  String get plFoodQuinoa;
+
+  /// No description provided for @plFoodSweetPotato.
+  ///
+  /// In en, this message translates to:
+  /// **'Sweet potato'**
+  String get plFoodSweetPotato;
+
+  /// No description provided for @plFoodApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple'**
+  String get plFoodApple;
+
+  /// No description provided for @plFoodBerries.
+  ///
+  /// In en, this message translates to:
+  /// **'Strawberries'**
+  String get plFoodBerries;
+
+  /// No description provided for @plFoodMozzarella.
+  ///
+  /// In en, this message translates to:
+  /// **'Mozzarella'**
+  String get plFoodMozzarella;
+
+  /// No description provided for @plFoodHummus.
+  ///
+  /// In en, this message translates to:
+  /// **'Hummus'**
+  String get plFoodHummus;
+
+  /// No description provided for @plFoodGreenBeans.
+  ///
+  /// In en, this message translates to:
+  /// **'Green beans'**
+  String get plFoodGreenBeans;
+
+  /// No description provided for @mgTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to measure'**
+  String get mgTitle;
+
+  /// No description provided for @mgBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It has been {days} days since your last measurement. Measure your height before you go on.'**
+  String mgBody(int days);
+
+  /// No description provided for @mgTip1.
+  ///
+  /// In en, this message translates to:
+  /// **'No shoes, heels against the wall.'**
+  String get mgTip1;
+
+  /// No description provided for @mgTip2.
+  ///
+  /// In en, this message translates to:
+  /// **'Look straight ahead and rest a flat book on your head.'**
+  String get mgTip2;
+
+  /// No description provided for @mgTip3.
+  ///
+  /// In en, this message translates to:
+  /// **'Measure in the morning. Height drops a little during the day.'**
+  String get mgTip3;
+
+  /// No description provided for @mgLater.
+  ///
+  /// In en, this message translates to:
+  /// **'I can\'t measure today'**
+  String get mgLater;
+
+  /// No description provided for @paTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan answers'**
+  String get paTitle;
+
+  /// No description provided for @paSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your plan and reminders follow these. Change one and they are updated.'**
+  String get paSubtitle;
+
+  /// No description provided for @paRowSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Training days, goal and times'**
+  String get paRowSubtitle;
+
+  /// No description provided for @paWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly training'**
+  String get paWorkout;
+
+  /// No description provided for @paGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Program length'**
+  String get paGoal;
+
+  /// No description provided for @paBedtime.
+  ///
+  /// In en, this message translates to:
+  /// **'Bedtime'**
+  String get paBedtime;
+
+  /// No description provided for @paWorkoutTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Training time'**
+  String get paWorkoutTime;
+
+  /// No description provided for @restoreDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Your purchase is restored.'**
+  String get restoreDone;
 }
 
 class _AppLocalizationsDelegate

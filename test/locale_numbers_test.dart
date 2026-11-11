@@ -93,6 +93,7 @@ void main() {
 
   testWidgets('the potential preview shows the user\'s own numbers', (t) async {
     final p = (await t.runAsync(() => _onboardedUser(imperial: false)))!;
+    p.setPremium(true);
     Intl.defaultLocale = 'de';
     await t.pumpWidget(ChangeNotifierProvider.value(
       value: p,

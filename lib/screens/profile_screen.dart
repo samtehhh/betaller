@@ -17,6 +17,8 @@ import '../utils/haptics.dart';
 import '../utils/localized_data.dart';
 import '../utils/units.dart';
 import 'notifications_screen.dart';
+import 'plan_answers_screen.dart';
+import '../services/purchase_service.dart';
 import 'wellness_tracker_screen.dart';
 import 'onboarding_screen.dart';
 import '../widgets/measure_fields.dart';
@@ -24,6 +26,8 @@ import '../widgets/next_reminder_card.dart';
 import '../widgets/premium_paywall.dart';
 import '../utils/text_case.dart';
 import '../utils/app_languages.dart';
+import '../utils/design_tokens.dart';
+import '../widgets/achievement_medal.dart';
 
 class ProfileScreen extends StatefulWidget {
   /// Lets MainScreen re-launch the guided walkthrough from here too — a
@@ -71,6 +75,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
   /// 5 while revealed hides it again. Anything slower than the window below
   /// resets the count instead of slowly creeping up over unrelated taps
   /// spread across a session.
+  bool _restoring = false;
+
+  /// The store's "restore purchases", for someone who bought Pro on another
+  /// device or before reinstalling. The paywall has the same link; the store
+  /// guidelines want it reachable without opening an offer.
+  Future<void> _restorePurchases() async {
+    final l = AppLocalizations.of(context)!;
+    final messenger = ScaffoldMessenger.of(context);
+    final provider = context.read<AppProvider>();
+    setState(() => _restoring = true);
+    final ok = await PurchaseService().restore();
+    if (!mounted) return;
+    setState(() => _restoring = false);
+    if (ok) {
+      provider.setPremium(true);
+      unawaited(
+        NotificationService().scheduleReminders(
+          provider.reminders,
+          l,
+          context: provider.reminderContext,
+        ),
+      );
+    }
+    messenger.showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColors.surfaceDark,
+        content: Text(ok ? l.restoreDone : l.paywallRestore),
+      ),
+    );
+  }
+
   void _onWordmarkTap() {
     if (!kDevTools) return;
     final target = _devToolsUnlocked ? 5 : 10;
@@ -147,21 +183,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
+                              color: AppColors.primary.withValues(alpha: 0.16),
+                              borderRadius: BorderRadius.circular(BtRadius.lg),
+                              border: Border.all(
+                                color: BtColors.brandEdge,
+                                width: 1.5,
                               ),
-                              borderRadius: BorderRadius.circular(22),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(
-                                    0xFF8B5CF6,
-                                  ).withValues(alpha: 0.3),
-                                  blurRadius: 12,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
                             ),
                             child: Row(
                               children: [
@@ -299,11 +326,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          ...List.generate((achievements.length / 5).ceil(), (
+                          ...List.generate((achievements.length / 4).ceil(), (
                             row,
                           ) {
-                            final start = row * 5;
-                            final end = (start + 5).clamp(
+                            final start = row * 4;
+                            final end = (start + 4).clamp(
                               0,
                               achievements.length,
                             );
@@ -311,11 +338,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             return Padding(
                               padding: EdgeInsets.only(
                                 bottom:
-                                    row < (achievements.length / 5).ceil() - 1
+                                    row < (achievements.length / 4).ceil() - 1
                                     ? 14
                                     : 0,
                               ),
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: rowItems.map((a) {
                                   final earned = a['earned'] == true;
                                   final locAch = localizedAchievement(
@@ -338,45 +366,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Container(
-                                            width: 46,
-                                            height: 46,
-                                            decoration: BoxDecoration(
-                                              color: earned
-                                                  ? AppColors.primary
-                                                        .withValues(alpha: 0.15)
-                                                  : Colors.white.withValues(
-                                                      alpha: 0.14,
-                                                    ),
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              border: earned
-                                                  ? Border.all(
-                                                      color: AppColors.primary
-                                                          .withValues(
-                                                            alpha: 0.3,
-                                                          ),
-                                                      width: 1,
-                                                    )
-                                                  : null,
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                earned ? a['icon'] : '🔒',
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: earned
-                                                      ? null
-                                                      : Colors.grey,
-                                                ),
-                                              ),
-                                            ),
+                                          AchievementMedal(
+                                            type: a['type'] as String? ?? '',
+                                            value:
+                                                (a['value'] as num?)?.toInt() ??
+                                                1,
+                                            earned: earned,
+                                            size: 60,
                                           ),
-                                          const SizedBox(height: 4),
+                                          const SizedBox(height: 6),
                                           Text(
                                             localA['title'],
                                             style: TextStyle(
-                                              fontSize: 9,
+                                              fontSize: 11.5,
+                                              height: 1.2,
                                               fontWeight: FontWeight.w600,
                                               color: earned
                                                   ? Colors.white.withValues(
@@ -477,6 +480,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           onTap: () =>
                               _showEditProfileSheet(context, provider, profile),
                         ),
+                        _menuDivider(),
+                        // The onboarding answers the plan is built from.
+                        _MenuRow(
+                          icon: CupertinoIcons.slider_horizontal_3,
+                          label: l.paTitle,
+                          subtitle: l.paRowSubtitle,
+                          color: AppColors.primary,
+                          onTap: () => Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (_) => const PlanAnswersScreen(),
+                            ),
+                          ),
+                        ),
+                        if (!provider.hasPaidPremium) ...[
+                          _menuDivider(),
+                          _MenuRow(
+                            icon: CupertinoIcons.arrow_clockwise,
+                            label: l.paywallRestoreLabel,
+                            subtitle: '',
+                            color: AppColors.primary,
+                            onTap: _restoring ? () {} : _restorePurchases,
+                          ),
+                        ],
                       ],
                     ),
                     const SizedBox(height: 18),
@@ -718,11 +745,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             onTap: kDevTools ? _onWordmarkTap : null,
                             child: ShaderMask(
                               shaderCallback: (bounds) => const LinearGradient(
-                                colors: [
-                                  AppColors.primaryDark,
-                                  AppColors.primary,
-                                  AppColors.primaryLight,
-                                ],
+                                colors: [Color(0x66FFFFFF), Color(0x66FFFFFF)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ).createShader(bounds),
@@ -1975,11 +1998,11 @@ class _GroupLabel extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(6, 0, 6, 10),
       child: Text(
-        text.upperIn(context),
+        text,
         style: TextStyle(
-          fontSize: 10.5,
-          fontWeight: FontWeight.w900,
-          letterSpacing: 1.4,
+          fontSize: 13,
+          fontWeight: FontWeight.w700,
+          letterSpacing: -0.1,
           color: (color ?? Colors.white).withValues(
             alpha: color == null ? 0.38 : 0.75,
           ),
@@ -2214,17 +2237,7 @@ class _IdentityCard extends StatelessWidget {
                 height: 62,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  gradient: const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [AppColors.primary, AppColors.cyan],
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withValues(alpha: 0.40),
-                      blurRadius: 18,
-                    ),
-                  ],
+                  color: AppColors.primary,
                 ),
                 child: Center(
                   child: Text(
@@ -2260,11 +2273,11 @@ class _IdentityCard extends StatelessWidget {
                       children: [
                         _Chip(
                           text: l.ageYear(profile.age),
-                          color: AppColors.primary,
+                          color: Colors.white,
                         ),
                         _Chip(
                           text: profile.gender == 'male' ? l.male : l.female,
-                          color: AppColors.cyan,
+                          color: Colors.white,
                         ),
                         _Chip(
                           text: provider.formatHeight(profile.currentHeight),
@@ -2309,15 +2322,15 @@ class _IdentityCard extends StatelessWidget {
                   vertical: 4,
                 ),
                 decoration: BoxDecoration(
-                  gradient: AppColors.gradientCyan,
+                  color: AppColors.primary.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(9),
                 ),
                 child: Text(
                   l.lvl('${provider.level}'),
                   style: const TextStyle(
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.primaryLight,
                   ),
                 ),
               ),
@@ -2351,7 +2364,9 @@ class _IdentityCard extends StatelessWidget {
               value: xpRatio,
               minHeight: 7,
               backgroundColor: Colors.white.withValues(alpha: 0.08),
-              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.cyan),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.primary,
+              ),
             ),
           ),
         ],

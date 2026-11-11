@@ -953,7 +953,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get tipBarHanging =>
-      'बार पर लटकने से रीढ़ की हड्डी डीकंप्रेस होती है। रोज़ 3x30 सेकंड आज़माएँ।';
+      'बार पर लटकने से कंधों और पीठ में खिंचाव आता है। रोज़ 3x30 सेकंड आज़माएँ।';
 
   @override
   String get tipSwimming =>
@@ -975,7 +975,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get routineBarHangingDesc =>
-      'रीढ़ को फैलाने के लिए पुल-अप बार पर लटकें। 3 सेट x 30 सेकंड।';
+      'कंधों और पीठ को खींचने के लिए पुल-अप बार से लटकें। 3 सेट x 30 सेकंड।';
 
   @override
   String get routineCobraStretch => 'कोबरा स्ट्रेच';
@@ -989,14 +989,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get routineJumpingDesc =>
-      'रस्सी कूदना या स्क्वाट जंप। ग्रोथ प्लेट्स को उत्तेजित करता है। 3 सेट x 20 बार।';
+      'रस्सी कूदें या स्क्वाट जंप करें। हड्डियों को मज़बूत बनाने में मदद करता है। 3 सेट x 20 बार।';
 
   @override
   String get routineSwimming => 'तैराकी या बास्केटबॉल';
 
   @override
   String get routineSwimmingDesc =>
-      'ऊँचाई बढ़ाने में सहायक कोई खेल खेलें। कम से कम 30 मिनट।';
+      'फिटनेस और ताकत के लिए अपनी पसंद का खेल खेलें। कम से कम 30 मिनट।';
 
   @override
   String get routineYoga => 'शाम का योग और स्ट्रेचिंग';
@@ -1066,42 +1066,42 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get routineSprintIntervalsDesc =>
-      'स्प्रिंट इंटरवल ट्रेनिंग उच्च तीव्रता वाले विस्फोटों से महत्वपूर्ण ग्रोथ हार्मोन रिलीज़ को सक्रिय करती है।';
+      'छोटे स्प्रिंट और बीच में पैदल रिकवरी से फिटनेस और पैरों की ताकत बढ़ती है।';
 
   @override
   String get routineHiitWorkout => 'HIIT वर्कआउट';
 
   @override
   String get routineHiitWorkoutDesc =>
-      'ग्रोथ हार्मोन रिलीज़ को अधिकतम करने के लिए उच्च तीव्रता वाली इंटरवल ट्रेनिंग।';
+      'हाई इंटेंसिटी इंटरवल ट्रेनिंग से फिटनेस और ताकत बढ़ती है।';
 
   @override
   String get routineSquats => 'बॉडीवेट स्क्वाट्स';
 
   @override
   String get routineSquatsDesc =>
-      'बॉडीवेट स्क्वाट्स पैरों और रीढ़ की ग्रोथ प्लेट्स को उत्तेजित करते हैं।';
+      'बॉडीवेट स्क्वाट पैरों और मुद्रा को सहारा देने वाली मांसपेशियों को मज़बूत करते हैं।';
 
   @override
   String get routineDeadliftStretch => 'डेडलिफ्ट स्ट्रेच';
 
   @override
   String get routineDeadliftStretchDesc =>
-      'रीढ़ की हड्डी के डीकंप्रेशन और वर्टिब्रल डिस्क स्वास्थ्य के लिए डेडलिफ्ट स्ट्रेच।';
+      'लचीली हैमस्ट्रिंग और मज़बूत पीठ के लिए डेडलिफ्ट स्ट्रेच।';
 
   @override
   String get routineOverheadPress => 'ओवरहेड प्रेस';
 
   @override
   String get routineOverheadPressDesc =>
-      'ओवरहेड प्रेस रीढ़ की हड्डी को खींचता है और मुद्रा की मांसपेशियों को मजबूत करता है।';
+      'ओवरहेड प्रेस कंधों और मुद्रा की मांसपेशियों को मज़बूत करता है।';
 
   @override
   String get routineSkippingRope => 'रस्सी कूदना';
 
   @override
   String get routineSkippingRopeDesc =>
-      'रस्सी से बार-बार कूदना निचले अंगों की ग्रोथ प्लेट्स को उत्तेजित करता है।';
+      'रस्सी से बार-बार कूदना पैरों की हड्डियों पर भार डालता है और उन्हें मज़बूत बनाने में मदद करता है।';
 
   @override
   String get routinePilatesCore => 'पिलाटीज़ कोर';
@@ -1115,7 +1115,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get routineInversionHangDesc =>
-      'उल्टा लटकने से रीढ़ की डिस्क डीकंप्रेस होती हैं, अस्थायी रूप से 1-2 सेमी जोड़ सकता है।';
+      'उल्टा लटकना पीठ की मांसपेशियों को आराम दे सकता है। लंबाई में कोई भी बदलाव अस्थायी होता है।';
 
   @override
   String get routineZincIntake => 'ज़िंक से भरपूर खाद्य पदार्थ';
@@ -2387,10 +2387,10 @@ class AppLocalizationsHi extends AppLocalizations {
       'आपकी वृद्धि को पोषित करने के लिए चुनी गई रेसिपी। भोजन प्रकार या पोषण लक्ष्य के अनुसार फ़िल्टर करें।';
 
   @override
-  String get animHintSpinalDecomp => 'रीढ़ की हड्डी का विसंपीड़न';
+  String get animHintSpinalDecomp => 'कंधे और पीठ का स्ट्रेच';
 
   @override
-  String get animHintGravityReversal => 'गुरुत्वाकर्षण उलटाव';
+  String get animHintGravityReversal => 'पीठ को आराम';
 
   @override
   String get animHintImpactBones => 'हड्डियों पर प्रभाव भार';
@@ -2408,7 +2408,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get animHintSpinalExtension => 'रीढ़ विस्तार';
 
   @override
-  String get animHintCervicalDecomp => 'सर्वाइकल विसंपीड़न';
+  String get animHintCervicalDecomp => 'गर्दन को आराम';
 
   @override
   String get animHintShoulderMobility => 'कंधे की गतिशीलता';
@@ -2453,13 +2453,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get animHintCoreStability => 'कोर स्थिरता';
 
   @override
-  String get animHintLegPower => 'पैर की शक्ति और HGH उछाल';
+  String get animHintLegPower => 'पैरों की ताकत';
 
   @override
   String get animHintVerticalPower => 'ऊर्ध्वाधर शक्ति';
 
   @override
-  String get animHintHghSurge => 'HGH उछाल ट्रेनिंग';
+  String get animHintHghSurge => 'हाई इंटेंसिटी ट्रेनिंग';
 
   @override
   String get animHintPeakHgh => 'शिखर HGH रिलीज़ विंडो';
@@ -2482,7 +2482,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get formBarHanging =>
-      'Grip the bar shoulder-width apart, relax your body completely, let gravity stretch your spine. Avoid swinging.';
+      'बार को कंधों की चौड़ाई पर पकड़ें, शरीर को ढीला छोड़ें और कंधों व पीठ में खिंचाव महसूस करें। झूलने से बचें।';
 
   @override
   String get formCobraStretch =>
@@ -2598,51 +2598,51 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get sciMorningStretch =>
-      'सुबह की स्ट्रेचिंग रीढ़ की उन डिस्क का दबाव कम करती है जो रात में फिर से भर जाती हैं, जिससे दिन भर तुम्हारी लंबाई बनी रहती है';
+      'सुबह की स्ट्रेचिंग रात की जकड़न कम करती है और मांसपेशियों को सक्रिय करती है';
 
   @override
   String get sciBarHanging =>
-      'लटकने से गुरुत्वाकर्षण रीढ़ को खींचता है और डिस्क का दबाव कम होता है, जिससे कुछ समय के लिए लंबाई बढ़ सकती है';
+      'लटकने से कंधों और पीठ में खिंचाव आता है और पकड़ की ताकत बढ़ती है। लंबाई में कोई भी बदलाव अस्थायी होता है';
 
   @override
   String get sciCobraStretch =>
-      'कोबरा स्ट्रेच रीढ़ को खींचता है और छाती खोलता है, जिससे लंबे समय तक बैठने का दबाव कम होता है';
+      'कोबरा स्ट्रेच छाती खोलता है और देर तक बैठने की जकड़न कम करता है';
 
   @override
   String get sciJumping =>
-      'ज़ोरदार कूद पैरों की ग्रोथ प्लेट्स को सक्रिय करती है और ग्रोथ हॉर्मोन निकलने में मदद करती है';
+      'ज़ोरदार कूद हड्डियों पर भार डालती है और किशोरावस्था में उन्हें मज़बूत बनाने में मदद करती है';
 
   @override
   String get sciSwimmingBasketball =>
-      'तैराकी और बास्केटबॉल में पूरे शरीर से खिंचना, कूदना और पहुँचना होता है, जो ग्रोथ प्लेट्स को सक्रिय करता है';
+      'तैराकी और बास्केटबॉल से फिटनेस, तालमेल और ताकत बढ़ती है, और बास्केटबॉल की कूद हड्डियों को मज़बूत बनाने में मदद करती है';
 
   @override
   String get sciEveningYoga =>
-      'शाम का योग कोर्टिसोल घटाता है, जो ग्रोथ हॉर्मोन को रोकता है, और रात की रिकवरी के लिए मांसपेशियों को खींचता है';
+      'शाम का योग मन को शांत करने और सोने से पहले मांसपेशियों को आराम देने में मदद करता है';
 
   @override
   String get sciSprintIntervals =>
-      'तेज़ दौड़ से ग्रोथ हॉर्मोन काफ़ी ज़्यादा निकलता है';
+      'छोटे स्प्रिंट और बीच में पैदल रिकवरी से फिटनेस और पैरों की ताकत बढ़ती है';
 
   @override
   String get sciHiitWorkout =>
-      'तेज़ और ज़ोरदार एक्सरसाइज़ ग्रोथ हॉर्मोन को 450% तक बढ़ा सकती है';
+      'हाई इंटेंसिटी इंटरवल ट्रेनिंग से फिटनेस और ताकत बढ़ती है';
 
   @override
   String get sciSquats =>
-      'स्क्वॉट्स पैरों और रीढ़ की ग्रोथ प्लेट्स को सक्रिय करते हैं';
+      'बॉडीवेट स्क्वाट पैरों और मुद्रा को सहारा देने वाली मांसपेशियों को मज़बूत करते हैं';
 
   @override
   String get sciDeadliftStretch =>
-      'रीढ़ का दबाव कम करने से डिस्क स्वस्थ रहती हैं';
+      'लचीली हैमस्ट्रिंग और मज़बूत पीठ के लिए डेडलिफ्ट स्ट्रेच';
 
   @override
   String get sciOverheadPress =>
-      'सिर के ऊपर धक्का देने से रीढ़ खिंचती है और पोस्चर की मांसपेशियाँ मज़बूत होती हैं';
+      'ओवरहेड प्रेस कंधों और मुद्रा की मांसपेशियों को मज़बूत करता है';
 
   @override
   String get sciSkippingRope =>
-      'बार-बार कूदने से पैरों की ग्रोथ प्लेट्स सक्रिय होती हैं';
+      'रस्सी से बार-बार कूदना पैरों की हड्डियों पर भार डालता है और उन्हें मज़बूत बनाने में मदद करता है';
 
   @override
   String get sciPilatesCore =>
@@ -2650,7 +2650,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get sciInversionHang =>
-      'उल्टा लटकने से रीढ़ की डिस्क का दबाव कम होता है और कुछ समय के लिए 1-2 cm बढ़ सकते हैं';
+      'उल्टा लटकना पीठ की मांसपेशियों को आराम दे सकता है। लंबाई में कोई भी बदलाव अस्थायी होता है';
 
   @override
   String get sciProtein =>
@@ -3242,7 +3242,8 @@ class AppLocalizationsHi extends AppLocalizations {
   String get notifJumpTitle => '🦘 कूदने का समय!';
 
   @override
-  String get notifJumpBody => 'कूद ग्रोथ प्लेट्स उत्तेजित करती है। 3 x 20!';
+  String get notifJumpBody =>
+      'कूदना हड्डियों को मज़बूत बनाने में मदद करता है। 3 x 20 बार आज़माएँ!';
 
   @override
   String get notifCalciumTitle => '🥛 कैल्शियम!';
@@ -6493,4 +6494,722 @@ class AppLocalizationsHi extends AppLocalizations {
   String obBudgetTrial(String days) {
     return 'या पहले $days दिन मुफ़्त आज़माएँ।';
   }
+
+  @override
+  String get obNameTitle => 'आपको क्या कहकर बुलाएँ?';
+
+  @override
+  String get obNameSubtitle =>
+      'ज़रूरी नहीं। आपके प्लान और रिमाइंडर में यही नाम आएगा।';
+
+  @override
+  String get obNameHint => 'आपका नाम';
+
+  @override
+  String get nWb1Title => 'कल आपने छोड़ दिया';
+
+  @override
+  String nWb1Body(String height) {
+    return 'आपका $height वाला प्लान अब भी इंतज़ार में है। 10 मिनट में सब ठीक।';
+  }
+
+  @override
+  String get nWb2Title => 'हाइट की उम्मीद छोड़ दी क्या?';
+
+  @override
+  String get nWb2Body => 'आपका प्लान कहता है, अभी काम बाकी है।';
+
+  @override
+  String nWb3Title(String gain) {
+    return 'आपके $gain का क्या?';
+  }
+
+  @override
+  String get nWb3Body => 'अनुमान का यही हिस्सा आपकी आदतों के हाथ में है।';
+
+  @override
+  String nWb5Title(String name) {
+    return '$name, आपका ग्राफ़ सपाट हो गया';
+  }
+
+  @override
+  String get nWb5TitleNoName => 'आपका ग्राफ़ सपाट हो गया';
+
+  @override
+  String get nWb5Body => '5 दिन से कोई नई माप नहीं। अब हाइट कितनी है?';
+
+  @override
+  String get nWb7Title => 'एक हफ़्ता गया';
+
+  @override
+  String get nWb7Body => 'इस हफ़्ते आपके दोस्तों की लंबाई बढ़ती रही। आपकी?';
+
+  @override
+  String get nWb10Title => 'शायद आपका अनुमान बदल गया है';
+
+  @override
+  String get nWb10Body => 'एक बार मापें और नया नंबर देखें।';
+
+  @override
+  String nWb14Title(String height) {
+    return 'अब भी $height?';
+  }
+
+  @override
+  String get nWb14Body => 'पिछली माप को दो हफ़्ते हो गए। मापकर देख लें।';
+
+  @override
+  String get nWb21Title => 'प्लान अब भी चाहिए?';
+
+  @override
+  String get nWb21Body => 'सेव है। एक टैप में वहीं से शुरू।';
+
+  @override
+  String nWb30Title(String name) {
+    return 'आखिरी मैसेज, $name';
+  }
+
+  @override
+  String get nWb30TitleNoName => 'आखिरी मैसेज';
+
+  @override
+  String get nWb30Body => 'आपका डेटा अब भी सेव है। जब मन हो, लौट आएँ।';
+
+  @override
+  String nTrainHookTitle(int minutes) {
+    return 'आज के प्लान से बस $minutes मिनट दूर';
+  }
+
+  @override
+  String get nWaterHookTitle => 'पानी पिया क्या?';
+
+  @override
+  String nWaterHookBody(String liters) {
+    return 'आज $liters। अभी एक गिलास।';
+  }
+
+  @override
+  String nProteinHookTitle(int grams) {
+    return 'आज $grams g प्रोटीन। शुरू किया?';
+  }
+
+  @override
+  String nSleepHookTitle(String name) {
+    return 'फ़ोन रखिए, $name';
+  }
+
+  @override
+  String get nSleepHookTitleNoName => 'फ़ोन रखिए';
+
+  @override
+  String get nMeasureHookTitle => 'इस हफ़्ते हाइट बढ़ी क्या?';
+
+  @override
+  String get nMeasureHookBody => 'सुबह मापें और पता करें।';
+
+  @override
+  String nStreakHookTitle(int streak) {
+    return 'आपकी $streak दिन की स्ट्रीक आज रात टूट जाएगी';
+  }
+
+  @override
+  String get nStreakHookBody => 'एक रूटीन इसे बचा लेगा।';
+
+  @override
+  String get nPostureHookTitle => 'पीठ सीधी है? अभी देखें';
+
+  @override
+  String get nPostureHookBody => 'कंधे पीछे, ठुड्डी सीधी।';
+
+  @override
+  String hkReturn(int days) {
+    return 'आप $days दिन दूर रहे। देखते हैं क्या बदला।';
+  }
+
+  @override
+  String hkHabits(String gain) {
+    return 'आपके अनुमान का $gain आपकी आदतों पर निर्भर है';
+  }
+
+  @override
+  String hkStreakDay(int day) {
+    return 'दिन $day। अब आपकी स्ट्रीक तोड़ना और मुश्किल है।';
+  }
+
+  @override
+  String get hkPredictionUpdated =>
+      'आपका अनुमान अभी अपडेट हुआ। देखने के लिए टैप करें।';
+
+  @override
+  String get hkMeasureDue => 'आपका चार्ट इस हफ़्ते की माप का इंतज़ार कर रहा है';
+
+  @override
+  String get hkLeaveTitle => 'आपका प्लान तैयार है। बिना खोले चले जाएँगे?';
+
+  @override
+  String get hkLeaveOpen => 'मेरा प्लान देखें';
+
+  @override
+  String get rsLockedSubtitle =>
+      'हमने हिसाब लगा लिया कि आपकी लंबाई कितनी हो सकती है। आपका नंबर नीचे लॉक है।';
+
+  @override
+  String get rsUnlock => 'मेरा नतीजा खोलें';
+
+  @override
+  String get rsPaywallHeadline => 'आपका नंबर आ गया। खोलें?';
+
+  @override
+  String get rsLockedChart => 'देखें आप कहाँ पहुँच रहे हैं';
+
+  @override
+  String get rsLineHeight => 'आपकी वयस्क लंबाई';
+
+  @override
+  String get rsLineGrowth => 'आपकी बची हुई बढ़त';
+
+  @override
+  String get rsLineRank => 'हमउम्र लोगों में आपकी जगह';
+
+  @override
+  String get rsProgressTitle => 'आपके सेट और प्रगति';
+
+  @override
+  String get rsStageStart => 'शुरुआत';
+
+  @override
+  String get rsStageNow => 'ताकत बढ़ रही है';
+
+  @override
+  String get rsStagePeak => 'पूरी ताकत';
+
+  @override
+  String get rsLevelLine => 'सेट, प्रगति और ताकत';
+
+  @override
+  String get pwBuyWeekly => 'साप्ताहिक प्लान शुरू करें';
+
+  @override
+  String get pwBuyMonthly => 'मासिक प्लान शुरू करें';
+
+  @override
+  String get pwBuyLifetime => 'लाइफ़टाइम खरीदें';
+
+  @override
+  String get obGenderSub => 'लड़कों और लड़कियों में ग्रोथ का कर्व अलग होता है।';
+
+  @override
+  String get obBirthSub =>
+      'महीना और साल काफ़ी है। इससे पता चलता है कि तुम ग्रोथ के किस दौर में हो।';
+
+  @override
+  String obAgeLine(int age) {
+    return 'तुम्हारी उम्र $age साल है';
+  }
+
+  @override
+  String get obAgeReplyGrowing =>
+      'तुम बढ़ने की उम्र में हो। यही वह समय है जब हम साथ मिलकर तुम्हारी लंबाई बढ़ाएँगे!';
+
+  @override
+  String get obAgeReplyLate =>
+      'इस उम्र में ग्रोथ धीमी हो जाती है, पर सबकी एक साथ नहीं रुकती। तुम्हारी हम अभी निकालते हैं।';
+
+  @override
+  String get obAgeReplyAdult =>
+      'इस उम्र में हड्डियाँ शायद ही लंबी होती हैं। तुम्हारा प्लान पोस्चर पर टिका है, झुककर खड़े होने से खोए सेंटीमीटर वहीं से लौटते हैं।';
+
+  @override
+  String get obHwSub => 'अंदाज़ा तुम्हारी आज की हाइट से शुरू होता है।';
+
+  @override
+  String get obFootSub =>
+      'पैर बाक़ी शरीर से पहले बढ़ते हैं, इसलिए तुम्हारा साइज़ बताता है कि तुम ग्रोथ में कहाँ हो।';
+
+  @override
+  String obFootLength(String length) {
+    return 'लगभग $length';
+  }
+
+  @override
+  String get obWorkoutSub =>
+      'इसी से हम तुम्हारा प्रोटीन और कैलोरी का टारगेट तय करते हैं।';
+
+  @override
+  String obNameNotif(String name) {
+    return '$name, आज का प्लान तैयार है';
+  }
+
+  @override
+  String get obNameNotifAnon => 'आज का प्लान तैयार है';
+
+  @override
+  String get obNameNotifBody => 'कुछ एक्सरसाइज़, करीब 15 मिनट।';
+
+  @override
+  String get obNamePreviewLabel => 'तुम्हारे रिमाइंडर ऐसे दिखेंगे';
+
+  @override
+  String get obReplyTriedStopped =>
+      'तो हम वादा कर सकते हैं कि BeTaller तुमसे नहीं छूटेगा!';
+
+  @override
+  String get obReplyTriedStill =>
+      'तो फ़र्क़ जल्दी दिखेगा। नंबर के साथ BeTaller तुम्हें रोज़ टिक करने का प्लान भी देता है।';
+
+  @override
+  String get obReplyTriedFirst =>
+      'तो दिल से स्वागत है! लंबाई बढ़ाने के सफ़र में तुमने सबसे अच्छे फ़ैसलों में से एक लिया है।';
+
+  @override
+  String get obReplyWhyConfidence =>
+      'सीधा खड़ा इंसान ज़्यादा लंबा और सहज दिखता है। तुम्हारा प्लान सबसे पहले पोस्चर पर काम करता है।';
+
+  @override
+  String get obReplyWhyImpression =>
+      'पहली छाप का बड़ा हिस्सा तुम्हारे खड़े होने के ढंग से बनता है। हम पहले हफ़्ते से इसी पर काम शुरू करते हैं।';
+
+  @override
+  String get obReplyWhySports =>
+      'स्ट्रेचिंग और लटकना मैदान पर भी काम आते हैं। तुम्हारे प्लान में दोनों हैं।';
+
+  @override
+  String get obReplyWhyClothes =>
+      'सीधी पीठ पर वही कपड़े अलग दिखते हैं। हम पहले इसी को ठीक करते हैं।';
+
+  @override
+  String get obReplyWhyPhotos =>
+      'फ़ोटो में हाइट सबसे ज़्यादा पोस्चर से बदलती है। ऐप में तुम पहले और बाद की फ़ोटो की तुलना भी कर सकते हो।';
+
+  @override
+  String get obReplyWhyPotential =>
+      'ठीक है। कुछ और सवाल, फिर हम तुम्हारा पोटेंशियल निकालेंगे।';
+
+  @override
+  String get obReplyWorkoutLow =>
+      'कोई बात नहीं। तुम्हारा प्लान छोटे सेशन से शुरू होता है, ज़्यादातर करीब 15 मिनट के।';
+
+  @override
+  String get obReplyWorkoutMid =>
+      'अच्छी रफ़्तार है। इस रूटीन में प्लान आसानी से फ़िट हो जाएगा।';
+
+  @override
+  String get obReplyWorkoutHigh =>
+      'तुम्हारी ट्रेनिंग काफ़ी ज़्यादा है। हम उसी हिसाब से तुम्हारा प्रोटीन टारगेट बढ़ा रहे हैं।';
+
+  @override
+  String get obReplyFirstWardrobe =>
+      'अब से अपनी नई पैंट की लंबाई के बारे में सोचना शुरू कर दो।';
+
+  @override
+  String get obReplyFirstMuscle =>
+      'तुम्हारे प्लान की एक्सरसाइज़ इसकी भी नींव रखती हैं।';
+
+  @override
+  String get obReplyFirstPhotos =>
+      'पहले दिन एक फ़ोटो ले लो। बाद में दोनों को साथ रखकर देखना अच्छा लगेगा।';
+
+  @override
+  String get obReplyFirstTeam =>
+      'हम रिमाइंडर ऐसे सेट करेंगे कि ट्रायल तक तुम्हारा रूटीन बना रहे।';
+
+  @override
+  String get obReplyFirstFeelGood => 'इससे पक्की वजह कोई नहीं।';
+
+  @override
+  String get obDayTitle => 'BeTaller के साथ एक दिन ऐसा होता है';
+
+  @override
+  String get obDayBody =>
+      'अब तक तुमने जो बताया, उसी से बना है। जैसे-जैसे करते जाओ, टिक करते जाओ।';
+
+  @override
+  String obDayProtein(int grams) {
+    return '$grams g प्रोटीन';
+  }
+
+  @override
+  String get obDayProteinSub => 'तुम्हारा पहला मील तैयार है';
+
+  @override
+  String obDaySleep(String time) {
+    return '$time का स्लीप रिमाइंडर';
+  }
+
+  @override
+  String get obDaySleepSub => 'वह रिमाइंडर जो तुम्हारा सफ़र जारी रखता है';
+
+  @override
+  String get obParentsSub =>
+      'तुम्हारी लंबाई का बड़ा हिस्सा माता-पिता से आता है। अनुमान इन्हीं दो संख्याओं पर टिका है।';
+
+  @override
+  String get obSleepSub =>
+      'ग्रोथ हार्मोन का ज़्यादातर हिस्सा गहरी नींद में निकलता है।';
+
+  @override
+  String obDreamDelta(String delta) {
+    return 'आज की लंबाई से $delta ज़्यादा';
+  }
+
+  @override
+  String get obEthnicitySubAll =>
+      'वयस्कों की औसत लंबाई मूल के हिसाब से कुछ सेंटीमीटर बदलती है।';
+
+  @override
+  String obEthReplyHigh(String avg) {
+    return 'इस मूल के वयस्कों की औसत लंबाई $avg है, जो दुनिया के औसत से ज़्यादा है। तुम्हारी संभावना बहुत ऊँची है!';
+  }
+
+  @override
+  String obEthReplyMid(String avg) {
+    return 'इस मूल के वयस्कों की औसत लंबाई लगभग $avg है। तुम्हारी संभावना ऊँची है, और अच्छी आदतों से तुम औसत से आगे जा सकते हो।';
+  }
+
+  @override
+  String obEthReplyRising(String avg) {
+    return 'इस मूल के वयस्कों की औसत लंबाई लगभग $avg है, और पिछली पीढ़ियों में यह तेज़ी से बढ़ रही है। तुम्हारी संभावना तुम्हारी सोच से ज़्यादा हो सकती है।';
+  }
+
+  @override
+  String get obEthReplyNoAnswer =>
+      'कोई बात नहीं। हम तुम्हारे माता-पिता और तुम्हारे अपने माप से हिसाब लगाते हैं।';
+
+  @override
+  String obEthAbove(String avg, String you) {
+    return 'इस मूल के वयस्कों की औसत लंबाई $avg है। तुम अभी से $you हो, औसत से ऊपर!';
+  }
+
+  @override
+  String obEthNear(String avg, String you) {
+    return 'इस मूल के वयस्कों की औसत लंबाई $avg है। $you के साथ तुम ठीक औसत पर हो, और लक्ष्य इससे आगे जाना है।';
+  }
+
+  @override
+  String obEthBelowYoung(String avg, String you) {
+    return 'इस मूल के वयस्कों की औसत लंबाई $avg है। तुम $you हो और अभी बढ़ने की उम्र में हो, इसलिए औसत पार करने का समय है।';
+  }
+
+  @override
+  String obEthBelowAdult(String avg, String you) {
+    return 'इस मूल के वयस्कों की औसत लंबाई $avg है। तुम $you हो, और सही पोस्चर इस फ़र्क़ का कुछ हिस्सा कम कर सकता है।';
+  }
+
+  @override
+  String get obMealsUnknown => 'समय पक्का नहीं पता';
+
+  @override
+  String get obMealsUnknownReply =>
+      'कोई बात नहीं, हमने तुम्हारे लिए घंटे-दर-घंटे का प्लान बना दिया है।';
+
+  @override
+  String get obUnknownPlanned =>
+      'कोई बात नहीं, यह हम तुम्हारे लिए प्लान कर देंगे। तुम इसे कभी भी बदल सकते हो।';
+
+  @override
+  String get obReplyWeCalc =>
+      'चिंता मत करो, यह हम पहले से तुम्हारे लिए निकाल रहे हैं।';
+
+  @override
+  String get obGoalDaysTitle => 'तुम सच में कब तक लंबे होना चाहते हो?';
+
+  @override
+  String get obGoalDaysSub => 'चलो, अपने लक्ष्य की एक समय-सीमा तय करें।';
+
+  @override
+  String obGoalDaysN(int n) {
+    return '$n दिन';
+  }
+
+  @override
+  String get obGoalYear => '1 साल के भीतर';
+
+  @override
+  String get obGoalOpen => 'जितना बढ़ सकूँ उतना';
+
+  @override
+  String get obReplyGoal90 =>
+      '90 दिन पोस्चर और आदतें जमने के लिए अच्छा समय है। पहला बदलाव तुम्हें अपने खड़े होने के तरीके में दिखेगा।';
+
+  @override
+  String get obReplyGoal120 =>
+      '120 दिनों में आदतें पक्की हो जाती हैं। पूरे समय हम तुम्हारे माप साथ मिलकर ट्रैक करेंगे।';
+
+  @override
+  String get obReplyGoal180 =>
+      'छह महीने नाप में बढ़त देखने के लिए एक वास्तविक समय है।';
+
+  @override
+  String get obReplyGoal365 =>
+      'एक साल सबसे पक्का प्लान है। बढ़ने में सब्र लगता है, और हम हर दिन तुम्हारे साथ हैं।';
+
+  @override
+  String get obReplyGoalOpen =>
+      'यही सही सोच है। जितना तुम्हारा शरीर साथ दे, और हम हर दिन तुम्हारे साथ हैं।';
+
+  @override
+  String get tv4TrackTitle => 'पानी और नींद, एक टैप में';
+
+  @override
+  String get tv4TrackDesc =>
+      'तुम्हारे रोज़ के लक्ष्य तुम्हारी उम्र और वज़न से तय होते हैं। जैसे-जैसे पूरे हों, टिक करते जाओ।';
+
+  @override
+  String get tv4PhotosTitle => 'पहले और बाद की तस्वीरें';
+
+  @override
+  String get tv4PhotosDesc =>
+      'एक ही पोज़ में फ़ोटो लो, फिर हफ़्तों को साथ-साथ रखकर देखो।';
+
+  @override
+  String get tv4PostureTitle => 'कैमरे से पॉस्चर जांच';
+
+  @override
+  String get tv4PostureDesc =>
+      'यह तुम्हारे खड़े होने के तरीके को स्कोर देता है और बताता है क्या सुधारना है।';
+
+  @override
+  String get tv4ReportTitle => 'तुम्हारी साप्ताहिक रिपोर्ट';
+
+  @override
+  String get tv4ReportDesc =>
+      'ट्रेनिंग, नींद और खानपान हर हफ़्ते एक ही पेज पर।';
+
+  @override
+  String get tv4BreakdownTitle => 'तुम्हारा स्कोर किससे बढ़ता है';
+
+  @override
+  String get tv4BreakdownDesc =>
+      'यह हर कारक का हिस्सा और तुम्हारा अगला कदम दिखाता है।';
+
+  @override
+  String get reminderProTitle => 'रिमाइंडर Pro के साथ मिलते हैं';
+
+  @override
+  String get reminderProDesc =>
+      'ट्रेनिंग, खाने और सोने के समय पर हम तुम्हें याद दिलाते हैं।';
+
+  @override
+  String get nFw1Title => 'दूसरा दिन, नए मूव्स';
+
+  @override
+  String get nFw1Body => 'आज का वर्कआउट कल से अलग है। बस कुछ मिनट लगेंगे।';
+
+  @override
+  String get nFw2Title => 'लगातार दिनों का पहला मेडल करीब है';
+
+  @override
+  String get nFw2Body =>
+      'लगातार तीन दिन पूरे करें और 3 दिन लगातार वाला मेडल खुल जाएगा।';
+
+  @override
+  String get nFw3Title => 'मापने का दिन';
+
+  @override
+  String get nFw3Body =>
+      'अपनी हाइट मापें और सेव करें। आज आपके चार्ट में अगला पॉइंट जुड़ेगा।';
+
+  @override
+  String get nFw4Title => 'आपका पॉस्चर देखते हैं';
+
+  @override
+  String get nFw4Body =>
+      'कैमरे से पॉस्चर जांच में एक मिनट लगता है। अपना स्कोर देखें।';
+
+  @override
+  String get nFw5Title => 'अपनी पहली फ़ोटो लें';
+
+  @override
+  String get nFw5Body =>
+      'आज एक फ़ोटो लें। कुछ हफ़्तों बाद आप इन्हें साथ रखकर देखेंगे।';
+
+  @override
+  String get nFw6Title => 'कल आपका पहला हफ़्ता पूरा होगा';
+
+  @override
+  String get nFw6Body =>
+      'आज का दिन पूरा करें, कल आपकी साप्ताहिक रिपोर्ट तैयार होगी।';
+
+  @override
+  String get nFw7Title => 'आपका पहला हफ़्ता पूरा हुआ';
+
+  @override
+  String get nFw7Body =>
+      'आपकी साप्ताहिक रिपोर्ट तैयार है। अपनी हाइट भी एक बार फिर मापें।';
+
+  @override
+  String nPmFirstTitle(String name) {
+    return '$name, आपके पहले भोजन का समय हो गया है।';
+  }
+
+  @override
+  String get nPmFirstTitleNoName => 'आपके पहले भोजन का समय हो गया है।';
+
+  @override
+  String get nPmFirstBody =>
+      'आपका खास भोजन तैयार है। अगर वह नहीं चाहिए, तो आपके मैक्रो और आपके लिए ज़रूरी पोषक तत्व भी तैयार हैं। पहला भोजन बिल्कुल न छोड़ें।';
+
+  @override
+  String nPmMealTitle(String name, int n) {
+    return '$name, भोजन $n का समय हो गया है।';
+  }
+
+  @override
+  String nPmMealTitleNoName(int n) {
+    return 'भोजन $n का समय हो गया है।';
+  }
+
+  @override
+  String nPmMealBody(int protein, int calcium) {
+    return '$protein g प्रोटीन और $calcium mg कैल्शियम। यह भोजन बिल्कुल न छोड़ें।';
+  }
+
+  @override
+  String get nPmWaterTitle => 'क्या आप पर्याप्त पानी पी रहे हैं?';
+
+  @override
+  String nPmWaterBody(String name, String liters) {
+    return '$name, दिन भर पानी पीना याद रखें। आपका रोज़ का लक्ष्य $liters है।';
+  }
+
+  @override
+  String nPmWaterBodyNoName(String liters) {
+    return 'दिन भर पानी पीना याद रखें। आपका रोज़ का लक्ष्य $liters है।';
+  }
+
+  @override
+  String get nPmTrainTitle => '30 मिनट में आपके वर्कआउट का समय है!';
+
+  @override
+  String nPmTrainBody(int count, int minutes) {
+    return 'आपका खास प्रोग्राम इंतज़ार कर रहा है। आज: $count एक्सरसाइज़, लगभग $minutes मिनट।';
+  }
+
+  @override
+  String get nPmHabitTitle =>
+      'दिन में थोड़ी रस्सी कूद और स्ट्रेचिंग कर सकते हैं';
+
+  @override
+  String nPmHabitBody(String name) {
+    return '$name, इन छोटी आदतों को न भूलें।';
+  }
+
+  @override
+  String get nPmHabitBodyNoName => 'इन छोटी आदतों को न भूलें।';
+
+  @override
+  String nPmSleepTitle(String name) {
+    return '$name, आपके सोने का समय करीब है।';
+  }
+
+  @override
+  String get nPmSleepTitleNoName => 'आपके सोने का समय करीब है।';
+
+  @override
+  String get pwMoreFeatures => 'और भी कई फ़ीचर।';
+
+  @override
+  String get libTitle => 'व्यायाम लाइब्रेरी';
+
+  @override
+  String libCount(int count) {
+    return '$count व्यायाम';
+  }
+
+  @override
+  String get libJump => 'जंप';
+
+  @override
+  String get libHang => 'लटकना';
+
+  @override
+  String get libStretch => 'स्ट्रेच';
+
+  @override
+  String get libStrength => 'ताकत';
+
+  @override
+  String get libPosture => 'पोस्चर';
+
+  @override
+  String get libWeights => 'वेट्स';
+
+  @override
+  String get libWeightsNote =>
+      'इनके लिए डम्बल या बैंड चाहिए। ऐसा वज़न चुनें जिससे हर रेप सही फ़ॉर्म में पूरा हो।';
+
+  @override
+  String get plFoodTurkey => 'टर्की ब्रेस्ट';
+
+  @override
+  String get plFoodCod => 'कॉड मछली';
+
+  @override
+  String get plFoodBeans => 'राजमा';
+
+  @override
+  String get plFoodQuinoa => 'क्विनोआ';
+
+  @override
+  String get plFoodSweetPotato => 'शकरकंद';
+
+  @override
+  String get plFoodApple => 'सेब';
+
+  @override
+  String get plFoodBerries => 'स्ट्रॉबेरी';
+
+  @override
+  String get plFoodMozzarella => 'मोज़ेरेला';
+
+  @override
+  String get plFoodHummus => 'हम्मस';
+
+  @override
+  String get plFoodGreenBeans => 'हरी फलियाँ';
+
+  @override
+  String get mgTitle => 'नापने का समय';
+
+  @override
+  String mgBody(int days) {
+    return 'पिछली बार नापे हुए $days दिन हो गए हैं। आगे बढ़ने से पहले अपनी लंबाई नापो।';
+  }
+
+  @override
+  String get mgTip1 => 'बिना जूतों के, एड़ियाँ दीवार से लगाकर।';
+
+  @override
+  String get mgTip2 => 'सीधे सामने देखो और सिर पर एक सपाट किताब रखो।';
+
+  @override
+  String get mgTip3 => 'सुबह नापो। दिन में लंबाई थोड़ी कम हो जाती है।';
+
+  @override
+  String get mgLater => 'आज नहीं नाप सकता';
+
+  @override
+  String get paTitle => 'प्लान के जवाब';
+
+  @override
+  String get paSubtitle =>
+      'तुम्हारा प्लान और रिमाइंडर इन्हीं पर चलते हैं। एक बदलो और वे अपडेट हो जाएँगे।';
+
+  @override
+  String get paRowSubtitle => 'ट्रेनिंग के दिन, लक्ष्य और समय';
+
+  @override
+  String get paWorkout => 'हफ़्ते की ट्रेनिंग';
+
+  @override
+  String get paGoal => 'प्रोग्राम की अवधि';
+
+  @override
+  String get paBedtime => 'सोने का समय';
+
+  @override
+  String get paWorkoutTime => 'ट्रेनिंग का समय';
+
+  @override
+  String get restoreDone => 'तुम्हारी खरीदारी बहाल हो गई।';
 }

@@ -1,0 +1,1294 @@
+{
+  "pogo_jumps": {
+    "en": {
+      "title": "Pogo Jumps",
+      "desc": "Quick, stiff-ankle bounces load your shin and foot bones and build springy, powerful calves.",
+      "dose": "3 x 20 s",
+      "steps": [
+        "Stand tall with your feet hip-width apart and your hands on your hips.",
+        "Bounce on the balls of your feet with your knees almost straight.",
+        "Keep each ground contact short and quick, like a pogo stick.",
+        "Keep going for 20 seconds, 3 sets in total."
+      ],
+      "mistakes": [
+        "Bending your knees deeply on every bounce.",
+        "Letting your heels slam into the floor."
+      ],
+      "tip": "Jump on a firm, flat surface and stop if your shins or ankles hurt."
+    },
+    "tr": {
+      "title": "Pogo Zıplaması",
+      "desc": "Bilekten yapılan hızlı ve sert zıplamalar kaval kemiğine ve ayak kemiklerine yük bindirir, baldırlarını yay gibi güçlendirir.",
+      "dose": "3 x 20 s",
+      "steps": [
+        "Dik dur, ayaklarını kalça genişliğinde aç, ellerini beline koy.",
+        "Dizlerin neredeyse düzken ayak tabanının ön kısmında zıpla.",
+        "Yere her değişin kısa ve hızlı olsun, zıplama çubuğu gibi.",
+        "20 saniye boyunca devam et, toplam 3 set yap."
+      ],
+      "mistakes": [
+        "Her zıplamada dizleri fazla bükmek.",
+        "Topukları yere sertçe vurmak."
+      ],
+      "tip": "Sert ve düz bir zeminde zıpla, kaval kemiğin ya da bileğin ağrırsa dur."
+    }
+  },
+  "jump_squats": {
+    "en": {
+      "title": "Jump Squats",
+      "desc": "Squat and jump for leg power, the hard big-muscle work your body answers with growth hormone afterwards.",
+      "dose": "3 x 8",
+      "steps": [
+        "Stand with your feet shoulder-width apart and your chest up.",
+        "Sit back into a squat until your thighs are about level with the floor.",
+        "Push hard through your feet, jump straight up and land softly back in the squat.",
+        "Do 8 jumps, rest, and repeat for 3 sets in total."
+      ],
+      "mistakes": [
+        "Letting your knees cave inward on the landing.",
+        "Landing with stiff, straight legs."
+      ],
+      "tip": "Land as quietly as you can, and stop the set when your landings get loud."
+    },
+    "tr": {
+      "title": "Sıçramalı Squat",
+      "desc": "Çöküp sıçrayarak bacak gücü kazan, büyük kasları zorlayan bu tür çalışmaya vücut sonrasında büyüme hormonu salgılayarak karşılık verir.",
+      "dose": "3 x 8",
+      "steps": [
+        "Ayaklarını omuz genişliğinde aç, göğsünü dik tut.",
+        "Uylukların yere yaklaşık paralel olana kadar geriye doğru çök.",
+        "Yeri güçlüce it, dümdüz yukarı sıçra ve yumuşakça tekrar squat pozisyonuna in.",
+        "8 sıçrayış yap, dinlen ve toplam 3 set tamamla."
+      ],
+      "mistakes": [
+        "İnişte dizlerin içe doğru kaçması.",
+        "Bacaklar dümdüz ve kaskatı halde yere inmek."
+      ],
+      "tip": "Olabildiğince sessiz inmeye çalış, inişlerin gürültülü olmaya başlayınca seti bitir."
+    }
+  },
+  "tuck_jumps": {
+    "en": {
+      "title": "Tuck Jumps",
+      "desc": "Jump and pull your knees up for explosive power, the hard effort your body answers with growth hormone afterwards.",
+      "dose": "3 x 6",
+      "steps": [
+        "Stand tall with your feet hip-width apart.",
+        "Dip into a quick quarter squat and jump as high as you can.",
+        "Pull both knees toward your chest at the top, then land softly on bent knees.",
+        "Do 6 jumps, rest, and repeat for 3 sets in total."
+      ],
+      "mistakes": [
+        "Bending your chest down to your knees instead of lifting the knees.",
+        "Landing hard with straight legs."
+      ],
+      "tip": "Reset your balance between jumps, and make sure you have clear space and a floor that does not slip."
+    },
+    "tr": {
+      "title": "Diz Çekerek Zıplama",
+      "desc": "Zıplayıp dizlerini yukarı çekerek patlayıcı güç kazan, vücut bu kadar zorlu bir efora sonrasında büyüme hormonu salgılayarak karşılık verir.",
+      "dose": "3 x 6",
+      "steps": [
+        "Dik dur, ayaklarını kalça genişliğinde aç.",
+        "Hızlıca hafif çök ve zıplayabildiğin kadar yükseğe zıpla.",
+        "En tepede iki dizini göğsüne doğru çek, sonra dizlerin bükük halde yumuşakça in.",
+        "6 zıplayış yap, dinlen ve toplam 3 set tamamla."
+      ],
+      "mistakes": [
+        "Dizleri kaldırmak yerine göğsü dizlere doğru eğmek.",
+        "Bacaklar düzken sertçe yere inmek."
+      ],
+      "tip": "Her zıplayıştan önce dengeni topla, etrafının boş ve zeminin kaymaz olduğundan emin ol."
+    }
+  },
+  "broad_jumps": {
+    "en": {
+      "title": "Broad Jumps",
+      "desc": "Jump forward off two feet and stick the landing to build hip power and strong leg bones.",
+      "dose": "3 x 5",
+      "steps": [
+        "Stand with your feet hip-width apart and your toes behind a line.",
+        "Swing your arms back, bend your knees and push your hips back.",
+        "Swing your arms forward, jump as far as you can and land on both feet.",
+        "Hold the landing for a second, walk back and do 5 jumps, 3 sets in total."
+      ],
+      "mistakes": [
+        "Falling forward or backward on the landing.",
+        "Landing with your knees locked straight."
+      ],
+      "tip": "Jump on a surface that does not slip, and jump shorter until you can hold every landing still."
+    },
+    "tr": {
+      "title": "Durarak Uzun Atlama",
+      "desc": "Çift ayakla öne atlayıp inişte sabit kalarak kalça gücünü geliştir, bacak kemiklerini sağlamlaştır.",
+      "dose": "3 x 5",
+      "steps": [
+        "Ayaklarını kalça genişliğinde aç, parmak uçların bir çizginin gerisinde olsun.",
+        "Kollarını geriye sal, dizlerini bük ve kalçanı geriye it.",
+        "Kollarını öne savur, atlayabildiğin kadar uzağa atla ve iki ayağının üstüne in.",
+        "İnişte bir saniye sabit kal, geri yürü ve 5 atlayış yap, toplam 3 set."
+      ],
+      "mistakes": [
+        "İnişte öne ya da arkaya düşmek.",
+        "Dizler kilitli ve dümdüz halde yere inmek."
+      ],
+      "tip": "Kaymayan bir zeminde atla, her inişte sabit kalabilene kadar mesafeyi kısa tut."
+    }
+  },
+  "single_leg_hops": {
+    "en": {
+      "title": "Single-Leg Hops",
+      "desc": "Small hops on one leg strengthen your ankles and bones and even out your two sides.",
+      "dose": "2 x 8",
+      "steps": [
+        "Stand on one leg with the other foot lifted behind you.",
+        "Make small hops on the spot, landing on the ball of your foot.",
+        "Keep your hips level and your standing knee slightly bent.",
+        "Do 8 hops, switch legs, and do 2 sets on each side."
+      ],
+      "mistakes": [
+        "Letting the knee of the hopping leg cave inward.",
+        "Hopping so high that you lose your balance."
+      ],
+      "tip": "Stay close to a wall you can touch, and keep the hops low until your balance feels steady."
+    },
+    "tr": {
+      "title": "Tek Ayak Sekme",
+      "desc": "Tek ayak üstünde küçük sekmeler bileklerini ve kemiklerini güçlendirir, iki tarafını dengeler.",
+      "dose": "2 x 8",
+      "steps": [
+        "Tek ayağının üstünde dur, diğer ayağını arkada yerden kaldır.",
+        "Olduğun yerde küçük küçük sek, ayak tabanının ön kısmına in.",
+        "Kalçanı düz, yerdeki dizini hafif bükük tut.",
+        "8 kez sek, bacak değiştir ve her tarafta 2 set yap."
+      ],
+      "mistakes": [
+        "Sektiğin bacağın dizinin içe kaçması.",
+        "Dengeni kaybedecek kadar yükseğe sekmek."
+      ],
+      "tip": "Dokunabileceğin bir duvarın yanında dur, dengen oturana kadar alçak sek."
+    }
+  },
+  "high_knees": {
+    "en": {
+      "title": "High Knees",
+      "desc": "Run on the spot with your knees at hip height to warm up fast and load your legs.",
+      "dose": "3 x 20 s",
+      "steps": [
+        "Stand tall with your feet hip-width apart.",
+        "Run on the spot and lift each knee to hip height.",
+        "Pump your arms and stay light on the balls of your feet.",
+        "Keep going for 20 seconds, 3 sets in total."
+      ],
+      "mistakes": [
+        "Leaning back as your knees come up.",
+        "Stomping the floor with flat feet."
+      ],
+      "tip": "Slow it down to a march with high knees if you get out of breath."
+    },
+    "tr": {
+      "title": "Yerinde Diz Çekme",
+      "desc": "Dizlerini kalça hizasına çekerek yerinde koş, hızlıca ısın ve bacaklarını çalıştır.",
+      "dose": "3 x 20 s",
+      "steps": [
+        "Dik dur, ayaklarını kalça genişliğinde aç.",
+        "Yerinde koş ve her dizini kalça hizasına kadar kaldır.",
+        "Kollarını salla, ayak tabanının ön kısmında hafif kal.",
+        "20 saniye boyunca devam et, toplam 3 set yap."
+      ],
+      "mistakes": [
+        "Dizler yukarı gelirken geriye yaslanmak.",
+        "Düz tabanla yere sertçe basmak."
+      ],
+      "tip": "Nefesin kesilirse hareketi yavaşlat, dizlerini yüksek kaldırarak yürüyüş temposuna geç."
+    }
+  },
+  "mountain_pose": {
+    "en": {
+      "title": "Mountain Pose on Toes",
+      "desc": "Rise onto your toes and reach up to lengthen your spine and practise standing at your full height.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Stand with your feet together and your weight even on both feet.",
+        "Reach both arms straight overhead with your palms facing each other.",
+        "Rise onto your toes and stretch up through your fingertips.",
+        "Hold 20 seconds and lower slowly, 2 sets in total."
+      ],
+      "mistakes": [
+        "Flaring your ribs and arching your lower back.",
+        "Shrugging your shoulders up to your ears."
+      ],
+      "tip": "Fix your eyes on one point in front of you, or keep your heels down if you wobble."
+    },
+    "tr": {
+      "title": "Parmak Ucunda Dağ Duruşu",
+      "desc": "Parmak uçlarına kalkıp yukarı uzanarak omurganı uzat, tam boyunla durmaya alış.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Ayaklarını birleştir, ağırlığını iki ayağına eşit ver.",
+        "İki kolunu başının üstüne dümdüz uzat, avuçların birbirine baksın.",
+        "Parmak uçlarına kalk ve parmak uçlarından yukarı doğru esne.",
+        "20 saniye tut ve yavaşça in, toplam 2 set yap."
+      ],
+      "mistakes": [
+        "Kaburgaları öne açıp beli çukurlaştırmak.",
+        "Omuzları kulaklara doğru kaldırmak."
+      ],
+      "tip": "Karşında tek bir noktaya bak, sallanıyorsan topuklarını yerde tut."
+    }
+  },
+  "pelvic_shift": {
+    "en": {
+      "title": "Pelvic Shift",
+      "desc": "Lift and lower your hips one vertebra at a time to loosen your spine and wake up your glutes.",
+      "dose": "2 x 10",
+      "steps": [
+        "Lie on your back with your knees bent and your feet flat on the floor.",
+        "Tuck your tailbone and peel your spine off the floor from the bottom up.",
+        "Pause at the top, then lower slowly, one vertebra at a time.",
+        "Do 10 slow reps and rest, 2 sets in total."
+      ],
+      "mistakes": [
+        "Pushing the hips up fast in one piece.",
+        "Arching the lower back at the top."
+      ],
+      "tip": "Move slowly enough to feel each part of your back touch the floor."
+    },
+    "tr": {
+      "title": "Omur Omur Köprü",
+      "desc": "Kalçanı omur omur kaldırıp indirerek omurganı gevşet, kalça kaslarını uyandır.",
+      "dose": "2 x 10",
+      "steps": [
+        "Sırtüstü uzan, dizlerini bük, ayak tabanlarını yere bas.",
+        "Kuyruk sokumunu içeri al ve omurganı alttan başlayarak yerden kaldır.",
+        "Tepede kısa bir an dur, sonra omur omur yavaşça in.",
+        "10 yavaş tekrar yap ve dinlen, toplam 2 set."
+      ],
+      "mistakes": [
+        "Kalçayı tek parça halinde hızla yukarı itmek.",
+        "Tepede beli çukurlaştırmak."
+      ],
+      "tip": "Sırtının her bölümünün yere değdiğini hissedecek kadar yavaş hareket et."
+    }
+  },
+  "table_top": {
+    "en": {
+      "title": "Reverse Table Top",
+      "desc": "Lift your hips into a flat table to open your chest and shoulders and strengthen your back side.",
+      "dose": "2 x 15 s",
+      "steps": [
+        "Sit with your knees bent, feet flat and hands on the floor behind your hips.",
+        "Point your fingers toward your feet and press into your hands and feet.",
+        "Lift your hips until your body is flat from knees to shoulders.",
+        "Hold 15 seconds and lower, 2 sets in total."
+      ],
+      "mistakes": [
+        "Letting the hips sag in the middle.",
+        "Dropping the head back so the neck strains."
+      ],
+      "tip": "Turn your fingers out to the sides if your wrists feel sore."
+    },
+    "tr": {
+      "title": "Ters Masa Duruşu",
+      "desc": "Kalçanı kaldırıp düz bir masa gibi durarak göğsünü ve omuzlarını aç, vücudunun arka tarafını güçlendir.",
+      "dose": "2 x 15 s",
+      "steps": [
+        "Dizlerin bükük otur, ayak tabanların yerde, ellerin kalçanın arkasında olsun.",
+        "Parmaklarını ayaklarına doğru çevir, ellerinle ve ayaklarınla yeri it.",
+        "Dizlerinden omuzlarına kadar dümdüz olana dek kalçanı kaldır.",
+        "15 saniye tut ve in, toplam 2 set yap."
+      ],
+      "mistakes": [
+        "Kalçanın ortada aşağı sarkması.",
+        "Başı arkaya düşürüp boynu zorlamak."
+      ],
+      "tip": "Bileklerin ağrırsa parmaklarını yanlara doğru çevir."
+    }
+  },
+  "childs_pose": {
+    "en": {
+      "title": "Child's Pose",
+      "desc": "Sit back on your heels with long arms to gently stretch your back and let your spine relax.",
+      "dose": "2 x 30 s",
+      "steps": [
+        "Kneel on the floor with your big toes together and your knees apart.",
+        "Sit your hips back onto your heels.",
+        "Walk your hands forward and rest your forehead on the floor.",
+        "Breathe slowly for 30 seconds and come up, 2 sets in total."
+      ],
+      "mistakes": [
+        "Lifting the hips far off the heels to reach further.",
+        "Holding the breath and tensing the shoulders."
+      ],
+      "tip": "Put a cushion between your hips and heels if your knees feel tight."
+    },
+    "tr": {
+      "title": "Çocuk Pozu",
+      "desc": "Topuklarına oturup kollarını öne uzatarak sırtını nazikçe esnet, omurganın gevşemesine izin ver.",
+      "dose": "2 x 30 s",
+      "steps": [
+        "Yere diz çök, ayak başparmakların birleşsin, dizlerin açık olsun.",
+        "Kalçanı geriye, topuklarının üstüne indir.",
+        "Ellerini öne doğru yürüt ve alnını yere bırak.",
+        "30 saniye yavaş nefes al ve doğrul, toplam 2 set yap."
+      ],
+      "mistakes": [
+        "Daha ileri uzanmak için kalçayı topuklardan fazla kaldırmak.",
+        "Nefesi tutup omuzları kasmak."
+      ],
+      "tip": "Dizlerin geriliyorsa kalçanla topukların arasına bir yastık koy."
+    }
+  },
+  "puppy_pose": {
+    "en": {
+      "title": "Puppy Pose",
+      "desc": "Melt your chest toward the floor to open tight shoulders and stretch your upper back.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Start on all fours with your hips right above your knees.",
+        "Walk your hands forward and keep your hips where they are.",
+        "Let your chest and forehead sink toward the floor.",
+        "Hold 20 seconds and come back up, 2 sets in total."
+      ],
+      "mistakes": [
+        "Letting the hips slide back toward the heels.",
+        "Bending the elbows and resting them on the floor."
+      ],
+      "tip": "Rest your forehead on a cushion if the stretch in your shoulders feels too strong."
+    },
+    "tr": {
+      "title": "Yavru Köpek Pozu",
+      "desc": "Göğsünü yere doğru bırakarak gergin omuzlarını aç, sırtının üst kısmını esnet.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Eller ve dizler üzerinde başla, kalçan tam dizlerinin üstünde olsun.",
+        "Kalçanı yerinde tutarak ellerini öne doğru yürüt.",
+        "Göğsünü ve alnını yere doğru bırak.",
+        "20 saniye tut ve geri gel, toplam 2 set yap."
+      ],
+      "mistakes": [
+        "Kalçanın topuklara doğru geriye kayması.",
+        "Dirsekleri büküp yere koymak."
+      ],
+      "tip": "Omuzlarındaki esneme fazla gelirse alnını bir yastığa yasla."
+    }
+  },
+  "seated_forward_fold": {
+    "en": {
+      "title": "Seated Forward Fold",
+      "desc": "Hinge forward over straight legs to stretch your hamstrings and the whole length of your back.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Sit on the floor with your legs straight and your toes pointing up.",
+        "Sit up tall and reach both arms overhead.",
+        "Hinge forward from your hips and reach for your shins or feet.",
+        "Hold 20 seconds and sit back up, 2 sets in total."
+      ],
+      "mistakes": [
+        "Rounding the upper back to reach the toes.",
+        "Bouncing to get deeper into the stretch."
+      ],
+      "tip": "Bend your knees a little or sit on a folded towel if your lower back rounds."
+    },
+    "tr": {
+      "title": "Oturarak Öne Eğilme",
+      "desc": "Düz bacaklarının üstüne kalçadan eğilerek arka bacak kaslarını ve sırtını boydan boya esnet.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Yere otur, bacaklarını düz uzat, ayak parmakların yukarı baksın.",
+        "Dik otur ve iki kolunu başının üstüne uzat.",
+        "Kalçandan öne eğil, kaval kemiklerine ya da ayaklarına uzan.",
+        "20 saniye tut ve doğrul, toplam 2 set yap."
+      ],
+      "mistakes": [
+        "Parmaklara yetişmek için sırtın üst kısmını yuvarlamak.",
+        "Daha derine inmek için yaylanmak."
+      ],
+      "tip": "Belin yuvarlanıyorsa dizlerini biraz bük ya da katlanmış bir havlunun üstüne otur."
+    }
+  },
+  "standing_side_stretch": {
+    "en": {
+      "title": "Standing Side Stretch",
+      "desc": "Lean to each side with your arms overhead to stretch your waist and free up your ribs.",
+      "dose": "2 x 15 s",
+      "steps": [
+        "Stand tall with your feet hip-width apart.",
+        "Reach both arms overhead and hold one wrist with the other hand.",
+        "Lean slowly to one side and keep both feet pressed into the floor.",
+        "Hold 15 seconds, switch sides, and do 2 sets on each side."
+      ],
+      "mistakes": [
+        "Leaning forward or twisting instead of bending straight to the side.",
+        "Pushing the hips far out to the side."
+      ],
+      "tip": "Imagine you are standing between two walls, so you can only move sideways."
+    },
+    "tr": {
+      "title": "Ayakta Yana Esneme",
+      "desc": "Kolların yukarıdayken iki yana eğilerek belinin yanlarını esnet, kaburgalarını rahatlat.",
+      "dose": "2 x 15 s",
+      "steps": [
+        "Dik dur, ayaklarını kalça genişliğinde aç.",
+        "İki kolunu başının üstüne uzat, bir elinle diğer bileğini tut.",
+        "Yavaşça bir yana eğil, iki ayağını da yere basılı tut.",
+        "15 saniye tut, taraf değiştir ve her tarafta 2 set yap."
+      ],
+      "mistakes": [
+        "Düz yana eğilmek yerine öne eğilmek ya da dönmek.",
+        "Kalçayı fazla yana itmek."
+      ],
+      "tip": "İki duvarın arasında durduğunu düşün, yalnızca yana hareket edebilirsin."
+    }
+  },
+  "low_lunge_arch": {
+    "en": {
+      "title": "Low Lunge with Reach",
+      "desc": "Sink your hips forward and reach up to open the front of your hips and your chest.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Step one foot forward and lower your back knee to the floor.",
+        "Slide your hips forward until you feel a stretch at the front of the back hip.",
+        "Reach both arms up and lift your chest into a gentle arch.",
+        "Hold 20 seconds, switch legs, and do 2 sets on each side."
+      ],
+      "mistakes": [
+        "Letting the front knee travel far past the toes.",
+        "Bending only from the lower back."
+      ],
+      "tip": "Put a folded towel under your back knee, and keep the arch small."
+    },
+    "tr": {
+      "title": "Alçak Lunge ve Uzanma",
+      "desc": "Kalçanı öne bırakıp yukarı uzanarak kalçanın ön tarafını ve göğsünü aç.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Bir ayağını öne at, arka dizini yere indir.",
+        "Arkadaki kalçanın önünde esneme hissedene kadar kalçanı öne kaydır.",
+        "İki kolunu yukarı uzat, göğsünü kaldırarak hafifçe geriye yaylan.",
+        "20 saniye tut, bacak değiştir ve her tarafta 2 set yap."
+      ],
+      "mistakes": [
+        "Öndeki dizin ayak parmaklarını fazla geçmesi.",
+        "Yalnızca belden bükülmek."
+      ],
+      "tip": "Arka dizinin altına katlanmış bir havlu koy, geriye yaylanmayı küçük tut."
+    }
+  },
+  "bow_pose": {
+    "en": {
+      "title": "Bow Pose",
+      "desc": "Hold your ankles and lift your chest and thighs to open your whole front and strengthen your back.",
+      "dose": "2 x 10 s",
+      "steps": [
+        "Lie face down and bend your knees so your heels come toward your hips.",
+        "Reach back and hold both ankles.",
+        "Kick your feet into your hands to lift your chest and thighs.",
+        "Hold 10 seconds and lower slowly, 2 sets in total."
+      ],
+      "mistakes": [
+        "Letting the knees spread wider than the hips.",
+        "Throwing the head back and straining the neck."
+      ],
+      "tip": "Lift only as high as feels comfortable, and skip this one if your lower back hurts."
+    },
+    "tr": {
+      "title": "Yay Pozu",
+      "desc": "Bileklerini tutup göğsünü ve uyluklarını kaldırarak vücudunun ön tarafını aç, sırtını güçlendir.",
+      "dose": "2 x 10 s",
+      "steps": [
+        "Yüzüstü uzan, dizlerini bük, topukların kalçana yaklaşsın.",
+        "Geriye uzan ve iki ayak bileğini tut.",
+        "Ayaklarını ellerine doğru iterek göğsünü ve uyluklarını kaldır.",
+        "10 saniye tut ve yavaşça in, toplam 2 set yap."
+      ],
+      "mistakes": [
+        "Dizlerin kalçadan daha geniş açılması.",
+        "Başı geriye atıp boynu zorlamak."
+      ],
+      "tip": "Yalnızca rahat ettiğin kadar yüksel, belin ağrıyorsa bu hareketi atla."
+    }
+  },
+  "pilates_roll_over": {
+    "en": {
+      "title": "Pilates Roll Over",
+      "desc": "Roll your legs overhead and back with control to stretch your spine and train deep core strength.",
+      "dose": "2 x 5",
+      "steps": [
+        "Lie on your back with your arms by your sides and your legs straight up.",
+        "Press your arms into the floor and lift your hips to roll your legs overhead.",
+        "Stop when your legs are level with the floor behind your head.",
+        "Roll back down slowly, do 5 reps and rest, 2 sets in total."
+      ],
+      "mistakes": [
+        "Swinging the legs over with momentum.",
+        "Rolling onto the neck instead of the shoulders."
+      ],
+      "tip": "Keep your weight on your shoulders and never on your neck, and bend your knees to make it easier."
+    },
+    "tr": {
+      "title": "Pilates Roll Over",
+      "desc": "Bacaklarını kontrollü şekilde başının üstünden geçirip geri getirerek omurganı esnet, derin karın kaslarını çalıştır.",
+      "dose": "2 x 5",
+      "steps": [
+        "Sırtüstü uzan, kolların yanında, bacakların dümdüz yukarıda olsun.",
+        "Kollarınla yeri it ve kalçanı kaldırarak bacaklarını başının üstüne doğru götür.",
+        "Bacakların başının arkasında yere paralel olunca dur.",
+        "Yavaşça geri in, 5 tekrar yap ve dinlen, toplam 2 set."
+      ],
+      "mistakes": [
+        "Bacakları hız alarak savurmak.",
+        "Omuzların yerine boynun üstüne yuvarlanmak."
+      ],
+      "tip": "Ağırlığın hep omuzlarında olsun, asla boynunda olmasın, kolaylaştırmak için dizlerini bük."
+    }
+  },
+  "legs_up_wall": {
+    "en": {
+      "title": "Legs Up the Wall",
+      "desc": "Rest your legs up a wall to take the load off your spine and unwind after a long day.",
+      "dose": "3 min",
+      "steps": [
+        "Sit sideways next to a wall with one hip touching it.",
+        "Swing your legs up the wall as you lie back on the floor.",
+        "Let your arms rest by your sides and relax your legs against the wall.",
+        "Stay for 3 minutes, breathing slowly."
+      ],
+      "mistakes": [
+        "Lifting the lower back off the floor.",
+        "Locking the knees hard and tensing the legs."
+      ],
+      "tip": "Move your hips a little away from the wall if the back of your legs feels tight."
+    },
+    "tr": {
+      "title": "Bacaklar Duvarda",
+      "desc": "Bacaklarını duvara yaslayarak omurganın üstündeki yükü al, uzun bir günün ardından gevşe.",
+      "dose": "3 dk",
+      "steps": [
+        "Duvarın yanına yan otur, bir kalçan duvara değsin.",
+        "Sırtüstü yere uzanırken bacaklarını duvara doğru kaldır.",
+        "Kollarını yanlarına bırak, bacaklarını duvara yaslayıp gevşet.",
+        "Yavaş nefes alarak 3 dakika kal."
+      ],
+      "mistakes": [
+        "Beli yerden kaldırmak.",
+        "Dizleri sertçe kilitleyip bacakları kasmak."
+      ],
+      "tip": "Bacaklarının arkası geriliyorsa kalçanı duvardan biraz uzaklaştır."
+    }
+  },
+  "spinal_twist": {
+    "en": {
+      "title": "Lying Spinal Twist",
+      "desc": "Drop one knee across your body to gently rotate your spine and release a stiff lower back.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Lie on your back with your arms out to the sides.",
+        "Bend one knee and bring it across your body toward the floor.",
+        "Keep both shoulders on the floor and look to the opposite side.",
+        "Hold 20 seconds, switch sides, and do 2 sets on each side."
+      ],
+      "mistakes": [
+        "Letting the opposite shoulder lift off the floor.",
+        "Forcing the knee down with the hand."
+      ],
+      "tip": "Rest your knee on a cushion if it does not reach the floor."
+    },
+    "tr": {
+      "title": "Yatarak Omurga Burgusu",
+      "desc": "Bir dizini vücudunun karşı tarafına bırakarak omurganı nazikçe döndür, tutulmuş belini gevşet.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Sırtüstü uzan, kollarını iki yana aç.",
+        "Bir dizini bük ve vücudunun karşı tarafına, yere doğru götür.",
+        "İki omzunu da yerde tut, başını ters yöne çevir.",
+        "20 saniye tut, taraf değiştir ve her tarafta 2 set yap."
+      ],
+      "mistakes": [
+        "Karşı omzun yerden kalkması.",
+        "Dizi elle zorlayarak aşağı bastırmak."
+      ],
+      "tip": "Dizin yere değmiyorsa altına bir yastık koy."
+    }
+  },
+  "chest_stretch": {
+    "en": {
+      "title": "Doorway Chest Stretch",
+      "desc": "Step through a doorway with your forearm on the frame to open a chest rounded by screens.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Stand in a doorway and place one forearm on the frame, elbow at shoulder height.",
+        "Step the same-side foot forward through the doorway.",
+        "Lean your chest forward until you feel a stretch across the front of your shoulder.",
+        "Hold 20 seconds, switch sides, and do 2 sets on each side."
+      ],
+      "mistakes": [
+        "Arching the lower back to lean further.",
+        "Shrugging the shoulder up toward the ear."
+      ],
+      "tip": "Keep the stretch gentle, and back off if you feel a pinch in your shoulder."
+    },
+    "tr": {
+      "title": "Kapıda Göğüs Esnetme",
+      "desc": "Ön kolunu kapı kasasına yaslayıp öne adım atarak ekran başında kapanan göğsünü aç.",
+      "dose": "2 x 20 s",
+      "steps": [
+        "Kapı aralığında dur, bir ön kolunu kasaya yasla, dirseğin omuz hizasında olsun.",
+        "Aynı taraftaki ayağınla kapıdan öne adım at.",
+        "Omzunun önünde esneme hissedene kadar göğsünü öne ver.",
+        "20 saniye tut, taraf değiştir ve her tarafta 2 set yap."
+      ],
+      "mistakes": [
+        "Daha çok uzanmak için beli çukurlaştırmak.",
+        "Omzu kulağa doğru kaldırmak."
+      ],
+      "tip": "Esnemeyi hafif tut, omzunda sıkışma hissedersen biraz geri çekil."
+    }
+  },
+  "scapular_retraction": {
+    "en": {
+      "title": "Shoulder Blade Squeeze",
+      "desc": "Squeeze your shoulder blades back and down to train the muscles that keep your shoulders from rounding.",
+      "dose": "2 x 10",
+      "steps": [
+        "Sit or stand tall with your arms relaxed at your sides.",
+        "Pull your shoulder blades back and down, as if tucking them into your back pockets.",
+        "Hold the squeeze for one slow breath, then release.",
+        "Do 10 reps and rest, 2 sets in total."
+      ],
+      "mistakes": [
+        "Shrugging the shoulders up while squeezing.",
+        "Pushing the ribs forward and arching the back."
+      ],
+      "tip": "Keep your chin level and your neck relaxed the whole time."
+    },
+    "tr": {
+      "title": "Kürek Kemiği Sıkma",
+      "desc": "Kürek kemiklerini geriye ve aşağı sıkarak omuzlarının öne düşmesini engelleyen kasları çalıştır.",
+      "dose": "2 x 10",
+      "steps": [
+        "Dik otur ya da ayakta dur, kolların yanlarda gevşek olsun.",
+        "Kürek kemiklerini arka ceplerine sokar gibi geriye ve aşağı çek.",
+        "Bir yavaş nefes boyunca sıkılı tut, sonra bırak.",
+        "10 tekrar yap ve dinlen, toplam 2 set."
+      ],
+      "mistakes": [
+        "Sıkarken omuzları yukarı kaldırmak.",
+        "Kaburgaları öne itip beli çukurlaştırmak."
+      ],
+      "tip": "Hareket boyunca çeneni düz, boynunu gevşek tut."
+    }
+  },
+  "thoracic_extension": {
+    "en": {
+      "title": "Chair Upper-Back Extension",
+      "desc": "Lean your upper back over a chair to undo the slouch from sitting and open your chest.",
+      "dose": "2 x 8",
+      "steps": [
+        "Sit on a sturdy chair with the top of its back just below your shoulder blades.",
+        "Put your hands behind your head and keep your elbows wide.",
+        "Lean your upper back slowly over the chair back and look up.",
+        "Come back up, do 8 reps and rest, 2 sets in total."
+      ],
+      "mistakes": [
+        "Bending from the lower back instead of the upper back.",
+        "Pulling the head forward with the hands."
+      ],
+      "tip": "Use a chair that cannot roll or tip, and keep your feet flat on the floor."
+    },
+    "tr": {
+      "title": "Sandalyede Sırt Açma",
+      "desc": "Sırtının üst kısmını sandalyenin arkalığından geriye bırakarak oturmaktan gelen kamburluğu çöz, göğsünü aç.",
+      "dose": "2 x 8",
+      "steps": [
+        "Sağlam bir sandalyeye otur, arkalığın üst kenarı kürek kemiklerinin hemen altına gelsin.",
+        "Ellerini başının arkasına koy, dirseklerini açık tut.",
+        "Sırtının üst kısmını yavaşça arkalığın üstünden geriye bırak ve yukarı bak.",
+        "Geri doğrul, 8 tekrar yap ve dinlen, toplam 2 set."
+      ],
+      "mistakes": [
+        "Sırtın üst kısmı yerine belden bükülmek.",
+        "Ellerle başı öne doğru çekmek."
+      ],
+      "tip": "Tekerleksiz ve devrilmeyecek bir sandalye kullan, ayak tabanların yerde kalsın."
+    }
+  },
+  "hanging_knee_raise": {
+    "en": {
+      "title": "Hanging Knee Raise",
+      "desc": "Lift your knees while you hang to build a strong core as the hang decompresses your spine.",
+      "dose": "3 x 5",
+      "steps": [
+        "Grip the bar overhand and hang with straight arms.",
+        "Pull your shoulders down away from your ears.",
+        "Lift both knees to hip height without swinging, then lower them slowly.",
+        "Do 5 reps, step down and rest, 3 sets in total."
+      ],
+      "mistakes": [
+        "Swinging the body to throw the knees up.",
+        "Hanging with the shoulders up by the ears."
+      ],
+      "tip": "Check that the bar is solid before you hang, and step down instead of dropping off."
+    },
+    "tr": {
+      "title": "Barda Diz Çekme",
+      "desc": "Barda asılıyken dizlerini kaldırarak karın kaslarını güçlendir, asılmak bu sırada omurgandaki baskıyı azaltır.",
+      "dose": "3 x 5",
+      "steps": [
+        "Barı üstten kavra, kolların düz şekilde asıl.",
+        "Omuzlarını kulaklarından uzağa, aşağı çek.",
+        "Sallanmadan iki dizini kalça hizasına kaldır, sonra yavaşça indir.",
+        "5 tekrar yap, in ve dinlen, toplam 3 set."
+      ],
+      "mistakes": [
+        "Dizleri yukarı atmak için vücudu sallamak.",
+        "Omuzlar kulak hizasındayken asılmak."
+      ],
+      "tip": "Asılmadan önce barın sağlam olduğunu kontrol et, bırakıp düşmek yerine basarak in."
+    }
+  },
+  "scapular_pull": {
+    "en": {
+      "title": "Scapular Pull",
+      "desc": "Pull your shoulders down from a hang with straight arms to build the base for strong pull-ups.",
+      "dose": "3 x 5",
+      "steps": [
+        "Grip the bar overhand, hands slightly wider than your shoulders.",
+        "Hang with straight arms and let your shoulders rise toward your ears.",
+        "Pull your shoulder blades down so your body lifts a little, elbows straight.",
+        "Hold a second and release, do 5 reps, 3 sets in total."
+      ],
+      "mistakes": [
+        "Bending the elbows to pull higher.",
+        "Swinging the legs to help."
+      ],
+      "tip": "Check that the bar is solid, and keep your feet on a box if a full hang is too hard."
+    },
+    "tr": {
+      "title": "Barda Omuz Çekişi",
+      "desc": "Barda kolların düzken omuzlarını aşağı çekerek güçlü bir barfiksin temelini at.",
+      "dose": "3 x 5",
+      "steps": [
+        "Barı üstten kavra, ellerin omuzlarından biraz geniş olsun.",
+        "Kolların düz şekilde asıl, omuzlarının kulaklarına doğru çıkmasına izin ver.",
+        "Dirseklerini bükmeden kürek kemiklerini aşağı çek, vücudun biraz yükselsin.",
+        "Bir saniye tut ve bırak, 5 tekrar yap, toplam 3 set."
+      ],
+      "mistakes": [
+        "Daha yükseğe çıkmak için dirsekleri bükmek.",
+        "Yardım almak için bacakları sallamak."
+      ],
+      "tip": "Barın sağlam olduğunu kontrol et, tam asılmak zor geliyorsa ayaklarını bir kasaya bas."
+    }
+  },
+  "pull_ups": {
+    "en": {
+      "title": "Pull-Ups",
+      "desc": "Pull your chin over the bar to build your back, hard work the body answers with growth hormone afterwards.",
+      "dose": "3 x 2",
+      "steps": [
+        "Grip the bar overhand, hands slightly wider than your shoulders.",
+        "Start from a straight-arm hang and pull your shoulder blades down.",
+        "Pull until your chin clears the bar, then lower yourself slowly.",
+        "Do 2 reps, step down and rest, 3 sets in total."
+      ],
+      "mistakes": [
+        "Kicking and swinging to get over the bar.",
+        "Dropping down fast instead of lowering with control."
+      ],
+      "tip": "Loop a band under your feet or jump to the top and lower slowly, and check that the bar is solid."
+    },
+    "tr": {
+      "title": "Barfiks",
+      "desc": "Çeneni barın üstüne çekerek sırtını geliştir, vücut böyle zorlu bir çalışmaya sonrasında büyüme hormonu salgılayarak karşılık verir.",
+      "dose": "3 x 2",
+      "steps": [
+        "Barı üstten kavra, ellerin omuzlarından biraz geniş olsun.",
+        "Kolların düz şekilde asılı başla ve kürek kemiklerini aşağı çek.",
+        "Çenen barı geçene kadar kendini çek, sonra yavaşça in.",
+        "2 tekrar yap, in ve dinlen, toplam 3 set."
+      ],
+      "mistakes": [
+        "Barı geçmek için tekme atıp sallanmak.",
+        "Kontrollü inmek yerine kendini hızla bırakmak."
+      ],
+      "tip": "Ayaklarının altına bir lastik geçir ya da zıplayıp tepeden yavaşça in, barın sağlam olduğunu kontrol et."
+    }
+  },
+  "bird_dog": {
+    "en": {
+      "title": "Bird Dog",
+      "desc": "Reach your opposite arm and leg long to train the deep muscles that keep your spine steady.",
+      "dose": "2 x 8",
+      "steps": [
+        "Start on all fours, hands under your shoulders and knees under your hips.",
+        "Reach one arm forward and the opposite leg straight back.",
+        "Hold for two seconds with your hips level, then return.",
+        "Do 8 reps, switch sides, and do 2 sets on each side."
+      ],
+      "mistakes": [
+        "Letting the lower back sag as the leg lifts.",
+        "Rotating the hips open to raise the leg higher."
+      ],
+      "tip": "Imagine a glass of water resting on your lower back that must not spill."
+    },
+    "tr": {
+      "title": "Bird Dog",
+      "desc": "Çapraz kolunu ve bacağını uzatarak omurganı sabit tutan derin kasları çalıştır.",
+      "dose": "2 x 8",
+      "steps": [
+        "Eller ve dizler üzerinde başla, ellerin omuzlarının, dizlerin kalçanın altında olsun.",
+        "Bir kolunu öne, çapraz bacağını dümdüz geriye uzat.",
+        "Kalçan düz dururken iki saniye tut, sonra geri gel.",
+        "8 tekrar yap, taraf değiştir ve her tarafta 2 set yap."
+      ],
+      "mistakes": [
+        "Bacak kalkarken belin aşağı çökmesi.",
+        "Bacağı daha yükseğe kaldırmak için kalçayı yana açmak."
+      ],
+      "tip": "Belinin üstünde dökülmemesi gereken bir bardak su durduğunu düşün."
+    }
+  },
+  "dead_bug": {
+    "en": {
+      "title": "Dead Bug",
+      "desc": "Lower your opposite arm and leg with your back flat to build core control that protects your spine.",
+      "dose": "2 x 8",
+      "steps": [
+        "Lie on your back with your arms straight up and your knees bent above your hips.",
+        "Press your lower back gently into the floor.",
+        "Lower one arm overhead and the opposite leg toward the floor, then return.",
+        "Do 8 reps on each side and rest, 2 sets in total."
+      ],
+      "mistakes": [
+        "Letting the lower back arch off the floor.",
+        "Rushing through the reps."
+      ],
+      "tip": "Lower your arm and leg only as far as your back can stay flat on the floor."
+    },
+    "tr": {
+      "title": "Dead Bug",
+      "desc": "Belin yerdeyken çapraz kolunu ve bacağını indirerek omurganı koruyan karın kontrolünü geliştir.",
+      "dose": "2 x 8",
+      "steps": [
+        "Sırtüstü uzan, kollarını dümdüz yukarı uzat, dizlerini kalçanın üstünde bük.",
+        "Belini hafifçe yere bastır.",
+        "Bir kolunu başının üstüne, çapraz bacağını yere doğru indir, sonra geri getir.",
+        "Her tarafta 8 tekrar yap ve dinlen, toplam 2 set."
+      ],
+      "mistakes": [
+        "Belin yerden kalkıp çukurlaşması.",
+        "Tekrarları aceleyle yapmak."
+      ],
+      "tip": "Kolunu ve bacağını yalnızca belin yerde düz kalabildiği kadar indir."
+    }
+  },
+  "side_plank": {
+    "en": {
+      "title": "Side Plank",
+      "desc": "Hold a straight line on one forearm to strengthen the side muscles that keep your posture even.",
+      "dose": "2 x 15 s",
+      "steps": [
+        "Lie on your side with your forearm on the floor, elbow under your shoulder.",
+        "Stack your feet and lift your hips off the floor.",
+        "Keep your body in one straight line from head to heels.",
+        "Hold 15 seconds, switch sides, and do 2 sets on each side."
+      ],
+      "mistakes": [
+        "Letting the hips drop toward the floor.",
+        "Rolling the chest forward toward the floor."
+      ],
+      "tip": "Keep your bottom knee on the floor to make it easier."
+    },
+    "tr": {
+      "title": "Yan Plank",
+      "desc": "Tek ön kolunun üstünde düz bir çizgide durarak duruşunu dengede tutan yan kasları güçlendir.",
+      "dose": "2 x 15 s",
+      "steps": [
+        "Yan yat, ön kolunu yere koy, dirseğin omzunun altında olsun.",
+        "Ayaklarını üst üste koy ve kalçanı yerden kaldır.",
+        "Başından topuklarına kadar vücudunu tek düz bir çizgide tut.",
+        "15 saniye tut, taraf değiştir ve her tarafta 2 set yap."
+      ],
+      "mistakes": [
+        "Kalçanın yere doğru düşmesi.",
+        "Göğsün öne, yere doğru dönmesi."
+      ],
+      "tip": "Kolaylaştırmak için alttaki dizini yerde tut."
+    }
+  },
+  "wall_sit": {
+    "en": {
+      "title": "Wall Sit",
+      "desc": "Sit against a wall with your thighs level to build leg strength with your back held straight.",
+      "dose": "3 x 20 s",
+      "steps": [
+        "Stand with your back against a wall and your feet a step in front of you.",
+        "Slide down until your thighs are level with the floor.",
+        "Keep your knees above your ankles and your whole back on the wall.",
+        "Hold 20 seconds and stand up, 3 sets in total."
+      ],
+      "mistakes": [
+        "Resting the hands on the thighs.",
+        "Letting the knees drift forward past the toes."
+      ],
+      "tip": "Sit a little higher if your knees complain, and go lower as you get stronger."
+    },
+    "tr": {
+      "title": "Duvarda Oturuş",
+      "desc": "Uylukların yere paralel halde duvara yaslanıp oturarak sırtın dik dururken bacaklarını güçlendir.",
+      "dose": "3 x 20 s",
+      "steps": [
+        "Sırtını duvara yasla, ayaklarını bir adım öne al.",
+        "Uylukların yere paralel olana kadar aşağı kay.",
+        "Dizlerini bileklerinin üstünde, sırtının tamamını duvarda tut.",
+        "20 saniye tut ve ayağa kalk, toplam 3 set yap."
+      ],
+      "mistakes": [
+        "Elleri uylukların üstüne dayamak.",
+        "Dizlerin öne kayıp ayak parmaklarını geçmesi."
+      ],
+      "tip": "Dizlerin zorlanıyorsa biraz daha yüksekte otur, güçlendikçe alçal."
+    }
+  },
+  "lunges": {
+    "en": {
+      "title": "Lunges",
+      "desc": "Step forward and bend both knees to build strong legs and hips, one side at a time.",
+      "dose": "3 x 8",
+      "steps": [
+        "Stand tall with your feet hip-width apart.",
+        "Take a big step forward and lower until both knees bend to about 90 degrees.",
+        "Push through your front heel to step back to the start.",
+        "Do 8 reps on each leg and rest, 3 sets in total."
+      ],
+      "mistakes": [
+        "Letting the front knee cave inward.",
+        "Leaning the chest far forward over the front leg."
+      ],
+      "tip": "Take a shorter step or hold a chair for balance until the movement feels steady."
+    },
+    "tr": {
+      "title": "Lunge",
+      "desc": "Öne adım atıp iki dizini bükerek bacaklarını ve kalçanı güçlendir, her tarafı ayrı ayrı çalıştır.",
+      "dose": "3 x 8",
+      "steps": [
+        "Dik dur, ayaklarını kalça genişliğinde aç.",
+        "Öne büyük bir adım at, iki dizin de yaklaşık 90 derece bükülene kadar alçal.",
+        "Öndeki topuğunla yeri iterek başlangıç pozisyonuna dön.",
+        "Her bacakla 8 tekrar yap ve dinlen, toplam 3 set."
+      ],
+      "mistakes": [
+        "Öndeki dizin içe kaçması.",
+        "Göğsü öndeki bacağın üstüne fazla eğmek."
+      ],
+      "tip": "Hareket oturana kadar daha kısa adım at ya da dengen için bir sandalyeye tutun."
+    }
+  },
+  "step_ups": {
+    "en": {
+      "title": "Step-Ups",
+      "desc": "Step up and stand tall, then lower slowly, to build single-leg strength and balance.",
+      "dose": "3 x 8",
+      "steps": [
+        "Stand in front of a step or a sturdy low bench.",
+        "Place one whole foot on the step and push up until you stand tall.",
+        "Lower the other foot back to the floor slowly.",
+        "Do 8 reps on each leg and rest, 3 sets in total."
+      ],
+      "mistakes": [
+        "Pushing off hard with the foot on the floor.",
+        "Dropping down fast instead of lowering with control."
+      ],
+      "tip": "Use a step that cannot slide or tip, and start low before you go higher."
+    },
+    "tr": {
+      "title": "Basamağa Çıkış",
+      "desc": "Basamağa çıkıp dik dur, sonra yavaşça inerek tek bacak gücünü ve dengeni geliştir.",
+      "dose": "3 x 8",
+      "steps": [
+        "Bir basamağın ya da sağlam, alçak bir bankın önünde dur.",
+        "Bir ayağının tamamını basamağa koy ve dik durana kadar yüksel.",
+        "Diğer ayağını yavaşça yere geri indir.",
+        "Her bacakla 8 tekrar yap ve dinlen, toplam 3 set."
+      ],
+      "mistakes": [
+        "Yerdeki ayakla güçlüce itmek.",
+        "Kontrollü inmek yerine hızla düşmek."
+      ],
+      "tip": "Kaymayan ve devrilmeyen bir basamak kullan, yükseltmeden önce alçak bir basamakla başla."
+    }
+  },
+  "push_ups": {
+    "en": {
+      "title": "Push-Ups",
+      "desc": "Lower your chest to the floor with a straight body to build your chest, arms and core.",
+      "dose": "3 x 5",
+      "steps": [
+        "Place your hands on the floor slightly wider than your shoulders.",
+        "Step your feet back so your body forms one straight line.",
+        "Bend your elbows to lower your chest to the floor, then push back up.",
+        "Do 5 reps and rest, 3 sets in total."
+      ],
+      "mistakes": [
+        "Letting the hips sag toward the floor.",
+        "Flaring the elbows straight out to the sides."
+      ],
+      "tip": "Drop to your knees or put your hands on a bench to make it easier."
+    },
+    "tr": {
+      "title": "Şınav",
+      "desc": "Vücudun dümdüzken göğsünü yere indirerek göğsünü, kollarını ve karın bölgeni güçlendir.",
+      "dose": "3 x 5",
+      "steps": [
+        "Ellerini omuzlarından biraz geniş şekilde yere koy.",
+        "Ayaklarını geriye at, vücudun tek düz bir çizgi oluştursun.",
+        "Dirseklerini bükerek göğsünü yere indir, sonra kendini geri it.",
+        "5 tekrar yap ve dinlen, toplam 3 set."
+      ],
+      "mistakes": [
+        "Kalçanın yere doğru sarkması.",
+        "Dirsekleri dümdüz yanlara açmak."
+      ],
+      "tip": "Kolaylaştırmak için dizlerinin üstüne in ya da ellerini bir banka koy."
+    }
+  },
+  "single_leg_calf_raise": {
+    "en": {
+      "title": "Single-Leg Calf Raise",
+      "desc": "Rise on one foot from the edge of a step to build strong calves and ankles for jumping.",
+      "dose": "3 x 8",
+      "steps": [
+        "Stand on the edge of a step on the ball of one foot and hold a wall or rail.",
+        "Lower your heel slowly below the level of the step.",
+        "Rise as high as you can onto your toes and pause for a second.",
+        "Do 8 reps on each leg and rest, 3 sets in total."
+      ],
+      "mistakes": [
+        "Bouncing out of the bottom instead of moving slowly.",
+        "Bending the knee to help the calf."
+      ],
+      "tip": "Start with body weight, and if you add a dumbbell or backpack, pick a weight light enough to finish every rep with good form."
+    },
+    "tr": {
+      "title": "Tek Ayak Baldır Kaldırma",
+      "desc": "Basamağın kenarında tek ayağının üstünde yükselerek zıplama için güçlü baldırlar ve bilekler kazan.",
+      "dose": "3 x 8",
+      "steps": [
+        "Basamağın kenarında tek ayağının ön kısmıyla dur, duvara ya da korkuluğa tutun.",
+        "Topuğunu yavaşça basamak seviyesinin altına indir.",
+        "Parmak ucunda çıkabildiğin kadar yüksel ve bir saniye dur.",
+        "Her bacakla 8 tekrar yap ve dinlen, toplam 3 set."
+      ],
+      "mistakes": [
+        "Yavaş hareket etmek yerine alttan yaylanarak çıkmak.",
+        "Baldıra yardım için dizi bükmek."
+      ],
+      "tip": "Kendi vücut ağırlığınla başla, dambıl ya da sırt çantası eklersen her tekrarı düzgün formla bitirebileceğin kadar hafif bir ağırlık seç."
+    }
+  },
+  "goblet_squat": {
+    "en": {
+      "title": "Goblet Squat",
+      "desc": "Squat with a weight at your chest, the big-muscle effort your body answers with growth hormone afterwards.",
+      "dose": "3 x 8",
+      "steps": [
+        "Hold one dumbbell or a loaded backpack against your chest with both hands.",
+        "Stand with your feet shoulder-width apart and your toes turned out a little.",
+        "Sit down between your heels with your chest up, then stand back up.",
+        "Do 8 reps and rest, 3 sets in total."
+      ],
+      "mistakes": [
+        "Letting the knees cave inward.",
+        "Rounding the back and letting the chest drop."
+      ],
+      "tip": "Pick a weight light enough to finish every rep with good form."
+    },
+    "tr": {
+      "title": "Goblet Squat",
+      "desc": "Ağırlığı göğsünde tutarak çök, büyük kasları zorlayan bu efora vücut sonrasında büyüme hormonu salgılayarak karşılık verir.",
+      "dose": "3 x 8",
+      "steps": [
+        "Bir dambılı ya da dolu bir sırt çantasını iki elinle göğsüne yasla.",
+        "Ayaklarını omuz genişliğinde aç, parmak uçlarını hafif dışa çevir.",
+        "Göğsün dikken topuklarının arasına doğru çök, sonra ayağa kalk.",
+        "8 tekrar yap ve dinlen, toplam 3 set."
+      ],
+      "mistakes": [
+        "Dizlerin içe kaçması.",
+        "Sırtı yuvarlayıp göğsü düşürmek."
+      ],
+      "tip": "Her tekrarı düzgün formla bitirebileceğin kadar hafif bir ağırlık seç."
+    }
+  },
+  "dumbbell_deadlift": {
+    "en": {
+      "title": "Dumbbell Romanian Deadlift",
+      "desc": "Hinge at your hips with a flat back, hard big-muscle work your body answers with growth hormone afterwards.",
+      "dose": "3 x 8",
+      "steps": [
+        "Stand tall with a dumbbell in each hand in front of your thighs.",
+        "Soften your knees and push your hips back with a flat back.",
+        "Slide the weights down your thighs to just below your knees.",
+        "Squeeze your glutes to stand up, do 8 reps, 3 sets in total."
+      ],
+      "mistakes": [
+        "Rounding the back as the weights go down.",
+        "Turning it into a squat by bending the knees a lot."
+      ],
+      "tip": "Pick a weight light enough to finish every rep with good form."
+    },
+    "tr": {
+      "title": "Dambıl Romanian Deadlift",
+      "desc": "Sırtın düzken kalçandan katlan, büyük kasları zorlayan bu çalışmaya vücut sonrasında büyüme hormonu salgılayarak karşılık verir.",
+      "dose": "3 x 8",
+      "steps": [
+        "Dik dur, iki elinde birer dambıl uyluklarının önünde olsun.",
+        "Dizlerini hafif gevşet, sırtın düzken kalçanı geriye it.",
+        "Ağırlıkları uyluklarından dizlerinin hemen altına kadar kaydır.",
+        "Kalçanı sıkarak doğrul, 8 tekrar yap, toplam 3 set."
+      ],
+      "mistakes": [
+        "Ağırlıklar inerken sırtı yuvarlamak.",
+        "Dizleri fazla bükerek hareketi squata çevirmek."
+      ],
+      "tip": "Her tekrarı düzgün formla bitirebileceğin kadar hafif bir ağırlık seç."
+    }
+  },
+  "dumbbell_row": {
+    "en": {
+      "title": "Dumbbell Row",
+      "desc": "Pull a dumbbell to your hip to build the upper-back muscles that draw your shoulders back.",
+      "dose": "3 x 8",
+      "steps": [
+        "Place one hand on a bench or chair and step your feet back.",
+        "Hold a dumbbell in the other hand with your back flat and your arm hanging down.",
+        "Pull the weight to your hip with your elbow close, then lower it slowly.",
+        "Do 8 reps on each side and rest, 3 sets in total."
+      ],
+      "mistakes": [
+        "Twisting the body to heave the weight up.",
+        "Shrugging the shoulder toward the ear."
+      ],
+      "tip": "Pick a weight light enough to finish every rep with good form."
+    },
+    "tr": {
+      "title": "Tek Kol Dambıl Row",
+      "desc": "Dambılı kalçana doğru çekerek omuzlarını geriye toplayan üst sırt kaslarını geliştir.",
+      "dose": "3 x 8",
+      "steps": [
+        "Bir elini bir banka ya da sandalyeye koy, ayaklarını geriye al.",
+        "Diğer elinde dambıl tut, sırtın düz, kolun aşağı sarkık olsun.",
+        "Dirseğin vücuduna yakınken ağırlığı kalçana çek, sonra yavaşça indir.",
+        "Her tarafta 8 tekrar yap ve dinlen, toplam 3 set."
+      ],
+      "mistakes": [
+        "Ağırlığı kaldırmak için gövdeyi döndürmek.",
+        "Omzu kulağa doğru kaldırmak."
+      ],
+      "tip": "Her tekrarı düzgün formla bitirebileceğin kadar hafif bir ağırlık seç."
+    }
+  },
+  "farmer_carry": {
+    "en": {
+      "title": "Farmer's Carry",
+      "desc": "Walk tall with a weight in each hand, whole-body work the body answers with growth hormone afterwards.",
+      "dose": "3 x 20 s",
+      "steps": [
+        "Stand between two dumbbells or two loaded bags.",
+        "Bend your knees, keep your back flat and pick them up.",
+        "Walk with small steps, shoulders back and eyes forward.",
+        "Walk for 20 seconds, set them down and rest, 3 sets in total."
+      ],
+      "mistakes": [
+        "Leaning to one side or letting the shoulders round forward.",
+        "Rounding the back when picking up or putting down the weights."
+      ],
+      "tip": "Pick a weight light enough to finish every set with good form, and keep both sides equal."
+    },
+    "tr": {
+      "title": "Çiftçi Yürüyüşü",
+      "desc": "İki elinde ağırlıkla dik yürü, tüm vücudu zorlayan bu çalışmaya vücut sonrasında büyüme hormonu salgılayarak karşılık verir.",
+      "dose": "3 x 20 s",
+      "steps": [
+        "İki dambılın ya da iki dolu çantanın arasında dur.",
+        "Dizlerini bük, sırtını düz tut ve ağırlıkları yerden al.",
+        "Omuzların geride, gözlerin karşıda, küçük adımlarla yürü.",
+        "20 saniye yürü, ağırlıkları bırak ve dinlen, toplam 3 set."
+      ],
+      "mistakes": [
+        "Bir yana yatmak ya da omuzları öne düşürmek.",
+        "Ağırlıkları alırken ya da bırakırken sırtı yuvarlamak."
+      ],
+      "tip": "Her seti düzgün formla bitirebileceğin kadar hafif bir ağırlık seç, iki taraf eşit olsun."
+    }
+  },
+  "band_pull_apart": {
+    "en": {
+      "title": "Band Pull-Apart",
+      "desc": "Pull a band apart to your chest to strengthen your upper back and keep your shoulders open.",
+      "dose": "2 x 12",
+      "steps": [
+        "Stand tall and hold a band in front of you with straight arms at shoulder height.",
+        "Pull the band apart by squeezing your shoulder blades together.",
+        "Touch the band to your chest, then return slowly.",
+        "Do 12 reps and rest, 2 sets in total."
+      ],
+      "mistakes": [
+        "Shrugging the shoulders up toward the ears.",
+        "Letting the band snap back instead of returning slowly."
+      ],
+      "tip": "Choose a band light enough to finish every rep with good form, and check it for tears first."
+    },
+    "tr": {
+      "title": "Lastik Açma",
+      "desc": "Direnç lastiğini göğsüne doğru açarak üst sırtını güçlendir, omuzlarını açık tut.",
+      "dose": "2 x 12",
+      "steps": [
+        "Dik dur, lastiği kolların düz ve omuz hizasında önünde tut.",
+        "Kürek kemiklerini birbirine yaklaştırarak lastiği iki yana aç.",
+        "Lastiği göğsüne değdir, sonra yavaşça geri dön.",
+        "12 tekrar yap ve dinlen, toplam 2 set."
+      ],
+      "mistakes": [
+        "Omuzları kulaklara doğru kaldırmak.",
+        "Yavaşça dönmek yerine lastiğin geri fırlamasına izin vermek."
+      ],
+      "tip": "Her tekrarı düzgün formla bitirebileceğin kadar hafif bir lastik seç, önce yırtık var mı diye bak."
+    }
+  },
+  "burpees": {
+    "en": {
+      "title": "Burpees",
+      "desc": "Squat, plank and jump in one move, whole-body work your body answers with growth hormone afterwards.",
+      "dose": "3 x 5",
+      "steps": [
+        "Stand tall, then squat and place your hands on the floor.",
+        "Jump your feet back into a straight plank.",
+        "Jump your feet back in toward your hands.",
+        "Jump straight up, do 5 reps and rest, 3 sets in total."
+      ],
+      "mistakes": [
+        "Letting the hips sag in the plank.",
+        "Landing hard with straight legs after the jump."
+      ],
+      "tip": "Step your feet back and in instead of jumping to make it easier, and slow down if your form slips."
+    },
+    "tr": {
+      "title": "Burpee",
+      "desc": "Çök, planka geç ve zıpla, tüm vücudu zorlayan bu çalışmaya vücut sonrasında büyüme hormonu salgılayarak karşılık verir.",
+      "dose": "3 x 5",
+      "steps": [
+        "Dik dur, sonra çök ve ellerini yere koy.",
+        "Ayaklarını geriye sıçratarak dümdüz bir plank pozisyonuna geç.",
+        "Ayaklarını tekrar ellerine doğru sıçrat.",
+        "Dümdüz yukarı zıpla, 5 tekrar yap ve dinlen, toplam 3 set."
+      ],
+      "mistakes": [
+        "Plankta kalçanın sarkması.",
+        "Zıplayıştan sonra bacaklar düzken sertçe inmek."
+      ],
+      "tip": "Kolaylaştırmak için ayaklarını sıçratmak yerine adımla geriye ve öne al, formun bozulursa yavaşla."
+    }
+  }
+}

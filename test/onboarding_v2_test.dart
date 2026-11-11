@@ -61,8 +61,21 @@ Future<void> loadInter() async {
 
 /// Every UI language the onboarding runs in; zh_Hant is Traditional Chinese.
 const kOnboardingLangs = [
-  'tr', 'de', 'nl', 'pl', 'sv', 'ru', 'ar', 'id', 'ms', 'vi', 'th', 'ja',
-  'ko', 'zh', 'zh_Hant',
+  'tr',
+  'de',
+  'nl',
+  'pl',
+  'sv',
+  'ru',
+  'ar',
+  'id',
+  'ms',
+  'vi',
+  'th',
+  'ja',
+  'ko',
+  'zh',
+  'zh_Hant',
 ];
 
 Locale testLocale(String lang) {
@@ -103,7 +116,7 @@ Future<void> walkOnboarding(
   String? ethnicity,
 }) async {
   Future<void> settle() async {
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 5; i++) {
       await t.pump(const Duration(milliseconds: 150));
     }
   }
@@ -129,6 +142,8 @@ Future<void> walkOnboarding(
   await tapText(l.continueBtn);
   await page('gender');
   await tapText(l.continueBtn);
+  await page('name');
+  await tapText(l.continueBtn);
   await page('birthDate');
   await tapText(l.continueBtn);
 
@@ -141,14 +156,8 @@ Future<void> walkOnboarding(
 
   await page('triedApps');
   await tapText(triedAnswer ?? l.obTriedStopped);
+  await page('triedApps_picked');
   await tapText(l.continueBtn);
-  await page('triedAppsAnswer');
-  await t.pump(const Duration(milliseconds: 1500));
-  await page('triedAppsAnswer_done');
-  await tapText(l.continueBtn);
-
-  await page('rate');
-  await tapText(l.obRateLater);
 
   await page('heightWeight');
   await tapText(l.continueBtn);
@@ -159,17 +168,22 @@ Future<void> walkOnboarding(
   }
   await page('parents_answered');
   await tapText(l.continueBtn);
-  // The background is asked only to estimate a parent nobody knew.
-  if (unknownParents.isNotEmpty) {
-    await page('ethnicity');
-    await tapText(ethnicity ?? l.dontWantToAnswer);
-    await tapText(l.continueBtn);
-  }
+  // The background is asked of everyone; it also estimates a parent nobody
+  // knew.
+  await page('ethnicity');
+  await tapText(ethnicity ?? l.dontWantToAnswer);
+  await page('ethnicity_picked');
+  await tapText(l.continueBtn);
   await page('footSize');
   await tapText(l.continueBtn);
   await page('pastHeights');
   await tapText(l.obSkipAll);
   await page('dreamHeight');
+  await tapText(l.continueBtn);
+
+  await page('goalDays');
+  await tapText(l.obGoalYear);
+  await page('goalDays_picked');
   await tapText(l.continueBtn);
 
   await page('blockers');
@@ -181,15 +195,27 @@ Future<void> walkOnboarding(
 
   await page('workout');
   await tapText('3-5');
+  await page('workout_picked');
   await tapText(l.continueBtn);
-  for (final name in [
-    'sleep',
-    'bedtime',
-    'workoutTime',
-    'meals',
-    'protein',
-    'calories',
-  ]) {
+  for (final name in ['sleep', 'bedtime']) {
+    await page(name);
+    await tapText(l.continueBtn);
+  }
+
+  // A day of the plan in the user's own numbers, then the rating ask, which
+  // opens the system sheet itself and shows its buttons afterwards.
+  await page('dayPreview');
+  await t.pump(const Duration(milliseconds: 1500));
+  await page('dayPreview_done');
+  await tapText(l.continueBtn);
+
+  await page('rate');
+  // The buttons wait for the system sheet, a little over four seconds at most.
+  await t.pump(const Duration(milliseconds: 4200));
+  await settle();
+  await tapText(l.obRateLater);
+
+  for (final name in ['workoutTime', 'meals', 'protein', 'calories']) {
     await page(name);
     await tapText(l.continueBtn);
   }
@@ -216,6 +242,7 @@ Future<void> walkOnboarding(
 
 void main() {
   setUp(() {
+    paywallAsksOnExit = false;
     SharedPreferences.setMockInitialValues({});
     mockNotificationsChannel();
   });
@@ -328,9 +355,9 @@ void main() {
           final prefs = await SharedPreferences.getInstance();
           expect(prefs.getBool('betaller_notifications_enabled'), isNot(true));
 
-          // Both parents were given: no background question, nothing kept.
-          expect(pages, isNot(contains('ethnicity')));
-          expect(p.profile!.ethnicity, '');
+          // The background is asked of everyone and kept as answered.
+          expect(pages, contains('ethnicity'));
+          expect(p.profile!.ethnicity, 'no_answer');
           expect(p.profile!.fatherHeightUnknown, isFalse);
           expect(
             find.byKey(const ValueKey('result-no-parents-note')),
@@ -339,17 +366,19 @@ void main() {
 
           // The result opens the paywall, with that result at the top of it,
           // before the app and its tour.
-          final headline = l.pwPersonalTitle(p.formatHeight(p.potentialHeight));
-          await t.tap(find.text(l.journeyContinue));
+          final headline = l.rsPaywallHeadline;
+          // Nothing on the locked result may give the number away.
+          expect(find.text(p.formatHeight(p.potentialHeight)), findsNothing);
+          await t.tap(find.text(l.rsUnlock));
           for (var i = 0; i < 6; i++) {
             await t.pump(const Duration(milliseconds: 200));
           }
           expect(find.byType(PremiumPaywallScreen), findsOneWidget);
           expect(find.text(headline), findsOneWidget);
-          expect(find.text(l.pwPersonalEstimate), findsOneWidget);
+          expect(find.text(l.pwPersonalEstimate), findsNothing);
           expect(
             find.text(l.pwPersonalReason(l.obWhyConfidence)),
-            findsOneWidget,
+            findsNothing,
           );
           expect(find.byType(MainScreen), findsNothing);
           expect(
@@ -448,10 +477,7 @@ void main() {
                 await t.pump(const Duration(milliseconds: 300));
               });
               expect(clicks, greaterThanOrEqualTo(1));
-              expect(
-                find.text(l.obBedtimeUnknownHint('22:30')),
-                findsOneWidget,
-              );
+              expect(find.text(l.obUnknownPlanned), findsOneWidget);
               // The wheels are dimmed and stand on the suggestion.
               final fade = t.widget<AnimatedOpacity>(
                 find
@@ -466,10 +492,7 @@ void main() {
             if (name == 'workoutTime') {
               await t.tap(find.text(l.obWorkoutTimeUnknown));
               await t.pump(const Duration(milliseconds: 300));
-              expect(
-                find.text(l.obWorkoutTimeUnknownHint('18:00')),
-                findsOneWidget,
-              );
+              expect(find.text(l.obUnknownPlanned), findsWidgets);
             }
             if (name == 'notifications') {
               // Both times read as suggestions, not as the user's answers.
@@ -549,7 +572,8 @@ void main() {
       expect(p.onboardingAnswers['workoutTimeUnknown'], false);
       // The wheels moved on from the suggestions they were showing.
       expect(p.profile!.bedtime, isNot('22:30'));
-      expect(p.profile!.bedtime, matches(RegExp(r'^(23|0\d):30$')));
+      // They start from where the user left them, not from a suggestion.
+      expect(p.profile!.bedtime, matches(RegExp(r'^(23|0\d):00$')));
       expect(p.profile!.workoutTime, isNot('18:00'));
       expect(p.profile!.workoutTime, matches(RegExp(r'^(19|2\d):00$')));
 
@@ -560,31 +584,47 @@ void main() {
     });
   });
 
-  group('the "tried other apps" answer page', () {
-    Future<void> toAnswerPage(
-      WidgetTester t,
-      AppLocalizations l,
-      String answer,
-    ) async {
+  group('the day preview page', () {
+    // Walks to the day preview: everything up to and including bedtime.
+    Future<void> toDayPreview(WidgetTester t, AppLocalizations l) async {
       Future<void> tapText(String text) async {
         final f = find.text(text).last;
         await t.ensureVisible(f);
         await t.pump();
         await t.tap(f);
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 5; i++) {
           await t.pump(const Duration(milliseconds: 150));
         }
       }
 
       await tapText(l.letsStart);
-      // Pain hook, budget, gender, birth date.
-      for (var i = 0; i < 4; i++) {
+      // Pain hook, budget, gender, name, birth date.
+      for (var i = 0; i < 5; i++) {
         await tapText(l.continueBtn);
       }
       await tapText(l.obWhyConfidence);
       await tapText(l.continueBtn);
-      await tapText(answer);
+      await tapText(l.obTriedStopped);
+      // BeTaller answers the choice on the page itself.
+      expect(find.text(l.obReplyTriedStopped), findsOneWidget);
       await tapText(l.continueBtn);
+      // Height and weight, parents.
+      for (var i = 0; i < 2; i++) {
+        await tapText(l.continueBtn);
+      }
+      await tapText(l.dontWantToAnswer);
+      await tapText(l.continueBtn);
+      await tapText(l.continueBtn); // foot size
+      await tapText(l.obSkipAll);
+      await tapText(l.continueBtn); // dream height
+      await tapText(l.obGoalOpen);
+      await tapText(l.continueBtn);
+      await tapText(l.obBlockForget);
+      await tapText(l.continueBtn);
+      await tapText('3-5');
+      await tapText(l.continueBtn);
+      await tapText(l.continueBtn); // sleep
+      await tapText(l.continueBtn); // bedtime
     }
 
     for (final lang in kOnboardingLangs) {
@@ -597,36 +637,30 @@ void main() {
           addTearDown(t.view.reset);
           await loadInter();
           final l = lookupAppLocalizations(testLocale(lang));
-          for (final answer in [
-            (l.obTriedStopped, l.obTriedStoppedTitle),
-            (l.obTriedStill, l.obTriedStillTitle),
-            (l.obTriedFirst, l.obTriedFirstTitle),
-          ]) {
-            final errors = <FlutterErrorDetails>[];
-            final previous = FlutterError.onError;
-            FlutterError.onError = errors.add;
-            try {
-              await t.pumpWidget(const SizedBox());
-              await t.pumpWidget(onboardingApp(AppProvider(), lang));
-              await toAnswerPage(t, l, answer.$1);
-              expect(find.text(answer.$2), findsOneWidget);
-              // Three real moves with their stills, then protein and sleep.
-              expect(find.byType(MoveThumb), findsNWidgets(3));
-              expect(find.text(l.obTriedItem2), findsOneWidget);
-              expect(find.text(l.obTriedItem3), findsOneWidget);
-              expect(find.text(l.obTriedFeatStreaks), findsOneWidget);
-              // The ticks land one after another, then all five are done.
-              expect(find.text('5/5'), findsNothing);
-              await t.pump(const Duration(milliseconds: 3000));
-              expect(find.text('5/5'), findsOneWidget);
-              expect(
-                errors,
-                isEmpty,
-                reason: errors.map((e) => e.exceptionAsString()).join('\n'),
-              );
-            } finally {
-              FlutterError.onError = previous;
-            }
+          final errors = <FlutterErrorDetails>[];
+          final previous = FlutterError.onError;
+          FlutterError.onError = errors.add;
+          try {
+            await t.pumpWidget(onboardingApp(AppProvider(), lang));
+            await toDayPreview(t, l);
+            expect(find.text(l.obDayTitle), findsOneWidget);
+            // Three real moves with their stills, then protein and sleep in
+            // the user's own numbers.
+            expect(find.byType(MoveThumb), findsNWidgets(3));
+            expect(find.text(l.obDayProteinSub), findsOneWidget);
+            expect(find.text(l.obDaySleepSub), findsOneWidget);
+            expect(find.text(l.obTriedFeatStreaks), findsOneWidget);
+            // The ticks land one after another, then all five are done.
+            expect(find.text('5/5'), findsNothing);
+            await t.pump(const Duration(milliseconds: 3000));
+            expect(find.text('5/5'), findsOneWidget);
+            expect(
+              errors,
+              isEmpty,
+              reason: errors.map((e) => e.exceptionAsString()).join('\n'),
+            );
+          } finally {
+            FlutterError.onError = previous;
           }
           await t.pumpWidget(const SizedBox());
         });
@@ -643,8 +677,8 @@ void main() {
       await loadInter();
       final l = lookupAppLocalizations(const Locale('tr'));
       await t.pumpWidget(onboardingApp(AppProvider(), 'tr'));
-      await toAnswerPage(t, l, l.obTriedFirst);
-      expect(find.text('Başlamak için iyi bir yer'), findsOneWidget);
+      await toDayPreview(t, l);
+      expect(find.text("İşte BeTaller'la bir günün"), findsOneWidget);
       expect(find.text('5/5'), findsOneWidget);
       await t.pumpWidget(const SizedBox());
     });

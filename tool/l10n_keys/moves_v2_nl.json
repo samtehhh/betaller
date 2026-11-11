@@ -1,0 +1,610 @@
+{
+ "pogo_jumps": {
+  "title": "Pogo-sprongen",
+  "desc": "Snelle sprongetjes met strakke enkels belasten de botten van je scheenbeen en voet en maken je kuiten veerkrachtig en sterk.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Sta rechtop met je voeten op heupbreedte en je handen op je heupen.",
+   "Veer op de ballen van je voeten met je knieën bijna gestrekt.",
+   "Houd elk grondcontact kort en snel, als op een pogostick.",
+   "Ga 20 seconden door, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Bij elke sprong je knieën diep buigen.",
+   "Je hielen op de vloer laten knallen."
+  ],
+  "tip": "Spring op een stevige, vlakke ondergrond en stop als je schenen of enkels pijn doen."
+ },
+ "jump_squats": {
+  "title": "Jump Squats",
+  "desc": "Zak door je benen en spring omhoog voor beenkracht, zwaar werk met grote spieren waar je lichaam daarna met groeihormoon op antwoordt.",
+  "dose": "3 x 8",
+  "steps": [
+   "Sta met je voeten op schouderbreedte en je borst omhoog.",
+   "Zak door je knieën tot je bovenbenen ongeveer horizontaal zijn.",
+   "Duw hard af door je voeten, spring recht omhoog en land zacht terug in de squat.",
+   "Doe 8 sprongen, rust en herhaal, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Je knieën naar binnen laten zakken bij het landen.",
+   "Met stijve, gestrekte benen landen."
+  ],
+  "tip": "Land zo stil mogelijk en stop de set zodra je landingen luid worden."
+ },
+ "tuck_jumps": {
+  "title": "Tuck Jumps",
+  "desc": "Spring en trek je knieën op voor explosieve kracht, de zware inspanning waar je lichaam daarna met groeihormoon op antwoordt.",
+  "dose": "3 x 6",
+  "steps": [
+   "Sta rechtop met je voeten op heupbreedte.",
+   "Zak snel een kwart door je knieën en spring zo hoog als je kunt.",
+   "Trek bovenaan beide knieën naar je borst en land dan zacht op gebogen knieën.",
+   "Doe 6 sprongen, rust en herhaal, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Je borst naar je knieën buigen in plaats van je knieën op te trekken.",
+   "Hard met gestrekte benen landen."
+  ],
+  "tip": "Herstel je balans tussen de sprongen en zorg voor genoeg ruimte en een vloer die niet glad is."
+ },
+ "broad_jumps": {
+  "title": "Broad Jumps",
+  "desc": "Spring met twee voeten naar voren en vang de landing op voor heupkracht en sterke beenbotten.",
+  "dose": "3 x 5",
+  "steps": [
+   "Sta met je voeten op heupbreedte en je tenen achter een lijn.",
+   "Zwaai je armen naar achteren, buig je knieën en duw je heupen naar achteren.",
+   "Zwaai je armen naar voren, spring zo ver als je kunt en land op beide voeten.",
+   "Houd de landing een seconde vast, loop terug en doe 5 sprongen, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Naar voren of achteren vallen bij de landing.",
+   "Landen met je knieën op slot."
+  ],
+  "tip": "Spring op een ondergrond die niet glijdt en spring korter totdat je elke landing stil kunt houden."
+ },
+ "single_leg_hops": {
+  "title": "Hopjes op één been",
+  "desc": "Kleine hopjes op één been maken je enkels en botten sterker en brengen je twee kanten in balans.",
+  "dose": "2 x 8",
+  "steps": [
+   "Sta op één been met de andere voet achter je opgetild.",
+   "Maak kleine hopjes op de plek en land op de bal van je voet.",
+   "Houd je heupen recht en je standbeen licht gebogen.",
+   "Doe 8 hopjes, wissel van been en doe 2 sets per kant."
+  ],
+  "mistakes": [
+   "De knie van je hopbeen naar binnen laten zakken.",
+   "Zo hoog hoppen dat je je evenwicht verliest."
+  ],
+  "tip": "Blijf dicht bij een muur die je kunt aanraken en hop laag totdat je balans stabiel voelt."
+ },
+ "high_knees": {
+  "title": "High Knees",
+  "desc": "Ren op de plek met je knieën op heuphoogte om snel op te warmen en je benen te belasten.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Sta rechtop met je voeten op heupbreedte.",
+   "Ren op de plek en til elke knie op tot heuphoogte.",
+   "Zwaai met je armen en blijf licht op de ballen van je voeten.",
+   "Ga 20 seconden door, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Achterover leunen als je knieën omhoog komen.",
+   "Met platte voeten op de vloer stampen."
+  ],
+  "tip": "Maak er een marcheren met hoge knieën van als je buiten adem raakt."
+ },
+ "mountain_pose": {
+  "title": "Bergpose op je tenen",
+  "desc": "Kom op je tenen en reik omhoog om je ruggengraat te rekken en te oefenen met staan in een mooie, rechte houding.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Sta met je voeten tegen elkaar en je gewicht gelijk verdeeld.",
+   "Strek beide armen recht boven je hoofd met je handpalmen naar elkaar toe.",
+   "Kom op je tenen en rek je uit tot in je vingertoppen.",
+   "Houd 20 seconden vast en zak langzaam terug, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je ribben naar voren duwen en een holle onderrug maken.",
+   "Je schouders tot aan je oren optrekken."
+  ],
+  "tip": "Kijk naar één punt voor je of houd je hielen op de grond als je wiebelt."
+ },
+ "pelvic_shift": {
+  "title": "Bekkenlift",
+  "desc": "Til en zak met je heupen wervel voor wervel om je rug los te maken en je bilspieren wakker te maken.",
+  "dose": "2 x 10",
+  "steps": [
+   "Lig op je rug met gebogen knieën en je voeten plat op de vloer.",
+   "Kantel je staartbeen in en rol je ruggengraat van onderaf van de vloer.",
+   "Pauzeer bovenaan en zak dan langzaam terug, wervel voor wervel.",
+   "Doe 10 rustige herhalingen en rust, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je heupen snel en in één keer omhoog duwen.",
+   "Bovenaan een holle onderrug maken."
+  ],
+  "tip": "Beweeg zo langzaam dat je elk stukje van je rug de vloer voelt raken."
+ },
+ "table_top": {
+  "title": "Omgekeerde tafelhouding",
+  "desc": "Til je heupen op tot een vlakke tafel om je borst en schouders te openen en je achterkant te versterken.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Zit met gebogen knieën, voeten plat en je handen achter je heupen op de vloer.",
+   "Wijs met je vingers naar je voeten en duw in je handen en voeten.",
+   "Til je heupen tot je lichaam vlak is van knieën tot schouders.",
+   "Houd 15 seconden vast en zak terug, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je heupen in het midden laten doorzakken.",
+   "Je hoofd naar achteren laten hangen, waardoor je nek wordt belast."
+  ],
+  "tip": "Draai je vingers naar buiten als je polsen pijn doen."
+ },
+ "childs_pose": {
+  "title": "Kindhouding",
+  "desc": "Zit op je hielen met lange armen om je rug zachtjes te rekken en je ruggengraat te laten ontspannen.",
+  "dose": "2 x 30 s",
+  "steps": [
+   "Kniel op de vloer met je grote tenen tegen elkaar en je knieën uit elkaar.",
+   "Zit met je heupen terug op je hielen.",
+   "Loop met je handen naar voren en leg je voorhoofd op de vloer.",
+   "Adem 30 seconden rustig en kom omhoog, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je heupen ver van je hielen tillen om verder te reiken.",
+   "Je adem inhouden en je schouders aanspannen."
+  ],
+  "tip": "Leg een kussen tussen je heupen en hielen als je knieën strak aanvoelen."
+ },
+ "puppy_pose": {
+  "title": "Puppyhouding",
+  "desc": "Laat je borst naar de vloer zakken om strakke schouders te openen en je bovenrug te rekken.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Begin op handen en knieën met je heupen recht boven je knieën.",
+   "Loop met je handen naar voren en houd je heupen op hun plek.",
+   "Laat je borst en voorhoofd naar de vloer zakken.",
+   "Houd 20 seconden vast en kom terug omhoog, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je heupen naar je hielen laten glijden.",
+   "Je ellebogen buigen en op de vloer laten rusten."
+  ],
+  "tip": "Leg je voorhoofd op een kussen als de stretch in je schouders te sterk voelt."
+ },
+ "seated_forward_fold": {
+  "title": "Zittende voorwaartse buiging",
+  "desc": "Buig vanuit je heupen naar voren over gestrekte benen om je hamstrings en je hele rug te rekken.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Zit op de vloer met gestrekte benen en je tenen omhoog.",
+   "Zit rechtop en strek beide armen boven je hoofd.",
+   "Buig vanuit je heupen naar voren en reik naar je schenen of voeten.",
+   "Houd 20 seconden vast en kom weer rechtop, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je bovenrug ronden om je tenen te bereiken.",
+   "Veren om dieper in de stretch te komen."
+  ],
+  "tip": "Buig je knieën een beetje of zit op een opgevouwen handdoek als je onderrug rond wordt."
+ },
+ "standing_side_stretch": {
+  "title": "Zijwaartse stretch staand",
+  "desc": "Leun naar elke kant met je armen boven je hoofd om je zij te rekken en je ribben meer ruimte te geven.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Sta rechtop met je voeten op heupbreedte.",
+   "Strek beide armen boven je hoofd en pak met één hand de andere pols vast.",
+   "Leun langzaam naar één kant en houd beide voeten stevig op de vloer.",
+   "Houd 15 seconden vast, wissel van kant en doe 2 sets per kant."
+  ],
+  "mistakes": [
+   "Naar voren leunen of draaien in plaats van recht opzij buigen.",
+   "Je heupen ver naar de zijkant duwen."
+  ],
+  "tip": "Stel je voor dat je tussen twee muren staat, zodat je alleen opzij kunt bewegen."
+ },
+ "low_lunge_arch": {
+  "title": "Lage lunge met reik",
+  "desc": "Zak met je heupen naar voren en reik omhoog om de voorkant van je heupen en je borst te openen.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Zet één voet naar voren en zak met je achterste knie naar de vloer.",
+   "Schuif je heupen naar voren tot je een stretch voelt aan de voorkant van je achterste heup.",
+   "Strek beide armen omhoog en til je borst in een lichte holling.",
+   "Houd 20 seconden vast, wissel van been en doe 2 sets per kant."
+  ],
+  "mistakes": [
+   "Je voorste knie ver voorbij je tenen laten gaan.",
+   "Alleen vanuit je onderrug buigen."
+  ],
+  "tip": "Leg een opgevouwen handdoek onder je achterste knie en houd de holling klein."
+ },
+ "bow_pose": {
+  "title": "Boogpose",
+  "desc": "Pak je enkels vast en til je borst en bovenbenen op om je hele voorkant te openen en je rug te versterken.",
+  "dose": "2 x 10 s",
+  "steps": [
+   "Lig op je buik en buig je knieën zodat je hielen naar je heupen komen.",
+   "Reik naar achteren en pak beide enkels vast.",
+   "Duw je voeten in je handen om je borst en bovenbenen op te tillen.",
+   "Houd 10 seconden vast en zak langzaam terug, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je knieën breder dan je heupen laten uitwaaieren.",
+   "Je hoofd achterover gooien, waardoor je nek wordt belast."
+  ],
+  "tip": "Til alleen zo hoog als prettig voelt en sla deze over als je onderrug pijn doet."
+ },
+ "pilates_roll_over": {
+  "title": "Pilates Roll Over",
+  "desc": "Rol je benen gecontroleerd over je hoofd en weer terug om je ruggengraat te rekken en je diepe buikspieren te trainen.",
+  "dose": "2 x 5",
+  "steps": [
+   "Lig op je rug met je armen langs je lichaam en je benen recht omhoog.",
+   "Duw je armen in de vloer en til je heupen op om je benen over je hoofd te rollen.",
+   "Stop als je benen achter je hoofd horizontaal zijn.",
+   "Rol langzaam terug, doe 5 herhalingen en rust, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je benen met vaart over je hoofd zwaaien.",
+   "Op je nek rollen in plaats van op je schouders."
+  ],
+  "tip": "Houd je gewicht op je schouders en nooit op je nek, en buig je knieën om het makkelijker te maken."
+ },
+ "legs_up_wall": {
+  "title": "Benen omhoog tegen de muur",
+  "desc": "Laat je benen op een muur rusten om je rug te ontlasten en te ontspannen na een lange dag.",
+  "dose": "3 min",
+  "steps": [
+   "Ga zijdelings naast een muur zitten met één heup ertegen.",
+   "Zwaai je benen omhoog langs de muur terwijl je achterover op de vloer gaat liggen.",
+   "Laat je armen langs je lichaam rusten en ontspan je benen tegen de muur.",
+   "Blijf 3 minuten liggen en adem rustig."
+  ],
+  "mistakes": [
+   "Je onderrug van de vloer tillen.",
+   "Je knieën hard op slot zetten en je benen aanspannen."
+  ],
+  "tip": "Schuif je heupen iets van de muur af als de achterkant van je benen strak voelt."
+ },
+ "spinal_twist": {
+  "title": "Liggende rugdraai",
+  "desc": "Laat één knie over je lichaam zakken om je ruggengraat zachtjes te draaien en een stijve onderrug los te maken.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Lig op je rug met je armen opzij.",
+   "Buig één knie en breng hem over je lichaam naar de vloer.",
+   "Houd beide schouders op de vloer en kijk naar de andere kant.",
+   "Houd 20 seconden vast, wissel van kant en doe 2 sets per kant."
+  ],
+  "mistakes": [
+   "De schouder aan de andere kant van de vloer laten komen.",
+   "De knie met je hand naar beneden forceren."
+  ],
+  "tip": "Laat je knie op een kussen rusten als hij de vloer niet haalt."
+ },
+ "chest_stretch": {
+  "title": "Borststretch in de deuropening",
+  "desc": "Stap door een deuropening met je onderarm op het kozijn om je borst te openen als die door schermen naar voren is gezakt.",
+  "dose": "2 x 20 s",
+  "steps": [
+   "Sta in een deuropening en leg één onderarm op het kozijn met je elleboog op schouderhoogte.",
+   "Zet de voet aan dezelfde kant naar voren door de deuropening.",
+   "Leun met je borst naar voren tot je een stretch voelt aan de voorkant van je schouder.",
+   "Houd 20 seconden vast, wissel van kant en doe 2 sets per kant."
+  ],
+  "mistakes": [
+   "Een holle onderrug maken om verder te leunen.",
+   "Je schouder naar je oor optrekken."
+  ],
+  "tip": "Houd de stretch rustig en ga terug als je een scherpe steek in je schouder voelt."
+ },
+ "scapular_retraction": {
+  "title": "Schouderbladen samenknijpen",
+  "desc": "Knijp je schouderbladen naar achteren en omlaag om de spieren te trainen die voorkomen dat je schouders naar voren zakken.",
+  "dose": "2 x 10",
+  "steps": [
+   "Zit of sta rechtop met je armen ontspannen langs je zij.",
+   "Trek je schouderbladen naar achteren en omlaag, alsof je ze in je achterzakken stopt.",
+   "Houd de knijp vast tijdens één rustige ademhaling en laat dan los.",
+   "Doe 10 herhalingen en rust, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je schouders optrekken terwijl je knijpt.",
+   "Je ribben naar voren duwen en een holle rug maken."
+  ],
+  "tip": "Houd je kin recht en je nek de hele tijd ontspannen."
+ },
+ "thoracic_extension": {
+  "title": "Bovenrug strekken over een stoel",
+  "desc": "Leun met je bovenrug over een stoel om de gebogen houding van het zitten los te maken en je borst te openen.",
+  "dose": "2 x 8",
+  "steps": [
+   "Zit op een stevige stoel met de bovenkant van de rugleuning net onder je schouderbladen.",
+   "Leg je handen achter je hoofd en houd je ellebogen wijd.",
+   "Leun met je bovenrug langzaam over de rugleuning en kijk omhoog.",
+   "Kom weer omhoog, doe 8 herhalingen en rust, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Buigen vanuit je onderrug in plaats van je bovenrug.",
+   "Je hoofd met je handen naar voren trekken."
+  ],
+  "tip": "Gebruik een stoel die niet kan rollen of kantelen en houd je voeten plat op de vloer."
+ },
+ "hanging_knee_raise": {
+  "title": "Knieheffen in hang",
+  "desc": "Til je knieën op terwijl je hangt voor een sterke core, terwijl de hang je ruggengraat ontlast.",
+  "dose": "3 x 5",
+  "steps": [
+   "Pak de stang vast met je handpalmen van je af en hang met gestrekte armen.",
+   "Trek je schouders omlaag, weg van je oren.",
+   "Til beide knieën tot heuphoogte zonder te zwaaien en laat ze langzaam zakken.",
+   "Doe 5 herhalingen, stap naar beneden en rust, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Met je lichaam zwaaien om je knieën omhoog te gooien.",
+   "Hangen met je schouders bij je oren."
+  ],
+  "tip": "Controleer of de stang stevig is voordat je gaat hangen en stap naar beneden in plaats van te vallen."
+ },
+ "scapular_pull": {
+  "title": "Scapular Pull",
+  "desc": "Trek je schouders omlaag vanuit een hang met gestrekte armen als basis voor sterke optrekkers.",
+  "dose": "3 x 5",
+  "steps": [
+   "Pak de stang vast met je handpalmen van je af, iets breder dan je schouders.",
+   "Hang met gestrekte armen en laat je schouders naar je oren komen.",
+   "Trek je schouderbladen omlaag zodat je lichaam een stukje omhoog komt, met gestrekte ellebogen.",
+   "Houd het een seconde vast en laat los, doe 5 herhalingen, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Je ellebogen buigen om hoger te trekken.",
+   "Met je benen zwaaien om te helpen."
+  ],
+  "tip": "Controleer of de stang stevig is en houd je voeten op een kist als een volledige hang te zwaar is."
+ },
+ "pull_ups": {
+  "title": "Pull-ups",
+  "desc": "Trek je kin boven de stang om je rug op te bouwen, zwaar werk waar je lichaam daarna met groeihormoon op antwoordt.",
+  "dose": "3 x 2",
+  "steps": [
+   "Pak de stang vast met je handpalmen van je af, iets breder dan je schouders.",
+   "Begin vanuit een hang met gestrekte armen en trek je schouderbladen omlaag.",
+   "Trek tot je kin boven de stang komt en laat je dan langzaam zakken.",
+   "Doe 2 herhalingen, stap naar beneden en rust, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Schoppen en zwaaien om over de stang te komen.",
+   "Snel naar beneden vallen in plaats van gecontroleerd zakken."
+  ],
+  "tip": "Doe een band onder je voeten of spring naar boven en zak langzaam, en controleer of de stang stevig is."
+ },
+ "bird_dog": {
+  "title": "Bird Dog",
+  "desc": "Strek je tegenovergestelde arm en been lang uit om de diepe spieren te trainen die je ruggengraat stabiel houden.",
+  "dose": "2 x 8",
+  "steps": [
+   "Begin op handen en knieën, met je handen onder je schouders en je knieën onder je heupen.",
+   "Strek één arm naar voren en het tegenovergestelde been recht naar achteren.",
+   "Houd twee seconden vast met je heupen recht en keer dan terug.",
+   "Doe 8 herhalingen, wissel van kant en doe 2 sets per kant."
+  ],
+  "mistakes": [
+   "Je onderrug laten doorzakken als je been omhoog gaat.",
+   "Je heupen open draaien om je been hoger te krijgen."
+  ],
+  "tip": "Stel je voor dat er een glas water op je onderrug staat dat niet mag overlopen."
+ },
+ "dead_bug": {
+  "title": "Dead Bug",
+  "desc": "Laat je tegenovergestelde arm en been zakken met een platte rug voor corecontrole die je ruggengraat beschermt.",
+  "dose": "2 x 8",
+  "steps": [
+   "Lig op je rug met je armen recht omhoog en je knieën gebogen boven je heupen.",
+   "Druk je onderrug zachtjes in de vloer.",
+   "Laat één arm boven je hoofd en het tegenovergestelde been naar de vloer zakken en keer dan terug.",
+   "Doe 8 herhalingen per kant en rust, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je onderrug van de vloer laten komen.",
+   "Te snel door de herhalingen heen jagen."
+  ],
+  "tip": "Laat je arm en been alleen zo ver zakken als je rug plat op de vloer kan blijven."
+ },
+ "side_plank": {
+  "title": "Zijplank",
+  "desc": "Houd een rechte lijn op één onderarm om de zijspieren te versterken die je houding in balans houden.",
+  "dose": "2 x 15 s",
+  "steps": [
+   "Lig op je zij met je onderarm op de vloer en je elleboog onder je schouder.",
+   "Zet je voeten op elkaar en til je heupen van de vloer.",
+   "Houd je lichaam in één rechte lijn van hoofd tot hielen.",
+   "Houd 15 seconden vast, wissel van kant en doe 2 sets per kant."
+  ],
+  "mistakes": [
+   "Je heupen naar de vloer laten zakken.",
+   "Je borst naar voren richting de vloer laten rollen."
+  ],
+  "tip": "Houd je onderste knie op de vloer om het makkelijker te maken."
+ },
+ "wall_sit": {
+  "title": "Wall Sit",
+  "desc": "Zit tegen een muur met je bovenbenen horizontaal voor beenkracht met een rechte rug.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Sta met je rug tegen een muur en je voeten een stap voor je.",
+   "Glijd omlaag tot je bovenbenen horizontaal zijn.",
+   "Houd je knieën boven je enkels en je hele rug tegen de muur.",
+   "Houd 20 seconden vast en sta op, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Je handen op je bovenbenen laten rusten.",
+   "Je knieën voorbij je tenen laten schuiven."
+  ],
+  "tip": "Zit iets hoger als je knieën protesteren en ga lager naarmate je sterker wordt."
+ },
+ "lunges": {
+  "title": "Lunges",
+  "desc": "Stap naar voren en buig beide knieën voor sterke benen en heupen, één kant tegelijk.",
+  "dose": "3 x 8",
+  "steps": [
+   "Sta rechtop met je voeten op heupbreedte.",
+   "Zet een grote stap naar voren en zak tot beide knieën ongeveer 90 graden gebogen zijn.",
+   "Duw af door je voorste hiel en stap terug naar het begin.",
+   "Doe 8 herhalingen per been en rust, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Je voorste knie naar binnen laten zakken.",
+   "Met je borst ver naar voren over je voorste been leunen."
+  ],
+  "tip": "Zet een kortere stap of houd een stoel vast voor balans totdat de beweging stabiel voelt."
+ },
+ "step_ups": {
+  "title": "Step-ups",
+  "desc": "Stap omhoog en sta rechtop, zak dan langzaam terug voor beenkracht en balans op één been.",
+  "dose": "3 x 8",
+  "steps": [
+   "Ga voor een opstapje of een stevige lage bank staan.",
+   "Zet een hele voet op de verhoging en duw jezelf omhoog tot je rechtop staat.",
+   "Zet de andere voet langzaam terug op de vloer.",
+   "Doe 8 herhalingen per been en rust, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Hard afduwen met de voet die op de vloer staat.",
+   "Snel naar beneden vallen in plaats van gecontroleerd zakken."
+  ],
+  "tip": "Gebruik een opstapje dat niet kan glijden of kantelen en begin laag voordat je hoger gaat."
+ },
+ "push_ups": {
+  "title": "Push-ups",
+  "desc": "Zak met je borst naar de vloer met een rechte lichaamslijn om borst, armen en core op te bouwen.",
+  "dose": "3 x 5",
+  "steps": [
+   "Zet je handen iets breder dan je schouders op de vloer.",
+   "Stap met je voeten naar achteren zodat je lichaam één rechte lijn vormt.",
+   "Buig je ellebogen om je borst naar de vloer te laten zakken en duw jezelf weer omhoog.",
+   "Doe 5 herhalingen en rust, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Je heupen naar de vloer laten zakken.",
+   "Je ellebogen recht naar de zijkant laten wijken."
+  ],
+  "tip": "Ga op je knieën of zet je handen op een bank om het makkelijker te maken."
+ },
+ "single_leg_calf_raise": {
+  "title": "Kuitheffen op één been",
+  "desc": "Kom omhoog op één voet vanaf de rand van een trede voor sterke kuiten en enkels om mee te springen.",
+  "dose": "3 x 8",
+  "steps": [
+   "Sta op de rand van een trede op de bal van één voet en houd een muur of leuning vast.",
+   "Laat je hiel langzaam onder het niveau van de trede zakken.",
+   "Kom zo hoog mogelijk op je tenen en pauzeer een seconde.",
+   "Doe 8 herhalingen per been en rust, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Uit de onderste stand veren in plaats van langzaam te bewegen.",
+   "Je knie buigen om je kuit te helpen."
+  ],
+  "tip": "Begin met je lichaamsgewicht en kies, als je een dumbbell of rugzak toevoegt, een gewicht dat licht genoeg is om elke herhaling netjes af te maken."
+ },
+ "goblet_squat": {
+  "title": "Goblet Squat",
+  "desc": "Zak door je knieën met een gewicht tegen je borst, de inspanning van grote spieren waar je lichaam daarna met groeihormoon op antwoordt.",
+  "dose": "3 x 8",
+  "steps": [
+   "Houd één dumbbell of een volle rugzak met beide handen tegen je borst.",
+   "Sta met je voeten op schouderbreedte en je tenen een beetje naar buiten gedraaid.",
+   "Zak tussen je hielen door met je borst omhoog en kom dan weer omhoog.",
+   "Doe 8 herhalingen en rust, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Je knieën naar binnen laten zakken.",
+   "Je rug ronden en je borst laten zakken."
+  ],
+  "tip": "Kies een gewicht dat licht genoeg is om elke herhaling netjes af te maken."
+ },
+ "dumbbell_deadlift": {
+  "title": "Roemeense deadlift met dumbbells",
+  "desc": "Buig vanuit je heupen met een platte rug, zwaar werk met grote spieren waar je lichaam daarna met groeihormoon op antwoordt.",
+  "dose": "3 x 8",
+  "steps": [
+   "Sta rechtop met een dumbbell in elke hand voor je bovenbenen.",
+   "Buig je knieën licht en duw je heupen naar achteren met een platte rug.",
+   "Laat de gewichten langs je bovenbenen zakken tot net onder je knieën.",
+   "Span je billen aan om op te staan, doe 8 herhalingen, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Je rug ronden terwijl de gewichten zakken.",
+   "Er een squat van maken door je knieën veel te buigen."
+  ],
+  "tip": "Kies een gewicht dat licht genoeg is om elke herhaling netjes af te maken."
+ },
+ "dumbbell_row": {
+  "title": "Dumbbell Row",
+  "desc": "Trek een dumbbell naar je heup om de bovenrugspieren op te bouwen die je schouders naar achteren trekken.",
+  "dose": "3 x 8",
+  "steps": [
+   "Leg één hand op een bank of stoel en zet je voeten naar achteren.",
+   "Houd een dumbbell in de andere hand met een platte rug en je arm naar beneden hangend.",
+   "Trek het gewicht met je elleboog dicht bij je lichaam naar je heup en laat het langzaam zakken.",
+   "Doe 8 herhalingen per kant en rust, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Je lichaam draaien om het gewicht omhoog te hijsen.",
+   "Je schouder naar je oor optrekken."
+  ],
+  "tip": "Kies een gewicht dat licht genoeg is om elke herhaling netjes af te maken."
+ },
+ "farmer_carry": {
+  "title": "Farmer's Carry",
+  "desc": "Loop rechtop met een gewicht in elke hand, werk voor je hele lichaam waar je lichaam daarna met groeihormoon op antwoordt.",
+  "dose": "3 x 20 s",
+  "steps": [
+   "Ga tussen twee dumbbells of twee zware tassen staan.",
+   "Buig je knieën, houd je rug plat en til ze op.",
+   "Loop met kleine stappen, schouders naar achteren en blik naar voren.",
+   "Loop 20 seconden, zet ze neer en rust, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Naar één kant leunen of je schouders naar voren laten zakken.",
+   "Je rug ronden bij het oppakken of neerzetten van de gewichten."
+  ],
+  "tip": "Kies een gewicht dat licht genoeg is om elke set netjes af te maken en houd beide kanten gelijk."
+ },
+ "band_pull_apart": {
+  "title": "Band Pull-Apart",
+  "desc": "Trek een elastiek uit elkaar tot je borst om je bovenrug te versterken en je schouders open te houden.",
+  "dose": "2 x 12",
+  "steps": [
+   "Sta rechtop en houd een elastiek met gestrekte armen op schouderhoogte voor je.",
+   "Trek het elastiek uit elkaar door je schouderbladen naar elkaar toe te knijpen.",
+   "Raak met het elastiek je borst aan en keer dan langzaam terug.",
+   "Doe 12 herhalingen en rust, 2 sets in totaal."
+  ],
+  "mistakes": [
+   "Je schouders naar je oren optrekken.",
+   "Het elastiek terug laten knallen in plaats van langzaam terug te keren."
+  ],
+  "tip": "Kies een elastiek dat licht genoeg is om elke herhaling netjes af te maken en controleer eerst of er geen scheurtjes in zitten."
+ },
+ "burpees": {
+  "title": "Burpees",
+  "desc": "Squat, plank en sprong in één beweging, werk voor je hele lichaam waar je lichaam daarna met groeihormoon op antwoordt.",
+  "dose": "3 x 5",
+  "steps": [
+   "Sta rechtop, zak door je knieën en zet je handen op de vloer.",
+   "Spring met je voeten naar achteren in een rechte plank.",
+   "Spring met je voeten weer naar je handen toe.",
+   "Spring recht omhoog, doe 5 herhalingen en rust, 3 sets in totaal."
+  ],
+  "mistakes": [
+   "Je heupen laten doorzakken in de plank.",
+   "Hard met gestrekte benen landen na de sprong."
+  ],
+  "tip": "Stap met je voeten naar achteren en weer naar voren in plaats van te springen om het makkelijker te maken, en ga langzamer als je techniek verslapt."
+ }
+}

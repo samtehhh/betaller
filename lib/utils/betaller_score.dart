@@ -241,14 +241,14 @@ class BetallerScore {
     var planned = 0;
     var done = 0;
     bool trained(DateTime d) {
-      final planDay = i.weeklyPlan.days[d.weekday - 1];
+      final planDay = i.weeklyPlan.weekOf(d)[d.weekday - 1];
       return _doneOn(i, d).any(
         (id) => i.trainingIds.contains(id) || planDay.routineIds.contains(id),
       );
     }
 
     bool rest(DateTime d) =>
-        i.weeklyPlan.days[d.weekday - 1].kind == PlanDayKind.rest;
+        i.weeklyPlan.weekOf(d)[d.weekday - 1].kind == PlanDayKind.rest;
 
     // A rest day someone trains on becomes a training day they chose, so it
     // counts on both sides: "7 of 6 planned days" read like a bug.

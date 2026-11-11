@@ -103,24 +103,73 @@ class PlanDay {
   const PlanDay(this.weekday, this.kind, this.routineIds, this.minutes);
 }
 
-/// A week built around growth-age training: bodyweight strength, bone
-/// loading (jumps, rope, sprints), daily mobility and posture work, sport,
-/// and a rest day. More sessions for people who already train more.
+/// A week anyone can do at home with no gear (a bar is the only extra):
+/// bodyweight strength, short jump blocks for bone strength, mobility and
+/// posture work, a short stretch flow and a rest day. More sessions for people who already train more.
 class WeeklyPlan {
   final List<PlanDay> days;
-  const WeeklyPlan(this.days);
 
-  PlanDay get today => days[DateTime.now().weekday - 1];
+  /// The alternate week: the same shape (strength, jumps, mobility...) made
+  /// of different moves. The program runs week A, week B, week A...; with
+  /// none given it is week A every week.
+  final List<PlanDay> daysB;
+  const WeeklyPlan(this.days, [this.daysB = const []]);
+
+  /// Whether [date] falls in a B week (odd weeks, counted from a fixed
+  /// Monday, so the answer is the same on every device and every launch).
+  static bool isWeekB(DateTime date) {
+    final monday = DateTime(date.year, date.month, date.day)
+        .subtract(Duration(days: date.weekday - 1));
+    final weeks = monday.difference(DateTime(2024, 1, 1)).inDays ~/ 7;
+    return weeks.isOdd;
+  }
+
+  /// The seven days of the week [date] falls in.
+  List<PlanDay> weekOf(DateTime date) =>
+      daysB.isNotEmpty && isWeekB(date) ? daysB : days;
+
+  PlanDay get today {
+    final now = DateTime.now();
+    return weekOf(now)[now.weekday - 1];
+  }
 
   int get trainingDays => days.where((d) => d.kind != PlanDayKind.rest).length;
 
   factory WeeklyPlan.forAnswers({String weeklyWorkout = '', int age = 16}) {
-    const strength = ['squats', 'glute_bridge', 'plank', 'deadlift_stretch'];
-    const jump = ['jumping', 'skipping_rope', 'calf_raise', 'sprint_intervals'];
-    const mobility = ['cat_cow', 'cobra_stretch', 'hip_flexor_stretch', 'evening_yoga'];
-    const posture = ['wall_stand', 'neck_stretches', 'shoulder_rolls'];
-    const sport = ['swimming_basketball'];
+    const strength = ['squats', 'glute_bridge', 'plank', 'superman'];
+    const jump = ['masai_jumps', 'calf_pulses', 'jumping', 'toe_touch'];
+    const mobility = ['cat_cow', 'cobra_stretch', 'downward_dog', 'hip_flexor_stretch'];
+    const posture = ['wall_angels', 'wall_stand', 'chin_tucks', 'shoulder_rolls'];
+    const flow = [
+      'knee_circles',
+      'upward_salute',
+      'wall_dog',
+      'toe_touch',
+      'cobra_stretch',
+    ];
     const hang = ['dead_hang_active'];
+    // Thursday and Friday used to repeat Monday and Tuesday (or, on the
+    // light plan, half of Wednesday), so a week showed four different days.
+    // These use moves the library already had and never scheduled, so all
+    // seven days differ.
+    const strength2 = [
+      'overhead_press',
+      'calf_raise',
+      'pilates_core',
+      'bar_hanging',
+    ];
+    const posture2 = [
+      'neck_stretches',
+      'deadlift_stretch',
+      'pilates_core',
+      'bar_hanging',
+    ];
+    const jump2 = [
+      'skipping_rope',
+      'calf_raise',
+      'jumping',
+      'hip_flexor_stretch',
+    ];
 
     final light = weeklyWorkout != '3-5' && weeklyWorkout != '6+';
     final heavy = weeklyWorkout == '6+';
@@ -136,15 +185,72 @@ class WeeklyPlan {
       day(
         DateTime.thursday,
         light ? PlanDayKind.posture : PlanDayKind.strength,
-        light ? posture : [...strength, ...hang],
+        light ? posture2 : strength2,
       ),
-      day(DateTime.friday, PlanDayKind.jump, jump),
-      day(DateTime.saturday, PlanDayKind.sport, sport,
-          minutes: heavy ? 60 : 45),
+      day(DateTime.friday, PlanDayKind.jump, jump2),
+      day(DateTime.saturday, PlanDayKind.mobility, [...flow, ...hang]),
       day(
         DateTime.sunday,
         heavy ? PlanDayKind.mobility : PlanDayKind.rest,
         heavy ? mobility : const ['evening_yoga'],
+      ),
+    ], [
+      // Week B: nothing here needs more than a bar, a wall, a chair or a
+      // step. Weights and bands stay in the library, for those who have them.
+      day(DateTime.monday, PlanDayKind.strength, const [
+        'lunges',
+        'push_ups',
+        'side_plank',
+        'bird_dog',
+        'scapular_pull',
+      ]),
+      day(DateTime.tuesday, PlanDayKind.jump, const [
+        'pogo_jumps',
+        'jump_squats',
+        'high_knees',
+        'seated_forward_fold',
+      ]),
+      day(DateTime.wednesday, PlanDayKind.mobility, const [
+        'childs_pose',
+        'puppy_pose',
+        'low_lunge_arch',
+        'spinal_twist',
+        'scapular_retraction',
+        'chest_stretch',
+        'thoracic_extension',
+        'mountain_pose',
+      ]),
+      day(
+        DateTime.thursday,
+        light ? PlanDayKind.posture : PlanDayKind.strength,
+        light
+            ? const ['pelvic_shift', 'table_top', 'dead_bug', 'legs_up_wall']
+            : const ['step_ups', 'wall_sit', 'dead_bug', 'hanging_knee_raise'],
+      ),
+      day(DateTime.friday, PlanDayKind.jump, const [
+        'tuck_jumps',
+        'broad_jumps',
+        'single_leg_hops',
+        'standing_side_stretch',
+      ]),
+      day(DateTime.saturday, PlanDayKind.mobility, const [
+        'bow_pose',
+        'pilates_roll_over',
+        'legs_up_wall',
+        'childs_pose',
+        'dead_hang_active',
+      ]),
+      day(
+        DateTime.sunday,
+        heavy ? PlanDayKind.mobility : PlanDayKind.rest,
+        heavy
+            ? const [
+                'childs_pose',
+                'puppy_pose',
+                'seated_forward_fold',
+                'spinal_twist',
+              ]
+            : const ['evening_yoga'],
       ),
     ]);
   }
@@ -154,8 +260,12 @@ class WeeklyPlan {
   /// ten times over.
   ProgramDay programDay(int index) {
     final i = index.clamp(0, kProgramDays - 1);
-    final template = days[i % kProgramLevelDays];
-    return ProgramDay(i, template, template.movesAt(i ~/ kProgramLevelDays));
+    // Odd program weeks run week B, when the plan has one.
+    final week = daysB.isNotEmpty && (i ~/ kProgramLevelDays).isOdd
+        ? daysB
+        : days;
+    final template = week[i % kProgramLevelDays];
+    return ProgramDay(i, template, template.movesAt(programLevelOf(i)));
   }
 
   /// All [kProgramDays] days, in order.
@@ -167,10 +277,55 @@ class WeeklyPlan {
 //  Doses: how many sets of how much, per move, per program level
 // ═════════════════════════════════════════════════════════════════════════
 
-/// The program: 10 levels of 7 days.
+/// The program: 10 levels over weeks of 7 days. By default each level is
+/// one week (70 days). Someone who said in the onboarding by when they hope
+/// to have grown gets the same ten levels stretched over that many days, so
+/// a level then lasts more than a week.
 const int kProgramLevelCount = 10;
+
+/// Days in a program week (the row of day tiles the Discipline tab shows).
 const int kProgramLevelDays = 7;
-const int kProgramDays = kProgramLevelCount * kProgramLevelDays;
+
+const int _kDefaultProgramDays = kProgramLevelCount * kProgramLevelDays;
+int _programDays = _kDefaultProgramDays;
+
+/// How many days the program runs for this user.
+int get kProgramDays => _programDays;
+
+/// Sets the program's length from the onboarding answer: '90', '120', '180'
+/// or '365' days; anything else (not asked, or "as much as I can") keeps
+/// the 70-day default. AppProvider calls this when the answers load or
+/// change.
+void setProgramGoal(Object? goal) {
+  final days = int.tryParse('$goal');
+  _programDays = days != null && days >= _kDefaultProgramDays && days <= 366
+      ? days
+      : _kDefaultProgramDays;
+}
+
+int get _programWeeks => (_programDays / kProgramLevelDays).ceil();
+
+/// The level (0..9) whose doses apply on program day [day]: the week's place
+/// along the program, mapped onto the ten levels.
+int programLevelOf(int day) {
+  final week = day.clamp(0, _programDays - 1) ~/ kProgramLevelDays;
+  return (week * kProgramLevelCount ~/ _programWeeks).clamp(
+    0,
+    kProgramLevelCount - 1,
+  );
+}
+
+/// The program days that belong to [level], in order.
+List<int> programDaysOfLevel(int level) => [
+  for (var d = 0; d < _programDays; d++)
+    if (programLevelOf(d) == level) d,
+];
+
+/// A string that names the default length ("70-day Discipline") with this
+/// user's own number of days in it.
+String programText(String s) => _programDays == _kDefaultProgramDays
+    ? s
+    : s.replaceAll('$_kDefaultProgramDays', '$_programDays');
 
 /// How a move is measured.
 enum DoseKind {
@@ -261,6 +416,64 @@ class _Curve {
 /// healthy beginner can do; level 10 triples the holds and adds a set.
 const Map<String, _Curve> _curves = {
   // strength
+  'masai_jumps': _Curve(DoseKind.timed, 3, 3, 20, 40, step: 5, rest: 30),
+  // ── The Nov 2026 additions ───────────────────────────────────────────────
+  'pogo_jumps': _Curve(DoseKind.timed, 3, 4, 20, 40, step: 5, rest: 30),
+  'jump_squats': _Curve(DoseKind.reps, 3, 4, 8, 15, rest: 45),
+  'tuck_jumps': _Curve(DoseKind.reps, 3, 4, 6, 12, rest: 45),
+  'broad_jumps': _Curve(DoseKind.reps, 3, 4, 5, 10, rest: 45, secondsPerRep: 5),
+  'single_leg_hops': _Curve(DoseKind.reps, 2, 3, 8, 15, perSide: true),
+  'high_knees': _Curve(DoseKind.timed, 3, 4, 20, 40, step: 5, rest: 30),
+  'burpees': _Curve(DoseKind.reps, 3, 4, 5, 12, rest: 60, secondsPerRep: 4),
+  'mountain_pose': _Curve(DoseKind.hold, 2, 3, 20, 45, step: 5, rest: 15),
+  'pelvic_shift': _Curve(DoseKind.reps, 2, 3, 10, 20, rest: 20, secondsPerRep: 4),
+  'table_top': _Curve(DoseKind.hold, 2, 3, 15, 40, step: 5, rest: 20),
+  'childs_pose': _Curve(DoseKind.hold, 2, 3, 30, 60, step: 5, rest: 10),
+  'puppy_pose': _Curve(DoseKind.hold, 2, 3, 20, 45, step: 5, rest: 15),
+  'seated_forward_fold': _Curve(DoseKind.hold, 2, 3, 20, 45, step: 5, rest: 15),
+  'standing_side_stretch':
+      _Curve(DoseKind.hold, 2, 3, 15, 30, step: 5, perSide: true, rest: 10),
+  'low_lunge_arch':
+      _Curve(DoseKind.hold, 2, 3, 20, 40, step: 5, perSide: true, rest: 15),
+  'bow_pose': _Curve(DoseKind.hold, 2, 3, 10, 30, step: 5, rest: 20),
+  'pilates_roll_over': _Curve(DoseKind.reps, 2, 3, 5, 10, secondsPerRep: 6),
+  'legs_up_wall': _Curve(DoseKind.session, 1, 1, 3, 8),
+  'spinal_twist':
+      _Curve(DoseKind.hold, 2, 2, 20, 45, step: 5, perSide: true, rest: 10),
+  'chest_stretch':
+      _Curve(DoseKind.hold, 2, 3, 20, 40, step: 5, perSide: true, rest: 10),
+  'scapular_retraction': _Curve(DoseKind.reps, 2, 3, 10, 20, rest: 20),
+  'thoracic_extension':
+      _Curve(DoseKind.reps, 2, 3, 8, 15, rest: 20, secondsPerRep: 4),
+  'hanging_knee_raise': _Curve(DoseKind.reps, 3, 4, 5, 12, rest: 60),
+  'scapular_pull': _Curve(DoseKind.reps, 3, 4, 5, 12, rest: 60),
+  'pull_ups': _Curve(DoseKind.reps, 3, 4, 2, 8, rest: 90, secondsPerRep: 4),
+  'bird_dog': _Curve(DoseKind.reps, 2, 3, 8, 15, perSide: true, rest: 20),
+  'dead_bug': _Curve(DoseKind.reps, 2, 3, 8, 15, perSide: true, rest: 20),
+  'side_plank':
+      _Curve(DoseKind.hold, 2, 3, 15, 45, step: 5, perSide: true, rest: 20),
+  'wall_sit': _Curve(DoseKind.hold, 3, 3, 20, 60, step: 5, rest: 30),
+  'lunges': _Curve(DoseKind.reps, 3, 4, 8, 15, perSide: true, rest: 45),
+  'step_ups': _Curve(DoseKind.reps, 3, 4, 8, 15, perSide: true),
+  'push_ups': _Curve(DoseKind.reps, 3, 4, 5, 15, rest: 45),
+  'single_leg_calf_raise':
+      _Curve(DoseKind.reps, 3, 4, 8, 15, perSide: true),
+  'goblet_squat': _Curve(DoseKind.reps, 3, 4, 8, 12, rest: 60),
+  'dumbbell_deadlift': _Curve(DoseKind.reps, 3, 4, 8, 12, rest: 60),
+  'dumbbell_row': _Curve(DoseKind.reps, 3, 4, 8, 12, perSide: true, rest: 45),
+  'farmer_carry': _Curve(DoseKind.timed, 3, 4, 20, 40, step: 5, rest: 45),
+  'band_pull_apart': _Curve(DoseKind.reps, 2, 3, 12, 20),
+  'calf_pulses': _Curve(DoseKind.timed, 3, 3, 20, 40, step: 5, rest: 20),
+  'toe_touch': _Curve(DoseKind.hold, 2, 3, 20, 40, step: 5, rest: 15),
+  'downward_dog': _Curve(DoseKind.hold, 2, 3, 20, 45, step: 5, rest: 15),
+  'wall_angels':
+      _Curve(DoseKind.reps, 2, 3, 8, 15, rest: 20, secondsPerRep: 3),
+  'superman': _Curve(DoseKind.reps, 2, 3, 8, 15, rest: 20, secondsPerRep: 3),
+  'knee_circles': _Curve(DoseKind.timed, 2, 2, 15, 30, step: 5, rest: 10),
+  'upward_salute': _Curve(DoseKind.hold, 2, 3, 15, 30, step: 5, rest: 10),
+  'wall_dog': _Curve(DoseKind.hold, 2, 3, 20, 45, step: 5, rest: 15),
+  'chin_tucks':
+      _Curve(DoseKind.reps, 2, 3, 8, 15, rest: 15, secondsPerRep: 3),
   'squats': _Curve(DoseKind.reps, 3, 4, 12, 20, rest: 60),
   'glute_bridge': _Curve(DoseKind.reps, 3, 4, 12, 20, rest: 45),
   'plank': _Curve(DoseKind.hold, 3, 3, 30, 90, step: 5, rest: 45),
@@ -365,7 +578,7 @@ class ProgramDay {
   final List<MoveDose> moves;
   const ProgramDay(this.index, this.template, this.moves);
 
-  int get level => index ~/ kProgramLevelDays;
+  int get level => programLevelOf(index);
   int get dayInLevel => index % kProgramLevelDays;
   PlanDayKind get kind => template.kind;
   int get minutes => moves.fold(0, (sum, d) => sum + d.minutes);
@@ -381,8 +594,7 @@ int firstOpenProgramDay(Set<int> completed) {
 
 /// The level being worked through, whose doses apply today.
 int currentProgramLevel(Set<int> completed) =>
-    (firstOpenProgramDay(completed) ~/ kProgramLevelDays)
-        .clamp(0, kProgramLevelCount - 1);
+    programLevelOf(firstOpenProgramDay(completed));
 
 String planKindLabel(AppLocalizations l, PlanDayKind k) => switch (k) {
       PlanDayKind.strength => l.planStrength,

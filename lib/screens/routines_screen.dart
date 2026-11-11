@@ -19,6 +19,7 @@ import '../widgets/free_tier_widgets.dart';
 import '../widgets/meal_plan_view.dart';
 import '../widgets/plan_widgets.dart';
 import '../widgets/program_widgets.dart';
+import '../widgets/height_silhouette.dart';
 import '../widgets/premium_paywall.dart';
 import '../widgets/today_targets_card.dart' show planKindIcon;
 import '../widgets/tour_keys.dart';
@@ -27,6 +28,8 @@ import 'exercise_detail_screen.dart';
 import 'nutrition_screen.dart';
 import 'recipe_generator_screen.dart';
 import 'workout_player_screen.dart';
+import 'exercise_library_screen.dart';
+import '../utils/move_catalog.dart';
 import '../utils/text_case.dart';
 import '../utils/num_format.dart';
 
@@ -348,8 +351,8 @@ void _showDaySheet(
                               ),
                             ),
                             const SizedBox(height: 2),
-                            Text(
-                              '${doseLabel(l, m)} · ${l.plDoseMinutes(m.minutes)}',
+                            CensoredText(
+                              '${_dose(context, l, m)} · ${l.plDoseMinutes(m.minutes)}',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -421,11 +424,12 @@ class _TodayTab extends StatelessWidget {
       );
     }
 
+    String secret(String s) => numbersLocked(context) ? censorDigits(s) : s;
     String habitNote(Routine r) => switch (r.id) {
-          'protein' => l.plHabitProtein(t.proteinG),
-          'water' => l.plHabitWater(provider.formatWaterTarget(t.waterL)),
-          'quality_sleep' => l.plHabitSleep(
-              t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1)),
+          'protein' => secret(l.plHabitProtein(t.proteinG)),
+          'water' => secret(l.plHabitWater(provider.formatWaterTarget(t.waterL))),
+          'quality_sleep' => secret(l.plHabitSleep(
+              t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1))),
           _ => localizedRoutine(l, r.id)['description'] ?? r.description,
         };
 
@@ -474,7 +478,7 @@ class _TodayTab extends StatelessWidget {
                       routineId: r.id,
                       title: moveTitle(l, r.id),
                       subtitle:
-                          '${doseLabel(l, doses[r.id]!)} · ${l.plDoseMinutes(doses[r.id]!.minutes)}',
+                          '${_dose(context, l, doses[r.id]!)} · ${l.plDoseMinutes(doses[r.id]!.minutes)}',
                       icon: r.icon,
                       done: r.completed,
                       locked: ticksLocked,
@@ -599,6 +603,66 @@ class _TodayTab extends StatelessWidget {
               ],
             ),
           ],
+        ),
+        const SizedBox(height: 14),
+        // Every move the app knows, by group.
+        Semantics(
+          button: true,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              Haptics.tap();
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (_) => const ExerciseLibraryScreen(),
+                ),
+              );
+            },
+            child: PlanCard(
+              padding: const EdgeInsets.fromLTRB(16, 14, 14, 14),
+              child: Row(
+                children: [
+                  const Icon(
+                    CupertinoIcons.square_grid_2x2_fill,
+                    size: 20,
+                    color: AppColors.primaryLight,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      l.libTitle,
+                      style: const TextStyle(
+                        fontSize: 15.5,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    l.libCount(
+                      kLibraryMoves
+                          .where(
+                            (id) =>
+                                provider.allRoutines.any((r) => r.id == id),
+                          )
+                          .length,
+                    ),
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.white.withValues(alpha: 0.55),
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Icon(
+                    CupertinoIcons.chevron_right,
+                    size: 15,
+                    color: Colors.white.withValues(alpha: 0.35),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -836,7 +900,7 @@ class _WeekCalendar extends StatelessWidget {
             Expanded(
               child: Builder(builder: (context) {
                 final date = monday.add(Duration(days: i));
-                final pd = plan.days[i];
+                final pd = plan.weekOf(date)[i];
                 final ratio =
                     i <= todayIdx ? provider.dayCompletionRatio(date) : 0.0;
                 final isToday = i == todayIdx;
@@ -1121,7 +1185,7 @@ class _ProgramTab extends StatelessWidget {
           child: finished
               ? PlanCard(
                   child: Text(
-                    l.plProgramFinished,
+                    programText(l.plProgramFinished),
                     style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w800,
@@ -1134,7 +1198,9 @@ class _ProgramTab extends StatelessWidget {
         const SizedBox(height: 20),
         PlanSectionLabel(
           icon: CupertinoIcons.chart_bar_alt_fill,
-          title: l.plProgressionTitle,
+          title: numbersLocked(context)
+              ? l.rsProgressTitle
+              : l.plProgressionTitle,
         ),
         const SizedBox(height: 10),
         ProgressionTable(level: level),
@@ -1199,7 +1265,11 @@ class _LevelWeek extends StatelessWidget {
           for (var d = 0; d < kProgramLevelDays; d++)
             Expanded(
               child: Builder(builder: (context) {
-                final index = level * kProgramLevelDays + d;
+                final week =
+                    current.clamp(0, kProgramDays - 1) ~/ kProgramLevelDays;
+                final index = week * kProgramLevelDays + d;
+                // The last week of a program can be shorter than seven days.
+                if (index >= kProgramDays) return const SizedBox();
                 final pd = plan.programDay(index);
                 final done = completed.contains(index);
                 final isCurrent = index == current;
@@ -1393,7 +1463,7 @@ class _ProgramDayCard extends StatelessWidget {
             PlanItemRow(
               routineId: m.routineId,
               title: moveTitle(l, m.routineId),
-              subtitle: '${doseLabel(l, m)} · ${l.plDoseMinutes(m.minutes)}',
+              subtitle: '${_dose(context, l, m)} · ${l.plDoseMinutes(m.minutes)}',
               icon: byId[m.routineId]?.icon ?? '',
               done: checks.contains(m.routineId),
               accent: color,
@@ -1518,20 +1588,21 @@ class _LevelCardState extends State<_LevelCard> {
     final i = widget.levelIndex;
     final meta = kProgramLevelMeta[i];
     final color = meta.$2;
-    final days =
-        List.generate(kProgramLevelDays, (d) => i * kProgramLevelDays + d);
+    final days = programDaysOfLevel(i);
     final doneCount = days.where(widget.completed.contains).length;
-    final isDone = doneCount == kProgramLevelDays;
+    final isDone = doneCount == days.length;
     final isCurrent = i == widget.currentLevel;
     final reached = i <= widget.currentLevel;
     final plank = moveDose('plank', level: i)!;
     final hang = moveDose('dead_hang_active', level: i)!;
     final jumps = moveDose('jumping', level: i)!;
-    final highlight = [
-      '${moveTitle(l, 'plank')} ${doseLabel(l, plank)}',
-      '${moveTitle(l, 'dead_hang_active')} ${doseLabel(l, hang)}',
-      '${moveTitle(l, 'jumping')} ${doseLabel(l, jumps)}',
-    ].join(' · ');
+    final highlight = numbersLocked(context)
+        ? l.rsLevelLine
+        : [
+            '${moveTitle(l, 'plank')} ${doseLabel(l, plank)}',
+            '${moveTitle(l, 'dead_hang_active')} ${doseLabel(l, hang)}',
+            '${moveTitle(l, 'jumping')} ${doseLabel(l, jumps)}',
+          ].join(' · ');
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
@@ -1613,7 +1684,7 @@ class _LevelCardState extends State<_LevelCard> {
                         size: 20, color: AppColors.success)
                   else
                     Text(
-                      '$doneCount/$kProgramLevelDays',
+                      '$doneCount/${days.length}',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w800,
@@ -1641,7 +1712,7 @@ class _LevelCardState extends State<_LevelCard> {
                 _lockedIf(
                   !widget.premium,
                   title: l.ftContinuePro,
-                  body: l.ftWhyProgram,
+                  body: programText(l.ftWhyProgram),
                   feature: FreeFeature.program,
                   child: Column(
                     children: [
@@ -1726,6 +1797,7 @@ class _NutritionTab extends StatelessWidget {
       t,
       profile.mealTimes,
       turkish: Localizations.localeOf(context).languageCode == 'tr',
+      weekB: WeeklyPlan.isWeekB(DateTime.now()),
     );
     final todayIdx = DateTime.now().weekday - 1;
     final menu = week[todayIdx];
@@ -1906,31 +1978,32 @@ class _Checklist extends StatelessWidget {
         calcium += menu.meals[i].calcium;
       }
     }
+    String secret(String s) => numbersLocked(context) ? censorDigits(s) : s;
     final rows = <(String, String, String, Color, double?)>[
       (
         'protein',
-        l.plCheckProtein(targets.proteinG),
+        secret(l.plCheckProtein(targets.proteinG)),
         l.plFromMeals('${protein.round()} g'),
         AppColors.orange,
         protein / targets.proteinG,
       ),
       (
         'calcium',
-        l.plCheckCalcium(nf.format(targets.calciumMg)),
+        secret(l.plCheckCalcium(nf.format(targets.calciumMg))),
         l.plFromMeals('${nf.format(calcium.round())} mg'),
         AppColors.primaryLight,
         calcium / targets.calciumMg,
       ),
       (
         'vitaminD',
-        l.plCheckVitaminD(nf.format(targets.vitaminDIu)),
+        secret(l.plCheckVitaminD(nf.format(targets.vitaminDIu))),
         l.plVitaminDNote,
         AppColors.warning,
         null,
       ),
       (
         'water',
-        l.plCheckWater(provider.formatWaterTarget(targets.waterL)),
+        secret(l.plCheckWater(provider.formatWaterTarget(targets.waterL))),
         l.plWaterLogged(provider.formatWater(provider.todayWater)),
         AppColors.cyan,
         provider.todayWater / provider.units.snapWaterTarget(targets.waterL),
@@ -1959,7 +2032,7 @@ class _Checklist extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          CensoredText(
                             title,
                             style: const TextStyle(
                               fontSize: 14.5,
@@ -2090,6 +2163,10 @@ bool completeProgramDay(BuildContext context, AppProvider provider) {
   );
   return true;
 }
+
+/// A move's sets and reps, blurred for someone who has not paid.
+String _dose(BuildContext context, AppLocalizations l, MoveDose d) =>
+    numbersLocked(context) ? kCensored : doseLabel(l, d);
 
 /// [child] as is, or behind a blurred [LockedPreview] when [locked].
 Widget _lockedIf(
