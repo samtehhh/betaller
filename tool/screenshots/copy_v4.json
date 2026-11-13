@@ -1,0 +1,1084 @@
+{
+ "_note": "One promise per frame. Headline: '|' breaks the line, *asterisks* mark the run that gets the pill. Max about 4 words. Subline: one short sentence saying where the number or plan comes from. No em or en dashes, no 'AI', no promised centimetres, nothing that says an exercise lengthens bones. Frames 1 to 3 must work alone: they are what search results show.",
+ "frames": [
+  {
+   "slug": "01-potential",
+   "shot": "home",
+   "lift": "_PotentialHero",
+   "en": [
+    "How tall|will you *get?*",
+    "Estimated from your age and your parents' heights."
+   ],
+   "drop": 44,
+   "tr": [
+    "Boyun kaç|*olacak?*",
+    "Yaşına ve anne babanın boyuna göre tahmin."
+   ],
+   "de": [
+    "Wie groß|*wirst du?*",
+    "Aus deinem Alter und der Elterngröße geschätzt."
+   ],
+   "fr": [
+    "Quelle sera|*ta taille ?*",
+    "Estimé selon ton âge et la taille de tes parents."
+   ],
+   "es": [
+    "¿Cuánto|vas a *medir?*",
+    "Estimado según tu edad y la estatura de tus padres."
+   ],
+   "it": [
+    "Che altezza|*avrai?*",
+    "Stimato da età e altezza dei tuoi genitori."
+   ],
+   "pt": [
+    "Qual será|sua *altura?*",
+    "Estimada pela sua idade e pela altura dos seus pais."
+   ],
+   "hi": [
+    "तुम्हारी ऊँचाई|कितनी *होगी?*",
+    "उम्र और माता-पिता की ऊँचाई से अनुमान।"
+   ],
+   "nl": [
+    "Hoe lang|*word je?*",
+    "Geschat uit je leeftijd en de lengte van je ouders."
+   ],
+   "pl": [
+    "Ile będziesz|*mierzyć?*",
+    "Szacowane na podstawie wieku i wzrostu rodziców."
+   ],
+   "sv": [
+    "Hur lång|*blir du?*",
+    "Uppskattat från din ålder och dina föräldrars längd."
+   ],
+   "ru": [
+    "Какого роста|ты *будешь?*",
+    "Прогноз по твоему возрасту и росту родителей."
+   ],
+   "ar": [
+    "كم سيكون|*طولك؟*",
+    "تقدير حسب عمرك وطول والديك."
+   ],
+   "id": [
+    "Tinggimu nanti|*berapa?*",
+    "Perkiraan dari usia dan tinggi orang tuamu."
+   ],
+   "ms": [
+    "Setinggi mana|*anda nanti?*",
+    "Anggaran daripada umur dan tinggi ibu bapa anda."
+   ],
+   "ja": [
+    "将来の身長は|*どれくらい？*",
+    "年齢と両親の身長から予測します。"
+   ],
+   "ko": [
+    "내 키는|*얼마나 될까?*",
+    "나이와 부모님 키로 예측해요."
+   ],
+   "zh": [
+    "你能长到|*多高?*",
+    "根据年龄和父母身高估算。"
+   ],
+   "zh_Hant": [
+    "你能長到|*多高?*",
+    "根據年齡和父母身高估算。"
+   ],
+   "th": [
+    "คุณจะสูง|*เท่าไหร่?*",
+    "ประเมินจากอายุและส่วนสูงของพ่อแม่"
+   ],
+   "vi": [
+    "Bạn sẽ cao|*bao nhiêu?*",
+    "Ước tính từ tuổi và chiều cao của bố mẹ."
+   ]
+  },
+  {
+   "slug": "02-chart",
+   "shot": "progress",
+   "lift": "PotentialChart",
+   "pad": 16,
+   "en": [
+    "Track every|*centimetre*",
+    "Each measurement, charted toward your potential."
+   ],
+   "tr": [
+    "Her santimi|*takip et*",
+    "Her ölçüm, potansiyeline giden grafikte."
+   ],
+   "de": [
+    "Verfolge jeden|*Zentimeter*",
+    "Jede Messung im Diagramm zu deinem Potenzial."
+   ],
+   "fr": [
+    "Suis chaque|*centimètre*",
+    "Chaque mesure, tracée vers ton potentiel."
+   ],
+   "es": [
+    "Sigue cada|*centímetro*",
+    "Cada medición, graficada hacia tu potencial."
+   ],
+   "it": [
+    "Segui ogni|*centimetro*",
+    "Ogni misura, in un grafico verso il tuo potenziale."
+   ],
+   "pt": [
+    "Siga cada|*centímetro*",
+    "Cada medida, no gráfico rumo ao seu potencial."
+   ],
+   "hi": [
+    "हर सेंटीमीटर|*ट्रैक करो*",
+    "हर माप, तुम्हारी क्षमता की ओर चार्ट में।"
+   ],
+   "nl": [
+    "Volg elke|*centimeter*",
+    "Elke meting, in een grafiek naar je potentieel."
+   ],
+   "pl": [
+    "Śledź każdy|*centymetr*",
+    "Każdy pomiar na wykresie w drodze do potencjału."
+   ],
+   "sv": [
+    "Följ varje|*centimeter*",
+    "Varje mätning, i diagram mot din potential."
+   ],
+   "ru": [
+    "Каждый|*сантиметр*",
+    "Каждый замер на графике к твоему потенциалу."
+   ],
+   "ar": [
+    "تابع كل|*سنتيمتر*",
+    "كل قياس على رسم بياني نحو إمكاناتك."
+   ],
+   "id": [
+    "Pantau setiap|*sentimeter*",
+    "Setiap ukuran, dalam grafik menuju potensimu."
+   ],
+   "ms": [
+    "Jejaki setiap|*sentimeter*",
+    "Setiap ukuran, dalam carta ke arah potensi anda."
+   ],
+   "ja": [
+    "1センチも|*見逃さない*",
+    "測るたび、可能性へ向かうグラフに。"
+   ],
+   "ko": [
+    "1cm도|*놓치지 않기*",
+    "측정할 때마다 잠재력까지 그래프로."
+   ],
+   "zh": [
+    "每一厘米|*都记录*",
+    "每次测量，都绘成通往潜力的图表。"
+   ],
+   "zh_Hant": [
+    "每一公分|*都記錄*",
+    "每次測量，都繪成通往潛力的圖表。"
+   ],
+   "th": [
+    "ติดตามทุก|*เซนติเมตร*",
+    "ทุกการวัดลงกราฟ มุ่งสู่ศักยภาพของคุณ"
+   ],
+   "vi": [
+    "Theo dõi từng|*centimet*",
+    "Mỗi lần đo lên biểu đồ, hướng tới tiềm năng của bạn."
+   ],
+   "en_US": [
+    "Track every|*centimeter*",
+    "Each measurement, charted toward your potential."
+   ]
+  },
+  {
+   "slug": "03-plan",
+   "shot": "day",
+   "lift": "_ProgramDayCard",
+   "en": [
+    "A new plan|*every day*",
+    "Two weeks of training, no two days the same."
+   ],
+   "tr": [
+    "Her gün|*yeni plan*",
+    "İki haftalık antrenman, her gün farklı."
+   ],
+   "de": [
+    "Jeden Tag|*neuer Plan*",
+    "Zwei Wochen Training, kein Tag wie der andere."
+   ],
+   "fr": [
+    "Un nouveau|*plan par jour*",
+    "Deux semaines d'entraînement, aucun jour identique."
+   ],
+   "es": [
+    "Un plan nuevo|*cada día*",
+    "Dos semanas de entrenamiento, ningún día igual."
+   ],
+   "it": [
+    "Un piano nuovo|*ogni giorno*",
+    "Due settimane di allenamento, mai due giorni uguali."
+   ],
+   "pt": [
+    "Um plano novo|*todo dia*",
+    "Duas semanas de treino, nenhum dia igual."
+   ],
+   "hi": [
+    "हर दिन|*नया प्लान*",
+    "दो हफ्ते की ट्रेनिंग, कोई दो दिन एक जैसे नहीं।"
+   ],
+   "nl": [
+    "Elke dag|*een nieuw plan*",
+    "Twee weken training, geen twee dagen hetzelfde."
+   ],
+   "pl": [
+    "Co dzień|*nowy plan*",
+    "Dwa tygodnie treningu, każdy dzień inny."
+   ],
+   "sv": [
+    "En ny plan|*varje dag*",
+    "Två veckors träning, inga två dagar lika."
+   ],
+   "ru": [
+    "Новый план|*каждый день*",
+    "Две недели тренировок, ни одного похожего дня."
+   ],
+   "ar": [
+    "خطة جديدة|*كل يوم*",
+    "أسبوعان من التدريب، ولا يومان متشابهان."
+   ],
+   "id": [
+    "Rencana baru|*tiap hari*",
+    "Latihan dua minggu, tak ada hari yang sama."
+   ],
+   "ms": [
+    "Pelan baharu|*setiap hari*",
+    "Latihan dua minggu, tiada dua hari yang sama."
+   ],
+   "ja": [
+    "毎日違う|*新プラン*",
+    "2週間のトレーニング、同じ日はなし。"
+   ],
+   "ko": [
+    "매일|*새 플랜*",
+    "2주 운동, 같은 날은 하루도 없어요."
+   ],
+   "zh": [
+    "每天都有|*新计划*",
+    "两周训练，没有两天相同。"
+   ],
+   "zh_Hant": [
+    "每天都有|*新計畫*",
+    "兩週訓練，沒有兩天相同。"
+   ],
+   "th": [
+    "แผนใหม่|*ทุกวัน*",
+    "ฝึกสองสัปดาห์ ไม่มีวันไหนซ้ำกัน"
+   ],
+   "vi": [
+    "Mỗi ngày|*một kế hoạch*",
+    "Hai tuần tập luyện, không ngày nào giống ngày nào."
+   ],
+   "rise_pt": 94
+  },
+  {
+   "slug": "04-guide",
+   "shot": "guide_pull_ups",
+   "lift": [
+    "_StillsPager",
+    "_GuideStep*"
+   ],
+   "en": [
+    "Every move,|*done right*",
+    "Numbered steps, with photos or video."
+   ],
+   "pad": 14,
+   "tr": [
+    "Her hareket|*doğru formda*",
+    "Numaralı adımlar, fotoğraf ya da videoyla."
+   ],
+   "de": [
+    "Jede Übung|*richtig*",
+    "Nummerierte Schritte mit Fotos oder Video."
+   ],
+   "fr": [
+    "Chaque geste,|*bien fait*",
+    "Des étapes numérotées, avec photos ou vidéo."
+   ],
+   "es": [
+    "Cada ejercicio|*bien hecho*",
+    "Pasos numerados, con fotos o video."
+   ],
+   "it": [
+    "Ogni mossa,|*fatta bene*",
+    "Passaggi numerati, con foto o video."
+   ],
+   "pt": [
+    "Cada exercício|*bem feito*",
+    "Passos numerados, com fotos ou vídeo."
+   ],
+   "hi": [
+    "हर व्यायाम|*सही तरीके से*",
+    "नंबर वाले स्टेप, फोटो या वीडियो के साथ।"
+   ],
+   "nl": [
+    "Elke oefening|*goed gedaan*",
+    "Genummerde stappen, met foto's of video."
+   ],
+   "pl": [
+    "Każdy ruch,|*poprawnie*",
+    "Ponumerowane kroki ze zdjęciami lub wideo."
+   ],
+   "sv": [
+    "Varje övning,|*rätt gjord*",
+    "Numrerade steg, med foton eller video."
+   ],
+   "ru": [
+    "Все движения|*без ошибок*",
+    "Пронумерованные шаги, с фото или видео."
+   ],
+   "ar": [
+    "كل تمرين|*بشكل صحيح*",
+    "خطوات مرقمة مع صور أو فيديو."
+   ],
+   "id": [
+    "Setiap gerakan|*dengan benar*",
+    "Langkah bernomor, dengan foto atau video."
+   ],
+   "ms": [
+    "Setiap gerakan|*dengan betul*",
+    "Langkah bernombor, dengan foto atau video."
+   ],
+   "ja": [
+    "すべての動きを|*正しい形で*",
+    "番号付きの手順を写真と動画で。"
+   ],
+   "ko": [
+    "모든 동작|*정확한 자세로*",
+    "번호 단계와 사진, 영상으로."
+   ],
+   "zh": [
+    "每个动作|*都做对*",
+    "编号步骤，配照片或视频。"
+   ],
+   "zh_Hant": [
+    "每個動作|*都做對*",
+    "編號步驟，附照片或影片。"
+   ],
+   "th": [
+    "ทุกท่า|*ทำให้ถูก*",
+    "ขั้นตอนมีหมายเลข พร้อมรูปหรือวิดีโอ"
+   ],
+   "vi": [
+    "Mỗi động tác|*làm cho đúng*",
+    "Các bước đánh số, kèm ảnh hoặc video."
+   ],
+   "rise_pt": 59
+  },
+  {
+   "slug": "05-score",
+   "shot": "analysis",
+   "lift": "_ScoreHero",
+   "en": [
+    "Your habits,|*one score*",
+    "Training, sleep and food, scored out of 100."
+   ],
+   "tr": [
+    "Alışkanlıkların|*tek puanda*",
+    "Antrenman, uyku ve beslenme, 100 üzerinden."
+   ],
+   "de": [
+    "Gewohnheiten,|*eine Punktzahl*",
+    "Training, Schlaf und Essen, bewertet von 0 bis 100."
+   ],
+   "fr": [
+    "Tes habitudes,|*un score*",
+    "Sport, sommeil et repas, notés sur 100."
+   ],
+   "es": [
+    "Tus hábitos,|*una nota*",
+    "Entreno, sueño y comida, puntuados sobre 100."
+   ],
+   "it": [
+    "Le abitudini|*in un voto*",
+    "Allenamento, sonno e cibo, valutati su 100."
+   ],
+   "pt": [
+    "Seus hábitos,|*uma nota*",
+    "Treino, sono e comida, avaliados de 0 a 100."
+   ],
+   "hi": [
+    "तुम्हारी आदतें|*एक स्कोर में*",
+    "ट्रेनिंग, नींद और खाना, 100 में से स्कोर।"
+   ],
+   "nl": [
+    "Je gewoontes,|*één score*",
+    "Training, slaap en eten, beoordeeld op 100."
+   ],
+   "pl": [
+    "Twoje nawyki,|*jeden wynik*",
+    "Trening, sen i jedzenie, ocena w skali do 100."
+   ],
+   "sv": [
+    "Dina vanor,|*en poäng*",
+    "Träning, sömn och mat, poäng av 100."
+   ],
+   "ru": [
+    "Привычки,|*одна оценка*",
+    "Тренировки, сон и питание, оценка из 100."
+   ],
+   "ar": [
+    "عاداتك|*في درجة واحدة*",
+    "التمرين والنوم والأكل بدرجة من 100."
+   ],
+   "id": [
+    "Kebiasaanmu,|*satu skor*",
+    "Latihan, tidur, dan makan, dinilai dari 100."
+   ],
+   "ms": [
+    "Tabiat anda,|*satu skor*",
+    "Latihan, tidur dan makan, dinilai daripada 100."
+   ],
+   "ja": [
+    "習慣を|*1つのスコアに*",
+    "運動、睡眠、食事を100点満点で。"
+   ],
+   "ko": [
+    "내 습관을|*점수 하나로*",
+    "운동, 수면, 식단을 100점 만점으로."
+   ],
+   "zh": [
+    "你的习惯|*一个分数*",
+    "训练、睡眠和饮食，百分制评分。"
+   ],
+   "zh_Hant": [
+    "你的習慣|*一個分數*",
+    "訓練、睡眠和飲食，百分制評分。"
+   ],
+   "th": [
+    "นิสัยของคุณ|*ในคะแนนเดียว*",
+    "ออกกำลังกาย นอน และอาหาร คะแนนเต็ม 100"
+   ],
+   "vi": [
+    "Thói quen,|*một điểm số*",
+    "Tập luyện, ngủ và ăn uống, chấm trên thang điểm 100."
+   ]
+  },
+  {
+   "slug": "06-posture",
+   "shot": "posture",
+   "lift": "_ScoreCard",
+   "en": [
+    "Stand taller|*today*",
+    "A weekly posture check shows what to fix first."
+   ],
+   "drop": 96,
+   "tr": [
+    "Bugün daha|*dik dur*",
+    "Haftalık duruş kontrolü neyi düzelteceğini gösterir."
+   ],
+   "de": [
+    "Steh heute|*gerader*",
+    "Der Haltungscheck zeigt, woran du zuerst arbeitest."
+   ],
+   "fr": [
+    "Tiens-toi|*plus droit*",
+    "Le bilan posture montre quoi corriger d'abord."
+   ],
+   "es": [
+    "Endereza tu|*postura hoy*",
+    "Un chequeo semanal te dice qué corregir primero."
+   ],
+   "it": [
+    "Raddrizza la|*schiena oggi*",
+    "Il controllo settimanale mostra cosa correggere."
+   ],
+   "pt": [
+    "Fique mais|*reto hoje*",
+    "A checagem semanal mostra o que corrigir primeiro."
+   ],
+   "hi": [
+    "आज सीधे|*खड़े रहो*",
+    "हफ्ते की पोस्चर जाँच बताती है क्या सुधारना है।"
+   ],
+   "nl": [
+    "Sta vandaag|*rechter*",
+    "De houdingscheck laat zien wat je eerst aanpakt."
+   ],
+   "pl": [
+    "Dziś stój|*prosto*",
+    "Cotygodniowy test postawy pokaże, co poprawić."
+   ],
+   "sv": [
+    "Stå rakare|*idag*",
+    "Veckans hållningstest visar vad du ska fixa först."
+   ],
+   "ru": [
+    "Сегодня стой|*ровнее*",
+    "Недельная проверка осанки покажет, что исправить."
+   ],
+   "ar": [
+    "اعدل وقفتك|*اليوم*",
+    "فحص الوقفة الأسبوعي يُظهر ما تصلحه أولًا."
+   ],
+   "id": [
+    "Berdirilah|*lebih tegak*",
+    "Cek postur mingguan tunjukkan apa yang diperbaiki."
+   ],
+   "ms": [
+    "Berdiri tegak|*hari ini*",
+    "Semakan postur mingguan tunjuk apa untuk dibaiki."
+   ],
+   "ja": [
+    "今日は姿勢を|*正そう*",
+    "週1回の姿勢チェックで直す点がわかる。"
+   ],
+   "ko": [
+    "오늘은|*허리 펴기*",
+    "주간 자세 체크로 먼저 고칠 점을 알아요."
+   ],
+   "zh": [
+    "今天站得|*更挺拔*",
+    "每周体态检查，告诉你先改什么。"
+   ],
+   "zh_Hant": [
+    "今天站得|*更挺拔*",
+    "每週體態檢查，告訴你先改什麼。"
+   ],
+   "th": [
+    "วันนี้ยืน|*ให้ตรงขึ้น*",
+    "เช็กท่าทางรายสัปดาห์ บอกว่าต้องแก้อะไรก่อน"
+   ],
+   "vi": [
+    "Hôm nay|*đứng thẳng*",
+    "Kiểm tra tư thế hằng tuần cho biết nên sửa gì trước."
+   ]
+  },
+  {
+   "slug": "07-meals",
+   "shot": "nutrition",
+   "lift": "NutritionTargetsHeader",
+   "en": [
+    "Eat to your|*targets*",
+    "Protein, calcium and vitamin D, sized to you."
+   ],
+   "drop": 114,
+   "tr": [
+    "Hedefine göre|*beslen*",
+    "Protein, kalsiyum ve D vitamini, sana göre."
+   ],
+   "de": [
+    "Iss nach|*deinen Zielen*",
+    "Protein, Kalzium und Vitamin D, passend für dich."
+   ],
+   "fr": [
+    "Mange selon|*tes objectifs*",
+    "Protéines, calcium et vitamine D, adaptés à toi."
+   ],
+   "es": [
+    "Come según|*tus metas*",
+    "Proteína, calcio y vitamina D, a tu medida."
+   ],
+   "it": [
+    "Mangia per i|*tuoi obiettivi*",
+    "Proteine, calcio e vitamina D, su misura per te."
+   ],
+   "pt": [
+    "Coma pelas|*suas metas*",
+    "Proteína, cálcio e vitamina D, sob medida para você."
+   ],
+   "hi": [
+    "अपने लक्ष्य के|*हिसाब से खाओ*",
+    "प्रोटीन, कैल्शियम और विटामिन D, तुम्हारे हिसाब से।"
+   ],
+   "nl": [
+    "Eet naar je|*doelen*",
+    "Eiwit, calcium en vitamine D, op jou afgestemd."
+   ],
+   "pl": [
+    "Jedz według|*swoich celów*",
+    "Białko, wapń i witamina D, dopasowane do ciebie."
+   ],
+   "sv": [
+    "Ät efter|*dina mål*",
+    "Protein, kalcium och D-vitamin, anpassat för dig."
+   ],
+   "ru": [
+    "Ешь с учётом|*своих целей*",
+    "Белок, кальций и витамин D, подобранные под тебя."
+   ],
+   "ar": [
+    "كل حسب|*أهدافك*",
+    "بروتين وكالسيوم وفيتامين د، على مقاسك."
+   ],
+   "id": [
+    "Makan sesuai|*targetmu*",
+    "Protein, kalsium, dan vitamin D, sesuai dirimu."
+   ],
+   "ms": [
+    "Makan ikut|*sasaran anda*",
+    "Protein, kalsium dan vitamin D, sesuai untuk anda."
+   ],
+   "ja": [
+    "目標に合わせて|*食べよう*",
+    "たんぱく質、カルシウム、ビタミンDをあなた向けに。"
+   ],
+   "ko": [
+    "목표에 맞춰|*먹기*",
+    "단백질, 칼슘, 비타민 D를 나에게 맞게."
+   ],
+   "zh": [
+    "按目标|*吃对*",
+    "蛋白质、钙和维生素D，为你定制。"
+   ],
+   "zh_Hant": [
+    "依目標|*吃對*",
+    "蛋白質、鈣和維生素D，為你量身打造。"
+   ],
+   "th": [
+    "กินตาม|*เป้าหมาย*",
+    "โปรตีน แคลเซียม และวิตามินดี ตามตัวคุณ"
+   ],
+   "vi": [
+    "Ăn theo|*mục tiêu*",
+    "Protein, canxi và vitamin D, vừa với riêng bạn."
+   ]
+  },
+  {
+   "slug": "08-moves",
+   "shot": "library_1",
+   "en": [
+    "71 moves,|*step by step*",
+    "Jumps, hangs and stretches, each with a guide."
+   ],
+   "tr": [
+    "71 hareket,|*adım adım*",
+    "Zıplama, asılma ve esneme, hepsi anlatımlı."
+   ],
+   "de": [
+    "71 Übungen|*mit Anleitung*",
+    "Sprünge, Hangübungen und Dehnen, alle erklärt."
+   ],
+   "fr": [
+    "71 exercices,|*pas à pas*",
+    "Sauts, suspensions et étirements, tous guidés."
+   ],
+   "es": [
+    "71 ejercicios,|*paso a paso*",
+    "Saltos, colgarse y estiramientos, todos con guía."
+   ],
+   "it": [
+    "71 esercizi,|*passo passo*",
+    "Salti, sospensioni e stretching, tutti guidati."
+   ],
+   "pt": [
+    "71 exercícios,|*passo a passo*",
+    "Saltos, suspensões e alongamentos, todos com guia."
+   ],
+   "hi": [
+    "71 व्यायाम,|*कदम दर कदम*",
+    "कूदना, लटकना और स्ट्रेच, सबके साथ गाइड।"
+   ],
+   "nl": [
+    "71 oefeningen,|*stap voor stap*",
+    "Sprongen, hangen en rekken, allemaal met uitleg."
+   ],
+   "pl": [
+    "71 ćwiczeń,|*krok po kroku*",
+    "Skoki, zwisy i rozciąganie, każde z opisem."
+   ],
+   "sv": [
+    "71 övningar,|*steg för steg*",
+    "Hopp, häng och stretch, alla med guide."
+   ],
+   "ru": [
+    "71 движение,|*шаг за шагом*",
+    "Прыжки, висы и растяжка, всё с пояснениями."
+   ],
+   "ar": [
+    "71 تمرينًا،|*خطوة بخطوة*",
+    "قفز وتعلق وتمدد، وكلها مع شرح."
+   ],
+   "id": [
+    "71 gerakan,|*ada panduan*",
+    "Lompat, bergantung, peregangan, semua ada panduan."
+   ],
+   "ms": [
+    "71 gerakan|*berpanduan*",
+    "Lompat, bergayut dan regangan, semuanya ada panduan."
+   ],
+   "ja": [
+    "71種類の動き|*ステップごとに*",
+    "ジャンプ、ぶら下がり、ストレッチを解説付きで。"
+   ],
+   "ko": [
+    "71가지 동작|*단계별로*",
+    "점프, 매달리기, 스트레칭 모두 설명 포함."
+   ],
+   "zh": [
+    "71个动作|*一步步练*",
+    "跳跃、悬垂和拉伸，都有讲解。"
+   ],
+   "zh_Hant": [
+    "71個動作|*一步步練*",
+    "跳躍、懸吊和伸展，都有講解。"
+   ],
+   "th": [
+    "71 ท่า|*ทีละขั้น*",
+    "กระโดด ห้อย และยืดเส้น มีคำอธิบายทุกท่า"
+   ],
+   "vi": [
+    "71 động tác,|*từng bước*",
+    "Nhảy, treo người và giãn cơ, đều có hướng dẫn."
+   ]
+  },
+  {
+   "slug": "09-levels",
+   "shot": "program",
+   "lift": [
+    "ProgramJourneyHeader",
+    "_LevelWeek"
+   ],
+   "en": [
+    "10 levels,|*70 days*",
+    "One short step a day, harder as you go."
+   ],
+   "pad": 8,
+   "tr": [
+    "10 seviye,|*70 gün*",
+    "Her gün kısa bir adım, gittikçe zorlaşır."
+   ],
+   "de": [
+    "10 Level,|*70 Tage*",
+    "Jeden Tag ein kurzer Schritt, es wird schwerer."
+   ],
+   "fr": [
+    "10 niveaux,|*70 jours*",
+    "Une petite étape par jour, de plus en plus dure."
+   ],
+   "es": [
+    "10 niveles,|*70 días*",
+    "Un paso corto al día, cada vez más difícil."
+   ],
+   "it": [
+    "10 livelli,|*70 giorni*",
+    "Un breve passo al giorno, sempre più difficile."
+   ],
+   "pt": [
+    "10 níveis,|*70 dias*",
+    "Um passo curto por dia, cada vez mais difícil."
+   ],
+   "hi": [
+    "10 लेवल,|*70 दिन*",
+    "रोज़ एक छोटा कदम, आगे बढ़ते हुए मुश्किल।"
+   ],
+   "nl": [
+    "10 niveaus,|*70 dagen*",
+    "Elke dag een korte stap, steeds zwaarder."
+   ],
+   "pl": [
+    "10 poziomów,|*70 dni*",
+    "Jeden krótki krok dziennie, coraz trudniejszy."
+   ],
+   "sv": [
+    "10 nivåer,|*70 dagar*",
+    "Ett kort steg om dagen, allt svårare."
+   ],
+   "ru": [
+    "10 уровней,|*70 дней*",
+    "Один короткий шаг в день, всё сложнее."
+   ],
+   "ar": [
+    "10 مستويات،|*70 يومًا*",
+    "خطوة قصيرة كل يوم، وتزداد صعوبة."
+   ],
+   "id": [
+    "10 level,|*70 hari*",
+    "Satu langkah singkat sehari, makin menantang."
+   ],
+   "ms": [
+    "10 tahap,|*70 hari*",
+    "Satu langkah ringkas sehari, makin mencabar."
+   ],
+   "ja": [
+    "10レベル、|*70日間*",
+    "毎日の短いステップ、だんだん難しく。"
+   ],
+   "ko": [
+    "10레벨,|*70일*",
+    "하루 짧은 한 걸음, 갈수록 어렵게."
+   ],
+   "zh": [
+    "10个等级|*70天*",
+    "每天一小步，越来越有挑战。"
+   ],
+   "zh_Hant": [
+    "10個等級|*70天*",
+    "每天一小步，越來越有挑戰。"
+   ],
+   "th": [
+    "10 เลเวล|*70 วัน*",
+    "วันละก้าวสั้น ๆ ยากขึ้นเรื่อย ๆ"
+   ],
+   "vi": [
+    "10 cấp độ,|*70 ngày*",
+    "Mỗi ngày một bước ngắn, càng lúc càng khó."
+   ]
+  },
+  {
+   "slug": "10-weekly",
+   "shot": "weekly",
+   "lift": "_RecapHero",
+   "en": [
+    "Your week,|*in one report*",
+    "What you did, and what to fix next week."
+   ],
+   "tr": [
+    "Haftan|*tek raporda*",
+    "Ne yaptın, gelecek hafta neyi düzelteceksin."
+   ],
+   "de": [
+    "Deine Woche,|*ein Bericht*",
+    "Was du geschafft hast und was nächste Woche ansteht."
+   ],
+   "fr": [
+    "Ta semaine,|*en un bilan*",
+    "Ce que tu as fait, et quoi corriger ensuite."
+   ],
+   "es": [
+    "Tu semana,|*en un informe*",
+    "Lo que hiciste y qué corregir la próxima semana."
+   ],
+   "it": [
+    "La settimana|*in un report*",
+    "Cosa hai fatto e cosa correggere la prossima."
+   ],
+   "pt": [
+    "Sua semana,|*num relatório*",
+    "O que você fez e o que corrigir na próxima semana."
+   ],
+   "hi": [
+    "पूरा हफ्ता|*एक रिपोर्ट में*",
+    "तुमने क्या किया और अगले हफ्ते क्या सुधारना है।"
+   ],
+   "nl": [
+    "Je week,|*in één rapport*",
+    "Wat je deed en wat je volgende week verbetert."
+   ],
+   "pl": [
+    "Twój tydzień|*w raporcie*",
+    "Co udało się zrobić i co poprawić za tydzień."
+   ],
+   "sv": [
+    "Din vecka,|*i en rapport*",
+    "Vad du gjorde och vad du fixar nästa vecka."
+   ],
+   "ru": [
+    "Твоя неделя,|*один отчёт*",
+    "Что получилось и что исправить на следующей неделе."
+   ],
+   "ar": [
+    "أسبوعك|*في تقرير واحد*",
+    "ما أنجزته وما تصلحه الأسبوع القادم."
+   ],
+   "id": [
+    "Minggumu,|*satu laporan*",
+    "Apa yang kamu lakukan dan apa yang diperbaiki."
+   ],
+   "ms": [
+    "Minggu anda,|*satu laporan*",
+    "Apa yang anda lakukan dan apa yang perlu dibaiki."
+   ],
+   "ja": [
+    "1週間を|*1つのレポートに*",
+    "やったことと来週の改善点がわかる。"
+   ],
+   "ko": [
+    "한 주를|*리포트 하나로*",
+    "한 일과 다음 주에 고칠 점을 알려줘요."
+   ],
+   "zh": [
+    "你的一周|*一份报告*",
+    "做了什么，下周改什么。"
+   ],
+   "zh_Hant": [
+    "你的一週|*一份報告*",
+    "做了什麼，下週改什麼。"
+   ],
+   "th": [
+    "สัปดาห์ของคุณ|*ในรายงานเดียว*",
+    "ทำอะไรไปบ้าง และสัปดาห์หน้าต้องแก้อะไร"
+   ],
+   "vi": [
+    "Tuần của bạn|*một báo cáo*",
+    "Bạn đã làm gì và nên sửa gì tuần sau."
+   ]
+  }
+ ],
+ "search": {
+  "en": [
+   "How tall|will you|*get?*",
+   "See your height potential and follow a daily plan."
+  ],
+  "tr": [
+   "Boyun|kaç|*olacak?*",
+   "Boy potansiyelini gör, günlük planını uygula."
+  ],
+  "de": [
+   "Wie|groß|*wirst du?*",
+   "Dein Größenpotenzial und der Tagesplan dorthin."
+  ],
+  "fr": [
+   "Quelle sera|ta|*taille ?*",
+   "Vois ton potentiel et suis le plan quotidien."
+  ],
+  "es": [
+   "¿Cuánto|vas a|*medir?*",
+   "Descubre tu potencial de estatura y un plan diario."
+  ],
+  "it": [
+   "Che|altezza|*avrai?*",
+   "Scopri il potenziale e segui il piano giornaliero."
+  ],
+  "pt": [
+   "Qual será|sua|*altura?*",
+   "Veja seu potencial de altura e siga um plano diário."
+  ],
+  "hi": [
+   "तुम्हारी|ऊँचाई कितनी|*होगी?*",
+   "अपनी ऊँचाई की क्षमता देखो और रोज़ की योजना अपनाओ।"
+  ],
+  "nl": [
+   "Hoe|lang|*word je?*",
+   "Zie je lengtepotentieel en volg het dagplan."
+  ],
+  "pl": [
+   "Ile|będziesz|*mierzyć?*",
+   "Sprawdź potencjał wzrostu i realizuj dzienny plan."
+  ],
+  "sv": [
+   "Hur|lång|*blir du?*",
+   "Se din längdpotential och följ en daglig plan dit."
+  ],
+  "ru": [
+   "Какого|роста ты|*будешь?*",
+   "Узнай потенциал роста и следуй дневному плану."
+  ],
+  "ar": [
+   "كم|سيكون|*طولك؟*",
+   "اكتشف إمكانات طولك وطبق الخطة اليومية نحوها."
+  ],
+  "id": [
+   "Tinggimu|nanti|*berapa?*",
+   "Lihat potensi tinggimu dan ikuti rencana harian."
+  ],
+  "ms": [
+   "Setinggi|mana|*anda?*",
+   "Lihat potensi tinggi anda dan ikut pelan harian."
+  ],
+  "ja": [
+   "将来の|身長は|*どれくらい？*",
+   "身長の可能性を知り、毎日のプランを実行。"
+  ],
+  "ko": [
+   "내 키는|얼마나|*될까?*",
+   "키 잠재력을 보고 매일 플랜을 따라가요."
+  ],
+  "zh": [
+   "你将来|会有|*多高?*",
+   "了解身高潜力，跟着每日计划走。"
+  ],
+  "zh_Hant": [
+   "你將來|會有|*多高?*",
+   "了解身高潛力，跟著每日計畫走。"
+  ],
+  "th": [
+   "คุณจะ|สูง|*เท่าไหร่?*",
+   "ดูศักยภาพส่วนสูงและทำตามแผนรายวัน"
+  ],
+  "vi": [
+   "Bạn sẽ|cao|*bao nhiêu?*",
+   "Xem tiềm năng chiều cao và theo kế hoạch mỗi ngày."
+  ]
+ },
+ "header": {
+  "en": [
+   "How tall|will you *get?*",
+   "Your height potential and a daily plan toward it."
+  ],
+  "tr": [
+   "Boyun kaç|*olacak?*",
+   "Boy potansiyelin ve ona giden günlük plan."
+  ],
+  "de": [
+   "Wie groß|*wirst du?*",
+   "Dein Größenpotenzial und ein Tagesplan dorthin."
+  ],
+  "fr": [
+   "Quelle sera|*ta taille ?*",
+   "Ton potentiel de taille et un plan quotidien."
+  ],
+  "es": [
+   "¿Cuánto|vas a *medir?*",
+   "Tu potencial de estatura y un plan diario hacia él."
+  ],
+  "it": [
+   "Che altezza|*avrai?*",
+   "Il tuo potenziale di altezza e un piano giornaliero."
+  ],
+  "pt": [
+   "Qual será|sua *altura?*",
+   "Seu potencial de altura e um plano diário até ele."
+  ],
+  "hi": [
+   "तुम्हारी ऊँचाई|कितनी *होगी?*",
+   "तुम्हारी ऊँचाई की क्षमता और उस तक रोज़ की योजना।"
+  ],
+  "nl": [
+   "Hoe lang|*word je?*",
+   "Je lengtepotentieel en een dagplan ernaartoe."
+  ],
+  "pl": [
+   "Ile będziesz|*mierzyć?*",
+   "Twój potencjał wzrostu i dzienny plan do niego."
+  ],
+  "sv": [
+   "Hur lång|*blir du?*",
+   "Din längdpotential och en daglig plan dit."
+  ],
+  "ru": [
+   "Какого роста|ты *будешь?*",
+   "Твой потенциал роста и дневной план к нему."
+  ],
+  "ar": [
+   "كم سيكون|*طولك؟*",
+   "إمكانات طولك وخطة يومية نحوها."
+  ],
+  "id": [
+   "Tinggimu nanti|*berapa?*",
+   "Potensi tinggimu dan rencana harian menuju ke sana."
+  ],
+  "ms": [
+   "Setinggi mana|*anda nanti?*",
+   "Potensi tinggi anda dan pelan harian ke arahnya."
+  ],
+  "ja": [
+   "将来の身長は|*どれくらい？*",
+   "身長の可能性と、そこへ向かう毎日のプラン。"
+  ],
+  "ko": [
+   "내 키는|*얼마나 될까?*",
+   "키 잠재력과 그에 맞는 매일 플랜."
+  ],
+  "zh": [
+   "你能长到|*多高?*",
+   "你的身高潜力，和通往它的每日计划。"
+  ],
+  "zh_Hant": [
+   "你能長到|*多高?*",
+   "你的身高潛力，和通往它的每日計畫。"
+  ],
+  "th": [
+   "คุณจะสูง|*เท่าไหร่?*",
+   "ศักยภาพส่วนสูงและแผนรายวันสู่เป้าหมาย"
+  ],
+  "vi": [
+   "Bạn sẽ cao|*bao nhiêu?*",
+   "Tiềm năng chiều cao và kế hoạch mỗi ngày."
+  ]
+ }
+}

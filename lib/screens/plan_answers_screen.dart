@@ -204,6 +204,26 @@ class PlanAnswersScreen extends StatelessWidget {
                     ),
                     const _Line(),
                     _Row(
+                      icon: Icons.home_work_rounded,
+                      label: l.planPlaceTitle,
+                      value: provider.trainPlace == 'gym'
+                          ? l.planPlaceGym
+                          : l.planPlaceHome,
+                      onTap: () => _choose(
+                        context,
+                        title: l.planPlaceTitle,
+                        options: [
+                          ('home', l.planPlaceHome),
+                          ('gym', l.planPlaceGym),
+                        ],
+                        onPick: (v) {
+                          provider.setOnboardingAnswers({'trainPlace': v});
+                          _reschedule(context, provider);
+                        },
+                      ),
+                    ),
+                    const _Line(),
+                    _Row(
                       icon: CupertinoIcons.flag_fill,
                       label: l.paGoal,
                       value: _goalLabel(l, goal),

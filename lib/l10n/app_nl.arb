@@ -2103,5 +2103,8 @@
   "paGoal": "Programmaduur",
   "paBedtime": "Bedtijd",
   "paWorkoutTime": "Trainingstijd",
-  "restoreDone": "Je aankoop is hersteld."
+  "restoreDone": "Je aankoop is hersteld.",
+  "planPlaceTitle": "Waar je traint",
+  "planPlaceHome": "Thuis, alleen lichaamsgewicht",
+  "planPlaceGym": "Sportschool of dumbbells"
 }

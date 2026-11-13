@@ -2103,5 +2103,8 @@
   "paGoal": "프로그램 기간",
   "paBedtime": "취침 시간",
   "paWorkoutTime": "운동 시간",
-  "restoreDone": "구매가 복원되었어요."
+  "restoreDone": "구매가 복원되었어요.",
+  "planPlaceTitle": "운동하는 곳",
+  "planPlaceHome": "집에서, 맨몸 운동만",
+  "planPlaceGym": "헬스장 또는 덤벨로"
 }

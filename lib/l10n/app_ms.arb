@@ -2103,5 +2103,8 @@
   "paGoal": "Tempoh program",
   "paBedtime": "Waktu tidur",
   "paWorkoutTime": "Masa latihan",
-  "restoreDone": "Pembelian anda telah dipulihkan."
+  "restoreDone": "Pembelian anda telah dipulihkan.",
+  "planPlaceTitle": "Tempat anda bersenam",
+  "planPlaceHome": "Di rumah, berat badan sahaja",
+  "planPlaceGym": "Di gim atau dengan dumbel"
 }

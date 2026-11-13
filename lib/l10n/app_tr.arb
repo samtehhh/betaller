@@ -2197,5 +2197,8 @@
   "paGoal": "Hedef süre",
   "paBedtime": "Yatma saati",
   "paWorkoutTime": "Antrenman saati",
-  "restoreDone": "Satın alımın geri yüklendi."
+  "restoreDone": "Satın alımın geri yüklendi.",
+  "planPlaceTitle": "Nerede çalışıyorsun",
+  "planPlaceHome": "Evde, yalnız vücut ağırlığı",
+  "planPlaceGym": "Salonda ya da dambılla"
 }

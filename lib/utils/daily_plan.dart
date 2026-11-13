@@ -29,13 +29,18 @@ const List<String> kDailyCoreRoutineIds = [
 
 /// The routines expected on [date] (today by default): that weekday's
 /// training block from [WeeklyPlan], then the everyday habits, in a stable
-/// order and without duplicates. [weeklyWorkout] is the onboarding answer
-/// the plan is built for.
-List<String> dailyPlanIds([DateTime? date, String weeklyWorkout = '']) {
+/// order and without duplicates. [weeklyWorkout] and [trainPlace] are the
+/// onboarding answers the plan is built for.
+List<String> dailyPlanIds([
+  DateTime? date,
+  String weeklyWorkout = '',
+  String trainPlace = 'home',
+]) {
   final day = date ?? DateTime.now();
-  final block = WeeklyPlan.forAnswers(weeklyWorkout: weeklyWorkout)
-      .weekOf(day)[(day.weekday - 1) % 7]
-      .routineIds;
+  final block = WeeklyPlan.forAnswers(
+    weeklyWorkout: weeklyWorkout,
+    trainPlace: trainPlace,
+  ).weekOf(day)[(day.weekday - 1) % 7].routineIds;
   final ids = <String>[];
   for (final id in [...block, ...kDailyCoreRoutineIds]) {
     if (!ids.contains(id)) ids.add(id);
@@ -46,8 +51,11 @@ List<String> dailyPlanIds([DateTime? date, String weeklyWorkout = '']) {
 /// Monday of the week [date] falls in, as a yyyy-MM-dd key.
 String weekKey([DateTime? date]) {
   final d = date ?? DateTime.now();
-  final monday = DateTime(d.year, d.month, d.day)
-      .subtract(Duration(days: d.weekday - 1));
+  final monday = DateTime(
+    d.year,
+    d.month,
+    d.day,
+  ).subtract(Duration(days: d.weekday - 1));
   return '${monday.year}-${monday.month.toString().padLeft(2, '0')}-${monday.day.toString().padLeft(2, '0')}';
 }
 

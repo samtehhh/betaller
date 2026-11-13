@@ -25,7 +25,11 @@ class TodayTargetsCard extends StatelessWidget {
     final profile = provider.profile;
     if (profile == null) return const SizedBox.shrink();
     final workout = provider.onboardingAnswers['weeklyWorkout'] as String? ?? '';
-    final plan = WeeklyPlan.forAnswers(weeklyWorkout: workout, age: profile.age);
+    final plan = WeeklyPlan.forAnswers(
+      weeklyWorkout: workout,
+      age: profile.age,
+      trainPlace: provider.trainPlace,
+    );
 
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 18, 16, 16),
@@ -57,6 +61,7 @@ class TodayTargetsCard extends StatelessWidget {
           TodayTargetsGrid(
             profile: profile,
             weeklyWorkout: workout,
+            trainPlace: provider.trainPlace,
             today: provider.todayPlanDay,
           ),
           const SizedBox(height: 16),
@@ -73,6 +78,7 @@ class TodayTargetsCard extends StatelessWidget {
 class TodayTargetsGrid extends StatelessWidget {
   final UserProfile profile;
   final String weeklyWorkout;
+  final String trainPlace;
 
   /// Today's plan day, when the caller knows it (the app passes the
   /// program's day). Without it the weekday's day of the week is used.
@@ -84,6 +90,7 @@ class TodayTargetsGrid extends StatelessWidget {
     super.key,
     required this.profile,
     this.weeklyWorkout = '',
+    this.trainPlace = 'home',
     this.today,
     this.showNumbers = false,
   });
@@ -92,8 +99,11 @@ class TodayTargetsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context)!;
     final today = this.today ??
-        WeeklyPlan.forAnswers(weeklyWorkout: weeklyWorkout, age: profile.age)
-            .today;
+        WeeklyPlan.forAnswers(
+          weeklyWorkout: weeklyWorkout,
+          age: profile.age,
+          trainPlace: trainPlace,
+        ).today;
     final t = DailyTargets.forProfile(
       profile,
       weeklyWorkout: weeklyWorkout,

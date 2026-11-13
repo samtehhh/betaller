@@ -2346,5 +2346,8 @@
   "paGoal": "Duración del programa",
   "paBedtime": "Hora de dormir",
   "paWorkoutTime": "Hora de entrenar",
-  "restoreDone": "Tu compra se ha restaurado."
+  "restoreDone": "Tu compra se ha restaurado.",
+  "planPlaceTitle": "Dónde entrenas",
+  "planPlaceHome": "En casa, solo peso corporal",
+  "planPlaceGym": "En gimnasio o con mancuernas"
 }

@@ -2103,5 +2103,8 @@
   "paGoal": "プログラムの長さ",
   "paBedtime": "就寝時刻",
   "paWorkoutTime": "トレーニング時刻",
-  "restoreDone": "購入を復元しました。"
+  "restoreDone": "購入を復元しました。",
+  "planPlaceTitle": "トレーニングの場所",
+  "planPlaceHome": "自宅で、自重のみ",
+  "planPlaceGym": "ジムまたはダンベルで"
 }

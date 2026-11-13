@@ -7325,4 +7325,13 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get restoreDone => 'Pembelianmu sudah dipulihkan.';
+
+  @override
+  String get planPlaceTitle => 'Tempat kamu berlatih';
+
+  @override
+  String get planPlaceHome => 'Di rumah, hanya berat badan';
+
+  @override
+  String get planPlaceGym => 'Di gym atau dengan dumbel';
 }

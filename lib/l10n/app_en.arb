@@ -2414,5 +2414,8 @@
   "paGoal": "Program length",
   "paBedtime": "Bedtime",
   "paWorkoutTime": "Training time",
-  "restoreDone": "Your purchase is restored."
+  "restoreDone": "Your purchase is restored.",
+  "planPlaceTitle": "Where you train",
+  "planPlaceHome": "At home, bodyweight only",
+  "planPlaceGym": "Gym or dumbbells"
 }

@@ -2103,5 +2103,8 @@
   "paGoal": "计划时长",
   "paBedtime": "就寝时间",
   "paWorkoutTime": "训练时间",
-  "restoreDone": "已恢复你的购买。"
+  "restoreDone": "已恢复你的购买。",
+  "planPlaceTitle": "你在哪里训练",
+  "planPlaceHome": "在家，只用自重",
+  "planPlaceGym": "在健身房或用哑铃"
 }

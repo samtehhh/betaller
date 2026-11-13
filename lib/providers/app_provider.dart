@@ -318,6 +318,7 @@ class AppProvider extends ChangeNotifier {
       : ReminderContext(
           profile: _profile!,
           weeklyWorkout: _onboardingAnswers['weeklyWorkout'] as String? ?? '',
+          trainPlace: trainPlace,
           potential: formatHeight(potentialHeight),
           height: formatHeight(latestHeight),
           habitGain: formatHeightAmount(prediction?.lifestyleGain ?? 0),
@@ -465,11 +466,17 @@ class AppProvider extends ChangeNotifier {
   String get weeklyWorkout =>
       _onboardingAnswers['weeklyWorkout'] as String? ?? '';
 
+  /// Where the user trains: 'home' (bodyweight only) or 'gym' (weights
+  /// allowed). Missing or anything else is 'home'.
+  String get trainPlace =>
+      _onboardingAnswers['trainPlace'] == 'gym' ? 'gym' : 'home';
+
   /// This user's week, the single source for today's training block and
   /// the 70-day program.
   WeeklyPlan get weeklyPlan => WeeklyPlan.forAnswers(
         weeklyWorkout: weeklyWorkout,
         age: _profile?.age ?? 16,
+        trainPlace: trainPlace,
       );
 
   /// Today's plan ids. Today follows the 70-day program, so the Today tab
@@ -477,9 +484,9 @@ class AppProvider extends ChangeNotifier {
   /// week they were planned with.
   List<String> _planIds([DateTime? date]) {
     if (date != null && _dateKey(date) != _today) {
-      return dailyPlanIds(date, weeklyWorkout);
+      return dailyPlanIds(date, weeklyWorkout, trainPlace);
     }
-    if (_todayOnWeekdayPlan) return dailyPlanIds(null, weeklyWorkout);
+    if (_todayOnWeekdayPlan) return dailyPlanIds(null, weeklyWorkout, trainPlace);
     final ids = <String>[];
     for (final id in [...todayPlanDay.routineIds, ...kDailyCoreRoutineIds]) {
       if (!ids.contains(id)) ids.add(id);
@@ -756,6 +763,7 @@ class AppProvider extends ChangeNotifier {
         weeklyPlan: WeeklyPlan.forAnswers(
           weeklyWorkout: _onboardingAnswers['weeklyWorkout'] as String? ?? '',
           age: p.age,
+          trainPlace: trainPlace,
         ),
         streak: _streak,
         sleepLog: sleepLog,

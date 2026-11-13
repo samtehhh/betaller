@@ -7345,4 +7345,13 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get restoreDone => 'Pembelian anda telah dipulihkan.';
+
+  @override
+  String get planPlaceTitle => 'Tempat anda bersenam';
+
+  @override
+  String get planPlaceHome => 'Di rumah, berat badan sahaja';
+
+  @override
+  String get planPlaceGym => 'Di gim atau dengan dumbel';
 }

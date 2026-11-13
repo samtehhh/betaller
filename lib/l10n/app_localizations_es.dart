@@ -7312,4 +7312,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get restoreDone => 'Tu compra se ha restaurado.';
+
+  @override
+  String get planPlaceTitle => 'Dónde entrenas';
+
+  @override
+  String get planPlaceHome => 'En casa, solo peso corporal';
+
+  @override
+  String get planPlaceGym => 'En gimnasio o con mancuernas';
 }

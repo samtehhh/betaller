@@ -6965,4 +6965,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get restoreDone => '購入を復元しました。';
+
+  @override
+  String get planPlaceTitle => 'トレーニングの場所';
+
+  @override
+  String get planPlaceHome => '自宅で、自重のみ';
+
+  @override
+  String get planPlaceGym => 'ジムまたはダンベルで';
 }

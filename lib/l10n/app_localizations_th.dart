@@ -7214,4 +7214,13 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get restoreDone => 'กู้คืนการซื้อแล้ว';
+
+  @override
+  String get planPlaceTitle => 'คุณฝึกที่ไหน';
+
+  @override
+  String get planPlaceHome => 'ที่บ้าน ใช้น้ำหนักตัวอย่างเดียว';
+
+  @override
+  String get planPlaceGym => 'ที่ยิมหรือด้วยดัมเบล';
 }

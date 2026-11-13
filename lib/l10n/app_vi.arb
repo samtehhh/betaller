@@ -2103,5 +2103,8 @@
   "paGoal": "Thời lượng chương trình",
   "paBedtime": "Giờ đi ngủ",
   "paWorkoutTime": "Giờ tập",
-  "restoreDone": "Đã khôi phục giao dịch mua của bạn."
+  "restoreDone": "Đã khôi phục giao dịch mua của bạn.",
+  "planPlaceTitle": "Bạn tập ở đâu",
+  "planPlaceHome": "Ở nhà, chỉ tập tay không",
+  "planPlaceGym": "Ở phòng gym hoặc với tạ đơn"
 }

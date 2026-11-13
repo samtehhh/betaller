@@ -2103,5 +2103,8 @@
   "paGoal": "مدة البرنامج",
   "paBedtime": "وقت النوم",
   "paWorkoutTime": "وقت التمرين",
-  "restoreDone": "تمت استعادة عملية الشراء."
+  "restoreDone": "تمت استعادة عملية الشراء.",
+  "planPlaceTitle": "أين تتمرن",
+  "planPlaceHome": "في البيت، بوزن الجسم فقط",
+  "planPlaceGym": "في النادي أو بالدمبل"
 }

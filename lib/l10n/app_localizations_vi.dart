@@ -7286,4 +7286,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get restoreDone => 'Đã khôi phục giao dịch mua của bạn.';
+
+  @override
+  String get planPlaceTitle => 'Bạn tập ở đâu';
+
+  @override
+  String get planPlaceHome => 'Ở nhà, chỉ tập tay không';
+
+  @override
+  String get planPlaceGym => 'Ở phòng gym hoặc với tạ đơn';
 }

@@ -2103,5 +2103,8 @@
   "paGoal": "Długość programu",
   "paBedtime": "Pora snu",
   "paWorkoutTime": "Godzina treningu",
-  "restoreDone": "Twój zakup został przywrócony."
+  "restoreDone": "Twój zakup został przywrócony.",
+  "planPlaceTitle": "Gdzie trenujesz",
+  "planPlaceHome": "W domu, tylko z ciężarem ciała",
+  "planPlaceGym": "Na siłowni lub z hantlami"
 }

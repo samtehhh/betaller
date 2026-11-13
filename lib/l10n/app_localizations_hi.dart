@@ -7212,4 +7212,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get restoreDone => 'तुम्हारी खरीदारी बहाल हो गई।';
+
+  @override
+  String get planPlaceTitle => 'तुम कहाँ ट्रेनिंग करते हो';
+
+  @override
+  String get planPlaceHome => 'घर पर, सिर्फ़ शरीर के वज़न से';
+
+  @override
+  String get planPlaceGym => 'जिम में या डंबल के साथ';
 }

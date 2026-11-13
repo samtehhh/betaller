@@ -336,7 +336,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen>
     final displayScience = localized['science']?.isNotEmpty == true ? localized['science']! : routine.scientificBasis;
     final guide = exerciseGuide(
       routine.id,
-      Localizations.localeOf(context).languageCode,
+      moveTextKey(Localizations.localeOf(context)),
     );
 
     return Scaffold(

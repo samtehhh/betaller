@@ -6889,6 +6889,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get restoreDone => '已恢复你的购买。';
+
+  @override
+  String get planPlaceTitle => '你在哪里训练';
+
+  @override
+  String get planPlaceHome => '在家，只用自重';
+
+  @override
+  String get planPlaceGym => '在健身房或用哑铃';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -13791,4 +13800,13 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get restoreDone => '已恢復你的購買。';
+
+  @override
+  String get planPlaceTitle => '你在哪裡訓練';
+
+  @override
+  String get planPlaceHome => '在家，只用自重';
+
+  @override
+  String get planPlaceGym => '在健身房或用啞鈴';
 }
