@@ -352,7 +352,7 @@ void _showDaySheet(
                             ),
                             const SizedBox(height: 2),
                             CensoredText(
-                              '${_dose(context, l, m)} · ${l.plDoseMinutes(m.minutes)}',
+                              _doseLine(context, l, m),
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -478,7 +478,7 @@ class _TodayTab extends StatelessWidget {
                       routineId: r.id,
                       title: moveTitle(l, r.id),
                       subtitle:
-                          '${_dose(context, l, doses[r.id]!)} · ${l.plDoseMinutes(doses[r.id]!.minutes)}',
+                          _doseLine(context, l, doses[r.id]!),
                       icon: r.icon,
                       done: r.completed,
                       locked: ticksLocked,
@@ -1463,7 +1463,7 @@ class _ProgramDayCard extends StatelessWidget {
             PlanItemRow(
               routineId: m.routineId,
               title: moveTitle(l, m.routineId),
-              subtitle: '${_dose(context, l, m)} · ${l.plDoseMinutes(m.minutes)}',
+              subtitle: _doseLine(context, l, m),
               icon: byId[m.routineId]?.icon ?? '',
               done: checks.contains(m.routineId),
               accent: color,
@@ -2167,6 +2167,13 @@ bool completeProgramDay(BuildContext context, AppProvider provider) {
 /// A move's sets and reps, blurred for someone who has not paid.
 String _dose(BuildContext context, AppLocalizations l, MoveDose d) =>
     numbersLocked(context) ? kCensored : doseLabel(l, d);
+
+/// The dose and the minutes it takes. A session move's dose already is its
+/// minutes ("10 min"), so it shows them once.
+String _doseLine(BuildContext context, AppLocalizations l, MoveDose d) =>
+    d.kind == DoseKind.session
+        ? _dose(context, l, d)
+        : '${_dose(context, l, d)} · ${l.plDoseMinutes(d.minutes)}';
 
 /// [child] as is, or behind a blurred [LockedPreview] when [locked].
 Widget _lockedIf(

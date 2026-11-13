@@ -12758,6 +12758,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your purchase is restored.'**
   String get restoreDone;
+
+  /// No description provided for @planPlaceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where you train'**
+  String get planPlaceTitle;
+
+  /// No description provided for @planPlaceHome.
+  ///
+  /// In en, this message translates to:
+  /// **'At home, bodyweight only'**
+  String get planPlaceHome;
+
+  /// No description provided for @planPlaceGym.
+  ///
+  /// In en, this message translates to:
+  /// **'Gym or dumbbells'**
+  String get planPlaceGym;
 }
 
 class _AppLocalizationsDelegate

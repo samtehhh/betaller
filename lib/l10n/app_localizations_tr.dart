@@ -7223,4 +7223,13 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get restoreDone => 'Satın alımın geri yüklendi.';
+
+  @override
+  String get planPlaceTitle => 'Nerede çalışıyorsun';
+
+  @override
+  String get planPlaceHome => 'Evde, yalnız vücut ağırlığı';
+
+  @override
+  String get planPlaceGym => 'Salonda ya da dambılla';
 }

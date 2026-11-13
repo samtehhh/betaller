@@ -1,0 +1,1136 @@
+{
+  "band_pull_apart": {
+    "title": "Band Pull-Apart",
+    "desc": "Pull a band apart to your chest to strengthen your upper back and keep your shoulders open.",
+    "dose": "2 x 12",
+    "steps": [
+      "Stand tall and hold a band in front of you with straight arms at shoulder height.",
+      "Pull the band apart by squeezing your shoulder blades together.",
+      "Touch the band to your chest, then return slowly.",
+      "Do 12 reps and rest, 2 sets in total."
+    ],
+    "mistakes": [
+      "Shrugging the shoulders up toward the ears.",
+      "Letting the band snap back instead of returning slowly."
+    ],
+    "tip": "Choose a band light enough to finish every rep with good form, and check it for tears first."
+  },
+  "bar_hanging": {
+    "arb": true,
+    "steps": [
+      "Grip the bar overhand, hands shoulder-width apart.",
+      "Lift your feet and let your body hang straight and relaxed.",
+      "Keep your shoulders slightly engaged and breathe slowly for 30 seconds.",
+      "Step down gently, rest 30 to 60 seconds, and repeat for 3 sets."
+    ],
+    "mistakes": [
+      "Swinging or kicking your legs while hanging.",
+      "Dropping off the bar instead of stepping down."
+    ],
+    "tip": "Start with shorter holds and add a few seconds each week."
+  },
+  "bird_dog": {
+    "title": "Bird Dog",
+    "desc": "Reach your opposite arm and leg long to train the deep muscles that keep your spine steady.",
+    "dose": "2 x 8",
+    "steps": [
+      "Start on all fours, hands under your shoulders and knees under your hips.",
+      "Reach one arm forward and the opposite leg straight back.",
+      "Hold for two seconds with your hips level, then return.",
+      "Do 8 reps, switch sides, and do 2 sets on each side."
+    ],
+    "mistakes": [
+      "Letting the lower back sag as the leg lifts.",
+      "Rotating the hips open to raise the leg higher."
+    ],
+    "tip": "Imagine a glass of water resting on your lower back that must not spill."
+  },
+  "bow_pose": {
+    "title": "Bow Pose",
+    "desc": "Hold your ankles and lift your chest and thighs to open your whole front and strengthen your back.",
+    "dose": "2 x 10 s",
+    "steps": [
+      "Lie face down and bend your knees so your heels come toward your hips.",
+      "Reach back and hold both ankles.",
+      "Kick your feet into your hands to lift your chest and thighs.",
+      "Hold 10 seconds and lower slowly, 2 sets in total."
+    ],
+    "mistakes": [
+      "Letting the knees spread wider than the hips.",
+      "Throwing the head back and straining the neck."
+    ],
+    "tip": "Lift only as high as feels comfortable, and skip this one if your lower back hurts."
+  },
+  "broad_jumps": {
+    "title": "Broad Jumps",
+    "desc": "Jump forward off two feet and stick the landing to build hip power and strong leg bones.",
+    "dose": "3 x 5",
+    "steps": [
+      "Stand with your feet hip-width apart and your toes behind a line.",
+      "Swing your arms back, bend your knees and push your hips back.",
+      "Swing your arms forward, jump as far as you can and land on both feet.",
+      "Hold the landing for a second, walk back and do 5 jumps, 3 sets in total."
+    ],
+    "mistakes": [
+      "Falling forward or backward on the landing.",
+      "Landing with your knees locked straight."
+    ],
+    "tip": "Jump on a surface that does not slip, and jump shorter until you can hold every landing still."
+  },
+  "burpees": {
+    "title": "Burpees",
+    "desc": "Squat, plank and jump in one move, whole-body work your body answers with growth hormone afterwards.",
+    "dose": "3 x 5",
+    "steps": [
+      "Stand tall, then squat and place your hands on the floor.",
+      "Jump your feet back into a straight plank.",
+      "Jump your feet back in toward your hands.",
+      "Jump straight up, do 5 reps and rest, 3 sets in total."
+    ],
+    "mistakes": [
+      "Letting the hips sag in the plank.",
+      "Landing hard with straight legs after the jump."
+    ],
+    "tip": "Step your feet back and in instead of jumping to make it easier, and slow down if your form slips."
+  },
+  "calf_pulses": {
+    "title": "Calf Pulses",
+    "desc": "Small tiptoe bounces that keep your calves working and build strong lower legs.",
+    "dose": "3 x 20 s",
+    "steps": [
+      "Stand tall and rise onto your tiptoes, fingertips on a wall if you need balance.",
+      "Bounce up and down in small pulses, just a few centimetres.",
+      "Keep your heels off the floor for the whole set.",
+      "Keep going for 20 seconds, 3 sets in total."
+    ],
+    "mistakes": [
+      "Letting your heels touch the floor between pulses.",
+      "Making the movement so big that it stops being a pulse."
+    ],
+    "tip": "A burn in your calves is normal. Sharp pain means stop."
+  },
+  "calf_raise": {
+    "title": "Calf Raise",
+    "desc": "Rise onto your toes to build strong calves and ankles for jumping and running.",
+    "dose": "3 x 15",
+    "steps": [
+      "Stand tall next to a wall, fingertips touching it for balance.",
+      "Rise slowly onto the balls of your feet as high as you can.",
+      "Hold 1 second at the top, then lower your heels slowly.",
+      "Do 15 reps per set, 3 sets in total."
+    ],
+    "mistakes": [
+      "Bouncing quickly instead of moving slowly.",
+      "Letting your ankles roll outward at the top."
+    ],
+    "tip": "Do them while brushing your teeth for an easy daily habit."
+  },
+  "cat_cow": {
+    "title": "Cat-Cow",
+    "desc": "Flow between arching and rounding your back to move your whole spine.",
+    "dose": "2 x 10",
+    "steps": [
+      "Start on hands and knees, wrists under shoulders, knees under hips.",
+      "Breathe in, drop your belly and lift your chest and gaze (cow).",
+      "Breathe out, round your back and tuck your chin (cat).",
+      "Move slowly with your breath for 10 rounds, 2 sets."
+    ],
+    "mistakes": [
+      "Moving faster than your breathing.",
+      "Moving only your neck instead of your whole spine."
+    ],
+    "tip": "Great as your first move in the morning or a reset after sitting."
+  },
+  "chest_stretch": {
+    "title": "Doorway Chest Stretch",
+    "desc": "Step through a doorway with your forearm on the frame to open a chest rounded by screens.",
+    "dose": "2 x 20 s",
+    "steps": [
+      "Stand in a doorway and place one forearm on the frame, elbow at shoulder height.",
+      "Step the same-side foot forward through the doorway.",
+      "Lean your chest forward until you feel a stretch across the front of your shoulder.",
+      "Hold 20 seconds, switch sides, and do 2 sets on each side."
+    ],
+    "mistakes": [
+      "Arching the lower back to lean further.",
+      "Shrugging the shoulder up toward the ear."
+    ],
+    "tip": "Keep the stretch gentle, and back off if you feel a pinch in your shoulder."
+  },
+  "childs_pose": {
+    "title": "Child's Pose",
+    "desc": "Sit back on your heels with long arms to gently stretch your back and let your spine relax.",
+    "dose": "2 x 30 s",
+    "steps": [
+      "Kneel on the floor with your big toes together and your knees apart.",
+      "Sit your hips back onto your heels.",
+      "Walk your hands forward and rest your forehead on the floor.",
+      "Breathe slowly for 30 seconds and come up, 2 sets in total."
+    ],
+    "mistakes": [
+      "Lifting the hips far off the heels to reach further.",
+      "Holding the breath and tensing the shoulders."
+    ],
+    "tip": "Put a cushion between your hips and heels if your knees feel tight."
+  },
+  "chin_tucks": {
+    "title": "Chin Tucks",
+    "desc": "Slide your chin straight back to ease a forward head and improve your neck posture.",
+    "dose": "2 x 8",
+    "steps": [
+      "Sit or stand tall and look straight ahead.",
+      "Slide your chin straight back, as if making a double chin.",
+      "Hold 3 seconds, then relax.",
+      "Do 8 reps per set, 2 sets in total."
+    ],
+    "mistakes": [
+      "Nodding your head down instead of sliding it back.",
+      "Pushing so hard that your neck hurts."
+    ],
+    "tip": "Do a few every time you put your phone down."
+  },
+  "cobra_stretch": {
+    "arb": true,
+    "steps": [
+      "Lie face down with your hands flat under your shoulders.",
+      "Press the floor away and lift your chest slowly, hips stay down.",
+      "Keep your elbows slightly bent and shoulders away from your ears.",
+      "Hold 15 seconds, breathing slowly, then lower down with control."
+    ],
+    "mistakes": [
+      "Pushing up so high that your lower back pinches.",
+      "Shrugging your shoulders up toward your ears."
+    ],
+    "tip": "Lift only as high as feels comfortable; it deepens with practice."
+  },
+  "dead_bug": {
+    "title": "Dead Bug",
+    "desc": "Lower your opposite arm and leg with your back flat to build core control that protects your spine.",
+    "dose": "2 x 8",
+    "steps": [
+      "Lie on your back with your arms straight up and your knees bent above your hips.",
+      "Press your lower back gently into the floor.",
+      "Lower one arm overhead and the opposite leg toward the floor, then return.",
+      "Do 8 reps on each side and rest, 2 sets in total."
+    ],
+    "mistakes": [
+      "Letting the lower back arch off the floor.",
+      "Rushing through the reps."
+    ],
+    "tip": "Lower your arm and leg only as far as your back can stay flat on the floor."
+  },
+  "dead_hang_active": {
+    "title": "Active Hang",
+    "desc": "Hang from a bar with engaged shoulders to build grip and shoulder control.",
+    "dose": "3 x 20 s",
+    "steps": [
+      "Grip the bar overhand, hands slightly wider than your shoulders.",
+      "Hang with straight arms, then pull your shoulder blades down and back.",
+      "Keep your legs together and core tight, and hold for 20 seconds.",
+      "Step down gently and rest 40 seconds between sets."
+    ],
+    "mistakes": [
+      "Bending your elbows like a pull-up.",
+      "Shrugging your shoulders up to your ears."
+    ],
+    "tip": "Think of pushing the bar away from you to feel your shoulders work."
+  },
+  "deadlift_stretch": {
+    "arb": true,
+    "steps": [
+      "Stand with feet hip-width apart and knees softly bent.",
+      "Hinge at your hips and slide your hands down your thighs.",
+      "Keep your back flat and reach toward your toes until your hamstrings stretch.",
+      "Squeeze your glutes to stand back up, 12 slow reps per set."
+    ],
+    "mistakes": [
+      "Rounding your back to reach lower.",
+      "Locking your knees completely straight."
+    ],
+    "tip": "Move slowly; control matters more than how far you reach."
+  },
+  "downward_dog": {
+    "title": "Downward Dog",
+    "desc": "An upside-down V that stretches your shoulders, back and calves for a more open posture.",
+    "dose": "2 x 20 s",
+    "steps": [
+      "Start on hands and knees, hands under your shoulders.",
+      "Lift your hips high so your body makes an upside-down V.",
+      "Keep your spine long and let your heels sink toward the floor.",
+      "Hold 20 seconds and rest, 2 sets in total."
+    ],
+    "mistakes": [
+      "Rounding your back to force your heels down.",
+      "Shrugging your shoulders up to your ears."
+    ],
+    "tip": "Bend your knees a little if your back rounds. Your heels do not need to touch the floor."
+  },
+  "dumbbell_deadlift": {
+    "title": "Dumbbell Romanian Deadlift",
+    "desc": "Hinge at your hips with a flat back, hard big-muscle work your body answers with growth hormone afterwards.",
+    "dose": "3 x 8",
+    "steps": [
+      "Stand tall with a dumbbell in each hand in front of your thighs.",
+      "Soften your knees and push your hips back with a flat back.",
+      "Slide the weights down your thighs to just below your knees.",
+      "Squeeze your glutes to stand up, do 8 reps, 3 sets in total."
+    ],
+    "mistakes": [
+      "Rounding the back as the weights go down.",
+      "Turning it into a squat by bending the knees a lot."
+    ],
+    "tip": "Pick a weight light enough to finish every rep with good form."
+  },
+  "dumbbell_row": {
+    "title": "Dumbbell Row",
+    "desc": "Pull a dumbbell to your hip to build the upper-back muscles that draw your shoulders back.",
+    "dose": "3 x 8",
+    "steps": [
+      "Place one hand on a bench or chair and step your feet back.",
+      "Hold a dumbbell in the other hand with your back flat and your arm hanging down.",
+      "Pull the weight to your hip with your elbow close, then lower it slowly.",
+      "Do 8 reps on each side and rest, 3 sets in total."
+    ],
+    "mistakes": [
+      "Twisting the body to heave the weight up.",
+      "Shrugging the shoulder toward the ear."
+    ],
+    "tip": "Pick a weight light enough to finish every rep with good form."
+  },
+  "evening_yoga": {
+    "arb": true,
+    "steps": [
+      "Start on hands and knees and flow through cat-cow for 60 seconds.",
+      "Sit back into child's pose, arms long, and breathe for 60 seconds.",
+      "Press up into downward dog, heels reaching toward the floor.",
+      "Stand and fold forward, letting your head hang heavy.",
+      "Breathe in for 4 counts and out for 6 counts in every pose."
+    ],
+    "mistakes": [
+      "Rushing between poses instead of holding them.",
+      "Forcing a pose until it hurts."
+    ],
+    "tip": "Dim the lights while you flow to help your body wind down."
+  },
+  "farmer_carry": {
+    "title": "Farmer's Carry",
+    "desc": "Walk tall with a weight in each hand, whole-body work the body answers with growth hormone afterwards.",
+    "dose": "3 x 20 s",
+    "steps": [
+      "Stand between two dumbbells or two loaded bags.",
+      "Bend your knees, keep your back flat and pick them up.",
+      "Walk with small steps, shoulders back and eyes forward.",
+      "Walk for 20 seconds, set them down and rest, 3 sets in total."
+    ],
+    "mistakes": [
+      "Leaning to one side or letting the shoulders round forward.",
+      "Rounding the back when picking up or putting down the weights."
+    ],
+    "tip": "Pick a weight light enough to finish every set with good form, and keep both sides equal."
+  },
+  "glute_bridge": {
+    "title": "Glute Bridge",
+    "desc": "Lift your hips to strengthen your glutes and open up hips that feel tight from sitting.",
+    "dose": "3 x 12",
+    "steps": [
+      "Lie on your back, knees bent, feet flat and hip-width apart.",
+      "Press through your heels and lift your hips toward the ceiling.",
+      "Squeeze your glutes at the top for 2 seconds.",
+      "Lower slowly, 12 reps per set, 3 sets in total."
+    ],
+    "mistakes": [
+      "Pushing through your toes instead of your heels.",
+      "Overarching your lower back at the top."
+    ],
+    "tip": "If you feel it in your glutes, not your lower back, you are doing it right."
+  },
+  "goblet_squat": {
+    "title": "Goblet Squat",
+    "desc": "Squat with a weight at your chest, the big-muscle effort your body answers with growth hormone afterwards.",
+    "dose": "3 x 8",
+    "steps": [
+      "Hold one dumbbell or a loaded backpack against your chest with both hands.",
+      "Stand with your feet shoulder-width apart and your toes turned out a little.",
+      "Sit down between your heels with your chest up, then stand back up.",
+      "Do 8 reps and rest, 3 sets in total."
+    ],
+    "mistakes": [
+      "Letting the knees cave inward.",
+      "Rounding the back and letting the chest drop."
+    ],
+    "tip": "Pick a weight light enough to finish every rep with good form."
+  },
+  "hanging_knee_raise": {
+    "title": "Hanging Knee Raise",
+    "desc": "Lift your knees while you hang to build a strong core as the hang decompresses your spine.",
+    "dose": "3 x 5",
+    "steps": [
+      "Grip the bar overhand and hang with straight arms.",
+      "Pull your shoulders down away from your ears.",
+      "Lift both knees to hip height without swinging, then lower them slowly.",
+      "Do 5 reps, step down and rest, 3 sets in total."
+    ],
+    "mistakes": [
+      "Swinging the body to throw the knees up.",
+      "Hanging with the shoulders up by the ears."
+    ],
+    "tip": "Check that the bar is solid before you hang, and step down instead of dropping off."
+  },
+  "high_knees": {
+    "title": "High Knees",
+    "desc": "Run on the spot with your knees at hip height to warm up fast and load your legs.",
+    "dose": "3 x 20 s",
+    "steps": [
+      "Stand tall with your feet hip-width apart.",
+      "Run on the spot and lift each knee to hip height.",
+      "Pump your arms and stay light on the balls of your feet.",
+      "Keep going for 20 seconds, 3 sets in total."
+    ],
+    "mistakes": [
+      "Leaning back as your knees come up.",
+      "Stomping the floor with flat feet."
+    ],
+    "tip": "Slow it down to a march with high knees if you get out of breath."
+  },
+  "hiit_workout": {
+    "arb": true,
+    "steps": [
+      "Warm up for 3 minutes with marching in place and arm circles.",
+      "Do burpees, mountain climbers and jump squats, 45 seconds each.",
+      "Rest 15 seconds between moves and breathe deeply.",
+      "Complete 4 rounds, then walk slowly until your breathing settles."
+    ],
+    "mistakes": [
+      "Letting your form slip to go faster.",
+      "Holding your breath during the hard intervals."
+    ],
+    "tip": "Go at your own pace; finishing all 4 rounds beats a fast start."
+  },
+  "hip_flexor_stretch": {
+    "title": "Hip Flexor Stretch",
+    "desc": "Open the front of your hips to ease the tightness from long hours of sitting.",
+    "dose": "2 x 30 s",
+    "steps": [
+      "Kneel on one knee with the other foot flat in front of you.",
+      "Tuck your hips under slightly and squeeze the glute of your back leg.",
+      "Shift forward gently until you feel a stretch at the front of your hip.",
+      "Hold 30 seconds, breathing slowly, then switch sides."
+    ],
+    "mistakes": [
+      "Arching your lower back instead of tucking your hips.",
+      "Letting your front knee drift past your toes."
+    ],
+    "tip": "Put a folded towel under your knee to make it more comfortable."
+  },
+  "inversion_hang": {
+    "arb": true,
+    "steps": [
+      "Only invert with an adult supervising and on stable, checked equipment.",
+      "Lock your ankles securely and start at a slight incline, not fully upside down.",
+      "Relax your arms and breathe slowly for up to 1 minute.",
+      "Return upright slowly and sit for a moment before standing.",
+      "Stop right away if you feel dizzy, pressure in your head or any pain."
+    ],
+    "mistakes": [
+      "Going fully upside down in your first sessions.",
+      "Standing up quickly right after inverting."
+    ],
+    "tip": "Short, gentle sessions are enough; there is no need to hang longer."
+  },
+  "jump_squats": {
+    "title": "Jump Squats",
+    "desc": "Squat and jump for leg power, the hard big-muscle work your body answers with growth hormone afterwards.",
+    "dose": "3 x 8",
+    "steps": [
+      "Stand with your feet shoulder-width apart and your chest up.",
+      "Sit back into a squat until your thighs are about level with the floor.",
+      "Push hard through your feet, jump straight up and land softly back in the squat.",
+      "Do 8 jumps, rest, and repeat for 3 sets in total."
+    ],
+    "mistakes": [
+      "Letting your knees cave inward on the landing.",
+      "Landing with stiff, straight legs."
+    ],
+    "tip": "Land as quietly as you can, and stop the set when your landings get loud."
+  },
+  "jumping": {
+    "arb": true,
+    "steps": [
+      "Stand with feet hip-width apart and arms relaxed at your sides.",
+      "Bend your knees, swing your arms and jump straight up.",
+      "Land softly on the balls of your feet with knees slightly bent.",
+      "Do 20 jumps, rest 30 seconds, and repeat for 3 sets."
+    ],
+    "mistakes": [
+      "Landing stiff-legged on your heels.",
+      "Letting your knees cave inward on landing."
+    ],
+    "tip": "Quiet landings mean good control, so try to land like a cat."
+  },
+  "knee_circles": {
+    "title": "Knee Circles",
+    "desc": "Gentle circles that warm up your knees and ankles before you move.",
+    "dose": "2 x 15 s",
+    "steps": [
+      "Stand with your feet together and bend your knees slightly.",
+      "Put your hands on your knees.",
+      "Make small, slow circles with your knees for 15 seconds one way.",
+      "Switch direction and go 15 seconds the other way."
+    ],
+    "mistakes": [
+      "Making big circles that twist your knees.",
+      "Doing all your circles in one direction."
+    ],
+    "tip": "Use it as a warm-up before jumps or running."
+  },
+  "legs_up_wall": {
+    "title": "Legs Up the Wall",
+    "desc": "Rest your legs up a wall to take the load off your spine and unwind after a long day.",
+    "dose": "3 min",
+    "steps": [
+      "Sit sideways next to a wall with one hip touching it.",
+      "Swing your legs up the wall as you lie back on the floor.",
+      "Let your arms rest by your sides and relax your legs against the wall.",
+      "Stay for 3 minutes, breathing slowly."
+    ],
+    "mistakes": [
+      "Lifting the lower back off the floor.",
+      "Locking the knees hard and tensing the legs."
+    ],
+    "tip": "Move your hips a little away from the wall if the back of your legs feels tight."
+  },
+  "low_lunge_arch": {
+    "title": "Low Lunge with Reach",
+    "desc": "Sink your hips forward and reach up to open the front of your hips and your chest.",
+    "dose": "2 x 20 s",
+    "steps": [
+      "Step one foot forward and lower your back knee to the floor.",
+      "Slide your hips forward until you feel a stretch at the front of the back hip.",
+      "Reach both arms up and lift your chest into a gentle arch.",
+      "Hold 20 seconds, switch legs, and do 2 sets on each side."
+    ],
+    "mistakes": [
+      "Letting the front knee travel far past the toes.",
+      "Bending only from the lower back."
+    ],
+    "tip": "Put a folded towel under your back knee, and keep the arch small."
+  },
+  "lunges": {
+    "title": "Lunges",
+    "desc": "Step forward and bend both knees to build strong legs and hips, one side at a time.",
+    "dose": "3 x 8",
+    "steps": [
+      "Stand tall with your feet hip-width apart.",
+      "Take a big step forward and lower until both knees bend to about 90 degrees.",
+      "Push through your front heel to step back to the start.",
+      "Do 8 reps on each leg and rest, 3 sets in total."
+    ],
+    "mistakes": [
+      "Letting the front knee cave inward.",
+      "Leaning the chest far forward over the front leg."
+    ],
+    "tip": "Take a shorter step or hold a chair for balance until the movement feels steady."
+  },
+  "masai_jumps": {
+    "title": "Masai Jumps",
+    "desc": "Small springy jumps with an upright body build strong legs and stronger bones.",
+    "dose": "3 x 20 s",
+    "steps": [
+      "Stand tall with your arms by your sides or reaching up.",
+      "Make small, springy jumps and keep your body upright the whole time.",
+      "Land softly on the balls of your feet, knees slightly bent.",
+      "Keep going for 20 seconds, 3 sets in total."
+    ],
+    "mistakes": [
+      "Landing hard on your heels.",
+      "Slumping forward as you get tired."
+    ],
+    "tip": "Stop if your knees or shins hurt, and rest before you try again."
+  },
+  "morning_stretch": {
+    "arb": true,
+    "steps": [
+      "Stand tall and roll your neck slowly, 5 circles each way.",
+      "Reach both arms overhead, interlace your fingers and stretch up for 30 seconds.",
+      "Bend forward from your hips and let your hands hang toward your toes.",
+      "Step into a lunge, hold 30 seconds, then switch legs.",
+      "Breathe slowly through your nose and never bounce into a stretch."
+    ],
+    "mistakes": [
+      "Bouncing to go deeper instead of holding still.",
+      "Holding your breath during the hold."
+    ],
+    "tip": "Stretch before you check your phone and the habit sticks faster."
+  },
+  "mountain_pose": {
+    "title": "Mountain Pose on Toes",
+    "desc": "Rise onto your toes and reach up to lengthen your spine and practise standing at your full height.",
+    "dose": "2 x 20 s",
+    "steps": [
+      "Stand with your feet together and your weight even on both feet.",
+      "Reach both arms straight overhead with your palms facing each other.",
+      "Rise onto your toes and stretch up through your fingertips.",
+      "Hold 20 seconds and lower slowly, 2 sets in total."
+    ],
+    "mistakes": [
+      "Flaring your ribs and arching your lower back.",
+      "Shrugging your shoulders up to your ears."
+    ],
+    "tip": "Fix your eyes on one point in front of you, or keep your heels down if you wobble."
+  },
+  "neck_stretches": {
+    "arb": true,
+    "steps": [
+      "Sit or stand tall with your shoulders relaxed and down.",
+      "Tilt your ear slowly toward one shoulder and hold 30 seconds per side.",
+      "Lower your chin toward your chest and hold for 30 seconds.",
+      "Lift your gaze gently for 30 seconds without dropping your head back."
+    ],
+    "mistakes": [
+      "Pulling hard on your head with your hand.",
+      "Lifting your shoulder up to meet your ear."
+    ],
+    "tip": "Do these after long study sessions to release tension."
+  },
+  "overhead_press": {
+    "arb": true,
+    "steps": [
+      "Stand tall holding light weights or water bottles at shoulder height.",
+      "Brace your core and press both arms straight overhead.",
+      "Finish with arms beside your ears, then lower slowly to your shoulders.",
+      "Breathe out as you press, in as you lower, 10 reps per set."
+    ],
+    "mistakes": [
+      "Arching your lower back as you press.",
+      "Using weights too heavy to control."
+    ],
+    "tip": "Start with bodyweight and add light weights once your form feels easy."
+  },
+  "pelvic_shift": {
+    "title": "Pelvic Shift",
+    "desc": "Lift and lower your hips one vertebra at a time to loosen your spine and wake up your glutes.",
+    "dose": "2 x 10",
+    "steps": [
+      "Lie on your back with your knees bent and your feet flat on the floor.",
+      "Tuck your tailbone and peel your spine off the floor from the bottom up.",
+      "Pause at the top, then lower slowly, one vertebra at a time.",
+      "Do 10 slow reps and rest, 2 sets in total."
+    ],
+    "mistakes": [
+      "Pushing the hips up fast in one piece.",
+      "Arching the lower back at the top."
+    ],
+    "tip": "Move slowly enough to feel each part of your back touch the floor."
+  },
+  "pilates_core": {
+    "arb": true,
+    "steps": [
+      "Hold a forearm plank for 1 minute, body in one straight line.",
+      "Lie on your back for dead bugs, lowering opposite arm and leg slowly.",
+      "Switch to bird dog on hands and knees, reaching opposite arm and leg.",
+      "Finish with 1 minute of glute bridges and 1 minute of leg raises.",
+      "Breathe out every time you tighten your core."
+    ],
+    "mistakes": [
+      "Letting your hips sag during the plank.",
+      "Arching your lower back off the floor during dead bugs."
+    ],
+    "tip": "Slow and controlled beats fast; every clean rep builds real strength."
+  },
+  "pilates_roll_over": {
+    "title": "Pilates Roll Over",
+    "desc": "Roll your legs overhead and back with control to stretch your spine and train deep core strength.",
+    "dose": "2 x 5",
+    "steps": [
+      "Lie on your back with your arms by your sides and your legs straight up.",
+      "Press your arms into the floor and lift your hips to roll your legs overhead.",
+      "Stop when your legs are level with the floor behind your head.",
+      "Roll back down slowly, do 5 reps and rest, 2 sets in total."
+    ],
+    "mistakes": [
+      "Swinging the legs over with momentum.",
+      "Rolling onto the neck instead of the shoulders."
+    ],
+    "tip": "Keep your weight on your shoulders and never on your neck, and bend your knees to make it easier."
+  },
+  "plank": {
+    "title": "Plank",
+    "desc": "Hold a straight-body plank to build a strong core that supports upright posture.",
+    "dose": "3 x 30 s",
+    "steps": [
+      "Place your forearms on the floor, elbows under your shoulders.",
+      "Step your feet back so your body forms one straight line.",
+      "Squeeze your glutes, pull your belly button in and hold 30 seconds.",
+      "Rest 30 seconds and repeat for 3 sets."
+    ],
+    "mistakes": [
+      "Letting your hips sag toward the floor.",
+      "Piking your hips up too high."
+    ],
+    "tip": "Add 5 seconds each week as it gets easier."
+  },
+  "pogo_jumps": {
+    "title": "Pogo Jumps",
+    "desc": "Quick, stiff-ankle bounces load your shin and foot bones and build springy, powerful calves.",
+    "dose": "3 x 20 s",
+    "steps": [
+      "Stand tall with your feet hip-width apart and your hands on your hips.",
+      "Bounce on the balls of your feet with your knees almost straight.",
+      "Keep each ground contact short and quick, like a pogo stick.",
+      "Keep going for 20 seconds, 3 sets in total."
+    ],
+    "mistakes": [
+      "Bending your knees deeply on every bounce.",
+      "Letting your heels slam into the floor."
+    ],
+    "tip": "Jump on a firm, flat surface and stop if your shins or ankles hurt."
+  },
+  "posture_check": {
+    "arb": true,
+    "steps": [
+      "Set an hourly reminder to check how you are sitting or standing.",
+      "Stack your ears over your shoulders and your shoulders over your hips.",
+      "Roll your shoulders back and down, chest gently open.",
+      "Imagine a string pulling the top of your head up, then breathe."
+    ],
+    "mistakes": [
+      "Overcorrecting with a stiff, arched back.",
+      "Looking down at your phone with your head pushed forward."
+    ],
+    "tip": "Raise your screen to eye level and good posture becomes automatic."
+  },
+  "pre_sleep_routine": {
+    "arb": true,
+    "steps": [
+      "Start 30 minutes before bed: dim the lights and put screens away.",
+      "Read a book or listen to calm music for 15 minutes.",
+      "Do 5 minutes of gentle stretching on your bed or the floor.",
+      "Breathe in for 4 seconds and out for 6 seconds, 10 rounds."
+    ],
+    "mistakes": [
+      "Scrolling on your phone for just one more minute.",
+      "Changing your bedtime a lot from night to night."
+    ],
+    "tip": "Same time, same steps every night makes falling asleep easier."
+  },
+  "pull_ups": {
+    "title": "Pull-Ups",
+    "desc": "Pull your chin over the bar to build your back, hard work the body answers with growth hormone afterwards.",
+    "dose": "3 x 2",
+    "steps": [
+      "Grip the bar overhand, hands slightly wider than your shoulders.",
+      "Start from a straight-arm hang and pull your shoulder blades down.",
+      "Pull until your chin clears the bar, then lower yourself slowly.",
+      "Do 2 reps, step down and rest, 3 sets in total."
+    ],
+    "mistakes": [
+      "Kicking and swinging to get over the bar.",
+      "Dropping down fast instead of lowering with control."
+    ],
+    "tip": "Loop a band under your feet or jump to the top and lower slowly, and check that the bar is solid."
+  },
+  "puppy_pose": {
+    "title": "Puppy Pose",
+    "desc": "Melt your chest toward the floor to open tight shoulders and stretch your upper back.",
+    "dose": "2 x 20 s",
+    "steps": [
+      "Start on all fours with your hips right above your knees.",
+      "Walk your hands forward and keep your hips where they are.",
+      "Let your chest and forehead sink toward the floor.",
+      "Hold 20 seconds and come back up, 2 sets in total."
+    ],
+    "mistakes": [
+      "Letting the hips slide back toward the heels.",
+      "Bending the elbows and resting them on the floor."
+    ],
+    "tip": "Rest your forehead on a cushion if the stretch in your shoulders feels too strong."
+  },
+  "push_ups": {
+    "title": "Push-Ups",
+    "desc": "Lower your chest to the floor with a straight body to build your chest, arms and core.",
+    "dose": "3 x 5",
+    "steps": [
+      "Place your hands on the floor slightly wider than your shoulders.",
+      "Step your feet back so your body forms one straight line.",
+      "Bend your elbows to lower your chest to the floor, then push back up.",
+      "Do 5 reps and rest, 3 sets in total."
+    ],
+    "mistakes": [
+      "Letting the hips sag toward the floor.",
+      "Flaring the elbows straight out to the sides."
+    ],
+    "tip": "Drop to your knees or put your hands on a bench to make it easier."
+  },
+  "scapular_pull": {
+    "title": "Scapular Pull",
+    "desc": "Pull your shoulders down from a hang with straight arms to build the base for strong pull-ups.",
+    "dose": "3 x 5",
+    "steps": [
+      "Grip the bar overhand, hands slightly wider than your shoulders.",
+      "Hang with straight arms and let your shoulders rise toward your ears.",
+      "Pull your shoulder blades down so your body lifts a little, elbows straight.",
+      "Hold a second and release, do 5 reps, 3 sets in total."
+    ],
+    "mistakes": [
+      "Bending the elbows to pull higher.",
+      "Swinging the legs to help."
+    ],
+    "tip": "Check that the bar is solid, and keep your feet on a box if a full hang is too hard."
+  },
+  "scapular_retraction": {
+    "title": "Shoulder Blade Squeeze",
+    "desc": "Squeeze your shoulder blades back and down to train the muscles that keep your shoulders from rounding.",
+    "dose": "2 x 10",
+    "steps": [
+      "Sit or stand tall with your arms relaxed at your sides.",
+      "Pull your shoulder blades back and down, as if tucking them into your back pockets.",
+      "Hold the squeeze for one slow breath, then release.",
+      "Do 10 reps and rest, 2 sets in total."
+    ],
+    "mistakes": [
+      "Shrugging the shoulders up while squeezing.",
+      "Pushing the ribs forward and arching the back."
+    ],
+    "tip": "Keep your chin level and your neck relaxed the whole time."
+  },
+  "seated_forward_fold": {
+    "title": "Seated Forward Fold",
+    "desc": "Hinge forward over straight legs to stretch your hamstrings and the whole length of your back.",
+    "dose": "2 x 20 s",
+    "steps": [
+      "Sit on the floor with your legs straight and your toes pointing up.",
+      "Sit up tall and reach both arms overhead.",
+      "Hinge forward from your hips and reach for your shins or feet.",
+      "Hold 20 seconds and sit back up, 2 sets in total."
+    ],
+    "mistakes": [
+      "Rounding the upper back to reach the toes.",
+      "Bouncing to get deeper into the stretch."
+    ],
+    "tip": "Bend your knees a little or sit on a folded towel if your lower back rounds."
+  },
+  "shoulder_rolls": {
+    "arb": true,
+    "steps": [
+      "Stand tall with your arms hanging loosely at your sides.",
+      "Roll your shoulders forward in big circles 15 times.",
+      "Roll them backward 15 times, squeezing your shoulder blades together.",
+      "Clasp your hands behind your back and open your chest for 20 seconds."
+    ],
+    "mistakes": [
+      "Making tiny, rushed circles.",
+      "Shrugging while holding your breath."
+    ],
+    "tip": "A quick set between classes or study blocks keeps your shoulders open."
+  },
+  "side_plank": {
+    "title": "Side Plank",
+    "desc": "Hold a straight line on one forearm to strengthen the side muscles that keep your posture even.",
+    "dose": "2 x 15 s",
+    "steps": [
+      "Lie on your side with your forearm on the floor, elbow under your shoulder.",
+      "Stack your feet and lift your hips off the floor.",
+      "Keep your body in one straight line from head to heels.",
+      "Hold 15 seconds, switch sides, and do 2 sets on each side."
+    ],
+    "mistakes": [
+      "Letting the hips drop toward the floor.",
+      "Rolling the chest forward toward the floor."
+    ],
+    "tip": "Keep your bottom knee on the floor to make it easier."
+  },
+  "single_leg_calf_raise": {
+    "title": "Single-Leg Calf Raise",
+    "desc": "Rise on one foot from the edge of a step to build strong calves and ankles for jumping.",
+    "dose": "3 x 8",
+    "steps": [
+      "Stand on the edge of a step on the ball of one foot and hold a wall or rail.",
+      "Lower your heel slowly below the level of the step.",
+      "Rise as high as you can onto your toes and pause for a second.",
+      "Do 8 reps on each leg and rest, 3 sets in total."
+    ],
+    "mistakes": [
+      "Bouncing out of the bottom instead of moving slowly.",
+      "Bending the knee to help the calf."
+    ],
+    "tip": "Start with body weight, and if you add a dumbbell or backpack, pick a weight light enough to finish every rep with good form."
+  },
+  "single_leg_hops": {
+    "title": "Single-Leg Hops",
+    "desc": "Small hops on one leg strengthen your ankles and bones and even out your two sides.",
+    "dose": "2 x 8",
+    "steps": [
+      "Stand on one leg with the other foot lifted behind you.",
+      "Make small hops on the spot, landing on the ball of your foot.",
+      "Keep your hips level and your standing knee slightly bent.",
+      "Do 8 hops, switch legs, and do 2 sets on each side."
+    ],
+    "mistakes": [
+      "Letting the knee of the hopping leg cave inward.",
+      "Hopping so high that you lose your balance."
+    ],
+    "tip": "Stay close to a wall you can touch, and keep the hops low until your balance feels steady."
+  },
+  "skipping_rope": {
+    "arb": true,
+    "steps": [
+      "Hold the handles at hip height, elbows close to your sides.",
+      "Turn the rope with your wrists, not your whole arms.",
+      "Jump just high enough to clear the rope, landing on the balls of your feet.",
+      "Skip for 5 minutes, rest 1 minute, and repeat for 3 sets."
+    ],
+    "mistakes": [
+      "Jumping too high and tiring out fast.",
+      "Landing flat-footed on your heels."
+    ],
+    "tip": "Tripping is normal; just restart and keep the rhythm going."
+  },
+  "spinal_twist": {
+    "title": "Lying Spinal Twist",
+    "desc": "Drop one knee across your body to gently rotate your spine and release a stiff lower back.",
+    "dose": "2 x 20 s",
+    "steps": [
+      "Lie on your back with your arms out to the sides.",
+      "Bend one knee and bring it across your body toward the floor.",
+      "Keep both shoulders on the floor and look to the opposite side.",
+      "Hold 20 seconds, switch sides, and do 2 sets on each side."
+    ],
+    "mistakes": [
+      "Letting the opposite shoulder lift off the floor.",
+      "Forcing the knee down with the hand."
+    ],
+    "tip": "Rest your knee on a cushion if it does not reach the floor."
+  },
+  "sprint_intervals": {
+    "arb": true,
+    "steps": [
+      "Warm up with 5 minutes of easy jogging and leg swings.",
+      "Sprint at full effort for 30 seconds, pumping your arms.",
+      "Walk or jog slowly for 90 seconds to recover.",
+      "Repeat for 3 sprints, then cool down with 5 minutes of walking."
+    ],
+    "mistakes": [
+      "Sprinting without warming up first.",
+      "Leaning back and overstriding instead of driving forward."
+    ],
+    "tip": "Pick a flat, safe surface and go all out only when you feel fresh."
+  },
+  "squats": {
+    "arb": true,
+    "steps": [
+      "Stand with feet shoulder-width apart, toes turned slightly out.",
+      "Push your hips back and lower until your thighs are parallel to the floor.",
+      "Keep your chest up and your knees in line with your toes.",
+      "Press through your heels to stand, breathing out on the way up."
+    ],
+    "mistakes": [
+      "Lifting your heels off the floor.",
+      "Rounding your back at the bottom."
+    ],
+    "tip": "Do your first sets in front of a mirror to check your form."
+  },
+  "standing_side_stretch": {
+    "title": "Standing Side Stretch",
+    "desc": "Lean to each side with your arms overhead to stretch your waist and free up your ribs.",
+    "dose": "2 x 15 s",
+    "steps": [
+      "Stand tall with your feet hip-width apart.",
+      "Reach both arms overhead and hold one wrist with the other hand.",
+      "Lean slowly to one side and keep both feet pressed into the floor.",
+      "Hold 15 seconds, switch sides, and do 2 sets on each side."
+    ],
+    "mistakes": [
+      "Leaning forward or twisting instead of bending straight to the side.",
+      "Pushing the hips far out to the side."
+    ],
+    "tip": "Imagine you are standing between two walls, so you can only move sideways."
+  },
+  "step_ups": {
+    "title": "Step-Ups",
+    "desc": "Step up and stand tall, then lower slowly, to build single-leg strength and balance.",
+    "dose": "3 x 8",
+    "steps": [
+      "Stand in front of a step or a sturdy low bench.",
+      "Place one whole foot on the step and push up until you stand tall.",
+      "Lower the other foot back to the floor slowly.",
+      "Do 8 reps on each leg and rest, 3 sets in total."
+    ],
+    "mistakes": [
+      "Pushing off hard with the foot on the floor.",
+      "Dropping down fast instead of lowering with control."
+    ],
+    "tip": "Use a step that cannot slide or tip, and start low before you go higher."
+  },
+  "superman": {
+    "title": "Superman",
+    "desc": "Lift your arms and legs off the floor to strengthen the back muscles that hold your posture.",
+    "dose": "2 x 8",
+    "steps": [
+      "Lie face down with your arms reaching forward.",
+      "Lift your arms and legs slightly off the floor.",
+      "Keep your neck long, look at the floor and hold 2 seconds.",
+      "Lower slowly, 8 reps per set, 2 sets in total."
+    ],
+    "mistakes": [
+      "Forcing your chest and legs up as high as you can.",
+      "Tilting your head up and squeezing your neck."
+    ],
+    "tip": "A small lift is enough. If your lower back pinches, lift less."
+  },
+  "swimming_basketball": {
+    "arb": true,
+    "steps": [
+      "Warm up for 5 minutes with easy laps or light dribbling.",
+      "Swim or play for at least 30 minutes at a steady pace.",
+      "Reach fully on every stroke, shot or rebound.",
+      "Cool down with 5 minutes of easy movement and stretching."
+    ],
+    "mistakes": [
+      "Skipping the warm-up and starting at full speed.",
+      "Forgetting to drink water while you play."
+    ],
+    "tip": "Bring a friend; sport is easier to keep up when it is social."
+  },
+  "table_top": {
+    "title": "Reverse Table Top",
+    "desc": "Lift your hips into a flat table to open your chest and shoulders and strengthen your back side.",
+    "dose": "2 x 15 s",
+    "steps": [
+      "Sit with your knees bent, feet flat and hands on the floor behind your hips.",
+      "Point your fingers toward your feet and press into your hands and feet.",
+      "Lift your hips until your body is flat from knees to shoulders.",
+      "Hold 15 seconds and lower, 2 sets in total."
+    ],
+    "mistakes": [
+      "Letting the hips sag in the middle.",
+      "Dropping the head back so the neck strains."
+    ],
+    "tip": "Turn your fingers out to the sides if your wrists feel sore."
+  },
+  "thoracic_extension": {
+    "title": "Chair Upper-Back Extension",
+    "desc": "Lean your upper back over a chair to undo the slouch from sitting and open your chest.",
+    "dose": "2 x 8",
+    "steps": [
+      "Sit on a sturdy chair with the top of its back just below your shoulder blades.",
+      "Put your hands behind your head and keep your elbows wide.",
+      "Lean your upper back slowly over the chair back and look up.",
+      "Come back up, do 8 reps and rest, 2 sets in total."
+    ],
+    "mistakes": [
+      "Bending from the lower back instead of the upper back.",
+      "Pulling the head forward with the hands."
+    ],
+    "tip": "Use a chair that cannot roll or tip, and keep your feet flat on the floor."
+  },
+  "toe_touch": {
+    "title": "Toe Touch",
+    "desc": "A slow forward fold that loosens the back of your legs and keeps your spine flexible.",
+    "dose": "2 x 20 s",
+    "steps": [
+      "Stand with your feet hip-width apart and your knees soft.",
+      "Fold forward from your hips and let your hands reach toward your toes.",
+      "Hold still for 20 seconds and breathe slowly.",
+      "Roll up slowly, rest, and repeat once more."
+    ],
+    "mistakes": [
+      "Bouncing to reach further.",
+      "Locking your knees straight."
+    ],
+    "tip": "If you cannot reach your toes, stop at your shins. It still works."
+  },
+  "tuck_jumps": {
+    "title": "Tuck Jumps",
+    "desc": "Jump and pull your knees up for explosive power, the hard effort your body answers with growth hormone afterwards.",
+    "dose": "3 x 6",
+    "steps": [
+      "Stand tall with your feet hip-width apart.",
+      "Dip into a quick quarter squat and jump as high as you can.",
+      "Pull both knees toward your chest at the top, then land softly on bent knees.",
+      "Do 6 jumps, rest, and repeat for 3 sets in total."
+    ],
+    "mistakes": [
+      "Bending your chest down to your knees instead of lifting the knees.",
+      "Landing hard with straight legs."
+    ],
+    "tip": "Reset your balance between jumps, and make sure you have clear space and a floor that does not slip."
+  },
+  "upward_salute": {
+    "title": "Upward Salute",
+    "desc": "Reach up with your ribs down to open your chest and stand at your full height.",
+    "dose": "2 x 15 s",
+    "steps": [
+      "Stand with your feet together and your arms by your sides.",
+      "Breathe in and reach both arms up over your head.",
+      "Keep your ribs down and your shoulders away from your ears.",
+      "Hold 15 seconds, breathing slowly, then lower your arms. 2 sets in total."
+    ],
+    "mistakes": [
+      "Leaning back and arching your lower back.",
+      "Letting your ribs push forward."
+    ],
+    "tip": "Reach up, not back. Keep your body stacked over your feet."
+  },
+  "wall_angels": {
+    "title": "Wall Angels",
+    "desc": "Slide your arms along a wall to open your chest and train upright shoulders.",
+    "dose": "2 x 8",
+    "steps": [
+      "Stand with your back against a wall, feet a little in front of you.",
+      "Put your arms on the wall with your elbows bent, like a goalpost.",
+      "Keep your ribs down and slowly slide your arms up, then back down.",
+      "Do 8 slow reps per set, 2 sets in total."
+    ],
+    "mistakes": [
+      "Letting your ribs flare and your lower back arch.",
+      "Letting your arms come off the wall."
+    ],
+    "tip": "Only go as high as your arms can stay on the wall. It gets easier with practice."
+  },
+  "wall_dog": {
+    "title": "Wall Dog",
+    "desc": "A standing stretch at the wall that opens your shoulders and keeps your spine long.",
+    "dose": "2 x 20 s",
+    "steps": [
+      "Stand facing a wall, about one leg length away.",
+      "Put your hands on the wall at hip height.",
+      "Hinge back from your hips until your arms are straight and your spine is long.",
+      "Hold 20 seconds, breathing slowly, 2 sets in total."
+    ],
+    "mistakes": [
+      "Rounding your upper back.",
+      "Bending your elbows and leaning on the wall."
+    ],
+    "tip": "A great break at your desk when you cannot get on the floor."
+  },
+  "wall_sit": {
+    "title": "Wall Sit",
+    "desc": "Sit against a wall with your thighs level to build leg strength with your back held straight.",
+    "dose": "3 x 20 s",
+    "steps": [
+      "Stand with your back against a wall and your feet a step in front of you.",
+      "Slide down until your thighs are level with the floor.",
+      "Keep your knees above your ankles and your whole back on the wall.",
+      "Hold 20 seconds and stand up, 3 sets in total."
+    ],
+    "mistakes": [
+      "Resting the hands on the thighs.",
+      "Letting the knees drift forward past the toes."
+    ],
+    "tip": "Sit a little higher if your knees complain, and go lower as you get stronger."
+  },
+  "wall_stand": {
+    "arb": true,
+    "steps": [
+      "Stand with your heels against a wall, feet hip-width apart.",
+      "Touch your buttocks, shoulder blades and the back of your head to the wall.",
+      "Tuck your chin slightly and keep your arms relaxed at your sides.",
+      "Hold for 5 minutes, breathing calmly through your nose."
+    ],
+    "mistakes": [
+      "Arching your lower back far away from the wall.",
+      "Pushing your chin up instead of keeping it level."
+    ],
+    "tip": "Notice how this feels, then try to carry it into your day."
+  }
+}

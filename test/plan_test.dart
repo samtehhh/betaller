@@ -6,23 +6,23 @@ import 'package:boyuzatma_app/providers/app_provider.dart';
 import 'package:boyuzatma_app/utils/daily_plan.dart';
 import 'package:boyuzatma_app/utils/daily_targets.dart';
 import 'package:boyuzatma_app/utils/meal_plan.dart';
+import 'package:boyuzatma_app/utils/move_catalog.dart';
 
 UserProfile _profile({
   int age = 15,
   double kg = 55,
   String gender = 'male',
   List<String> meals = const ['08:00', '13:00', '19:00'],
-}) =>
-    UserProfile(
-      name: 'Test',
-      gender: gender,
-      birthDate: '${DateTime.now().year - age - 1}-12-31',
-      currentHeight: 165,
-      weight: kg,
-      fatherHeight: 178,
-      motherHeight: 164,
-      mealTimes: meals,
-    );
+}) => UserProfile(
+  name: 'Test',
+  gender: gender,
+  birthDate: '${DateTime.now().year - age - 1}-12-31',
+  currentHeight: 165,
+  weight: kg,
+  fatherHeight: 178,
+  motherHeight: 164,
+  mealTimes: meals,
+);
 
 void main() {
   group('program generator', () {
@@ -63,8 +63,11 @@ void main() {
           expect(after.length, before.length);
           for (var i = 0; i < before.length; i++) {
             expect(after[i].routineId, before[i].routineId);
-            expect(after[i].volume, greaterThanOrEqualTo(before[i].volume),
-                reason: '${after[i].routineId} level $level');
+            expect(
+              after[i].volume,
+              greaterThanOrEqualTo(before[i].volume),
+              reason: '${after[i].routineId} level $level',
+            );
             expect(after[i].sets, greaterThanOrEqualTo(before[i].sets));
           }
         }
@@ -132,6 +135,86 @@ void main() {
     });
   });
 
+  group('train place', () {
+    final weights = kMoveGroups[MoveGroup.weights]!.toSet();
+    const answers = ['0-2', '3-5', '6+'];
+
+    Set<String> idsOf(WeeklyPlan p) => {
+      for (final d in [...p.days, ...p.daysB]) ...d.routineIds,
+    };
+
+    test('a home plan never holds a weights move', () {
+      for (final a in answers) {
+        final plan = WeeklyPlan.forAnswers(
+          weeklyWorkout: a,
+          trainPlace: 'home',
+        );
+        expect(idsOf(plan).intersection(weights), isEmpty, reason: a);
+        expect(idsOf(plan), isNot(contains('overhead_press')));
+      }
+    });
+
+    test('a gym plan holds at least four weights moves over the two weeks', () {
+      for (final a in answers) {
+        final plan = WeeklyPlan.forAnswers(weeklyWorkout: a, trainPlace: 'gym');
+        expect(
+          idsOf(plan).intersection(weights).length,
+          greaterThanOrEqualTo(4),
+          reason: a,
+        );
+      }
+    });
+
+    test('no answer, or an unknown one, is home', () {
+      final home = WeeklyPlan.forAnswers(weeklyWorkout: '3-5');
+      for (final place in ['home', '', 'garden']) {
+        final other = WeeklyPlan.forAnswers(
+          weeklyWorkout: '3-5',
+          trainPlace: place,
+        );
+        if (place == 'garden' || place == '') {
+          // forAnswers itself only treats 'gym' as gym.
+          expect(idsOf(other).intersection(weights), isEmpty);
+        }
+        for (var i = 0; i < 7; i++) {
+          expect(other.days[i].routineIds, home.days[i].routineIds);
+          expect(other.daysB[i].routineIds, home.daysB[i].routineIds);
+        }
+      }
+      SharedPreferences.setMockInitialValues({});
+      final p = AppProvider();
+      expect(p.trainPlace, 'home');
+      p.setOnboardingAnswers({'trainPlace': 'gym'});
+      expect(p.trainPlace, 'gym');
+      p.setOnboardingAnswers({'trainPlace': 'moon'});
+      expect(p.trainPlace, 'home');
+    });
+
+    test('seven different days, every id has a dose, in both places', () {
+      for (final place in ['home', 'gym']) {
+        for (final a in answers) {
+          final plan = WeeklyPlan.forAnswers(
+            weeklyWorkout: a,
+            trainPlace: place,
+          );
+          for (final week in [plan.days, plan.daysB]) {
+            expect(week.length, 7);
+            expect(
+              {for (final d in week) d.routineIds.join(',')}.length,
+              7,
+              reason: '$place $a',
+            );
+            for (final d in week) {
+              for (final id in d.routineIds) {
+                expect(hasMoveDose(id), isTrue, reason: id);
+              }
+            }
+          }
+        }
+      }
+    });
+  });
+
   group('program day gate', () {
     late AppProvider p;
     setUp(() async {
@@ -194,79 +277,109 @@ void main() {
       (_profile(age: 13, kg: 40, gender: 'female'), '0-2'),
       (
         _profile(
-            age: 17,
-            kg: 80,
-            meals: const ['07:00', '10:30', '13:00', '16:30', '20:00']),
-        '6+'
+          age: 17,
+          kg: 80,
+          meals: const ['07:00', '10:30', '13:00', '16:30', '20:00'],
+        ),
+        '6+',
       ),
       (
         _profile(
-            age: 21, kg: 62, gender: 'female', meals: const ['12:00', '20:00']),
-        '3-5'
+          age: 21,
+          kg: 62,
+          gender: 'female',
+          meals: const ['12:00', '20:00'],
+        ),
+        '3-5',
       ),
       (
         _profile(
-            age: 16, kg: 95, meals: const ['08:00', '13:00', '16:00', '19:30']),
-        '6+'
+          age: 16,
+          kg: 95,
+          meals: const ['08:00', '13:00', '16:00', '19:30'],
+        ),
+        '6+',
       ),
     ];
 
     for (final (profile, workout) in cases) {
       for (final turkish in [false, true]) {
-        test('${profile.age} y, ${profile.weight} kg, ${profile.mealCount} meals'
-            '${turkish ? ', Turkish menu' : ''}', () {
-          final t = DailyTargets.forProfile(profile,
-              weeklyWorkout: workout, meals: profile.mealCount);
-          // Both weeks of the fortnight.
-          final week = [
-            ...buildWeekMenu(t, profile.mealTimes, turkish: turkish),
-            ...buildWeekMenu(t, profile.mealTimes,
-                turkish: turkish, weekB: true),
-          ];
-          expect(week.length, 14);
-          for (final day in week) {
-            expect(day.meals.length, profile.mealCount);
-            // Calcium is met every day.
-            expect(day.calcium, greaterThanOrEqualTo(t.calciumMg),
-                reason: 'day ${day.variant} calcium');
-            // Protein is met, and close to the target: the dairy that covers
-            // calcium sets a floor, so a small teen may land a bit above.
-            expect(day.protein, greaterThanOrEqualTo(t.proteinG * 0.95),
-                reason: 'day ${day.variant} protein');
-            final ceiling = t.proteinG >= 75 ? t.proteinG * 1.12 : 90.0;
-            expect(day.protein, lessThanOrEqualTo(ceiling),
-                reason: 'day ${day.variant} protein ${day.protein}');
-            // The totals are the sum of the items.
-            final sum = day.meals
-                .expand((m) => m.items)
-                .fold(0.0, (s, i) => s + i.protein);
-            expect(day.protein, closeTo(sum, 0.001));
-            for (final m in day.meals) {
-              expect(m.items, isNotEmpty);
-              for (final i in m.items) {
-                expect(i.amount, greaterThan(0));
+        test(
+          '${profile.age} y, ${profile.weight} kg, ${profile.mealCount} meals'
+          '${turkish ? ', Turkish menu' : ''}',
+          () {
+            final t = DailyTargets.forProfile(
+              profile,
+              weeklyWorkout: workout,
+              meals: profile.mealCount,
+            );
+            // Both weeks of the fortnight.
+            final week = [
+              ...buildWeekMenu(t, profile.mealTimes, turkish: turkish),
+              ...buildWeekMenu(
+                t,
+                profile.mealTimes,
+                turkish: turkish,
+                weekB: true,
+              ),
+            ];
+            expect(week.length, 14);
+            for (final day in week) {
+              expect(day.meals.length, profile.mealCount);
+              // Calcium is met every day.
+              expect(
+                day.calcium,
+                greaterThanOrEqualTo(t.calciumMg),
+                reason: 'day ${day.variant} calcium',
+              );
+              // Protein is met, and close to the target: the dairy that covers
+              // calcium sets a floor, so a small teen may land a bit above.
+              expect(
+                day.protein,
+                greaterThanOrEqualTo(t.proteinG * 0.95),
+                reason: 'day ${day.variant} protein',
+              );
+              final ceiling = t.proteinG >= 75 ? t.proteinG * 1.12 : 90.0;
+              expect(
+                day.protein,
+                lessThanOrEqualTo(ceiling),
+                reason: 'day ${day.variant} protein ${day.protein}',
+              );
+              // The totals are the sum of the items.
+              final sum = day.meals
+                  .expand((m) => m.items)
+                  .fold(0.0, (s, i) => s + i.protein);
+              expect(day.protein, closeTo(sum, 0.001));
+              for (final m in day.meals) {
+                expect(m.items, isNotEmpty);
+                for (final i in m.items) {
+                  expect(i.amount, greaterThan(0));
+                }
               }
             }
-          }
-        });
+          },
+        );
       }
     }
 
     Set<String> foodsOf(List<DayMenu> week) => {
-          for (final d in week)
-            for (final m in d.meals)
-              for (final i in m.items) i.food.id,
-        };
+      for (final d in week)
+        for (final m in d.meals)
+          for (final i in m.items) i.food.id,
+    };
 
     test('the alternate week serves different days', () {
       final profile = _profile();
-      final t = DailyTargets.forProfile(profile,
-          weeklyWorkout: '3-5', meals: profile.mealCount);
+      final t = DailyTargets.forProfile(
+        profile,
+        weeklyWorkout: '3-5',
+        meals: profile.mealCount,
+      );
       final a = buildWeekMenu(t, profile.mealTimes, turkish: true);
       final b = buildWeekMenu(t, profile.mealTimes, turkish: true, weekB: true);
       String day(DayMenu d) => [
-            for (final m in d.meals) m.items.map((i) => i.food.id).join('+'),
-          ].join(' | ');
+        for (final m in d.meals) m.items.map((i) => i.food.id).join('+'),
+      ].join(' | ');
       expect({...a.map(day), ...b.map(day)}.length, 14);
       expect(foodsOf(b), containsAll(['turkey', 'cod', 'quinoa', 'berries']));
       // Outside Turkey the alternate week has no ayran either.
@@ -276,8 +389,11 @@ void main() {
 
     test('Turkish users keep ayran, bulgur and the feta breakfast', () {
       final profile = _profile();
-      final t = DailyTargets.forProfile(profile,
-          weeklyWorkout: '3-5', meals: profile.mealCount);
+      final t = DailyTargets.forProfile(
+        profile,
+        weeklyWorkout: '3-5',
+        meals: profile.mealCount,
+      );
       final week = buildWeekMenu(t, profile.mealTimes, turkish: true);
       expect(foodsOf(week), containsAll(['ayran', 'bulgur', 'whiteCheese']));
       expect(foodsOf(week), isNot(contains('brownRice')));
@@ -287,8 +403,11 @@ void main() {
 
     test('everyone else gets milk, brown rice and eggs on toast', () {
       final profile = _profile();
-      final t = DailyTargets.forProfile(profile,
-          weeklyWorkout: '3-5', meals: profile.mealCount);
+      final t = DailyTargets.forProfile(
+        profile,
+        weeklyWorkout: '3-5',
+        meals: profile.mealCount,
+      );
       final week = buildWeekMenu(t, profile.mealTimes);
       final foods = foodsOf(week);
       expect(foods, isNot(contains('ayran')));
@@ -304,10 +423,14 @@ void main() {
       final ids = lunch.items.map((i) => i.food.id).toList();
       expect(ids, containsAll(['chicken', 'brownRice', 'milk']));
       final rice = lunch.items.firstWhere((i) => i.food.id == 'brownRice');
-      expect(rice.kcal, closeTo(kFoods['brownRice']!.kcal * rice.grams / 100,
-          0.001));
-      expect(lunch.calcium,
-          closeTo(lunch.items.fold(0.0, (s, i) => s + i.calcium), 0.001));
+      expect(
+        rice.kcal,
+        closeTo(kFoods['brownRice']!.kcal * rice.grams / 100, 0.001),
+      );
+      expect(
+        lunch.calcium,
+        closeTo(lunch.items.fold(0.0, (s, i) => s + i.calcium), 0.001),
+      );
     });
 
     test('oats 60 g and milk 250 ml', () {
@@ -324,10 +447,15 @@ void main() {
     });
 
     test('meal slots follow the clock', () {
-      expect(slotsForTimes(['08:00', '13:00', '19:00']),
-          [MealSlot.breakfast, MealSlot.lunch, MealSlot.dinner]);
-      expect(slotsForTimes(['12:00', '20:00']),
-          [MealSlot.lunch, MealSlot.dinner]);
+      expect(slotsForTimes(['08:00', '13:00', '19:00']), [
+        MealSlot.breakfast,
+        MealSlot.lunch,
+        MealSlot.dinner,
+      ]);
+      expect(slotsForTimes(['12:00', '20:00']), [
+        MealSlot.lunch,
+        MealSlot.dinner,
+      ]);
       expect(slotsForTimes(['07:00', '10:30', '13:00', '16:30', '20:00']), [
         MealSlot.breakfast,
         MealSlot.snack,
@@ -335,8 +463,10 @@ void main() {
         MealSlot.snack,
         MealSlot.dinner,
       ]);
-      expect(proteinSplit(90, [MealSlot.breakfast, MealSlot.lunch,
-          MealSlot.dinner]), [30, 30, 30]);
+      expect(
+        proteinSplit(90, [MealSlot.breakfast, MealSlot.lunch, MealSlot.dinner]),
+        [30, 30, 30],
+      );
     });
 
     test('every food has a name key', () {

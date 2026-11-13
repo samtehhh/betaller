@@ -120,6 +120,7 @@ const kExerciseStills = <String>{
   'farmer_carry',
   'band_pull_apart',
   'superman',
+  'broad_jumps',
 };
 
 /// Every move in the library, in group order.

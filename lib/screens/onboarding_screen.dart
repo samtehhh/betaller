@@ -4854,9 +4854,9 @@ class _PlanShowcase extends StatelessWidget {
   static const moves = ['dead_hang_active', 'squats', 'plank'];
 
   String _dose(String id) {
-    final row = kNewMoveText[id];
+    final row = newMoveRow(id, moveTextKeyForName(l.localeName));
     if (row != null) {
-      return (row[l.localeName.split('_').first] ?? row['en']!)[2];
+      return row.length > 2 ? row[2] : kNewMoveText[id]!['en']![2];
     }
     // Squats live in the older table, whose dose is English only.
     return '3 x 20';
@@ -8118,6 +8118,7 @@ class _PlanPreview extends StatelessWidget {
     final plan = WeeklyPlan.forAnswers(
       weeklyWorkout: workout,
       age: profile.age,
+      trainPlace: answers['trainPlace'] == 'gym' ? 'gym' : 'home',
     );
     final sleep = t.sleepH.fixedL(t.sleepH % 1 == 0 ? 0 : 1);
     String shown(String s) => locked ? censorDigits(s) : s;

@@ -2346,5 +2346,8 @@
   "paGoal": "Durée du programme",
   "paBedtime": "Heure du coucher",
   "paWorkoutTime": "Heure d'entraînement",
-  "restoreDone": "Ton achat est restauré."
+  "restoreDone": "Ton achat est restauré.",
+  "planPlaceTitle": "Où tu t'entraînes",
+  "planPlaceHome": "À la maison, au poids du corps",
+  "planPlaceGym": "En salle ou avec haltères"
 }

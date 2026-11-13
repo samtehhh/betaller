@@ -2103,5 +2103,8 @@
   "paGoal": "Programmets längd",
   "paBedtime": "Läggdags",
   "paWorkoutTime": "Träningstid",
-  "restoreDone": "Ditt köp är återställt."
+  "restoreDone": "Ditt köp är återställt.",
+  "planPlaceTitle": "Var du tränar",
+  "planPlaceHome": "Hemma, bara kroppsvikt",
+  "planPlaceGym": "På gym eller med hantlar"
 }

@@ -7327,4 +7327,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get restoreDone => 'Покупка восстановлена.';
+
+  @override
+  String get planPlaceTitle => 'Где ты тренируешься';
+
+  @override
+  String get planPlaceHome => 'Дома, только с весом тела';
+
+  @override
+  String get planPlaceGym => 'В зале или с гантелями';
 }

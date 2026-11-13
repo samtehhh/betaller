@@ -356,6 +356,7 @@ class _TodayPreview extends StatelessWidget {
     final plan = WeeklyPlan.forAnswers(
       weeklyWorkout: workout,
       age: profile?.age ?? 16,
+      trainPlace: profile == null ? 'home' : p!.trainPlace,
     );
     final level =
         p == null ? 0 : currentProgramLevel(p.completedProgramDays);
@@ -733,6 +734,7 @@ class _NutritionPreview extends StatelessWidget {
               TodayTargetsGrid(
                 profile: profile,
                 weeklyWorkout: workout,
+                trainPlace: own == null ? 'home' : p!.trainPlace,
                 showNumbers: true,
               ),
               const SizedBox(height: 12),

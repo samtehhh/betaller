@@ -7237,4 +7237,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get restoreDone => 'تمت استعادة عملية الشراء.';
+
+  @override
+  String get planPlaceTitle => 'أين تتمرن';
+
+  @override
+  String get planPlaceHome => 'في البيت، بوزن الجسم فقط';
+
+  @override
+  String get planPlaceGym => 'في النادي أو بالدمبل';
 }

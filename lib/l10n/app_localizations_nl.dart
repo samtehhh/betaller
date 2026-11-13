@@ -7332,4 +7332,13 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get restoreDone => 'Je aankoop is hersteld.';
+
+  @override
+  String get planPlaceTitle => 'Waar je traint';
+
+  @override
+  String get planPlaceHome => 'Thuis, alleen lichaamsgewicht';
+
+  @override
+  String get planPlaceGym => 'Sportschool of dumbbells';
 }

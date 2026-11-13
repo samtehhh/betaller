@@ -1,0 +1,1117 @@
+{
+  "band_pull_apart": {
+    "title": "Band Pull-Apart",
+    "desc": "Tarik band hingga ke dada untuk menguatkan punggung atas dan menjaga bahumu tetap terbuka.",
+    "dose": "2 x 12",
+    "steps": [
+      "Berdiri tegak dan pegang band di depanmu dengan lengan lurus setinggi bahu.",
+      "Tarik band ke samping dengan merapatkan tulang belikatmu.",
+      "Sentuhkan band ke dada, lalu kembalikan dengan perlahan.",
+      "Lakukan 12 repetisi lalu istirahat, total 2 set."
+    ],
+    "mistakes": [
+      "Mengangkat bahu ke arah telinga.",
+      "Membiarkan band menyentak balik, bukan mengembalikannya dengan perlahan."
+    ],
+    "tip": "Pilih band yang cukup ringan agar setiap repetisi selesai dengan teknik yang baik, dan periksa dulu apakah band robek."
+  },
+  "bar_hanging": {
+    "steps": [
+      "Pegang palang dengan genggaman dari atas, tangan selebar bahu.",
+      "Angkat kakimu dan biarkan tubuhmu bergantung lurus dan rileks.",
+      "Jaga bahu tetap sedikit aktif dan bernapas pelan selama 30 detik.",
+      "Turun dengan lembut, istirahat 30 sampai 60 detik, lalu ulangi sebanyak 3 set."
+    ],
+    "mistakes": [
+      "Mengayun atau menendang-nendang kaki saat bergantung.",
+      "Melompat jatuh dari palang, bukan turun dengan hati-hati."
+    ],
+    "tip": "Mulai dengan tahanan yang lebih singkat dan tambah beberapa detik tiap minggu."
+  },
+  "bird_dog": {
+    "title": "Bird Dog",
+    "desc": "Julurkan lengan dan kaki yang berlawanan untuk melatih otot dalam yang menjaga tulang belakangmu tetap stabil.",
+    "dose": "2 x 8",
+    "steps": [
+      "Mulai dengan posisi merangkak, tangan di bawah bahu dan lutut di bawah pinggul.",
+      "Julurkan satu lengan ke depan dan kaki di sisi berlawanan lurus ke belakang.",
+      "Tahan dua detik dengan pinggul tetap rata, lalu kembali.",
+      "Lakukan 8 repetisi, ganti sisi, dan lakukan 2 set di tiap sisi."
+    ],
+    "mistakes": [
+      "Membiarkan punggung bawah melengkung ke bawah saat kaki terangkat.",
+      "Memutar pinggul ke samping agar kaki terangkat lebih tinggi."
+    ],
+    "tip": "Bayangkan segelas air di atas punggung bawahmu yang tidak boleh tumpah."
+  },
+  "bow_pose": {
+    "title": "Pose Busur",
+    "desc": "Pegang pergelangan kakimu lalu angkat dada dan pahamu untuk membuka seluruh tubuh bagian depan dan menguatkan punggung.",
+    "dose": "2 x 10 dtk",
+    "steps": [
+      "Berbaring tengkurap dan tekuk lututmu sehingga tumit mendekati pinggul.",
+      "Julurkan tangan ke belakang dan pegang kedua pergelangan kaki.",
+      "Dorong kakimu ke tangan untuk mengangkat dada dan paha.",
+      "Tahan 10 detik dan turun dengan perlahan, total 2 set."
+    ],
+    "mistakes": [
+      "Membiarkan lutut terbuka lebih lebar dari pinggul.",
+      "Mendongakkan kepala ke belakang dan menegangkan leher."
+    ],
+    "tip": "Angkat hanya setinggi yang terasa nyaman, dan lewati gerakan ini jika punggung bawahmu sakit."
+  },
+  "broad_jumps": {
+    "title": "Lompat Jauh Tanpa Awalan",
+    "desc": "Lompat ke depan dengan dua kaki dan tahan saat mendarat untuk membangun tenaga pinggul dan tulang kaki yang kuat.",
+    "dose": "3 x 5",
+    "steps": [
+      "Berdiri dengan kaki selebar pinggul dan ujung jari kaki di belakang sebuah garis.",
+      "Ayunkan lengan ke belakang, tekuk lutut, dan dorong pinggul ke belakang.",
+      "Ayunkan lengan ke depan, lompat sejauh mungkin, dan mendarat dengan dua kaki.",
+      "Tahan pendaratan satu detik, jalan kembali dan lakukan 5 lompatan, total 3 set."
+    ],
+    "mistakes": [
+      "Jatuh ke depan atau ke belakang saat mendarat.",
+      "Mendarat dengan lutut terkunci lurus."
+    ],
+    "tip": "Lompat di permukaan yang tidak licin, dan lompat lebih pendek dulu sampai kamu bisa menahan setiap pendaratan dengan stabil."
+  },
+  "burpees": {
+    "title": "Burpee",
+    "desc": "Squat, plank, dan lompat dalam satu gerakan, kerja seluruh tubuh yang dijawab tubuhmu dengan hormon pertumbuhan sesudahnya.",
+    "dose": "3 x 5",
+    "steps": [
+      "Berdiri tegak, lalu squat dan letakkan tanganmu di lantai.",
+      "Lompatkan kakimu ke belakang hingga membentuk plank yang lurus.",
+      "Lompatkan kakimu kembali mendekati tangan.",
+      "Lompat lurus ke atas, lakukan 5 repetisi lalu istirahat, total 3 set."
+    ],
+    "mistakes": [
+      "Membiarkan pinggul melorot saat plank.",
+      "Mendarat keras dengan kaki lurus setelah melompat."
+    ],
+    "tip": "Langkahkan kaki ke belakang dan ke depan, tanpa melompat, agar lebih mudah, dan perlambat jika tekniknya mulai berantakan."
+  },
+  "calf_pulses": {
+    "title": "Denyut Betis",
+    "desc": "Pantulan kecil di ujung jari kaki yang membuat betismu terus bekerja dan membangun kaki bawah yang kuat.",
+    "dose": "3 x 20 dtk",
+    "steps": [
+      "Berdiri tegak dan naik ke ujung jari kaki, sentuh dinding dengan ujung jari jika perlu keseimbangan.",
+      "Pantulkan tubuh naik turun dengan denyut kecil, hanya beberapa sentimeter.",
+      "Jaga tumit tetap di atas lantai selama satu set penuh.",
+      "Lanjutkan selama 20 detik, total 3 set."
+    ],
+    "mistakes": [
+      "Membiarkan tumit menyentuh lantai di antara denyutan.",
+      "Membuat gerakan terlalu besar sampai tidak lagi menjadi denyutan."
+    ],
+    "tip": "Rasa terbakar di betis itu normal. Nyeri tajam berarti berhenti."
+  },
+  "calf_raise": {
+    "title": "Calf Raise",
+    "desc": "Naik ke ujung jari kaki untuk membangun betis dan pergelangan kaki yang kuat untuk melompat dan berlari.",
+    "dose": "3 x 15",
+    "steps": [
+      "Berdiri tegak di samping dinding, ujung jari menyentuh dinding untuk keseimbangan.",
+      "Naik perlahan ke bagian depan telapak kaki setinggi mungkin.",
+      "Tahan 1 detik di atas, lalu turunkan tumit dengan perlahan.",
+      "Lakukan 15 repetisi per set, total 3 set."
+    ],
+    "mistakes": [
+      "Memantul cepat, bukan bergerak perlahan.",
+      "Membiarkan pergelangan kaki berputar ke luar di puncak gerakan."
+    ],
+    "tip": "Lakukan sambil menyikat gigi supaya jadi kebiasaan harian yang mudah."
+  },
+  "cat_cow": {
+    "title": "Cat-Cow",
+    "desc": "Mengalir antara melengkungkan dan membulatkan punggung untuk menggerakkan seluruh tulang belakangmu.",
+    "dose": "2 x 10",
+    "steps": [
+      "Mulai dengan merangkak, pergelangan tangan di bawah bahu, lutut di bawah pinggul.",
+      "Tarik napas, turunkan perut dan angkat dada serta pandanganmu (cow).",
+      "Buang napas, bulatkan punggung dan tarik dagu ke dalam (cat).",
+      "Bergeraklah perlahan mengikuti napas selama 10 putaran, 2 set."
+    ],
+    "mistakes": [
+      "Bergerak lebih cepat dari napasmu.",
+      "Hanya menggerakkan leher, bukan seluruh tulang belakang."
+    ],
+    "tip": "Cocok sebagai gerakan pertama di pagi hari atau untuk menyegarkan badan setelah duduk lama."
+  },
+  "chest_stretch": {
+    "title": "Peregangan Dada di Pintu",
+    "desc": "Melangkahlah melewati ambang pintu dengan lengan bawah di kusen untuk membuka dada yang membulat karena layar.",
+    "dose": "2 x 20 dtk",
+    "steps": [
+      "Berdiri di ambang pintu dan letakkan satu lengan bawah di kusen, siku setinggi bahu.",
+      "Langkahkan kaki di sisi yang sama ke depan melewati pintu.",
+      "Condongkan dada ke depan sampai terasa regangan di sepanjang bagian depan bahu.",
+      "Tahan 20 detik, ganti sisi, dan lakukan 2 set di tiap sisi."
+    ],
+    "mistakes": [
+      "Melengkungkan punggung bawah agar bisa condong lebih jauh.",
+      "Mengangkat bahu ke arah telinga."
+    ],
+    "tip": "Lakukan regangan dengan lembut, dan kurangi jika bahumu terasa terjepit."
+  },
+  "childs_pose": {
+    "title": "Pose Anak",
+    "desc": "Duduk di atas tumit dengan lengan terjulur untuk meregangkan punggung dengan lembut dan merilekskan tulang belakangmu.",
+    "dose": "2 x 30 dtk",
+    "steps": [
+      "Berlutut di lantai dengan ibu jari kaki saling menempel dan lutut terbuka.",
+      "Duduk dengan pinggul ke belakang di atas tumit.",
+      "Jalankan tanganmu ke depan dan letakkan dahi di lantai.",
+      "Bernapas pelan selama 30 detik lalu bangun, total 2 set."
+    ],
+    "mistakes": [
+      "Mengangkat pinggul jauh dari tumit agar bisa menjangkau lebih jauh.",
+      "Menahan napas dan menegangkan bahu."
+    ],
+    "tip": "Selipkan bantal di antara pinggul dan tumit jika lututmu terasa kencang."
+  },
+  "chin_tucks": {
+    "title": "Tarik Dagu ke Belakang",
+    "desc": "Geser dagumu lurus ke belakang untuk meredakan kepala yang condong ke depan dan memperbaiki postur lehermu.",
+    "dose": "2 x 8",
+    "steps": [
+      "Duduk atau berdiri tegak dan lihat lurus ke depan.",
+      "Geser dagumu lurus ke belakang, seperti membuat dagu berlipat.",
+      "Tahan 3 detik, lalu rileks.",
+      "Lakukan 8 repetisi per set, total 2 set."
+    ],
+    "mistakes": [
+      "Menunduk menganggukkan kepala, bukan menggesernya ke belakang.",
+      "Mendorong terlalu keras sampai lehermu sakit."
+    ],
+    "tip": "Lakukan beberapa kali setiap kali kamu meletakkan ponsel."
+  },
+  "cobra_stretch": {
+    "steps": [
+      "Berbaring tengkurap dengan telapak tangan rata di bawah bahu.",
+      "Dorong lantai menjauh dan angkat dadamu perlahan, pinggul tetap di bawah.",
+      "Jaga siku sedikit menekuk dan bahu menjauh dari telinga.",
+      "Tahan 15 detik sambil bernapas pelan, lalu turun dengan terkontrol."
+    ],
+    "mistakes": [
+      "Mendorong terlalu tinggi sampai punggung bawahmu terjepit.",
+      "Mengangkat bahu ke arah telinga."
+    ],
+    "tip": "Angkat hanya setinggi yang terasa nyaman; lama-lama akan lebih dalam."
+  },
+  "dead_bug": {
+    "title": "Dead Bug",
+    "desc": "Turunkan lengan dan kaki yang berlawanan dengan punggung tetap rata untuk membangun kendali inti yang melindungi tulang belakangmu.",
+    "dose": "2 x 8",
+    "steps": [
+      "Berbaring telentang dengan lengan lurus ke atas dan lutut menekuk di atas pinggul.",
+      "Tekan punggung bawahmu dengan lembut ke lantai.",
+      "Turunkan satu lengan ke belakang kepala dan kaki yang berlawanan ke arah lantai, lalu kembali.",
+      "Lakukan 8 repetisi di tiap sisi lalu istirahat, total 2 set."
+    ],
+    "mistakes": [
+      "Membiarkan punggung bawah melengkung dari lantai.",
+      "Terburu-buru melakukan repetisi."
+    ],
+    "tip": "Turunkan lengan dan kakimu hanya sejauh punggungmu masih bisa rata di lantai."
+  },
+  "dead_hang_active": {
+    "title": "Bergantung Aktif",
+    "desc": "Bergantung di palang dengan bahu aktif untuk membangun genggaman dan kendali bahu.",
+    "dose": "3 x 20 dtk",
+    "steps": [
+      "Pegang palang dengan genggaman dari atas, tangan sedikit lebih lebar dari bahu.",
+      "Bergantung dengan lengan lurus, lalu tarik tulang belikat ke bawah dan ke belakang.",
+      "Rapatkan kaki dan kencangkan inti, lalu tahan selama 20 detik.",
+      "Turun dengan lembut dan istirahat 40 detik di antara set."
+    ],
+    "mistakes": [
+      "Menekuk siku seperti pull-up.",
+      "Mengangkat bahu ke arah telinga."
+    ],
+    "tip": "Bayangkan mendorong palang menjauh darimu agar bahumu terasa bekerja."
+  },
+  "deadlift_stretch": {
+    "steps": [
+      "Berdiri dengan kaki selebar pinggul dan lutut sedikit menekuk.",
+      "Tekuk badan dari pinggul dan gerakkan tangan menyusuri pahamu ke bawah.",
+      "Jaga punggung tetap rata dan jangkau ke arah jari kaki sampai hamstringmu teregang.",
+      "Kencangkan otot bokong untuk berdiri kembali, 12 repetisi pelan per set."
+    ],
+    "mistakes": [
+      "Membulatkan punggung agar bisa menjangkau lebih rendah.",
+      "Mengunci lutut sepenuhnya lurus."
+    ],
+    "tip": "Bergeraklah perlahan; kendali lebih penting daripada seberapa jauh kamu menjangkau."
+  },
+  "downward_dog": {
+    "title": "Downward Dog",
+    "desc": "Huruf V terbalik yang meregangkan bahu, punggung, dan betismu untuk postur yang lebih terbuka.",
+    "dose": "2 x 20 dtk",
+    "steps": [
+      "Mulai dengan merangkak, tangan di bawah bahu.",
+      "Angkat pinggul tinggi-tinggi sehingga tubuhmu membentuk huruf V terbalik.",
+      "Jaga tulang belakang tetap panjang dan biarkan tumit turun ke arah lantai.",
+      "Tahan 20 detik lalu istirahat, total 2 set."
+    ],
+    "mistakes": [
+      "Membulatkan punggung demi memaksa tumit turun.",
+      "Mengangkat bahu ke arah telinga."
+    ],
+    "tip": "Tekuk lutut sedikit jika punggungmu membulat. Tumitmu tidak harus menyentuh lantai."
+  },
+  "dumbbell_deadlift": {
+    "title": "Deadlift Rumania Dumbbell",
+    "desc": "Tekuk badan dari pinggul dengan punggung rata, kerja berat otot besar yang dijawab tubuhmu dengan hormon pertumbuhan sesudahnya.",
+    "dose": "3 x 8",
+    "steps": [
+      "Berdiri tegak dengan dumbbell di tiap tangan di depan pahamu.",
+      "Lunakkan lutut dan dorong pinggul ke belakang dengan punggung rata.",
+      "Geser beban menyusuri paha sampai tepat di bawah lutut.",
+      "Kencangkan otot bokong untuk berdiri, lakukan 8 repetisi, total 3 set."
+    ],
+    "mistakes": [
+      "Membulatkan punggung saat beban turun.",
+      "Mengubahnya jadi squat dengan menekuk lutut terlalu banyak."
+    ],
+    "tip": "Pilih beban yang cukup ringan agar setiap repetisi selesai dengan teknik yang baik."
+  },
+  "dumbbell_row": {
+    "title": "Dumbbell Row",
+    "desc": "Tarik dumbbell ke pinggul untuk membangun otot punggung atas yang menarik bahumu ke belakang.",
+    "dose": "3 x 8",
+    "steps": [
+      "Letakkan satu tangan di bangku atau kursi dan langkahkan kakimu ke belakang.",
+      "Pegang dumbbell di tangan yang lain dengan punggung rata dan lengan menggantung ke bawah.",
+      "Tarik beban ke pinggul dengan siku dekat badan, lalu turunkan dengan perlahan.",
+      "Lakukan 8 repetisi di tiap sisi lalu istirahat, total 3 set."
+    ],
+    "mistakes": [
+      "Memutar badan untuk mengayunkan beban ke atas.",
+      "Mengangkat bahu ke arah telinga."
+    ],
+    "tip": "Pilih beban yang cukup ringan agar setiap repetisi selesai dengan teknik yang baik."
+  },
+  "evening_yoga": {
+    "steps": [
+      "Mulai dengan merangkak dan alirkan gerakan cat-cow selama 60 detik.",
+      "Duduk ke belakang dalam pose anak, lengan terjulur, dan bernapaslah selama 60 detik.",
+      "Dorong naik ke downward dog, tumit menjangkau ke arah lantai.",
+      "Berdiri dan tekuk badan ke depan, biarkan kepalamu menggantung berat.",
+      "Tarik napas 4 hitungan dan buang napas 6 hitungan di setiap pose."
+    ],
+    "mistakes": [
+      "Terburu-buru berpindah pose, bukan menahannya.",
+      "Memaksakan sebuah pose sampai sakit."
+    ],
+    "tip": "Redupkan lampu saat bergerak agar tubuhmu lebih mudah rileks."
+  },
+  "farmer_carry": {
+    "title": "Farmer's Carry",
+    "desc": "Berjalan tegak dengan beban di tiap tangan, kerja seluruh tubuh yang dijawab tubuhmu dengan hormon pertumbuhan sesudahnya.",
+    "dose": "3 x 20 dtk",
+    "steps": [
+      "Berdiri di antara dua dumbbell atau dua tas berisi beban.",
+      "Tekuk lutut, jaga punggung tetap rata, dan angkat keduanya.",
+      "Berjalan dengan langkah kecil, bahu ke belakang dan pandangan ke depan.",
+      "Berjalan selama 20 detik, letakkan bebannya lalu istirahat, total 3 set."
+    ],
+    "mistakes": [
+      "Condong ke satu sisi atau membiarkan bahu membulat ke depan.",
+      "Membulatkan punggung saat mengangkat atau meletakkan beban."
+    ],
+    "tip": "Pilih beban yang cukup ringan agar setiap set selesai dengan teknik yang baik, dan jaga kedua sisi tetap sama berat."
+  },
+  "glute_bridge": {
+    "title": "Glute Bridge",
+    "desc": "Angkat pinggul untuk menguatkan otot bokong dan membuka pinggul yang terasa kaku karena duduk.",
+    "dose": "3 x 12",
+    "steps": [
+      "Berbaring telentang, lutut menekuk, telapak kaki rata dan selebar pinggul.",
+      "Dorong lewat tumit dan angkat pinggul ke arah langit-langit.",
+      "Kencangkan otot bokong di atas selama 2 detik.",
+      "Turun perlahan, 12 repetisi per set, total 3 set."
+    ],
+    "mistakes": [
+      "Mendorong dengan jari kaki, bukan tumit.",
+      "Melengkungkan punggung bawah berlebihan di atas."
+    ],
+    "tip": "Jika terasa di otot bokong, bukan di punggung bawah, berarti kamu melakukannya dengan benar."
+  },
+  "goblet_squat": {
+    "title": "Goblet Squat",
+    "desc": "Squat dengan beban di depan dada, usaha otot besar yang dijawab tubuhmu dengan hormon pertumbuhan sesudahnya.",
+    "dose": "3 x 8",
+    "steps": [
+      "Peluk satu dumbbell atau ransel berisi beban di dada dengan kedua tangan.",
+      "Berdiri dengan kaki selebar bahu dan ujung jari kaki sedikit menghadap keluar.",
+      "Duduk di antara tumitmu dengan dada tegak, lalu berdiri kembali.",
+      "Lakukan 8 repetisi lalu istirahat, total 3 set."
+    ],
+    "mistakes": [
+      "Membiarkan lutut masuk ke dalam.",
+      "Membulatkan punggung dan membiarkan dada turun."
+    ],
+    "tip": "Pilih beban yang cukup ringan agar setiap repetisi selesai dengan teknik yang baik."
+  },
+  "hanging_knee_raise": {
+    "title": "Angkat Lutut Menggantung",
+    "desc": "Angkat lututmu saat bergantung untuk membangun inti yang kuat sementara bergantung mengurangi tekanan pada tulang belakangmu.",
+    "dose": "3 x 5",
+    "steps": [
+      "Pegang palang dengan genggaman dari atas dan bergantung dengan lengan lurus.",
+      "Tarik bahumu ke bawah menjauh dari telinga.",
+      "Angkat kedua lutut setinggi pinggul tanpa mengayun, lalu turunkan dengan perlahan.",
+      "Lakukan 5 repetisi, turun dari palang lalu istirahat, total 3 set."
+    ],
+    "mistakes": [
+      "Mengayunkan badan untuk melemparkan lutut ke atas.",
+      "Bergantung dengan bahu terangkat sampai dekat telinga."
+    ],
+    "tip": "Pastikan palangnya kokoh sebelum bergantung, dan turun dengan hati-hati, jangan melompat jatuh."
+  },
+  "high_knees": {
+    "title": "High Knees",
+    "desc": "Lari di tempat dengan lutut setinggi pinggul untuk memanaskan tubuh dengan cepat dan memberi beban pada kakimu.",
+    "dose": "3 x 20 dtk",
+    "steps": [
+      "Berdiri tegak dengan kaki selebar pinggul.",
+      "Lari di tempat dan angkat tiap lutut setinggi pinggul.",
+      "Ayunkan lengan dan tetap ringan di bagian depan telapak kaki.",
+      "Lanjutkan selama 20 detik, total 3 set."
+    ],
+    "mistakes": [
+      "Condong ke belakang saat lutut naik.",
+      "Menghentak lantai dengan telapak kaki rata."
+    ],
+    "tip": "Perlambat menjadi jalan di tempat dengan lutut tinggi jika kamu mulai kehabisan napas."
+  },
+  "hiit_workout": {
+    "steps": [
+      "Pemanasan 3 menit dengan jalan di tempat dan putaran lengan.",
+      "Lakukan burpee, mountain climber, dan jump squat, masing-masing 45 detik.",
+      "Istirahat 15 detik di antara gerakan dan bernapas dalam-dalam.",
+      "Selesaikan 4 putaran, lalu berjalan pelan sampai napasmu tenang."
+    ],
+    "mistakes": [
+      "Membiarkan teknik berantakan demi lebih cepat.",
+      "Menahan napas saat interval berat."
+    ],
+    "tip": "Ikuti kecepatanmu sendiri; menyelesaikan semua 4 putaran lebih baik daripada start yang cepat."
+  },
+  "hip_flexor_stretch": {
+    "title": "Peregangan Fleksor Pinggul",
+    "desc": "Buka bagian depan pinggul untuk meredakan kaku akibat duduk berjam-jam.",
+    "dose": "2 x 30 dtk",
+    "steps": [
+      "Berlutut dengan satu lutut dan kaki yang lain menapak rata di depanmu.",
+      "Selipkan pinggul sedikit ke bawah dan kencangkan otot bokong kaki belakang.",
+      "Geser maju dengan lembut sampai terasa regangan di bagian depan pinggul.",
+      "Tahan 30 detik sambil bernapas pelan, lalu ganti sisi."
+    ],
+    "mistakes": [
+      "Melengkungkan punggung bawah, bukan menyelipkan pinggul.",
+      "Membiarkan lutut depan melewati jari kaki."
+    ],
+    "tip": "Letakkan handuk terlipat di bawah lututmu supaya lebih nyaman."
+  },
+  "inversion_hang": {
+    "steps": [
+      "Lakukan posisi terbalik hanya dengan pengawasan orang dewasa dan pada alat yang stabil dan sudah diperiksa.",
+      "Kunci pergelangan kakimu dengan aman dan mulai dari kemiringan ringan, jangan langsung terbalik penuh.",
+      "Rilekskan lenganmu dan bernapas pelan hingga 1 menit.",
+      "Kembali tegak dengan perlahan dan duduk sebentar sebelum berdiri.",
+      "Berhenti segera jika kamu merasa pusing, ada tekanan di kepala, atau nyeri apa pun."
+    ],
+    "mistakes": [
+      "Langsung terbalik penuh di sesi-sesi pertamamu.",
+      "Berdiri cepat tepat setelah posisi terbalik."
+    ],
+    "tip": "Sesi singkat dan lembut sudah cukup; tidak perlu bergantung lebih lama."
+  },
+  "jump_squats": {
+    "title": "Jump Squat",
+    "desc": "Squat lalu lompat untuk tenaga kaki, kerja berat otot besar yang dijawab tubuhmu dengan hormon pertumbuhan sesudahnya.",
+    "dose": "3 x 8",
+    "steps": [
+      "Berdiri dengan kaki selebar bahu dan dada tegak.",
+      "Duduk ke belakang dalam squat sampai pahamu hampir sejajar dengan lantai.",
+      "Dorong kuat lewat kakimu, lompat lurus ke atas, dan mendarat dengan lembut kembali dalam posisi squat.",
+      "Lakukan 8 lompatan, istirahat, dan ulangi sampai total 3 set."
+    ],
+    "mistakes": [
+      "Membiarkan lutut masuk ke dalam saat mendarat.",
+      "Mendarat dengan kaki kaku dan lurus."
+    ],
+    "tip": "Mendaratlah sepelan mungkin, dan hentikan set ketika pendaratanmu mulai berisik."
+  },
+  "jumping": {
+    "steps": [
+      "Berdiri dengan kaki selebar pinggul dan lengan rileks di samping.",
+      "Tekuk lutut, ayunkan lengan, dan lompat lurus ke atas.",
+      "Mendarat dengan lembut di bagian depan telapak kaki dengan lutut sedikit menekuk.",
+      "Lakukan 20 lompatan, istirahat 30 detik, dan ulangi sebanyak 3 set."
+    ],
+    "mistakes": [
+      "Mendarat dengan kaki kaku di atas tumit.",
+      "Membiarkan lutut masuk ke dalam saat mendarat."
+    ],
+    "tip": "Pendaratan yang tenang berarti kendali yang baik, jadi cobalah mendarat seperti kucing."
+  },
+  "knee_circles": {
+    "title": "Putaran Lutut",
+    "desc": "Putaran lembut yang menghangatkan lutut dan pergelangan kakimu sebelum bergerak.",
+    "dose": "2 x 15 dtk",
+    "steps": [
+      "Berdiri dengan kaki rapat dan tekuk lututmu sedikit.",
+      "Letakkan tanganmu di lutut.",
+      "Buat putaran kecil dan pelan dengan lututmu selama 15 detik ke satu arah.",
+      "Ganti arah dan putar 15 detik ke arah sebaliknya."
+    ],
+    "mistakes": [
+      "Membuat putaran besar yang memelintir lutut.",
+      "Memutar hanya ke satu arah."
+    ],
+    "tip": "Gunakan sebagai pemanasan sebelum melompat atau berlari."
+  },
+  "legs_up_wall": {
+    "title": "Kaki ke Atas Dinding",
+    "desc": "Letakkan kakimu di dinding untuk mengurangi beban pada tulang belakang dan melepas lelah setelah hari yang panjang.",
+    "dose": "3 mnt",
+    "steps": [
+      "Duduk menyamping di dekat dinding dengan satu pinggul menyentuhnya.",
+      "Ayunkan kakimu ke atas dinding sambil berbaring ke belakang di lantai.",
+      "Biarkan lenganmu beristirahat di samping dan rilekskan kaki di dinding.",
+      "Bertahan selama 3 menit sambil bernapas pelan."
+    ],
+    "mistakes": [
+      "Mengangkat punggung bawah dari lantai.",
+      "Mengunci lutut dengan keras dan menegangkan kaki."
+    ],
+    "tip": "Geser pinggulmu sedikit menjauh dari dinding jika bagian belakang kakimu terasa kencang."
+  },
+  "low_lunge_arch": {
+    "title": "Lunge Rendah dan Raih",
+    "desc": "Turunkan pinggul ke depan dan raih ke atas untuk membuka bagian depan pinggul dan dadamu.",
+    "dose": "2 x 20 dtk",
+    "steps": [
+      "Langkahkan satu kaki ke depan dan turunkan lutut belakang ke lantai.",
+      "Geser pinggul ke depan sampai terasa regangan di bagian depan pinggul belakang.",
+      "Angkat kedua lengan ke atas dan angkat dada dalam lengkungan yang lembut.",
+      "Tahan 20 detik, ganti kaki, dan lakukan 2 set di tiap sisi."
+    ],
+    "mistakes": [
+      "Membiarkan lutut depan maju jauh melewati jari kaki.",
+      "Melengkung hanya dari punggung bawah."
+    ],
+    "tip": "Letakkan handuk terlipat di bawah lutut belakang, dan buat lengkungannya kecil saja."
+  },
+  "lunges": {
+    "title": "Lunge",
+    "desc": "Melangkah ke depan dan tekuk kedua lutut untuk membangun kaki dan pinggul yang kuat, satu sisi per satu sisi.",
+    "dose": "3 x 8",
+    "steps": [
+      "Berdiri tegak dengan kaki selebar pinggul.",
+      "Ambil langkah besar ke depan dan turun sampai kedua lutut menekuk sekitar 90 derajat.",
+      "Dorong lewat tumit depan untuk melangkah kembali ke posisi awal.",
+      "Lakukan 8 repetisi di tiap kaki lalu istirahat, total 3 set."
+    ],
+    "mistakes": [
+      "Membiarkan lutut depan masuk ke dalam.",
+      "Mencondongkan dada jauh ke depan di atas kaki depan."
+    ],
+    "tip": "Ambil langkah yang lebih pendek atau pegang kursi untuk keseimbangan sampai gerakannya terasa stabil."
+  },
+  "masai_jumps": {
+    "title": "Lompat Masai",
+    "desc": "Lompatan kecil yang melenting dengan tubuh tegak membangun kaki yang kuat dan tulang yang lebih kuat.",
+    "dose": "3 x 20 dtk",
+    "steps": [
+      "Berdiri tegak dengan lengan di samping atau terjulur ke atas.",
+      "Lakukan lompatan kecil yang melenting dan jaga tubuh tetap tegak sepanjang waktu.",
+      "Mendarat dengan lembut di bagian depan telapak kaki, lutut sedikit menekuk.",
+      "Lanjutkan selama 20 detik, total 3 set."
+    ],
+    "mistakes": [
+      "Mendarat keras di atas tumit.",
+      "Membungkuk ke depan saat mulai lelah."
+    ],
+    "tip": "Berhenti jika lutut atau tulang keringmu sakit, dan istirahat sebelum mencoba lagi."
+  },
+  "morning_stretch": {
+    "steps": [
+      "Berdiri tegak dan putar lehermu perlahan, 5 putaran ke tiap arah.",
+      "Julurkan kedua lengan ke atas kepala, kaitkan jari-jari, dan regangkan ke atas selama 30 detik.",
+      "Tekuk badan ke depan dari pinggul dan biarkan tanganmu menggantung ke arah jari kaki.",
+      "Melangkah ke posisi lunge, tahan 30 detik, lalu ganti kaki.",
+      "Bernapaslah pelan lewat hidung dan jangan memantul saat meregang."
+    ],
+    "mistakes": [
+      "Memantul untuk masuk lebih dalam, bukan menahan diam.",
+      "Menahan napas saat menahan posisi."
+    ],
+    "tip": "Meregang sebelum mengecek ponsel membuat kebiasaan ini lebih cepat menetap."
+  },
+  "mountain_pose": {
+    "title": "Pose Gunung Berjinjit",
+    "desc": "Naik ke ujung jari kaki dan raih ke atas untuk memanjangkan tulang belakang dan berlatih berdiri dengan tinggi penuh.",
+    "dose": "2 x 20 dtk",
+    "steps": [
+      "Berdiri dengan kaki rapat dan beban tubuh merata di kedua kaki.",
+      "Julurkan kedua lengan lurus ke atas kepala dengan telapak tangan saling berhadapan.",
+      "Naik ke ujung jari kaki dan regangkan ke atas lewat ujung jarimu.",
+      "Tahan 20 detik dan turun dengan perlahan, total 2 set."
+    ],
+    "mistakes": [
+      "Membuka tulang rusuk dan melengkungkan punggung bawah.",
+      "Mengangkat bahu ke arah telinga."
+    ],
+    "tip": "Fokuskan matamu pada satu titik di depanmu, atau biarkan tumit tetap di lantai jika kamu goyah."
+  },
+  "neck_stretches": {
+    "steps": [
+      "Duduk atau berdiri tegak dengan bahu rileks dan turun.",
+      "Miringkan telingamu perlahan ke arah bahu dan tahan 30 detik per sisi.",
+      "Turunkan dagumu ke arah dada dan tahan selama 30 detik.",
+      "Angkat pandanganmu dengan lembut selama 30 detik tanpa menjatuhkan kepala ke belakang."
+    ],
+    "mistakes": [
+      "Menarik kepala dengan keras memakai tangan.",
+      "Mengangkat bahu untuk menemui telinga."
+    ],
+    "tip": "Lakukan ini setelah sesi belajar yang panjang untuk melepas ketegangan."
+  },
+  "overhead_press": {
+    "steps": [
+      "Berdiri tegak sambil memegang beban ringan atau botol air setinggi bahu.",
+      "Kencangkan inti dan dorong kedua lengan lurus ke atas kepala.",
+      "Akhiri dengan lengan di samping telinga, lalu turunkan perlahan ke bahu.",
+      "Buang napas saat mendorong, tarik napas saat menurunkan, 10 repetisi per set."
+    ],
+    "mistakes": [
+      "Melengkungkan punggung bawah saat mendorong.",
+      "Memakai beban yang terlalu berat untuk dikendalikan."
+    ],
+    "tip": "Mulai dengan berat badan saja dan tambahkan beban ringan setelah tekniknya terasa mudah."
+  },
+  "pelvic_shift": {
+    "title": "Gerak Panggul",
+    "desc": "Angkat dan turunkan pinggul satu ruas tulang demi satu ruas untuk melemaskan tulang belakang dan membangunkan otot bokongmu.",
+    "dose": "2 x 10",
+    "steps": [
+      "Berbaring telentang dengan lutut menekuk dan telapak kaki rata di lantai.",
+      "Selipkan tulang ekor dan lepaskan tulang belakang dari lantai mulai dari bawah.",
+      "Jeda di atas, lalu turun perlahan, satu ruas tulang demi satu ruas.",
+      "Lakukan 10 repetisi pelan lalu istirahat, total 2 set."
+    ],
+    "mistakes": [
+      "Mendorong pinggul ke atas dengan cepat sekaligus.",
+      "Melengkungkan punggung bawah di atas."
+    ],
+    "tip": "Bergeraklah cukup pelan untuk merasakan setiap bagian punggungmu menyentuh lantai."
+  },
+  "pilates_core": {
+    "steps": [
+      "Tahan forearm plank selama 1 menit, tubuh dalam satu garis lurus.",
+      "Berbaring telentang untuk dead bug, turunkan lengan dan kaki yang berlawanan perlahan.",
+      "Beralih ke bird dog dengan posisi merangkak, julurkan lengan dan kaki yang berlawanan.",
+      "Akhiri dengan 1 menit glute bridge dan 1 menit angkat kaki.",
+      "Buang napas setiap kali kamu mengencangkan inti."
+    ],
+    "mistakes": [
+      "Membiarkan pinggul melorot saat plank.",
+      "Melengkungkan punggung bawah dari lantai saat dead bug."
+    ],
+    "tip": "Pelan dan terkontrol lebih baik daripada cepat; setiap repetisi yang bersih membangun kekuatan nyata."
+  },
+  "pilates_roll_over": {
+    "title": "Pilates Roll Over",
+    "desc": "Gulingkan kakimu ke atas kepala dan kembali dengan terkontrol untuk meregangkan tulang belakang dan melatih kekuatan inti yang dalam.",
+    "dose": "2 x 5",
+    "steps": [
+      "Berbaring telentang dengan lengan di samping dan kaki lurus ke atas.",
+      "Tekan lenganmu ke lantai dan angkat pinggul untuk menggulingkan kaki ke atas kepala.",
+      "Berhenti saat kakimu sejajar dengan lantai di belakang kepala.",
+      "Gulung turun perlahan, lakukan 5 repetisi lalu istirahat, total 2 set."
+    ],
+    "mistakes": [
+      "Mengayunkan kaki ke atas dengan momentum.",
+      "Berguling ke leher, bukan ke bahu."
+    ],
+    "tip": "Pusatkan beratmu di bahu dan jangan pernah di leher, dan tekuk lutut agar lebih mudah."
+  },
+  "plank": {
+    "title": "Plank",
+    "desc": "Tahan plank dengan tubuh lurus untuk membangun inti kuat yang menopang postur tegak.",
+    "dose": "3 x 30 dtk",
+    "steps": [
+      "Letakkan lengan bawahmu di lantai, siku di bawah bahu.",
+      "Langkahkan kakimu ke belakang sehingga tubuhmu membentuk satu garis lurus.",
+      "Kencangkan otot bokong, tarik pusar ke dalam, dan tahan 30 detik.",
+      "Istirahat 30 detik dan ulangi sebanyak 3 set."
+    ],
+    "mistakes": [
+      "Membiarkan pinggul melorot ke arah lantai.",
+      "Mengangkat pinggul terlalu tinggi."
+    ],
+    "tip": "Tambah 5 detik setiap minggu seiring gerakannya jadi lebih mudah."
+  },
+  "pogo_jumps": {
+    "title": "Lompat Pogo",
+    "desc": "Pantulan cepat dengan pergelangan kaki kaku memberi beban pada tulang kering dan tulang kaki serta membangun betis yang lenting dan bertenaga.",
+    "dose": "3 x 20 dtk",
+    "steps": [
+      "Berdiri tegak dengan kaki selebar pinggul dan tangan di pinggang.",
+      "Memantul di bagian depan telapak kaki dengan lutut hampir lurus.",
+      "Jaga setiap sentuhan ke tanah singkat dan cepat, seperti tongkat pogo.",
+      "Lanjutkan selama 20 detik, total 3 set."
+    ],
+    "mistakes": [
+      "Menekuk lutut dalam-dalam di setiap pantulan.",
+      "Membiarkan tumit menghantam lantai."
+    ],
+    "tip": "Melompatlah di permukaan yang keras dan rata, dan berhenti jika tulang kering atau pergelangan kakimu sakit."
+  },
+  "posture_check": {
+    "steps": [
+      "Atur pengingat setiap jam untuk memeriksa cara dudukmu atau berdirimu.",
+      "Susun telingamu di atas bahu dan bahumu di atas pinggul.",
+      "Putar bahu ke belakang dan ke bawah, dada terbuka dengan lembut.",
+      "Bayangkan seutas tali menarik puncak kepalamu ke atas, lalu bernapaslah."
+    ],
+    "mistakes": [
+      "Mengoreksi berlebihan dengan punggung kaku dan melengkung.",
+      "Menunduk melihat ponsel dengan kepala terdorong ke depan."
+    ],
+    "tip": "Naikkan layarmu setinggi mata dan postur yang baik akan terjadi dengan sendirinya."
+  },
+  "pre_sleep_routine": {
+    "steps": [
+      "Mulai 30 menit sebelum tidur: redupkan lampu dan simpan layar.",
+      "Baca buku atau dengarkan musik yang tenang selama 15 menit.",
+      "Lakukan peregangan lembut 5 menit di tempat tidur atau di lantai.",
+      "Tarik napas 4 detik dan buang 6 detik, 10 putaran."
+    ],
+    "mistakes": [
+      "Menggulir ponsel hanya untuk semenit lagi.",
+      "Mengubah jam tidurmu terlalu banyak dari malam ke malam."
+    ],
+    "tip": "Jam yang sama dan langkah yang sama setiap malam membuat tidur lebih mudah."
+  },
+  "pull_ups": {
+    "title": "Pull-Up",
+    "desc": "Tarik dagumu melewati palang untuk membangun punggung, kerja keras yang dijawab tubuh dengan hormon pertumbuhan sesudahnya.",
+    "dose": "3 x 2",
+    "steps": [
+      "Pegang palang dengan genggaman dari atas, tangan sedikit lebih lebar dari bahu.",
+      "Mulai dari posisi bergantung dengan lengan lurus dan tarik tulang belikat ke bawah.",
+      "Tarik sampai dagumu melewati palang, lalu turunkan dirimu perlahan.",
+      "Lakukan 2 repetisi, turun dari palang lalu istirahat, total 3 set."
+    ],
+    "mistakes": [
+      "Menendang dan mengayun agar bisa melewati palang.",
+      "Jatuh cepat, bukan turun dengan terkontrol."
+    ],
+    "tip": "Lilitkan band di bawah kaki atau lompat ke atas lalu turun perlahan, dan pastikan palangnya kokoh."
+  },
+  "puppy_pose": {
+    "title": "Puppy Pose",
+    "desc": "Luluhkan dada ke arah lantai untuk membuka bahu yang kaku dan meregangkan punggung atas.",
+    "dose": "2 x 20 dtk",
+    "steps": [
+      "Mulai dengan merangkak dan pinggul tepat di atas lutut.",
+      "Jalankan tanganmu ke depan dan biarkan pinggul tetap di tempatnya.",
+      "Biarkan dada dan dahimu turun ke arah lantai.",
+      "Tahan 20 detik dan kembali naik, total 2 set."
+    ],
+    "mistakes": [
+      "Membiarkan pinggul bergeser ke belakang mendekati tumit.",
+      "Menekuk siku dan menaruhnya di lantai."
+    ],
+    "tip": "Letakkan dahimu di atas bantal jika regangan di bahumu terasa terlalu kuat."
+  },
+  "push_ups": {
+    "title": "Push-Up",
+    "desc": "Turunkan dada ke lantai dengan tubuh lurus untuk membangun dada, lengan, dan inti.",
+    "dose": "3 x 5",
+    "steps": [
+      "Letakkan tanganmu di lantai sedikit lebih lebar dari bahu.",
+      "Langkahkan kakimu ke belakang sehingga tubuhmu membentuk satu garis lurus.",
+      "Tekuk siku untuk menurunkan dada ke lantai, lalu dorong kembali ke atas.",
+      "Lakukan 5 repetisi lalu istirahat, total 3 set."
+    ],
+    "mistakes": [
+      "Membiarkan pinggul melorot ke arah lantai.",
+      "Membuka siku lurus ke samping."
+    ],
+    "tip": "Turun ke lutut atau letakkan tangan di bangku agar lebih mudah."
+  },
+  "scapular_pull": {
+    "title": "Tarik Tulang Belikat",
+    "desc": "Tarik bahu ke bawah dari posisi bergantung dengan lengan lurus untuk membangun dasar pull-up yang kuat.",
+    "dose": "3 x 5",
+    "steps": [
+      "Pegang palang dengan genggaman dari atas, tangan sedikit lebih lebar dari bahu.",
+      "Bergantung dengan lengan lurus dan biarkan bahu naik ke arah telinga.",
+      "Tarik tulang belikat ke bawah sehingga tubuhmu terangkat sedikit, siku tetap lurus.",
+      "Tahan sedetik lalu lepaskan, lakukan 5 repetisi, total 3 set."
+    ],
+    "mistakes": [
+      "Menekuk siku untuk menarik lebih tinggi.",
+      "Mengayunkan kaki untuk membantu."
+    ],
+    "tip": "Pastikan palangnya kokoh, dan letakkan kakimu di atas kotak jika bergantung penuh terlalu berat."
+  },
+  "scapular_retraction": {
+    "title": "Rapatkan Tulang Belikat",
+    "desc": "Rapatkan tulang belikat ke belakang dan ke bawah untuk melatih otot yang menjaga bahumu agar tidak membulat.",
+    "dose": "2 x 10",
+    "steps": [
+      "Duduk atau berdiri tegak dengan lengan rileks di samping.",
+      "Tarik tulang belikat ke belakang dan ke bawah, seperti menyelipkannya ke saku belakang.",
+      "Tahan rapatannya selama satu napas yang pelan, lalu lepaskan.",
+      "Lakukan 10 repetisi lalu istirahat, total 2 set."
+    ],
+    "mistakes": [
+      "Mengangkat bahu sambil merapatkan.",
+      "Mendorong tulang rusuk ke depan dan melengkungkan punggung."
+    ],
+    "tip": "Jaga dagu tetap sejajar dan leher rileks sepanjang waktu."
+  },
+  "seated_forward_fold": {
+    "title": "Lipat Badan Sambil Duduk",
+    "desc": "Tekuk badan ke depan di atas kaki yang lurus untuk meregangkan hamstring dan seluruh panjang punggungmu.",
+    "dose": "2 x 20 dtk",
+    "steps": [
+      "Duduk di lantai dengan kaki lurus dan jari kaki menunjuk ke atas.",
+      "Duduk tegak dan julurkan kedua lengan ke atas kepala.",
+      "Tekuk badan ke depan dari pinggul dan jangkau tulang keringmu atau kakimu.",
+      "Tahan 20 detik dan duduk tegak kembali, total 2 set."
+    ],
+    "mistakes": [
+      "Membulatkan punggung atas untuk menggapai jari kaki.",
+      "Memantul agar masuk lebih dalam ke regangan."
+    ],
+    "tip": "Tekuk lutut sedikit atau duduk di atas handuk terlipat jika punggung bawahmu membulat."
+  },
+  "shoulder_rolls": {
+    "steps": [
+      "Berdiri tegak dengan lengan menggantung longgar di samping.",
+      "Putar bahumu ke depan dalam lingkaran besar sebanyak 15 kali.",
+      "Putar ke belakang 15 kali sambil merapatkan tulang belikat.",
+      "Kaitkan tanganmu di belakang punggung dan buka dada selama 20 detik."
+    ],
+    "mistakes": [
+      "Membuat lingkaran kecil yang terburu-buru.",
+      "Mengangkat bahu sambil menahan napas."
+    ],
+    "tip": "Satu set singkat di sela pelajaran atau waktu belajar menjaga bahumu tetap terbuka."
+  },
+  "side_plank": {
+    "title": "Side Plank",
+    "desc": "Tahan garis lurus di atas satu lengan bawah untuk menguatkan otot samping yang menjaga posturmu tetap seimbang.",
+    "dose": "2 x 15 dtk",
+    "steps": [
+      "Berbaring miring dengan lengan bawah di lantai, siku di bawah bahu.",
+      "Tumpuk kakimu dan angkat pinggul dari lantai.",
+      "Jaga tubuhmu dalam satu garis lurus dari kepala sampai tumit.",
+      "Tahan 15 detik, ganti sisi, dan lakukan 2 set di tiap sisi."
+    ],
+    "mistakes": [
+      "Membiarkan pinggul jatuh ke arah lantai.",
+      "Menggulirkan dada ke depan ke arah lantai."
+    ],
+    "tip": "Biarkan lutut bagian bawah tetap di lantai agar lebih mudah."
+  },
+  "single_leg_calf_raise": {
+    "title": "Calf Raise Satu Kaki",
+    "desc": "Naik dengan satu kaki dari tepi undakan untuk membangun betis dan pergelangan kaki yang kuat untuk melompat.",
+    "dose": "3 x 8",
+    "steps": [
+      "Berdiri di tepi undakan dengan bagian depan telapak satu kaki dan berpeganglah pada dinding atau pagar.",
+      "Turunkan tumitmu perlahan sampai di bawah permukaan undakan.",
+      "Naik setinggi mungkin ke ujung jari kaki dan jeda sedetik.",
+      "Lakukan 8 repetisi di tiap kaki lalu istirahat, total 3 set."
+    ],
+    "mistakes": [
+      "Memantul dari bawah, bukan bergerak perlahan.",
+      "Menekuk lutut untuk membantu betis."
+    ],
+    "tip": "Mulai dengan berat badan saja, dan jika menambah dumbbell atau ransel, pilih beban yang cukup ringan agar setiap repetisi selesai dengan teknik yang baik."
+  },
+  "single_leg_hops": {
+    "title": "Lompat Satu Kaki",
+    "desc": "Lompatan kecil dengan satu kaki menguatkan pergelangan kaki dan tulangmu serta menyeimbangkan kedua sisi tubuhmu.",
+    "dose": "2 x 8",
+    "steps": [
+      "Berdiri dengan satu kaki dan kaki yang lain terangkat ke belakang.",
+      "Lakukan lompatan kecil di tempat, mendarat di bagian depan telapak kaki.",
+      "Jaga pinggul tetap rata dan lutut kaki tumpuan sedikit menekuk.",
+      "Lakukan 8 lompatan, ganti kaki, dan lakukan 2 set di tiap sisi."
+    ],
+    "mistakes": [
+      "Membiarkan lutut kaki yang melompat masuk ke dalam.",
+      "Melompat terlalu tinggi sampai kehilangan keseimbangan."
+    ],
+    "tip": "Berdirilah dekat dinding yang bisa kamu sentuh, dan jaga lompatan tetap rendah sampai keseimbanganmu terasa mantap."
+  },
+  "skipping_rope": {
+    "steps": [
+      "Pegang gagang setinggi pinggul, siku dekat dengan sisi badan.",
+      "Putar tali dengan pergelangan tangan, bukan seluruh lengan.",
+      "Lompat setinggi yang cukup untuk melewati tali, mendarat di bagian depan telapak kaki.",
+      "Lompat tali selama 5 menit, istirahat 1 menit, dan ulangi sebanyak 3 set."
+    ],
+    "mistakes": [
+      "Melompat terlalu tinggi dan cepat lelah.",
+      "Mendarat dengan telapak kaki rata di atas tumit."
+    ],
+    "tip": "Tersandung itu normal; mulai lagi saja dan jaga ritmenya."
+  },
+  "spinal_twist": {
+    "title": "Putaran Tulang Belakang",
+    "desc": "Jatuhkan satu lutut menyilang tubuhmu untuk memutar tulang belakang dengan lembut dan melepas punggung bawah yang kaku.",
+    "dose": "2 x 20 dtk",
+    "steps": [
+      "Berbaring telentang dengan lengan terbuka ke samping.",
+      "Tekuk satu lutut dan bawa menyilang tubuhmu ke arah lantai.",
+      "Jaga kedua bahu di lantai dan tengok ke sisi yang berlawanan.",
+      "Tahan 20 detik, ganti sisi, dan lakukan 2 set di tiap sisi."
+    ],
+    "mistakes": [
+      "Membiarkan bahu di sisi yang berlawanan terangkat dari lantai.",
+      "Memaksa lutut turun dengan tangan."
+    ],
+    "tip": "Letakkan lututmu di atas bantal jika tidak sampai ke lantai."
+  },
+  "sprint_intervals": {
+    "steps": [
+      "Pemanasan dengan jogging santai 5 menit dan ayunan kaki.",
+      "Sprint dengan usaha penuh selama 30 detik sambil mengayunkan lengan.",
+      "Jalan atau jogging pelan selama 90 detik untuk pulih.",
+      "Ulangi sampai 3 sprint, lalu pendinginan dengan berjalan 5 menit."
+    ],
+    "mistakes": [
+      "Sprint tanpa pemanasan dulu.",
+      "Condong ke belakang dan melangkah terlalu lebar, bukan mendorong ke depan."
+    ],
+    "tip": "Pilih permukaan yang rata dan aman, dan kerahkan semuanya hanya saat tubuhmu terasa segar."
+  },
+  "squats": {
+    "steps": [
+      "Berdiri dengan kaki selebar bahu, jari kaki sedikit menghadap keluar.",
+      "Dorong pinggul ke belakang dan turun sampai pahamu sejajar dengan lantai.",
+      "Jaga dada tegak dan lutut sejalan dengan jari kaki.",
+      "Dorong lewat tumit untuk berdiri, buang napas saat naik."
+    ],
+    "mistakes": [
+      "Mengangkat tumit dari lantai.",
+      "Membulatkan punggung di bawah."
+    ],
+    "tip": "Lakukan set pertamamu di depan cermin untuk memeriksa tekniknya."
+  },
+  "standing_side_stretch": {
+    "title": "Peregangan Samping Berdiri",
+    "desc": "Condong ke tiap sisi dengan lengan di atas kepala untuk meregangkan pinggang dan melonggarkan tulang rusukmu.",
+    "dose": "2 x 15 dtk",
+    "steps": [
+      "Berdiri tegak dengan kaki selebar pinggul.",
+      "Julurkan kedua lengan ke atas kepala dan pegang satu pergelangan tangan dengan tangan yang lain.",
+      "Condongkan badan perlahan ke satu sisi dan tekan kedua kaki ke lantai.",
+      "Tahan 15 detik, ganti sisi, dan lakukan 2 set di tiap sisi."
+    ],
+    "mistakes": [
+      "Condong ke depan atau memutar, bukan menekuk lurus ke samping.",
+      "Mendorong pinggul jauh ke samping."
+    ],
+    "tip": "Bayangkan kamu berdiri di antara dua dinding, sehingga hanya bisa bergerak ke samping."
+  },
+  "step_ups": {
+    "title": "Step-Up",
+    "desc": "Naik ke undakan dan berdiri tegak, lalu turun perlahan, untuk membangun kekuatan satu kaki dan keseimbangan.",
+    "dose": "3 x 8",
+    "steps": [
+      "Berdiri di depan undakan atau bangku rendah yang kokoh.",
+      "Letakkan seluruh telapak satu kaki di undakan dan dorong naik sampai berdiri tegak.",
+      "Turunkan kaki yang lain kembali ke lantai dengan perlahan.",
+      "Lakukan 8 repetisi di tiap kaki lalu istirahat, total 3 set."
+    ],
+    "mistakes": [
+      "Mendorong keras dengan kaki yang di lantai.",
+      "Jatuh cepat, bukan turun dengan terkontrol."
+    ],
+    "tip": "Gunakan undakan yang tidak bisa bergeser atau terbalik, dan mulai dari yang rendah sebelum naik lebih tinggi."
+  },
+  "superman": {
+    "title": "Superman",
+    "desc": "Angkat lengan dan kaki dari lantai untuk menguatkan otot punggung yang menahan posturmu.",
+    "dose": "2 x 8",
+    "steps": [
+      "Berbaring tengkurap dengan lengan terjulur ke depan.",
+      "Angkat lengan dan kakimu sedikit dari lantai.",
+      "Jaga leher tetap panjang, lihat ke lantai, dan tahan 2 detik.",
+      "Turun perlahan, 8 repetisi per set, total 2 set."
+    ],
+    "mistakes": [
+      "Memaksa dada dan kaki naik setinggi mungkin.",
+      "Mendongakkan kepala dan menjepit leher."
+    ],
+    "tip": "Angkatan kecil sudah cukup. Jika punggung bawahmu terjepit, angkat lebih rendah."
+  },
+  "swimming_basketball": {
+    "steps": [
+      "Pemanasan 5 menit dengan berenang santai atau men-dribble ringan.",
+      "Berenang atau bermain minimal 30 menit dengan kecepatan stabil.",
+      "Julurkan badan sepenuhnya di setiap kayuhan, tembakan, atau rebound.",
+      "Pendinginan dengan 5 menit gerakan santai dan peregangan."
+    ],
+    "mistakes": [
+      "Melewatkan pemanasan dan langsung mulai dengan kecepatan penuh.",
+      "Lupa minum air saat bermain."
+    ],
+    "tip": "Ajak teman; olahraga lebih mudah dijaga kalau dilakukan bersama."
+  },
+  "table_top": {
+    "title": "Meja Terbalik",
+    "desc": "Angkat pinggul menjadi meja yang rata untuk membuka dada dan bahu serta menguatkan sisi belakang tubuhmu.",
+    "dose": "2 x 15 dtk",
+    "steps": [
+      "Duduk dengan lutut menekuk, telapak kaki rata, dan tangan di lantai di belakang pinggul.",
+      "Arahkan jari-jari ke kakimu dan tekan tangan serta kakimu.",
+      "Angkat pinggul sampai tubuhmu rata dari lutut sampai bahu.",
+      "Tahan 15 detik dan turun, total 2 set."
+    ],
+    "mistakes": [
+      "Membiarkan pinggul melorot di tengah.",
+      "Menjatuhkan kepala ke belakang sehingga leher tegang."
+    ],
+    "tip": "Arahkan jari-jarimu keluar ke samping jika pergelangan tanganmu terasa sakit."
+  },
+  "thoracic_extension": {
+    "title": "Ekstensi Punggung Atas Kursi",
+    "desc": "Sandarkan punggung atasmu ke kursi untuk melawan bungkuk akibat duduk dan membuka dada.",
+    "dose": "2 x 8",
+    "steps": [
+      "Duduk di kursi kokoh dengan sandarannya tepat di bawah tulang belikatmu.",
+      "Letakkan tangan di belakang kepala dan jaga siku tetap terbuka lebar.",
+      "Sandarkan punggung atasmu perlahan ke sandaran kursi dan lihat ke atas.",
+      "Kembali naik, lakukan 8 repetisi lalu istirahat, total 2 set."
+    ],
+    "mistakes": [
+      "Menekuk dari punggung bawah, bukan dari punggung atas.",
+      "Menarik kepala ke depan dengan tangan."
+    ],
+    "tip": "Gunakan kursi yang tidak bisa menggelinding atau terbalik, dan letakkan kaki rata di lantai."
+  },
+  "toe_touch": {
+    "title": "Sentuh Jari Kaki",
+    "desc": "Lipatan ke depan yang pelan untuk melemaskan bagian belakang kaki dan menjaga tulang belakangmu tetap lentur.",
+    "dose": "2 x 20 dtk",
+    "steps": [
+      "Berdiri dengan kaki selebar pinggul dan lutut lunak.",
+      "Tekuk badan ke depan dari pinggul dan biarkan tanganmu menjangkau jari kaki.",
+      "Diam selama 20 detik dan bernapas pelan.",
+      "Gulung naik perlahan, istirahat, dan ulangi sekali lagi."
+    ],
+    "mistakes": [
+      "Memantul untuk menjangkau lebih jauh.",
+      "Mengunci lutut lurus."
+    ],
+    "tip": "Jika tidak sampai ke jari kaki, berhenti di tulang keringmu. Tetap bermanfaat."
+  },
+  "tuck_jumps": {
+    "title": "Lompat Lutut ke Dada",
+    "desc": "Lompat dan tarik lutut ke atas untuk tenaga ledakan, usaha keras yang dijawab tubuhmu dengan hormon pertumbuhan sesudahnya.",
+    "dose": "3 x 6",
+    "steps": [
+      "Berdiri tegak dengan kaki selebar pinggul.",
+      "Turun cepat ke seperempat squat dan lompat setinggi mungkin.",
+      "Tarik kedua lutut ke arah dada di puncak, lalu mendarat dengan lembut dengan lutut menekuk.",
+      "Lakukan 6 lompatan, istirahat, dan ulangi sampai total 3 set."
+    ],
+    "mistakes": [
+      "Membungkukkan dada ke lutut, bukan mengangkat lutut.",
+      "Mendarat keras dengan kaki lurus."
+    ],
+    "tip": "Atur ulang keseimbanganmu di antara lompatan, dan pastikan ada ruang kosong serta lantai yang tidak licin."
+  },
+  "upward_salute": {
+    "title": "Salam ke Atas",
+    "desc": "Raih ke atas dengan tulang rusuk tetap turun untuk membuka dada dan berdiri dengan tinggi penuh.",
+    "dose": "2 x 15 dtk",
+    "steps": [
+      "Berdiri dengan kaki rapat dan lengan di samping.",
+      "Tarik napas dan julurkan kedua lengan ke atas kepala.",
+      "Jaga tulang rusuk tetap turun dan bahu menjauh dari telinga.",
+      "Tahan 15 detik sambil bernapas pelan, lalu turunkan lengan. Total 2 set."
+    ],
+    "mistakes": [
+      "Condong ke belakang dan melengkungkan punggung bawah.",
+      "Membiarkan tulang rusuk menonjol ke depan."
+    ],
+    "tip": "Raih ke atas, bukan ke belakang. Jaga tubuhmu tertumpuk lurus di atas kaki."
+  },
+  "wall_angels": {
+    "title": "Wall Angels",
+    "desc": "Geser lenganmu di dinding untuk membuka dada dan melatih bahu agar tegak.",
+    "dose": "2 x 8",
+    "steps": [
+      "Berdiri dengan punggung bersandar di dinding, kaki sedikit di depanmu.",
+      "Letakkan lenganmu di dinding dengan siku menekuk, seperti tiang gawang.",
+      "Jaga tulang rusuk tetap turun dan geser lenganmu perlahan ke atas, lalu kembali turun.",
+      "Lakukan 8 repetisi pelan per set, total 2 set."
+    ],
+    "mistakes": [
+      "Membiarkan tulang rusuk menonjol dan punggung bawah melengkung.",
+      "Membiarkan lengan lepas dari dinding."
+    ],
+    "tip": "Naiklah hanya sejauh lenganmu masih bisa menempel di dinding. Akan makin mudah dengan latihan."
+  },
+  "wall_dog": {
+    "title": "Wall Dog",
+    "desc": "Peregangan berdiri di dinding yang membuka bahu dan menjaga tulang belakangmu tetap panjang.",
+    "dose": "2 x 20 dtk",
+    "steps": [
+      "Berdiri menghadap dinding, sejauh kira-kira satu panjang kaki.",
+      "Letakkan tanganmu di dinding setinggi pinggul.",
+      "Tekuk badan ke belakang dari pinggul sampai lenganmu lurus dan tulang belakangmu panjang.",
+      "Tahan 20 detik sambil bernapas pelan, total 2 set."
+    ],
+    "mistakes": [
+      "Membulatkan punggung atas.",
+      "Menekuk siku dan bersandar pada dinding."
+    ],
+    "tip": "Jeda yang bagus di meja kerja saat kamu tidak bisa turun ke lantai."
+  },
+  "wall_sit": {
+    "title": "Wall Sit",
+    "desc": "Duduk bersandar di dinding dengan paha sejajar untuk membangun kekuatan kaki dengan punggung tetap lurus.",
+    "dose": "3 x 20 dtk",
+    "steps": [
+      "Berdiri dengan punggung bersandar di dinding dan kaki satu langkah di depanmu.",
+      "Geser turun sampai pahamu sejajar dengan lantai.",
+      "Jaga lutut di atas pergelangan kaki dan seluruh punggung menempel di dinding.",
+      "Tahan 20 detik lalu berdiri, total 3 set."
+    ],
+    "mistakes": [
+      "Menaruh tangan di atas paha.",
+      "Membiarkan lutut maju melewati jari kaki."
+    ],
+    "tip": "Duduklah sedikit lebih tinggi jika lututmu protes, dan turun lebih rendah seiring kamu makin kuat."
+  },
+  "wall_stand": {
+    "steps": [
+      "Berdiri dengan tumit menempel dinding, kaki selebar pinggul.",
+      "Sentuhkan bokong, tulang belikat, dan belakang kepalamu ke dinding.",
+      "Selipkan dagu sedikit dan biarkan lenganmu rileks di samping.",
+      "Tahan 5 menit sambil bernapas tenang lewat hidung."
+    ],
+    "mistakes": [
+      "Melengkungkan punggung bawah jauh dari dinding.",
+      "Mendongakkan dagu, bukan menjaganya tetap sejajar."
+    ],
+    "tip": "Perhatikan bagaimana rasanya, lalu cobalah membawanya ke dalam harimu."
+  }
+}

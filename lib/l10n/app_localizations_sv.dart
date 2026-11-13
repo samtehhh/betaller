@@ -7300,4 +7300,13 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get restoreDone => 'Ditt köp är återställt.';
+
+  @override
+  String get planPlaceTitle => 'Var du tränar';
+
+  @override
+  String get planPlaceHome => 'Hemma, bara kroppsvikt';
+
+  @override
+  String get planPlaceGym => 'På gym eller med hantlar';
 }

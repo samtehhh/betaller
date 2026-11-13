@@ -7001,4 +7001,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get restoreDone => '구매가 복원되었어요.';
+
+  @override
+  String get planPlaceTitle => '운동하는 곳';
+
+  @override
+  String get planPlaceHome => '집에서, 맨몸 운동만';
+
+  @override
+  String get planPlaceGym => '헬스장 또는 덤벨로';
 }

@@ -1,0 +1,1117 @@
+{
+  "band_pull_apart": {
+    "title": "Kéo giãn dây kháng lực",
+    "desc": "Kéo dây kháng lực ra hai bên đến ngực để lưng trên khỏe hơn và vai luôn mở.",
+    "dose": "2 x 12",
+    "steps": [
+      "Đứng thẳng, cầm dây kháng lực trước mặt, hai tay thẳng ngang vai.",
+      "Kéo dây ra hai bên bằng cách ép hai bả vai lại gần nhau.",
+      "Chạm dây vào ngực, rồi từ từ trả về.",
+      "Tập 12 lần rồi nghỉ, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Nhún vai lên gần tai.",
+      "Để dây bật mạnh trở lại thay vì từ từ trả về."
+    ],
+    "tip": "Chọn dây đủ nhẹ để hoàn thành mọi lần với tư thế đúng, và kiểm tra xem dây có bị rách không."
+  },
+  "bar_hanging": {
+    "steps": [
+      "Nắm xà bằng hai tay úp, rộng bằng vai.",
+      "Nhấc chân lên và để cơ thể buông thẳng, thả lỏng.",
+      "Giữ vai hơi gồng nhẹ và thở chậm trong 30 giây.",
+      "Xuống nhẹ nhàng, nghỉ 30 đến 60 giây rồi lặp lại, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Đung đưa hoặc đá chân khi đang treo.",
+      "Buông tay rơi khỏi xà thay vì bước xuống nhẹ nhàng."
+    ],
+    "tip": "Bắt đầu với thời gian treo ngắn và mỗi tuần thêm vài giây."
+  },
+  "bird_dog": {
+    "title": "Bird Dog",
+    "desc": "Duỗi tay và chân đối diện thật dài để tập các cơ sâu giữ cột sống vững.",
+    "dose": "2 x 8",
+    "steps": [
+      "Bắt đầu ở tư thế bò bốn chân, tay dưới vai, gối dưới hông.",
+      "Duỗi một tay ra trước và chân đối diện thẳng ra sau.",
+      "Giữ hai giây, hông ngay ngắn, rồi trở về.",
+      "Tập 8 lần, đổi bên, mỗi bên 2 hiệp."
+    ],
+    "mistakes": [
+      "Để lưng dưới võng xuống khi nhấc chân.",
+      "Xoay mở hông để nâng chân cao hơn."
+    ],
+    "tip": "Hãy tưởng tượng có một ly nước đặt trên lưng dưới và không được để đổ."
+  },
+  "bow_pose": {
+    "title": "Tư thế cây cung",
+    "desc": "Nắm lấy mắt cá chân rồi nâng ngực và đùi để mở rộng cả mặt trước cơ thể và làm lưng khỏe hơn.",
+    "dose": "2 x 10 giây",
+    "steps": [
+      "Nằm sấp và gập gối để gót chân đưa về phía hông.",
+      "Với tay ra sau nắm lấy cả hai mắt cá chân.",
+      "Đá bàn chân vào tay để nâng ngực và đùi lên.",
+      "Giữ 10 giây rồi hạ xuống từ từ, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Để hai gối mở rộng hơn hông.",
+      "Ngửa đầu ra sau làm căng cổ."
+    ],
+    "tip": "Chỉ nâng lên mức thấy thoải mái, và bỏ qua động tác này nếu lưng dưới bị đau."
+  },
+  "broad_jumps": {
+    "title": "Bật xa tại chỗ",
+    "desc": "Bật về phía trước bằng hai chân và tiếp đất vững để tăng sức mạnh hông và xương chân chắc khỏe.",
+    "dose": "3 x 5",
+    "steps": [
+      "Đứng hai chân rộng bằng hông, mũi chân sát sau một vạch kẻ.",
+      "Vung tay ra sau, gập gối và đẩy hông ra sau.",
+      "Vung tay ra trước, bật xa hết mức và tiếp đất bằng cả hai chân.",
+      "Giữ vững tư thế tiếp đất một giây, đi bộ về và bật 5 lần, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Ngã về trước hoặc về sau khi tiếp đất.",
+      "Tiếp đất với đầu gối khóa thẳng."
+    ],
+    "tip": "Bật trên mặt sàn không trơn, và bật ngắn hơn cho đến khi bạn giữ vững được mọi lần tiếp đất."
+  },
+  "burpees": {
+    "title": "Burpee",
+    "desc": "Squat, plank và bật nhảy trong một động tác, bài tập toàn thân mà sau đó cơ thể đáp lại bằng hormone tăng trưởng.",
+    "dose": "3 x 5",
+    "steps": [
+      "Đứng thẳng, rồi hạ người squat và đặt hai tay xuống sàn.",
+      "Bật hai chân ra sau về tư thế plank thẳng.",
+      "Bật hai chân thu về phía hai tay.",
+      "Bật thẳng lên cao, tập 5 lần rồi nghỉ, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Để hông võng xuống khi plank.",
+      "Tiếp đất mạnh với hai chân thẳng sau cú bật."
+    ],
+    "tip": "Bước chân ra sau rồi thu vào thay vì bật để nhẹ hơn, và chậm lại nếu tư thế bắt đầu sai."
+  },
+  "calf_pulses": {
+    "title": "Nhún bắp chân",
+    "desc": "Những cú nhún nhẹ trên mũi chân giúp bắp chân luôn hoạt động và cẳng chân khỏe.",
+    "dose": "3 x 20 giây",
+    "steps": [
+      "Đứng thẳng và kiễng lên bằng mũi chân, chạm đầu ngón tay vào tường nếu cần giữ thăng bằng.",
+      "Nhún lên xuống bằng những nhịp nhỏ, chỉ vài centimet.",
+      "Giữ gót chân cách sàn trong suốt cả hiệp.",
+      "Tiếp tục trong 20 giây, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Để gót chân chạm sàn giữa các nhịp.",
+      "Nhún biên độ quá lớn đến mức không còn là nhịp nhún nhỏ."
+    ],
+    "tip": "Bắp chân nóng rát là bình thường. Đau nhói thì dừng lại."
+  },
+  "calf_raise": {
+    "title": "Kiễng gót chân",
+    "desc": "Kiễng lên bằng mũi chân để bắp chân và cổ chân khỏe, hỗ trợ nhảy và chạy.",
+    "dose": "3 x 15",
+    "steps": [
+      "Đứng thẳng cạnh tường, chạm đầu ngón tay vào tường để giữ thăng bằng.",
+      "Từ từ kiễng lên bằng phần bàn chân trước, cao hết mức có thể.",
+      "Giữ 1 giây ở trên cao, rồi từ từ hạ gót xuống.",
+      "Tập 15 lần mỗi hiệp, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Nhún nhanh thay vì di chuyển chậm rãi.",
+      "Để cổ chân lật ra ngoài ở phía trên."
+    ],
+    "tip": "Hãy tập trong lúc đánh răng để dễ thành thói quen hằng ngày."
+  },
+  "cat_cow": {
+    "title": "Mèo và Bò",
+    "desc": "Uốn lưng võng xuống rồi cong lên liên tục để vận động cả cột sống.",
+    "dose": "2 x 10",
+    "steps": [
+      "Bắt đầu ở tư thế bò bốn chân, cổ tay dưới vai, gối dưới hông.",
+      "Hít vào, hạ bụng xuống và ngẩng ngực, mắt nhìn lên (tư thế bò).",
+      "Thở ra, cong lưng lên và hạ cằm (tư thế mèo).",
+      "Di chuyển chậm theo nhịp thở trong 10 vòng, 2 hiệp."
+    ],
+    "mistakes": [
+      "Di chuyển nhanh hơn nhịp thở.",
+      "Chỉ cử động cổ thay vì cả cột sống."
+    ],
+    "tip": "Rất hợp làm động tác đầu tiên buổi sáng hoặc để lấy lại cảm giác thoải mái sau khi ngồi lâu."
+  },
+  "chest_stretch": {
+    "title": "Giãn ngực ở khung cửa",
+    "desc": "Bước qua khung cửa, đặt cẳng tay lên khung để mở rộng phần ngực bị khom do dùng màn hình.",
+    "dose": "2 x 20 giây",
+    "steps": [
+      "Đứng trong khung cửa và đặt một cẳng tay lên khung, khuỷu tay ngang vai.",
+      "Bước chân cùng bên về phía trước qua khung cửa.",
+      "Nghiêng ngực về trước cho đến khi thấy căng phía trước vai.",
+      "Giữ 20 giây, đổi bên, mỗi bên 2 hiệp."
+    ],
+    "mistakes": [
+      "Ưỡn lưng dưới để nghiêng sâu hơn.",
+      "Nhún vai lên gần tai."
+    ],
+    "tip": "Giãn nhẹ nhàng, và giảm lực nếu thấy nhói ở vai."
+  },
+  "childs_pose": {
+    "title": "Tư thế em bé",
+    "desc": "Ngồi lùi xuống gót chân với hai tay duỗi dài để nhẹ nhàng giãn lưng và thả lỏng cột sống.",
+    "dose": "2 x 30 giây",
+    "steps": [
+      "Quỳ trên sàn, hai ngón chân cái chạm nhau, hai gối mở rộng.",
+      "Ngồi lùi hông xuống gót chân.",
+      "Đưa hai tay về phía trước và đặt trán xuống sàn.",
+      "Thở chậm trong 30 giây rồi ngồi dậy, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Nhấc hông cách xa gót chân để với xa hơn.",
+      "Nín thở và gồng vai."
+    ],
+    "tip": "Kê một chiếc gối giữa hông và gót chân nếu đầu gối thấy căng."
+  },
+  "chin_tucks": {
+    "title": "Rụt cằm",
+    "desc": "Đưa cằm thẳng ra sau để giảm tình trạng đầu chúi về trước và cải thiện tư thế cổ.",
+    "dose": "2 x 8",
+    "steps": [
+      "Ngồi hoặc đứng thẳng và nhìn thẳng về phía trước.",
+      "Đưa cằm thẳng ra sau, như thể đang tạo cằm hai ngấn.",
+      "Giữ 3 giây rồi thả lỏng.",
+      "Tập 8 lần mỗi hiệp, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Gật đầu xuống thay vì đưa cằm ra sau.",
+      "Đẩy mạnh đến mức đau cổ."
+    ],
+    "tip": "Làm vài lần mỗi khi bạn đặt điện thoại xuống."
+  },
+  "cobra_stretch": {
+    "steps": [
+      "Nằm sấp, hai bàn tay đặt phẳng dưới vai.",
+      "Đẩy sàn ra xa và từ từ nâng ngực lên, hông vẫn giữ sát sàn.",
+      "Giữ khuỷu tay hơi gập và vai tránh xa tai.",
+      "Giữ 15 giây, thở chậm, rồi hạ xuống có kiểm soát."
+    ],
+    "mistakes": [
+      "Đẩy lên quá cao đến mức lưng dưới bị nhói.",
+      "Nhún vai lên sát tai."
+    ],
+    "tip": "Chỉ nâng lên mức thấy thoải mái; tập dần sẽ sâu hơn."
+  },
+  "dead_bug": {
+    "title": "Dead Bug",
+    "desc": "Hạ tay và chân đối diện xuống khi lưng giữ phẳng để rèn sự kiểm soát cơ lõi, bảo vệ cột sống.",
+    "dose": "2 x 8",
+    "steps": [
+      "Nằm ngửa, hai tay thẳng lên trên và hai gối gập phía trên hông.",
+      "Nhẹ nhàng ép lưng dưới xuống sàn.",
+      "Hạ một tay qua đầu và chân đối diện xuống gần sàn, rồi trở về.",
+      "Tập 8 lần mỗi bên rồi nghỉ, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Để lưng dưới ưỡn khỏi sàn.",
+      "Làm vội vàng cho xong các lần."
+    ],
+    "tip": "Chỉ hạ tay và chân đến mức lưng vẫn giữ phẳng trên sàn."
+  },
+  "dead_hang_active": {
+    "title": "Treo xà chủ động",
+    "desc": "Treo người trên xà với vai gồng chắc để tăng lực cầm nắm và khả năng kiểm soát vai.",
+    "dose": "3 x 20 giây",
+    "steps": [
+      "Nắm xà bằng hai tay úp, rộng hơn vai một chút.",
+      "Treo người với tay thẳng, rồi kéo hai bả vai xuống và về phía sau.",
+      "Giữ hai chân khép, cơ lõi siết chặt và giữ 20 giây.",
+      "Xuống nhẹ nhàng và nghỉ 40 giây giữa các hiệp."
+    ],
+    "mistakes": [
+      "Gập khuỷu tay như khi kéo xà.",
+      "Nhún vai lên sát tai."
+    ],
+    "tip": "Hãy nghĩ đến việc đẩy xà ra xa để cảm nhận vai đang làm việc."
+  },
+  "deadlift_stretch": {
+    "steps": [
+      "Đứng hai chân rộng bằng hông, gối hơi chùng.",
+      "Gập người từ khớp hông và trượt hai tay xuống dọc đùi.",
+      "Giữ lưng phẳng và với về phía mũi chân cho đến khi cơ đùi sau căng giãn.",
+      "Siết cơ mông để đứng thẳng lên, 12 lần chậm mỗi hiệp."
+    ],
+    "mistakes": [
+      "Cong lưng để với xuống thấp hơn.",
+      "Khóa gối thẳng hoàn toàn."
+    ],
+    "tip": "Di chuyển chậm; kiểm soát quan trọng hơn việc với xa đến đâu."
+  },
+  "downward_dog": {
+    "title": "Chó cúi mặt",
+    "desc": "Hình chữ V ngược giúp giãn vai, lưng và bắp chân để tư thế cởi mở hơn.",
+    "dose": "2 x 20 giây",
+    "steps": [
+      "Bắt đầu ở tư thế bò bốn chân, tay dưới vai.",
+      "Nâng hông thật cao để cơ thể tạo thành hình chữ V ngược.",
+      "Giữ cột sống dài và để gót chân hạ dần về phía sàn.",
+      "Giữ 20 giây rồi nghỉ, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Cong lưng để ép gót chân xuống.",
+      "Nhún vai lên sát tai."
+    ],
+    "tip": "Gập gối một chút nếu lưng bị cong. Gót chân không cần chạm sàn."
+  },
+  "dumbbell_deadlift": {
+    "title": "Deadlift Romania tạ đơn",
+    "desc": "Gập hông với lưng phẳng, bài tập nặng cho các nhóm cơ lớn mà sau đó cơ thể đáp lại bằng hormone tăng trưởng.",
+    "dose": "3 x 8",
+    "steps": [
+      "Đứng thẳng, mỗi tay cầm một tạ đơn trước đùi.",
+      "Chùng gối nhẹ và đẩy hông ra sau với lưng phẳng.",
+      "Trượt tạ xuống dọc đùi đến ngay dưới gối.",
+      "Siết cơ mông để đứng lên, tập 8 lần, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Cong lưng khi hạ tạ xuống.",
+      "Biến động tác thành squat vì gập gối quá nhiều."
+    ],
+    "tip": "Chọn mức tạ đủ nhẹ để hoàn thành mọi lần với tư thế đúng."
+  },
+  "dumbbell_row": {
+    "title": "Kéo tạ đơn một tay",
+    "desc": "Kéo tạ đơn về phía hông để rèn các cơ lưng trên giúp kéo vai ra sau.",
+    "dose": "3 x 8",
+    "steps": [
+      "Đặt một tay lên ghế băng hoặc ghế và bước hai chân ra sau.",
+      "Cầm tạ đơn ở tay còn lại, lưng phẳng và tay buông thõng xuống.",
+      "Kéo tạ về phía hông, khuỷu tay sát người, rồi từ từ hạ xuống.",
+      "Tập 8 lần mỗi bên rồi nghỉ, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Xoay người để vung tạ lên.",
+      "Nhún vai lên gần tai."
+    ],
+    "tip": "Chọn mức tạ đủ nhẹ để hoàn thành mọi lần với tư thế đúng."
+  },
+  "evening_yoga": {
+    "steps": [
+      "Bắt đầu ở tư thế bò bốn chân và chuyển động nhịp nhàng giữa Mèo và Bò trong 60 giây.",
+      "Ngồi lùi về tư thế em bé, tay duỗi dài, và thở trong 60 giây.",
+      "Chống người lên tư thế chó cúi mặt, gót chân với về phía sàn.",
+      "Đứng dậy và gập người về trước, để đầu buông thõng nặng.",
+      "Hít vào đếm 4 và thở ra đếm 6 ở mỗi tư thế."
+    ],
+    "mistakes": [
+      "Chuyển vội giữa các tư thế thay vì giữ lại.",
+      "Cố ép tư thế đến mức đau."
+    ],
+    "tip": "Giảm độ sáng đèn khi tập để cơ thể dễ thư giãn hơn."
+  },
+  "farmer_carry": {
+    "title": "Xách tạ đi bộ",
+    "desc": "Đi thẳng người với tạ ở mỗi tay, bài tập toàn thân mà sau đó cơ thể đáp lại bằng hormone tăng trưởng.",
+    "dose": "3 x 20 giây",
+    "steps": [
+      "Đứng giữa hai tạ đơn hoặc hai túi có đồ nặng.",
+      "Gập gối, giữ lưng phẳng và nhấc chúng lên.",
+      "Đi bước nhỏ, vai ra sau và mắt nhìn thẳng.",
+      "Đi 20 giây, đặt tạ xuống và nghỉ, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Nghiêng về một bên hoặc để vai khom về trước.",
+      "Cong lưng khi nhấc hoặc đặt tạ xuống."
+    ],
+    "tip": "Chọn mức tạ đủ nhẹ để hoàn thành mọi hiệp với tư thế đúng, và giữ hai bên đều nhau."
+  },
+  "glute_bridge": {
+    "title": "Cầu mông",
+    "desc": "Nâng hông để cơ mông khỏe hơn và mở phần hông bị căng cứng vì ngồi nhiều.",
+    "dose": "3 x 12",
+    "steps": [
+      "Nằm ngửa, gối gập, bàn chân đặt phẳng trên sàn rộng bằng hông.",
+      "Đạp qua gót chân và nâng hông lên phía trần nhà.",
+      "Siết cơ mông ở trên cao trong 2 giây.",
+      "Hạ xuống từ từ, 12 lần mỗi hiệp, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Đạp bằng mũi chân thay vì gót chân.",
+      "Ưỡn lưng dưới quá mức ở phía trên."
+    ],
+    "tip": "Nếu bạn cảm nhận ở cơ mông chứ không phải lưng dưới, bạn đang làm đúng."
+  },
+  "goblet_squat": {
+    "title": "Goblet Squat",
+    "desc": "Squat với tạ giữ trước ngực, bài tập dùng các nhóm cơ lớn mà sau đó cơ thể đáp lại bằng hormone tăng trưởng.",
+    "dose": "3 x 8",
+    "steps": [
+      "Ôm một tạ đơn hoặc ba lô nặng sát ngực bằng cả hai tay.",
+      "Đứng hai chân rộng bằng vai, mũi chân hơi xoay ra ngoài.",
+      "Ngồi xuống giữa hai gót chân, ngực ưỡn lên, rồi đứng dậy.",
+      "Tập 8 lần rồi nghỉ, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Để hai gối cụp vào trong.",
+      "Cong lưng và để ngực chúi xuống."
+    ],
+    "tip": "Chọn mức tạ đủ nhẹ để hoàn thành mọi lần với tư thế đúng."
+  },
+  "hanging_knee_raise": {
+    "title": "Treo xà nâng gối",
+    "desc": "Nâng gối khi đang treo để cơ lõi khỏe hơn, trong lúc việc treo người làm cột sống được giãn ra.",
+    "dose": "3 x 5",
+    "steps": [
+      "Nắm xà bằng hai tay úp và treo người với tay thẳng.",
+      "Kéo vai xuống, tránh xa tai.",
+      "Nâng hai gối đến ngang hông mà không đung đưa, rồi từ từ hạ xuống.",
+      "Tập 5 lần, xuống khỏi xà và nghỉ, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Đung đưa người để hất gối lên.",
+      "Treo người với vai nhún sát tai."
+    ],
+    "tip": "Kiểm tra xà có chắc chắn không trước khi treo, và bước xuống thay vì buông rơi."
+  },
+  "high_knees": {
+    "title": "Chạy nâng cao gối",
+    "desc": "Chạy tại chỗ với gối nâng ngang hông để khởi động nhanh và tạo lực lên chân.",
+    "dose": "3 x 20 giây",
+    "steps": [
+      "Đứng thẳng, hai chân rộng bằng hông.",
+      "Chạy tại chỗ và nâng từng gối lên ngang hông.",
+      "Vung tay mạnh và giữ nhẹ nhàng trên phần bàn chân trước.",
+      "Tiếp tục trong 20 giây, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Ngả người ra sau khi gối nâng lên.",
+      "Dậm chân bằng cả bàn chân xuống sàn."
+    ],
+    "tip": "Giảm tốc thành bước đi nâng cao gối nếu bạn bị hụt hơi."
+  },
+  "hiit_workout": {
+    "steps": [
+      "Khởi động 3 phút bằng đi bộ tại chỗ và xoay tay.",
+      "Tập burpee, mountain climber và squat nhảy, mỗi động tác 45 giây.",
+      "Nghỉ 15 giây giữa các động tác và hít thở sâu.",
+      "Hoàn thành 4 vòng, rồi đi bộ chậm cho đến khi nhịp thở ổn định."
+    ],
+    "mistakes": [
+      "Để tư thế sai đi chỉ vì muốn nhanh hơn.",
+      "Nín thở trong các quãng cường độ cao."
+    ],
+    "tip": "Tập theo nhịp của bạn; hoàn thành đủ 4 vòng quan trọng hơn là khởi đầu thật nhanh."
+  },
+  "hip_flexor_stretch": {
+    "title": "Giãn cơ gập hông",
+    "desc": "Mở phần trước hông để giảm cảm giác căng cứng do ngồi lâu nhiều giờ.",
+    "dose": "2 x 30 giây",
+    "steps": [
+      "Quỳ một gối, bàn chân kia đặt phẳng phía trước.",
+      "Cuộn nhẹ xương chậu về phía trước và siết cơ mông của chân sau.",
+      "Từ từ dịch người về trước cho đến khi thấy căng ở phía trước hông.",
+      "Giữ 30 giây, thở chậm, rồi đổi bên."
+    ],
+    "mistakes": [
+      "Ưỡn lưng dưới thay vì cuộn xương chậu.",
+      "Để gối trước vượt quá mũi chân."
+    ],
+    "tip": "Lót một chiếc khăn gấp dưới đầu gối cho dễ chịu hơn."
+  },
+  "inversion_hang": {
+    "steps": [
+      "Chỉ treo ngược khi có người lớn giám sát và dùng thiết bị chắc chắn đã kiểm tra.",
+      "Khóa chặt mắt cá chân và bắt đầu ở độ nghiêng nhẹ, không lộn ngược hoàn toàn.",
+      "Thả lỏng tay và thở chậm tối đa 1 phút.",
+      "Từ từ trở lại tư thế thẳng và ngồi nghỉ một lát trước khi đứng dậy.",
+      "Dừng ngay nếu bạn thấy chóng mặt, nặng đầu hoặc đau ở bất kỳ chỗ nào."
+    ],
+    "mistakes": [
+      "Lộn ngược hoàn toàn ngay từ những buổi đầu.",
+      "Đứng dậy nhanh ngay sau khi treo ngược."
+    ],
+    "tip": "Các buổi ngắn và nhẹ nhàng là đủ; không cần treo lâu hơn."
+  },
+  "jump_squats": {
+    "title": "Squat nhảy",
+    "desc": "Squat rồi bật nhảy để tăng sức mạnh chân, bài tập nặng cho các nhóm cơ lớn mà sau đó cơ thể đáp lại bằng hormone tăng trưởng.",
+    "dose": "3 x 8",
+    "steps": [
+      "Đứng hai chân rộng bằng vai, ngực ưỡn lên.",
+      "Ngồi lùi xuống squat cho đến khi đùi gần song song với sàn.",
+      "Đạp mạnh qua bàn chân, bật thẳng lên và tiếp đất nhẹ nhàng trở lại tư thế squat.",
+      "Bật 8 lần, nghỉ rồi lặp lại, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Để hai gối cụp vào trong khi tiếp đất.",
+      "Tiếp đất với hai chân cứng và thẳng."
+    ],
+    "tip": "Tiếp đất êm nhất có thể, và dừng hiệp tập khi tiếp đất bắt đầu nặng tiếng."
+  },
+  "jumping": {
+    "steps": [
+      "Đứng hai chân rộng bằng hông, hai tay thả lỏng hai bên người.",
+      "Gập gối, vung tay và bật thẳng lên.",
+      "Tiếp đất nhẹ nhàng bằng phần bàn chân trước, gối hơi chùng.",
+      "Bật 20 lần, nghỉ 30 giây rồi lặp lại, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Tiếp đất bằng gót với chân cứng đơ.",
+      "Để hai gối cụp vào trong khi tiếp đất."
+    ],
+    "tip": "Tiếp đất êm nghĩa là bạn kiểm soát tốt, hãy thử tiếp đất như một chú mèo."
+  },
+  "knee_circles": {
+    "title": "Xoay gối",
+    "desc": "Những vòng xoay nhẹ nhàng giúp khởi động đầu gối và cổ chân trước khi vận động.",
+    "dose": "2 x 15 giây",
+    "steps": [
+      "Đứng hai chân khép, gối hơi chùng.",
+      "Đặt hai tay lên đầu gối.",
+      "Xoay gối thành những vòng nhỏ, chậm trong 15 giây theo một hướng.",
+      "Đổi hướng và xoay 15 giây theo chiều ngược lại."
+    ],
+    "mistakes": [
+      "Xoay vòng lớn làm xoắn đầu gối.",
+      "Chỉ xoay theo một hướng."
+    ],
+    "tip": "Dùng làm bài khởi động trước khi nhảy hoặc chạy."
+  },
+  "legs_up_wall": {
+    "title": "Gác chân lên tường",
+    "desc": "Gác chân lên tường để cột sống được nghỉ và thư giãn sau một ngày dài.",
+    "dose": "3 phút",
+    "steps": [
+      "Ngồi nghiêng cạnh tường, một bên hông chạm tường.",
+      "Vung chân lên tường khi bạn nằm ngửa xuống sàn.",
+      "Để hai tay thả hai bên người và thư giãn chân dựa vào tường.",
+      "Giữ yên 3 phút, thở chậm."
+    ],
+    "mistakes": [
+      "Nhấc lưng dưới khỏi sàn.",
+      "Khóa chặt gối và gồng chân."
+    ],
+    "tip": "Dịch hông ra xa tường một chút nếu mặt sau chân thấy căng."
+  },
+  "low_lunge_arch": {
+    "title": "Chùng chân có vươn tay",
+    "desc": "Đẩy hông về trước và vươn tay lên để mở phần trước hông và ngực.",
+    "dose": "2 x 20 giây",
+    "steps": [
+      "Bước một chân lên trước và hạ gối sau xuống sàn.",
+      "Trượt hông về trước cho đến khi thấy căng ở phía trước hông của chân sau.",
+      "Vươn hai tay lên và nâng ngực thành một đường cong nhẹ.",
+      "Giữ 20 giây, đổi chân, mỗi bên 2 hiệp."
+    ],
+    "mistakes": [
+      "Để gối trước đi quá xa mũi chân.",
+      "Chỉ uốn cong từ lưng dưới."
+    ],
+    "tip": "Lót một chiếc khăn gấp dưới gối sau, và giữ độ cong nhỏ."
+  },
+  "lunges": {
+    "title": "Lunge",
+    "desc": "Bước về trước và gập cả hai gối để chân và hông khỏe hơn, tập từng bên một.",
+    "dose": "3 x 8",
+    "steps": [
+      "Đứng thẳng, hai chân rộng bằng hông.",
+      "Bước một bước dài về trước và hạ người cho đến khi cả hai gối gập khoảng 90 độ.",
+      "Đạp qua gót chân trước để bước về vị trí ban đầu.",
+      "Tập 8 lần mỗi chân rồi nghỉ, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Để gối trước cụp vào trong.",
+      "Nghiêng ngực quá xa về trước qua chân trước."
+    ],
+    "tip": "Bước ngắn hơn hoặc vịn vào ghế để giữ thăng bằng cho đến khi động tác vững."
+  },
+  "masai_jumps": {
+    "title": "Bật Masai",
+    "desc": "Những cú bật nhỏ, nảy nhẹ với thân người thẳng giúp chân khỏe và xương chắc hơn.",
+    "dose": "3 x 20 giây",
+    "steps": [
+      "Đứng thẳng, hai tay thả hai bên hoặc vươn lên.",
+      "Bật nhẹ những bước nhỏ, nảy và giữ thân người thẳng suốt thời gian đó.",
+      "Tiếp đất nhẹ nhàng bằng phần bàn chân trước, gối hơi chùng.",
+      "Tiếp tục trong 20 giây, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Tiếp đất mạnh bằng gót chân.",
+      "Khom người về trước khi mệt."
+    ],
+    "tip": "Dừng lại nếu đầu gối hoặc ống chân bị đau, và nghỉ rồi hãy thử lại."
+  },
+  "morning_stretch": {
+    "steps": [
+      "Đứng thẳng và xoay cổ chậm rãi, 5 vòng mỗi hướng.",
+      "Vươn hai tay lên cao, đan các ngón tay vào nhau và kéo giãn lên trên 30 giây.",
+      "Gập người từ hông và để hai tay buông thõng về phía mũi chân.",
+      "Bước vào tư thế lunge, giữ 30 giây rồi đổi chân.",
+      "Thở chậm bằng mũi và đừng bao giờ nhún để giãn sâu hơn."
+    ],
+    "mistakes": [
+      "Nhún để giãn sâu hơn thay vì giữ yên.",
+      "Nín thở khi giữ tư thế."
+    ],
+    "tip": "Hãy giãn cơ trước khi kiểm tra điện thoại, thói quen sẽ bền hơn."
+  },
+  "mountain_pose": {
+    "title": "Tư thế ngọn núi kiễng chân",
+    "desc": "Kiễng chân và vươn tay lên để kéo dài cột sống và tập đứng thẳng hết chiều cao.",
+    "dose": "2 x 20 giây",
+    "steps": [
+      "Đứng hai chân khép, trọng lượng dồn đều lên hai chân.",
+      "Vươn hai tay thẳng lên cao, hai lòng bàn tay hướng vào nhau.",
+      "Kiễng lên bằng mũi chân và vươn dài qua các đầu ngón tay.",
+      "Giữ 20 giây và hạ xuống từ từ, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Bung xương sườn và ưỡn lưng dưới.",
+      "Nhún vai lên sát tai."
+    ],
+    "tip": "Nhìn cố định vào một điểm phía trước, hoặc giữ gót chân chạm sàn nếu bạn bị chao đảo."
+  },
+  "neck_stretches": {
+    "steps": [
+      "Ngồi hoặc đứng thẳng, vai thả lỏng và hạ thấp.",
+      "Từ từ nghiêng tai về phía vai và giữ 30 giây mỗi bên.",
+      "Hạ cằm về phía ngực và giữ 30 giây.",
+      "Nhẹ nhàng ngẩng mắt lên trong 30 giây mà không ngửa đầu ra sau."
+    ],
+    "mistakes": [
+      "Dùng tay kéo mạnh đầu.",
+      "Nhún vai lên để chạm tai."
+    ],
+    "tip": "Hãy tập sau những buổi học dài để xả căng thẳng."
+  },
+  "overhead_press": {
+    "steps": [
+      "Đứng thẳng, cầm tạ nhẹ hoặc chai nước ngang vai.",
+      "Siết cơ lõi và đẩy hai tay thẳng lên trên đầu.",
+      "Kết thúc với hai tay sát tai, rồi từ từ hạ về vai.",
+      "Thở ra khi đẩy lên, hít vào khi hạ xuống, 10 lần mỗi hiệp."
+    ],
+    "mistakes": [
+      "Ưỡn lưng dưới khi đẩy.",
+      "Dùng tạ quá nặng để kiểm soát."
+    ],
+    "tip": "Bắt đầu với trọng lượng cơ thể và thêm tạ nhẹ khi tư thế đã thấy dễ."
+  },
+  "pelvic_shift": {
+    "title": "Cuộn xương chậu",
+    "desc": "Nâng và hạ hông từng đốt sống một để làm mềm cột sống và đánh thức cơ mông.",
+    "dose": "2 x 10",
+    "steps": [
+      "Nằm ngửa, gối gập và bàn chân đặt phẳng trên sàn.",
+      "Cuộn xương cụt và bóc cột sống khỏi sàn từ dưới lên.",
+      "Dừng lại ở trên cao, rồi hạ xuống từ từ, từng đốt sống một.",
+      "Tập 10 lần chậm rồi nghỉ, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Đẩy hông lên nhanh thành một khối.",
+      "Ưỡn lưng dưới ở phía trên."
+    ],
+    "tip": "Di chuyển đủ chậm để cảm nhận từng phần lưng chạm xuống sàn."
+  },
+  "pilates_core": {
+    "steps": [
+      "Giữ plank cẳng tay 1 phút, cơ thể thành một đường thẳng.",
+      "Nằm ngửa tập dead bug, hạ tay và chân đối diện thật chậm.",
+      "Chuyển sang bird dog ở tư thế bò bốn chân, duỗi tay và chân đối diện.",
+      "Kết thúc với 1 phút cầu mông và 1 phút nâng chân.",
+      "Thở ra mỗi khi siết cơ lõi."
+    ],
+    "mistakes": [
+      "Để hông võng xuống trong lúc plank.",
+      "Ưỡn lưng dưới khỏi sàn trong lúc tập dead bug."
+    ],
+    "tip": "Chậm và có kiểm soát tốt hơn nhanh; mỗi lần tập chuẩn đều tạo ra sức mạnh thật sự."
+  },
+  "pilates_roll_over": {
+    "title": "Pilates Roll Over",
+    "desc": "Cuộn chân qua đầu rồi về lại có kiểm soát để giãn cột sống và rèn sức mạnh cơ lõi sâu.",
+    "dose": "2 x 5",
+    "steps": [
+      "Nằm ngửa, hai tay dọc hai bên người và hai chân thẳng lên trên.",
+      "Ép hai tay xuống sàn và nhấc hông để cuộn hai chân qua đầu.",
+      "Dừng lại khi hai chân song song với sàn phía sau đầu.",
+      "Cuộn xuống từ từ, tập 5 lần rồi nghỉ, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Vung chân qua đầu bằng đà.",
+      "Cuộn lên cổ thay vì lên vai."
+    ],
+    "tip": "Dồn trọng lượng lên vai chứ không bao giờ lên cổ, và gập gối để dễ hơn."
+  },
+  "plank": {
+    "title": "Plank",
+    "desc": "Giữ plank với thân người thẳng để cơ lõi khỏe, giúp giữ tư thế thẳng.",
+    "dose": "3 x 30 giây",
+    "steps": [
+      "Đặt cẳng tay xuống sàn, khuỷu tay dưới vai.",
+      "Bước hai chân ra sau để cơ thể tạo thành một đường thẳng.",
+      "Siết cơ mông, hóp rốn vào và giữ 30 giây.",
+      "Nghỉ 30 giây rồi lặp lại, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Để hông võng xuống sàn.",
+      "Nhô hông lên quá cao."
+    ],
+    "tip": "Thêm 5 giây mỗi tuần khi thấy dễ hơn."
+  },
+  "pogo_jumps": {
+    "title": "Nhảy pogo",
+    "desc": "Những cú nảy nhanh với cổ chân cứng tạo lực lên xương ống chân và bàn chân, giúp bắp chân nảy và mạnh.",
+    "dose": "3 x 20 giây",
+    "steps": [
+      "Đứng thẳng, hai chân rộng bằng hông, hai tay chống hông.",
+      "Nảy lên bằng phần bàn chân trước với gối gần như thẳng.",
+      "Mỗi lần chạm đất thật ngắn và nhanh, như cây nhảy pogo.",
+      "Tiếp tục trong 20 giây, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Gập sâu gối ở mỗi lần nảy.",
+      "Để gót chân đập mạnh xuống sàn."
+    ],
+    "tip": "Nhảy trên mặt phẳng, chắc chắn và dừng lại nếu ống chân hoặc cổ chân bị đau."
+  },
+  "posture_check": {
+    "steps": [
+      "Đặt nhắc nhở mỗi giờ để kiểm tra tư thế ngồi hoặc đứng của bạn.",
+      "Xếp tai thẳng trên vai, vai thẳng trên hông.",
+      "Xoay vai ra sau và hạ xuống, ngực mở nhẹ.",
+      "Tưởng tượng có sợi dây kéo đỉnh đầu lên cao, rồi hít thở."
+    ],
+    "mistakes": [
+      "Chỉnh quá mức, khiến lưng cứng và ưỡn.",
+      "Cúi nhìn điện thoại với đầu chúi về trước."
+    ],
+    "tip": "Nâng màn hình ngang tầm mắt và tư thế tốt sẽ thành tự nhiên."
+  },
+  "pre_sleep_routine": {
+    "steps": [
+      "Bắt đầu trước giờ ngủ 30 phút: giảm độ sáng đèn và cất màn hình đi.",
+      "Đọc sách hoặc nghe nhạc nhẹ nhàng trong 15 phút.",
+      "Giãn cơ nhẹ nhàng 5 phút trên giường hoặc trên sàn.",
+      "Hít vào 4 giây và thở ra 6 giây, 10 vòng."
+    ],
+    "mistakes": [
+      "Lướt điện thoại thêm một phút nữa.",
+      "Thay đổi giờ đi ngủ quá nhiều giữa các đêm."
+    ],
+    "tip": "Cùng một giờ, cùng các bước mỗi đêm giúp bạn dễ ngủ hơn."
+  },
+  "pull_ups": {
+    "title": "Kéo xà",
+    "desc": "Kéo cằm qua xà để lưng khỏe, bài tập nặng mà sau đó cơ thể đáp lại bằng hormone tăng trưởng.",
+    "dose": "3 x 2",
+    "steps": [
+      "Nắm xà bằng hai tay úp, rộng hơn vai một chút.",
+      "Bắt đầu từ tư thế treo tay thẳng và kéo hai bả vai xuống.",
+      "Kéo cho đến khi cằm vượt qua xà, rồi hạ người xuống từ từ.",
+      "Tập 2 lần, xuống khỏi xà và nghỉ, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Đá chân và đung đưa để vượt qua xà.",
+      "Buông người rơi nhanh thay vì hạ xuống có kiểm soát."
+    ],
+    "tip": "Luồn dây kháng lực dưới chân hoặc nhảy lên vị trí trên cùng rồi hạ xuống chậm, và kiểm tra xà có chắc chắn không."
+  },
+  "puppy_pose": {
+    "title": "Tư thế chú cún",
+    "desc": "Hạ ngực xuống sàn để mở vai đang căng cứng và giãn phần lưng trên.",
+    "dose": "2 x 20 giây",
+    "steps": [
+      "Bắt đầu ở tư thế bò bốn chân, hông ngay trên đầu gối.",
+      "Đi hai tay về trước và giữ nguyên vị trí hông.",
+      "Để ngực và trán hạ dần xuống sàn.",
+      "Giữ 20 giây rồi quay lại, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Để hông trượt về phía gót chân.",
+      "Gập khuỷu tay và đặt chúng xuống sàn."
+    ],
+    "tip": "Tựa trán lên một chiếc gối nếu cảm giác căng ở vai quá mạnh."
+  },
+  "push_ups": {
+    "title": "Hít đất",
+    "desc": "Hạ ngực xuống sàn với thân người thẳng để ngực, tay và cơ lõi khỏe hơn.",
+    "dose": "3 x 5",
+    "steps": [
+      "Đặt hai tay xuống sàn, rộng hơn vai một chút.",
+      "Bước hai chân ra sau để cơ thể tạo thành một đường thẳng.",
+      "Gập khuỷu tay để hạ ngực xuống sàn, rồi đẩy người lên.",
+      "Tập 5 lần rồi nghỉ, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Để hông võng xuống sàn.",
+      "Mở khuỷu tay thẳng ra hai bên."
+    ],
+    "tip": "Quỳ gối hoặc đặt tay lên ghế băng để dễ hơn."
+  },
+  "scapular_pull": {
+    "title": "Kéo bả vai",
+    "desc": "Kéo vai xuống từ tư thế treo tay thẳng để tạo nền tảng cho những cú kéo xà chắc khỏe.",
+    "dose": "3 x 5",
+    "steps": [
+      "Nắm xà bằng hai tay úp, rộng hơn vai một chút.",
+      "Treo người với tay thẳng và để vai nhô lên gần tai.",
+      "Kéo hai bả vai xuống để cơ thể nhích lên một chút, khuỷu tay thẳng.",
+      "Giữ một giây rồi thả ra, tập 5 lần, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Gập khuỷu tay để kéo cao hơn.",
+      "Đung đưa chân để lấy đà."
+    ],
+    "tip": "Kiểm tra xà có chắc chắn không, và đặt chân lên bục nếu treo hoàn toàn quá khó."
+  },
+  "scapular_retraction": {
+    "title": "Ép bả vai",
+    "desc": "Ép hai bả vai ra sau và xuống dưới để rèn các cơ giữ vai không bị khom.",
+    "dose": "2 x 10",
+    "steps": [
+      "Ngồi hoặc đứng thẳng, hai tay thả lỏng hai bên người.",
+      "Kéo hai bả vai ra sau và xuống dưới, như thể nhét chúng vào túi quần sau.",
+      "Giữ ép trong một hơi thở chậm, rồi thả ra.",
+      "Tập 10 lần rồi nghỉ, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Nhún vai lên khi ép.",
+      "Đẩy xương sườn ra trước và ưỡn lưng."
+    ],
+    "tip": "Giữ cằm ngang và cổ thả lỏng suốt thời gian tập."
+  },
+  "seated_forward_fold": {
+    "title": "Gập người ngồi",
+    "desc": "Gập người về trước trên đôi chân thẳng để giãn cơ đùi sau và toàn bộ lưng.",
+    "dose": "2 x 20 giây",
+    "steps": [
+      "Ngồi trên sàn, hai chân duỗi thẳng, mũi chân hướng lên.",
+      "Ngồi thẳng lưng và vươn hai tay lên cao.",
+      "Gập người về trước từ khớp hông và với tới cẳng chân hoặc bàn chân.",
+      "Giữ 20 giây rồi ngồi thẳng lại, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Cong lưng trên để với tới mũi chân.",
+      "Nhún để giãn sâu hơn."
+    ],
+    "tip": "Gập nhẹ gối hoặc ngồi lên khăn gấp nếu lưng dưới bị cong."
+  },
+  "shoulder_rolls": {
+    "steps": [
+      "Đứng thẳng, hai tay buông lỏng hai bên người.",
+      "Xoay vai ra trước thành những vòng lớn 15 lần.",
+      "Xoay vai ra sau 15 lần, ép hai bả vai lại gần nhau.",
+      "Đan hai tay ra sau lưng và mở ngực trong 20 giây."
+    ],
+    "mistakes": [
+      "Xoay những vòng nhỏ xíu, vội vàng.",
+      "Nhún vai trong lúc nín thở."
+    ],
+    "tip": "Một hiệp nhanh giữa các tiết học hoặc buổi học bài giúp vai luôn mở."
+  },
+  "side_plank": {
+    "title": "Plank nghiêng",
+    "desc": "Giữ thân thành một đường thẳng trên một cẳng tay để rèn các cơ bên hông giúp tư thế cân đối.",
+    "dose": "2 x 15 giây",
+    "steps": [
+      "Nằm nghiêng, cẳng tay đặt trên sàn, khuỷu tay dưới vai.",
+      "Chồng hai bàn chân lên nhau và nâng hông khỏi sàn.",
+      "Giữ cơ thể thành một đường thẳng từ đầu đến gót chân.",
+      "Giữ 15 giây, đổi bên, mỗi bên 2 hiệp."
+    ],
+    "mistakes": [
+      "Để hông hạ xuống sàn.",
+      "Xoay ngực chúi về trước xuống sàn."
+    ],
+    "tip": "Giữ đầu gối dưới chạm sàn để dễ hơn."
+  },
+  "single_leg_calf_raise": {
+    "title": "Kiễng gót một chân",
+    "desc": "Kiễng lên bằng một chân từ mép bậc thang để bắp chân và cổ chân khỏe, hỗ trợ nhảy.",
+    "dose": "3 x 8",
+    "steps": [
+      "Đứng trên mép bậc thang bằng phần bàn chân trước của một chân và vịn vào tường hoặc lan can.",
+      "Từ từ hạ gót chân xuống thấp hơn mặt bậc.",
+      "Kiễng lên cao hết mức trên mũi chân và dừng một giây.",
+      "Tập 8 lần mỗi chân rồi nghỉ, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Nảy lên từ vị trí thấp thay vì di chuyển chậm.",
+      "Gập gối để cơ bắp chân đỡ phải làm."
+    ],
+    "tip": "Bắt đầu với trọng lượng cơ thể, và nếu cầm thêm tạ đơn hoặc ba lô, hãy chọn mức đủ nhẹ để hoàn thành mọi lần với tư thế đúng."
+  },
+  "single_leg_hops": {
+    "title": "Nhảy một chân",
+    "desc": "Những cú nhảy nhỏ trên một chân giúp cổ chân và xương chắc khỏe, đồng thời cân bằng hai bên cơ thể.",
+    "dose": "2 x 8",
+    "steps": [
+      "Đứng trên một chân, chân kia nhấc ra sau.",
+      "Nhảy nhỏ tại chỗ, tiếp đất bằng phần bàn chân trước.",
+      "Giữ hông ngang và gối chân trụ hơi chùng.",
+      "Nhảy 8 lần, đổi chân, mỗi bên 2 hiệp."
+    ],
+    "mistakes": [
+      "Để gối của chân nhảy cụp vào trong.",
+      "Nhảy cao đến mức mất thăng bằng."
+    ],
+    "tip": "Đứng gần một bức tường để có thể chạm vào, và nhảy thấp cho đến khi thăng bằng vững."
+  },
+  "skipping_rope": {
+    "steps": [
+      "Cầm tay cầm ngang hông, khuỷu tay sát hai bên người.",
+      "Quay dây bằng cổ tay, không phải cả cánh tay.",
+      "Nhảy vừa đủ cao để dây lướt qua, tiếp đất bằng phần bàn chân trước.",
+      "Nhảy dây 5 phút, nghỉ 1 phút rồi lặp lại, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Nhảy quá cao khiến nhanh mệt.",
+      "Tiếp đất cả bàn chân bằng gót."
+    ],
+    "tip": "Vướng dây là chuyện bình thường; cứ bắt đầu lại và giữ nhịp."
+  },
+  "spinal_twist": {
+    "title": "Xoay cột sống nằm ngửa",
+    "desc": "Hạ một gối chéo qua người để nhẹ nhàng xoay cột sống và làm dịu lưng dưới cứng.",
+    "dose": "2 x 20 giây",
+    "steps": [
+      "Nằm ngửa, hai tay dang ra hai bên.",
+      "Gập một gối và đưa nó chéo qua người xuống phía sàn.",
+      "Giữ cả hai vai chạm sàn và nhìn sang bên đối diện.",
+      "Giữ 20 giây, đổi bên, mỗi bên 2 hiệp."
+    ],
+    "mistakes": [
+      "Để vai bên đối diện nhấc khỏi sàn.",
+      "Dùng tay ép gối xuống."
+    ],
+    "tip": "Đặt đầu gối lên một chiếc gối nếu nó không chạm tới sàn."
+  },
+  "sprint_intervals": {
+    "steps": [
+      "Khởi động 5 phút bằng chạy bộ nhẹ và vung chân.",
+      "Chạy nước rút hết sức trong 30 giây, vung tay mạnh.",
+      "Đi bộ hoặc chạy chậm 90 giây để hồi sức.",
+      "Lặp lại cho đủ 3 lần nước rút, rồi thả lỏng bằng 5 phút đi bộ."
+    ],
+    "mistakes": [
+      "Chạy nước rút mà không khởi động trước.",
+      "Ngả người ra sau và sải bước quá dài thay vì đẩy người về phía trước."
+    ],
+    "tip": "Chọn mặt phẳng, an toàn và chỉ chạy hết sức khi bạn thấy khỏe."
+  },
+  "squats": {
+    "steps": [
+      "Đứng hai chân rộng bằng vai, mũi chân xoay nhẹ ra ngoài.",
+      "Đẩy hông ra sau và hạ người cho đến khi đùi song song với sàn.",
+      "Giữ ngực thẳng và gối cùng hướng với mũi chân.",
+      "Đạp qua gót chân để đứng lên, thở ra khi đi lên."
+    ],
+    "mistakes": [
+      "Nhấc gót chân khỏi sàn.",
+      "Cong lưng ở phía dưới."
+    ],
+    "tip": "Hãy tập những hiệp đầu trước gương để kiểm tra tư thế."
+  },
+  "standing_side_stretch": {
+    "title": "Nghiêng người khi đứng",
+    "desc": "Nghiêng sang mỗi bên với hai tay giơ cao để giãn eo và nới lỏng xương sườn.",
+    "dose": "2 x 15 giây",
+    "steps": [
+      "Đứng thẳng, hai chân rộng bằng hông.",
+      "Vươn hai tay lên cao và dùng một tay nắm cổ tay kia.",
+      "Từ từ nghiêng sang một bên, hai bàn chân ép chặt xuống sàn.",
+      "Giữ 15 giây, đổi bên, mỗi bên 2 hiệp."
+    ],
+    "mistakes": [
+      "Nghiêng về trước hoặc xoay người thay vì nghiêng thẳng sang bên.",
+      "Đẩy hông ra xa sang một bên."
+    ],
+    "tip": "Hãy tưởng tượng bạn đang đứng giữa hai bức tường nên chỉ có thể di chuyển sang bên."
+  },
+  "step_ups": {
+    "title": "Bước lên bậc",
+    "desc": "Bước lên bậc và đứng thẳng, rồi hạ xuống từ từ để tăng sức mạnh một chân và thăng bằng.",
+    "dose": "3 x 8",
+    "steps": [
+      "Đứng trước một bậc thang hoặc ghế băng thấp chắc chắn.",
+      "Đặt cả bàn chân của một chân lên bậc và đẩy người lên cho đến khi đứng thẳng.",
+      "Từ từ hạ chân còn lại xuống sàn.",
+      "Tập 8 lần mỗi chân rồi nghỉ, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Đạp mạnh bằng chân đang đặt trên sàn.",
+      "Buông người rơi nhanh thay vì hạ xuống có kiểm soát."
+    ],
+    "tip": "Dùng bậc không trượt và không lật, và bắt đầu từ bậc thấp trước khi lên cao hơn."
+  },
+  "superman": {
+    "title": "Superman",
+    "desc": "Nâng tay và chân khỏi sàn để các cơ lưng giữ tư thế khỏe hơn.",
+    "dose": "2 x 8",
+    "steps": [
+      "Nằm sấp, hai tay vươn về phía trước.",
+      "Nâng tay và chân lên khỏi sàn một chút.",
+      "Giữ cổ dài, nhìn xuống sàn và giữ 2 giây.",
+      "Hạ xuống từ từ, 8 lần mỗi hiệp, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Gắng nâng ngực và chân lên cao hết mức.",
+      "Ngẩng đầu lên khiến cổ bị chèn ép."
+    ],
+    "tip": "Nâng một chút là đủ. Nếu lưng dưới bị nhói, hãy nâng thấp hơn."
+  },
+  "swimming_basketball": {
+    "steps": [
+      "Khởi động 5 phút bằng bơi nhẹ vài lượt hoặc rê bóng nhẹ.",
+      "Bơi hoặc chơi ít nhất 30 phút với nhịp đều.",
+      "Vươn hết tầm ở mỗi nhịp bơi, cú ném hoặc lần bắt bóng bật bảng.",
+      "Thả lỏng bằng 5 phút vận động nhẹ và giãn cơ."
+    ],
+    "mistakes": [
+      "Bỏ qua khởi động và bắt đầu với tốc độ tối đa.",
+      "Quên uống nước khi đang chơi."
+    ],
+    "tip": "Rủ một người bạn; thể thao dễ duy trì hơn khi có người cùng chơi."
+  },
+  "table_top": {
+    "title": "Bàn ngược",
+    "desc": "Nâng hông thành mặt bàn phẳng để mở ngực, vai và làm khỏe mặt sau cơ thể.",
+    "dose": "2 x 15 giây",
+    "steps": [
+      "Ngồi gối gập, bàn chân đặt phẳng và hai tay chống sàn sau hông.",
+      "Hướng các ngón tay về phía bàn chân rồi ép xuống bằng tay và chân.",
+      "Nâng hông cho đến khi cơ thể phẳng từ gối đến vai.",
+      "Giữ 15 giây rồi hạ xuống, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Để hông võng xuống ở giữa.",
+      "Ngửa đầu ra sau làm căng cổ."
+    ],
+    "tip": "Xoay các ngón tay ra hai bên nếu cổ tay thấy đau."
+  },
+  "thoracic_extension": {
+    "title": "Ưỡn lưng trên với ghế",
+    "desc": "Ngả phần lưng trên qua lưng ghế để gỡ dáng khom do ngồi và mở rộng ngực.",
+    "dose": "2 x 8",
+    "steps": [
+      "Ngồi trên ghế chắc chắn sao cho mép trên lưng ghế ngay dưới bả vai.",
+      "Đặt hai tay sau đầu và giữ khuỷu tay mở rộng.",
+      "Từ từ ngả lưng trên qua lưng ghế và nhìn lên.",
+      "Trở lại, tập 8 lần rồi nghỉ, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Uốn từ lưng dưới thay vì lưng trên.",
+      "Dùng tay kéo đầu về phía trước."
+    ],
+    "tip": "Dùng ghế không lăn và không lật, và giữ bàn chân đặt phẳng trên sàn."
+  },
+  "toe_touch": {
+    "title": "Chạm ngón chân",
+    "desc": "Cú gập người chậm rãi làm mềm mặt sau chân và giữ cho cột sống linh hoạt.",
+    "dose": "2 x 20 giây",
+    "steps": [
+      "Đứng hai chân rộng bằng hông, gối hơi chùng.",
+      "Gập người về trước từ khớp hông và để hai tay với về phía ngón chân.",
+      "Giữ yên 20 giây và thở chậm.",
+      "Từ từ cuộn người lên, nghỉ, rồi lặp lại thêm một lần."
+    ],
+    "mistakes": [
+      "Nhún để với xa hơn.",
+      "Khóa gối thẳng."
+    ],
+    "tip": "Nếu không chạm tới ngón chân, cứ dừng ở cẳng chân. Vẫn có tác dụng."
+  },
+  "tuck_jumps": {
+    "title": "Bật co gối",
+    "desc": "Bật lên và co gối để có sức bật mạnh, bài tập nặng mà sau đó cơ thể đáp lại bằng hormone tăng trưởng.",
+    "dose": "3 x 6",
+    "steps": [
+      "Đứng thẳng, hai chân rộng bằng hông.",
+      "Hạ nhanh xuống một phần tư squat rồi bật cao hết mức.",
+      "Co hai gối về phía ngực ở trên cao, rồi tiếp đất nhẹ nhàng với gối gập.",
+      "Bật 6 lần, nghỉ rồi lặp lại, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Cúi ngực xuống gối thay vì nâng gối lên.",
+      "Tiếp đất mạnh với hai chân thẳng."
+    ],
+    "tip": "Lấy lại thăng bằng giữa các lần bật, và đảm bảo có không gian trống và sàn không trơn."
+  },
+  "upward_salute": {
+    "title": "Vươn người lên cao",
+    "desc": "Vươn lên cao với xương sườn hạ thấp để mở ngực và đứng hết chiều cao.",
+    "dose": "2 x 15 giây",
+    "steps": [
+      "Đứng hai chân khép, hai tay thả hai bên người.",
+      "Hít vào và vươn hai tay lên qua đầu.",
+      "Giữ xương sườn hạ thấp và vai tránh xa tai.",
+      "Giữ 15 giây, thở chậm, rồi hạ tay xuống. Tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Ngả người ra sau và ưỡn lưng dưới.",
+      "Để xương sườn đẩy ra phía trước."
+    ],
+    "tip": "Vươn lên, không phải ra sau. Giữ cơ thể thẳng hàng trên hai bàn chân."
+  },
+  "wall_angels": {
+    "title": "Thiên thần dựa tường",
+    "desc": "Trượt hai tay dọc tường để mở ngực và tập cho vai giữ thẳng.",
+    "dose": "2 x 8",
+    "steps": [
+      "Đứng dựa lưng vào tường, bàn chân đặt hơi lệch về phía trước.",
+      "Đặt hai tay lên tường với khuỷu tay gập, như cột gôn.",
+      "Giữ xương sườn hạ thấp và từ từ trượt tay lên, rồi hạ xuống.",
+      "Tập 8 lần chậm mỗi hiệp, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Để xương sườn bung ra và lưng dưới ưỡn.",
+      "Để tay rời khỏi tường."
+    ],
+    "tip": "Chỉ nâng đến mức tay còn chạm tường. Tập dần sẽ dễ hơn."
+  },
+  "wall_dog": {
+    "title": "Chó dựa tường",
+    "desc": "Động tác giãn khi đứng cạnh tường giúp mở vai và giữ cột sống dài.",
+    "dose": "2 x 20 giây",
+    "steps": [
+      "Đứng đối diện tường, cách khoảng một chân.",
+      "Đặt hai tay lên tường ngang hông.",
+      "Gập người ra sau từ hông cho đến khi tay thẳng và cột sống dài.",
+      "Giữ 20 giây, thở chậm, tổng cộng 2 hiệp."
+    ],
+    "mistakes": [
+      "Cong lưng trên.",
+      "Gập khuỷu tay và dựa người vào tường."
+    ],
+    "tip": "Một khoảng nghỉ tuyệt vời ở bàn làm việc khi bạn không thể nằm xuống sàn."
+  },
+  "wall_sit": {
+    "title": "Ngồi tựa tường",
+    "desc": "Ngồi tựa tường với đùi ngang để chân khỏe hơn khi lưng giữ thẳng.",
+    "dose": "3 x 20 giây",
+    "steps": [
+      "Đứng dựa lưng vào tường, hai chân cách tường một bước.",
+      "Trượt xuống cho đến khi đùi song song với sàn.",
+      "Giữ gối ngay trên mắt cá chân và toàn bộ lưng áp sát tường.",
+      "Giữ 20 giây rồi đứng dậy, tổng cộng 3 hiệp."
+    ],
+    "mistakes": [
+      "Đặt hai tay lên đùi.",
+      "Để gối trượt về trước quá mũi chân."
+    ],
+    "tip": "Ngồi cao hơn một chút nếu đầu gối khó chịu, và hạ thấp hơn khi bạn khỏe hơn."
+  },
+  "wall_stand": {
+    "steps": [
+      "Đứng với gót chân sát tường, hai chân rộng bằng hông.",
+      "Chạm mông, bả vai và phần sau đầu vào tường.",
+      "Hơi thu cằm và để hai tay thả lỏng hai bên người.",
+      "Giữ 5 phút, thở nhẹ nhàng bằng mũi."
+    ],
+    "mistakes": [
+      "Ưỡn lưng dưới ra xa khỏi tường.",
+      "Hất cằm lên thay vì giữ ngang."
+    ],
+    "tip": "Hãy cảm nhận cảm giác này, rồi cố gắng mang nó vào cả ngày của bạn."
+  }
+}

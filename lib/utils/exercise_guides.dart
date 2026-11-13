@@ -1,6 +1,10 @@
 // Generated from outputs/BeTaller-v3/exercise_steps.json. Edit the JSON and
 // regenerate rather than editing by hand.
 
+import 'dart:ui' show Locale;
+
+import 'exercise_text_extra.dart';
+
 /// Step-by-step instructions for one exercise in one language.
 class ExerciseGuide {
   final List<String> steps;
@@ -1703,8 +1707,65 @@ const _guides = <String, Map<String, ExerciseGuide>>{
   // ── end v5 moves ──
 };
 
-/// The guide for [id] in [lang], falling back to English; null if none.
-ExerciseGuide? exerciseGuide(String id, String lang) {
+/// Every move id that has a guide (used by the text-dump tooling).
+Iterable<String> get kGuideIds => _guides.keys;
+
+/// The key under which a locale's move text is stored: `zh_Hant` for
+/// Traditional Chinese (script Hant, or region TW/HK/MO), otherwise the
+/// language code. Simplified Chinese stays `zh`.
+String moveTextKey(Locale locale) => _textKey(
+  locale.languageCode,
+  locale.scriptCode,
+  locale.countryCode,
+);
+
+/// Same as [moveTextKey] for an `AppLocalizations.localeName` such as
+/// `zh_Hant`, `zh_TW` or `de`.
+String moveTextKeyForName(String localeName) {
+  final p = localeName.split(RegExp('[_-]'));
+  String? script, country;
+  for (final x in p.skip(1)) {
+    if (x.length == 4) {
+      script = x;
+    } else {
+      country = x;
+    }
+  }
+  return _textKey(p.first, script, country);
+}
+
+String _textKey(String lang, String? script, String? country) {
+  if (lang == 'zh' &&
+      (script == 'Hant' ||
+          (script == null &&
+              (country == 'TW' || country == 'HK' || country == 'MO')))) {
+    return 'zh_Hant';
+  }
+  return lang;
+}
+
+/// Title/description(/dose) row for a v3+ move: the generated extra
+/// languages first, then the hand-written table in [key]'s language, then
+/// English. Null for ids that are not in [kNewMoveText].
+List<String>? newMoveRow(
+  String id,
+  String key, {
+  Map<String, Map<String, List<String>>> extra = kMoveTextExtra,
+}) {
+  final v3 = kNewMoveText[id];
+  if (v3 == null) return null;
+  return extra[key]?[id] ?? v3[key.split('_').first] ?? v3['en']!;
+}
+
+/// The guide for [id] in [lang] (a [moveTextKey]), falling back to English;
+/// null if none. The generated extra languages are tried first.
+ExerciseGuide? exerciseGuide(
+  String id,
+  String lang, {
+  Map<String, Map<String, ExerciseGuide>> extra = kGuidesExtra,
+}) {
+  final x = extra[lang]?[id];
+  if (x != null) return x;
   final g = _guides[id];
   if (g == null) return null;
   return g[lang] ?? g['en'];

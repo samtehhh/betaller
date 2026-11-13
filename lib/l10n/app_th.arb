@@ -2103,5 +2103,8 @@
   "paGoal": "ระยะเวลาโปรแกรม",
   "paBedtime": "เวลาเข้านอน",
   "paWorkoutTime": "เวลาฝึก",
-  "restoreDone": "กู้คืนการซื้อแล้ว"
+  "restoreDone": "กู้คืนการซื้อแล้ว",
+  "planPlaceTitle": "คุณฝึกที่ไหน",
+  "planPlaceHome": "ที่บ้าน ใช้น้ำหนักตัวอย่างเดียว",
+  "planPlaceGym": "ที่ยิมหรือด้วยดัมเบล"
 }

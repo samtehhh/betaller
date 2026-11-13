@@ -7344,4 +7344,13 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get restoreDone => 'Twój zakup został przywrócony.';
+
+  @override
+  String get planPlaceTitle => 'Gdzie trenujesz';
+
+  @override
+  String get planPlaceHome => 'W domu, tylko z ciężarem ciała';
+
+  @override
+  String get planPlaceGym => 'Na siłowni lub z hantlami';
 }

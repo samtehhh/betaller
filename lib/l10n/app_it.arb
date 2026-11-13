@@ -2346,5 +2346,8 @@
   "paGoal": "Durata del programma",
   "paBedtime": "Ora di andare a letto",
   "paWorkoutTime": "Ora di allenamento",
-  "restoreDone": "Il tuo acquisto è stato ripristinato."
+  "restoreDone": "Il tuo acquisto è stato ripristinato.",
+  "planPlaceTitle": "Dove ti alleni",
+  "planPlaceHome": "A casa, solo corpo libero",
+  "planPlaceGym": "In palestra o con manubri"
 }

@@ -20,6 +20,7 @@ import '../utils/units.dart';
 class ReminderContext {
   final UserProfile profile;
   final String weeklyWorkout;
+  final String trainPlace; // 'home' or 'gym'
   final String potential; // already formatted in the user's unit
   final String height; // latest measurement, formatted
   final String habitGain; // the part of the prediction habits control
@@ -27,6 +28,7 @@ class ReminderContext {
   const ReminderContext({
     required this.profile,
     required this.weeklyWorkout,
+    this.trainPlace = 'home',
     required this.potential,
     required this.height,
     required this.habitGain,
@@ -441,6 +443,7 @@ class NotificationService {
     final plan = WeeklyPlan.forAnswers(
       weeklyWorkout: c.weeklyWorkout,
       age: c.profile.age,
+      trainPlace: c.trainPlace,
     );
     final day = plan.days[weekday - 1];
     final t = DailyTargets.forProfile(
@@ -513,6 +516,7 @@ class NotificationService {
       final plan = WeeklyPlan.forAnswers(
         weeklyWorkout: context.weeklyWorkout,
         age: context.profile.age,
+        trainPlace: context.trainPlace,
       );
       final d = plan.weekOf(day1)[day1.weekday - 1];
       final body = l.nTrialDay1Body(planKindLabel(l, d.kind), d.minutes);
